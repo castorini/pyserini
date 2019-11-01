@@ -21,9 +21,8 @@ Module for hiding Python-Java calls via Pyjnius
 ### Pyjnius setup
 
 from .setup import configure_classpath, os
-# find path back to root of anserini directory
-configure_classpath(os.path.abspath(
-        os.path.join(os.path.realpath(__file__), '../../../../..')))
+# If the environment variable isn't defined, look in the current directory.
+configure_classpath(os.environ['ANSERINI_CLASSPATH'] if 'ANSERINI_CLASSPATH' in os.environ else '.')
     
 from jnius import autoclass, cast
 from enum import Enum

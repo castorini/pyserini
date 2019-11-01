@@ -30,11 +30,9 @@ def configure_classpath(anserini_root="."):
         (Optional) path to root anserini directory.
     
     '''
-    paths = glob.glob(os.path.join(anserini_root, 
-                                   'target',
-                                   'anserini-*-fatjar.jar'))
+    paths = glob.glob(os.path.join(anserini_root, 'anserini-*-fatjar.jar'))
     if not paths:
-        raise Exception('No matching jar file found in target')
+        raise Exception('No matching jar file found in {}'.format(os.path.abspath(anserini_root)))
 
     latest = max(paths, key=os.path.getctime)
     jnius_config.set_classpath(latest)
