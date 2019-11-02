@@ -1,4 +1,4 @@
-Pyserini provides Python integration with the [Anserini](http://anserini.io/) IR toolkit.
+Pyserini provides a simple Python interface to the [Anserini](http://anserini.io/) IR toolkit via [pyjnius](https://github.com/kivy/pyjnius).
 
 ## Installation
 

@@ -1,73 +1,92 @@
 # Pyserini: Anserini Integration with Python
 
-Anserini was designed with Python integration in mind, for connecting with popular deep learning toolkits such as PyTorch. 
-[Pyserini](https://github.com/castorini/anserini/src/main/python/pyserini) provides a Python interface via [pyjnius](https://github.com/kivy/pyjnius) for accessing various classes within Anserini.
+Pyserini provides a simple Python interface to the [Anserini](http://anserini.io/) IR toolkit via [pyjnius](https://github.com/kivy/pyjnius).
 
-This is an ongoing effort, and contributions for extending the interface are welcome!
-You can also interact with Anserini's Java classes directly using `pyjnius`, as described [here](#Direct-Interaction-via-Pyjnius).
+## Installation
 
-## Setup for Using Pyserini
-
-Requirements:
+Install via PyPI
 
 ```
-pip install Cython
-pip install pyjnius
+pip install pyserini
 ```
 
-In order to import `pyserini` and its submodules, include the following code snippet:
-```
-anserini_root = '.' 
-import os, sys
-sys.path += [os.path.join(anserini_root, 'src/main/python')]
+Fetch the Anserini fatjar from Maven Central:
+
+```bash
+wget -O anserini-0.6.0-fatjar.jar https://search.maven.org/remotecontent?filepath=io/anserini/anserini/0.6.0/anserini-0.6.0-fatjar.jar
 ```
 
-For scripts that are being executed outside of Anserini, replace `anserini_root` with the corresponding path to the `anserini` root directory (e.g. `anserini_root = 'path/to/anserini'`).
+Set the environment variable `ANSERINI_CLASSPATH` to the directory where the fatjar is located:
 
-## Example Usage of SimpleSearcher
-The `SimpleSearcher` class provides a simple Python/Java bridge for searching, as shown below:
-
+```bash
+export ANSERINI_CLASSPATH="/path/to/fatjar/directory"
 ```
+
+Here's a sample pre-built index on TREC Disks 4 &amp; 5 to play with (used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md)):
+
+```bash
+wget https://www.dropbox.com/s/mdoly9sjdalh44x/lucene-index.robust04.pos%2Bdocvectors%2Brawdocs.tar.gz
+tar xvfz lucene-index.robust04.pos+docvectors+rawdocs.tar.gz
+```
+
+## Simple Usage
+
+Use the `SimpleSearcher` for searching:
+
+```python
 from pyserini.search import pysearch
 
 searcher = pysearch.SimpleSearcher('lucene-index.robust04.pos+docvectors+rawdocs')
-
-# To additionally configure search options, such as using BM25+RM3:
-searcher.set_bm25_similarity(0.9, 0.4)
-searcher.set_rm3_reranker(10, 10, 0.5)
-
 hits = searcher.search('hubble space telescope')
 
-# the docid of the 1st hit
-hits[0].docid
+# Prints the first 10 hits
+for i in range(0, 10):
+    print('{} {} {}'.format(i+1, hits[i].docid, hits[i].score))
 
-# the internal Lucene docid of the 1st hit
-hits[0].ldocid
-
-# the score of the 1st hit
-hits[0].score
-
-# the full document of the 1st hit
+# Grab the actual text
 hits[0].content
 ```
 
-## Example Usage of Collection API
-The `collection` classes provide interfaces for iterating over a collection and processing documents, as shown below:
+Configure BM25 parameters and use RM3 query expansion:
 
+```python
+searcher.set_bm25_similarity(0.9, 0.4)
+searcher.set_rm3_reranker(10, 10, 0.5)
+
+hits2 = searcher.search('hubble space telescope')
+
+# Prints the first 10 hits
+for i in range(0, 10):
+    print('{} {} {}'.format(i+1, hits2[i].docid, hits2[i].score))
 ```
+
+## Usage of the Collection API
+
+The `collection` classes provide interfaces for iterating over a collection and processing documents.
+Here's a demonstration on the CACM collection:
+
+```bash
+wget -O cacm.tar.gz https://github.com/castorini/anserini/blob/master/src/main/resources/cacm/cacm.tar.gz?raw=true
+mkdir collection
+tar xvfz cacm.tar.gz -C collection
+```
+
+Let's iterate through all documents in the collection:
+
+```python
 from pyserini.collection import pycollection
 from pyserini.index import pygenerator
 
-collection = pycollection.Collection('TrecCollection', 'path/to/disk45')
+collection = pycollection.Collection('HtmlCollection', 'collection/')
 generator = pygenerator.Generator('JsoupGenerator')
 
 for (i, fs) in enumerate(collection):
-    for (i, doc) in enumerate(fs):
-
+    for (j, doc) in enumerate(fs):
         parsed = generator.create_document(doc)
         docid = parsed.get('id')            # FIELD_ID
         raw = parsed.get('raw')             # FIELD_RAW
         contents = parsed.get('contents')   # FIELD_BODY
+        print('{} {} -> {} {}...'.format(i, j, docid, contents.strip().replace('\n', ' ')[:50]))
 ```
 
 ## Direct Interaction via Pyjnius
@@ -75,6 +94,7 @@ for (i, fs) in enumerate(collection):
 Alternatively, for parts of Anserini that have not yet been integrated into the Pyserini interface, you can interact with Anserini's Java classes directly via [pyjnius](https://github.com/kivy/pyjnius). 
 
 First, call Pyserini's setup helper for setting up classpath for the JVM:
+
 ```
 from pyserini.setup import configure_classpath
 configure_classpath(anserini_root)
@@ -94,5 +114,3 @@ index_utils = JIndexUtils(JString('lucene-index.robust04.pos+docvectors+rawdocs'
 rawdoc = index_utils.getRawDocument(JString('FT934-5418'))
 
 ```
-
-
