@@ -5,10 +5,10 @@ with open("project-description.md", "r") as fh:
 
 setuptools.setup(
     name="pyserini",
-    version="0.6.0_3",
+    version="0.6.0_4",
     author="Jimmy Lin",
     author_email="jimmylin@uwaterloo.ca",
-    description="Python interface to Anserini",
+    description="Python interface to the Anserini IR toolkit built on Lucene",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/castorini/pyserini",
