@@ -5,7 +5,7 @@ with open("project-description.md", "r") as fh:
 
 setuptools.setup(
     name="pyserini",
-    version="0.6.0_5",
+    version="0.6.0.0",
     author="Jimmy Lin",
     author_email="jimmylin@uwaterloo.ca",
     description="Python interface to the Anserini IR toolkit built on Lucene",
