@@ -1,11 +1,11 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("project-description.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="pyserini",
-    version="0.6.0_1",
+    version="0.6.0_3",
     author="Jimmy Lin",
     author_email="jimmylin@uwaterloo.ca",
     description="Python interface to Anserini",
