@@ -149,7 +149,6 @@ Creating a symlink to the expected location will fix the issue:
 ```bash
 sudo mkdir -p /Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/jre/lib/server/
 sudo ln -s /Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/lib/server/libjvm.dylib /Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/jre/lib/server/libjvm.dylib
-Issue is documented here.
 ```
 
 On colab, see [this notebook](https://colab.research.google.com/drive/1r1pRq_BfWS486kg2qwVH5iBfbhK_GPCg#scrollTo=JT_OJKftdqGP) that outlines the issue and the fix.
