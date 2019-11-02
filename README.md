@@ -92,17 +92,16 @@ for (i, fs) in enumerate(collection):
 ## Direct Interaction via Pyjnius
 
 Alternatively, for parts of Anserini that have not yet been integrated into the Pyserini interface, you can interact with Anserini's Java classes directly via [pyjnius](https://github.com/kivy/pyjnius). 
-
 First, call Pyserini's setup helper for setting up classpath for the JVM:
 
-```
+```python
 from pyserini.setup import configure_classpath
 configure_classpath(anserini_root)
 ```
 
 Now `autoclass` can be used to provide direct access to Java classes:
 
-```
+```python
 from jnius import autoclass
 
 JString = autoclass('java.lang.String')
