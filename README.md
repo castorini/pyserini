@@ -113,3 +113,43 @@ index_utils = JIndexUtils(JString('lucene-index.robust04.pos+docvectors+rawdocs'
 rawdoc = index_utils.getRawDocument(JString('FT934-5418'))
 
 ```
+
+## Known Issues
+
+Anserini is designed to work with JDK 11.
+There's a JRE path change above JDK 9 that breaks pyjnius, as documented in [this issue](https://github.com/kivy/pyjnius/issues/304).
+This was previously reported in Anserini [here](https://github.com/castorini/anserini/issues/832) and [here](https://github.com/castorini/anserini/issues/805).
+
+On macOS, the error manifests in something like:
+
+```python
+>>> from pyserini.search import pysearch
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "./src/main/python/pyserini/search/pysearch.py", line 21, in <module>
+    from ..pyclass import JSearcher, JString, JArrayList
+  File "./src/main/python/pyserini/pyclass.py", line 28, in <module>
+    from jnius import autoclass, cast
+  File "/anaconda3/envs/python36/lib/python3.6/site-packages/jnius/__init__.py", line 13, in <module>
+    from .reflect import *  # noqa
+  File "/anaconda3/envs/python36/lib/python3.6/site-packages/jnius/reflect.py", line 15, in <module>
+    class Class(with_metaclass(MetaJavaClass, JavaClass)):
+  File "/anaconda3/envs/python36/lib/python3.6/site-packages/six.py", line 827, in __new__
+    return meta(name, bases, d)
+  File "jnius/jnius_export_class.pxi", line 114, in jnius.MetaJavaClass.__new__
+  File "jnius/jnius_export_class.pxi", line 164, in jnius.MetaJavaClass.resolve_class
+  File "jnius/jnius_env.pxi", line 11, in jnius.get_jnienv
+  File "jnius/jnius_jvm_dlopen.pxi", line 90, in jnius.get_platform_jnienv
+  File "jnius/jnius_jvm_dlopen.pxi", line 59, in jnius.create_jnienv
+SystemError: Error calling dlopen(b'/Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/jre/lib/server/libjvm.dylib': b'dlopen(/Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/jre/lib/server/libjvm.dylib, 10): image not found'
+```
+
+Creating a symlink to the expected location will fix the issue:
+
+```bash
+sudo mkdir -p /Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/jre/lib/server/
+sudo ln -s /Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/lib/server/libjvm.dylib /Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/jre/lib/server/libjvm.dylib
+Issue is documented here.
+```
+
+On colab, see [this notebook](https://colab.research.google.com/drive/1r1pRq_BfWS486kg2qwVH5iBfbhK_GPCg#scrollTo=JT_OJKftdqGP) that outlines the issue and the fix.
