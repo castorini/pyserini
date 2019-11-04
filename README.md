@@ -1,5 +1,10 @@
 # Pyserini: Anserini Integration with Python
 
+[![Generic badge](https://img.shields.io/badge/Lucene-v8.0.0-yellow.svg)](https://archive.apache.org/dist/lucene/java/8.0.0/)
+[![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini)](https://search.maven.org/search?q=a:anserini)
+[![PyPI](https://img.shields.io/pypi/v/pyserini)](https://pypi.org/project/pyserini/)
+[![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
+
 Pyserini provides a simple Python interface to the [Anserini](http://anserini.io/) IR toolkit via [pyjnius](https://github.com/kivy/pyjnius).
 
 ## Installation
