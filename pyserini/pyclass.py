@@ -22,7 +22,7 @@ Module for hiding Python-Java calls via Pyjnius
 
 from .setup import configure_classpath, os
 # If the environment variable isn't defined, look in the current directory.
-configure_classpath(os.environ['ANSERINI_CLASSPATH'] if 'ANSERINI_CLASSPATH' in os.environ else '.')
+configure_classpath(os.environ['ANSERINI_CLASSPATH'] if 'ANSERINI_CLASSPATH' in os.environ else os.path.join(os.path.split(__file__)[0], 'resources/jars/'))
     
 from jnius import autoclass, cast
 from enum import Enum
@@ -42,7 +42,7 @@ JSearcher = autoclass('io.anserini.search.SimpleSearcher')
 ### Generator
 
 class JIndexHelpers:
-    
+
     def JArgs():
         args = autoclass('io.anserini.index.IndexCollection$Args')()
         # See https://github.com/castorini/anserini/pull/831/files
@@ -50,20 +50,20 @@ class JIndexHelpers:
         args.storeRawDocs = True ## to store raw text as an option
         args.dryRun = True ## So that indexing will be skipped
         return args
-    
+
     def JCounters():
         IndexCollection = autoclass('io.anserini.index.IndexCollection')
         Counters = autoclass('io.anserini.index.IndexCollection$Counters')
         return Counters(IndexCollection)
 
-class JGenerators(Enum):        
+class JGenerators(Enum):
     LuceneDocumentGenerator = autoclass('io.anserini.index.generator.LuceneDocumentGenerator')
     JsoupGenerator = autoclass('io.anserini.index.generator.JsoupGenerator')
     TweetGenerator = autoclass('io.anserini.index.generator.TweetGenerator')
     WapoGenerator = autoclass('io.anserini.index.generator.WapoGenerator')
 
 ### Collection
-        
+
 class JCollections(Enum):
     CarCollection = autoclass('io.anserini.collection.CarCollection')
     ClueWeb09Collection = autoclass('io.anserini.collection.ClueWeb09Collection')
