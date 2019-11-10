@@ -39,6 +39,11 @@ JArrayList = autoclass('java.util.ArrayList')
 
 JSearcher = autoclass('io.anserini.search.SimpleSearcher')
 
+### Topics
+
+JTopics = autoclass('io.anserini.search.topicreader.TopicReader$Topics')
+JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
+
 ### Generator
 
 class JIndexHelpers:

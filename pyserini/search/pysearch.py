@@ -18,7 +18,7 @@
 Module for providing python interface to Anserini searchers
 '''
 
-from ..pyclass import JSearcher, JString, JArrayList
+from ..pyclass import JSearcher, JString, JArrayList, JTopics, JTopicReader
 
 import logging
 logger = logging.getLogger(__name__)
@@ -213,9 +213,33 @@ class SimpleSearcher:
         -------
         result : str
             Raw content of the given document
-        
         '''
         return self.object.doc(ldocid)
         
     def close(self):
         self.object.close()
+
+
+def get_topics(collection_name):
+    '''
+    Parameters
+    ----------
+    collection_name : str
+        collection_name
+
+    Returns
+    -------
+    result : dictionary
+        Topics as a dictionary
+    '''
+    topics = None
+    if collection_name == 'robust04':
+        topics = JTopicReader.getTopics(JTopics.ROBUST04)
+    else:
+        return {}
+    t = {}
+    for topic in topics.keySet().toArray():
+        t[topic] = {}
+        for key in topics.get(topic).keySet().toArray():
+            t[topic][key] = topics.get(topic).get(key)
+    return t
