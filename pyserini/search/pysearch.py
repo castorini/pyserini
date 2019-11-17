@@ -199,9 +199,9 @@ def get_topics(collection_name):
     elif collection_name == 'core18':
         topics = JTopicReader.getTopics(JTopics.CORE18)
     elif collection_name == 'msmarco_doc_dev':
-        topics = JTopicReader.getTopics(Topics.MSMARCO_DOC_DEV)
+        topics = JTopicReader.getTopics(JTopics.MSMARCO_DOC_DEV)
     elif collection_name == 'msmarco_passage_dev_subset':
-        topics = JTopicReader.getTopics(Topics.MSMARCO_PASSAGE_DEV_SUBSET)
+        topics = JTopicReader.getTopics(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
     else:
         return {}
     t = {}
