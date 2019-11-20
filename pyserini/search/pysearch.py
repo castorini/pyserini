@@ -18,7 +18,7 @@
 Module for providing python interface to Anserini searchers
 '''
 
-from ..pyclass import JSearcher, JString, JArrayList
+from ..pyclass import JSearcher, JString, JArrayList, JTopics, JTopicReader
 
 import logging
 logger = logging.getLogger(__name__)
@@ -133,9 +133,13 @@ class SimpleSearcher:
         '''
         self.object.setRM3Reranker(fb_terms, fb_docs, 
                                    original_query_weight, rm3_output_query)
-        
-    def set_default_reranker(self):
-        self.object.setDefaultReranker()
+
+    def unset_rm3_reranker(self):
+        '''
+        Parameters
+        ----------
+        '''
+        self.object.unsetRM3Reranker()
         
     def set_lm_dirichlet_similarity(self, mu):
         '''
@@ -145,16 +149,7 @@ class SimpleSearcher:
             Dirichlet smoothing parameter
         '''
         self.object.setLMDirichletSimilarity(float(mu))
-        
-    def set_lm_jelinek_mercer_similarity(self, lam):
-        '''
-        Parameters
-        ----------
-        lam : float
-            Jelinek Mercer smoothing parameter
-        '''
-        self.object.set.LMJelinekMercerSimilarity(float(lam))
-        
+
     def set_bm25_similarity(self, k1, b):
         '''
         Parameters
@@ -165,42 +160,6 @@ class SimpleSearcher:
             BM25 b parameter
         '''
         self.object.setBM25Similarity(float(k1), float(b))
-        
-    def set_dfr_similarity(self, c):
-        '''
-        Parameters
-        ----------
-        c : float
-            DFR c parameter
-        '''
-        self.object.setDFRSimilarity(float(c))
-            
-    def set_ib_similarity(self, c):
-        '''
-        Parameters
-        ----------
-        c : float
-            Information-based c parameter
-        '''
-        self.object.setIBSimilarity(float(c))
-
-    def set_f2exp_similarity(self, s):
-        '''
-        Parameters
-        ----------
-        s : float
-            F2Exp s parameter
-        '''
-        self.object.setF2ExpSimilarity(float(s))
-        
-    def set_f2log_similarity(self, s):
-        '''
-        Parameters
-        ----------
-        s : float
-            F2Log s parameter
-        '''
-        self.object.setF2LogSimilarity(float(s))
 
     def doc(self, ldocid):
         '''
@@ -213,9 +172,41 @@ class SimpleSearcher:
         -------
         result : str
             Raw content of the given document
-        
         '''
         return self.object.doc(ldocid)
         
     def close(self):
         self.object.close()
+
+
+def get_topics(collection_name):
+    '''
+    Parameters
+    ----------
+    collection_name : str
+        collection_name
+
+    Returns
+    -------
+    result : dictionary
+        Topics as a dictionary
+    '''
+    topics = None
+    if collection_name == 'robust04':
+        topics = JTopicReader.getTopics(JTopics.ROBUST04)
+    elif collection_name == 'core17':
+        topics = JTopicReader.getTopics(JTopics.CORE17)
+    elif collection_name == 'core18':
+        topics = JTopicReader.getTopics(JTopics.CORE18)
+    elif collection_name == 'msmarco_doc_dev':
+        topics = JTopicReader.getTopics(JTopics.MSMARCO_DOC_DEV)
+    elif collection_name == 'msmarco_passage_dev_subset':
+        topics = JTopicReader.getTopics(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
+    else:
+        return {}
+    t = {}
+    for topic in topics.keySet().toArray():
+        t[topic] = {}
+        for key in topics.get(topic).keySet().toArray():
+            t[topic][key] = topics.get(topic).get(key)
+    return t

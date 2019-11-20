@@ -16,17 +16,7 @@ Install via PyPI
 pip install pyserini
 ```
 
-Fetch the Anserini fatjar from Maven Central:
-
-```bash
-wget -O anserini-0.6.0-fatjar.jar https://search.maven.org/remotecontent?filepath=io/anserini/anserini/0.6.0/anserini-0.6.0-fatjar.jar
-```
-
-Set the environment variable `ANSERINI_CLASSPATH` to the directory where the fatjar is located:
-
-```bash
-export ANSERINI_CLASSPATH="/path/to/fatjar/directory"
-```
+## Simple Usage
 
 Here's a sample pre-built index on TREC Disks 4 &amp; 5 to play with (used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md)):
 
@@ -34,8 +24,6 @@ Here's a sample pre-built index on TREC Disks 4 &amp; 5 to play with (used in th
 wget https://www.dropbox.com/s/mdoly9sjdalh44x/lucene-index.robust04.pos%2Bdocvectors%2Brawdocs.tar.gz
 tar xvfz lucene-index.robust04.pos+docvectors+rawdocs.tar.gz
 ```
-
-## Simple Usage
 
 Use the `SimpleSearcher` for searching:
 
