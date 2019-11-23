@@ -23,7 +23,7 @@ Module for hiding Python-Java calls via Pyjnius
 from .setup import configure_classpath, os
 # If the environment variable isn't defined, look in the current directory.
 configure_classpath(os.environ['ANSERINI_CLASSPATH'] if 'ANSERINI_CLASSPATH' in os.environ else os.path.join(os.path.split(__file__)[0], 'resources/jars/'))
-    
+
 from jnius import autoclass, cast
 from enum import Enum
 
@@ -43,6 +43,10 @@ JSearcher = autoclass('io.anserini.search.SimpleSearcher')
 
 JTopics = autoclass('io.anserini.search.topicreader.TopicReader$Topics')
 JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
+
+## IndexUtils
+JIndexUtils = autoclass('io.anserini.index.IndexUtils')
+JDocumentVectorWeight = autoclass('io.anserini.index.IndexUtils$DocumentVectorWeight')
 
 ### Generator
 
