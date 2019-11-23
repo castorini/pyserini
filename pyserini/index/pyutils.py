@@ -17,8 +17,7 @@
 '''
 Module for providing python interface to Anserini index utils
 '''
-from enum import Enum
-from ..pyclass import JIndexUtils, JString
+from ..pyclass import JIndexUtils, JDocumentVectorWeight, JString
 
 import logging
 
@@ -38,17 +37,17 @@ class IndexUtils:
     def __init__(self, index_dir):
         self.object = JIndexUtils(JString(index_dir))
 
-    class DocVectorWeight(Enum):
-        NONE = 0
-        TF_IDF = 1
+    class DocumentVectorWeight:
+        NONE = JDocumentVectorWeight.NONE
+        TF_IDF = JDocumentVectorWeight.TF_IDF
 
-    def dumpDocumentVectors(self, reqDocidsPath: str, weight: DocVectorWeight):
+    def dump_document_vectors(self, reqDocidsPath: str, weight: DocumentVectorWeight):
         '''
         Parameters
         ----------
         reqDocidsPath : str
             dumps the document vector for all documents in reqDocidsPath
-        weight : DocVectorWeight
+        weight : DocumentVectorWeight
             the weight for dumped document vector(s)
         '''
-        self.object.dumpDocumentVectors(reqDocidsPath, weight.value)
+        self.object.dumpDocumentVectors(reqDocidsPath, weight)

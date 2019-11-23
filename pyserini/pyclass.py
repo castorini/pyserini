@@ -46,6 +46,7 @@ JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 
 ## IndexUtils
 JIndexUtils = autoclass('io.anserini.index.IndexUtils')
+JDocumentVectorWeight = autoclass('io.anserini.index.IndexUtils$DocumentVectorWeight')
 
 ### Generator
 
