@@ -8,6 +8,11 @@
 Pyserini provides a simple Python interface to the [Anserini](http://anserini.io/) IR toolkit via [pyjnius](https://github.com/kivy/pyjnius).
 For a low-effort way to get started, check out our [colab demo](https://colab.research.google.com/drive/1wiDOnjsPMZzrleQF-GnE5W6VsF7biuXH) or the [GitHub copy](https://github.com/castorini/anserini-notebooks/blob/master/pyserini_robust04_demo.ipynb)!
 
+Pyserini versions adopt the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
+The current stable release of Pyserini is [v0.6.0.0](https://pypi.org/project/pyserini/) on PyPI.
+The current experimental release of Pyserini is [v0.6.1.post0](https://test.pypi.org/project/pyserini/0.6.1.post0/) on TestPyPI, based on a fatjar built from commit `0ed488` in Anserini, dated Nov 17, 2019.
+In general, documentation is kept up to date with the latest code in the repo.
+
 ## Installation
 
 Install via PyPI
