@@ -13,6 +13,9 @@ The current stable release of Pyserini is [v0.6.0.0](https://pypi.org/project/py
 The current experimental release of Pyserini is [v0.6.1.post0](https://test.pypi.org/project/pyserini/0.6.1.post0/) on TestPyPI, based on a fatjar built from commit `0ed488` in Anserini, dated Nov 17, 2019.
 In general, documentation is kept up to date with the latest code in the repo.
 
+A low-effort way to try out Pyserini is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
+For convenience, we've pre-built a few common indexes, available to download [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
+
 ## Installation
 
 Install via PyPI
@@ -29,8 +32,6 @@ Here's a sample pre-built index on TREC Disks 4 &amp; 5 to play with (used in th
 wget https://www.dropbox.com/s/mdoly9sjdalh44x/lucene-index.robust04.pos%2Bdocvectors%2Brawdocs.tar.gz
 tar xvfz lucene-index.robust04.pos+docvectors+rawdocs.tar.gz
 ```
-
-For convenience, additional pre-generated indexes can be found [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
 
 Use the `SimpleSearcher` for searching:
 
