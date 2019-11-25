@@ -6,7 +6,9 @@
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 Pyserini provides a simple Python interface to the [Anserini](http://anserini.io/) IR toolkit via [pyjnius](https://github.com/kivy/pyjnius).
-For a low-effort way to get started, check out our [colab demo](https://colab.research.google.com/drive/1wiDOnjsPMZzrleQF-GnE5W6VsF7biuXH) or the [GitHub copy](https://github.com/castorini/anserini-notebooks/blob/master/pyserini_robust04_demo.ipynb)!
+
+A low-effort way to try out Pyserini is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
+For convenience, we've pre-built a few common indexes, available to download [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
 
 Pyserini versions adopt the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
 The current stable release of Pyserini is [v0.6.0.0](https://pypi.org/project/pyserini/) on PyPI.
@@ -29,8 +31,6 @@ Here's a sample pre-built index on TREC Disks 4 &amp; 5 to play with (used in th
 wget https://www.dropbox.com/s/mdoly9sjdalh44x/lucene-index.robust04.pos%2Bdocvectors%2Brawdocs.tar.gz
 tar xvfz lucene-index.robust04.pos+docvectors+rawdocs.tar.gz
 ```
-
-For convenience, additional pre-generated indexes can be found [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
 
 Use the `SimpleSearcher` for searching:
 
