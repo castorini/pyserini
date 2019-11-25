@@ -30,6 +30,8 @@ wget https://www.dropbox.com/s/mdoly9sjdalh44x/lucene-index.robust04.pos%2Bdocve
 tar xvfz lucene-index.robust04.pos+docvectors+rawdocs.tar.gz
 ```
 
+For convenience, additional pre-generated indexes can be found [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
+
 Use the `SimpleSearcher` for searching:
 
 ```python
