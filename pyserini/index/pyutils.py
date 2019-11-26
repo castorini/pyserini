@@ -62,7 +62,6 @@ class IndexReaderUtils:
         Parameters
         ----------
         term : str
-            Search term
         Returns
         -------
         result : str
@@ -75,7 +74,7 @@ class IndexReaderUtils:
         Parameters
         ----------
         term : str
-            Search term
+            Raw term
         Returns
         -------
         result : long, long
@@ -89,7 +88,6 @@ class IndexReaderUtils:
         Parameters
         ----------
         term : str
-            Search term
         Returns
         -------
         result : list<Posting>
@@ -106,7 +104,7 @@ class IndexReaderUtils:
         Parameters
         ----------
         docid : str
-            Lucene document ID
+            Collection docid
         Returns
         -------
         result : dict
@@ -123,9 +121,8 @@ class IndexReaderUtils:
         Parameters
         ----------
         docid : str
-            Lucene document ID
+            Collection docid
         term : str
-            Search term
         Returns
         -------
         result : float
