@@ -43,6 +43,9 @@ class IndexReaderUtils:
         TF_IDF = JDocumentVectorWeight.TF_IDF
 
     class Posting:
+        '''
+        Basic Posting class for Postings List
+        '''
         def __init__(self, docid, term_freq, positions):
             self.docid = docid
             self.term_freq = term_freq
@@ -55,13 +58,43 @@ class IndexReaderUtils:
             return repr
 
     def analyze_term(self, term):
+        '''
+        Parameters
+        ----------
+        term : str
+            Search term
+        Returns
+        -------
+        result : str
+            Stemmed term
+        '''
         return self.object.analyzeTerm(self.reader, JString(term))
 
     def get_term_counts(self, term):
+        '''
+        Parameters
+        ----------
+        term : str
+            Search term
+        Returns
+        -------
+        result : long, long
+            Collection frequency and document frequency of term
+        '''
         term_map = self.object.getTermCounts(self.reader, JString(term))
         return term_map.get(JString('collectionFreq')), term_map.get(JString('docFreq'))
 
     def get_postings_list(self, term):
+        '''
+        Parameters
+        ----------
+        term : str
+            Search term
+        Returns
+        -------
+        result : list<Posting>
+            Postings list for term
+        '''
         postings_list = self.object.getPostingsList(self.reader, JString(term))
         result = []
         for posting in postings_list.toArray():
@@ -69,6 +102,16 @@ class IndexReaderUtils:
         return result
 
     def get_document_vector(self, docid):
+        '''
+        Parameters
+        ----------
+        docid : str
+            Lucene document ID
+        Returns
+        -------
+        result : dict
+            Terms and their respective frequencies in document
+        '''
         doc_vector_map = self.object.getDocumentVector(self.reader, JString(docid))
         doc_vector_dict = {}
         for term in doc_vector_map.keySet().toArray():
@@ -76,9 +119,21 @@ class IndexReaderUtils:
         return doc_vector_dict
 
     def get_bm25_term_weight(self, docid, term):
+        '''
+        Parameters
+        ----------
+        docid : str
+            Lucene document ID
+        term : str
+            Search term
+        Returns
+        -------
+        result : float
+            BM25 score (NaN if no documents match)
+        '''
         return self.object.getBM25TermWeight(self.reader, JString(docid), JString(term))
 
-    def dump_document_vectors(self, reqDocidsPath: str, weight: DocumentVectorWeight):
+    def dump_document_vectors(self, reqDocidsPath, weight):
         '''
         Parameters
         ----------
@@ -87,4 +142,4 @@ class IndexReaderUtils:
         weight : DocumentVectorWeight
             the weight for dumped document vector(s)
         '''
-        self.object.dumpDocumentVectors(reqDocidsPath, weight)
+        self.object.dumpDocumentVectors(self.reader, reqDocidsPath, weight)
