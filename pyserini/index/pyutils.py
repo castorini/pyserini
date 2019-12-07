@@ -39,16 +39,6 @@ class IndexReaderUtils:
         self.reader = self.object.getReader(JString(index_dir))
         self.term_iterator = self.object.getTermIterator(self.reader)
 
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        next_term = self.term_iterator.next()
-        if next_term:
-            return self.term_iterator
-        else:
-            raise StopIteration
-
     class DocumentVectorWeight:
         NONE = JDocumentVectorWeight.NONE
         TF_IDF = JDocumentVectorWeight.TF_IDF
@@ -79,6 +69,16 @@ class IndexReaderUtils:
             Stemmed term
         '''
         return self.object.analyzeTerm(JString(term))
+
+    def get_terms(self):
+        '''
+        Returns
+        -------
+        result : generator
+            Next TermsEnum in the index
+        '''
+        while self.term_iterator.next():
+            yield self.term_iterator
 
     def get_term_counts(self, term):
         '''
