@@ -61,6 +61,29 @@ for i in range(0, 10):
     print('{} {} {}'.format(i+1, hits2[i].docid, hits2[i].score))
 ```
 
+## Usage of the Index API
+
+The `IndexReaderUtils` class can be used to iterate over the index, extract the document/collection frequencies, postings list or BM25 score of a term, and get the document vector of a given document.
+
+Below is a demonstration of these functionalities:
+
+```python
+from pyserini.index import pyutils
+
+index_utils = pyutils.IndexReaderUtils('lucene-index.robust04.pos+docvectors+rawdocs')
+
+for term in index_utils.terms():
+    print(term.doc_freq, term.total_term_freq)
+
+term = 'cities'
+
+stemmed_form = index_utils.analyze_term(term)
+collection_freq, doc_freq = index_utils.get_term_counts(term)
+postings_list = index_utils.get_postings_list(term)
+doc_vector = index_utils.get_document_vector('FBIS4-67701')
+bm25_score = index_utils.get_bm25_term_weight('FBIS4-67701', term)
+```
+
 ## Usage of the Collection API
 
 The `collection` classes provide interfaces for iterating over a collection and processing documents.
