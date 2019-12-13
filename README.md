@@ -1,6 +1,6 @@
 # Pyserini: Anserini Integration with Python
 
-[![Generic badge](https://img.shields.io/badge/Lucene-v8.0.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/8.0.0/)
+[![Generic badge](https://img.shields.io/badge/Lucene-v8.3.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/8.3.0/)
 [![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
 [![PyPI](https://img.shields.io/pypi/v/pyserini?color=brightgreen)](https://pypi.org/project/pyserini/)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
@@ -11,8 +11,8 @@ A low-effort way to try out Pyserini is to look at our [online notebooks](https:
 For convenience, we've pre-built a few common indexes, available to download [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
 
 Pyserini versions adopt the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
-The current stable release of Pyserini is [v0.6.0.0](https://pypi.org/project/pyserini/) on PyPI.
-The current experimental release of Pyserini is [v0.6.1.post1](https://test.pypi.org/project/pyserini/0.6.1.post1/) on TestPyPI, based on a fatjar built from commit `c4f351` in Anserini, dated Dec 1, 2019.
+The current stable release of Pyserini is [v0.7.0.0](https://pypi.org/project/pyserini/) on PyPI.
+The current experimental release of Pyserini on TestPyPI is behind the current stable release (i.e., do not use).
 In general, documentation is kept up to date with the latest code in the repo.
 
 ## Installation

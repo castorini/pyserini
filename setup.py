@@ -5,14 +5,14 @@ with open("project-description.md", "r") as fh:
 
 setuptools.setup(
     name="pyserini",
-    version="0.6.1-1",
+    version="0.7.0.0",
     author="Jimmy Lin",
     author_email="jimmylin@uwaterloo.ca",
     description="Python interface to the Anserini IR toolkit built on Lucene",
     long_description=long_description,
     long_description_content_type="text/markdown",
     package_data={"pyserini": [
-        "resources/jars/anserini-0.6.1-SNAPSHOT-fatjar.jar",
+        "resources/jars/anserini-0.7.0-fatjar.jar",
      ]},
     url="https://github.com/castorini/pyserini",
     install_requires=['Cython', 'pyjnius'],
