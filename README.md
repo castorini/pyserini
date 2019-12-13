@@ -72,16 +72,30 @@ from pyserini.index import pyutils
 
 index_utils = pyutils.IndexReaderUtils('lucene-index.robust04.pos+docvectors+rawdocs')
 
-for term in index_utils.terms():
-    print(term.doc_freq, term.total_term_freq)
+# Use terms() to grab an iterator over all terms in the collection.
+# Here, we only print out the first 10.
+import itertools
+for term in itertools.islice(index_utils.terms(), 10):
+    print('{} (df={}, cf={})'.format(term.term, term.doc_freq, term.total_term_freq))
 
 term = 'cities'
 
 stemmed_form = index_utils.analyze_term(term)
 collection_freq, doc_freq = index_utils.get_term_counts(term)
+
+# Fetch postings list and iterate over it:
 postings_list = index_utils.get_postings_list(term)
+for posting in postings_list:
+    print('docid={}, tf={}, pos={}'.format(posting.docid, posting.term_freq, posting.positions))
+
+# Fetch the document vector:
 doc_vector = index_utils.get_document_vector('FBIS4-67701')
-bm25_score = index_utils.get_bm25_term_weight('FBIS4-67701', term)
+# Result is a dictionary where the keys are stemmed terms and the values are the term frequencies.
+
+# Computes the BM25 score for a particular term in a document:
+bm25_score = index_utils.get_bm25_term_weight('FBIS4-67701', stemmed_form)
+# Note that this takes the stemmed form because the common case is to take the term from
+# get_document_vector() above.
 ```
 
 ## Usage of the Collection API
