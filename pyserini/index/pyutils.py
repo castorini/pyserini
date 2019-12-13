@@ -37,6 +37,7 @@ class IndexReaderUtils:
     def __init__(self, index_dir):
         self.object = JIndexReaderUtils()
         self.reader = self.object.getReader(JString(index_dir))
+        self.term_iterator = self.object.getTerms(self.reader)
 
     class DocumentVectorWeight:
         NONE = JDocumentVectorWeight.NONE
@@ -59,7 +60,7 @@ class IndexReaderUtils:
 
     class IndexTerm:
         '''
-        Wrapper over Lucene's TermsEnum
+        Basic IndexTerm class to represent each term in index
         '''
         def __init__(self, term, doc_freq, total_term_freq):
             self.term = term
@@ -77,6 +78,14 @@ class IndexReaderUtils:
             Stemmed term
         '''
         return self.object.analyzeTerm(JString(term))
+
+    def terms(self):
+        '''
+        :return: generator over terms
+        '''
+        while self.term_iterator.hasNext():
+            cur_term = self.term_iterator.next()
+            yield self.IndexTerm(cur_term.getTerm(), cur_term.getDF(), cur_term.getTotalTF())
 
     def get_term_counts(self, term):
         '''
