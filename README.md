@@ -12,7 +12,7 @@ For convenience, we've pre-built a few common indexes, available to download [he
 
 Pyserini versions adopt the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
 The current stable release of Pyserini is [v0.6.0.0](https://pypi.org/project/pyserini/) on PyPI.
-The current experimental release of Pyserini is [v0.6.1.post0](https://test.pypi.org/project/pyserini/0.6.1.post0/) on TestPyPI, based on a fatjar built from commit `0ed488` in Anserini, dated Nov 17, 2019.
+The current experimental release of Pyserini is [v0.6.1.post1](https://test.pypi.org/project/pyserini/0.6.1.post1/) on TestPyPI, based on a fatjar built from commit `c4f351` in Anserini, dated Dec 1, 2019.
 In general, documentation is kept up to date with the latest code in the repo.
 
 ## Installation
