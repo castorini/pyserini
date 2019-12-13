@@ -76,7 +76,7 @@ class IndexReaderUtils:
         result : str
             Stemmed term
         '''
-        return self.object.analyzeTerm(self.reader, JString(term))
+        return self.object.analyzeTerm(JString(term))
 
     def get_term_counts(self, term):
         '''
