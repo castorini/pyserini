@@ -57,6 +57,15 @@ class IndexReaderUtils:
                 repr += ' [' + ','.join([str(p) for p in self.positions]) + ']'
             return repr
 
+    class IndexTerm:
+        '''
+        Wrapper over Lucene's TermsEnum
+        '''
+        def __init__(self, term, doc_freq, total_term_freq):
+            self.term = term
+            self.doc_freq = doc_freq
+            self.total_term_freq = total_term_freq
+
     def analyze_term(self, term):
         '''
         Parameters
