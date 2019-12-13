@@ -190,3 +190,8 @@ sudo ln -s /Library/Java/JavaVirtualMachines/jdk-11.0.4.jdk/Contents/Home/lib/se
 ```
 
 On colab, see [this notebook](https://colab.research.google.com/drive/1r1pRq_BfWS486kg2qwVH5iBfbhK_GPCg#scrollTo=JT_OJKftdqGP) that outlines the issue and the fix.
+
+## Release History
+
++ v0.7.0.0: December 13, 2019 [[Release Notes](release-notes/release-notes-v0.7.0.0.md)]
++ v0.6.0.0: November 2, 2019
