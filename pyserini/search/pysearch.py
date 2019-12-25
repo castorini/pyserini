@@ -193,15 +193,19 @@ def get_topics(collection_name):
     '''
     topics = None
     if collection_name == 'robust04':
-        topics = JTopicReader.getTopics(JTopics.ROBUST04)
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.ROBUST04)
     elif collection_name == 'core17':
-        topics = JTopicReader.getTopics(JTopics.CORE17)
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.CORE17)
     elif collection_name == 'core18':
-        topics = JTopicReader.getTopics(JTopics.CORE18)
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.CORE18)
+    elif collection_name == 'car17v1.5_benchmarkY1test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.CAR17V15_BENCHMARK_Y1_TEST)
+    elif collection_name == 'car17v2.0_benchmarkY1test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.CAR17V20_BENCHMARK_Y1_TEST)
     elif collection_name == 'msmarco_doc_dev':
-        topics = JTopicReader.getTopics(JTopics.MSMARCO_DOC_DEV)
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV)
     elif collection_name == 'msmarco_passage_dev_subset':
-        topics = JTopicReader.getTopics(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
     else:
         return {}
     t = {}

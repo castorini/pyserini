@@ -43,7 +43,7 @@ JSearcher = autoclass('io.anserini.search.SimpleSearcher')
 ### Topics
 
 JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
-JTopics = autoclass('io.anserini.search.topicreader.TopicReader$Topics')
+JTopics = autoclass('io.anserini.search.topicreader.Topics')
 
 ## IndexReaderUtils
 JIndexReaderUtils = autoclass('io.anserini.index.IndexReaderUtils')
