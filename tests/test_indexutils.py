@@ -1,4 +1,3 @@
-import itertools
 import os
 import shutil
 import tarfile
@@ -7,6 +6,7 @@ import unittest
 from pyserini.index import pyutils
 from urllib.request import urlretrieve
 from random import randint
+
 
 class TestIndexUtils(unittest.TestCase):
     def setUp(self):
