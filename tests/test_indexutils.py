@@ -1,4 +1,3 @@
-import itertools
 import os
 import shutil
 import tarfile
@@ -7,6 +6,7 @@ import unittest
 from pyserini.index import pyutils
 from urllib.request import urlretrieve
 from random import randint
+
 
 class TestIndexUtils(unittest.TestCase):
     def setUp(self):
@@ -51,6 +51,12 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(len(doc_vector), 94)
         self.assertEqual(doc_vector['inform'], 8)
         self.assertEqual(doc_vector['retriev'], 7)
+
+    def test_raw_doc(self):
+        lines = self.index_utils.get_raw_document('CACM-3134').splitlines()
+        self.assertEqual(len(lines), 55)
+        self.assertEqual(lines[4], 'The Use of Normal Multiplication Tables')
+        self.assertEqual(lines[29], 'rapid retrieval, space economy')
 
     def test_bm25_weight(self):
         self.assertAlmostEqual(self.index_utils.get_bm25_term_weight('CACM-3134', 'inform'), 1.925014, places=5)
