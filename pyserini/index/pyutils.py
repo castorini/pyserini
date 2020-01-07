@@ -134,6 +134,18 @@ class IndexReaderUtils:
             doc_vector_dict[term] = doc_vector_map.get(JString(term))
         return doc_vector_dict
 
+    def get_raw_document(self, docid):
+        '''
+        Parameters
+        ----------
+        docid : str
+            Collection docid
+        Returns
+        -------
+        result : raw document given its collection docid
+        '''
+        return self.object.getRawDocument(self.reader, JString(docid))
+
     def get_bm25_term_weight(self, docid, term):
         '''
         Parameters
