@@ -76,7 +76,11 @@ class IndexReaderUtils:
         result : str
             List of stemmed tokens
         '''
-        return self.object.analyze(JString(text))
+        stemmed = self.object.analyze(JString(text))
+        token_list = []
+        for token in stemmed.toArray():
+            token_list.append(token)
+        return token_list
 
     def terms(self):
         '''
