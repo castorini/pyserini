@@ -27,11 +27,12 @@ class TestIndexUtils(unittest.TestCase):
     def test_terms(self):
         self.assertEqual(sum(1 for x in self.index_utils.terms()), 14363)
 
-    def test_term_stats(self):
-        term = 'retrieval'
-        self.assertEqual(self.index_utils.analyze_term(term), 'retriev')
+    def test_analyze(self):
+        self.assertEqual(' '.join(self.index_utils.analyze('retrieval')), 'retriev')
+        self.assertEqual(' '.join(self.index_utils.analyze('rapid retrieval, space economy')), 'rapid retriev space economi')
 
-        collection_freq, doc_freq = self.index_utils.get_term_counts(term)
+    def test_term_stats(self):
+        collection_freq, doc_freq = self.index_utils.get_term_counts('retrieval')
         self.assertEqual(collection_freq, 275)
         self.assertEqual(doc_freq, 138)
 
