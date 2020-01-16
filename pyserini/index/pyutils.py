@@ -66,7 +66,7 @@ class IndexReaderUtils:
             self.doc_freq = doc_freq
             self.total_term_freq = total_term_freq
 
-    def analyze_term(self, term):
+    def analyze(self, text):
         '''
         Parameters
         ----------
@@ -74,9 +74,9 @@ class IndexReaderUtils:
         Returns
         -------
         result : str
-            Stemmed term
+            List of stemmed tokens
         '''
-        return self.object.analyzeTerm(JString(term))
+        return self.object.analyze(JString(text))
 
     def terms(self):
         '''
