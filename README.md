@@ -78,10 +78,17 @@ import itertools
 for term in itertools.islice(index_utils.terms(), 10):
     print('{} (df={}, cf={})'.format(term.term, term.doc_freq, term.total_term_freq))
 
+# Here's a particular query term:
 term = 'cities'
 
-stemmed_form = index_utils.analyze_term(term)
+# Look up its collection frequency and document frequency -
+# Note, we use the 'raw' (i.e., unstemmed form):
 collection_freq, doc_freq = index_utils.get_term_counts(term)
+print('term "{}": cf={}, df={}'.format(term, collection_freq, doc_freq))
+
+# Analyze the term (i.e., stem it):
+analyzed = index_utils.analyze(term)
+print('The analyzed form of "{}" is "{}"'.format(term, analyzed[0]))
 
 # Fetch postings list and iterate over it:
 postings_list = index_utils.get_postings_list(term)
@@ -91,11 +98,13 @@ for posting in postings_list:
 # Fetch the document vector:
 doc_vector = index_utils.get_document_vector('FBIS4-67701')
 # Result is a dictionary where the keys are stemmed terms and the values are the term frequencies.
+print(doc_vector)
 
 # Computes the BM25 score for a particular term in a document:
-bm25_score = index_utils.get_bm25_term_weight('FBIS4-67701', stemmed_form)
+bm25_score = index_utils.get_bm25_term_weight('FBIS4-67701', analyzed[0])
 # Note that this takes the stemmed form because the common case is to take the term from
 # get_document_vector() above.
+print(bm25_score)
 ```
 
 ## Usage of the Collection API
@@ -193,6 +202,7 @@ On colab, see [this notebook](https://colab.research.google.com/drive/1r1pRq_BfW
 
 ## Release History
 
++ v0.7.2.0: January 25, 2020 [[Release Notes](release-notes/release-notes-v0.7.2.0.md)]
 + v0.7.1.0: January 9, 2020 [[Release Notes](release-notes/release-notes-v0.7.1.0.md)]
 + v0.7.0.0: December 13, 2019 [[Release Notes](release-notes/release-notes-v0.7.0.0.md)]
 + v0.6.0.0: November 2, 2019
