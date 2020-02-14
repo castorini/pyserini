@@ -14,9 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-'''
+"""
 Module for hiding Python-Java calls via Pyjnius
-'''
+"""
 
 ### Pyjnius setup
 
