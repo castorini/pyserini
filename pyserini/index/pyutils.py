@@ -150,17 +150,6 @@ class IndexReaderUtils:
         """
         return self.object.getBM25TermWeight(self.reader, JString(docid), JString(term))
 
-    def dump_document_vectors(self, reqDocidsPath, weight):
-        """
-        Parameters
-        ----------
-        reqDocidsPath : str
-            dumps the document vector for all documents in reqDocidsPath
-        weight : DocumentVectorWeight
-            the weight for dumped document vector(s)
-        """
-        self.object.dumpDocumentVectors(self.reader, reqDocidsPath, weight)
-
     def convert_internal_docid_to_collection_docid(self, docid: int) -> str:
         """Converts Lucene's internal ``docid`` to its external collection ``docid``.
 
