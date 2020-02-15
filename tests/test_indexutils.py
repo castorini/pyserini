@@ -121,9 +121,6 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(1000), 'CACM-1001')
         self.assertEqual(self.index_utils.convert_collection_docid_to_internal_docid('CACM-1001'), 1000)
 
-    #    def test_dump_document_vectors(self):
-    #        self.index_utils.dump_document_vectors('test123', self.index_utils.DocumentVectorWeight.NONE)
-
     def tearDown(self):
         os.remove(self.tarball_name)
         shutil.rmtree(self.index_dir)

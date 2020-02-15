@@ -23,7 +23,7 @@ and methods provided are meant only to provide tools for examining an index and 
 import logging
 from typing import Dict, Iterator, List, Tuple
 
-from ..pyclass import JIndexReaderUtils, JDocumentVectorWeight, JString
+from ..pyclass import JIndexReaderUtils, JString
 
 logger = logging.getLogger(__name__)
 
@@ -86,10 +86,6 @@ class IndexReaderUtils:
     def __init__(self, index_dir):
         self.object = JIndexReaderUtils()
         self.reader = self.object.getReader(JString(index_dir))
-
-    class DocumentVectorWeight:
-        NONE = JDocumentVectorWeight.NONE
-        TF_IDF = JDocumentVectorWeight.TF_IDF
 
     def analyze(self, text: str) -> List[str]:
         """Applies Anserini's default Lucene ``Analyzer`` to process a piece of text.
@@ -210,17 +206,6 @@ class IndexReaderUtils:
             The BM25 weight of the term in the document, or ``NaN`` if the term does not exist in the document.
         """
         return self.object.getBM25TermWeight(self.reader, JString(docid), JString(term))
-
-    def dump_document_vectors(self, reqDocidsPath, weight):
-        """
-        Parameters
-        ----------
-        reqDocidsPath : str
-            dumps the document vector for all documents in reqDocidsPath
-        weight : DocumentVectorWeight
-            the weight for dumped document vector(s)
-        """
-        self.object.dumpDocumentVectors(self.reader, reqDocidsPath, weight)
 
     def convert_internal_docid_to_collection_docid(self, docid: int) -> str:
         """Converts Lucene's internal ``docid`` to its external collection ``docid``.
