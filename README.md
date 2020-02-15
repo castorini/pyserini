@@ -76,24 +76,24 @@ index_utils = pyutils.IndexReaderUtils('index-robust04-20191213/')
 # Here, we only print out the first 10.
 import itertools
 for term in itertools.islice(index_utils.terms(), 10):
-    print('{} (df={}, cf={})'.format(term.term, term.doc_freq, term.total_term_freq))
+    print(f'{term.term} (df={term.df}, cf={term.cf})')
 
 # Here's a particular query term:
 term = 'cities'
 
-# Look up its collection frequency and document frequency -
+# Look up its document frequency (df) and collection frequency (cf).
 # Note, we use the 'raw' (i.e., unstemmed form):
-collection_freq, doc_freq = index_utils.get_term_counts(term)
-print('term "{}": cf={}, df={}'.format(term, collection_freq, doc_freq))
+df, cf = index_utils.get_term_counts(term)
+print(f'term "{term}": df={df}, cf={cf}')
 
 # Analyze the term (i.e., stem it):
 analyzed = index_utils.analyze(term)
-print('The analyzed form of "{}" is "{}"'.format(term, analyzed[0]))
+print(f'The analyzed form of "{term}" is "{analyzed[0]}"')
 
 # Fetch postings list and iterate over it:
 postings_list = index_utils.get_postings_list(term)
 for posting in postings_list:
-    print('docid={}, tf={}, pos={}'.format(posting.docid, posting.term_freq, posting.positions))
+    print(f'docid={posting.docid}, tf={posting.tf}, pos={posting.positions}')
 
 # Fetch the document vector:
 doc_vector = index_utils.get_document_vector('FBIS4-67701')
