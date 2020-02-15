@@ -112,8 +112,8 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(lines[29], 'rapid retrieval, space economy')
 
     def test_bm25_weight(self):
-        self.assertAlmostEqual(self.index_utils.get_bm25_term_weight('CACM-3134', 'inform'), 1.925014, places=5)
-        self.assertAlmostEqual(self.index_utils.get_bm25_term_weight('CACM-3134', 'retriev'), 2.496352, places=5)
+        self.assertAlmostEqual(self.index_utils.compute_bm25_term_weight('CACM-3134', 'inform'), 1.925014, places=5)
+        self.assertAlmostEqual(self.index_utils.compute_bm25_term_weight('CACM-3134', 'retriev'), 2.496352, places=5)
 
     def test_docid_converstion(self):
         self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(1), 'CACM-0002')

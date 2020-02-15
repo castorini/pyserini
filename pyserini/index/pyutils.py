@@ -188,7 +188,7 @@ class IndexReaderUtils:
         """
         return self.object.getRawDocument(self.reader, JString(docid))
 
-    def get_bm25_term_weight(self, docid: str, term: str) -> float:
+    def compute_bm25_term_weight(self, docid: str, term: str) -> float:
         """Computes the BM25 weight of an (analyzed) term in a document. Note that this method takes the analyzed
         (i.e., stemmed) form because the most common use case is to take the term from the output of
         :func:`get_document_vector`.

@@ -101,7 +101,7 @@ doc_vector = index_utils.get_document_vector('FBIS4-67701')
 print(doc_vector)
 
 # Computes the BM25 score for a particular term in a document:
-bm25_score = index_utils.get_bm25_term_weight('FBIS4-67701', analyzed[0])
+bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', analyzed[0])
 # Note that this takes the stemmed form because the common case is to take the term from
 # get_document_vector() above.
 print(bm25_score)
