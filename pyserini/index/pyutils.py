@@ -15,52 +15,90 @@
 # limitations under the License.
 
 """
-Module for providing python interface to Anserini index reader utils
+This module provides Pyserini's Python interface for raw access to Lucene indexes built by Anserini. The main entry
+point is the ``IndexReaderUtils`` class, which wraps the Java class with the same name in Anserini. Many of the classes
+and methods provided are meant only to provide tools for examining an index and are not optimized for computing over.
 """
 
-from ..pyclass import JIndexReaderUtils, JDocumentVectorWeight, JString
-
 import logging
+from typing import Dict, Iterator, List, Tuple
+
+from ..pyclass import JIndexReaderUtils, JString
 
 logger = logging.getLogger(__name__)
 
 
+class IndexTerm:
+    """Class representing an analyzed term in an index with associated statistics.
+
+    Parameters
+    ----------
+    term : str
+        The analyzed term.
+    df : int
+        The document frequency, which is the number of documents in the collection that contains the term.
+    cf : int
+        The collection frequency, which is the number of times that the term occurs in the entire collection.
+        This value is equal to the sum of all the term frequencies of the term across all documents in the collection.
+    """
+
+    def __init__(self, term, df, cf):
+        self.term = term
+        self.df = df
+        self.cf = cf
+
+
+class Posting:
+    """Class representing a posting in a postings list.
+
+    Parameters
+    ----------
+    docid : int
+        The ``docid`` associated with this posting.
+    tf : int
+        The term frequency associated with this posting.
+    positions : List[int]
+        The list of positions associated with this posting.
+    """
+
+    def __init__(self, docid, tf, positions):
+        self.docid = docid
+        self.tf = tf
+        self.positions = positions
+
+    def __repr__(self):
+        repr = '(' + str(self.docid) + ', ' + str(self.tf) + ')'
+        if self.positions:
+            repr += ' [' + ','.join([str(p) for p in self.positions]) + ']'
+        return repr
+
+
 class IndexReaderUtils:
     """
-    Wrapper class for Anserini's IndexReaderUtils.
+    Wrapper class for ``IndexReaderUtils`` in Anserini.
 
     Parameters
     ----------
     index_dir : str
-        Path to Lucene index directory
+        Path to Lucene index directory.
     """
 
     def __init__(self, index_dir):
         self.object = JIndexReaderUtils()
         self.reader = self.object.getReader(JString(index_dir))
 
-    class DocumentVectorWeight:
-        NONE = JDocumentVectorWeight.NONE
-        TF_IDF = JDocumentVectorWeight.TF_IDF
+    def analyze(self, text: str) -> List[str]:
+        """Applies Anserini's default Lucene ``Analyzer`` to process a piece of text.
 
-    class IndexTerm:
-        """
-        Basic IndexTerm class to represent each term in index
-        """
-        def __init__(self, term, doc_freq, total_term_freq):
-            self.term = term
-            self.doc_freq = doc_freq
-            self.total_term_freq = total_term_freq
-
-    def analyze(self, text):
-        """
         Parameters
         ----------
-        term : str
+        text : str
+            The piece of text to analyze.
+
         Returns
         -------
-        result : str
-            List of stemmed tokens
+        List[str]
+            List of tokens corresponding to the output of the ``Analyzer``.
         """
         stemmed = self.object.analyze(JString(text))
         token_list = []
@@ -68,38 +106,47 @@ class IndexReaderUtils:
             token_list.append(token)
         return token_list
 
-    def terms(self):
-        """
-        :return: generator over terms
+    def terms(self) -> Iterator[IndexTerm]:
+        """Returns an iterator over (analyzed) terms in the index.
+
+        Returns
+        -------
+        Iterator[IndexTerm]
+            An Iterator over :class:`IndexTerm` objects corresponding to (analyzed) terms in the index.
         """
         term_iterator = self.object.getTerms(self.reader)
         while term_iterator.hasNext():
             cur_term = term_iterator.next()
-            yield self.IndexTerm(cur_term.getTerm(), cur_term.getDF(), cur_term.getTotalTF())
+            yield IndexTerm(cur_term.getTerm(), cur_term.getDF(), cur_term.getTotalTF())
 
-    def get_term_counts(self, term):
-        """
+    def get_term_counts(self, term: str) -> Tuple[int, int]:
+        """Returns the document frequency and collection frequency of a term.
+
         Parameters
         ----------
         term : str
-            Raw term
+            The raw (unanalyzed) term.
+
         Returns
         -------
-        result : long, long
-            Collection frequency and document frequency of term
+        Tuple[int, int]
+            The document frequency and collection frequency of the term.
         """
         term_map = self.object.getTermCounts(self.reader, JString(term))
-        return term_map.get(JString('collectionFreq')), term_map.get(JString('docFreq'))
+        return term_map.get(JString('docFreq')), term_map.get(JString('collectionFreq'))
 
-    def get_postings_list(self, term):
-        """
+    def get_postings_list(self, term: str) -> List[Posting]:
+        """Returns the postings list for a term.
+
         Parameters
         ----------
         term : str
+            The raw (unanalyzed) term.
+
         Returns
         -------
-        result : list<Posting>
-            Postings list for term
+        List[Posting]
+            List of :class:`Posting` objects corresponding to the postings list for the term.
         """
         postings_list = self.object.getPostingsList(self.reader, JString(term))
         result = []
@@ -107,16 +154,18 @@ class IndexReaderUtils:
             result.append(Posting(posting.getDocid(), posting.getTF(), posting.getPositions()))
         return result
 
-    def get_document_vector(self, docid):
-        """
+    def get_document_vector(self, docid: str) -> Dict[str, int]:
+        """Returns the document vector for a ``docid``.
+
         Parameters
         ----------
         docid : str
-            Collection docid
+            The collection ``docid``.
+
         Returns
         -------
-        result : dict
-            Terms and their respective frequencies in document
+        Dict[str, int]
+            A dictionary with analyzed terms as keys and their term frequencies as values.
         """
         doc_vector_map = self.object.getDocumentVector(self.reader, JString(docid))
         doc_vector_dict = {}
@@ -124,42 +173,39 @@ class IndexReaderUtils:
             doc_vector_dict[term] = doc_vector_map.get(JString(term))
         return doc_vector_dict
 
-    def get_raw_document(self, docid):
-        """
+    def get_raw_document(self, docid: str) -> str:
+        """Returns the raw document for a collection ``docid``.
+
         Parameters
         ----------
         docid : str
-            Collection docid
+            The collection ``docid``.
+
         Returns
         -------
-        result : raw document given its collection docid
+        str
+            The raw document.
         """
         return self.object.getRawDocument(self.reader, JString(docid))
 
-    def get_bm25_term_weight(self, docid, term):
-        """
+    def compute_bm25_term_weight(self, docid: str, term: str) -> float:
+        """Computes the BM25 weight of an (analyzed) term in a document. Note that this method takes the analyzed
+        (i.e., stemmed) form because the most common use case is to take the term from the output of
+        :func:`get_document_vector`.
+
         Parameters
         ----------
         docid : str
-            Collection docid
+            The collection ``docid``.
         term : str
+            The (analyzed) term.
+
         Returns
         -------
-        result : float
-            BM25 score (NaN if no documents match)
+        float
+            The BM25 weight of the term in the document, or ``NaN`` if the term does not exist in the document.
         """
         return self.object.getBM25TermWeight(self.reader, JString(docid), JString(term))
-
-    def dump_document_vectors(self, reqDocidsPath, weight):
-        """
-        Parameters
-        ----------
-        reqDocidsPath : str
-            dumps the document vector for all documents in reqDocidsPath
-        weight : DocumentVectorWeight
-            the weight for dumped document vector(s)
-        """
-        self.object.dumpDocumentVectors(self.reader, reqDocidsPath, weight)
 
     def convert_internal_docid_to_collection_docid(self, docid: int) -> str:
         """Converts Lucene's internal ``docid`` to its external collection ``docid``.
@@ -190,27 +236,3 @@ class IndexReaderUtils:
             The Lucene internal ``docid`` corresponding to the external collection ``docid``.
         """
         return self.object.convertDocidToLuceneDocid(self.reader, docid)
-
-
-class Posting:
-    """Class representing a posting in a postings list.
-
-    Parameters
-    ----------
-    docid : int
-        The ``docid`` associated with this posting.
-    tf : int
-        The term frequency associated with this posting.
-    positions : List[int]
-        The list of positions associated with this posting.
-    """
-    def __init__(self, docid, tf, positions):
-        self.docid = docid
-        self.tf = tf
-        self.positions = positions
-
-    def __repr__(self):
-        repr = '(' + str(self.docid) + ', ' + str(self.tf) + ')'
-        if self.positions:
-            repr += ' [' + ','.join([str(p) for p in self.positions]) + ']'
-        return repr

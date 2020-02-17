@@ -1,11 +1,27 @@
+# -*- coding: utf-8 -*-
+#
+# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import os
 import shutil
 import tarfile
 import unittest
+from random import randint
+from urllib.request import urlretrieve
 
 from pyserini.index import pyutils
-from urllib.request import urlretrieve
-from random import randint
 
 
 class TestIndexUtils(unittest.TestCase):
@@ -24,32 +40,47 @@ class TestIndexUtils(unittest.TestCase):
 
         self.index_utils = pyutils.IndexReaderUtils('{}lucene-index.cacm'.format(self.index_dir))
 
-    def test_terms(self):
+    def test_terms_count(self):
+        # We're going to iterate through the index and make sure we have the correct number of terms.
         self.assertEqual(sum(1 for x in self.index_utils.terms()), 14363)
+
+    def test_terms_contents(self):
+        # We're going to examine the first two index terms to make sure the statistics are correct.
+        iterator = self.index_utils.terms()
+        index_term = next(iterator)
+        self.assertEqual(index_term.term, '0')
+        self.assertEqual(index_term.df, 19)
+        self.assertEqual(index_term.cf, 30)
+
+        index_term = next(iterator)
+        self.assertEqual(index_term.term, '0,1')
+        self.assertEqual(index_term.df, 1)
+        self.assertEqual(index_term.cf, 1)
 
     def test_analyze(self):
         self.assertEqual(' '.join(self.index_utils.analyze('retrieval')), 'retriev')
-        self.assertEqual(' '.join(self.index_utils.analyze('rapid retrieval, space economy')), 'rapid retriev space economi')
+        self.assertEqual(' '.join(self.index_utils.analyze('rapid retrieval, space economy')),
+                         'rapid retriev space economi')
 
     def test_term_stats(self):
-        collection_freq, doc_freq = self.index_utils.get_term_counts('retrieval')
-        self.assertEqual(collection_freq, 275)
-        self.assertEqual(doc_freq, 138)
+        df, cf = self.index_utils.get_term_counts('retrieval')
+        self.assertEqual(df, 138)
+        self.assertEqual(cf, 275)
 
     def test_postings(self):
         term = 'retrieval'
-        postings_list = list(self.index_utils.get_postings_list(term))
-        self.assertEqual(len(postings_list), 138)
+        postings = list(self.index_utils.get_postings_list(term))
+        self.assertEqual(len(postings), 138)
 
-        self.assertEqual(postings_list[0].docid, 238)
-        self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(postings_list[0].docid), 'CACM-0239')
-        self.assertEqual(postings_list[0].tf, 1)
-        self.assertEqual(len(postings_list[0].positions), 1)
+        self.assertEqual(postings[0].docid, 238)
+        self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(postings[0].docid), 'CACM-0239')
+        self.assertEqual(postings[0].tf, 1)
+        self.assertEqual(len(postings[0].positions), 1)
 
-        self.assertEqual(postings_list[-1].docid, 3168)
-        self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(postings_list[-1].docid), 'CACM-3169')
-        self.assertEqual(postings_list[-1].tf, 1)
-        self.assertEqual(len(postings_list[-1].positions), 1)
+        self.assertEqual(postings[-1].docid, 3168)
+        self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(postings[-1].docid), 'CACM-3169')
+        self.assertEqual(postings[-1].tf, 1)
+        self.assertEqual(len(postings[-1].positions), 1)
 
     def test_doc_vector(self):
         doc_vector = self.index_utils.get_document_vector('CACM-3134')
@@ -67,19 +98,22 @@ class TestIndexUtils(unittest.TestCase):
         postings_list = list(self.index_utils.get_postings_list(term))
 
         for i in range(len(postings_list)):
+            # Go through the postings and find the matching document.
             if self.index_utils.convert_internal_docid_to_collection_docid(postings_list[i].docid) == 'CACM-3134':
                 # The tf values should match.
                 self.assertEqual(postings_list[i].tf, 8)
 
     def test_raw_doc(self):
-        lines = self.index_utils.get_raw_document('CACM-3134').splitlines()
+        raw = self.index_utils.get_raw_document('CACM-3134')
+        self.assertTrue(isinstance(raw, str))
+        lines = raw.splitlines()
         self.assertEqual(len(lines), 55)
         self.assertEqual(lines[4], 'The Use of Normal Multiplication Tables')
         self.assertEqual(lines[29], 'rapid retrieval, space economy')
 
     def test_bm25_weight(self):
-        self.assertAlmostEqual(self.index_utils.get_bm25_term_weight('CACM-3134', 'inform'), 1.925014, places=5)
-        self.assertAlmostEqual(self.index_utils.get_bm25_term_weight('CACM-3134', 'retriev'), 2.496352, places=5)
+        self.assertAlmostEqual(self.index_utils.compute_bm25_term_weight('CACM-3134', 'inform'), 1.925014, places=5)
+        self.assertAlmostEqual(self.index_utils.compute_bm25_term_weight('CACM-3134', 'retriev'), 2.496352, places=5)
 
     def test_docid_converstion(self):
         self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(1), 'CACM-0002')
