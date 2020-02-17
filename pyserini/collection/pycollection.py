@@ -14,11 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ..pyclass import JCollections, JPaths, cast
-from ..multithreading import Counters
+import logging
 import re
 
-import logging
+from ..multithreading import Counters
+from ..pyclass import JCollections, JPaths, cast
 
 logger = logging.getLogger(__name__)
 
@@ -81,14 +81,11 @@ class FileSegment:
                                '$Segment', segment)
         except:
             logger.exception('Exception from casting FileSegment type...')
-            self.object = cast('io.anserini.collection.FileSegment',
-                               segment)
+            self.object = cast('io.anserini.collection.FileSegment', segment)
 
         self.segment_iterator = self.object.iterator()
         self.segment_path = segment_path
-        self.segment_name = re.sub(r'\\|\/', '-',
-                                   collection.collection_path.relativize(
-                                       segment_path).toString())
+        self.segment_name = re.sub(r'\\|\/', '-', collection.collection_path.relativize(segment_path).toString())
 
     def __iter__(self):
         return self
@@ -96,25 +93,23 @@ class FileSegment:
     def __next__(self):
         if self.object.iterator().hasNext():
             d = self.object.iterator().next()
-            return Document(self, d)
+            return SourceDocument(self, d)
         else:
             # log if iteration stopped by error
-            if (self.object.getErrorStatus()):
-                logger.error(self.segment_name +
-                             ': Error from segment iteration, stopping...')
+            if self.object.getErrorStatus():
+                logger.error(self.segment_name + ': Error from segment iteration, stopping...')
                 self.collection.counters.errors.increment()
 
             # stop iteration and log skipped documents
             skipped = self.object.getSkippedCount()
-            if (skipped > 0):
+            if skipped > 0:
                 self.collection.counters.skips.increment(skipped)
-                logger.warn(self.segment_name +
-                            ': ' + str(skipped) + ' documents skipped')
+                logger.warning(self.segment_name + ': ' + str(skipped) + ' documents skipped')
             self.object.close()
             raise StopIteration
 
 
-class Document:
+class SourceDocument:
     """
     Wrapper class for Anserini's SourceDocument.
 

@@ -18,9 +18,9 @@
 Module for providing python interface to Anserini generators
 """
 
-from ..pyclass import JIndexHelpers, JGenerators
-
 import logging
+
+from ..pyclass import JIndexHelpers, JGenerators
 
 logger = logging.getLogger(__name__)
 
