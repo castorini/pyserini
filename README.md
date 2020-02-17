@@ -40,11 +40,11 @@ from pyserini.search import pysearch
 searcher = pysearch.SimpleSearcher('index-robust04-20191213/')
 hits = searcher.search('hubble space telescope')
 
-# Prints the first 10 hits
+# Print the first 10 hits:
 for i in range(0, 10):
     print(f'{i+1} {hits[i].docid} {hits[i].score}')
 
-# Grab the actual text
+# Grab the actual text:
 hits[0].content
 ```
 
@@ -56,7 +56,7 @@ searcher.set_rm3_reranker(10, 10, 0.5)
 
 hits2 = searcher.search('hubble space telescope')
 
-# Prints the first 10 hits
+# Print the first 10 hits:
 for i in range(0, 10):
     print(f'{i+1} {hits2[i].docid} {hits2[i].score}')
 ```
