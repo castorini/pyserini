@@ -93,7 +93,7 @@ class SimpleSearcher:
         Returns
         -------
         Dict[str, List[JResult]]
-            A dictionary holding the search restuls, with the query ids as keys and the corresponding lists of search
+            A dictionary holding the search results, with the query ids as keys and the corresponding lists of search
             results as the values.
         """
         query_strings = JArrayList()
