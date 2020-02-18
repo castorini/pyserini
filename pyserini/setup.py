@@ -14,26 +14,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-'''
+"""
 Module for adding Anserini jar to classpath for pyjnius usage
-'''
+"""
 
-import os
 import glob
+import os
+
 import jnius_config
 
-def configure_classpath(anserini_root="."):   
-    ''' 
+
+def configure_classpath(anserini_root="."):
+    """
     Parameters
     ----------
     anserini_root : str
         (Optional) path to root anserini directory.
-    
-    '''
+
+    """
     paths = glob.glob(os.path.join(anserini_root, 'anserini-*-fatjar.jar'))
     if not paths:
         raise Exception('No matching jar file found in {}'.format(os.path.abspath(anserini_root)))
 
     latest = max(paths, key=os.path.getctime)
     jnius_config.set_classpath(latest)
-    

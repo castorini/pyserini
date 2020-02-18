@@ -15,66 +15,86 @@
 # limitations under the License.
 
 """
-Module for providing python interface to Anserini searchers
+This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``SimpleSearcher``
+class, which wraps the Java class with the same name in Anserini.
 """
 
-from ..pyclass import JSearcher, JString, JArrayList, JTopics, JTopicReader
-
 import logging
+from typing import Dict, List, Union
+
+from ..pyclass import JSearcher, JResult, JDocument, JString, JArrayList, JTopics, JTopicReader
 
 logger = logging.getLogger(__name__)
 
 
-class SimpleSearcher:
+class Document:
+    """Wrapper class for a Lucene ``Document``.
+
+    Parameters
+    ----------
+    document : JDocument
+        Underlying Lucene ``Document``.
     """
-    Wrapper class for Anserini's SimpleSearcher.
+
+    def __init__(self, document):
+        self.object = document
+
+    def get_docid(self: JDocument) -> str:
+        return self.object.getField('id').stringValue()
+
+
+class SimpleSearcher:
+    """Wrapper class for ``SimpleSearcher`` in Anserini.
 
     Parameters
     ----------
     index_dir : str
-        Path to Lucene index directory
+        Path to Lucene index directory.
     """
 
-    def __init__(self, index_dir):
+    def __init__(self, index_dir: str):
         self.object = JSearcher(JString(index_dir))
 
-    def search(self, q, k=10, t=-1):
-        """
+    def search(self, q: str, k=10, t=-1) -> List[JResult]:
+        """Searches the collection.
+
         Parameters
         ----------
         q : str
-            Query string
+            The query string.
         k : int
-            Number of hits to return
+            The number of hits to return.
         t : int
-            Query tweet time for searching tweets
+            The query tweet time for searching tweets.
 
         Returns
         -------
-        results : list of io.anserini.search.SimpleSearcher$Result
-            List of document hits returned from search
+        List[JResult]
+            List of search results.
         """
         return self.object.search(JString(q), k, t)
 
-    def batch_search(self, queries, qids, k=10, t=-1, threads=1):
-        """
+    def batch_search(self, queries: List[str], qids: List[str], k=10, t=-1, threads=1) -> Dict[str, List[JResult]]:
+        """Searches the collection concurrently for multiple queries, using multiple threads.
+
         Parameters
         ----------
-        queries : list of str
-            list of query strings
-        qids : list of str
-            list of corresponding query ids
+        queries : List[str]
+            A list of query strings.
+        qids : List[str]
+            A list of corresponding query ids.
         k : int
-            Number of hits to return
+            The number of hits to return.
         t : int
-            Query tweet time for searching tweets
+            The query tweet time for searching tweets.
         threads : int
-            Maximum number of threads
+            The maximum number of threads to use.
 
         Returns
         -------
-        result_dict : dict of {str : io.anserini.search.SimpleSearcher$Result}
-            Dictionary of {qid : document hits} returned from each query
+        Dict[str, List[JResult]]
+            A dictionary holding the search results, with the query ids as keys and the corresponding lists of search
+            results as the values.
         """
         query_strings = JArrayList()
         qid_strings = JArrayList()
@@ -163,19 +183,23 @@ class SimpleSearcher:
         """
         self.object.setBM25Similarity(float(k1), float(b))
 
-    def doc(self, ldocid):
-        """
+    def doc(self, docid: Union[str, int]) -> Document:
+        """Returns the :class:`Document` corresponding to ``docid``. The ``docid`` is overloaded: if it is of type
+        ``str``, it is treated as an external collection ``docid``; if it is of type ``int``, it is treated as an
+        internal Lucene ``docid``.
+
         Parameters
         ----------
-        ldocid : int
-            Internal Lucene docid of a document
+        docid : Union[str, int]
+            Overloaded ``docid``: either an external collection ``docid`` (``str``) or an internal Lucene ``docid``
+            (``int``).
 
         Returns
         -------
-        result : str
-            Raw content of the given document
+        Document
+            :class:`Document` corresponding to the ``docid``.
         """
-        return self.object.doc(ldocid)
+        return Document(self.object.doc(docid))
 
     def close(self):
         self.object.close()

@@ -38,7 +38,9 @@ JArrayList = autoclass('java.util.ArrayList')
 
 ### Search
 
+JDocument = autoclass('org.apache.lucene.document.Document')
 JSearcher = autoclass('io.anserini.search.SimpleSearcher')
+JResult = autoclass('io.anserini.search.SimpleSearcher$Result')
 
 ### Topics
 

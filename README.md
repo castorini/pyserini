@@ -143,7 +143,7 @@ First, call Pyserini's setup helper for setting up classpath for the JVM:
 
 ```python
 from pyserini.setup import configure_classpath
-configure_classpath(anserini_root)
+configure_classpath('pyserini/resources/jars')
 ```
 
 Now `autoclass` can be used to provide direct access to Java classes:
@@ -154,9 +154,9 @@ from jnius import autoclass
 JString = autoclass('java.lang.String')
 JIndexUtils = autoclass('io.anserini.index.IndexUtils')
 
-index_utils = JIndexUtils(JString('lucene-index.robust04.pos+docvectors+rawdocs'))
+index_utils = JIndexUtils(JString('index-robust04-20191213/'))
 
-# fetch raw document by id
+# Fetch raw document by id:
 rawdoc = index_utils.getRawDocument(JString('FT934-5418'))
 
 ```
