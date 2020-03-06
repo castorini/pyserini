@@ -132,7 +132,7 @@ class IndexReaderUtils:
         Tuple[int, int]
             The document frequency and collection frequency of the term.
         """
-        term_map = self.object.getTermCounts(self.reader, JString(term))
+        term_map = self.object.getTermCounts(self.reader, JString(term.encode('utf-8')))
         return term_map.get(JString('docFreq')), term_map.get(JString('collectionFreq'))
 
     def get_postings_list(self, term: str) -> List[Posting]:
@@ -148,7 +148,7 @@ class IndexReaderUtils:
         List[Posting]
             List of :class:`Posting` objects corresponding to the postings list for the term.
         """
-        postings_list = self.object.getPostingsList(self.reader, JString(term))
+        postings_list = self.object.getPostingsList(self.reader, JString(term.encode('utf-8')))
         result = []
         for posting in postings_list.toArray():
             result.append(Posting(posting.getDocid(), posting.getTF(), posting.getPositions()))
@@ -170,7 +170,7 @@ class IndexReaderUtils:
         doc_vector_map = self.object.getDocumentVector(self.reader, JString(docid))
         doc_vector_dict = {}
         for term in doc_vector_map.keySet().toArray():
-            doc_vector_dict[term] = doc_vector_map.get(JString(term))
+            doc_vector_dict[term] = doc_vector_map.get(JString(term.encode('utf-8')))
         return doc_vector_dict
 
     def get_raw_document(self, docid: str) -> str:
@@ -205,7 +205,7 @@ class IndexReaderUtils:
         float
             The BM25 weight of the term in the document, or ``NaN`` if the term does not exist in the document.
         """
-        return self.object.getBM25TermWeight(self.reader, JString(docid), JString(term))
+        return self.object.getBM25TermWeight(self.reader, JString(docid), JString(term.encode('utf-8')))
 
     def convert_internal_docid_to_collection_docid(self, docid: int) -> str:
         """Converts Lucene's internal ``docid`` to its external collection ``docid``.

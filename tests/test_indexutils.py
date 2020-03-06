@@ -22,6 +22,7 @@ from random import randint
 from urllib.request import urlretrieve
 
 from pyserini.index import pyutils
+from pyserini.pyclass import JString
 
 
 class TestIndexUtils(unittest.TestCase):
@@ -120,6 +121,13 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(self.index_utils.convert_collection_docid_to_internal_docid('CACM-0002'), 1)
         self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(1000), 'CACM-1001')
         self.assertEqual(self.index_utils.convert_collection_docid_to_internal_docid('CACM-1001'), 1000)
+
+    def test_jstring_term(self):
+        self.assertEqual(self.index_utils.get_term_counts("zoölogy"), (0, 0))
+        with self.assertRaises(ValueError):
+            # Should fail when pyjnius has solved this internally.
+            JString('zoölogy')
+        
 
     def tearDown(self):
         os.remove(self.tarball_name)
