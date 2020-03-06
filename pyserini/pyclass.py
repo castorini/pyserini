@@ -70,7 +70,7 @@ class JGenerators(Enum):
     LuceneDocumentGenerator = autoclass('io.anserini.index.generator.LuceneDocumentGenerator')
     JsoupGenerator = autoclass('io.anserini.index.generator.JsoupGenerator')
     TweetGenerator = autoclass('io.anserini.index.generator.TweetGenerator')
-    WapoGenerator = autoclass('io.anserini.index.generator.WapoGenerator')
+    WapoGenerator = autoclass('io.anserini.index.generator.WashingtonPostGenerator')
 
 ### Collection
 
