@@ -36,6 +36,21 @@ JPaths = autoclass('java.nio.file.Paths')
 JList = autoclass('java.util.List')
 JArrayList = autoclass('java.util.ArrayList')
 
+### Analysis
+
+JArabicAnalyzer = autoclass('org.apache.lucene.analysis.ar.ArabicAnalyzer')
+JBengaliAnalyzer = autoclass('org.apache.lucene.analysis.bn.BengaliAnalyzer')
+JCJKAnalyzer = autoclass('org.apache.lucene.analysis.cjk.CJKAnalyzer')
+JGermanAnalyzer = autoclass('org.apache.lucene.analysis.de.GermanAnalyzer')
+JSpanishAnalyzer = autoclass('org.apache.lucene.analysis.es.SpanishAnalyzer')
+JFrenchAnalyzer = autoclass('org.apache.lucene.analysis.fr.FrenchAnalyzer')
+JHindiAnalyzer = autoclass('org.apache.lucene.analysis.hi.HindiAnalyzer')
+
+JEnglishStemmingAnalyzer = autoclass('io.anserini.analysis.EnglishStemmingAnalyzer')
+JFreebaseAnalyzer = autoclass('io.anserini.analysis.FreebaseAnalyzer')
+JTokenizeOnlyAnalyzer = autoclass('io.anserini.analysis.TokenizeOnlyAnalyzer')
+JTweetAnalyzer = autoclass('io.anserini.analysis.TweetAnalyzer')
+
 ### Search
 
 JDocument = autoclass('org.apache.lucene.document.Document')

@@ -131,6 +131,15 @@ class SimpleSearcher:
         """
         return self.object.searchFields(JString(q), JString(f), float(boost), k)
 
+    def set_analyzer(self, analyzer):
+        """
+        Parameters
+        ----------
+        analyzer : Analyzer
+            Java analyzer object
+        """
+        self.object.setAnalyzer(analyzer)
+
     def set_search_tweets(self, flag):
         """
         Parameters
