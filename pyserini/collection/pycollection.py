@@ -40,12 +40,11 @@ class Collection:
         self.collection_class = collection_class
         self.collection_path = JPaths.get(collection_path)
         self.object = self._get_collection()
-        self.object.setCollectionPath(self.collection_path)
         self.collection_iterator = self.object.iterator()
 
     def _get_collection(self):
         try:
-            return JCollections[self.collection_class].value()
+            return JCollections[self.collection_class].value(self.collection_path)
         except:
             raise ValueError(self.collection_class)
 
