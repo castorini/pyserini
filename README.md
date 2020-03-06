@@ -82,7 +82,7 @@ for term in itertools.islice(index_utils.terms(), 10):
 term = 'cities'
 
 # Look up its document frequency (df) and collection frequency (cf).
-# Note, we use the 'raw' (i.e., unstemmed form):
+# Note, we use the 'raw' (i.e., unanalyzed form):
 df, cf = index_utils.get_term_counts(term)
 print(f'term "{term}": df={df}, cf={cf}')
 
@@ -97,12 +97,12 @@ for posting in postings_list:
 
 # Fetch the document vector:
 doc_vector = index_utils.get_document_vector('FBIS4-67701')
-# Result is a dictionary where the keys are stemmed terms and the values are the term frequencies.
+# Result is a dictionary where the keys are unanalyzed terms and the values are the term frequencies.
 print(doc_vector)
 
 # Computes the BM25 score for a particular term in a document:
 bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', analyzed[0])
-# Note that this takes the stemmed form because the common case is to take the term from
+# Note that this takes the unanalyzed form because the common case is to take the term from
 # get_document_vector() above.
 print(bm25_score)
 ```
