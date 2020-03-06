@@ -25,7 +25,7 @@ class TestAnalyzers(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
         self.searcher = pysearch.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
-        self.index_utils = pyutils.IndexReaderUtils('{self.index_dir}lucene-index.cacm')
+        self.index_utils = pyutils.IndexReaderUtils(f'{self.index_dir}lucene-index.cacm')
 
     def test_different_analyzers_are_different(self):
         self.searcher.set_analyzer(pyanalysis.get_analyzer('tokenize'))
@@ -37,7 +37,7 @@ class TestAnalyzers(unittest.TestCase):
     def test_analyze_with_analyzer(self):
         tokenizer = pyanalysis.get_analyzer('tokenize')
         query = JString('information retrieval')
-        only_tokenization = self.index_utils.object.analyze_with_analyzer(query, tokenizer)
+        only_tokenization = self.index_utils.object.analyzeWithAnalyzer(query, tokenizer)
         token_list = []
         for token in only_tokenization.toArray():
             token_list.append(token)
