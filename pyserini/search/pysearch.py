@@ -106,7 +106,9 @@ class SimpleSearcher:
             jqid = JString(qid)
             qid_strings.add(jqid)
 
-        results = self.object.batchSearch(query_strings, qid_strings, int(k), int(t), int(threads)).entrySet().toArray()
+        # TODO: currently, we're just ignore t here, because there isn't a batchSearch method in Anserini that exposes
+        # the same method signature
+        results = self.object.batchSearch(query_strings, qid_strings, int(k), int(threads)).entrySet().toArray()
         return {r.getKey(): r.getValue() for r in results}
 
     def search_fields(self, q, f, boost, k):
