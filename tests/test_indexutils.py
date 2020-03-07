@@ -67,6 +67,9 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(' '.join(self.index_utils.analyze('retrieval', analyzer=tokenizer)), 'retrieval')
         self.assertEqual(' '.join(self.index_utils.analyze('rapid retrieval, space economy', analyzer=tokenizer)),
                          'rapid retrieval space economy')
+        # Test utf encoding:
+        self.assertEqual(self.index_utils.analyze('zoölogy')[0], 'zoölog')
+        self.assertEqual(self.index_utils.analyze('zoölogy', analyzer=tokenizer)[0], 'zoölogy')
 
     def test_term_stats(self):
         df, cf = self.index_utils.get_term_counts('retrieval')
@@ -102,6 +105,11 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(len(postings), 138)
         postings = list(self.index_utils.get_postings_list(self.index_utils.analyze('retrieval')[0], analyze=False))
         self.assertEqual(len(postings), 138)
+
+        # Test utf encoding:
+        self.assertEqual(self.index_utils.get_postings_list('zoölogy'), None)
+        self.assertEqual(self.index_utils.get_postings_list('zoölogy', analyze=False), None)
+        self.assertEqual(self.index_utils.get_postings_list('zoölogy', analyze=True), None)
 
     def test_doc_vector(self):
         doc_vector = self.index_utils.get_document_vector('CACM-3134')
@@ -143,7 +151,7 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(self.index_utils.convert_collection_docid_to_internal_docid('CACM-1001'), 1000)
 
     def test_jstring_term(self):
-        self.assertEqual(self.index_utils.get_term_counts("zoölogy"), (0, 0))
+        self.assertEqual(self.index_utils.get_term_counts('zoölogy'), (0, 0))
         with self.assertRaises(ValueError):
             # Should fail when pyjnius has solved this internally.
             JString('zoölogy')

@@ -102,9 +102,9 @@ class IndexReaderUtils:
             List of tokens corresponding to the output of the analyzer.
         """
         if analyzer is None:
-            results = JAnalyzerUtils.analyze(JString(text))
+            results = JAnalyzerUtils.analyze(JString(text.encode('utf-8')))
         else:
-            results = JAnalyzerUtils.analyze(analyzer, JString(text))
+            results = JAnalyzerUtils.analyze(analyzer, JString(text.encode('utf-8')))
         tokens = []
         for token in results.toArray():
             tokens.append(token)
