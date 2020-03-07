@@ -23,7 +23,7 @@ and methods provided are meant only to provide tools for examining an index and 
 import logging
 from typing import Dict, Iterator, List, Tuple
 
-from ..pyclass import JIndexReaderUtils, JString
+from ..pyclass import JIndexReaderUtils, JString, JAnalyzerUtils
 
 logger = logging.getLogger(__name__)
 
@@ -87,24 +87,28 @@ class IndexReaderUtils:
         self.object = JIndexReaderUtils()
         self.reader = self.object.getReader(JString(index_dir))
 
-    def analyze(self, text: str) -> List[str]:
-        """Applies Anserini's default Lucene ``Analyzer`` to process a piece of text.
+    def analyze(self, text: str, analyzer=None) -> List[str]:
+        """Analyzes a piece of text. Applies Anserini's default Lucene analyzer if analyzer not specified.
 
         Parameters
         ----------
         text : str
             The piece of text to analyze.
-
+        analyzer : analyzer
+            The analyzer to apply.
         Returns
         -------
         List[str]
-            List of tokens corresponding to the output of the ``Analyzer``.
+            List of tokens corresponding to the output of the analyzer.
         """
-        stemmed = self.object.analyze(JString(text))
-        token_list = []
-        for token in stemmed.toArray():
-            token_list.append(token)
-        return token_list
+        if analyzer is None:
+            results = JAnalyzerUtils.analyze(JString(text.encode('utf-8')))
+        else:
+            results = JAnalyzerUtils.analyze(analyzer, JString(text.encode('utf-8')))
+        tokens = []
+        for token in results.toArray():
+            tokens.append(token)
+        return tokens
 
     def terms(self) -> Iterator[IndexTerm]:
         """Returns an iterator over (analyzed) terms in the index.
@@ -135,20 +139,28 @@ class IndexReaderUtils:
         term_map = self.object.getTermCounts(self.reader, JString(term.encode('utf-8')))
         return term_map.get(JString('docFreq')), term_map.get(JString('collectionFreq'))
 
-    def get_postings_list(self, term: str) -> List[Posting]:
+    def get_postings_list(self, term: str, analyze=True) -> List[Posting]:
         """Returns the postings list for a term.
 
         Parameters
         ----------
         term : str
-            The raw (unanalyzed) term.
+            The raw term.
+        analyze : Bool
+            Whether or not analyze the term.
 
         Returns
         -------
         List[Posting]
             List of :class:`Posting` objects corresponding to the postings list for the term.
         """
-        postings_list = self.object.getPostingsList(self.reader, JString(term.encode('utf-8')))
+        if analyze:
+            postings_list = self.object.getPostingsListForUnanalyzedTerm(self.reader, JString(term.encode('utf-8')))
+        else:
+            postings_list = self.object.getPostingsListForAnalyzedTerm(self.reader, JString(term.encode('utf-8')))
+        if postings_list is None:
+            return None
+
         result = []
         for posting in postings_list.toArray():
             result.append(Posting(posting.getDocid(), posting.getTF(), posting.getPositions()))

@@ -7,7 +7,7 @@ from urllib.request import urlretrieve
 from pyserini.analysis import pyanalysis
 from pyserini.search import pysearch
 from pyserini.index import pyutils
-from pyserini.pyclass import JString
+from pyserini.pyclass import JString, JAnalyzerUtils
 
 
 class TestAnalyzers(unittest.TestCase):
@@ -37,7 +37,7 @@ class TestAnalyzers(unittest.TestCase):
     def test_analyze_with_analyzer(self):
         tokenizer = pyanalysis.get_analyzer('tokenize')
         query = JString('information retrieval')
-        only_tokenization = self.index_utils.object.analyzeWithAnalyzer(query, tokenizer)
+        only_tokenization = JAnalyzerUtils.analyze(tokenizer, query)
         token_list = []
         for token in only_tokenization.toArray():
             token_list.append(token)
