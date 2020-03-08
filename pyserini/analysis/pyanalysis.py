@@ -1,14 +1,14 @@
 from ..pyclass import JArabicAnalyzer
 from ..pyclass import JBengaliAnalyzer
 from ..pyclass import JCJKAnalyzer
-from ..pyclass import JEnglishStemmingAnalyzer
+from ..pyclass import JDefaultEnglishAnalyzer
 from ..pyclass import JFreebaseAnalyzer
 from ..pyclass import JFrenchAnalyzer
 from ..pyclass import JGermanAnalyzer
 from ..pyclass import JHindiAnalyzer
 from ..pyclass import JSpanishAnalyzer
-from ..pyclass import JTokenizeOnlyAnalyzer
 from ..pyclass import JTweetAnalyzer
+from ..pyclass import JString
 
 
 def get_analyzer(analyzer, stemmer='porter'):
@@ -41,12 +41,12 @@ def get_analyzer(analyzer, stemmer='porter'):
     elif analyzer == 'hindi':
         return JHindiAnalyzer()
     elif analyzer == 'english':
-        return JEnglishStemmingAnalyzer(stemmer)
+        return JDefaultEnglishAnalyzer.newDefaultInstance()
     elif analyzer == 'freebase':
         return JFreebaseAnalyzer()
     elif analyzer == 'tokenize':
-        return JTokenizeOnlyAnalyzer()
+        return JDefaultEnglishAnalyzer.newNonStemmingInstance()
     elif analyzer == 'tweet':
         return JTweetAnalyzer()
     else:
-        return JEnglishStemmingAnalyzer('porter')
+        return JDefaultEnglishAnalyzer.newStemmingInstance(JString('porter'))
