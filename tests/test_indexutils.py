@@ -63,7 +63,7 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(' '.join(self.index_utils.analyze('retrieval')), 'retriev')
         self.assertEqual(' '.join(self.index_utils.analyze('rapid retrieval, space economy')),
                          'rapid retriev space economi')
-        tokenizer = pyanalysis.get_analyzer('tokenize')
+        tokenizer = pyanalysis.get_lucene_analyzer(stemming=False)
         self.assertEqual(' '.join(self.index_utils.analyze('retrieval', analyzer=tokenizer)), 'retrieval')
         self.assertEqual(' '.join(self.index_utils.analyze('rapid retrieval, space economy', analyzer=tokenizer)),
                          'rapid retrieval space economy')
