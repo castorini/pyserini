@@ -90,7 +90,7 @@ tokens = analyzer.analyze('City buses are running on time.')
 # Result is ['city', 'buses', 'running', 'time']
 ```
 
-## Usage of the Index API
+## Usage of the Index Reader API
 
 The `IndexReaderUtils` class can be used to iterate over the index, extract the document/collection frequencies, postings list or BM25 score of a term, and get the document vector of a given document.
 
