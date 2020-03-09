@@ -61,6 +61,35 @@ for i in range(0, 10):
     print(f'{i+1} {hits2[i].docid} {hits2[i].score}')
 ```
 
+## Usage of the Analyzer API
+
+Pyserini exposes Lucene Analyzers in Python with the `Analyzer` class.
+Below is a demonstration of these functionalities:
+
+```python
+from pyserini.analysis.pyanalysis import get_lucene_analyzer, Analyzer
+
+# Default analyzer for English uses the Porter stemmer:
+analyzer = Analyzer(get_lucene_analyzer())
+tokens = analyzer.analyze('City buses are running on time.')
+# Result is ['citi', 'buse', 'run', 'time']
+
+# We can explictly specify the Porter stemmer as follows:
+analyzer = Analyzer(get_lucene_analyzer(stemmer='porter'))
+tokens = analyzer.analyze('City buses are running on time.')
+# Result is same as above.
+
+# We can explictly specify the Krovetz stemmer as follows:
+analyzer = Analyzer(get_lucene_analyzer(stemmer='krovetz'))
+tokens = analyzer.analyze('City buses are running on time.')
+# Result is ['city', 'bus', 'running', 'time']
+
+# Create an analyzer that doesn't stem, simply tokenizes:
+analyzer = Analyzer(get_lucene_analyzer(stemming=False))
+tokens = analyzer.analyze('City buses are running on time.')
+# Result is ['city', 'buses', 'running', 'time']
+```
+
 ## Usage of the Index API
 
 The `IndexReaderUtils` class can be used to iterate over the index, extract the document/collection frequencies, postings list or BM25 score of a term, and get the document vector of a given document.
@@ -90,8 +119,13 @@ print(f'term "{term}": df={df}, cf={cf}')
 analyzed = index_utils.analyze(term)
 print(f'The analyzed form of "{term}" is "{analyzed[0]}"')
 
-# Fetch postings list and iterate over it:
+# Fetch postings list and iterate over it (note method will analyze the term by default):
 postings_list = index_utils.get_postings_list(term)
+for posting in postings_list:
+    print(f'docid={posting.docid}, tf={posting.tf}, pos={posting.positions}')
+
+# Alternatively, fetch postings list for a term that has already been analyzed:
+postings_list = index_utils.get_postings_list(analyzed[0], analyze=False)
 for posting in postings_list:
     print(f'docid={posting.docid}, tf={posting.tf}, pos={posting.positions}')
 
