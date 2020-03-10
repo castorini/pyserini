@@ -46,6 +46,8 @@ JSpanishAnalyzer = autoclass('org.apache.lucene.analysis.es.SpanishAnalyzer')
 JFrenchAnalyzer = autoclass('org.apache.lucene.analysis.fr.FrenchAnalyzer')
 JHindiAnalyzer = autoclass('org.apache.lucene.analysis.hi.HindiAnalyzer')
 
+JCharArraySet = autoclass('org.apache.lucene.analysis.CharArraySet')
+
 JDefaultEnglishAnalyzer = autoclass('io.anserini.analysis.DefaultEnglishAnalyzer')
 JFreebaseAnalyzer = autoclass('io.anserini.analysis.FreebaseAnalyzer')
 JTweetAnalyzer = autoclass('io.anserini.analysis.TweetAnalyzer')

@@ -76,6 +76,17 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(df, 138)
         self.assertEqual(cf, 275)
 
+        analyzer = pyanalysis.get_lucene_analyzer(stemming=False, stopwords=False)
+        df_no_stem, cf_no_stem = self.index_utils.get_term_counts('retrieval', analyzer)
+        # 'retrieval' does not occur as a stemmed word, only 'retriev' does.
+        self.assertEqual(df_no_stem, 0)
+        self.assertEqual(cf_no_stem, 0)
+
+        df_no_stopword, cf_no_stopword = self.index_utils.get_term_counts('on', analyzer)
+        self.assertEqual(df_no_stopword, 326)
+        self.assertEqual(cf_no_stopword, 443)
+        
+
     def test_postings1(self):
         term = 'retrieval'
         postings = list(self.index_utils.get_postings_list(term))
