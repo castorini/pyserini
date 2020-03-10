@@ -123,20 +123,27 @@ class IndexReaderUtils:
             cur_term = term_iterator.next()
             yield IndexTerm(cur_term.getTerm(), cur_term.getDF(), cur_term.getTotalTF())
 
-    def get_term_counts(self, term: str) -> Tuple[int, int]:
-        """Returns the document frequency and collection frequency of a term.
+    def get_term_counts(self, term: str, analyzer=None) -> Tuple[int, int]:      
+        """Returns the document frequency and collection frequency of a term 
+        (applies Anserini's default Lucene analyzer if analyzer is not specified).
 
         Parameters
         ----------
         term : str
             The raw (unanalyzed) term.
+        analyzer : analyzer
+            The analyzer to apply.
 
         Returns
         -------
         Tuple[int, int]
             The document frequency and collection frequency of the term.
         """
-        term_map = self.object.getTermCounts(self.reader, JString(term.encode('utf-8')))
+        if analyzer is None:
+            term_map = self.object.getTermCounts(self.reader, JString(term.encode('utf-8')))
+        else:
+            term_map = self.object.getTermCountsWithAnalyzer(self.reader, JString(term.encode('utf-8')), analyzer)
+        
         return term_map.get(JString('docFreq')), term_map.get(JString('collectionFreq'))
 
     def get_postings_list(self, term: str, analyze=True) -> List[Posting]:
