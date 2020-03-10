@@ -81,6 +81,16 @@ class TestAnalyzers(unittest.TestCase):
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['city', 'buses', 'running', 'time'])
 
+        # No stopword filter, no stemming
+        analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemming=False, stopwords=False))
+        tokens = analyzer.analyze('City buses are running on time.')
+        self.assertEqual(tokens, ['city', 'buses', 'are', 'running', 'on', 'time'])
+
+        # No stopword filter, with stemming
+        analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemming=True, stopwords=False))
+        tokens = analyzer.analyze('City buses are running on time.')
+        self.assertEqual(tokens, ['citi', 'buse', 'ar', 'run', 'on', 'time'])
+
     def test_invalid_analysis(self):
         # Invalid configuration, make sure we get an exception.
         with self.assertRaises(ValueError):
