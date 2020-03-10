@@ -28,9 +28,10 @@ from ..pyclass import JHindiAnalyzer
 from ..pyclass import JSpanishAnalyzer
 from ..pyclass import JString
 from ..pyclass import JTweetAnalyzer
+from ..pyclass import JCharArraySet
 
 
-def get_lucene_analyzer(name='english', stemming=True, stemmer='porter'):
+def get_lucene_analyzer(name='english', stemming=True, stemmer='porter', stopwords=True):
     """
     Parameters
     ----------
@@ -40,6 +41,8 @@ def get_lucene_analyzer(name='english', stemming=True, stemmer='porter'):
         Whether or not to stem.
     stemmer : Str
         Stemmer to use.
+    stopwords : Bool
+        Whether or not to filter stopwords.
 
     Returns
     -------
@@ -66,9 +69,15 @@ def get_lucene_analyzer(name='english', stemming=True, stemmer='porter'):
         return JTweetAnalyzer()
     elif name.lower() == 'english':
         if stemming == True:
-            return JDefaultEnglishAnalyzer.newStemmingInstance(JString(stemmer))
+            if stopwords == True:
+                return JDefaultEnglishAnalyzer.newStemmingInstance(JString(stemmer))
+            else:
+                return JDefaultEnglishAnalyzer.newStemmingInstance(JString(stemmer), JCharArraySet.EMPTY_SET)
         else:
-            return JDefaultEnglishAnalyzer.newNonStemmingInstance()
+            if stopwords == True:
+                return JDefaultEnglishAnalyzer.newNonStemmingInstance()
+            else:
+                return JDefaultEnglishAnalyzer.newNonStemmingInstance(JCharArraySet.EMPTY_SET)
     else:
         raise ValueError('Invalid configuration.')
 
