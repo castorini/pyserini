@@ -131,12 +131,13 @@ for posting in postings_list:
 
 # Fetch the document vector:
 doc_vector = index_utils.get_document_vector('FBIS4-67701')
-# Result is a dictionary where the keys are unanalyzed terms and the values are the term frequencies.
+# Result is a dictionary where the keys are analyzed terms (i.e., the stemmed form that 
+# was actually indexed) and the values are the term frequencies.
 print(doc_vector)
 
 # Computes the BM25 score for a particular term in a document:
 bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', analyzed[0])
-# Note that this takes the unanalyzed form because the common case is to take the term from
+# Note that this takes the analyzed form because the common case is to take the term from
 # get_document_vector() above.
 print(bm25_score)
 ```
