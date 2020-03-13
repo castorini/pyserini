@@ -3,8 +3,10 @@
 **Release date: March 12, 2020**
 
 + Exposed different Lucene analyzers in Python with convenient wrappers.
++ Exposed methods for converting between internal Lucene docids and external collection docids.
 + Augmented various methods in `IndexReaderUtils` to support different analyzers.
 + Refactored code base to match underlying Anserini changes.
++ Simplified requirements to include only pyjnius.
 
 ## Contributors (This Release)
 
