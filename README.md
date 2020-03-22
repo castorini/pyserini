@@ -12,7 +12,7 @@ A low-effort way to try out Pyserini is to look at our [online notebooks](https:
 For convenience, we've pre-built a few common indexes, available to download [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
 
 Pyserini versions adopt the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
-The current stable release of Pyserini is [v0.8.0.0](https://pypi.org/project/pyserini/) on PyPI.
+The current stable release of Pyserini is [v0.8.1.0](https://pypi.org/project/pyserini/) on PyPI.
 The current experimental release of Pyserini on TestPyPI is behind the current stable release (i.e., do not use).
 In general, documentation is kept up to date with the latest code in the repo.
 
@@ -21,7 +21,7 @@ In general, documentation is kept up to date with the latest code in the repo.
 Install via PyPI
 
 ```
-pip install pyserini
+pip install pyserini==0.8.1.0
 ```
 
 ## Simple Usage
