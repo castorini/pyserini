@@ -49,7 +49,16 @@ class TestSearch(unittest.TestCase):
 
         self.assertTrue(isinstance(hits[0], JResult))
         self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertEqual(hits[0].lucene_docid, 3133)
+        self.assertEqual(hits[0].contents, None)
+        self.assertEqual(len(hits[0].raw), 1532)
         self.assertAlmostEqual(hits[0].score, 4.76550, places=5)
+
+        # Test accessing the raw Lucene document and fetching fields from it:
+        self.assertEqual(hits[0].lucene_document.getField('id').stringValue(), 'CACM-3134')
+        self.assertEqual(hits[0].lucene_document.get('id'), 'CACM-3134')  # simpler call, same result as above
+        self.assertEqual(len(hits[0].lucene_document.getField('raw').stringValue()), 1532)
+        self.assertEqual(len(hits[0].lucene_document.get('raw')), 1532)   # simpler call, same result as above
 
         self.assertTrue(isinstance(hits[9], JResult))
         self.assertEqual(hits[9].docid, 'CACM-2516')
@@ -111,14 +120,20 @@ class TestSearch(unittest.TestCase):
         doc = self.searcher.doc(1)
 
         self.assertTrue(isinstance(doc, pysearch.Document))
-        self.assertEqual(doc.get_docid(), 'CACM-0002')
+        self.assertEqual(doc.docid(), 'CACM-0002')
+
+        self.assertEqual(doc.lucene_document().getField('id').stringValue(), 'CACM-0002')
+        self.assertEqual(len(doc.lucene_document().getField('raw').stringValue()), 186)
 
     def test_doc_str(self):
         # The doc method is overloaded: if input is str, it's assumed to be an external collection docid.
         doc = self.searcher.doc('CACM-0002')
 
         self.assertTrue(isinstance(doc, pysearch.Document))
-        self.assertEqual(doc.get_docid(), 'CACM-0002')
+        self.assertEqual(doc.docid(), 'CACM-0002')
+
+        self.assertEqual(doc.lucene_document().getField('id').stringValue(), 'CACM-0002')
+        self.assertEqual(len(doc.lucene_document().getField('raw').stringValue()), 186)
 
     def tearDown(self):
         self.searcher.close()

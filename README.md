@@ -45,8 +45,11 @@ hits = searcher.search('hubble space telescope')
 for i in range(0, 10):
     print(f'{i+1} {hits[i].docid} {hits[i].score}')
 
-# Grab the actual text:
-hits[0].content
+# Grab the raw text:
+hits[0].raw
+
+# Grab the raw Lucene Document:
+hits[0].lucene_document
 ```
 
 Configure BM25 parameters and use RM3 query expansion:
@@ -188,13 +191,11 @@ Now `autoclass` can be used to provide direct access to Java classes:
 from jnius import autoclass
 
 JString = autoclass('java.lang.String')
-JIndexUtils = autoclass('io.anserini.index.IndexUtils')
+JIndexReaderUtils = autoclass('io.anserini.index.IndexReaderUtils')
+reader = JIndexReaderUtils.getReader(JString('index-robust04-20191213/'))
 
-index_utils = JIndexUtils(JString('index-robust04-20191213/'))
-
-# Fetch raw document by id:
-rawdoc = index_utils.getRawDocument(JString('FT934-5418'))
-
+# Fetch raw document contents by id:
+rawdoc = JIndexReaderUtils.getRawContents(reader, JString('FT934-5418'))
 ```
 
 ## Known Issues

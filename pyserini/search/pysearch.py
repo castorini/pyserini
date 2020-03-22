@@ -39,8 +39,11 @@ class Document:
     def __init__(self, document):
         self.object = document
 
-    def get_docid(self: JDocument) -> str:
+    def docid(self: JDocument) -> str:
         return self.object.getField('id').stringValue()
+
+    def lucene_document(self: JDocument) -> JDocument:
+        return self.object
 
 
 class SimpleSearcher:
