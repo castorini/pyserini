@@ -51,6 +51,8 @@ JCharArraySet = autoclass('org.apache.lucene.analysis.CharArraySet')
 JDefaultEnglishAnalyzer = autoclass('io.anserini.analysis.DefaultEnglishAnalyzer')
 JFreebaseAnalyzer = autoclass('io.anserini.analysis.FreebaseAnalyzer')
 JTweetAnalyzer = autoclass('io.anserini.analysis.TweetAnalyzer')
+JLexicalLshAnalyzer = autoclass('io.anserini.ann.lexlsh.LexicalLshAnalyzer')
+JFakeWordsEncoderAnalyzer = autoclass('io.anserini.ann.fw.FakeWordsEncoderAnalyzer')
 
 ### Search
 

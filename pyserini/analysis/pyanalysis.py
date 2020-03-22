@@ -29,6 +29,8 @@ from ..pyclass import JSpanishAnalyzer
 from ..pyclass import JString
 from ..pyclass import JTweetAnalyzer
 from ..pyclass import JCharArraySet
+from ..pyclass import JLexicalLshAnalyzer
+from ..pyclass import JFakeWordsEncoderAnalyzer
 
 
 def get_lucene_analyzer(name='english', stemming=True, stemmer='porter', stopwords=True):
@@ -67,6 +69,10 @@ def get_lucene_analyzer(name='english', stemming=True, stemmer='porter', stopwor
         return JFreebaseAnalyzer()
     elif name.lower() == 'tweet':
         return JTweetAnalyzer()
+    elif name.lower() == 'lexlsh':
+        return JLexicalLshAnalyzer()
+    elif name.lower() == 'fw':
+        return JFakeWordsEncoderAnalyzer()
     elif name.lower() == 'english':
         if stemming == True:
             if stopwords == True:
