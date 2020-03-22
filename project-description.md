@@ -30,7 +30,7 @@ for i in range(0, 10):
     print(f'{i+1} {hits[i].docid} {hits[i].score}')
 
 # Grab the actual text:
-hits[0].content
+hits[0].raw
 ```
 
 For additional information, please refer to the [Pyserini repository](https://github.com/castorini/pyserini/).
