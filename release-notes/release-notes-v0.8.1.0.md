@@ -1,4 +1,4 @@
-# Pyserini Release Notes (v0.8.2.0)
+# Pyserini Release Notes (v0.8.1.0)
 
 **Release date: March 22, 2020**
 
