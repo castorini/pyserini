@@ -52,12 +52,13 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(hits[0].lucene_docid, 3133)
         self.assertEqual(hits[0].contents, None)
         self.assertEqual(len(hits[0].raw), 1532)
-        # Test accessing the raw Lucene document and fetching fields out of there also.
-        self.assertEqual(hits[0].lucene_document.getField('id').stringValue(), 'CACM-3134')
-        self.assertEqual(hits[0].lucene_document.get('id'), 'CACM-3134')
-        self.assertEqual(len(hits[0].lucene_document.getField('raw').stringValue()), 1532)
-        self.assertEqual(len(hits[0].lucene_document.get('raw')), 1532)
         self.assertAlmostEqual(hits[0].score, 4.76550, places=5)
+
+        # Test accessing the raw Lucene document and fetching fields from it:
+        self.assertEqual(hits[0].lucene_document.getField('id').stringValue(), 'CACM-3134')
+        self.assertEqual(hits[0].lucene_document.get('id'), 'CACM-3134')  # simpler call, same result as above
+        self.assertEqual(len(hits[0].lucene_document.getField('raw').stringValue()), 1532)
+        self.assertEqual(len(hits[0].lucene_document.get('raw')), 1532)   # simpler call, same result as above
 
         self.assertTrue(isinstance(hits[9], JResult))
         self.assertEqual(hits[9].docid, 'CACM-2516')
