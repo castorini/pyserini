@@ -45,8 +45,11 @@ hits = searcher.search('hubble space telescope')
 for i in range(0, 10):
     print(f'{i+1} {hits[i].docid} {hits[i].score}')
 
-# Grab the actual text:
-hits[0].content
+# Grab the raw text:
+hits[0].raw
+
+# Grab the raw Lucene Document:
+hits[0].lucene_document
 ```
 
 Configure BM25 parameters and use RM3 query expansion:
