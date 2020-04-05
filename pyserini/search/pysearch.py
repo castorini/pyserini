@@ -253,7 +253,7 @@ def get_topics(collection_name):
             t[topic][key] = topics.get(topic).get(key)
     return t
 
-class SimpleNNSearcher:
+class SimpleNearestNeighborSearcher:
 
     def __init__(self, index_dir: str):
         self.object = JSnnSearcher(JString(index_dir))
