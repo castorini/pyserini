@@ -57,6 +57,8 @@ JTweetAnalyzer = autoclass('io.anserini.analysis.TweetAnalyzer')
 JDocument = autoclass('org.apache.lucene.document.Document')
 JSearcher = autoclass('io.anserini.search.SimpleSearcher')
 JResult = autoclass('io.anserini.search.SimpleSearcher$Result')
+JSnnSearcher = autoclass('io.anserini.search.SimpleNearestNeighborSearcher')
+JSnnResult = autoclass('io.anserini.search.SimpleNearestNeighborSearcher$Result')
 
 ### Topics
 

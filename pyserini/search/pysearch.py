@@ -22,7 +22,7 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import Dict, List, Union
 
-from ..pyclass import JSearcher, JResult, JDocument, JString, JArrayList, JTopics, JTopicReader
+from ..pyclass import JSearcher, JResult, JDocument, JString, JArrayList, JTopics, JTopicReader, JSnnResult, JSnnSearcher
 
 logger = logging.getLogger(__name__)
 
@@ -252,3 +252,25 @@ def get_topics(collection_name):
         for key in topics.get(topic).keySet().toArray():
             t[topic][key] = topics.get(topic).get(key)
     return t
+
+class SimpleNNSearcher:
+
+    def __init__(self, index_dir: str):
+        self.object = JSnnSearcher(JString(index_dir))
+
+    def search(self, q: str, k=10) -> List[List[JSnnResult]]:
+        """Searches the collection.
+
+        Parameters
+        ----------
+        q : id
+            The input embedding id.
+        k : int
+            The number of hits to return.
+
+        Returns
+        -------
+        List(List[JSnnResult])
+            List of List of search results (one for each matching id).
+        """
+        return self.object.search(JString(q), k)
