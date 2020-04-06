@@ -22,7 +22,8 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import Dict, List, Union
 
-from ..pyclass import JSimpleSearcher, JResult, JDocument, JString, JArrayList, JTopics, JTopicReader, JSnnResult, JSimpleNearestNeighborSearcher
+from ..pyclass import JSimpleSearcher, JSimpleSearcherResult, JDocument, JString, JArrayList, JTopics, JTopicReader, \
+    JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher
 
 logger = logging.getLogger(__name__)
 
@@ -58,7 +59,7 @@ class SimpleSearcher:
     def __init__(self, index_dir: str):
         self.object = JSimpleSearcher(JString(index_dir))
 
-    def search(self, q: str, k=10, t=-1) -> List[JResult]:
+    def search(self, q: str, k=10, t=-1) -> List[JSimpleSearcherResult]:
         """Searches the collection.
 
         Parameters
@@ -72,12 +73,12 @@ class SimpleSearcher:
 
         Returns
         -------
-        List[JResult]
+        List[JSimpleSearcherResult]
             List of search results.
         """
         return self.object.search(JString(q), k, t)
 
-    def batch_search(self, queries: List[str], qids: List[str], k=10, t=-1, threads=1) -> Dict[str, List[JResult]]:
+    def batch_search(self, queries: List[str], qids: List[str], k=10, t=-1, threads=1) -> Dict[str, List[JSimpleSearcherResult]]:
         """Searches the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
@@ -95,7 +96,7 @@ class SimpleSearcher:
 
         Returns
         -------
-        Dict[str, List[JResult]]
+        Dict[str, List[JSimpleSearcherResult]]
             A dictionary holding the search results, with the query ids as keys and the corresponding lists of search
             results as the values.
         """
@@ -258,7 +259,7 @@ class SimpleNearestNeighborSearcher:
     def __init__(self, index_dir: str):
         self.object = JSimpleNearestNeighborSearcher(JString(index_dir))
 
-    def search(self, q: str, k=10) -> List[List[JSnnResult]]:
+    def search(self, q: str, k=10) -> List[List[JSimpleNearestNeighborSearcherResult]]:
         """Searches the collection.
 
         Parameters
@@ -270,7 +271,7 @@ class SimpleNearestNeighborSearcher:
 
         Returns
         -------
-        List(List[JSnnResult])
+        List(List[JSimpleNearestNeighborSearcherResult])
             List of List of search results (one for each matching id).
         """
         return self.object.search(JString(q), k)
