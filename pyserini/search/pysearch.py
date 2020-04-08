@@ -211,7 +211,7 @@ class SimpleSearcher:
         Document
             :class:`Document` corresponding to the ``docid``.
         """
-        return Document(self.object.doc(docid))
+        return Document(self.object.document(docid))
 
     def close(self):
         self.object.close()
