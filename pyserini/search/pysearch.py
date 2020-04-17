@@ -259,11 +259,18 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV)
     elif collection_name == 'msmarco_passage_dev_subset':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
+    elif collection_name == 'covid_round1':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND1)
     else:
         return {}
     t = {}
     for topic in topics.keySet().toArray():
-        t[topic] = {}
+        # Try and parse the keys into integers
+        try:
+            topic_key = int(topic)
+        except ValueError:
+            topic_key = topic
+        t[topic_key] = {}
         for key in topics.get(topic).keySet().toArray():
-            t[topic][key] = topics.get(topic).get(key)
+            t[topic_key][key] = topics.get(topic).get(key)
     return t
