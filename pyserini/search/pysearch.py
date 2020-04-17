@@ -299,19 +299,36 @@ class SimpleNearestNeighborSearcher:
     def __init__(self, index_dir: str):
         self.object = JSimpleNearestNeighborSearcher(JString(index_dir))
 
-    def search(self, q: str, k=10) -> List[List[JSimpleNearestNeighborSearcherResult]]:
-        """Searches the collection.
+    def search(self, q: str, k=10) -> List[JSimpleNearestNeighborSearcherResult]:
+        """Searches nearest neighbor of an embedding identified by its id.
 
         Parameters
         ----------
         q : id
             The input embedding id.
         k : int
-            The number of hits to return.
+            The number of nearest neighbors to return.
+
+        Returns
+        -------
+        List(JSimpleNearestNeighborSearcherResult]
+            List of (nearest neighbor) search results.
+        """
+        return self.object.search(JString(q), k)
+
+    def multisearch(self, q: str, k=10) -> List[JSimpleNearestNeighborSearcherResult]:
+        """Searches nearest neighbors of all the embeddings having the specified id.
+
+        Parameters
+        ----------
+        q : id
+            The input embedding id.
+        k : int
+            The number of nearest neighbors to return for each found embedding.
 
         Returns
         -------
         List(List[JSimpleNearestNeighborSearcherResult])
-            List of List of search results (one for each matching id).
+            List of List of (nearest neighbor) search results (one for each matching id).
         """
-        return self.object.search(JString(q), k)
+        return self.object.multisearch(JString(q), k)
