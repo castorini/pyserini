@@ -143,8 +143,18 @@ class TestIndexUtils(unittest.TestCase):
                 # The tf values should match.
                 self.assertEqual(postings_list[i].tf, 8)
 
-    def test_raw_document_contents(self):
-        raw = self.index_utils.get_raw_document_contents('CACM-3134')
+    def test_document_raw1(self):
+        raw = self.index_utils.doc('CACM-3134').raw()
+        self.assertTrue(isinstance(raw, str))
+        lines = raw.splitlines()
+        self.assertEqual(len(lines), 55)
+        # Note that the raw document contents will still have HTML tags.
+        self.assertEqual(lines[0], '<html>')
+        self.assertEqual(lines[4], 'The Use of Normal Multiplication Tables')
+        self.assertEqual(lines[29], 'rapid retrieval, space economy')
+
+    def test_document_raw2(self):
+        raw = self.index_utils.doc_raw('CACM-3134')
         self.assertTrue(isinstance(raw, str))
         lines = raw.splitlines()
         self.assertEqual(len(lines), 55)

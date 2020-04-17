@@ -24,6 +24,7 @@ import logging
 from typing import Dict, Iterator, List, Tuple
 
 from ..pyclass import JIndexReaderUtils, JString, JAnalyzerUtils
+from ..search.pysearch import Document
 
 logger = logging.getLogger(__name__)
 
@@ -192,7 +193,22 @@ class IndexReaderUtils:
             doc_vector_dict[term] = doc_vector_map.get(JString(term.encode('utf-8')))
         return doc_vector_dict
 
-    def get_raw_document_contents(self, docid: str) -> str:
+    def doc(self, docid: str) -> str:
+        """Returns the :class:`Document` corresponding to ``docid``.
+
+        Parameters
+        ----------
+        docid : str
+            The collection ``docid``.
+
+        Returns
+        -------
+        Document
+            :class:`Document` corresponding to the ``docid``.
+        """
+        return Document(self.object.document(self.reader, JString(docid)))
+
+    def doc_raw(self, docid: str) -> str:
         """Returns the raw document contents for a collection ``docid``.
 
         Parameters
@@ -205,9 +221,9 @@ class IndexReaderUtils:
         str
             The raw document contents.
         """
-        return self.object.getRawContents(self.reader, JString(docid))
+        return self.object.documentRaw(self.reader, JString(docid))
 
-    def get_indexed_document_contents(self, docid: str) -> str:
+    def doc_contents(self, docid: str) -> str:
         """Returns the indexed document contents for a collection ``docid``.
 
         Parameters
@@ -220,7 +236,7 @@ class IndexReaderUtils:
         str
             The index document contents.
         """
-        return self.object.getIndexedContents(self.reader, JString(docid))
+        return self.object.documentContents(self.reader, JString(docid))
 
     def compute_bm25_term_weight(self, docid: str, term: str) -> float:
         """Computes the BM25 weight of an (analyzed) term in a document. Note that this method takes the analyzed

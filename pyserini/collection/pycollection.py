@@ -126,7 +126,5 @@ class SourceDocument:
         self.object = document
         self.id = self.object.id()
         self.indexable = self.object.indexable()
-        try:
-            self.contents = self.object.content()
-        except:
-            self.contents = self.object.getContent()
+        self.contents = self.object.contents()
+        self.raw = self.object.raw()

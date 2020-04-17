@@ -45,6 +45,12 @@ class Document:
     def lucene_document(self: JDocument) -> JDocument:
         return self.object
 
+    def contents(self: JDocument) -> str:
+        return self.object.get('contents')
+
+    def raw(self: JDocument) -> str:
+        return self.object.get('raw')
+
 
 class SimpleSearcher:
     """Wrapper class for ``SimpleSearcher`` in Anserini.

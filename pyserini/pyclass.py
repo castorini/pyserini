@@ -75,7 +75,8 @@ class JIndexHelpers:
 
     def JArgs():
         args = autoclass('io.anserini.index.IndexArgs')()
-        args.storeRawDocs = True ## to store raw text as an option
+        args.storeContents = True
+        args.storeRaw = True
         args.dryRun = True ## So that indexing will be skipped
         return args
 
@@ -85,8 +86,7 @@ class JIndexHelpers:
         return Counters(IndexCollection)
 
 class JGenerators(Enum):
-    LuceneDocumentGenerator = autoclass('io.anserini.index.generator.LuceneDocumentGenerator')
-    JsoupGenerator = autoclass('io.anserini.index.generator.JsoupGenerator')
+    DefaultLuceneDocumentGenerator = autoclass('io.anserini.index.generator.DefaultLuceneDocumentGenerator')
     TweetGenerator = autoclass('io.anserini.index.generator.TweetGenerator')
     WapoGenerator = autoclass('io.anserini.index.generator.WashingtonPostGenerator')
 
