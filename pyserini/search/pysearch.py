@@ -42,6 +42,10 @@ class Document:
     def docid(self: JDocument) -> str:
         return self.object.getField('id').stringValue()
 
+    def id(self: JDocument) -> str:
+        # Convenient alias for docid()
+        return self.object.getField('id').stringValue()
+
     def lucene_document(self: JDocument) -> JDocument:
         return self.object
 
@@ -50,6 +54,9 @@ class Document:
 
     def raw(self: JDocument) -> str:
         return self.object.get('raw')
+
+    def get(self: JDocument, field: str) -> str:
+        return self.object.get(field)
 
 
 class SimpleSearcher:
@@ -218,6 +225,24 @@ class SimpleSearcher:
             :class:`Document` corresponding to the ``docid``.
         """
         return Document(self.object.document(docid))
+
+    def doc_by_field(self, field: str, q: str) -> str:
+        """Returns the :class:`Document` based on a ``field`` with ``id``. For example, this method can be used to fetch
+        document based on alternative primary keys that have been indexed, such as an article's DOI.
+
+        Parameters
+        ----------
+        field : str
+            The field to look up.
+        q : str
+            The document's unique id.
+
+        Returns
+        -------
+        Document
+            :class:`Document` whose ``field`` is ``id``.
+        """
+        return Document(self.object.documentByField(JString(field), JString(q)))
 
     def close(self):
         self.object.close()
