@@ -43,7 +43,7 @@ hits = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:
 for i in range(0, 10):
-    print(f'{i+1} {hits[i].docid} {hits[i].score}')
+    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
 
 # Grab the raw text:
 hits[0].raw
@@ -62,7 +62,7 @@ hits2 = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:
 for i in range(0, 10):
-    print(f'{i+1} {hits2[i].docid} {hits2[i].score}')
+    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
 ```
 
 ## Usage of the Analyzer API
@@ -164,7 +164,7 @@ from pyserini.collection import pycollection
 from pyserini.index import pygenerator
 
 collection = pycollection.Collection('HtmlCollection', 'collection/')
-generator = pygenerator.Generator('JsoupGenerator')
+generator = pygenerator.Generator('DefaultLuceneDocumentGenerator')
 
 for (i, fs) in enumerate(collection):
     for (j, doc) in enumerate(fs):
@@ -195,7 +195,7 @@ JIndexReaderUtils = autoclass('io.anserini.index.IndexReaderUtils')
 reader = JIndexReaderUtils.getReader(JString('index-robust04-20191213/'))
 
 # Fetch raw document contents by id:
-rawdoc = JIndexReaderUtils.getRawContents(reader, JString('FT934-5418'))
+rawdoc = JIndexReaderUtils.documentRaw(reader, JString('FT934-5418'))
 ```
 
 ## Known Issues

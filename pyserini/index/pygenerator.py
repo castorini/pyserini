@@ -43,7 +43,7 @@ class Generator:
 
     def _get_generator(self):
         try:
-            return JGenerators[self.generator_class].value(self.args, self.counters)
+            return JGenerators[self.generator_class].value(self.args)
         except:
             raise ValueError(self.generator_class)
 
