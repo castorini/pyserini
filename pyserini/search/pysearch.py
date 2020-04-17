@@ -316,7 +316,7 @@ class SimpleNearestNeighborSearcher:
         """
         return self.object.search(JString(q), k)
 
-    def multisearch(self, q: str, k=10) -> List[JSimpleNearestNeighborSearcherResult]:
+    def multisearch(self, q: str, k=10) -> List[List[JSimpleNearestNeighborSearcherResult]]:
         """Searches nearest neighbors of all the embeddings having the specified id.
 
         Parameters
