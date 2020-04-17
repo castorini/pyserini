@@ -23,7 +23,7 @@ import logging
 from typing import Dict, List, Union
 
 from ..pyclass import JSimpleSearcher, JSimpleSearcherResult, JDocument, JString, JArrayList, JTopics, JTopicReader, \
-    JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher
+    JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher
 
 logger = logging.getLogger(__name__)
 
@@ -43,8 +43,21 @@ class Document:
     def docid(self: JDocument) -> str:
         return self.object.getField('id').stringValue()
 
+    def id(self: JDocument) -> str:
+        # Convenient alias for docid()
+        return self.object.getField('id').stringValue()
+
     def lucene_document(self: JDocument) -> JDocument:
         return self.object
+
+    def contents(self: JDocument) -> str:
+        return self.object.get('contents')
+
+    def raw(self: JDocument) -> str:
+        return self.object.get('raw')
+
+    def get(self: JDocument, field: str) -> str:
+        return self.object.get(field)
 
 
 class SimpleSearcher:
@@ -59,7 +72,8 @@ class SimpleSearcher:
     def __init__(self, index_dir: str):
         self.object = JSimpleSearcher(JString(index_dir))
 
-    def search(self, q: str, k=10, t=-1) -> List[JSimpleSearcherResult]:
+    def search(self, q: str, k: int=10, t: int=-1,
+               query_generator: JQueryGenerator=None) -> List[JSimpleSearcherResult]:
         """Searches the collection.
 
         Parameters
@@ -70,15 +84,23 @@ class SimpleSearcher:
             The number of hits to return.
         t : int
             The query tweet time for searching tweets.
+        query_generator : JQueryGenerator
+            Generator to build queries.
 
         Returns
         -------
         List[JSimpleSearcherResult]
             List of search results.
         """
-        return self.object.search(JString(q), k, t)
+        if query_generator:
+            if t != -1:
+                raise NotImplemented('Cannot specify both `query_generator` and `t`.')
+            return self.object.search(query_generator, JString(q), k)
+        else:
+            return self.object.search(JString(q), k, t)
 
-    def batch_search(self, queries: List[str], qids: List[str], k=10, t=-1, threads=1) -> Dict[str, List[JSimpleSearcherResult]]:
+    def batch_search(self, queries: List[str], qids: List[str], k: int=10, t: int=-1,
+                     threads: int=1) -> Dict[str, List[JSimpleSearcherResult]]:
         """Searches the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
@@ -212,7 +234,25 @@ class SimpleSearcher:
         Document
             :class:`Document` corresponding to the ``docid``.
         """
-        return Document(self.object.doc(docid))
+        return Document(self.object.document(docid))
+
+    def doc_by_field(self, field: str, q: str) -> str:
+        """Returns the :class:`Document` based on a ``field`` with ``id``. For example, this method can be used to fetch
+        document based on alternative primary keys that have been indexed, such as an article's DOI.
+
+        Parameters
+        ----------
+        field : str
+            The field to look up.
+        q : str
+            The document's unique id.
+
+        Returns
+        -------
+        Document
+            :class:`Document` whose ``field`` is ``id``.
+        """
+        return Document(self.object.documentByField(JString(field), JString(q)))
 
     def close(self):
         self.object.close()

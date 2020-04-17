@@ -41,19 +41,30 @@ class TestIterateCollection(unittest.TestCase):
         tarball.close()
 
         collection = pycollection.Collection('HtmlCollection', collection_dir)
-        generator = pygenerator.Generator('JsoupGenerator')
+        generator = pygenerator.Generator('DefaultLuceneDocumentGenerator')
 
         cnt = 0
         for (i, fs) in enumerate(collection):
             for (j, doc) in enumerate(fs):
                 self.assertTrue(isinstance(doc, pycollection.SourceDocument))
+                self.assertTrue(doc.raw is not None)
+                self.assertTrue(doc.raw != '')
+                self.assertTrue('<html>' in doc.raw)
+                self.assertTrue(doc.contents is not None)
+                self.assertTrue(doc.contents != '')
+                self.assertTrue('<html>' not in doc.contents)
+
                 parsed = generator.create_document(doc)
                 docid = parsed.get('id')            # FIELD_ID
                 raw = parsed.get('raw')             # FIELD_RAW
                 contents = parsed.get('contents')   # FIELD_BODY
                 self.assertTrue(docid != '')
+                self.assertTrue(raw is not None)
                 self.assertTrue(raw != '')
+                self.assertTrue('html' in raw)
+                self.assertTrue(contents is not None)
                 self.assertTrue(contents != '')
+                self.assertTrue('html' not in contents)
                 cnt += 1
 
         self.assertEqual(cnt, 3204)
