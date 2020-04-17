@@ -90,6 +90,12 @@ class JGenerators(Enum):
     TweetGenerator = autoclass('io.anserini.index.generator.TweetGenerator')
     WapoGenerator = autoclass('io.anserini.index.generator.WashingtonPostGenerator')
 
+# Query Generators
+
+JQueryGenerator = autoclass('io.anserini.search.query.QueryGenerator')
+JBagOfWordsQueryGenerator = autoclass('io.anserini.search.query.BagOfWordsQueryGenerator')
+JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
+
 ### Collection
 
 class JCollections(Enum):

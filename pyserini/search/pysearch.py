@@ -22,7 +22,7 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import Dict, List, Union
 
-from ..pyclass import JSearcher, JResult, JDocument, JString, JArrayList, JTopics, JTopicReader
+from ..pyclass import JSearcher, JResult, JDocument, JString, JArrayList, JTopics, JTopicReader, JQueryGenerator
 
 logger = logging.getLogger(__name__)
 
@@ -64,7 +64,8 @@ class SimpleSearcher:
     def __init__(self, index_dir: str):
         self.object = JSearcher(JString(index_dir))
 
-    def search(self, q: str, k=10, t=-1) -> List[JResult]:
+    def search(self, q: str, k: int=10, t: int=-1,
+               query_generator: JQueryGenerator=None) -> List[JResult]:
         """Searches the collection.
 
         Parameters
@@ -75,15 +76,23 @@ class SimpleSearcher:
             The number of hits to return.
         t : int
             The query tweet time for searching tweets.
+        query_generator : JQueryGenerator
+            Generator to build queries.
 
         Returns
         -------
         List[JResult]
             List of search results.
         """
-        return self.object.search(JString(q), k, t)
+        if query_generator:
+            if t != -1:
+                raise NotImplemented('Cannot specify both `query_generator` and `t`.')
+            return self.object.search(query_generator, JString(q), k)
+        else:
+            return self.object.search(JString(q), k, t)
 
-    def batch_search(self, queries: List[str], qids: List[str], k=10, t=-1, threads=1) -> Dict[str, List[JResult]]:
+    def batch_search(self, queries: List[str], qids: List[str], k: int=10, t: int=-1,
+                     threads: int=1) -> Dict[str, List[JResult]]:
         """Searches the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
