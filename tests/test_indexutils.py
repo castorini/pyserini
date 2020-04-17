@@ -85,7 +85,6 @@ class TestIndexUtils(unittest.TestCase):
         df_no_stopword, cf_no_stopword = self.index_utils.get_term_counts('on', analyzer)
         self.assertEqual(df_no_stopword, 326)
         self.assertEqual(cf_no_stopword, 443)
-        
 
     def test_postings1(self):
         term = 'retrieval'
@@ -143,7 +142,7 @@ class TestIndexUtils(unittest.TestCase):
                 # The tf values should match.
                 self.assertEqual(postings_list[i].tf, 8)
 
-    def test_document_raw1(self):
+    def test_doc_raw(self):
         raw = self.index_utils.doc('CACM-3134').raw()
         self.assertTrue(isinstance(raw, str))
         lines = raw.splitlines()
@@ -153,15 +152,29 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(lines[4], 'The Use of Normal Multiplication Tables')
         self.assertEqual(lines[29], 'rapid retrieval, space economy')
 
-    def test_document_raw2(self):
-        raw = self.index_utils.doc_raw('CACM-3134')
-        self.assertTrue(isinstance(raw, str))
-        lines = raw.splitlines()
-        self.assertEqual(len(lines), 55)
-        # Note that the raw document contents will still have HTML tags.
-        self.assertEqual(lines[0], '<html>')
-        self.assertEqual(lines[4], 'The Use of Normal Multiplication Tables')
-        self.assertEqual(lines[29], 'rapid retrieval, space economy')
+        # Now that we've verified the 'raw', check that alternative ways of fetching give the same results.
+        self.assertEqual(raw, self.index_utils.doc_raw('CACM-3134'))
+        self.assertEqual(raw, self.index_utils.doc('CACM-3134').raw())
+        self.assertEqual(raw, self.index_utils.doc('CACM-3134').get('raw'))
+        self.assertEqual(raw, self.index_utils.doc('CACM-3134').lucene_document().get('raw'))
+
+    def test_doc_contents(self):
+        contents = self.index_utils.doc('CACM-3134').contents()
+        self.assertTrue(isinstance(contents, str))
+        lines = contents.splitlines()
+        self.assertEqual(len(lines), 48)
+        self.assertEqual(lines[0], 'The Use of Normal Multiplication Tables')
+        self.assertEqual(lines[47], '3134\t5\t3134')
+
+        # Now that we've verified the 'raw', check that alternative ways of fetching give the same results.
+        self.assertEqual(contents, self.index_utils.doc_contents('CACM-3134'))
+        self.assertEqual(contents, self.index_utils.doc('CACM-3134').contents())
+        self.assertEqual(contents, self.index_utils.doc('CACM-3134').get('contents'))
+        self.assertEqual(contents, self.index_utils.doc('CACM-3134').lucene_document().get('contents'))
+
+    def test_doc_by_field(self):
+        self.assertEqual(self.index_utils.doc('CACM-3134').docid(),
+                         self.index_utils.doc_by_field('id', 'CACM-3134').docid())
 
     def test_bm25_weight(self):
         self.assertAlmostEqual(self.index_utils.compute_bm25_term_weight('CACM-3134', 'inform'), 1.925014, places=5)
