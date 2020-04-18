@@ -22,7 +22,7 @@ from random import randint
 from typing import List, Dict
 from urllib.request import urlretrieve
 
-from pyserini.pyclass import JSimpleSearcherResult
+from pyserini.pyclass import JSimpleSearcherResult, JSimpleNearestNeighborSearcherResult
 from pyserini.search import pysearch
 
 
@@ -41,6 +41,18 @@ class TestSearch(unittest.TestCase):
         tarball.close()
 
         self.searcher = pysearch.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
+
+        self.vectors_url = 'https://www.dropbox.com/s/p1syrnphxpb2sw2/lucene-index-vectors.cacm.tar.gz?dl=1'
+        self.vectors_tarball_name = 'lucene-index-vectors.cacm-{}.tar.gz'.format(r)
+        self.vectors_dir = 'vectors{}/'.format(r)
+
+        vectors_filename, vectors_headers = urlretrieve(self.vectors_url, self.vectors_tarball_name)
+
+        vectors_tarball = tarfile.open(self.vectors_tarball_name)
+        vectors_tarball.extractall(self.vectors_dir)
+        vectors_tarball.close()
+
+        self.nnsercher = pysearch.SimpleNearestNeighborSearcher(f'{self.vectors_dir}lucene-index-vectors.cacm')
 
     def test_basic(self):
         hits = self.searcher.search('information retrieval')
@@ -164,6 +176,27 @@ class TestSearch(unittest.TestCase):
     def test_doc_by_field(self):
         self.assertEqual(self.searcher.doc('CACM-3134').docid(),
                          self.searcher.doc_by_field('id', 'CACM-3134').docid())
+
+    def test_nearest_neighbor(self):
+        hits = self.nnsercher.search('CACM-0059')
+
+        self.assertTrue(isinstance(hits, List))
+
+        self.assertTrue(isinstance(hits[0], JSimpleNearestNeighborSearcherResult))
+        self.assertEqual(hits[0].id, 'CACM-0059')
+        self.assertAlmostEqual(hits[0].score, 62.17443, places=5)
+        self.assertEqual(hits[1].id, 'CACM-0084')
+        self.assertAlmostEqual(hits[1].score, 60.90524, places=5)
+
+        hits = self.nnsercher.multisearch('CACM-0059')
+
+        self.assertTrue(isinstance(hits, List))
+
+        self.assertTrue(isinstance(hits[0][0], JSimpleNearestNeighborSearcherResult))
+        self.assertEqual(hits[0][0].id, 'CACM-0059')
+        self.assertAlmostEqual(hits[0][0].score, 62.17443, places=5)
+        self.assertEqual(hits[0][1].id, 'CACM-0084')
+        self.assertAlmostEqual(hits[0][1].score, 60.90524, places=5)
 
     def tearDown(self):
         self.searcher.close()
