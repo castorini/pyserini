@@ -22,7 +22,8 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import Dict, List, Union
 
-from ..pyclass import JSearcher, JResult, JDocument, JString, JArrayList, JTopics, JTopicReader, JQueryGenerator
+from ..pyclass import JSimpleSearcher, JSimpleSearcherResult, JDocument, JString, JArrayList, JTopics, JTopicReader, \
+    JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher
 
 logger = logging.getLogger(__name__)
 
@@ -69,10 +70,10 @@ class SimpleSearcher:
     """
 
     def __init__(self, index_dir: str):
-        self.object = JSearcher(JString(index_dir))
+        self.object = JSimpleSearcher(JString(index_dir))
 
     def search(self, q: str, k: int=10, t: int=-1,
-               query_generator: JQueryGenerator=None) -> List[JResult]:
+               query_generator: JQueryGenerator=None) -> List[JSimpleSearcherResult]:
         """Searches the collection.
 
         Parameters
@@ -88,7 +89,7 @@ class SimpleSearcher:
 
         Returns
         -------
-        List[JResult]
+        List[JSimpleSearcherResult]
             List of search results.
         """
         if query_generator:
@@ -99,7 +100,7 @@ class SimpleSearcher:
             return self.object.search(JString(q), k, t)
 
     def batch_search(self, queries: List[str], qids: List[str], k: int=10, t: int=-1,
-                     threads: int=1) -> Dict[str, List[JResult]]:
+                     threads: int=1) -> Dict[str, List[JSimpleSearcherResult]]:
         """Searches the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
@@ -117,7 +118,7 @@ class SimpleSearcher:
 
         Returns
         -------
-        Dict[str, List[JResult]]
+        Dict[str, List[JSimpleSearcherResult]]
             A dictionary holding the search results, with the query ids as keys and the corresponding lists of search
             results as the values.
         """
@@ -299,3 +300,42 @@ def get_topics(collection_name):
         for key in topics.get(topic).keySet().toArray():
             t[topic_key][key] = topics.get(topic).get(key)
     return t
+
+class SimpleNearestNeighborSearcher:
+
+    def __init__(self, index_dir: str):
+        self.object = JSimpleNearestNeighborSearcher(JString(index_dir))
+
+    def search(self, q: str, k=10) -> List[JSimpleNearestNeighborSearcherResult]:
+        """Searches nearest neighbor of an embedding identified by its id.
+
+        Parameters
+        ----------
+        q : id
+            The input embedding id.
+        k : int
+            The number of nearest neighbors to return.
+
+        Returns
+        -------
+        List(JSimpleNearestNeighborSearcherResult]
+            List of (nearest neighbor) search results.
+        """
+        return self.object.search(JString(q), k)
+
+    def multisearch(self, q: str, k=10) -> List[List[JSimpleNearestNeighborSearcherResult]]:
+        """Searches nearest neighbors of all the embeddings having the specified id.
+
+        Parameters
+        ----------
+        q : id
+            The input embedding id.
+        k : int
+            The number of nearest neighbors to return for each found embedding.
+
+        Returns
+        -------
+        List(List[JSimpleNearestNeighborSearcherResult])
+            List of List of (nearest neighbor) search results (one for each matching id).
+        """
+        return self.object.multisearch(JString(q), k)
