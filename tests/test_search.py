@@ -201,7 +201,9 @@ class TestSearch(unittest.TestCase):
     def tearDown(self):
         self.searcher.close()
         os.remove(self.tarball_name)
+        os.remove(self.vectors_tarball_name)
         shutil.rmtree(self.index_dir)
+        shutil.rmtree(self.vectors_dir)
 
 
 if __name__ == '__main__':
