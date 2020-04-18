@@ -27,7 +27,7 @@ hits = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:
 for i in range(0, 10):
-    print(f'{i+1} {hits[i].docid} {hits[i].score}')
+    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
 
 # Grab the actual text:
 hits[0].raw
