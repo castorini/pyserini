@@ -165,10 +165,15 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(self.searcher.doc('CACM-3134').docid(),
                          self.searcher.doc_by_field('id', 'CACM-3134').docid())
 
+    def test_phrase_df(self):
+        self.assertEqual(74, self.searcher.phrase_df("inform retriev"))
+        self.assertEqual(135, self.searcher.phrase_df("search"))
+        
     def tearDown(self):
         self.searcher.close()
         os.remove(self.tarball_name)
         shutil.rmtree(self.index_dir)
+        
 
 
 if __name__ == '__main__':

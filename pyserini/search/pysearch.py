@@ -254,6 +254,22 @@ class SimpleSearcher:
         """
         return Document(self.object.documentByField(JString(field), JString(q)))
 
+    def phrase_df(self, phrase: str) -> int:
+        """Constructs a phrase query and uses the TotalHitCountCollector to find the number of documents containing 
+        the phrase.
+
+        Parameters
+        ----------
+        phrase : str
+            phrase query
+
+        Returns
+        -------
+        int
+            number of documents containing phrase
+        """             
+        return self.object.phraseDf(JString(phrase))
+
     def close(self):
         self.object.close()
 
