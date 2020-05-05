@@ -85,7 +85,7 @@ stopwords_manual = ['seek', 'seeking', 'look', 'looking', 'studies', 'study', 'i
             'Brigham', 'Young', 'Univ', 'studies', 'volition', 'severe acute respiratory syndrome', 'affect', 'affected']
 
 #NLTK stopwords
-
+nltk.download('stopwords')
 stopwords = list(set(stopwords.words('English')))
 stopwords_manual = list(np.append(stopwords_manual, stopwords))
 
