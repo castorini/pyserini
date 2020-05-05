@@ -287,6 +287,12 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
     elif collection_name == 'covid_round1':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND1)
+    elif collection_name == 'covid_round1_udel':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND1_UDEL)
+    elif collection_name == 'covid_round2':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND2)
+    elif collection_name == 'covid_round2_udel':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND2_UDEL)
     else:
         return {}
     t = {}
@@ -300,6 +306,7 @@ def get_topics(collection_name):
         for key in topics.get(topic).keySet().toArray():
             t[topic_key][key] = topics.get(topic).get(key)
     return t
+
 
 class SimpleNearestNeighborSearcher:
 
