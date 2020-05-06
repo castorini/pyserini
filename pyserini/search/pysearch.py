@@ -84,7 +84,7 @@ class Cord19Article(Document):
             raise TypeError
 
     def is_full_text(self):
-        return self.full_text
+        return self.json['has_full_text']
 
     def title(self):
         try:
@@ -97,10 +97,9 @@ class Cord19Article(Document):
 
     def abstract(self):
         try:
-            if self.is_full_text():
-                return self.json['abstract'][0]['text']
-            else:
-                return self.json['csv_metadata']['abstract']
+            # For a full-text article, we can grab the abstract from two independent sources, the metadata or the
+            # actual full text. Here, we make the decision to use the metadata, even for full text.
+            return self.json['csv_metadata']['abstract']
         except KeyError:
             return ''
 
