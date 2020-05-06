@@ -59,6 +59,29 @@ class TestLoadTopics(unittest.TestCase):
     def test_covid_round1(self):
         topics = pysearch.get_topics('covid_round1')
         self.assertEqual(len(topics), 30)
+        self.assertEqual('coronavirus origin', topics[1]['query'])
+        self.assertEqual('coronavirus remdesivir', topics[30]['query'])
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_covid_round1(self):
+        topics = pysearch.get_topics('covid_round1_udel')
+        self.assertEqual(len(topics), 30)
+        self.assertEqual('coronavirus origin origin COVID-19', topics[1]['query'])
+        self.assertEqual('coronavirus remdesivir remdesivir effective treatment COVID-19', topics[30]['query'])
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_covid_round2(self):
+        topics = pysearch.get_topics('covid_round2')
+        self.assertEqual(len(topics), 35)
+        self.assertEqual('coronavirus origin', topics[1]['query'])
+        self.assertEqual('coronavirus public datasets', topics[35]['query'])
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_covid_round2(self):
+        topics = pysearch.get_topics('covid_round2_udel')
+        self.assertEqual(len(topics), 35)
+        self.assertEqual('coronavirus origin origin COVID-19', topics[1]['query'])
+        self.assertEqual('coronavirus public datasets public datasets COVID-19', topics[35]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
 
