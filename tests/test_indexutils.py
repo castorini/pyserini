@@ -76,6 +76,10 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(df, 138)
         self.assertEqual(cf, 275)
 
+        df, cf = self.index_utils.get_term_counts('information retrieval')
+        self.assertEqual(df, 74)
+        self.assertEqual(cf, None)
+
         analyzer = pyanalysis.get_lucene_analyzer(stemming=False, stopwords=False)
         df_no_stem, cf_no_stem = self.index_utils.get_term_counts('retrieval', analyzer)
         # 'retrieval' does not occur as a stemmed word, only 'retriev' does.
