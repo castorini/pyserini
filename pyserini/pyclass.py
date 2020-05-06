@@ -102,6 +102,7 @@ JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerat
 
 class JCollections(Enum):
     CarCollection = autoclass('io.anserini.collection.CarCollection')
+    Cord19AbstractCollection = autoclass('io.anserini.collection.Cord19AbstractCollection')
     ClueWeb09Collection = autoclass('io.anserini.collection.ClueWeb09Collection')
     ClueWeb12Collection = autoclass('io.anserini.collection.ClueWeb12Collection')
     HtmlCollection = autoclass('io.anserini.collection.HtmlCollection')

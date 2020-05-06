@@ -19,6 +19,7 @@ This module provides Pyserini's Python search interface to Anserini. The main en
 class, which wraps the Java class with the same name in Anserini.
 """
 
+import json
 import logging
 from typing import Dict, List, Union
 
@@ -58,6 +59,59 @@ class Document:
 
     def get(self: JDocument, field: str) -> str:
         return self.object.get(field)
+
+
+class Cord19Article(Document):
+    """Wrapper class for a Lucene ``Document`` that represents an article from AI2's COVID-19 Open Research Dataset
+    (CORD-19).
+
+    Parameters
+    ----------
+    document : JDocument
+        Underlying Lucene ``Document``.
+    """
+
+    def __init__(self, document):
+        self.object = document
+        self.json = json.loads(document.raw())
+        # Perform some basic error checking, throw an exception if user tries to instantiate with an underlying
+        # Lucene document that isn't from CORD-19
+        if 'cord_uid' in self.json:
+            self.full_text = False
+        elif 'paper_id' in self.json:
+            self.full_text = True
+        else:
+            raise TypeError
+
+    def is_full_text(self):
+        return self.full_text
+
+    def title(self):
+        try:
+            if self.is_full_text():
+                return self.json['metadata']['title']
+            else:
+                return self.json['csv_metadata']['title']
+        except KeyError:
+            return ''
+
+    def abstract(self):
+        try:
+            if self.is_full_text():
+                return self.json['abstract'][0]['text']
+            else:
+                return self.json['csv_metadata']['abstract']
+        except KeyError:
+            return ''
+
+    def body(self):
+        try:
+            if self.is_full_text():
+                return [entry['text'] for entry in self.json['body_text']]
+            else:
+                return []
+        except KeyError:
+            return ''
 
 
 class SimpleSearcher:
