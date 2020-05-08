@@ -113,3 +113,7 @@ class JCollections(Enum):
     WashingtonPostCollection = autoclass('io.anserini.collection.WashingtonPostCollection')
     WikipediaCollection = autoclass('io.anserini.collection.WikipediaCollection')
 
+
+def add_class(class_name):
+    return autoclass(class_name)
+
