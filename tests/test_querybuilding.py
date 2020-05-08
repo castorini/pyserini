@@ -45,10 +45,10 @@ class TestQueryBuilding(unittest.TestCase):
         term_query1 = pyquerybuilder.get_term_query('information')
         term_query2 = pyquerybuilder.get_term_query('retrieval')
 
-        boost1 = pyquerybuilder.get_boost_query(term_query1, 1.)
-        boost2 = pyquerybuilder.get_boost_query(term_query2, 1.)
+        boost1 = pyquerybuilder.get_boost_query(term_query1, 2.)
+        boost2 = pyquerybuilder.get_boost_query(term_query2, 2.)
 
-        should = pyquerybuilder.get_clause_should()
+        should = pyquerybuilder.JBooleanClauseOccur['should'].value
 
         boolean_query = pyquerybuilder.get_boolean_query_builder()
         boolean_query.add(boost1, should)
@@ -64,13 +64,12 @@ class TestQueryBuilding(unittest.TestCase):
         bq2 = boolean_query2.build()
         hits2 = self.searcher.search(bq2)
 
-        self.assertEqual(hits1[0].docid, hits2[0].docid)
-        self.assertEqual(hits1[0].score, hits2[0].score)
+        for h1, h2 in zip(hits1, hits2):
+            self.assertEqual(h1.docid, h2.docid)
+            self.assertAlmostEqual(h1.score, h2.score*2, delta=0.001)
 
         boost3 = pyquerybuilder.get_boost_query(term_query1, 2.)
         boost4 = pyquerybuilder.get_boost_query(term_query2, 3.)
-
-        should = pyquerybuilder.get_clause_should()
 
         boolean_query = pyquerybuilder.get_boolean_query_builder()
         boolean_query.add(boost3, should)
@@ -79,13 +78,14 @@ class TestQueryBuilding(unittest.TestCase):
         bq3 = boolean_query.build()
         hits3 = self.searcher.search(bq3)
 
-        self.assertNotEqual(hits1[0].score, hits3[0].score)
+        for h1, h3 in zip(hits1, hits3):
+            self.assertNotEqual(h1.score, h3.score)
 
     def testTermQuery(self):
         term_query1 = pyquerybuilder.get_term_query('information')
         term_query2 = pyquerybuilder.get_term_query('retrieval')
 
-        should = pyquerybuilder.get_clause_should()
+        should = pyquerybuilder.JBooleanClauseOccur['should'].value
 
         boolean_query1 = pyquerybuilder.get_boolean_query_builder()
         boolean_query1.add(term_query1, should)
@@ -95,14 +95,15 @@ class TestQueryBuilding(unittest.TestCase):
         hits1 = self.searcher.search(bq1)
         hits2 = self.searcher.search('information retrieval')
 
-        self.assertEqual(hits1[0].docid, hits2[0].docid)
-        self.assertEqual(hits1[0].score, hits2[0].score)
+        for h1, h2 in zip(hits1, hits2):
+            self.assertEqual(h1.docid, h2.docid)
+            self.assertEqual(h1.score, h2.score)
 
     def testTermQuery2(self):
         term_query1 = pyquerybuilder.get_term_query('inform', analyzer=get_lucene_analyzer(stemming=False))
         term_query2 = pyquerybuilder.get_term_query('retriev', analyzer=get_lucene_analyzer(stemming=False))
 
-        should = pyquerybuilder.get_clause_should()
+        should = pyquerybuilder.JBooleanClauseOccur['should'].value
 
         boolean_query1 = pyquerybuilder.get_boolean_query_builder()
         boolean_query1.add(term_query1, should)
@@ -112,8 +113,9 @@ class TestQueryBuilding(unittest.TestCase):
         hits1 = self.searcher.search(bq1)
         hits2 = self.searcher.search('information retrieval')
 
-        self.assertEqual(hits1[0].docid, hits2[0].docid)
-        self.assertEqual(hits1[0].score, hits2[0].score)
+        for h1, h2 in zip(hits1, hits2):
+            self.assertEqual(h1.docid, h2.docid)
+            self.assertEqual(h1.score, h2.score)
 
     def tearDown(self):
         self.searcher.close()

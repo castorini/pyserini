@@ -18,14 +18,22 @@
 This module provides Pyserini's Python interface query building for Anserini.
 """
 import logging
-from ..pyclass import JQueryGeneratorUtils, JTermQuery, JTerm, JBoostQuery
-from ..analysis.pyanalysis import get_lucene_analyzer, Analyzer
+from enum import Enum
 
+from ..analysis.pyanalysis import get_lucene_analyzer, Analyzer
+from ..pyclass import JQueryGeneratorUtils, JTermQuery, JTerm, JBoostQuery
 logger = logging.getLogger(__name__)
 
 
+class JBooleanClauseOccur(Enum):
+    should = JQueryGeneratorUtils.getBooleanClauseShould()
+    must = JQueryGeneratorUtils.getBooleanClauseMust()
+    must_not = JQueryGeneratorUtils.getBooleanClauseMustNot()
+    filter = JQueryGeneratorUtils.getBooleanClauseFilter()
+
+
 def get_boolean_query_builder():
-    """ Get a BooleanQueryBuilder object.
+    """Get a BooleanQueryBuilder object.
 
     Returns
     -------
@@ -34,57 +42,17 @@ def get_boolean_query_builder():
     return JQueryGeneratorUtils.getBooleanQueryBuilder()
 
 
-def get_clause_should():
-    """ Get a BooleanClause.Occur.SHOULD statement
-
-    Returns
-    -------
-    BooleanClause.Occur.SHOULD
-    """
-    return JQueryGeneratorUtils.getBooleanClauseShould()
-
-
-def get_clause_must():
-    """ Get a BooleanClause.Occur.MUST statement
-
-    Returns
-    -------
-    BooleanClause.Occur.MUST
-    """
-    return JQueryGeneratorUtils.getBooleanClauseMust()
-
-
-def get_clause_must_not():
-    """ Get a BooleanClause.Occur.MUST_NOT statement
-
-    Returns
-    -------
-    BooleanClause.Occur.MUST_NOT
-    """
-    return JQueryGeneratorUtils.getBooleanClauseMustNot()
-
-
-def get_clause_filter():
-    """ Get a BooleanClause.Occur.FILTER statement
-
-    Returns
-    -------
-    BooleanClause.Occur.FILTER
-    """
-    return JQueryGeneratorUtils.getBooleanClauseFilter()
-
-
 def get_term_query(term, field="contents", analyzer=get_lucene_analyzer()):
     """Searches the collection.
 
     Parameters
     ----------
     term : str
-        The query term string
+        The query term string.
     field : str
-        Field to search
+        Field to search.
     analyzer : Analyzer
-        Analyzer to use for tokenizing the query term
+        Analyzer to use for tokenizing the query term.
 
     Returns
     -------
@@ -95,14 +63,14 @@ def get_term_query(term, field="contents", analyzer=get_lucene_analyzer()):
 
 
 def get_boost_query(query, boost):
-    """Get boost query
+    """Get boost query.
 
     Parameters
     ----------
     query : str
-        The query object to boost
+        The query object to boost.
     boost : float
-        Score multiplier
+        Score multiplier.
 
     Returns
     -------
