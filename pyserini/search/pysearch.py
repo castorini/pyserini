@@ -23,7 +23,7 @@ import logging
 from typing import Dict, List, Union
 
 from ..pyclass import JSimpleSearcher, JSimpleSearcherResult, JDocument, JString, JArrayList, JTopics, JTopicReader, \
-    JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher
+    JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher, JQuery
 
 logger = logging.getLogger(__name__)
 
@@ -72,14 +72,14 @@ class SimpleSearcher:
     def __init__(self, index_dir: str):
         self.object = JSimpleSearcher(JString(index_dir))
 
-    def search(self, q: str, k: int=10, t: int=-1,
+    def search(self, q, k: int=10, t: int=-1,
                query_generator: JQueryGenerator=None) -> List[JSimpleSearcherResult]:
         """Searches the collection.
 
         Parameters
         ----------
-        q : str
-            The query string.
+        q : str / JQuery
+            The query string / The JQuery
         k : int
             The number of hits to return.
         t : int
@@ -96,6 +96,8 @@ class SimpleSearcher:
             if t != -1:
                 raise NotImplemented('Cannot specify both `query_generator` and `t`.')
             return self.object.search(query_generator, JString(q), k)
+        elif isinstance(q, JQuery):
+            return self.object.search(q, k)
         else:
             return self.object.search(JString(q), k, t)
 
