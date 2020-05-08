@@ -93,10 +93,18 @@ class JGenerators(Enum):
     WapoGenerator = autoclass('io.anserini.index.generator.WashingtonPostGenerator')
 
 # Query Generators
-
 JQueryGenerator = autoclass('io.anserini.search.query.QueryGenerator')
 JBagOfWordsQueryGenerator = autoclass('io.anserini.search.query.BagOfWordsQueryGenerator')
 JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
+
+# Query building
+JQueryGeneratorUtils = autoclass('io.anserini.search.query.QueryGeneratorUtils')
+
+JTerm = autoclass('org.apache.lucene.index.Term')
+JBooleanClause = autoclass('org.apache.lucene.search.BooleanClause')
+JBoostQuery = autoclass('org.apache.lucene.search.BoostQuery')
+JTermQuery = autoclass('org.apache.lucene.search.TermQuery')
+JQuery = autoclass('org.apache.lucene.search.Query')
 
 ### Collection
 
