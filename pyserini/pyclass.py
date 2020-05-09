@@ -59,6 +59,8 @@ JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
 JSimpleSearcherResult = autoclass('io.anserini.search.SimpleSearcher$Result')
 JSimpleNearestNeighborSearcher = autoclass('io.anserini.search.SimpleNearestNeighborSearcher')
 JSimpleNearestNeighborSearcherResult = autoclass('io.anserini.search.SimpleNearestNeighborSearcher$Result')
+JIndexSearcher = autoclass('org.apache.lucene.search.IndexSearcher')
+JIndexReader = autoclass('org.apache.lucene.index.IndexReader')
 
 ### Topics
 

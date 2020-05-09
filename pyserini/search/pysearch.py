@@ -23,7 +23,7 @@ import logging
 from typing import Dict, List, Union
 
 from ..pyclass import JSimpleSearcher, JSimpleSearcherResult, JDocument, JString, JArrayList, JTopics, JTopicReader, \
-    JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher, JQuery
+JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher, JQuery, JIndexSearcher, JIndexReader
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +71,8 @@ class SimpleSearcher:
 
     def __init__(self, index_dir: str):
         self.object = JSimpleSearcher(JString(index_dir))
+        JSearch = JIndexSearcher()
+        self.maxDoc = JSearch.getIndexReader().maxDoc()
 
     def search(self, q: Union[str, JQuery], k: int=10, t: int=-1,
                query_generator: JQueryGenerator=None) -> List[JSimpleSearcherResult]:
