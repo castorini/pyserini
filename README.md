@@ -137,7 +137,7 @@ print(f'term "{term}": df={df}, cf={cf}')
 ```
 
 What if we want to fetch term statistics for an analyzed term?
-This can be accomplished by passing in an no-op `Analyzer`:
+This can be accomplished by setting `Analyzer` to None:
 
 ```python
 term = 'cities'
@@ -146,10 +146,8 @@ term = 'cities'
 analyzed = index_utils.analyze(term)
 print(f'The analyzed form of "{term}" is "{analyzed[0]}"')
 
-# Pass in a no-op analyzer:
-analyzer = pyanalysis.get_lucene_analyzer(stemming=False, stopwords=False)
-index_utils.get_term_counts(term, analyzer=analyzer)
-df, cf = index_utils.get_term_counts(term)
+# Skip term analysis:
+df, cf = index_utils.get_term_counts(term, analyzer=None)
 print(f'term "{term}": df={df}, cf={cf}')
 ```
 
@@ -162,7 +160,7 @@ for posting in postings_list:
     print(f'docid={posting.docid}, tf={posting.tf}, pos={posting.positions}')
 
 # Fetch and traverse postings for an analyzed term:
-postings_list = index_utils.get_postings_list(analyzed[0], analyze=False)
+postings_list = index_utils.get_postings_list(analyzed[0], analyzer=None)
 for posting in postings_list:
     print(f'docid={posting.docid}, tf={posting.tf}, pos={posting.positions}')
 ```
@@ -179,8 +177,7 @@ To compute the tf-idf representation of a document, do something like this:
 
 ```python
 tf = index_utils.get_document_vector('FBIS4-67701')
-analyzer = pyanalysis.get_lucene_analyzer(stemming=False, stopwords=False)
-df = {term: (index_utils.get_term_counts(term, analyzer=analyzer))[0] for term in tf.keys()}
+df = {term: (index_utils.get_term_counts(term, analyzer=None))[0] for term in tf.keys()}
 ```
 
 The two dictionaries will hold tf and df statistics; from those it is easy to assemble into the tf-idf representation.
