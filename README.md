@@ -137,7 +137,7 @@ print(f'term "{term}": df={df}, cf={cf}')
 ```
 
 What if we want to fetch term statistics for an analyzed term?
-This can be accomplished by setting `Analyzer` to None:
+This can be accomplished by setting `Analyzer` to `None`:
 
 ```python
 term = 'cities'
