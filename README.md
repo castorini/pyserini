@@ -100,50 +100,94 @@ print(tokens)
 
 ## Usage of the Index Reader API
 
-The `IndexReaderUtils` class can be used to iterate over the index, extract the document/collection frequencies, postings list or BM25 score of a term, and get the document vector of a given document.
+The `IndexReaderUtils` class can be used to iterate over the index, extract the document/collection frequencies, postings list or BM25 score of a term, and obtain the document vector of a given document.
 
-Below is a demonstration of these functionalities:
+**IMPORTANT NOTE:** Be aware whether a method takes or returns _analyzed_ or _unanalyzed_ terms.
+"Analysis" refers to processing by a Lucene `Analyzer`, which typically includes tokenization, stemming, stopword removal, etc.
+For example, if a method expects the unanalyzed form and is called with an analyzed form, it'll re-analyze the argument; it is sometimes the case that analysis of an already analyzed term is also a valid term, which means that the method will return incorrect results without triggering any type of warning or error.
+
+Initialize the class as follows:
 
 ```python
 from pyserini.index import pyutils
 
 index_utils = pyutils.IndexReaderUtils('index-robust04-20191213/')
+```
 
-# Use terms() to grab an iterator over all terms in the collection.
-# Here, we only print out the first 10.
+Use `terms()` to grab an iterator over all terms in the collection, i.e., the dictionary.
+Note that these terms are _analyzed_.
+Here, we only print out the first 10:
+
+```python
 import itertools
 for term in itertools.islice(index_utils.terms(), 10):
     print(f'{term.term} (df={term.df}, cf={term.cf})')
+```
 
-# Here's a particular query term:
+How to fetch term statistics for a particular (unanalyzed) query term, "cities" in this case:
+
+```python
 term = 'cities'
 
 # Look up its document frequency (df) and collection frequency (cf).
-# Note, we use the 'raw' (i.e., unanalyzed form):
+# Note, we use the unanalyzed form:
 df, cf = index_utils.get_term_counts(term)
 print(f'term "{term}": df={df}, cf={cf}')
+```
 
-# Analyze the term (i.e., stem it):
+What if we want to fetch term statistics for an analyzed term?
+This can be accomplished by passing in an no-op `Analyzer`:
+
+```python
+term = 'cities'
+
+# Analyze the term.
 analyzed = index_utils.analyze(term)
 print(f'The analyzed form of "{term}" is "{analyzed[0]}"')
 
-# Fetch postings list and iterate over it (note method will analyze the term by default):
+# Pass in a no-op analyzer:
+analyzer = pyanalysis.get_lucene_analyzer(stemming=False, stopwords=False)
+index_utils.get_term_counts(term, analyzer=analyzer)
+df, cf = index_utils.get_term_counts(term)
+print(f'term "{term}": df={df}, cf={cf}')
+```
+
+Here's how to fetch and traverse postings:
+
+```python
+# Fetch and traverse postings for an unanalyzed term:
 postings_list = index_utils.get_postings_list(term)
 for posting in postings_list:
     print(f'docid={posting.docid}, tf={posting.tf}, pos={posting.positions}')
 
-# Alternatively, fetch postings list for a term that has already been analyzed:
+# Fetch and traverse postings for an analyzed term:
 postings_list = index_utils.get_postings_list(analyzed[0], analyze=False)
 for posting in postings_list:
     print(f'docid={posting.docid}, tf={posting.tf}, pos={posting.positions}')
+```
 
-# Fetch the document vector:
+Here's how to fetch the document vector for a document:
+
+```python
 doc_vector = index_utils.get_document_vector('FBIS4-67701')
-# Result is a dictionary where the keys are analyzed terms (i.e., the stemmed form that 
-# was actually indexed) and the values are the term frequencies.
 print(doc_vector)
+```
 
-# Computes the BM25 score for a particular term in a document:
+The result is a dictionary where the keys are the analyzed terms and the values are the term frequencies.
+To compute the tf-idf representation of a document, do something like this:
+
+```python
+doc_vector = index_utils.get_document_vector('FBIS4-67701')
+tf = index_utils.get_document_vector(docid)
+analyzer = pyanalysis.get_lucene_analyzer(stemming=False, stopwords=False)
+df = {term: (index_utils.get_term_counts(term, analyzer=analyzer))[1] for term in tf.keys()}
+```
+
+The two dictionaries will hold tf and df statistics; from those it is easy to assemble into the tf-idf representation.
+However, often the BM25 score is better than tf-idf.
+To compute the BM25 score for a particular term in a document:
+
+```python
 bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', analyzed[0])
 # Note that this takes the analyzed form because the common case is to take the term from
 # get_document_vector() above.
