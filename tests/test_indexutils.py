@@ -80,13 +80,12 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(df, 74)
         self.assertEqual(cf, None)
 
-        analyzer = pyanalysis.get_lucene_analyzer(stemming=False, stopwords=False)
-        df_no_stem, cf_no_stem = self.index_utils.get_term_counts('retrieval', analyzer)
+        df_no_stem, cf_no_stem = self.index_utils.get_term_counts('retrieval', analyzer=None)
         # 'retrieval' does not occur as a stemmed word, only 'retriev' does.
         self.assertEqual(df_no_stem, 0)
         self.assertEqual(cf_no_stem, 0)
 
-        df_no_stopword, cf_no_stopword = self.index_utils.get_term_counts('on', analyzer)
+        df_no_stopword, cf_no_stopword = self.index_utils.get_term_counts('on', analyzer=None)
         self.assertEqual(df_no_stopword, 326)
         self.assertEqual(cf_no_stopword, 443)
 
@@ -108,22 +107,22 @@ class TestIndexUtils(unittest.TestCase):
     def test_postings2(self):
         self.assertIsNone(self.index_utils.get_postings_list('asdf'))
 
-        postings = list(self.index_utils.get_postings_list('retrieval', analyze=True))
+        postings = list(self.index_utils.get_postings_list('retrieval'))
         self.assertEqual(len(postings), 138)
 
         # If we don't analyze, then we can't find the postings list:
-        self.assertIsNone(self.index_utils.get_postings_list('retrieval', analyze=False))
+        self.assertIsNone(self.index_utils.get_postings_list('retrieval', analyzer=None))
 
         # Supply the analyzed form directly, and we're good:
-        postings = list(self.index_utils.get_postings_list('retriev', analyze=False))
+        postings = list(self.index_utils.get_postings_list('retriev', analyzer=None))
         self.assertEqual(len(postings), 138)
-        postings = list(self.index_utils.get_postings_list(self.index_utils.analyze('retrieval')[0], analyze=False))
+        postings = list(self.index_utils.get_postings_list(self.index_utils.analyze('retrieval')[0], analyzer=None))
         self.assertEqual(len(postings), 138)
 
         # Test utf encoding:
         self.assertEqual(self.index_utils.get_postings_list('zoölogy'), None)
-        self.assertEqual(self.index_utils.get_postings_list('zoölogy', analyze=False), None)
-        self.assertEqual(self.index_utils.get_postings_list('zoölogy', analyze=True), None)
+        self.assertEqual(self.index_utils.get_postings_list('zoölogy', analyzer=None), None)
+        self.assertEqual(self.index_utils.get_postings_list('zoölogy'), None)
 
     def test_doc_vector(self):
         doc_vector = self.index_utils.get_document_vector('CACM-3134')

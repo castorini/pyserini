@@ -25,6 +25,7 @@ from typing import Dict, Iterator, List, Tuple
 
 from ..pyclass import JIndexReaderUtils, JString, JAnalyzerUtils
 from ..search.pysearch import Document
+from ..analysis.pyanalysis import get_lucene_analyzer
 
 logger = logging.getLogger(__name__)
 
@@ -124,7 +125,7 @@ class IndexReaderUtils:
             cur_term = term_iterator.next()
             yield IndexTerm(cur_term.getTerm(), cur_term.getDF(), cur_term.getTotalTF())
 
-    def get_term_counts(self, term: str, analyzer=None) -> Tuple[int, int]:      
+    def get_term_counts(self, term: str, analyzer=get_lucene_analyzer()) -> Tuple[int, int]:      
         """Returns the document frequency and collection frequency of a term 
         (applies Anserini's default Lucene analyzer if analyzer is not specified).
 
@@ -141,31 +142,32 @@ class IndexReaderUtils:
             The document frequency and collection frequency of the term.
         """
         if analyzer is None:
-            term_map = self.object.getTermCounts(self.reader, JString(term.encode('utf-8')))
-        else:
-            term_map = self.object.getTermCountsWithAnalyzer(self.reader, JString(term.encode('utf-8')), analyzer)
+            analyzer = get_lucene_analyzer(stemming=False, stopwords=False)
+        
+        term_map = self.object.getTermCountsWithAnalyzer(self.reader, JString(term.encode('utf-8')), analyzer)
         
         return term_map.get(JString('docFreq')), term_map.get(JString('collectionFreq'))
 
-    def get_postings_list(self, term: str, analyze=True) -> List[Posting]:
+    def get_postings_list(self, term: str, analyzer=get_lucene_analyzer()) -> List[Posting]:
         """Returns the postings list for a term.
 
         Parameters
         ----------
         term : str
             The raw term.
-        analyze : Bool
-            Whether or not analyze the term.
+        analyzer : analyzer
+            The analyzer to apply.
 
         Returns
         -------
         List[Posting]
             List of :class:`Posting` objects corresponding to the postings list for the term.
         """
-        if analyze:
-            postings_list = self.object.getPostingsListForUnanalyzedTerm(self.reader, JString(term.encode('utf-8')))
-        else:
+        if analyzer is None:
             postings_list = self.object.getPostingsListForAnalyzedTerm(self.reader, JString(term.encode('utf-8')))
+        else:
+            postings_list = self.object.getPostingsListWithAnalyzer(self.reader, JString(term.encode('utf-8')), analyzer)
+
         if postings_list is None:
             return None
 
