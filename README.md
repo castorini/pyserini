@@ -110,6 +110,7 @@ Initialize the class as follows:
 
 ```python
 from pyserini.index import pyutils
+from pyserini.analysis import pyanalysis
 
 index_utils = pyutils.IndexReaderUtils('index-robust04-20191213/')
 ```
