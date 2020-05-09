@@ -180,7 +180,7 @@ To compute the tf-idf representation of a document, do something like this:
 ```python
 tf = index_utils.get_document_vector('FBIS4-67701')
 analyzer = pyanalysis.get_lucene_analyzer(stemming=False, stopwords=False)
-df = {term: (index_utils.get_term_counts(term, analyzer=analyzer))[1] for term in tf.keys()}
+df = {term: (index_utils.get_term_counts(term, analyzer=analyzer))[0] for term in tf.keys()}
 ```
 
 The two dictionaries will hold tf and df statistics; from those it is easy to assemble into the tf-idf representation.
