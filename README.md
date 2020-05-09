@@ -230,6 +230,39 @@ for (i, fs) in enumerate(collection):
         print('{} {} -> {} {}...'.format(i, j, docid, contents.strip().replace('\n', ' ')[:50]))
 ```
 
+## Usage of the Query building API
+
+The `pyquerybuilder` provides functionality to construct Lucene queries through Pyserini. These queries can be directly issued through the `SimpleSearcher`. Below is an example of constructing a weighted query and issuing it using Pyserini.
+
+
+First create term queries for the individual query terms:
+```python
+term1 = pyquerybuilder.get_term_query('hello')
+term2 = pyquerybuilder.get_term_query('world')
+```
+
+The create boost queries and define the boost for the respective term queries:
+```python
+boost1 = pyquerybuilder.get_boost_query(term1, 0.5)
+boost2 = pyquerybuilder.get_boost_query(term2, 2.5)
+```
+
+These can be combined using a boolean query:
+```python
+should = pyquerybuilder.JBooleanClauseOccur['should'].value
+
+boolean_query = pyquerybuilder.get_boolean_query_builder()
+boolean_query.add(boost1, should)
+boolean_query.add(boost2, should)
+
+query = boolean_query.build()
+```
+
+Finally issue the constructed weighted query:
+```python
+hits1 = self.searcher.search(query)
+```
+
 ## Direct Interaction via Pyjnius
 
 Alternatively, for parts of Anserini that have not yet been integrated into the Pyserini interface, you can interact with Anserini's Java classes directly via [pyjnius](https://github.com/kivy/pyjnius). 
