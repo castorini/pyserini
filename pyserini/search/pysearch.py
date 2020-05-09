@@ -71,6 +71,7 @@ class SimpleSearcher:
 
     def __init__(self, index_dir: str):
         self.object = JSimpleSearcher(JString(index_dir))
+        self.num_docs = self.object.getTotalNumDocuments()
 
     def search(self, q: Union[str, JQuery], k: int=10, t: int=-1,
                query_generator: JQueryGenerator=None) -> List[JSimpleSearcherResult]:
