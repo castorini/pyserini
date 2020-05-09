@@ -147,7 +147,7 @@ analyzed = index_utils.analyze(term)
 print(f'The analyzed form of "{term}" is "{analyzed[0]}"')
 
 # Skip term analysis:
-df, cf = index_utils.get_term_counts(term, analyzer=None)
+df, cf = index_utils.get_term_counts(analyzed[0], analyzer=None)
 print(f'term "{term}": df={df}, cf={cf}')
 ```
 
