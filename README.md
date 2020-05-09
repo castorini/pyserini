@@ -177,8 +177,7 @@ The result is a dictionary where the keys are the analyzed terms and the values 
 To compute the tf-idf representation of a document, do something like this:
 
 ```python
-doc_vector = index_utils.get_document_vector('FBIS4-67701')
-tf = index_utils.get_document_vector(docid)
+tf = index_utils.get_document_vector('FBIS4-67701')
 analyzer = pyanalysis.get_lucene_analyzer(stemming=False, stopwords=False)
 df = {term: (index_utils.get_term_counts(term, analyzer=analyzer))[1] for term in tf.keys()}
 ```
@@ -188,10 +187,17 @@ However, often the BM25 score is better than tf-idf.
 To compute the BM25 score for a particular term in a document:
 
 ```python
-bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', analyzed[0])
+bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', 'citi')
 # Note that this takes the analyzed form because the common case is to take the term from
 # get_document_vector() above.
 print(bm25_score)
+```
+
+And so, to compute the BM25 vector of a document:
+
+```python
+tf = index_utils.get_document_vector('FBIS4-67701')
+bm25_vector = {term: index_utils.compute_bm25_term_weight('FBIS4-67701', term) for term in tf.keys()}
 ```
 
 ## Usage of the Collection API
