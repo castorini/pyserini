@@ -71,28 +71,28 @@ Pyserini exposes Lucene Analyzers in Python with the `Analyzer` class.
 Below is a demonstration of these functionalities:
 
 ```python
-from pyserini.analysis.pyanalysis import get_lucene_analyzer, Analyzer
+from pyserini.analysis import pyanalysis
 
 # Default analyzer for English uses the Porter stemmer:
-analyzer = Analyzer(get_lucene_analyzer())
+analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer())
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is ['citi', 'buse', 'run', 'time']
 
 # We can explictly specify the Porter stemmer as follows:
-analyzer = Analyzer(get_lucene_analyzer(stemmer='porter'))
+analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemmer='porter'))
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is same as above.
 
 # We can explictly specify the Krovetz stemmer as follows:
-analyzer = Analyzer(get_lucene_analyzer(stemmer='krovetz'))
+analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemmer='krovetz'))
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is ['city', 'bus', 'running', 'time']
 
 # Create an analyzer that doesn't stem, simply tokenizes:
-analyzer = Analyzer(get_lucene_analyzer(stemming=False))
+analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemming=False))
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is ['city', 'buses', 'running', 'time']
@@ -100,7 +100,7 @@ print(tokens)
 
 ## Usage of the Index Reader API
 
-The `IndexReaderUtils` class can be used to iterate over the index, extract the document/collection frequencies, postings list or BM25 score of a term, and obtain the document vector of a given document.
+The `IndexReaderUtils` class provides functionalities for accessing and manipulating an inverted index.
 
 **IMPORTANT NOTE:** Be aware whether a method takes or returns _analyzed_ or _unanalyzed_ terms.
 "Analysis" refers to processing by a Lucene `Analyzer`, which typically includes tokenization, stemming, stopword removal, etc.
