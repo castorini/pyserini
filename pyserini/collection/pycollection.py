@@ -136,8 +136,8 @@ class Cord19Article:
 
     Parameters
     ----------
-    document : JDocument
-        Underlying Lucene ``Document``.
+    doc : str
+        A JSON string of a CORD-19 article.
     """
 
     def __init__(self, doc):
