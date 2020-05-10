@@ -6,7 +6,7 @@
 [![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
-Pyserini provides a simple Python interface to the [Anserini](http://anserini.io/) IR toolkit via [pyjnius](https://github.com/kivy/pyjnius).
+Pyserini provides a simple Python interface to the [Anserini](http://anserini.io/) IR toolkit via [Pyjnius](https://github.com/kivy/pyjnius).
 
 A low-effort way to try out Pyserini is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
 For convenience, we've pre-built a few common indexes, available to download [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
@@ -15,6 +15,8 @@ Pyserini versions adopt the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the ve
 The current stable release of Pyserini is [v0.9.1.0](https://pypi.org/project/pyserini/) on PyPI.
 The current experimental release of Pyserini on TestPyPI is behind the current stable release (i.e., do not use).
 In general, documentation is kept up to date with the latest code in the repo.
+
+If you're looking to work with the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research) from the [Allen Institute for AI](https://allenai.org/), start with [this guide](docs/working-with-cord19.md).
 
 ## Installation
 
@@ -79,7 +81,7 @@ tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is ['citi', 'buse', 'run', 'time']
 
-# We can explictly specify the Porter stemmer as follows:
+# We can explicitly specify the Porter stemmer as follows:
 analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemmer='porter'))
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
@@ -100,11 +102,11 @@ print(tokens)
 
 ## Usage of the Index Reader API
 
-The `IndexReaderUtils` class provides functionalities for accessing and manipulating an inverted index.
+The `IndexReaderUtils` class provides methods for accessing and manipulating an inverted index.
 
 **IMPORTANT NOTE:** Be aware whether a method takes or returns _analyzed_ or _unanalyzed_ terms.
 "Analysis" refers to processing by a Lucene `Analyzer`, which typically includes tokenization, stemming, stopword removal, etc.
-For example, if a method expects the unanalyzed form and is called with an analyzed form, it'll re-analyze the argument; it is sometimes the case that analysis of an already analyzed term is also a valid term, which means that the method will return incorrect results without triggering any type of warning or error.
+For example, if a method expects the unanalyzed term and is called with an analyzed term, it'll reanalyze the term; it is sometimes the case that analysis of an already analyzed term is also a valid term, which means that the method will return incorrect results without triggering any warning or error.
 
 Initialize the class as follows:
 
