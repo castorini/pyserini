@@ -87,7 +87,7 @@ tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is same as above.
 
-# We can explictly specify the Krovetz stemmer as follows:
+# We can explicitly specify the Krovetz stemmer as follows:
 analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemmer='krovetz'))
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
