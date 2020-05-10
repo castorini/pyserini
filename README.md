@@ -16,7 +16,7 @@ The current stable release of Pyserini is [v0.9.1.0](https://pypi.org/project/py
 The current experimental release of Pyserini on TestPyPI is behind the current stable release (i.e., do not use).
 In general, documentation is kept up to date with the latest code in the repo.
 
-If you're looking to work with the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research) from the [Allen Institute for AI](https://allenai.org/), start with [this guide](docs/working-with-cord19.md).
+If you're looking to work with the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research), start with [this guide](docs/working-with-cord19.md).
 
 ## Installation
 
