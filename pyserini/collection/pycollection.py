@@ -142,8 +142,8 @@ class Cord19Article:
 
     def __init__(self, doc):
         self.json = json.loads(doc)
-        # Perform some basic error checking, throw an exception if user tries to instantiate with an underlying
-        # Lucene document that isn't from CORD-19
+        # Performs some basic error checking, throws an exception if user tries to instantiate with something
+        # that isn't from CORD-19.
         if 'cord_uid' in self.json:
             self.full_text = False
         elif 'paper_id' in self.json:
