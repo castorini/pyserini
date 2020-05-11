@@ -44,6 +44,17 @@ hits = searcher.search('hubble space telescope')
 # Print the first 10 hits:
 for i in range(0, 10):
     print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
+    
+# 1 LA071090-0047   16.85690
+# 2 FT934-5418      16.75630
+# 3 FT921-7107      16.68290
+# 4 LA052890-0021   16.37390
+# 5 LA070990-0052   16.36460
+# 6 LA062990-0180   16.19260
+# 7 LA070890-0154   16.15610
+# 8 FT934-2516      16.08950
+# 9 LA041090-0148   16.08810
+# 10 FT944-128      16.01920
 
 # Grab the raw text:
 hits[0].raw
@@ -96,6 +107,60 @@ analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemming=False))
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is ['city', 'buses', 'running', 'time']
+```
+
+## Usage of the Query building API
+
+The `pyquerybuilder` provides functionality to construct Lucene queries through Pyserini. These queries can be directly issued through the `SimpleSearcher`. So instead of issuing the query `hubble space telescope` directly, we can also construct manually:
+
+
+First create term queries for the individual query terms:
+```python
+term1 = pyquerybuilder.get_term_query('hubble')
+term2 = pyquerybuilder.get_term_query('space')
+term3 = pyquerybuilder.get_term_query('telescope')
+```
+
+It is possible to create boost queries and define the boost for the respective term queries, as we want the same results the weights are set to 1 (it is possible to skip this when using weights of `1.`):
+```python
+boost1 = pyquerybuilder.get_boost_query(term1, 1.)
+boost2 = pyquerybuilder.get_boost_query(term2, 1.)
+boost3 = pyquerybuilder.get_boost_query(term3, 1.)
+```
+
+These can be combined using a boolean query:
+```python
+should = pyquerybuilder.JBooleanClauseOccur['should'].value
+
+boolean_query = pyquerybuilder.get_boolean_query_builder()
+boolean_query.add(boost1, should)
+boolean_query.add(boost2, should)
+boolean_query.add(boost3, should)
+
+query = boolean_query.build()
+```
+
+Finally issue the constructed weighted query:
+```python
+hits = searcher.search(query)
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
+```
+
+We will find the same results as the text query above:
+
+```python
+# 1 LA071090-0047   16.85690
+# 2 FT934-5418      16.75630
+# 3 FT921-7107      16.68290
+# 4 LA052890-0021   16.37390
+# 5 LA070990-0052   16.36460
+# 6 LA062990-0180   16.19260
+# 7 LA070890-0154   16.15610
+# 8 FT934-2516      16.08950
+# 9 LA041090-0148   16.08810
+# 10 FT944-128      16.01920
 ```
 
 ## Usage of the Index Reader API
@@ -228,39 +293,6 @@ for (i, fs) in enumerate(collection):
         raw = parsed.get('raw')             # FIELD_RAW
         contents = parsed.get('contents')   # FIELD_BODY
         print('{} {} -> {} {}...'.format(i, j, docid, contents.strip().replace('\n', ' ')[:50]))
-```
-
-## Usage of the Query building API
-
-The `pyquerybuilder` provides functionality to construct Lucene queries through Pyserini. These queries can be directly issued through the `SimpleSearcher`. Below is an example of constructing a weighted query and issuing it using Pyserini.
-
-
-First create term queries for the individual query terms:
-```python
-term1 = pyquerybuilder.get_term_query('hello')
-term2 = pyquerybuilder.get_term_query('world')
-```
-
-The create boost queries and define the boost for the respective term queries:
-```python
-boost1 = pyquerybuilder.get_boost_query(term1, 0.5)
-boost2 = pyquerybuilder.get_boost_query(term2, 2.5)
-```
-
-These can be combined using a boolean query:
-```python
-should = pyquerybuilder.JBooleanClauseOccur['should'].value
-
-boolean_query = pyquerybuilder.get_boolean_query_builder()
-boolean_query.add(boost1, should)
-boolean_query.add(boost2, should)
-
-query = boolean_query.build()
-```
-
-Finally issue the constructed weighted query:
-```python
-hits1 = self.searcher.search(query)
 ```
 
 ## Direct Interaction via Pyjnius
