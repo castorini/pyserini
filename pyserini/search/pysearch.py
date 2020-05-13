@@ -73,8 +73,8 @@ class SimpleSearcher:
         self.object = JSimpleSearcher(JString(index_dir))
         self.num_docs = self.object.getTotalNumDocuments()
 
-    def search(self, q: Union[str, JQuery], k: int=10, t: int=-1,
-               query_generator: JQueryGenerator=None) -> List[JSimpleSearcherResult]:
+    def search(self, q: Union[str, JQuery], k: int = 10,
+               query_generator: JQueryGenerator = None) -> List[JSimpleSearcherResult]:
         """Searches the collection.
 
         Parameters
@@ -83,8 +83,6 @@ class SimpleSearcher:
             The query string / The JQuery.
         k : int
             The number of hits to return.
-        t : int
-            The query tweet time for searching tweets.
         query_generator : JQueryGenerator
             Generator to build queries.
 
@@ -94,16 +92,14 @@ class SimpleSearcher:
             List of search results.
         """
         if query_generator:
-            if t != -1:
-                raise NotImplemented('Cannot specify both `query_generator` and `t`.')
             return self.object.search(query_generator, JString(q), k)
         elif isinstance(q, JQuery):
             return self.object.search(q, k)
         else:
-            return self.object.search(JString(q), k, t)
+            return self.object.search(JString(q.encode('utf8')), k)
 
-    def batch_search(self, queries: List[str], qids: List[str], k: int=10, t: int=-1,
-                     threads: int=1) -> Dict[str, List[JSimpleSearcherResult]]:
+    def batch_search(self, queries: List[str], qids: List[str], k: int = 10,
+                     threads: int = 1) -> Dict[str, List[JSimpleSearcherResult]]:
         """Searches the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
@@ -114,8 +110,6 @@ class SimpleSearcher:
             A list of corresponding query ids.
         k : int
             The number of hits to return.
-        t : int
-            The query tweet time for searching tweets.
         threads : int
             The maximum number of threads to use.
 
@@ -135,7 +129,7 @@ class SimpleSearcher:
             jqid = JString(qid)
             qid_strings.add(jqid)
 
-        results = self.object.batchSearch(query_strings, qid_strings, int(k), int(t), int(threads)).entrySet().toArray()
+        results = self.object.batchSearch(query_strings, qid_strings, int(k), int(threads)).entrySet().toArray()
         return {r.getKey(): r.getValue() for r in results}
 
     def search_fields(self, q, f, boost, k):
