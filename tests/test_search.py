@@ -45,7 +45,7 @@ class TestSearch(unittest.TestCase):
     def test_basic(self):
         hits = self.searcher.search('information retrieval')
 
-        self.assertEqual(3204, self.searcher.num_docs())
+        self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(hits, List))
 
         self.assertTrue(isinstance(hits[0], JSimpleSearcherResult))
@@ -78,7 +78,7 @@ class TestSearch(unittest.TestCase):
     def test_batch(self):
         results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], threads=2)
 
-        self.assertEqual(3204, self.searcher.num_docs())
+        self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(results, Dict))
 
         self.assertTrue(isinstance(results['q1'], List))
@@ -102,7 +102,7 @@ class TestSearch(unittest.TestCase):
     def test_basic_k(self):
         hits = self.searcher.search('information retrieval', k=100)
 
-        self.assertEqual(3204, self.searcher.num_docs())
+        self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(hits, List))
         self.assertTrue(isinstance(hits[0], JSimpleSearcherResult))
         self.assertEqual(len(hits), 100)
@@ -110,7 +110,7 @@ class TestSearch(unittest.TestCase):
     def test_batch_k(self):
         results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], k=100, threads=2)
 
-        self.assertEqual(3204, self.searcher.num_docs())
+        self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(results, Dict))
         self.assertTrue(isinstance(results['q1'], List))
         self.assertTrue(isinstance(results['q1'][0], JSimpleSearcherResult))
