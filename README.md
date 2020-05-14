@@ -84,7 +84,7 @@ hits2 = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:
 for i in range(0, 10):
-    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
+    print(f'{i+1:2} {hits2[i].docid:15} {hits2[i].score:.5f}')
 ```
 
 ## Usage of the Analyzer API
