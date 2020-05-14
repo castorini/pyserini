@@ -32,7 +32,8 @@ Here's a sample pre-built index on TREC Disks 4 &amp; 5 to play with (used in th
 
 ```bash
 wget https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz
-tar xvfz index-robust04-20191213.tar.gz
+tar xvfz index-robust04-20191213.tar.gz -C indexes
+rm index-robust04-20191213.tar.gz
 ```
 
 Use the `SimpleSearcher` for searching:
@@ -40,24 +41,32 @@ Use the `SimpleSearcher` for searching:
 ```python
 from pyserini.search import pysearch
 
-searcher = pysearch.SimpleSearcher('index-robust04-20191213/')
+searcher = pysearch.SimpleSearcher('indexes/index-robust04-20191213/')
 hits = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:
 for i in range(0, 10):
     print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
-    
-# 1 LA071090-0047   16.85690
-# 2 FT934-5418      16.75630
-# 3 FT921-7107      16.68290
-# 4 LA052890-0021   16.37390
-# 5 LA070990-0052   16.36460
-# 6 LA062990-0180   16.19260
-# 7 LA070890-0154   16.15610
-# 8 FT934-2516      16.08950
-# 9 LA041090-0148   16.08810
-# 10 FT944-128      16.01920
+```
 
+The results should be as follows:
+
+```
+ 1 LA071090-0047   16.85690
+ 2 FT934-5418      16.75630
+ 3 FT921-7107      16.68290
+ 4 LA052890-0021   16.37390
+ 5 LA070990-0052   16.36460
+ 6 LA062990-0180   16.19260
+ 7 LA070890-0154   16.15610
+ 8 FT934-2516      16.08950
+ 9 LA041090-0148   16.08810
+10 FT944-128       16.01920
+```
+
+To further examine the results:
+
+```
 # Grab the raw text:
 hits[0].raw
 
@@ -75,7 +84,7 @@ hits2 = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:
 for i in range(0, 10):
-    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
+    print(f'{i+1:2} {hits2[i].docid:15} {hits2[i].score:.5f}')
 ```
 
 ## Usage of the Analyzer API
@@ -111,27 +120,50 @@ print(tokens)
 # Result is ['city', 'buses', 'running', 'time']
 ```
 
-## Usage of the Query building API
+## Usage of the Query Builder API
 
-The `pyquerybuilder` provides functionality to construct Lucene queries through Pyserini. These queries can be directly issued through the `SimpleSearcher`. So instead of issuing the query `hubble space telescope` directly, we can also construct manually:
+The `pyquerybuilder` provides functionality to construct Lucene queries through Pyserini.
+These queries can be directly issued through the `SimpleSearcher`.
+Instead of issuing the query `hubble space telescope` directly, we can also construct the same exact query manually as follows:
 
-
-First create term queries for the individual query terms:
 ```python
+from pyserini.search import pyquerybuilder
+
+# First, create term queries for each individual query term:
 term1 = pyquerybuilder.get_term_query('hubble')
 term2 = pyquerybuilder.get_term_query('space')
 term3 = pyquerybuilder.get_term_query('telescope')
+
+# Then, assemble into a "bag of words" query:
+should = pyquerybuilder.JBooleanClauseOccur['should'].value
+
+boolean_query = pyquerybuilder.get_boolean_query_builder()
+boolean_query.add(term1, should)
+boolean_query.add(term2, should)
+boolean_query.add(term3, should)
+
+query = boolean_query.build()
 ```
 
-It is possible to create boost queries and define the boost for the respective term queries, as we want the same results the weights are set to 1 (it is possible to skip this when using weights of `1.`):
+Then issue the query:
+
 ```python
-boost1 = pyquerybuilder.get_boost_query(term1, 1.)
+hits = searcher.search(query)
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
+```
+
+The results should be exactly the same as above.
+
+By manually constructing queries, it is possible to define the boost for each query term individually.
+For example:
+
+```python
+boost1 = pyquerybuilder.get_boost_query(term1, 2.)
 boost2 = pyquerybuilder.get_boost_query(term2, 1.)
 boost3 = pyquerybuilder.get_boost_query(term3, 1.)
-```
 
-These can be combined using a boolean query:
-```python
 should = pyquerybuilder.JBooleanClauseOccur['should'].value
 
 boolean_query = pyquerybuilder.get_boolean_query_builder()
@@ -140,30 +172,14 @@ boolean_query.add(boost2, should)
 boolean_query.add(boost3, should)
 
 query = boolean_query.build()
-```
 
-Finally issue the constructed weighted query:
-```python
 hits = searcher.search(query)
 
 for i in range(0, 10):
     print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
 ```
 
-We will find the same results as the text query above:
-
-```python
-# 1 LA071090-0047   16.85690
-# 2 FT934-5418      16.75630
-# 3 FT921-7107      16.68290
-# 4 LA052890-0021   16.37390
-# 5 LA070990-0052   16.36460
-# 6 LA062990-0180   16.19260
-# 7 LA070890-0154   16.15610
-# 8 FT934-2516      16.08950
-# 9 LA041090-0148   16.08810
-# 10 FT944-128      16.01920
-```
+Note that the results are different, because we've placed more weight on the term `hubble`.
 
 ## Usage of the Index Reader API
 
@@ -272,8 +288,9 @@ Here's a demonstration on the CACM collection:
 
 ```bash
 wget -O cacm.tar.gz https://github.com/castorini/anserini/blob/master/src/main/resources/cacm/cacm.tar.gz?raw=true
-mkdir collection
-tar xvfz cacm.tar.gz -C collection
+mkdir collections/cacm
+tar xvfz cacm.tar.gz -C collections/cacm
+rm cacm.tar.gz
 ```
 
 Let's iterate through all documents in the collection:
@@ -282,7 +299,7 @@ Let's iterate through all documents in the collection:
 from pyserini.collection import pycollection
 from pyserini.index import pygenerator
 
-collection = pycollection.Collection('HtmlCollection', 'collection/')
+collection = pycollection.Collection('HtmlCollection', 'collections/cacm/')
 generator = pygenerator.Generator('DefaultLuceneDocumentGenerator')
 
 for (i, fs) in enumerate(collection):
