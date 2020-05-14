@@ -277,7 +277,7 @@ class IndexReaderUtils:
         Returns
         -------
         float
-            The BM25 weight of the term in the document, or ``NaN`` if the term does not exist in the document.
+            The BM25 weight of the term in the document, or 0 if the term does not exist in the document.
         """
         return self.object.getBM25TermWeightWithParameters(self.reader, JString(docid), JString(term.encode('utf-8')),
                                                            float(k1), float(b))
