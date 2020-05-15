@@ -258,7 +258,7 @@ class IndexReaderUtils:
         """
         return self.object.documentContents(self.reader, JString(docid))
 
-    def compute_bm25_term_weight(self, docid: str, term: str, k1=0.9, b=0.4) -> float:
+    def compute_bm25_term_weight(self, docid: str, term: str, analyzer=get_lucene_analyzer(), k1=0.9, b=0.4) -> float:
         """Computes the BM25 weight of an (analyzed) term in a document. Note that this method takes the analyzed
         (i.e., stemmed) form because the most common use case is to take the term from the output of
         :func:`get_document_vector`.
@@ -279,8 +279,14 @@ class IndexReaderUtils:
         float
             The BM25 weight of the term in the document, or 0 if the term does not exist in the document.
         """
-        return self.object.getBM25TermWeightWithParameters(self.reader, JString(docid), JString(term.encode('utf-8')),
-                                                           float(k1), float(b))
+        if analyzer is None:
+            return self.object.getBM25AnalyzedTermWeightWithParameters(self.reader, JString(docid),
+                                                                       JString(term.encode('utf-8')),
+                                                                       float(k1), float(b))
+        else:
+            return self.object.getBM25UnanalyzedTermWeightWithParameters(self.reader, JString(docid),
+                                                                         JString(term.encode('utf-8')), analyzer,
+                                                                         float(k1), float(b))
 
     def convert_internal_docid_to_collection_docid(self, docid: int) -> str:
         """Converts Lucene's internal ``docid`` to its external collection ``docid``.
