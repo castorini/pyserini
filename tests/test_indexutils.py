@@ -24,6 +24,7 @@ from urllib.request import urlretrieve
 from pyserini.analysis import pyanalysis
 from pyserini.index import pyutils
 from pyserini.pyclass import JString
+from pyserini.search import pysearch
 
 
 class TestIndexUtils(unittest.TestCase):
@@ -40,7 +41,8 @@ class TestIndexUtils(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-        self.index_utils = pyutils.IndexReaderUtils('{}lucene-index.cacm'.format(self.index_dir))
+        self.searcher = pysearch.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
+        self.index_utils = pyutils.IndexReaderUtils(f'{self.index_dir}lucene-index.cacm')
 
     def test_terms_count(self):
         # We're going to iterate through the index and make sure we have the correct number of terms.
@@ -221,6 +223,46 @@ class TestIndexUtils(unittest.TestCase):
         with self.assertRaises(ValueError):
             # Should fail when pyjnius has solved this internally.
             JString('zoölogy')
+
+    def test_query_doc_score_default(self):
+        queries = ['information retrieval', 'databases']
+
+        for query in queries:
+            hits = self.searcher.search(query)
+
+            # We're going to verify that the score of each hit is about the same as the output of
+            # compute_query_document_score
+            for i in range(0, len(hits)):
+                self.assertAlmostEqual(hits[i].score,
+                                       self.index_utils.compute_query_document_score(hits[i].docid, query), places=4)
+
+    def test_query_doc_score_custom_similarity(self):
+        custom_bm25 = pysearch.LuceneSimilarities.BM25(0.8, 0.2)
+        queries = ['information retrieval', 'databases']
+        self.searcher.set_bm25(0.8, 0.2)
+
+        for query in queries:
+            hits = self.searcher.search(query)
+
+            # We're going to verify that the score of each hit is about the same as the output of
+            # compute_query_document_score
+            for i in range(0, len(hits)):
+                self.assertAlmostEqual(hits[i].score,
+                                       self.index_utils.compute_query_document_score(
+                                           hits[i].docid, query, similarity=custom_bm25), places=4)
+
+        custom_qld = pysearch.LuceneSimilarities.QLD(500)
+        self.searcher.set_qld(500)
+
+        for query in queries:
+            hits = self.searcher.search(query)
+
+            # We're going to verify that the score of each hit is about the same as the output of
+            # compute_query_document_score
+            for i in range(0, len(hits)):
+                self.assertAlmostEqual(hits[i].score,
+                                       self.index_utils.compute_query_document_score(
+                                           hits[i].docid, query, similarity=custom_qld), places=4)
 
     def tearDown(self):
         os.remove(self.tarball_name)

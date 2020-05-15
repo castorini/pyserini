@@ -23,7 +23,7 @@ import logging
 from typing import Dict, List, Union
 
 from ..pyclass import JSimpleSearcher, JSimpleSearcherResult, JDocument, JString, JArrayList, JTopics, JTopicReader, \
-    JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher, JQuery
+    JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher, JQuery, autoclass
 
 logger = logging.getLogger(__name__)
 
@@ -161,18 +161,7 @@ class SimpleSearcher:
         """
         self.object.setAnalyzer(analyzer)
 
-    def set_search_tweets(self, flag):
-        """
-        Parameters
-        ----------
-        flag : bool
-            True if searching over tweets
-        """
-        self.object.setSearchTweets(flag)
-
-    def set_rm3_reranker(self, fb_terms=10, fb_docs=10,
-                         original_query_weight=float(0.5),
-                         rm3_output_query=False):
+    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False):
         """
         Parameters
         ----------
@@ -185,26 +174,32 @@ class SimpleSearcher:
         rm3_output_query : bool
             True if we want to print original and expanded queries for RM3
         """
-        self.object.setRM3Reranker(fb_terms, fb_docs,
-                                   original_query_weight, rm3_output_query)
+        self.object.setRM3(fb_terms, fb_docs, original_query_weight, rm3_output_query)
 
-    def unset_rm3_reranker(self):
+    def unset_rm3(self):
+        """
+        Parameters
+        ----------
+        """
+        self.object.unsetRM3()
+
+    def is_using_rm3(self):
         """
         Parameters
         ----------
         """
         self.object.unsetRM3Reranker()
 
-    def set_lm_dirichlet_similarity(self, mu):
+    def set_qld(self, mu=float(1000)):
         """
         Parameters
         ----------
         mu : float
             Dirichlet smoothing parameter
         """
-        self.object.setLMDirichletSimilarity(float(mu))
+        self.object.setQLD(float(mu))
 
-    def set_bm25_similarity(self, k1, b):
+    def set_bm25(self, k1=float(0.9), b=float(0.4)):
         """
         Parameters
         ----------
@@ -213,7 +208,10 @@ class SimpleSearcher:
         b : float
             BM25 b parameter
         """
-        self.object.setBM25Similarity(float(k1), float(b))
+        self.object.setBM25(float(k1), float(b))
+
+    def get_similarity(self):
+        return self.object.getSimilarity()
 
     def doc(self, docid: Union[str, int]) -> Document:
         """Returns the :class:`Document` corresponding to ``docid``. The ``docid`` is overloaded: if it is of type
@@ -303,6 +301,16 @@ def get_topics(collection_name):
         for key in topics.get(topic).keySet().toArray():
             t[topic_key][key] = topics.get(topic).get(key)
     return t
+
+
+class LuceneSimilarities:
+    @staticmethod
+    def BM25(k1=0.9, b=0.4):
+        return autoclass('org.apache.lucene.search.similarities.BM25Similarity')(k1, b)
+
+    @staticmethod
+    def QLD(mu=1000):
+        return autoclass('org.apache.lucene.search.similarities.LMDirichletSimilarity')(mu)
 
 
 class SimpleNearestNeighborSearcher:

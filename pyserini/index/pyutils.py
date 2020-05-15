@@ -288,6 +288,12 @@ class IndexReaderUtils:
                                                                          JString(term.encode('utf-8')), analyzer,
                                                                          float(k1), float(b))
 
+    def compute_query_document_score(self, docid: str, query: str, similarity=None):
+        if similarity is None:
+            return self.object.computeQueryDocumentScore(self.reader, docid, query)
+        else:
+            return self.object.computeQueryDocumentScoreWithSimilarity(self.reader, docid, query, similarity)
+
     def convert_internal_docid_to_collection_docid(self, docid: int) -> str:
         """Converts Lucene's internal ``docid`` to its external collection ``docid``.
 
