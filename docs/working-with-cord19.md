@@ -6,28 +6,19 @@ If you want to actually search the collection, consult [this guide](https://gith
 
 ## Data Prep
 
-The latest distribution available is from 2020/05/01.
+The latest distribution available is from 2020/05/12.
 First, download the data:
 
 ```bash
-DATE=2020-05-01
-DATA_DIR=./cord19-"${DATE}"
+DATE=2020-05-12
+DATA_DIR=./collections/cord19-"${DATE}"
 mkdir "${DATA_DIR}"
 
-wget https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/latest/comm_use_subset.tar.gz -P "${DATA_DIR}"
-wget https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/latest/noncomm_use_subset.tar.gz -P "${DATA_DIR}"
-wget https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/latest/custom_license.tar.gz -P "${DATA_DIR}"
-wget https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/latest/biorxiv_medrxiv.tar.gz -P "${DATA_DIR}"
-wget https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/latest/arxiv.tar.gz -P "${DATA_DIR}"
+wget https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/latest/document_parses.tar.gz -P "${DATA_DIR}"
 wget https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/latest/metadata.csv -P "${DATA_DIR}"
 
-ls "${DATA_DIR}"/*.tar.gz | xargs -I {} tar -zxvf {} -C "${DATA_DIR}"
-# If the above doesn't work due to cross-OS compatibility issues with xargs, untar all folders individually
-# tar -zxvf "${DATA_DIR}"/comm_use_subset.tar.gz -C "${DATA_DIR}"
-# tar -zxvf "${DATA_DIR}"/noncomm_use_subset.tar.gz -C "${DATA_DIR}"
-# tar -zxvf "${DATA_DIR}"/custom_license.tar.gz -C "${DATA_DIR}"
-# tar -zxvf "${DATA_DIR}"/biorxiv_medrxiv.tar.gz -C "${DATA_DIR}"
-# tar -zxvf "${DATA_DIR}"/arxiv.tar.gz -C "${DATA_DIR}"
+ls "${DATA_DIR}"/document_parses.tar.gz | xargs -I {} tar -zxvf {} -C "${DATA_DIR}"
+rm "${DATA_DIR}"/document_parses.tar.gz
 ```
 
 ## Collection Access
@@ -37,7 +28,7 @@ The following snippet of code allows you to iterate through all articles in the 
 ```python
 from pyserini.collection import pycollection
 
-collection = pycollection.Collection('Cord19AbstractCollection', 'cord19-2020-05-01')
+collection = pycollection.Collection('Cord19AbstractCollection', 'collections/cord19-2020-05-12')
 
 cnt = 0;
 full_text = {True : 0, False: 0}
@@ -64,7 +55,7 @@ Let's examine the first full-text article in the collection:
 from pyserini.collection import pycollection
 
 # All this snippet of code does is to advance to the frist full-text article:
-collection = pycollection.Collection('Cord19AbstractCollection', 'cord19-2020-05-01')
+collection = pycollection.Collection('Cord19AbstractCollection', 'collections/cord19-2020-05-12')
 
 articles = collection.__next__()
 article = None
