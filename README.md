@@ -6,7 +6,7 @@
 [![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
-Pyserini provides a simple Python interface to the [Anserini](http://anserini.io/) IR toolkit via [Pyjnius](https://github.com/kivy/pyjnius).
+Pyserini provides a simple Python interface to the [Anserini](http://anserini.io/) IR toolkit via [pyjnius](https://github.com/kivy/pyjnius).
 
 A low-effort way to try out Pyserini is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
 For convenience, we've pre-built a few common indexes, available to download [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
@@ -343,6 +343,7 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 ## Release History
 
++ v0.9.2.0: May 15, 2020 [[Release Notes](release-notes/release-notes-v0.9.2.0.md)]
 + v0.9.1.0: May 6, 2020 [[Release Notes](release-notes/release-notes-v0.9.1.0.md)]
 + v0.9.0.0: April 18, 2020 [[Release Notes](release-notes/release-notes-v0.9.0.0.md)]
 + v0.8.1.0: March 22, 2020 [[Release Notes](release-notes/release-notes-v0.8.1.0.md)]

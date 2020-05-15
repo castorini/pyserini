@@ -26,4 +26,4 @@ Sorted by number of commits, [according to GitHub](https://github.com/castorini/
 + Chris Kamphuis ([Chriskamphuis](https://github.com/Chriskamphuis))
 + Pepijn Boers ([PepijnBoers](https://github.com/PepijnBoers))
 + Rodrigo Nogueira ([rodrigonogueira4](https://github.com/rodrigonogueira4))
-+ Alireza Mirzaeiyan ([alirezamirzaeiyan](https://github.com/alirezamirzaeiyan))
++ Alireza Mirzaeiyan ([amirzaeiyan](https://github.com/amirzaeiyan))

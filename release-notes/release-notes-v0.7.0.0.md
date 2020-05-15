@@ -14,7 +14,7 @@ Sorted by number of commits:
 
 + Jimmy Lin ([lintool](https://github.com/lintool))
 + Zeynep Akkalyoncu Yilmaz ([zeynepakkalyoncu](https://github.com/zeynepakkalyoncu))
-+ Alireza Mirzaeiyan ([alirezamirzaeiyan](https://github.com/alirezamirzaeiyan))
++ Alireza Mirzaeiyan ([amirzaeiyan](https://github.com/amirzaeiyan))
 
 ## All Contributors
 
@@ -22,4 +22,4 @@ Sorted by number of commits, [according to GitHub](https://github.com/castorini/
 
 + Jimmy Lin ([lintool](https://github.com/lintool))
 + Zeynep Akkalyoncu Yilmaz ([zeynepakkalyoncu](https://github.com/zeynepakkalyoncu))
-+ Alireza Mirzaeiyan ([alirezamirzaeiyan](https://github.com/alirezamirzaeiyan))
++ Alireza Mirzaeiyan ([amirzaeiyan](https://github.com/amirzaeiyan))

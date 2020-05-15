@@ -1,12 +1,12 @@
-# Pyserini Release Notes (v0.8.0.0)
+# Pyserini Release Notes (v0.9.2.0)
 
-**Release date: March 12, 2020**
+**Release date: May 15, 2020**
 
-+ Exposed different Lucene analyzers in Python with convenient wrappers.
-+ Exposed methods for converting between internal Lucene docids and external collection docids.
-+ Augmented various methods in `IndexReaderUtils` to support different analyzers.
-+ Refactored code base to match underlying Anserini changes.
-+ Simplified requirements to include only pyjnius.
++ Refactored `SimpleSearcher` to keep up with underlying changes in Anserini.
++ Exposed `num_docs` in `SimpleSearcher`.
++ Exposed Lucene query building blocks in `pyquerybuilder`.
++ Added `Cord19Article` to provide support for manipulating CORD-19 articles in `pycollection`.
++ Added documentation for reading CORD-19 via the Collection API; supports data drop of 2020/05/12.
 
 ## Contributors (This Release)
 
@@ -15,6 +15,7 @@ Sorted by number of commits:
 + Jimmy Lin ([lintool](https://github.com/lintool))
 + Chris Kamphuis ([Chriskamphuis](https://github.com/Chriskamphuis))
 + Pepijn Boers ([PepijnBoers](https://github.com/PepijnBoers))
++ Stephanie Hu ([stephaniewhoo](https://github.com/stephaniewhoo))
 
 ## All Contributors
 
@@ -23,5 +24,8 @@ Sorted by number of commits, [according to GitHub](https://github.com/castorini/
 + Jimmy Lin ([lintool](https://github.com/lintool))
 + Zeynep Akkalyoncu Yilmaz ([zeynepakkalyoncu](https://github.com/zeynepakkalyoncu))
 + Chris Kamphuis ([Chriskamphuis](https://github.com/Chriskamphuis))
++ Tommaso Teofili ([tteofili](https://github.com/tteofili))
 + Pepijn Boers ([PepijnBoers](https://github.com/PepijnBoers))
++ Stephanie Hu ([stephaniewhoo](https://github.com/stephaniewhoo))
++ Rodrigo Nogueira ([rodrigonogueira4](https://github.com/rodrigonogueira4))
 + Alireza Mirzaeiyan ([amirzaeiyan](https://github.com/amirzaeiyan))
