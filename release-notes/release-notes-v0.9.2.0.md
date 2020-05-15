@@ -5,8 +5,10 @@
 + Refactored `SimpleSearcher` to keep up with underlying changes in Anserini.
 + Exposed `num_docs` in `SimpleSearcher`.
 + Exposed Lucene query building blocks in `pyquerybuilder`.
++ Exposed options for setting BM25 parameters when computing BM25 term weights in `IndexReaderUtils`.
 + Added `Cord19Article` to provide support for manipulating CORD-19 articles in `pycollection`.
 + Added documentation for reading CORD-19 via the Collection API; supports data drop of 2020/05/12.
++ Known issue: new methods for computing query-document scores have not be properly "wired up" in Pyserini yet.
 
 ## Contributors (This Release)
 
