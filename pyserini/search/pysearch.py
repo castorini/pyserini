@@ -80,7 +80,7 @@ class SimpleSearcher:
         Parameters
         ----------
         q : Union[str, JQuery]
-            The query string / The JQuery.
+            The query string or the ``JQuery`` objected.
         k : int
             The number of hits to return.
         query_generator : JQueryGenerator
@@ -133,11 +133,12 @@ class SimpleSearcher:
         return {r.getKey(): r.getValue() for r in results}
 
     def search_fields(self, q, f, boost, k):
-        """
+        """Searches the collection, scoring a separate field with a boost weight.
+
         Parameters
         ----------
         q : str
-            Query string
+            Query string.
         f : str
             Name of additional field to search over
         boost : float
@@ -162,55 +163,56 @@ class SimpleSearcher:
         self.object.setAnalyzer(analyzer)
 
     def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False):
-        """
+        """Configures RM3 query expansion.
+
         Parameters
         ----------
         fb_terms : int
-            RM3 parameter for number of expansion terms
+            RM3 parameter for number of expansion terms.
         fb_docs : int
-            RM3 parameter for number of documents
+            RM3 parameter for number of expansion documents.
         original_query_weight : float
-            RM3 parameter for weight to assign to the original query
+            RM3 parameter for weight to assign to the original query.
         rm3_output_query : bool
-            True if we want to print original and expanded queries for RM3
+            Whether we want to print the original and expanded as debug output.
         """
         self.object.setRM3(fb_terms, fb_docs, original_query_weight, rm3_output_query)
 
     def unset_rm3(self):
-        """
-        Parameters
-        ----------
+        """Turns off use of RM3 query expansion.
         """
         self.object.unsetRM3()
 
-    def is_using_rm3(self):
+    def is_using_rm3(self) -> bool:
+        """Returns whether or not RM3 query expansion is being performed.
         """
-        Parameters
-        ----------
-        """
-        self.object.unsetRM3Reranker()
+        return self.object.useRM3()
 
     def set_qld(self, mu=float(1000)):
-        """
+        """Configures query likelihood with Dirichlet smoothing as the scoring function.
+
         Parameters
         ----------
         mu : float
-            Dirichlet smoothing parameter
+            Dirichlet smoothing parameter mu.
         """
         self.object.setQLD(float(mu))
 
     def set_bm25(self, k1=float(0.9), b=float(0.4)):
-        """
+        """Configures BM25 as the scoring function.
+
         Parameters
         ----------
         k1 : float
-            BM25 k1 parameter
+            BM25 k1 parameter.
         b : float
-            BM25 b parameter
+            BM25 b parameter.
         """
         self.object.setBM25(float(k1), float(b))
 
     def get_similarity(self):
+        """Returns the Lucene ``Similarity`` used as the scoring function.
+        """
         return self.object.getSimilarity()
 
     def doc(self, docid: Union[str, int]) -> Document:
@@ -305,11 +307,11 @@ def get_topics(collection_name):
 
 class LuceneSimilarities:
     @staticmethod
-    def BM25(k1=0.9, b=0.4):
+    def bm25(k1=0.9, b=0.4):
         return autoclass('org.apache.lucene.search.similarities.BM25Similarity')(k1, b)
 
     @staticmethod
-    def QLD(mu=1000):
+    def qld(mu=1000):
         return autoclass('org.apache.lucene.search.similarities.LMDirichletSimilarity')(mu)
 
 

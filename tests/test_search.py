@@ -166,6 +166,37 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(hits[9].docid, 'CACM-2516')
         self.assertAlmostEqual(hits[9].score, 4.33320, places=5)
 
+    def test_rm3(self):
+        self.searcher.set_rm3()
+        self.assertTrue(self.searcher.is_using_rm3())
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 2.18010, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-2516')
+        self.assertAlmostEqual(hits[9].score, 1.70330, places=5)
+
+        self.searcher.unset_rm3()
+        self.assertFalse(self.searcher.is_using_rm3())
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 4.76550, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-2516')
+        self.assertAlmostEqual(hits[9].score, 4.21740, places=5)
+
+        self.searcher.set_rm3(fb_docs=4, fb_terms=6, original_query_weight=0.3)
+        self.assertTrue(self.searcher.is_using_rm3())
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 2.17190, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-1457')
+        self.assertAlmostEqual(hits[9].score, 1.43700, places=5)
+
     def test_doc_int(self):
         # The doc method is overloaded: if input is int, it's assumed to be a Lucene internal docid.
         doc = self.searcher.doc(1)

@@ -195,7 +195,7 @@ Initialize the class as follows:
 from pyserini.index import pyutils
 from pyserini.analysis import pyanalysis
 
-index_utils = pyutils.IndexReaderUtils('index-robust04-20191213/')
+index_utils = pyutils.IndexReaderUtils('indexes/index-robust04-20191213/')
 ```
 
 Use `terms()` to grab an iterator over all terms in the collection, i.e., the dictionary.
@@ -268,9 +268,12 @@ However, often the BM25 score is better than tf-idf.
 To compute the BM25 score for a particular term in a document:
 
 ```python
-bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', 'citi')
-# Note that this takes the analyzed form because the common case is to take the term from
-# get_document_vector() above.
+# Note that the keys of get_document_vector() are already analyzed, we set analyzer to be None.
+bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', 'citi', analyzer=None)
+print(bm25_score)
+
+# Alternatively, we pass in the unanalyzed term:
+bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', 'city')
 print(bm25_score)
 ```
 
@@ -278,7 +281,7 @@ And so, to compute the BM25 vector of a document:
 
 ```python
 tf = index_utils.get_document_vector('FBIS4-67701')
-bm25_vector = {term: index_utils.compute_bm25_term_weight('FBIS4-67701', term) for term in tf.keys()}
+bm25_vector = {term: index_utils.compute_bm25_term_weight('FBIS4-67701', term, analyzer=None) for term in tf.keys()}
 ```
 
 ## Usage of the Collection API

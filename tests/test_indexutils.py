@@ -237,7 +237,7 @@ class TestIndexUtils(unittest.TestCase):
                                        self.index_utils.compute_query_document_score(hits[i].docid, query), places=4)
 
     def test_query_doc_score_custom_similarity(self):
-        custom_bm25 = pysearch.LuceneSimilarities.BM25(0.8, 0.2)
+        custom_bm25 = pysearch.LuceneSimilarities.bm25(0.8, 0.2)
         queries = ['information retrieval', 'databases']
         self.searcher.set_bm25(0.8, 0.2)
 
@@ -251,7 +251,7 @@ class TestIndexUtils(unittest.TestCase):
                                        self.index_utils.compute_query_document_score(
                                            hits[i].docid, query, similarity=custom_bm25), places=4)
 
-        custom_qld = pysearch.LuceneSimilarities.QLD(500)
+        custom_qld = pysearch.LuceneSimilarities.qld(500)
         self.searcher.set_qld(500)
 
         for query in queries:
