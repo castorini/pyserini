@@ -9,6 +9,3 @@ python bin/20newsgroup-replication.py
 ```
 
 You should get a score of `0.8099420314961255`.
-
-
-
