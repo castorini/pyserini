@@ -7,7 +7,7 @@ from pyserini.index import pyutils
 
 
 class TfidfVectorizer:
-    def __init__(self, lucene_index_path: str, min_df: int = 0) -> None:
+    def __init__(self, lucene_index_path: str, min_df: int = 1) -> None:
         self.min_df: int = min_df
         self.index_utils = pyutils.IndexReaderUtils(lucene_index_path)
 
@@ -16,9 +16,6 @@ class TfidfVectorizer:
         self.num_docs: int = self.searcher.num_docs
 
         # pre-processing
-        self.compute_idf_and_build_vocab()
-
-    def compute_idf_and_build_vocab(self):
         self.vocabulary_ = set()
         self.idf_ = {}
 

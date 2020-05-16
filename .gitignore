@@ -5,3 +5,4 @@ __pycache__
 pyserini/resources/jars/*.jar
 collections/*
 indexes/*
+.vscode/
