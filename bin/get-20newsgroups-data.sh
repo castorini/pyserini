@@ -1,4 +1,4 @@
-FOLDER=20-newsgroup
+FOLDER=20newsgroups
 TAR=pyserini-20newsgroup.tar.gz
 
 wget https://www.dropbox.com/s/b05esbt406g2y7c/${TAR}

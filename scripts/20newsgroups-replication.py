@@ -45,11 +45,11 @@ if __name__ == '__main__':
 
     target_to_index = {t: i for i, t in enumerate(target_names)}
 
-    train_docs, train_labels = get_info('./20-newsgroup/20news-bydate-train/')
-    test_docs, test_labels = get_info('./20-newsgroup/20news-bydate-test/')
+    train_docs, train_labels = get_info('./20newsgroups/20news-bydate-train/')
+    test_docs, test_labels = get_info('./20newsgroups/20news-bydate-test/')
 
     vectorizer = TfidfVectorizer(
-        './20-newsgroup/lucene-index.20newsgroup.pos+docvectors+raw', min_df=5)
+        './20newsgroups/lucene-index.20newsgroup.pos+docvectors+raw', min_df=5)
     train_vectors = vectorizer.get_vectors(train_docs)
     test_vectors = vectorizer.get_vectors(test_docs)
 
