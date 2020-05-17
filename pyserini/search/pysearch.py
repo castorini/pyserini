@@ -38,6 +38,8 @@ class Document:
     """
 
     def __init__(self, document):
+        if document is None:
+            raise ValueError('Cannot create a Document with None.')
         self.object = document
 
     def docid(self: JDocument) -> str:
@@ -225,7 +227,7 @@ class SimpleSearcher:
     def doc(self, docid: Union[str, int]) -> Document:
         """Returns the :class:`Document` corresponding to ``docid``. The ``docid`` is overloaded: if it is of type
         ``str``, it is treated as an external collection ``docid``; if it is of type ``int``, it is treated as an
-        internal Lucene ``docid``.
+        internal Lucene ``docid``. Returns ``None`` if the ``docid`` does not exist in the index.
 
         Parameters
         ----------
@@ -238,11 +240,15 @@ class SimpleSearcher:
         Document
             :class:`Document` corresponding to the ``docid``.
         """
-        return Document(self.object.document(docid))
+        lucene_document = self.object.document(docid)
+        if lucene_document is None:
+            return None
+        return Document(lucene_document)
 
     def doc_by_field(self, field: str, q: str) -> str:
         """Returns the :class:`Document` based on a ``field`` with ``id``. For example, this method can be used to fetch
-        document based on alternative primary keys that have been indexed, such as an article's DOI.
+        document based on alternative primary keys that have been indexed, such as an article's DOI. Returns ``None`` if
+        no such document exists.
 
         Parameters
         ----------
@@ -256,7 +262,10 @@ class SimpleSearcher:
         Document
             :class:`Document` whose ``field`` is ``id``.
         """
-        return Document(self.object.documentByField(JString(field), JString(q)))
+        lucene_document = self.object.documentByField(JString(field), JString(q))
+        if lucene_document is None:
+            return None
+        return Document(lucene_document)
 
     def close(self):
         self.object.close()
