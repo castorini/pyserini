@@ -82,22 +82,34 @@ class TestQueryBuilding(unittest.TestCase):
             self.assertNotEqual(h1.score, h3.score)
 
     def testTermQuery(self):
-        term_query1 = pyquerybuilder.get_term_query('information')
-        term_query2 = pyquerybuilder.get_term_query('retrieval')
-
         should = pyquerybuilder.JBooleanClauseOccur['should'].value
+        query_builder = pyquerybuilder.get_boolean_query_builder()
+        query_builder.add(pyquerybuilder.get_term_query('information'), should)
+        query_builder.add(pyquerybuilder.get_term_query('retrieval'), should)
 
-        boolean_query1 = pyquerybuilder.get_boolean_query_builder()
-        boolean_query1.add(term_query1, should)
-        boolean_query1.add(term_query2, should)
-
-        bq1 = boolean_query1.build()
-        hits1 = self.searcher.search(bq1)
+        query = query_builder.build()
+        hits1 = self.searcher.search(query)
         hits2 = self.searcher.search('information retrieval')
 
         for h1, h2 in zip(hits1, hits2):
             self.assertEqual(h1.docid, h2.docid)
             self.assertEqual(h1.score, h2.score)
+
+    def testIncompatabilityWithRM3(self):
+        should = pyquerybuilder.JBooleanClauseOccur['should'].value
+        query_builder = pyquerybuilder.get_boolean_query_builder()
+        query_builder.add(pyquerybuilder.get_term_query('information'), should)
+        query_builder.add(pyquerybuilder.get_term_query('retrieval'), should)
+
+        query = query_builder.build()
+        hits = self.searcher.search(query)
+        self.assertEqual(10, len(hits))
+
+        self.searcher.set_rm3()
+        self.assertTrue(self.searcher.is_using_rm3())
+
+        with self.assertRaises(NotImplementedError):
+            self.searcher.search(query)
 
     def testTermQuery2(self):
         term_query1 = pyquerybuilder.get_term_query('inform', analyzer=get_lucene_analyzer(stemming=False))

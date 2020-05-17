@@ -94,6 +94,13 @@ class SimpleSearcher:
         if query_generator:
             return self.object.search(query_generator, JString(q), k)
         elif isinstance(q, JQuery):
+            # Note that RM3 requires the notion of a query (string) to estimate the appropriate models. If we're just
+            # given a Lucene query, it's unclear what the "query" is for this estimation. One possibility is to extract
+            # all the query terms from the Lucene query, although this might yield unexpected behavior from the user's
+            # perspective. Until we think through what exactly is the "right thing to do", we'll raise an exception
+            # here explicitly.
+            if self.is_using_rm3():
+                raise NotImplementedError()
             return self.object.search(q, k)
         else:
             return self.object.search(JString(q.encode('utf8')), k)
