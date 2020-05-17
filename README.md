@@ -296,7 +296,7 @@ for i in range(0, len(docids)):
     print(f'{i+1:2} {docids[i]:15} {score:.5f}')
 ```
 
-The scores should be very close (rounding at the 4 decimal point), but not _exactly_ the same because `search` performs additional score manipulate to break ties during ranking.
+The scores should be very close (rounding at the 4th decimal point) to the results above, but not _exactly_ the same because `search` performs additional score manipulation to break ties during ranking.
 
 ## Usage of the Collection API
 
