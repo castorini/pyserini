@@ -22,7 +22,7 @@ from random import randint
 from typing import List, Dict
 from urllib.request import urlretrieve
 
-from pyserini.pyclass import JSimpleSearcherResult
+from pyserini.pyclass import JSimpleSearcherResult, autoclass
 from pyserini.search import pysearch
 
 
@@ -43,6 +43,8 @@ class TestSearch(unittest.TestCase):
         self.searcher = pysearch.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
 
     def test_basic(self):
+        self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
+
         hits = self.searcher.search('information retrieval')
 
         self.assertEqual(3204, self.searcher.num_docs)
@@ -118,6 +120,82 @@ class TestSearch(unittest.TestCase):
         self.assertTrue(isinstance(results['q2'], List))
         self.assertTrue(isinstance(results['q2'][0], JSimpleSearcherResult))
         self.assertEqual(len(results['q2']), 100)
+
+    def test_different_similarity(self):
+        # qld, default mu
+        self.searcher.set_qld()
+        self.assertTrue(self.searcher.get_similarity().toString().startswith('LM Dirichlet'))
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 3.68030, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-1927')
+        self.assertAlmostEqual(hits[9].score, 2.53240, places=5)
+
+        # bm25, default parameters
+        self.searcher.set_bm25()
+        self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 4.76550, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-2516')
+        self.assertAlmostEqual(hits[9].score, 4.21740, places=5)
+
+        # qld, custom mu
+        self.searcher.set_qld(100)
+        self.assertTrue(self.searcher.get_similarity().toString().startswith('LM Dirichlet'))
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 6.35580, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-2631')
+        self.assertAlmostEqual(hits[9].score, 5.18960, places=5)
+
+        # bm25, custom parameters
+        self.searcher.set_bm25(0.8, 0.3)
+        self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 4.86880, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-2516')
+        self.assertAlmostEqual(hits[9].score, 4.33320, places=5)
+
+    def test_rm3(self):
+        self.searcher.set_rm3()
+        self.assertTrue(self.searcher.is_using_rm3())
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 2.18010, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-2516')
+        self.assertAlmostEqual(hits[9].score, 1.70330, places=5)
+
+        self.searcher.unset_rm3()
+        self.assertFalse(self.searcher.is_using_rm3())
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 4.76550, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-2516')
+        self.assertAlmostEqual(hits[9].score, 4.21740, places=5)
+
+        self.searcher.set_rm3(fb_docs=4, fb_terms=6, original_query_weight=0.3)
+        self.assertTrue(self.searcher.is_using_rm3())
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 2.17190, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-1457')
+        self.assertAlmostEqual(hits[9].score, 1.43700, places=5)
 
     def test_doc_int(self):
         # The doc method is overloaded: if input is int, it's assumed to be a Lucene internal docid.

@@ -121,4 +121,3 @@ class JCollections(Enum):
     TweetCollection = autoclass('io.anserini.collection.TweetCollection')
     WashingtonPostCollection = autoclass('io.anserini.collection.WashingtonPostCollection')
     WikipediaCollection = autoclass('io.anserini.collection.WikipediaCollection')
-

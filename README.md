@@ -77,8 +77,8 @@ hits[0].lucene_document
 Configure BM25 parameters and use RM3 query expansion:
 
 ```python
-searcher.set_bm25_similarity(0.9, 0.4)
-searcher.set_rm3_reranker(10, 10, 0.5)
+searcher.set_bm25(0.9, 0.4)
+searcher.set_rm3(10, 10, 0.5)
 
 hits2 = searcher.search('hubble space telescope')
 
@@ -137,12 +137,12 @@ term3 = pyquerybuilder.get_term_query('telescope')
 # Then, assemble into a "bag of words" query:
 should = pyquerybuilder.JBooleanClauseOccur['should'].value
 
-boolean_query = pyquerybuilder.get_boolean_query_builder()
-boolean_query.add(term1, should)
-boolean_query.add(term2, should)
-boolean_query.add(term3, should)
+boolean_query_builder = pyquerybuilder.get_boolean_query_builder()
+boolean_query_builder.add(term1, should)
+boolean_query_builder.add(term2, should)
+boolean_query_builder.add(term3, should)
 
-query = boolean_query.build()
+query = boolean_query_builder.build()
 ```
 
 Then issue the query:
@@ -166,12 +166,12 @@ boost3 = pyquerybuilder.get_boost_query(term3, 1.)
 
 should = pyquerybuilder.JBooleanClauseOccur['should'].value
 
-boolean_query = pyquerybuilder.get_boolean_query_builder()
-boolean_query.add(boost1, should)
-boolean_query.add(boost2, should)
-boolean_query.add(boost3, should)
+boolean_query_builder = pyquerybuilder.get_boolean_query_builder()
+boolean_query_builder.add(boost1, should)
+boolean_query_builder.add(boost2, should)
+boolean_query_builder.add(boost3, should)
 
-query = boolean_query.build()
+query = boolean_query_builder.build()
 
 hits = searcher.search(query)
 
@@ -195,7 +195,7 @@ Initialize the class as follows:
 from pyserini.index import pyutils
 from pyserini.analysis import pyanalysis
 
-index_utils = pyutils.IndexReaderUtils('index-robust04-20191213/')
+index_utils = pyutils.IndexReaderUtils('indexes/index-robust04-20191213/')
 ```
 
 Use `terms()` to grab an iterator over all terms in the collection, i.e., the dictionary.
@@ -268,9 +268,12 @@ However, often the BM25 score is better than tf-idf.
 To compute the BM25 score for a particular term in a document:
 
 ```python
-bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', 'citi')
-# Note that this takes the analyzed form because the common case is to take the term from
-# get_document_vector() above.
+# Note that the keys of get_document_vector() are already analyzed, we set analyzer to be None.
+bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', 'citi', analyzer=None)
+print(bm25_score)
+
+# Alternatively, we pass in the unanalyzed term:
+bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', 'city')
 print(bm25_score)
 ```
 
@@ -278,8 +281,22 @@ And so, to compute the BM25 vector of a document:
 
 ```python
 tf = index_utils.get_document_vector('FBIS4-67701')
-bm25_vector = {term: index_utils.compute_bm25_term_weight('FBIS4-67701', term) for term in tf.keys()}
+bm25_vector = {term: index_utils.compute_bm25_term_weight('FBIS4-67701', term, analyzer=None) for term in tf.keys()}
 ```
+
+Another useful feature is to compute the score of a _specific_ document with respect to a query, with the `compute_query_document_score` method.
+For example:
+
+```python
+query = 'hubble space telescope'
+docids = ['LA071090-0047', 'FT934-5418', 'FT921-7107', 'LA052890-0021', 'LA070990-0052']
+
+for i in range(0, len(docids)):
+    score = index_utils.compute_query_document_score(docids[i], query)
+    print(f'{i+1:2} {docids[i]:15} {score:.5f}')
+```
+
+The scores should be very close (rounding at the 4th decimal point) to the results above, but not _exactly_ the same because `search` performs additional score manipulation to break ties during ranking.
 
 ## Usage of the Collection API
 

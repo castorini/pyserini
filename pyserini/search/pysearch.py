@@ -23,7 +23,7 @@ import logging
 from typing import Dict, List, Union
 
 from ..pyclass import JSimpleSearcher, JSimpleSearcherResult, JDocument, JString, JArrayList, JTopics, JTopicReader, \
-    JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher, JQuery
+    JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher, JQuery, autoclass
 
 logger = logging.getLogger(__name__)
 
@@ -80,7 +80,7 @@ class SimpleSearcher:
         Parameters
         ----------
         q : Union[str, JQuery]
-            The query string / The JQuery.
+            The query string or the ``JQuery`` objected.
         k : int
             The number of hits to return.
         query_generator : JQueryGenerator
@@ -94,6 +94,13 @@ class SimpleSearcher:
         if query_generator:
             return self.object.search(query_generator, JString(q), k)
         elif isinstance(q, JQuery):
+            # Note that RM3 requires the notion of a query (string) to estimate the appropriate models. If we're just
+            # given a Lucene query, it's unclear what the "query" is for this estimation. One possibility is to extract
+            # all the query terms from the Lucene query, although this might yield unexpected behavior from the user's
+            # perspective. Until we think through what exactly is the "right thing to do", we'll raise an exception
+            # here explicitly.
+            if self.is_using_rm3():
+                raise NotImplementedError('RM3 incompatible with search using a Lucene query.')
             return self.object.search(q, k)
         else:
             return self.object.search(JString(q.encode('utf8')), k)
@@ -133,11 +140,12 @@ class SimpleSearcher:
         return {r.getKey(): r.getValue() for r in results}
 
     def search_fields(self, q, f, boost, k):
-        """
+        """Searches the collection, scoring a separate field with a boost weight.
+
         Parameters
         ----------
         q : str
-            Query string
+            Query string.
         f : str
             Name of additional field to search over
         boost : float
@@ -161,59 +169,58 @@ class SimpleSearcher:
         """
         self.object.setAnalyzer(analyzer)
 
-    def set_search_tweets(self, flag):
-        """
-        Parameters
-        ----------
-        flag : bool
-            True if searching over tweets
-        """
-        self.object.setSearchTweets(flag)
+    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False):
+        """Configures RM3 query expansion.
 
-    def set_rm3_reranker(self, fb_terms=10, fb_docs=10,
-                         original_query_weight=float(0.5),
-                         rm3_output_query=False):
-        """
         Parameters
         ----------
         fb_terms : int
-            RM3 parameter for number of expansion terms
+            RM3 parameter for number of expansion terms.
         fb_docs : int
-            RM3 parameter for number of documents
+            RM3 parameter for number of expansion documents.
         original_query_weight : float
-            RM3 parameter for weight to assign to the original query
+            RM3 parameter for weight to assign to the original query.
         rm3_output_query : bool
-            True if we want to print original and expanded queries for RM3
+            Whether we want to print the original and expanded as debug output.
         """
-        self.object.setRM3Reranker(fb_terms, fb_docs,
-                                   original_query_weight, rm3_output_query)
+        self.object.setRM3(fb_terms, fb_docs, original_query_weight, rm3_output_query)
 
-    def unset_rm3_reranker(self):
+    def unset_rm3(self):
+        """Turns off use of RM3 query expansion.
         """
-        Parameters
-        ----------
-        """
-        self.object.unsetRM3Reranker()
+        self.object.unsetRM3()
 
-    def set_lm_dirichlet_similarity(self, mu):
+    def is_using_rm3(self) -> bool:
+        """Returns whether or not RM3 query expansion is being performed.
         """
+        return self.object.useRM3()
+
+    def set_qld(self, mu=float(1000)):
+        """Configures query likelihood with Dirichlet smoothing as the scoring function.
+
         Parameters
         ----------
         mu : float
-            Dirichlet smoothing parameter
+            Dirichlet smoothing parameter mu.
         """
-        self.object.setLMDirichletSimilarity(float(mu))
+        self.object.setQLD(float(mu))
 
-    def set_bm25_similarity(self, k1, b):
-        """
+    def set_bm25(self, k1=float(0.9), b=float(0.4)):
+        """Configures BM25 as the scoring function.
+
         Parameters
         ----------
         k1 : float
-            BM25 k1 parameter
+            BM25 k1 parameter.
         b : float
-            BM25 b parameter
+            BM25 b parameter.
         """
-        self.object.setBM25Similarity(float(k1), float(b))
+        self.object.setBM25(float(k1), float(b))
+
+    def get_similarity(self):
+        """Returns the Lucene ``Similarity`` used as the scoring function.
+        """
+        return self.object.getSimilarity()
 
     def doc(self, docid: Union[str, int]) -> Document:
         """Returns the :class:`Document` corresponding to ``docid``. The ``docid`` is overloaded: if it is of type
@@ -303,6 +310,16 @@ def get_topics(collection_name):
         for key in topics.get(topic).keySet().toArray():
             t[topic_key][key] = topics.get(topic).get(key)
     return t
+
+
+class LuceneSimilarities:
+    @staticmethod
+    def bm25(k1=0.9, b=0.4):
+        return autoclass('org.apache.lucene.search.similarities.BM25Similarity')(k1, b)
+
+    @staticmethod
+    def qld(mu=1000):
+        return autoclass('org.apache.lucene.search.similarities.LMDirichletSimilarity')(mu)
 
 
 class SimpleNearestNeighborSearcher:
