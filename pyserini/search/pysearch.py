@@ -100,7 +100,7 @@ class SimpleSearcher:
             # perspective. Until we think through what exactly is the "right thing to do", we'll raise an exception
             # here explicitly.
             if self.is_using_rm3():
-                raise NotImplementedError()
+                raise NotImplementedError('RM3 incompatible with search using a Lucene query.')
             return self.object.search(q, k)
         else:
             return self.object.search(JString(q.encode('utf8')), k)
