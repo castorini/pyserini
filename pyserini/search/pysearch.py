@@ -20,8 +20,6 @@ class, which wraps the Java class with the same name in Anserini.
 """
 import re
 import argparse
-import sys
-sys.path.insert(0,'./')
 
 import logging
 from typing import Dict, List, Union
@@ -375,27 +373,36 @@ class SimpleNearestNeighborSearcher:
         return self.object.multisearch(JString(q), k)
 
 
-def main(index, topics, output):
-    print(index, topics, output)
-    searcher = SimpleSearcher(index)
-    with open(topics, 'r') as content_file:
-        content = content_file.read()
-    result = re.findall(r'(?<=<top>)(.+?)(?=<desc>)', content, flags=re.S)
-    my_list = []
-    for topic in result:
-        number_search = topic.strip().split("<title>")
-        number = number_search[0].strip().split(" ")[-1]
-        search = number_search[1].strip()
-        hits = searcher.search(search, 1000)
-        for i in range(0, len(hits)):
-            my_list.append(f'{number} Q0 {hits[i].docid.strip()} {i + 1} {hits[i].score:.6f} Anserini')
-    with open(output, 'w') as f:
-        for item in my_list:
-            f.write("%s\n" % item)
-
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Create a ArcHydro schema')
+
+    def main(index, topics, output):
+        searcher = SimpleSearcher(index)
+        my_list = []
+        if topics == 'robust04':
+            topics_dic = get_topics('robust04')
+            for key, value in sorted(topics_dic.items()):
+                search = value.get('title')
+                hits = searcher.search(search, 1000)
+                for i in range(0, len(hits)):
+                    my_list.append(f'{key} Q0 {hits[i].docid.strip()} {i + 1} {hits[i].score:.6f} Anserini')
+        else:
+            with open(topics, 'r') as content_file:
+                content = content_file.read()
+            topics_lst = re.findall(r'(?<=<top>)(.+?)(?=<desc>)', content, flags=re.S)
+            topics_lst = [i.strip() for i in topics_lst]
+            for topic in topics_lst:
+                number_search = topic.split("<title>")
+                number = number_search[0].strip().split(" ")[-1]
+                search = number_search[1].strip()
+                hits = searcher.search(search, 1000)
+                for i in range(0, len(hits)):
+                    my_list.append(f'{number} Q0 {hits[i].docid.strip()} {i + 1} {hits[i].score:.6f} Anserini')
+        with open(output, 'w') as f:
+            for item in my_list:
+                f.write("%s\n" % item)
+
+    parser = argparse.ArgumentParser(description='Create a input schema')
     parser.add_argument('-index', metavar='path', required=True,
                         help='the path to workspace')
     parser.add_argument('-topics', metavar='path', required=True,
