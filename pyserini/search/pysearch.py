@@ -18,12 +18,13 @@
 This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``SimpleSearcher``
 class, which wraps the Java class with the same name in Anserini.
 """
-
+import re
+import argparse
 import logging
 from typing import Dict, List, Union
 
 from ..pyclass import JSimpleSearcher, JSimpleSearcherResult, JDocument, JString, JArrayList, JTopics, JTopicReader, \
-    JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher, JQuery, autoclass
+    JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher, JQuery
 
 logger = logging.getLogger(__name__)
 
@@ -38,8 +39,6 @@ class Document:
     """
 
     def __init__(self, document):
-        if document is None:
-            raise ValueError('Cannot create a Document with None.')
         self.object = document
 
     def docid(self: JDocument) -> str:
@@ -82,7 +81,7 @@ class SimpleSearcher:
         Parameters
         ----------
         q : Union[str, JQuery]
-            The query string or the ``JQuery`` objected.
+            The query string / The JQuery.
         k : int
             The number of hits to return.
         query_generator : JQueryGenerator
@@ -96,13 +95,6 @@ class SimpleSearcher:
         if query_generator:
             return self.object.search(query_generator, JString(q), k)
         elif isinstance(q, JQuery):
-            # Note that RM3 requires the notion of a query (string) to estimate the appropriate models. If we're just
-            # given a Lucene query, it's unclear what the "query" is for this estimation. One possibility is to extract
-            # all the query terms from the Lucene query, although this might yield unexpected behavior from the user's
-            # perspective. Until we think through what exactly is the "right thing to do", we'll raise an exception
-            # here explicitly.
-            if self.is_using_rm3():
-                raise NotImplementedError('RM3 incompatible with search using a Lucene query.')
             return self.object.search(q, k)
         else:
             return self.object.search(JString(q.encode('utf8')), k)
@@ -142,12 +134,11 @@ class SimpleSearcher:
         return {r.getKey(): r.getValue() for r in results}
 
     def search_fields(self, q, f, boost, k):
-        """Searches the collection, scoring a separate field with a boost weight.
-
+        """
         Parameters
         ----------
         q : str
-            Query string.
+            Query string
         f : str
             Name of additional field to search over
         boost : float
@@ -171,63 +162,64 @@ class SimpleSearcher:
         """
         self.object.setAnalyzer(analyzer)
 
-    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False):
-        """Configures RM3 query expansion.
+    def set_search_tweets(self, flag):
+        """
+        Parameters
+        ----------
+        flag : bool
+            True if searching over tweets
+        """
+        self.object.setSearchTweets(flag)
 
+    def set_rm3_reranker(self, fb_terms=10, fb_docs=10,
+                         original_query_weight=float(0.5),
+                         rm3_output_query=False):
+        """
         Parameters
         ----------
         fb_terms : int
-            RM3 parameter for number of expansion terms.
+            RM3 parameter for number of expansion terms
         fb_docs : int
-            RM3 parameter for number of expansion documents.
+            RM3 parameter for number of documents
         original_query_weight : float
-            RM3 parameter for weight to assign to the original query.
+            RM3 parameter for weight to assign to the original query
         rm3_output_query : bool
-            Whether we want to print the original and expanded as debug output.
+            True if we want to print original and expanded queries for RM3
         """
-        self.object.setRM3(fb_terms, fb_docs, original_query_weight, rm3_output_query)
+        self.object.setRM3Reranker(fb_terms, fb_docs,
+                                   original_query_weight, rm3_output_query)
 
-    def unset_rm3(self):
-        """Turns off use of RM3 query expansion.
+    def unset_rm3_reranker(self):
         """
-        self.object.unsetRM3()
-
-    def is_using_rm3(self) -> bool:
-        """Returns whether or not RM3 query expansion is being performed.
+        Parameters
+        ----------
         """
-        return self.object.useRM3()
+        self.object.unsetRM3Reranker()
 
-    def set_qld(self, mu=float(1000)):
-        """Configures query likelihood with Dirichlet smoothing as the scoring function.
-
+    def set_lm_dirichlet_similarity(self, mu):
+        """
         Parameters
         ----------
         mu : float
-            Dirichlet smoothing parameter mu.
+            Dirichlet smoothing parameter
         """
-        self.object.setQLD(float(mu))
+        self.object.setLMDirichletSimilarity(float(mu))
 
-    def set_bm25(self, k1=float(0.9), b=float(0.4)):
-        """Configures BM25 as the scoring function.
-
+    def set_bm25_similarity(self, k1, b):
+        """
         Parameters
         ----------
         k1 : float
-            BM25 k1 parameter.
+            BM25 k1 parameter
         b : float
-            BM25 b parameter.
+            BM25 b parameter
         """
-        self.object.setBM25(float(k1), float(b))
-
-    def get_similarity(self):
-        """Returns the Lucene ``Similarity`` used as the scoring function.
-        """
-        return self.object.getSimilarity()
+        self.object.setBM25Similarity(float(k1), float(b))
 
     def doc(self, docid: Union[str, int]) -> Document:
         """Returns the :class:`Document` corresponding to ``docid``. The ``docid`` is overloaded: if it is of type
         ``str``, it is treated as an external collection ``docid``; if it is of type ``int``, it is treated as an
-        internal Lucene ``docid``. Returns ``None`` if the ``docid`` does not exist in the index.
+        internal Lucene ``docid``.
 
         Parameters
         ----------
@@ -240,15 +232,11 @@ class SimpleSearcher:
         Document
             :class:`Document` corresponding to the ``docid``.
         """
-        lucene_document = self.object.document(docid)
-        if lucene_document is None:
-            return None
-        return Document(lucene_document)
+        return Document(self.object.document(docid))
 
     def doc_by_field(self, field: str, q: str) -> str:
         """Returns the :class:`Document` based on a ``field`` with ``id``. For example, this method can be used to fetch
-        document based on alternative primary keys that have been indexed, such as an article's DOI. Returns ``None`` if
-        no such document exists.
+        document based on alternative primary keys that have been indexed, such as an article's DOI.
 
         Parameters
         ----------
@@ -262,10 +250,7 @@ class SimpleSearcher:
         Document
             :class:`Document` whose ``field`` is ``id``.
         """
-        lucene_document = self.object.documentByField(JString(field), JString(q))
-        if lucene_document is None:
-            return None
-        return Document(lucene_document)
+        return Document(self.object.documentByField(JString(field), JString(q)))
 
     def close(self):
         self.object.close()
@@ -321,16 +306,6 @@ def get_topics(collection_name):
     return t
 
 
-class LuceneSimilarities:
-    @staticmethod
-    def bm25(k1=0.9, b=0.4):
-        return autoclass('org.apache.lucene.search.similarities.BM25Similarity')(k1, b)
-
-    @staticmethod
-    def qld(mu=1000):
-        return autoclass('org.apache.lucene.search.similarities.LMDirichletSimilarity')(mu)
-
-
 class SimpleNearestNeighborSearcher:
 
     def __init__(self, index_dir: str):
@@ -369,3 +344,34 @@ class SimpleNearestNeighborSearcher:
             List of List of (nearest neighbor) search results (one for each matching id).
         """
         return self.object.multisearch(JString(q), k)
+
+
+def main(index, topics, output):
+    print(index, topics, output)
+    searcher = SimpleSearcher(index)
+    with open(topics, 'r') as content_file:
+        content = content_file.read()
+    result = re.findall(r'(?<=<top>)(.+?)(?=<desc>)', content, flags=re.S)
+    my_list = []
+    for topic in result:
+        number_search = topic.strip().split("<title>")
+        number = number_search[0].strip().split(" ")[-1]
+        search = number_search[1].strip()
+        hits = searcher.search(search, 1000)
+        for i in range(0, len(hits)):
+            my_list.append(f'{number} Q0 {hits[i].docid.strip()} {i + 1} {hits[i].score:.6f} Anserini')
+    with open(output, 'w') as f:
+        for item in my_list:
+            f.write("%s\n" % item)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Create a ArcHydro schema')
+    parser.add_argument('-index', metavar='path', required=True,
+                        help='the path to workspace')
+    parser.add_argument('-topics', metavar='path', required=True,
+                        help='path to topics')
+    parser.add_argument('-output', metavar='path', required=True,
+                        help='path to the output file')
+    args = parser.parse_args()
+    main(index=args.index, topics=args.topics, output=args.output)
