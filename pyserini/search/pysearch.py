@@ -20,6 +20,8 @@ class, which wraps the Java class with the same name in Anserini.
 """
 import re
 import argparse
+import sys
+sys.path.insert(0,'./')
 import logging
 from typing import Dict, List, Union
 
