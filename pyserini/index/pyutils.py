@@ -177,7 +177,9 @@ class IndexReaderUtils:
         return result
 
     def get_document_vector(self, docid: str) -> Dict[str, int]:
-        """Returns the document vector for a ``docid``.
+        """Returns the document vector for a ``docid``. Note that requesting the document vector of a ``docid`` that
+        does not exist in the index will return ``None`` (as opposed to an empty dictionary); this forces the caller
+        to handle ``None`` explicitly and guards against silent errors.
 
         Parameters
         ----------
@@ -190,13 +192,16 @@ class IndexReaderUtils:
             A dictionary with analyzed terms as keys and their term frequencies as values.
         """
         doc_vector_map = self.object.getDocumentVector(self.reader, JString(docid))
+        if doc_vector_map is None:
+            return None
         doc_vector_dict = {}
         for term in doc_vector_map.keySet().toArray():
             doc_vector_dict[term] = doc_vector_map.get(JString(term.encode('utf-8')))
         return doc_vector_dict
 
     def doc(self, docid: str) -> str:
-        """Returns the :class:`Document` corresponding to ``docid``.
+        """Returns the :class:`Document` corresponding to ``docid``. Returns ``None`` if the ``docid`` does not exist
+        in the index.
 
         Parameters
         ----------
@@ -208,7 +213,10 @@ class IndexReaderUtils:
         Document
             :class:`Document` corresponding to the ``docid``.
         """
-        return Document(self.object.document(self.reader, JString(docid)))
+        lucene_document = self.object.document(self.reader, JString(docid))
+        if lucene_document is None:
+            return None
+        return Document(lucene_document)
 
     def doc_by_field(self, field: str, q: str) -> str:
         """Returns the :class:`Document` based on a ``field`` with ``id``. For example, this method can be used to fetch
@@ -226,7 +234,10 @@ class IndexReaderUtils:
         Document
             :class:`Document` whose ``field`` is ``id``.
         """
-        return Document(self.object.documentByField(self.reader, JString(field), JString(q)))
+        lucene_document = self.object.documentByField(self.reader, JString(field), JString(q))
+        if lucene_document is None:
+            return None
+        return Document(lucene_document)
 
     def doc_raw(self, docid: str) -> str:
         """Returns the raw document contents for a collection ``docid``.
@@ -269,6 +280,8 @@ class IndexReaderUtils:
             The collection ``docid``.
         term : str
             The (analyzed) term.
+        analyzer : analyzer
+            Lucene analyzer to use.
         k1 : float
             BM25 k1 parameter.
         b : float

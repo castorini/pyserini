@@ -243,9 +243,15 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(154, len(doc.lucene_document().get('contents')))
         self.assertEqual(154, len(doc.lucene_document().getField('contents').stringValue()))
 
+        # Should return None if we request a docid that doesn't exist
+        self.assertTrue(self.searcher.doc('foo') is None)
+
     def test_doc_by_field(self):
         self.assertEqual(self.searcher.doc('CACM-3134').docid(),
                          self.searcher.doc_by_field('id', 'CACM-3134').docid())
+
+        # Should return None if we request a docid that doesn't exist
+        self.assertTrue(self.searcher.doc_by_field('foo', 'bar') is None)
 
     def tearDown(self):
         self.searcher.close()

@@ -132,6 +132,9 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(doc_vector['inform'], 8)
         self.assertEqual(doc_vector['retriev'], 7)
 
+    def test_doc_vector_invalid(self):
+        self.assertTrue(self.index_utils.get_document_vector('foo') is None)
+
     def test_doc_vector_matches_index(self):
         # From the document vector, look up the term frequency of "information".
         doc_vector = self.index_utils.get_document_vector('CACM-3134')
@@ -146,6 +149,12 @@ class TestIndexUtils(unittest.TestCase):
             if self.index_utils.convert_internal_docid_to_collection_docid(postings_list[i].docid) == 'CACM-3134':
                 # The tf values should match.
                 self.assertEqual(postings_list[i].tf, 8)
+
+    def test_doc_invalid(self):
+        self.assertTrue(self.index_utils.doc('foo') is None)
+        self.assertTrue(self.index_utils.doc_contents('foo') is None)
+        self.assertTrue(self.index_utils.doc_raw('foo') is None)
+        self.assertTrue(self.index_utils.doc_by_field('foo', 'bar') is None)
 
     def test_doc_raw(self):
         raw = self.index_utils.doc('CACM-3134').raw()
