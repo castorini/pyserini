@@ -34,6 +34,7 @@ logger = logging.getLogger(__name__)
 
 class Document:
     """Wrapper class for a Lucene ``Document``.
+
     Parameters
     ----------
     document : JDocument
@@ -67,6 +68,7 @@ class Document:
 
 class SimpleSearcher:
     """Wrapper class for ``SimpleSearcher`` in Anserini.
+
     Parameters
     ----------
     index_dir : str
@@ -80,6 +82,7 @@ class SimpleSearcher:
     def search(self, q: Union[str, JQuery], k: int = 10,
                query_generator: JQueryGenerator = None) -> List[JSimpleSearcherResult]:
         """Searches the collection.
+
         Parameters
         ----------
         q : Union[str, JQuery]
@@ -88,6 +91,7 @@ class SimpleSearcher:
             The number of hits to return.
         query_generator : JQueryGenerator
             Generator to build queries.
+
         Returns
         -------
         List[JSimpleSearcherResult]
@@ -110,6 +114,7 @@ class SimpleSearcher:
     def batch_search(self, queries: List[str], qids: List[str], k: int = 10,
                      threads: int = 1) -> Dict[str, List[JSimpleSearcherResult]]:
         """Searches the collection concurrently for multiple queries, using multiple threads.
+
         Parameters
         ----------
         queries : List[str]
@@ -120,6 +125,7 @@ class SimpleSearcher:
             The number of hits to return.
         threads : int
             The maximum number of threads to use.
+
         Returns
         -------
         Dict[str, List[JSimpleSearcherResult]]
@@ -141,6 +147,7 @@ class SimpleSearcher:
 
     def search_fields(self, q, f, boost, k):
         """Searches the collection, scoring a separate field with a boost weight.
+
         Parameters
         ----------
         q : str
@@ -151,6 +158,7 @@ class SimpleSearcher:
             Weight boost for additional field
         k : int
             Number of hits to return
+
         Returns
         -------
         results : list of io.anserini.search.SimpleSearcher$Result
@@ -169,6 +177,7 @@ class SimpleSearcher:
 
     def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False):
         """Configures RM3 query expansion.
+
         Parameters
         ----------
         fb_terms : int
@@ -194,6 +203,7 @@ class SimpleSearcher:
 
     def set_qld(self, mu=float(1000)):
         """Configures query likelihood with Dirichlet smoothing as the scoring function.
+
         Parameters
         ----------
         mu : float
@@ -203,6 +213,7 @@ class SimpleSearcher:
 
     def set_bm25(self, k1=float(0.9), b=float(0.4)):
         """Configures BM25 as the scoring function.
+
         Parameters
         ----------
         k1 : float
@@ -221,11 +232,13 @@ class SimpleSearcher:
         """Returns the :class:`Document` corresponding to ``docid``. The ``docid`` is overloaded: if it is of type
         ``str``, it is treated as an external collection ``docid``; if it is of type ``int``, it is treated as an
         internal Lucene ``docid``. Returns ``None`` if the ``docid`` does not exist in the index.
+
         Parameters
         ----------
         docid : Union[str, int]
             Overloaded ``docid``: either an external collection ``docid`` (``str``) or an internal Lucene ``docid``
             (``int``).
+
         Returns
         -------
         Document
@@ -240,12 +253,14 @@ class SimpleSearcher:
         """Returns the :class:`Document` based on a ``field`` with ``id``. For example, this method can be used to fetch
         document based on alternative primary keys that have been indexed, such as an article's DOI. Returns ``None`` if
         no such document exists.
+
         Parameters
         ----------
         field : str
             The field to look up.
         q : str
             The document's unique id.
+
         Returns
         -------
         Document
@@ -266,6 +281,7 @@ def get_topics(collection_name):
     ----------
     collection_name : str
         collection_name
+
     Returns
     -------
     result : dictionary
@@ -326,12 +342,14 @@ class SimpleNearestNeighborSearcher:
 
     def search(self, q: str, k=10) -> List[JSimpleNearestNeighborSearcherResult]:
         """Searches nearest neighbor of an embedding identified by its id.
+
         Parameters
         ----------
         q : id
             The input embedding id.
         k : int
             The number of nearest neighbors to return.
+
         Returns
         -------
         List(JSimpleNearestNeighborSearcherResult]
@@ -341,12 +359,14 @@ class SimpleNearestNeighborSearcher:
 
     def multisearch(self, q: str, k=10) -> List[List[JSimpleNearestNeighborSearcherResult]]:
         """Searches nearest neighbors of all the embeddings having the specified id.
+
         Parameters
         ----------
         q : id
             The input embedding id.
         k : int
             The number of nearest neighbors to return for each found embedding.
+
         Returns
         -------
         List(List[JSimpleNearestNeighborSearcherResult])
