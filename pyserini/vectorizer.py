@@ -45,6 +45,8 @@ class TfidfVectorizer:
 
             # Term Frequency
             tf = self.index_utils.get_document_vector(doc_id)
+            if tf is None:
+                continue
 
             # Filter out in-eligible terms
             tf = {t: tf[t] for t in tf if t in self.term_to_index}
