@@ -370,3 +370,4 @@ class SimpleNearestNeighborSearcher:
         """
         return self.object.multisearch(JString(q), k)
 
+
