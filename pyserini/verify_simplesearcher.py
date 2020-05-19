@@ -1,20 +1,36 @@
-import argparse
+# -*- coding: utf-8 -*-
+#
+# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import os
 import filecmp
 
 
-def remove_if_exist(path):
-    if os.path.exists(path):
-        os.remove(path)
-
-
 class Group:
-    def __init__(self, run_name, index_path, topics_path):
+    def __init__(self, run_name: str, index_path: str, topics_path: str):
         self.run_name = run_name
         self.index_path = index_path
         self.topics_path = topics_path
         self.anserini_output = f'verify.anserini.{run_name}.txt'
         self.pyserini_output = f'verify.pyserini.{run_name}.txt'
+
+
+def remove_output_if_exist(group: Group):
+    for path in [group.anserini_output, group.pyserini_output]:
+        if os.path.exists(path):
+            os.remove(path)
 
 
 if __name__ == '__main__':
@@ -65,13 +81,11 @@ if __name__ == '__main__':
     )
 
     groups = [robust04, robust05, core17, core18]
-    success = []
-    failed = []
+    success, failed = [], []
     # execution
     for group in groups:
         print(f'Running {group.run_name}:')
-        remove_if_exist(group.anserini_output)
-        remove_if_exist(group.pyserini_output)
+        remove_output_if_exist(group)
         anserini_cmd = f'{anserini_search} -index {group.index_path} -topics {group.topics_path} -output {group.anserini_output}'
         pyserini_cmd = f'{pyserini_search} -index {group.index_path} -topics {group.topics_path} -output {group.pyserini_output}'
 
@@ -91,8 +105,7 @@ if __name__ == '__main__':
         if res is True:
             print(f'[{group.run_name}] result matches')
             success.append(group.run_name)
-            remove_if_exist(group.anserini_output)
-            remove_if_exist(group.pyserini_output)
+            remove_output_if_exist(group)
         else:
             failed.append(group.run_name)
             print(
