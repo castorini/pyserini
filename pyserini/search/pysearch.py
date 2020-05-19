@@ -369,3 +369,4 @@ class SimpleNearestNeighborSearcher:
             List of List of (nearest neighbor) search results (one for each matching id).
         """
         return self.object.multisearch(JString(q), k)
+
