@@ -286,6 +286,8 @@ def get_topics(collection_name):
     topics = None
     if collection_name == 'robust04':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.ROBUST04)
+    elif collection_name == 'robust05':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.ROBUST05)
     elif collection_name == 'core17':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.CORE17)
     elif collection_name == 'core18':
