@@ -20,10 +20,11 @@ import os
 
 
 class Group:
-    def __init__(self, run_name: str, index_path: str, topics_path: str):
+    def __init__(self, run_name: str, index_path: str, topics_path: str, qrels_path: str):
         self.run_name = run_name
         self.index_path = index_path
         self.topics_path = topics_path
+        self.qrels_path = qrels_path
         self.anserini_output = f'verify.anserini.{run_name}.txt'
         self.pyserini_output = f'verify.pyserini.{run_name}.txt'
 
@@ -46,6 +47,8 @@ if __name__ == '__main__':
     indexes_root = os.path.join(anserini_root, 'indexes')
     anserini_search = os.path.join(
         anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec -bm25')
+    anserini_eval = os.path.join(
+        anserini_root, 'eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
     pyserini_search = 'python -m pyserini.search'
 
     # set groups
@@ -54,7 +57,9 @@ if __name__ == '__main__':
         index_path=os.path.join(
             indexes_root, 'lucene-index.robust04.pos+docvectors+raw'),
         topics_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/topics.robust04.txt')
+            anserini_root, 'src/main/resources/topics-and-qrels/topics.robust04.txt'),
+        qrels_path=os.path.join(
+            anserini_root, 'src/main/resources/topics-and-qrels/qrels.robust04.txt')
     )
 
     robust05 = Group(
@@ -62,7 +67,9 @@ if __name__ == '__main__':
         index_path=os.path.join(
             indexes_root, 'lucene-index.robust05.pos+docvectors+raw'),
         topics_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/topics.robust05.txt')
+            anserini_root, 'src/main/resources/topics-and-qrels/topics.robust05.txt'),
+        qrels_path=os.path.join(
+            anserini_root, 'src/main/resources/topics-and-qrels/qrels.robust05.txt')
     )
 
     core17 = Group(
@@ -70,7 +77,9 @@ if __name__ == '__main__':
         index_path=os.path.join(
             indexes_root, 'lucene-index.core17.pos+docvectors+raw'),
         topics_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/topics.core17.txt')
+            anserini_root, 'src/main/resources/topics-and-qrels/topics.core17.txt'),
+        qrels_path=os.path.join(
+            anserini_root, 'src/main/resources/topics-and-qrels/qrels.core17.txt')
     )
 
     core18 = Group(
@@ -78,17 +87,19 @@ if __name__ == '__main__':
         index_path=os.path.join(
             indexes_root, 'lucene-index.core18.pos+docvectors+raw'),
         topics_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/topics.core18.txt')
+            anserini_root, 'src/main/resources/topics-and-qrels/topics.core18.txt'),
+        qrels_path=os.path.join(
+            anserini_root, 'src/main/resources/topics-and-qrels/qrels.core18.txt')
     )
 
     groups = [robust04, robust05, core17, core18]
-    success, failed = [], []
+    success_groups, fail_groups = [], []
     # execution
     for group in groups:
         print(f'Running {group.run_name}:')
         remove_output_if_exist(group)
         anserini_cmd = f'{anserini_search} -index {group.index_path} -topics {group.topics_path} -output {group.anserini_output}'
-        pyserini_cmd = f'{pyserini_search} -index {group.index_path} -topics {group.topics_path} -output {group.pyserini_output}'
+        pyserini_cmd = f'{pyserini_search} -index {group.index_path} -topics {group.run_name} -output {group.pyserini_output}'
 
         res = os.system(anserini_cmd)
         if res == 0:
@@ -105,17 +116,24 @@ if __name__ == '__main__':
         res = filecmp.cmp(group.anserini_output, group.pyserini_output)
         if res is True:
             print(f'[{group.run_name}] result matches')
-            success.append(group.run_name)
-            remove_output_if_exist(group)
+            success_groups.append(group)
         else:
-            failed.append(group.run_name)
+            fail_groups.append(group)
             print(
                 f'[{group.run_name}] result mismatch. {group.anserini_output} != {group.pyserini_output}')
 
         print('-------------------------')
+
+    print(f'[Success] {len(success_groups)}/{len(groups)}')
+    print()
+
+    for group in success_groups:
+        print(f'Evaluating {group.run_name}:')
+        print('-------------------------')
+        eval_cmd = f'{anserini_eval} {group.qrels_path} {group.anserini_output}'
+        os.system(eval_cmd)
+        remove_output_if_exist(group)
         print()
 
-    print(f'[Success] {len(success)}/{len(groups)}')
-    if len(failed) > 0:
-        for failed_run in failed:
-            print(f'[{failed_run}] result mismatch')
+    for group in fail_groups:
+        print(f'[{group.run_name}] result mismatch')
