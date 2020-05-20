@@ -26,6 +26,11 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 250)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+    def test_robust05(self):
+        topics = pysearch.get_topics('robust05')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
     def test_core17(self):
         topics = pysearch.get_topics('core17')
         self.assertEqual(len(topics), 50)
