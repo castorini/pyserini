@@ -38,9 +38,10 @@ class TfidfVectorizer:
 
     def get_vectors(self, doc_ids: List[str]):
         matrix_row, matrix_col, matrix_data = [], [], []
+        num_docs = len(doc_ids)
 
         for index, doc_id in enumerate(doc_ids):
-            if index % 1000 == 0:
+            if index % 1000 == 0 and num_docs > 1000:
                 print(f'Vectorizing: {index}/{len(doc_ids)}')
 
             # Term Frequency
@@ -59,5 +60,5 @@ class TfidfVectorizer:
                 matrix_data.append(tfidf)
 
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(
-            len(doc_ids), self.vocabulary_size))
+            num_docs, self.vocabulary_size))
         return self.l2norm(vectors)
