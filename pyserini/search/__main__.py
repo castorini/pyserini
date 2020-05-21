@@ -4,15 +4,11 @@ import argparse
 from pyserini.search.pysearch import get_topics, SimpleSearcher
 from ..vectorizer import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
 
 
 def get_prf_vectors(doc_ids, vectorizer, r=10, n=100):
     train_docs = doc_ids[:r] + doc_ids[-n:]
     train_labels = [1] * r + [0] * n
-    print('> docs_ids', len(doc_ids))
-    print('> train_docs', len(train_docs))
-    print('> train_labels', len(train_labels))
 
     train_vectors = vectorizer.get_vectors(train_docs)
     test_vectors = vectorizer.get_vectors(doc_ids)
