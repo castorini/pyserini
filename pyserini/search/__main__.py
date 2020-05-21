@@ -48,7 +48,7 @@ def get_clasifier(type: ClassifierType):
     if type == ClassifierType.LR:
         return LogisticRegression()
     elif type == ClassifierType.SVM:
-        return SVC(kernel='linear', class_weight='balanced', probability=True)
+        return SVC(kernel='linear', probability=True)
     else:
         return None
 
