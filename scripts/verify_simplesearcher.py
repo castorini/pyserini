@@ -106,7 +106,6 @@ if __name__ == '__main__':
         remove_output_if_exist(group)
         anserini_cmd = f'{anserini_search} -index {group.index_path} -topics {group.topics_path} -output {group.anserini_output}'
         pyserini_cmd = f'{pyserini_search} -index {group.index_path} -topics {group.run_name} -output {group.pyserini_output}'
-        print(anserini_cmd,pyserini_cmd)
 
         res = os.system(anserini_cmd)
         if res == 0:
