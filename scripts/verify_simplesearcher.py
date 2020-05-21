@@ -40,16 +40,22 @@ if __name__ == '__main__':
         description='Verify search results between pyserini and anserini')
     parser.add_argument('--anserini', metavar='path', required=True,
                         help='the path to anserini root')
+    parser.add_argument('--rm3',  action='store_true',
+                        help='take rm3 ranker')
+    parser.add_argument('--qld', action='store_true',
+                        help='take qld ranker')
     args = parser.parse_args()
 
     # config
     anserini_root = args.anserini
     indexes_root = os.path.join(anserini_root, 'indexes')
+    additional_parameters = " -qld" if args.qld else ' -bm25'
+    additional_parameters = additional_parameters+" -rm3" if args.rm3 else additional_parameters
     anserini_search = os.path.join(
-        anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec -bm25')
+        anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec'+additional_parameters)
     anserini_eval = os.path.join(
         anserini_root, 'eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
-    pyserini_search = 'python -m pyserini.search'
+    pyserini_search = 'python3 -m pyserini.search'+additional_parameters
 
     # set groups
     robust04 = Group(

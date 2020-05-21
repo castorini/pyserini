@@ -29,6 +29,10 @@ args = parser.parse_args()
 
 searcher = SimpleSearcher(args.index)
 topics_dic = get_topics(args.topics)
+if args.rm3:
+    searcher.set_rm3()
+if args.qld:
+    searcher.set_qld()
 
 if topics_dic == {}:
     print('Topic Not Found')
