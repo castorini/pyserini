@@ -49,13 +49,13 @@ if __name__ == '__main__':
     # config
     anserini_root = args.anserini
     indexes_root = os.path.join(anserini_root, 'indexes')
-    adds_on = " -qld" if args.qld else ' -bm25'
-    adds_on = adds_on+" -rm3" if args.rm3 else adds_on
+    additional_parameters = " -qld" if args.qld else ' -bm25'
+    additional_parameters = additional_parameters+" -rm3" if args.rm3 else additional_parameters
     anserini_search = os.path.join(
-        anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec'+adds_on)
+        anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec'+additional_parameters)
     anserini_eval = os.path.join(
         anserini_root, 'eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
-    pyserini_search = 'python3 -m pyserini.search'+adds_on
+    pyserini_search = 'python3 -m pyserini.search'+additional_parameters
 
     # set groups
     robust04 = Group(
