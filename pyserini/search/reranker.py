@@ -1,3 +1,19 @@
+# -*- coding: utf-8 -*-
+#
+# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import enum
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
@@ -17,7 +33,7 @@ class FusionMethod(enum.Enum):
 
 
 class PseudoRelevanceClassifierReranker:
-    def __init__(self, lucene_index: str, clf_type: List[ClassifierType], r=10, n=100, alpha=1):
+    def __init__(self, lucene_index: str, clf_type: List[ClassifierType], r=10, n=100, alpha=0.5):
         self.r = r
         self.n = n
         self.alpha = alpha
@@ -28,7 +44,7 @@ class PseudoRelevanceClassifierReranker:
 
         self.vectorizer = TfidfVectorizer(lucene_index, min_df=5)
 
-    def set_classifier(self, clf_type: ClassifierType):
+    def _set_classifier(self, clf_type: ClassifierType):
         if clf_type == ClassifierType.LR:
             self.clf = LogisticRegression()
         elif clf_type == ClassifierType.SVM:
@@ -36,7 +52,7 @@ class PseudoRelevanceClassifierReranker:
         else:
             raise Exception("Invalid classifier type")
 
-    def get_prf_vectors(self, doc_ids: List[str]):
+    def _get_prf_vectors(self, doc_ids: List[str]):
         train_docs = doc_ids[:self.r] + doc_ids[-self.n:]
         train_labels = [1] * self.r + [0] * self.n
 
@@ -45,33 +61,33 @@ class PseudoRelevanceClassifierReranker:
 
         return train_vecs, train_labels, test_vecs
 
-    def rerank_with_classifier(self, doc_ids: List[str], search_scores: List[float]):
-        train_vecs, train_labels, test_vecs = self.get_prf_vectors(
+    def _rerank_with_classifier(self, doc_ids: List[str], search_scores: List[float]):
+        train_vecs, train_labels, test_vecs = self._get_prf_vectors(
             doc_ids)
 
         # classification
         self.clf.fit(train_vecs, train_labels)
         pred = self.clf.predict_proba(test_vecs)
-        rank_scores = self.normalize([p[1] for p in pred])
-        search_scores = self.normalize(search_scores)
+        classifier_scores = self._normalize([p[1] for p in pred])
+        search_scores = self._normalize(search_scores)
 
         # interpolation
         interpolated_scores = [a * self.alpha + b * (1-self.alpha)
-                               for a, b in zip(rank_scores, search_scores)]
+                               for a, b in zip(classifier_scores, search_scores)]
 
-        return self.sort_dual_list(interpolated_scores, doc_ids)
+        return self._sort_dual_list(interpolated_scores, doc_ids)
 
     def rerank(self, doc_ids: List[str], search_scores: List[float]):
         # one classifier
         if len(self.clf_type) == 1:
-            self.set_classifier(self.clf_type[0])
-            return self.rerank_with_classifier(doc_ids, search_scores)
+            self._set_classifier(self.clf_type[0])
+            return self._rerank_with_classifier(doc_ids, search_scores)
 
         # two classifier with FusionMethod.AVG
         doc_score_dict = {}
         for i in range(2):
-            self.set_classifier(self.clf_type[i])
-            i_scores, i_doc_ids = self.rerank_with_classifier(
+            self._set_classifier(self.clf_type[i])
+            i_scores, i_doc_ids = self._rerank_with_classifier(
                 doc_ids, search_scores)
 
             for score, doc_id in zip(i_scores, i_doc_ids):
@@ -87,7 +103,7 @@ class PseudoRelevanceClassifierReranker:
 
         return r_scores, r_doc_ids
 
-    def normalize(self, scores: List[float]):
+    def _normalize(self, scores: List[float]):
         low = min(scores)
         high = max(scores)
         width = high - low
@@ -95,7 +111,7 @@ class PseudoRelevanceClassifierReranker:
         return [(s-low)/width for s in scores]
 
     # sort both list in decreasing order by using the list1 to compare
-    def sort_dual_list(self, list1, list2):
+    def _sort_dual_list(self, list1, list2):
         zipped_lists = zip(list1, list2)
         sorted_pairs = sorted(zipped_lists)
 
