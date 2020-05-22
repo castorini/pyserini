@@ -23,7 +23,7 @@ and methods provided are meant only to provide tools for examining an index and 
 import logging
 from typing import Dict, Iterator, List, Tuple
 
-from ..pyclass import JIndexReaderUtils, JString, JAnalyzerUtils
+from ..pyclass import JIndexReaderUtils, JString, JAnalyzerUtils, JIndexUtils
 from ..search.pysearch import Document
 from ..analysis.pyanalysis import get_lucene_analyzer
 
@@ -336,3 +336,21 @@ class IndexReaderUtils:
             The Lucene internal ``docid`` corresponding to the external collection ``docid``.
         """
         return self.object.convertDocidToLuceneDocid(self.reader, docid)
+
+
+class IndexUtils:
+    """
+    Wrapper class for ``IndexUtils`` in Anserini.
+
+    Parameters
+    ----------
+    index_dir : str
+        Path to Lucene index directory.
+    """
+
+    def __init__(self, index_dir):
+        self.object = JIndexUtils(JString(index_dir))
+
+    def print_index_stats(self):
+        """Print index statistics"""        
+        self.object.printIndexStats()
