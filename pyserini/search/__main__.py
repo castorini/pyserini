@@ -1,5 +1,5 @@
-import re
 import argparse
+import re
 from pyserini.search.pysearch import get_topics, SimpleSearcher
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 

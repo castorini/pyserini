@@ -53,6 +53,7 @@ class PseudoRelevanceClassifierReranker:
         self.clf.fit(train_vecs, train_labels)
         pred = self.clf.predict_proba(test_vecs)
         rank_scores = self.normalize([p[1] for p in pred])
+        search_scores = self.normalize(search_scores)
 
         # interpolation
         interpolated_scores = [a * self.alpha + b * (1-self.alpha)
