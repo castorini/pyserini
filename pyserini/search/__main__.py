@@ -39,16 +39,24 @@ if topics_dic == {}:
     print('Topic Not Found')
     exit()
 
+path = args.output
+if path is None:
+    clf_rankers = []
+    for t in args.prf:
+        if t == ClassifierType.LR:
+            clf_rankers.append('lr')
+        elif t == ClassifierType.SVM:
+            clf_rankers.append('svm')
+
+    tokens = [args.topics, '+'.join(clf_rankers),
+              f'A{args.alpha}', '+'.join(search_rankers)]
+    path = '_'.join(tokens) + ".txt"
+
+
 need_classifier = args.prf and len(args.prf) > 0 and args.alpha > 0
 if need_classifier is True:
     ranker = PseudoRelevanceClassifierReranker(
         args.index, args.prf, r=args.r, n=args.n, alpha=args.alpha)
-
-
-path = args.output
-if path is None:
-    tokens = [args.topics, '+'.join(args.prf), args.alpha, '+'.join(search_rankers)]
-    path = '_'.join(tokens) + ".txt"
 
 with open(args.output, 'w') as target_file:
     for index, topic in enumerate(sorted(topics_dic.keys())):
