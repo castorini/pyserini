@@ -39,8 +39,8 @@ if topics_dic == {}:
     print('Topic Not Found')
     exit()
 
-path = args.output
-if path is None:
+output_path = args.output
+if output_path is None:
     clf_rankers = []
     for t in args.prf:
         if t == ClassifierType.LR:
@@ -50,15 +50,15 @@ if path is None:
 
     tokens = [args.topics, '+'.join(clf_rankers),
               f'A{args.alpha}', '+'.join(search_rankers)]
-    path = '_'.join(tokens) + ".txt"
+    output_path = '_'.join(tokens) + ".txt"
 
 need_classifier = args.prf and len(args.prf) > 0 and args.alpha > 0
 if need_classifier is True:
     ranker = PseudoRelevanceClassifierReranker(
         args.index, args.prf, r=args.r, n=args.n, alpha=args.alpha)
 
-print('Output ->', path)
-with open(args.output, 'w') as target_file:
+print('Output ->', output_path)
+with open(output_path, 'w') as target_file:
     for index, topic in enumerate(sorted(topics_dic.keys())):
         print(f'Topic {topic}: {index + 1}/{len(topics_dic)}')
         search = topics_dic[topic].get('title')
