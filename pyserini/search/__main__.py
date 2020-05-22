@@ -50,8 +50,6 @@ with open(args.output, 'w') as target_file:
         scores = [hit.score for hit in hits]
 
         if need_classifier and len(hits) > (args.r + args.n):
-            ranker = PseudoRelevanceClassifierReranker(
-                args.index, args.prf, r=args.r, n=args.n, alpha=args.alpha)
             scores, doc_ids = ranker.rerank(doc_ids, scores)
 
         tag = f'{args.prf}-A{args.alpha}' if args.prf else 'Anserini'
