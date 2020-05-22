@@ -9,7 +9,7 @@ parser.add_argument('-index', metavar='path', required=True,
                     help='the path to workspace')
 parser.add_argument('-topics', metavar='topicsname', required=True,
                     help='topicsname')
-parser.add_argument('-output', metavar='path', required=True,
+parser.add_argument('-output', metavar='path',
                     help='path to the output file')
 parser.add_argument('-rm3',  action='store_true',
                     help='use rm3 ranker')
@@ -27,9 +27,12 @@ args = parser.parse_args()
 
 searcher = SimpleSearcher(args.index)
 topics_dic = get_topics(args.topics)
+search_rankers = ['bm25']
 if args.rm3:
+    search_rankers.append('rm3')
     searcher.set_rm3()
 if args.qld:
+    search_rankers.append('qld')
     searcher.set_qld()
 
 if topics_dic == {}:
@@ -40,6 +43,12 @@ need_classifier = args.prf and len(args.prf) > 0 and args.alpha > 0
 if need_classifier is True:
     ranker = PseudoRelevanceClassifierReranker(
         args.index, args.prf, r=args.r, n=args.n, alpha=args.alpha)
+
+
+path = args.output
+if path is None:
+    tokens = [args.topics, '+'.join(args.prf), args.alpha, '+'.join(search_rankers)]
+    path = '_'.join(tokens) + ".txt"
 
 with open(args.output, 'w') as target_file:
     for index, topic in enumerate(sorted(topics_dic.keys())):
