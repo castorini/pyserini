@@ -46,9 +46,9 @@ class PseudoRelevanceClassifierReranker:
 
     def _set_classifier(self, clf_type: ClassifierType):
         if clf_type == ClassifierType.LR:
-            self.clf = LogisticRegression()
+            self.clf = LogisticRegression(random_state=848)
         elif clf_type == ClassifierType.SVM:
-            self.clf = SVC(kernel='linear', probability=True)
+            self.clf = SVC(kernel='linear', probability=True, random_state=848)
         else:
             raise Exception("Invalid classifier type")
 
