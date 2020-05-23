@@ -273,6 +273,10 @@ class TestIndexUtils(unittest.TestCase):
                                        self.index_utils.compute_query_document_score(
                                            hits[i].docid, query, similarity=custom_qld), places=4)
 
+    def test_index_stats(self):
+        self.assertEqual(3204, self.index_utils.stats()['documents'])
+        self.assertEqual(14363, self.index_utils.stats()['unique_terms'])
+        
     def tearDown(self):
         os.remove(self.tarball_name)
         shutil.rmtree(self.index_dir)
