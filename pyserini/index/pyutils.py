@@ -337,30 +337,17 @@ class IndexReaderUtils:
         """
         return self.object.convertDocidToLuceneDocid(self.reader, docid)
 
-    def stats(self) -> dict:
+    def stats(self) -> Dict[str, int]:
         """Returns dictionary with index statistics.
 
         Returns
         -------
-        dict
+        Dict[str, int]
             Index statistics as a dictionary of statistic's name to statistic.
-
-            Quantitative stats:
             - documents: number of documents
             - non_empty_documents: number of non-empty documents
             - unique_terms: number of unique terms
             - total_terms: number of total terms
-
-            stored fields:
-            - fullCaption
-            - author
-            - raw
-            - article_url
-            - title
-            - contents
-            - id
-            - published_date
-            - kicker
         """        
         index_stats_map = self.object.getIndexStats(self.reader)
 
