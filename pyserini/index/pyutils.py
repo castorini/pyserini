@@ -336,3 +336,22 @@ class IndexReaderUtils:
             The Lucene internal ``docid`` corresponding to the external collection ``docid``.
         """
         return self.object.convertDocidToLuceneDocid(self.reader, docid)
+
+    def stats(self) -> dict:
+        """Returns dictionary with index statistics.
+
+        Returns
+        -------
+        dict
+            Index statistics as a dictionary of statistic's name to statistic.
+        """        
+        index_stats_map = self.object.getIndexStats(self.reader)
+
+        if index_stats_map is None:
+            return None
+
+        index_stats_dict = {}
+        for term in index_stats_map.keySet().toArray():
+            index_stats_dict[term] = index_stats_map.get(JString(term.encode('utf-8')))
+            
+        return index_stats_dict
