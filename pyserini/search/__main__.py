@@ -87,7 +87,7 @@ with open(output_path, 'w') as target_file:
         if need_classifier and len(hits) > (args.r + args.n):
             scores, doc_ids = ranker.rerank(doc_ids, scores)
 
-        tag = output_path[:-4] if args.output is None else 'anserini'
+        tag = output_path[:-4] if args.output is None else 'Anserini'
         for i, (doc_id, score) in enumerate(zip(doc_ids, scores)):
             target_file.write(
                 f'{topic} Q0 {doc_id} {i + 1} {score:.6f} {tag}\n')
