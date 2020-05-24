@@ -83,7 +83,6 @@ if __name__ == '__main__':
     clean_df = load_in_res(res_paths)
     folders_path = os.path.join(
             args.pyserini, f'scripts/classifier_prf/folds/{args.collection}.json')
-    print(folders_path)
     with open(folders_path) as f:
         folders = json.load(f)
     generate_run_file(folders,clean_df,args.collection, args.run_file, args.classifier, args.rm3, args.output)
