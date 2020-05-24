@@ -50,6 +50,8 @@ if __name__ == '__main__':
         description='Get Best alpha score for corresponding topics')
     parser.add_argument('--anserini', metavar='path', required=True,
                         help='the path to anserini root')
+    parser.add_argument('--pyserini', metavar='path', required=True,
+                        help='a path to the folder json file')
     parser.add_argument('--collection', metavar='collectionsname', required=True,
                         help=' one of the collectionname in robust04,robust05, core17,core18')
     parser.add_argument('--run_file', metavar='path', required=True,
@@ -60,12 +62,11 @@ if __name__ == '__main__':
                         help='one of three classifers lr or svm or lr+svm')
     parser.add_argument('-rm3', action='store_true',
                         help='use rm3 ranker')
-    parser.add_argument('--folder', metavar='path', required=True,
-                        help='a path to the folder json file')
     args = parser.parse_args()
     res_paths = read_topics_alpha_map(args.anserini,args.collection,args.run_file,args.classifier,args.rm3)
     clean_df = load_in_res(res_paths)
-    with open(args.folder) as f:
+    folders_path = f'{args.pyserini}/scripts/classifier_prf/folds/{args.collection}.json'
+    with open(folders_path) as f:
         folders = json.load(f)
     folders_scores = calculate_score(clean_df)
     with open(args.output, 'w') as filehandle:
