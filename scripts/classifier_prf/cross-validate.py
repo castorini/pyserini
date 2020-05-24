@@ -36,6 +36,7 @@ def load_in_res(res_paths):
 
 def generate_run_file(folders,df,collection, run_file, classifier, rm3, output_path):
     highest_alpha_lst = []
+    write_lst = []
     with open(output_path, 'w') as target_file:
         for folder in folders:
             train_topicids = [str(topic) for folder_i in folders for topic in folder_i if folder_i != folder]
@@ -51,8 +52,12 @@ def generate_run_file(folders,df,collection, run_file, classifier, rm3, output_p
                 with open(alpha_run_file) as fp:
                     Lines = fp.readlines()
                     for line in Lines:
+                        # if topic ==321:
+                        #     print(line,topic,line.startswith(str(topic)))
                         if line.startswith(str(topic)):
-                            target_file.write(line)
+                            write_lst.append(line)
+        write_lst.sort(key=lambda x: (x.split(" ")[0],int(x.split(" ")[3])))
+        target_file.write("".join(write_lst))
     print(highest_alpha_lst)
 
 
