@@ -9,12 +9,12 @@ def get_file_extension(rm3: bool):
 
 
 def get_file_path(run_file, collection, classifier, alpha: str, rm3: bool):
-    res = f'{run_file}/{collection}/{collection}_{classifier}_A' + alpha
+    res = f'{run_file}/{collection}/{collection}_{classifier}_A{alpha}'
     return res + get_file_extension(rm3)
 
 
 def get_res_file_path(run_file, collection, classifier, alpha: str, rm3: bool):
-    res = f'{run_file}/cv/{collection}/scores_{collection}_{classifier}_A' + alpha
+    res = f'{run_file}/scripts/classifier_prf/cv/{collection}/scores_{collection}_{classifier}_A' + alpha
     return res + get_file_extension(rm3)
 
 
@@ -32,6 +32,8 @@ def read_topics_alpha_map(anserini_root, collection, run_file, classifier, rm3: 
     for num in range(0, 11):
         alpha = str(num / 10)
         file_path = get_file_path(run_file, collection, classifier, alpha, rm3)
+        cv_folder_path = os.path.join(run_file, f"scripts/classifier_prf/cv/{collection}")
+        os.system(f"mkdir -p {cv_folder_path}")
         res_filename = get_res_file_path(
             run_file, collection, classifier, alpha, rm3)
 
@@ -68,7 +70,7 @@ def generate_run_file(folders, df, collection, run_file, classifier, rm3, output
     with open(output_path, 'w') as target_file:
         for folder in folders:
             train_topicids = [str(topic)
-                              for f in folders for topic in f if f != folder]
+                              for f in folders for topic in f if f != folder and str(topic) in df.index]
             train_df = df.loc[train_topicids, :]
             train_df.loc['Mean', :] = train_df.mean(axis=0)
             highest_alpha = train_df.iloc[-1, :].idxmax(axis=1)
