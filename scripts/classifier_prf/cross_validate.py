@@ -18,6 +18,14 @@ def get_res_file_path(run_file, collection, classifier, alpha: str, rm3: bool):
     return res + get_file_extension(rm3)
 
 
+def get_trec_eval_cmd(anserini_root: str):
+    return os.path.join(anserini_root, 'eval/trec_eval.9.0.4/trec_eval')
+
+
+def get_qrels_path(anserini_root: str, collection: str):
+    return f"{anserini_root}/src/main/resources/topics-and-qrels/qrels.{collection}.txt"
+
+
 def read_topics_alpha_map(anserini_root, collection, run_file, classifier, rm3: bool):
     res_paths = []
 
@@ -28,7 +36,9 @@ def read_topics_alpha_map(anserini_root, collection, run_file, classifier, rm3: 
             run_file, collection, classifier, alpha, rm3)
 
         res_paths.append(res_filename)
-        cmd = f'{anserini_root}/eval/trec_eval.9.0.4/trec_eval -q -m map -m P.30 {anserini_root}/src/main/resources/topics-and-qrels/qrels.{collection}.txt {file_path} > {res_filename}'
+        trec_eval_cmd = get_trec_eval_cmd(anserini_root)
+        qrels_path = get_qrels_path(anserini_root, collection)
+        cmd = f'{trec_eval_cmd} -q -m map -m P.30 {qrels_path} {file_path} > {res_filename}'
         res = os.system(cmd)
         if res == 0:
             print(file_path + ' run successfully!')
@@ -41,10 +51,12 @@ def load_in_res(res_paths):
     df = pd.read_csv(res_paths[0], sep='\s+', header=None,
                      names=['Type', 'topicid', '0.0'], dtype={'0.0': float})
     df.set_index('topicid', inplace=True)
+
     for num in range(1, 11):
         dataset = pd.read_csv(res_paths[num], sep='\s+', header=None, names=['Type', 'topicid', 'score'],
                               dtype={'topicid': str, 'score': float})
         df[str(num / 10)] = dataset.score.values
+
     df = df[df['Type'] == 'map'][:-1]
     df = df.drop(['Type'], axis=1)
     return df
