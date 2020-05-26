@@ -308,6 +308,10 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND2)
     elif collection_name == 'covid_round2_udel':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND2_UDEL)
+    elif collection_name == 'covid_round3':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND3)
+    elif collection_name == 'covid_round3_udel':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND3_UDEL)
     else:
         return {}
     t = {}
