@@ -23,6 +23,18 @@ from pyserini.index import pyutils
 
 
 class TfidfVectorizer:
+    """Wrapper class for tf-idf vectorizer implemented on top of Pyserini.
+
+    Parameters
+    ----------
+    lucene_index_path : str
+        Path to lucene index folder
+    min_df : int
+        Minimum acceptable document frequency
+    verbose : bool
+        Whether to print out debugging information
+    """
+
     def __init__(self, lucene_index_path: str, min_df: int = 1, verbose: bool = False) -> None:
         self.verbose: bool = verbose
         self.min_df: int = min_df
@@ -56,6 +68,18 @@ class TfidfVectorizer:
         return a
 
     def get_vectors(self, doc_ids: List[str]):
+        """Get the tf-idf vectors given a list of doc_ids
+
+        Parameters
+        ----------
+        doc_ids : List[str]
+            The piece of text to analyze.
+
+        Returns
+        -------
+        csr_matrix
+            L2 normalized sparse matrix representation of tf-idf vectors
+        """
         matrix_row, matrix_col, matrix_data = [], [], []
         num_docs = len(doc_ids)
 
