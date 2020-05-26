@@ -41,8 +41,9 @@ class TestIndexUtils(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-        self.searcher = pysearch.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
-        self.index_utils = pyutils.IndexReaderUtils(f'{self.index_dir}lucene-index.cacm')
+        self.index_path = os.path.join(self.index_dir, 'lucene-index.cacm')
+        self.searcher = pysearch.SimpleSearcher(self.index_path)
+        self.index_utils = pyutils.IndexReaderUtils(self.index_path)
 
     def test_terms_count(self):
         # We're going to iterate through the index and make sure we have the correct number of terms.
