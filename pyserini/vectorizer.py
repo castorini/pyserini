@@ -23,7 +23,8 @@ from pyserini.index import pyutils
 
 
 class TfidfVectorizer:
-    def __init__(self, lucene_index_path: str, min_df: int = 1) -> None:
+    def __init__(self, lucene_index_path: str, min_df: int = 1, verbose: bool = False) -> None:
+        self.verbose: bool = verbose
         self.min_df: int = min_df
         self.index_utils = pyutils.IndexReaderUtils(lucene_index_path)
 
@@ -44,7 +45,9 @@ class TfidfVectorizer:
         for index, term in enumerate(self.vocabulary_):
             self.term_to_index[term] = index
         self.vocabulary_size = len(self.vocabulary_)
-        print(f'Found {self.vocabulary_size} terms')
+
+        if self.verbose:
+            print(f'Found {self.vocabulary_size} terms')
 
     def l2norm(self, a):
         norm_rows = np.sqrt(np.add.reduceat(a.data * a.data, a.indptr[:-1]))
@@ -57,7 +60,7 @@ class TfidfVectorizer:
         num_docs = len(doc_ids)
 
         for index, doc_id in enumerate(doc_ids):
-            if index % 1000 == 0 and num_docs > 1000:
+            if index % 1000 == 0 and num_docs > 1000 and self.verbose:
                 print(f'Vectorizing: {index}/{len(doc_ids)}')
 
             # Term Frequency

@@ -26,6 +26,8 @@ from pyserini.index import pyutils
 from pyserini.pyclass import JString
 from pyserini.search import pysearch
 from pyserini.vectorizer import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn import metrics
 
 
 class TestIndexUtils(unittest.TestCase):
@@ -47,9 +49,16 @@ class TestIndexUtils(unittest.TestCase):
         self.index_utils = pyutils.IndexReaderUtils(self.index_path)
 
     def test_tfidf_vectorizer(self):
-        # vectorizer = TfidfVectorizer(self.index_path, min_df=5)
-        # print(self.filename)
-        pass
+        vectorizer = TfidfVectorizer(self.index_path, min_df=5)
+        train_docs = ['CACM-0239', 'CACM-0440', 'CACM-3168', 'CACM-3169']
+        train_labels = [1, 1, 0, 0]
+        test_docs = ['CACM-0634', 'CACM-3134']
+        train_vectors = vectorizer.get_vectors(train_docs)
+        test_vectors = vectorizer.get_vectors(test_docs)
+        clf = MultinomialNB()
+        clf.fit(train_vectors, train_labels)
+        pred = clf.predict(test_vectors)
+        self.assertListEqual([1, 0], list(pred))
 
     def test_terms_count(self):
         # We're going to iterate through the index and make sure we have the correct number of terms.
@@ -73,7 +82,8 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(' '.join(self.index_utils.analyze('rapid retrieval, space economy')),
                          'rapid retriev space economi')
         tokenizer = pyanalysis.get_lucene_analyzer(stemming=False)
-        self.assertEqual(' '.join(self.index_utils.analyze('retrieval', analyzer=tokenizer)), 'retrieval')
+        self.assertEqual(' '.join(self.index_utils.analyze(
+            'retrieval', analyzer=tokenizer)), 'retrieval')
         self.assertEqual(' '.join(self.index_utils.analyze('rapid retrieval, space economy', analyzer=tokenizer)),
                          'rapid retrieval space economy')
         # Test utf encoding:
@@ -104,12 +114,14 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(len(postings), 138)
 
         self.assertEqual(postings[0].docid, 238)
-        self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(postings[0].docid), 'CACM-0239')
+        self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(
+            postings[0].docid), 'CACM-0239')
         self.assertEqual(postings[0].tf, 1)
         self.assertEqual(len(postings[0].positions), 1)
 
         self.assertEqual(postings[-1].docid, 3168)
-        self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(postings[-1].docid), 'CACM-3169')
+        self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(
+            postings[-1].docid), 'CACM-3169')
         self.assertEqual(postings[-1].tf, 1)
         self.assertEqual(len(postings[-1].positions), 1)
 
@@ -125,7 +137,8 @@ class TestIndexUtils(unittest.TestCase):
         # Supply the analyzed form directly, and we're good:
         postings = list(self.index_utils.get_postings_list('retriev', analyzer=None))
         self.assertEqual(len(postings), 138)
-        postings = list(self.index_utils.get_postings_list(self.index_utils.analyze('retrieval')[0], analyzer=None))
+        postings = list(self.index_utils.get_postings_list(
+            self.index_utils.analyze('retrieval')[0], analyzer=None))
         self.assertEqual(len(postings), 138)
 
         # Test utf encoding:
@@ -191,7 +204,8 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(contents, self.index_utils.doc_contents('CACM-3134'))
         self.assertEqual(contents, self.index_utils.doc('CACM-3134').contents())
         self.assertEqual(contents, self.index_utils.doc('CACM-3134').get('contents'))
-        self.assertEqual(contents, self.index_utils.doc('CACM-3134').lucene_document().get('contents'))
+        self.assertEqual(contents, self.index_utils.doc(
+            'CACM-3134').lucene_document().get('contents'))
 
     def test_doc_by_field(self):
         self.assertEqual(self.index_utils.doc('CACM-3134').docid(),
@@ -199,13 +213,15 @@ class TestIndexUtils(unittest.TestCase):
 
     def test_bm25_weight(self):
         self.assertAlmostEqual(
-            self.index_utils.compute_bm25_term_weight('CACM-3134', 'inform', analyzer=None, k1=1.2, b=0.75),
+            self.index_utils.compute_bm25_term_weight(
+                'CACM-3134', 'inform', analyzer=None, k1=1.2, b=0.75),
             1.925014, places=5)
         self.assertAlmostEqual(
             self.index_utils.compute_bm25_term_weight('CACM-3134', 'information', k1=1.2, b=0.75),
             1.925014, places=5)
         self.assertAlmostEqual(
-            self.index_utils.compute_bm25_term_weight('CACM-3134', 'retriev', analyzer=None, k1=1.2, b=0.75),
+            self.index_utils.compute_bm25_term_weight(
+                'CACM-3134', 'retriev', analyzer=None, k1=1.2, b=0.75),
             2.496352, places=5)
         self.assertAlmostEqual(
             self.index_utils.compute_bm25_term_weight('CACM-3134', 'retrieval', k1=1.2, b=0.75),
@@ -226,13 +242,18 @@ class TestIndexUtils(unittest.TestCase):
 
         self.assertAlmostEqual(self.index_utils.compute_bm25_term_weight('CACM-3134', 'fox',  analyzer=None),
                                0., places=5)
-        self.assertAlmostEqual(self.index_utils.compute_bm25_term_weight('CACM-3134', 'fox'), 0., places=5)
+        self.assertAlmostEqual(self.index_utils.compute_bm25_term_weight(
+            'CACM-3134', 'fox'), 0., places=5)
 
     def test_docid_converstion(self):
-        self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(1), 'CACM-0002')
-        self.assertEqual(self.index_utils.convert_collection_docid_to_internal_docid('CACM-0002'), 1)
-        self.assertEqual(self.index_utils.convert_internal_docid_to_collection_docid(1000), 'CACM-1001')
-        self.assertEqual(self.index_utils.convert_collection_docid_to_internal_docid('CACM-1001'), 1000)
+        self.assertEqual(
+            self.index_utils.convert_internal_docid_to_collection_docid(1), 'CACM-0002')
+        self.assertEqual(
+            self.index_utils.convert_collection_docid_to_internal_docid('CACM-0002'), 1)
+        self.assertEqual(
+            self.index_utils.convert_internal_docid_to_collection_docid(1000), 'CACM-1001')
+        self.assertEqual(
+            self.index_utils.convert_collection_docid_to_internal_docid('CACM-1001'), 1000)
 
     def test_jstring_term(self):
         self.assertEqual(self.index_utils.get_term_counts('zoölogy'), (0, 0))
@@ -283,7 +304,7 @@ class TestIndexUtils(unittest.TestCase):
     def test_index_stats(self):
         self.assertEqual(3204, self.index_utils.stats()['documents'])
         self.assertEqual(14363, self.index_utils.stats()['unique_terms'])
-        
+
     def tearDown(self):
         os.remove(self.tarball_name)
         shutil.rmtree(self.index_dir)
