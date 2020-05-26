@@ -360,12 +360,12 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 ## Release History
 
-+ v0.9.2.0: May 15, 2020 [[Release Notes](release-notes/release-notes-v0.9.2.0.md)]
-+ v0.9.1.0: May 6, 2020 [[Release Notes](release-notes/release-notes-v0.9.1.0.md)]
-+ v0.9.0.0: April 18, 2020 [[Release Notes](release-notes/release-notes-v0.9.0.0.md)]
-+ v0.8.1.0: March 22, 2020 [[Release Notes](release-notes/release-notes-v0.8.1.0.md)]
-+ v0.8.0.0: March 12, 2020 [[Release Notes](release-notes/release-notes-v0.8.0.0.md)]
-+ v0.7.2.0: January 25, 2020 [[Release Notes](release-notes/release-notes-v0.7.2.0.md)]
-+ v0.7.1.0: January 9, 2020 [[Release Notes](release-notes/release-notes-v0.7.1.0.md)]
-+ v0.7.0.0: December 13, 2019 [[Release Notes](release-notes/release-notes-v0.7.0.0.md)]
++ v0.9.2.0: May 15, 2020 [[Release Notes](docs/release-notes/release-notes-v0.9.2.0.md)]
++ v0.9.1.0: May 6, 2020 [[Release Notes](docs/release-notes/release-notes-v0.9.1.0.md)]
++ v0.9.0.0: April 18, 2020 [[Release Notes](docs/release-notes/release-notes-v0.9.0.0.md)]
++ v0.8.1.0: March 22, 2020 [[Release Notes](docs/release-notes/release-notes-v0.8.1.0.md)]
++ v0.8.0.0: March 12, 2020 [[Release Notes](docs/release-notes/release-notes-v0.8.0.0.md)]
++ v0.7.2.0: January 25, 2020 [[Release Notes](docs/release-notes/release-notes-v0.7.2.0.md)]
++ v0.7.1.0: January 9, 2020 [[Release Notes](docs/release-notes/release-notes-v0.7.1.0.md)]
++ v0.7.0.0: December 13, 2019 [[Release Notes](docs/release-notes/release-notes-v0.7.0.0.md)]
 + v0.6.0.0: November 2, 2019
