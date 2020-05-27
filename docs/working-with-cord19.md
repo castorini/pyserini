@@ -10,15 +10,13 @@ The latest distribution available is from 2020/05/12.
 First, download the data:
 
 ```bash
-DATE=2020-05-12
+DATE=2020-05-26
 DATA_DIR=./collections/cord19-"${DATE}"
 mkdir "${DATA_DIR}"
 
-wget https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/latest/document_parses.tar.gz -P "${DATA_DIR}"
-wget https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/latest/metadata.csv -P "${DATA_DIR}"
-
-ls "${DATA_DIR}"/document_parses.tar.gz | xargs -I {} tar -zxvf {} -C "${DATA_DIR}"
-rm "${DATA_DIR}"/document_parses.tar.gz
+wget https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/historical_releases/cord-19_2020-05-26.tar.gz -P "${DATA_DIR}"
+ls "${DATA_DIR}"/cord-19_2020-05-26.tar.gz | xargs -I {} tar -zxvf {} -C "${DATA_DIR}"
+rm "${DATA_DIR}"/cord-19_2020-05-26.tar.gz
 ```
 
 ## Collection Access
