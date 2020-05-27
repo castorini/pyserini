@@ -59,8 +59,7 @@ if topics == {}:
 # get re-ranker
 use_prcl = args.prcl and len(args.prcl) > 0 and args.alpha > 0
 if use_prcl is True:
-    ranker = PseudoRelevanceClassifierReranker(
-        args.index, args.prcl, r=args.r, n=args.n, alpha=args.alpha)
+    ranker = PseudoRelevanceClassifierReranker(args.index, args.prcl, r=args.r, n=args.n, alpha=args.alpha)
 
 # build output path
 output_path = args.output
@@ -76,11 +75,13 @@ if output_path is None:
         r_str = f'prcl.r_{args.r}'
         n_str = f'prcl.r_{args.n}'
         a_str = f'prcl.alpha_{args.alpha}'
-        tokens = [args.topics, '+'.join(search_rankers), '+'.join(clf_rankers), r_str, n_str, a_str]
-        output_path = '-'.join(tokens) + ".txt"
+        clf_str = 'prcl_' + '+'.join(clf_rankers)
+        tokens1 = ['run', args.topics, '+'.join(search_rankers)]
+        tokens2 = [clf_str, r_str, n_str, a_str]
+        output_path = '.'.join(tokens1) + '-' +'-'.join(tokens2) + ".txt"
     else:
-        tokens = [args.topics, '+'.join(search_rankers)]
-        output_path = '-'.join(tokens) + ".txt"
+        tokens = ['run', args.topics, '+'.join(search_rankers), 'txt']
+        output_path = '.'.join(tokens)
 
 print('Output ->', output_path)
 
