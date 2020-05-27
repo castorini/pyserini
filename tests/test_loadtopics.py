@@ -82,11 +82,25 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual('coronavirus public datasets', topics[35]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    def test_covid_round2(self):
+    def test_covid_round2_udel(self):
         topics = pysearch.get_topics('covid_round2_udel')
         self.assertEqual(len(topics), 35)
         self.assertEqual('coronavirus origin origin COVID-19', topics[1]['query'])
         self.assertEqual('coronavirus public datasets public datasets COVID-19', topics[35]['query'])
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_covid_round3(self):
+        topics = pysearch.get_topics('covid_round3')
+        self.assertEqual(len(topics), 40)
+        self.assertEqual('coronavirus origin', topics[1]['query'])
+        self.assertEqual('coronavirus mutations', topics[40]['query'])
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_covid_round3_udel(self):
+        topics = pysearch.get_topics('covid_round3_udel')
+        self.assertEqual(len(topics), 40)
+        self.assertEqual('coronavirus origin origin COVID-19', topics[1]['query'])
+        self.assertEqual('coronavirus mutations observed mutations SARS-CoV-2 genome mutations', topics[40]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
 
