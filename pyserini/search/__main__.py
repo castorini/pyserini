@@ -41,15 +41,19 @@ parser.add_argument('-prcl.alpha', dest='alpha', type=float, default=0.5,
                     help='alpha value for interpolation in pseudo relevance feedback')
 args = parser.parse_args()
 
-searcher = SimpleSearcher(args.index)
 topics = get_topics(args.topics)
-search_rankers = ['bm25']
-if args.rm3:
-    search_rankers.append('rm3')
-    searcher.set_rm3()
+searcher = SimpleSearcher(args.index)
+search_rankers = []
+
 if args.qld:
     search_rankers.append('qld')
     searcher.set_qld()
+else:
+    search_rankers.append('bm25')
+
+if args.rm3:
+    search_rankers.append('rm3')
+    searcher.set_rm3()
 
 # invalid topics name
 if topics == {}:
@@ -78,7 +82,7 @@ if output_path is None:
         clf_str = 'prcl_' + '+'.join(clf_rankers)
         tokens1 = ['run', args.topics, '+'.join(search_rankers)]
         tokens2 = [clf_str, r_str, n_str, a_str]
-        output_path = '.'.join(tokens1) + '-' +'-'.join(tokens2) + ".txt"
+        output_path = '.'.join(tokens1) + '-' + '-'.join(tokens2) + ".txt"
     else:
         tokens = ['run', args.topics, '+'.join(search_rankers), 'txt']
         output_path = '.'.join(tokens)
