@@ -73,11 +73,14 @@ if output_path is None:
             elif t == ClassifierType.SVM:
                 clf_rankers.append('svm')
 
-        tokens = [args.topics, '+'.join(clf_rankers), f'A{args.alpha}', '+'.join(search_rankers)]
-        output_path = '_'.join(tokens) + ".txt"
+        r_str = f'prcl.r_{args.r}'
+        n_str = f'prcl.r_{args.n}'
+        a_str = f'prcl.alpha_{args.alpha}'
+        tokens = [args.topics, '+'.join(search_rankers), '+'.join(clf_rankers), r_str, n_str, a_str]
+        output_path = '-'.join(tokens) + ".txt"
     else:
         tokens = [args.topics, '+'.join(search_rankers)]
-        output_path = '_'.join(tokens) + ".txt"
+        output_path = '-'.join(tokens) + ".txt"
 
 print('Output ->', output_path)
 
