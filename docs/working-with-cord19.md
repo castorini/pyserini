@@ -6,7 +6,7 @@ If you want to actually search the collection, consult [this guide](https://gith
 
 ## Data Prep
 
-The latest distribution available is from 2020/05/12.
+The latest distribution available is from 2020/05/26.
 First, download the data:
 
 ```bash
