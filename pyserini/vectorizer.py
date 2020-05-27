@@ -102,6 +102,5 @@ class TfidfVectorizer:
                 matrix_col.append(self.term_to_index[term])
                 matrix_data.append(tfidf)
 
-        vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(
-            num_docs, self.vocabulary_size))
+        vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
         return self.l2norm(vectors)
