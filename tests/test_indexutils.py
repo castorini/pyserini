@@ -25,6 +25,8 @@ from pyserini.analysis import pyanalysis
 from pyserini.index import pyutils
 from pyserini.pyclass import JString
 from pyserini.search import pysearch
+from pyserini.vectorizer import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
 
 
 class TestIndexUtils(unittest.TestCase):
@@ -41,8 +43,24 @@ class TestIndexUtils(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-        self.searcher = pysearch.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
-        self.index_utils = pyutils.IndexReaderUtils(f'{self.index_dir}lucene-index.cacm')
+        self.index_path = os.path.join(self.index_dir, 'lucene-index.cacm')
+        self.searcher = pysearch.SimpleSearcher(self.index_path)
+        self.index_utils = pyutils.IndexReaderUtils(self.index_path)
+
+    def test_tfidf_vectorizer(self):
+        vectorizer = TfidfVectorizer(self.index_path, min_df=5)
+        train_docs = ['CACM-0239', 'CACM-0440', 'CACM-3168', 'CACM-3169']
+        train_labels = [1, 1, 0, 0]
+        test_docs = ['CACM-0634', 'CACM-3134']
+        train_vectors = vectorizer.get_vectors(train_docs)
+        test_vectors = vectorizer.get_vectors(test_docs)
+        clf = MultinomialNB()
+        clf.fit(train_vectors, train_labels)
+        pred = clf.predict_proba(test_vectors)
+        self.assertAlmostEqual(0.49975694, pred[0][0], places=8)
+        self.assertAlmostEqual(0.50024306, pred[0][1], places=8)
+        self.assertAlmostEqual(0.51837413, pred[1][0], places=8)
+        self.assertAlmostEqual(0.48162587, pred[1][1], places=8)
 
     def test_terms_count(self):
         # We're going to iterate through the index and make sure we have the correct number of terms.
@@ -276,7 +294,7 @@ class TestIndexUtils(unittest.TestCase):
     def test_index_stats(self):
         self.assertEqual(3204, self.index_utils.stats()['documents'])
         self.assertEqual(14363, self.index_utils.stats()['unique_terms'])
-        
+
     def tearDown(self):
         os.remove(self.tarball_name)
         shutil.rmtree(self.index_dir)
