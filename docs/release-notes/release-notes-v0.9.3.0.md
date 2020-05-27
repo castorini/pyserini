@@ -3,7 +3,7 @@
 **Release date: May 27, 2020**
 
 + Implemented pseudo-relevance classifier reranking technique.
-+ Added `TfidfVectorizer` to obtain vector representation of arbitrary document from index. Verified that class works as expected with 20 Newsgroups.
++ Added `TfidfVectorizer` to obtain vector representations of arbitrary documents from index. Verified that class works as expected by replicating [classification demo on 20 Newsgroups with scikit-learn](https://scikit-learn.org/0.19/datasets/twenty_newsgroups.html).
 + Added bindings to TREC COVID round 3 topics.
 + Added script for CORD-19 length outlier detection.
 + Added `__main__` to `pyserini.search` to perform TREC runs from the command line.
