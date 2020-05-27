@@ -58,7 +58,8 @@ class TestIndexUtils(unittest.TestCase):
         clf = MultinomialNB()
         clf.fit(train_vectors, train_labels)
         pred = clf.predict(test_vectors)
-        self.assertListEqual([1, 0], list(pred))
+        score = metrics.f1_score([1, 0], pred, average='macro')
+        self.assertAlmostEqual(score, 1.0, places=1)
 
     def test_terms_count(self):
         # We're going to iterate through the index and make sure we have the correct number of terms.
