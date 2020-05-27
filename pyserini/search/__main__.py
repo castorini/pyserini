@@ -41,15 +41,19 @@ parser.add_argument('-prcl.alpha', dest='alpha', type=float, default=0.5,
                     help='alpha value for interpolation in pseudo relevance feedback')
 args = parser.parse_args()
 
-searcher = SimpleSearcher(args.index)
 topics = get_topics(args.topics)
-search_rankers = ['bm25']
-if args.rm3:
-    search_rankers.append('rm3')
-    searcher.set_rm3()
+searcher = SimpleSearcher(args.index)
+search_rankers = []
+
 if args.qld:
     search_rankers.append('qld')
     searcher.set_qld()
+else:
+    search_rankers.append('bm25')
+
+if args.rm3:
+    search_rankers.append('rm3')
+    searcher.set_rm3()
 
 # invalid topics name
 if topics == {}:
@@ -59,8 +63,7 @@ if topics == {}:
 # get re-ranker
 use_prcl = args.prcl and len(args.prcl) > 0 and args.alpha > 0
 if use_prcl is True:
-    ranker = PseudoRelevanceClassifierReranker(
-        args.index, args.prcl, r=args.r, n=args.n, alpha=args.alpha)
+    ranker = PseudoRelevanceClassifierReranker(args.index, args.prcl, r=args.r, n=args.n, alpha=args.alpha)
 
 # build output path
 output_path = args.output
@@ -73,11 +76,16 @@ if output_path is None:
             elif t == ClassifierType.SVM:
                 clf_rankers.append('svm')
 
-        tokens = [args.topics, '+'.join(clf_rankers), f'A{args.alpha}', '+'.join(search_rankers)]
-        output_path = '_'.join(tokens) + ".txt"
+        r_str = f'prcl.r_{args.r}'
+        n_str = f'prcl.r_{args.n}'
+        a_str = f'prcl.alpha_{args.alpha}'
+        clf_str = 'prcl_' + '+'.join(clf_rankers)
+        tokens1 = ['run', args.topics, '+'.join(search_rankers)]
+        tokens2 = [clf_str, r_str, n_str, a_str]
+        output_path = '.'.join(tokens1) + '-' + '-'.join(tokens2) + ".txt"
     else:
-        tokens = [args.topics, '+'.join(search_rankers)]
-        output_path = '_'.join(tokens) + ".txt"
+        tokens = ['run', args.topics, '+'.join(search_rankers), 'txt']
+        output_path = '.'.join(tokens)
 
 print('Output ->', output_path)
 
