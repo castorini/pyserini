@@ -26,6 +26,33 @@ Install via PyPI
 pip install pyserini==0.9.3.0
 ```
 
+## Development Installation
+
+If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
+However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
+First, clone the repo:
+
+```
+git clone --recurse-submodules git@github.com:castorini/pyserini
+```
+
+The `eval/` directory contains evaluation tools and scripts.
+Build as follows (you might get warnings, but you can ignore):
+
+```bash
+cd eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make && cd ../..
+cd eval/ndeval && make && cd ../..
+```
+
+Next, you'll need to clone and build [Anserini](http://anserini.io/).
+It makes sense to put both `pyserini/` and `anserini/` in a common folder.
+Finally, copy the Anserini fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
+You can confirm everything is working by running the unit tests:
+
+```bash
+python -m unittest
+```
+
 ## Simple Usage
 
 Here's a sample pre-built index on TREC Disks 4 &amp; 5 to play with (used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md)):
