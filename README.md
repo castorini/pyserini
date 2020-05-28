@@ -46,7 +46,7 @@ cd eval/ndeval && make && cd ../..
 
 Next, you'll need to clone and build [Anserini](http://anserini.io/).
 It makes sense to put both `pyserini/` and `anserini/` in a common folder.
-After you've successfully built Anserini, copy the Anserini fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
+After you've successfully built Anserini, copy the fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
 You can confirm everything is working by running the unit tests:
 
 ```bash
