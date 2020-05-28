@@ -18,7 +18,7 @@ In general, documentation is kept up to date with the latest code in the repo.
 
 If you're looking to work with the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research), start with [this guide](docs/working-with-cord19.md).
 
-## Installation
+## Package Installation
 
 Install via PyPI
 
