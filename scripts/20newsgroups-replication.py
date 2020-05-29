@@ -18,7 +18,6 @@ sys.path.insert(0, './')
 import argparse
 import importlib
 import os
-from enum import Enum
 from sklearn import metrics
 from sklearn.linear_model import LogisticRegression
 from pyserini.vectorizer import BM25Vectorizer
@@ -35,11 +34,6 @@ def get_info(path):
             targets.append(target_to_index[category])
 
     return docs, targets
-
-
-class VectorizerType(Enum):
-    TFIDF = 'tfidf'
-    BM25 = 'bm25'
 
 
 if __name__ == '__main__':
@@ -72,7 +66,9 @@ if __name__ == '__main__':
     print(f'f1 score: {score}')
 
     score = round(score, 7)
-    if args.vectorizer == VectorizerType.TFIDF:
+    if args.vectorizer == 'TfidfVectorizer':
         assert score == 0.8341188, "tf-idf vectorizer score mismatch"
-    elif args.vectorizer == VectorizerType.BM25:
+    elif args.vectorizer == 'BM25Vectorizer':
         assert score == 0.8441544, "bm25 vectorizer score mismatch"
+    else:
+        print('No matching f1 score assertion')
