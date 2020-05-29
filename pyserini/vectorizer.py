@@ -157,19 +157,20 @@ class BM25Vectorizer(Vectorizer):
             if index % 1000 == 0 and num_docs > 1000 and self.verbose:
                 print(f'Vectorizing: {index}/{len(docids)}')
 
+            # Term Frequency
             tf = self.index_utils.get_document_vector(doc_id)
+            if tf is None:
+                continue
 
             # Filter out in-eligible terms
             tf = {t: tf[t] for t in tf if t in self.term_to_index}
 
-            # Retrieve bm25 term weight
-            tf = {term: self.index_utils.compute_bm25_term_weight(doc_id, term, analyzer=None) for term in tf.keys()}
-
             # Convert from dict to sparse matrix
             for term in tf:
+                bm25_weight = self.index_utils.compute_bm25_term_weight(doc_id, term, analyzer=None)
                 matrix_row.append(index)
                 matrix_col.append(self.term_to_index[term])
-                matrix_data.append(tf[term])
+                matrix_data.append(bm25_weight)
 
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
         return self._l2normalize(vectors)
