@@ -12,16 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from sklearn.linear_model import LogisticRegression
+from sklearn import metrics
+import os
+import importlib
+import argparse
 import sys
 sys.path.insert(0, './')
-
-import argparse
-import importlib
-import os
-from sklearn import metrics
-from sklearn.linear_model import LogisticRegression
-from pyserini.vectorizer import BM25Vectorizer
-from pyserini.vectorizer import TfidfVectorizer
 
 
 def get_info(path):
@@ -67,8 +64,8 @@ if __name__ == '__main__':
 
     score = round(score, 7)
     if args.vectorizer == 'TfidfVectorizer':
-        assert score == 0.8341188, "tf-idf vectorizer score mismatch"
+        assert score == 0.8359058, "tf-idf vectorizer score mismatch"
     elif args.vectorizer == 'BM25Vectorizer':
-        assert score == 0.8441544, "bm25 vectorizer score mismatch"
+        assert score == 0.8421606, "bm25 vectorizer score mismatch"
     else:
         print('No matching f1 score assertion')
