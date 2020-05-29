@@ -23,6 +23,18 @@ from pyserini.index import pyutils
 
 
 class VectorizerBase:
+    """Base class for vectorizer implemented on top of Pyserini.
+
+    Parameters
+    ----------
+    lucene_index_path : str
+        Path to lucene index folder
+    min_df : int
+        Minimum acceptable document frequency
+    verbose : bool
+        Whether to print out debugging information
+    """
+
     def __init__(self, lucene_index_path: str, min_df: int = 1, verbose: bool = False) -> None:
         self.min_df: int = min_df
         self.verbose: bool = verbose
