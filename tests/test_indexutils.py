@@ -17,16 +17,16 @@ import shutil
 import tarfile
 import unittest
 from random import randint
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import MultinomialNB
 from urllib.request import urlretrieve
 
 from pyserini.analysis import pyanalysis
 from pyserini.index import pyutils
 from pyserini.pyclass import JString
 from pyserini.search import pysearch
-from pyserini.vectorizer import TfidfVectorizer
 from pyserini.vectorizer import BM25Vectorizer
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.linear_model import LogisticRegression
+from pyserini.vectorizer import TfidfVectorizer
 
 
 class TestIndexUtils(unittest.TestCase):
