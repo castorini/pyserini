@@ -103,6 +103,20 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual('coronavirus mutations observed mutations SARS-CoV-2 genome mutations', topics[40]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+    def test_trec2018_bl(self):
+        topics = pysearch.get_topics('trec2018_bl')
+        self.assertEqual(len(topics), 50)
+        self.assertEqual('fef0f232a9bd94bdb96bac48c7705503', topics[393]['title'])
+        self.assertEqual('a1c41a70-35c7-11e3-8a0e-4e2cf80831fc', topics[825]['title'])
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+    
+    def test_trec2019_bl(self):
+        topics = pysearch.get_topics('trec2019_bl')
+        self.assertEqual(len(topics), 60)
+        self.assertEqual('d7d906991e2883889f850de9ae06655e', topics[870]['title'])
+        self.assertEqual('0d7f5e24cafc019265d3ee4b9745e7ea', topics[829]['title'])
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
 
 if __name__ == '__main__':
     unittest.main()
