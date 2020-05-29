@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,25 +15,26 @@
 import sys
 sys.path.insert(0, './')
 
-from pyserini.vectorizer import TfidfVectorizer
-from pyserini.vectorizer import BM25Vectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn import metrics
-from enum import Enum
-import os
 import argparse
+import importlib
+import os
+from enum import Enum
+from sklearn import metrics
+from sklearn.linear_model import LogisticRegression
+from pyserini.vectorizer import BM25Vectorizer
+from pyserini.vectorizer import TfidfVectorizer
 
 
 def get_info(path):
     docs = []
     targets = []
-    for (root, _, files) in os.walk(path, topdown=False):
+    for root, _, files in os.walk(path, topdown=False):
         for doc_id in files:
             docs.append(doc_id)
             category = root.split('/')[-1]
             targets.append(target_to_index[category])
 
-    return (docs, targets)
+    return docs, targets
 
 
 class VectorizerType(Enum):
@@ -44,9 +43,8 @@ class VectorizerType(Enum):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='Replication script of pyserini vectorizer')
-    parser.add_argument('-vectorizer', type=VectorizerType, required=True, help='which vectorizer to use')
+    parser = argparse.ArgumentParser(description='Replication script of pyserini vectorizer')
+    parser.add_argument('--vectorizer', type=str, required=True, help='E.g. TfidfVectorizer')
     args = parser.parse_args()
 
     target_names = ['alt.atheism', 'comp.graphics', 'comp.os.ms-windows.misc', 'comp.sys.ibm.pc.hardware', 'comp.sys.mac.hardware', 'comp.windows.x', 'misc.forsale', 'rec.autos', 'rec.motorcycles', 'rec.sport.baseball',
@@ -57,12 +55,11 @@ if __name__ == '__main__':
     train_docs, train_labels = get_info('./20newsgroups/20news-bydate-train/')
     test_docs, test_labels = get_info('./20newsgroups/20news-bydate-test/')
 
+    # get vectorizer
     lucene_index_path = '20newsgroups/lucene-index.20newsgroup.pos+docvectors+raw'
-    vectorizer = None
-    if args.vectorizer == VectorizerType.TFIDF:
-        vectorizer = TfidfVectorizer(lucene_index_path, min_df=5, verbose=True)
-    elif args.vectorizer == VectorizerType.BM25:
-        vectorizer = BM25Vectorizer(lucene_index_path)
+    module = importlib.import_module("pyserini.vectorizer")
+    VectorizerClass = getattr(module, args.vectorizer)
+    vectorizer = VectorizerClass(lucene_index_path, min_df=5, verbose=True)
 
     train_vectors = vectorizer.get_vectors(train_docs)
     test_vectors = vectorizer.get_vectors(test_docs)
