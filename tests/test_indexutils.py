@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +26,9 @@ from pyserini.index import pyutils
 from pyserini.pyclass import JString
 from pyserini.search import pysearch
 from pyserini.vectorizer import TfidfVectorizer
+from pyserini.vectorizer import BM25Vectorizer
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
 
 
 class TestIndexUtils(unittest.TestCase):
@@ -59,6 +63,21 @@ class TestIndexUtils(unittest.TestCase):
         self.assertAlmostEqual(0.50024306, pred[0][1], places=8)
         self.assertAlmostEqual(0.51837413, pred[1][0], places=8)
         self.assertAlmostEqual(0.48162587, pred[1][1], places=8)
+
+    def test_bm25_vectorizer(self):
+        vectorizer = BM25Vectorizer(self.index_path, min_df=5)
+        train_docs = ['CACM-0239', 'CACM-0440', 'CACM-3168', 'CACM-3169']
+        train_labels = [1, 1, 0, 0]
+        test_docs = ['CACM-0634', 'CACM-3134']
+        train_vectors = vectorizer.get_vectors(train_docs)
+        test_vectors = vectorizer.get_vectors(test_docs)
+        clf = LogisticRegression()
+        clf.fit(train_vectors, train_labels)
+        pred = clf.predict_proba(test_vectors)
+        self.assertAlmostEqual(0.4629749, pred[0][0], places=8)
+        self.assertAlmostEqual(0.5370251, pred[0][1], places=8)
+        self.assertAlmostEqual(0.48288416, pred[1][0], places=8)
+        self.assertAlmostEqual(0.51711584, pred[1][1], places=8)
 
     def test_terms_count(self):
         # We're going to iterate through the index and make sure we have the correct number of terms.
