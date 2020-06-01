@@ -18,12 +18,39 @@ In general, documentation is kept up to date with the latest code in the repo.
 
 If you're looking to work with the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research), start with [this guide](docs/working-with-cord19.md).
 
-## Installation
+## Package Installation
 
 Install via PyPI
 
 ```
 pip install pyserini==0.9.3.0
+```
+
+## Development Installation
+
+If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
+However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
+First, clone the repo:
+
+```
+git clone --recurse-submodules git@github.com:castorini/pyserini
+```
+
+The `eval/` directory contains evaluation tools and scripts.
+Build as follows (you might get warnings, but you can ignore):
+
+```bash
+cd eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make && cd ../..
+cd eval/ndeval && make && cd ../..
+```
+
+Next, you'll need to clone and build [Anserini](http://anserini.io/).
+It makes sense to put both `pyserini/` and `anserini/` in a common folder.
+After you've successfully built Anserini, copy the fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
+You can confirm everything is working by running the unit tests:
+
+```bash
+python -m unittest
 ```
 
 ## Simple Usage
