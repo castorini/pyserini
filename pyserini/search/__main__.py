@@ -77,7 +77,7 @@ if output_path is None:
         a_str = f'prcl.alpha_{args.alpha}'
         clf_str = 'prcl_' + '+'.join(clf_rankers)
         tokens1 = ['run', args.topics, '+'.join(search_rankers)]
-        tokens2 = [args.v, clf_str, r_str, n_str, a_str]
+        tokens2 = [args.vectorizer, clf_str, r_str, n_str, a_str]
         output_path = '.'.join(tokens1) + '-' + '-'.join(tokens2) + ".txt"
     else:
         tokens = ['run', args.topics, '+'.join(search_rankers), 'txt']
