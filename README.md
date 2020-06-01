@@ -49,6 +49,8 @@ You can confirm everything is working by running the unit tests:
 python -m unittest
 ```
 
+Assuming all tests pass, you should be ready to go!
+
 ## Simple Usage
 
 Here's a sample pre-built index on TREC Disks 4 &amp; 5 to play with (used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md)):
