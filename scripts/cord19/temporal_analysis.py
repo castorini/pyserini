@@ -12,7 +12,7 @@ if __name__ == '__main__':
     date_dois = []
     dates =[]
 
-    collection = pycollection.Collection('Cord19AbstractCollection', '/Users/stephaniewhoo/URA/pyserini/collections/cord19-2020-05-19')
+    collection = pycollection.Collection('Cord19AbstractCollection', '/Users/stephaniewhoo/URA/pyserini/collections/cord19-2020-05-26/2020-05-26')
     articles = collection.__next__()
     article = None
     #interate through raw collection
@@ -38,6 +38,8 @@ if __name__ == '__main__':
     before_2003 = temp.loc[temp['publish_date'] <= '2002-12-31']
     between_03_19 = temp.loc[temp['publish_date'] > '2002-12-31'].loc[temp['publish_date'] <= '2019-12-19']
     after_19 = temp.loc[temp['publish_date'] > '2019-12-19']
+
+
     temp.plot(x='publish_date', y='counts')
     before_2003.plot(x='publish_date', y='counts')
     between_03_19.plot(x='publish_date', y='counts')
