@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -312,6 +310,10 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND3)
     elif collection_name == 'covid_round3_udel':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND3_UDEL)
+    elif collection_name == 'trec2018_bl':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2018_BL)
+    elif collection_name == 'trec2019_bl':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_BL)
     else:
         return {}
     t = {}

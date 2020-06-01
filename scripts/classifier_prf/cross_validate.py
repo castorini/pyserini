@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
