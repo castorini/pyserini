@@ -19,18 +19,16 @@ from pyserini.search.pysearch import get_topics, SimpleSearcher
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 
 parser = argparse.ArgumentParser(description='Create a input schema')
-parser.add_argument('-index', type=str, metavar='path to index',
-                    required=True, help='the path to lucene index')
+parser.add_argument('-index', type=str, metavar='path to index', required=True, help='the path to lucene index')
 parser.add_argument('-topics', type=str, metavar='topic_name', required=True,
                     help='topics name e.g. robust04, robust05, core17 & core18')
-parser.add_argument('-output', type=str, metavar='path',
-                    help='path to the output file')
-parser.add_argument('-bm25',  action='store_true', default=True,
-                    help='use bm25 ranker by default')
+parser.add_argument('-output', type=str, metavar='path', help='path to the output file')
+parser.add_argument('-bm25',  action='store_true', default=True, help='use bm25 ranker by default')
 parser.add_argument('-rm3',  action='store_true', help='use rm3 ranker')
 parser.add_argument('-qld',  action='store_true', help='use qld ranker')
 parser.add_argument('-prcl',  type=ClassifierType, nargs='+', default=[],
                     help='specify the classifier PseudoRelevanceClassifierReranker uses')
+parser.add_argument('-prcl.v',  dest='v', type=str, help='E.g. TfidfVectorizer')
 parser.add_argument('-prcl.r',  dest='r', type=int, default=10,
                     help='number of positive labels in pseudo relevance feedback')
 parser.add_argument('-prcl.n', dest='n', type=int, default=100,
@@ -61,7 +59,7 @@ if topics == {}:
 # get re-ranker
 use_prcl = args.prcl and len(args.prcl) > 0 and args.alpha > 0
 if use_prcl is True:
-    ranker = PseudoRelevanceClassifierReranker(args.index, args.prcl, r=args.r, n=args.n, alpha=args.alpha)
+    ranker = PseudoRelevanceClassifierReranker(args.index, args.v, args.prcl, r=args.r, n=args.n, alpha=args.alpha)
 
 # build output path
 output_path = args.output
@@ -75,11 +73,11 @@ if output_path is None:
                 clf_rankers.append('svm')
 
         r_str = f'prcl.r_{args.r}'
-        n_str = f'prcl.r_{args.n}'
+        n_str = f'prcl.n_{args.n}'
         a_str = f'prcl.alpha_{args.alpha}'
         clf_str = 'prcl_' + '+'.join(clf_rankers)
         tokens1 = ['run', args.topics, '+'.join(search_rankers)]
-        tokens2 = [clf_str, r_str, n_str, a_str]
+        tokens2 = [args.v, clf_str, r_str, n_str, a_str]
         output_path = '.'.join(tokens1) + '-' + '-'.join(tokens2) + ".txt"
     else:
         tokens = ['run', args.topics, '+'.join(search_rankers), 'txt']
