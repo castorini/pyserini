@@ -30,7 +30,7 @@ pip install pyserini==0.9.3.0
 
 If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
-First, clone our repo with the `--recurse-submodules` option to make sure the `eval/` submodule also gets cloned.
+Clone our repo with the `--recurse-submodules` option to make sure the `eval/` submodule also gets cloned.
 
 The `eval/` directory, which contains evaluation tools and scripts, is actually [this repo](https://github.com/castorini/anserini-eval), integrated as a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) (so that it can be shared across related projects).
 Build as follows (you might get warnings, but okay to ignore):
