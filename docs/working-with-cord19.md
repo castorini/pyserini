@@ -28,7 +28,7 @@ The following snippet of code allows you to iterate through all articles in the 
 ```python
 from pyserini.collection import pycollection
 
-collection = pycollection.Collection('Cord19AbstractCollection', 'collections/cord19-2020-05-12')
+collection = pycollection.Collection('Cord19AbstractCollection', 'collections/cord19-2020-05-26')
 
 cnt = 0;
 full_text = {True : 0, False: 0}
@@ -55,7 +55,7 @@ Let's examine the first full-text article in the collection:
 from pyserini.collection import pycollection
 
 # All this snippet of code does is to advance to the frist full-text article:
-collection = pycollection.Collection('Cord19AbstractCollection', 'collections/cord19-2020-05-12')
+collection = pycollection.Collection('Cord19AbstractCollection', 'collections/cord19-2020-05-26')
 
 articles = collection.__next__()
 article = None
