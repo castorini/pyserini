@@ -18,15 +18,38 @@ from ..trectools import TrecRun, TrecRunDoc, sum_runs_by_score
 from typing import List
 
 
-def set_reciprocal_rank_fusion_score(doc: TrecRunDoc, k):
+def set_reciprocal_rank_fusion_score(doc: TrecRunDoc, k:int):
+    """Given a TrecRunDoc, update the document after updating the score to RRFscore.
+
+    Parameters
+    ----------
+    doc : TrecRunDoc
+        The document of interest.
+    k : int
+        The k value needed to compute RRFscore.
+    """
+
     doc.score = 1 / (k + doc.rank)
 
 
 def reciprocal_rank_fusion(trec_runs: List[TrecRun], k: int = 60):
+    """Given a list of TrecRun, return a new fused TrecRun using reciprocal rank fusion.
+
+    Parameters
+    ----------
+    runs : List[TrecRun]
+        A list of TrecRun.
+
+    Returns
+    -------
+    fused_run : TrecRun
+        The fused TrecRun using reciprocal rank fusion.
+    """
+
     if len(trec_runs) < 2:
         raise Exception('Fusion requres at least 2 runs.')
 
     for trec_run in trec_runs:
-        trec_run.map_each_doc(lambda doc: set_reciprocal_rank_fusion_score(doc, k))
+        trec_run.for_each_doc(lambda doc: set_reciprocal_rank_fusion_score(doc, k))
 
     return sum_runs_by_score(trec_runs)

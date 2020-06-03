@@ -15,8 +15,8 @@
 #
 
 import argparse
-from ..trectools import TrecRun
 from pyserini.fusion import reciprocal_rank_fusion
+from ..trectools import TrecRun
 
 parser = argparse.ArgumentParser(description='Create a input schema')
 parser.add_argument('--runs', type=str, nargs='+', default=[], required=True, help='A list of run files.')
