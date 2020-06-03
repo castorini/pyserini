@@ -16,19 +16,24 @@
 
 from typing import List
 
-from ..pyclass import JAnalyzerUtils
-from ..pyclass import JArabicAnalyzer
-from ..pyclass import JBengaliAnalyzer
-from ..pyclass import JCJKAnalyzer
-from ..pyclass import JDefaultEnglishAnalyzer
-from ..pyclass import JFreebaseAnalyzer
-from ..pyclass import JFrenchAnalyzer
-from ..pyclass import JGermanAnalyzer
-from ..pyclass import JHindiAnalyzer
-from ..pyclass import JSpanishAnalyzer
-from ..pyclass import JString
-from ..pyclass import JTweetAnalyzer
-from ..pyclass import JCharArraySet
+from ..pyclass import autoclass, JString
+
+
+# Wrappers around Lucene classes
+JArabicAnalyzer = autoclass('org.apache.lucene.analysis.ar.ArabicAnalyzer')
+JBengaliAnalyzer = autoclass('org.apache.lucene.analysis.bn.BengaliAnalyzer')
+JCJKAnalyzer = autoclass('org.apache.lucene.analysis.cjk.CJKAnalyzer')
+JGermanAnalyzer = autoclass('org.apache.lucene.analysis.de.GermanAnalyzer')
+JSpanishAnalyzer = autoclass('org.apache.lucene.analysis.es.SpanishAnalyzer')
+JFrenchAnalyzer = autoclass('org.apache.lucene.analysis.fr.FrenchAnalyzer')
+JHindiAnalyzer = autoclass('org.apache.lucene.analysis.hi.HindiAnalyzer')
+JDefaultEnglishAnalyzer = autoclass('io.anserini.analysis.DefaultEnglishAnalyzer')
+JCharArraySet = autoclass('org.apache.lucene.analysis.CharArraySet')
+
+# Wrappers around Anserini classes
+JAnalyzerUtils = autoclass('io.anserini.analysis.AnalyzerUtils')
+JFreebaseAnalyzer = autoclass('io.anserini.analysis.FreebaseAnalyzer')
+JTweetAnalyzer = autoclass('io.anserini.analysis.TweetAnalyzer')
 
 
 def get_lucene_analyzer(name='english', stemming=True, stemmer='porter', stopwords=True):

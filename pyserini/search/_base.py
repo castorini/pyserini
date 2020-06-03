@@ -21,9 +21,21 @@ class, which wraps the Java class with the same name in Anserini.
 
 import logging
 
-from ..pyclass import JDocument, JTopics, JTopicReader
+from ..pyclass import autoclass
 
 logger = logging.getLogger(__name__)
+
+
+# Wrappers around Lucene classes
+JQuery = autoclass('org.apache.lucene.search.Query')
+JDocument = autoclass('org.apache.lucene.document.Document')
+
+# Wrappers around Anserini classes
+JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
+JTopics = autoclass('io.anserini.search.topicreader.Topics')
+JQueryGenerator = autoclass('io.anserini.search.query.QueryGenerator')
+JBagOfWordsQueryGenerator = autoclass('io.anserini.search.query.BagOfWordsQueryGenerator')
+JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
 
 
 class Document:

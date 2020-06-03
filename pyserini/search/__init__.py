@@ -14,8 +14,10 @@
 # limitations under the License.
 #
 
-from ._base import Document, get_topics
-from ._searcher import SimpleSearcher, LuceneSimilarities
-from ._nearest_neighbor import SimpleNearestNeighborSearcher
+from ._base import Document, JDocument, JQuery, get_topics
+from ._searcher import JSimpleSearcherResult, LuceneSimilarities, SimpleSearcher
+from ._nearest_neighbor import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearcherResult
 
-__all__ = ['Document', 'SimpleSearcher', 'LuceneSimilarities', 'SimpleNearestNeighborSearcher', 'get_topics']
+__all__ = ['Document', 'JDocument', 'JQuery', 'LuceneSimilarities',
+           'SimpleSearcher', 'JSimpleSearcherResult',
+           'SimpleNearestNeighborSearcher', 'JSimpleNearestNeighborSearcherResult', 'get_topics']

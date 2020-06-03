@@ -1,3 +1,4 @@
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 import os
 import shutil
@@ -29,15 +31,15 @@ class TestIterateCollection(unittest.TestCase):
         r = randint(0, 10000000)
         url = 'https://github.com/castorini/anserini/blob/master/src/main/resources/cacm/cacm.tar.gz?raw=true'
         tarball_name = 'cacm{}.tar.gz'.format(r)
-        dir = 'collection{}/'.format(r)
+        directory = 'collection{}/'.format(r)
 
-        filename, headers = urlretrieve(url, tarball_name)
+        _, _ = urlretrieve(url, tarball_name)
 
         tarball = tarfile.open(tarball_name)
-        tarball.extractall(dir)
+        tarball.extractall(directory)
         tarball.close()
 
-        cacm = collection.Collection('HtmlCollection', dir)
+        cacm = collection.Collection('HtmlCollection', directory)
         generator = index.Generator('DefaultLuceneDocumentGenerator')
 
         cnt = 0
@@ -68,7 +70,7 @@ class TestIterateCollection(unittest.TestCase):
 
         # Clean up
         os.remove(tarball_name)
-        shutil.rmtree(dir)
+        shutil.rmtree(directory)
 
 
 if __name__ == '__main__':

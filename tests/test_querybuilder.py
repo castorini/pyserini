@@ -1,3 +1,4 @@
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 import os
 import shutil
@@ -20,8 +22,8 @@ from random import randint
 from urllib.request import urlretrieve
 
 from pyserini import search
-from pyserini.search import querybuilder
 from pyserini.analysis import get_lucene_analyzer
+from pyserini.search import querybuilder
 
 
 class TestQueryBuilding(unittest.TestCase):

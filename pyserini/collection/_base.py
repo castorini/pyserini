@@ -16,11 +16,27 @@
 
 import logging
 import re
+from enum import Enum
 
 from ..multithreading import Counters
-from ..pyclass import JCollections, JPaths, cast
+from ..pyclass import autoclass, cast, JPaths
 
 logger = logging.getLogger(__name__)
+
+
+class JCollections(Enum):
+    CarCollection = autoclass('io.anserini.collection.CarCollection')
+    Cord19AbstractCollection = autoclass('io.anserini.collection.Cord19AbstractCollection')
+    ClueWeb09Collection = autoclass('io.anserini.collection.ClueWeb09Collection')
+    ClueWeb12Collection = autoclass('io.anserini.collection.ClueWeb12Collection')
+    HtmlCollection = autoclass('io.anserini.collection.HtmlCollection')
+    JsonCollection = autoclass('io.anserini.collection.JsonCollection')
+    NewYorkTimesCollection = autoclass('io.anserini.collection.NewYorkTimesCollection')
+    TrecCollection = autoclass('io.anserini.collection.TrecCollection')
+    TrecwebCollection = autoclass('io.anserini.collection.TrecwebCollection')
+    TweetCollection = autoclass('io.anserini.collection.TweetCollection')
+    WashingtonPostCollection = autoclass('io.anserini.collection.WashingtonPostCollection')
+    WikipediaCollection = autoclass('io.anserini.collection.WikipediaCollection')
 
 
 class Collection:

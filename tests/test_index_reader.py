@@ -1,3 +1,4 @@
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,15 +12,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 import os
 import shutil
 import tarfile
 import unittest
 from random import randint
+from urllib.request import urlretrieve
+
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
-from urllib.request import urlretrieve
 
 from pyserini import analysis, index, search
 from pyserini.pyclass import JString
@@ -34,7 +37,7 @@ class TestIndexUtils(unittest.TestCase):
         self.tarball_name = 'lucene-index.cacm-{}.tar.gz'.format(r)
         self.index_dir = 'index{}/'.format(r)
 
-        filename, headers = urlretrieve(self.collection_url, self.tarball_name)
+        _, _ = urlretrieve(self.collection_url, self.tarball_name)
 
         tarball = tarfile.open(self.tarball_name)
         tarball.extractall(self.index_dir)
