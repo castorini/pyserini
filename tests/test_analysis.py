@@ -19,9 +19,7 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-from pyserini import analysis
-from pyserini import index
-from pyserini import search
+from pyserini import analysis, index, search
 from pyserini.pyclass import JString, JAnalyzerUtils
 
 

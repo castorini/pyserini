@@ -20,7 +20,7 @@ from random import randint
 from typing import List, Dict
 from urllib.request import urlretrieve
 
-from pyserini.pyclass import JSimpleSearcherResult, autoclass
+from pyserini.pyclass import JSimpleSearcherResult
 from pyserini import search
 
 

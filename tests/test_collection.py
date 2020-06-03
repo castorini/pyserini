@@ -19,8 +19,7 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-from pyserini import collection
-from pyserini import index
+from pyserini import collection, index
 
 
 class TestIterateCollection(unittest.TestCase):
