@@ -208,7 +208,7 @@ Note that the results are different, because we've placed more weight on the ter
 
 ## Usage of the Index Reader API
 
-The `IndexReaderUtils` class provides methods for accessing and manipulating an inverted index.
+The `IndexReader` class provides methods for accessing and manipulating an inverted index.
 
 **IMPORTANT NOTE:** Be aware whether a method takes or returns _analyzed_ or _unanalyzed_ terms.
 "Analysis" refers to processing by a Lucene `Analyzer`, which typically includes tokenization, stemming, stopword removal, etc.
@@ -219,7 +219,7 @@ Initialize the class as follows:
 ```python
 from pyserini import analysis, index
 
-index_utils = index.IndexReaderUtils('indexes/index-robust04-20191213/')
+index_reader = index.IndexReader('indexes/index-robust04-20191213/')
 ```
 
 Use `terms()` to grab an iterator over all terms in the collection, i.e., the dictionary.
@@ -228,7 +228,7 @@ Here, we only print out the first 10:
 
 ```python
 import itertools
-for term in itertools.islice(index_utils.terms(), 10):
+for term in itertools.islice(index_reader.terms(), 10):
     print(f'{term.term} (df={term.df}, cf={term.cf})')
 ```
 
@@ -239,7 +239,7 @@ term = 'cities'
 
 # Look up its document frequency (df) and collection frequency (cf).
 # Note, we use the unanalyzed form:
-df, cf = index_utils.get_term_counts(term)
+df, cf = index_reader.get_term_counts(term)
 print(f'term "{term}": df={df}, cf={cf}')
 ```
 
@@ -250,11 +250,11 @@ This can be accomplished by setting `Analyzer` to `None`:
 term = 'cities'
 
 # Analyze the term.
-analyzed = index_utils.analyze(term)
+analyzed = index_reader.analyze(term)
 print(f'The analyzed form of "{term}" is "{analyzed[0]}"')
 
 # Skip term analysis:
-df, cf = index_utils.get_term_counts(analyzed[0], analyzer=None)
+df, cf = index_reader.get_term_counts(analyzed[0], analyzer=None)
 print(f'term "{term}": df={df}, cf={cf}')
 ```
 
@@ -262,12 +262,12 @@ Here's how to fetch and traverse postings:
 
 ```python
 # Fetch and traverse postings for an unanalyzed term:
-postings_list = index_utils.get_postings_list(term)
+postings_list = index_reader.get_postings_list(term)
 for posting in postings_list:
     print(f'docid={posting.docid}, tf={posting.tf}, pos={posting.positions}')
 
 # Fetch and traverse postings for an analyzed term:
-postings_list = index_utils.get_postings_list(analyzed[0], analyzer=None)
+postings_list = index_reader.get_postings_list(analyzed[0], analyzer=None)
 for posting in postings_list:
     print(f'docid={posting.docid}, tf={posting.tf}, pos={posting.positions}')
 ```
@@ -275,7 +275,7 @@ for posting in postings_list:
 Here's how to fetch the document vector for a document:
 
 ```python
-doc_vector = index_utils.get_document_vector('FBIS4-67701')
+doc_vector = index_reader.get_document_vector('FBIS4-67701')
 print(doc_vector)
 ```
 
@@ -283,8 +283,8 @@ The result is a dictionary where the keys are the analyzed terms and the values 
 To compute the tf-idf representation of a document, do something like this:
 
 ```python
-tf = index_utils.get_document_vector('FBIS4-67701')
-df = {term: (index_utils.get_term_counts(term, analyzer=None))[0] for term in tf.keys()}
+tf = index_reader.get_document_vector('FBIS4-67701')
+df = {term: (index_reader.get_term_counts(term, analyzer=None))[0] for term in tf.keys()}
 ```
 
 The two dictionaries will hold tf and df statistics; from those it is easy to assemble into the tf-idf representation.
@@ -293,19 +293,19 @@ To compute the BM25 score for a particular term in a document:
 
 ```python
 # Note that the keys of get_document_vector() are already analyzed, we set analyzer to be None.
-bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', 'citi', analyzer=None)
+bm25_score = index_reader.compute_bm25_term_weight('FBIS4-67701', 'citi', analyzer=None)
 print(bm25_score)
 
 # Alternatively, we pass in the unanalyzed term:
-bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', 'city')
+bm25_score = index_reader.compute_bm25_term_weight('FBIS4-67701', 'city')
 print(bm25_score)
 ```
 
 And so, to compute the BM25 vector of a document:
 
 ```python
-tf = index_utils.get_document_vector('FBIS4-67701')
-bm25_vector = {term: index_utils.compute_bm25_term_weight('FBIS4-67701', term, analyzer=None) for term in tf.keys()}
+tf = index_reader.get_document_vector('FBIS4-67701')
+bm25_vector = {term: index_reader.compute_bm25_term_weight('FBIS4-67701', term, analyzer=None) for term in tf.keys()}
 ```
 
 Another useful feature is to compute the score of a _specific_ document with respect to a query, with the `compute_query_document_score` method.
@@ -316,7 +316,7 @@ query = 'hubble space telescope'
 docids = ['LA071090-0047', 'FT934-5418', 'FT921-7107', 'LA052890-0021', 'LA070990-0052']
 
 for i in range(0, len(docids)):
-    score = index_utils.compute_query_document_score(docids[i], query)
+    score = index_reader.compute_query_document_score(docids[i], query)
     print(f'{i+1:2} {docids[i]:15} {score:.5f}')
 ```
 

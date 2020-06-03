@@ -40,7 +40,7 @@ class TestAnalyzers(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
         self.searcher = search.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
-        self.index_utils = index.IndexReaderUtils(f'{self.index_dir}lucene-index.cacm')
+        self.index_utils = index.IndexReader(f'{self.index_dir}lucene-index.cacm')
 
     def test_different_analyzers_are_different(self):
         self.searcher.set_analyzer(analysis.get_lucene_analyzer(stemming=False))
