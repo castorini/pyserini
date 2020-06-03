@@ -13,11 +13,12 @@
 # limitations under the License.
 
 import math
-import numpy as np
 from typing import List
+
 from scipy.sparse import csr_matrix
-from pyserini import search
-from pyserini import index
+from sklearn.preprocessing import normalize
+
+from pyserini import index, search
 
 
 class Vectorizer:
@@ -54,12 +55,6 @@ class Vectorizer:
 
         if self.verbose:
             print(f'Found {self.vocabulary_size} terms with min_df={self.min_df}')
-
-    def _l2normalize(self, a):
-        norm_rows = np.sqrt(np.add.reduceat(a.data * a.data, a.indptr[:-1]))
-        nnz_per_row = np.diff(a.indptr)
-        a.data /= np.repeat(norm_rows, nnz_per_row)
-        return a
 
 
 class TfidfVectorizer(Vectorizer):
@@ -118,7 +113,7 @@ class TfidfVectorizer(Vectorizer):
                 matrix_data.append(tfidf)
 
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
-        return self._l2normalize(vectors)
+        return normalize(vectors, norm='l2')
 
 
 class BM25Vectorizer(Vectorizer):
@@ -173,4 +168,4 @@ class BM25Vectorizer(Vectorizer):
                 matrix_data.append(bm25_weight)
 
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
-        return self._l2normalize(vectors)
+        return normalize(vectors, norm='l2')
