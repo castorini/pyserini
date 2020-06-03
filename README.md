@@ -20,7 +20,7 @@ If you're looking to work with the [COVID-19 Open Research Dataset (CORD-19)](ht
 
 ## Package Installation
 
-Install via PyPI
+Install via PyPI:
 
 ```
 pip install pyserini==0.9.3.0
