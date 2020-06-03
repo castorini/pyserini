@@ -16,12 +16,14 @@ import os
 import shutil
 import tarfile
 import unittest
+import filecmp
 from random import randint
 from typing import List, Dict
 from urllib.request import urlretrieve
 
 from pyserini.pyclass import JSimpleSearcherResult, autoclass
 from pyserini.search import pysearch
+from pyserini.search.fusion import FusionSearcher
 
 
 class TestSearch(unittest.TestCase):
@@ -39,6 +41,21 @@ class TestSearch(unittest.TestCase):
         tarball.close()
 
         self.searcher = pysearch.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
+
+    def test_reciprocal_rank_fusion(self):
+        qruns = ['covidex.t5', 'covidex.sim']
+        cmps = ['myfused.txt', 'fused.txt']
+
+        for qrun in qruns:
+            os.system(f'wget -nc https://ir.nist.gov/covidSubmit/archive/round2/{qrun}')
+        os.system(f'wget -nc https://www.dropbox.com/s/yujjdeiushae2gu/fused.txt')
+
+        FusionSearcher(qruns).reciprocal_rank_fusion(cmps[0])
+
+        self.assertTrue(filecmp.cmp(cmps[0], cmps[1]))
+
+        for path in qruns + cmps:
+            os.remove(path)
 
     def test_basic(self):
         self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
