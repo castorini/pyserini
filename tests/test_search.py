@@ -21,7 +21,7 @@ from typing import List, Dict
 from urllib.request import urlretrieve
 
 from pyserini.pyclass import JSimpleSearcherResult, autoclass
-from pyserini.search import pysearch
+from pyserini import search
 
 
 class TestSearch(unittest.TestCase):
@@ -38,7 +38,7 @@ class TestSearch(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-        self.searcher = pysearch.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
+        self.searcher = search.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
 
     def test_basic(self):
         self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
@@ -198,7 +198,7 @@ class TestSearch(unittest.TestCase):
     def test_doc_int(self):
         # The doc method is overloaded: if input is int, it's assumed to be a Lucene internal docid.
         doc = self.searcher.doc(1)
-        self.assertTrue(isinstance(doc, pysearch.Document))
+        self.assertTrue(isinstance(doc, search.Document))
 
         # These are all equivalent ways to get the docid.
         self.assertEqual('CACM-0002', doc.id())
@@ -221,7 +221,7 @@ class TestSearch(unittest.TestCase):
     def test_doc_str(self):
         # The doc method is overloaded: if input is str, it's assumed to be an external collection docid.
         doc = self.searcher.doc('CACM-0002')
-        self.assertTrue(isinstance(doc, pysearch.Document))
+        self.assertTrue(isinstance(doc, search.Document))
 
         # These are all equivalent ways to get the docid.
         self.assertEqual(doc.lucene_document().getField('id').stringValue(), 'CACM-0002')

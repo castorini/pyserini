@@ -16,8 +16,8 @@ import math
 import numpy as np
 from typing import List
 from scipy.sparse import csr_matrix
-from pyserini.search import pysearch
-from pyserini.index import pyutils
+from pyserini import search
+from pyserini import index
 
 
 class Vectorizer:
@@ -36,8 +36,8 @@ class Vectorizer:
     def __init__(self, lucene_index_path: str, min_df: int = 1, verbose: bool = False):
         self.min_df: int = min_df
         self.verbose: bool = verbose
-        self.index_utils = pyutils.IndexReaderUtils(lucene_index_path)
-        self.searcher = pysearch.SimpleSearcher(lucene_index_path)
+        self.index_utils = index.IndexReaderUtils(lucene_index_path)
+        self.searcher = search.SimpleSearcher(lucene_index_path)
         self.num_docs: int = self.searcher.num_docs
 
         # build vocabulary
@@ -48,8 +48,8 @@ class Vectorizer:
 
         # build term to index mapping
         self.term_to_index = {}
-        for index, term in enumerate(self.vocabulary_):
-            self.term_to_index[term] = index
+        for i, term in enumerate(self.vocabulary_):
+            self.term_to_index[term] = i
         self.vocabulary_size = len(self.vocabulary_)
 
         if self.verbose:

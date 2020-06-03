@@ -64,9 +64,9 @@ rm index-robust04-20191213.tar.gz
 Use the `SimpleSearcher` for searching:
 
 ```python
-from pyserini.search import pysearch
+from pyserini.search import SimpleSearcher
 
-searcher = pysearch.SimpleSearcher('indexes/index-robust04-20191213/')
+searcher = SimpleSearcher('indexes/index-robust04-20191213/')
 hits = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:
@@ -118,28 +118,28 @@ Pyserini exposes Lucene Analyzers in Python with the `Analyzer` class.
 Below is a demonstration of these functionalities:
 
 ```python
-from pyserini.analysis import pyanalysis
+from pyserini.analysis import Analyzer, get_lucene_analyzer
 
 # Default analyzer for English uses the Porter stemmer:
-analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer())
+analyzer = Analyzer(get_lucene_analyzer())
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is ['citi', 'buse', 'run', 'time']
 
 # We can explicitly specify the Porter stemmer as follows:
-analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemmer='porter'))
+analyzer = Analyzer(get_lucene_analyzer(stemmer='porter'))
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is same as above.
 
 # We can explicitly specify the Krovetz stemmer as follows:
-analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemmer='krovetz'))
+analyzer = Analyzer(get_lucene_analyzer(stemmer='krovetz'))
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is ['city', 'bus', 'running', 'time']
 
 # Create an analyzer that doesn't stem, simply tokenizes:
-analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemming=False))
+analyzer = Analyzer(get_lucene_analyzer(stemming=False))
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is ['city', 'buses', 'running', 'time']
@@ -147,22 +147,22 @@ print(tokens)
 
 ## Usage of the Query Builder API
 
-The `pyquerybuilder` provides functionality to construct Lucene queries through Pyserini.
+The `querybuilder` provides functionality to construct Lucene queries through Pyserini.
 These queries can be directly issued through the `SimpleSearcher`.
 Instead of issuing the query `hubble space telescope` directly, we can also construct the same exact query manually as follows:
 
 ```python
-from pyserini.search import pyquerybuilder
+from pyserini.search import querybuilder
 
 # First, create term queries for each individual query term:
-term1 = pyquerybuilder.get_term_query('hubble')
-term2 = pyquerybuilder.get_term_query('space')
-term3 = pyquerybuilder.get_term_query('telescope')
+term1 = querybuilder.get_term_query('hubble')
+term2 = querybuilder.get_term_query('space')
+term3 = querybuilder.get_term_query('telescope')
 
 # Then, assemble into a "bag of words" query:
-should = pyquerybuilder.JBooleanClauseOccur['should'].value
+should = querybuilder.JBooleanClauseOccur['should'].value
 
-boolean_query_builder = pyquerybuilder.get_boolean_query_builder()
+boolean_query_builder = querybuilder.get_boolean_query_builder()
 boolean_query_builder.add(term1, should)
 boolean_query_builder.add(term2, should)
 boolean_query_builder.add(term3, should)
@@ -217,10 +217,9 @@ For example, if a method expects the unanalyzed term and is called with an analy
 Initialize the class as follows:
 
 ```python
-from pyserini.index import pyutils
-from pyserini.analysis import pyanalysis
+from pyserini import analysis, index
 
-index_utils = pyutils.IndexReaderUtils('indexes/index-robust04-20191213/')
+index_utils = index.IndexReaderUtils('indexes/index-robust04-20191213/')
 ```
 
 Use `terms()` to grab an iterator over all terms in the collection, i.e., the dictionary.
@@ -338,11 +337,10 @@ rm cacm.tar.gz
 Let's iterate through all documents in the collection:
 
 ```python
-from pyserini.collection import pycollection
-from pyserini.index import pygenerator
+from pyserini import collection, index
 
-collection = pycollection.Collection('HtmlCollection', 'collections/cacm/')
-generator = pygenerator.Generator('DefaultLuceneDocumentGenerator')
+collection = collection.Collection('HtmlCollection', 'collections/cacm/')
+generator = index.Generator('DefaultLuceneDocumentGenerator')
 
 for (i, fs) in enumerate(collection):
     for (j, doc) in enumerate(fs):
@@ -370,7 +368,7 @@ from jnius import autoclass
 
 JString = autoclass('java.lang.String')
 JIndexReaderUtils = autoclass('io.anserini.index.IndexReaderUtils')
-reader = JIndexReaderUtils.getReader(JString('index-robust04-20191213/'))
+reader = JIndexReaderUtils.getReader(JString('indexes/index-robust04-20191213/'))
 
 # Fetch raw document contents by id:
 rawdoc = JIndexReaderUtils.documentRaw(reader, JString('FT934-5418'))

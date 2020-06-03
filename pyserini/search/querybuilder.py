@@ -18,7 +18,7 @@ This module provides Pyserini's Python interface query building for Anserini.
 import logging
 from enum import Enum
 
-from ..analysis.pyanalysis import get_lucene_analyzer, Analyzer
+from ..analysis import get_lucene_analyzer, Analyzer
 from ..pyclass import JQueryGeneratorUtils, JTermQuery, JTerm, JBoostQuery
 logger = logging.getLogger(__name__)
 

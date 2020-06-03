@@ -21,10 +21,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from urllib.request import urlretrieve
 
-from pyserini.analysis import pyanalysis
-from pyserini.index import pyutils
+from pyserini import analysis,  index, search
 from pyserini.pyclass import JString
-from pyserini.search import pysearch
 from pyserini.vectorizer import BM25Vectorizer
 from pyserini.vectorizer import TfidfVectorizer
 
@@ -44,8 +42,8 @@ class TestIndexUtils(unittest.TestCase):
         tarball.close()
 
         self.index_path = os.path.join(self.index_dir, 'lucene-index.cacm')
-        self.searcher = pysearch.SimpleSearcher(self.index_path)
-        self.index_utils = pyutils.IndexReaderUtils(self.index_path)
+        self.searcher = search.SimpleSearcher(self.index_path)
+        self.index_utils = index.IndexReaderUtils(self.index_path)
 
     def test_tfidf_vectorizer(self):
         vectorizer = TfidfVectorizer(self.index_path, min_df=5)
@@ -98,7 +96,7 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(' '.join(self.index_utils.analyze('retrieval')), 'retriev')
         self.assertEqual(' '.join(self.index_utils.analyze('rapid retrieval, space economy')),
                          'rapid retriev space economi')
-        tokenizer = pyanalysis.get_lucene_analyzer(stemming=False)
+        tokenizer = analysis.get_lucene_analyzer(stemming=False)
         self.assertEqual(' '.join(self.index_utils.analyze('retrieval', analyzer=tokenizer)), 'retrieval')
         self.assertEqual(' '.join(self.index_utils.analyze('rapid retrieval, space economy', analyzer=tokenizer)),
                          'rapid retrieval space economy')
@@ -279,7 +277,7 @@ class TestIndexUtils(unittest.TestCase):
                                        self.index_utils.compute_query_document_score(hits[i].docid, query), places=4)
 
     def test_query_doc_score_custom_similarity(self):
-        custom_bm25 = pysearch.LuceneSimilarities.bm25(0.8, 0.2)
+        custom_bm25 = search.LuceneSimilarities.bm25(0.8, 0.2)
         queries = ['information retrieval', 'databases']
         self.searcher.set_bm25(0.8, 0.2)
 
@@ -293,7 +291,7 @@ class TestIndexUtils(unittest.TestCase):
                                        self.index_utils.compute_query_document_score(
                                            hits[i].docid, query, similarity=custom_bm25), places=4)
 
-        custom_qld = pysearch.LuceneSimilarities.qld(500)
+        custom_qld = search.LuceneSimilarities.qld(500)
         self.searcher.set_qld(500)
 
         for query in queries:
