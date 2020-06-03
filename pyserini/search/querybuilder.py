@@ -1,3 +1,4 @@
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 """
 This module provides Pyserini's Python interface query building for Anserini.
@@ -18,7 +20,7 @@ This module provides Pyserini's Python interface query building for Anserini.
 import logging
 from enum import Enum
 
-from ..analysis.pyanalysis import get_lucene_analyzer, Analyzer
+from ..analysis import get_lucene_analyzer, Analyzer
 from ..pyclass import JQueryGeneratorUtils, JTermQuery, JTerm, JBoostQuery
 logger = logging.getLogger(__name__)
 

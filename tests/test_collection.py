@@ -19,8 +19,7 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-from pyserini.collection import pycollection
-from pyserini.index import pygenerator
+from pyserini import collection, index
 
 
 class TestIterateCollection(unittest.TestCase):
@@ -28,23 +27,23 @@ class TestIterateCollection(unittest.TestCase):
     def test_cacm(self):
         # We're going to append a random value to downloaded files:
         r = randint(0, 10000000)
-        collection_url = 'https://github.com/castorini/anserini/blob/master/src/main/resources/cacm/cacm.tar.gz?raw=true'
+        url = 'https://github.com/castorini/anserini/blob/master/src/main/resources/cacm/cacm.tar.gz?raw=true'
         tarball_name = 'cacm{}.tar.gz'.format(r)
-        collection_dir = 'collection{}/'.format(r)
+        dir = 'collection{}/'.format(r)
 
-        filename, headers = urlretrieve(collection_url, tarball_name)
+        filename, headers = urlretrieve(url, tarball_name)
 
         tarball = tarfile.open(tarball_name)
-        tarball.extractall(collection_dir)
+        tarball.extractall(dir)
         tarball.close()
 
-        collection = pycollection.Collection('HtmlCollection', collection_dir)
-        generator = pygenerator.Generator('DefaultLuceneDocumentGenerator')
+        cacm = collection.Collection('HtmlCollection', dir)
+        generator = index.Generator('DefaultLuceneDocumentGenerator')
 
         cnt = 0
-        for (i, fs) in enumerate(collection):
+        for (i, fs) in enumerate(cacm):
             for (j, doc) in enumerate(fs):
-                self.assertTrue(isinstance(doc, pycollection.SourceDocument))
+                self.assertTrue(isinstance(doc, collection.SourceDocument))
                 self.assertTrue(doc.raw is not None)
                 self.assertTrue(doc.raw != '')
                 self.assertTrue('<html>' in doc.raw)
@@ -69,7 +68,7 @@ class TestIterateCollection(unittest.TestCase):
 
         # Clean up
         os.remove(tarball_name)
-        shutil.rmtree(collection_dir)
+        shutil.rmtree(dir)
 
 
 if __name__ == '__main__':

@@ -13,12 +13,12 @@
 # limitations under the License.
 
 import math
-import numpy as np
-from pyserini.search import pysearch
-from pyserini.index import pyutils
+from typing import List
+
 from scipy.sparse import csr_matrix
 from sklearn.preprocessing import normalize
-from typing import List
+
+from pyserini import index, search
 
 
 class Vectorizer:
@@ -37,20 +37,20 @@ class Vectorizer:
     def __init__(self, lucene_index_path: str, min_df: int = 1, verbose: bool = False):
         self.min_df: int = min_df
         self.verbose: bool = verbose
-        self.index_utils = pyutils.IndexReaderUtils(lucene_index_path)
-        self.searcher = pysearch.SimpleSearcher(lucene_index_path)
+        self.index_reader = index.IndexReader(lucene_index_path)
+        self.searcher = search.SimpleSearcher(lucene_index_path)
         self.num_docs: int = self.searcher.num_docs
 
         # build vocabulary
         self.vocabulary_ = set()
-        for term in self.index_utils.terms():
+        for term in self.index_reader.terms():
             if term.df > self.min_df:
                 self.vocabulary_.add(term.term)
 
         # build term to index mapping
         self.term_to_index = {}
-        for index, term in enumerate(self.vocabulary_):
-            self.term_to_index[term] = index
+        for i, term in enumerate(self.vocabulary_):
+            self.term_to_index[term] = i
         self.vocabulary_size = len(self.vocabulary_)
 
         if self.verbose:
@@ -74,7 +74,7 @@ class TfidfVectorizer(Vectorizer):
         super().__init__(lucene_index_path, min_df, verbose)
 
         self.idf_ = {}
-        for term in self.index_utils.terms():
+        for term in self.index_reader.terms():
             self.idf_[term.term] = math.log(self.num_docs / term.df)
 
     def get_vectors(self, docids: List[str]):
@@ -98,7 +98,7 @@ class TfidfVectorizer(Vectorizer):
                 print(f'Vectorizing: {index}/{len(docids)}')
 
             # Term Frequency
-            tf = self.index_utils.get_document_vector(doc_id)
+            tf = self.index_reader.get_document_vector(doc_id)
             if tf is None:
                 continue
 
@@ -153,7 +153,7 @@ class BM25Vectorizer(Vectorizer):
                 print(f'Vectorizing: {index}/{len(docids)}')
 
             # Term Frequency
-            tf = self.index_utils.get_document_vector(doc_id)
+            tf = self.index_reader.get_document_vector(doc_id)
             if tf is None:
                 continue
 
@@ -162,7 +162,7 @@ class BM25Vectorizer(Vectorizer):
 
             # Convert from dict to sparse matrix
             for term in tf:
-                bm25_weight = self.index_utils.compute_bm25_term_weight(doc_id, term, analyzer=None)
+                bm25_weight = self.index_reader.compute_bm25_term_weight(doc_id, term, analyzer=None)
                 matrix_row.append(index)
                 matrix_col.append(self.term_to_index[term])
                 matrix_data.append(bm25_weight)

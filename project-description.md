@@ -2,7 +2,7 @@ Pyserini provides a simple Python interface to the [Anserini](http://anserini.io
 
 ## Installation
 
-Install via PyPI
+Install via PyPI:
 
 ```
 pip install pyserini
@@ -20,9 +20,9 @@ tar xvfz index-robust04-20191213.tar.gz
 Use the `SimpleSearcher` for searching:
 
 ```python
-from pyserini.search import pysearch
+from pyserini.search import SimpleSearcher
 
-searcher = pysearch.SimpleSearcher('index-robust04-20191213/')
+searcher = SimpleSearcher('index-robust04-20191213/')
 hits = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:

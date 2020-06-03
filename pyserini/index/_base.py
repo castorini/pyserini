@@ -1,3 +1,4 @@
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 """
 This module provides Pyserini's Python interface for raw access to Lucene indexes built by Anserini. The main entry
@@ -21,11 +23,49 @@ and methods provided are meant only to provide tools for examining an index and 
 import logging
 from typing import Dict, Iterator, List, Tuple
 
+from ..analysis import get_lucene_analyzer
+from ..pyclass import JIndexHelpers, JGenerators
 from ..pyclass import JIndexReaderUtils, JString, JAnalyzerUtils
-from ..search.pysearch import Document
-from ..analysis.pyanalysis import get_lucene_analyzer
+from ..search import Document
 
 logger = logging.getLogger(__name__)
+
+
+class Generator:
+    """
+    Wrapper class for Anserini's generators.
+
+    Parameters
+    ----------
+    generator_class : str
+        Name of generator class to instantiate
+    """
+
+    def __init__(self, generator_class):
+        self.counters = JIndexHelpers.JCounters()
+        self.args = JIndexHelpers.JArgs()
+        self.generator_class = generator_class
+        self.object = self._get_generator()
+
+    def _get_generator(self):
+        try:
+            return JGenerators[self.generator_class].value(self.args)
+        except:
+            raise ValueError(self.generator_class)
+
+    def create_document(self, document):
+        """
+        Parameters
+        ----------
+        document : pyserini.collection.pycollection.Document
+            Collection document to create Lucene document from
+
+        Returns
+        -------
+        result : org.apache.lucene.document.Document
+            Lucene document generated
+        """
+        return self.object.createDocument(document.object)
 
 
 class IndexTerm:
@@ -73,7 +113,7 @@ class Posting:
         return repr
 
 
-class IndexReaderUtils:
+class IndexReader:
     """
     Wrapper class for ``IndexReaderUtils`` in Anserini.
 
@@ -123,8 +163,8 @@ class IndexReaderUtils:
             cur_term = term_iterator.next()
             yield IndexTerm(cur_term.getTerm(), cur_term.getDF(), cur_term.getTotalTF())
 
-    def get_term_counts(self, term: str, analyzer=get_lucene_analyzer()) -> Tuple[int, int]:      
-        """Returns the document frequency and collection frequency of a term 
+    def get_term_counts(self, term: str, analyzer=get_lucene_analyzer()) -> Tuple[int, int]:
+        """Returns the document frequency and collection frequency of a term
         (applies Anserini's default Lucene analyzer if analyzer is not specified).
 
         Parameters
@@ -141,9 +181,9 @@ class IndexReaderUtils:
         """
         if analyzer is None:
             analyzer = get_lucene_analyzer(stemming=False, stopwords=False)
-        
+
         term_map = self.object.getTermCountsWithAnalyzer(self.reader, JString(term.encode('utf-8')), analyzer)
-        
+
         return term_map.get(JString('docFreq')), term_map.get(JString('collectionFreq'))
 
     def get_postings_list(self, term: str, analyzer=get_lucene_analyzer()) -> List[Posting]:
@@ -164,7 +204,8 @@ class IndexReaderUtils:
         if analyzer is None:
             postings_list = self.object.getPostingsListForAnalyzedTerm(self.reader, JString(term.encode('utf-8')))
         else:
-            postings_list = self.object.getPostingsListWithAnalyzer(self.reader, JString(term.encode('utf-8')), analyzer)
+            postings_list = self.object.getPostingsListWithAnalyzer(self.reader, JString(term.encode('utf-8')),
+                                                                    analyzer)
 
         if postings_list is None:
             return None
@@ -346,7 +387,7 @@ class IndexReaderUtils:
             - non_empty_documents: number of non-empty documents
             - unique_terms: number of unique terms
             - total_terms: number of total terms
-        """        
+        """
         index_stats_map = self.object.getIndexStats(self.reader)
 
         if index_stats_map is None:
@@ -355,5 +396,5 @@ class IndexReaderUtils:
         index_stats_dict = {}
         for term in index_stats_map.keySet().toArray():
             index_stats_dict[term] = index_stats_map.get(JString(term.encode('utf-8')))
-            
+
         return index_stats_dict

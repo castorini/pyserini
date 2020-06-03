@@ -20,7 +20,7 @@ If you're looking to work with the [COVID-19 Open Research Dataset (CORD-19)](ht
 
 ## Package Installation
 
-Install via PyPI
+Install via PyPI:
 
 ```
 pip install pyserini==0.9.3.0
@@ -64,9 +64,9 @@ rm index-robust04-20191213.tar.gz
 Use the `SimpleSearcher` for searching:
 
 ```python
-from pyserini.search import pysearch
+from pyserini.search import SimpleSearcher
 
-searcher = pysearch.SimpleSearcher('indexes/index-robust04-20191213/')
+searcher = SimpleSearcher('indexes/index-robust04-20191213/')
 hits = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:
@@ -118,28 +118,28 @@ Pyserini exposes Lucene Analyzers in Python with the `Analyzer` class.
 Below is a demonstration of these functionalities:
 
 ```python
-from pyserini.analysis import pyanalysis
+from pyserini.analysis import Analyzer, get_lucene_analyzer
 
 # Default analyzer for English uses the Porter stemmer:
-analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer())
+analyzer = Analyzer(get_lucene_analyzer())
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is ['citi', 'buse', 'run', 'time']
 
 # We can explicitly specify the Porter stemmer as follows:
-analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemmer='porter'))
+analyzer = Analyzer(get_lucene_analyzer(stemmer='porter'))
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is same as above.
 
 # We can explicitly specify the Krovetz stemmer as follows:
-analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemmer='krovetz'))
+analyzer = Analyzer(get_lucene_analyzer(stemmer='krovetz'))
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is ['city', 'bus', 'running', 'time']
 
 # Create an analyzer that doesn't stem, simply tokenizes:
-analyzer = pyanalysis.Analyzer(pyanalysis.get_lucene_analyzer(stemming=False))
+analyzer = Analyzer(get_lucene_analyzer(stemming=False))
 tokens = analyzer.analyze('City buses are running on time.')
 print(tokens)
 # Result is ['city', 'buses', 'running', 'time']
@@ -147,22 +147,22 @@ print(tokens)
 
 ## Usage of the Query Builder API
 
-The `pyquerybuilder` provides functionality to construct Lucene queries through Pyserini.
+The `querybuilder` provides functionality to construct Lucene queries through Pyserini.
 These queries can be directly issued through the `SimpleSearcher`.
 Instead of issuing the query `hubble space telescope` directly, we can also construct the same exact query manually as follows:
 
 ```python
-from pyserini.search import pyquerybuilder
+from pyserini.search import querybuilder
 
 # First, create term queries for each individual query term:
-term1 = pyquerybuilder.get_term_query('hubble')
-term2 = pyquerybuilder.get_term_query('space')
-term3 = pyquerybuilder.get_term_query('telescope')
+term1 = querybuilder.get_term_query('hubble')
+term2 = querybuilder.get_term_query('space')
+term3 = querybuilder.get_term_query('telescope')
 
 # Then, assemble into a "bag of words" query:
-should = pyquerybuilder.JBooleanClauseOccur['should'].value
+should = querybuilder.JBooleanClauseOccur['should'].value
 
-boolean_query_builder = pyquerybuilder.get_boolean_query_builder()
+boolean_query_builder = querybuilder.get_boolean_query_builder()
 boolean_query_builder.add(term1, should)
 boolean_query_builder.add(term2, should)
 boolean_query_builder.add(term3, should)
@@ -208,7 +208,7 @@ Note that the results are different, because we've placed more weight on the ter
 
 ## Usage of the Index Reader API
 
-The `IndexReaderUtils` class provides methods for accessing and manipulating an inverted index.
+The `IndexReader` class provides methods for accessing and manipulating an inverted index.
 
 **IMPORTANT NOTE:** Be aware whether a method takes or returns _analyzed_ or _unanalyzed_ terms.
 "Analysis" refers to processing by a Lucene `Analyzer`, which typically includes tokenization, stemming, stopword removal, etc.
@@ -217,10 +217,9 @@ For example, if a method expects the unanalyzed term and is called with an analy
 Initialize the class as follows:
 
 ```python
-from pyserini.index import pyutils
-from pyserini.analysis import pyanalysis
+from pyserini import analysis, index
 
-index_utils = pyutils.IndexReaderUtils('indexes/index-robust04-20191213/')
+index_reader = index.IndexReader('indexes/index-robust04-20191213/')
 ```
 
 Use `terms()` to grab an iterator over all terms in the collection, i.e., the dictionary.
@@ -229,7 +228,7 @@ Here, we only print out the first 10:
 
 ```python
 import itertools
-for term in itertools.islice(index_utils.terms(), 10):
+for term in itertools.islice(index_reader.terms(), 10):
     print(f'{term.term} (df={term.df}, cf={term.cf})')
 ```
 
@@ -240,7 +239,7 @@ term = 'cities'
 
 # Look up its document frequency (df) and collection frequency (cf).
 # Note, we use the unanalyzed form:
-df, cf = index_utils.get_term_counts(term)
+df, cf = index_reader.get_term_counts(term)
 print(f'term "{term}": df={df}, cf={cf}')
 ```
 
@@ -251,11 +250,11 @@ This can be accomplished by setting `Analyzer` to `None`:
 term = 'cities'
 
 # Analyze the term.
-analyzed = index_utils.analyze(term)
+analyzed = index_reader.analyze(term)
 print(f'The analyzed form of "{term}" is "{analyzed[0]}"')
 
 # Skip term analysis:
-df, cf = index_utils.get_term_counts(analyzed[0], analyzer=None)
+df, cf = index_reader.get_term_counts(analyzed[0], analyzer=None)
 print(f'term "{term}": df={df}, cf={cf}')
 ```
 
@@ -263,12 +262,12 @@ Here's how to fetch and traverse postings:
 
 ```python
 # Fetch and traverse postings for an unanalyzed term:
-postings_list = index_utils.get_postings_list(term)
+postings_list = index_reader.get_postings_list(term)
 for posting in postings_list:
     print(f'docid={posting.docid}, tf={posting.tf}, pos={posting.positions}')
 
 # Fetch and traverse postings for an analyzed term:
-postings_list = index_utils.get_postings_list(analyzed[0], analyzer=None)
+postings_list = index_reader.get_postings_list(analyzed[0], analyzer=None)
 for posting in postings_list:
     print(f'docid={posting.docid}, tf={posting.tf}, pos={posting.positions}')
 ```
@@ -276,7 +275,7 @@ for posting in postings_list:
 Here's how to fetch the document vector for a document:
 
 ```python
-doc_vector = index_utils.get_document_vector('FBIS4-67701')
+doc_vector = index_reader.get_document_vector('FBIS4-67701')
 print(doc_vector)
 ```
 
@@ -284,8 +283,8 @@ The result is a dictionary where the keys are the analyzed terms and the values 
 To compute the tf-idf representation of a document, do something like this:
 
 ```python
-tf = index_utils.get_document_vector('FBIS4-67701')
-df = {term: (index_utils.get_term_counts(term, analyzer=None))[0] for term in tf.keys()}
+tf = index_reader.get_document_vector('FBIS4-67701')
+df = {term: (index_reader.get_term_counts(term, analyzer=None))[0] for term in tf.keys()}
 ```
 
 The two dictionaries will hold tf and df statistics; from those it is easy to assemble into the tf-idf representation.
@@ -294,19 +293,19 @@ To compute the BM25 score for a particular term in a document:
 
 ```python
 # Note that the keys of get_document_vector() are already analyzed, we set analyzer to be None.
-bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', 'citi', analyzer=None)
+bm25_score = index_reader.compute_bm25_term_weight('FBIS4-67701', 'citi', analyzer=None)
 print(bm25_score)
 
 # Alternatively, we pass in the unanalyzed term:
-bm25_score = index_utils.compute_bm25_term_weight('FBIS4-67701', 'city')
+bm25_score = index_reader.compute_bm25_term_weight('FBIS4-67701', 'city')
 print(bm25_score)
 ```
 
 And so, to compute the BM25 vector of a document:
 
 ```python
-tf = index_utils.get_document_vector('FBIS4-67701')
-bm25_vector = {term: index_utils.compute_bm25_term_weight('FBIS4-67701', term, analyzer=None) for term in tf.keys()}
+tf = index_reader.get_document_vector('FBIS4-67701')
+bm25_vector = {term: index_reader.compute_bm25_term_weight('FBIS4-67701', term, analyzer=None) for term in tf.keys()}
 ```
 
 Another useful feature is to compute the score of a _specific_ document with respect to a query, with the `compute_query_document_score` method.
@@ -317,7 +316,7 @@ query = 'hubble space telescope'
 docids = ['LA071090-0047', 'FT934-5418', 'FT921-7107', 'LA052890-0021', 'LA070990-0052']
 
 for i in range(0, len(docids)):
-    score = index_utils.compute_query_document_score(docids[i], query)
+    score = index_reader.compute_query_document_score(docids[i], query)
     print(f'{i+1:2} {docids[i]:15} {score:.5f}')
 ```
 
@@ -338,11 +337,10 @@ rm cacm.tar.gz
 Let's iterate through all documents in the collection:
 
 ```python
-from pyserini.collection import pycollection
-from pyserini.index import pygenerator
+from pyserini import collection, index
 
-collection = pycollection.Collection('HtmlCollection', 'collections/cacm/')
-generator = pygenerator.Generator('DefaultLuceneDocumentGenerator')
+collection = collection.Collection('HtmlCollection', 'collections/cacm/')
+generator = index.Generator('DefaultLuceneDocumentGenerator')
 
 for (i, fs) in enumerate(collection):
     for (j, doc) in enumerate(fs):
@@ -370,7 +368,7 @@ from jnius import autoclass
 
 JString = autoclass('java.lang.String')
 JIndexReaderUtils = autoclass('io.anserini.index.IndexReaderUtils')
-reader = JIndexReaderUtils.getReader(JString('index-robust04-20191213/'))
+reader = JIndexReaderUtils.getReader(JString('indexes/index-robust04-20191213/'))
 
 # Fetch raw document contents by id:
 rawdoc = JIndexReaderUtils.documentRaw(reader, JString('FT934-5418'))

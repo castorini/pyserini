@@ -19,8 +19,9 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-from pyserini.search import pysearch, pyquerybuilder
-from pyserini.analysis.pyanalysis import get_lucene_analyzer
+from pyserini import search
+from pyserini.search import querybuilder
+from pyserini.analysis import get_lucene_analyzer
 
 
 class TestQueryBuilding(unittest.TestCase):
@@ -37,25 +38,25 @@ class TestQueryBuilding(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-        self.searcher = pysearch.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
+        self.searcher = search.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
 
     def testBuildBoostedQuery(self):
-        term_query1 = pyquerybuilder.get_term_query('information')
-        term_query2 = pyquerybuilder.get_term_query('retrieval')
+        term_query1 = querybuilder.get_term_query('information')
+        term_query2 = querybuilder.get_term_query('retrieval')
 
-        boost1 = pyquerybuilder.get_boost_query(term_query1, 2.)
-        boost2 = pyquerybuilder.get_boost_query(term_query2, 2.)
+        boost1 = querybuilder.get_boost_query(term_query1, 2.)
+        boost2 = querybuilder.get_boost_query(term_query2, 2.)
 
-        should = pyquerybuilder.JBooleanClauseOccur['should'].value
+        should = querybuilder.JBooleanClauseOccur['should'].value
 
-        boolean_query = pyquerybuilder.get_boolean_query_builder()
+        boolean_query = querybuilder.get_boolean_query_builder()
         boolean_query.add(boost1, should)
         boolean_query.add(boost2, should)
 
         bq = boolean_query.build()
         hits1 = self.searcher.search(bq)
 
-        boolean_query2 = pyquerybuilder.get_boolean_query_builder()
+        boolean_query2 = querybuilder.get_boolean_query_builder()
         boolean_query2.add(term_query1, should)
         boolean_query2.add(term_query2, should)
 
@@ -66,10 +67,10 @@ class TestQueryBuilding(unittest.TestCase):
             self.assertEqual(h1.docid, h2.docid)
             self.assertAlmostEqual(h1.score, h2.score*2, delta=0.001)
 
-        boost3 = pyquerybuilder.get_boost_query(term_query1, 2.)
-        boost4 = pyquerybuilder.get_boost_query(term_query2, 3.)
+        boost3 = querybuilder.get_boost_query(term_query1, 2.)
+        boost4 = querybuilder.get_boost_query(term_query2, 3.)
 
-        boolean_query = pyquerybuilder.get_boolean_query_builder()
+        boolean_query = querybuilder.get_boolean_query_builder()
         boolean_query.add(boost3, should)
         boolean_query.add(boost4, should)
 
@@ -80,10 +81,10 @@ class TestQueryBuilding(unittest.TestCase):
             self.assertNotEqual(h1.score, h3.score)
 
     def testTermQuery(self):
-        should = pyquerybuilder.JBooleanClauseOccur['should'].value
-        query_builder = pyquerybuilder.get_boolean_query_builder()
-        query_builder.add(pyquerybuilder.get_term_query('information'), should)
-        query_builder.add(pyquerybuilder.get_term_query('retrieval'), should)
+        should = querybuilder.JBooleanClauseOccur['should'].value
+        query_builder = querybuilder.get_boolean_query_builder()
+        query_builder.add(querybuilder.get_term_query('information'), should)
+        query_builder.add(querybuilder.get_term_query('retrieval'), should)
 
         query = query_builder.build()
         hits1 = self.searcher.search(query)
@@ -94,10 +95,10 @@ class TestQueryBuilding(unittest.TestCase):
             self.assertEqual(h1.score, h2.score)
 
     def testIncompatabilityWithRM3(self):
-        should = pyquerybuilder.JBooleanClauseOccur['should'].value
-        query_builder = pyquerybuilder.get_boolean_query_builder()
-        query_builder.add(pyquerybuilder.get_term_query('information'), should)
-        query_builder.add(pyquerybuilder.get_term_query('retrieval'), should)
+        should = querybuilder.JBooleanClauseOccur['should'].value
+        query_builder = querybuilder.get_boolean_query_builder()
+        query_builder.add(querybuilder.get_term_query('information'), should)
+        query_builder.add(querybuilder.get_term_query('retrieval'), should)
 
         query = query_builder.build()
         hits = self.searcher.search(query)
@@ -110,12 +111,12 @@ class TestQueryBuilding(unittest.TestCase):
             self.searcher.search(query)
 
     def testTermQuery2(self):
-        term_query1 = pyquerybuilder.get_term_query('inform', analyzer=get_lucene_analyzer(stemming=False))
-        term_query2 = pyquerybuilder.get_term_query('retriev', analyzer=get_lucene_analyzer(stemming=False))
+        term_query1 = querybuilder.get_term_query('inform', analyzer=get_lucene_analyzer(stemming=False))
+        term_query2 = querybuilder.get_term_query('retriev', analyzer=get_lucene_analyzer(stemming=False))
 
-        should = pyquerybuilder.JBooleanClauseOccur['should'].value
+        should = querybuilder.JBooleanClauseOccur['should'].value
 
-        boolean_query1 = pyquerybuilder.get_boolean_query_builder()
+        boolean_query1 = querybuilder.get_boolean_query_builder()
         boolean_query1.add(term_query1, should)
         boolean_query1.add(term_query2, should)
 

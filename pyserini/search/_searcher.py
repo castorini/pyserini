@@ -1,3 +1,4 @@
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 """
 This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``SimpleSearcher``
@@ -20,44 +22,10 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import Dict, List, Union
 
-from ..pyclass import JSimpleSearcher, JSimpleSearcherResult, JDocument, JString, JArrayList, JTopics, JTopicReader, \
-    JQueryGenerator, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher, JQuery, autoclass
+from ._base import Document
+from ..pyclass import JSimpleSearcher, JSimpleSearcherResult, JString, JArrayList, JQueryGenerator, JQuery, autoclass
 
 logger = logging.getLogger(__name__)
-
-
-class Document:
-    """Wrapper class for a Lucene ``Document``.
-
-    Parameters
-    ----------
-    document : JDocument
-        Underlying Lucene ``Document``.
-    """
-
-    def __init__(self, document):
-        if document is None:
-            raise ValueError('Cannot create a Document with None.')
-        self.object = document
-
-    def docid(self: JDocument) -> str:
-        return self.object.getField('id').stringValue()
-
-    def id(self: JDocument) -> str:
-        # Convenient alias for docid()
-        return self.object.getField('id').stringValue()
-
-    def lucene_document(self: JDocument) -> JDocument:
-        return self.object
-
-    def contents(self: JDocument) -> str:
-        return self.object.get('contents')
-
-    def raw(self: JDocument) -> str:
-        return self.object.get('raw')
-
-    def get(self: JDocument, field: str) -> str:
-        return self.object.get(field)
 
 
 class SimpleSearcher:
@@ -269,66 +237,6 @@ class SimpleSearcher:
         self.object.close()
 
 
-def get_topics(collection_name):
-    """
-    Parameters
-    ----------
-    collection_name : str
-        collection_name
-
-    Returns
-    -------
-    result : dictionary
-        Topics as a dictionary
-    """
-    topics = None
-    if collection_name == 'robust04':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.ROBUST04)
-    elif collection_name == 'robust05':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.ROBUST05)
-    elif collection_name == 'core17':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.CORE17)
-    elif collection_name == 'core18':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.CORE18)
-    elif collection_name == 'car17v1.5_benchmarkY1test':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.CAR17V15_BENCHMARK_Y1_TEST)
-    elif collection_name == 'car17v2.0_benchmarkY1test':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.CAR17V20_BENCHMARK_Y1_TEST)
-    elif collection_name == 'msmarco_doc_dev':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV)
-    elif collection_name == 'msmarco_passage_dev_subset':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
-    elif collection_name == 'covid_round1':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND1)
-    elif collection_name == 'covid_round1_udel':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND1_UDEL)
-    elif collection_name == 'covid_round2':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND2)
-    elif collection_name == 'covid_round2_udel':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND2_UDEL)
-    elif collection_name == 'covid_round3':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND3)
-    elif collection_name == 'covid_round3_udel':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND3_UDEL)
-    elif collection_name == 'trec2018_bl':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2018_BL)
-    elif collection_name == 'trec2019_bl':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_BL)
-    else:
-        return {}
-    t = {}
-    for topic in topics.keySet().toArray():
-        # Try and parse the keys into integers
-        try:
-            topic_key = int(topic)
-        except ValueError:
-            topic_key = topic
-        t[topic_key] = {}
-        for key in topics.get(topic).keySet().toArray():
-            t[topic_key][key] = topics.get(topic).get(key)
-    return t
-
-
 class LuceneSimilarities:
     @staticmethod
     def bm25(k1=0.9, b=0.4):
@@ -337,45 +245,3 @@ class LuceneSimilarities:
     @staticmethod
     def qld(mu=1000):
         return autoclass('org.apache.lucene.search.similarities.LMDirichletSimilarity')(mu)
-
-
-class SimpleNearestNeighborSearcher:
-
-    def __init__(self, index_dir: str):
-        self.object = JSimpleNearestNeighborSearcher(JString(index_dir))
-
-    def search(self, q: str, k=10) -> List[JSimpleNearestNeighborSearcherResult]:
-        """Searches nearest neighbor of an embedding identified by its id.
-
-        Parameters
-        ----------
-        q : id
-            The input embedding id.
-        k : int
-            The number of nearest neighbors to return.
-
-        Returns
-        -------
-        List(JSimpleNearestNeighborSearcherResult]
-            List of (nearest neighbor) search results.
-        """
-        return self.object.search(JString(q), k)
-
-    def multisearch(self, q: str, k=10) -> List[List[JSimpleNearestNeighborSearcherResult]]:
-        """Searches nearest neighbors of all the embeddings having the specified id.
-
-        Parameters
-        ----------
-        q : id
-            The input embedding id.
-        k : int
-            The number of nearest neighbors to return for each found embedding.
-
-        Returns
-        -------
-        List(List[JSimpleNearestNeighborSearcherResult])
-            List of List of (nearest neighbor) search results (one for each matching id).
-        """
-        return self.object.multisearch(JString(q), k)
-
-

@@ -21,7 +21,7 @@ from typing import List
 from urllib.request import urlretrieve
 
 from pyserini.pyclass import JSimpleNearestNeighborSearcherResult
-from pyserini.search import pysearch
+from pyserini import search
 
 
 class TestSearch(unittest.TestCase):
@@ -39,8 +39,7 @@ class TestSearch(unittest.TestCase):
         vectors_tarball.extractall(self.vectors_dir)
         vectors_tarball.close()
 
-        self.nnsercher = pysearch.SimpleNearestNeighborSearcher(f'{self.vectors_dir}lucene-index-vectors.cacm')
-
+        self.nnsercher = search.SimpleNearestNeighborSearcher(f'{self.vectors_dir}lucene-index-vectors.cacm')
 
     def test_nearest_neighbor(self):
         hits = self.nnsercher.search('CACM-0059')
