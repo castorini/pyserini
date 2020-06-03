@@ -22,10 +22,15 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import Dict, List, Union
 
-from ._base import Document
-from ..pyclass import JSimpleSearcher, JSimpleSearcherResult, JString, JArrayList, JQueryGenerator, JQuery, autoclass
+from ._base import Document, JQuery, JQueryGenerator
+from ..pyclass import autoclass, JString, JArrayList
 
 logger = logging.getLogger(__name__)
+
+
+# Wrappers around Anserini classes
+JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
+JSimpleSearcherResult = autoclass('io.anserini.search.SimpleSearcher$Result')
 
 
 class SimpleSearcher:
@@ -190,7 +195,7 @@ class SimpleSearcher:
         """
         return self.object.getSimilarity()
 
-    def doc(self, docid: Union[str, int]) -> Document:
+    def doc(self, docid: Union[str, int]) -> Union[Document, None]:
         """Returns the :class:`Document` corresponding to ``docid``. The ``docid`` is overloaded: if it is of type
         ``str``, it is treated as an external collection ``docid``; if it is of type ``int``, it is treated as an
         internal Lucene ``docid``. Returns ``None`` if the ``docid`` does not exist in the index.
@@ -211,7 +216,7 @@ class SimpleSearcher:
             return None
         return Document(lucene_document)
 
-    def doc_by_field(self, field: str, q: str) -> str:
+    def doc_by_field(self, field: str, q: str) -> Union[Document, None]:
         """Returns the :class:`Document` based on a ``field`` with ``id``. For example, this method can be used to fetch
         document based on alternative primary keys that have been indexed, such as an article's DOI. Returns ``None`` if
         no such document exists.

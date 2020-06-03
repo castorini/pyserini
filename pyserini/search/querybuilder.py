@@ -21,8 +21,19 @@ import logging
 from enum import Enum
 
 from ..analysis import get_lucene_analyzer, Analyzer
-from ..pyclass import JQueryGeneratorUtils, JTermQuery, JTerm, JBoostQuery
+from ..pyclass import autoclass
+
 logger = logging.getLogger(__name__)
+
+
+# Wrapper around Lucene clases
+JTerm = autoclass('org.apache.lucene.index.Term')
+JBooleanClause = autoclass('org.apache.lucene.search.BooleanClause')
+JBoostQuery = autoclass('org.apache.lucene.search.BoostQuery')
+JTermQuery = autoclass('org.apache.lucene.search.TermQuery')
+
+# Wrappers around Anserini classes
+JQueryGeneratorUtils = autoclass('io.anserini.search.query.QueryGeneratorUtils')
 
 
 class JBooleanClauseOccur(Enum):

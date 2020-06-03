@@ -22,9 +22,14 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import List
 
-from ..pyclass import JString, JSimpleNearestNeighborSearcherResult, JSimpleNearestNeighborSearcher
+from ..pyclass import autoclass, JString
 
 logger = logging.getLogger(__name__)
+
+
+# Wrappers around Anserini classes
+JSimpleNearestNeighborSearcher = autoclass('io.anserini.search.SimpleNearestNeighborSearcher')
+JSimpleNearestNeighborSearcherResult = autoclass('io.anserini.search.SimpleNearestNeighborSearcher$Result')
 
 
 class SimpleNearestNeighborSearcher:

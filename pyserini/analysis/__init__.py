@@ -14,6 +14,6 @@
 # limitations under the License.
 #
 
-from ._base import get_lucene_analyzer, Analyzer
+from ._base import get_lucene_analyzer, Analyzer, JAnalyzerUtils
 
-__all__ = ['get_lucene_analyzer', 'Analyzer']
+__all__ = ['get_lucene_analyzer', 'Analyzer', 'JAnalyzerUtils']

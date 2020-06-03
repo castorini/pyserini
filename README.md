@@ -185,13 +185,13 @@ By manually constructing queries, it is possible to define the boost for each qu
 For example:
 
 ```python
-boost1 = pyquerybuilder.get_boost_query(term1, 2.)
-boost2 = pyquerybuilder.get_boost_query(term2, 1.)
-boost3 = pyquerybuilder.get_boost_query(term3, 1.)
+boost1 = querybuilder.get_boost_query(term1, 2.)
+boost2 = querybuilder.get_boost_query(term2, 1.)
+boost3 = querybuilder.get_boost_query(term3, 1.)
 
-should = pyquerybuilder.JBooleanClauseOccur['should'].value
+should = querybuilder.JBooleanClauseOccur['should'].value
 
-boolean_query_builder = pyquerybuilder.get_boolean_query_builder()
+boolean_query_builder = querybuilder.get_boolean_query_builder()
 boolean_query_builder.add(boost1, should)
 boolean_query_builder.add(boost2, should)
 boolean_query_builder.add(boost3, should)

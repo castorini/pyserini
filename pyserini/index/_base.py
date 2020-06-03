@@ -21,14 +21,39 @@ and methods provided are meant only to provide tools for examining an index and 
 """
 
 import logging
+from enum import Enum
 from typing import Dict, Iterator, List, Tuple
 
-from ..analysis import get_lucene_analyzer
-from ..pyclass import JIndexHelpers, JGenerators
-from ..pyclass import JIndexReaderUtils, JString, JAnalyzerUtils
+from ..analysis import get_lucene_analyzer, JAnalyzerUtils
+from ..pyclass import autoclass, JString
 from ..search import Document
 
 logger = logging.getLogger(__name__)
+
+
+# Wrappers around Anserini classes
+JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
+JDocumentVectorWeight = autoclass('io.anserini.index.IndexReaderUtils$DocumentVectorWeight')
+
+
+class JIndexHelpers:
+    def JArgs():
+        args = autoclass('io.anserini.index.IndexArgs')()
+        args.storeContents = True
+        args.storeRaw = True
+        args.dryRun = True ## So that indexing will be skipped
+        return args
+
+    def JCounters():
+        IndexCollection = autoclass('io.anserini.index.IndexCollection')
+        Counters = autoclass('io.anserini.index.IndexCollection$Counters')
+        return Counters(IndexCollection)
+
+
+class JGenerators(Enum):
+    DefaultLuceneDocumentGenerator = autoclass('io.anserini.index.generator.DefaultLuceneDocumentGenerator')
+    TweetGenerator = autoclass('io.anserini.index.generator.TweetGenerator')
+    WapoGenerator = autoclass('io.anserini.index.generator.WashingtonPostGenerator')
 
 
 class Generator:
@@ -124,7 +149,7 @@ class IndexReader:
     """
 
     def __init__(self, index_dir):
-        self.object = JIndexReaderUtils()
+        self.object = JIndexReader()
         self.reader = self.object.getReader(JString(index_dir))
 
     def analyze(self, text: str, analyzer=None) -> List[str]:
