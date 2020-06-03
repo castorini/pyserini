@@ -21,7 +21,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from urllib.request import urlretrieve
 
-from pyserini import analysis,  index, search
+from pyserini import analysis, index, search
 from pyserini.pyclass import JString
 from pyserini.vectorizer import BM25Vectorizer
 from pyserini.vectorizer import TfidfVectorizer
