@@ -121,7 +121,7 @@ doc = searcher.doc('LA071090-0047')
 
 From `doc`, you can access its `contents` as well as its `raw` representation.
 The `contents` hold the representation of what's actually indexed; the `raw` representation is usually the original "raw document".
-A simple example can illustrate this distinction: for an article from CORD-19, `raw` holds the complete JSON of the article, which obviously includes the artcle contents, but has metadata and other information as well.
+A simple example can illustrate this distinction: for an article from CORD-19, `raw` holds the complete JSON of the article, which obviously includes the article contents, but has metadata and other information as well.
 The `contents` are extracts from the article that's actually indexed (for example, the title and abstract).
 In most cases, `contents` can be deterministically reconstructed from the `raw`.
 When building the index, we specify flags to store `contents` and/or `raw`; it's rarely the case we store both, since it's usually a waste of space.
