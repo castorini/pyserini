@@ -1,6 +1,6 @@
 # Pyserini: Direct Interaction via Pyjnius
 
-Alternatively, for parts of Anserini that have not yet been integrated into the Pyserini interface, you can interact with Anserini's Java classes directly via [pyjnius](https://github.com/kivy/pyjnius). 
+For parts of Anserini that have not yet been integrated into the Pyserini interface, you can interact with Anserini's Java classes directly via [pyjnius](https://github.com/kivy/pyjnius). 
 First, call Pyserini's setup helper for setting up classpath for the JVM:
 
 ```python
