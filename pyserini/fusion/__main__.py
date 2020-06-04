@@ -19,8 +19,8 @@ from pyserini.fusion import reciprocal_rank_fusion
 from ..trectools import TrecRun
 
 parser = argparse.ArgumentParser(description='Create a input schema')
-parser.add_argument('--runs', type=str, nargs='+', default=[], required=True, help='A list of run files.')
-parser.add_argument('--output', type=str, required=True, help="Path to Lucene index.")
+parser.add_argument('--runs', type=str, nargs='+', default=[], required=True, help='A list of run files separated by space.')
+parser.add_argument('--output', type=str, required=True, help="Path to resulting fused txt.")
 parser.add_argument('--tag', type=str, default="pyserini.fusion", help="Tag name of fused run.")
 args = parser.parse_args()
 
