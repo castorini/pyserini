@@ -20,7 +20,7 @@ class, which wraps the Java class with the same name in Anserini.
 """
 
 import logging
-from typing import Dict, List, Union
+from typing import Dict, List, Optional, Union
 
 from ._base import Document, JQuery, JQueryGenerator
 from ..pyclass import autoclass, JString, JArrayList
@@ -48,16 +48,16 @@ class SimpleSearcher:
 
     def search(self, q: Union[str, JQuery], k: int = 10,
                query_generator: JQueryGenerator = None) -> List[JSimpleSearcherResult]:
-        """Searches the collection.
+        """Search the collection.
 
         Parameters
         ----------
         q : Union[str, JQuery]
-            The query string or the ``JQuery`` objected.
+            Query string or the ``JQuery`` objected.
         k : int
-            The number of hits to return.
+            Number of hits to return.
         query_generator : JQueryGenerator
-            Generator to build queries.
+            Generator to build queries. Set to ``None`` by default to use Anserini default.
 
         Returns
         -------
@@ -80,23 +80,23 @@ class SimpleSearcher:
 
     def batch_search(self, queries: List[str], qids: List[str], k: int = 10,
                      threads: int = 1) -> Dict[str, List[JSimpleSearcherResult]]:
-        """Searches the collection concurrently for multiple queries, using multiple threads.
+        """Search the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
         ----------
         queries : List[str]
-            A list of query strings.
+            List of query strings.
         qids : List[str]
-            A list of corresponding query ids.
+            List of corresponding query ids.
         k : int
-            The number of hits to return.
+            Number of hits to return.
         threads : int
-            The maximum number of threads to use.
+            Maximum number of threads to use.
 
         Returns
         -------
         Dict[str, List[JSimpleSearcherResult]]
-            A dictionary holding the search results, with the query ids as keys and the corresponding lists of search
+            Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
             results as the values.
         """
         query_strings = JArrayList()
@@ -113,37 +113,38 @@ class SimpleSearcher:
         return {r.getKey(): r.getValue() for r in results}
 
     def search_fields(self, q, f, boost, k):
-        """Searches the collection, scoring a separate field with a boost weight.
+        """Search the collection, scoring a separate field with a boost weight.
 
         Parameters
         ----------
         q : str
             Query string.
         f : str
-            Name of additional field to search over
+            Additional field to search.
         boost : float
-            Weight boost for additional field
+            Weight boost for additional field.
         k : int
-            Number of hits to return
+            Number of hits to return.
 
         Returns
         -------
-        results : list of io.anserini.search.SimpleSearcher$Result
+        List[JSimpleSearcherResult]
             List of document hits returned from search
         """
         return self.object.searchFields(JString(q), JString(f), float(boost), k)
 
     def set_analyzer(self, analyzer):
-        """
+        """Set the Java ``Analyzer`` to use.
+
         Parameters
         ----------
-        analyzer : Analyzer
-            Java analyzer object
+        analyzer : JAnalyzer
+            Java ``Analyzer`` object.
         """
         self.object.setAnalyzer(analyzer)
 
     def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False):
-        """Configures RM3 query expansion.
+        """Configure RM3 query expansion.
 
         Parameters
         ----------
@@ -154,22 +155,20 @@ class SimpleSearcher:
         original_query_weight : float
             RM3 parameter for weight to assign to the original query.
         rm3_output_query : bool
-            Whether we want to print the original and expanded as debug output.
+            Print the original and expanded queries as debug output.
         """
         self.object.setRM3(fb_terms, fb_docs, original_query_weight, rm3_output_query)
 
     def unset_rm3(self):
-        """Turns off use of RM3 query expansion.
-        """
+        """Disable RM3 query expansion."""
         self.object.unsetRM3()
 
     def is_using_rm3(self) -> bool:
-        """Returns whether or not RM3 query expansion is being performed.
-        """
+        """Check if RM3 query expansion is being performed."""
         return self.object.useRM3()
 
     def set_qld(self, mu=float(1000)):
-        """Configures query likelihood with Dirichlet smoothing as the scoring function.
+        """Configure query likelihood with Dirichlet smoothing as the scoring function.
 
         Parameters
         ----------
@@ -179,7 +178,7 @@ class SimpleSearcher:
         self.object.setQLD(float(mu))
 
     def set_bm25(self, k1=float(0.9), b=float(0.4)):
-        """Configures BM25 as the scoring function.
+        """Configure BM25 as the scoring function.
 
         Parameters
         ----------
@@ -191,14 +190,13 @@ class SimpleSearcher:
         self.object.setBM25(float(k1), float(b))
 
     def get_similarity(self):
-        """Returns the Lucene ``Similarity`` used as the scoring function.
-        """
+        """Return the Lucene ``Similarity`` used as the scoring function."""
         return self.object.getSimilarity()
 
-    def doc(self, docid: Union[str, int]) -> Union[Document, None]:
-        """Returns the :class:`Document` corresponding to ``docid``. The ``docid`` is overloaded: if it is of type
+    def doc(self, docid: Union[str, int]) -> Optional[Document]:
+        """Return the :class:`Document` corresponding to ``docid``. The ``docid`` is overloaded: if it is of type
         ``str``, it is treated as an external collection ``docid``; if it is of type ``int``, it is treated as an
-        internal Lucene ``docid``. Returns ``None`` if the ``docid`` does not exist in the index.
+        internal Lucene ``docid``. Method returns ``None`` if the ``docid`` does not exist in the index.
 
         Parameters
         ----------
@@ -216,17 +214,17 @@ class SimpleSearcher:
             return None
         return Document(lucene_document)
 
-    def doc_by_field(self, field: str, q: str) -> Union[Document, None]:
-        """Returns the :class:`Document` based on a ``field`` with ``id``. For example, this method can be used to fetch
-        document based on alternative primary keys that have been indexed, such as an article's DOI. Returns ``None`` if
-        no such document exists.
+    def doc_by_field(self, field: str, q: str) -> Optional[Document]:
+        """Return the :class:`Document` based on a ``field`` with ``id``. For example, this method can be used to fetch
+        document based on alternative primary keys that have been indexed, such as an article's DOI. Method returns
+        ``None`` if no such document exists.
 
         Parameters
         ----------
         field : str
-            The field to look up.
+            Field to look up.
         q : str
-            The document's unique id.
+            Unique id of document.
 
         Returns
         -------
@@ -239,6 +237,7 @@ class SimpleSearcher:
         return Document(lucene_document)
 
     def close(self):
+        """Close the searcher."""
         self.object.close()
 
 

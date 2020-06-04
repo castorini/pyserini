@@ -1,30 +1,26 @@
 pyserini.index package
 ======================
 
-Submodules
-----------
+IndexReader
+-----------
 
-pyserini.index.pygenerator module
----------------------------------
-
-.. automodule:: pyserini.index.pygenerator
+.. autoclass:: pyserini.index.IndexReader
    :members:
    :undoc-members:
    :show-inheritance:
 
-pyserini.index.pyutils module
------------------------------
+IndexTerm
+---------
 
-.. automodule:: pyserini.index.pyutils
+.. autoclass:: pyserini.index.IndexTerm
    :members:
    :undoc-members:
    :show-inheritance:
 
+Posting
+-------
 
-Module contents
----------------
-
-.. automodule:: pyserini.index
+.. autoclass:: pyserini.index.Posting
    :members:
    :undoc-members:
    :show-inheritance:
