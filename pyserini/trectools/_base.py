@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+from copy import deepcopy
 import pandas as pd
 from typing import List
 
@@ -35,24 +36,28 @@ class TrecRun:
             self.read_run(self.filepath)
 
     def read_run(self, filepath: str) -> None:
-        run_data = pd.read_csv(filepath, sep="\s+", names=["topic", "q0", "docid", "rank", "score", "tag"])
+        run_data = pd.read_csv(filepath, sep='\s+', names=['topic', 'q0', 'docid', 'rank', 'score', 'tag'])
 
-        for topic in run_data["topic"].unique():
-            docs_by_topic = run_data[run_data["topic"].apply(lambda x: x == topic)]
+        for topic in run_data['topic'].unique():
+            docs_by_topic = run_data[run_data['topic'].apply(lambda x: x == topic)]
             self.run_data[topic] = docs_by_topic
 
     def get_topics(self) -> List[str]:
         return self.run_data.keys()
 
-    def set_rrf_scores(self, k: int) -> None:
-        for topic, docs in self.run_data.items():
+    def clone_with_rrf_scores(self, k: int) -> None:
+        cloned_run = deepcopy(self)
+
+        for topic, docs in cloned_run.run_data.items():
             for index, doc in docs.iterrows():
-                self.run_data[topic].at[index, 'score'] = 1 / (k + doc['rank'])
+                cloned_run.run_data[topic].at[index, 'score'] = 1 / (k + doc['rank'])
+
+        return cloned_run
 
     def assign_rank_by_score(self):
         for topic, docs in self.run_data.items():
             rank = 0
-            for index in docs.sort_values(by=["topic", "score"], ascending=[True, False]).index:
+            for index in docs.sort_values(by=['topic', 'score'], ascending=[True, False]).index:
                 rank += 1
                 self.run_data[topic].at[index, 'rank'] = int(rank)
 
@@ -67,9 +72,10 @@ class TrecRun:
             else:
                 all_topics = all_topics.append(docs)
 
-        all_topics = all_topics.sort_values(by=["topic", "score"], ascending=[True, False])
-        all_topics['tag'] = tag
-        all_topics.to_csv(output_path, sep=" ", header=False, index=False)
+        all_topics = all_topics.sort_values(by=['topic', 'score'], ascending=[True, False])
+        if tag is not None:
+            all_topics['tag'] = tag
+        all_topics.to_csv(output_path, sep=' ', header=False, index=False)
 
     def get_docs_by_topic(self, topic: str):
         return self.run_data[topic] if topic in self.run_data else None

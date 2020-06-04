@@ -37,8 +37,7 @@ def reciprocal_rank_fusion(trec_runs: List[TrecRun], k: int = 60):
 
     fused_run = TrecRun()
     for trec_run in trec_runs:
-        trec_run.set_rrf_scores(k)
-        fused_run.merge_runs_by_sum_scores(trec_run)
+        fused_run.merge_runs_by_sum_scores(trec_run.clone_with_rrf_scores(k))
 
     fused_run.assign_rank_by_score()
     return fused_run

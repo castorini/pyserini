@@ -1,3 +1,4 @@
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,29 +12,35 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 import filecmp
 import os
+from pyserini.trectools import TrecRun
 import unittest
 
 
 class TestSearch(unittest.TestCase):
     def setUp(self):
-        self.qruns = ['covidex.t5', 'covidex.sim']
-        self.cmps = ['myfused.txt', 'fused.txt']
-
-        for qrun in self.qruns:
-            os.system(f'wget -q -nc https://ir.nist.gov/covidSubmit/archive/round2/{qrun}')
-
-        os.system('wget -q -nc https://www.dropbox.com/s/scl0lm7x47jrsxh/fused.txt')
+        self.qruns = ['tests/resources/covidex.t5', 'tests/resources/covidex.sim']
+        self.output_path = 'tests/resources/output.txt'
 
     def test_reciprocal_rank_fusion(self):
-        os.system('python -m pyserini.fusion --runs covidex.sim covidex.t5 --output myfused.txt --tag reciprocal_rank_fusion_k=60')
-        self.assertTrue(filecmp.cmp(self.cmps[0], self.cmps[1]))
+        answer_path = 'tests/resources/rrf_verify.txt'
 
-    def tearDown(self):
-        for path in self.qruns + self.cmps:
-            os.remove(path)
+        cmd = f'python -m pyserini.fusion --runs {self.qruns[0]} {self.qruns[1]} --output {self.output_path} --tag reciprocal_rank_fusion_k=60'
+        os.system(cmd)
+        self.assertTrue(filecmp.cmp(answer_path, self.output_path))
+        os.remove(self.output_path)
+
+    def test_trec_run_read(self):
+        input_path = 'tests/resources/simple_trec_run.txt'
+        verify_path = 'tests/resources/simple_trec_run_verify.txt'
+
+        run = TrecRun(filepath=input_path)
+        run.save_to_txt(self.output_path)
+        self.assertTrue(filecmp.cmp(verify_path, self.output_path))
+        os.remove(self.output_path)
 
 
 if __name__ == '__main__':
