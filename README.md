@@ -121,11 +121,12 @@ doc = searcher.doc('LA071090-0047')
 
 From `doc`, you can access its `contents` as well as its `raw` representation.
 The `contents` hold the representation of what's actually indexed; the `raw` representation is usually the original "raw document".
-A simple example can illustrate the distinction: for an article from CORD-19, `raw` holds the complete JSON of the article, which obviously includes the content, but has metadata and other information as well.
+A simple example can illustrate this distinction: for an article from CORD-19, `raw` holds the complete JSON of the article, which obviously includes the artcle contents, but has metadata and other information as well.
 The `contents` are extracts from the article that's actually indexed (for example, the title and abstract).
-In most cases, `contents` can be deterministic reconstructed from the `raw`.
-When building the index, we specify flags to store `contents` and/or `raw`; it's rarely the case we store both, since it's generally a waste of space.
+In most cases, `contents` can be deterministically reconstructed from the `raw`.
+When building the index, we specify flags to store `contents` and/or `raw`; it's rarely the case we store both, since it's usually a waste of space.
 In the case of this index, we only store `raw`.
+Thus:
 
 ```python
 # Document contents: what's actually indexed.
@@ -136,7 +137,7 @@ doc.contents()
 doc.raw()
 ```
 
-As you'd expected `doc.id()` returns the docid, which is `LA071090-0047` in this case.
+As you'd expected, `doc.id()` returns the docid, which is `LA071090-0047` in this case.
 Finally, `doc.lucene_document()` returns the underlying Lucene `Document` (i.e., a Java object).
 With that, you get direct access to the complete Lucene API for manipulating documents.
 
