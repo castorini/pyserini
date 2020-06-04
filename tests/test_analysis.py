@@ -22,7 +22,7 @@ from random import randint
 from urllib.request import urlretrieve
 
 from pyserini import analysis, index, search
-from pyserini.analysis import JAnalyzerUtils
+from pyserini.analysis import JAnalyzer, JAnalyzerUtils, Analyzer
 from pyserini.pyclass import JString
 
 
@@ -51,9 +51,10 @@ class TestAnalyzers(unittest.TestCase):
         self.assertNotEqual(hits_first, hits_second)
 
     def test_analyze_with_analyzer(self):
-        tokenizer = analysis.get_lucene_analyzer(stemming=False)
+        analyzer = analysis.get_lucene_analyzer(stemming=False)
+        self.assertTrue(isinstance(analyzer, JAnalyzer))
         query = JString('information retrieval')
-        only_tokenization = JAnalyzerUtils.analyze(tokenizer, query)
+        only_tokenization = JAnalyzerUtils.analyze(analyzer, query)
         token_list = []
         for token in only_tokenization.toArray():
             token_list.append(token)
@@ -62,33 +63,44 @@ class TestAnalyzers(unittest.TestCase):
     def test_analysis(self):
         # Default is Porter stemmer
         analyzer = analysis.Analyzer(analysis.get_lucene_analyzer())
+        self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['citi', 'buse', 'run', 'time'])
 
         # Specify Porter stemmer explicitly
         analyzer = analysis.Analyzer(analysis.get_lucene_analyzer(stemmer='porter'))
+        self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['citi', 'buse', 'run', 'time'])
 
         # Specify Krovetz stemmer explicitly
         analyzer = analysis.Analyzer(analysis.get_lucene_analyzer(stemmer='krovetz'))
+        self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['city', 'bus', 'running', 'time'])
 
         # No stemming
         analyzer = analysis.Analyzer(analysis.get_lucene_analyzer(stemming=False))
+        self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['city', 'buses', 'running', 'time'])
 
         # No stopword filter, no stemming
         analyzer = analysis.Analyzer(analysis.get_lucene_analyzer(stemming=False, stopwords=False))
+        self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['city', 'buses', 'are', 'running', 'on', 'time'])
 
         # No stopword filter, with stemming
         analyzer = analysis.Analyzer(analysis.get_lucene_analyzer(stemming=True, stopwords=False))
+        self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['citi', 'buse', 'ar', 'run', 'on', 'time'])
+
+    def test_invalid_analyzer_wrapper(self):
+        # Invalid JAnalyzer, make sure we get an exception.
+        with self.assertRaises(TypeError):
+            analysis.Analyzer('str')
 
     def test_invalid_analysis(self):
         # Invalid configuration, make sure we get an exception.

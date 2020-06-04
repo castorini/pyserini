@@ -1,22 +1,18 @@
 pyserini.search package
 =======================
 
-Submodules
-----------
+SimpleSearcher
+--------------
 
-pyserini.search.pysearch module
--------------------------------
-
-.. automodule:: pyserini.search.pysearch
+.. autoclass:: pyserini.search.SimpleSearcher
    :members:
    :undoc-members:
    :show-inheritance:
 
+Document
+--------
 
-Module contents
----------------
-
-.. automodule:: pyserini.search
+.. autoclass:: pyserini.search.Document
    :members:
    :undoc-members:
    :show-inheritance:

@@ -219,6 +219,9 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(154, len(doc.lucene_document().get('contents')))
         self.assertEqual(154, len(doc.lucene_document().getField('contents').stringValue()))
 
+        # Should return None if we request a docid that doesn't exist
+        self.assertTrue(self.searcher.doc(314159) is None)
+
     def test_doc_str(self):
         # The doc method is overloaded: if input is str, it's assumed to be an external collection docid.
         doc = self.searcher.doc('CACM-0002')

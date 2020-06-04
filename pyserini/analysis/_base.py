@@ -18,8 +18,8 @@ from typing import List
 
 from ..pyclass import autoclass, JString
 
-
 # Wrappers around Lucene classes
+JAnalyzer = autoclass('org.apache.lucene.analysis.Analyzer')
 JArabicAnalyzer = autoclass('org.apache.lucene.analysis.ar.ArabicAnalyzer')
 JBengaliAnalyzer = autoclass('org.apache.lucene.analysis.bn.BengaliAnalyzer')
 JCJKAnalyzer = autoclass('org.apache.lucene.analysis.cjk.CJKAnalyzer')
@@ -36,23 +36,24 @@ JFreebaseAnalyzer = autoclass('io.anserini.analysis.FreebaseAnalyzer')
 JTweetAnalyzer = autoclass('io.anserini.analysis.TweetAnalyzer')
 
 
-def get_lucene_analyzer(name='english', stemming=True, stemmer='porter', stopwords=True):
-    """
+def get_lucene_analyzer(name='english', stemming=True, stemmer='porter', stopwords=True) -> JAnalyzer:
+    """Create a Lucene ``Analyzer`` with specific settings.
+
     Parameters
     ----------
-    name : Str
+    name : str
         Name of analyzer.
-    stemming : Bool
-        Whether or not to stem.
-    stemmer : Str
+    stemming : bool
+        Set to stem.
+    stemmer : str
         Stemmer to use.
-    stopwords : Bool
-        Whether or not to filter stopwords.
+    stopwords : bool
+        Set to filter stopwords.
 
     Returns
     -------
-    result : org.apache.lucene.document.Analyzer
-        Java Analyzer object
+    JAnalyzer
+        Java ``Analyzer`` with specified settings.
     """
     if name.lower() == 'arabic':
         return JArabicAnalyzer()
@@ -73,13 +74,13 @@ def get_lucene_analyzer(name='english', stemming=True, stemmer='porter', stopwor
     elif name.lower() == 'tweet':
         return JTweetAnalyzer()
     elif name.lower() == 'english':
-        if stemming == True:
-            if stopwords == True:
+        if stemming:
+            if stopwords:
                 return JDefaultEnglishAnalyzer.newStemmingInstance(JString(stemmer))
             else:
                 return JDefaultEnglishAnalyzer.newStemmingInstance(JString(stemmer), JCharArraySet.EMPTY_SET)
         else:
-            if stopwords == True:
+            if stopwords:
                 return JDefaultEnglishAnalyzer.newNonStemmingInstance()
             else:
                 return JDefaultEnglishAnalyzer.newNonStemmingInstance(JCharArraySet.EMPTY_SET)
@@ -88,25 +89,26 @@ def get_lucene_analyzer(name='english', stemming=True, stemmer='porter', stopwor
 
 
 class Analyzer:
-    """
-    Python wrapper around a Lucene Analyzer for easy analysis.
+    """Python wrapper around a Lucene ``Analyzer`` to simplify analysis.
 
     Parameters
     ----------
-    analyzer : org.apache.lucene.document.Analyzer
-        Lucene Analyzer.
+    analyzer : JAnalyzer
+        Lucene ``Analyzer``.
     """
 
     def __init__(self, analyzer):
+        if not isinstance(analyzer, JAnalyzer):
+            raise TypeError('Invalid JAnalyzer!')
         self.analyzer = analyzer
 
     def analyze(self, text: str) -> List[str]:
-        """Analyzes a piece of text.
+        """Analyze a piece of text.
 
         Parameters
         ----------
         text : str
-            The piece of text to analyze.
+            Text to analyze.
 
         Returns
         -------

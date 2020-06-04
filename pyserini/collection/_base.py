@@ -24,6 +24,10 @@ from ..pyclass import autoclass, cast, JPaths
 logger = logging.getLogger(__name__)
 
 
+JFileSegment = autoclass('io.anserini.collection.FileSegment')
+JSourceDocument = autoclass('io.anserini.collection.SourceDocument')
+
+
 class JCollections(Enum):
     CarCollection = autoclass('io.anserini.collection.CarCollection')
     Cord19AbstractCollection = autoclass('io.anserini.collection.Cord19AbstractCollection')
@@ -83,7 +87,7 @@ class FileSegment:
     ----------
     collection : Collection
         Parent collection of the file segment
-    segment : io.anserini.collection.FileSegment
+    segment : JFileSegment
         FileSegment object to create wrapper from
     segment_path : str
         Path to file backing the file segment
@@ -138,6 +142,8 @@ class SourceDocument:
     """
 
     def __init__(self, segment, document):
+        if not isinstance(document, JSourceDocument):
+            raise TypeError('Invalid JSourceDocument!')
         self.segment = segment
         self.object = document
         self.id = self.object.id()
