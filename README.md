@@ -151,7 +151,7 @@ See [Issue #77](https://github.com/castorini/pyserini/issues/77) and [this guide
 + [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
 + [Usage of the Analyzer API](docs/usage-analyzer.md)
 + [Usage of the Index Reader API](docs/usage-indexreader.md)
-+ [Usage of the Query Builder API](docs/usage-querybuilder.mad)
++ [Usage of the Query Builder API](docs/usage-querybuilder.md)
 + [Usage of the Collection API](docs/usage-collection.md)
 + [Direct Interaction via Pyjnius](docs/usage-pyjnius.md)
 
