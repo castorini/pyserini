@@ -37,17 +37,17 @@ class TrecRunDoc:
         The tag name the document.
     """
 
-    def __init__(self, line: str = None, topic: str = None, docid: str = None, rank: int = None, score: float = None, tag: str = None):
+    def __init__(self, line: str = None, topic: str = None, docid: str = None, rank: int = -1, score: float = 0.0, tag: str = None):
         if line is not None:
             self.topic, _, self.docid, self.rank, self.score, self.tag = line.split()
             self.rank = int(self.rank)
             self.score = float(self.score)
-
-        self.topic = None if topic is None else topic
-        self.docid = None if docid is None else docid
-        self.score = 0.0 if score is None else score
-        self.rank = -1 if rank is None else rank
-        self.tag = None if tag is None else tag
+        else:
+            self.topic = topic
+            self.docid = docid
+            self.score = score
+            self.rank = rank
+            self.tag = tag
 
     def to_str(self, delimiter=' ', tag=None):
         """Returns the string representation of the document.
