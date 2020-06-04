@@ -14,22 +14,8 @@
 # limitations under the License.
 #
 
-from ..trectools import TrecRun, TrecRunDoc, sum_runs_by_score
+from ..trectools import TrecRun
 from typing import List
-
-
-def set_reciprocal_rank_fusion_score(doc: TrecRunDoc, k:int):
-    """Given a TrecRunDoc, update the document after updating the score to RRFscore.
-
-    Parameters
-    ----------
-    doc : TrecRunDoc
-        The document of interest.
-    k : int
-        The k value needed to compute RRFscore.
-    """
-
-    doc.score = 1 / (k + doc.rank)
 
 
 def reciprocal_rank_fusion(trec_runs: List[TrecRun], k: int = 60):
@@ -49,7 +35,10 @@ def reciprocal_rank_fusion(trec_runs: List[TrecRun], k: int = 60):
     if len(trec_runs) < 2:
         raise Exception('Fusion requres at least 2 runs.')
 
+    fused_run = TrecRun()
     for trec_run in trec_runs:
-        trec_run.for_each_doc(lambda doc: set_reciprocal_rank_fusion_score(doc, k))
+        trec_run.set_rrf_scores(k)
+        fused_run.merge_runs_by_sum_scores(trec_run)
 
-    return sum_runs_by_score(trec_runs)
+    fused_run.assign_rank_by_score()
+    return fused_run

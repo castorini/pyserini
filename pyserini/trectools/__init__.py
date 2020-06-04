@@ -14,6 +14,6 @@
 # limitations under the License.
 #
 
-from ._base import TrecRun, TrecRunDoc, sum_runs_by_score
+from ._base import TrecRun
 
-__all__ = ['TrecRun', 'TrecRunDoc', 'sum_runs_by_score']
+__all__ = ['TrecRun']
