@@ -23,11 +23,12 @@ parser.add_argument('--runs', type=str, nargs='+', default=[], required=True,
                     help='List of run files separated by space.')
 parser.add_argument('--output', type=str, required=True, help="Path to resulting fused txt.")
 parser.add_argument('--runtag', type=str, default="pyserini.fusion", help="Tag name of fused run.")
-parser.add_argument('--rrf.k', dest='k', type=int, default=60, help="Parameter k needed for reciprocal rank fusion.")
-parser.add_argument('--rrf.max_docs', dest='max_docs', type=int, default=1000,
-                    required=False, help='Max number of documents per topic.')
+parser.add_argument('--rrf.k', dest='rrf_k', type=int, default=60,
+                    help="Parameter k needed for reciprocal rank fusion.")
+parser.add_argument('--depth', type=int, default=1000, required=False, help='Pool depth per topic.')
+parser.add_argument('--k', type=int, default=1000, required=False, help='Number of documents to output per topic.')
 args = parser.parse_args()
 
 trec_runs = [TrecRun(filepath=path) for path in args.runs]
-fused_run = reciprocal_rank_fusion(trec_runs, k=args.k, max_docs=args.max_docs)
+fused_run = reciprocal_rank_fusion(trec_runs, rrf_k=args.rrf_k, depth=args.depth, k=args.k)
 fused_run.save_to_txt(args.output, tag=args.runtag)
