@@ -15,17 +15,8 @@
 #
 
 from copy import deepcopy
-from enum import Enum
 import pandas as pd
 from typing import Set
-
-
-class AggregationMethod(Enum):
-    SUM = 'sum'
-
-
-class FusionMethod(Enum):
-    RRF = 'rrf'
 
 
 class TrecRun:
