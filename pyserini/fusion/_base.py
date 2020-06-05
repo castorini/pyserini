@@ -14,17 +14,22 @@
 # limitations under the License.
 #
 
-from ..trectools import TrecRun
+import pandas as pd
+from ..trectools import TrecRun, FusionMethod, AggregationMethod
 from typing import List
 
 
-def reciprocal_rank_fusion(trec_runs: List[TrecRun], k: int = 60):
+def reciprocal_rank_fusion(trec_runs: List[TrecRun], k: int = 60, max_docs: int = None):
     """Given a list of TrecRun, return a new fused TrecRun using reciprocal rank fusion.
 
     Parameters
     ----------
     runs : List[TrecRun]
-        A list of TrecRun.
+        List of TrecRun.
+    k : int
+        Parameters k for recriprocal rank calculation.
+    max_docs: int
+        Max number of documents per topics.
 
     Returns
     -------
@@ -33,11 +38,25 @@ def reciprocal_rank_fusion(trec_runs: List[TrecRun], k: int = 60):
     """
 
     if len(trec_runs) < 2:
-        raise Exception('Fusion requres at least 2 runs.')
+        raise Exception('Fusion requires at least 2 runs.')
 
     fused_run = TrecRun()
-    for trec_run in trec_runs:
-        fused_run.merge_runs_by_sum_scores(trec_run.clone_with_rrf_scores(k))
 
-    fused_run.assign_rank_by_score()
+    for topic in TrecRun.get_all_topics_from_runs(trec_runs):
+        rows, doc_scores = [], dict()
+        for run in trec_runs:
+            docs = run.get_docs_by_topic(topic, max_docs)
+            if docs is None:
+                continue
+
+            for _, doc in docs.iterrows():
+                doc_scores[doc['docid']] = doc_scores.get(doc['docid'], 0.0) + 1 / (k + doc['rank'])
+
+        for rank, (docid, score) in enumerate(sorted(iter(doc_scores.items()), key=lambda x:(-x[1],x[0]))[:max_docs], start=1):
+            rows.append((topic, "Q0", docid, rank, score, "reciprocal_rank_fusion_k=%d" % k))
+
+        df = pd.DataFrame(rows)
+        df.columns = ["topic", "q0", "docid", "rank", "score", "tag"]
+        fused_run.run_data[topic] = df.copy()
+
     return fused_run

@@ -22,25 +22,43 @@ import unittest
 
 class TestSearch(unittest.TestCase):
     def setUp(self):
-        self.qruns = ['tests/resources/covidex.t5', 'tests/resources/covidex.sim']
-        self.output_path = 'tests/resources/output.txt'
-
-    def test_reciprocal_rank_fusion(self):
-        answer_path = 'tests/resources/rrf_verify.txt'
-
-        cmd = f'python -m pyserini.fusion --runs {self.qruns[0]} {self.qruns[1]} --output {self.output_path} --tag reciprocal_rank_fusion_k=60'
-        os.system(cmd)
-        self.assertTrue(filecmp.cmp(answer_path, self.output_path))
-        os.remove(self.output_path)
+        self.output_path = 'output_test_fusion.txt'
 
     def test_trec_run_read(self):
-        input_path = 'tests/resources/simple_trec_run.txt'
-        verify_path = 'tests/resources/simple_trec_run_verify.txt'
+        input_path = 'tests/resources/simple_trec_run_read.txt'
+        verify_path = 'tests/resources/simple_trec_run_read_verify.txt'
 
         run = TrecRun(filepath=input_path)
         run.save_to_txt(self.output_path)
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
         os.remove(self.output_path)
+
+    def test_reciprocal_rank_fusion_simple(self):
+        input_paths = ['tests/resources/simple_trec_run_fusion_1.txt', 'tests/resources/simple_trec_run_fusion_2.txt']
+        verify_path = 'tests/resources/simple_trec_run_fusion_verify.txt'
+
+        qruns_str = ' '.join(input_paths)
+        os.system(f'python -m pyserini.fusion --runs {qruns_str} --output {self.output_path} --runtag test')
+        self.assertTrue(filecmp.cmp(verify_path, self.output_path))
+        os.remove(self.output_path)
+
+    def test_reciprocal_rank_fusion_complex(self):
+        os.system('wget -q -nc https://www.dropbox.com/s/duimcackueph2co/anserini.covid-r2.abstract.qq.bm25.txt.gz')
+        os.system('wget -q -nc https://www.dropbox.com/s/iswpuj9tf5pj5ei/anserini.covid-r2.full-text.qq.bm25.txt.gz')
+        os.system('wget -q -nc https://www.dropbox.com/s/da7jg1ho5ubl8jt/anserini.covid-r2.paragraph.qq.bm25.txt.gz')
+        os.system('wget -q -nc https://www.dropbox.com/s/wqb0vhxp98g7dxh/anserini.covid-r2.fusion1.txt.gz')
+        os.system('gunzip -f anserini.covid-r2.*.txt.gz')
+
+        txt_paths = ['anserini.covid-r2.abstract.qq.bm25.txt',
+                     'anserini.covid-r2.full-text.qq.bm25.txt', 'anserini.covid-r2.paragraph.qq.bm25.txt']
+
+        qruns_str = ' '.join(txt_paths)
+        os.system(
+            f'python -m pyserini.fusion --runs {qruns_str} --output {self.output_path} --runtag reciprocal_rank_fusion_k=60')
+        verify_path = 'anserini.covid-r2.fusion1.txt'
+        self.assertTrue(filecmp.cmp(verify_path, self.output_path))
+        os.remove(self.output_path)
+        os.system('rm anserini.covid-r2.*')
 
 
 if __name__ == '__main__':

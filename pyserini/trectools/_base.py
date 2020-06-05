@@ -15,8 +15,17 @@
 #
 
 from copy import deepcopy
+from enum import Enum
 import pandas as pd
-from typing import List
+from typing import Set
+
+
+class AggregationMethod(Enum):
+    SUM = 'sum'
+
+
+class FusionMethod(Enum):
+    RRF = 'rrf'
 
 
 class TrecRun:
@@ -42,64 +51,41 @@ class TrecRun:
             docs_by_topic = run_data[run_data['topic'].apply(lambda x: x == topic)]
             self.run_data[topic] = docs_by_topic
 
-    def get_topics(self) -> List[str]:
-        return self.run_data.keys()
+    def get_topics(self) -> Set[str]:
+        return set(self.run_data.keys())
 
-    def clone_with_rrf_scores(self, k: int) -> None:
-        cloned_run = deepcopy(self)
-
-        for topic, docs in cloned_run.run_data.items():
-            for index, doc in docs.iterrows():
-                cloned_run.run_data[topic].at[index, 'score'] = 1 / (k + doc['rank'])
-
-        return cloned_run
-
-    def assign_rank_by_score(self):
-        for topic, docs in self.run_data.items():
-            rank = 0
-            for index in docs.sort_values(by=['topic', 'score'], ascending=[True, False]).index:
-                rank += 1
-                self.run_data[topic].at[index, 'rank'] = int(rank)
+    def clone(self):
+        return deepcopy(self)
 
     def save_to_txt(self, output_path: str, tag: str = None) -> None:
         if len(self.run_data) == 0:
             raise Exception('Nothing to save. TrecRun is empty')
 
         all_topics = None
-        for docs in self.run_data.values():
-            if all_topics is None:
-                all_topics = docs
-            else:
-                all_topics = all_topics.append(docs)
+        for topic in self.get_topics():
+            df = self.run_data[topic].copy()
+            all_topics = df if all_topics is None else all_topics.append(df)
 
-        all_topics = all_topics.sort_values(by=['topic', 'score'], ascending=[True, False])
         if tag is not None:
             all_topics['tag'] = tag
+
+        all_topics = all_topics.sort_values(by=['topic', 'score'], ascending=[True, False])
         all_topics.to_csv(output_path, sep=' ', header=False, index=False)
 
-    def get_docs_by_topic(self, topic: str):
-        return self.run_data[topic] if topic in self.run_data else None
+    def get_docs_by_topic(self, topic: str, max_docs: int = None):
+        if topic not in self.run_data:
+            return None
 
-    def merge_runs_by_sum_scores(self, _run):
-        for topic, docs in self.run_data.items():
-            new_docs, docid_to_score, docid_to_index = [], dict(), dict()
+        if max_docs is not None:
+            return self.run_data[topic].head(max_docs)
 
-            for index, doc in docs.iterrows():
-                docid_to_score[doc['docid']] = doc['score']
-                docid_to_index[doc['docid']] = index
+        return self.run_data[topic]
 
-            for _, _doc in _run.get_docs_by_topic(topic).iterrows():
-                _docid, _score = _doc['docid'], _doc['score']
+    @staticmethod
+    def get_all_topics_from_runs(runs) -> Set[str]:
+        all_topics = set()
+        for run in runs:
+            topics = run.get_topics()
+            all_topics = all_topics.union(topics)
 
-                if _docid in docid_to_score:
-                    index, score = docid_to_index[_docid], docid_to_score[_docid]
-                    self.run_data[topic].at[index, 'score'] = score + _score
-                else:
-                    new_docs.append(_doc)
-
-            if len(new_docs) > 0:
-                self.run_data[topic] = self.run_data[topic].append(new_docs, ignore_index=True)
-
-        for topic, docs in _run.run_data.items():
-            if topic not in self.run_data:
-                self.run_data[topic] = _run.run_data[topic].copy()
+        return all_topics
