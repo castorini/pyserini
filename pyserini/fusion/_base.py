@@ -15,7 +15,7 @@
 #
 
 import pandas as pd
-from ..trectools import TrecRun, FusionMethod, AggregationMethod
+from ..trectools import TrecRun
 from typing import List
 
 
