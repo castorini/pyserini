@@ -45,10 +45,8 @@ def reciprocal_rank_fusion(trec_runs: List[TrecRun], k: int = 60, max_docs: int 
     for topic in TrecRun.get_all_topics_from_runs(trec_runs):
         doc_scores = dict()
         for run in trec_runs:
-            docs = run.get_docs_by_topic(topic, max_docs)
-
-            for _, doc in docs.iterrows():
-                doc_scores[doc['docid']] = doc_scores.get(doc['docid'], 0.0) + 1 / (k + doc['rank'])
+            for topic, _, docid, rank, _, _ in run.get_docs_by_topic(topic, max_docs).to_numpy():
+                doc_scores[docid] = doc_scores.get(docid, 0.0) + 1 / (k + rank)
 
         for rank, (docid, score) in enumerate(sorted(iter(doc_scores.items()), key=lambda x: (-x[1], x[0]))[:max_docs], start=1):
             rows.append((topic, "Q0", docid, rank, score, "reciprocal_rank_fusion_k=%d" % k))

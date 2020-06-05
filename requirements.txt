@@ -1,5 +1,5 @@
 numpy==1.18.1
-pandas==0.23.4
+pandas==1.0.4
 pyjnius==1.2.1
 scikit-learn==0.22.1
 scipy==1.4.1
