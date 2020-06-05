@@ -70,6 +70,17 @@ class TrecRun:
 
         return docs
 
+    def rescore(self, method: str, rrf_k: int):
+        if method == 'rrf':
+            rows = []
+
+            for topic, _, docid, rank, _, tag in self.run_data.to_numpy():
+                rows.append((topic, 'Q0', docid, rank, 1 / (rrf_k + rank), tag))
+
+            return TrecRun.get_trec_run_by_list(rows, self)
+        else:
+            raise Exception(f'Unknown rescore method {method} detected')
+
     @staticmethod
     def get_all_topics_from_runs(runs) -> Set[str]:
         all_topics = set()
@@ -77,3 +88,38 @@ class TrecRun:
             all_topics = all_topics.union(run.topics())
 
         return all_topics
+
+    @staticmethod
+    def merge(runs, aggregation: str, depth: int = None, k: int = None):
+        if len(runs) < 2:
+            raise Exception('Merge requires at least 2 runs.')
+
+        rows = []
+
+        if aggregation == 'sum':
+            for topic in TrecRun.get_all_topics_from_runs(runs):
+                doc_scores = dict()
+                for run in runs:
+                    for topic, _, docid, _, score, _ in run.get_docs_by_topic(topic, depth).to_numpy():
+                        doc_scores[docid] = doc_scores.get(docid, 0.0) + score
+
+                sorted_doc_scores = sorted(iter(doc_scores.items()), key=lambda x: (-x[1], x[0]))
+                sorted_doc_scores = sorted_doc_scores if k is None else sorted_doc_scores[:k] 
+
+                for rank, (docid, score) in enumerate(sorted_doc_scores, start=1):
+                    rows.append((topic, 'Q0', docid, rank, score, 'merge_sum'))
+
+        else:
+            raise Exception(f'Unknown aggregation method {aggregation} detected.')
+
+        return TrecRun.get_trec_run_by_list(rows)
+
+    @staticmethod
+    def get_trec_run_by_list(rows, run=None):
+        res = TrecRun() if run is None else run
+
+        df = pd.DataFrame(rows)
+        df.columns = TrecRun.columns
+        res.run_data = df.copy()
+
+        return res

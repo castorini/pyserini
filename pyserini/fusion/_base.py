@@ -19,7 +19,7 @@ from ..trectools import TrecRun
 from typing import List
 
 
-def reciprocal_rank_fusion(trec_runs: List[TrecRun], k: int = 60, max_docs: int = None):
+def reciprocal_rank_fusion(trec_runs: List[TrecRun], rrf_k: int = 60, depth: int = None, k: int = None):
     """Given a list of TrecRun, return a new fused TrecRun using reciprocal rank fusion.
 
     Parameters
@@ -37,22 +37,5 @@ def reciprocal_rank_fusion(trec_runs: List[TrecRun], k: int = 60, max_docs: int 
         The fused TrecRun using reciprocal rank fusion.
     """
 
-    if len(trec_runs) < 2:
-        raise Exception('Fusion requires at least 2 runs.')
-
-    fused_run, rows = TrecRun(), []
-
-    for topic in TrecRun.get_all_topics_from_runs(trec_runs):
-        doc_scores = dict()
-        for run in trec_runs:
-            for topic, _, docid, rank, _, _ in run.get_docs_by_topic(topic, max_docs).to_numpy():
-                doc_scores[docid] = doc_scores.get(docid, 0.0) + 1 / (k + rank)
-
-        for rank, (docid, score) in enumerate(sorted(iter(doc_scores.items()), key=lambda x: (-x[1], x[0]))[:max_docs], start=1):
-            rows.append((topic, "Q0", docid, rank, score, "reciprocal_rank_fusion_k=%d" % k))
-
-    df = pd.DataFrame(rows)
-    df.columns = ["topic", "q0", "docid", "rank", "score", "tag"]
-    fused_run.run_data = df.copy()
-
-    return fused_run
+    rrf_runs = [run.clone().rescore(method='rrf', rrf_k=rrf_k) for run in trec_runs]
+    return TrecRun.merge(rrf_runs, 'sum', depth, k)
