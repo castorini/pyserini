@@ -28,6 +28,8 @@ class TrecRun:
         File path of a given Trec Run.
     """
 
+    columns = ['topic', 'q0', 'docid', 'rank', 'score', 'tag']
+
     def __init__(self, filepath: str = None):
         self.run_data = dict()
         self.filepath = filepath
@@ -36,47 +38,42 @@ class TrecRun:
             self.read_run(self.filepath)
 
     def read_run(self, filepath: str) -> None:
-        run_data = pd.read_csv(filepath, sep='\s+', names=['topic', 'q0', 'docid', 'rank', 'score', 'tag'])
+        self.run_data = pd.read_csv(filepath, sep='\s+', names=TrecRun.columns)
 
-        for topic in run_data['topic'].unique():
-            docs_by_topic = run_data[run_data['topic'].apply(lambda x: x == topic)]
-            self.run_data[topic] = docs_by_topic
-
-    def get_topics(self) -> Set[str]:
-        return set(self.run_data.keys())
+    def topics(self) -> Set[str]:
+        """
+            Returns a set with all topics.
+        """
+        return set(sorted(self.run_data["topic"].unique()))
 
     def clone(self):
+        """
+            Returns a deep copy of the current instance.
+        """
         return deepcopy(self)
 
     def save_to_txt(self, output_path: str, tag: str = None) -> None:
         if len(self.run_data) == 0:
             raise Exception('Nothing to save. TrecRun is empty')
 
-        all_topics = None
-        for topic in self.get_topics():
-            df = self.run_data[topic].copy()
-            all_topics = df if all_topics is None else all_topics.append(df)
-
         if tag is not None:
-            all_topics['tag'] = tag
+            self.run_data['tag'] = tag
 
-        all_topics = all_topics.sort_values(by=['topic', 'score'], ascending=[True, False])
-        all_topics.to_csv(output_path, sep=' ', header=False, index=False)
+        self.run_data = self.run_data.sort_values(by=['topic', 'score'], ascending=[True, False])
+        self.run_data.to_csv(output_path, sep=' ', header=False, index=False)
 
     def get_docs_by_topic(self, topic: str, max_docs: int = None):
-        if topic not in self.run_data:
-            return None
+        docs = self.run_data[self.run_data['topic'] == topic]
 
         if max_docs is not None:
-            return self.run_data[topic].head(max_docs)
+            docs = docs.head(max_docs)
 
-        return self.run_data[topic]
+        return docs
 
     @staticmethod
     def get_all_topics_from_runs(runs) -> Set[str]:
         all_topics = set()
         for run in runs:
-            topics = run.get_topics()
-            all_topics = all_topics.union(topics)
+            all_topics = all_topics.union(run.topics())
 
         return all_topics
