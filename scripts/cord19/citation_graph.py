@@ -26,48 +26,54 @@ def dir_path(path):
     else:
         raise argparse.ArgumentTypeError(f"{path} is not a valid path")
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-path', type=dir_path)
-parser.add_argument("-node_file", default="node.csv")
-parser.add_argument("-edge_file", default="edge.csv")
-args = parser.parse_args()
-collection = pyserini.collection.Collection('Cord19AbstractCollection', args.path)
-articles = collection.__next__()
-article = None
-with open(args.node_file, 'w') as file1:
-    writer = csv.writer(file1)
-    writer.writerow(['Id'])
-with open(args.edge_file, 'w') as file2:
-    writer = csv.writer(file2)
-    writer.writerow(['Source', 'Target'])
+def parse_arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-path', type=dir_path)
+    parser.add_argument("-node_file", default="node.csv")
+    parser.add_argument("-edge_file", default="edge.csv")
+    return parser.parse_args()
 
-for (i, d) in enumerate(articles):
-    article = pyserini.collection.Cord19Article(d.raw)
-    if article.is_full_text():
-        bib = article.bib_entries()
-        with open(args.node_file, 'a') as file1:
-            fieldnames = [article.title()]
-            writer = csv.writer(file1)
-            writer.writerow(fieldnames)
-        j = 0
-        number = 'BIBREF%d' % j
-        while True:
-            if number in bib:
-                title = bib[number]['title']
-                if title != '':
-                    with open(args.node_file, "a") as file1:
-                        fieldnames = [title]
-                        writer = csv.writer(file1)
-                        writer.writerow(fieldnames)
-                    with open(args.edge_file, "a") as file2:
-                        fieldnames = [article.title(), title]
-                        writer = csv.writer(file2)
-                        writer.writerow(fieldnames)
-                j = j + 1
-                number = 'BIBREF%d' % j
-            elif j < len(bib):
-                j = j + 1
-                number = 'BIBREF%d' % j
-            else:
-                break
+def node(node_file, mode, fieldnames):
+    with open(node_file, mode) as file1:
+        fieldname = fieldnames
+        writer = csv.writer(file1)
+        writer.writerow(fieldnames)
+
+def edge(edge_file, mode, fieldnames):
+    with open(edge_file, mode) as file2:
+        fieldname = fieldnames
+        writer = csv.writer(file2)
+        writer.writerow(fieldnames)
+
+def main():
+    args = parse_arguments()
+    collection = pyserini.collection.Collection('Cord19AbstractCollection', args.path)
+    articles = collection.__next__()
+    article = None
+    node(args.node_file, 'w', ['Id'])
+    edge(args.edge_file, 'w', ['Source', 'Target'])
+
+    for (i, d) in enumerate(articles):
+        article = pyserini.collection.Cord19Article(d.raw)
+        if article.is_full_text():
+            bib = article.bib_entries()
+            node(args.node_file, 'a', [article.title()])
+            j = 0
+            number = 'BIBREF%d' %j
+            while True:
+                if number in bib:
+                    title = bib[number]['title']
+                    if title != '':
+                        node(args.node_file, 'a', [title])
+                        edge(args.edge_file, 'a', [article.title(), title])
+                    j = j + 1
+                    number = 'BIBREF%d' % j
+                elif j < len(bib):
+                    j = j + 1
+                    number = 'BIBREF%d' % j
+                else:
+                    break
+
+if __name__ == "__main__":
+    main()
 
