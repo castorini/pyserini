@@ -70,7 +70,7 @@ class TrecRun:
 
     def save_to_txt(self, output_path: str, tag: str = None) -> None:
         if len(self.run_data) == 0:
-            raise NotImplementedError()
+            raise Exception('Nothing to save. TrecRun is empty')
 
         if tag is not None:
             self.run_data['tag'] = tag
@@ -118,7 +118,7 @@ class TrecRun:
     @staticmethod
     def merge(runs, aggregation: AggregationMethod, depth: int = None, k: int = None):
         if len(runs) < 2:
-            raise NotImplementedError()
+            raise Exception('Merge requires at least 2 runs.')
 
         rows = []
 
