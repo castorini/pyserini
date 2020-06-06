@@ -48,8 +48,7 @@ class SimpleSearcher:
         self.object = JSimpleSearcher(JString(index_dir))
         self.num_docs = self.object.getTotalNumDocuments()
 
-    def search(self, q: Union[str, JQuery], k: int = 10,
-               query_generator: JQueryGenerator = None) -> List[JSimpleSearcherResult]:
+    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None) -> List[JSimpleSearcherResult]:
         """Search the collection.
 
         Parameters
@@ -262,15 +261,18 @@ class SimpleFusionSearcher:
         return self.searchers
 
     def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None) -> List[JSimpleSearcherResult]:
-        trec_runs = []
-        docid_to_score, docid_to_search_result = dict(), dict()
+        trec_runs, docid_to_search_result = list(), dict()
 
         for searcher in self.searchers:
+            docid_score_pair = list()
             hits = searcher.search(q, k=k, query_generator=query_generator)
+
             for hit in hits:
+                hit.docid = hit.docid.split('.')[0]
                 docid_to_search_result[hit.docid] = hit
-                docid_to_score[hit.docid] = hit.score
-            run = TrecRun.from_search_results(docid_to_score)
+                docid_score_pair.append((hit.docid, hit.score))
+
+            run = TrecRun.from_search_results(docid_score_pair, remove_duplicates=True)
             trec_runs.append(run)
 
         if self.method == FusionMethod.RRF:

@@ -20,7 +20,7 @@ from copy import deepcopy
 from enum import Enum
 import numpy as np
 import pandas as pd
-from typing import Dict, List, Set
+from typing import Dict, List, Set, Tuple
 
 
 class AggregationMethod(Enum):
@@ -44,7 +44,7 @@ class TrecRun:
     columns = ['topic', 'q0', 'docid', 'rank', 'score', 'tag']
 
     def __init__(self, filepath: str = None):
-        self.run_data = dict()
+        self.run_data = pd.DataFrame(columns=TrecRun.columns)
         self.filepath = filepath
 
         if filepath is not None:
@@ -156,10 +156,26 @@ class TrecRun:
         return res
 
     @staticmethod
-    def from_search_results(docid_to_score: Dict[str, float]) -> TrecRun:
-        rows = []
+    def from_search_results(docid_score_pair: Tuple[str, float], topic=1, remove_duplicates: bool = False) -> TrecRun:
+        docid_score_pair_filtered, rows = [], []
+        visited_docids = set()
 
-        for rank, (docid, score) in enumerate(docid_to_score.items(), start=1):
-            rows.append((1, 'Q0', docid, rank, score, 'searcher'))
+        for docid, score in docid_score_pair:
+            if docid in visited_docids:
+                continue
+
+            docid_score_pair_filtered.append((docid, score))
+
+            if remove_duplicates is True:
+                visited_docids.add(docid)
+
+        for rank, (docid, score) in enumerate(docid_score_pair_filtered, start=1):
+            rows.append((topic, 'Q0', docid, rank, score, 'searcher'))
 
         return TrecRun.from_list(rows)
+
+    @staticmethod
+    def concat(runs: List[TrecRun]) -> TrecRun:
+        run = TrecRun()
+        run.run_data = run.run_data.append([run.run_data for run in runs])
+        return run
