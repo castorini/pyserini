@@ -1,3 +1,4 @@
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 """
 This module provides Pyserini's Python interface query building for Anserini.
@@ -18,9 +20,20 @@ This module provides Pyserini's Python interface query building for Anserini.
 import logging
 from enum import Enum
 
-from ..analysis.pyanalysis import get_lucene_analyzer, Analyzer
-from ..pyclass import JQueryGeneratorUtils, JTermQuery, JTerm, JBoostQuery
+from ..analysis import get_lucene_analyzer, Analyzer
+from ..pyclass import autoclass
+
 logger = logging.getLogger(__name__)
+
+
+# Wrapper around Lucene clases
+JTerm = autoclass('org.apache.lucene.index.Term')
+JBooleanClause = autoclass('org.apache.lucene.search.BooleanClause')
+JBoostQuery = autoclass('org.apache.lucene.search.BoostQuery')
+JTermQuery = autoclass('org.apache.lucene.search.TermQuery')
+
+# Wrappers around Anserini classes
+JQueryGeneratorUtils = autoclass('io.anserini.search.query.QueryGeneratorUtils')
 
 
 class JBooleanClauseOccur(Enum):

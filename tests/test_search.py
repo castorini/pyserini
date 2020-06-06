@@ -1,3 +1,4 @@
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 import os
 import shutil
@@ -20,8 +22,7 @@ from random import randint
 from typing import List, Dict
 from urllib.request import urlretrieve
 
-from pyserini.pyclass import JSimpleSearcherResult, autoclass
-from pyserini.search import pysearch
+from pyserini.search import Document, SimpleSearcher, JSimpleSearcherResult
 
 
 class TestSearch(unittest.TestCase):
@@ -38,7 +39,7 @@ class TestSearch(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-        self.searcher = pysearch.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
+        self.searcher = SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
 
     def test_basic(self):
         self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
@@ -198,7 +199,7 @@ class TestSearch(unittest.TestCase):
     def test_doc_int(self):
         # The doc method is overloaded: if input is int, it's assumed to be a Lucene internal docid.
         doc = self.searcher.doc(1)
-        self.assertTrue(isinstance(doc, pysearch.Document))
+        self.assertTrue(isinstance(doc, Document))
 
         # These are all equivalent ways to get the docid.
         self.assertEqual('CACM-0002', doc.id())
@@ -218,10 +219,13 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(154, len(doc.lucene_document().get('contents')))
         self.assertEqual(154, len(doc.lucene_document().getField('contents').stringValue()))
 
+        # Should return None if we request a docid that doesn't exist
+        self.assertTrue(self.searcher.doc(314159) is None)
+
     def test_doc_str(self):
         # The doc method is overloaded: if input is str, it's assumed to be an external collection docid.
         doc = self.searcher.doc('CACM-0002')
-        self.assertTrue(isinstance(doc, pysearch.Document))
+        self.assertTrue(isinstance(doc, Document))
 
         # These are all equivalent ways to get the docid.
         self.assertEqual(doc.lucene_document().getField('id').stringValue(), 'CACM-0002')

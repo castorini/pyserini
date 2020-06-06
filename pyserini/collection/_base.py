@@ -1,3 +1,4 @@
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,15 +12,35 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
-import json
 import logging
 import re
+from enum import Enum
 
 from ..multithreading import Counters
-from ..pyclass import JCollections, JPaths, cast
+from ..pyclass import autoclass, cast, JPaths
 
 logger = logging.getLogger(__name__)
+
+
+JFileSegment = autoclass('io.anserini.collection.FileSegment')
+JSourceDocument = autoclass('io.anserini.collection.SourceDocument')
+
+
+class JCollections(Enum):
+    CarCollection = autoclass('io.anserini.collection.CarCollection')
+    Cord19AbstractCollection = autoclass('io.anserini.collection.Cord19AbstractCollection')
+    ClueWeb09Collection = autoclass('io.anserini.collection.ClueWeb09Collection')
+    ClueWeb12Collection = autoclass('io.anserini.collection.ClueWeb12Collection')
+    HtmlCollection = autoclass('io.anserini.collection.HtmlCollection')
+    JsonCollection = autoclass('io.anserini.collection.JsonCollection')
+    NewYorkTimesCollection = autoclass('io.anserini.collection.NewYorkTimesCollection')
+    TrecCollection = autoclass('io.anserini.collection.TrecCollection')
+    TrecwebCollection = autoclass('io.anserini.collection.TrecwebCollection')
+    TweetCollection = autoclass('io.anserini.collection.TweetCollection')
+    WashingtonPostCollection = autoclass('io.anserini.collection.WashingtonPostCollection')
+    WikipediaCollection = autoclass('io.anserini.collection.WikipediaCollection')
 
 
 class Collection:
@@ -66,7 +87,7 @@ class FileSegment:
     ----------
     collection : Collection
         Parent collection of the file segment
-    segment : io.anserini.collection.FileSegment
+    segment : JFileSegment
         FileSegment object to create wrapper from
     segment_path : str
         Path to file backing the file segment
@@ -121,65 +142,11 @@ class SourceDocument:
     """
 
     def __init__(self, segment, document):
+        if not isinstance(document, JSourceDocument):
+            raise TypeError('Invalid JSourceDocument!')
         self.segment = segment
         self.object = document
         self.id = self.object.id()
         self.indexable = self.object.indexable()
         self.contents = self.object.contents()
         self.raw = self.object.raw()
-
-
-class Cord19Article:
-    """Wrapper class for a raw JSON article from AI2's COVID-19 Open Research Dataset (CORD-19).
-
-    Parameters
-    ----------
-    doc : str
-        A JSON string of a CORD-19 article.
-    """
-
-    def __init__(self, doc):
-        self.json = json.loads(doc)
-        # Performs some basic error checking, throws an exception if user tries to instantiate with something
-        # that isn't from CORD-19.
-        if 'cord_uid' in self.json:
-            self.full_text = False
-        elif 'paper_id' in self.json:
-            self.full_text = True
-        else:
-            raise TypeError
-
-    def is_full_text(self):
-        return self.json['has_full_text']
-
-    def cord_uid(self):
-        return self.json['cord_uid']
-
-    def title(self):
-        try:
-            if self.is_full_text():
-                return self.json['metadata']['title']
-            else:
-                return self.json['csv_metadata']['title']
-        except KeyError:
-            return ''
-
-    def abstract(self):
-        try:
-            # For a full-text article, we can grab the abstract from two independent sources, the metadata or the
-            # actual full text. Here, we make the decision to use the metadata, even for full text.
-            return self.json['csv_metadata']['abstract']
-        except KeyError:
-            return ''
-
-    def metadata(self):
-        return self.json['csv_metadata']
-
-    def body(self):
-        try:
-            if self.is_full_text():
-                return [entry['text'] for entry in self.json['body_text']]
-            else:
-                return []
-        except KeyError:
-            return ''

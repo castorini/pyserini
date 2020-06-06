@@ -13,12 +13,12 @@
 # limitations under the License.
 
 import enum
+import importlib
+import os
+import uuid
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from typing import List
-from ..vectorizer import TfidfVectorizer
-import uuid
-import os
 
 
 class ClassifierType(enum.Enum):
@@ -31,16 +31,19 @@ class FusionMethod(enum.Enum):
 
 
 class PseudoRelevanceClassifierReranker:
-    def __init__(self, lucene_index: str, clf_type: List[ClassifierType], r=10, n=100, alpha=0.5):
+    def __init__(self, lucene_index: str, vectorizer_class: str, clf_type: List[ClassifierType], r=10, n=100, alpha=0.5):
         self.r = r
         self.n = n
         self.alpha = alpha
         self.clf_type = clf_type
 
+        # get vectorizer
+        module = importlib.import_module("pyserini.vectorizer")
+        VectorizerClass = getattr(module, vectorizer_class)
+        self.vectorizer = VectorizerClass(lucene_index, min_df=5)
+
         if len(clf_type) > 2:
             raise Exception('Re-ranker takes at most two classifiers')
-
-        self.vectorizer = TfidfVectorizer(lucene_index, min_df=5)
 
     def _set_classifier(self, clf_type: ClassifierType):
         if clf_type == ClassifierType.LR:
@@ -60,8 +63,7 @@ class PseudoRelevanceClassifierReranker:
         return train_vecs, train_labels, test_vecs
 
     def _rerank_with_classifier(self, doc_ids: List[str], search_scores: List[float]):
-        train_vecs, train_labels, test_vecs = self._get_prf_vectors(
-            doc_ids)
+        train_vecs, train_labels, test_vecs = self._get_prf_vectors(doc_ids)
 
         # classification
         self.clf.fit(train_vecs, train_labels)
@@ -70,8 +72,7 @@ class PseudoRelevanceClassifierReranker:
         search_scores = self._normalize(search_scores)
 
         # interpolation
-        interpolated_scores = [a * self.alpha + b * (1-self.alpha)
-                               for a, b in zip(classifier_scores, search_scores)]
+        interpolated_scores = [a * self.alpha + b * (1-self.alpha) for a, b in zip(classifier_scores, search_scores)]
 
         return self._sort_dual_list(interpolated_scores, doc_ids)
 
@@ -85,8 +86,7 @@ class PseudoRelevanceClassifierReranker:
         doc_score_dict = {}
         for i in range(2):
             self._set_classifier(self.clf_type[i])
-            i_scores, i_doc_ids = self._rerank_with_classifier(
-                doc_ids, search_scores)
+            i_scores, i_doc_ids = self._rerank_with_classifier(doc_ids, search_scores)
 
             for score, doc_id in zip(i_scores, i_doc_ids):
                 if doc_id not in doc_score_dict:

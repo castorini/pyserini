@@ -14,6 +14,6 @@
 # limitations under the License.
 #
 
-from ._base import Generator, IndexTerm, Posting, IndexReader
+from ._base import reciprocal_rank_fusion
 
-__all__ = ['Generator', 'IndexTerm', 'Posting', 'IndexReader']
+__all__ = ['reciprocal_rank_fusion']

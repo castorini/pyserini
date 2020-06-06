@@ -1,22 +1,26 @@
 pyserini.collection package
 ===========================
 
-Submodules
+Collection
 ----------
 
-pyserini.collection.pycollection module
----------------------------------------
-
-.. automodule:: pyserini.collection.pycollection
+.. autoclass:: pyserini.collection.Collection
    :members:
    :undoc-members:
    :show-inheritance:
 
+FileSegment
+-----------
 
-Module contents
----------------
+.. autoclass:: pyserini.collection.FileSegment
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-.. automodule:: pyserini.collection
+SourceDocument
+--------------
+
+.. autoclass:: pyserini.collection.SourceDocument
    :members:
    :undoc-members:
    :show-inheritance:
