@@ -26,13 +26,6 @@ def dir_path(path):
     else:
         raise argparse.ArgumentTypeError(f"{path} is not a valid path")
 
-def parse_arguments():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-path', type=dir_path)
-    parser.add_argument("-node_file", default="node.csv")
-    parser.add_argument("-edge_file", default="edge.csv")
-    return parser.parse_args()
-
 def node(node_file, mode, fieldnames):
     with open(node_file, mode) as file1:
         fieldname = fieldnames
@@ -45,8 +38,12 @@ def edge(edge_file, mode, fieldnames):
         writer = csv.writer(file2)
         writer.writerow(fieldnames)
 
-def main():
-    args = parse_arguments()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-path', type=dir_path)
+    parser.add_argument("-node_file", default="node.csv")
+    parser.add_argument("-edge_file", default="edge.csv")
+    args = parser.parse_args()
     collection = pyserini.collection.Collection('Cord19AbstractCollection', args.path)
     articles = collection.__next__()
     article = None
@@ -73,7 +70,4 @@ def main():
                     number = 'BIBREF%d' % j
                 else:
                     break
-
-if __name__ == "__main__":
-    main()
 
