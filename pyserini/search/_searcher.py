@@ -23,7 +23,9 @@ import logging
 from typing import Dict, List, Optional, Union
 
 from ._base import Document, JQuery, JQueryGenerator
-from ..pyclass import autoclass, JString, JArrayList
+from pyserini.pyclass import autoclass, JString, JArrayList
+from pyserini.trectools import FusionMethod, TrecRun
+from pyserini.fusion import reciprocal_rank_fusion
 
 logger = logging.getLogger(__name__)
 
@@ -249,3 +251,42 @@ class LuceneSimilarities:
     @staticmethod
     def qld(mu=1000):
         return autoclass('org.apache.lucene.search.similarities.LMDirichletSimilarity')(mu)
+
+
+class SimpleFusionSearcher:
+    def __init__(self, index_dirs: List[str], method: FusionMethod):
+        self.method = method
+        self.searchers = [SimpleSearcher(index_dir) for index_dir in index_dirs]
+
+    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None) -> TrecRun:
+        trec_runs = []
+        docid_to_search_result = dict()
+
+        for searcher in self.searchers:
+            hits = searcher.search(q, k, query_generator)
+            for hit in hits:
+                docid_to_search_result[hit.docid] = hit
+            run = TrecRun.generate_trec_run_from_search_results(hits)
+            trec_runs.append(run)
+
+        if self.method == FusionMethod.RRF:
+            fused_run = reciprocal_rank_fusion(trec_runs, rrf_k=60, depth=1000, k=1000)
+        else:
+            raise Exception('Invalid FusionMethod')
+
+        return fused_run.map_trec_run_to_simple_search_result(docid_to_search_result)
+
+    def set_analyzer(self, analyzer):
+        for searcher in self.searchers:
+            searcher.set_analyzer(analyzer)
+
+    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False):
+        for searcher in self.searchers:
+            searcher.set_rm3(fb_terms, fb_docs, original_query_weight, rm3_output_query)
+
+    def unset_rm3(self):
+        for searcher in self.searchers:
+            searcher.unset_rm3()
+
+    def is_using_rm3(self) -> bool:
+        return self.searchers[0].is_using_rm3()

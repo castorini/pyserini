@@ -15,7 +15,7 @@
 #
 
 import pandas as pd
-from ..trectools import TrecRun
+from pyserini.trectools import AggregationMethod, FusionMethod, TrecRun
 from typing import List
 
 
@@ -37,5 +37,5 @@ def reciprocal_rank_fusion(trec_runs: List[TrecRun], rrf_k: int = 60, depth: int
         The fused TrecRun using reciprocal rank fusion.
     """
 
-    rrf_runs = [run.clone().rescore(method='rrf', rrf_k=rrf_k) for run in trec_runs]
-    return TrecRun.merge(rrf_runs, 'sum', depth, k)
+    rrf_runs = [run.clone().rescore(method=FusionMethod.RRF, rrf_k=rrf_k) for run in trec_runs]
+    return TrecRun.merge(rrf_runs, AggregationMethod.SUM, depth, k)

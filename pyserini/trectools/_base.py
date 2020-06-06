@@ -14,9 +14,25 @@
 # limitations under the License.
 #
 
+from __future__ import annotations
+
 from copy import deepcopy
+from enum import Enum
 import pandas as pd
-from typing import Set
+from pyserini.pyclass import autoclass
+from typing import Dict, List, Set
+
+# Wrappers around Anserini classes
+JSimpleSearcherResult = autoclass('io.anserini.search.SimpleSearcher$Result')
+
+
+class AggregationMethod(Enum):
+    SUM = 'sum'
+
+
+class FusionMethod(Enum):
+    RRF = 'rrf'
+    INTERPOLATION = 'interpolation'
 
 
 class TrecRun:
@@ -70,16 +86,26 @@ class TrecRun:
 
         return docs
 
-    def rescore(self, method: str, rrf_k: int):
-        if method == 'rrf':
+    def rescore(self, method: FusionMethod, rrf_k: int):
+        if method == FusionMethod.RRF:
             rows = []
 
             for topic, _, docid, rank, _, tag in self.run_data.to_numpy():
                 rows.append((topic, 'Q0', docid, rank, 1 / (rrf_k + rank), tag))
 
-            return TrecRun.get_trec_run_by_list(rows, self)
+            return TrecRun.get_trec_run_from_list(rows, self)
         else:
             raise Exception(f'Unknown rescore method {method} detected')
+
+    def map_trec_run_to_simple_search_result(self, docid_to_search_result: Dict[str, JSimpleSearcherResult]) -> List[JSimpleSearcherResult]:
+        search_results = []
+
+        for _, _, docid, _, score, _ in self.run_data.to_numpy():
+            search_result = docid_to_search_result[docid]
+            search_result.score = score
+            search_results.append(search_result)
+
+        return search_results
 
     @staticmethod
     def get_all_topics_from_runs(runs) -> Set[str]:
@@ -90,13 +116,13 @@ class TrecRun:
         return all_topics
 
     @staticmethod
-    def merge(runs, aggregation: str, depth: int = None, k: int = None):
+    def merge(runs, aggregation: AggregationMethod, depth: int = None, k: int = None):
         if len(runs) < 2:
             raise Exception('Merge requires at least 2 runs.')
 
         rows = []
 
-        if aggregation == 'sum':
+        if aggregation == AggregationMethod.SUM:
             for topic in TrecRun.get_all_topics_from_runs(runs):
                 doc_scores = dict()
                 for run in runs:
@@ -104,7 +130,7 @@ class TrecRun:
                         doc_scores[docid] = doc_scores.get(docid, 0.0) + score
 
                 sorted_doc_scores = sorted(iter(doc_scores.items()), key=lambda x: (-x[1], x[0]))
-                sorted_doc_scores = sorted_doc_scores if k is None else sorted_doc_scores[:k] 
+                sorted_doc_scores = sorted_doc_scores if k is None else sorted_doc_scores[:k]
 
                 for rank, (docid, score) in enumerate(sorted_doc_scores, start=1):
                     rows.append((topic, 'Q0', docid, rank, score, 'merge_sum'))
@@ -112,10 +138,10 @@ class TrecRun:
         else:
             raise Exception(f'Unknown aggregation method {aggregation} detected.')
 
-        return TrecRun.get_trec_run_by_list(rows)
+        return TrecRun.get_trec_run_from_list(rows)
 
     @staticmethod
-    def get_trec_run_by_list(rows, run=None):
+    def get_trec_run_from_list(rows, run: TrecRun = None) -> TrecRun:
         res = TrecRun() if run is None else run
 
         df = pd.DataFrame(rows)
@@ -123,3 +149,12 @@ class TrecRun:
         res.run_data = df.copy()
 
         return res
+
+    @staticmethod
+    def generate_trec_run_from_search_results(hits: List[JSimpleSearcherResult]) -> TrecRun:
+        rows = []
+
+        for rank, hit in enumerate(hits, start=1):
+            rows.append((1, 'Q0', hit.docid, rank, hit.score, 'searcher'))
+
+        return TrecRun.get_trec_run_from_list(rows)
