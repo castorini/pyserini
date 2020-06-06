@@ -31,9 +31,11 @@ def reciprocal_rank_fusion(trec_runs: List[TrecRun], rrf_k: int = 60, depth: int
         Parameter to avoid vanishing importance of lower-ranked documents. Note that this is different from the *k* in
         top *k* retrieval; set to 60 by default, per Cormack et al.
     depth : int
-        Maximum number of results from each input run to consider.
+        Maximum number of results from each input run to consider. Set to ``None`` by default, which indicates that
+        the complete list of results is considered.
     k : int
-        Length of final results list.
+        Length of final results list.  Set to ``None`` by default, which indicates that the union of all input documents
+        are ranked.
 
     Returns
     -------
