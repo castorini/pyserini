@@ -70,7 +70,7 @@ class TrecRun:
 
     def save_to_txt(self, output_path: str, tag: str = None) -> None:
         if len(self.run_data) == 0:
-            raise Exception('Nothing to save. TrecRun is empty')
+            raise NotImplementedError()
 
         if tag is not None:
             self.run_data['tag'] = tag
@@ -95,7 +95,7 @@ class TrecRun:
 
             return TrecRun.get_trec_run_from_list(rows, self)
         else:
-            raise Exception(f'Unknown rescore method {method} detected')
+            raise NotImplementedError()
 
     def map_trec_run_to_simple_search_result(self, docid_to_search_result: Dict[str, JSimpleSearcherResult]) -> List[JSimpleSearcherResult]:
         search_results = []
@@ -118,7 +118,7 @@ class TrecRun:
     @staticmethod
     def merge(runs, aggregation: AggregationMethod, depth: int = None, k: int = None):
         if len(runs) < 2:
-            raise Exception('Merge requires at least 2 runs.')
+            raise NotImplementedError()
 
         rows = []
 
@@ -136,7 +136,7 @@ class TrecRun:
                     rows.append((topic, 'Q0', docid, rank, score, 'merge_sum'))
 
         else:
-            raise Exception(f'Unknown aggregation method {aggregation} detected.')
+            raise NotImplementedError()
 
         return TrecRun.get_trec_run_from_list(rows)
 

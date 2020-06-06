@@ -272,7 +272,7 @@ class SimpleFusionSearcher:
         if self.method == FusionMethod.RRF:
             fused_run = reciprocal_rank_fusion(trec_runs, rrf_k=60, depth=1000, k=1000)
         else:
-            raise Exception('Invalid FusionMethod')
+            raise NotImplementedError()
 
         return fused_run.map_trec_run_to_simple_search_result(docid_to_search_result)
 
@@ -290,3 +290,15 @@ class SimpleFusionSearcher:
 
     def is_using_rm3(self) -> bool:
         return self.searchers[0].is_using_rm3()
+
+    def set_qld(self, mu=float(1000)):
+        for searcher in self.searchers:
+            searcher.set_qld(mu)
+
+    def set_bm25(self, k1=float(0.9), b=float(0.4)):
+        for searcher in self.searchers:
+            searcher.set_bm25(k1, b)
+
+    def close(self):
+        for searcher in self.searchers:
+            searcher.close()
