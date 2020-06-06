@@ -45,6 +45,9 @@ class Cord19Article:
     def cord_uid(self):
         return self.json['cord_uid']
 
+    def bib_entries(self):
+        return self.json['bib_entries']
+
     def title(self):
         try:
             if self.is_full_text():
