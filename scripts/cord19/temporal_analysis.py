@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 
 sys.path.insert(0, './')
 
-from pyserini.collection import pycollection
+from pyserini.collection import Collection, Cord19Article
 
 
 def main(path):
@@ -28,12 +28,12 @@ def main(path):
     normal_dates = dict()
 
     cnt = 0
-    collection = pycollection.Collection('Cord19AbstractCollection',path)
+    collection = Collection('Cord19AbstractCollection', path)
     articles = collection.__next__()
 
     #interate through raw collection
     for (i, d) in enumerate(articles):
-        article = pycollection.Cord19Article(d.raw)
+        article = Cord19Article(d.raw)
         # documents with empty abstract
         metadata = article.metadata()
         date = metadata['publish_time']
@@ -56,21 +56,32 @@ def main(path):
     df1 = pd.DataFrame(normal_dates_df)
     date_df = df1.sort_values('publish_date').groupby('publish_date')
     temp = date_df.size().reset_index(name='counts')
+
+    #two graphs based on year unit
     only_year_filter = temp['publish_date'].str.len() == 4
     with_date_filter = temp['publish_date'].str.len() > 4
     only_year = temp.loc[only_year_filter].loc[temp['publish_date'] >= '2003'] #before 2003 are all under 2000
-    exact_date = temp.loc[with_date_filter].groupby(temp['publish_date'].str[:7])['counts'].agg('sum').reset_index(name='counts')
     exact_year_total = temp.groupby(temp['publish_date'].str[:4])['counts'].agg('sum').reset_index(name='counts')
     exact_year_total = exact_year_total.loc[exact_year_total['publish_date'] >= '2003']
+    
+    #on monthly basis
+    exact_date = temp.loc[with_date_filter].groupby(temp['publish_date'].str[:7])['counts'].agg('sum').reset_index(name='counts')
     before_2003 = exact_date.loc[exact_date['publish_date'] <= '2002-12']
-    between_03_19 = exact_date.loc[exact_date['publish_date'] > '2002-12'].loc[exact_date['publish_date'] <= '2018-12']
-    after_19 = exact_date.loc[exact_date['publish_date'] > '2018-12']
+    between_03_19 = exact_date.loc[exact_date['publish_date'] > '2002-12'].loc[exact_date['publish_date'] <= '2019-12']
+    after_19 = exact_date.loc[exact_date['publish_date'] >= '2019-12']
 
+    #weekly basis after 2019-12
+    weekly_update_19 = temp.loc[with_date_filter].loc[temp['publish_date'] >= '2019-12'].groupby(temp['publish_date'])['counts'].agg('sum').reset_index(name='counts')
+    weekly_update_19['publish_date'] = pd.to_datetime(weekly_update_19['publish_date'])
+    weekly_update_19 = weekly_update_19.groupby(pd.Grouper(key='publish_date', freq='W'))['counts'].agg('sum').reset_index(name='counts')
+    graph_weekly_19 = weekly_update_19.loc[weekly_update_19['publish_date'] < '2020-08-09'] #omit after 2020-08-09 to make graph readable
+    
     only_year.plot.bar(x='publish_date', y='counts', title='number of publishes only has year')
     exact_year_total.plot.bar(x='publish_date', y='counts', title='number of publishes for all in year units')
     before_2003.plot.bar(x='publish_date', y='counts', title='publish_date before 2003', figsize=(30, 10), fontsize=6)
     between_03_19.plot.bar(x='publish_date', y='counts', title='between_03_19', figsize=(30, 10), fontsize=6)
-    after_19.plot.bar(x='publish_date', y='counts', title='after_18', figsize=(20, 10), fontsize=8)
+    after_19.plot.bar(x='publish_date', y='counts', title='after_19', figsize=(20, 10), fontsize=8)
+    graph_weekly_19.plot.bar(x='publish_date', y='counts', title='after 2019-12 weekly growth', figsize=(20, 10))
     plt.show()
 
 
