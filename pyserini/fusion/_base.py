@@ -14,27 +14,31 @@
 # limitations under the License.
 #
 
-import pandas as pd
-from ..trectools import TrecRun
 from typing import List
+
+from ..trectools import TrecRun
 
 
 def reciprocal_rank_fusion(trec_runs: List[TrecRun], rrf_k: int = 60, depth: int = None, k: int = None):
-    """Given a list of TrecRun, return a new fused TrecRun using reciprocal rank fusion.
+    """Perform reciprocal rank fusion on a list of ``TrecRun`` objects. Implementation follows Cormack et al.
+    (SIGIR 2009) paper titled "Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods."
 
     Parameters
     ----------
-    runs : List[TrecRun]
-        List of TrecRun.
+    trec_runs : List[TrecRun]
+        List of ``TrecRun`` objects.
+    rrf_k : int
+        Parameter to avoid vanishing importance of lower-ranked documents. Note that this is different from the *k* in
+        top *k* retrieval; set to 60 by default, per Cormack et al.
+    depth : int
+        Maximum number of results from each input run to consider.
     k : int
-        Parameters k for recriprocal rank calculation.
-    max_docs: int
-        Max number of documents per topics.
+        Length of final results list.
 
     Returns
     -------
-    fused_run : TrecRun
-        The fused TrecRun using reciprocal rank fusion.
+    TrecRun
+        Output ``TrecRun`` that combines input runs via reciprocal rank fusion.
     """
 
     rrf_runs = [run.clone().rescore(method='rrf', rrf_k=rrf_k) for run in trec_runs]
