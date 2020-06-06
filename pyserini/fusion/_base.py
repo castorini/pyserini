@@ -19,13 +19,13 @@ from typing import List
 from ..trectools import TrecRun
 
 
-def reciprocal_rank_fusion(trec_runs: List[TrecRun], rrf_k: int = 60, depth: int = None, k: int = None):
+def reciprocal_rank_fusion(runs: List[TrecRun], rrf_k: int = 60, depth: int = None, k: int = None):
     """Perform reciprocal rank fusion on a list of ``TrecRun`` objects. Implementation follows Cormack et al.
     (SIGIR 2009) paper titled "Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods."
 
     Parameters
     ----------
-    trec_runs : List[TrecRun]
+    runs : List[TrecRun]
         List of ``TrecRun`` objects.
     rrf_k : int
         Parameter to avoid vanishing importance of lower-ranked documents. Note that this is different from the *k* in
@@ -43,5 +43,7 @@ def reciprocal_rank_fusion(trec_runs: List[TrecRun], rrf_k: int = 60, depth: int
         Output ``TrecRun`` that combines input runs via reciprocal rank fusion.
     """
 
-    rrf_runs = [run.clone().rescore(method='rrf', rrf_k=rrf_k) for run in trec_runs]
+    # TODO: Actually implement depth and k.
+    # TODO: Add option to *not* clone runs, thus making the method destructive, but also more efficient.
+    rrf_runs = [run.clone().rescore(method='rrf', rrf_k=rrf_k) for run in runs]
     return TrecRun.merge(rrf_runs, 'sum', depth, k)
