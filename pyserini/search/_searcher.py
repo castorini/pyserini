@@ -258,47 +258,35 @@ class SimpleFusionSearcher:
         self.method = method
         self.searchers = [SimpleSearcher(index_dir) for index_dir in index_dirs]
 
-    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None) -> TrecRun:
+    def get_searchers(self) -> List[SimpleSearcher]:
+        return self.searchers
+
+    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None) -> List[JSimpleSearcherResult]:
         trec_runs = []
-        docid_to_search_result = dict()
+        docid_to_score, docid_to_search_result = dict(), dict()
 
         for searcher in self.searchers:
-            hits = searcher.search(q, k, query_generator)
+            hits = searcher.search(q, k=k, query_generator=query_generator)
             for hit in hits:
                 docid_to_search_result[hit.docid] = hit
-            run = TrecRun.generate_trec_run_from_search_results(hits)
+                docid_to_score[hit.docid] = hit.score
+            run = TrecRun.from_search_results(docid_to_score)
             trec_runs.append(run)
 
         if self.method == FusionMethod.RRF:
-            fused_run = reciprocal_rank_fusion(trec_runs, rrf_k=60, depth=1000, k=1000)
+            fused_run = reciprocal_rank_fusion(trec_runs, rrf_k=60, depth=1000, k=k)
         else:
             raise NotImplementedError()
 
-        return fused_run.map_trec_run_to_simple_search_result(docid_to_search_result)
+        return SimpleFusionSearcher.convert_to_search_result(fused_run, docid_to_search_result)
 
-    def set_analyzer(self, analyzer):
-        for searcher in self.searchers:
-            searcher.set_analyzer(analyzer)
+    @staticmethod
+    def convert_to_search_result(run: TrecRun, docid_to_search_result: Dict[str, JSimpleSearcherResult]) -> List[JSimpleSearcherResult]:
+        search_results = []
 
-    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False):
-        for searcher in self.searchers:
-            searcher.set_rm3(fb_terms, fb_docs, original_query_weight, rm3_output_query)
+        for _, _, docid, _, score, _ in run.to_numpy():
+            search_result = docid_to_search_result[docid]
+            search_result.score = score
+            search_results.append(search_result)
 
-    def unset_rm3(self):
-        for searcher in self.searchers:
-            searcher.unset_rm3()
-
-    def is_using_rm3(self) -> bool:
-        return self.searchers[0].is_using_rm3()
-
-    def set_qld(self, mu=float(1000)):
-        for searcher in self.searchers:
-            searcher.set_qld(mu)
-
-    def set_bm25(self, k1=float(0.9), b=float(0.4)):
-        for searcher in self.searchers:
-            searcher.set_bm25(k1, b)
-
-    def close(self):
-        for searcher in self.searchers:
-            searcher.close()
+        return search_results

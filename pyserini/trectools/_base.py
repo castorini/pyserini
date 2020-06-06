@@ -18,12 +18,9 @@ from __future__ import annotations
 
 from copy import deepcopy
 from enum import Enum
+import numpy as np
 import pandas as pd
-from pyserini.pyclass import autoclass
 from typing import Dict, List, Set
-
-# Wrappers around Anserini classes
-JSimpleSearcherResult = autoclass('io.anserini.search.SimpleSearcher$Result')
 
 
 class AggregationMethod(Enum):
@@ -62,7 +59,7 @@ class TrecRun:
         """
         return set(sorted(self.run_data["topic"].unique()))
 
-    def clone(self):
+    def clone(self) -> TrecRun:
         """
             Returns a deep copy of the current instance.
         """
@@ -86,26 +83,19 @@ class TrecRun:
 
         return docs
 
-    def rescore(self, method: FusionMethod, rrf_k: int):
+    def rescore(self, method: FusionMethod, rrf_k: int) -> None:
         if method == FusionMethod.RRF:
             rows = []
 
             for topic, _, docid, rank, _, tag in self.run_data.to_numpy():
                 rows.append((topic, 'Q0', docid, rank, 1 / (rrf_k + rank), tag))
 
-            return TrecRun.get_trec_run_from_list(rows, self)
+            return TrecRun.from_list(rows, self)
         else:
             raise NotImplementedError()
 
-    def map_trec_run_to_simple_search_result(self, docid_to_search_result: Dict[str, JSimpleSearcherResult]) -> List[JSimpleSearcherResult]:
-        search_results = []
-
-        for _, _, docid, _, score, _ in self.run_data.to_numpy():
-            search_result = docid_to_search_result[docid]
-            search_result.score = score
-            search_results.append(search_result)
-
-        return search_results
+    def to_numpy(self) -> np.ndarray:
+        return self.run_data.to_numpy(copy=True)
 
     @staticmethod
     def get_all_topics_from_runs(runs) -> Set[str]:
@@ -116,7 +106,7 @@ class TrecRun:
         return all_topics
 
     @staticmethod
-    def merge(runs, aggregation: AggregationMethod, depth: int = None, k: int = None):
+    def merge(runs, aggregation: AggregationMethod, depth: int = None, k: int = None) -> TrecRun:
         if len(runs) < 2:
             raise Exception('Merge requires at least 2 runs.')
 
@@ -138,10 +128,25 @@ class TrecRun:
         else:
             raise NotImplementedError()
 
-        return TrecRun.get_trec_run_from_list(rows)
+        return TrecRun.from_list(rows)
 
     @staticmethod
-    def get_trec_run_from_list(rows, run: TrecRun = None) -> TrecRun:
+    def from_list(rows, run: TrecRun = None) -> TrecRun:
+        """Return a TrecRun by populating dataframe with the provided list of tuples.
+        For performance reasons, df.to_numpy() is faster than df.iterrows().
+        When manipulating dataframes, we first dump to np.ndarray and construct a list of tuples with new values.
+        Then use this function to convert the list of tuples to a TrecRun object.
+
+        Parameters
+        ----------
+        rows: List[tuples]
+            List of tuples in the following format: (topic, 'Q0', docid, rank, score, tag)
+
+        run: TrecRun
+            Set to ``None`` by default. If None, then a new instance of TrecRun will be created.
+            Else, the given TrecRun will be modified.
+        """
+
         res = TrecRun() if run is None else run
 
         df = pd.DataFrame(rows)
@@ -151,10 +156,10 @@ class TrecRun:
         return res
 
     @staticmethod
-    def generate_trec_run_from_search_results(hits: List[JSimpleSearcherResult]) -> TrecRun:
+    def from_search_results(docid_to_score: Dict[str, float]) -> TrecRun:
         rows = []
 
-        for rank, hit in enumerate(hits, start=1):
-            rows.append((1, 'Q0', hit.docid, rank, hit.score, 'searcher'))
+        for rank, (docid, score) in enumerate(docid_to_score.items(), start=1):
+            rows.append((1, 'Q0', docid, rank, score, 'searcher'))
 
-        return TrecRun.get_trec_run_from_list(rows)
+        return TrecRun.from_list(rows)
