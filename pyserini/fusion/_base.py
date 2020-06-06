@@ -43,7 +43,6 @@ def reciprocal_rank_fusion(runs: List[TrecRun], rrf_k: int = 60, depth: int = No
         Output ``TrecRun`` that combines input runs via reciprocal rank fusion.
     """
 
-    # TODO: Actually implement depth and k.
     # TODO: Add option to *not* clone runs, thus making the method destructive, but also more efficient.
     rrf_runs = [run.clone().rescore(method='rrf', rrf_k=rrf_k) for run in runs]
     return TrecRun.merge(rrf_runs, 'sum', depth, k)
