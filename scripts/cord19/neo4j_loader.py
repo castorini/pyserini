@@ -13,57 +13,31 @@
 # limitations under the License.
 
 import pyserini.collection
-from py2neo import Graph
+import csv
 
-db_uri = "bolt://localhost:7687"
-graph = Graph(db_uri)
-queries = {
-    "CORD_UID_CONSTRAINT":
-        """
-        // Improve lookup time 
-        CREATE CONSTRAINT cord_uid ON (n:Article) ASSERT n.cord_uid IS UNIQUE
-        CREATE INDEX ON:Article(title)
-        """,
-    "CREATE_ARTICLE":
-        """
-        MERGE(article:Article {cord_uid:$CORD_UID,
-                                title:$TITLE,
-                                publish_time:$PUBLISH_TIME,
-                                abstract:$ABSTRACT})
-        """,
-    "CREATE_CITATIONS":
-        """
-        // Match source article
-        MATCH(article:Article {cord_uid:$ORIGIN_CORD_UID})
-        // Find or create the cited article (no cord_uid)
-        MERGE(cited:Article {title:$TITLE})
-        MERGE (article)-[r:BIB_REF]->(cited)
-        """
-}
-
-graph.run(queries["CORD_UID_CONSTRAINT"])
-collection = pyserini.collection.Collection('Cord19AbstractCollection',
-                                            'collections/cord19-2020-05-26')
+collection = pyserini.collection.Collection('Cord19AbstractCollection', 'collections/cord19-2020-05-26')
 articles = collection.__next__()
 
-for (i, d) in enumerate(articles):
-    article = pyserini.collection.Cord19Article(d.raw)
-    if article.is_full_text() and article.title():
-        try:
-            publish_time = article.metadata()["publish_time"]
-        except KeyError:
-            publish_time = None
-        graph.run(queries["CREATE_ARTICLE"],
-                  CORD_UID=article.cord_uid(),
-                  TITLE=article.title(),
-                  PUBLISH_TIME=publish_time,
-                  ABSTRACT=article.abstract())
-        bib_entries = article.bib_entries()
-        # Create edge between article and each cited title
-        for bib_ref in bib_entries:
-            ref = bib_entries[bib_ref]
-            graph.run(queries["CREATE_CITATIONS"],
-                      ORIGIN_CORD_UID=article.cord_uid(),
-                      TITLE=ref['title'])
-        
-        print(f"Number: {i}")
+with open("articles.csv", 'w') as article_csv, open("edges.csv", 'w') as edge_csv:
+    article_csv = csv.writer(article_csv)
+    edge_csv = csv.writer(edge_csv)
+    article_csv.writerow(["cord_uid", "title","publish_time"])
+    edge_csv.writerow(["cord_uid", "target_title"])
+
+    for (i, d) in enumerate(articles):
+        article = pyserini.collection.Cord19Article(d.raw)
+        if article.is_full_text() and article.title():
+            try:
+                publish_time = article.metadata()["publish_time"]
+            except KeyError:
+                publish_time = None
+            article_data = [article.cord_uid(), article.title(), publish_time]
+            article_csv.writerow(article_data)
+
+            bib_entries = article.bib_entries()
+            # Create edge between article and each cited title
+            for bib_ref in bib_entries:
+                ref = bib_entries[bib_ref]
+                if ref['title']:
+                    edge = [article.cord_uid(), ref['title']]
+                    edge_csv.writerow(edge)
