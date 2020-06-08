@@ -14,9 +14,8 @@
 # limitations under the License.
 #
 
+from pyserini.trectools import AggregationMethod, FusionMethod, TrecRun
 from typing import List
-
-from ..trectools import TrecRun
 
 
 def reciprocal_rank_fusion(runs: List[TrecRun], rrf_k: int = 60, depth: int = None, k: int = None):
@@ -44,5 +43,5 @@ def reciprocal_rank_fusion(runs: List[TrecRun], rrf_k: int = 60, depth: int = No
     """
 
     # TODO: Add option to *not* clone runs, thus making the method destructive, but also more efficient.
-    rrf_runs = [run.clone().rescore(method='rrf', rrf_k=rrf_k) for run in runs]
-    return TrecRun.merge(rrf_runs, 'sum', depth, k)
+    rrf_runs = [run.clone().rescore(method=FusionMethod.RRF, rrf_k=rrf_k) for run in runs]
+    return TrecRun.merge(rrf_runs, AggregationMethod.SUM, depth, k)

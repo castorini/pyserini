@@ -15,9 +15,8 @@
 #
 
 from ._base import Document, JDocument, JQuery, get_topics
-from ._searcher import JSimpleSearcherResult, LuceneSimilarities, SimpleSearcher
+from ._searcher import JSimpleSearcherResult, LuceneSimilarities, SimpleFusionSearcher, SimpleSearcher
 from ._nearest_neighbor import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearcherResult
 
-__all__ = ['Document', 'JDocument', 'JQuery', 'LuceneSimilarities',
-           'SimpleSearcher', 'JSimpleSearcherResult',
-           'SimpleNearestNeighborSearcher', 'JSimpleNearestNeighborSearcherResult', 'get_topics']
+__all__ = ['Document', 'JDocument', 'JQuery', 'LuceneSimilarities', 'SimpleFusionSearcher', 'SimpleSearcher',
+           'JSimpleSearcherResult', 'SimpleNearestNeighborSearcher', 'JSimpleNearestNeighborSearcherResult', 'get_topics']

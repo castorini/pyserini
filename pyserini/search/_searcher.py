@@ -23,7 +23,9 @@ import logging
 from typing import Dict, List, Optional, Union
 
 from ._base import Document, JQuery, JQueryGenerator
-from ..pyclass import autoclass, JString, JArrayList
+from pyserini.pyclass import autoclass, JString, JArrayList
+from pyserini.trectools import FusionMethod, TrecRun
+from pyserini.fusion import reciprocal_rank_fusion
 
 logger = logging.getLogger(__name__)
 
@@ -46,8 +48,7 @@ class SimpleSearcher:
         self.object = JSimpleSearcher(JString(index_dir))
         self.num_docs = self.object.getTotalNumDocuments()
 
-    def search(self, q: Union[str, JQuery], k: int = 10,
-               query_generator: JQueryGenerator = None) -> List[JSimpleSearcherResult]:
+    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None) -> List[JSimpleSearcherResult]:
         """Search the collection.
 
         Parameters
@@ -249,3 +250,45 @@ class LuceneSimilarities:
     @staticmethod
     def qld(mu=1000):
         return autoclass('org.apache.lucene.search.similarities.LMDirichletSimilarity')(mu)
+
+
+class SimpleFusionSearcher:
+    def __init__(self, index_dirs: List[str], method: FusionMethod):
+        self.method = method
+        self.searchers = [SimpleSearcher(index_dir) for index_dir in index_dirs]
+
+    def get_searchers(self) -> List[SimpleSearcher]:
+        return self.searchers
+
+    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None) -> List[JSimpleSearcherResult]:
+        trec_runs, docid_to_search_result = list(), dict()
+
+        for searcher in self.searchers:
+            docid_score_pair = list()
+            hits = searcher.search(q, k=k, query_generator=query_generator)
+
+            for hit in hits:
+                hit.docid = hit.docid.split('.')[0]
+                docid_to_search_result[hit.docid] = hit
+                docid_score_pair.append((hit.docid, hit.score))
+
+            run = TrecRun.from_search_results(docid_score_pair, remove_duplicates=True)
+            trec_runs.append(run)
+
+        if self.method == FusionMethod.RRF:
+            fused_run = reciprocal_rank_fusion(trec_runs, rrf_k=60, depth=1000, k=k)
+        else:
+            raise NotImplementedError()
+
+        return SimpleFusionSearcher.convert_to_search_result(fused_run, docid_to_search_result)
+
+    @staticmethod
+    def convert_to_search_result(run: TrecRun, docid_to_search_result: Dict[str, JSimpleSearcherResult]) -> List[JSimpleSearcherResult]:
+        search_results = []
+
+        for _, _, docid, _, score, _ in run.to_numpy():
+            search_result = docid_to_search_result[docid]
+            search_result.score = score
+            search_results.append(search_result)
+
+        return search_results

@@ -15,13 +15,11 @@
 #
 
 import argparse
-
-from tqdm import tqdm
-
 from pyserini.search import get_topics, SimpleSearcher
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
+from tqdm import tqdm
 
-parser = argparse.ArgumentParser(description='Create a input schema')
+parser = argparse.ArgumentParser(description='Search a Lucene index.')
 parser.add_argument('--index', type=str, metavar='path to index', required=True, help="Path to Lucene index.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: robust04, robust05, core17, core18.")

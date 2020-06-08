@@ -14,9 +14,22 @@
 # limitations under the License.
 #
 
+from __future__ import annotations
+
 from copy import deepcopy
+from enum import Enum
+import numpy as np
 import pandas as pd
-from typing import Set
+from typing import Dict, List, Set, Tuple
+
+
+class AggregationMethod(Enum):
+    SUM = 'sum'
+
+
+class FusionMethod(Enum):
+    RRF = 'rrf'
+    INTERPOLATION = 'interpolation'
 
 
 class TrecRun:
@@ -31,7 +44,7 @@ class TrecRun:
     columns = ['topic', 'q0', 'docid', 'rank', 'score', 'tag']
 
     def __init__(self, filepath: str = None):
-        self.run_data = dict()
+        self.run_data = pd.DataFrame(columns=TrecRun.columns)
         self.filepath = filepath
 
         if filepath is not None:
@@ -46,7 +59,7 @@ class TrecRun:
         """
         return set(sorted(self.run_data["topic"].unique()))
 
-    def clone(self):
+    def clone(self) -> TrecRun:
         """
             Returns a deep copy of the current instance.
         """
@@ -70,16 +83,19 @@ class TrecRun:
 
         return docs
 
-    def rescore(self, method: str, rrf_k: int):
-        if method == 'rrf':
+    def rescore(self, method: FusionMethod, rrf_k: int) -> None:
+        if method == FusionMethod.RRF:
             rows = []
 
             for topic, _, docid, rank, _, tag in self.run_data.to_numpy():
                 rows.append((topic, 'Q0', docid, rank, 1 / (rrf_k + rank), tag))
 
-            return TrecRun.get_trec_run_by_list(rows, self)
+            return TrecRun.from_list(rows, self)
         else:
-            raise Exception(f'Unknown rescore method {method} detected')
+            raise NotImplementedError()
+
+    def to_numpy(self) -> np.ndarray:
+        return self.run_data.to_numpy(copy=True)
 
     @staticmethod
     def get_all_topics_from_runs(runs) -> Set[str]:
@@ -90,13 +106,13 @@ class TrecRun:
         return all_topics
 
     @staticmethod
-    def merge(runs, aggregation: str, depth: int = None, k: int = None):
+    def merge(runs, aggregation: AggregationMethod, depth: int = None, k: int = None) -> TrecRun:
         if len(runs) < 2:
             raise Exception('Merge requires at least 2 runs.')
 
         rows = []
 
-        if aggregation == 'sum':
+        if aggregation == AggregationMethod.SUM:
             for topic in TrecRun.get_all_topics_from_runs(runs):
                 doc_scores = dict()
                 for run in runs:
@@ -104,18 +120,33 @@ class TrecRun:
                         doc_scores[docid] = doc_scores.get(docid, 0.0) + score
 
                 sorted_doc_scores = sorted(iter(doc_scores.items()), key=lambda x: (-x[1], x[0]))
-                sorted_doc_scores = sorted_doc_scores if k is None else sorted_doc_scores[:k] 
+                sorted_doc_scores = sorted_doc_scores if k is None else sorted_doc_scores[:k]
 
                 for rank, (docid, score) in enumerate(sorted_doc_scores, start=1):
                     rows.append((topic, 'Q0', docid, rank, score, 'merge_sum'))
 
         else:
-            raise Exception(f'Unknown aggregation method {aggregation} detected.')
+            raise NotImplementedError()
 
-        return TrecRun.get_trec_run_by_list(rows)
+        return TrecRun.from_list(rows)
 
     @staticmethod
-    def get_trec_run_by_list(rows, run=None):
+    def from_list(rows, run: TrecRun = None) -> TrecRun:
+        """Return a TrecRun by populating dataframe with the provided list of tuples.
+        For performance reasons, df.to_numpy() is faster than df.iterrows().
+        When manipulating dataframes, we first dump to np.ndarray and construct a list of tuples with new values.
+        Then use this function to convert the list of tuples to a TrecRun object.
+
+        Parameters
+        ----------
+        rows: List[tuples]
+            List of tuples in the following format: (topic, 'Q0', docid, rank, score, tag)
+
+        run: TrecRun
+            Set to ``None`` by default. If None, then a new instance of TrecRun will be created.
+            Else, the given TrecRun will be modified.
+        """
+
         res = TrecRun() if run is None else run
 
         df = pd.DataFrame(rows)
@@ -123,3 +154,28 @@ class TrecRun:
         res.run_data = df.copy()
 
         return res
+
+    @staticmethod
+    def from_search_results(docid_score_pair: Tuple[str, float], topic=1, remove_duplicates: bool = False) -> TrecRun:
+        docid_score_pair_filtered, rows = [], []
+        visited_docids = set()
+
+        for docid, score in docid_score_pair:
+            if docid in visited_docids:
+                continue
+
+            docid_score_pair_filtered.append((docid, score))
+
+            if remove_duplicates is True:
+                visited_docids.add(docid)
+
+        for rank, (docid, score) in enumerate(docid_score_pair_filtered, start=1):
+            rows.append((topic, 'Q0', docid, rank, score, 'searcher'))
+
+        return TrecRun.from_list(rows)
+
+    @staticmethod
+    def concat(runs: List[TrecRun]) -> TrecRun:
+        run = TrecRun()
+        run.run_data = run.run_data.append([run.run_data for run in runs])
+        return run
