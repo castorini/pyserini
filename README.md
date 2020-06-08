@@ -141,6 +141,13 @@ As you'd expected, `doc.id()` returns the docid, which is `LA071090-0047` in thi
 Finally, `doc.lucene_document()` returns the underlying Lucene `Document` (i.e., a Java object).
 With that, you get direct access to the complete Lucene API for manipulating documents.
 
+If you want print the ids and contents of all documents in the index, you can do:
+```python
+for i in range(searcher.num_docs):
+    print(searcher.doc(i).docid())
+    print(searcher.doc(i).contents())
+```
+
 ## How Do I Search My Own Documents?
 
 This is an often-requested feature, but unfortunately we haven't gotten around to implemented it yet.
