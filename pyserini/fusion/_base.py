@@ -54,11 +54,34 @@ def reciprocal_rank_fusion(runs: List[TrecRun], rrf_k: int = 60, depth: int = No
 
 
 def interpolation(runs: List[TrecRun], alpha: int = 0.5, depth: int = None, k: int = None):
+    """
+    Perform fusion by interpolation on a list of exactly two ``TrecRun`` objects.
+    new_score = first_run_score * alpha + (1 - alpha) * second_run_score.
+
+    Parameters
+    ----------
+    runs : List[TrecRun]
+        List of ``TrecRun`` objects. Exactly two runs.
+    alpha : int
+        Parameters alpha will be applied on the first run and (1 - alpha) will be applied on the second run.
+    depth : int
+        Maximum number of results from each input run to consider. Set to ``None`` by default, which indicates that
+        the complete list of results is considered.
+    k : int
+        Length of final results list.  Set to ``None`` by default, which indicates that the union of all input documents
+        are ranked.
+
+    Returns
+    -------
+    TrecRun
+        Output ``TrecRun`` that combines input runs via interpolation.
+    """
+
     if len(runs) != 2:
         raise Exception('Interpolation must be performed on exactly two runs.')
 
     scaled_runs = []
-    scaled_runs.append(runs[0].clone().rescore(method=RescoreMethod.MULTIPLICATION, scale=alpha))
-    scaled_runs.append(runs[1].clone().rescore(method=RescoreMethod.MULTIPLICATION, scale=(1-alpha)))
+    scaled_runs.append(runs[0].clone().rescore(method=RescoreMethod.SCALE, scale=alpha))
+    scaled_runs.append(runs[1].clone().rescore(method=RescoreMethod.SCALE, scale=(1-alpha)))
 
     return TrecRun.merge(scaled_runs, AggregationMethod.SUM, depth=depth, k=k)

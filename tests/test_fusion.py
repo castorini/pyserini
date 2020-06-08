@@ -49,7 +49,7 @@ class TestSearch(unittest.TestCase):
 
         qruns_str = ' '.join(input_paths)
         os.system(
-            f'python -m pyserini.fusion --method interpolation --runs {qruns_str} --output {self.output_path} --runtag test')
+            f'python -m pyserini.fusion --method interpolation --alpha 0.4 --runs {qruns_str} --output {self.output_path} --runtag test')
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
         os.remove(self.output_path)
 

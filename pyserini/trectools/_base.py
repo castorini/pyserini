@@ -29,7 +29,7 @@ class AggregationMethod(Enum):
 
 class RescoreMethod(Enum):
     RRF = 'rrf'
-    MULTIPLICATION = 'multiplication'
+    SCALE = 'scale'
 
 
 class TrecRun:
@@ -91,7 +91,7 @@ class TrecRun:
             for topic, _, docid, rank, _, tag in self.run_data.to_numpy():
                 rows.append((topic, 'Q0', docid, rank, 1 / (rrf_k + rank), tag))
 
-        elif method == RescoreMethod.MULTIPLICATION:
+        elif method == RescoreMethod.SCALE:
             assert scale is not None, "scale must not be none."
 
             for topic, _, docid, rank, score, tag in self.run_data.to_numpy():
