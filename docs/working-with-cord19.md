@@ -87,25 +87,27 @@ article.json
 For an article that does not contain full text, all the above methods behave the same way, except that `body()` returns an empty array.
 
 
-## Loading Data Into Neo4j
+## Load Data Into Neo4j
+
+The easiest way to get started with Neo4j and start an instance is to [download the Neo4j desktop](https://neo4j.com/download-center/).
+
+In the desktop app create a new project and add a database (create local graph). Give it any name and password and use Neo4j version `4.0.4`. The click "start" to start running database locally.
+
+Once you have the [Pyserini development environment](https://github.com/castorini/pyserini#development-installation) setup run the `neo4j_loader.py` script in the root of the pyserini project.
+
+Due to security reasons Neo4j only allows Cypher queries to acess files in certain directories. Move the generated csv files, `articles.csv` and `edges.csv` to the import directory of Neo4j. Follow [this guide](https://neo4j.com/docs/operations-manual/current/configuration/file-locations/) to find the import directory on your machine.
 
 
-Download Neo4j Desktop: https://neo4j.com/download-center/
+### Cypher Queries to load the data
 
-Create new project. Create a new graph and start the database.
+To load the csv files into Neo4j run the following Cypher queries in the Neo4j Browser.
 
-Run the `neo4j_loader.py` script and move the `articles.csv` and `edges.csv` to the import directory of Neo4j. https://neo4j.com/docs/operations-manual/current/configuration/file-locations/
-
-
-### Load the CSV data
-Run the following Cypher queries in the Neo4j Browser.
-
-Create a unique constraint to improve lookup time:
+Create a unique constraint on `cord_uid` to improve lookup time:
 ```
 CREATE CONSTRAINT cord_uid ON (n:Article) ASSERT n.cord_uid IS UNIQUE
 ```
 
-Create articles nodes:
+Create articles nodes with metadata:
 ```
 LOAD CSV WITH HEADERS FROM 'file:///articles.csv' AS row
 WITH row WHERE row.publish_time IS NOT NULL
@@ -115,20 +117,20 @@ ON CREATE SET a.title = row.title, a.publish_time=row.publish_time
 ```
 
 
-Create edges for citations:
+Create relationships for citations:
 ```
 LOAD CSV WITH HEADERS FROM 'file:///edges.csv' AS row
 // Match source article
 MATCH(article:Article {cord_uid:row.cord_uid})
-// Find or create the cited article (no cord_uid)
+// Find or create the cited article (only title consistently available in citation data)
 MERGE(cited:Article {title:row.target_title})
 MERGE (article)-[r:BIB_REF]->(cited)
 ```
 
 
-Run a test query:
+Run a test query, return the top 10 cited articles:
 ```
-MATCH(a)-[r:BIB_REF]->(b) WITH b, count(r) as num WHERE num > 3 RETURN b LIMIT 10
+MATCH (a)<-[r:BIB_REF]-(b) WITH a, count(r) as num_cites RETURN a ORDER BY num_cites DESC LIMIT 10
 ```
 
 
