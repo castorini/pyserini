@@ -24,8 +24,8 @@ from typing import Dict, List, Optional, Union
 
 from ._base import Document, JQuery, JQueryGenerator
 from pyserini.pyclass import autoclass, JString, JArrayList
-from pyserini.trectools import FusionMethod, TrecRun
-from pyserini.fusion import reciprocal_rank_fusion
+from pyserini.trectools import TrecRun
+from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
 
 logger = logging.getLogger(__name__)
 

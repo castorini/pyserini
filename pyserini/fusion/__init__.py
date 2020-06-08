@@ -14,6 +14,6 @@
 # limitations under the License.
 #
 
-from ._base import reciprocal_rank_fusion
+from ._base import FusionMethod, interpolation, reciprocal_rank_fusion
 
-__all__ = ['reciprocal_rank_fusion']
+__all__ = ['FusionMethod', 'interpolation', 'reciprocal_rank_fusion']
