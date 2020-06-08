@@ -54,8 +54,7 @@ def reciprocal_rank_fusion(runs: List[TrecRun], rrf_k: int = 60, depth: int = No
 
 
 def interpolation(runs: List[TrecRun], alpha: int = 0.5, depth: int = None, k: int = None):
-    """
-    Perform fusion by interpolation on a list of exactly two ``TrecRun`` objects.
+    """Perform fusion by interpolation on a list of exactly two ``TrecRun`` objects.
     new_score = first_run_score * alpha + (1 - alpha) * second_run_score.
 
     Parameters
@@ -63,7 +62,7 @@ def interpolation(runs: List[TrecRun], alpha: int = 0.5, depth: int = None, k: i
     runs : List[TrecRun]
         List of ``TrecRun`` objects. Exactly two runs.
     alpha : int
-        Parameters alpha will be applied on the first run and (1 - alpha) will be applied on the second run.
+        Parameter alpha will be applied on the first run and (1 - alpha) will be applied on the second run.
     depth : int
         Maximum number of results from each input run to consider. Set to ``None`` by default, which indicates that
         the complete list of results is considered.
