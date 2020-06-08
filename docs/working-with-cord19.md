@@ -93,12 +93,13 @@ The easiest way to get started with Neo4j and start an instance is to [download 
 
 In the desktop app create a new project and add a database (create local graph). Give it any name and password and use Neo4j version `4.0.4`. The click "start" to start running database locally.
 
-Once you have the [Pyserini development environment](https://github.com/castorini/pyserini#development-installation) setup run the `neo4j_loader.py` script in the root of the pyserini project.
+Once you have the [Pyserini development environment](https://github.com/castorini/pyserini#development-installation) setup run the `neo4j_loader.py` script in the root of the pyserini project. For example:
+```
+python load_citation_graph_into_neo4j.py --path collections/cord19-2020-05-26
+```
 
 Due to security reasons Neo4j only allows Cypher queries to acess files in certain directories. Move the generated csv files, `articles.csv` and `edges.csv` to the import directory of Neo4j. Follow [this guide](https://neo4j.com/docs/operations-manual/current/configuration/file-locations/) to find the import directory on your machine.
 
-
-### Cypher Queries to load the data
 
 To load the csv files into Neo4j run the following Cypher queries in the Neo4j Browser.
 
