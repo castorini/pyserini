@@ -85,14 +85,15 @@ class TrecRun:
 
     def rescore(self, method: RescoreMethod, rrf_k: int = None, scale: float = None) -> None:
         rows = []
+
         if method == RescoreMethod.RRF:
-            assert rrf_k is not None, "rrf_k must be a valid integer."
+            assert rrf_k is not None, 'Parameter "rrf_k" must be a valid integer.'
 
             for topic, _, docid, rank, _, tag in self.run_data.to_numpy():
                 rows.append((topic, 'Q0', docid, rank, 1 / (rrf_k + rank), tag))
 
         elif method == RescoreMethod.SCALE:
-            assert scale is not None, "scale must not be none."
+            assert scale is not None, 'Parameter "scale" must not be none.'
 
             for topic, _, docid, rank, score, tag in self.run_data.to_numpy():
                 rows.append((topic, 'Q0', docid, rank, score * scale, tag))
