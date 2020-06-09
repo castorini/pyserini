@@ -53,6 +53,16 @@ class TestSearch(unittest.TestCase):
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
         os.remove(self.output_path)
 
+    def test_average_fusion_simple(self):
+        input_paths = ['tests/resources/simple_trec_run_fusion_1.txt', 'tests/resources/simple_trec_run_fusion_2.txt']
+        verify_path = 'tests/resources/simple_trec_run_average_verify.txt'
+
+        qruns_str = ' '.join(input_paths)
+        os.system(
+            f'python -m pyserini.fusion --method average --runs {qruns_str} --output {self.output_path} --runtag test')
+        self.assertTrue(filecmp.cmp(verify_path, self.output_path))
+        os.remove(self.output_path)
+
     def test_reciprocal_rank_fusion_complex(self):
         os.system('wget -q -nc https://www.dropbox.com/s/duimcackueph2co/anserini.covid-r2.abstract.qq.bm25.txt.gz')
         os.system('wget -q -nc https://www.dropbox.com/s/iswpuj9tf5pj5ei/anserini.covid-r2.full-text.qq.bm25.txt.gz')
