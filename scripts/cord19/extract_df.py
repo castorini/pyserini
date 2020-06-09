@@ -90,3 +90,4 @@ if __name__ == '__main__':
     date_df_counts, date_new_df_counts = load(args.old_path, args.new_path)
     date_df_counts.to_csv('date_df_counts.csv', index=False)
     date_new_df_counts.to_csv('date_new_df_counts.csv', index=False)
+    print(f'saved dfs to date_df_counts.csv and date_new_df_counts.csv')
