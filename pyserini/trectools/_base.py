@@ -27,9 +27,9 @@ class AggregationMethod(Enum):
     SUM = 'sum'
 
 
-class FusionMethod(Enum):
+class RescoreMethod(Enum):
     RRF = 'rrf'
-    INTERPOLATION = 'interpolation'
+    SCALE = 'scale'
 
 
 class TrecRun:
@@ -83,16 +83,24 @@ class TrecRun:
 
         return docs
 
-    def rescore(self, method: FusionMethod, rrf_k: int) -> None:
-        if method == FusionMethod.RRF:
-            rows = []
+    def rescore(self, method: RescoreMethod, rrf_k: int = None, scale: float = None) -> None:
+        rows = []
+
+        if method == RescoreMethod.RRF:
+            assert rrf_k is not None, 'Parameter "rrf_k" must be a valid integer.'
 
             for topic, _, docid, rank, _, tag in self.run_data.to_numpy():
                 rows.append((topic, 'Q0', docid, rank, 1 / (rrf_k + rank), tag))
 
-            return TrecRun.from_list(rows, self)
+        elif method == RescoreMethod.SCALE:
+            assert scale is not None, 'Parameter "scale" must not be none.'
+
+            for topic, _, docid, rank, score, tag in self.run_data.to_numpy():
+                rows.append((topic, 'Q0', docid, rank, score * scale, tag))
         else:
             raise NotImplementedError()
+
+        return TrecRun.from_list(rows, self)
 
     def to_numpy(self) -> np.ndarray:
         return self.run_data.to_numpy(copy=True)
@@ -124,7 +132,6 @@ class TrecRun:
 
                 for rank, (docid, score) in enumerate(sorted_doc_scores, start=1):
                     rows.append((topic, 'Q0', docid, rank, score, 'merge_sum'))
-
         else:
             raise NotImplementedError()
 
