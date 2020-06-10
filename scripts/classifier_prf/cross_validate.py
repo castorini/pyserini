@@ -1,3 +1,17 @@
+# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import argparse
 import json
 import os
@@ -32,7 +46,8 @@ def read_topics_alpha_map(anserini_root, collection, run_file, classifier, rm3: 
     for num in range(0, 11):
         alpha = str(num / 10)
         file_path = get_file_path(run_file, collection, classifier, alpha, rm3)
-        cv_folder_path = os.path.join(run_file, f"scripts/classifier_prf/cv/{collection}")
+        cv_folder_path = os.path.join(
+            run_file, f"scripts/classifier_prf/cv/{collection}")
         os.system(f"mkdir -p {cv_folder_path}")
         res_filename = get_res_file_path(
             run_file, collection, classifier, alpha, rm3)
@@ -50,13 +65,15 @@ def read_topics_alpha_map(anserini_root, collection, run_file, classifier, rm3: 
 
 
 def load_in_res(res_paths):
-    df = pd.read_csv(res_paths[0], sep='\s+', header=None,
-                     names=['Type', 'topicid', '0.0'], dtype={'0.0': float})
+    df = pd.read_csv(
+        res_paths[0], sep='\s+', header=None,
+        names=['Type', 'topicid', '0.0'], dtype={'0.0': float})
     df.set_index('topicid', inplace=True)
 
     for num in range(1, 11):
-        dataset = pd.read_csv(res_paths[num], sep='\s+', header=None, names=['Type', 'topicid', 'score'],
-                              dtype={'topicid': str, 'score': float})
+        dataset = pd.read_csv(
+            res_paths[num], sep='\s+', header=None, names=['Type', 'topicid', 'score'],
+            dtype={'topicid': str, 'score': float})
         df[str(num / 10)] = dataset.score.values
 
     df = df[df['Type'] == 'map'][:-1]

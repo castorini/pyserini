@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
@@ -13,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 import os
 import shutil
@@ -22,8 +22,7 @@ from random import randint
 from typing import List
 from urllib.request import urlretrieve
 
-from pyserini.pyclass import JSimpleNearestNeighborSearcherResult
-from pyserini.search import pysearch
+from pyserini.search import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearcherResult
 
 
 class TestSearch(unittest.TestCase):
@@ -41,8 +40,7 @@ class TestSearch(unittest.TestCase):
         vectors_tarball.extractall(self.vectors_dir)
         vectors_tarball.close()
 
-        self.nnsercher = pysearch.SimpleNearestNeighborSearcher(f'{self.vectors_dir}lucene-index-vectors.cacm')
-
+        self.nnsercher = SimpleNearestNeighborSearcher(f'{self.vectors_dir}lucene-index-vectors.cacm')
 
     def test_nearest_neighbor(self):
         hits = self.nnsercher.search('CACM-0059')

@@ -14,13 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import argparse
-from ..pyclass import JIndexHelpers, JIndexCollection, JCollections
+from jnius import autoclass
 import sys
 
-# try:
 args = sys.argv[1:]
+JIndexCollection = autoclass('io.anserini.index.IndexCollection')
 JIndexCollection.main(args)
-# except:
-#     print('Wrong input are given')
 
