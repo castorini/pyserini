@@ -48,7 +48,7 @@ class SimpleSearcher:
         self.object = JSimpleSearcher(JString(index_dir))
         self.num_docs = self.object.getTotalNumDocuments()
 
-    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, removedups=False) -> List[JSimpleSearcherResult]:
+    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
         """Search the collection.
 
         Parameters
@@ -61,7 +61,7 @@ class SimpleSearcher:
             Generator to build queries. Set to ``None`` by default to use Anserini default.
         strip_segment_id : bool
             Remove the .XXXXX suffix used to denote different segments from an document.
-        removedups : bool
+        remove_dups : bool
             Remove duplicate docids when writing final run output.
 
         Returns
@@ -96,7 +96,7 @@ class SimpleSearcher:
 
             filtered_hits.append(hit)
 
-            if removedups is True:
+            if remove_dups is True:
                 docids.add(hit.docid)
 
         return filtered_hits
@@ -282,13 +282,13 @@ class SimpleFusionSearcher:
     def get_searchers(self) -> List[SimpleSearcher]:
         return self.searchers
 
-    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, removedups=False) -> List[JSimpleSearcherResult]:
+    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
         trec_runs, docid_to_search_result = list(), dict()
 
         for searcher in self.searchers:
             docid_score_pair = list()
             hits = searcher.search(q, k=k, query_generator=query_generator,
-                                   strip_segment_id=strip_segment_id, removedups=removedups)
+                                   strip_segment_id=strip_segment_id, remove_dups=remove_dups)
 
             for hit in hits:
                 docid_to_search_result[hit.docid] = hit

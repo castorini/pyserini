@@ -54,7 +54,7 @@ class TestSearchIntegration(unittest.TestCase):
         runs, topics = [], get_topics('covid_round2')
         for topic in tqdm(sorted(topics.keys())):
             query = topics[topic]['question'] + ' ' + topics[topic]['query']
-            hits = searcher.search(query, k=10000, query_generator=None, strip_segment_id=True, removedups=True)
+            hits = searcher.search(query, k=10000, query_generator=None, strip_segment_id=True, remove_dups=True)
             docid_score_pair = [(hit.docid, hit.score) for hit in hits]
             run = TrecRun.from_search_results(docid_score_pair, topic=topic)
             runs.append(run)
