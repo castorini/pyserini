@@ -83,9 +83,9 @@ def load(old_path, new_path):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='extract Dataframe for its use in colab')
-    parser.add_argument('--old_path', type=str, required=True, help='the path to old collection')
-    parser.add_argument('--new_path', type=str, required=True, help='the path to new collection')
+    parser = argparse.ArgumentParser(description='Extract Dataframes of CORD-19')
+    parser.add_argument('--old_path', type=str, required=True, help='Path to old collection')
+    parser.add_argument('--new_path', type=str, required=True, help='Path to new collection')
     args = parser.parse_args()
     date_df_counts, date_new_df_counts = load(args.old_path, args.new_path)
     date_df_counts.to_csv('date_df_counts.csv', index=False)

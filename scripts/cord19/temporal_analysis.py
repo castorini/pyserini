@@ -89,8 +89,8 @@ def plot_bars(only_year, exact_year_total, before_2003, between_03_19, after_19,
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Temporal Analysis in CORD-19')
-    parser.add_argument('--path', type=str, required=True, help='the path to collection')
+    parser = argparse.ArgumentParser(description='Return bar charts of temporal analysis on CORD-19')
+    parser.add_argument('--path', type=str, required=True, help='Path to input collection')
     args = parser.parse_args()
     only_year, exact_year_total, before_2003, between_03_19, after_19, weekly_update_19 = load(args.path)
     plot_bars(only_year, exact_year_total, before_2003, between_03_19, after_19, weekly_update_19)
