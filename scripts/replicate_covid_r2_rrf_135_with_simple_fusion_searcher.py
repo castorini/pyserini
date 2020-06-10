@@ -18,7 +18,8 @@ import sys
 sys.path.insert(0, './')
 
 from tqdm import tqdm
-from pyserini.trectools import FusionMethod, TrecRun
+from pyserini.fusion import FusionMethod
+from pyserini.trectools import TrecRun
 from pyserini.search import get_topics, SimpleFusionSearcher, SimpleSearcher
 import os
 import filecmp
@@ -53,10 +54,10 @@ index_dirs = [
 
 searcher = SimpleFusionSearcher(index_dirs, method=FusionMethod.RRF)
 
-runs,topics = [], get_topics('covid_round2')
+runs, topics = [], get_topics('covid_round2')
 for topic in tqdm(sorted(topics.keys())):
     query = topics[topic]['question'] + ' ' + topics[topic]['query']
-    hits = searcher.search(query, k=10000)
+    hits = searcher.search(query, k=10000, query_generator=None, strip_segment_id=True, removedups=True)
     docid_score_pair = [(hit.docid, hit.score) for hit in hits]
     run = TrecRun.from_search_results(docid_score_pair, topic=topic)
     runs.append(run)
@@ -64,22 +65,10 @@ for topic in tqdm(sorted(topics.keys())):
 all_topics_run = TrecRun.concat(runs)
 all_topics_run.save_to_txt(output_path='fused.txt', tag='reciprocal_rank_fusion_k=60')
 
-lines1 = [' '.join(line.split(' ')[:3]) for line in open('fused.txt', 'r')]
-lines2 = [' '.join(line.split(' ')[:3]) for line in open('anserini.covid-r2.fusion1.txt', 'r')]
-
-for a,b in zip (lines1, lines2):
-    if a!=b:
-        print('not the same')
-    else:
-        print('same')
-    
-    print(a)
-    print(b)
-
 os.system("""awk '{print $1" "$3" "$4}' fused.txt > this.txt""")
 os.system("""awk '{print $1" "$3" "$4}' anserini.covid-r2.fusion1.txt > that.txt""")
 
-does_match = filecmp.cmp('fused.txt', 'anserini.covid-r2.fusion1.txt')
+does_match = filecmp.cmp('this.txt', 'that.txt')
 print('Result does match:', does_match)
 
-# os.system('rm anserini.covid-r2.fusion1.txt fused.txt')
+os.system('rm anserini.covid-r2.fusion1.txt fused.txt this.txt that.txt')
