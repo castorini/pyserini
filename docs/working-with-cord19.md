@@ -93,12 +93,12 @@ The easiest way to get started with Neo4j and start an instance is to [download 
 
 In the desktop app create a new project and add a database (create local graph). Give it any name and password and use Neo4j version `4.0.4`. The click "start" to start running database locally.
 
-Once you have the [Pyserini development environment](https://github.com/castorini/pyserini#development-installation) setup run the `neo4j_loader.py` script in the root of the pyserini project. For example:
+Once you have the [Pyserini development environment](https://github.com/castorini/pyserini#development-installation) setup run the `extract_citation_graph.py` script in the root of the pyserini project. For example:
 ```
-python load_citation_graph_into_neo4j.py --path collections/cord19-2020-05-26
+python extract_citation_graph.py --path path/to/cord19
 ```
 
-Due to security reasons Neo4j only allows Cypher queries to acess files in certain directories. Move the generated csv files, `articles.csv` and `edges.csv` to the import directory of Neo4j. Follow [this guide](https://neo4j.com/docs/operations-manual/current/configuration/file-locations/) to find the import directory on your machine.
+Due to security reasons Neo4j only allows Cypher queries to acess files in certain directories. Move the generated csv files, `node.csv` and `edge.csv` to the import directory of Neo4j. Follow [this guide](https://neo4j.com/docs/operations-manual/current/configuration/file-locations/) to find the import directory on your machine.
 
 
 To load the csv files into Neo4j run the following Cypher queries in the Neo4j Browser.
@@ -110,21 +110,17 @@ CREATE CONSTRAINT cord_uid ON (n:Article) ASSERT n.cord_uid IS UNIQUE
 
 Create articles nodes with metadata:
 ```
-LOAD CSV WITH HEADERS FROM 'file:///articles.csv' AS row
-WITH row WHERE row.publish_time IS NOT NULL
-MERGE(a:Article {cord_uid:row.cord_uid})
-// Issue with duplicate cord_uid, set properties after to prevent nodes with same cord_uid
-ON CREATE SET a.title = row.title, a.publish_time=row.publish_time
+LOAD CSV WITH HEADERS FROM 'file:///node.csv' AS row
+MERGE(a:Article {cord_uid:row.Id})
+ON CREATE SET a.Paper_Title = row.Title, a.Publish_time = row.Publish_time
 ```
 
 
 Create relationships for citations:
 ```
-LOAD CSV WITH HEADERS FROM 'file:///edges.csv' AS row
-// Match source article
-MATCH(article:Article {cord_uid:row.cord_uid})
-// Find or create the cited article (only title consistently available in citation data)
-MERGE(cited:Article {title:row.target_title})
+LOAD CSV WITH HEADERS FROM 'file:///edge.csv' AS row
+MATCH(article:Article {cord_uid:row.Source})
+MERGE(cited:Article {citation_cord_uid:row.Target, Citation_Title:row.Target_title})
 MERGE (article)-[r:BIB_REF]->(cited)
 ```
 
