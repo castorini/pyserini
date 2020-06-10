@@ -36,8 +36,8 @@ The `eval/` directory, which contains evaluation tools and scripts, is actually 
 Build as follows (you might get warnings, but okay to ignore):
 
 ```bash
-cd eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make && cd ../..
-cd eval/ndeval && make && cd ../..
+cd tools/eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make && cd ../../..
+cd tools/eval/ndeval && make && cd ../../..
 ```
 
 Next, you'll need to clone and build [Anserini](http://anserini.io/).

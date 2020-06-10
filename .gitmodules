@@ -1,3 +1,3 @@
-[submodule "eval"]
-	path = eval
-	url = https://github.com/castorini/anserini-eval.git
+[submodule "tools"]
+	path = tools
+	url = https://github.com/castorini/anserini-tools.git
