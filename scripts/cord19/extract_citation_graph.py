@@ -51,8 +51,8 @@ if __name__ == "__main__":
     articles = collection.__next__()
     article = None
     mapping = {}
-    node(args.node_file, 'w', ["Id", "Title", "Publish_time"])
-    edge(args.edge_file, 'w', ["Source", "Target", "Target_title"])
+    node(args.node_file, 'w', ["id", "title", "publication_date"])
+    edge(args.edge_file, 'w', ["source", "target", "target_title"])
     mapping = {}
     check_replication = {}
     for (i, d) in enumerate(articles):
@@ -70,10 +70,10 @@ if __name__ == "__main__":
         if article.is_full_text():
             bib = article.bib_entries()
             if article.title() not in check_replication:
-                if 'publish_time' in article.metadata() and article.metadata()['publish_time']:
+                if 'publish_time' in article.metadata():
                     publish_time = article.metadata()['publish_time']
                 else:
-                    publish_time = 'N/A'
+                    publish_time = ''
                 node(args.node_file, 'a', [mapping[article.title()], article.title(), publish_time])
                 check_replication.update(create_dict(article.title(), ''))
             j = 0
@@ -82,10 +82,10 @@ if __name__ == "__main__":
                 if number in bib:
                     title = bib[number]['title']
                     if title:
-                        if 'year' in bib[number] and bib[number]['year']:
+                        if 'year' in bib[number]:
                             publish_time = bib[number]['year']
                         else:
-                            publish_time = 'N/A'
+                            publish_time = ''
                         if title not in check_replication:
                             if title in mapping:
                                 node(args.node_file, 'a', [mapping[title], title, publish_time])

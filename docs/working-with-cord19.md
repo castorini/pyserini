@@ -111,16 +111,16 @@ CREATE CONSTRAINT cord_uid ON (n:Article) ASSERT n.cord_uid IS UNIQUE
 Create articles nodes with metadata:
 ```
 LOAD CSV WITH HEADERS FROM 'file:///node.csv' AS row
-MERGE(a:Article {cord_uid:row.Id})
-ON CREATE SET a.Paper_Title = row.Title, a.Publish_time = row.Publish_time
+MERGE(a:Article {cord_uid:row.id})
+ON CREATE SET a.paper_title = row.title, a.publication_date = row.publication_date
 ```
 
 
 Create relationships for citations:
 ```
 LOAD CSV WITH HEADERS FROM 'file:///edge.csv' AS row
-MATCH(article:Article {cord_uid:row.Source})
-MERGE(cited:Article {citation_cord_uid:row.Target, Citation_Title:row.Target_title})
+MATCH(article:Article {cord_uid:row.source})
+MERGE(cited:Article {citation_cord_uid:row.target, citation_title:row.target_title})
 MERGE (article)-[r:BIB_REF]->(cited)
 ```
 
