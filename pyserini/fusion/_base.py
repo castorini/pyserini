@@ -22,6 +22,7 @@ from typing import List
 class FusionMethod(Enum):
     RRF = 'rrf'
     INTERPOLATION = 'interpolation'
+    AVERAGE = 'average'
 
 
 def reciprocal_rank_fusion(runs: List[TrecRun], rrf_k: int = 60, depth: int = None, k: int = None):
@@ -83,4 +84,28 @@ def interpolation(runs: List[TrecRun], alpha: int = 0.5, depth: int = None, k: i
     scaled_runs.append(runs[0].clone().rescore(method=RescoreMethod.SCALE, scale=alpha))
     scaled_runs.append(runs[1].clone().rescore(method=RescoreMethod.SCALE, scale=(1-alpha)))
 
+    return TrecRun.merge(scaled_runs, AggregationMethod.SUM, depth=depth, k=k)
+
+
+def average(runs: List[TrecRun], depth: int = None, k: int = None):
+    """Perform fusion by averaging on a list of ``TrecRun`` objects.
+
+    Parameters
+    ----------
+    runs : List[TrecRun]
+        List of ``TrecRun`` objects.
+    depth : int
+        Maximum number of results from each input run to consider. Set to ``None`` by default, which indicates that
+        the complete list of results is considered.
+    k : int
+        Length of final results list.  Set to ``None`` by default, which indicates that the union of all input documents
+        are ranked.
+
+    Returns
+    -------
+    TrecRun
+        Output ``TrecRun`` that combines input runs via averaging.
+    """
+
+    scaled_runs = [run.clone().rescore(method=RescoreMethod.SCALE, scale=(1/len(runs))) for run in runs]
     return TrecRun.merge(scaled_runs, AggregationMethod.SUM, depth=depth, k=k)
