@@ -48,7 +48,7 @@ class SimpleSearcher:
         self.object = JSimpleSearcher(JString(index_dir))
         self.num_docs = self.object.getTotalNumDocuments()
 
-    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None) -> List[JSimpleSearcherResult]:
+    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
         """Search the collection.
 
         Parameters
@@ -59,14 +59,19 @@ class SimpleSearcher:
             Number of hits to return.
         query_generator : JQueryGenerator
             Generator to build queries. Set to ``None`` by default to use Anserini default.
+        strip_segment_id : bool
+            Remove the .XXXXX suffix used to denote different segments from an document.
+        remove_dups : bool
+            Remove duplicate docids when writing final run output.
 
         Returns
         -------
         List[JSimpleSearcherResult]
             List of search results.
         """
+        hits = None
         if query_generator:
-            return self.object.search(query_generator, JString(q), k)
+            hits = self.object.search(query_generator, JString(q), k)
         elif isinstance(q, JQuery):
             # Note that RM3 requires the notion of a query (string) to estimate the appropriate models. If we're just
             # given a Lucene query, it's unclear what the "query" is for this estimation. One possibility is to extract
@@ -75,9 +80,26 @@ class SimpleSearcher:
             # here explicitly.
             if self.is_using_rm3():
                 raise NotImplementedError('RM3 incompatible with search using a Lucene query.')
-            return self.object.search(q, k)
+            hits = self.object.search(q, k)
         else:
-            return self.object.search(JString(q.encode('utf8')), k)
+            hits = self.object.search(JString(q.encode('utf8')), k)
+
+        docids = set()
+        filtered_hits = []
+
+        for hit in hits:
+            if strip_segment_id is True:
+                hit.docid = hit.docid.split('.')[0]
+
+            if hit.docid in docids:
+                continue
+
+            filtered_hits.append(hit)
+
+            if remove_dups is True:
+                docids.add(hit.docid)
+
+        return filtered_hits
 
     def batch_search(self, queries: List[str], qids: List[str], k: int = 10,
                      threads: int = 1) -> Dict[str, List[JSimpleSearcherResult]]:
@@ -260,23 +282,23 @@ class SimpleFusionSearcher:
     def get_searchers(self) -> List[SimpleSearcher]:
         return self.searchers
 
-    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None) -> List[JSimpleSearcherResult]:
+    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
         trec_runs, docid_to_search_result = list(), dict()
 
         for searcher in self.searchers:
             docid_score_pair = list()
-            hits = searcher.search(q, k=k, query_generator=query_generator)
+            hits = searcher.search(q, k=k, query_generator=query_generator,
+                                   strip_segment_id=strip_segment_id, remove_dups=remove_dups)
 
             for hit in hits:
-                hit.docid = hit.docid.split('.')[0]
                 docid_to_search_result[hit.docid] = hit
                 docid_score_pair.append((hit.docid, hit.score))
 
-            run = TrecRun.from_search_results(docid_score_pair, remove_duplicates=True)
+            run = TrecRun.from_search_results(docid_score_pair)
             trec_runs.append(run)
 
         if self.method == FusionMethod.RRF:
-            fused_run = reciprocal_rank_fusion(trec_runs, rrf_k=60, depth=1000, k=k)
+            fused_run = reciprocal_rank_fusion(trec_runs, rrf_k=60, depth=1000, k=1000)
         else:
             raise NotImplementedError()
 

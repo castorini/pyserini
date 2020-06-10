@@ -177,20 +177,10 @@ class TrecRun:
         return res
 
     @staticmethod
-    def from_search_results(docid_score_pair: Tuple[str, float], topic=1, remove_duplicates: bool = False):
-        docid_score_pair_filtered, rows = [], []
-        visited_docids = set()
+    def from_search_results(docid_score_pair: Tuple[str, float], topic=1):
+        rows = []
 
-        for docid, score in docid_score_pair:
-            if docid in visited_docids:
-                continue
-
-            docid_score_pair_filtered.append((docid, score))
-
-            if remove_duplicates is True:
-                visited_docids.add(docid)
-
-        for rank, (docid, score) in enumerate(docid_score_pair_filtered, start=1):
+        for rank, (docid, score) in enumerate(docid_score_pair, start=1):
             rows.append((topic, 'Q0', docid, rank, score, 'searcher'))
 
         return TrecRun.from_list(rows)
