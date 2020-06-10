@@ -13,7 +13,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """
 Module for hiding Python-Java calls via Pyjnius
 """
@@ -66,6 +65,7 @@ JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 JTopics = autoclass('io.anserini.search.topicreader.Topics')
 
 ## IndexReaderUtils
+JIndexCollection = autoclass('io.anserini.index.IndexCollection')
 JIndexReaderUtils = autoclass('io.anserini.index.IndexReaderUtils')
 JDocumentVectorWeight = autoclass('io.anserini.index.IndexReaderUtils$DocumentVectorWeight')
 
