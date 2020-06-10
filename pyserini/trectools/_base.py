@@ -14,8 +14,6 @@
 # limitations under the License.
 #
 
-from __future__ import annotations
-
 from copy import deepcopy
 from enum import Enum
 import numpy as np
@@ -59,7 +57,7 @@ class TrecRun:
         """
         return set(sorted(self.run_data["topic"].unique()))
 
-    def clone(self) -> TrecRun:
+    def clone(self):
         """
             Returns a deep copy of the current instance.
         """
@@ -114,7 +112,23 @@ class TrecRun:
         return all_topics
 
     @staticmethod
-    def merge(runs, aggregation: AggregationMethod, depth: int = None, k: int = None) -> TrecRun:
+    def merge(runs, aggregation: AggregationMethod, depth: int = None, k: int = None):
+        """Return a TrecRun by aggregating docid in various ways such as summing scores
+
+        Parameters
+        ----------
+        runs : List[TrecRun]
+            List of ``TrecRun`` objects.
+        aggregation : AggregationMethod
+            The aggregation method to use.
+        depth : int
+            Maximum number of results from each input run to consider. Set to ``None`` by default, which indicates that
+            the complete list of results is considered.
+        k : int
+            Length of final results list.  Set to ``None`` by default, which indicates that the union of all input documents
+            are ranked.
+        """
+
         if len(runs) < 2:
             raise Exception('Merge requires at least 2 runs.')
 
@@ -138,7 +152,7 @@ class TrecRun:
         return TrecRun.from_list(rows)
 
     @staticmethod
-    def from_list(rows, run: TrecRun = None) -> TrecRun:
+    def from_list(rows, run=None):
         """Return a TrecRun by populating dataframe with the provided list of tuples.
         For performance reasons, df.to_numpy() is faster than df.iterrows().
         When manipulating dataframes, we first dump to np.ndarray and construct a list of tuples with new values.
@@ -163,7 +177,7 @@ class TrecRun:
         return res
 
     @staticmethod
-    def from_search_results(docid_score_pair: Tuple[str, float], topic=1, remove_duplicates: bool = False) -> TrecRun:
+    def from_search_results(docid_score_pair: Tuple[str, float], topic=1, remove_duplicates: bool = False):
         docid_score_pair_filtered, rows = [], []
         visited_docids = set()
 
@@ -182,7 +196,15 @@ class TrecRun:
         return TrecRun.from_list(rows)
 
     @staticmethod
-    def concat(runs: List[TrecRun]) -> TrecRun:
+    def concat(runs):
+        """Return a new TrecRun by concatenating a list of TrecRuns
+
+        Parameters
+        ----------
+        runs : List[TrecRun]
+            List of ``TrecRun`` objects.
+        """
+
         run = TrecRun()
         run.run_data = run.run_data.append([run.run_data for run in runs])
         return run
