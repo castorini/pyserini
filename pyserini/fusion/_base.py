@@ -89,7 +89,6 @@ def interpolation(runs: List[TrecRun], alpha: int = 0.5, depth: int = None, k: i
 
 def average(runs: List[TrecRun], depth: int = None, k: int = None):
     """Perform fusion by averaging on a list of ``TrecRun`` objects.
-    new_score = sum(scores) / num_runs
 
     Parameters
     ----------
