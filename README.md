@@ -127,7 +127,7 @@ A simple example can illustrate this distinction: for an article from CORD-19, `
 The `contents` are extracts from the article that's actually indexed (for example, the title and abstract).
 In most cases, `contents` can be deterministically reconstructed from the `raw`.
 When building the index, we specify flags to store `contents` and/or `raw`; it's rarely the case we store both, since it's usually a waste of space.
-In the case of this index, we only store `raw`.
+In the case of this (Robust04) index, we only store `raw`.
 Thus:
 
 ```python
