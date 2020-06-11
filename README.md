@@ -146,7 +146,7 @@ With that, you get direct access to the complete Lucene API for manipulating doc
 Every document has a `docid`, of type string, assigned by the collection it is part of.
 In addition, Lucene assigns each document a unique internal id (confusingly, Lucene also calls this the `docid`), which is an integer numbered sequentially starting from zero to one less than the number of documents in the index.
 This can be a source of confusion but the meaning is usually clear from context.
-Where there is ambiguity, we refer to the external collection `docid` and Lucene's internal `docid` to be explicit.
+Where there may be ambiguity, we refer to the external collection `docid` and Lucene's internal `docid` to be explicit.
 Programmatically, the two are distinguished by type: the first is a string and the second is an integer.
 
 As an important side note, Lucene's internal `docid`s are _not_ stable across different index instances.
