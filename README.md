@@ -112,6 +112,8 @@ for i in range(0, 10):
     print(f'{i+1:2} {hits2[i].docid:15} {hits2[i].score:.5f}')
 ```
 
+## How Do I Fetch a Document?
+
 The other commonly used feature is to fetch a document given its `docid`.
 This is easy to do:
 
@@ -125,7 +127,7 @@ A simple example can illustrate this distinction: for an article from CORD-19, `
 The `contents` are extracts from the article that's actually indexed (for example, the title and abstract).
 In most cases, `contents` can be deterministically reconstructed from the `raw`.
 When building the index, we specify flags to store `contents` and/or `raw`; it's rarely the case we store both, since it's usually a waste of space.
-In the case of this index, we only store `raw`.
+In the case of this (Robust04) index, we only store `raw`.
 Thus:
 
 ```python
@@ -137,15 +139,26 @@ doc.contents()
 doc.raw()
 ```
 
-As you'd expected, `doc.id()` returns the docid, which is `LA071090-0047` in this case.
+As you'd expected, `doc.id()` returns the `docid`, which is `LA071090-0047` in this case.
 Finally, `doc.lucene_document()` returns the underlying Lucene `Document` (i.e., a Java object).
 With that, you get direct access to the complete Lucene API for manipulating documents.
 
-If you want print the ids and contents of all documents in the index, you can do:
+Every document has a `docid`, of type string, assigned by the collection it is part of.
+In addition, Lucene assigns each document a unique internal id (confusingly, Lucene also calls this the `docid`), which is an integer numbered sequentially starting from zero to one less than the number of documents in the index.
+This can be a source of confusion but the meaning is usually clear from context.
+Where there may be ambiguity, we refer to the external collection `docid` and Lucene's internal `docid` to be explicit.
+Programmatically, the two are distinguished by type: the first is a string and the second is an integer.
+
+As an important side note, Lucene's internal `docid`s are _not_ stable across different index instances.
+That is, in two different index instances of the same collection, Lucene is likely to have assigned different internal `docid`s for the same document.
+This is because the internal `docid`s are assigned based on document ingestion order; this will vary due to thread interleaving during indexing (which is usually performed on multiple threads).
+
+The `doc` method in `searcher` takes either a string (interpreted as an external collection `docid`) or an integer (interpreted as Lucene's internal `docid`) and returns the corresponding document.
+Thus, a simple way to iterate through all documents in the collection (and for example, print out its external collection `docid`) is as follows:
+
 ```python
 for i in range(searcher.num_docs):
     print(searcher.doc(i).docid())
-    print(searcher.doc(i).contents())
 ```
 
 ## How Do I Search My Own Documents?
