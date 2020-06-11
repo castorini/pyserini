@@ -45,52 +45,44 @@ if __name__ == '__main__':
     # config
     anserini_root = args.anserini
     indexes_root = os.path.join(anserini_root, 'indexes')
-    additional_parameters = " -qld" if args.qld else ' -bm25'
-    additional_parameters = additional_parameters + " -rm3" if args.rm3 else additional_parameters
+    anserini_extras = " -qld" if args.qld else ' -bm25'
+    anserini_extras = anserini_extras + " -rm3" if args.rm3 else anserini_extras
     anserini_search = os.path.join(
-        anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec' + additional_parameters)
+        anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec' + anserini_extras)
+
+    pyserini_extras = " --qld" if args.qld else ' --bm25'
+    pyserini_extras = pyserini_extras + " --rm3" if args.rm3 else pyserini_extras
+    pyserini_search = 'python3 -m pyserini.search' + pyserini_extras
+
     anserini_eval = os.path.join(anserini_root, 'eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
-    pyserini_search = 'python3 -m pyserini.search' + additional_parameters.replace('-',' --')
 
     # set groups
     robust04 = Group(
         run_name='robust04',
-        index_path=os.path.join(
-            indexes_root, 'lucene-index.robust04.pos+docvectors+raw'),
-        topics_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/topics.robust04.txt'),
-        qrels_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/qrels.robust04.txt')
+        index_path=os.path.join(indexes_root, 'lucene-index.robust04.pos+docvectors+raw'),
+        topics_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/topics.robust04.txt'),
+        qrels_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/qrels.robust04.txt')
     )
 
     robust05 = Group(
         run_name='robust05',
-        index_path=os.path.join(
-            indexes_root, 'lucene-index.robust05.pos+docvectors+raw'),
-        topics_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/topics.robust05.txt'),
-        qrels_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/qrels.robust05.txt')
+        index_path=os.path.join(indexes_root, 'lucene-index.robust05.pos+docvectors+raw'),
+        topics_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/topics.robust05.txt'),
+        qrels_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/qrels.robust05.txt')
     )
 
     core17 = Group(
         run_name='core17',
-        index_path=os.path.join(
-            indexes_root, 'lucene-index.core17.pos+docvectors+raw'),
-        topics_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/topics.core17.txt'),
-        qrels_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/qrels.core17.txt')
+        index_path=os.path.join(indexes_root, 'lucene-index.core17.pos+docvectors+raw'),
+        topics_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/topics.core17.txt'),
+        qrels_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/qrels.core17.txt')
     )
 
     core18 = Group(
         run_name='core18',
-        index_path=os.path.join(
-            indexes_root, 'lucene-index.core18.pos+docvectors+raw'),
-        topics_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/topics.core18.txt'),
-        qrels_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/qrels.core18.txt')
+        index_path=os.path.join(indexes_root, 'lucene-index.core18.pos+docvectors+raw'),
+        topics_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/topics.core18.txt'),
+        qrels_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/qrels.core18.txt')
     )
 
     groups = [robust04, robust05, core17, core18]
@@ -120,8 +112,7 @@ if __name__ == '__main__':
             success_groups.append(group)
         else:
             fail_groups.append(group)
-            print(
-                f'[{group.run_name}] result mismatch. {group.anserini_output} != {group.pyserini_output}')
+            print(f'[{group.run_name}] result mismatch. {group.anserini_output} != {group.pyserini_output}')
 
         print('-------------------------')
 
