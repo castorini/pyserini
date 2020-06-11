@@ -112,6 +112,8 @@ for i in range(0, 10):
     print(f'{i+1:2} {hits2[i].docid:15} {hits2[i].score:.5f}')
 ```
 
+## How Do I Fetch a Document?
+
 The other commonly used feature is to fetch a document given its `docid`.
 This is easy to do:
 
