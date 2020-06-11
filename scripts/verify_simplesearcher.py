@@ -1,3 +1,4 @@
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 import argparse
 import filecmp
@@ -34,26 +36,21 @@ def remove_output_if_exist(group: Group):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='Verify search results between pyserini and anserini')
-    parser.add_argument('--anserini', metavar='path', required=True,
-                        help='the path to anserini root')
-    parser.add_argument('--rm3',  action='store_true',
-                        help='take rm3 ranker')
-    parser.add_argument('--qld', action='store_true',
-                        help='take qld ranker')
+    parser = argparse.ArgumentParser(description='Verify search results between pyserini and anserini')
+    parser.add_argument('--anserini', metavar='path', required=True, help='the path to anserini root')
+    parser.add_argument('--rm3',  action='store_true', help='take rm3 ranker')
+    parser.add_argument('--qld', action='store_true', help='take qld ranker')
     args = parser.parse_args()
 
     # config
     anserini_root = args.anserini
     indexes_root = os.path.join(anserini_root, 'indexes')
     additional_parameters = " -qld" if args.qld else ' -bm25'
-    additional_parameters = additional_parameters+" -rm3" if args.rm3 else additional_parameters
+    additional_parameters = additional_parameters + " -rm3" if args.rm3 else additional_parameters
     anserini_search = os.path.join(
-        anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec'+additional_parameters)
-    anserini_eval = os.path.join(
-        anserini_root, 'eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
-    pyserini_search = 'python3 -m pyserini.search'+additional_parameters
+        anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec' + additional_parameters)
+    anserini_eval = os.path.join(anserini_root, 'eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
+    pyserini_search = 'python3 -m pyserini.search' + additional_parameters.replace('-',' --')
 
     # set groups
     robust04 = Group(
@@ -103,7 +100,7 @@ if __name__ == '__main__':
         print(f'Running {group.run_name}:')
         remove_output_if_exist(group)
         anserini_cmd = f'{anserini_search} -index {group.index_path} -topics {group.topics_path} -output {group.anserini_output}'
-        pyserini_cmd = f'{pyserini_search} -index {group.index_path} -topics {group.run_name} -output {group.pyserini_output}'
+        pyserini_cmd = f'{pyserini_search} --index {group.index_path} --topics {group.run_name} --output {group.pyserini_output}'
 
         res = os.system(anserini_cmd)
         if res == 0:
