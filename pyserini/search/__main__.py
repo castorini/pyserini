@@ -86,7 +86,7 @@ if output_path is None:
         tokens = ['run', args.topics, '+'.join(search_rankers), 'txt']
         output_path = '.'.join(tokens)
 
-print('Output ->', output_path)
+print(f'Running {args.topics} topics, saving to {output_path}...')
 
 with open(output_path, 'w') as target_file:
     for index, topic in enumerate(tqdm(sorted(topics.keys()))):

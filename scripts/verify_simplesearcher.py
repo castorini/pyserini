@@ -47,13 +47,17 @@ if __name__ == '__main__':
     # config
     anserini_root = args.anserini
     indexes_root = os.path.join(anserini_root, 'indexes')
-    additional_parameters = " -qld" if args.qld else ' -bm25'
-    additional_parameters = additional_parameters+" -rm3" if args.rm3 else additional_parameters
-    anserini_search = os.path.join(
-        anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec'+additional_parameters)
+    anserini_extras = " -qld" if args.qld else ' -bm25'
+    anserini_extras = anserini_extras + " -rm3" if args.rm3 else anserini_extras
+    anserini_search = os.path.join(anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec'
+                                   + anserini_extras)
+
+    pyserini_extras = " --qld" if args.qld else ' --bm25'
+    pyserini_extras = pyserini_extras + " --rm3" if args.rm3 else pyserini_extras
+    pyserini_search = 'python3 -m pyserini.search' + pyserini_extras
+
     anserini_eval = os.path.join(
         anserini_root, 'eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
-    pyserini_search = 'python3 -m pyserini.search'+additional_parameters
 
     # set groups
     robust04 = Group(
@@ -103,7 +107,7 @@ if __name__ == '__main__':
         print(f'Running {group.run_name}:')
         remove_output_if_exist(group)
         anserini_cmd = f'{anserini_search} -index {group.index_path} -topics {group.topics_path} -output {group.anserini_output}'
-        pyserini_cmd = f'{pyserini_search} -index {group.index_path} -topics {group.run_name} -output {group.pyserini_output}'
+        pyserini_cmd = f'{pyserini_search} --index {group.index_path} --topics {group.run_name} --output {group.pyserini_output}'
 
         res = os.system(anserini_cmd)
         if res == 0:
