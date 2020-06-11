@@ -1,3 +1,4 @@
+#
 # Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 import argparse
 import filecmp
@@ -34,14 +36,10 @@ def remove_output_if_exist(group: Group):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='Verify search results between pyserini and anserini')
-    parser.add_argument('--anserini', metavar='path', required=True,
-                        help='the path to anserini root')
-    parser.add_argument('--rm3',  action='store_true',
-                        help='take rm3 ranker')
-    parser.add_argument('--qld', action='store_true',
-                        help='take qld ranker')
+    parser = argparse.ArgumentParser(description='Verify search results between pyserini and anserini')
+    parser.add_argument('--anserini', metavar='path', required=True, help='the path to anserini root')
+    parser.add_argument('--rm3',  action='store_true', help='take rm3 ranker')
+    parser.add_argument('--qld', action='store_true', help='take qld ranker')
     args = parser.parse_args()
 
     # config
@@ -49,55 +47,42 @@ if __name__ == '__main__':
     indexes_root = os.path.join(anserini_root, 'indexes')
     anserini_extras = " -qld" if args.qld else ' -bm25'
     anserini_extras = anserini_extras + " -rm3" if args.rm3 else anserini_extras
-    anserini_search = os.path.join(anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec'
-                                   + anserini_extras)
+    anserini_search = os.path.join(
+        anserini_root, 'target/appassembler/bin/SearchCollection -topicreader Trec' + anserini_extras)
 
     pyserini_extras = " --qld" if args.qld else ' --bm25'
     pyserini_extras = pyserini_extras + " --rm3" if args.rm3 else pyserini_extras
     pyserini_search = 'python3 -m pyserini.search' + pyserini_extras
 
-    anserini_eval = os.path.join(
-        anserini_root, 'eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
+    anserini_eval = os.path.join(anserini_root, 'eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
 
     # set groups
     robust04 = Group(
         run_name='robust04',
-        index_path=os.path.join(
-            indexes_root, 'lucene-index.robust04.pos+docvectors+raw'),
-        topics_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/topics.robust04.txt'),
-        qrels_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/qrels.robust04.txt')
+        index_path=os.path.join(indexes_root, 'lucene-index.robust04.pos+docvectors+raw'),
+        topics_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/topics.robust04.txt'),
+        qrels_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/qrels.robust04.txt')
     )
 
     robust05 = Group(
         run_name='robust05',
-        index_path=os.path.join(
-            indexes_root, 'lucene-index.robust05.pos+docvectors+raw'),
-        topics_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/topics.robust05.txt'),
-        qrels_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/qrels.robust05.txt')
+        index_path=os.path.join(indexes_root, 'lucene-index.robust05.pos+docvectors+raw'),
+        topics_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/topics.robust05.txt'),
+        qrels_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/qrels.robust05.txt')
     )
 
     core17 = Group(
         run_name='core17',
-        index_path=os.path.join(
-            indexes_root, 'lucene-index.core17.pos+docvectors+raw'),
-        topics_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/topics.core17.txt'),
-        qrels_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/qrels.core17.txt')
+        index_path=os.path.join(indexes_root, 'lucene-index.core17.pos+docvectors+raw'),
+        topics_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/topics.core17.txt'),
+        qrels_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/qrels.core17.txt')
     )
 
     core18 = Group(
         run_name='core18',
-        index_path=os.path.join(
-            indexes_root, 'lucene-index.core18.pos+docvectors+raw'),
-        topics_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/topics.core18.txt'),
-        qrels_path=os.path.join(
-            anserini_root, 'src/main/resources/topics-and-qrels/qrels.core18.txt')
+        index_path=os.path.join(indexes_root, 'lucene-index.core18.pos+docvectors+raw'),
+        topics_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/topics.core18.txt'),
+        qrels_path=os.path.join(anserini_root, 'src/main/resources/topics-and-qrels/qrels.core18.txt')
     )
 
     groups = [robust04, robust05, core17, core18]
@@ -127,8 +112,7 @@ if __name__ == '__main__':
             success_groups.append(group)
         else:
             fail_groups.append(group)
-            print(
-                f'[{group.run_name}] result mismatch. {group.anserini_output} != {group.pyserini_output}')
+            print(f'[{group.run_name}] result mismatch. {group.anserini_output} != {group.pyserini_output}')
 
         print('-------------------------')
 
