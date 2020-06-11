@@ -32,7 +32,7 @@ for i in range(0, 10):
     print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
 ```
 
-The results should be exactly as:
+The results should be exactly the same as:
 
 ```python
 hits = searcher.search('hubble space telescope')
