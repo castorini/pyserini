@@ -176,9 +176,9 @@ The simplest, however, is the following JSON format:
 A document is simply comprised of two fields, a `docid` and `contents`.
 Pyserini accepts collections comprised of these documents organized in three different ways:
 
-+ A folder containing each JSON in its own file, like [this](integrations/resources/sample_collection_json).
-+ A folder containing a bunch of files, each of which is an array of JSON documents, like [this](integrations/resources/sample_collection_json_array).
-+ A folder containing a bunch of files, each with a JSON document on an individual line, like [this](integrations/resources/sample_collection_json). (This is often called JSONL.)
++ Folder with each JSON in its own file, like [this](integrations/resources/sample_collection_json).
++ Folder with files, each of which contains an array of JSON documents, like [this](integrations/resources/sample_collection_json_array).
++ Folder with files, each of which contains a JSON on an individual line, like [this](integrations/resources/sample_collection_json) (often called JSONL format).
 
 So, the quickest way to get started is to write a script that converts your documents into the above format.
 Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
