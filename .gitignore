@@ -10,4 +10,6 @@ indexes/*
 build/
 dist/
 pyserini.egg-info/
+# runs should be ignored
+runs/
 
