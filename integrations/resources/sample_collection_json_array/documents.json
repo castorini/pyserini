@@ -1,0 +1,14 @@
+[
+  {
+    "id": "doc1",
+    "contents": "contents of doc one."
+  },
+  {
+    "id": "doc2",
+    "contents": "contents of document two."
+  },
+  {
+    "id": "doc3",
+    "contents": "here's some text in document three."
+  }
+]

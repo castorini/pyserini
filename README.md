@@ -163,8 +163,45 @@ for i in range(searcher.num_docs):
 
 ## How Do I Search My Own Documents?
 
-This is an often-requested feature, but unfortunately we haven't gotten around to implemented it yet.
-See [Issue #77](https://github.com/castorini/pyserini/issues/77) and [this guide](https://github.com/castorini/anserini/blob/master/docs/custom-collections.md) as a stopgap.
+Pyserini (via Anserini) provides ingestors for document collections in many different formats.
+The simplest, however, is the following JSON format:
+
+```json
+{
+  "id": "doc1",
+  "contents": "this is the contents."
+}
+```
+
+A document is simply comprised of two fields, a `docid` and `contents`.
+Pyserini accepts collections comprised of these documents organized in three different ways:
+
++ Folder with each JSON in its own file, like [this](integrations/resources/sample_collection_json).
++ Folder with files, each of which contains an array of JSON documents, like [this](integrations/resources/sample_collection_json_array).
++ Folder with files, each of which contains a JSON on an individual line, like [this](integrations/resources/sample_collection_json) (often called JSONL format).
+
+So, the quickest way to get started is to write a script that converts your documents into the above format.
+Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
+
+```bash
+python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
+ -threads 1 -input integrations/resources/sample_collection_jsonl \
+ -index indexes/sample_collection_jsonl -storePositions -storeDocvectors -storeRaw
+```
+
+Once this is done, you can use `SimpleSearcher` to search the index:
+
+```python
+from pyserini.search import SimpleSearcher
+
+searcher = SimpleSearcher('indexes/sample_collection_jsonl')
+hits = searcher.search('document')
+
+for i in range(len(hits)):
+    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
+```
+
+Happy honking!
 
 ## Additional Documentation
 
