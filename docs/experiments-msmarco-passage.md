@@ -110,7 +110,8 @@ map                   	all	0.1957
 recall_1000           	all	0.8573
 ```
 
-Average precision or AP (also called mean average precision, MAP) and recall@1000 are the two metrics we care about the most.
-AP captures aspects of both precision and recall in a single metric, and recall@1000 provides the upper bound effectiveness of given downstream reranking modules (i.e., rerankers are useless if there isn't a relevant document in the results).
+Average precision or AP (also called mean average precision, MAP) and recall@1000 (recall at rank 1000) are the two metrics we care about the most.
+AP captures aspects of both precision and recall in a single metric, and is the most common metric used by information retrieval researchers.
+On the other hand, recall@1000 provides the upper bound effectiveness of downstream reranking modules (i.e., rerankers are useless if there isn't a relevant document in the results).
 
 ## Replication Log
