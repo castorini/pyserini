@@ -169,7 +169,7 @@ See [Issue #77](https://github.com/castorini/pyserini/issues/77) and [this guide
 ## Additional Documentation
 
 + [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
-+ [Guide to running BM25 baselines on the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
++ [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
 + [Usage of the Analyzer API](docs/usage-analyzer.md)
 + [Usage of the Index Reader API](docs/usage-indexreader.md)
 + [Usage of the Query Builder API](docs/usage-querybuilder.md)
