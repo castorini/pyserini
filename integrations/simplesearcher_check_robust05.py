@@ -33,22 +33,22 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.checker = SimpleSearcherChecker(
             anserini_root=anserini_root,
-            index=os.path.join(anserini_root, 'indexes/lucene-index.robust04.pos+docvectors+raw'),
-            topics=os.path.join(pyserini_root, 'tools/topics-and-qrels/topics.robust04.txt'),
-            pyserini_topics='robust04',
-            qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.robust04.txt'))
+            index=os.path.join(anserini_root, 'indexes/lucene-index.robust05.pos+docvectors+raw'),
+            topics=os.path.join(pyserini_root, 'tools/topics-and-qrels/topics.robust05.txt'),
+            pyserini_topics='robust05',
+            qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.robust05.txt'))
 
     def test_bm25(self):
-        self.assertTrue(self.checker.run('robust04_bm25', '-bm25', '--bm25'))
+        self.assertTrue(self.checker.run('robust05_bm25', '-bm25', '--bm25'))
 
     def test_bm25_rm3(self):
-        self.assertTrue(self.checker.run('robust04_bm25_rm3', '-bm25 -rm3', '--bm25 --rm3'))
+        self.assertTrue(self.checker.run('robust05_bm25_rm3', '-bm25 -rm3', '--bm25 --rm3'))
 
     def test_qld(self):
-        self.assertTrue(self.checker.run('robust04_qld', '-qld', '--qld'))
+        self.assertTrue(self.checker.run('robust05_qld', '-qld', '--qld'))
 
     def test_qld_rm3(self):
-        self.assertTrue(self.checker.run('robust04_qld_rm3', '-qld -rm3', '--qld --rm3'))
+        self.assertTrue(self.checker.run('robust05_qld_rm3', '-qld -rm3', '--qld --rm3'))
 
     def tearDown(self):
         pass
