@@ -66,8 +66,6 @@ if __name__ == "__main__":
     article = None
 
     for (i, d) in enumerate(articles):
-        if i == 100:
-            break
         article = pyserini.collection.Cord19Article(d.raw)
         if article.is_full_text():
             bib = article.bib_entries()
