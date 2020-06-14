@@ -41,11 +41,11 @@ def create_dict(key, value):
     data[key] = value
     return data
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-path', type=dir_path)
-    parser.add_argument("-node_file", default="node.csv")
-    parser.add_argument("-edge_file", default="edge.csv")
+    parser.add_argument('--path', type=dir_path)
+    parser.add_argument('--node_file', default='node.csv')
+    parser.add_argument('--edge_file', default='edge.csv')
     args = parser.parse_args()
     collection = pyserini.collection.Collection('Cord19AbstractCollection', args.path)
     articles = collection.__next__()
