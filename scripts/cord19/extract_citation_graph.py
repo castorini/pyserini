@@ -90,22 +90,23 @@ if __name__ == "__main__":
                             if title in mapping:
                                 node(args.node_file, 'a', [mapping[title], title, publish_time])
                                 edge(args.edge_file, 'a', [mapping[article.title()], mapping[title], title])
+                                check_replication.update(create_dict(title, ''))
                             elif 'DOI' in bib[number]['other_ids'] and bib[number]['other_ids']['DOI']:
                                 node(args.node_file, 'a', [bib[number]['other_ids']['DOI'], title, publish_time])
                                 edge(args.edge_file, 'a', [mapping[article.title()], bib[number]['other_ids']['DOI'], title])
+                                check_replication.update(create_dict(title, ''))
                             else:
                                 node(args.node_file, 'a', ["not_in_collection_%d" %count, title, publish_time])
                                 edge(args.edge_file, 'a', [mapping[article.title()], "not_in_collection_%d" %count, title])
+                                check_replication.update(create_dict(title, "not_in_collection_%d" %count))
                                 count = count + 1
-                            check_replication.update(create_dict(title, ''))
                         else:
                             if title in mapping:
                                 edge(args.edge_file, 'a', [mapping[article.title()], mapping[title], title])
                             elif 'DOI' in bib[number]['other_ids'] and bib[number]['other_ids']['DOI']:
                                 edge(args.edge_file, 'a', [mapping[article.title()], bib[number]['other_ids']['DOI'], title])
                             else:
-                                edge(args.edge_file, 'a', [mapping[article.title()], "not_in_collection_%d" %count, title])
-                                count = count + 1
+                                edge(args.edge_file, 'a', [mapping[article.title()], check_replication[title], title])
                     j = j + 1
                     number = 'BIBREF%d' % j
                 elif j < len(bib):
