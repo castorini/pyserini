@@ -1,6 +1,7 @@
-# Pyserini: MS MARCO Passage Retrieval BM25 Baseline
+# Pyserini: BM25 Baseline for MS MARCO Passage Retrieval
 
 This guide contains instructions for running BM25 baselines on the [MS MARCO *passage* ranking task](https://microsoft.github.io/msmarco/), which is nearly identical to a [similar guide in Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md), except that everything is in Python here (no Java).
+Note that there is a separate guide for the [MS MARCO *document* ranking task](experiments-msmarco-doc.md).
 
 ## Data Prep
 
