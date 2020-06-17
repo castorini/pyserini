@@ -58,13 +58,22 @@ map                   	all	0.2310
 recall_1000           	all	0.8856
 ```
 
-Let's compare to the baselines provided by Microsoft (note that to be fair, we restrict evaluation to top 100 hits per topic):
+Let's compare to the baselines provided by Microsoft.
+First, download:
 
 ```
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mmap -M 100 collections/msmarco-doc/queries-and-qrels/msmarco-docdev-qrels.tsv collections/msmarco-doc/queries-and-qrels/msmarco-docdev-top100
+wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-docdev-top100.gz -P runs
+gunzip runs/msmarco-docdev-top100.gz
+```
+
+Then, run `trec_eval` to compare.
+Note that to be fair, we restrict evaluation to top 100 hits per topic (which is what Microsoft provides):
+
+```
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mmap -M 100 src/main/resources/topics-and-qrels/qrels.msmarco-doc.dev.txt runs/msmarco-docdev-top100
 map                   	all	0.2219
 
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mmap -M 100 collections/msmarco-doc/queries-and-qrels/msmarco-docdev-qrels.tsv runs/run.msmarco-doc.dev.bm25.txt
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mmap -M 100 src/main/resources/topics-and-qrels/qrels.msmarco-doc.dev.txt runs/run.msmarco-doc.dev.bm25.txt
 map                   	all	0.2303
 ```
 
