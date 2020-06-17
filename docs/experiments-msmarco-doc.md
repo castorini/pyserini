@@ -30,62 +30,18 @@ python -m pyserini.index -collection CleanTrecCollection \
 ```
 
 On a modern desktop with an SSD, indexing takes around 40 minutes.
-The final log lines should look something like this:
+There should be a total of 3,213,835 documents indexed.
 
-```
-2020-01-14 16:36:30,954 INFO  [main] index.IndexCollection (IndexCollection.java:851) - ============ Final Counter Values ============
-2020-01-14 16:36:30,955 INFO  [main] index.IndexCollection (IndexCollection.java:852) - indexed:        3,213,835
-2020-01-14 16:36:30,955 INFO  [main] index.IndexCollection (IndexCollection.java:853) - unindexable:            0
-2020-01-14 16:36:30,955 INFO  [main] index.IndexCollection (IndexCollection.java:854) - empty:                  0
-2020-01-14 16:36:30,955 INFO  [main] index.IndexCollection (IndexCollection.java:855) - skipped:                0
-2020-01-14 16:36:30,955 INFO  [main] index.IndexCollection (IndexCollection.java:856) - errors:                 0
-2020-01-14 16:36:30,961 INFO  [main] index.IndexCollection (IndexCollection.java:859) - Total 3,213,835 documents indexed in 00:45:32
-```
 
 ## Performing Retrieval on the Dev Queries
 
-Let's download the queries and qrels:
+After indexing finishes, we can do a retrieval run.
+The dev queries are already stored in our repo:
 
 ```
-mkdir collections/msmarco-doc/queries-and-qrels
-wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-doctrain-queries.tsv.gz -P collections/msmarco-doc/queries-and-qrels
-wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-doctrain-top100.gz -P collections/msmarco-doc/queries-and-qrels
-wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-doctrain-qrels.tsv.gz -P collections/msmarco-doc/queries-and-qrels
-
-wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-docdev-queries.tsv.gz -P collections/msmarco-doc/queries-and-qrels
-wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-docdev-top100.gz -P collections/msmarco-doc/queries-and-qrels
-wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-docdev-qrels.tsv.gz -P collections/msmarco-doc/queries-and-qrels
-
-# Alternative mirrors:
-# wget https://www.dropbox.com/s/p6k7ph7v0r400ab/msmarco-doctrain-queries.tsv.gz -P collections/msmarco-doc/queries-and-qrels
-# wget https://www.dropbox.com/s/zyt1n2gpylt0dhj/msmarco-doctrain-top100.gz -P collections/msmarco-doc/queries-and-qrels
-# wget https://www.dropbox.com/s/7xw812wpf4t3fpu/msmarco-doctrain-qrels.tsv.gz -P collections/msmarco-doc/queries-and-qrels
-# wget https://www.dropbox.com/s/d5wcox23s17wpf1/msmarco-docdev-queries.tsv.gz -P collections/msmarco-doc/queries-and-qrels
-# wget https://www.dropbox.com/s/vamkn5dppjhygm5/msmarco-docdev-top100.gz -P collections/msmarco-doc/queries-and-qrels
-# wget https://www.dropbox.com/s/9ad6f8midcmlrrx/msmarco-docdev-qrels.tsv.gz -P collections/msmarco-doc/queries-and-qrels
-
-gunzip collections/msmarco-doc/queries-and-qrels/*.gz
-```
-
-Here are the sizes:
-
-```
-$ wc collections/msmarco-doc/queries-and-qrels/*.tsv
-    5193   20772  108276 collections/msmarco-doc/queries-and-qrels/msmarco-docdev-qrels.tsv
-    5193   35787  220304 collections/msmarco-doc/queries-and-qrels/msmarco-docdev-queries.tsv
-  367013 1468052 7539008 collections/msmarco-doc/queries-and-qrels/msmarco-doctrain-qrels.tsv
-  367013 2551279 15480364 collections/msmarco-doc/queries-and-qrels/msmarco-doctrain-queries.tsv
-  744412 4075890 23347952 total
-```
-
-There are indeed lots of training queries!
-In this guide, to save time, we are only going to perform retrieval on the dev queries.
-This can be accomplished as follows:
-
-```
-python -m pyserini.search --index indexes/msmarco-doc/lucene-index.msmarco-doc.pos+docvectors+rawdocs \
- --topicreader TsvInt --topics collections/msmarco-doc/queries-and-qrels/msmarco-docdev-queries.tsv \
- --output runs/run.msmarco-doc.dev.bm25.txt -bm25
+python -m pyserini.search --topics msmarco_doc_dev \
+ --index indexes/msmarco-doc/lucene-index.msmarco-doc.pos+docvectors+rawdocs \
+ --output runs/run.msmarco-doc.dev.bm25.txt --bm25
 ```
 
 On a modern desktop with an SSD, the run takes around 12 minutes.
