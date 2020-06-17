@@ -29,6 +29,8 @@ python -m pyserini.index -collection CleanTrecCollection \
  -storePositions -storeDocvectors -storeRaw >& logs/log.msmarco-doc.pos+docvectors+rawdocs &
 ```
 
+Note that the indexing program simply dispatches command-line arguments to an underlying Java program, and so we use the Java single dash convention, e.g., `-index` and not `--index`.
+
 On a modern desktop with an SSD, indexing takes around 40 minutes.
 There should be a total of 3,213,835 documents indexed.
 
