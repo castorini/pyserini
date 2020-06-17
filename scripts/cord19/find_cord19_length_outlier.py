@@ -19,7 +19,7 @@ import pandas as pd
 
 sys.path.insert(0, './')
 
-from pyserini.collection import pycollection
+from pyserini.collection import Collection, Cord19Article
 
 
 def main(path, coef, top):
@@ -29,12 +29,12 @@ def main(path, coef, top):
     documents_empty_body = dict()
 
     cnt = 0
-    collection = pycollection.Collection('Cord19AbstractCollection', path)
+    collection = Collection('Cord19AbstractCollection', path)
     articles = collection.__next__()
 
     # iterate through raw collection
     for (i, d) in enumerate(articles):
-        article = pycollection.Cord19Article(d.raw)
+        article = Cord19Article(d.raw)
         # documents with empty abstract
         if len(article.abstract()) == 0:
             documents_zero_abs.setdefault(article.cord_uid(), [])

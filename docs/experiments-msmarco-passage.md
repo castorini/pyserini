@@ -37,35 +37,38 @@ python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocu
 Note that the indexing program simply dispatches command-line arguments to an underlying Java program, and so we use the Java single dash convention, e.g., `-index` and not `--index`.
 
 Upon completion, we should have an index with 8,841,823 documents.
-The indexing speed may vary... on a modern desktop with an SSD, indexing takes a couple of minutes.
+The indexing speed may vary; on a modern desktop with an SSD, indexing takes a couple of minutes.
 
-## Retrieving and Evaluating the Dev set
+## Performing Retrieval on the Dev Queries
 
 Since queries of the set are too many (+100k), it would take a long time to retrieve all of them. To speed this up, we use only the queries that are in the qrels file:
 
 ```bash
-python tools/scripts/msmarco/filter_queries.py --qrels collections/msmarco-passage/qrels.dev.small.tsv \
- --queries collections/msmarco-passage/queries.dev.tsv --output collections/msmarco-passage/queries.dev.small.tsv
+python tools/scripts/msmarco/filter_queries.py \
+ --qrels collections/msmarco-passage/qrels.dev.small.tsv \
+ --queries collections/msmarco-passage/queries.dev.tsv \
+ --output collections/msmarco-passage/queries.dev.small.tsv
 ```
 
 The output queries file should contain 6980 lines.
-
-We can now retrieve this smaller set of queries:
+We can now perform a retrieval run using this smaller set of queries:
 
 ```bash
 python tools/scripts/msmarco/retrieve.py --hits 1000 --threads 1 \
- --index indexes/msmarco-passage/lucene-index-msmarco --queries collections/msmarco-passage/queries.dev.small.tsv \
+ --index indexes/msmarco-passage/lucene-index-msmarco \
+ --queries collections/msmarco-passage/queries.dev.small.tsv \
  --output runs/run.msmarco-passage.dev.small.tsv
 ```
 
 Note that by default, the above script uses BM25 with tuned parameters `k1=0.82`, `b=0.68`.
-The option `-hits` specifies the of documents per query to be retrieved.
-Thus, the output file should have approximately 6980 * 1000 = 6.9M lines.
+The option `--hits` specifies the of documents per query to be retrieved.
+Thus, the output file should have approximately 6980 × 1000 = 6.9M lines.
 
 Retrieval speed will vary by machine:
 On a modern desktop with an SSD, we can get ~0.07 s/query, so the run should finish in under ten minutes.
-We can also perform multi-threaded retrieval by changing the `--threads` argument.
-Similarly, we can perform multi-threaded retrieval by changing the `-threads` argument.
+We can perform multi-threaded retrieval by changing the `--threads` argument.
+
+## Evaluating the Results
 
 Finally, we can evaluate the retrieved documents using this the official MS MARCO evaluation script:
 
