@@ -12,4 +12,5 @@ dist/
 pyserini.egg-info/
 # runs should be ignored
 runs/
-
+# logs should also be ignored
+logs/
