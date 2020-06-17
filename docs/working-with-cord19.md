@@ -107,23 +107,34 @@ Create a unique constraint on `cord_uid` to improve lookup time:
 ```
 CREATE CONSTRAINT cord_uid ON (n:Article) ASSERT n.cord_uid IS UNIQUE
 ```
-
-Create articles nodes with metadata:
 ```
-LOAD CSV WITH HEADERS FROM 'file:///node.csv' AS row
-MERGE(a:Article {cord_uid:row.id})
-ON CREATE SET a.paper_title = row.title, a.publication_date = row.publication_date
+CREATE CONSTRAINT title ON (n:Article) ASSERT n.title IS UNIQUE
 ```
 
-
-Create relationships for citations:
+Create article nodes for full-text papers in CORD-19.
 ```
-LOAD CSV WITH HEADERS FROM 'file:///edge.csv' AS row
-MATCH(article:Article {cord_uid:row.source})
-MERGE(cited:Article {citation_cord_uid:row.target, citation_title:row.target_title})
-MERGE (article)-[r:BIB_REF]->(cited)
+LOAD CSV WITH HEADERS FROM 'file:///articles.csv' AS row
+MERGE (a:Article {cord_uid:row.cord_uid})
+SET a.title = row.title
 ```
 
+Create nodes for all the cited articles.
+```
+:auto USING PERIODIC COMMIT 1000
+LOAD CSV WITH HEADERS FROM 'file:///edges.csv' AS row
+MERGE (cited:Article {title:row.target_title})
+WITH row, cited WHERE cited.doi IS NULL AND row.doi IS NOT NULL
+SET cited.doi = row.doi
+```
+
+Create citations for cited papers.
+```
+:auto USING PERIODIC COMMIT 1000
+LOAD CSV WITH HEADERS FROM 'file:///edges.csv' AS row
+MATCH (article:Article {cord_uid:row.cord_uid})
+MATCH (cited:Article {title:row.target_title})
+CREATE (article)-[r:BIB_REF]->(cited)
+```
 
 Run a test query, return the top 10 cited articles:
 ```

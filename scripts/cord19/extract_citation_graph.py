@@ -12,105 +12,50 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-import pyserini.collection
 import argparse
 import os
-import json
 import csv
 
-def dir_path(path):
-    if os.path.isdir(path):
-        return path
-    else:
-        raise argparse.ArgumentTypeError(f"{path} is not a valid path")
+import pyserini.collection
 
-def node(node_file, mode, fieldnames):
-    with open(node_file, mode) as file1:
-        writer = csv.writer(file1)
-        writer.writerow(fieldnames)
 
-def edge(edge_file, mode, fieldnames):
-    with open(edge_file, mode) as file2:
-        writer = csv.writer(file2)
-        writer.writerow(fieldnames)
+def escape_title(title):
+    # Neo4j CSV loader is sensitive to double qoutes
+    return title.replace("\"", "\\'").replace("\\", "")
 
-def create_dict(key, value):
-    data = {}
-    data[key] = value
-    return data
+def main(path):
+    collection = pyserini.collection.Collection('Cord19AbstractCollection', path)
+    articles = collection.__next__()
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-path', type=dir_path)
-    parser.add_argument("-node_file", default="node.csv")
-    parser.add_argument("-edge_file", default="edge.csv")
+    with open("articles.csv", 'w') as article_csv, open("edges.csv", 'w') as edge_csv:
+        article_csv = csv.writer(article_csv)
+        edge_csv = csv.writer(edge_csv)
+        article_csv.writerow(["cord_uid", "title"])
+        edge_csv.writerow(["cord_uid", "target_title", "doi"])
+
+        prev_titles = set()
+        for d in articles:
+            article = pyserini.collection.Cord19Article(d.raw)
+            title = article.title()
+            if article.is_full_text() and title and title not in prev_titles:
+                article_data = [article.cord_uid(), escape_title(title)]
+                article_csv.writerow(article_data)
+                prev_titles.add(title)
+
+                bib_entries = article.bib_entries()
+                # Create edge between article and each cited title
+                for bib_ref in bib_entries:
+                    ref = bib_entries[bib_ref]
+                    if ref['title']:
+                        doi = ref['other_ids'].get('DOI')
+                        doi = None if doi == [] or doi is None else doi[0]
+                        edge = [article.cord_uid(), escape_title(ref['title']), doi]
+                        edge_csv.writerow(edge)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Load CORD-19 citation data into Neo4j')
+    parser.add_argument('--path', type=str, required=True, help='The path to CORD-19 collection')
     args = parser.parse_args()
-    collection = pyserini.collection.Collection('Cord19AbstractCollection', args.path)
-    articles = collection.__next__()
-    article = None
-    mapping = {}
-    node(args.node_file, 'w', ["id", "title", "publication_date"])
-    edge(args.edge_file, 'w', ["source", "target", "target_title"])
-    mapping = {}
-    check_replication = {}
-    for (i, d) in enumerate(articles):
-        article = pyserini.collection.Cord19Article(d.raw)
-        if article.title() not in mapping:
-            mapping.update(create_dict(article.title(), article.cord_uid()))
-            
-    count = 1
-    collection = pyserini.collection.Collection('Cord19AbstractCollection', args.path)
-    articles = collection.__next__()
-    article = None
-
-    for (i, d) in enumerate(articles):
-        article = pyserini.collection.Cord19Article(d.raw)
-        if article.is_full_text():
-            bib = article.bib_entries()
-            if article.title() not in check_replication:
-                if 'publish_time' in article.metadata():
-                    publish_time = article.metadata()['publish_time']
-                else:
-                    publish_time = ''
-                node(args.node_file, 'a', [mapping[article.title()], article.title(), publish_time])
-                check_replication.update(create_dict(article.title(), ''))
-            j = 0
-            number = 'BIBREF%d' %j
-            while True:
-                if number in bib:
-                    title = bib[number]['title']
-                    if title:
-                        if 'year' in bib[number]:
-                            publish_time = bib[number]['year']
-                        else:
-                            publish_time = ''
-                        if title not in check_replication:
-                            if title in mapping:
-                                node(args.node_file, 'a', [mapping[title], title, publish_time])
-                                edge(args.edge_file, 'a', [mapping[article.title()], mapping[title], title])
-                            elif 'DOI' in bib[number]['other_ids'] and bib[number]['other_ids']['DOI']:
-                                node(args.node_file, 'a', [bib[number]['other_ids']['DOI'], title, publish_time])
-                                edge(args.edge_file, 'a', [mapping[article.title()], bib[number]['other_ids']['DOI'], title])
-                            else:
-                                node(args.node_file, 'a', ["not_in_collection_%d" %count, title, publish_time])
-                                edge(args.edge_file, 'a', [mapping[article.title()], "not_in_collection_%d" %count, title])
-                                count = count + 1
-                            check_replication.update(create_dict(title, ''))
-                        else:
-                            if title in mapping:
-                                edge(args.edge_file, 'a', [mapping[article.title()], mapping[title], title])
-                            elif 'DOI' in bib[number]['other_ids'] and bib[number]['other_ids']['DOI']:
-                                edge(args.edge_file, 'a', [mapping[article.title()], bib[number]['other_ids']['DOI'], title])
-                            else:
-                                edge(args.edge_file, 'a', [mapping[article.title()], "not_in_collection_%d" %count, title])
-                                count = count + 1
-                    j = j + 1
-                    number = 'BIBREF%d' % j
-                elif j < len(bib):
-                    j = j + 1
-                    number = 'BIBREF%d' % j
-                else:
-                    break
-
+    main(args.path)
