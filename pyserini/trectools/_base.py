@@ -198,3 +198,61 @@ class TrecRun:
         run = TrecRun()
         run.run_data = run.run_data.append([run.run_data for run in runs])
         return run
+
+
+class TrecQrels:
+    """Wrapper class for trec qrels.
+
+    Parameters
+    ----------
+    filepath : str
+        File path of a given Trec Qrels.
+    """
+
+    columns = ['topic', 'q0', 'docid', 'relevance']
+
+    def __init__(self, filepath: str = None):
+        self.filepath = filepath
+        self.qrels_data = pd.DataFrame(columns=TrecQrels.columns)
+
+        if filepath is not None:
+            self.read_run(self.filepath)
+
+    def read_run(self, filepath: str):
+        self.qrels_data = pd.read_csv(filepath, sep='\s+', names=TrecQrels.columns)
+
+    def _get_relevance(self) -> Set[str]:
+        """
+            Returns a set with all relevances.
+        """
+
+        return set(sorted(self.qrels_data["relevance"].unique()))
+
+    def topics(self) -> Set[str]:
+        """
+            Returns a set with all topics.
+        """
+
+        return set(sorted(self.qrels_data["topic"].unique()))
+
+    def get_docids(self, relevance=None, topics=None) -> List[str]:
+        """Return a list of docids given the topics & relevance of interest
+
+        Parameters:
+        ----------
+        relevance : List[int]
+            E.g. [0, 1, 2]. If not provided, then all relevance will be returned.
+        topics : List[int]
+            If not provided, all topics will be returned.
+        """
+
+        if relevance is None:
+            relevance = self._get_relevance()
+
+        if topics is None:
+            topics = self.topics()
+
+        filtered_df = self.qrels_data[self.qrels_data['topic'].isin(topics)]
+        filtered_df = filtered_df[filtered_df['relevance'].isin(relevance)]
+
+        return filtered_df['docid'].tolist()

@@ -14,6 +14,6 @@
 # limitations under the License.
 #
 
-from ._base import AggregationMethod, RescoreMethod, TrecRun
+from ._base import AggregationMethod, RescoreMethod, TrecRun, TrecQrels
 
-__all__ = ['AggregationMethod', 'RescoreMethod', 'TrecRun']
+__all__ = ['AggregationMethod', 'RescoreMethod', 'TrecRun', 'TrecQrels']
