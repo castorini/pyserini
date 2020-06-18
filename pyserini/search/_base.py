@@ -21,7 +21,7 @@ class, which wraps the Java class with the same name in Anserini.
 
 import logging
 
-from ..pyclass import autoclass
+from ..pyclass import autoclass, JPaths
 
 logger = logging.getLogger(__name__)
 
@@ -119,6 +119,22 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_BL)
     else:
         return {}
+    t = {}
+    for topic in topics.keySet().toArray():
+        # Try and parse the keys into integers
+        try:
+            topic_key = int(topic)
+        except ValueError:
+            topic_key = topic
+        t[topic_key] = {}
+        for key in topics.get(topic).keySet().toArray():
+            t[topic_key][key] = topics.get(topic).get(key)
+    return t
+
+
+def get_topics_with_reader(reader_class, file):
+    # Yes, this is an insanely ridiculous method name.
+    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(reader_class, file)
     t = {}
     for topic in topics.keySet().toArray():
         # Try and parse the keys into integers
