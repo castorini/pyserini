@@ -25,7 +25,7 @@ parser.add_argument('--runs', type=str, nargs='+', default=[], required=True,
                     help='List of run files separated by space.')
 parser.add_argument('--output', type=str, required=True, help="Path to resulting fused txt.")
 parser.add_argument('--runtag', type=str, default="pyserini.fusion", help="Tag name of fused run.")
-parser.add_argument('--method', type=FusionMethod, help="The fusion method to be used.")
+parser.add_argument('--method', type=FusionMethod, default=FusionMethod.RRF, help="The fusion method to be used.")
 parser.add_argument('--rrf.k', dest='rrf_k', type=int, default=60,
                     help="Parameter k needed for reciprocal rank fusion.")
 parser.add_argument('--alpha', type=float, default=0.5, required=False, help='Alpha value used for interpolation.')
