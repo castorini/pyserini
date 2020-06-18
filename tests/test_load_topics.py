@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+import os
 import unittest
 
 from pyserini import search
@@ -116,6 +117,32 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual('d7d906991e2883889f850de9ae06655e', topics[870]['title'])
         self.assertEqual('0d7f5e24cafc019265d3ee4b9745e7ea', topics[829]['title'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_tsv_int_topicreader(self):
+        # Running from command-line, we're in root of repo, but running in IDE, we're in tests/
+        path = 'tools/topics-and-qrels/topics.msmarco-doc.dev.txt'
+        if not os.path.exists(path):
+            path = f'../{path}'
+
+        self.assertTrue(os.path.exists(path))
+        topics = search.get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', path)
+        self.assertEqual(len(topics), 5193)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        self.assertEqual(search.get_topics('msmarco_doc_dev'), topics)
+
+    def test_trec_topicreader(self):
+        # Running from command-line, we're in root of repo, but running in IDE, we're in tests/
+        path = 'tools/topics-and-qrels/topics.robust04.txt'
+        if not os.path.exists(path):
+            path = f'../{path}'
+
+        self.assertTrue(os.path.exists(path))
+        topics = search.get_topics_with_reader('io.anserini.search.topicreader.TrecTopicReader', path)
+        self.assertEqual(len(topics), 250)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        self.assertEqual(search.get_topics('robust04'), topics)
 
 
 if __name__ == '__main__':

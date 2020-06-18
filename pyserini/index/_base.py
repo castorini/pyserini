@@ -33,7 +33,6 @@ logger = logging.getLogger(__name__)
 
 # Wrappers around Anserini classes
 JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
-JDocumentVectorWeight = autoclass('io.anserini.index.IndexReaderUtils$DocumentVectorWeight')
 
 
 class JIndexHelpers:
