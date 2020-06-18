@@ -18,21 +18,21 @@ There are many other [models](https://spacy.io/usage/models) supporting differen
 
 ## Search
 
-Here's a sample pre-built index on TREC Washington Post to play with (used in the TREC 2018 Core Track):
+Build index on TREC Washington Post Corpus (used in TREC 2018 Core Track) with `-storeContents` option:
 
 ```bash
-# TODO: upload pre-built index storing contents
-wget index-core18-contents.tar.gz
-tar xvfz index-core18-contents.tar.gz -C indexes
-rm index-core18-contents.tar.gz
+sh target/appassembler/bin/IndexCollection -collection WashingtonPostCollection -generator WashingtonPostGenerator \
+  -input /path/to/WashingtonPost -index index-core18-contents -threads 8 -storePositions -storeDocvectors -storeContents
 ```
 
-Use Pyserini's `SimpleSearcher` for searching:
+Make sure `/path/to/WashingtonPost` is updated with the appropriate path.
+
+Then use Pyserini's `SimpleSearcher` for searching:
 
 ```python
 from pyserini.search import SimpleSearcher
 
-searcher = SimpleSearcher('indexes/index-core18-contents/')
+searcher = SimpleSearcher('index-core18-contents/')
 hits = searcher.search('Women in Parliaments')
 
 # Grab contents of the top hit
