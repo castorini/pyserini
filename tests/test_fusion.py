@@ -16,7 +16,7 @@
 
 import filecmp
 import os
-from pyserini.trectools import TrecRun, TrecQrels
+from pyserini.trectools import TrecRun, Qrels
 import unittest
 
 
@@ -82,13 +82,10 @@ class TestSearch(unittest.TestCase):
         os.system('rm anserini.covid-r2.*')
 
     def test_simple_qrels(self):
-        os.system('wget -q -nc https://ir.nist.gov/covidSubmit/data/qrels-rnd1.txt')
-        path='qrels-rnd1.txt'
-        qrels = TrecQrels(path)
-        self.assertEqual(len(qrels.get_docids(topics=[1], relevance=[1,2])), 101)
-        self.assertEqual(len(qrels.get_docids(topics=[1], relevance=[2])), 56)
-        self.assertEqual(len(qrels.get_docids(topics=[1], relevance=[1])), 45)
-        os.remove(path)
+        qrels = Qrels('tools/topics-and-qrels/qrels.covid-round1.txt')
+        self.assertEqual(len(qrels.get_docids(topic=1, relevance_grades=[1, 2])), 101)
+        self.assertEqual(len(qrels.get_docids(topic=1, relevance_grades=[2])), 56)
+        self.assertEqual(len(qrels.get_docids(topic=1, relevance_grades=[1])), 45)
 
 
 if __name__ == '__main__':
