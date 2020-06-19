@@ -140,5 +140,18 @@ Run a test query, return the top 10 cited articles:
 ```
 MATCH (a)<-[r:BIB_REF]-(b) WITH a, count(r) as num_cites RETURN a ORDER BY num_cites DESC LIMIT 10
 ```
+## Stream Into Gephi
 
+Install Gephi from [this link](https://gephi.org/users/install/) and create a new project.
+
+Install APOC in Neo4j and Graph Streaming in Gephi. In Gephi, right click on `Master Server` and select `Start` 
+
+Stream into Gephi.
+```
+MATCH (a)<-[r:BIB_REF]-(b) WITH a, count(r) as num_cites
+WITH a ORDER BY num_cites DESC LIMIT 10
+MATCH path = ()-->(a)
+call apoc.gephi.add(null,'workspace1', path, 'weightproperty', ['cord_uid','title','doi']) yield nodes, relationships
+return nodes, relationships
+```
 
