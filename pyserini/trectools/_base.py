@@ -30,6 +30,56 @@ class RescoreMethod(Enum):
     SCALE = 'scale'
 
 
+class Qrels:
+    """Wrapper class for TREC Qrels.
+
+    Parameters
+    ----------
+    filepath : str
+        File path of a given TREC Qrels.
+    """
+
+    columns = ['topic', 'q0', 'docid', 'relevance_grade']
+
+    def __init__(self, filepath: str = None):
+        self.filepath = filepath
+        self.qrels_data = pd.DataFrame(columns=Qrels.columns)
+
+        if filepath is not None:
+            self.read_run(self.filepath)
+
+    def read_run(self, filepath: str):
+        self.qrels_data = pd.read_csv(filepath, sep='\s+', names=Qrels.columns)
+
+    def get_relevance_grades(self) -> Set[str]:
+        """Return a set with all relevance grades."""
+
+        return set(sorted(self.qrels_data["relevance_grade"].unique()))
+
+    def topics(self) -> Set[str]:
+        """Return a set with all topics."""
+
+        return set(sorted(self.qrels_data["topic"].unique()))
+
+    def get_docids(self, topic, relevance_grades=None) -> List[str]:
+        """"Return a list of docids for a given topic and a list relevance grades.
+
+        Parameters:
+        ----------
+        relevance : List[int]
+            E.g. [0, 1, 2]. If not provided, then all relevance will be returned.
+        topic : int
+        """
+
+        if relevance_grades is None:
+            relevance_grades = self.get_relevance_grades()
+
+        filtered_df = self.qrels_data[self.qrels_data['topic'] == topic]
+        filtered_df = filtered_df[filtered_df['relevance_grade'].isin(relevance_grades)]
+
+        return filtered_df['docid'].tolist()
+
+
 class TrecRun:
     """Wrapper class for a TREC run.
 
@@ -42,11 +92,14 @@ class TrecRun:
     columns = ['topic', 'q0', 'docid', 'rank', 'score', 'tag']
 
     def __init__(self, filepath: str = None):
-        self.run_data = pd.DataFrame(columns=TrecRun.columns)
+        self.reset_data()
         self.filepath = filepath
 
         if filepath is not None:
             self.read_run(self.filepath)
+
+    def reset_data(self):
+        self.run_data = pd.DataFrame(columns=TrecRun.columns)
 
     def read_run(self, filepath: str) -> None:
         self.run_data = pd.read_csv(filepath, sep='\s+', names=TrecRun.columns)
@@ -98,6 +151,71 @@ class TrecRun:
 
     def to_numpy(self) -> np.ndarray:
         return self.run_data.to_numpy(copy=True)
+
+    def remove_by_qrels(self, qrels: Qrels, copy=True):
+        """Given a Qrels object, remove each docid in self if docid is also in the qrels.
+        This operation is performed on each topic separately.
+
+        Parameters:
+        ----------
+        qrels : Qrels
+            Qrels with docids to remove from TrecRun.
+        copy : Bool
+            Return a new TrecRun object if True, else self will be modified and returned.
+        """
+
+        return self._filter_from_qrels(qrels, False, copy=copy)
+
+    def keep_only_qrels(self, qrels: Qrels, copy=True):
+        """Given a Qrels object, keep each docid in self if docid is also in the qrels.
+        This operation is performed on each topic separately.
+        After this operation, judged@x based on the given qrels should be 1.
+
+        Parameters:
+        ----------
+        qrels : Qrels
+            Qrels with docids to keep in TrecRun.
+        copy : Bool
+            Return a new TrecRun object if True, else self will be modified and returned.
+        """
+
+        return self._filter_from_qrels(qrels, True, copy=copy)
+
+    def _filter_from_qrels(self, qrels: Qrels, keep: bool, copy=True):
+        """Private helper function to remove/keep each docid in self if docid is also in the given Qrels object.
+        This operation is performed on each topic separately.
+
+        Parameters:
+        ----------
+        qrels : Qrels
+            Qrels with docids to remove from or keep in TrecRun.
+        copy : Bool
+            If True, only docids in qrels will appear in TrecRun. Else, docids in qrels won't appear in the TrecRun.
+        copy : Bool
+            Return a new TrecRun object if True, else self will be modified and returned.
+        """
+
+        df_list = []
+        for topic in self.topics():
+            if topic not in qrels.topics():
+                continue
+
+            tabu_list = qrels.get_docids(topic)
+            topic_df = self.run_data[self.run_data['topic'] == topic]
+            if keep is True:
+                topic_df = topic_df[topic_df['docid'].isin(tabu_list)]
+            else:
+                topic_df = topic_df[~topic_df['docid'].isin(tabu_list)]
+            df_list.append(topic_df)
+
+        if copy is True:
+            run = TrecRun()
+            run.run_data = run.run_data.append([df for df in df_list], ignore_index=True)
+            return run
+        else:
+            self.reset_data()
+            self.run_data = self.run_data.append([df for df in df_list], ignore_index=True)
+            return self
 
     @staticmethod
     def get_all_topics_from_runs(runs) -> Set[str]:
@@ -192,55 +310,5 @@ class TrecRun:
         """
 
         run = TrecRun()
-        run.run_data = run.run_data.append([run.run_data for run in runs])
+        run.run_data = run.run_data.append([run.run_data for run in runs], ignore_index=True)
         return run
-
-
-class Qrels:
-    """Wrapper class for TREC qrels.
-
-    Parameters
-    ----------
-    filepath : str
-        File path of a given TREC Qrels.
-    """
-
-    columns = ['topic', 'q0', 'docid', 'relevance_grade']
-
-    def __init__(self, filepath: str = None):
-        self.filepath = filepath
-        self.qrels_data = pd.DataFrame(columns=Qrels.columns)
-
-        if filepath is not None:
-            self.read_run(self.filepath)
-
-    def read_run(self, filepath: str):
-        self.qrels_data = pd.read_csv(filepath, sep='\s+', names=Qrels.columns)
-
-    def get_relevance_grades(self) -> Set[str]:
-        """Return a set with all relevance grades."""
-
-        return set(sorted(self.qrels_data["relevance_grade"].unique()))
-
-    def topics(self) -> Set[str]:
-        """Return a set with all topics."""
-
-        return set(sorted(self.qrels_data["topic"].unique()))
-
-    def get_docids(self, topic, relevance_grades=None) -> List[str]:
-        """"Return a list of docids for a given topic and a list relevance grades.
-
-        Parameters:
-        ----------
-        relevance : List[int]
-            E.g. [0, 1, 2]. If not provided, then all relevance will be returned.
-        topic : int
-        """
-
-        if relevance_grades is None:
-            relevance_grades = self.get_relevance_grades()
-
-        filtered_df = self.qrels_data[self.qrels_data['topic'] == topic]
-        filtered_df = filtered_df[filtered_df['relevance_grade'].isin(relevance_grades)]
-
-        return filtered_df['docid'].tolist()

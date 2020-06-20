@@ -16,22 +16,12 @@
 
 import filecmp
 import os
-from pyserini.trectools import TrecRun, Qrels
 import unittest
 
 
 class TestSearch(unittest.TestCase):
     def setUp(self):
         self.output_path = 'output_test_fusion.txt'
-
-    def test_trec_run_read(self):
-        input_path = 'tests/resources/simple_trec_run_read.txt'
-        verify_path = 'tests/resources/simple_trec_run_read_verify.txt'
-
-        run = TrecRun(filepath=input_path)
-        run.save_to_txt(self.output_path)
-        self.assertTrue(filecmp.cmp(verify_path, self.output_path))
-        os.remove(self.output_path)
 
     def test_reciprocal_rank_fusion_simple(self):
         input_paths = ['tests/resources/simple_trec_run_fusion_1.txt', 'tests/resources/simple_trec_run_fusion_2.txt']
@@ -80,12 +70,6 @@ class TestSearch(unittest.TestCase):
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
         os.remove(self.output_path)
         os.system('rm anserini.covid-r2.*')
-
-    def test_simple_qrels(self):
-        qrels = Qrels('tools/topics-and-qrels/qrels.covid-round1.txt')
-        self.assertEqual(len(qrels.get_docids(topic=1, relevance_grades=[1, 2])), 101)
-        self.assertEqual(len(qrels.get_docids(topic=1, relevance_grades=[2])), 56)
-        self.assertEqual(len(qrels.get_docids(topic=1, relevance_grades=[1])), 45)
 
 
 if __name__ == '__main__':
