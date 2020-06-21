@@ -152,22 +152,22 @@ class TrecRun:
     def to_numpy(self) -> np.ndarray:
         return self.run_data.to_numpy(copy=True)
 
-    def remove_by_qrels(self, qrels: Qrels, copy=True):
-        """Given a Qrels object, remove each docid in self if docid is also in the qrels.
+    def discard_qrels(self, qrels: Qrels, clone=True):
+        """Discard each docid in self if docid is also in the given qrels.
         This operation is performed on each topic separately.
 
         Parameters:
         ----------
         qrels : Qrels
             Qrels with docids to remove from TrecRun.
-        copy : Bool
+        clone : Bool
             Return a new TrecRun object if True, else self will be modified and returned.
         """
 
-        return self._filter_from_qrels(qrels, False, copy=copy)
+        return self._filter_from_qrels(qrels, False, clone=clone)
 
-    def keep_only_qrels(self, qrels: Qrels, copy=True):
-        """Given a Qrels object, keep each docid in self if docid is also in the qrels.
+    def retain_qrels(self, qrels: Qrels, clone=True):
+        """Retain each docid in self if docid is also in the given qrels.
         This operation is performed on each topic separately.
         After this operation, judged@x based on the given qrels should be 1.
 
@@ -175,13 +175,13 @@ class TrecRun:
         ----------
         qrels : Qrels
             Qrels with docids to keep in TrecRun.
-        copy : Bool
+        clone : Bool
             Return a new TrecRun object if True, else self will be modified and returned.
         """
 
-        return self._filter_from_qrels(qrels, True, copy=copy)
+        return self._filter_from_qrels(qrels, True, clone=clone)
 
-    def _filter_from_qrels(self, qrels: Qrels, keep: bool, copy=True):
+    def _filter_from_qrels(self, qrels: Qrels, keep: bool, clone=True):
         """Private helper function to remove/keep each docid in self if docid is also in the given Qrels object.
         This operation is performed on each topic separately.
 
@@ -189,9 +189,7 @@ class TrecRun:
         ----------
         qrels : Qrels
             Qrels with docids to remove from or keep in TrecRun.
-        copy : Bool
-            If True, only docids in qrels will appear in TrecRun. Else, docids in qrels won't appear in the TrecRun.
-        copy : Bool
+        clone : Bool
             Return a new TrecRun object if True, else self will be modified and returned.
         """
 
@@ -200,15 +198,15 @@ class TrecRun:
             if topic not in qrels.topics():
                 continue
 
-            tabu_list = qrels.get_docids(topic)
+            qrels_docids = qrels.get_docids(topic)
             topic_df = self.run_data[self.run_data['topic'] == topic]
             if keep is True:
-                topic_df = topic_df[topic_df['docid'].isin(tabu_list)]
+                topic_df = topic_df[topic_df['docid'].isin(qrels_docids)]
             else:
-                topic_df = topic_df[~topic_df['docid'].isin(tabu_list)]
+                topic_df = topic_df[~topic_df['docid'].isin(qrels_docids)]
             df_list.append(topic_df)
 
-        if copy is True:
+        if clone is True:
             run = TrecRun()
             run.run_data = run.run_data.append([df for df in df_list], ignore_index=True)
             return run

@@ -39,19 +39,19 @@ class TestTrecTools(unittest.TestCase):
         self.assertEqual(len(qrels.get_docids(topic=1, relevance_grades=[2])), 56)
         self.assertEqual(len(qrels.get_docids(topic=1, relevance_grades=[1])), 45)
 
-    def test_remove_by_qrels(self):
+    def test_discard_qrels(self):
         run = TrecRun('tests/resources/simple_trec_run_filter.txt')
         qrels = Qrels('tools/topics-and-qrels/qrels.covid-round1.txt')
 
-        run.remove_by_qrels(qrels, copy=False).save_to_txt(output_path=self.output_path)
+        run.discard_qrels(qrels, clone=False).save_to_txt(output_path=self.output_path)
         self.assertTrue(filecmp.cmp('tests/resources/simple_trec_run_remove_verify.txt', self.output_path))
         os.remove(self.output_path)
 
-    def test_keep_only_qrels(self):
+    def test_retain_qrels(self):
         run = TrecRun('tests/resources/simple_trec_run_filter.txt')
         qrels = Qrels('tools/topics-and-qrels/qrels.covid-round1.txt')
 
-        run.keep_only_qrels(qrels, copy=True).save_to_txt(output_path=self.output_path)
+        run.retain_qrels(qrels, clone=True).save_to_txt(output_path=self.output_path)
         self.assertTrue(filecmp.cmp('tests/resources/simple_trec_run_keep_verify.txt', self.output_path))
         os.remove(self.output_path)
 
