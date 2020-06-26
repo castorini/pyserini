@@ -7,7 +7,7 @@
 + Added new functionality to retain/discard docs by qrels in `TrecRun`.
 + Added documentation on working with spaCy.
 + Added documentation on how to index your own documents.
-+ Added documentation and scripts for working with the CORD-19 citation graph with Neo4j and Gephi.
++ Added documentation and scripts for working with the CORD-19 citation graph using Neo4j and Gephi.
 + Refactored `vectorizer` into submodule.
 + Refactored `verify_simplesearcher` into integration tests.
 + Improved MS MARCO documentation (now in pure Python, no more Java).
