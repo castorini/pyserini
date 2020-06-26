@@ -5,7 +5,7 @@
 + Added bindings for TREC-COVID round 4 topics.
 + Added new `Qrels` class in `trectools` submodule.
 + Added new functionality to retain/discard docs by qrels in `TrecRun`.
-+ Added documentation about working with spaCy.
++ Added documentation on working with spaCy.
 + Added documentation on how to index your own documents.
 + Added documentation and scripts for working with the CORD-19 citation graph with Neo4j and Gephi.
 + Refactored `vectorizer` into submodule.
