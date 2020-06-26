@@ -31,8 +31,6 @@ class TestSearchIntegration(unittest.TestCase):
             anserini_root = '../anserini'
             pyserini_root = '.'
 
-        print('blizzard!!!')
-
         self.checker = SimpleSearcherChecker(
             anserini_root=anserini_root,
             index=os.path.join(anserini_root, 'indexes/lucene-index.robust05.pos+docvectors+raw'),
