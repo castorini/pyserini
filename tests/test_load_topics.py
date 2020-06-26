@@ -104,6 +104,21 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual('coronavirus mutations observed mutations SARS-CoV-2 genome mutations', topics[40]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+    def test_covid_round4(self):
+        topics = search.get_topics('covid_round4')
+        self.assertEqual(len(topics), 45)
+        self.assertEqual('coronavirus origin', topics[1]['query'])
+        self.assertEqual('coronavirus mental health impact', topics[45]['query'])
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_covid_round4_udel(self):
+        topics = search.get_topics('covid_round4_udel')
+        self.assertEqual(len(topics), 45)
+        self.assertEqual('coronavirus origin origin COVID-19', topics[1]['query'])
+        self.assertEqual('coronavirus mental health impact COVID-19 pandemic impacted mental health',
+                         topics[45]['query'])
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
     def test_trec2018_bl(self):
         topics = search.get_topics('trec2018_bl')
         self.assertEqual(len(topics), 50)
