@@ -8,7 +8,7 @@
 + Added documentation on working with spaCy.
 + Added documentation on how to index your own documents.
 + Added documentation and scripts for working with the CORD-19 citation graph using Neo4j and Gephi.
-+ Refactored `vectorizer` into submodule.
++ Refactored `vectorizer` into a submodule.
 + Refactored `verify_simplesearcher` into integration tests.
 + Improved MS MARCO documentation (now in pure Python, no more Java).
 + Exposed Anserini bindings to read topics file using a specific class.
