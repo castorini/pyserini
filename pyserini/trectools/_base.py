@@ -28,6 +28,7 @@ class AggregationMethod(Enum):
 class RescoreMethod(Enum):
     RRF = 'rrf'
     SCALE = 'scale'
+    NORMLIZE = 'normalize'
 
 
 class Qrels:
@@ -130,24 +131,19 @@ class TrecRun:
 
         return docs
 
-    def rescore(self, method: RescoreMethod, rrf_k: int = None, scale: float = None) -> None:
-        rows = []
+    def rescore(self, method: RescoreMethod, rrf_k: int = None, scale: float = None):
+        # Refer to this guide on how to efficiently manipulate dataframes: https://engineering.upside.com/a-beginners-guide-to-optimizing-pandas-code-for-speed-c09ef2c6a4d6
 
         if method == RescoreMethod.RRF:
             assert rrf_k is not None, 'Parameter "rrf_k" must be a valid integer.'
-
-            for topic, _, docid, rank, _, tag in self.run_data.to_numpy():
-                rows.append((topic, 'Q0', docid, rank, 1 / (rrf_k + rank), tag))
-
+            self.run_data['score'] = 1 / (rrf_k + self.run_data['rank'].values)
         elif method == RescoreMethod.SCALE:
             assert scale is not None, 'Parameter "scale" must not be none.'
-
-            for topic, _, docid, rank, score, tag in self.run_data.to_numpy():
-                rows.append((topic, 'Q0', docid, rank, score * scale, tag))
+            self.run_data['score'] = self.run_data['score'].values * scale
         else:
             raise NotImplementedError()
 
-        return TrecRun.from_list(rows, self)
+        return self
 
     def to_numpy(self) -> np.ndarray:
         return self.run_data.to_numpy(copy=True)
@@ -206,14 +202,8 @@ class TrecRun:
                 topic_df = topic_df[~topic_df['docid'].isin(qrels_docids)]
             df_list.append(topic_df)
 
-        if clone is True:
-            run = TrecRun()
-            run.run_data = run.run_data.append([df for df in df_list], ignore_index=True)
-            return run
-        else:
-            self.reset_data()
-            self.run_data = self.run_data.append([df for df in df_list], ignore_index=True)
-            return self
+        run = TrecRun() if clone is True else self
+        return TrecRun.from_dataframes(df_list, run)
 
     @staticmethod
     def get_all_topics_from_runs(runs) -> Set[str]:
@@ -262,6 +252,26 @@ class TrecRun:
             raise NotImplementedError()
 
         return TrecRun.from_list(rows)
+
+    @staticmethod
+    def from_dataframes(dfs, run=None):
+        """Return a TrecRun by populating dataframe with the provided list of dataframes.
+
+        Parameters
+        ----------
+        dfs: List[Dataframe]
+            A list of Dataframes conforming to TrecRun.columns
+
+        run: TrecRun
+            Set to ``None`` by default. If None, then a new instance of TrecRun will be created.
+            Else, the given TrecRun will be modified.
+        """
+
+        res = TrecRun() if run is None else run
+        res.reset_data()
+        res.run_data = res.run_data.append([df for df in dfs], ignore_index=True)
+
+        return res
 
     @staticmethod
     def from_list(rows, run=None):
