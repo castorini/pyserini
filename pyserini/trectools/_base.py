@@ -14,10 +14,13 @@
 # limitations under the License.
 #
 
-from copy import deepcopy
-from enum import Enum
+import itertools
 import numpy as np
 import pandas as pd
+
+from concurrent.futures import ThreadPoolExecutor
+from copy import deepcopy
+from enum import Enum
 from typing import Dict, List, Set, Tuple
 
 
@@ -133,13 +136,23 @@ class TrecRun:
 
     def rescore(self, method: RescoreMethod, rrf_k: int = None, scale: float = None):
         # Refer to this guide on how to efficiently manipulate dataframes: https://engineering.upside.com/a-beginners-guide-to-optimizing-pandas-code-for-speed-c09ef2c6a4d6
-
         if method == RescoreMethod.RRF:
             assert rrf_k is not None, 'Parameter "rrf_k" must be a valid integer.'
             self.run_data['score'] = 1 / (rrf_k + self.run_data['rank'].values)
         elif method == RescoreMethod.SCALE:
             assert scale is not None, 'Parameter "scale" must not be none.'
             self.run_data['score'] = self.run_data['score'].values * scale
+        elif method == RescoreMethod.NORMLIZE:
+            for topic in self.topics():
+                scores = self.run_data[self.run_data['topic'] == topic]['score'].copy().values
+                low = np.min(scores)
+                high = np.max(scores)
+
+                if high - low == 0:
+                    self.run_data.loc[self.run_data['topic'] == topic, 'score'] = 1
+                else:
+                    scores = (scores - low) / (high - low)
+                    self.run_data.loc[self.run_data['topic'] == topic, 'score'] = scores
         else:
             raise NotImplementedError()
 
@@ -237,17 +250,28 @@ class TrecRun:
         rows = []
 
         if aggregation == AggregationMethod.SUM:
-            for topic in TrecRun.get_all_topics_from_runs(runs):
+            topics = list(TrecRun.get_all_topics_from_runs(runs))
+
+            def merge_topic(topic):
                 doc_scores = dict()
+
                 for run in runs:
-                    for topic, _, docid, _, score, _ in run.get_docs_by_topic(topic, depth).to_numpy():
+                    for docid, score in run.get_docs_by_topic(topic, depth)[['docid', 'score']].values:
                         doc_scores[docid] = doc_scores.get(docid, 0.0) + score
 
                 sorted_doc_scores = sorted(iter(doc_scores.items()), key=lambda x: (-x[1], x[0]))
                 sorted_doc_scores = sorted_doc_scores if k is None else sorted_doc_scores[:k]
 
-                for rank, (docid, score) in enumerate(sorted_doc_scores, start=1):
-                    rows.append((topic, 'Q0', docid, rank, score, 'merge_sum'))
+                return [
+                    (topic, 'Q0', docid, rank, score, 'merge_sum')
+                    for rank, (docid, score) in enumerate(sorted_doc_scores, start=1)
+                ]
+
+            max_workers = max(len(topics)/10, 1)
+            with ThreadPoolExecutor(max_workers=int(max_workers)) as exec:
+                results = list(exec.map(merge_topic, topics))
+
+            rows = list(itertools.chain.from_iterable(results))
         else:
             raise NotImplementedError()
 
