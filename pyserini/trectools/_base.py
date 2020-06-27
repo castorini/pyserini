@@ -31,7 +31,7 @@ class AggregationMethod(Enum):
 class RescoreMethod(Enum):
     RRF = 'rrf'
     SCALE = 'scale'
-    NORMLIZE = 'normalize'
+    NORMALIZE = 'normalize'
 
 
 class Qrels:
@@ -142,7 +142,7 @@ class TrecRun:
         elif method == RescoreMethod.SCALE:
             assert scale is not None, 'Parameter "scale" must not be none.'
             self.run_data['score'] = self.run_data['score'].values * scale
-        elif method == RescoreMethod.NORMLIZE:
+        elif method == RescoreMethod.NORMALIZE:
             for topic in self.topics():
                 scores = self.run_data[self.run_data['topic'] == topic]['score'].copy().values
                 low = np.min(scores)
