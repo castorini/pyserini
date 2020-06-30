@@ -14,35 +14,34 @@
 # limitations under the License.
 #
 
+import gzip
 import os
 import filecmp
+import shutil
 import unittest
 from tqdm import tqdm
 from pyserini.fusion import FusionMethod
 from pyserini.trectools import TrecRun
-from pyserini.search import get_topics, SimpleFusionSearcher, SimpleSearcher
+from pyserini.search import get_topics, SimpleFusionSearcher
+from pyserini.util import download_url, download_and_unpack_index
 
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
-        if not os.path.exists('indexes/lucene-index-cord19-abstract-2020-05-01/'):
-            os.system('wget -nc https://www.dropbox.com/s/wxjoe4g71zt5za2/lucene-index-cord19-abstract-2020-05-01.tar.gz')
-            os.system('tar -xvzf lucene-index-cord19-abstract-2020-05-01.tar.gz -C indexes')
-            os.system('rm lucene-index-cord19-abstract-2020-05-01.tar.gz')
+        download_and_unpack_index(
+            'https://www.dropbox.com/s/wxjoe4g71zt5za2/lucene-index-cord19-abstract-2020-05-01.tar.gz?dl=1')
 
-        if not os.path.exists('indexes/lucene-index-cord19-full-text-2020-05-01/'):
-            os.system('wget -nc https://www.dropbox.com/s/di27r5o2g5kat5k/lucene-index-cord19-full-text-2020-05-01.tar.gz')
-            os.system('tar -xvzf lucene-index-cord19-full-text-2020-05-01.tar.gz -C indexes')
-            os.system('rm lucene-index-cord19-full-text-2020-05-01.tar.gz')
+        download_and_unpack_index(
+            'https://www.dropbox.com/s/di27r5o2g5kat5k/lucene-index-cord19-full-text-2020-05-01.tar.gz?dl=1')
 
-        if not os.path.exists('indexes/lucene-index-cord19-paragraph-2020-05-01/'):
-            os.system('wget -nc https://www.dropbox.com/s/6ib71scm925mclk/lucene-index-cord19-paragraph-2020-05-01.tar.gz')
-            os.system('tar -xvzf lucene-index-cord19-paragraph-2020-05-01.tar.gz -C indexes')
-            os.system('rm lucene-index-cord19-paragraph-2020-05-01.tar.gz')
+        download_and_unpack_index(
+            'https://www.dropbox.com/s/6ib71scm925mclk/lucene-index-cord19-paragraph-2020-05-01.tar.gz?dl=1')
 
-        if not os.path.exists('anserini.covid-r2.fusion1.txt'):
-            os.system('wget -q -nc https://www.dropbox.com/s/wqb0vhxp98g7dxh/anserini.covid-r2.fusion1.txt.gz')
-            os.system('gunzip -f anserini.covid-r2.fusion1.txt.gz')
+        download_url('https://www.dropbox.com/s/wqb0vhxp98g7dxh/anserini.covid-r2.fusion1.txt.gz?dl=1', 'runs')
+        # from https://stackoverflow.com/questions/31028815/how-to-unzip-gz-file-using-python
+        with gzip.open('runs/anserini.covid-r2.fusion1.txt.gz', 'rb') as f_in:
+            with open('runs/anserini.covid-r2.fusion1.txt', 'wb') as f_out:
+                shutil.copyfileobj(f_in, f_out)
 
     def test_simple_fusion_searcher(self):
         index_dirs = ['indexes/lucene-index-cord19-abstract-2020-05-01/',
@@ -60,16 +59,21 @@ class TestSearchIntegration(unittest.TestCase):
             runs.append(run)
 
         all_topics_run = TrecRun.concat(runs)
-        all_topics_run.save_to_txt(output_path='fused.txt', tag='reciprocal_rank_fusion_k=60')
+        all_topics_run.save_to_txt(output_path='runs/fused.txt', tag='reciprocal_rank_fusion_k=60')
 
         # Only keep topic, docid and rank. Scores have different floating point precisions.
-        os.system("""awk '{print $1" "$3" "$4}' fused.txt > this.txt""")
-        os.system("""awk '{print $1" "$3" "$4}' anserini.covid-r2.fusion1.txt > that.txt""")
+        # TODO: We should probably do this in Python as opposed to calling out to shell for better portability.
+        os.system("""awk '{print $1" "$3" "$4}' runs/fused.txt > runs/this.txt""")
+        os.system("""awk '{print $1" "$3" "$4}' runs/anserini.covid-r2.fusion1.txt > runs/that.txt""")
 
-        self.assertTrue(filecmp.cmp('this.txt', 'that.txt'))
+        self.assertTrue(filecmp.cmp('runs/this.txt', 'runs/that.txt'))
 
     def tearDown(self):
-        os.system('rm anserini.covid-r2.fusion1.txt fused.txt this.txt that.txt')
+        os.remove('runs/anserini.covid-r2.fusion1.txt.gz')
+        os.remove('runs/anserini.covid-r2.fusion1.txt')
+        os.remove('runs/fused.txt')
+        os.remove('runs/this.txt')
+        os.remove('runs/that.txt')
 
 
 if __name__ == '__main__':
