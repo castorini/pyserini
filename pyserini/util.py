@@ -56,7 +56,7 @@ def download_url(url, save_dir, force=False, verbose=True):
                 print(f'Skipping download.')
             return
         if verbose:
-            print(f'force=True, removing {destination_path}.')
+            print(f'force=True, removing {destination_path}; fetching fresh copy...')
         os.remove(destination_path)
 
     with TqdmUpTo(unit='B', unit_scale=True, unit_divisor=1024, miniters=1, desc=filename) as t:
@@ -83,13 +83,13 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
                 print(f'Skipping download.')
             return
         if verbose:
-            print(f'force=True, removing {index_path}.')
+            print(f'force=True, removing {index_path}; fetching fresh copy...')
         shutil.rmtree(index_path)
 
     download_url(url, index_directory, verbose=False)
 
     if verbose:
-        print(f'Extracting index into {index_path}...')
+        print(f'Extracting {local_tarball} into {index_path}...')
     tarball = tarfile.open(local_tarball)
     tarball.extractall(index_directory)
     tarball.close()
