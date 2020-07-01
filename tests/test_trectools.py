@@ -54,7 +54,7 @@ class TestTrecTools(unittest.TestCase):
 
     def test_normalize_scores(self):
         run = TrecRun('tests/resources/simple_trec_run_fusion_1.txt')
-        run.rescore(RescoreMethod.NORMLIZE).save_to_txt(self.output_path)
+        run.rescore(RescoreMethod.NORMALIZE).save_to_txt(self.output_path)
         self.assertTrue(filecmp.cmp('tests/resources/simple_trec_run_normalize_verify.txt', self.output_path))
 
     def tearDown(self):
