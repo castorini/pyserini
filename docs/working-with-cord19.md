@@ -105,34 +105,33 @@ To load the csv files into Neo4j run the following Cypher queries in the Neo4j B
 
 Create a unique constraint on `cord_uid` to improve lookup time:
 ```
-CREATE CONSTRAINT cord_uid ON (n:Article) ASSERT n.cord_uid IS UNIQUE
-```
-```
-CREATE CONSTRAINT title ON (n:Article) ASSERT n.title IS UNIQUE
+CREATE CONSTRAINT cord_uid ON (n:PUBLICATION) ASSERT n.CordUID IS UNIQUE;
+CREATE CONSTRAINT pmcid ON (n:PUBLICATION) ASSERT n.PMCID IS UNIQUE;
+CREATE CONSTRAINT title ON (n:PUBLICATION) ASSERT n.Title IS UNIQUE;
 ```
 
-Create article nodes for full-text papers in CORD-19.
+Create article nodes for full-text papers in CORD-19. Try to merge on paper_id. If the article is from PMC the paper_id is a pmcid, otherwise it is a hash.
 ```
 LOAD CSV WITH HEADERS FROM 'file:///articles.csv' AS row
-MERGE (a:Article {cord_uid:row.cord_uid})
-SET a.title = row.title
+MERGE (a:PUBLICATION {PMCID:row.pmcid})
+SET a.CordUID = row.cord_uid, a.Title = left(row.title, 500)
 ```
 
 Create nodes for all the cited articles.
 ```
 :auto USING PERIODIC COMMIT 1000
 LOAD CSV WITH HEADERS FROM 'file:///edges.csv' AS row
-MERGE (cited:Article {title:row.target_title})
-WITH row, cited WHERE cited.doi IS NULL AND row.doi IS NOT NULL
-SET cited.doi = row.doi
+MERGE (cited:PUBLICATION {Title:row.target_title})
+WITH row, cited WHERE cited.DOI IS NULL AND row.doi IS NOT NULL
+SET cited.DOI = row.doi;
 ```
 
 Create citations for cited papers.
 ```
 :auto USING PERIODIC COMMIT 1000
 LOAD CSV WITH HEADERS FROM 'file:///edges.csv' AS row
-MATCH (article:Article {cord_uid:row.cord_uid})
-MATCH (cited:Article {title:row.target_title})
+MATCH (article:PUBLICATION {CordUID:row.cord_uid})
+MATCH (cited:PUBLICATION {Title:row.target_title})
 CREATE (article)-[r:BIB_REF]->(cited)
 ```
 
@@ -151,7 +150,7 @@ Stream into Gephi.
 MATCH (a)<-[r:BIB_REF]-(b) WITH a, count(r) as num_cites
 WITH a ORDER BY num_cites DESC LIMIT 10
 MATCH path = ()-->(a)
-call apoc.gephi.add(null,'workspace1', path, 'weightproperty', ['cord_uid','title','doi']) yield nodes, relationships
+call apoc.gephi.add(null,'workspace1', path, 'weightproperty', ['CordUID','Title','DOI']) yield nodes, relationships
 return nodes, relationships
 ```
 
