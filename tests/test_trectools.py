@@ -16,7 +16,7 @@
 
 import filecmp
 import os
-from pyserini.trectools import TrecRun, Qrels
+from pyserini.trectools import TrecRun, Qrels, RescoreMethod
 import unittest
 
 
@@ -31,7 +31,6 @@ class TestTrecTools(unittest.TestCase):
         run = TrecRun(filepath=input_path)
         run.save_to_txt(self.output_path)
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
-        os.remove(self.output_path)
 
     def test_simple_qrels(self):
         qrels = Qrels('tools/topics-and-qrels/qrels.covid-round1.txt')
@@ -45,7 +44,6 @@ class TestTrecTools(unittest.TestCase):
 
         run.discard_qrels(qrels, clone=False).save_to_txt(output_path=self.output_path)
         self.assertTrue(filecmp.cmp('tests/resources/simple_trec_run_remove_verify.txt', self.output_path))
-        os.remove(self.output_path)
 
     def test_retain_qrels(self):
         run = TrecRun('tests/resources/simple_trec_run_filter.txt')
@@ -53,7 +51,15 @@ class TestTrecTools(unittest.TestCase):
 
         run.retain_qrels(qrels, clone=True).save_to_txt(output_path=self.output_path)
         self.assertTrue(filecmp.cmp('tests/resources/simple_trec_run_keep_verify.txt', self.output_path))
-        os.remove(self.output_path)
+
+    def test_normalize_scores(self):
+        run = TrecRun('tests/resources/simple_trec_run_fusion_1.txt')
+        run.rescore(RescoreMethod.NORMALIZE).save_to_txt(self.output_path)
+        self.assertTrue(filecmp.cmp('tests/resources/simple_trec_run_normalize_verify.txt', self.output_path))
+
+    def tearDown(self):
+        if os.path.exists(self.output_path):
+            os.remove(self.output_path)
 
 
 if __name__ == '__main__':
