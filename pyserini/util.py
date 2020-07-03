@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+import hashlib
 import re
 import os
 import shutil
@@ -38,7 +39,7 @@ class TqdmUpTo(tqdm):
         self.update(b * bsize - self.n)  # will also set self.n = b * bsize
 
 
-def download_url(url, save_dir, force=False, verbose=True):
+def download_url(url, save_dir, md5=None, force=False, verbose=True):
     filename = url.split('/')[-1]
     filename = re.sub('\\?dl=1$', '', filename)  # Remove the Dropbox 'force download' parameter
     destination_path = os.path.join(save_dir, filename)
@@ -61,6 +62,11 @@ def download_url(url, save_dir, force=False, verbose=True):
 
     with TqdmUpTo(unit='B', unit_scale=True, unit_divisor=1024, miniters=1, desc=filename) as t:
         urlretrieve(url, filename=destination_path, reporthook=t.update_to)
+
+    if md5:
+        with open(f'{destination_path}', 'rb') as f:
+            computed_md5 = hashlib.md5(f.read()).hexdigest()
+        assert(computed_md5 == md5)
 
 
 def download_and_unpack_index(url, index_directory='indexes', force=False, verbose=True):
