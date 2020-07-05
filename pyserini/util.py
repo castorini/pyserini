@@ -39,6 +39,11 @@ class TqdmUpTo(tqdm):
         self.update(b * bsize - self.n)  # will also set self.n = b * bsize
 
 
+def compute_md5(file):
+    with open(file, 'rb') as f:
+        return hashlib.md5(f.read()).hexdigest()
+
+
 def download_url(url, save_dir, md5=None, force=False, verbose=True):
     filename = url.split('/')[-1]
     filename = re.sub('\\?dl=1$', '', filename)  # Remove the Dropbox 'force download' parameter
@@ -64,9 +69,7 @@ def download_url(url, save_dir, md5=None, force=False, verbose=True):
         urlretrieve(url, filename=destination_path, reporthook=t.update_to)
 
     if md5:
-        with open(f'{destination_path}', 'rb') as f:
-            computed_md5 = hashlib.md5(f.read()).hexdigest()
-        assert(computed_md5 == md5)
+        assert compute_md5(destination_path) == md5, f'{destination_path} does not match checksum!'
 
 
 def download_and_unpack_index(url, index_directory='indexes', force=False, verbose=True):
