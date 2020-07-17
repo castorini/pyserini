@@ -178,7 +178,7 @@ Pyserini accepts collections comprised of these documents organized in three dif
 
 + Folder with each JSON in its own file, like [this](integrations/resources/sample_collection_json).
 + Folder with files, each of which contains an array of JSON documents, like [this](integrations/resources/sample_collection_json_array).
-+ Folder with files, each of which contains a JSON on an individual line, like [this](integrations/resources/sample_collection_json) (often called JSONL format).
++ Folder with files, each of which contains a JSON on an individual line, like [this](integrations/resources/sample_collection_jsonl) (often called JSONL format).
 
 So, the quickest way to get started is to write a script that converts your documents into the above format.
 Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
