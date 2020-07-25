@@ -31,7 +31,7 @@ class SimpleSearcherChecker:
                                               'target/appassembler/bin/SearchCollection -topicreader Trec')
         self.pyserini_base_cmd = 'python3 -m pyserini.search'
 
-        self.anserini_eval = os.path.join(self.anserini_root, 'eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
+        self.eval_base_cmd = 'tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30'
 
     @staticmethod
     def _cleanup(files: List[str]):
@@ -42,6 +42,7 @@ class SimpleSearcherChecker:
     def run(self, runtag: str, anserini_extras: str, pyserini_extras: str):
         print('-------------------------')
         print(f'Running {runtag}:')
+        print('-------------------------')
 
         anserini_output = f'verify.anserini.{runtag}.txt'
         pyserini_output = f'verify.pyserini.{runtag}.txt'
@@ -51,15 +52,23 @@ class SimpleSearcherChecker:
         pyserini_cmd = f'{self.pyserini_base_cmd} --index {self.index_path} ' \
                        + f'--topics {self.pyserini_topics} --output {pyserini_output} {pyserini_extras}'
 
-        os.system(anserini_cmd)
-        os.system(pyserini_cmd)
-        print('-------------------------')
+        status = os.system(anserini_cmd)
+        if not status == 0:
+            self._cleanup([anserini_output, pyserini_output])
+            return False
+        status = os.system(pyserini_cmd)
+        if not status == 0:
+            self._cleanup([anserini_output, pyserini_output])
+            return False
 
         res = filecmp.cmp(anserini_output, pyserini_output)
         if res is True:
             print(f'[SUCCESS] {runtag} results verified!')
-            eval_cmd = f'{self.anserini_eval} {self.qrels} {anserini_output}'
-            os.system(eval_cmd)
+            eval_cmd = f'{self.eval_base_cmd} {self.qrels} {anserini_output}'
+            status = os.system(eval_cmd)
+            if not status == 0:
+                self._cleanup([anserini_output, pyserini_output])
+                return False
             self._cleanup([anserini_output, pyserini_output])
             return True
         else:

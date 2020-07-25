@@ -16,22 +16,12 @@
 
 import filecmp
 import os
-from pyserini.trectools import TrecRun, Qrels
 import unittest
 
 
 class TestSearch(unittest.TestCase):
     def setUp(self):
         self.output_path = 'output_test_fusion.txt'
-
-    def test_trec_run_read(self):
-        input_path = 'tests/resources/simple_trec_run_read.txt'
-        verify_path = 'tests/resources/simple_trec_run_read_verify.txt'
-
-        run = TrecRun(filepath=input_path)
-        run.save_to_txt(self.output_path)
-        self.assertTrue(filecmp.cmp(verify_path, self.output_path))
-        os.remove(self.output_path)
 
     def test_reciprocal_rank_fusion_simple(self):
         input_paths = ['tests/resources/simple_trec_run_fusion_1.txt', 'tests/resources/simple_trec_run_fusion_2.txt']
@@ -41,7 +31,6 @@ class TestSearch(unittest.TestCase):
         os.system(
             f'python -m pyserini.fusion --method rrf --runs {qruns_str} --output {self.output_path} --runtag test')
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
-        os.remove(self.output_path)
 
     def test_interpolation_fusion_simple(self):
         input_paths = ['tests/resources/simple_trec_run_fusion_1.txt', 'tests/resources/simple_trec_run_fusion_2.txt']
@@ -51,7 +40,6 @@ class TestSearch(unittest.TestCase):
         os.system(
             f'python -m pyserini.fusion --method interpolation --alpha 0.4 --runs {qruns_str} --output {self.output_path} --runtag test')
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
-        os.remove(self.output_path)
 
     def test_average_fusion_simple(self):
         input_paths = ['tests/resources/simple_trec_run_fusion_1.txt', 'tests/resources/simple_trec_run_fusion_2.txt']
@@ -61,7 +49,6 @@ class TestSearch(unittest.TestCase):
         os.system(
             f'python -m pyserini.fusion --method average --runs {qruns_str} --output {self.output_path} --runtag test')
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
-        os.remove(self.output_path)
 
     def test_reciprocal_rank_fusion_complex(self):
         os.system('wget -q -nc https://www.dropbox.com/s/duimcackueph2co/anserini.covid-r2.abstract.qq.bm25.txt.gz')
@@ -78,15 +65,11 @@ class TestSearch(unittest.TestCase):
             f'python -m pyserini.fusion --method rrf --runs {qruns_str} --output {self.output_path} --runtag reciprocal_rank_fusion_k=60')
         verify_path = 'anserini.covid-r2.fusion1.txt'
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
-        os.remove(self.output_path)
         os.system('rm anserini.covid-r2.*')
-
-    def test_simple_qrels(self):
-        qrels = Qrels('tools/topics-and-qrels/qrels.covid-round1.txt')
-        self.assertEqual(len(qrels.get_docids(topic=1, relevance_grades=[1, 2])), 101)
-        self.assertEqual(len(qrels.get_docids(topic=1, relevance_grades=[2])), 56)
-        self.assertEqual(len(qrels.get_docids(topic=1, relevance_grades=[1])), 45)
-
+    
+    def tearDown(self):
+        if os.path.exists(self.output_path):
+            os.remove(self.output_path)
 
 if __name__ == '__main__':
     unittest.main()

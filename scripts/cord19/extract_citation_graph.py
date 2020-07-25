@@ -24,6 +24,7 @@ def escape_title(title):
     # Neo4j CSV loader is sensitive to double qoutes
     return title.replace("\"", "\\'").replace("\\", "")
 
+
 def main(path):
     collection = pyserini.collection.Collection('Cord19AbstractCollection', path)
     articles = collection.__next__()
@@ -31,17 +32,22 @@ def main(path):
     with open("articles.csv", 'w') as article_csv, open("edges.csv", 'w') as edge_csv:
         article_csv = csv.writer(article_csv)
         edge_csv = csv.writer(edge_csv)
-        article_csv.writerow(["cord_uid", "title"])
+        article_csv.writerow(["cord_uid", "title", "pmcid"])
         edge_csv.writerow(["cord_uid", "target_title", "doi"])
 
         prev_titles = set()
+        prev_cord_uid = set()
         for d in articles:
             article = pyserini.collection.Cord19Article(d.raw)
             title = article.title()
-            if article.is_full_text() and title and title not in prev_titles:
-                article_data = [article.cord_uid(), escape_title(title)]
+            cord_uid = article.cord_uid()
+            if article.is_full_text() and title and title not in prev_titles \
+                    and cord_uid not in prev_cord_uid:
+                article_data = [article.cord_uid(), escape_title(title),
+                                article.json["paper_id"]]
                 article_csv.writerow(article_data)
                 prev_titles.add(title)
+                prev_cord_uid.add(cord_uid)
 
                 bib_entries = article.bib_entries()
                 # Create edge between article and each cited title
@@ -56,6 +62,7 @@ def main(path):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Load CORD-19 citation data into Neo4j')
-    parser.add_argument('--path', type=str, required=True, help='The path to CORD-19 collection')
+    parser.add_argument('--path', type=str, required=True,
+                        help='The path to CORD-19 collection')
     args = parser.parse_args()
     main(args.path)

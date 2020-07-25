@@ -12,7 +12,7 @@ A low-effort way to try out Pyserini is to look at our [online notebooks](https:
 For convenience, we've pre-built a few common indexes, available to download [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
 
 Pyserini versions adopt the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
-The current stable release of Pyserini is [v0.9.3.1](https://pypi.org/project/pyserini/) on PyPI.
+The current stable release of Pyserini is [v0.9.4.0](https://pypi.org/project/pyserini/) on PyPI.
 The current experimental release of Pyserini on TestPyPI is behind the current stable release (i.e., do not use).
 In general, documentation is kept up to date with the latest code in the repo.
 
@@ -23,7 +23,7 @@ If you're looking to work with the [COVID-19 Open Research Dataset (CORD-19)](ht
 Install via PyPI:
 
 ```
-pip install pyserini==0.9.3.1
+pip install pyserini==0.9.4.0
 ```
 
 ## Development Installation
@@ -178,7 +178,7 @@ Pyserini accepts collections comprised of these documents organized in three dif
 
 + Folder with each JSON in its own file, like [this](integrations/resources/sample_collection_json).
 + Folder with files, each of which contains an array of JSON documents, like [this](integrations/resources/sample_collection_json_array).
-+ Folder with files, each of which contains a JSON on an individual line, like [this](integrations/resources/sample_collection_json) (often called JSONL format).
++ Folder with files, each of which contains a JSON on an individual line, like [this](integrations/resources/sample_collection_jsonl) (often called JSONL format).
 
 So, the quickest way to get started is to write a script that converts your documents into the above format.
 Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
@@ -223,6 +223,7 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 ## Release History
 
++ v0.9.4.0: June 26, 2020 [[Release Notes](docs/release-notes/release-notes-v0.9.4.0.md)]
 + v0.9.3.1: June 11, 2020 [[Release Notes](docs/release-notes/release-notes-v0.9.3.1.md)]
 + v0.9.3.0: May 27, 2020 [[Release Notes](docs/release-notes/release-notes-v0.9.3.0.md)]
 + v0.9.2.0: May 15, 2020 [[Release Notes](docs/release-notes/release-notes-v0.9.2.0.md)]
