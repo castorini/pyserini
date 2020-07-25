@@ -260,10 +260,11 @@ class IndexReader:
             doc_vector_dict[term] = doc_vector_map.get(JString(term.encode('utf-8')))
         return doc_vector_dict
 
-    def get_document_posting(self, docid: str) -> Optional[Dict[str, int]]:
-        """Return the posting list of the document with ``docid``. Note that requesting the document vector of a ``docid`` that
-        does not exist in the index will return ``None`` (as opposed to an empty dictionary); this forces the caller
-        to handle ``None`` explicitly and guards against silent errors.
+    def get_document_postings(self, docid: str) -> Optional[Tuple[Dict[str, int], str]]:
+        """Return the posting list of the document with ``docid`` and the recovered document using the list. Note that
+        the term in the document is stemmed and stopwords may be removed according to your index setting. Also,
+        requesting the document vector of a ``docid`` that does not exist in the index will return ``None`` (as opposed
+        to an empty dictionary); this forces the caller to handle ``None`` explicitly and guards against silent errors.
 
         Parameters
         ----------
@@ -272,40 +273,21 @@ class IndexReader:
 
         Returns
         -------
-        Optional[Dict[str, List[int]]]
-            A dictionary with analyzed terms as keys and their posting list as values.
+        Optional[Tuple[Dict[str, int], str]]
+            A tuple contains a dictionary with analyzed terms as keys and corresponding posting list as values, and a
+            string representing the recovered document
         """
         doc_posting_map = self.object.getDocumentPostings(self.reader, JString(docid))
         if doc_posting_map is None:
             return None
         doc_posting_dict = {}
+        term_pos = []
         for term in doc_posting_map.keySet().toArray():
             doc_posting_dict[term] = doc_posting_map.get(JString(term.encode('utf-8'))).toArray()
-        return doc_posting_dict
-
-    def reorganize_postings(self, postings):
-        """Return the recovered document from the posting list returned by get_document_posting. Note that the
-        term in the document is stemmed and stopwords may be removed according to your index setting
-
-                Parameters
-                ----------
-                postings : [Dict[str, List[int]]]
-                    posting list returned by get_document_posting.
-
-                Returns
-                -------
-                str
-                    A string contains the recovered document.
-                """
-        term_pos = []
-        for k, v in postings.items():
-            for p in v:
-                term_pos.append((k, p))
+            for p in doc_posting_dict[term]:
+                term_pos.append((term, p))
         term_pos = sorted(term_pos, key=lambda x: x[1])
-        for i, (t, p) in enumerate(term_pos):
-            if i != p:
-                print(i, t, p)
-        return ' '.join([t for t, p in term_pos])
+        return doc_posting_dict, ' '.join([t for t, p in term_pos])
 
     def doc(self, docid: str) -> Optional[Document]:
         """Return the :class:`Document` corresponding to ``docid``. Returns ``None`` if the ``docid`` does not exist
