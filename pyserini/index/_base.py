@@ -260,7 +260,7 @@ class IndexReader:
             doc_vector_dict[term] = doc_vector_map.get(JString(term.encode('utf-8')))
         return doc_vector_dict
 
-    def get_position_list(self, docid: str) -> Optional[Tuple[Dict[str, int], str]]:
+    def get_term_positions(self, docid: str) -> Optional[Tuple[Dict[str, int], str]]:
         """Return the term position mapping of the document with ``docid`` and the recovered document using the list. Note that
         the term in the document is stemmed and stop words may be removed according to your index settings. Also,
         requesting the document vector of a ``docid`` that does not exist in the index will return ``None`` (as opposed
@@ -277,7 +277,7 @@ class IndexReader:
             A tuple contains a dictionary with analyzed terms as keys and corresponding posting list as values, and a
             string representing the recovered document
         """
-        java_term_position_map = self.object.getPositionList(self.reader, JString(docid))
+        java_term_position_map = self.object.getTermPositions(self.reader, JString(docid))
         if java_term_position_map is None:
             return None
         term_position_map = {}

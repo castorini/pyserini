@@ -72,6 +72,15 @@ print(doc_vector)
 ```
 
 The result is a dictionary where the keys are the analyzed terms and the values are the term frequencies.
+
+If you want to know the positions of each term in the document, you can use `get_term_positions`:
+```python
+term_positions, indexed_doc = index_reader.get_term_positions('FBIS4-67701')
+print(term_positions)
+print(indexed_doc)
+```
+The result is a tuple. The first member is a dictionary where the keys are the analyzed terms and the values are the positions each term occur in the document. The second member is a string containing the recovered document content using the position information.
+
 To compute the tf-idf representation of a document, do something like this:
 
 ```python
