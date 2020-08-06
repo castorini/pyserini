@@ -193,7 +193,7 @@ class TestIndexUtils(unittest.TestCase):
         self.assertTrue(self.index_reader.get_term_positions('foo') is None)
 
     def test_term_position_matches_index(self):
-        # From the document vector, look up the term frequency of "information".
+        # From the term positions mapping, look up the position list of "information".
         term_positions = self.index_reader.get_term_positions('CACM-3134')
         self.assertEqual(term_positions['inform'], [7,24,36,46,60,112,121,159])
 
@@ -204,7 +204,7 @@ class TestIndexUtils(unittest.TestCase):
         for i in range(len(postings_list)):
             # Go through the postings and find the matching document.
             if self.index_reader.convert_internal_docid_to_collection_docid(postings_list[i].docid) == 'CACM-3134':
-                # The tf values should match.
+                # The position list should match.
                 self.assertEqual(postings_list[i].positions, [7,24,36,46,60,112,121,159])
 
     def test_doc_invalid(self):

@@ -89,6 +89,8 @@ for term, positions in term_positions.items():
 doc = ' '.join([t for t, p in sorted(doc, key=lambda x: x[1])])
 print(doc)
 ```
+The reconstructed document contains analyzed terms while [doc.contents()](https://github.com/castorini/pyserini/tree/master#how-do-i-fetch-a-document) contains unanalyzed terms.
+
 To compute the tf-idf representation of a document, do something like this:
 
 ```python
