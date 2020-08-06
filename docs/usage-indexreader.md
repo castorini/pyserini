@@ -72,6 +72,25 @@ print(doc_vector)
 ```
 
 The result is a dictionary where the keys are the analyzed terms and the values are the term frequencies.
+
+If you want to know the positions of each term in the document, you can use `get_term_positions`:
+```python
+term_positions = index_reader.get_term_positions('FBIS4-67701')
+print(term_positions)
+```
+The result is a dictionary where the keys are the analyzed terms and the values are the positions every term occur in the document.
+
+If you want to reconstruct the document using the position information, you can do this:
+```python
+doc = []
+for term, positions in term_positions.items():
+    for p in positions:
+        doc.append((term,p))
+doc = ' '.join([t for t, p in sorted(doc, key=lambda x: x[1])])
+print(doc)
+```
+The reconstructed document contains analyzed terms while [doc.contents()](https://github.com/castorini/pyserini/tree/master#how-do-i-fetch-a-document) contains unanalyzed terms.
+
 To compute the tf-idf representation of a document, do something like this:
 
 ```python

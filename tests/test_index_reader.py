@@ -183,6 +183,30 @@ class TestIndexUtils(unittest.TestCase):
                 # The tf values should match.
                 self.assertEqual(postings_list[i].tf, 8)
 
+    def test_term_position(self):
+        term_positions = self.index_reader.get_term_positions('CACM-3134')
+        self.assertEqual(len(term_positions), 94)
+        self.assertEqual(term_positions['inform'], [7,24,36,46,60,112,121,159])
+        self.assertEqual(term_positions['retriev'], [10,20,44,132,160,164,172])
+
+    def test_term_position_invalid(self):
+        self.assertTrue(self.index_reader.get_term_positions('foo') is None)
+
+    def test_term_position_matches_index(self):
+        # From the term positions mapping, look up the position list of "information".
+        term_positions = self.index_reader.get_term_positions('CACM-3134')
+        self.assertEqual(term_positions['inform'], [7,24,36,46,60,112,121,159])
+
+        # Now look up the postings list for "information".
+        term = 'information'
+        postings_list = list(self.index_reader.get_postings_list(term))
+
+        for i in range(len(postings_list)):
+            # Go through the postings and find the matching document.
+            if self.index_reader.convert_internal_docid_to_collection_docid(postings_list[i].docid) == 'CACM-3134':
+                # The position list should match.
+                self.assertEqual(postings_list[i].positions, [7,24,36,46,60,112,121,159])
+
     def test_doc_invalid(self):
         self.assertTrue(self.index_reader.doc('foo') is None)
         self.assertTrue(self.index_reader.doc_contents('foo') is None)
