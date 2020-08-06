@@ -75,12 +75,20 @@ The result is a dictionary where the keys are the analyzed terms and the values 
 
 If you want to know the positions of each term in the document, you can use `get_term_positions`:
 ```python
-term_positions, indexed_doc = index_reader.get_term_positions('FBIS4-67701')
+term_positions = index_reader.get_term_positions('FBIS4-67701')
 print(term_positions)
-print(indexed_doc)
 ```
-The result is a tuple. The first member is a dictionary where the keys are the analyzed terms and the values are the positions each term occur in the document. The second member is a string containing the recovered document content using the position information.
+The result is a dictionary where the keys are the analyzed terms and the values are the positions every term occur in the document.
 
+If you want to reconstruct the document using the position information, you can do this:
+```python
+doc = []
+for term, positions in term_positions.items():
+    for p in positions:
+        doc.append((term,p))
+doc = ' '.join([t for t, p in sorted(doc, key=lambda x: x[1])])
+print(doc)
+```
 To compute the tf-idf representation of a document, do something like this:
 
 ```python
