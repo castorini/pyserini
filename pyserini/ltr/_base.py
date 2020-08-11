@@ -8,11 +8,11 @@ class FeatureExtractor:
     def __init__(self, index_dir, config):
         self.extractor = JFeatureExtractor(JString(index_dir))
         if 'QueryLength' in config:
-            FeatureExtractor.add(JQueryLength())
+            self.extractor.add(JQueryLength())
         if 'BM25' in config:
             k1 = config['BM25']['k1']
             b = config['BM25']['b']
-            FeatureExtractor.add(JBM25FeatureExtractor(k1, b))
+            self.extractor.add(JBM25FeatureExtractor(k1, b))
 
     def extract(self, query_tokens, doc_ids):
         queryTokens = JArrayList()
