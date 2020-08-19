@@ -17,9 +17,9 @@ class BM25:
         return 'bm25'
 
 class FeatureExtractor:
-    def __init__(self, index_dir):
+    def __init__(self, index_dir, worker_num=1):
         JFeatureExtractorUtils = autoclass('io.anserini.ltr.FeatureExtractorUtils')
-        self.utils = JFeatureExtractorUtils(JString(index_dir))
+        self.utils = JFeatureExtractorUtils(JString(index_dir), worker_num)
         self.feature_name = []
 
     def add(self, pyclass):
@@ -37,6 +37,22 @@ class FeatureExtractor:
         for did in doc_ids:
             docIds.add(JString(did))
         res = self.utils.extract(queryTokens, docIds)
+        features = {}
+        for did in res.keySet().toArray():
+            features[did] = res.get(JString(did)).toArray()
+        return features
+
+    def lazy_extract(self, qid, query_tokens, doc_ids):
+        queryTokens = JArrayList()
+        for token in query_tokens:
+            queryTokens.add(JString(token))
+        docIds = JArrayList()
+        for did in doc_ids:
+            docIds.add(JString(did))
+        self.utils.lazyExtract(JString(qid), queryTokens, docIds)
+
+    def get_result(self, qid):
+        res = self.utils.getResult(JString(qid))
         features = {}
         for did in res.keySet().toArray():
             features[did] = res.get(JString(did)).toArray()
