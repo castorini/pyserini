@@ -1,20 +1,78 @@
 from ..pyclass import autoclass, JString, JArrayList
 
-class QueryLength:
+class Feature:
+   def name(self):
+        return self.extractor.getName()
+
+class AvgICTF(Feature):
     def __init__(self):
-        JQueryLength = autoclass('io.anserini.ltr.feature.base.QueryLength')
-        self.extractor = JQueryLength()
+        Jclass = autoclass('io.anserini.ltr.feature.base.AvgICTFFeatureExtractor')
+        self.extractor = Jclass()
 
-    def name(self):
-        return 'query_len'
+class AvgIDF(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.AvgIDFFeatureExtractor')
+        self.extractor = Jclass()
 
-class BM25:
+class BM25(Feature):
     def __init__(self, k1=0.9, b=0.4):
-        JBM25FeatureExtractor = autoclass('io.anserini.ltr.feature.base.BM25FeatureExtractor')
-        self.extractor = JBM25FeatureExtractor(k1, b)
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25FeatureExtractor')
+        self.extractor = Jclass(k1, b)
 
-    def name(self):
-        return 'bm25'
+class DocSize(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.DocSizeFeatureExtractor')
+        self.extractor = Jclass()
+
+class MatchingTermCount(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.MatchingTermCount')
+        self.extractor = Jclass()
+
+class PMI(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.PMIFeatureExtractor')
+        self.extractor = Jclass()
+
+class QueryLength(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.QueryLength')
+        self.extractor = Jclass()
+
+class SCQ(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.SCQFeatureExtractor')
+        self.extractor = Jclass()
+
+class SCS(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.SCSFeatureExtractor')
+        self.extractor = Jclass()
+
+class SumMatchingTF(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.SumMatchingTF')
+        self.extractor = Jclass()
+
+class TFIDF(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.TFIDFFeatureExtractor')
+        self.extractor = Jclass()
+
+class UniqueTermCount(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.UniqueTermCount')
+        self.extractor = Jclass()
+
+class UnorderedSequentialPairs(Feature):
+    def __init__(self, gap=8):
+        Jclass = autoclass('io.anserini.ltr.feature.UnorderedSequentialPairsFeatureExtractor')
+        self.extractor = Jclass(gap)
+
+class OrderedSequentialPairs(Feature):
+    def __init__(self, gap=8):
+        Jclass = autoclass('io.anserini.ltr.feature.OrderedSequentialPairsFeatureExtractor')
+        self.extractor = Jclass(gap)
 
 class FeatureExtractor:
     def __init__(self, index_dir, worker_num=1):
