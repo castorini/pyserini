@@ -1,4 +1,5 @@
 from ..pyclass import autoclass, JString, JArrayList
+import json
 
 class Feature:
    def name(self):
@@ -87,34 +88,13 @@ class FeatureExtractor:
     def feature_names(self):
         return self.feature_name
 
-    def extract(self, query_tokens, doc_ids):
-        queryTokens = JArrayList()
-        for token in query_tokens:
-            queryTokens.add(JString(token))
-        docIds = JArrayList()
-        for did in doc_ids:
-            docIds.add(JString(did))
-        res = self.utils.extract(queryTokens, docIds)
-        features = {}
-        for did in res.keySet().toArray():
-            features[did] = res.get(JString(did)).toArray()
-        return features
-
     def lazy_extract(self, qid, query_tokens, doc_ids):
-        queryTokens = JArrayList()
-        for token in query_tokens:
-            queryTokens.add(JString(token))
-        docIds = JArrayList()
-        for did in doc_ids:
-            docIds.add(JString(did))
-        self.utils.lazyExtract(JString(qid), queryTokens, docIds)
+        input = {'qid': qid, 'queryTokens': query_tokens, 'docIds': doc_ids}
+        self.utils.lazyExtract(JString(json.dumps(input)))
 
     def get_result(self, qid):
         res = self.utils.getResult(JString(qid))
-        features = {}
-        for did in res.keySet().toArray():
-            features[did] = res.get(JString(did)).toArray()
-        return features
+        return json.loads(res)
 
 
 
