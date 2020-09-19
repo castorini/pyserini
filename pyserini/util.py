@@ -27,15 +27,15 @@ INDEX_MAPPING = OrderedDict(
     [
         (
             'ms-marco-passage',
-            'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-20191117-0ed488.tar.gz'
+            {'uwaterloo': 'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-20191117-0ed488.tar.gz'}
         ),
         (
             'ms-marco-doc',
-            'https://www.dropbox.com/s/awukuo8c0tkl9sc/index-msmarco-doc-20200527-a1ecfa.tar.gz?dl=1'
+            {'dropbox': 'https://www.dropbox.com/s/awukuo8c0tkl9sc/index-msmarco-doc-20200527-a1ecfa.tar.gz?dl=1'}
         ),
         (
-            'trec4_5',
-            'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz'
+            'trec45',
+            {'uwaterloo': 'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz'}
         )
     ]
 )
@@ -93,21 +93,12 @@ def get_cache_home():
         os.getenv("PYS_HOME", os.path.join(os.getenv("XDG_CACHE_HOME", f'~{os.path.sep}.cache'), "pyserini"))
     )
 
-def download_and_unpack_index(url, index_directory='indexes', force=False, verbose=True, save_cache=False):
+def download_and_unpack_index(url, index_directory='indexes', force=False, verbose=True):
     index_name = url.split('/')[-1]
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
 
-    index_path = os.path.join(index_directory, index_name)
-    if save_cache:
-        gaggle_cache_home = get_cache_home()
-        cache_index_directory = os.path.join(gaggle_cache_home, 'indexes')
-        if not os.path.exists(cache_index_directory):
-            if verbose:
-                print(f'{cache_index_directory} is created!')
-            os.makedirs(cache_index_directory)
-        local_tarball = os.path.join(cache_index_directory, f'{index_name}.tar.gz')
-    else:
-        local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
+    index_path = f'{index_directory}/{index_name}'
+    local_tarball = f'{index_directory}/{index_name}.tar.gz'
 
     if verbose:
         print(f'Downloading index at {url}...')
@@ -120,25 +111,69 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
         if not force:
             if verbose:
                 print(f'Skipping download.')
-            return index_path
+            return
         if verbose:
             print(f'force=True, removing {index_path}; fetching fresh copy...')
         shutil.rmtree(index_path)
 
-    if save_cache:
-        download_url(url, cache_index_directory, verbose=False)
-    else:
-        download_url(url, index_directory, verbose=False)
+    download_url(url, index_directory, verbose=False)
+
     if verbose:
         print(f'Extracting {local_tarball} into {index_path}...')
     tarball = tarfile.open(local_tarball)
     tarball.extractall(index_directory)
     tarball.close()
     os.remove(local_tarball)
-    return index_path
 
-def download_index(index_name, force=False, verbose=True):
+def download_to_cache_and_unpack_index(url, force=False, verbose=True):
+    index_name = url.split('/')[-1]
+    index_name = re.sub('''.tar.gz.*$''', '', index_name)
+    gaggle_cache_home = get_cache_home()
+    cache_index_directory = os.path.join(gaggle_cache_home, 'indexes')
+    if not os.path.exists(cache_index_directory):
+        if verbose:
+            print(f'{cache_index_directory} is created!')
+        os.makedirs(cache_index_directory)
+    local_tarball = os.path.join(cache_index_directory, f'{index_name}.tar.gz')
+    if verbose:
+        print(f'Downloading index at {url}...')
+
+    # Check to see if index already exists, if so, simply return (quietly) unless force=True, in which case we remove
+    # index and download fresh copy.
+    prebuilt_name = next(iter([index for index in os.listdir(cache_index_directory) if index.startswith(index_name)]), None)
+    if prebuilt_name:
+        index_path = os.path.join(cache_index_directory, prebuilt_name)
+        if os.path.exists(index_path):
+            if verbose:
+                print(f'{index_path} already exists!')
+            if not force:
+                if verbose:
+                    print(f'Skipping download.')
+                return index_path
+            if verbose:
+                print(f'force=True, removing {index_path}; fetching fresh copy...')
+            shutil.rmtree(index_path)
+
+    download_url(url, cache_index_directory, verbose=False)
+    index_path = os.path.join(cache_index_directory, index_name)
+    destination_path = index_path + compute_md5(local_tarball)
+    if verbose:
+        print(f'Extracting {local_tarball} into {destination_path}...')
+    tarball = tarfile.open(local_tarball)
+    tarball.extractall(cache_index_directory)
+    tarball.close()
+    os.remove(local_tarball)
+    os.rename(index_path, destination_path)
+    return destination_path
+
+
+def download_index(index_name, force=False, verbose=True, mirror=None):
     if index_name in INDEX_MAPPING:
-          return download_and_unpack_index(INDEX_MAPPING[index_name], save_cache=True)
+        if not mirror:
+            mirror = next(iter(INDEX_MAPPING[index_name]))
+        elif  mirror not in INDEX_MAPPING[index_name]:
+            raise ValueError("unrecognized mirror name {}".format(mirror))
+        index_url = INDEX_MAPPING[index_name][mirror]
+        return download_to_cache_and_unpack_index(index_url)
     else:
         raise ValueError("unrecognized index name {}".format(index_name))

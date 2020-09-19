@@ -46,13 +46,17 @@ class SimpleSearcher:
         Path to Lucene index directory.
     """
 
-    def __init__(self, index_name_or_dir: str):
-        if not os.path.isdir(index_name_or_dir):
-            index_dir = download_index(index_name_or_dir)
-        else:
-            index_dir = index_name_or_dir
+    def __init__(self, index_dir: str):
         self.object = JSimpleSearcher(JString(index_dir))
         self.num_docs = self.object.getTotalNumDocuments()
+
+    @classmethod
+    def from_prebuilt_index(cls, prebuilt_index_name_or_path: str):
+        if not os.path.isdir(prebuilt_index_name_or_path):
+            index_dir = download_index(prebuilt_index_name_or_path)
+        else:
+            index_dir = prebuilt_index_name_or_path
+        return cls(index_dir)
 
     def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
         """Search the collection.
