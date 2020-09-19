@@ -26,6 +26,7 @@ from ._base import Document, JQuery, JQueryGenerator
 from pyserini.pyclass import autoclass, JString, JArrayList
 from pyserini.trectools import TrecRun
 from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
+from pyserini.util import download_index
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +45,11 @@ class SimpleSearcher:
         Path to Lucene index directory.
     """
 
-    def __init__(self, index_dir: str):
+    def __init__(self, index_name_or_dir: str):
+        if not os.path.isdir(index_name_or_dir):
+            index_dir = download_index(index_name_or_dir)
+        else:
+            index_dir = index_name_or_dir
         self.object = JSimpleSearcher(JString(index_dir))
         self.num_docs = self.object.getTotalNumDocuments()
 

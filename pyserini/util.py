@@ -21,7 +21,24 @@ import shutil
 import tarfile
 from tqdm import tqdm
 from urllib.request import urlretrieve
+from collections import OrderedDict
 
+INDEX_MAPPING = OrderedDict(
+    [
+        (
+            'ms-marco-passage',
+            'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-20191117-0ed488.tar.gz'
+        ),
+        (
+            'ms-marco-doc',
+            'https://www.dropbox.com/s/awukuo8c0tkl9sc/index-msmarco-doc-20200527-a1ecfa.tar.gz?dl=1'
+        ),
+        (
+            'trec4_5',
+            'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz'
+        )
+    ]
+)
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5
 class TqdmUpTo(tqdm):
@@ -71,13 +88,27 @@ def download_url(url, save_dir, md5=None, force=False, verbose=True):
     if md5:
         assert compute_md5(destination_path) == md5, f'{destination_path} does not match checksum!'
 
+def get_cache_home():
+    return os.path.expanduser(
+        os.getenv("PYS_HOME", os.path.join(os.getenv("XDG_CACHE_HOME", f'~{os.path.sep}.cache'), "pyserini"))
+    )
 
-def download_and_unpack_index(url, index_directory='indexes', force=False, verbose=True):
+def download_and_unpack_index(url, index_directory='indexes', force=False, verbose=True, save_cache=False):
     index_name = url.split('/')[-1]
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
 
-    index_path = f'{index_directory}/{index_name}'
-    local_tarball = f'{index_directory}/{index_name}.tar.gz'
+    index_path = f'{index_directory}/{index_name}' #this is pyserini/index
+    if save_cache:
+        gaggle_cache_home = get_cache_home()
+        cache_index_directory = os.path.join(gaggle_cache_home, 'indexes')
+        if not os.path.exists(cache_index_directory):
+            if verbose:
+                print(f'{cache_index_directory} is created!')
+            os.makedirs(cache_index_directory)
+        local_tarball = os.path.join(cache_index_directory, f'{index_name}.tar.gz')
+    else:
+        local_tarball = f'{index_directory}/{index_name}.tar.gz'
+
 
     if verbose:
         print(f'Downloading index at {url}...')
@@ -95,11 +126,20 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
             print(f'force=True, removing {index_path}; fetching fresh copy...')
         shutil.rmtree(index_path)
 
-    download_url(url, index_directory, verbose=False)
-
+    if save_cache:
+        download_url(url, cache_index_directory, verbose=False)
+    else:
+        download_url(url, index_directory, verbose=False)
     if verbose:
         print(f'Extracting {local_tarball} into {index_path}...')
     tarball = tarfile.open(local_tarball)
     tarball.extractall(index_directory)
     tarball.close()
     os.remove(local_tarball)
+    return os.path.join(index_directory, f'{index_name}')
+
+def download_index(index_name, force=False, verbose=True):
+    if index_name in INDEX_MAPPING:
+          return download_and_unpack_index(INDEX_MAPPING[index_name], save_cache=True)
+    else:
+        raise ValueError("unrecognized index name {}".format(index_name))
