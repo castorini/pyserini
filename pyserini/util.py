@@ -97,7 +97,8 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
     index_name = url.split('/')[-1]
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
 
-    index_path = f'{index_directory}/{index_name}' #this is pyserini/index
+    #index_path = f'{index_directory}/{index_name}' #this is pyserini/index
+    index_path = os.path.join(index_directory, index_name)
     if save_cache:
         gaggle_cache_home = get_cache_home()
         cache_index_directory = os.path.join(gaggle_cache_home, 'indexes')
@@ -107,8 +108,8 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
             os.makedirs(cache_index_directory)
         local_tarball = os.path.join(cache_index_directory, f'{index_name}.tar.gz')
     else:
-        local_tarball = f'{index_directory}/{index_name}.tar.gz'
-
+        local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
+        #local_tarball = f'{index_directory}/{index_name}.tar.gz'
 
     if verbose:
         print(f'Downloading index at {url}...')
@@ -121,7 +122,7 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
         if not force:
             if verbose:
                 print(f'Skipping download.')
-            return
+            return index_path
         if verbose:
             print(f'force=True, removing {index_path}; fetching fresh copy...')
         shutil.rmtree(index_path)
@@ -136,7 +137,7 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
     tarball.extractall(index_directory)
     tarball.close()
     os.remove(local_tarball)
-    return os.path.join(index_directory, f'{index_name}')
+    return index_path
 
 def download_index(index_name, force=False, verbose=True):
     if index_name in INDEX_MAPPING:

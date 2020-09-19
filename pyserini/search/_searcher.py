@@ -20,6 +20,7 @@ class, which wraps the Java class with the same name in Anserini.
 """
 
 import logging
+import os
 from typing import Dict, List, Optional, Union
 
 from ._base import Document, JQuery, JQueryGenerator
