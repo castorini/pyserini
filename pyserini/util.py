@@ -27,15 +27,24 @@ INDEX_MAPPING = OrderedDict(
     [
         (
             'ms-marco-passage',
-            {'uwaterloo': 'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-20191117-0ed488.tar.gz'}
+            {
+                'urls': {'uwaterloo': 'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-20191117-0ed488.tar.gz'},
+                'md5': '3c2ef64ee6d0ee8e317adcb341b92e28'
+            }
         ),
         (
             'ms-marco-doc',
-            {'dropbox': 'https://www.dropbox.com/s/awukuo8c0tkl9sc/index-msmarco-doc-20200527-a1ecfa.tar.gz?dl=1'}
+            {
+                'urls': {'dropbox': 'https://www.dropbox.com/s/awukuo8c0tkl9sc/index-msmarco-doc-20200527-a1ecfa.tar.gz?dl=1'},
+                'md5': '72b1a0f9a9094a86d15c6f4babf8967a'
+            }
         ),
         (
             'trec45',
-            {'uwaterloo': 'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz'}
+            {
+                'urls': {'uwaterloo': 'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz'},
+                'md5': '15f3d001489c97849a010b0a4734d018'
+            }
         )
     ]
 )
@@ -125,7 +134,7 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
     tarball.close()
     os.remove(local_tarball)
 
-def download_to_cache_and_unpack_index(url, force=False, verbose=True):
+def download_to_cache_and_unpack_index(url, md5, force=False, verbose=True):
     index_name = url.split('/')[-1]
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
     gaggle_cache_home = get_cache_home()
@@ -140,21 +149,19 @@ def download_to_cache_and_unpack_index(url, force=False, verbose=True):
 
     # Check to see if index already exists, if so, simply return (quietly) unless force=True, in which case we remove
     # index and download fresh copy.
-    prebuilt_name = next(iter([index for index in os.listdir(cache_index_directory) if index.startswith(index_name)]), None)
-    if prebuilt_name:
-        index_path = os.path.join(cache_index_directory, prebuilt_name)
-        if os.path.exists(index_path):
+    prebuilt_index_dir = os.path.join(cache_index_directory, f'{index_name}{md5}')
+    if os.path.exists(prebuilt_index_dir):
+        if verbose:
+            print(f'{prebuilt_index_dir} already exists!')
+        if not force:
             if verbose:
-                print(f'{index_path} already exists!')
-            if not force:
-                if verbose:
-                    print(f'Skipping download.')
-                return index_path
-            if verbose:
-                print(f'force=True, removing {index_path}; fetching fresh copy...')
-            shutil.rmtree(index_path)
+                print(f'Skipping download.')
+            return prebuilt_index_dir
+        if verbose:
+            print(f'force=True, removing {prebuilt_index_dir}; fetching fresh copy...')
+        shutil.rmtree(prebuilt_index_dir)
 
-    download_url(url, cache_index_directory, verbose=False)
+    download_url(url, cache_index_directory, verbose=False, md5=md5)
     index_path = os.path.join(cache_index_directory, index_name)
     destination_path = index_path + compute_md5(local_tarball)
     if verbose:
@@ -170,10 +177,11 @@ def download_to_cache_and_unpack_index(url, force=False, verbose=True):
 def download_index(index_name, force=False, verbose=True, mirror=None):
     if index_name in INDEX_MAPPING:
         if not mirror:
-            mirror = next(iter(INDEX_MAPPING[index_name]))
-        elif  mirror not in INDEX_MAPPING[index_name]:
+            mirror = next(iter(INDEX_MAPPING[index_name]["urls"]))
+        elif  mirror not in INDEX_MAPPING[index_name]["urls"]:
             raise ValueError("unrecognized mirror name {}".format(mirror))
-        index_url = INDEX_MAPPING[index_name][mirror]
-        return download_to_cache_and_unpack_index(index_url)
+        index_url = INDEX_MAPPING[index_name]["urls"][mirror]
+        index_md5 = INDEX_MAPPING[index_name]["md5"]
+        return download_to_cache_and_unpack_index(index_url, index_md5)
     else:
         raise ValueError("unrecognized index name {}".format(index_name))
