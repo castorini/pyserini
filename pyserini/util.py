@@ -97,7 +97,6 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
     index_name = url.split('/')[-1]
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
 
-    #index_path = f'{index_directory}/{index_name}' #this is pyserini/index
     index_path = os.path.join(index_directory, index_name)
     if save_cache:
         gaggle_cache_home = get_cache_home()
@@ -109,7 +108,6 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
         local_tarball = os.path.join(cache_index_directory, f'{index_name}.tar.gz')
     else:
         local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
-        #local_tarball = f'{index_directory}/{index_name}.tar.gz'
 
     if verbose:
         print(f'Downloading index at {url}...')
