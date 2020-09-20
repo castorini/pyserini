@@ -95,11 +95,17 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
     if prebuilt:
         index_directory = os.path.join(get_cache_home(), 'indexes')
         index_path = os.path.join(index_directory, f'{index_name}{md5}')
+        local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
         if not os.path.exists(index_directory):
             os.makedirs(index_directory)
     else:
         index_path = os.path.join(index_directory, f'{index_name}')
+
     local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
+
+    if prebuilt:
+        if os.path.exists(local_tarball):
+            os.remove(local_tarball)
     if verbose:
         print(f'Downloading index at {url}...')
 
