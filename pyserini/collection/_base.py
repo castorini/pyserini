@@ -29,6 +29,7 @@ JSourceDocument = autoclass('io.anserini.collection.SourceDocument')
 
 
 class JCollections(Enum):
+    AclAnthology = autoclass('io.anserini.collection.AclAnthology')
     CarCollection = autoclass('io.anserini.collection.CarCollection')
     Cord19AbstractCollection = autoclass('io.anserini.collection.Cord19AbstractCollection')
     ClueWeb09Collection = autoclass('io.anserini.collection.ClueWeb09Collection')
