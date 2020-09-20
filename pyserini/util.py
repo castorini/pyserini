@@ -114,7 +114,6 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
     if verbose:
         print(f'Downloading index at {url}...')
 
-
     # Check to see if index already exists, if so, simply return (quietly) unless force=True, in which case we remove
     # index and download fresh copy.
     if os.path.exists(index_path):
