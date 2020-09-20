@@ -112,6 +112,22 @@ for i in range(0, 10):
     print(f'{i+1:2} {hits2[i].docid:15} {hits2[i].score:.5f}')
 ```
 
+## How Do I build searchers?
+
+There are two ways to build searchers.
++ To build a searcher with a path to a directory containing the index.
+```python
+searcher = SimpleSearcher('indexes/index-robust04-20191213/')
+```
++ To build a searcher with the index's identifier name.
+```python
+searcher = SimpleSearcher.from_prebuilt_index('trec45')
+```
+It currently supports:
++ trec45 (TREC Disks 4 & 5)
++ ms-marco-passage (MS MARCO Passage)
++ ms-marco-doc (MS MARCO Doc)
+
 ## How Do I Fetch a Document?
 
 The other commonly used feature is to fetch a document given its `docid`.
