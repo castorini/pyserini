@@ -125,6 +125,7 @@ searcher = SimpleSearcher.from_prebuilt_index('trec45')
 ```
 It currently supports:
 + trec45 (TREC Disks 4 & 5)
++ robust04 (TREC Disks 4 & 5)
 + ms-marco-passage (MS MARCO Passage)
 + ms-marco-doc (MS MARCO Doc)
 
