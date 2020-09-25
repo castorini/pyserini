@@ -22,20 +22,28 @@ import tarfile
 from tqdm import tqdm
 from urllib.request import urlretrieve
 
-INDEX_MAPPING = {
-    'ms-marco-passage': {
+INDEX_INFO = {
+    'index-marco-passage': {
         'urls': {'uwaterloo': 'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-20191117-0ed488.tar.gz'},
         'md5': '3c2ef64ee6d0ee8e317adcb341b92e28'
     },
-    'ms-marco-doc': {
+    'index-marco-doc': {
         'urls': {'dropbox': 'https://www.dropbox.com/s/awukuo8c0tkl9sc/index-msmarco-doc-20200527-a1ecfa.tar.gz?dl=1'},
         'md5': '72b1a0f9a9094a86d15c6f4babf8967a'
     },
-    'trec45': {
+    'index-robust04': {
         'urls': {'uwaterloo': 'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz'},
         'md5': '15f3d001489c97849a010b0a4734d018'
     }
 }
+
+INDEX_MAPPING = {
+    'ms-marco-passage': INDEX_INFO['index-marco-passage'],
+    'ms-marco-doc': INDEX_INFO['index-marco-doc'],
+    'trec45': INDEX_INFO['index-robust04'],
+    'robust04': INDEX_INFO['index-robust04']
+}
+
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5
 class TqdmUpTo(tqdm):
