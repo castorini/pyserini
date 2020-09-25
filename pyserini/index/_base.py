@@ -150,6 +150,12 @@ class IndexReader:
         self.object = JIndexReader()
         self.reader = self.object.getReader(JString(index_dir))
 
+    @classmethod
+    def from_prebuilt_index(cls, prebuilt_index_name: str):
+        index_dir = download_prebuilt_index(prebuilt_index_name)
+        return cls(index_dir)
+
+
     def analyze(self, text: str, analyzer=None) -> List[str]:
         """Analyze a piece of text. Applies Anserini's default Lucene analyzer if analyzer not specified.
 

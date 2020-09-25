@@ -54,6 +54,10 @@ class SimpleSearcher:
         index_dir = download_prebuilt_index(prebuilt_index_name)
         return cls(index_dir)
 
+    @classmethod
+    def list_prebuilt_indexes(cls, prebuilt_index_name: str):
+        print("get")
+
     def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
         """Search the collection.
 
