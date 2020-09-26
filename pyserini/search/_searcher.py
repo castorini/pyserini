@@ -26,6 +26,7 @@ from ._base import Document, JQuery, JQueryGenerator
 from pyserini.pyclass import autoclass, JString, JArrayList
 from pyserini.trectools import TrecRun
 from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
+from pyserini.util import download_prebuilt_index
 
 logger = logging.getLogger(__name__)
 
@@ -47,6 +48,11 @@ class SimpleSearcher:
     def __init__(self, index_dir: str):
         self.object = JSimpleSearcher(JString(index_dir))
         self.num_docs = self.object.getTotalNumDocuments()
+
+    @classmethod
+    def from_prebuilt_index(cls, prebuilt_index_name: str):
+        index_dir = download_prebuilt_index(prebuilt_index_name)
+        return cls(index_dir)
 
     def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
         """Search the collection.

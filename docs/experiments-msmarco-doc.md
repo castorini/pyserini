@@ -80,3 +80,5 @@ map                   	all	0.2303
 We see that "out of the box" Anserini is already better!
 
 ## Replication Log
+
++ Results replicated by [@JeffreyCA](https://github.com/JeffreyCA) on 2020-09-14 (commit [`49fd7cb`](https://github.com/castorini/pyserini/commit/49fd7cb8fd802493dc34f5cb33767d2e72e19f13))
