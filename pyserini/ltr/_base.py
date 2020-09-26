@@ -65,16 +65,6 @@ class UniqueTermCount(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.UniqueTermCount')
         self.extractor = Jclass()
 
-class UnorderedSequentialPairs(Feature):
-    def __init__(self, gap=8):
-        Jclass = autoclass('io.anserini.ltr.feature.UnorderedSequentialPairsFeatureExtractor')
-        self.extractor = Jclass(gap)
-
-class OrderedSequentialPairs(Feature):
-    def __init__(self, gap=8):
-        Jclass = autoclass('io.anserini.ltr.feature.OrderedSequentialPairsFeatureExtractor')
-        self.extractor = Jclass(gap)
-
 class FeatureExtractor:
     def __init__(self, index_dir, worker_num=1):
         JFeatureExtractorUtils = autoclass('io.anserini.ltr.FeatureExtractorUtils')
@@ -82,17 +72,55 @@ class FeatureExtractor:
         self.feature_name = []
 
     def add(self, pyclass):
+        """
+        add feature extractor; cannot add feature extractors in the middle of extraction
+        Parameters
+        ----------
+        pyclass: Feature
+            an initialized feature extractor
+
+        """
         self.utils.add(pyclass.extractor)
         self.feature_name.append(pyclass.name())
 
     def feature_names(self):
+        """
+        get all feature names
+        Returns
+        -------
+        List[str]   all the feature names in order
+        """
         return self.feature_name
 
     def lazy_extract(self, qid, query_tokens, doc_ids):
+        """
+        sumbit tasks to workers
+        Parameters
+        ----------
+        qid: str
+            unique query id
+        query_tokens: List[str]
+            tokenized query
+        doc_ids: List[str]
+            doc id we need to extract on
+
+        """
         input = {'qid': qid, 'queryTokens': query_tokens, 'docIds': doc_ids}
         self.utils.lazyExtract(JString(json.dumps(input)))
 
     def get_result(self, qid):
+        """
+        get task result by query id; this call will be blocked until the task is finished
+        Parameters
+        ----------
+        qid: str
+         unique query id; mush be the same id that is used to submit the task
+
+        Returns
+        -------
+        dict: a parsed json
+
+        """
         res = self.utils.getResult(JString(qid))
         return json.loads(res)
 
