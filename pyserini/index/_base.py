@@ -27,6 +27,7 @@ from typing import Dict, Iterator, List, Optional, Tuple
 from ..analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
 from ..pyclass import autoclass, JString
 from ..search import Document
+from pyserini.util import download_prebuilt_index, get_indexes_info
 
 logger = logging.getLogger(__name__)
 
@@ -155,6 +156,9 @@ class IndexReader:
         index_dir = download_prebuilt_index(prebuilt_index_name)
         return cls(index_dir)
 
+    @staticmethod
+    def list_prebuilt_indexes():
+        get_indexes_info()
 
     def analyze(self, text: str, analyzer=None) -> List[str]:
         """Analyze a piece of text. Applies Anserini's default Lucene analyzer if analyzer not specified.
