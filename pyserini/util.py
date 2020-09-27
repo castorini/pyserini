@@ -122,7 +122,7 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
         os.rename(os.path.join(index_directory, f'{index_name}'), index_path)
     return index_path
 
-def check_download(index_name):
+def check_downloaded(index_name):
     mirror = next(iter(INDEX_INFO[index_name]["url"]))
     index_url = INDEX_INFO[index_name]["url"][mirror]
     index_md5 = INDEX_INFO[index_name]["md5"]
@@ -138,7 +138,7 @@ def get_indexes_info():
         print(f'{index} information:')
         for attr in index_dict.keys():
             if attr == "downloaded":
-                index_dict[attr] = check_download(index)
+                index_dict[attr] = check_downloaded(index)
             print(f'{attr}: {index_dict[attr]}')
         print('\n')
 
