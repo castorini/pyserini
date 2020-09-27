@@ -21,9 +21,10 @@ import shutil
 import tarfile
 from tqdm import tqdm
 from urllib.request import urlretrieve
-import json
+import pandas as pd
+from pyserini.indexInfo import INDEX_INFO
 
-INDEX_INFO = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'indexes_info.json')))
+#INDEX_INFO = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'indexes_info.json')))
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5
 class TqdmUpTo(tqdm):
@@ -133,14 +134,12 @@ def check_downloaded(index_name):
     return os.path.exists(index_path)
 
 def get_indexes_info():
-    for index in INDEX_INFO.keys():
-        index_dict = INDEX_INFO[index]
-        print(f'{index} information:')
-        for attr in index_dict.keys():
-            if attr == "downloaded":
-                index_dict[attr] = check_downloaded(index)
-            print(f'{attr}: {index_dict[attr]}')
-        print('\n')
+    indexDf = pd.DataFrame.from_dict(INDEX_INFO)
+    for index in indexDf.keys():
+        indexDf[index]['downloaded'] = check_downloaded(index)
+    with pd.option_context('display.max_rows', None, 'display.max_columns', \
+                           None, 'display.max_colwidth', -1, 'display.colheader_justify', 'left'):
+        print(indexDf)
 
 def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
     if index_name in INDEX_INFO:
