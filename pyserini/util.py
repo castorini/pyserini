@@ -24,7 +24,6 @@ from urllib.request import urlretrieve
 import pandas as pd
 from pyserini.indexInfo import INDEX_INFO
 
-#INDEX_INFO = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'indexes_info.json')))
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5
 class TqdmUpTo(tqdm):
