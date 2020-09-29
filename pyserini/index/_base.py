@@ -153,11 +153,24 @@ class IndexReader:
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str):
+        """Build an index reader from the prebuilt index, download the index if necessary.
+
+        Parameters
+        ----------
+        prebuilt_index_name : str
+            Prebuilt index name.
+
+        Returns
+        -------
+        IndexReader
+            Index reader built from the prebuilt index.
+        """
         index_dir = download_prebuilt_index(prebuilt_index_name)
         return cls(index_dir)
 
     @staticmethod
     def list_prebuilt_indexes():
+        """Display available prebuilt indexes' information."""
         get_indexes_info()
 
     def analyze(self, text: str, analyzer=None) -> List[str]:
