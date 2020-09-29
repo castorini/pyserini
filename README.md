@@ -128,6 +128,8 @@ It currently supports:
 + robust04 (TREC Disks 4 & 5)
 + ms-marco-passage (MS MARCO Passage)
 + ms-marco-doc (MS MARCO Doc)
++ enwiki-paragraphs (English Wikipedia)
++ zhwiki-paragraphs (Chinese Wikipedia)
 
 ## How Do I Fetch a Document?
 
