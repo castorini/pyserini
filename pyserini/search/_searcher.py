@@ -51,7 +51,7 @@ class SimpleSearcher:
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str):
-        """Build an searcher from the prebuilt index, download the index if necessary.
+        """Build a searcher from the prebuilt index, download the index if necessary.
 
         Parameters
         ----------
