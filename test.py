@@ -6,7 +6,8 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 import json
-from lightgbm.sklearn import LGBMRegressor
+import os
+from lightgbm.sklearn import LGBMRanker
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.svm import LinearSVC
@@ -15,13 +16,13 @@ import argparse
 def extract(df,analyzer):
     lines = []
     fetch_later = []
-    for qid,group in df.groupby('qid'):
+    for qid,group in tqdm(df.groupby('qid')):
         analyzed_query = analyzer.analyze(queries[qid]['title'])
         docids = [str(did) for did in group['pid'].drop_duplicates().tolist()]
         fe.lazy_extract(str(qid),analyzed_query,docids)
         fetch_later.append(str(qid))
         if len(fetch_later) == 1000:
-            for qid in tqdm(fetch_later):
+            for qid in fetch_later:
                 for doc in fe.get_result(qid):
                     lines.append((int(qid), int(doc['pid']), *doc['features']))
             fetch_later = []
@@ -120,41 +121,55 @@ if __name__ == '__main__':
     print(sampled_train.groupby('qid').count().mean()['pid'])
     print(sampled_train.head(10))
 
-    dev = pd.read_csv('collections/msmarco-passage/top1000.dev',sep="\t",
-                    names=['qid','pid','query','doc'], usecols=['qid','pid'])
-    sampled_dev_qid=pd.Series(dev['qid'].unique()).sample(n=500,random_state=123456)
-    sampled_dev = dev[dev['qid'].isin(sampled_dev_qid)].reset_index(drop=True).copy(deep=True)
-    del dev
-    dev_qrel=pd.read_csv('collections/msmarco-passage/qrels.dev.small.tsv', sep="\t", names=["qid","q0","pid","rel"])
-    dev_qrel[dev_qrel['qid'].isin(sampled_dev_qid)].to_csv('collections/msmarco-passage/qrels.dev.500.tsv', sep='\t', header=False, index=False)
+    dev = pd.read_csv('collections/msmarco-passage/top1000.dev', sep="\t",
+                      names=['qid', 'pid', 'query', 'doc'], usecols=['qid', 'pid'])
+    dev_qrel = pd.read_csv('collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
+                           names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'])
+    dev = dev.merge(dev_qrel, left_on=['qid', 'pid'], right_on=['qid', 'pid'], how='left')
+    dev['rel'] = dev['rel'].fillna(0).astype(np.int)
+    del dev_qrel
 
-    print(sampled_dev.shape)
-    print(sampled_dev.qid.drop_duplicates().shape)
-    print(sampled_dev.groupby('qid').count().mean()['pid'])
-    print(sampled_dev.head(10))
+    print(dev.shape)
+    print(dev.qid.drop_duplicates().shape)
+    print(dev.groupby('qid').count().mean()['pid'])
+    print(dev.head(10))
 
     train_data=extract(sampled_train,analyzer)
-    dev_data=extract(sampled_dev,analyzer)
-    model = LGBMRegressor(random_state=12345)
+    dev_data=extract(dev,analyzer)
+    model = LGBMRanker(objective='regression', random_state=12345)
     # model = LogisticRegression()
     # model = RandomForestRegressor()
     # model = LinearSVC()
     train_X = train_data.loc[:,fe.feature_names()].values
     train_Y = train_data.loc[:,'rel'].values
-    model.fit(train_X, train_Y)  
 
-    dev_X = dev_data.loc[:,fe.feature_names()].values
+    feature_name = fe.feature_names()
+
+    train_data = train_data.sort_values(by='qid', kind='mergesort')
+    train_X = train_data.loc[:, feature_name]
+    train_Y = train_data['rel']
+    train_group = train_data.groupby('qid').agg(count=('pid', 'count'))['count']
+
+    dev_data = dev_data.sort_values(by='qid', kind='mergesort')
+    dev_X = dev_data.loc[:, feature_name]
+    dev_Y = dev_data['rel']
+    dev_group = dev_data.groupby('qid').agg(count=('pid', 'count'))['count']
+
+    model.fit(train_X, train_Y, group=train_group)
+
+    dev_X = dev_data.loc[:,fe.feature_names()]
     dev_data['score'] = model.predict(dev_X)
 
     with open('lambdarank.run','w') as f:
         score_tie_counter = 0
         score_tie_query = set()
-        for qid, group in tqdm(dev_data.groupby('qid')):
+        for qid, group in dev_data.groupby('qid'):
             rank = 1
             prev_score = -1e10
             prev_pid = ''
             assert len(group['pid'].tolist()) == len(set(group['pid'].tolist()))
-            for t in group.sort_values(['score','pid'],ascending=False).itertuples():
+            # stable sort is also used in LightGBM
+            for t in group.sort_values('score',ascending=False,kind='mergesort').itertuples():
                 if abs(t.score-prev_score)<1e-8:
                     score_tie_counter+=1
                     score_tie_query.add(qid)
@@ -166,16 +181,16 @@ if __name__ == '__main__':
         if score_tie_counter>0:
             print(f'score_tie occurs {score_tie_counter} times in {len(score_tie_query)} queries')
 
-os.system("python3 tools/scripts/msmarco/msmarco_eval.py collections/msmarco-passage/qrels.dev.500.tsv lambdarank.run")
-
     with open('lambdarank.run.trec','w') as f:
-        for qid, group in tqdm(dev_data.groupby('qid')):
+        for qid, group in dev_data.groupby('qid'):
             rank = 1
             assert len(group['pid'].tolist()) == len(set(group['pid'].tolist()))
-            for t in group.sort_values(['score','pid'],ascending=False).itertuples():
+            # stable sort is also used in LightGBM
+            for t in group.sort_values('score',ascending=False,kind='mergesort').itertuples():
                 new_score = t.score - rank*1e-6
                 f.write(f'{t.qid}\tQ0\t{t.pid}\t{rank}\t{new_score:.6f}\tlambdarank\n')
                 rank+=1
-    
-os.system("tools/eval/trec_eval.9.0.4/trec_eval -m all_trec collections/msmarco-passage/qrels.dev.500.tsv lambdarank.run.trec | egrep '^map\s|recall_1000'")
+
+    os.system("python3 tools/scripts/msmarco/msmarco_eval.py collections/msmarco-passage/qrels.dev.small.tsv lambdarank.run")
+    os.system("tools/eval/trec_eval.9.0.4/trec_eval -m all_trec collections/msmarco-passage/qrels.dev.small.tsv lambdarank.run.trec | egrep '^map\s|recall_1000'")
 
