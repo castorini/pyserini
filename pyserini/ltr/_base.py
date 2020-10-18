@@ -27,7 +27,7 @@ class LMDir(Feature):
 
 class DRF_GL2(Feature):
     def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.base.DRF_GL2')
+        Jclass = autoclass('io.anserini.ltr.feature.base.DFR_GL2')
         self.extractor = Jclass()
 
 class DFR_In_expB2(Feature):
