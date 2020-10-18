@@ -72,22 +72,22 @@ class UniqueTermCount(Feature):
 
 class UnorderedSequentialPairs(Feature):
     def __init__(self, gap=8):
-        Jclass = autoclass('io.anserini.ltr.feature.UnorderedSequentialPairs')
+        Jclass = autoclass('io.anserini.ltr.feature.base.UnorderedSequentialPairs')
         self.extractor = Jclass(gap)
 
 class OrderedSequentialPairs(Feature):
     def __init__(self, gap=8):
-        Jclass = autoclass('io.anserini.ltr.feature.OrderedSequentialPairs')
+        Jclass = autoclass('io.anserini.ltr.feature.base.OrderedSequentialPairs')
         self.extractor = Jclass(gap)
 
 class UnorderedQueryPairs(Feature):
     def __init__(self, gap=8):
-        Jclass = autoclass('io.anserini.ltr.feature.UnorderedQueryPairs')
+        Jclass = autoclass('io.anserini.ltr.feature.base.UnorderedQueryPairs')
         self.extractor = Jclass(gap)
 
 class OrderedQueryPairs(Feature):
     def __init__(self, gap=8):
-        Jclass = autoclass('io.anserini.ltr.feature.OrderedQueryPairs')
+        Jclass = autoclass('io.anserini.ltr.feature.base.OrderedQueryPairs')
         self.extractor = Jclass(gap)
 
 class FeatureExtractor:
