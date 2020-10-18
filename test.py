@@ -106,15 +106,18 @@ if __name__ == '__main__':
     queries.update(get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader',\
                                     'collections/msmarco-passage/queries.dev.tsv'))
 
-    train = pd.read_csv('collections/msmarco-passage/qidpidtriples.train.full.tsv',sep="\t",
-                     names=['qid','pos_pid','neg_pid'])
-    pos_half = train[['qid','pos_pid']].rename(columns={"pos_pid": "pid"})
-    pos_half['rel'] = 1.
-    neg_half = train[['qid','neg_pid']].rename(columns={"neg_pid": "pid"})
-    neg_half['rel'] = 0.
-    train = pd.concat([pos_half,neg_half],axis=0,ignore_index=True)
-    del pos_half, neg_half
-    sampled_train=train.sample(frac=0.01,random_state=123456)
+    train = pd.read_csv('collections/msmarco-passage/qidpidtriples.train.full.tsv', sep="\t",
+                        names=['qid', 'pos_pid', 'neg_pid'])
+    pos_half = train[['qid', 'pos_pid']].rename(columns={"pos_pid": "pid"}).drop_duplicates()
+    pos_half['rel'] = 1
+    neg_half = train[['qid', 'neg_pid']].rename(columns={"neg_pid": "pid"}).drop_duplicates()
+    neg_half['rel'] = 0
+    del train
+    sampled_neg_half = []
+    for qid, group in tqdm(neg_half.groupby('qid')):
+        sampled_neg_half.append(group.sample(n=min(10, len(group)), random_state=12345))
+    sampled_train = pd.concat([pos_half] + sampled_neg_half, axis=0, ignore_index=True)
+    del pos_half, neg_half, sampled_neg_half
 
     print(sampled_train.shape)
     print(sampled_train.qid.drop_duplicates().shape)
