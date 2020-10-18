@@ -56,29 +56,34 @@ if __name__ == '__main__':
     parser.add_argument('--SCQ',  action='store_true', help="Use SCQ")
     parser.add_argument('--SCS',  action='store_true', help='Use SCS')
     parser.add_argument('--SumMatchingTF',  action='store_true', help="Use SumMatchingTF")
-    parser.add_argument('--TFIDF',  action='store_true', help="Use TFIDF")
     parser.add_argument('--UniqueTermCount',  action='store_true', help="Use UniqueTermCount")
-    parser.add_argument('--PMI',  action='store_true', help="Use PMI")
     args = parser.parse_args()
 
     fe = FeatureExtractor('indexes/msmarco-passage/lucene-index-msmarco/', 20)
     if args.default_feature:
         fe.add(AvgICTF())
         fe.add(AvgIDF())
-        fe.add(BM25())
-        fe.add(BM25())
-        fe.add(BM25())
-        fe.add(LMD())
-        fe.add(LMD())
-        fe.add(LMD())
+        fe.add(BM25(k1=0.9,b=0.4))
+        fe.add(BM25(k1=1.2,b=0.75))
+        fe.add(BM25(k1=2.0,b=0.75))
+        fe.add(LMDir(mu=1000))
+        fe.add(LMDir(mu=1500))
+        fe.add(LMDir(mu=2500))
+        fe.add(DRF_GL2())
+        fe.add(DFR_In_expB2())
         fe.add(DocSize())
         fe.add(MatchingTermCount())
         fe.add(QueryLength())
         fe.add(AvgSCQ())
         fe.add(SCS())
         fe.add(SumMatchingTF())
-        fe.add(TFIDF())
         fe.add(UniqueTermCount())
+        fe.add(UnorderedSequentialPairs(3))
+        fe.add(UnorderedSequentialPairs(5))
+        fe.add(UnorderedSequentialPairs(8))
+        fe.add(OrderedSequentialPairs(3))
+        fe.add(OrderedSequentialPairs(5))
+        fe.add(OrderedSequentialPairs(8))
     else:
         if args.AvgICTF:
             fe.add(AvgICTF())
@@ -93,17 +98,14 @@ if __name__ == '__main__':
         if args.QueryLength:
             fe.add(QueryLength())
         if args.SCQ:
-            fe.add(SCQ())
+            fe.add(AvgSCQ())
         if args.SCS:
             fe.add(SCS())
         if args.SumMatchingTF:
             fe.add(SumMatchingTF())
-        if args.TFIDF:
-            fe.add(TFIDF())
         if args.UniqueTermCount:
             fe.add(UniqueTermCount())
-        if args.PMI:
-            fe.add(PMI())
+
     analyzer = Analyzer(get_lucene_analyzer())
     queries = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader',\
                                  'collections/msmarco-passage/queries.train.tsv')
