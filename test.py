@@ -1,5 +1,4 @@
-from pyserini.ltr import FeatureExtractor, AvgICTF, AvgIDF, BM25, DocSize, MatchingTermCount, \
-    PMI, QueryLength, SCQ, SCS, SumMatchingTF, TFIDF, UniqueTermCount
+from pyserini.ltr import *
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from pyserini.search import get_topics_with_reader
 import pandas as pd
@@ -67,10 +66,15 @@ if __name__ == '__main__':
         fe.add(AvgICTF())
         fe.add(AvgIDF())
         fe.add(BM25())
+        fe.add(BM25())
+        fe.add(BM25())
+        fe.add(LMD())
+        fe.add(LMD())
+        fe.add(LMD())
         fe.add(DocSize())
         fe.add(MatchingTermCount())
         fe.add(QueryLength())
-        fe.add(SCQ())
+        fe.add(AvgSCQ())
         fe.add(SCS())
         fe.add(SumMatchingTF())
         fe.add(TFIDF())
