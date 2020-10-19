@@ -166,7 +166,7 @@ if __name__ == '__main__':
     dev_data['score'] = model.predict(dev_X)
     print(model.feature_importances_)
 
-    model = LogisticRegression(solver='saga')
+    model = LogisticRegression(solver='saga',n_jobs=-1)
     scaler = StandardScaler()
     train_X = scaler.fit_transform(train_X.iloc[:,:9].values)
     train_Y = train_data['rel'].values
@@ -175,7 +175,7 @@ if __name__ == '__main__':
     dev_Y = dev_data['rel'].values
 
     model.fit(train_X, train_Y)
-    dev_data['score'] += model.predict(dev_X)*0.01
+    dev_data['score'] += model.predict(dev_X)*0.1
     print(model.coef_[:])
 
     with open('lambdarank.run','w') as f:
