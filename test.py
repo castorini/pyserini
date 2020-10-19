@@ -10,6 +10,7 @@ from lightgbm.sklearn import LGBMRanker
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.svm import LinearSVC
+from sklearn.preprocessing import StandardScaler
 import argparse
 
 def extract(df,analyzer):
@@ -61,8 +62,7 @@ if __name__ == '__main__':
 
     fe = FeatureExtractor('indexes/msmarco-passage/lucene-index-msmarco/', 20)
     if args.default_feature:
-        fe.add(AvgICTF())
-        fe.add(AvgIDF())
+
         fe.add(BM25(k1=0.9,b=0.4))
         fe.add(BM25(k1=1.2,b=0.75))
         fe.add(BM25(k1=2.0,b=0.75))
@@ -72,6 +72,8 @@ if __name__ == '__main__':
         fe.add(LMDir(mu=2500))
         fe.add(DFR_GL2())
         fe.add(DFR_In_expB2())
+        fe.add(AvgICTF())
+        fe.add(AvgIDF())
         fe.add(DocSize())
         fe.add(MatchingTermCount())
         fe.add(QueryLength())
@@ -146,13 +148,10 @@ if __name__ == '__main__':
 
     train_data=extract(sampled_train,analyzer)
     dev_data=extract(dev,analyzer)
+
     model = LGBMRanker(objective='lambdarank', random_state=12345)
-    # model = LogisticRegression()
-    # model = RandomForestRegressor()
-    # model = LinearSVC()
 
     feature_name = fe.feature_names()
-
     train_data = train_data.sort_values(by='qid', kind='mergesort')
     train_X = train_data.loc[:, feature_name]
     train_Y = train_data['rel']
@@ -165,6 +164,19 @@ if __name__ == '__main__':
 
     model.fit(train_X, train_Y, group=train_group)
     dev_data['score'] = model.predict(dev_X)
+    print(model.feature_importances_)
+
+    model = LogisticRegression(solver='saga')
+    scaler = StandardScaler()
+    train_X = scaler.fit_transform(train_X.iloc[:,:9].values)
+    train_Y = train_data['rel'].values
+
+    dev_X = scaler.transform(dev_data.iloc[:,:9].values)
+    dev_Y = dev_data['rel'].values
+
+    model.fit(train_X, train_Y)
+    dev_data['score'] += model.predict(dev_X)*0.01
+    print(model.coef_[:])
 
     with open('lambdarank.run','w') as f:
         score_tie_counter = 0
