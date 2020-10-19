@@ -70,7 +70,7 @@ if __name__ == '__main__':
         fe.add(LMDir(mu=1500))
         fe.add(LMDir(mu=2500))
         fe.add(DFR_GL2())
-        fe.add(DFR_In_expB2)
+        fe.add(DFR_In_expB2())
         fe.add(DocSize())
         fe.add(MatchingTermCount())
         fe.add(QueryLength())
