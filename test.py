@@ -66,6 +66,7 @@ if __name__ == '__main__':
         fe.add(BM25(k1=0.9,b=0.4))
         fe.add(BM25(k1=1.2,b=0.75))
         fe.add(BM25(k1=2.0,b=0.75))
+        fe.add(LMDir(mu=0))
         fe.add(LMDir(mu=1000))
         fe.add(LMDir(mu=1500))
         fe.add(LMDir(mu=2500))
