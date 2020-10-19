@@ -27,7 +27,7 @@ def extract(df,analyzer):
             fetch_later = []
     #deal with rest
     if len(fetch_later) > 0:
-        for qid in tqdm(fetch_later):
+        for qid in fetch_later:
             for doc in fe.get_result(qid):
                 lines.append((int(qid), int(doc['pid']), *doc['features']))
         fetch_later = []
@@ -69,8 +69,8 @@ if __name__ == '__main__':
         fe.add(LMDir(mu=1000))
         fe.add(LMDir(mu=1500))
         fe.add(LMDir(mu=2500))
-        fe.add(DRF_GL2())
-        fe.add(DFR_In_expB2())
+        fe.add(DFR_GL2())
+        fe.add(DFR_In_expB2)
         fe.add(DocSize())
         fe.add(MatchingTermCount())
         fe.add(QueryLength())
@@ -145,12 +145,10 @@ if __name__ == '__main__':
 
     train_data=extract(sampled_train,analyzer)
     dev_data=extract(dev,analyzer)
-    model = LGBMRanker(objective='regression', random_state=12345)
+    model = LGBMRanker(objective='lambdarank', random_state=12345)
     # model = LogisticRegression()
     # model = RandomForestRegressor()
     # model = LinearSVC()
-    train_X = train_data.loc[:,fe.feature_names()].values
-    train_Y = train_data.loc[:,'rel'].values
 
     feature_name = fe.feature_names()
 
@@ -165,8 +163,6 @@ if __name__ == '__main__':
     dev_group = dev_data.groupby('qid').agg(count=('pid', 'count'))['count']
 
     model.fit(train_X, train_Y, group=train_group)
-
-    dev_X = dev_data.loc[:,fe.feature_names()]
     dev_data['score'] = model.predict(dev_X)
 
     with open('lambdarank.run','w') as f:
