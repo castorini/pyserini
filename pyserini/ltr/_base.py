@@ -90,6 +90,51 @@ class OrderedQueryPairs(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.OrderedQueryPairs')
         self.extractor = Jclass(gap)
 
+class AvgPooler(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.AvgPooler')
+        self.extractor = Jclass()
+
+class SumPooler(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.SumPooler')
+        self.extractor = Jclass()
+
+class MedianPooler(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.MedianPooler')
+        self.extractor = Jclass()
+
+class MinPooler(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.MinPooler')
+        self.extractor = Jclass()
+
+class MaxPooler(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.MaxPooler')
+        self.extractor = Jclass()
+
+class VarPooler(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.VarPooler')
+        self.extractor = Jclass()
+
+class tfStat(Feature):
+    def __init__(self, pooler):
+        Jclass = autoclass('io.anserini.ltr.feature.base.tfStat')
+        self.extractor = Jclass(pooler)
+
+class tfIdfStat(Feature):
+    def __init__(self, pooler):
+        Jclass = autoclass('io.anserini.ltr.feature.base.tfIdfStat')
+        self.extractor = Jclass(pooler)
+
+class normalizedTfStat(Feature):
+    def __init__(self, pooler):
+        Jclass = autoclass('io.anserini.ltr.feature.base.normalizedTfStat')
+        self.extractor = Jclass(pooler)
+
 class FeatureExtractor:
     def __init__(self, index_dir, worker_num=1):
         JFeatureExtractorUtils = autoclass('io.anserini.ltr.FeatureExtractorUtils')
