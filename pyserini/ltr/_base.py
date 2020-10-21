@@ -123,17 +123,17 @@ class VarPooler(Feature):
 class tfStat(Feature):
     def __init__(self, pooler):
         Jclass = autoclass('io.anserini.ltr.feature.base.tfStat')
-        self.extractor = Jclass(pooler)
+        self.extractor = Jclass(pooler.extractor)
 
 class tfIdfStat(Feature):
     def __init__(self, pooler):
         Jclass = autoclass('io.anserini.ltr.feature.base.tfIdfStat')
-        self.extractor = Jclass(pooler)
+        self.extractor = Jclass(pooler.extractor)
 
 class normalizedTfStat(Feature):
     def __init__(self, pooler):
         Jclass = autoclass('io.anserini.ltr.feature.base.normalizedTfStat')
-        self.extractor = Jclass(pooler)
+        self.extractor = Jclass(pooler.extractor)
 
 class FeatureExtractor:
     def __init__(self, index_dir, worker_num=1):
