@@ -25,6 +25,11 @@ class LMDir(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.LMDir')
         self.extractor = Jclass(mu)
 
+class LMJM(Feature):
+    def __init__(self,lamda=0.5):
+        Jclass = autoclass('io.anserini.ltr.feature.base.LMJM')
+        self.extractor = Jclass(lamda)
+
 class DFR_GL2(Feature):
     def __init__(self):
         Jclass = autoclass('io.anserini.ltr.feature.base.DFR_GL2')
@@ -133,6 +138,21 @@ class tfIdfStat(Feature):
 class normalizedTfStat(Feature):
     def __init__(self, pooler):
         Jclass = autoclass('io.anserini.ltr.feature.base.normalizedTfStat')
+        self.extractor = Jclass(pooler.extractor)
+
+class idfStat(Feature):
+    def __init__(self, pooler):
+        Jclass = autoclass('io.anserini.ltr.feature.base.idfStat')
+        self.extractor = Jclass(pooler.extractor)
+
+class ictfStat(Feature):
+    def __init__(self, pooler):
+        Jclass = autoclass('io.anserini.ltr.feature.base.ictfStat')
+        self.extractor = Jclass(pooler.extractor)
+
+class scqStat(Feature):
+    def __init__(self, pooler):
+        Jclass = autoclass('io.anserini.ltr.feature.base.scqStat')
         self.extractor = Jclass(pooler.extractor)
 
 class FeatureExtractor:
