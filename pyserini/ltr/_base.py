@@ -5,16 +5,6 @@ class Feature:
    def name(self):
         return self.extractor.getName()
 
-class AvgICTF(Feature):
-    def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.base.AvgICTF')
-        self.extractor = Jclass()
-
-class AvgIDF(Feature):
-    def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.base.AvgIDF')
-        self.extractor = Jclass()
-
 class BM25(Feature):
     def __init__(self, k1=0.9, b=0.4):
         Jclass = autoclass('io.anserini.ltr.feature.base.BM25')
@@ -40,6 +30,17 @@ class DFR_In_expB2(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.DFR_In_expB2')
         self.extractor = Jclass()
 
+
+class DPH(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.DPH')
+        self.extractor = Jclass()
+
+class Proximity(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.Proximity')
+        self.extractor = Jclass()
+
 class DocSize(Feature):
     def __init__(self):
         Jclass = autoclass('io.anserini.ltr.feature.base.DocSize')
@@ -55,11 +56,6 @@ class QueryLength(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.QueryLength')
         self.extractor = Jclass()
 
-class AvgSCQ(Feature):
-    def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.base.AvgSCQ')
-        self.extractor = Jclass()
-
 class SCS(Feature):
     def __init__(self):
         Jclass = autoclass('io.anserini.ltr.feature.base.SCS')
@@ -68,6 +64,11 @@ class SCS(Feature):
 class SumMatchingTF(Feature):
     def __init__(self):
         Jclass = autoclass('io.anserini.ltr.feature.base.SumMatchingTF')
+        self.extractor = Jclass()
+
+class QueryCoverageRatio(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.QueryCoverageRatio')
         self.extractor = Jclass()
 
 class UniqueTermCount(Feature):
