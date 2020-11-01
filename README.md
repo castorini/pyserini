@@ -220,6 +220,21 @@ for i in range(len(hits)):
     print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
 ```
 
+You can also add extra fields in your documents when needed, e.g. text features.
+For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entities) Named Entity Recognition (NER) result of `contents` could be stored as an additional field `NER`.
+
+```json
+{
+  "id": "doc1",
+  "contents": "Apple is looking at buying U.K. startup for $1 billion.",
+  "NER": {
+            "ORG": ["Apple"],
+            "GPE": ["U.K."],
+            "MONEY": ["$1 billion"]
+         }
+}
+```
+
 Happy honking!
 
 ## Additional Documentation
