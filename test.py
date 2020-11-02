@@ -329,6 +329,55 @@ def eval_mrr(dev_data):
 #     return {'model':gbm,'best_score':best_score,'best_iteration':best_iteration,
 #             'eval_map':eval_map,'params':params,'feature_importances':feature_importances}
 
+# def train(train_extracted, dev_extracted, feature_name):
+#     train_X = train_extracted['data'].loc[:, feature_name]
+#     train_Y = train_extracted['data']['rel']
+#     dev_X = dev_extracted['data'].loc[:, feature_name]
+#     dev_Y = dev_extracted['data']['rel']
+#     lgb_train = lgb.Dataset(train_X,label=train_Y,group=train_extracted['group'])
+#     lgb_valid = lgb.Dataset(dev_X,label=dev_Y,group=dev_extracted['group'])
+    
+#     params = {
+#         'boosting_type': 'gbdt',
+#         'objective': 'lambdarank',
+#         'max_bin':255,
+#         'num_leaves':63,
+#         'max_depth':10,
+#         'min_data_in_leaf':50,
+#         'min_sum_hessian_in_leaf':0,
+#         'bagging_fraction':0.9,
+#         'bagging_freq':1,
+#         'feature_fraction':1,
+#         'learning_rate':0.1,
+#         'num_boost_round':1000,
+#         'metric':['map'],
+#         'eval_at':[10],
+#         'label_gain':[0,1],
+#         'lambdarank_truncation_level':20,
+#         'seed':12345,
+#         'num_threads':max(multiprocessing.cpu_count()//2,1)
+#     }
+#     num_boost_round = params.pop('num_boost_round')
+#     early_stopping_round = params.pop('early_stopping_round')
+#     eval_results={}
+#     gbm = lgb.train(params, lgb_train, 
+#                     valid_sets=lgb_valid,
+#                     num_boost_round=num_boost_round,
+#                     feature_name=feature_name,
+#                     evals_result=eval_results,
+#                     verbose_eval=False)
+#     dev_extracted['data']['score']=gbm.predict(dev_X)
+#     best_score = gbm.best_score['valid_0']['map@10']
+#     print(best_score)
+#     best_iteration = gbm.best_iteration
+#     print(best_iteration)
+#     eval_map = eval_results['valid_0']['map@10']
+#     print(eval_map)
+#     feature_importances = sorted(list(zip(feature_name,gbm.feature_importance().tolist())),key=lambda x:x[1],reverse=True)
+#     print(feature_importances)
+#     params['num_boost_round'] = num_boost_round
+#     return {'model':gbm,'best_score':best_score,'best_iteration':best_iteration,
+#             'eval_map':eval_map,'params':params,'feature_importances':feature_importances}
 
 
 def gen_exp_dir():
