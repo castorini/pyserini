@@ -48,7 +48,7 @@ class TPscore(Feature):
 
 class tpDist(Feature):
     def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.base.tpDist)
+        Jclass = autoclass('io.anserini.ltr.feature.base.tpDist')
         self.extractor = Jclass()
 
 class DocSize(Feature):
