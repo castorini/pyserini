@@ -41,6 +41,16 @@ class Proximity(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.Proximity')
         self.extractor = Jclass()
 
+class TPscore(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.TPscore')
+        self.extractor = Jclass()
+
+class tpDist(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.tpDist')
+        self.extractor = Jclass()
+
 class DocSize(Feature):
     def __init__(self):
         Jclass = autoclass('io.anserini.ltr.feature.base.DocSize')
