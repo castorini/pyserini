@@ -20,10 +20,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
+# Use Pyserini in this repo (as opposed to pip install)
 sys.path.insert(0, './')
 
-from tqdm import tqdm
 from pyserini.search import SimpleSearcher
+from tqdm import tqdm
 
 
 if __name__ == '__main__':
