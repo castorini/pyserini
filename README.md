@@ -30,9 +30,9 @@ pip install pyserini==0.9.4.0
 
 If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
-Clone our repo with the `--recurse-submodules` option to make sure the `eval/` submodule also gets cloned.
+For this, clone our repo with the `--recurse-submodules` option to make sure the `tools/` submodule also gets cloned.
 
-The `eval/` directory, which contains evaluation tools and scripts, is actually [this repo](https://github.com/castorini/anserini-eval), integrated as a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) (so that it can be shared across related projects).
+The `tools/` directory, which contains evaluation tools and scripts, is actually [this repo](https://github.com/castorini/anserini-tools), integrated as a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) (so that it can be shared across related projects).
 Build as follows (you might get warnings, but okay to ignore):
 
 ```bash
@@ -51,22 +51,22 @@ python -m unittest
 
 Assuming all tests pass, you should be ready to go!
 
-## How Do I Search?
+## Quick Links
 
-Here's a sample pre-built index on TREC Disks 4 &amp; 5 to play with (used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md)):
++ [How do I search?](#how-do-i-search)
++ [How do I fetch a document?](#how-do-i-fetch-a-document)
++ [How do I search my own documents?](#how-do-i-search-my-own-documents)
 
-```bash
-wget https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz
-tar xvfz index-robust04-20191213.tar.gz -C indexes
-rm index-robust04-20191213.tar.gz
-```
+## How do I search?
 
-Use the `SimpleSearcher` for searching:
+The `SimpleSearcher` class provides the entry point for searching.
+Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
+Here's one on TREC Disks 4 &amp; 5, used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md):
 
 ```python
 from pyserini.search import SimpleSearcher
 
-searcher = SimpleSearcher('indexes/index-robust04-20191213/')
+searcher = SimpleSearcher.from_prebuilt_index('robust04')
 hits = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:
@@ -112,26 +112,39 @@ for i in range(0, 10):
     print(f'{i+1:2} {hits2[i].docid:15} {hits2[i].score:.5f}')
 ```
 
-## How Do I build searchers?
+More generally, `SimpleSearcher` can be initialized with a location to an index.
+For example, you can download the same pre-built index as above by hand:
 
-There are two ways to build searchers.
-+ To build a searcher with a path to a directory containing the index.
+```bash
+wget https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz
+tar xvfz index-robust04-20191213.tar.gz -C indexes
+rm index-robust04-20191213.tar.gz
+```
+
+And initialize `SimpleSearcher` as follows:
+
 ```python
 searcher = SimpleSearcher('indexes/index-robust04-20191213/')
 ```
-+ To build a searcher with the index's identifier name.
-```python
-searcher = SimpleSearcher.from_prebuilt_index('trec45')
-```
-It currently supports:
-+ trec45 (TREC Disks 4 & 5)
-+ robust04 (TREC Disks 4 & 5)
-+ ms-marco-passage (MS MARCO Passage)
-+ ms-marco-doc (MS MARCO Doc)
-+ enwiki-paragraphs (English Wikipedia)
-+ zhwiki-paragraphs (Chinese Wikipedia)
 
-## How Do I Fetch a Document?
+The result will be exactly the same.
+
+Pre-built Anserini indexes are hosted at the University of Waterloo's [GitLab](https://git.uwaterloo.ca/jimmylin/anserini-indexes) and mirrored on Dropbox.
+The following method will list available pre-built indexes:
+
+```
+SimpleSearcher.list_prebuilt_indexes()
+```
+
+A summary of what's currently available:
+
++ `robust04`: TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track
++ `ms-marco-passage`: MS MARCO passage corpus
++ `ms-marco-doc`: MS MARCO document corpus
++ `enwiki-paragraphs`: English Wikipedia
++ `zhwiki-paragraphs`: Chinese Wikipedia
+
+## How do I fetch a document?
 
 The other commonly used feature is to fetch a document given its `docid`.
 This is easy to do:
@@ -146,12 +159,12 @@ A simple example can illustrate this distinction: for an article from CORD-19, `
 The `contents` are extracts from the article that's actually indexed (for example, the title and abstract).
 In most cases, `contents` can be deterministically reconstructed from the `raw`.
 When building the index, we specify flags to store `contents` and/or `raw`; it's rarely the case we store both, since it's usually a waste of space.
-In the case of this (Robust04) index, we only store `raw`.
+In the case of the pre-built `robust04` index, we only store `raw`.
 Thus:
 
 ```python
 # Document contents: what's actually indexed.
-# Note, not stored in this index.
+# Note, this is not stored in the pre-built robust04 index.
 doc.contents()
                                                                                                    
 # Raw document
@@ -180,7 +193,7 @@ for i in range(searcher.num_docs):
     print(searcher.doc(i).docid())
 ```
 
-## How Do I Search My Own Documents?
+## How do I search my own documents?
 
 Pyserini (via Anserini) provides ingestors for document collections in many different formats.
 The simplest, however, is the following JSON format:
