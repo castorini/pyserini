@@ -59,8 +59,8 @@ Assuming all tests pass, you should be ready to go!
 
 ## How do I search?
 
-The class `SimpleSearcher` provides the entry point for searching.
-Anserini supports a number of pre-built indexes that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
+The `SimpleSearcher` class provides the entry point for searching.
+Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
 Here's one on TREC Disks 4 &amp; 5, used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md):
 
 ```python
