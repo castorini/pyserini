@@ -97,6 +97,11 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
 
         if not os.path.exists(index_directory):
             os.makedirs(index_directory)
+
+        # If there's a local tarball, it's likely corrupted, because we remove the local tarball on success (below).
+        # So, we want to remove.
+        if os.path.exists(local_tarball):
+            os.remove(local_tarball)
     else:
         index_path = os.path.join(index_directory, f'{index_name}')
 
