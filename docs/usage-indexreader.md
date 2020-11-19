@@ -9,10 +9,16 @@ For example, if a method expects the unanalyzed term and is called with an analy
 Initialize the class as follows:
 
 ```python
-from pyserini import analysis, index
+from pyserini.index import IndexReader
 
-index_reader = index.IndexReader('indexes/index-robust04-20191213/')
+# Initialize from a pre-built index:
+index_reader = IndexReader.from_prebuilt_index('robust04')
+
+# Initialize from an index path:
+index_reader = IndexReader('indexes/index-robust04-20191213/')
 ```
+
+## How do I iterate over index terms and access term statistics?
 
 Use `terms()` to grab an iterator over all terms in the collection, i.e., the dictionary.
 Note that these terms are _analyzed_.
@@ -50,6 +56,8 @@ df, cf = index_reader.get_term_counts(analyzed[0], analyzer=None)
 print(f'term "{term}": df={df}, cf={cf}')
 ```
 
+## How do I traverse postings?
+
 Here's how to fetch and traverse postings:
 
 ```python
@@ -63,6 +71,8 @@ postings_list = index_reader.get_postings_list(analyzed[0], analyzer=None)
 for posting in postings_list:
     print(f'docid={posting.docid}, tf={posting.tf}, pos={posting.positions}')
 ```
+
+## How do I access and manipulate term vectors?
 
 Here's how to fetch the document vector for a document:
 
@@ -86,12 +96,15 @@ doc = []
 for term, positions in term_positions.items():
     for p in positions:
         doc.append((term,p))
+
 doc = ' '.join([t for t, p in sorted(doc, key=lambda x: x[1])])
 print(doc)
 ```
 The reconstructed document contains analyzed terms while [doc.contents()](https://github.com/castorini/pyserini/tree/master#how-do-i-fetch-a-document) contains unanalyzed terms.
 
-To compute the tf-idf representation of a document, do something like this:
+## How do I compute the tf-idf or BM25 score of a document?
+
+Building on the instructions above, to compute the tf-idf representation of a document, do something like this:
 
 ```python
 tf = index_reader.get_document_vector('FBIS4-67701')
@@ -132,3 +145,20 @@ for i in range(0, len(docids)):
 ```
 
 The scores should be very close (rounding at the 4th decimal point) to the results above, but not _exactly_ the same because `search` performs additional score manipulation to break ties during ranking.
+
+## How do I access basic index statistics?
+
+Simple!
+
+```python
+index_reader.stats()
+```
+
+Output is something like this:
+
+```
+{'total_terms': 174540872,
+ 'documents': 528030,
+ 'non_empty_documents': 528030,
+ 'unique_terms': 923436}
+```
