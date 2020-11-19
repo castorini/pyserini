@@ -53,9 +53,9 @@ Assuming all tests pass, you should be ready to go!
 
 ## Quick Links
 
-+ [How do I search?](#How-do-I-search?)
-+ [How do I fetch a document?](#How-do-I-search?)
-+ [How do I search my own documents?](#How-do-I-search-my-own-documents?)
++ [How do I search?](#how-do-i-search)
++ [How do I fetch a document?](#how-do-i-fetch-a-document)
++ [How do I search my own documents?](#how-do-i-search-my-own-documents)
 
 ## How do I search?
 
