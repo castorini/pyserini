@@ -89,6 +89,7 @@ def get_cache_home():
 def download_and_unpack_index(url, index_directory='indexes', force=False, verbose=True, prebuilt=False, md5=None):
     index_name = url.split('/')[-1]
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
+    local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
 
     if prebuilt:
         index_directory = os.path.join(get_cache_home(), 'indexes')
@@ -97,7 +98,8 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
         if not os.path.exists(index_directory):
             os.makedirs(index_directory)
 
-        local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
+        # If there's a local tarball, it's likely corrupted, because we remove the local tarball on success (below).
+        # So, we want to remove.
         if os.path.exists(local_tarball):
             os.remove(local_tarball)
     else:
@@ -123,8 +125,10 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
     tarball.extractall(index_directory)
     tarball.close()
     os.remove(local_tarball)
+
     if prebuilt:
         os.rename(os.path.join(index_directory, f'{index_name}'), index_path)
+
     return index_path
 
 
