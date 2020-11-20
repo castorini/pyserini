@@ -15,12 +15,13 @@
 #
 
 import argparse
+import os
 from pyserini.search import get_topics, SimpleSearcher
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 from tqdm import tqdm
 
 parser = argparse.ArgumentParser(description='Search a Lucene index.')
-parser.add_argument('--index', type=str, metavar='path to index', required=True, help="Path to Lucene index.")
+parser.add_argument('--index', type=str, metavar='path to index', required=True, help="Path to Lucene index or prebuilt index's name.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: robust04, robust05, core17, core18.")
 parser.add_argument('--output', type=str, metavar='path', help="Path to output file.")
@@ -40,7 +41,11 @@ parser.add_argument('--prcl.alpha', dest='alpha', type=float, default=0.5,
 args = parser.parse_args()
 
 topics = get_topics(args.topics)
-searcher = SimpleSearcher(args.index)
+
+if os.path.exists(args.index):
+    searcher = SimpleSearcher(args.index)
+else:
+    searcher = SimpleSearcher.from_prebuilt_index(args.index)
 search_rankers = []
 
 if args.qld:
@@ -62,7 +67,7 @@ if topics == {}:
 use_prcl = args.prcl and len(args.prcl) > 0 and args.alpha > 0
 if use_prcl is True:
     ranker = PseudoRelevanceClassifierReranker(
-        args.index, args.vectorizer, args.prcl, r=args.r, n=args.n, alpha=args.alpha)
+        searcher.index_dir, args.vectorizer, args.prcl, r=args.r, n=args.n, alpha=args.alpha)
 
 # build output path
 output_path = args.output
