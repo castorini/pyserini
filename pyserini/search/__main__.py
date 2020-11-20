@@ -46,6 +46,9 @@ if os.path.exists(args.index):
     searcher = SimpleSearcher(args.index)
 else:
     searcher = SimpleSearcher.from_prebuilt_index(args.index)
+    if searcher == None:
+        exit()
+
 search_rankers = []
 
 if args.qld:
