@@ -21,7 +21,7 @@ from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierRe
 from tqdm import tqdm
 
 parser = argparse.ArgumentParser(description='Search a Lucene index.')
-parser.add_argument('--index', type=str, metavar='path to index', required=True, help="Path to Lucene index or prebuilt index's name.")
+parser.add_argument('--index', type=str, metavar='path to index or index name', required=True, help="Path to Lucene index or prebuilt index's name.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: robust04, robust05, core17, core18.")
 parser.add_argument('--output', type=str, metavar='path', help="Path to output file.")
@@ -43,11 +43,13 @@ args = parser.parse_args()
 topics = get_topics(args.topics)
 
 if os.path.exists(args.index):
+    # create searcher from index directory
     searcher = SimpleSearcher(args.index)
 else:
+    # create searcher from prebuilt index name
     searcher = SimpleSearcher.from_prebuilt_index(args.index)
-    if searcher == None:
-        exit()
+if searcher == None:
+    exit()
 
 search_rankers = []
 
