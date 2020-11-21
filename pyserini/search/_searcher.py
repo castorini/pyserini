@@ -46,6 +46,7 @@ class SimpleSearcher:
     """
 
     def __init__(self, index_dir: str):
+        self.index_dir = index_dir
         self.object = JSimpleSearcher(JString(index_dir))
         self.num_docs = self.object.getTotalNumDocuments()
 
