@@ -81,6 +81,8 @@ def download_url(url, save_dir, md5=None, force=False, verbose=True):
     if md5:
         assert compute_md5(destination_path) == md5, f'{destination_path} does not match checksum!'
 
+    return destination_path
+
 
 def get_cache_home():
     return os.path.expanduser(os.path.join(f'~{os.path.sep}.cache', "pyserini"))
