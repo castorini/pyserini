@@ -20,6 +20,16 @@ class LMJM(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.LMJM')
         self.extractor = Jclass(lamda)
 
+class NTFIDF(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.NTFIDF')
+        self.extractor = Jclass()
+
+class ProbalitySum(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.ProbalitySum')
+        self.extractor = Jclass()
+
 class DFR_GL2(Feature):
     def __init__(self):
         Jclass = autoclass('io.anserini.ltr.feature.base.DFR_GL2')
@@ -30,10 +40,34 @@ class DFR_In_expB2(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.DFR_In_expB2')
         self.extractor = Jclass()
 
-
 class DPH(Feature):
     def __init__(self):
         Jclass = autoclass('io.anserini.ltr.feature.base.DPH')
+        self.extractor = Jclass()
+
+class ContextDFR_GL2(Feature):
+    def __init__(self, pooler):
+        Jclass = autoclass('io.anserini.ltr.feature.base.ContextDFR_GL2')
+        self.extractor = Jclass(pooler.extractor)
+
+class ContextDFR_In_expB2(Feature):
+    def __init__(self, pooler):
+        Jclass = autoclass('io.anserini.ltr.feature.base.ContextDFR_In_expB2')
+        self.extractor = Jclass(pooler.extractor)
+
+class ContextDPH(Feature):
+    def __init__(self, pooler):
+        Jclass = autoclass('io.anserini.ltr.feature.base.ContextDPH')
+        self.extractor = Jclass(pooler.extractor)
+
+class Entropy(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.Entropy')
+        self.extractor = Jclass()
+
+class SDM(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.SDM')
         self.extractor = Jclass()
 
 class Proximity(Feature):
@@ -79,6 +113,26 @@ class SumMatchingTF(Feature):
 class QueryCoverageRatio(Feature):
     def __init__(self):
         Jclass = autoclass('io.anserini.ltr.feature.base.QueryCoverageRatio')
+        self.extractor = Jclass()
+
+class QueryLengthNonStopWords(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.QueryLengthNonStopWords')
+        self.extractor = Jclass()
+
+class StopCover(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.StopCover')
+        self.extractor = Jclass()
+
+class StopRatio(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.StopRatio')
+        self.extractor = Jclass()
+
+class Entropy(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.Entropy')
         self.extractor = Jclass()
 
 class UniqueTermCount(Feature):
@@ -136,6 +190,16 @@ class VarPooler(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.VarPooler')
         self.extractor = Jclass()
 
+class ConfidencePooler(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.ConfidencePooler')
+        self.extractor = Jclass()
+
+class MaxMinRatioPooler(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.MaxMinRatioPooler')
+        self.extractor = Jclass()
+
 class tfStat(Feature):
     def __init__(self, pooler):
         Jclass = autoclass('io.anserini.ltr.feature.base.tfStat')
@@ -144,6 +208,11 @@ class tfStat(Feature):
 class tfIdfStat(Feature):
     def __init__(self, pooler):
         Jclass = autoclass('io.anserini.ltr.feature.base.tfIdfStat')
+        self.extractor = Jclass(pooler.extractor)
+
+class normalizedDocSizeStat(Feature):
+    def __init__(self, pooler):
+        Jclass = autoclass('io.anserini.ltr.feature.base.normalizedDocSizeStat')
         self.extractor = Jclass(pooler.extractor)
 
 class normalizedTfStat(Feature):
