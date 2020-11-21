@@ -46,19 +46,19 @@ class DPH(Feature):
         self.extractor = Jclass()
 
 class ContextDFR_GL2(Feature):
-    def __init__(self):
+    def __init__(self, pooler):
         Jclass = autoclass('io.anserini.ltr.feature.base.ContextDFR_GL2')
-        self.extractor = Jclass()
+        self.extractor = Jclass(pooler.extractor)
 
 class ContextDFR_In_expB2(Feature):
-    def __init__(self):
+    def __init__(self, pooler):
         Jclass = autoclass('io.anserini.ltr.feature.base.ContextDFR_In_expB2')
-        self.extractor = Jclass()
+        self.extractor = Jclass(pooler.extractor)
 
 class ContextDPH(Feature):
-    def __init__(self):
+    def __init__(self, pooler):
         Jclass = autoclass('io.anserini.ltr.feature.base.ContextDPH')
-        self.extractor = Jclass()
+        self.extractor = Jclass(pooler.extractor)
 
 class Entropy(Feature):
     def __init__(self):
