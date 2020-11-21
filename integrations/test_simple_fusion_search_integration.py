@@ -29,13 +29,13 @@ from pyserini.util import download_url, download_and_unpack_index
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
         download_and_unpack_index(
-            'https://www.dropbox.com/s/wxjoe4g71zt5za2/lucene-index-cord19-abstract-2020-05-01.tar.gz?dl=1')
+            'https://www.dropbox.com/s/jdsc6wu0vbumpup/lucene-index-cord19-abstract-2020-05-01.tar.gz?dl=1')
 
         download_and_unpack_index(
-            'https://www.dropbox.com/s/di27r5o2g5kat5k/lucene-index-cord19-full-text-2020-05-01.tar.gz?dl=1')
+            'https://www.dropbox.com/s/ouvp7zyqsp9y9gh/lucene-index-cord19-full-text-2020-05-01.tar.gz?dl=1')
 
         download_and_unpack_index(
-            'https://www.dropbox.com/s/6ib71scm925mclk/lucene-index-cord19-paragraph-2020-05-01.tar.gz?dl=1')
+            'https://www.dropbox.com/s/e1118vjuf58ojt4/lucene-index-cord19-paragraph-2020-05-01.tar.gz?dl=1')
 
         download_url('https://www.dropbox.com/s/wqb0vhxp98g7dxh/anserini.covid-r2.fusion1.txt.gz?dl=1', 'runs')
         # from https://stackoverflow.com/questions/31028815/how-to-unzip-gz-file-using-python
