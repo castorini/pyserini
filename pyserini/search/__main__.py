@@ -16,7 +16,6 @@
 
 import argparse
 import os
-import csv
 from pyserini.search import get_topics, SimpleSearcher
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 from tqdm import tqdm
@@ -60,6 +59,9 @@ if args.qld:
     searcher.set_qld()
 else:
     search_rankers.append('bm25')
+    if args.msmarco:
+        # setting k1=0.82 and b=0.68 for ms-marco passage
+        searcher.set_bm25(0.82, 0.68)
 
 if args.rm3:
     search_rankers.append('rm3')
@@ -111,9 +113,8 @@ with open(output_path, 'w') as target_file:
             scores, doc_ids = ranker.rerank(doc_ids, scores)
 
         if args.msmarco:
-            writer = csv.writer(target_file, delimiter='\t', lineterminator='\n')
             for i, doc_id in enumerate(doc_ids):
-                writer.writerow([topic, doc_id, i + 1])
+                target_file.write('{}\t{}\t{}\n'.format(topic, doc_id, i + 1))
         else:
             tag = output_path[:-4] if args.output is None else 'Anserini'
             for i, (doc_id, score) in enumerate(zip(doc_ids, scores)):
