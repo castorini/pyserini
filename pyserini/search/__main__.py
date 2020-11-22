@@ -24,6 +24,7 @@ parser = argparse.ArgumentParser(description='Search a Lucene index.')
 parser.add_argument('--index', type=str, metavar='path to index or index name', required=True, help="Path to Lucene index or prebuilt index's name.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: robust04, robust05, core17, core18.")
+parser.add_argument('--msmarco',  action='store_true', default=False, help="Output in MS MARCO format.")
 parser.add_argument('--output', type=str, metavar='path', help="Path to output file.")
 parser.add_argument('--bm25',  action='store_true', default=True, help="Use BM25 (default).")
 parser.add_argument('--rm3',  action='store_true', help="Use RM3")
@@ -58,6 +59,11 @@ if args.qld:
     searcher.set_qld()
 else:
     search_rankers.append('bm25')
+    if args.msmarco:
+        # setting k1=0.82 and b=0.68 for ms-marco passage
+        # tuned parameters from grid search of parameter values
+        # link to BM25 tuning: https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md#bm25-tuning
+        searcher.set_bm25(0.82, 0.68)
 
 if args.rm3:
     search_rankers.append('rm3')
@@ -108,6 +114,10 @@ with open(output_path, 'w') as target_file:
         if use_prcl and len(hits) > (args.r + args.n):
             scores, doc_ids = ranker.rerank(doc_ids, scores)
 
-        tag = output_path[:-4] if args.output is None else 'Anserini'
-        for i, (doc_id, score) in enumerate(zip(doc_ids, scores)):
-            target_file.write(f'{topic} Q0 {doc_id} {i + 1} {score:.6f} {tag}\n')
+        if args.msmarco:
+            for i, doc_id in enumerate(doc_ids):
+                target_file.write('{}\t{}\t{}\n'.format(topic, doc_id, i + 1))
+        else:
+            tag = output_path[:-4] if args.output is None else 'Anserini'
+            for i, (doc_id, score) in enumerate(zip(doc_ids, scores)):
+                target_file.write(f'{topic} Q0 {doc_id} {i + 1} {score:.6f} {tag}\n')
