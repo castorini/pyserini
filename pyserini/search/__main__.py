@@ -111,7 +111,7 @@ with open(output_path, 'w') as target_file:
             scores, doc_ids = ranker.rerank(doc_ids, scores)
 
         if args.msmarco:
-            writer = csv.writer(target_file, delimiter='\t')
+            writer = csv.writer(target_file, delimiter='\t', lineterminator='\n')
             for i, doc_id in enumerate(doc_ids):
                 writer.writerow([topic, doc_id, i+1])
         else:
