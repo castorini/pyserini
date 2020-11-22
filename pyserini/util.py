@@ -79,7 +79,8 @@ def download_url(url, save_dir, md5=None, force=False, verbose=True):
         urlretrieve(url, filename=destination_path, reporthook=t.update_to)
 
     if md5:
-        assert compute_md5(destination_path) == md5, f'{destination_path} does not match checksum!'
+        md5_computed = compute_md5(destination_path)
+        assert md5_computed == md5, f'{destination_path} does not match checksum! Expecting {md5} got {md5_computed}.'
 
     return destination_path
 
