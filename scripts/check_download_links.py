@@ -31,7 +31,7 @@ def main(args):
     print(args.url)
     contents = urllib.request.urlopen(args.url).read().decode('utf-8')
     dropbox_pattern = re.compile('https://www.dropbox.com/[^)]+')
-    md5sum_pattern = re.compile('`([a-z0-9]+)`')
+    md5sum_pattern = re.compile('`([a-z0-9]{32})`')
     for line in contents.splitlines():
         match = dropbox_pattern.search(line)
         if match:
