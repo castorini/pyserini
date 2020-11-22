@@ -93,12 +93,14 @@ def query_loader(choice='default'):
     else:
         if choice == 'default':
             analyzer = Analyzer(get_lucene_analyzer())
+            nonStopAnalyzer = Analyzer(get_lucene_analyzer(stopwords=False))
             queries = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', \
                                              'collections/msmarco-passage/queries.train.tsv')
             queries.update(get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', \
                                                   'collections/msmarco-passage/queries.dev.tsv'))
             for qid,value in queries.items():
                 assert 'tokenized' not in value
+                value['nonSW'] = nonStopAnalyzer.analyze(value['title'])
                 value['tokenized'] = analyzer.analyze(value['title'])
         else:
             raise Exception('unknown parameters')
@@ -118,7 +120,7 @@ def extract(df, queries, fe):
             assert t.pid not in qidpid2rel[t.qid]
             qidpid2rel[t.qid][t.pid] = t.rel
             need_rows += 1
-        fe.lazy_extract(str(qid),queries[qid]['tokenized'],list(qidpid2rel[t.qid].keys()))
+        fe.lazy_extract(str(qid),queries[qid]['nonSW'], queries[qid]['tokenized'],list(qidpid2rel[t.qid].keys()))
         fetch_later.append(str(qid))
         if len(fetch_later) == 10000:
             info = np.zeros(shape=(need_rows,3), dtype=np.int32)

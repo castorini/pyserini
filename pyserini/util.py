@@ -21,25 +21,8 @@ import shutil
 import tarfile
 from tqdm import tqdm
 from urllib.request import urlretrieve
-
-INDEX_INFO = {
-    'index-marco-passage': {
-        'urls': {'uwaterloo': 'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-20191117-0ed488.tar.gz'},
-        'md5': '3c2ef64ee6d0ee8e317adcb341b92e28'},
-    'index-marco-doc': {
-        'urls': {'dropbox': 'https://www.dropbox.com/s/awukuo8c0tkl9sc/index-msmarco-doc-20200527-a1ecfa.tar.gz?dl=1'},
-        'md5': '72b1a0f9a9094a86d15c6f4babf8967a'},
-    'index-robust04': {
-        'urls': {'uwaterloo': 'https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz'},
-        'md5': '15f3d001489c97849a010b0a4734d018'}
-}
-
-INDEX_MAPPING = {
-    'ms-marco-passage': INDEX_INFO['index-marco-passage'],
-    'ms-marco-doc': INDEX_INFO['index-marco-doc'],
-    'trec45': INDEX_INFO['index-robust04'],
-    'robust04': INDEX_INFO['index-robust04']
-}
+import pandas as pd
+from pyserini.indexInfo import INDEX_INFO
 
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5
@@ -99,7 +82,7 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
 
     if prebuilt:
         index_directory = os.path.join(get_cache_home(), 'indexes')
-        index_path = os.path.join(index_directory, f'{index_name}{md5}')
+        index_path = os.path.join(index_directory, f'{index_name}.{md5}')
         local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
         if not os.path.exists(index_directory):
             os.makedirs(index_directory)
@@ -139,15 +122,33 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
         os.rename(os.path.join(index_directory, f'{index_name}'), index_path)
     return index_path
 
+def check_downloaded(index_name):
+    mirror = next(iter(INDEX_INFO[index_name]["url"]))
+    index_url = INDEX_INFO[index_name]["url"][mirror]
+    index_md5 = INDEX_INFO[index_name]["md5"]
+    index_name = index_url.split('/')[-1]
+    index_name = re.sub('''.tar.gz.*$''', '', index_name)
+    index_directory = os.path.join(get_cache_home(), 'indexes')
+    index_path = os.path.join(index_directory, f'{index_name}.{index_md5}')
+    return os.path.exists(index_path)
+
+def get_indexes_info():
+    indexDf = pd.DataFrame.from_dict(INDEX_INFO)
+    for index in indexDf.keys():
+        indexDf[index]['downloaded'] = check_downloaded(index)
+    with pd.option_context('display.max_rows', None, 'display.max_columns', \
+                           None, 'display.max_colwidth', -1, 'display.colheader_justify', 'left'):
+        print(indexDf)
 
 def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
-    if index_name in INDEX_MAPPING:
+    if index_name in INDEX_INFO:
         if not mirror:
-            mirror = next(iter(INDEX_MAPPING[index_name]["urls"]))
-        elif  mirror not in INDEX_MAPPING[index_name]["urls"]:
+            mirror = next(iter(INDEX_INFO[index_name]["url"]))
+        elif  mirror not in INDEX_INFO[index_name]["url"]:
             raise ValueError("unrecognized mirror name {}".format(mirror))
-        index_url = INDEX_MAPPING[index_name]["urls"][mirror]
-        index_md5 = INDEX_MAPPING[index_name]["md5"]
+        index_url = INDEX_INFO[index_name]["url"][mirror]
+        index_md5 = INDEX_INFO[index_name]["md5"]
         return download_and_unpack_index(index_url, prebuilt=True, md5=index_md5)
     else:
         raise ValueError("unrecognized index name {}".format(index_name))
+
