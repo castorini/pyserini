@@ -113,7 +113,7 @@ with open(output_path, 'w') as target_file:
         if args.msmarco:
             writer = csv.writer(target_file, delimiter='\t', lineterminator='\n')
             for i, doc_id in enumerate(doc_ids):
-                writer.writerow([topic, doc_id, i+1])
+                writer.writerow([topic, doc_id, i + 1])
         else:
             tag = output_path[:-4] if args.output is None else 'Anserini'
             for i, (doc_id, score) in enumerate(zip(doc_ids, scores)):
