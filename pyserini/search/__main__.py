@@ -16,6 +16,7 @@
 
 import argparse
 import os
+import csv
 from pyserini.search import get_topics, SimpleSearcher
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 from tqdm import tqdm
@@ -24,6 +25,7 @@ parser = argparse.ArgumentParser(description='Search a Lucene index.')
 parser.add_argument('--index', type=str, metavar='path to index or index name', required=True, help="Path to Lucene index or prebuilt index's name.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: robust04, robust05, core17, core18.")
+parser.add_argument('--msmarco',  action='store_true', default=False, help="Output in MS MARCO format.")
 parser.add_argument('--output', type=str, metavar='path', help="Path to output file.")
 parser.add_argument('--bm25',  action='store_true', default=True, help="Use BM25 (default).")
 parser.add_argument('--rm3',  action='store_true', help="Use RM3")
@@ -71,6 +73,7 @@ if topics == {}:
 # get re-ranker
 use_prcl = args.prcl and len(args.prcl) > 0 and args.alpha > 0
 if use_prcl is True:
+    print("reranker is added")
     ranker = PseudoRelevanceClassifierReranker(
         searcher.index_dir, args.vectorizer, args.prcl, r=args.r, n=args.n, alpha=args.alpha)
 
@@ -108,6 +111,11 @@ with open(output_path, 'w') as target_file:
         if use_prcl and len(hits) > (args.r + args.n):
             scores, doc_ids = ranker.rerank(doc_ids, scores)
 
-        tag = output_path[:-4] if args.output is None else 'Anserini'
-        for i, (doc_id, score) in enumerate(zip(doc_ids, scores)):
-            target_file.write(f'{topic} Q0 {doc_id} {i + 1} {score:.6f} {tag}\n')
+        if args.msmarco:
+            writer = csv.writer(target_file, delimiter='\t')
+            for i, doc_id in enumerate(doc_ids):
+                writer.writerow([topic, doc_id, i+1])
+        else:
+            tag = output_path[:-4] if args.output is None else 'Anserini'
+            for i, (doc_id, score) in enumerate(zip(doc_ids, scores)):
+                target_file.write(f'{topic} Q0 {doc_id} {i + 1} {score:.6f} {tag}\n')
