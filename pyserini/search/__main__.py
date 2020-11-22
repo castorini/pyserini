@@ -73,7 +73,6 @@ if topics == {}:
 # get re-ranker
 use_prcl = args.prcl and len(args.prcl) > 0 and args.alpha > 0
 if use_prcl is True:
-    print("reranker is added")
     ranker = PseudoRelevanceClassifierReranker(
         searcher.index_dir, args.vectorizer, args.prcl, r=args.r, n=args.n, alpha=args.alpha)
 
