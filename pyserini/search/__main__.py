@@ -61,6 +61,8 @@ else:
     search_rankers.append('bm25')
     if args.msmarco:
         # setting k1=0.82 and b=0.68 for ms-marco passage
+        # tuned parameters from grid search of parameter values
+        # link to BM25 tuning: https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md#bm25-tuning
         searcher.set_bm25(0.82, 0.68)
 
 if args.rm3:
