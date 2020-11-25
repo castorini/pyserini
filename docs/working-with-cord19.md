@@ -26,16 +26,16 @@ rm "${DATA_DIR}"/document_parses.tar.gz
 The following snippet of code allows you to iterate through all articles in the collection (note that although we use the `Cord19AbstractCollection`, `raw` _does_ provide access to the full text:
 
 ```python
-from pyserini.collection import pycollection
+from pyserini.collection import Collection,Cord19Article
 
-collection = pycollection.Collection('Cord19AbstractCollection', 'collections/cord19-2020-05-26')
+collection = Collection('Cord19AbstractCollection', 'collections/cord19-2020-05-26')
 
 cnt = 0;
 full_text = {True : 0, False: 0}
 
 articles = collection.__next__()
 for (i, d) in enumerate(articles):
-    article = pycollection.Cord19Article(d.raw)
+    article = Cord19Article(d.raw)
     cnt = cnt + 1
     full_text[article.is_full_text()] += 1
     if cnt % 1000 == 0:
@@ -52,15 +52,15 @@ For articles without full text, only the metadata are available.
 Let's examine the first full-text article in the collection:
 
 ```python
-from pyserini.collection import pycollection
+from pyserini.collection import Collection
 
 # All this snippet of code does is to advance to the frist full-text article:
-collection = pycollection.Collection('Cord19AbstractCollection', 'collections/cord19-2020-05-26')
+collection = Collection('Cord19AbstractCollection', 'collections/cord19-2020-05-26')
 
 articles = collection.__next__()
 article = None
 for (i, d) in enumerate(articles):
-    article = pycollection.Cord19Article(d.raw)
+    article = Cord19Article(d.raw)
     if article.is_full_text():
        break
 
