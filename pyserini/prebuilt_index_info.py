@@ -19,6 +19,16 @@ INDEX_INFO = {
         "documents": 8841823,
         "unique_terms": 2660824
     },
+    "ms-marco-passage-expanded": {
+        "name": "ms-marco-passage-expanded",
+        "description": "MS MARCO passage corpus (+ docTTTTTquery expansion)",
+        "url": {"Dropbox": "https://www.dropbox.com/s/rxa52pvqox8ow3o/index-msmarco-passage-expanded-20201121-e127fb.tar.gz?dl=1"},
+        "md5": "e5762e9e065b6fe5000f9c18da778565",
+        "size compressed (bytes)": 816438546,
+        "total_terms": 1986612263,
+        "documents": 8841823,
+        "unique_terms": 3929111
+    },
     "ms-marco-doc": {
         "name": "ms-marco-doc",
         "description": "MS MARCO document corpus",
