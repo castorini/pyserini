@@ -17,13 +17,13 @@ tar xvfz indexes/20newsgroups/lucene-index.20newsgroups.all.tar.gz -C indexes/20
 ```
 To confirm, `lucene-index.20newsgroups.all.tar.gz` should have MD5 checksum of `89ed27a08e3e77c51a9f1c28f0705da0`.
 
+Here's the script that have everything put together
 ```bash
 sh bin/get-20newsgroups-data.sh
 ```
-Here's the script that have everything put together
 
-###Extract docid and labels in dataset
-Helper function to extract docid and labels in dataset
+
+Then we are going to use helper function to extract docid and labels in dataset.
 ```
 def get_info(path):
     docs = []
