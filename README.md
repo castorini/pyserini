@@ -56,6 +56,15 @@ Assuming all tests pass, you should be ready to go!
 + [How do I search?](#how-do-i-search)
 + [How do I fetch a document?](#how-do-i-fetch-a-document)
 + [How do I search my own documents?](#how-do-i-search-my-own-documents)
++ [How do I replicate results on Robust04, MS MARCO...?](#replication-guides)
++ [How do I iterate over index terms and access term statistics?](docs/usage-indexreader.md#how-do-i-iterate-over-index-terms-and-access-term-statistics) (Index Reader API)
++ [How do I traverse postings?](docs/usage-indexreader.md#how-do-i-traverse-postings) (Index Reader API)
++ [How do I access and manipulate term vectors?](docs/usage-indexreader.md#how-do-i-access-and-manipulate-term-vectors) (Index Reader API)
++ [How do I compute the tf-idf or BM25 score of a document?](docs/usage-indexreader.md#how-do-i-compute-the-tf-idf-or-BM25-score-of-a-document) (Index Reader API)
++ [How do I access basic index statistics?](docs/usage-indexreader.md#how-do-i-access-basic-index-statistics) (Index Reader API)
++ [How do I access underlying Lucene analyzers?](docs/usage-analyzer.md) (Analyzer API)
++ [How do I build custom Lucene queries?](docs/usage-querybuilder.md) (Query Builder API)
++ [How do I iterate over raw collections?](docs/usage-collection.md) (Collection API)
 
 ## How do I search?
 
@@ -250,18 +259,18 @@ For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entiti
 
 Happy honking!
 
+## Replication Guides
+
+With Pyserini, it's easy to replicate runs on a number of standard IR test collections!
+
++ [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
++ [Guide to running the BM25 baseline for the MS MARCO Document Retrieval Task](docs/experiments-msmarco-doc.md)
+
 ## Additional Documentation
 
 + [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
-+ [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
-+ [Guide to running the BM25 baseline for the MS MARCO Document Retrieval Task](docs/experiments-msmarco-doc.md)
 + [Usage of the Analyzer API](docs/usage-analyzer.md)
 + [Usage of the Index Reader API](docs/usage-indexreader.md)
-  + [How do I iterate over index terms and access term statistics?](docs/usage-indexreader.md#how-do-i-iterate-over-index-terms-and-access-term-statistics)
-  + [How do I traverse postings?](docs/usage-indexreader.md#how-do-i-traverse-postings)
-  + [How do I access and manipulate term vectors?](docs/usage-indexreader.md#how-do-i-access-and-manipulate-term-vectors)
-  + [How do I compute the tf-idf or BM25 score of a document?](docs/usage-indexreader.md#how-do-i-compute-the-tf-idf-or-BM25-score-of-a-document)
-  + [How do I access basic index statistics?](docs/usage-indexreader.md#how-do-i-access-basic-index-statistics)
 + [Usage of the Query Builder API](docs/usage-querybuilder.md)
 + [Usage of the Collection API](docs/usage-collection.md)
 + [Direct Interaction via Pyjnius](docs/usage-pyjnius.md)
