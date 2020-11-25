@@ -22,7 +22,7 @@ import tarfile
 from tqdm import tqdm
 from urllib.request import urlretrieve
 import pandas as pd
-from pyserini.indexInfo import INDEX_INFO
+from pyserini.prebuilt_index_info import INDEX_INFO
 
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5
@@ -41,9 +41,17 @@ class TqdmUpTo(tqdm):
         self.update(b * bsize - self.n)  # will also set self.n = b * bsize
 
 
-def compute_md5(file):
+# For large files, we need to compute MD5 block by block. See:
+# https://stackoverflow.com/questions/1131220/get-md5-hash-of-big-files-in-python
+def compute_md5(file, block_size=2**20):
+    m = hashlib.md5()
     with open(file, 'rb') as f:
-        return hashlib.md5(f.read()).hexdigest()
+        while True:
+            buf = f.read(block_size)
+            if not buf:
+                break
+            m.update(buf)
+    return m.hexdigest()
 
 
 def download_url(url, save_dir, md5=None, force=False, verbose=True):
@@ -71,10 +79,15 @@ def download_url(url, save_dir, md5=None, force=False, verbose=True):
         urlretrieve(url, filename=destination_path, reporthook=t.update_to)
 
     if md5:
-        assert compute_md5(destination_path) == md5, f'{destination_path} does not match checksum!'
+        md5_computed = compute_md5(destination_path)
+        assert md5_computed == md5, f'{destination_path} does not match checksum! Expecting {md5} got {md5_computed}.'
+
+    return destination_path
+
 
 def get_cache_home():
     return os.path.expanduser(os.path.join(f'~{os.path.sep}.cache', "pyserini"))
+
 
 def download_and_unpack_index(url, index_directory='indexes', force=False, verbose=True, prebuilt=False, md5=None):
     index_name = url.split('/')[-1]
@@ -83,33 +96,31 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
     if prebuilt:
         index_directory = os.path.join(get_cache_home(), 'indexes')
         index_path = os.path.join(index_directory, f'{index_name}.{md5}')
-        local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
+
         if not os.path.exists(index_directory):
             os.makedirs(index_directory)
-    else:
-        index_path = os.path.join(index_directory, f'{index_name}')
 
-    local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
-
-    if prebuilt:
+        local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
+        # If there's a local tarball, it's likely corrupted, because we remove the local tarball on success (below).
+        # So, we want to remove.
         if os.path.exists(local_tarball):
             os.remove(local_tarball)
-    if verbose:
-        print(f'Downloading index at {url}...')
+    else:
+        local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
+        index_path = os.path.join(index_directory, f'{index_name}')
 
     # Check to see if index already exists, if so, simply return (quietly) unless force=True, in which case we remove
     # index and download fresh copy.
     if os.path.exists(index_path):
-        if verbose:
-            print(f'{index_path} already exists!')
         if not force:
             if verbose:
-                print(f'Skipping download.')
+                print(f'{index_path} already exists, skipping download.')
             return index_path
         if verbose:
-            print(f'force=True, removing {index_path}; fetching fresh copy...')
+            print(f'{index_path} already exists, but force=True, removing {index_path} and fetching fresh copy...')
         shutil.rmtree(index_path)
 
+    print(f'Downloading index at {url}...')
     download_url(url, index_directory, verbose=False, md5=md5)
 
     if verbose:
@@ -118,9 +129,12 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
     tarball.extractall(index_directory)
     tarball.close()
     os.remove(local_tarball)
+
     if prebuilt:
         os.rename(os.path.join(index_directory, f'{index_name}'), index_path)
+
     return index_path
+
 
 def check_downloaded(index_name):
     mirror = next(iter(INDEX_INFO[index_name]["url"]))
@@ -132,6 +146,7 @@ def check_downloaded(index_name):
     index_path = os.path.join(index_directory, f'{index_name}.{index_md5}')
     return os.path.exists(index_path)
 
+
 def get_indexes_info():
     indexDf = pd.DataFrame.from_dict(INDEX_INFO)
     for index in indexDf.keys():
@@ -140,11 +155,12 @@ def get_indexes_info():
                            None, 'display.max_colwidth', -1, 'display.colheader_justify', 'left'):
         print(indexDf)
 
+
 def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
     if index_name in INDEX_INFO:
         if not mirror:
             mirror = next(iter(INDEX_INFO[index_name]["url"]))
-        elif  mirror not in INDEX_INFO[index_name]["url"]:
+        elif mirror not in INDEX_INFO[index_name]["url"]:
             raise ValueError("unrecognized mirror name {}".format(mirror))
         index_url = INDEX_INFO[index_name]["url"][mirror]
         index_md5 = INDEX_INFO[index_name]["md5"]

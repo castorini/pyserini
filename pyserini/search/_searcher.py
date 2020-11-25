@@ -46,12 +46,13 @@ class SimpleSearcher:
     """
 
     def __init__(self, index_dir: str):
+        self.index_dir = index_dir
         self.object = JSimpleSearcher(JString(index_dir))
         self.num_docs = self.object.getTotalNumDocuments()
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str):
-        """Build a searcher from the prebuilt index, download the index if necessary.
+        """Build a searcher from the pre-built index; download the index if necessary.
 
         Parameters
         ----------
@@ -63,7 +64,14 @@ class SimpleSearcher:
         SimpleSearcher
             Searcher built from the prebuilt index.
         """
-        index_dir = download_prebuilt_index(prebuilt_index_name)
+        print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+        try:
+            index_dir = download_prebuilt_index(prebuilt_index_name)
+        except ValueError:
+            print(f'Unknown pre-built index: {prebuilt_index_name}')
+            return None
+
+        print(f'Initializing {prebuilt_index_name}...')
         return cls(index_dir)
 
     @staticmethod
