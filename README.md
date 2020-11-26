@@ -148,10 +148,11 @@ SimpleSearcher.list_prebuilt_indexes()
 A summary of what's currently available:
 
 + `robust04`: TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track
-+ `ms-marco-passage`: MS MARCO passage corpus
-+ `ms-marco-doc`: MS MARCO document corpus
-+ `enwiki-paragraphs`: English Wikipedia
-+ `zhwiki-paragraphs`: Chinese Wikipedia
++ `ms-marco-passage`: MS MARCO passage corpus (the index associated with [this guide](experiments-msmarco-passage.md))
++ `ms-marco-passage-expanded`: MS MARCO passage corpus with docTTTTTquery expansion (see [this guide](http://doc2query.ai/))
++ `ms-marco-doc`: MS MARCO document corpus (the index associated with [this guide](experiments-msmarco-doc.md))
++ `enwiki-paragraphs`: English Wikipedia (for use with [BERTserini](https://github.com/rsvp-ai/bertserini))
++ `zhwiki-paragraphs`: Chinese Wikipedia (for use with [BERTserini](https://github.com/rsvp-ai/bertserini))
 
 ## How do I fetch a document?
 
