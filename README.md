@@ -56,6 +56,15 @@ Assuming all tests pass, you should be ready to go!
 + [How do I search?](#how-do-i-search)
 + [How do I fetch a document?](#how-do-i-fetch-a-document)
 + [How do I search my own documents?](#how-do-i-search-my-own-documents)
++ [How do I replicate results on Robust04, MS MARCO...?](#replication-guides)
++ [How do I iterate over index terms and access term statistics?](docs/usage-indexreader.md#how-do-i-iterate-over-index-terms-and-access-term-statistics) (Index Reader API)
++ [How do I traverse postings?](docs/usage-indexreader.md#how-do-i-traverse-postings) (Index Reader API)
++ [How do I access and manipulate term vectors?](docs/usage-indexreader.md#how-do-i-access-and-manipulate-term-vectors) (Index Reader API)
++ [How do I compute the tf-idf or BM25 score of a document?](docs/usage-indexreader.md#how-do-i-compute-the-tf-idf-or-BM25-score-of-a-document) (Index Reader API)
++ [How do I access basic index statistics?](docs/usage-indexreader.md#how-do-i-access-basic-index-statistics) (Index Reader API)
++ [How do I access underlying Lucene analyzers?](docs/usage-analyzer.md) (Analyzer API)
++ [How do I build custom Lucene queries?](docs/usage-querybuilder.md) (Query Builder API)
++ [How do I iterate over raw collections?](docs/usage-collection.md) (Collection API)
 
 ## How do I search?
 
@@ -139,10 +148,11 @@ SimpleSearcher.list_prebuilt_indexes()
 A summary of what's currently available:
 
 + `robust04`: TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track
-+ `ms-marco-passage`: MS MARCO passage corpus
-+ `ms-marco-doc`: MS MARCO document corpus
-+ `enwiki-paragraphs`: English Wikipedia
-+ `zhwiki-paragraphs`: Chinese Wikipedia
++ `ms-marco-passage`: MS MARCO passage corpus (the index associated with [this guide](docs/experiments-msmarco-passage.md))
++ `ms-marco-passage-expanded`: MS MARCO passage corpus with docTTTTTquery expansion (see [this guide](http://doc2query.ai/))
++ `ms-marco-doc`: MS MARCO document corpus (the index associated with [this guide](docs/experiments-msmarco-doc.md))
++ `enwiki-paragraphs`: English Wikipedia (for use with [BERTserini](https://github.com/rsvp-ai/bertserini))
++ `zhwiki-paragraphs`: Chinese Wikipedia (for use with [BERTserini](https://github.com/rsvp-ai/bertserini))
 
 ## How do I fetch a document?
 
@@ -250,12 +260,17 @@ For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entiti
 
 Happy honking!
 
+## Replication Guides
+
+With Pyserini, it's easy to replicate runs on a number of standard IR test collections!
+
++ [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
++ [Guide to running the BM25 baseline for the MS MARCO Document Retrieval Task](docs/experiments-msmarco-doc.md)
+
 ## Additional Documentation
 
 + [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
-+ [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
-+ [Guide to running the BM25 baseline for the MS MARCO Document Retrieval Task](docs/experiments-msmarco-doc.md)
-+ [Guide to perform text classification with 20Newsgroups dataset](docs/20newgroups.md)
++ [Guide to text classification with the 20Newsgroups dataset](docs/20newgroups.md)
 + [Usage of the Analyzer API](docs/usage-analyzer.md)
 + [Usage of the Index Reader API](docs/usage-indexreader.md)
 + [Usage of the Query Builder API](docs/usage-querybuilder.md)
