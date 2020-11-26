@@ -15,7 +15,7 @@ setuptools.setup(
         "resources/jars/anserini-0.10.0-fatjar.jar",
      ]},
     url="https://github.com/castorini/pyserini",
-    install_requires=['Cython', 'pyjnius', 'numpy', 'scipy', 'scikit-learn', 'pandas'],
+    install_requires=['Cython', 'pyjnius', 'numpy', 'scipy', 'scikit-learn', 'pandas', 'tqdm'],
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
