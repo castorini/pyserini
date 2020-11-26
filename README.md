@@ -269,7 +269,7 @@ With Pyserini, it's easy to replicate runs on a number of standard IR test colle
 ## Additional Documentation
 
 + [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
-+ [Guide to perform text classification with 20Newsgroups dataset](docs/20newgroups.md)
++ [Guide to text classification with the 20Newsgroups dataset](docs/20newgroups.md)
 + [Usage of the Analyzer API](docs/usage-analyzer.md)
 + [Usage of the Index Reader API](docs/usage-indexreader.md)
 + [Usage of the Query Builder API](docs/usage-querybuilder.md)
