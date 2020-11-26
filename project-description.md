@@ -10,19 +10,12 @@ pip install pyserini
 
 ## Usage
 
-Here's a sample pre-built index on TREC Disks 4 &amp; 5 to play with (used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md)):
-
-```bash
-wget https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz
-tar xvfz index-robust04-20191213.tar.gz
-```
-
-Use the `SimpleSearcher` for searching:
+As a quick start, use the `SimpleSearcher` for searching, with a pre-built index on TREC Disks 4 &amp; 5 (used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md)):
 
 ```python
 from pyserini.search import SimpleSearcher
 
-searcher = SimpleSearcher('index-robust04-20191213/')
+searcher = SimpleSearcher.from_prebuilt_index('robust04')
 hits = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:
