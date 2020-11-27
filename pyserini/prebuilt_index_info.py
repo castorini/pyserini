@@ -39,6 +39,26 @@ INDEX_INFO = {
         "documents": 3213835,
         "unique_terms": 29823078
     },
+    "ms-marco-doc-expanded-per-doc": {
+        "name": "ms-marco-doc-expanded-per-doc",
+        "description": "MS MARCO document corpus, with per-doc docTTTTTquery expansion",
+        "url": {"Dropbox": "https://www.dropbox.com/s/u4yagsgf3lo3gk4/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz?dl=1"},
+        "md5": "f7056191842ab77a01829cff68004782",
+        "size compressed (bytes)": 1978837253,
+        "total_terms": 3748333319,
+        "documents": 3213835,
+        "unique_terms": 30627687
+    },
+    "ms-marco-doc-expanded-per-passage": {
+        "name": "ms-marco-doc-expanded-per-passage",
+        "description": "MS MARCO document corpus, with per-passage docTTTTTquery expansion",
+        "url": {"Dropbox": "https://www.dropbox.com/s/t3z7p5o6kfe931s/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz?dl=1"},
+        "md5": "54ea30c64515edf3c3741291b785be53",
+        "size compressed (bytes)": 3069280946,
+        "total_terms": 4203956960,
+        "documents": 20544550,
+        "unique_terms": 22037213
+    },
     "enwiki-paragraphs": {
         "name": "lucene-index.enwiki-20180701-paragraphs",
         "description": "English Wikipedia",
