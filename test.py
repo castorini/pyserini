@@ -31,7 +31,7 @@ def train_data_loader(neg_sample=10, random_seed=12345):
         print(sampled_train.info())
         return sampled_train
     else:
-        train = pd.read_csv('collections/msmarco-passage/qidpidtriples.train.full.tsv', sep="\t",
+        train = pd.read_csv('collections/msmarco-passage/qidpidtriples.train.full.2.tsv', sep="\t",
                             names=['qid', 'pos_pid', 'neg_pid'], dtype=np.int32)
         pos_half = train[['qid', 'pos_pid']].rename(columns={"pos_pid": "pid"}).drop_duplicates()
         pos_half['rel'] = np.int32(1)
@@ -53,7 +53,7 @@ def train_data_loader(neg_sample=10, random_seed=12345):
         return sampled_train
 
 
-def dev_data_loader(task='rerank'):
+def dev_data_loader(task='pygaggle'):
     if os.path.exists(f'dev_{task}.pickle'):
         dev = pd.read_pickle(f'dev_{task}.pickle')
         print(dev.shape)
@@ -68,6 +68,9 @@ def dev_data_loader(task='rerank'):
                               names=['qid', 'pid', 'query', 'doc'], usecols=['qid', 'pid'], dtype=np.int32)
         elif task == 'anserini':
             dev = pd.read_csv('runs/msmarco-passage/run.msmarco-passage.dev.small.tsv',sep="\t",
+                            names=['qid','pid','rank'], dtype=np.int32)
+        elif task == 'pygaggle':
+            dev = pd.read_csv('../pygaggle/data/msmarco_ans_entire/run.dev.small.tsv',sep="\t",
                             names=['qid','pid','rank'], dtype=np.int32)
         else:
             raise Exception('unknown parameters')
@@ -99,7 +102,7 @@ def query_loader(choice='default'):
             queries.update(get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', \
                                                   'collections/msmarco-passage/queries.dev.tsv'))
             for qid,value in queries.items():
-                assert 'tokenized' not in value
+                assert 'tokenized' not in value and 'nonSW' not in value
                 value['nonSW'] = nonStopAnalyzer.analyze(value['title'])
                 value['tokenized'] = analyzer.analyze(value['title'])
         else:
@@ -215,14 +218,14 @@ def train(train_extracted, dev_extracted, feature_name):
         'objective': 'lambdarank',
         'max_bin':255,
         'num_leaves':63,
-        'max_depth':10,
+        'max_depth':-1,
         'min_data_in_leaf':50,
         'min_sum_hessian_in_leaf':0,
         'bagging_fraction':0.8,
-        'bagging_freq':20,
+        'bagging_freq':50,
         'feature_fraction':1,
         'learning_rate':0.1,
-        'num_boost_round':500,
+        'num_boost_round':1000,
         'metric':['map'],
         'eval_at':[10],
         'label_gain':[0,1],
@@ -499,22 +502,46 @@ if __name__ == '__main__':
     fe.add(BM25(k1=0.9,b=0.4))
     fe.add(BM25(k1=1.2,b=0.75))
     fe.add(BM25(k1=2.0,b=0.75))
+
     fe.add(LMDir(mu=1000))
     fe.add(LMDir(mu=1500))
     fe.add(LMDir(mu=2500))
+
     fe.add(LMJM(0.1))
     fe.add(LMJM(0.4))
     fe.add(LMJM(0.7))
+
+    fe.add(NTFIDF())
+    fe.add(ProbalitySum())
+
     fe.add(DFR_GL2())
     fe.add(DFR_In_expB2())
     fe.add(DPH())
+
+    # fe.add(ContextDFR_GL2(AvgPooler()))
+    # fe.add(ContextDFR_GL2(VarPooler()))
+    # fe.add(ContextDFR_In_expB2(AvgPooler()))
+    # fe.add(ContextDFR_In_expB2(VarPooler()))
+    # fe.add(ContextDPH(AvgPooler()))
+    # fe.add(ContextDPH(VarPooler()))
+
     fe.add(Proximity())
+    fe.add(TPscore())
+    fe.add(tpDist())
+    # fe.add(SDM())
+
     fe.add(DocSize())
+    fe.add(Entropy())
+    fe.add(StopCover())
+    fe.add(StopRatio())
+
     fe.add(QueryLength())
+    fe.add(QueryLengthNonStopWords())
+    fe.add(QueryCoverageRatio())
     fe.add(UniqueTermCount())
     fe.add(MatchingTermCount())
-    fe.add(QueryCoverageRatio())
     fe.add(SCS())
+
     fe.add(tfStat(AvgPooler()))
     fe.add(tfStat(SumPooler()))
     fe.add(tfStat(MinPooler()))
@@ -525,26 +552,37 @@ if __name__ == '__main__':
     fe.add(tfIdfStat(MinPooler()))
     fe.add(tfIdfStat(MaxPooler()))
     fe.add(tfIdfStat(VarPooler()))
-    fe.add(normalizedTfStat(AvgPooler()))
-    fe.add(normalizedTfStat(SumPooler()))
-    fe.add(normalizedTfStat(MinPooler()))
-    fe.add(normalizedTfStat(MaxPooler()))
-    fe.add(normalizedTfStat(VarPooler()))
-    fe.add(idfStat(AvgPooler()))
-    fe.add(idfStat(SumPooler()))
-    fe.add(idfStat(MinPooler()))
-    fe.add(idfStat(MaxPooler()))
-    fe.add(idfStat(VarPooler()))
-    fe.add(ictfStat(AvgPooler()))
-    fe.add(ictfStat(SumPooler()))
-    fe.add(ictfStat(MinPooler()))
-    fe.add(ictfStat(MaxPooler()))
-    fe.add(ictfStat(VarPooler()))
     fe.add(scqStat(AvgPooler()))
     fe.add(scqStat(SumPooler()))
     fe.add(scqStat(MinPooler()))
     fe.add(scqStat(MaxPooler()))
     fe.add(scqStat(VarPooler()))
+    fe.add(normalizedTfStat(AvgPooler()))
+    fe.add(normalizedTfStat(SumPooler()))
+    fe.add(normalizedTfStat(MinPooler()))
+    fe.add(normalizedTfStat(MaxPooler()))
+    fe.add(normalizedTfStat(VarPooler()))
+    # fe.add(normalizedDocSizeStat(AvgPooler()))
+    # fe.add(normalizedDocSizeStat(SumPooler()))
+    # fe.add(normalizedDocSizeStat(MinPooler()))
+    # fe.add(normalizedDocSizeStat(MaxPooler()))
+    # fe.add(normalizedDocSizeStat(VarPooler()))
+
+    fe.add(idfStat(AvgPooler()))
+    fe.add(idfStat(SumPooler()))
+    fe.add(idfStat(MinPooler()))
+    fe.add(idfStat(MaxPooler()))
+    fe.add(idfStat(VarPooler()))
+    fe.add(idfStat(MaxMinRatioPooler()))
+    fe.add(idfStat(ConfidencePooler()))
+    fe.add(ictfStat(AvgPooler()))
+    fe.add(ictfStat(SumPooler()))
+    fe.add(ictfStat(MinPooler()))
+    fe.add(ictfStat(MaxPooler()))
+    fe.add(ictfStat(VarPooler()))
+    fe.add(ictfStat(MaxMinRatioPooler()))
+    fe.add(ictfStat(ConfidencePooler()))
+
     fe.add(UnorderedSequentialPairs(3))
     fe.add(UnorderedSequentialPairs(8))
     fe.add(UnorderedSequentialPairs(15))
