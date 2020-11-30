@@ -557,7 +557,9 @@ if __name__ == '__main__':
     fe.add(OrderedQueryPairs(3))
     fe.add(OrderedQueryPairs(8))
     fe.add(OrderedQueryPairs(15))
-    
+    fe.add(RunList('run.monobert.LTR.dev.trec','BERT'))
+    fe.add(RunList('run.monobert.ans_entire.dev.trec','BERT'))
+
     train_extracted = data_loader('train', sampled_train, queries, fe)
     dev_extracted = data_loader('dev', dev, queries, fe)
     del sampled_train, dev
