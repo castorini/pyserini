@@ -148,9 +148,13 @@ SimpleSearcher.list_prebuilt_indexes()
 A summary of what's currently available:
 
 + `robust04`: TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track
-+ `ms-marco-passage`: MS MARCO passage corpus (the index associated with [this guide](docs/experiments-msmarco-passage.md))
-+ `ms-marco-passage-expanded`: MS MARCO passage corpus with docTTTTTquery expansion (see [this guide](http://doc2query.ai/))
-+ `ms-marco-doc`: MS MARCO document corpus (the index associated with [this guide](docs/experiments-msmarco-doc.md))
++ `msmarco-passage`: MS MARCO passage corpus (the index associated with [this guide](docs/experiments-msmarco-passage.md))
++ `msmarco-passage-slim`: A "slim" version of the above index that does not include the corpus text.
++ `msmarco-passage-expanded`: MS MARCO passage corpus with docTTTTTquery expansion (see [this guide](http://doc2query.ai/))
++ `msmarco-doc`: MS MARCO document corpus (the index associated with [this guide](docs/experiments-msmarco-doc.md))
++ `msmarco-doc-slim`: A "slim" version of the above index that does not include the corpus text.
++ `msmarco-doc-expanded-per-doc`: MS MARCO document corpus with per-document docTTTTTquery expansion (see [this guide](http://doc2query.ai/))
++ `msmarco-doc-expanded-per-passage`: MS MARCO document corpus with per-passage docTTTTTquery expansion (see [this guide](http://doc2query.ai/))
 + `enwiki-paragraphs`: English Wikipedia (for use with [BERTserini](https://github.com/rsvp-ai/bertserini))
 + `zhwiki-paragraphs`: Chinese Wikipedia (for use with [BERTserini](https://github.com/rsvp-ai/bertserini))
 
