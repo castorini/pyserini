@@ -21,9 +21,11 @@ from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierRe
 from tqdm import tqdm
 
 parser = argparse.ArgumentParser(description='Search a Lucene index.')
-parser.add_argument('--index', type=str, metavar='path to index or index name', required=True, help="Path to Lucene index or prebuilt index's name.")
+parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
+                    help="Path to Lucene index or name of prebuilt index.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: robust04, robust05, core17, core18.")
+parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
 parser.add_argument('--msmarco',  action='store_true', default=False, help="Output in MS MARCO format.")
 parser.add_argument('--output', type=str, metavar='path', help="Path to output file.")
 parser.add_argument('--bm25',  action='store_true', default=True, help="Use BM25 (default).")
@@ -107,7 +109,7 @@ print(f'Running {args.topics} topics, saving to {output_path}...')
 with open(output_path, 'w') as target_file:
     for index, topic in enumerate(tqdm(sorted(topics.keys()))):
         search = topics[topic].get('title')
-        hits = searcher.search(search, 1000)
+        hits = searcher.search(search, args.hits)
         doc_ids = [hit.docid.strip() for hit in hits]
         scores = [hit.score for hit in hits]
 
