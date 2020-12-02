@@ -289,7 +289,7 @@ def eval_mrr(dev_data):
 #     dev_Y = dev_extracted['data']['rel']
 #     lgb_train = lgb.Dataset(train_X,label=train_Y,group=train_extracted['group'])
 #     lgb_valid = lgb.Dataset(dev_X,label=dev_Y,group=dev_extracted['group'])
-    
+
 #     params = {
 #         'boosting_type': 'gbdt',
 #         'objective': 'lambdarank',
@@ -314,7 +314,7 @@ def eval_mrr(dev_data):
 #     num_boost_round = params.pop('num_boost_round')
 #     early_stopping_round = params.pop('early_stopping_round')
 #     eval_results={}
-#     gbm = lgb.train(params, lgb_train, 
+#     gbm = lgb.train(params, lgb_train,
 #                     valid_sets=lgb_valid,
 #                     num_boost_round=num_boost_round,
 #                     early_stopping_rounds =early_stopping_round,
@@ -341,7 +341,7 @@ def eval_mrr(dev_data):
 #     dev_Y = dev_extracted['data']['rel']
 #     lgb_train = lgb.Dataset(train_X,label=train_Y,group=train_extracted['group'])
 #     lgb_valid = lgb.Dataset(dev_X,label=dev_Y,group=dev_extracted['group'])
-    
+
 #     params = {
 #         'boosting_type': 'gbdt',
 #         'objective': 'lambdarank',
@@ -365,7 +365,7 @@ def eval_mrr(dev_data):
 #     num_boost_round = params.pop('num_boost_round')
 #     early_stopping_round = params.pop('early_stopping_round')
 #     eval_results={}
-#     gbm = lgb.train(params, lgb_train, 
+#     gbm = lgb.train(params, lgb_train,
 #                     valid_sets=lgb_valid,
 #                     num_boost_round=num_boost_round,
 #                     feature_name=feature_name,
@@ -502,46 +502,37 @@ if __name__ == '__main__':
     fe.add(BM25(k1=0.9,b=0.4))
     fe.add(BM25(k1=1.2,b=0.75))
     fe.add(BM25(k1=2.0,b=0.75))
-
     fe.add(LMDir(mu=1000))
     fe.add(LMDir(mu=1500))
     fe.add(LMDir(mu=2500))
-
     fe.add(LMJM(0.1))
     fe.add(LMJM(0.4))
     fe.add(LMJM(0.7))
-
     fe.add(NTFIDF())
     fe.add(ProbalitySum())
-
     fe.add(DFR_GL2())
     fe.add(DFR_In_expB2())
     fe.add(DPH())
-
     # fe.add(ContextDFR_GL2(AvgPooler()))
     # fe.add(ContextDFR_GL2(VarPooler()))
     # fe.add(ContextDFR_In_expB2(AvgPooler()))
     # fe.add(ContextDFR_In_expB2(VarPooler()))
     # fe.add(ContextDPH(AvgPooler()))
     # fe.add(ContextDPH(VarPooler()))
-
     fe.add(Proximity())
     fe.add(TPscore())
     fe.add(tpDist())
     # fe.add(SDM())
-
     fe.add(DocSize())
     fe.add(Entropy())
     fe.add(StopCover())
     fe.add(StopRatio())
-
     fe.add(QueryLength())
     fe.add(QueryLengthNonStopWords())
     fe.add(QueryCoverageRatio())
     fe.add(UniqueTermCount())
     fe.add(MatchingTermCount())
     fe.add(SCS())
-
     fe.add(tfStat(AvgPooler()))
     fe.add(tfStat(SumPooler()))
     fe.add(tfStat(MinPooler()))
@@ -567,7 +558,6 @@ if __name__ == '__main__':
     # fe.add(normalizedDocSizeStat(MinPooler()))
     # fe.add(normalizedDocSizeStat(MaxPooler()))
     # fe.add(normalizedDocSizeStat(VarPooler()))
-
     fe.add(idfStat(AvgPooler()))
     fe.add(idfStat(SumPooler()))
     fe.add(idfStat(MinPooler()))
@@ -582,7 +572,6 @@ if __name__ == '__main__':
     fe.add(ictfStat(VarPooler()))
     fe.add(ictfStat(MaxMinRatioPooler()))
     fe.add(ictfStat(ConfidencePooler()))
-
     fe.add(UnorderedSequentialPairs(3))
     fe.add(UnorderedSequentialPairs(8))
     fe.add(UnorderedSequentialPairs(15))
@@ -595,15 +584,102 @@ if __name__ == '__main__':
     fe.add(OrderedQueryPairs(3))
     fe.add(OrderedQueryPairs(8))
     fe.add(OrderedQueryPairs(15))
-    fe.add(RunList('run.monobert.LTR.dev.trec','BERT'))
-    fe.add(RunList('run.monobert.ans_entire.dev.trec','BERT'))
-
+    fe.add(RunList('run.monobert.train.ltr.trec','BERT'))
     train_extracted = data_loader('train', sampled_train, queries, fe)
+    del fe
+
+    fe = FeatureExtractor('indexes/msmarco-passage/lucene-index-msmarco/',max(multiprocessing.cpu_count()//2,1))
+    fe.add(BM25(k1=0.9,b=0.4))
+    fe.add(BM25(k1=1.2,b=0.75))
+    fe.add(BM25(k1=2.0,b=0.75))
+    fe.add(LMDir(mu=1000))
+    fe.add(LMDir(mu=1500))
+    fe.add(LMDir(mu=2500))
+    fe.add(LMJM(0.1))
+    fe.add(LMJM(0.4))
+    fe.add(LMJM(0.7))
+    fe.add(NTFIDF())
+    fe.add(ProbalitySum())
+    fe.add(DFR_GL2())
+    fe.add(DFR_In_expB2())
+    fe.add(DPH())
+    # fe.add(ContextDFR_GL2(AvgPooler()))
+    # fe.add(ContextDFR_GL2(VarPooler()))
+    # fe.add(ContextDFR_In_expB2(AvgPooler()))
+    # fe.add(ContextDFR_In_expB2(VarPooler()))
+    # fe.add(ContextDPH(AvgPooler()))
+    # fe.add(ContextDPH(VarPooler()))
+    fe.add(Proximity())
+    fe.add(TPscore())
+    fe.add(tpDist())
+    # fe.add(SDM())
+    fe.add(DocSize())
+    fe.add(Entropy())
+    fe.add(StopCover())
+    fe.add(StopRatio())
+    fe.add(QueryLength())
+    fe.add(QueryLengthNonStopWords())
+    fe.add(QueryCoverageRatio())
+    fe.add(UniqueTermCount())
+    fe.add(MatchingTermCount())
+    fe.add(SCS())
+    fe.add(tfStat(AvgPooler()))
+    fe.add(tfStat(SumPooler()))
+    fe.add(tfStat(MinPooler()))
+    fe.add(tfStat(MaxPooler()))
+    fe.add(tfStat(VarPooler()))
+    fe.add(tfIdfStat(AvgPooler()))
+    fe.add(tfIdfStat(SumPooler()))
+    fe.add(tfIdfStat(MinPooler()))
+    fe.add(tfIdfStat(MaxPooler()))
+    fe.add(tfIdfStat(VarPooler()))
+    fe.add(scqStat(AvgPooler()))
+    fe.add(scqStat(SumPooler()))
+    fe.add(scqStat(MinPooler()))
+    fe.add(scqStat(MaxPooler()))
+    fe.add(scqStat(VarPooler()))
+    fe.add(normalizedTfStat(AvgPooler()))
+    fe.add(normalizedTfStat(SumPooler()))
+    fe.add(normalizedTfStat(MinPooler()))
+    fe.add(normalizedTfStat(MaxPooler()))
+    fe.add(normalizedTfStat(VarPooler()))
+    # fe.add(normalizedDocSizeStat(AvgPooler()))
+    # fe.add(normalizedDocSizeStat(SumPooler()))
+    # fe.add(normalizedDocSizeStat(MinPooler()))
+    # fe.add(normalizedDocSizeStat(MaxPooler()))
+    # fe.add(normalizedDocSizeStat(VarPooler()))
+    fe.add(idfStat(AvgPooler()))
+    fe.add(idfStat(SumPooler()))
+    fe.add(idfStat(MinPooler()))
+    fe.add(idfStat(MaxPooler()))
+    fe.add(idfStat(VarPooler()))
+    fe.add(idfStat(MaxMinRatioPooler()))
+    fe.add(idfStat(ConfidencePooler()))
+    fe.add(ictfStat(AvgPooler()))
+    fe.add(ictfStat(SumPooler()))
+    fe.add(ictfStat(MinPooler()))
+    fe.add(ictfStat(MaxPooler()))
+    fe.add(ictfStat(VarPooler()))
+    fe.add(ictfStat(MaxMinRatioPooler()))
+    fe.add(ictfStat(ConfidencePooler()))
+    fe.add(UnorderedSequentialPairs(3))
+    fe.add(UnorderedSequentialPairs(8))
+    fe.add(UnorderedSequentialPairs(15))
+    fe.add(OrderedSequentialPairs(3))
+    fe.add(OrderedSequentialPairs(8))
+    fe.add(OrderedSequentialPairs(15))
+    fe.add(UnorderedQueryPairs(3))
+    fe.add(UnorderedQueryPairs(8))
+    fe.add(UnorderedQueryPairs(15))
+    fe.add(OrderedQueryPairs(3))
+    fe.add(OrderedQueryPairs(8))
+    fe.add(OrderedQueryPairs(15))
+    fe.add(RunList('run.monobert.ans_entire.dev.trec','BERT'))
     dev_extracted = data_loader('dev', dev, queries, fe)
     del sampled_train, dev
-    
+
     train_res = train(train_extracted, dev_extracted, fe.feature_names())
     eval_res = eval_mrr(dev_extracted['data'])
-    
+
     dirname = gen_exp_dir()
     save_exp(dirname,fe,train_extracted,dev_extracted,train_res,eval_res)
