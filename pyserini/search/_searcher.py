@@ -67,8 +67,8 @@ class SimpleSearcher:
         print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name)
-        except ValueError:
-            print(f'Unknown pre-built index: {prebuilt_index_name}')
+        except ValueError as e:
+            print(str(e))
             return None
 
         print(f'Initializing {prebuilt_index_name}...')
