@@ -21,6 +21,7 @@ import shutil
 import tarfile
 from tqdm import tqdm
 from urllib.request import urlretrieve
+from urllib.error import HTTPError
 import pandas as pd
 from pyserini.prebuilt_index_info import INDEX_INFO
 
@@ -137,34 +138,35 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
 
 
 def check_downloaded(index_name):
-    mirror = next(iter(INDEX_INFO[index_name]["url"]))
-    index_url = INDEX_INFO[index_name]["url"][mirror]
-    index_md5 = INDEX_INFO[index_name]["md5"]
+    index_url = INDEX_INFO[index_name]['urls'][0]
+    index_md5 = INDEX_INFO[index_name]['md5']
     index_name = index_url.split('/')[-1]
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
     index_directory = os.path.join(get_cache_home(), 'indexes')
     index_path = os.path.join(index_directory, f'{index_name}.{index_md5}')
+
     return os.path.exists(index_path)
 
 
 def get_indexes_info():
-    indexDf = pd.DataFrame.from_dict(INDEX_INFO)
-    for index in indexDf.keys():
-        indexDf[index]['downloaded'] = check_downloaded(index)
-    with pd.option_context('display.max_rows', None, 'display.max_columns', \
+    df = pd.DataFrame.from_dict(INDEX_INFO)
+    for index in df.keys():
+        df[index]['downloaded'] = check_downloaded(index)
+
+    with pd.option_context('display.max_rows', None, 'display.max_columns',
                            None, 'display.max_colwidth', -1, 'display.colheader_justify', 'left'):
-        print(indexDf)
+        print(df)
 
 
 def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
-    if index_name in INDEX_INFO:
-        if not mirror:
-            mirror = next(iter(INDEX_INFO[index_name]["url"]))
-        elif mirror not in INDEX_INFO[index_name]["url"]:
-            raise ValueError("unrecognized mirror name {}".format(mirror))
-        index_url = INDEX_INFO[index_name]["url"][mirror]
-        index_md5 = INDEX_INFO[index_name]["md5"]
-        return download_and_unpack_index(index_url, prebuilt=True, md5=index_md5)
-    else:
-        raise ValueError("unrecognized index name {}".format(index_name))
+    if index_name not in INDEX_INFO:
+        raise ValueError(f'Unrecognized index name {index_name}')
 
+    index_md5 = INDEX_INFO[index_name]['md5']
+    for url in INDEX_INFO[index_name]['urls']:
+        try:
+            return download_and_unpack_index(url, prebuilt=True, md5=index_md5)
+        except HTTPError:
+            print(f'Unable to download pre-built index at {url}, trying next URL...')
+
+    raise ValueError(f'Unable to download pre-built index at any known URLs.')

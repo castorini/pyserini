@@ -28,6 +28,7 @@ from ..analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
 from ..pyclass import autoclass, JString
 from ..search import Document
 from pyserini.util import download_prebuilt_index, get_indexes_info
+from pyserini.prebuilt_index_info import INDEX_INFO
 
 logger = logging.getLogger(__name__)
 
@@ -167,6 +168,26 @@ class IndexReader:
         """
         index_dir = download_prebuilt_index(prebuilt_index_name)
         return cls(index_dir)
+
+    @classmethod
+    def validate_prebuilt_index(cls, prebuilt_index_name: str):
+        """Validate prebuilt index stats against stored stats."""
+        reader = cls.from_prebuilt_index(prebuilt_index_name)
+        stats = reader.stats()
+
+        if stats['documents'] != INDEX_INFO[prebuilt_index_name]['documents']:
+            raise ValueError('"documents" does not match!')
+
+        if stats['unique_terms'] != INDEX_INFO[prebuilt_index_name]['unique_terms']:
+            raise ValueError('"unique_terms" does not match!')
+
+        if stats['total_terms'] != INDEX_INFO[prebuilt_index_name]['total_terms']:
+            raise ValueError('"total_terms" does not match!')
+
+        print(reader.stats())
+        print('Statistics match!')
+
+        return True
 
     @staticmethod
     def list_prebuilt_indexes():
