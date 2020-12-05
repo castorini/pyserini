@@ -28,6 +28,7 @@ INDEX_INFO = {
         "description": "MS MARCO passage corpus (slim version, no documents)",
         "urls": [
             "https://www.dropbox.com/s/3hsc8ul9zv1txhr/index-msmarco-passage-slim-20201202-ab6e28.tar.gz?dl=1"
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-slim-20201202-ab6e28.tar.gz"
         ],
         "md5": "5e11da4cebd2e8dda2e73c589ffb0b4c",
         "size compressed (bytes)": 513566686,
@@ -65,13 +66,38 @@ INDEX_INFO = {
     "msmarco-doc-slim": {
         "description": "MS MARCO document corpus (slim version, no documents)",
         "urls": [
-            "https://www.dropbox.com/s/v40ajir6v398iek/index-msmarco-doc-slim-20201202-ab6e28.tar.gz?dl=1"
+            "https://www.dropbox.com/s/v40ajir6v398iek/index-msmarco-doc-slim-20201202-ab6e28.tar.gz?dl=1",
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-doc-slim-20201202-ab6e28.tar.gz"
         ],
         "md5": "c56e752f7992bf6149761097641d515a",
         "size compressed (bytes)": 1874471867,
         "total_terms": 2748636047,
         "documents": 3213835,
         "unique_terms": 29823078,
+        "downloaded": False
+    },
+    "msmarco-doc-per-passage": {
+        "description": "MS MARCO document corpus, segmented into passages",
+        "urls": [
+            "https://www.dropbox.com/s/69ieyumdx3rb3tu/index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz?dl=1"
+        ],
+        "md5": "797367406a7542b649cefa6b41cf4c33",
+        "size compressed (bytes)": 11602951258,
+        "total_terms": 3197886407,
+        "documents": 20544550,
+        "unique_terms": 21173582,
+        "downloaded": False
+    },
+    "msmarco-doc-per-passage-slim": {
+        "description": "MS MARCO document corpus, segmented into passages (slim version, no documents)",
+        "urls": [
+            "https://www.dropbox.com/s/uic4ijgv2u3xcat/index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz?dl=1"
+        ],
+        "md5": "77c2409943a8c9faffabf57cb6adca69",
+        "size compressed (bytes)": 2834865200,
+        "total_terms": 3197886407,
+        "documents": 20544550,
+        "unique_terms": 21173582,
         "downloaded": False
     },
     "msmarco-doc-expanded-per-doc": {
