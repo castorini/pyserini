@@ -120,6 +120,11 @@ class QueryLengthNonStopWords(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.QueryLengthNonStopWords')
         self.extractor = Jclass()
 
+class RunList(Feature):
+    def __init__(self,filename,tag):
+        Jclass = autoclass('io.anserini.ltr.feature.base.RunList')
+        self.extractor = Jclass(filename,tag)
+
 class StopCover(Feature):
     def __init__(self):
         Jclass = autoclass('io.anserini.ltr.feature.base.StopCover')
@@ -154,6 +159,16 @@ class UnorderedQueryPairs(Feature):
     def __init__(self, gap=8):
         Jclass = autoclass('io.anserini.ltr.feature.base.UnorderedQueryPairs')
         self.extractor = Jclass(gap)
+
+class NTFIDF(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.NTFIDF')
+        self.extractor = Jclass()
+
+class ProbalitySum(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.ProbalitySum')
+        self.extractor = Jclass()
 
 class OrderedQueryPairs(Feature):
     def __init__(self, gap=8):
