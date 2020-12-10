@@ -253,13 +253,13 @@ def train(train_extracted, dev_extracted, feature_name):
     dev_X = dev_extracted['data'].loc[:, feature_name]
     dev_Y = dev_extracted['data']['rel']
     lgb_train = lgb.Dataset(train_X, label=train_Y, group=train_extracted['group'])
-
+    #max_leaves = -1 seems to work better for many settings, although 10 is also good
     params = {
         'boosting_type': 'gbdt',
         'objective': 'lambdarank',
         'max_bin': 255,
         'num_leaves': 63,
-        'max_depth': 10,
+        'max_depth': -1,
         'min_data_in_leaf': 50,
         'min_sum_hessian_in_leaf': 0,
         'bagging_fraction': 0.8,
@@ -286,7 +286,7 @@ def train(train_extracted, dev_extracted, feature_name):
                                  reverse=True)
     print(feature_importances)
     params['num_boost_round'] = num_boost_round
-    return {'model': cv_gbm, 'params': params, 'feature_importances': feature_importances}
+    return {'model': cv_gbm['cvbooster'].boosters, 'params': params, 'feature_importances': feature_importances}
 
 
 def eval_mrr(dev_data):

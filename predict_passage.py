@@ -26,7 +26,7 @@ def dev_data_loader(file, format):
         dev = pd.read_csv(file, sep="\t",
                           names=['qid', 'pid', 'rank'], dtype=np.int32)
     elif format == 'trec':
-        dev = pd.read_csv('file', sep="\t",
+        dev = pd.read_csv(file, sep="\s+",
                     names=['qid', 'q0', 'pid', 'rank', 'score', 'tag'],
                     usecols=['qid', 'pid', 'rank'], dtype=np.int32)
     else:
@@ -37,6 +37,9 @@ def dev_data_loader(file, format):
     assert dev['pid'].dtype == np.object
     dev_qrel = pd.read_csv('collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
                            names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'], dtype=np.int32)
+    dev_qrel['pid'] = dev_qrel['pid'].astype(str)
+    assert dev_qrel['qid'].dtype == np.int32
+    assert dev_qrel['pid'].dtype == np.object
     dev = dev.merge(dev_qrel, left_on=['qid', 'pid'], right_on=['qid', 'pid'], how='left')
     dev['rel'] = dev['rel'].fillna(0).astype(np.int32)
     dev = dev.sort_values(['qid', 'pid']).set_index(['qid', 'pid'])
@@ -87,8 +90,8 @@ def extract(df, queries, fe):
                     feature[idx, :] = doc['features']
                     idx += 1
             info = pd.DataFrame(info, columns=['qid', 'pid', 'rel'])
-            info['qid'] = dev['qid'].astype(np.int32)
-            info['rel'] = dev['rel'].astype(np.int32)
+            info['qid'] = info['qid'].astype(np.int32)
+            info['rel'] = info['rel'].astype(np.int32)
             assert info['qid'].dtype == np.int32
             assert info['rel'].dtype == np.int32
             assert info['pid'].dtype == np.object
@@ -108,8 +111,8 @@ def extract(df, queries, fe):
                 feature[idx, :] = doc['features']
                 idx += 1
         info = pd.DataFrame(info, columns=['qid', 'pid', 'rel'])
-        info['qid'] = dev['qid'].astype(np.int32)
-        info['rel'] = dev['rel'].astype(np.int32)
+        info['qid'] = info['qid'].astype(np.int32)
+        info['rel'] = info['rel'].astype(np.int32)
         assert info['qid'].dtype == np.int32
         assert info['rel'].dtype == np.int32
         assert info['pid'].dtype == np.object
@@ -125,13 +128,13 @@ def extract(df, queries, fe):
     print(data.info())
     return {'data': data, 'group': group}
 
-def predict(cv_gbm, dev_extracted, feature_name):
+def predict(models, dev_extracted, feature_name):
     dev_X = dev_extracted['data'].loc[:, feature_name]
     dev_Y = dev_extracted['data']['rel']
     lgb_valid = lgb.Dataset(dev_X, label=dev_Y, group=dev_extracted['group'])
 
     dev_extracted['data']['score'] = 0.
-    for gbm in cv_gbm['cvbooster'].boosters:
+    for gbm in models:
         dev_extracted['data']['score'] += gbm.predict(dev_X)
 
 
@@ -333,8 +336,8 @@ if __name__ == '__main__':
     dev_extracted = extract(dev, queries, fe)
     del dev
 
-    cv_model =  pickle.load(open(args.ltr_model_path,'rb'))
-    predict(cv_model, dev_extracted, fe.feature_names())
+    models =  pickle.load(open(args.ltr_model_path,'rb'))
+    predict(models, dev_extracted, fe.feature_names())
     eval_res = eval_mrr(dev_extracted['data'])
     eval_recall(dev_qrel, dev_extracted['data'])
     output(args.ltr_output_path, dev_extracted['data'])
