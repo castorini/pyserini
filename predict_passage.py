@@ -84,7 +84,7 @@ def extract(df, queries, fe):
             info = []
             feature = np.zeros(shape=(need_rows, len(fe.feature_names())), dtype=np.float32)
             idx = 0
-            for qid in fetch_later:
+            for qid in tqdm(fetch_later):
                 for doc in fe.get_result(qid):
                     info.append((int(qid), doc['pid'], qidpid2rel[int(qid)][doc['pid']]))
                     feature[idx, :] = doc['features']
@@ -105,7 +105,7 @@ def extract(df, queries, fe):
         info = []
         feature = np.zeros(shape=(need_rows, len(fe.feature_names())), dtype=np.float32)
         idx = 0
-        for qid in fetch_later:
+        for qid in tqdm(fetch_later):
             for doc in fe.get_result(qid):
                 info.append((int(qid), doc['pid'], qidpid2rel[int(qid)][doc['pid']]))
                 feature[idx, :] = doc['features']
@@ -126,7 +126,49 @@ def extract(df, queries, fe):
     print(group.mean())
     print(data.head(10))
     print(data.info())
-    return {'data': data, 'group': group}
+    return data, group
+
+
+def hash_df(df):
+    h = pd.util.hash_pandas_object(df)
+    return hex(h.sum().astype(np.uint64))
+
+
+def hash_anserini_jar():
+    find = glob.glob(os.environ['ANSERINI_CLASSPATH'] + "/*fatjar.jar")
+    assert len(find) == 1
+    md5Hash = hashlib.md5(open(find[0], 'rb').read())
+    return md5Hash.hexdigest()
+
+
+def hash_fe(fe):
+    return hashlib.md5(','.join(sorted(fe.feature_names())).encode()).hexdigest()
+
+
+def data_loader(file, df, queries, fe):
+    df_hash = hash_df(df)
+    jar_hash = hash_anserini_jar()
+    fe_hash = hash_fe(fe)
+    task = f'predict_{file}'
+    if os.path.exists(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle'):
+        res = pickle.load(open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'rb'))
+        print(res['data'].shape)
+        print(res['data'].qid.drop_duplicates().shape)
+        print(res['group'].mean())
+        print(res['data'].head(10))
+        print(res['data'].info())
+        return res
+    else:
+        data, group = extract(df, queries, fe)
+        obj = {'data': data, 'group': group, 'df_hash': df_hash, 'jar_hash': jar_hash, 'fe_hash': fe_hash}
+        print(data.shape)
+        print(data.qid.drop_duplicates().shape)
+        print(group.mean())
+        print(data.head(10))
+        print(data.info())
+        pickle.dump(obj, open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'wb'))
+        return obj
+
 
 def predict(models, dev_extracted, feature_name):
     dev_X = dev_extracted['data'].loc[:, feature_name]
@@ -333,7 +375,7 @@ if __name__ == '__main__':
     fe.add(OrderedQueryPairs(8))
     fe.add(OrderedQueryPairs(15))
 
-    dev_extracted = extract(dev, queries, fe)
+    dev_extracted = data_loader(args.rank_list_path, dev, queries, fe)
     del dev
 
     models =  pickle.load(open(args.ltr_model_path,'rb'))
