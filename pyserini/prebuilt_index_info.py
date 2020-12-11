@@ -79,7 +79,8 @@ INDEX_INFO = {
     "msmarco-doc-per-passage": {
         "description": "MS MARCO document corpus, segmented into passages",
         "urls": [
-            "https://www.dropbox.com/s/69ieyumdx3rb3tu/index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz?dl=1"
+            "https://www.dropbox.com/s/69ieyumdx3rb3tu/index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz?dl=1",
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz"
         ],
         "md5": "797367406a7542b649cefa6b41cf4c33",
         "size compressed (bytes)": 11602951258,
@@ -91,7 +92,8 @@ INDEX_INFO = {
     "msmarco-doc-per-passage-slim": {
         "description": "MS MARCO document corpus, segmented into passages (slim version, no documents)",
         "urls": [
-            "https://www.dropbox.com/s/uic4ijgv2u3xcat/index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz?dl=1"
+            "https://www.dropbox.com/s/uic4ijgv2u3xcat/index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz?dl=1",
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz"
         ],
         "md5": "77c2409943a8c9faffabf57cb6adca69",
         "size compressed (bytes)": 2834865200,
