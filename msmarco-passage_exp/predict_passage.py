@@ -80,7 +80,7 @@ def extract(df, queries, fe):
         #but here we make sure it is str in loader
         fe.lazy_extract(str(qid), queries[qid]['nonSW'], queries[qid]['tokenized'], list(qidpid2rel[t.qid].keys()))
         fetch_later.append(str(qid))
-        if len(fetch_later) == 10000:
+        if len(fetch_later) == 1000:
             info = []
             feature = np.zeros(shape=(need_rows, len(fe.feature_names())), dtype=np.float32)
             idx = 0
@@ -95,9 +95,9 @@ def extract(df, queries, fe):
             assert info['qid'].dtype == np.int32
             assert info['rel'].dtype == np.int32
             assert info['pid'].dtype == np.object
-
             feature = pd.DataFrame(feature, columns=fe.feature_names())
             df_pieces.append(pd.concat([info, feature], axis=1))
+            del info, feature
             fetch_later = []
             need_rows = 0
     # deal with rest
@@ -118,7 +118,9 @@ def extract(df, queries, fe):
         assert info['pid'].dtype == np.object
         feature = pd.DataFrame(feature, columns=fe.feature_names())
         df_pieces.append(pd.concat([info, feature], axis=1))
+        del info, feature
     data = pd.concat(df_pieces, axis=0, ignore_index=True)
+    del df_pieces
     data = data.sort_values(by='qid', kind='mergesort')
     group = data.groupby('qid').agg(count=('pid', 'count'))['count']
     print(data.shape)
@@ -149,7 +151,7 @@ def data_loader(file, df, queries, fe):
     df_hash = hash_df(df)
     jar_hash = hash_anserini_jar()
     fe_hash = hash_fe(fe)
-    task = f'predict_{file}'
+    task = 'predict'
     if os.path.exists(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle'):
         res = pickle.load(open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'rb'))
         print(res['data'].shape)
@@ -290,7 +292,7 @@ if __name__ == '__main__':
     dev, dev_qrel = dev_data_loader(args.rank_list_path, args.rank_list_format)
     queries = query_loader()
 
-    fe = FeatureExtractor('indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count() - 2, 1))
+    fe = FeatureExtractor('indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
     fe.add(BM25(k1=0.9, b=0.4))
     fe.add(BM25(k1=1.2, b=0.75))
     fe.add(BM25(k1=2.0, b=0.75))
@@ -376,10 +378,11 @@ if __name__ == '__main__':
     fe.add(OrderedQueryPairs(15))
 
     dev_extracted = data_loader(args.rank_list_path, dev, queries, fe)
-    del dev
+    feature_name = fe.feature_names()
+    del dev, queries, fe
 
     models =  pickle.load(open(args.ltr_model_path,'rb'))
-    predict(models, dev_extracted, fe.feature_names())
+    predict(models, dev_extracted, feature_names)
     eval_res = eval_mrr(dev_extracted['data'])
     eval_recall(dev_qrel, dev_extracted['data'])
     output(args.ltr_output_path, dev_extracted['data'])

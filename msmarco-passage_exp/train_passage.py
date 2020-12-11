@@ -270,7 +270,7 @@ def train(train_extracted, dev_extracted, feature_name):
         'label_gain': [0, 1],
         'lambdarank_truncation_level': 20,
         'seed': 12345,
-        'num_threads': max(multiprocessing.cpu_count() - 2, 1)
+        'num_threads': max(multiprocessing.cpu_count()//2, 1)
     }
 
     num_boost_round = params.pop('num_boost_round')
@@ -402,7 +402,7 @@ if __name__ == '__main__':
     dev, dev_qrel = dev_data_loader(task='pygaggle')
     queries = query_loader()
 
-    fe = FeatureExtractor('indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count() - 2, 1))
+    fe = FeatureExtractor('indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
     fe.add(BM25(k1=0.9, b=0.4))
     fe.add(BM25(k1=1.2, b=0.75))
     fe.add(BM25(k1=2.0, b=0.75))
