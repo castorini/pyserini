@@ -246,6 +246,35 @@ def data_loader(task, df, queries, fe):
         else:
             raise Exception('unknown parameters')
 
+def gen_dev_group_rel_num(dev_qrel, dev_extracted, feature_name):
+    dev_rel_num = dev_qrel[dev_qrel['rel']>0].groupby('qid').count()['rel']
+    gid = 0
+    sample_id = 0
+    dev_group_rel_num = []
+    for qid,group in dev_extracted['data'].groupby('qid'):
+        group = group.sort_values(['pid'])
+        assert len(group) == dev_extracted['group'].iloc[gid]
+        assert np.isclose(group.iloc[0,:].loc[feature_name],
+                          dev_extracted['data'].iloc[sample_id,:].loc[feature_name], equal_nan=True).all()
+        dev_group_rel_num.append(dev_rel_num.loc[qid])
+        gid += 1
+        sample_id += len(group)
+    return dev_group_rel_num, dev_extracted['group']
+
+def recall_at_200(preds, dataset):
+    global dev_group_rel_num
+    global dev_group
+    labels = dataset.get_label()
+    groups = dataset.get_group()
+    assert np.equal(groups, dev_group).all()
+    idx = 0
+    recall = 0
+    for g,gnum in zip(groups, dev_group_rel_num):
+        top_preds = labels[idx:idx+g][np.argsort(preds[idx:idx+g])]
+        recall += np.sum(top_preds[-200:])/gnum
+        idx += g
+    assert idx == len(preds)
+    return 'recall@200', recall/len(groups), True
 
 def train(train_extracted, dev_extracted, feature_name):
     train_X = train_extracted['data'].loc[:, feature_name]
@@ -253,6 +282,7 @@ def train(train_extracted, dev_extracted, feature_name):
     dev_X = dev_extracted['data'].loc[:, feature_name]
     dev_Y = dev_extracted['data']['rel']
     lgb_train = lgb.Dataset(train_X, label=train_Y, group=train_extracted['group'])
+    lgb_valid = lgb.Dataset(dev_X, label=dev_Y, group=dev_extracted['group'])
     #max_leaves = -1 seems to work better for many settings, although 10 is also good
     params = {
         'boosting_type': 'gbdt',
@@ -260,33 +290,40 @@ def train(train_extracted, dev_extracted, feature_name):
         'max_bin': 255,
         'num_leaves': 63,
         'max_depth': -1,
-        'min_data_in_leaf': 50,
+        'min_data_in_leaf': 30,
         'min_sum_hessian_in_leaf': 0,
         'bagging_fraction': 0.8,
         'bagging_freq': 50,
         'feature_fraction': 1,
         'learning_rate': 0.1,
         'num_boost_round': 1000,
+        'early_stopping_round': 300,
+        'metric': 'custom',
         'label_gain': [0, 1],
         'lambdarank_truncation_level': 20,
         'seed': 12345,
-        'num_threads': max(multiprocessing.cpu_count()//2, 1)
+        'num_threads': max(multiprocessing.cpu_count() // 2, 1)
     }
-
     num_boost_round = params.pop('num_boost_round')
-    cv_gbm = lgb.cv(params, lgb_train, nfold=5,
+    early_stopping_round = params.pop('early_stopping_round')
+    gbm = lgb.train(params, lgb_train,
+                    valid_sets=lgb_valid,
                     num_boost_round=num_boost_round,
+                    early_stopping_rounds=early_stopping_round,
+                    feval=recall_at_200,
                     feature_name=feature_name,
-                    verbose_eval=False,
-                    return_cvbooster=True)
-    dev_extracted['data']['score'] = 0.
-    for gbm in cv_gbm['cvbooster'].boosters:
-        dev_extracted['data']['score'] += gbm.predict(dev_X)
-    feature_importances = sorted(list(zip(feature_name, gbm.feature_importance().tolist())), key=lambda x: x[1],
-                                 reverse=True)
+                    verbose_eval=True)
+    dev_extracted['data']['score'] = gbm.predict(dev_X)
+    best_score = gbm.best_score['valid_0']['recall@200']
+    print(best_score)
+    best_iteration = gbm.best_iteration
+    print(best_iteration)
+    feature_importances = sorted(list(zip(feature_name, gbm.feature_importance().tolist())),
+                                 key=lambda x: x[1], reverse=True)
     print(feature_importances)
     params['num_boost_round'] = num_boost_round
-    return {'model': cv_gbm['cvbooster'].boosters, 'params': params, 'feature_importances': feature_importances}
+    params['early_stopping_round'] = early_stopping_round
+    return {'model': [gbm], 'params': params, 'feature_importances': feature_importances}
 
 
 def eval_mrr(dev_data):
@@ -489,9 +526,11 @@ if __name__ == '__main__':
 
     train_extracted = data_loader('train', sampled_train, queries, fe)
     dev_extracted = data_loader('dev', dev, queries, fe)
-    del sampled_train, dev
+    feature_name = fe.feature_names()
+    del sampled_train, dev, queries, fe
 
-    train_res = train(train_extracted, dev_extracted, fe.feature_names())
+    dev_group_rel_num, dev_group = gen_dev_group_rel_num(dev_qrel, dev_extracted, feature_name)
+    train_res = train(train_extracted, dev_extracted, feature_name)
     eval_res = eval_mrr(dev_extracted['data'])
     eval_res.update(eval_recall(dev_qrel, dev_extracted['data']))
 
