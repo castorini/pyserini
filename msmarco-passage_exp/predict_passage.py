@@ -174,8 +174,6 @@ def data_loader(file, df, queries, fe):
 
 def predict(models, dev_extracted, feature_name):
     dev_X = dev_extracted['data'].loc[:, feature_name]
-    dev_Y = dev_extracted['data']['rel']
-    lgb_valid = lgb.Dataset(dev_X, label=dev_Y, group=dev_extracted['group'])
 
     dev_extracted['data']['score'] = 0.
     for gbm in models:
@@ -378,7 +376,7 @@ if __name__ == '__main__':
     fe.add(OrderedQueryPairs(15))
 
     dev_extracted = data_loader(args.rank_list_path, dev, queries, fe)
-    feature_name = fe.feature_names()
+    feature_names = fe.feature_names()
     del dev, queries, fe
 
     models =  pickle.load(open(args.ltr_model_path,'rb'))
