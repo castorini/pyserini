@@ -52,7 +52,7 @@ class SimpleSearcher:
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str):
-        """Build a searcher from the pre-built index; download the index if necessary.
+        """Build a searcher from a pre-built index; download the index if necessary.
 
         Parameters
         ----------
@@ -76,7 +76,7 @@ class SimpleSearcher:
 
     @staticmethod
     def list_prebuilt_indexes():
-        """Display available prebuilt indexes' information."""
+        """Display information about available prebuilt indexes."""
         get_indexes_info()
 
     def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
