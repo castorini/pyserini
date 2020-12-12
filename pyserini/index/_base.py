@@ -154,7 +154,7 @@ class IndexReader:
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str):
-        """Build an index reader from the prebuilt index, download the index if necessary.
+        """Build an index reader from a prebuilt index; download the index if necessary.
 
         Parameters
         ----------
@@ -166,7 +166,14 @@ class IndexReader:
         IndexReader
             Index reader built from the prebuilt index.
         """
-        index_dir = download_prebuilt_index(prebuilt_index_name)
+        print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+        try:
+            index_dir = download_prebuilt_index(prebuilt_index_name)
+        except ValueError as e:
+            print(str(e))
+            return None
+
+        print(f'Initializing {prebuilt_index_name}...')
         return cls(index_dir)
 
     @classmethod
@@ -191,7 +198,7 @@ class IndexReader:
 
     @staticmethod
     def list_prebuilt_indexes():
-        """Display available prebuilt indexes' information."""
+        """Display information about available prebuilt indexes."""
         get_indexes_info()
 
     def analyze(self, text: str, analyzer=None) -> List[str]:

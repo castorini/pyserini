@@ -27,7 +27,7 @@ INDEX_INFO = {
     "msmarco-passage-slim": {
         "description": "MS MARCO passage corpus (slim version, no documents)",
         "urls": [
-            "https://www.dropbox.com/s/3hsc8ul9zv1txhr/index-msmarco-passage-slim-20201202-ab6e28.tar.gz?dl=1"
+            "https://www.dropbox.com/s/3hsc8ul9zv1txhr/index-msmarco-passage-slim-20201202-ab6e28.tar.gz?dl=1",
             "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-slim-20201202-ab6e28.tar.gz"
         ],
         "md5": "5e11da4cebd2e8dda2e73c589ffb0b4c",
