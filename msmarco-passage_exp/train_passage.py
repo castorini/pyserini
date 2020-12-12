@@ -33,7 +33,7 @@ def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
         return sampled_train
     else:
         if task == 'triple':
-            train = pd.read_csv('collections/msmarco-passage/qidpidtriples.train.full.2.tsv', sep="\t",
+            train = pd.read_csv('../collections/msmarco-passage/qidpidtriples.train.full.2.tsv', sep="\t",
                                 names=['qid', 'pos_pid', 'neg_pid'], dtype=np.int32)
             pos_half = train[['qid', 'pos_pid']].rename(columns={"pos_pid": "pid"}).drop_duplicates()
             pos_half['rel'] = np.int32(1)
@@ -54,7 +54,7 @@ def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
             sampled_train.to_pickle(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
         elif task == 'rank':
             qrel = defaultdict(list)
-            with open("collections/msmarco-passage/qrels.train.tsv") as f:
+            with open("../collections/msmarco-passage/qrels.train.tsv") as f:
                 for line in f:
                     topicid, _, docid, rel = line.strip().split('\t')
                     assert rel == "1", line.split(' ')
@@ -62,7 +62,7 @@ def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
 
             qid2pos = defaultdict(list)
             qid2neg = defaultdict(list)
-            with open("runs/msmarco-passage/run.train.small.tsv") as f:
+            with open("../runs/msmarco-passage/run.train.small.tsv") as f:
                 for line in tqdm(f):
                     topicid, docid, rank = line.split()
                     assert topicid in qrel
@@ -103,17 +103,17 @@ def dev_data_loader(task='pygaggle'):
         return dev, dev_qrel
     else:
         if task == 'rerank':
-            dev = pd.read_csv('collections/msmarco-passage/top1000.dev', sep="\t",
+            dev = pd.read_csv('../collections/msmarco-passage/top1000.dev', sep="\t",
                               names=['qid', 'pid', 'query', 'doc'], usecols=['qid', 'pid'], dtype=np.int32)
         elif task == 'anserini':
-            dev = pd.read_csv('runs/msmarco-passage/run.msmarco-passage.dev.small.tsv', sep="\t",
+            dev = pd.read_csv('../runs/msmarco-passage/run.msmarco-passage.dev.small.tsv', sep="\t",
                               names=['qid', 'pid', 'rank'], dtype=np.int32)
         elif task == 'pygaggle':
-            dev = pd.read_csv('../pygaggle/data/msmarco_ans_entire/run.dev.small.tsv', sep="\t",
+            dev = pd.read_csv('../../pygaggle/data/msmarco_ans_entire/run.dev.small.tsv', sep="\t",
                               names=['qid', 'pid', 'rank'], dtype=np.int32)
         else:
             raise Exception('unknown parameters')
-        dev_qrel = pd.read_csv('collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
+        dev_qrel = pd.read_csv('../collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
                                names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'], dtype=np.int32)
         dev = dev.merge(dev_qrel, left_on=['qid', 'pid'], right_on=['qid', 'pid'], how='left')
         dev['rel'] = dev['rel'].fillna(0).astype(np.int32)
@@ -138,10 +138,10 @@ def query_loader(choice='default'):
             analyzer = Analyzer(get_lucene_analyzer())
             nonStopAnalyzer = Analyzer(get_lucene_analyzer(stopwords=False))
             queries = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', \
-                                             'collections/msmarco-passage/queries.train.tsv')
+                                             '../collections/msmarco-passage/queries.train.tsv')
             #although not queries.dev.small.tsv but all dev rank list only contain 6980 queries
             queries.update(get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', \
-                                                  'collections/msmarco-passage/queries.dev.tsv'))
+                                                  '../collections/msmarco-passage/queries.dev.tsv'))
             for qid, value in queries.items():
                 assert 'tokenized' not in value and 'nonSW' not in value
                 value['nonSW'] = nonStopAnalyzer.analyze(value['title'])
@@ -402,7 +402,7 @@ if __name__ == '__main__':
     dev, dev_qrel = dev_data_loader(task='pygaggle')
     queries = query_loader()
 
-    fe = FeatureExtractor('indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
     fe.add(BM25(k1=0.9, b=0.4))
     fe.add(BM25(k1=1.2, b=0.75))
     fe.add(BM25(k1=2.0, b=0.75))

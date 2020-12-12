@@ -35,7 +35,7 @@ def dev_data_loader(file, format):
     dev['pid'] = dev['pid'].astype(str)
     assert dev['qid'].dtype == np.int32
     assert dev['pid'].dtype == np.object
-    dev_qrel = pd.read_csv('collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
+    dev_qrel = pd.read_csv('../collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
                            names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'], dtype=np.int32)
     dev_qrel['pid'] = dev_qrel['pid'].astype(str)
     assert dev_qrel['qid'].dtype == np.int32
@@ -57,7 +57,7 @@ def query_loader():
     analyzer = Analyzer(get_lucene_analyzer())
     nonStopAnalyzer = Analyzer(get_lucene_analyzer(stopwords=False))
     queries = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', \
-                                          'collections/msmarco-passage/queries.dev.tsv')
+                                          '../collections/msmarco-passage/queries.dev.tsv')
     for qid, value in queries.items():
         assert 'tokenized' not in value and 'nonSW' not in value
         value['nonSW'] = nonStopAnalyzer.analyze(value['title'])
@@ -292,7 +292,7 @@ if __name__ == '__main__':
     dev, dev_qrel = dev_data_loader(args.rank_list_path, args.rank_list_format)
     queries = query_loader()
 
-    fe = FeatureExtractor('indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
     fe.add(BM25(k1=0.9, b=0.4))
     fe.add(BM25(k1=1.2, b=0.75))
     fe.add(BM25(k1=2.0, b=0.75))
