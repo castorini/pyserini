@@ -28,9 +28,17 @@ parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
 parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
 parser.add_argument('--msmarco',  action='store_true', default=False, help="Output in MS MARCO format.")
 parser.add_argument('--output', type=str, metavar='path', help="Path to output file.")
+
+parser.add_argument('--max-passage',  action='store_true', default=False, help="Select only max passage from document.")
+parser.add_argument('--max-passage-hits', type=int, metavar='num', required=False, default=100,
+                    help="Final number of hits when selecting only max passage.")
+parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
+                    help="Delimiter between docid and passage id.")
+
 parser.add_argument('--bm25',  action='store_true', default=True, help="Use BM25 (default).")
 parser.add_argument('--rm3',  action='store_true', help="Use RM3")
 parser.add_argument('--qld',  action='store_true', help="Use QLD")
+
 parser.add_argument('--prcl',  type=ClassifierType, nargs='+', default=[],
                     help='Specify the classifier PseudoRelevanceClassifierReranker uses.')
 parser.add_argument('--prcl.vectorizer',  dest='vectorizer', type=str,
@@ -51,7 +59,8 @@ if os.path.exists(args.index):
 else:
     # create searcher from prebuilt index name
     searcher = SimpleSearcher.from_prebuilt_index(args.index)
-if searcher == None:
+
+if not searcher:
     exit()
 
 search_rankers = []
@@ -61,11 +70,25 @@ if args.qld:
     searcher.set_qld()
 else:
     search_rankers.append('bm25')
-    if args.msmarco:
-        # setting k1=0.82 and b=0.68 for ms-marco passage
-        # tuned parameters from grid search of parameter values
-        # link to BM25 tuning: https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md#bm25-tuning
+    # Automatically set bm25 parameters based on known index:
+    if args.index == 'msmarco-passage' or args.index == 'msmarco-passage-slim':
+        print('MS MARCO passage: setting k1=0.82, b=0.68')
         searcher.set_bm25(0.82, 0.68)
+    elif args.index == 'msmarco-passage-expanded':
+        print('MS MARCO passage w/ doc2query-T5 expansion: setting k1=2.18, b=0.86')
+        searcher.set_bm25(2.18, 0.86)
+    elif args.index == 'msmarco-doc' or args.index == 'msmarco-doc-slim':
+        print('MS MARCO doc: setting k1=4.46, b=0.82')
+        searcher.set_bm25(4.46, 0.82)
+    elif args.index == 'msmarco-doc-per-passage' or args.index == 'msmarco-doc-per-passage-slim':
+        print('MS MARCO doc, per passage: setting k1=2.16, b=0.61')
+        searcher.set_bm25(2.16, 0.61)
+    elif args.index == 'msmarco-doc-expanded-per-doc':
+        print('MS MARCO doc w/ doc2query-T5 (per doc) expansion: setting k1=4.68, b=0.87')
+        searcher.set_bm25(4.68, 0.87)
+    elif args.index == 'msmarco-doc-expanded-per-passage':
+        print('MS MARCO doc w/ doc2query-T5 (per passage) expansion: setting k1=2.56, b=0.59')
+        searcher.set_bm25(2.56, 0.59)
 
 if args.rm3:
     search_rankers.append('rm3')
@@ -105,21 +128,39 @@ if output_path is None:
         output_path = '.'.join(tokens)
 
 print(f'Running {args.topics} topics, saving to {output_path}...')
+tag = output_path[:-4] if args.output is None else 'Anserini'
 
 with open(output_path, 'w') as target_file:
     for index, topic in enumerate(tqdm(sorted(topics.keys()))):
         search = topics[topic].get('title')
         hits = searcher.search(search, args.hits)
-        doc_ids = [hit.docid.strip() for hit in hits]
-        scores = [hit.score for hit in hits]
 
-        if use_prcl and len(hits) > (args.r + args.n):
-            scores, doc_ids = ranker.rerank(doc_ids, scores)
+        if not args.max_passage:
+            docids = [hit.docid.strip() for hit in hits]
+            scores = [hit.score for hit in hits]
 
-        if args.msmarco:
-            for i, doc_id in enumerate(doc_ids):
-                target_file.write('{}\t{}\t{}\n'.format(topic, doc_id, i + 1))
+            if use_prcl and len(hits) > (args.r + args.n):
+                scores, docids = ranker.rerank(docids, scores)
+
+            if args.msmarco:
+                for i, docid in enumerate(docids):
+                    target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+            else:
+                for i, (docid, score) in enumerate(zip(docids, scores)):
+                    target_file.write(f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
         else:
-            tag = output_path[:-4] if args.output is None else 'Anserini'
-            for i, (doc_id, score) in enumerate(zip(doc_ids, scores)):
-                target_file.write(f'{topic} Q0 {doc_id} {i + 1} {score:.6f} {tag}\n')
+            unique_docs = set()
+            rank = 1
+            for hit in hits:
+                docid, _ = hit.docid.split(args.max_passage_delimiter)
+                if docid in unique_docs:
+                    continue
+
+                if args.msmarco:
+                    target_file.write(f'{topic}\t{docid}\t{rank}\n')
+                else:
+                    target_file.write(f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
+                rank = rank + 1
+                unique_docs.add(docid)
+                if rank > args.max_passage_hits:
+                    break
