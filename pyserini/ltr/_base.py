@@ -136,9 +136,9 @@ class StopRatio(Feature):
         self.extractor = Jclass(JString(field))
 
 class UniqueTermCount(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self):
         Jclass = autoclass('io.anserini.ltr.feature.base.UniqueTermCount')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass()
 
 class UnorderedSequentialPairs(Feature):
     def __init__(self, gap=8, field='contents'):
