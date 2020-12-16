@@ -15,8 +15,6 @@ import pandas as pd
 import lightgbm as lgb
 from collections import defaultdict
 from tqdm import tqdm
-import sys,os
-sys.path.append('..')
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from pyserini.ltr import *
 from pyserini.search import get_topics_with_reader
