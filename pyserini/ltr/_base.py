@@ -10,6 +10,41 @@ class BM25(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.BM25')
         self.extractor = Jclass(k1, b, JString(field))
 
+class BM25Conf(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Conf')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
+
+class BM25Min(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Min')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
+
+class BM25Max(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Max')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
+
+class BM25Mean(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Mean')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
+
+class BM25HMean(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25HMean')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
+
+class BM25Var(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Var')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
+
+class BM25Quartile(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Quartile')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
+
 class LMDir(Feature):
     def __init__(self,mu=1000, field='contents'):
         Jclass = autoclass('io.anserini.ltr.feature.base.LMDir')

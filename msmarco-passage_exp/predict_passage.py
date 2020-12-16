@@ -15,7 +15,8 @@ import pandas as pd
 import lightgbm as lgb
 from collections import defaultdict
 from tqdm import tqdm
-
+import sys,os
+sys.path.append('..')
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from pyserini.ltr import *
 from pyserini.search import get_topics_with_reader
@@ -374,6 +375,21 @@ if __name__ == '__main__':
     fe.add(OrderedQueryPairs(3))
     fe.add(OrderedQueryPairs(8))
     fe.add(OrderedQueryPairs(15))
+
+    fe.add(BM25Conf(MaxPooler()))
+    fe.add(BM25Conf(MinPooler()))
+    fe.add(BM25Mean(MaxPooler()))
+    fe.add(BM25Mean(MinPooler()))
+    fe.add(BM25Min(MaxPooler()))
+    fe.add(BM25Min(MinPooler()))
+    fe.add(BM25Max(MaxPooler()))
+    fe.add(BM25Max(MinPooler()))
+    fe.add(BM25HMean(MaxPooler()))
+    fe.add(BM25HMean(MinPooler()))
+    fe.add(BM25Var(MaxPooler()))
+    fe.add(BM25Var(MinPooler()))
+    fe.add(BM25Quartile(MaxPooler()))
+    fe.add(BM25Quartile(MinPooler()))
 
     dev_extracted = data_loader(args.rank_list_path, dev, queries, fe)
     feature_names = fe.feature_names()
