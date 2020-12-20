@@ -151,5 +151,65 @@ INDEX_INFO = {
         "documents": 4170312,
         "unique_terms": -1,
         "downloaded": False
+    },
+    "trec-covid5": {
+        "description": "Trec Covid Round 5",
+        "urls": [
+            "https://www.dropbox.com/s/9hfowxi7zenuaay/lucene-index-cord19-abstract-2020-07-16.tar.gz?dl=1"
+        ],
+        "md5": "c883571ccc78b4c2ce05b41eb07f5405",
+        "size compressed (bytes)": 2796524,
+        "total_terms": -1,
+        "documents": 18,
+        "unique_terms": -1,
+        "downloaded": False
+    },
+    "trec-covid4": {
+        "description": "Trec Covid Round 4",
+        "urls": [
+            "https://www.dropbox.com/s/x8wbuy0atgnajfd/lucene-index-cord19-abstract-2020-06-19.tar.gz?dl=1"
+        ],
+        "md5": "029bd55daba8800fbae2be9e5fcd7b33",
+        "size compressed (bytes)": 2584264,
+        "total_terms": -1,
+        "documents": 18,
+        "unique_terms": -1,
+        "downloaded": False
+    },
+    "trec-covid3": {
+        "description": "Trec Covid Round 3",
+        "urls": [
+            "https://www.dropbox.com/s/7bbz6pm4rduqvx3/lucene-index-cord19-abstract-2020-05-19.tar.gz?dl=1"
+        ],
+        "md5": "37bb97d0c41d650ba8e135fd75ae8fd8",
+        "size compressed (bytes)": 2190328,
+        "total_terms": -1,
+        "documents": 18,
+        "unique_terms": -1,
+        "downloaded": False
+    },
+    "trec-covid2": {
+        "description": "Trec Covid Round 2",
+        "urls": [
+            "https://www.dropbox.com/s/jdsc6wu0vbumpup/lucene-index-cord19-abstract-2020-05-01.tar.gz?dl=1"
+        ],
+        "md5": "a06e71a98a68d31148cb0e97e70a2ee1",
+        "size compressed (bytes)": 1575804,
+        "total_terms": -1,
+        "documents": 18,
+        "unique_terms": -1,
+        "downloaded": False
+    },
+    "trec-covid1": {
+        "description": "Trec Covid Round 1",
+        "urls": [
+            "https://www.dropbox.com/s/iebape2yfgkzkt1/lucene-index-covid-2020-04-10.tar.gz?dl=1"
+        ],
+        "md5": "ec239d56498c0e7b74e3b41e1ce5d42a",
+        "size compressed (bytes)": 1621440,
+        "total_terms": -1,
+        "documents": 18,
+        "unique_terms": -1,
+        "downloaded": False
     }
 }
