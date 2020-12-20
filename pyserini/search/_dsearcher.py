@@ -3,6 +3,7 @@ import faiss
 from dataclasses import dataclass
 import numpy as np
 from tqdm import tqdm
+import tensorflow.compat.v1 as tf
 
 
 @dataclass
@@ -71,11 +72,11 @@ class SimpleDenseSearcher:
         distances = distances.flat
         indexes = indexes.flat
         if self.idx2id is None:
-            return [DenseSearchResult(str(idx), score, None) for score, idx in zip(distances, indexes)]
+            return [DenseSearchResult(str(idx), score, None) for score, idx in zip(distances, indexes) if idx != -1]
         else:
             return [
                 DenseSearchResult(self.idx2id[idx], score, self.docs[self.idx2id[idx]])
-                for score, idx in zip(distances, indexes)
+                for score, idx in zip(distances, indexes) if idx != -1
             ]
 
     def doc(self, docid: str):
@@ -112,3 +113,53 @@ class SimpleDenseSearcher:
                 corpus[doc_id] = doc
                 idx2id[idx] = doc_id
         return idx2id, corpus
+
+
+class QueryEncoder:
+    def __init__(self, embedding_path, queries_path):
+        self.embedding = self.load_embedding_from_tfds(embedding_path)
+        self.text2idx = self.load_queries(queries_path)
+
+    @classmethod
+    def from_pre_encoded(cls, prebuilt_embedding, queries_name):
+        return cls(prebuilt_embedding, queries_name)
+
+    def encode(self, query: str):
+        return self.embedding[self.text2idx[query]]
+
+    @staticmethod
+    def load_queries(queries_path: str):
+        text2idx = {}
+        with open(queries_path, 'r') as f:
+            for idx, line in tqdm(enumerate(f)):
+                qid, text = line.rstrip().split('\t')
+                text2idx[text] = idx
+        return text2idx
+
+    @staticmethod
+    def load_embedding_from_tfds(srcfile):
+
+        def _parse_function(example_proto):
+            features = {'doc_emb': tf.FixedLenFeature([], tf.string),
+                        'docid': tf.FixedLenFeature([], tf.int64)}
+            parsed_features = tf.parse_single_example(example_proto, features)
+            corpus = tf.decode_raw(parsed_features['doc_emb'], tf.float32)
+            docid = tf.cast(parsed_features['docid'], tf.int32)
+            return corpus, docid
+
+        with tf.Session() as sess:
+            docids = []
+            corpus_embs = []
+
+            dataset = tf.data.TFRecordDataset(srcfile)
+            dataset = dataset.map(_parse_function)
+            iterator = dataset.make_one_shot_iterator()
+            next_data = iterator.get_next()
+            while True:
+                try:
+                    corpus_emb, docid = sess.run(next_data)
+                    corpus_embs.append(np.array(corpus_emb).astype(np.float32))
+                    docids.append(str(docid))
+                except tf.errors.OutOfRangeError:
+                    break
+        return np.array(corpus_embs).astype(np.float32)

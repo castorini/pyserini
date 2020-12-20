@@ -16,7 +16,7 @@
 
 from ._base import Document, JDocument, JQuery, get_topics, get_topics_with_reader
 from ._searcher import JSimpleSearcherResult, LuceneSimilarities, SimpleFusionSearcher, SimpleSearcher
-from ._dsearcher import SimpleDenseSearcher
+from ._dsearcher import SimpleDenseSearcher, QueryEncoder
 from ._nearest_neighbor import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearcherResult
 
 __all__ = ['Document', 'JDocument', 'JQuery', 'LuceneSimilarities', 'SimpleFusionSearcher', 'SimpleSearcher',
