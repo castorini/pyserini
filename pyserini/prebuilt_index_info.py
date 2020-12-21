@@ -159,9 +159,9 @@ INDEX_INFO = {
         ],
         "md5": "c883571ccc78b4c2ce05b41eb07f5405",
         "size compressed (bytes)": 2796524,
-        "total_terms": -1,
-        "documents": 18,
-        "unique_terms": -1,
+        "total_terms": 22100404,
+        "documents": 192459,
+        "unique_terms": 195875,
         "downloaded": False
     },
     "trec-covid4": {
@@ -171,9 +171,9 @@ INDEX_INFO = {
         ],
         "md5": "029bd55daba8800fbae2be9e5fcd7b33",
         "size compressed (bytes)": 2584264,
-        "total_terms": -1,
-        "documents": 18,
-        "unique_terms": -1,
+        "total_terms": 18724353,
+        "documents": 158226,
+        "unique_terms": 179937,
         "downloaded": False
     },
     "trec-covid3": {
@@ -183,9 +183,9 @@ INDEX_INFO = {
         ],
         "md5": "37bb97d0c41d650ba8e135fd75ae8fd8",
         "size compressed (bytes)": 2190328,
-        "total_terms": -1,
-        "documents": 18,
-        "unique_terms": -1,
+        "total_terms": 16278419,
+        "documents": 128465,
+        "unique_terms": 168291,
         "downloaded": False
     },
     "trec-covid2": {
@@ -195,9 +195,9 @@ INDEX_INFO = {
         ],
         "md5": "a06e71a98a68d31148cb0e97e70a2ee1",
         "size compressed (bytes)": 1575804,
-        "total_terms": -1,
-        "documents": 18,
-        "unique_terms": -1,
+        "total_terms": 7651125,
+        "documents": 59873,
+        "unique_terms": 109750,
         "downloaded": False
     },
     "trec-covid1": {
@@ -207,9 +207,9 @@ INDEX_INFO = {
         ],
         "md5": "ec239d56498c0e7b74e3b41e1ce5d42a",
         "size compressed (bytes)": 1621440,
-        "total_terms": -1,
-        "documents": 18,
-        "unique_terms": -1,
+        "total_terms": 6672525,
+        "documents": 51069,
+        "unique_terms": 104595,
         "downloaded": False
     }
 }
