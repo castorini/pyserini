@@ -172,7 +172,7 @@ def extract(df, queries, fe):
             qidpid2rel[t.qid][t.pid] = t.rel
             need_rows += 1
         #test.py has bug here, it does not convert pid to str, not sure why it does not cause problem in java
-        fe.lazy_extract(str(qid), queries[qid]['nonSW'], queries[qid]['tokenized'], [str(pid) for pid in qidpid2rel[t.qid].keys()])
+        fe.lazy_extract(str(qid), queries[qid]['nonSW'], queries[qid]['tokenized'], [str(pid) for pid in qidpid2rel[t.qid].keys()],queries[qid]['ibm'])
         fetch_later.append(str(qid))
         if len(fetch_later) == 10000:
             info = np.zeros(shape=(need_rows, 3), dtype=np.int32)
