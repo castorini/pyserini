@@ -1,4 +1,5 @@
 import re
+import spacy
 
 def readStopWords(fileName='stopwords.txt', lowerCase=True):
     """Reads a list of stopwords from a file. By default the words

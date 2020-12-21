@@ -10,6 +10,7 @@ import random
 import shutil
 import subprocess
 import uuid
+import json
 
 import numpy as np
 import pandas as pd
@@ -141,10 +142,17 @@ def query_loader(choice='default'):
             #although not queries.dev.small.tsv but all dev rank list only contain 6980 queries
             queries.update(get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', \
                                                   '../collections/msmarco-passage/queries.dev.tsv'))
+            ibm = {}
+            with open('../ibm_query.json') as f:
+                lines = f.readlines()
+                for line in lines:
+                    temp = json.loads(line)
+                    ibm[temp['id']] = temp
             for qid, value in queries.items():
                 assert 'tokenized' not in value and 'nonSW' not in value
                 value['nonSW'] = nonStopAnalyzer.analyze(value['title'])
                 value['tokenized'] = analyzer.analyze(value['title'])
+                value['ibm'] = ibm['qid']
         else:
             raise Exception('unknown parameters')
 

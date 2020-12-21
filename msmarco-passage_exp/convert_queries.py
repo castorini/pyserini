@@ -26,7 +26,7 @@ inpFile = open(args.input)
 outFile = open(args.output, 'w')
 minQueryTokQty = args.min_query_token_qty
 
-stopWords = readStopWords('stopwords.txt', lowerCase=True)
+stopWords = readStopWords('./msmarco-passage_exp/stopwords.txt', lowerCase=True)
 print(stopWords)
 nlp = SpacyTextParser('en_core_web_sm', stopWords, keepOnlyAlphaNum=True, lowerCase=True)
 
@@ -58,7 +58,7 @@ for line in inpFile:
                "text_unlemm": query_unlemm,
                "contents": query.lower()}
 
-        addRetokenizedField(doc, query.lower(), "text_bert_tok" , bertTokenizer)
+        addRetokenizedField(doc, query.lower(), "text_bert_tok", bertTokenizer)
 
         docStr = json.dumps(doc) + '\n'
         outFile.write(docStr)
