@@ -297,7 +297,7 @@ class FeatureExtractor:
         """
         return self.feature_name
 
-    def lazy_extract(self, qid, query_text, query_tokens, doc_ids):
+    def lazy_extract(self, qid, query_text, query_tokens, doc_ids, ibm):
         """
         sumbit tasks to workers
         Parameters
@@ -310,7 +310,7 @@ class FeatureExtractor:
             doc id we need to extract on
 
         """
-        input = {'qid': qid, 'queryText':query_text, 'queryTokens': query_tokens, 'docIds': doc_ids}
+        input = {'qid': qid, 'queryText':query_text, 'queryTokens': query_tokens, 'docIds': doc_ids, 'ibm': ibm}
         self.utils.lazyExtract(JString(json.dumps(input)))
 
     def get_result(self, qid):
