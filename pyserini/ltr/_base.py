@@ -70,6 +70,11 @@ class DFR_GL2(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.DFR_GL2')
         self.extractor = Jclass(JString(field))
 
+class IBMModel1(Feature):
+    def __init__(self, path, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.IBMModel1')
+        self.extractor = Jclass(path,JString(field))
+
 class DFR_In_expB2(Feature):
     def __init__(self, field='contents'):
         Jclass = autoclass('io.anserini.ltr.feature.base.DFR_In_expB2')
@@ -297,7 +302,7 @@ class FeatureExtractor:
         """
         return self.feature_name
 
-    def lazy_extract(self, qid, query_text, query_tokens, doc_ids, ibm):
+    def lazy_extract(self, qid, query_text, query_tokens, doc_ids,  query_text_unlemma,query_bert):
         """
         sumbit tasks to workers
         Parameters
@@ -308,9 +313,12 @@ class FeatureExtractor:
             tokenized query
         doc_ids: List[str]
             doc id we need to extract on
-
+        query_text_unlemma:  List[str]
+            unlemma query text
+        query_bert: List[str]
+            query text tokenized by bert
         """
-        input = {'qid': qid, 'queryText':query_text, 'queryTokens': query_tokens, 'docIds': doc_ids, 'ibm': ibm}
+        input = {'qid': qid, 'queryText':query_text, 'queryTokens': query_tokens, 'docIds': doc_ids,'queryTextUnlemma': query_text_unlemma,'queryBert': query_bert}
         self.utils.lazyExtract(JString(json.dumps(input)))
 
     def get_result(self, qid):

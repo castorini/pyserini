@@ -12,6 +12,9 @@ import subprocess
 import uuid
 import json
 
+import sys
+sys.path.append('..')
+
 import numpy as np
 import pandas as pd
 import lightgbm as lgb
@@ -130,6 +133,7 @@ def dev_data_loader(task='pygaggle'):
         return dev, dev_qrel
 
 
+
 def query_loader(choice='default'):
     if os.path.exists(f'query_{choice}_tokenized.pickle'):
         return pickle.load(open(f'query_{choice}_tokenized.pickle', 'rb'))
@@ -152,13 +156,12 @@ def query_loader(choice='default'):
                 assert 'tokenized' not in value and 'nonSW' not in value
                 value['nonSW'] = nonStopAnalyzer.analyze(value['title'])
                 value['tokenized'] = analyzer.analyze(value['title'])
-                value['ibm'] = ibm['qid']
+                value['text_unlemm'] = list(ibm[str(qid)]['text_unlemm'].split(" "))
+                value['text_bert_tok'] = list(ibm[str(qid)]['text_bert_tok'].split(" "))
+            pickle.dump(queries,open(f'query_{choice}_tokenized.pickle','wb'))
+            return queries
         else:
             raise Exception('unknown parameters')
-
-        pickle.dump(queries, open(f'query_{choice}_tokenized.pickle', 'wb'))
-
-        return queries
 
 
 def extract(df, queries, fe):
@@ -172,7 +175,11 @@ def extract(df, queries, fe):
             qidpid2rel[t.qid][t.pid] = t.rel
             need_rows += 1
         #test.py has bug here, it does not convert pid to str, not sure why it does not cause problem in java
-        fe.lazy_extract(str(qid), queries[qid]['nonSW'], queries[qid]['tokenized'], [str(pid) for pid in qidpid2rel[t.qid].keys()],queries[qid]['ibm'])
+        if qid==3:
+        # print(queries[str(qid)])
+            print(queries[qid])
+        # print(queries[qid]['text_bert_tok'])
+        fe.lazy_extract(str(qid), queries[qid]['nonSW'], queries[qid]['tokenized'], [str(pid) for pid in qidpid2rel[t.qid].keys()], queries[qid]['text_unlemm'],queries[qid]['text_bert_tok'])
         fetch_later.append(str(qid))
         if len(fetch_later) == 10000:
             info = np.zeros(shape=(need_rows, 3), dtype=np.int32)
@@ -544,6 +551,8 @@ if __name__ == '__main__':
     fe.add(BM25Var(MinPooler()))
     fe.add(BM25Quartile(MaxPooler()))
     fe.add(BM25Quartile(MinPooler()))
+    fe.add(IBMModel1('../collections/msmarco-passage/body','Unlemma'))
+    fe.add(IBMModel1('../collections/msmarco-passage/text_bert_tok','Bert'))
 
     train_extracted = data_loader('train', sampled_train, queries, fe)
     dev_extracted = data_loader('dev', dev, queries, fe)
