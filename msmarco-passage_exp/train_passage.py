@@ -175,9 +175,6 @@ def extract(df, queries, fe):
             qidpid2rel[t.qid][t.pid] = t.rel
             need_rows += 1
         #test.py has bug here, it does not convert pid to str, not sure why it does not cause problem in java
-        if qid==3:
-        # print(queries[str(qid)])
-            print(queries[qid])
         # print(queries[qid]['text_bert_tok'])
         fe.lazy_extract(str(qid), queries[qid]['nonSW'], queries[qid]['tokenized'], [str(pid) for pid in qidpid2rel[t.qid].keys()], queries[qid]['text_unlemm'],queries[qid]['text_bert_tok'])
         fetch_later.append(str(qid))
