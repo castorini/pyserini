@@ -58,7 +58,7 @@ for line in inpFile:
                "text_unlemm": query_unlemm,
                "contents": query.lower()}
 
-        addRetokenizedField(doc, query.lower(), "text_bert_tok", bertTokenizer)
+        addRetokenizedField(doc, 'contents', "text_bert_tok", bertTokenizer)
 
         docStr = json.dumps(doc) + '\n'
         outFile.write(docStr)
