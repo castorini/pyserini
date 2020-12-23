@@ -175,7 +175,6 @@ def extract(df, queries, fe):
             qidpid2rel[t.qid][t.pid] = t.rel
             need_rows += 1
         #test.py has bug here, it does not convert pid to str, not sure why it does not cause problem in java
-        # print(queries[qid]['text_bert_tok'])
         fe.lazy_extract(str(qid), queries[qid]['nonSW'], queries[qid]['tokenized'], [str(pid) for pid in qidpid2rel[t.qid].keys()], queries[qid]['text_unlemm'],queries[qid]['text_bert_tok'])
         fetch_later.append(str(qid))
         if len(fetch_later) == 10000:
@@ -449,7 +448,7 @@ if __name__ == '__main__':
     dev, dev_qrel = dev_data_loader(task='pygaggle')
     queries = query_loader()
 
-    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor('../indexes/msmarco-passage/new-lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
     fe.add(BM25(k1=0.9, b=0.4))
     fe.add(BM25(k1=1.2, b=0.75))
     fe.add(BM25(k1=2.0, b=0.75))
