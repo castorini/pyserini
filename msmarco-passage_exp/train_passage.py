@@ -440,7 +440,7 @@ def save_exp(dirname,
     json.dump(metadata, open(f'{dirname}/metadata.json', 'w'))
     shutil.copytree('anserini_ltr_source', f'{dirname}/anserini_ltr_source')
     shutil.copytree('pyserini_ltr_source', f'{dirname}/pyserini_ltr_source')
-    shutil.copy('test.py', f'{dirname}/test.py')
+    shutil.copy('train_passage.py', f'{dirname}/train_passage.py')
 
 
 if __name__ == '__main__':
