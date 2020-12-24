@@ -61,7 +61,7 @@ for line in tqdm(inpFile):
     query_toks = query_lemmas.split()
     if len(query_toks) >= minQueryTokQty:
         doc = {"id": did,
-               "text_lemm": query_lemmas,
+               "text": query_lemmas,
                "text_unlemm": query_unlemm,
                "analyzed": ' '.join(analyzed),
                "raw": query}
