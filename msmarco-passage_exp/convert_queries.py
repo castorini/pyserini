@@ -5,8 +5,9 @@ import json
 import argparse
 from transformers import AutoTokenizer, AutoModel
 import spacy
-from convert_common import readStopWords, SpacyTextParser,addRetokenizedField
+from convert_common import readStopWords, SpacyTextParser, getRetokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
+from tqdm import tqdm
 
 sys.path.append('.')
 
@@ -38,7 +39,7 @@ if 'bert_tokenize' in arg_vars:
 
 # Input file is a TSV file
 ln = 0
-for line in inpFile:
+for line in tqdm(inpFile):
     ln += 1
     line = line.strip()
     if not line:
@@ -52,8 +53,10 @@ for line in inpFile:
     did, query = fields
 
     query_lemmas, query_unlemm = nlp.procText(query)
-    analyzed = analyzer.analyze(body)
-    assert analyzed == ' '.join(analyzed)
+    analyzed = analyzer.analyze(query)
+    for token in analyzed:
+        if ' ' in token:
+            print(analyzed)
 
     query_toks = query_lemmas.split()
     if len(query_toks) >= minQueryTokQty:
@@ -61,9 +64,9 @@ for line in inpFile:
                "text_lemm": query_lemmas,
                "text_unlemm": query_unlemm,
                "analyzed": ' '.join(analyzed),
-               "raw": query.lower()}
+               "raw": query}
 
-        addRetokenizedField(doc, "raw", "text_bert_tok", bertTokenizer)
+        doc["text_bert_tok"] = getRetokenized(bertTokenizer, query.lower())
 
         docStr = json.dumps(doc) + '\n'
         outFile.write(docStr)

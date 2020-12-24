@@ -7,7 +7,7 @@ import argparse
 from transformers import AutoTokenizer, AutoModel
 import spacy
 import re
-from convert_common import readStopWords, SpacyTextParser, addRetokenizedField
+from convert_common import readStopWords, SpacyTextParser, getRetokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 
 sys.path.append('.')
@@ -55,27 +55,28 @@ class PassParseWorker:
         pid, body = fields
 
         text, text_unlemm = nlp.procText(body)
-        analyzed = analyzer.analyze(body)
-        assert analyzed == ' '.join(analyzed)
 
         doc = {"id": pid,
                "text": text,
                "text_unlemm": text_unlemm,
-               "contents":' '.join(analyzed),
-               "raw": body.lower()}
-        addRetokenizedField(doc, "raw", "text_bert_tok", bertTokenizer)
-
-        return json.dumps(doc) + '\n'
+               "raw": body}
+        doc["text_bert_tok"] = getRetokenized(bertTokenizer, body.lower())
+        return doc
 
 
 proc_qty = args.proc_qty
 print(f'Spanning {proc_qty} processes')
 pool = multiprocessing.Pool(processes=proc_qty)
 ln = 0
-for docStr in pool.imap(PassParseWorker(), inpFile, 500):
+for docJson in pool.imap(PassParseWorker(), inpFile, 500):
     ln = ln + 1
-    if docStr is not None:
-        outFile.write(docStr)
+    if docJson is not None:
+        analyzed = analyzer.analyze(docJson["raw"])
+        for token in analyzed:
+            if ' ' in token:
+                print(analyzed)
+        docJson['contents'] = ' '.join(analyzed)
+        outFile.write(json.dumps(docJson) + '\n')
     else:
         print('Ignoring misformatted line %d' % ln)
 
@@ -86,3 +87,4 @@ print('Processed %d passages' % ln)
 
 inpFile.close()
 outFile.close()
+
