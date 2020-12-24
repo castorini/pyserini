@@ -134,34 +134,34 @@ def dev_data_loader(task='pygaggle'):
 
 
 
-def query_loader(choice='default'):
-    if os.path.exists(f'query_{choice}_tokenized.pickle'):
-        return pickle.load(open(f'query_{choice}_tokenized.pickle', 'rb'))
-    else:
-        if choice == 'default':
-            analyzer = Analyzer(get_lucene_analyzer())
-            nonStopAnalyzer = Analyzer(get_lucene_analyzer(stopwords=False))
-            queries = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', \
-                                             '../collections/msmarco-passage/queries.train.tsv')
-            #although not queries.dev.small.tsv but all dev rank list only contain 6980 queries
-            queries.update(get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', \
-                                                  '../collections/msmarco-passage/queries.dev.tsv'))
-            ibm = {}
-            with open('../ibm_query.json') as f:
-                lines = f.readlines()
-                for line in lines:
-                    temp = json.loads(line)
-                    ibm[temp['id']] = temp
-            for qid, value in queries.items():
-                assert 'tokenized' not in value and 'nonSW' not in value
-                value['nonSW'] = nonStopAnalyzer.analyze(value['title'])
-                value['tokenized'] = analyzer.analyze(value['title'])
-                value['text_unlemm'] = list(ibm[str(qid)]['text_unlemm'].split(" "))
-                value['text_bert_tok'] = list(ibm[str(qid)]['text_bert_tok'].split(" "))
-            pickle.dump(queries,open(f'query_{choice}_tokenized.pickle','wb'))
-            return queries
-        else:
-            raise Exception('unknown parameters')
+def query_loader():
+    queries = {}
+    with open('query.train.small.json') as f:
+        for line in f:
+            query = json.loads(line)
+            qid = query.pop('id')
+            query['text'] = query['text_unlemm'].split(" ")
+            query['text_unlemm'] = query['text_unlemm'].split(" ")
+            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            queries[qid] = query
+    with open('query.dev.small.json') as f:
+        for line in f:
+            query = json.loads(line)
+            qid = query.pop('id')
+            query['text'] = query['text_unlemm'].split(" ")
+            query['text_unlemm'] = query['text_unlemm'].split(" ")
+            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            queries[qid] = query
+    with open('query.eval.small.json') as f:
+        for line in f:
+            query = json.loads(line)
+            qid = query.pop('id')
+            query['text'] = query['text_unlemm'].split(" ")
+            query['text_unlemm'] = query['text_unlemm'].split(" ")
+            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            queries[qid] = query
+    return queries
+
 
 
 def extract(df, queries, fe):
@@ -175,7 +175,7 @@ def extract(df, queries, fe):
             qidpid2rel[t.qid][t.pid] = t.rel
             need_rows += 1
         #test.py has bug here, it does not convert pid to str, not sure why it does not cause problem in java
-        fe.lazy_extract(str(qid), queries[qid]['nonSW'], queries[qid]['tokenized'], [str(pid) for pid in qidpid2rel[t.qid].keys()], queries[qid]['text_unlemm'],queries[qid]['text_bert_tok'])
+        fe.lazy_extract(str(qid), [str(pid) for pid in qidpid2rel[t.qid].keys()], queries[qid])
         fetch_later.append(str(qid))
         if len(fetch_later) == 10000:
             info = np.zeros(shape=(need_rows, 3), dtype=np.int32)

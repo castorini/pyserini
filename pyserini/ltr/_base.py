@@ -302,7 +302,7 @@ class FeatureExtractor:
         """
         return self.feature_name
 
-    def lazy_extract(self, qid, query_text, query_tokens, doc_ids,  query_text_unlemm, query_bert):
+    def lazy_extract(self, qid, doc_ids,  query_dict):
         """
         sumbit tasks to workers
         Parameters
@@ -318,7 +318,10 @@ class FeatureExtractor:
         query_bert: List[str]
             query text tokenized by bert
         """
-        input = {'qid': qid, 'queryText':query_text, 'queryTokens': query_tokens, 'docIds': doc_ids,'queryTextUnlemma': query_text_unlemm,'queryBert': query_bert}
+        input = {'qid': qid, 'docIds': doc_ids}
+        assert 'qid' not in query_dict
+        assert 'docIds' not in query_dict
+        input.update(query_dict)
         self.utils.lazyExtract(JString(json.dumps(input)))
 
     def get_result(self, qid):
