@@ -71,9 +71,9 @@ class DFR_GL2(Feature):
         self.extractor = Jclass(JString(field))
 
 class IBMModel1(Feature):
-    def __init__(self, path, field='contents'):
+    def __init__(self, path, field, tag):
         Jclass = autoclass('io.anserini.ltr.feature.base.IBMModel1')
-        self.extractor = Jclass(path,JString(field))
+        self.extractor = Jclass(JString(path),JString(field), JString(tag))
 
 class DFR_In_expB2(Feature):
     def __init__(self, field='contents'):
