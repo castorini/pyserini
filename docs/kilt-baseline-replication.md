@@ -37,8 +37,10 @@ cd ..
 
 # Run conversion script for each file
 mkdir dump
+```
 
-# Document:
+For document level:
+```bash
 mkdir dump/doc_dump
 for filename in kilt_knowledge_split/kilt_ks.??; do
     [ -e "$filename" ] || continue
@@ -51,8 +53,10 @@ rm dump/doc_dump/kilt_ks.??
 # Sanity check (should give the same # of lines):
 wc -l kilt_knowledgesource.json
 wc -l dump/doc_dump/dump.jsonl
+```
 
-# Passage:
+For passage level:
+```bash
 mkdir dump/passage_dump
 for filename in kilt_knowledge_split/kilt_ks.??; do
     [ -e "$filename" ] || continue
