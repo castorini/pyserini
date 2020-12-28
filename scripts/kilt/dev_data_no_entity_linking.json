@@ -1,0 +1,18 @@
+{
+    "Fact Checking": {
+        "FEVER": "data/fever-dev-kilt.jsonl"
+    },
+    "Slot Filling": {
+        "Zero Shot RE": "data/structured_zeroshot-dev-kilt.jsonl",
+        "T-REx": "data/trex-dev-kilt.jsonl"
+    },
+    "Open Domain QA": {
+        "Natural Questions": "data/nq-dev-kilt.jsonl",
+        "HotpotQA": "data/hotpotqa-dev-kilt.jsonl",
+        "TriviaQA": "data/triviaqa-dev-kilt.jsonl",
+        "ELI5": "data/eli5-dev-kilt.jsonl"
+    },
+    "Dialogue": {
+        "Wizard of Wikipedia": "data/wow-dev-kilt.jsonl"
+    }
+}
