@@ -44,7 +44,12 @@ For document level:
 mkdir dump/doc_dump
 for filename in kilt_knowledge_split/kilt_ks.??; do
     [ -e "$filename" ] || continue
-    nohup python pyserini/scripts/kilt/convert_kilt_to_document_jsonl.py --input "$filename" --output dump/doc_dump/$(basename "$filename") --bigrams --stem --flen 500000 > nohup_$(basename "$filename").out &
+    nohup python pyserini/scripts/kilt/convert_kilt_to_document_jsonl.py \
+        --input "$filename" \
+        --output dump/doc_dump/$(basename "$filename") \
+        --bigrams --stem \
+        --flen 500000 \
+        > nohup_$(basename "$filename").out &
 done
 
 # Once it's done, convert back into 1 file:
@@ -60,7 +65,12 @@ For passage level:
 mkdir dump/passage_dump
 for filename in kilt_knowledge_split/kilt_ks.??; do
     [ -e "$filename" ] || continue
-    nohup python pyserini/scripts/kilt/convert_kilt_to_passage_jsonl.py --input "$filename" --output dump/passage_dump/$(basename "$filename") --sections --bigrams --stem --flen 500000 > nohup_$(basename "$filename").out &
+    nohup python pyserini/scripts/kilt/convert_kilt_to_passage_jsonl.py \
+        --input "$filename" \
+        --output dump/passage_dump/$(basename "$filename") \
+        --sections --bigrams --stem \
+        --flen 500000 \
+        > nohup_$(basename "$filename").out &
 done
 
 # Once it's done, convert back into 1 file:
