@@ -478,7 +478,7 @@ if __name__ == '__main__':
     fe.add(StopRatio())
 
     fe.add(QueryLength())
-    fe.add(QueryLengthNonStopWords())
+    #fe.add(QueryLengthNonStopWords())
     fe.add(QueryCoverageRatio())
     fe.add(UniqueTermCount())
     fe.add(MatchingTermCount())
@@ -547,8 +547,8 @@ if __name__ == '__main__':
     fe.add(BM25Var(MinPooler()))
     fe.add(BM25Quartile(MaxPooler()))
     fe.add(BM25Quartile(MinPooler()))
-    fe.add(IBMModel1('../collections/msmarco-passage/body','Unlemma'))
-    fe.add(IBMModel1('../collections/msmarco-passage/text_bert_tok','Bert'))
+    fe.add(IBMModel1('../collections/msmarco-passage/body','Unlemma', 'Body', 'text_unlemm'))
+    fe.add(IBMModel1('../collections/msmarco-passage/text_bert_tok','Bert','BERT','text_bert_tok'))
 
     train_extracted = data_loader('train', sampled_train, queries, fe)
     dev_extracted = data_loader('dev', dev, queries, fe)
