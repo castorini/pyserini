@@ -140,6 +140,7 @@ def query_loader():
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
+            query['analyzed'] = query['analyzed'].split(" ")
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
@@ -148,6 +149,7 @@ def query_loader():
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
+            query['analyzed'] = query['analyzed'].split(" ")
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
@@ -156,6 +158,7 @@ def query_loader():
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
+            query['analyzed'] = query['analyzed'].split(" ")
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
