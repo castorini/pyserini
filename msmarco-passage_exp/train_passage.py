@@ -534,8 +534,6 @@ if __name__ == '__main__':
     fe.add(OrderedQueryPairs(8))
     fe.add(OrderedQueryPairs(15))
 
-    fe.add(BM25Conf(MaxPooler()))
-    fe.add(BM25Conf(MinPooler()))
     fe.add(BM25Mean(MaxPooler()))
     fe.add(BM25Mean(MinPooler()))
     fe.add(BM25Min(MaxPooler()))
@@ -548,7 +546,7 @@ if __name__ == '__main__':
     fe.add(BM25Var(MinPooler()))
     fe.add(BM25Quartile(MaxPooler()))
     fe.add(BM25Quartile(MinPooler()))
-    fe.add(IBMModel1('../collections/msmarco-passage/body','Unlemma', 'Body', 'text_unlemm'))
+#     fe.add(IBMModel1('../collections/msmarco-passage/body','Unlemma', 'Body', 'text_unlemm'))
     fe.add(IBMModel1('../collections/msmarco-passage/text_bert_tok','Bert','BERT','text_bert_tok'))
 
     train_extracted = data_loader('train', sampled_train, queries, fe)

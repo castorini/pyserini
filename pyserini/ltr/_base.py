@@ -10,11 +10,6 @@ class BM25(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.BM25')
         self.extractor = Jclass(k1, b, JString(field), JString(qfield))
 
-class BM25Conf(Feature):
-    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
-        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Conf')
-        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
-
 class BM25Min(Feature):
     def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
         Jclass = autoclass('io.anserini.ltr.feature.base.BM25Min')
