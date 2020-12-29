@@ -136,7 +136,7 @@ def dev_data_loader(task='pygaggle'):
 
 def query_loader():
     queries = {}
-    with open('query.train.small.json') as f:
+    with open('queries.train.small.Flex.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -144,7 +144,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
-    with open('query.dev.small.json') as f:
+    with open('queries.dev.small.Flex.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -152,7 +152,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
-    with open('query.eval.small.json') as f:
+    with open('queries.eval.small.Flex.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -175,13 +175,14 @@ def extract(df, queries, fe):
             qidpid2rel[t.qid][t.pid] = t.rel
             need_rows += 1
         #test.py has bug here, it does not convert pid to str, not sure why it does not cause problem in java
-        fe.lazy_extract(str(qid), [str(pid) for pid in qidpid2rel[t.qid].keys()], queries[qid])
+        fe.lazy_extract(str(qid), [str(pid) for pid in qidpid2rel[t.qid].keys()], queries[str(qid)])
         fetch_later.append(str(qid))
         if len(fetch_later) == 10000:
             info = np.zeros(shape=(need_rows, 3), dtype=np.int32)
             feature = np.zeros(shape=(need_rows, len(fe.feature_names())), dtype=np.float32)
             idx = 0
             for qid in fetch_later:
+                ##bug here
                 for doc in fe.get_result(qid):
                     info[idx, 0] = int(qid)
                     info[idx, 1] = int(doc['pid'])
@@ -448,7 +449,7 @@ if __name__ == '__main__':
     dev, dev_qrel = dev_data_loader(task='pygaggle')
     queries = query_loader()
 
-    fe = FeatureExtractor('../indexes/msmarco-passage/new-lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco-flex/', max(multiprocessing.cpu_count()//2, 1))
     fe.add(BM25(k1=0.9, b=0.4))
     fe.add(BM25(k1=1.2, b=0.75))
     fe.add(BM25(k1=2.0, b=0.75))

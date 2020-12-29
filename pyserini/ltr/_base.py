@@ -101,9 +101,9 @@ class ContextDPH(Feature):
         self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class Entropy(Feature):
-    def __init__(self, field='contents', qfield='analyzed'):
+    def __init__(self, field='contents'):
         Jclass = autoclass('io.anserini.ltr.feature.base.Entropy')
-        self.extractor = Jclass(JString(field), JString(qfield))
+        self.extractor = Jclass(JString(field))
 
 class SDM(Feature):
     def __init__(self, field='contents', qfield='analyzed'):
@@ -167,14 +167,14 @@ class RunList(Feature):
         self.extractor = Jclass(filename,tag)
 
 class StopCover(Feature):
-    def __init__(self, field='contents', qfield='analyzed'):
+    def __init__(self, field='contents'):
         Jclass = autoclass('io.anserini.ltr.feature.base.StopCover')
-        self.extractor = Jclass(JString(field), JString(qfield))
+        self.extractor = Jclass(JString(field))
 
 class StopRatio(Feature):
-    def __init__(self, field='contents', qfield='analyzed'):
+    def __init__(self, field='contents'):
         Jclass = autoclass('io.anserini.ltr.feature.base.StopRatio')
-        self.extractor = Jclass(JString(field), JString(qfield))
+        self.extractor = Jclass(JString(field))
 
 class UniqueTermCount(Feature):
     def __init__(self, qfield='analyzed'):
@@ -303,7 +303,7 @@ class FeatureExtractor:
         """
         return self.feature_name
 
-    def lazy_extract(self, qid, doc_ids,  query_dict):
+    def lazy_extract(self, qid, doc_ids, query_dict):
         """
         sumbit tasks to workers
         Parameters
