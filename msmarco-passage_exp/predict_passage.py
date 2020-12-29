@@ -393,8 +393,6 @@ if __name__ == '__main__':
     fe.add(OrderedQueryPairs(8))
     fe.add(OrderedQueryPairs(15))
 
-    fe.add(BM25Conf(MaxPooler()))
-    fe.add(BM25Conf(MinPooler()))
     fe.add(BM25Mean(MaxPooler()))
     fe.add(BM25Mean(MinPooler()))
     fe.add(BM25Min(MaxPooler()))
