@@ -58,7 +58,7 @@ class SimpleDenseSearcher:
         Parameters
         ----------
         emb_q : np.array
-            Query string
+            query embedding
         k : int
             Number of hits to return.
         Returns
@@ -78,6 +78,39 @@ class SimpleDenseSearcher:
                 DenseSearchResult(self.idx2id[idx], score, self.docs[self.idx2id[idx]])
                 for score, idx in zip(distances, indexes) if idx != -1
             ]
+
+    def batch_search(self, q_embs: List[np.array], q_ids: List[str], k: int = 10, threads: int = 1) -> List[DenseSearchResult]:
+        """
+
+        Parameters
+        ----------
+        q_embs : List[np.array]
+            List of query embeddings
+        q_ids : List[str]
+            List of corresponding query ids.
+        k : int
+            Number of hits to return.
+        threads : int
+            Maximum number of threads to use.
+
+        Returns
+        -------
+        Dict[str, List[DenseSearchResult]]
+            Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
+            results as the values.
+        """
+        n, m = q_embs.shape
+        assert m == self.dimension
+        faiss.omp_set_num_threads(threads)
+        D, I = self.index.search(q_embs, k)
+        if self.idx2id is None:
+            return {key: [DenseSearchResult(str(idx), score, None)
+                          for score, idx in zip(distances, indexes) if idx != -1]
+                    for key, distances, indexes in zip(q_ids, D, I)}
+        else:
+            return {key: [DenseSearchResult(self.idx2id[idx], score, self.docs[self.idx2id[idx]])
+                          for score, idx in zip(distances, indexes) if idx != -1]
+                    for key, distances, indexes in zip(q_ids, D, I)}
 
     def doc(self, docid: str):
         """
