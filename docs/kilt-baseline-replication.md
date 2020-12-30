@@ -113,6 +113,8 @@ nohup ./pyserini/scripts/kilt/eval_runs.sh runs/<name of run> 1,100,1000 &
 
 ## Results
 
+For R-Precision:
+
 | model | FEV | AY2 | WnWi | WnCw | T-REx | zsRE | NQ | HoPo | TQA | ELI5 | WoW |
 |-|-|-|-|-|-|-|-|-|-|-|-|
 | drqa (tfidf + bigram hashing) | 50.75 | 2.44 | 0.15 | 1.27 | 43.43 | 60.63 | 28.59 | 34.63 | 45.70 | 11.02 | 41.82 |
@@ -120,4 +122,9 @@ nohup ./pyserini/scripts/kilt/eval_runs.sh runs/<name of run> 1,100,1000 &
 | anserini (passage) | 43.04 | 3.18 | 0.15 | 2.75 | 55.06 | 67.50 | 24.64 | 41.43 | 24.95 | 5.84 | 24.85 |
 | anserini (sections) | 44.72 | - | - | - | 49.9 | 60.20 | 25.06 | 40.84 | 30.7 | 7.1 | 21.55 |
 | anserini (100w passages) | 52.04 | 3.03 | 0.06 | 2.96 | 34.00 | 57.81 | 26.33 | 41.41 | 31.74 | 6.83 | 28.74 |
+| anserini (document + bigram) | 43.97 | - | - | - | 46.24 | 52.93 | 30.95 | 42.96 | 32.54 | 7.23 | 33.58 |
+| anserini (document + stopword filter + bigram) | 40.13 | - | - | - | 54.36 | 70.84 | 27.63 | 45.34 | 29.76 | 7.37 | 30.94 |
+| anserini (document + stopword filter + stem + bigram) | 39.89 | - | - | - | 54.22 | 70.09 | 26.89 | 45.04 | 29.65 | 7.23 | 31.36 |
+| anserini (sections + stopword filter + bigram) | 35.98 | - | - | - | 40.72 | 59.96 | 19.95 | 41.39 | 21.42 | 5.51 | 30.54 |
+| anserini (sections + stopword filter + stem + bigram) | 35.61 | - | - | - | 37.42 | 59.34 | 19.77 | 41.23 | 21.10 | 5.11 | 30.94 |
 
