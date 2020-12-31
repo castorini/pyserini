@@ -35,7 +35,7 @@ outFile = open(args.output, 'w')
 maxDocSize = args.max_doc_size
 
 
-def batch_file(iterable, n=10000):
+def batch_file(iterable, n=1000):
     batch = []
     for line in iterable:
         batch.append(line)
@@ -48,7 +48,7 @@ def batch_file(iterable, n=10000):
     return
 
 def batch_process(batch):
-    stopWords = readStopWords('./msmarco-passage_exp/stopwords.txt', lowerCase=True)
+    stopWords = readStopWords('stopwords.txt', lowerCase=True)
     nlp = SpacyTextParser('en_core_web_sm', stopWords, keepOnlyAlphaNum=True, lowerCase=True)
     analyzer = Analyzer(get_lucene_analyzer())
     tagger = MultiTagger.load(['pos-fast', 'ner-fast'])
@@ -89,8 +89,12 @@ def batch_process(batch):
                "entity": entity}
         doc["text_bert_tok"] = getRetokenized(bertTokenizer, body.lower())
         return doc
-
-    return [process(line) for line in batch]
+    res = []
+    for line in batch:
+        res.append(process(line))
+        if len(res) % 100 == 0:
+            print(f'finish {len(res)}')
+    return res
 
 
 if __name__ == '__main__':
