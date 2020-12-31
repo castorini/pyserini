@@ -69,11 +69,11 @@ def batch_process(batch):
 
         sentence = Sentence(body)
         tagger.predict(sentence)
-        line = sentence.to_tagged_string().split(' ')
+        entline = sentence.to_tagged_string().split(' ')
         entity = []
         i = 0
-        while (i < len(line)):
-            entity.append(line[i] + ':' + line[i + 1])
+        while (i < len(entline)):
+            entity.append(entline[i] + ':' + entline[i + 1])
             i = i + 2
 
         analyzed = analyzer.analyze(body)
@@ -106,7 +106,7 @@ if __name__ == '__main__':
             else:
                 print('Ignoring misformatted line %d' % ln)
 
-            if ln % 10000 == 0:
+            if ln % 100 == 0:
                 print('Processed %d passages' % ln)
 
     print('Processed %d passages' % ln)
