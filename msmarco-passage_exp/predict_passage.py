@@ -20,7 +20,7 @@ from pyserini.ltr import *
 from pyserini.search import get_topics_with_reader
 
 
-def dev_data_loader(file, format):
+def dev_data_loader(file, format, top=10000):
     if format == 'tsv':
         dev = pd.read_csv(file, sep="\t",
                           names=['qid', 'pid', 'rank'], dtype=np.int32)
@@ -30,7 +30,7 @@ def dev_data_loader(file, format):
                     usecols=['qid', 'pid', 'rank'], dtype=np.int32)
     else:
         raise Exception('unknown parameters')
-
+    dev = dev[dev['rank']<=top]
     dev['pid'] = dev['pid'].astype(str)
     assert dev['qid'].dtype == np.int32
     assert dev['pid'].dtype == np.object
@@ -235,7 +235,7 @@ def eval_recall(dev_qrel, dev_data):
     score_tie_counter = 0
     score_tie_query = set()
 
-    recall_point = [10, 20, 50, 100, 200, 500, 1000]
+    recall_point = [10, 20, 50, 100, 200, 500, 1000, 1500, 2000]
     recall_curve = {k: [] for k in recall_point}
     for qid, group in tqdm(dev_data.groupby('qid')):
         group = group.reset_index()
@@ -300,114 +300,131 @@ def output(file, dev_data):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Learning to rank')
     parser.add_argument('--rank_list_path', required=True)
+    parser.add_argument('--rank_list_top', type=int, default=10000)
     parser.add_argument('--rank_list_format', required=True)
     parser.add_argument('--ltr_model_path', required=True)
     parser.add_argument('--ltr_output_path', required=True)
 
     args = parser.parse_args()
-    dev, dev_qrel = dev_data_loader(args.rank_list_path, args.rank_list_format)
+    dev, dev_qrel = dev_data_loader(args.rank_list_path, args.rank_list_format, args.rank_list_top)
     queries = query_loader()
 
     fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco-flex/', max(multiprocessing.cpu_count()//2, 1))
-    fe.add(BM25(k1=0.9, b=0.4))
-    fe.add(BM25(k1=1.2, b=0.75))
-    fe.add(BM25(k1=2.0, b=0.75))
+    for qfield, ifield in [('analyzed', 'contents'),
+                           ('text', 'text'),
+                           ('text_unlemm', 'text_unlemm'),
+                           ('text_bert_tok', 'text_bert_tok')]:
+        print(qfield, ifield)
+        fe.add(BM25(k1=0.9, b=0.4, field=ifield, qfield=qfield))
+        fe.add(BM25(k1=1.2, b=0.75, field=ifield, qfield=qfield))
+        fe.add(BM25(k1=2.0, b=0.75, field=ifield, qfield=qfield))
 
-    fe.add(LMDir(mu=1000))
-    fe.add(LMDir(mu=1500))
-    fe.add(LMDir(mu=2500))
+        fe.add(LMDir(mu=1000, field=ifield, qfield=qfield))
+        fe.add(LMDir(mu=1500, field=ifield, qfield=qfield))
+        fe.add(LMDir(mu=2500, field=ifield, qfield=qfield))
 
-    fe.add(LMJM(0.1))
-    fe.add(LMJM(0.4))
-    fe.add(LMJM(0.7))
+        fe.add(LMJM(0.1, field=ifield, qfield=qfield))
+        fe.add(LMJM(0.4, field=ifield, qfield=qfield))
+        fe.add(LMJM(0.7, field=ifield, qfield=qfield))
 
-    fe.add(NTFIDF())
-    fe.add(ProbalitySum())
+        fe.add(NTFIDF(field=ifield, qfield=qfield))
+        fe.add(ProbalitySum(field=ifield, qfield=qfield))
 
-    fe.add(DFR_GL2())
-    fe.add(DFR_In_expB2())
-    fe.add(DPH())
+        fe.add(DFR_GL2(field=ifield, qfield=qfield))
+        fe.add(DFR_In_expB2(field=ifield, qfield=qfield))
+        fe.add(DPH(field=ifield, qfield=qfield))
 
-    fe.add(Proximity())
-    fe.add(TPscore())
-    fe.add(tpDist())
+        fe.add(Proximity(field=ifield, qfield=qfield))
+        fe.add(TPscore(field=ifield, qfield=qfield))
+        fe.add(tpDist(field=ifield, qfield=qfield))
 
-    fe.add(DocSize())
-    fe.add(Entropy())
-    fe.add(StopCover())
-    fe.add(StopRatio())
+        fe.add(DocSize(field=ifield))
 
-    fe.add(QueryLength())
-    fe.add(QueryLengthNonStopWords())
-    fe.add(QueryCoverageRatio())
-    fe.add(UniqueTermCount())
-    fe.add(MatchingTermCount())
-    fe.add(SCS())
+        fe.add(QueryLength(qfield=qfield))
+        fe.add(QueryCoverageRatio(qfield=qfield))
+        fe.add(UniqueTermCount(qfield=qfield))
+        fe.add(MatchingTermCount(field=ifield, qfield=qfield))
+        fe.add(SCS(field=ifield, qfield=qfield))
 
-    fe.add(tfStat(AvgPooler()))
-    fe.add(tfStat(SumPooler()))
-    fe.add(tfStat(MinPooler()))
-    fe.add(tfStat(MaxPooler()))
-    fe.add(tfStat(VarPooler()))
-    fe.add(tfIdfStat(AvgPooler()))
-    fe.add(tfIdfStat(SumPooler()))
-    fe.add(tfIdfStat(MinPooler()))
-    fe.add(tfIdfStat(MaxPooler()))
-    fe.add(tfIdfStat(VarPooler()))
-    fe.add(scqStat(AvgPooler()))
-    fe.add(scqStat(SumPooler()))
-    fe.add(scqStat(MinPooler()))
-    fe.add(scqStat(MaxPooler()))
-    fe.add(scqStat(VarPooler()))
-    fe.add(normalizedTfStat(AvgPooler()))
-    fe.add(normalizedTfStat(SumPooler()))
-    fe.add(normalizedTfStat(MinPooler()))
-    fe.add(normalizedTfStat(MaxPooler()))
-    fe.add(normalizedTfStat(VarPooler()))
+        fe.add(tfStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(VarPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(ConfidencePooler(), field=ifield, qfield=qfield))
 
-    fe.add(idfStat(AvgPooler()))
-    fe.add(idfStat(SumPooler()))
-    fe.add(idfStat(MinPooler()))
-    fe.add(idfStat(MaxPooler()))
-    fe.add(idfStat(VarPooler()))
-    fe.add(idfStat(MaxMinRatioPooler()))
-    fe.add(idfStat(ConfidencePooler()))
-    fe.add(ictfStat(AvgPooler()))
-    fe.add(ictfStat(SumPooler()))
-    fe.add(ictfStat(MinPooler()))
-    fe.add(ictfStat(MaxPooler()))
-    fe.add(ictfStat(VarPooler()))
-    fe.add(ictfStat(MaxMinRatioPooler()))
-    fe.add(ictfStat(ConfidencePooler()))
+        fe.add(tfIdfStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(VarPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(ConfidencePooler(), field=ifield, qfield=qfield))
 
-    fe.add(UnorderedSequentialPairs(3))
-    fe.add(UnorderedSequentialPairs(8))
-    fe.add(UnorderedSequentialPairs(15))
-    fe.add(OrderedSequentialPairs(3))
-    fe.add(OrderedSequentialPairs(8))
-    fe.add(OrderedSequentialPairs(15))
-    fe.add(UnorderedQueryPairs(3))
-    fe.add(UnorderedQueryPairs(8))
-    fe.add(UnorderedQueryPairs(15))
-    fe.add(OrderedQueryPairs(3))
-    fe.add(OrderedQueryPairs(8))
-    fe.add(OrderedQueryPairs(15))
+        fe.add(scqStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(VarPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(ConfidencePooler(), field=ifield, qfield=qfield))
 
-    fe.add(BM25Mean(MaxPooler()))
-    fe.add(BM25Mean(MinPooler()))
-    fe.add(BM25Min(MaxPooler()))
-    fe.add(BM25Min(MinPooler()))
-    fe.add(BM25Max(MaxPooler()))
-    fe.add(BM25Max(MinPooler()))
-    fe.add(BM25HMean(MaxPooler()))
-    fe.add(BM25HMean(MinPooler()))
-    fe.add(BM25Var(MaxPooler()))
-    fe.add(BM25Var(MinPooler()))
-    fe.add(BM25Quartile(MaxPooler()))
-    fe.add(BM25Quartile(MinPooler()))
+        fe.add(normalizedTfStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(VarPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(ConfidencePooler(), field=ifield, qfield=qfield))
 
-    fe.add(IBMModel1('../collections/msmarco-passage/body', 'Unlemma', 'Body', 'text_unlemm'))
-    fe.add(IBMModel1('../collections/msmarco-passage/text_bert_tok', 'Bert', 'BERT', 'text_bert_tok'))
+        fe.add(idfStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(VarPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(ConfidencePooler(), field=ifield, qfield=qfield))
+
+        fe.add(ictfStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(VarPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(ConfidencePooler(), field=ifield, qfield=qfield))
+
+        fe.add(UnorderedSequentialPairs(3, field=ifield, qfield=qfield))
+        fe.add(UnorderedSequentialPairs(8, field=ifield, qfield=qfield))
+        fe.add(UnorderedSequentialPairs(15, field=ifield, qfield=qfield))
+        fe.add(OrderedSequentialPairs(3, field=ifield, qfield=qfield))
+        fe.add(OrderedSequentialPairs(8, field=ifield, qfield=qfield))
+        fe.add(OrderedSequentialPairs(15, field=ifield, qfield=qfield))
+        fe.add(UnorderedQueryPairs(3, field=ifield, qfield=qfield))
+        fe.add(UnorderedQueryPairs(8, field=ifield, qfield=qfield))
+        fe.add(UnorderedQueryPairs(15, field=ifield, qfield=qfield))
+        fe.add(OrderedQueryPairs(3, field=ifield, qfield=qfield))
+        fe.add(OrderedQueryPairs(8, field=ifield, qfield=qfield))
+        fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
+
+    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm",
+                     "title_unlemm", "text_unlemm"))
+    print("IBM Model loaded")
+    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm",
+                     "url_unlemm", "text_unlemm"))
+    print("IBM Model loaded")
+    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm",
+                     "body", "text_unlemm"))
+    print("IBM Model loaded")
+    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
+                     "text_bert_tok", "text_bert_tok"))
+    print("IBM Model loaded")
 
     dev_extracted = data_loader(args.rank_list_path, dev, queries, fe)
     feature_names = fe.feature_names()
