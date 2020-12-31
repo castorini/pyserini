@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-# Convert MSMARCO queries
+# Convert MSMARCO passage
 import multiprocessing
+from joblib import Parallel, delayed
 import sys
 import json
 import argparse
@@ -9,6 +10,8 @@ import spacy
 import re
 from convert_common import readStopWords, SpacyTextParser, getRetokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
+from flair.data import Sentence
+from flair.models import MultiTagger
 
 sys.path.append('.')
 
@@ -22,7 +25,6 @@ parser.add_argument('--max_doc_size', metavar='max doc size bytes',
                     type=int, default=16536 )
 parser.add_argument('--proc_qty', metavar='# of processes', help='# of NLP processes to span',
                     type=int, default=multiprocessing.cpu_count() - 1)
-parser.add_argument('--bert_tokenize', action='store_true', help='Apply the BERT tokenizer and store result in a separate field')
 
 args = parser.parse_args()
 print(args)
@@ -32,18 +34,27 @@ inpFile = open(args.input)
 outFile = open(args.output, 'w')
 maxDocSize = args.max_doc_size
 
-stopWords = readStopWords('stopwords.txt', lowerCase=True)
-print(stopWords)
-nlp = SpacyTextParser('en_core_web_sm', stopWords, keepOnlyAlphaNum=True, lowerCase=True)
-analyzer = Analyzer(get_lucene_analyzer())
 
-if 'bert_tokenize' in arg_vars:
-    print('BERT-tokenizing input into the field: ' + 'text_bert_tok')
+def batch_file(iterable, n=10000):
+    batch = []
+    for line in iterable:
+        batch.append(line)
+        if len(batch) == n:
+            yield batch
+            batch = []
+    if len(batch)>0:
+        yield batch
+        batch = []
+    return
+
+def batch_process(batch):
+    stopWords = readStopWords('./msmarco-passage_exp/stopwords.txt', lowerCase=True)
+    nlp = SpacyTextParser('en_core_web_sm', stopWords, keepOnlyAlphaNum=True, lowerCase=True)
+    analyzer = Analyzer(get_lucene_analyzer())
+    tagger = MultiTagger.load(['pos-fast', 'ner-fast'])
     bertTokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")
 
-class PassParseWorker:
-    def __call__(self, line):
-
+    def process(line):
         if not line:
             return None
 
@@ -56,35 +67,50 @@ class PassParseWorker:
 
         text, text_unlemm = nlp.procText(body)
 
+        sentence = Sentence(body)
+        tagger.predict(sentence)
+        entline = sentence.to_tagged_string().split(' ')
+        entity = []
+        i = 0
+        while (i < len(entline)):
+            entity.append(entline[i] + ':' + entline[i + 1])
+            i = i + 2
+
+        analyzed = analyzer.analyze(body)
+        for token in analyzed:
+            assert ' ' not in token
+        contents = ' '.join(analyzed)
+
         doc = {"id": pid,
                "text": text,
                "text_unlemm": text_unlemm,
-               "raw": body}
+               'contents': contents,
+               "raw": body,
+               "entity": entity}
         doc["text_bert_tok"] = getRetokenized(bertTokenizer, body.lower())
         return doc
 
+    return [process(line) for line in batch]
 
-proc_qty = args.proc_qty
-print(f'Spanning {proc_qty} processes')
-pool = multiprocessing.Pool(processes=proc_qty)
-ln = 0
-for docJson in pool.imap(PassParseWorker(), inpFile, 500):
-    ln = ln + 1
-    if docJson is not None:
-        analyzed = analyzer.analyze(docJson["raw"])
-        for token in analyzed:
-            if ' ' in token:
-                print(analyzed)
-        docJson['contents'] = ' '.join(analyzed)
-        outFile.write(json.dumps(docJson) + '\n')
-    else:
-        print('Ignoring misformatted line %d' % ln)
 
-    if ln % 10000 == 0:
-        print('Processed %d passages' % ln)
+if __name__ == '__main__':
+    proc_qty = args.proc_qty
+    print(f'Spanning {proc_qty} processes')
+    pool = Parallel(n_jobs=proc_qty, verbose=10)
+    ln = 0
+    for batch_json in pool([delayed(batch_process)(batch) for batch in batch_file(inpFile)]):
+        for docJson in batch_json:
+            ln = ln + 1
+            if docJson is not None:
+                outFile.write(json.dumps(docJson) + '\n')
+            else:
+                print('Ignoring misformatted line %d' % ln)
 
-print('Processed %d passages' % ln)
+            if ln % 100 == 0:
+                print('Processed %d passages' % ln)
 
-inpFile.close()
-outFile.close()
+    print('Processed %d passages' % ln)
+
+    inpFile.close()
+    outFile.close()
 
