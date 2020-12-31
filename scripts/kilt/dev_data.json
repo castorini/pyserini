@@ -2,6 +2,11 @@
     "Fact Checking": {
         "FEVER": "KILT/data/fever-dev-kilt.jsonl"
     },
+    "Entity Linking": {
+        "AIDA-YAGO2": "KILT/data/aidayago2-dev-kilt.jsonl",
+        "WNED": "KILT/data/wned-dev-kilt.jsonl",
+        "CWEB": "KILT/data/cweb-dev-kilt.jsonl"
+    },
     "Slot Filling": {
         "Zero Shot RE": "KILT/data/structured_zeroshot-dev-kilt.jsonl",
         "T-REx": "KILT/data/trex-dev-kilt.jsonl"

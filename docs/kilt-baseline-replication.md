@@ -6,22 +6,28 @@
 # Create a virtual env
 conda create -n kilt37 -y python=3.7 && conda activate kilt37
 
-# Install pyserini
-pip install pyserini
+# Get pyserini scripts and install package
 git clone https://github.com/castorini/pyserini.git
+pip install pyserini
 
-# Get KILT scripts and install kilt package
+# Get KILT scripts and install package
 git clone https://github.com/facebookresearch/KILT.git
 cd KILT
 pip install -r requirements.txt
 pip install .
+
+# Get KILT queries and gold data
 mkdir data
 python scripts/donwload_all_kilt_data.py
 python scripts/get_triviaqa_input.py
 cd ..
 
-# Get the KILT knowledge source (34.76GiB)
+# Get the KILT knowledge source / wikipedia dump (34.76GiB)
 wget http://dl.fbaipublicfiles.com/KILT/kilt_knowledgesource.json
+
+# Get NLTK dependencies
+python -m nltk.downloader punkt
+python -m nltk.downloader stopwords
 ```
 
 ## Index the knowledge source
@@ -82,7 +88,7 @@ Index into Anserini (about 1hr). These instructions are the same whether you are
 
 ```bash
 nohup python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
- -threads 40 -input <path to dump.jsonl e.g. dump/doc_dump/dump.jsonl> \
+ -threads 40 -input <path to dump.jsonl e.g. dump/doc_dump/> \
  -index pyserini/indexes/<index_name> -storePositions -storeDocvectors -storeContents &
 ```
 
@@ -92,7 +98,7 @@ Compute a run for a given index. Tasks can be configured using `--config`, I rec
 
 ```bash
 nohup python pyserini/scripts/kilt/run_retrieval.py \
- --config KILT/kilt/configs/dev_data.json \
+ --config pyserini/scripts/kilt/dev_data.json \
  --index_dir pyserini/indexes/<index_name> \
  --output_dir runs \
  --threads 8 \
@@ -127,4 +133,5 @@ For R-Precision:
 | anserini (document + stopword filter + stem + bigram) | 39.89 | - | - | - | 54.22 | 70.09 | 26.89 | 45.04 | 29.65 | 7.23 | 31.36 |
 | anserini (sections + stopword filter + bigram) | 35.98 | - | - | - | 40.72 | 59.96 | 19.95 | 41.39 | 21.42 | 5.51 | 30.54 |
 | anserini (sections + stopword filter + stem + bigram) | 35.61 | - | - | - | 37.42 | 59.34 | 19.77 | 41.23 | 21.10 | 5.11 | 30.94 |
+| anserini (passage + stopword filter + stem + bigram) |  | - | - | - |  |  |  |  |  |  |  |
 
