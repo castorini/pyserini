@@ -6,59 +6,94 @@ class Feature:
         return self.extractor.getName()
 
 class BM25(Feature):
-    def __init__(self, k1=0.9, b=0.4, field='contents'):
+    def __init__(self, k1=0.9, b=0.4, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.BM25')
-        self.extractor = Jclass(k1, b, JString(field))
+        self.extractor = Jclass(k1, b, JString(field), JString(qfield))
+
+class BM25Min(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Min')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
+
+class BM25Max(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Max')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
+
+class BM25Mean(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Mean')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
+
+class BM25HMean(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25HMean')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
+
+class BM25Var(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Var')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
+
+class BM25Quartile(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Quartile')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
 
 class LMDir(Feature):
-    def __init__(self,mu=1000, field='contents'):
+    def __init__(self,mu=1000, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.LMDir')
-        self.extractor = Jclass(mu, JString(field))
+        self.extractor = Jclass(mu, JString(field), JString(qfield))
 
 class LMJM(Feature):
-    def __init__(self,lamda=0.5, field='contents'):
+    def __init__(self,lamda=0.5, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.LMJM')
-        self.extractor = Jclass(lamda, JString(field))
+        self.extractor = Jclass(lamda, JString(field), JString(qfield))
 
 class NTFIDF(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.NTFIDF')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
 
 class ProbalitySum(Feature):
-    def __init__(self , field='contents'):
+    def __init__(self , field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.ProbalitySum')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
 
 class DFR_GL2(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.DFR_GL2')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
+
+class IBMModel1(Feature):
+    def __init__(self, path, field, tag, qfield):
+        Jclass = autoclass('io.anserini.ltr.feature.base.IBMModel1')
+        self.extractor = Jclass(JString(path), JString(field), JString(tag), JString(qfield))
 
 class DFR_In_expB2(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.DFR_In_expB2')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
 
 class DPH(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.DPH')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
 
 class ContextDFR_GL2(Feature):
-    def __init__(self, pooler, field='contents'):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.ContextDFR_GL2')
-        self.extractor = Jclass(pooler.extractor, JString(field))
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class ContextDFR_In_expB2(Feature):
-    def __init__(self, pooler, field='contents'):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.ContextDFR_In_expB2')
-        self.extractor = Jclass(pooler.extractor, JString(field))
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class ContextDPH(Feature):
-    def __init__(self, pooler, field='contents'):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.ContextDPH')
-        self.extractor = Jclass(pooler.extractor, JString(field))
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class Entropy(Feature):
     def __init__(self, field='contents'):
@@ -66,24 +101,24 @@ class Entropy(Feature):
         self.extractor = Jclass(JString(field))
 
 class SDM(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.SDM')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
 
 class Proximity(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.Proximity')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
 
 class TPscore(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.TPscore')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
 
 class tpDist(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.tpDist')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
 
 class DocSize(Feature):
     def __init__(self, field='contents'):
@@ -91,34 +126,35 @@ class DocSize(Feature):
         self.extractor = Jclass(JString(field))
 
 class MatchingTermCount(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.MatchingTermCount')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
 
 class QueryLength(Feature):
-    def __init__(self):
+    def __init__(self, qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.QueryLength')
-        self.extractor = Jclass()
+        self.extractor = Jclass(JString(qfield))
 
-class QueryLengthNonStopWords(Feature):
-    def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.base.QueryLengthNonStopWords')
-        self.extractor = Jclass()
+
+#class QueryLengthNonStopWords(Feature):
+    #def __init__(self, qfield='analyzed'):
+        #Jclass = autoclass('io.anserini.ltr.feature.base.QueryLengthNonStopWords')
+        #self.extractor = Jclass(JString(qfield))
 
 class SCS(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.SCS')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
 
 class SumMatchingTF(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.SumMatchingTF')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
 
 class QueryCoverageRatio(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.QueryCoverageRatio')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(field), JString(qfield))
 
 class RunList(Feature):
     def __init__(self,filename,tag):
@@ -136,29 +172,29 @@ class StopRatio(Feature):
         self.extractor = Jclass(JString(field))
 
 class UniqueTermCount(Feature):
-    def __init__(self, field='contents'):
+    def __init__(self, qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.UniqueTermCount')
-        self.extractor = Jclass(JString(field))
+        self.extractor = Jclass(JString(qfield))
 
 class UnorderedSequentialPairs(Feature):
-    def __init__(self, gap=8, field='contents'):
+    def __init__(self, gap=8, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.UnorderedSequentialPairs')
-        self.extractor = Jclass(gap, JString(field))
+        self.extractor = Jclass(gap, JString(field), JString(qfield))
 
 class OrderedSequentialPairs(Feature):
-    def __init__(self, gap=8, field='contents'):
+    def __init__(self, gap=8, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.OrderedSequentialPairs')
-        self.extractor = Jclass(gap, JString(field))
+        self.extractor = Jclass(gap, JString(field), JString(qfield))
 
 class UnorderedQueryPairs(Feature):
-    def __init__(self, gap=8, field='contents'):
+    def __init__(self, gap=8, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.UnorderedQueryPairs')
-        self.extractor = Jclass(gap, JString(field))
+        self.extractor = Jclass(gap, JString(field), JString(qfield))
 
 class OrderedQueryPairs(Feature):
-    def __init__(self, gap=8, field='contents'):
+    def __init__(self, gap=8, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.OrderedQueryPairs')
-        self.extractor = Jclass(gap, JString(field))
+        self.extractor = Jclass(gap, JString(field), JString(qfield))
 
 class AvgPooler(Feature):
     def __init__(self):
@@ -201,39 +237,39 @@ class MaxMinRatioPooler(Feature):
         self.extractor = Jclass()
 
 class tfStat(Feature):
-    def __init__(self, pooler, field='contents'):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.tfStat')
-        self.extractor = Jclass(pooler.extractor, JString(field))
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class tfIdfStat(Feature):
-    def __init__(self, pooler, field='contents'):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.tfIdfStat')
-        self.extractor = Jclass(pooler.extractor, JString(field))
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class normalizedDocSizeStat(Feature):
-    def __init__(self, pooler, field='contents'):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.normalizedDocSizeStat')
-        self.extractor = Jclass(pooler.extractor, JString(field))
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class normalizedTfStat(Feature):
-    def __init__(self, pooler, field='contents'):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.normalizedTfStat')
-        self.extractor = Jclass(pooler.extractor, JString(field))
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class idfStat(Feature):
-    def __init__(self, pooler, field='contents'):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.idfStat')
-        self.extractor = Jclass(pooler.extractor, JString(field))
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class ictfStat(Feature):
-    def __init__(self, pooler, field='contents'):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.ictfStat')
-        self.extractor = Jclass(pooler.extractor, JString(field))
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class scqStat(Feature):
-    def __init__(self, pooler, field='contents'):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.scqStat')
-        self.extractor = Jclass(pooler.extractor, JString(field))
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class FeatureExtractor:
     def __init__(self, index_dir, worker_num=1):
@@ -262,7 +298,7 @@ class FeatureExtractor:
         """
         return self.feature_name
 
-    def lazy_extract(self, qid, query_text, query_tokens, doc_ids):
+    def lazy_extract(self, qid, doc_ids, query_dict):
         """
         sumbit tasks to workers
         Parameters
@@ -273,9 +309,15 @@ class FeatureExtractor:
             tokenized query
         doc_ids: List[str]
             doc id we need to extract on
-
+        query_text_unlemma:  List[str]
+            unlemma query text
+        query_bert: List[str]
+            query text tokenized by bert
         """
-        input = {'qid': qid, 'queryText':query_text, 'queryTokens': query_tokens, 'docIds': doc_ids}
+        input = {'qid': qid, 'docIds': doc_ids}
+        assert 'qid' not in query_dict
+        assert 'docIds' not in query_dict
+        input.update(query_dict)
         self.utils.lazyExtract(JString(json.dumps(input)))
 
     def get_result(self, qid):

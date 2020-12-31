@@ -10,13 +10,16 @@ import random
 import shutil
 import subprocess
 import uuid
+import json
+
+import sys
+sys.path.append('..')
 
 import numpy as np
 import pandas as pd
 import lightgbm as lgb
 from collections import defaultdict
 from tqdm import tqdm
-
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from pyserini.ltr import *
 from pyserini.search import get_topics_with_reader
@@ -130,28 +133,38 @@ def dev_data_loader(task='pygaggle'):
         return dev, dev_qrel
 
 
-def query_loader(choice='default'):
-    if os.path.exists(f'query_{choice}_tokenized.pickle'):
-        return pickle.load(open(f'query_{choice}_tokenized.pickle', 'rb'))
-    else:
-        if choice == 'default':
-            analyzer = Analyzer(get_lucene_analyzer())
-            nonStopAnalyzer = Analyzer(get_lucene_analyzer(stopwords=False))
-            queries = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', \
-                                             '../collections/msmarco-passage/queries.train.tsv')
-            #although not queries.dev.small.tsv but all dev rank list only contain 6980 queries
-            queries.update(get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', \
-                                                  '../collections/msmarco-passage/queries.dev.tsv'))
-            for qid, value in queries.items():
-                assert 'tokenized' not in value and 'nonSW' not in value
-                value['nonSW'] = nonStopAnalyzer.analyze(value['title'])
-                value['tokenized'] = analyzer.analyze(value['title'])
-        else:
-            raise Exception('unknown parameters')
 
-        pickle.dump(queries, open(f'query_{choice}_tokenized.pickle', 'wb'))
+def query_loader():
+    queries = {}
+    with open('queries.train.small.Flex.json') as f:
+        for line in f:
+            query = json.loads(line)
+            qid = query.pop('id')
+            query['analyzed'] = query['analyzed'].split(" ")
+            query['text'] = query['text_unlemm'].split(" ")
+            query['text_unlemm'] = query['text_unlemm'].split(" ")
+            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            queries[qid] = query
+    with open('queries.dev.small.Flex.json') as f:
+        for line in f:
+            query = json.loads(line)
+            qid = query.pop('id')
+            query['analyzed'] = query['analyzed'].split(" ")
+            query['text'] = query['text_unlemm'].split(" ")
+            query['text_unlemm'] = query['text_unlemm'].split(" ")
+            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            queries[qid] = query
+    with open('queries.eval.small.Flex.json') as f:
+        for line in f:
+            query = json.loads(line)
+            qid = query.pop('id')
+            query['analyzed'] = query['analyzed'].split(" ")
+            query['text'] = query['text_unlemm'].split(" ")
+            query['text_unlemm'] = query['text_unlemm'].split(" ")
+            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            queries[qid] = query
+    return queries
 
-        return queries
 
 
 def extract(df, queries, fe):
@@ -165,13 +178,14 @@ def extract(df, queries, fe):
             qidpid2rel[t.qid][t.pid] = t.rel
             need_rows += 1
         #test.py has bug here, it does not convert pid to str, not sure why it does not cause problem in java
-        fe.lazy_extract(str(qid), queries[qid]['nonSW'], queries[qid]['tokenized'], [str(pid) for pid in qidpid2rel[t.qid].keys()])
+        fe.lazy_extract(str(qid), [str(pid) for pid in qidpid2rel[t.qid].keys()], queries[str(qid)])
         fetch_later.append(str(qid))
         if len(fetch_later) == 10000:
             info = np.zeros(shape=(need_rows, 3), dtype=np.int32)
             feature = np.zeros(shape=(need_rows, len(fe.feature_names())), dtype=np.float32)
             idx = 0
             for qid in fetch_later:
+                ##bug here
                 for doc in fe.get_result(qid):
                     info[idx, 0] = int(qid)
                     info[idx, 1] = int(doc['pid'])
@@ -409,7 +423,6 @@ def gen_exp_dir():
 
 
 def save_exp(dirname,
-             fe,
              train_extracted, dev_extracted,
              train_res, eval_res):
     dev_extracted['data'][['qid', 'pid', 'score']].to_json(f'{dirname}/output.json')
@@ -431,7 +444,7 @@ def save_exp(dirname,
     json.dump(metadata, open(f'{dirname}/metadata.json', 'w'))
     shutil.copytree('anserini_ltr_source', f'{dirname}/anserini_ltr_source')
     shutil.copytree('pyserini_ltr_source', f'{dirname}/pyserini_ltr_source')
-    shutil.copy('test.py', f'{dirname}/test.py')
+    shutil.copy('train_passage.py', f'{dirname}/train_passage.py')
 
 
 if __name__ == '__main__':
@@ -439,7 +452,7 @@ if __name__ == '__main__':
     dev, dev_qrel = dev_data_loader(task='pygaggle')
     queries = query_loader()
 
-    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco-flex/', max(multiprocessing.cpu_count()//2, 1))
     fe.add(BM25(k1=0.9, b=0.4))
     fe.add(BM25(k1=1.2, b=0.75))
     fe.add(BM25(k1=2.0, b=0.75))
@@ -469,7 +482,7 @@ if __name__ == '__main__':
     fe.add(StopRatio())
 
     fe.add(QueryLength())
-    fe.add(QueryLengthNonStopWords())
+    #fe.add(QueryLengthNonStopWords())
     fe.add(QueryCoverageRatio())
     fe.add(UniqueTermCount())
     fe.add(MatchingTermCount())
@@ -524,6 +537,21 @@ if __name__ == '__main__':
     fe.add(OrderedQueryPairs(8))
     fe.add(OrderedQueryPairs(15))
 
+    fe.add(BM25Mean(MaxPooler()))
+    fe.add(BM25Mean(MinPooler()))
+    fe.add(BM25Min(MaxPooler()))
+    fe.add(BM25Min(MinPooler()))
+    fe.add(BM25Max(MaxPooler()))
+    fe.add(BM25Max(MinPooler()))
+    fe.add(BM25HMean(MaxPooler()))
+    fe.add(BM25HMean(MinPooler()))
+    fe.add(BM25Var(MaxPooler()))
+    fe.add(BM25Var(MinPooler()))
+    fe.add(BM25Quartile(MaxPooler()))
+    fe.add(BM25Quartile(MinPooler()))
+#     fe.add(IBMModel1('../collections/msmarco-passage/body','Unlemma', 'Body', 'text_unlemm'))
+    fe.add(IBMModel1('../collections/msmarco-passage/text_bert_tok','Bert','BERT','text_bert_tok'))
+
     train_extracted = data_loader('train', sampled_train, queries, fe)
     dev_extracted = data_loader('dev', dev, queries, fe)
     feature_name = fe.feature_names()
@@ -535,4 +563,4 @@ if __name__ == '__main__':
     eval_res.update(eval_recall(dev_qrel, dev_extracted['data']))
 
     dirname = gen_exp_dir()
-    save_exp(dirname, fe, train_extracted, dev_extracted, train_res, eval_res)
+    save_exp(dirname, train_extracted, dev_extracted, train_res, eval_res)

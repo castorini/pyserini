@@ -15,7 +15,6 @@ import pandas as pd
 import lightgbm as lgb
 from collections import defaultdict
 from tqdm import tqdm
-
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from pyserini.ltr import *
 from pyserini.search import get_topics_with_reader
@@ -54,15 +53,34 @@ def dev_data_loader(file, format):
 
 
 def query_loader():
-    analyzer = Analyzer(get_lucene_analyzer())
-    nonStopAnalyzer = Analyzer(get_lucene_analyzer(stopwords=False))
-    queries = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', \
-                                          '../collections/msmarco-passage/queries.dev.tsv')
-    for qid, value in queries.items():
-        assert 'tokenized' not in value and 'nonSW' not in value
-        value['nonSW'] = nonStopAnalyzer.analyze(value['title'])
-        value['tokenized'] = analyzer.analyze(value['title'])
-
+    queries = {}
+    with open('queries.train.small.Flex.json') as f:
+        for line in f:
+            query = json.loads(line)
+            qid = query.pop('id')
+            query['analyzed'] = query['analyzed'].split(" ")
+            query['text'] = query['text_unlemm'].split(" ")
+            query['text_unlemm'] = query['text_unlemm'].split(" ")
+            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            queries[qid] = query
+    with open('queries.dev.small.Flex.json') as f:
+        for line in f:
+            query = json.loads(line)
+            qid = query.pop('id')
+            query['analyzed'] = query['analyzed'].split(" ")
+            query['text'] = query['text_unlemm'].split(" ")
+            query['text_unlemm'] = query['text_unlemm'].split(" ")
+            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            queries[qid] = query
+    with open('queries.eval.small.Flex.json') as f:
+        for line in f:
+            query = json.loads(line)
+            qid = query.pop('id')
+            query['analyzed'] = query['analyzed'].split(" ")
+            query['text'] = query['text_unlemm'].split(" ")
+            query['text_unlemm'] = query['text_unlemm'].split(" ")
+            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            queries[qid] = query
     return queries
 
 
@@ -78,7 +96,7 @@ def extract(df, queries, fe):
             need_rows += 1
         #test.py has bug here, it does not convert pid to str, not sure why it does not cause problem in java
         #but here we make sure it is str in loader
-        fe.lazy_extract(str(qid), queries[qid]['nonSW'], queries[qid]['tokenized'], list(qidpid2rel[t.qid].keys()))
+        fe.lazy_extract(str(qid), [str(pid) for pid in qidpid2rel[t.qid].keys()], queries[str(qid)])
         fetch_later.append(str(qid))
         if len(fetch_later) == 1000:
             info = []
@@ -290,7 +308,7 @@ if __name__ == '__main__':
     dev, dev_qrel = dev_data_loader(args.rank_list_path, args.rank_list_format)
     queries = query_loader()
 
-    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco-flex/', max(multiprocessing.cpu_count()//2, 1))
     fe.add(BM25(k1=0.9, b=0.4))
     fe.add(BM25(k1=1.2, b=0.75))
     fe.add(BM25(k1=2.0, b=0.75))
@@ -374,6 +392,22 @@ if __name__ == '__main__':
     fe.add(OrderedQueryPairs(3))
     fe.add(OrderedQueryPairs(8))
     fe.add(OrderedQueryPairs(15))
+
+    fe.add(BM25Mean(MaxPooler()))
+    fe.add(BM25Mean(MinPooler()))
+    fe.add(BM25Min(MaxPooler()))
+    fe.add(BM25Min(MinPooler()))
+    fe.add(BM25Max(MaxPooler()))
+    fe.add(BM25Max(MinPooler()))
+    fe.add(BM25HMean(MaxPooler()))
+    fe.add(BM25HMean(MinPooler()))
+    fe.add(BM25Var(MaxPooler()))
+    fe.add(BM25Var(MinPooler()))
+    fe.add(BM25Quartile(MaxPooler()))
+    fe.add(BM25Quartile(MinPooler()))
+
+    fe.add(IBMModel1('../collections/msmarco-passage/body', 'Unlemma', 'Body', 'text_unlemm'))
+    fe.add(IBMModel1('../collections/msmarco-passage/text_bert_tok', 'Bert', 'BERT', 'text_bert_tok'))
 
     dev_extracted = data_loader(args.rank_list_path, dev, queries, fe)
     feature_names = fe.feature_names()
