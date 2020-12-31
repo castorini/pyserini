@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Convert MSMARCO queries
+# Convert MSMARCO passage
 import multiprocessing
 import sys
 import json
@@ -9,6 +9,8 @@ import spacy
 import re
 from convert_common import readStopWords, SpacyTextParser, getRetokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
+from flair.data import Sentence
+from flair.models import MultiTagger
 
 sys.path.append('.')
 
@@ -32,10 +34,11 @@ inpFile = open(args.input)
 outFile = open(args.output, 'w')
 maxDocSize = args.max_doc_size
 
-stopWords = readStopWords('stopwords.txt', lowerCase=True)
+stopWords = readStopWords('./msmarco-passage_exp/stopwords.txt', lowerCase=True)
 print(stopWords)
 nlp = SpacyTextParser('en_core_web_sm', stopWords, keepOnlyAlphaNum=True, lowerCase=True)
 analyzer = Analyzer(get_lucene_analyzer())
+tagger = MultiTagger.load(['pos-fast', 'ner-fast'])
 
 if 'bert_tokenize' in arg_vars:
     print('BERT-tokenizing input into the field: ' + 'text_bert_tok')
@@ -56,35 +59,46 @@ class PassParseWorker:
 
         text, text_unlemm = nlp.procText(body)
 
+        sentence = Sentence(body)
+        print(sentence)
+        tagger.predict(sentence)
+        line = sentence.to_tagged_string().split(' ')
+        entity = []
+        i = 0
+        while (i < len(line)):
+            entity.append(line[i] + ':' + line[i + 1])
+            i = i + 2
+
         doc = {"id": pid,
                "text": text,
                "text_unlemm": text_unlemm,
-               "raw": body}
+               "raw": body,
+               "entity": entity}
         doc["text_bert_tok"] = getRetokenized(bertTokenizer, body.lower())
         return doc
 
+if __name__ == '__main__':
+    proc_qty = args.proc_qty
+    print(f'Spanning {proc_qty} processes')
+    pool = multiprocessing.Pool(processes=proc_qty)
+    ln = 0
+    for docJson in pool.imap(PassParseWorker(), inpFile, 500):
+        ln = ln + 1
+        if docJson is not None:
+            analyzed = analyzer.analyze(docJson["raw"])
+            for token in analyzed:
+                if ' ' in token:
+                    print(analyzed)
+            docJson['contents'] = ' '.join(analyzed)
+            outFile.write(json.dumps(docJson) + '\n')
+        else:
+            print('Ignoring misformatted line %d' % ln)
 
-proc_qty = args.proc_qty
-print(f'Spanning {proc_qty} processes')
-pool = multiprocessing.Pool(processes=proc_qty)
-ln = 0
-for docJson in pool.imap(PassParseWorker(), inpFile, 500):
-    ln = ln + 1
-    if docJson is not None:
-        analyzed = analyzer.analyze(docJson["raw"])
-        for token in analyzed:
-            if ' ' in token:
-                print(analyzed)
-        docJson['contents'] = ' '.join(analyzed)
-        outFile.write(json.dumps(docJson) + '\n')
-    else:
-        print('Ignoring misformatted line %d' % ln)
+        if ln % 10000 == 0:
+            print('Processed %d passages' % ln)
 
-    if ln % 10000 == 0:
-        print('Processed %d passages' % ln)
+    print('Processed %d passages' % ln)
 
-print('Processed %d passages' % ln)
-
-inpFile.close()
-outFile.close()
+    inpFile.close()
+    outFile.close()
 
