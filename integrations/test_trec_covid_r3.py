@@ -18,19 +18,26 @@ import os
 import re
 import shutil
 import unittest
+import json
+
+import sys
+sys.path.append('..')
+
 from random import randint
-from pyserini.util import download_url
+from pyserini.util import download_url,download_prebuilt_index
+from integrations.simplesearcher_checker import SimpleSearcherChecker
+
 
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
-        self.round3_runs = {
+        self.round4_runs = {
             'https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.covid-round3-cumulative.txt':
                 'dfccc32efd58a8284ae411e5c6b27ce9',
             'https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.covid-round4-cumulative.txt':
                 '7a5c27e8e052c49ff72d557051825973'
         }
-        self.tmp = f'../trec-covid-r3/check_data'
+        self.tmp = f'tmp{randint(0, 10000)}'
 
         # In the rare event there's a collision
         if os.path.exists(self.tmp):
@@ -47,21 +54,27 @@ class TestSearchIntegration(unittest.TestCase):
             print('')
 
 
-    def test_round3_score_runs(self):
-        os.system(f'python3 ../trec-covid-r3/ranker.py \
-            -alpha 0.6 \
-            -clf lr \
-            -vectorizer tfidf \
-            -trec_covid_home ../trec-covid-r3 \
-            -base ../trec-covid-r3/data/covidex.r4.d2q.duot5 \
-            -qrels {self.tmp}/qrels.covid-round3-cumulative.txt \
-            -index ../trec-covid-r3/data/lucene-index-cord19-abstract-2020-06-19 \
-            -tag ../trec-covid-r3/data/covidex.r4.d2q.duot5.lr')
+    def test_bm25(self):
+
+        prebuilt_index_path = download_prebuilt_index('trec-covid-r4-abstract')
+        os.system(f'python ../trec-covid-r3/ranker.py \
+                    -alpha 0.6 \
+                    -clf lr \
+                    -vectorizer tfidf \
+                    -trec_covid_home ../trec-covid-r3 \
+                    -base ../trec-covid-r3/data/covidex.r4.d2q.duot5 \
+                    -qrels ../tools/topics-and-qrels/qrels.covid-round3-cumulative.txt \
+                    -index {prebuilt_index_path} \
+                    -tag ../trec-covid-r3/data/covidex.r4.d2q.duot5.lr \
+                    -output {self.tmp}/output.json')
+        with open(f'{self.tmp}/output.json') as json_file:
+            data = json.load(json_file)
+            self.assertEqual("0.1764\\n'", data['map'])
+            self.assertEqual("0.7662\\n'", data['ndcg'])
 
 
-    # def tearDown(self):
-    #     shutil.rmtree(self.tmp)
-    #     shutil.rmtree('runs')
+    def tearDown(self):
+        shutil.rmtree(self.tmp)
 
 
 if __name__ == '__main__':
