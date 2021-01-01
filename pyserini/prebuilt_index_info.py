@@ -346,5 +346,17 @@ INDEX_INFO = {
         "documents": 1412648,
         "unique_terms": 944574,
         "downloaded": False
+    },
+    "cast2019": {
+        "description": "TREC 2019 CaST",
+        "urls": [
+            "https://www.dropbox.com/s/ba89k4xyn0srbk0/index-cast2019.tar.gz?dl=1",
+        ],
+        "md5": "36e604d7f5a4e08ade54e446be2f6345",
+        "size compressed (bytes)": 21266884884,
+        "total_terms": 1593628213,
+        "documents": 38429835,
+        "unique_terms": -1,
+        "downloaded": False
     }
 }
