@@ -114,7 +114,7 @@ nohup python pyserini/scripts/kilt/run_retrieval.py \
 
 ```bash
 # Evaluate runs (takes a few minutes if you used topk 1000)
-nohup ./pyserini/scripts/kilt/eval_runs.sh runs/<name of run> 1,100,1000 &
+nohup ./pyserini/scripts/kilt/eval_runs.sh runs/<name of run> 1,100,1000 > results.out &
 ```
 
 ## Results
@@ -131,7 +131,6 @@ For R-Precision:
 | anserini (document + bigram) | 43.97 | - | - | - | 46.24 | 52.93 | 30.95 | 42.96 | 32.54 | 7.23 | 33.58 |
 | anserini (document + stopword filter + bigram) | 40.13 | - | - | - | 54.36 | 70.84 | 27.63 | 45.34 | 29.76 | 7.37 | 30.94 |
 | anserini (document + stopword filter + stem + bigram) | 39.89 | - | - | - | 54.22 | 70.09 | 26.89 | 45.04 | 29.65 | 7.23 | 31.36 |
+| anserini (passage + stopword filter + stem + bigram) | 25.13 | - | - | - | 23.6 | 37.94 | 12.16 | 34.23 | 13.85 | 3.78 | 30.09 |
 | anserini (sections + stopword filter + bigram) | 35.98 | - | - | - | 40.72 | 59.96 | 19.95 | 41.39 | 21.42 | 5.51 | 30.54 |
 | anserini (sections + stopword filter + stem + bigram) | 35.61 | - | - | - | 37.42 | 59.34 | 19.77 | 41.23 | 21.10 | 5.11 | 30.94 |
-| anserini (passage + stopword filter + stem + bigram) |  | - | - | - |  |  |  |  |  |  |  |
-
