@@ -1,9 +1,10 @@
-from typing import List, Optional
-import faiss
 from dataclasses import dataclass
+from typing import Dict, List, Optional
+
+import faiss
 import numpy as np
-from tqdm import tqdm
 import tensorflow.compat.v1 as tf
+from tqdm import tqdm
 
 
 @dataclass
@@ -79,13 +80,14 @@ class SimpleDenseSearcher:
                 for score, idx in zip(distances, indexes) if idx != -1
             ]
 
-    def batch_search(self, q_embs: List[np.array], q_ids: List[str], k: int = 10, threads: int = 1) -> List[DenseSearchResult]:
+    def batch_search(self, q_embs: np.array, q_ids: List[str], k: int = 10, threads: int = 1)\
+            -> Dict[str, List[DenseSearchResult]]:
         """
 
         Parameters
         ----------
-        q_embs : List[np.array]
-            List of query embeddings
+        q_embs : np.array
+            np.array of query embeddings
         q_ids : List[str]
             List of corresponding query ids.
         k : int
@@ -177,8 +179,8 @@ class QueryEncoder:
                         'docid': tf.FixedLenFeature([], tf.int64)}
             parsed_features = tf.parse_single_example(example_proto, features)
             corpus = tf.decode_raw(parsed_features['doc_emb'], tf.float32)
-            docid = tf.cast(parsed_features['docid'], tf.int32)
-            return corpus, docid
+            doc_id = tf.cast(parsed_features['docid'], tf.int32)
+            return corpus, doc_id
 
         with tf.Session() as sess:
             docids = []
