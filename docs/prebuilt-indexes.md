@@ -8,7 +8,7 @@ from pyserini.search import SimpleSearcher
 SimpleSearcher.list_prebuilt_indexes()
 
 from pyserini.index import IndexReader
-index_reader = IndexReader.list_prebuilt_indexes()
+IndexReader.list_prebuilt_indexes()
 ```
 
 It's easy initialize a searcher from a pre-built index:
