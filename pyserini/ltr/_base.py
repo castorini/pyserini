@@ -1,5 +1,7 @@
 from ..pyclass import autoclass, JString, JArrayList
 import json
+import numpy as np
+import pandas as pd
 
 class Feature:
    def name(self):
@@ -299,42 +301,43 @@ class FeatureExtractor:
         return self.feature_name
 
     def lazy_extract(self, qid, doc_ids, query_dict):
-        """
-        sumbit tasks to workers
-        Parameters
-        ----------
-        qid: str
-            unique query id
-        query_tokens: List[str]
-            tokenized query
-        doc_ids: List[str]
-            doc id we need to extract on
-        query_text_unlemma:  List[str]
-            unlemma query text
-        query_bert: List[str]
-            query text tokenized by bert
-        """
         input = {'qid': qid, 'docIds': doc_ids}
-        assert 'qid' not in query_dict
-        assert 'docIds' not in query_dict
+        # assert 'qid' not in query_dict
+        # assert 'docIds' not in query_dict
+        # assert type(qid) == str
+        # assert type(doc_ids) == list
+        # for pid in doc_ids:
+        #     assert type(pid)
+        # assert type(query_dict) == dict
+        # for k,v in query_dict.items():
+        #     assert type(v) == list
+        #     for token in v:
+        #         assert type(token) == str
+        #         assert ' ' not in token
+        #     input[k] = v
         input.update(query_dict)
         self.utils.lazyExtract(JString(json.dumps(input)))
 
+    def batch_extract(self, tasks):
+        tasks = sorted(tasks, key=lambda x:x['qid'])
+        need_rows = 0
+        for task in tasks:
+            self.lazy_extract(task['qid'], task['docIds'], task['query_dict'])
+            need_rows += len(task['docIds'])
+        feature_name = self.feature_names()
+        feature = np.zeros(shape=(need_rows, len(feature_name)), dtype=np.float32)
+        idx = 0
+        for task in tasks:
+            flattened = self.get_result(task['qid'])
+            feature[idx:idx+len(task['docIds']),:] = flattened.reshape(len(task['docIds']), len(feature_name))
+        return pd.DataFrame(feature, columns=feature_name)
+
+
     def get_result(self, qid):
-        """
-        get task result by query id; this call will be blocked until the task is finished
-        Parameters
-        ----------
-        qid: str
-         unique query id; mush be the same id that is used to submit the task
-
-        Returns
-        -------
-        dict: a parsed json
-
-        """
-        res = self.utils.getResult(JString(qid))
-        return json.loads(res)
+        res = self.utils.getResult(JString(qid)).tostring()
+        dt = np.dtype(np.float32)
+        dt = dt.newbyteorder('>')
+        return np.frombuffer(res, dt)
 
 
 
