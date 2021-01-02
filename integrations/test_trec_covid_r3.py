@@ -44,12 +44,12 @@ class TestSearchIntegration(unittest.TestCase):
             shutil.rmtree(self.tmp)
 
         os.mkdir(self.tmp)
-        for url in self.round3_runs:
+        for url in self.round4_runs:
             print(f'Verifying stored run at {url}...')
             filename = url.split('/')[-1]
             filename = re.sub('\\?dl=1$', '', filename)  # Remove the Dropbox 'force download' parameter
 
-            download_url(url, self.tmp, md5=self.round3_runs[url], force=True)
+            download_url(url, self.tmp, md5=self.round4_runs[url], force=True)
             self.assertTrue(os.path.exists(os.path.join(self.tmp, filename)))
             print('')
 
