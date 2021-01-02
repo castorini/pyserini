@@ -117,6 +117,8 @@ def query_loader():
 def batch_extract(df, queries, fe):
     tasks = []
     task_infos = []
+    group_lst = []
+
     for qid, group in tqdm(df.groupby('qid')):
         task = {
             "qid": qid,
@@ -128,10 +130,11 @@ def batch_extract(df, queries, fe):
             task["docIds"].append(t.pid)
             task_infos.append((qid, t.pid, t.rel))
         tasks.append(task)
+        group_lst.append((qid, len(task['docIds'])))
         if len(tasks) == 100:
             features = fe.batch_extract(tasks)
             task_infos = pd.DataFrame(task_infos, columns=['qid', 'pid', 'rel'])
-            group = task_infos.groupby('qid').agg(count=('pid', 'count'))['count']
+            group = pd.DataFrame(group_lst, columns=['qid', 'count'])
             print(features.shape)
             print(task_infos.qid.drop_duplicates().shape)
             print(group.mean())
@@ -140,11 +143,12 @@ def batch_extract(df, queries, fe):
             yield task_infos, features, group
             tasks = []
             task_infos = []
+            group_lst = []
     # deal with rest
     if len(tasks) > 0:
         features = fe.batch_extract(tasks)
         task_infos = pd.DataFrame(task_infos, columns=['qid', 'pid', 'rel'])
-        group = task_infos.groupby('qid').agg(count=('pid', 'count'))['count']
+        group = pd.DataFrame(group_lst, columns=['qid', 'count'])
         print(features.shape)
         print(task_infos.qid.drop_duplicates().shape)
         print(group.mean())

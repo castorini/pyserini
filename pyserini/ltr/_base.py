@@ -330,6 +330,7 @@ class FeatureExtractor:
         for task in tasks:
             flattened = self.get_result(task['qid'])
             feature[idx:idx+len(task['docIds']),:] = flattened.reshape(len(task['docIds']), len(feature_name))
+            idx += len(task['docIds'])
         return pd.DataFrame(feature, columns=feature_name)
 
 
