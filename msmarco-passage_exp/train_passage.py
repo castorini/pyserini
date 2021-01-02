@@ -144,6 +144,7 @@ def query_loader():
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            del query['raw']
             queries[qid] = query
     with open('queries.dev.small.Flex.json') as f:
         for line in f:
@@ -153,6 +154,7 @@ def query_loader():
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            del query['raw']
             queries[qid] = query
     with open('queries.eval.small.Flex.json') as f:
         for line in f:
@@ -162,6 +164,7 @@ def query_loader():
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            del query['raw']
             queries[qid] = query
     return queries
 
@@ -176,16 +179,16 @@ def batch_extract(df, queries, fe):
 
     for qid, group in tqdm(df.groupby('qid')):
         task = {
-            "qid": qid,
+            "qid": str(qid),
             "docIds": [],
             "rels": [],
-            "query_dict": queries[qid]
+            "query_dict": queries[str(qid)]
         }
         for t in group.reset_index().itertuples():
-            task["docIds"].append(t.pid)
+            task["docIds"].append(str(t.pid))
             task_infos.append((qid, t.pid, t.rel))
         tasks.append(task)
-        if len(tasks) == 1000:
+        if len(tasks) == 10000:
             features = fe.batch_extract(tasks)
             task_infos = pd.DataFrame(task_infos, columns=['qid', 'pid', 'rel'])
             group = task_infos.groupby('qid').agg(count=('pid', 'count'))['count']
@@ -213,6 +216,7 @@ def batch_extract(df, queries, fe):
         feature_dfs.append(features)
         group_dfs.append(group)
     info_dfs = pd.concat(info_dfs, axis=0, ignore_index=True)
+    feature_dfs = pd.concat(feature_dfs, axis=0, ignore_index=True, copy=False)
     group_dfs = pd.concat(group_dfs, axis=0, ignore_index=True)
     return info_dfs, feature_dfs, group_dfs
 
@@ -281,25 +285,11 @@ def gen_dev_group_rel_num(dev_qrel, dev_extracted):
 
     return recall_at_200
 
-def recall_at_200(preds, dataset):
-    global dev_group_rel_num
-    global dev_group
-    labels = dataset.get_label()
-    groups = dataset.get_group()
-    assert np.equal(groups, dev_group).all()
-    idx = 0
-    recall = 0
-    for g,gnum in zip(groups, dev_group_rel_num):
-        top_preds = labels[idx:idx+g][np.argsort(preds[idx:idx+g])]
-        recall += np.sum(top_preds[-200:])/gnum
-        idx += g
-    assert idx == len(preds)
-    return 'recall@200', recall/len(groups), True
 
 def train(train_extracted, dev_extracted, feature_name, eval_fn):
-    train_X = [part.loc[:, feature_name] for part in train_extracted['data']]
+    train_X = train_extracted['data'].loc[:, feature_name]
     train_Y = train_extracted['info']['rel']
-    dev_X = [part.loc[:, feature_name] for part in dev_extracted['data']]
+    dev_X = dev_extracted['data'].loc[:, feature_name]
     dev_Y = dev_extracted['info']['rel']
     lgb_train = lgb.Dataset(train_X, label=train_Y, group=train_extracted['group'])
     lgb_valid = lgb.Dataset(dev_X, label=dev_Y, group=dev_extracted['group'])
@@ -433,7 +423,7 @@ def gen_exp_dir():
 def save_exp(dirname,
              train_extracted, dev_extracted,
              train_res, eval_res):
-    dev_extracted['data'][['qid', 'pid', 'score']].to_json(f'{dirname}/output.json')
+    dev_extracted['info'][['qid', 'pid', 'score']].to_json(f'{dirname}/output.json')
     subprocess.check_output(['gzip', f'{dirname}/output.json'])
     with open(f'{dirname}/model.pkl', 'wb') as f:
         pickle.dump(train_res['model'], f)
@@ -457,7 +447,7 @@ def save_exp(dirname,
 
 
 if __name__ == '__main__':
-    sampled_train = train_data_loader(task='triple', neg_sample=10)
+    sampled_train = train_data_loader(task='triple', neg_sample=20)
     dev, dev_qrel = dev_data_loader(task='pygaggle')
     queries = query_loader()
 
