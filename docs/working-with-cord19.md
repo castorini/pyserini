@@ -153,4 +153,10 @@ MATCH path = ()-->(a)
 call apoc.gephi.add(null,'workspace1', path, 'weightproperty', ['CordUID','Title','DOI']) yield nodes, relationships
 return nodes, relationships
 ```
+From the Layout panel in Gephi, choose `ForceAtlas 2` algorithm and tune the `scaling` parameter for a better graph spatialization.
 
+You should get the following visualization:
+![graph](images/cord19_gephi.png)
+## Replication Log
+
++ Results replicated by [@Dahlia-Chehata](https://github.com/Dahlia-Chehata) on 2020-12-26 (commit [`b6da95a`](https://github.com/castorini/pyserini/commit/b6da95aaf81ebb26d51be5c7f2cf68b44361307b))
