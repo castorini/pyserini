@@ -125,8 +125,6 @@ def batch_extract(df, queries, fe):
             "query_dict": queries[qid]
         }
         for t in group.reset_index().itertuples():
-            assert t.qid == qid
-            assert t.pid not in task["docIds"]
             task["docIds"].append(t.pid)
             task_infos.append((qid, t.pid, t.rel))
         tasks.append(task)
@@ -395,7 +393,7 @@ if __name__ == '__main__':
 
     models =  pickle.load(open(args.ltr_model_path+'/model.pkl','rb'))
     metadata = json.load(open(args.ltr_model_path+'/metadata.json','r'))
-    feature_used = [name for name, freq in metadata['feature_importances']]
+    feature_used = [name for name, freq in metadata['feature_names']]
 
     batch_info = []
     for dev_extracted in batch_extract(dev, queries, fe):

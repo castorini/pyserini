@@ -166,56 +166,55 @@ def query_loader():
     return queries
 
 
+def batch_extract(df, queries, fe):
+    tasks = []
+    task_infos = []
 
-def extract(df, queries, fe):
-    df_pieces = []
-    fetch_later = []
-    qidpid2rel = defaultdict(dict)
-    need_rows = 0
+    info_dfs = []
+    feature_dfs = []
+    group_dfs = []
+
     for qid, group in tqdm(df.groupby('qid')):
+        task = {
+            "qid": qid,
+            "docIds": [],
+            "rels": [],
+            "query_dict": queries[qid]
+        }
         for t in group.reset_index().itertuples():
-            assert t.pid not in qidpid2rel[t.qid]
-            qidpid2rel[t.qid][t.pid] = t.rel
-            need_rows += 1
-        #test.py has bug here, it does not convert pid to str, not sure why it does not cause problem in java
-        fe.lazy_extract(str(qid), [str(pid) for pid in qidpid2rel[t.qid].keys()], queries[str(qid)])
-        fetch_later.append(str(qid))
-        if len(fetch_later) == 10000:
-            info = np.zeros(shape=(need_rows, 3), dtype=np.int32)
-            feature = np.zeros(shape=(need_rows, len(fe.feature_names())), dtype=np.float32)
-            idx = 0
-            for qid in fetch_later:
-                ##bug here
-                for doc in fe.get_result(qid):
-                    info[idx, 0] = int(qid)
-                    info[idx, 1] = int(doc['pid'])
-                    info[idx, 2] = qidpid2rel[int(qid)][int(doc['pid'])]
-                    feature[idx, :] = doc['features']
-                    idx += 1
-            info = pd.DataFrame(info, columns=['qid', 'pid', 'rel'])
-            feature = pd.DataFrame(feature, columns=fe.feature_names())
-            df_pieces.append(pd.concat([info, feature], axis=1))
-            fetch_later = []
-            need_rows = 0
+            task["docIds"].append(t.pid)
+            task_infos.append((qid, t.pid, t.rel))
+        tasks.append(task)
+        if len(tasks) == 1000:
+            features = fe.batch_extract(tasks)
+            task_infos = pd.DataFrame(task_infos, columns=['qid', 'pid', 'rel'])
+            group = task_infos.groupby('qid').agg(count=('pid', 'count'))['count']
+            print(features.shape)
+            print(task_infos.qid.drop_duplicates().shape)
+            print(group.mean())
+            print(features.head(10))
+            print(features.info())
+            info_dfs.append(task_infos)
+            feature_dfs.append(features)
+            group_dfs.append(group)
+            tasks = []
+            task_infos = []
     # deal with rest
-    if len(fetch_later) > 0:
-        info = np.zeros(shape=(need_rows, 3), dtype=np.int32)
-        feature = np.zeros(shape=(need_rows, len(fe.feature_names())), dtype=np.float32)
-        idx = 0
-        for qid in fetch_later:
-            for doc in fe.get_result(qid):
-                info[idx, 0] = int(qid)
-                info[idx, 1] = int(doc['pid'])
-                info[idx, 2] = qidpid2rel[int(qid)][int(doc['pid'])]
-                feature[idx, :] = doc['features']
-                idx += 1
-        info = pd.DataFrame(info, columns=['qid', 'pid', 'rel'])
-        feature = pd.DataFrame(feature, columns=fe.feature_names())
-        df_pieces.append(pd.concat([info, feature], axis=1))
-    data = pd.concat(df_pieces, axis=0, ignore_index=True)
-    data = data.sort_values(by='qid', kind='mergesort')
-    group = data.groupby('qid').agg(count=('pid', 'count'))['count']
-    return data, group
+    if len(tasks) > 0:
+        features = fe.batch_extract(tasks)
+        task_infos = pd.DataFrame(task_infos, columns=['qid', 'pid', 'rel'])
+        group = task_infos.groupby('qid').agg(count=('pid', 'count'))['count']
+        print(features.shape)
+        print(task_infos.qid.drop_duplicates().shape)
+        print(group.mean())
+        print(features.head(10))
+        print(features.info())
+        info_dfs.append(task_infos)
+        feature_dfs.append(features)
+        group_dfs.append(group)
+    info_dfs = pd.concat(info_dfs, axis=0, ignore_index=True)
+    group_dfs = pd.concat(group_dfs, axis=0, ignore_index=True)
+    return info_dfs, feature_dfs, group_dfs
 
 
 def hash_df(df):
@@ -240,40 +239,47 @@ def data_loader(task, df, queries, fe):
     fe_hash = hash_fe(fe)
     if os.path.exists(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle'):
         res = pickle.load(open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'rb'))
-        print(res['data'].shape)
-        print(res['data'].qid.drop_duplicates().shape)
+        print(res['info'].shape)
+        print(res['info'].qid.drop_duplicates().shape)
         print(res['group'].mean())
-        print(res['data'].head(10))
-        print(res['data'].info())
         return res
     else:
         if task == 'train' or task == 'dev':
-            data, group = extract(df, queries, fe)
-            obj = {'data': data, 'group': group, 'df_hash': df_hash, 'jar_hash': jar_hash, 'fe_hash': fe_hash}
-            print(data.shape)
-            print(data.qid.drop_duplicates().shape)
+            info, data, group = batch_extract(df, queries, fe)
+            obj = {'info':info, 'data': data, 'group': group,
+                   'df_hash': df_hash, 'jar_hash': jar_hash, 'fe_hash': fe_hash}
+            print(info.shape)
+            print(info.qid.drop_duplicates().shape)
             print(group.mean())
-            print(data.head(10))
-            print(data.info())
             pickle.dump(obj, open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'wb'))
             return obj
         else:
             raise Exception('unknown parameters')
 
-def gen_dev_group_rel_num(dev_qrel, dev_extracted, feature_name):
+def gen_dev_group_rel_num(dev_qrel, dev_extracted):
     dev_rel_num = dev_qrel[dev_qrel['rel']>0].groupby('qid').count()['rel']
-    gid = 0
-    sample_id = 0
-    dev_group_rel_num = []
-    for qid,group in dev_extracted['data'].groupby('qid'):
-        group = group.sort_values(['pid'])
-        assert len(group) == dev_extracted['group'].iloc[gid]
-        assert np.isclose(group.iloc[0,:].loc[feature_name],
-                          dev_extracted['data'].iloc[sample_id,:].loc[feature_name], equal_nan=True).all()
-        dev_group_rel_num.append(dev_rel_num.loc[qid])
-        gid += 1
-        sample_id += len(group)
-    return dev_group_rel_num, dev_extracted['group']
+    prev_qid = None
+    dev_rel_num_list = []
+    for t in dev_extracted['info'].itertuples():
+        if prev_qid is None or t.qid != prev_qid:
+            prev_qid = t.qid
+            dev_rel_num_list.append(dev_rel_num.loc[t.qid])
+        else:
+            continue
+
+    def recall_at_200(preds, dataset):
+        labels = dataset.get_label()
+        groups = dataset.get_group()
+        idx = 0
+        recall = 0
+        for g, gnum in zip(groups, dev_rel_num_list):
+            top_preds = labels[idx:idx + g][np.argsort(preds[idx:idx + g])]
+            recall += np.sum(top_preds[-200:]) / gnum
+            idx += g
+        assert idx == len(preds)
+        return 'recall@200', recall / len(groups), True
+
+    return recall_at_200
 
 def recall_at_200(preds, dataset):
     global dev_group_rel_num
@@ -290,11 +296,11 @@ def recall_at_200(preds, dataset):
     assert idx == len(preds)
     return 'recall@200', recall/len(groups), True
 
-def train(train_extracted, dev_extracted, feature_name):
-    train_X = train_extracted['data'].loc[:, feature_name]
-    train_Y = train_extracted['data']['rel']
-    dev_X = dev_extracted['data'].loc[:, feature_name]
-    dev_Y = dev_extracted['data']['rel']
+def train(train_extracted, dev_extracted, feature_name, eval_fn):
+    train_X = [part.loc[:, feature_name] for part in train_extracted['data']]
+    train_Y = train_extracted['info']['rel']
+    dev_X = [part.loc[:, feature_name] for part in dev_extracted['data']]
+    dev_Y = dev_extracted['info']['rel']
     lgb_train = lgb.Dataset(train_X, label=train_Y, group=train_extracted['group'])
     lgb_valid = lgb.Dataset(dev_X, label=dev_Y, group=dev_extracted['group'])
     #max_leaves = -1 seems to work better for many settings, although 10 is also good
@@ -324,10 +330,10 @@ def train(train_extracted, dev_extracted, feature_name):
                     valid_sets=lgb_valid,
                     num_boost_round=num_boost_round,
                     early_stopping_rounds=early_stopping_round,
-                    feval=recall_at_200,
+                    feval=eval_fn,
                     feature_name=feature_name,
                     verbose_eval=True)
-    dev_extracted['data']['score'] = gbm.predict(dev_X)
+    dev_extracted['info']['score'] = gbm.predict(dev_X)
     best_score = gbm.best_score['valid_0']['recall@200']
     print(best_score)
     best_iteration = gbm.best_iteration
@@ -337,7 +343,9 @@ def train(train_extracted, dev_extracted, feature_name):
     print(feature_importances)
     params['num_boost_round'] = num_boost_round
     params['early_stopping_round'] = early_stopping_round
-    return {'model': [gbm], 'params': params, 'feature_importances': feature_importances}
+    return {'model': [gbm], 'params': params,
+            'feature_names': feature_name,
+            'feature_importances': feature_importances}
 
 
 def eval_mrr(dev_data):
@@ -436,6 +444,7 @@ def save_exp(dirname,
         'dev_df_hash': dev_extracted['df_hash'],
         'dev_jar_hash': dev_extracted['jar_hash'],
         'dev_fe_hash': dev_extracted['fe_hash'],
+        'feature_names': train_res['feature_names'],
         'feature_importances': train_res['feature_importances'],
         'params': train_res['params'],
         'score_tie': eval_res['score_tie'],
@@ -574,10 +583,10 @@ if __name__ == '__main__':
     feature_name = fe.feature_names()
     del sampled_train, dev, queries, fe
 
-    dev_group_rel_num, dev_group = gen_dev_group_rel_num(dev_qrel, dev_extracted, feature_name)
-    train_res = train(train_extracted, dev_extracted, feature_name)
-    eval_res = eval_mrr(dev_extracted['data'])
-    eval_res.update(eval_recall(dev_qrel, dev_extracted['data']))
+    eval_fn = gen_dev_group_rel_num(dev_qrel, dev_extracted)
+    train_res = train(train_extracted, dev_extracted, feature_name, eval_fn)
+    eval_res = eval_mrr(dev_extracted['info'])
+    eval_res.update(eval_recall(dev_qrel, dev_extracted['info']))
 
     dirname = gen_exp_dir()
     save_exp(dirname, train_extracted, dev_extracted, train_res, eval_res)
