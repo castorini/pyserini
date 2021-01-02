@@ -162,3 +162,6 @@ Output is something like this:
  'non_empty_documents': 528030,
  'unique_terms': 923436}
 ```
+
+Note that unless the underlying index was built with the `-optimize` option (i.e., merging all index segments into a single segment), `unique_terms` will show -1.
+Nope, that's not a bug.

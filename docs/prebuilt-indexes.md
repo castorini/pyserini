@@ -1,13 +1,47 @@
 # Pyserini: Prebuilt Indexes
 
 Pre-built Anserini indexes are hosted at the University of Waterloo's [GitLab](https://git.uwaterloo.ca/jimmylin/anserini-indexes) and mirrored on Dropbox.
-The following method will list available pre-built indexes:
+The following methods will list available pre-built indexes:
 
-```
+```python
+from pyserini.search import SimpleSearcher
 SimpleSearcher.list_prebuilt_indexes()
+
+from pyserini.index import IndexReader
+IndexReader.list_prebuilt_indexes()
 ```
 
-Below is a summary of what's currently available:
+It's easy initialize a searcher from a pre-built index:
+
+```python
+searcher = SimpleSearcher.from_prebuilt_index('robust04')
+```
+
+You can use this simple Python one-liner to download the pre-built index:
+
+```
+python -c "from pyserini.search import SimpleSearcher; SimpleSearcher.from_prebuilt_index('robust04')"
+```
+
+The downloaded index will be in `~/.cache/pyserini/indexes/`.
+
+It's similarly easy initialize an index reader from a pre-built index:
+
+```python
+index_reader = IndexReader.from_prebuilt_index('robust04')
+index_reader.stats()
+```
+
+The output will be:
+
+```
+{'total_terms': 174540872, 'documents': 528030, 'non_empty_documents': 528030, 'unique_terms': 923436}
+```
+
+Note that unless the underlying index was built with the `-optimize` option (i.e., merging all index segments into a single segment), `unique_terms` will show -1.
+Nope, that's not a bug.
+
+Below is a summary of the pre-built indexes that are currently available.
 
 ## MS MARCO Indexes
 
