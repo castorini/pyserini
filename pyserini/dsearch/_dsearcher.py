@@ -1,23 +1,38 @@
+#
+# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+"""
+This module provides Pyserini's dense search interface to FAISS index.
+The main entry point is the ``SimpleDenseSearcher`` class.
+"""
+import os
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 import faiss
 import numpy as np
 import tensorflow.compat.v1 as tf
 from tqdm import tqdm
 
+from pyserini.util import download_prebuilt_index, get_indexes_info
+
 
 @dataclass
 class DenseSearchResult:
     docid: str
     score: float
-    raw: Optional[str]
-
-
-@dataclass
-class Document:
-    docid: str
-    raw: Optional[str]
 
 
 class SimpleDenseSearcher:
@@ -25,24 +40,23 @@ class SimpleDenseSearcher:
 
     Parameters
     ----------
-    index_path : str
+    index_dir : str
         Path to faiss index directory.
     """
 
-    def __init__(self, index_path: str, doc_path: str):
-        self.index = faiss.read_index(index_path)
+    def __init__(self, index_dir: str):
+        self.index, self.docids = self.load_index(index_dir)
         self.dimension = self.index.d
         self.num_docs = self.index.ntotal
-        self.idx2id, self.docs = self.load_corpus(doc_path)
+        self.index_dir = index_dir
+        assert self.num_docs == len(self.docids)
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, corpus_name: str = None):
+    def from_prebuilt_index(cls, prebuilt_index_name: str):
         """Build a searcher from a pre-built index; download the index if necessary.
 
         Parameters
         ----------
-        corpus_name : str
-            corpus name
         prebuilt_index_name : str
             Prebuilt index name.
 
@@ -51,7 +65,20 @@ class SimpleDenseSearcher:
         SimpleDenseSearcher
             Searcher built from the prebuilt faiss index.
         """
-        return cls(prebuilt_index_name, corpus_name)
+        print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+        try:
+            index_dir = download_prebuilt_index(prebuilt_index_name)
+        except ValueError as e:
+            print(str(e))
+            return None
+
+        print(f'Initializing {prebuilt_index_name}...')
+        return cls(index_dir)
+
+    @staticmethod
+    def list_prebuilt_indexes():
+        """Display information about available prebuilt indexes."""
+        get_indexes_info()
 
     def search(self, emb_q: np.array, k: int = 10) -> List[DenseSearchResult]:
         """Search the collection.
@@ -72,13 +99,8 @@ class SimpleDenseSearcher:
         distances, indexes = self.index.search(emb_q, k)
         distances = distances.flat
         indexes = indexes.flat
-        if self.idx2id is None:
-            return [DenseSearchResult(str(idx), score, None) for score, idx in zip(distances, indexes) if idx != -1]
-        else:
-            return [
-                DenseSearchResult(self.idx2id[idx], score, self.docs[self.idx2id[idx]])
-                for score, idx in zip(distances, indexes) if idx != -1
-            ]
+        return [DenseSearchResult(self.docids[idx], score)
+                for score, idx in zip(distances, indexes) if idx != -1]
 
     def batch_search(self, q_embs: np.array, q_ids: List[str], k: int = 10, threads: int = 1)\
             -> Dict[str, List[DenseSearchResult]]:
@@ -105,62 +127,34 @@ class SimpleDenseSearcher:
         assert m == self.dimension
         faiss.omp_set_num_threads(threads)
         D, I = self.index.search(q_embs, k)
-        if self.idx2id is None:
-            return {key: [DenseSearchResult(str(idx), score, None)
-                          for score, idx in zip(distances, indexes) if idx != -1]
-                    for key, distances, indexes in zip(q_ids, D, I)}
-        else:
-            return {key: [DenseSearchResult(self.idx2id[idx], score, self.docs[self.idx2id[idx]])
-                          for score, idx in zip(distances, indexes) if idx != -1]
-                    for key, distances, indexes in zip(q_ids, D, I)}
+        return {key: [DenseSearchResult(self.docids[idx], score)
+                      for score, idx in zip(distances, indexes) if idx != -1]
+                for key, distances, indexes in zip(q_ids, D, I)}
 
-    def doc(self, docid: str):
-        """
-
-        Parameters
-        ----------
-        docid : str
-            doc id
-
-        Returns
-        -------
-        Document
-            document object that contains the raw text
-        """
-        if self.docs is None:
-            return None
-        try:
-            return Document(docid, self.docs[docid])
-        except KeyError:
-            print(f'Doc {docid} does not exits')
-            return None
+    def load_index(self, index_dir: str):
+        index_path = os.path.join(index_dir, 'index')
+        docid_path = os.path.join(index_dir, 'docid')
+        index = faiss.read_index(index_path)
+        docids = self.load_docids(docid_path)
+        return index, docids
 
     @staticmethod
-    def load_corpus(corpus_path: str):
-        if corpus_path is None:
-            print('Warning, no doc text and ids provided.')
-            return None, None
-        corpus = {}
-        idx2id = {}
-        with open(corpus_path, 'r') as f:
-            for idx, line in tqdm(enumerate(f)):
-                doc_id, doc = line.rstrip().split('\t')
-                corpus[doc_id] = doc
-                idx2id[idx] = doc_id
-        return idx2id, corpus
+    def load_docids(docid_path: str) -> List[str]:
+        docids = [line.rstrip() for line in open(docid_path, 'r').readlines()]
+        return docids
 
 
 class QueryEncoder:
-    def __init__(self, embedding_path, queries_path):
-        self.embedding = self.load_embedding_from_tfds(embedding_path)
-        self.text2idx = self.load_queries(queries_path)
-
-    @classmethod
-    def from_pre_encoded(cls, prebuilt_embedding, queries_name):
-        return cls(prebuilt_embedding, queries_name)
+    def __init__(self, encoder_dir: str):
+        self.embedding, self.text2idx = self.load_encoder(encoder_dir)
 
     def encode(self, query: str):
         return self.embedding[self.text2idx[query]]
+
+    def load_encoder(self, encoder_dir: str):
+        q_path = os.path.join(encoder_dir, 'queries')
+        emb_path = os.path.join(encoder_dir, 'query_embs')
+        return self.load_embedding_from_tfds(emb_path), self.load_queries(q_path)
 
     @staticmethod
     def load_queries(queries_path: str):
@@ -168,6 +162,7 @@ class QueryEncoder:
         with open(queries_path, 'r') as f:
             for idx, line in tqdm(enumerate(f)):
                 qid, text = line.rstrip().split('\t')
+                text = text.strip()
                 text2idx[text] = idx
         return text2idx
 
