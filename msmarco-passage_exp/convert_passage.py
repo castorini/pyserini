@@ -12,6 +12,7 @@ from convert_common import readStopWords, SpacyTextParser, getRetokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from flair.data import Sentence
 from flair.models import MultiTagger
+import time
 
 sys.path.append('.')
 
@@ -90,10 +91,13 @@ def batch_process(batch):
         doc["text_bert_tok"] = getRetokenized(bertTokenizer, body.lower())
         return doc
     res = []
+    start = time.time()
     for line in batch:
         res.append(process(line))
         if len(res) % 100 == 0:
-            print(f'finish {len(res)}')
+            end = time.time()
+            print(f'finish {len(res)} using {end-start}')
+            start = end
     return res
 
 
