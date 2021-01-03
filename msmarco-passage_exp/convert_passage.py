@@ -10,8 +10,8 @@ import spacy
 import re
 from convert_common import readStopWords, SpacyTextParser, getRetokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
-from flair.data import Sentence
-from flair.models import MultiTagger
+#from flair.data import Sentence
+#from flair.models import MultiTagger
 
 sys.path.append('.')
 
@@ -48,10 +48,10 @@ def batch_file(iterable, n=10000):
     return
 
 def batch_process(batch):
-    stopWords = readStopWords('./msmarco-passage_exp/stopwords.txt', lowerCase=True)
+    stopWords = readStopWords('stopwords.txt', lowerCase=True)
     nlp = SpacyTextParser('en_core_web_sm', stopWords, keepOnlyAlphaNum=True, lowerCase=True)
     analyzer = Analyzer(get_lucene_analyzer())
-    tagger = MultiTagger.load(['pos-fast', 'ner-fast'])
+    nlp_ent = spacy.load("en_core_web_sm")
     bertTokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")
 
     def process(line):
@@ -67,14 +67,16 @@ def batch_process(batch):
 
         text, text_unlemm = nlp.procText(body)
 
-        sentence = Sentence(body)
-        tagger.predict(sentence)
-        entline = sentence.to_tagged_string().split(' ')
-        entity = []
-        i = 0
-        while (i < len(entline)):
-            entity.append(entline[i] + ':' + entline[i + 1])
-            i = i + 2
+
+        doc = nlp_ent(body)
+        entity = '{'
+        for i in range(len(doc.ents)):
+            if (i != 0):
+                entity += ','
+            entity += '"' + doc.ents[i].text + '"' + ':' + '"' + doc.ents[i].label_ + '"'
+        entity += '}'
+        #for ent in doc.ents:
+            #entity += (ent.text + ':' + ent.label_ + ',')
 
         analyzed = analyzer.analyze(body)
         for token in analyzed:

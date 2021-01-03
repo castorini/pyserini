@@ -32,6 +32,7 @@ stopWords = readStopWords('stopwords.txt', lowerCase=True)
 print(stopWords)
 nlp = SpacyTextParser('en_core_web_sm', stopWords, keepOnlyAlphaNum=True, lowerCase=True)
 analyzer = Analyzer(get_lucene_analyzer())
+nlp_ent = spacy.load("en_core_web_sm")
 
 if 'bert_tokenize' in arg_vars:
     print('BERT-tokenizing input into the field: ' + 'text_bert_tok')
@@ -59,11 +60,20 @@ for line in tqdm(inpFile):
             print(analyzed)
 
     query_toks = query_lemmas.split()
+
+    doc = nlp_ent(query)
+    entity = ''
+    for i in range(len(doc.ents)):
+        if (i != 0):
+            entity += ','
+        entity += doc.ents[i].text + ':' + doc.ents[i].label_
+
     if len(query_toks) >= minQueryTokQty:
         doc = {"id": did,
                "text": query_lemmas,
                "text_unlemm": query_unlemm,
                "analyzed": ' '.join(analyzed),
+               "entity": entity,
                "raw": query}
 
         doc["text_bert_tok"] = getRetokenized(bertTokenizer, query.lower())
