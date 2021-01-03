@@ -397,7 +397,7 @@ if __name__ == '__main__':
 
     models =  pickle.load(open(args.ltr_model_path+'/model.pkl','rb'))
     metadata = json.load(open(args.ltr_model_path+'/metadata.json','r'))
-    feature_used = [name for name, freq in metadata['feature_names']]
+    feature_used = metadata['feature_names']
 
     batch_info = []
     for dev_extracted in batch_extract(dev, queries, fe):
