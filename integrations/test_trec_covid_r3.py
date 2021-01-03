@@ -19,6 +19,7 @@ import re
 import shutil
 import unittest
 import json
+import gzip
 
 import sys
 sys.path.append('..')
@@ -35,9 +36,15 @@ class TestSearchIntegration(unittest.TestCase):
             'https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.covid-round3-cumulative.txt':
                 'dfccc32efd58a8284ae411e5c6b27ce9',
             'https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.covid-round4-cumulative.txt':
-                '7a5c27e8e052c49ff72d557051825973'
+                '7a5c27e8e052c49ff72d557051825973',
         }
+
         self.tmp = f'tmp{randint(0, 10000)}'
+        download_url('https://ir.nist.gov/covidSubmit/archive/round4/covidex.r4.d2q.duot5.gz', 'runs')
+
+        with gzip.open(f'runs/covidex.r4.d2q.duot5.gz', 'rb') as f_in:
+            with open(f'runs/covidex.r4.d2q.duot5', 'wb') as f_out:
+                shutil.copyfileobj(f_in, f_out)
 
         # In the rare event there's a collision
         if os.path.exists(self.tmp):
@@ -57,15 +64,15 @@ class TestSearchIntegration(unittest.TestCase):
     def test_bm25(self):
 
         prebuilt_index_path = download_prebuilt_index('trec-covid-r4-abstract')
-        os.system(f'python ../trec-covid-r3/ranker.py \
+        os.system(f'python3 ../../trec-covid-r3/ranker.py \
                     -alpha 0.6 \
                     -clf lr \
                     -vectorizer tfidf \
-                    -trec_covid_home ../trec-covid-r3 \
-                    -base ../trec-covid-r3/data/covidex.r4.d2q.duot5 \
+                    -new_qrels ../tools/topics-and-qrels/qrels.covid-round4-cumulative.txt \
+                    -base runs/covidex.r4.d2q.duot5 \
                     -qrels ../tools/topics-and-qrels/qrels.covid-round3-cumulative.txt \
                     -index {prebuilt_index_path} \
-                    -tag ../trec-covid-r3/data/covidex.r4.d2q.duot5.lr \
+                    -tag ../../trec-covid-r3/data/covidex.r4.d2q.duot5.lr \
                     -output {self.tmp}/output.json')
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
@@ -75,6 +82,9 @@ class TestSearchIntegration(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.tmp)
+        os.remove('runs/covidex.r4.d2q.duot5.gz')
+        os.remove('runs/covidex.r4.d2q.duot5')
+        os.remove('runs/covidex.r4.d2q.duot5.lr.tfidf.R12.A0.6.txt')
 
 
 if __name__ == '__main__':
