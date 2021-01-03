@@ -66,7 +66,7 @@ for line in tqdm(inpFile):
     for i in range(len(doc.ents)):
         if (i != 0):
             entity += ','
-        entity += doc.ents[i].text + ':' + doc.ents[i].label_
+        entity += doc.ents[i].label_ + ':' + doc.ents[i].text
 
     if len(query_toks) >= minQueryTokQty:
         doc = {"id": did,
