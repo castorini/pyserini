@@ -319,7 +319,6 @@ class FeatureExtractor:
         self.utils.lazyExtract(JString(json.dumps(input)))
 
     def batch_extract(self, tasks):
-        tasks = sorted(tasks, key=lambda x:x['qid'])
         need_rows = 0
         for task in tasks:
             self.lazy_extract(task['qid'], task['docIds'], task['query_dict'])
