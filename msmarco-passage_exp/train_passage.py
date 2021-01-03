@@ -294,8 +294,8 @@ def train(train_extracted, dev_extracted, feature_name, eval_fn):
     train_Y = train_extracted['info']['rel']
     dev_X = dev_extracted['data'].loc[:, feature_name]
     dev_Y = dev_extracted['info']['rel']
-    lgb_train = lgb.Dataset(train_X, label=train_Y, group=train_extracted['group'])
-    lgb_valid = lgb.Dataset(dev_X, label=dev_Y, group=dev_extracted['group'])
+    lgb_train = lgb.Dataset(train_X, label=train_Y, group=train_extracted['group']['count'])
+    lgb_valid = lgb.Dataset(dev_X, label=dev_Y, group=dev_extracted['group']['count'])
     #max_leaves = -1 seems to work better for many settings, although 10 is also good
     params = {
         'boosting_type': 'gbdt',
