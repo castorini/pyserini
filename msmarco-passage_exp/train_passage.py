@@ -273,12 +273,14 @@ def gen_dev_group_rel_num(dev_qrel, dev_extracted):
             dev_rel_num_list.append(dev_rel_num.loc[t.qid])
         else:
             continue
+    assert len(dev_rel_num_list) == dev_qrel.qid.drop_duplicates().shape[0]
 
     def recall_at_200(preds, dataset):
         labels = dataset.get_label()
         groups = dataset.get_group()
         idx = 0
         recall = 0
+        assert len(dev_rel_num_list) == len(groups)
         for g, gnum in zip(groups, dev_rel_num_list):
             top_preds = labels[idx:idx + g][np.argsort(preds[idx:idx + g])]
             recall += np.sum(top_preds[-200:]) / gnum
@@ -290,12 +292,13 @@ def gen_dev_group_rel_num(dev_qrel, dev_extracted):
 
 
 def train(train_extracted, dev_extracted, feature_name, eval_fn):
-    train_X = train_extracted['data'].loc[:, feature_name]
-    train_Y = train_extracted['info']['rel']
-    dev_X = dev_extracted['data'].loc[:, feature_name]
-    dev_Y = dev_extracted['info']['rel']
-    lgb_train = lgb.Dataset(train_X, label=train_Y, group=train_extracted['group']['count'])
-    lgb_valid = lgb.Dataset(dev_X, label=dev_Y, group=dev_extracted['group']['count'])
+    lgb_train = lgb.Dataset(train_extracted['data'].loc[:, feature_name],
+                            label=train_extracted['info']['rel'],
+                            group=train_extracted['group']['count'])
+    lgb_valid = lgb.Dataset(dev_extracted['data'].loc[:, feature_name],
+                            label=dev_extracted['info']['rel'],
+                            group=dev_extracted['group']['count'],
+                            free_raw_data=False)
     #max_leaves = -1 seems to work better for many settings, although 10 is also good
     params = {
         'boosting_type': 'gbdt',
@@ -326,7 +329,8 @@ def train(train_extracted, dev_extracted, feature_name, eval_fn):
                     feval=eval_fn,
                     feature_name=feature_name,
                     verbose_eval=True)
-    dev_extracted['info']['score'] = gbm.predict(dev_X)
+    del lgb_train
+    dev_extracted['info']['score'] = gbm.predict(lgb_valid.get_data())
     best_score = gbm.best_score['valid_0']['recall@200']
     print(best_score)
     best_iteration = gbm.best_iteration
