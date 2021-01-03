@@ -62,11 +62,12 @@ for line in tqdm(inpFile):
     query_toks = query_lemmas.split()
 
     doc = nlp_ent(query)
-    entity = ''
+    entity = '{'
     for i in range(len(doc.ents)):
         if (i != 0):
             entity += ','
         entity += doc.ents[i].label_ + ':' + doc.ents[i].text
+    entity += '}'
 
     if len(query_toks) >= minQueryTokQty:
         doc = {"id": did,
