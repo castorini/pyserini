@@ -85,30 +85,30 @@ def query_loader():
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
-            query['analyzed'] = query['analyzed'].split()
-            query['text'] = query['text_unlemm'].split()
-            query['text_unlemm'] = query['text_unlemm'].split()
-            query['text_bert_tok'] = query['text_bert_tok'].split()
+            query['analyzed'] = query['analyzed'].split(" ")
+            query['text'] = query['text_unlemm'].split(" ")
+            query['text_unlemm'] = query['text_unlemm'].split(" ")
+            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             del query['raw']
             queries[qid] = query
     with open('queries.dev.small.Flex.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
-            query['analyzed'] = query['analyzed'].split()
-            query['text'] = query['text_unlemm'].split()
-            query['text_unlemm'] = query['text_unlemm'].split()
-            query['text_bert_tok'] = query['text_bert_tok'].split()
+            query['analyzed'] = query['analyzed'].split(" ")
+            query['text'] = query['text_unlemm'].split(" ")
+            query['text_unlemm'] = query['text_unlemm'].split(" ")
+            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             del query['raw']
             queries[qid] = query
     with open('queries.eval.small.Flex.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
-            query['analyzed'] = query['analyzed'].split()
-            query['text'] = query['text_unlemm'].split()
-            query['text_unlemm'] = query['text_unlemm'].split()
-            query['text_bert_tok'] = query['text_bert_tok'].split()
+            query['analyzed'] = query['analyzed'].split(" ")
+            query['text'] = query['text_unlemm'].split(" ")
+            query['text_unlemm'] = query['text_unlemm'].split(" ")
+            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             del query['raw']
             queries[qid] = query
     return queries
@@ -131,7 +131,7 @@ def batch_extract(df, queries, fe):
             task_infos.append((qid, t.pid, t.rel))
         tasks.append(task)
         group_lst.append((qid, len(task['docIds'])))
-        if len(tasks) == 100:
+        if len(tasks) == 1000:
             features = fe.batch_extract(tasks)
             task_infos = pd.DataFrame(task_infos, columns=['qid', 'pid', 'rel'])
             group = pd.DataFrame(group_lst, columns=['qid', 'count'])
@@ -204,7 +204,7 @@ def eval_recall(dev_qrel, dev_data):
     score_tie_counter = 0
     score_tie_query = set()
 
-    recall_point = [10, 20, 50, 100, 200, 500, 1000]
+    recall_point = [10,20,50,100,200,250,300,333,400,500,1000]
     recall_curve = {k: [] for k in recall_point}
     for qid, group in tqdm(dev_data.groupby('qid')):
         group = group.reset_index()
