@@ -10,8 +10,7 @@ import spacy
 import re
 from convert_common import readStopWords, SpacyTextParser, getRetokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
-#from flair.data import Sentence
-#from flair.models import MultiTagger
+import time
 
 sys.path.append('.')
 
@@ -35,7 +34,7 @@ outFile = open(args.output, 'w')
 maxDocSize = args.max_doc_size
 
 
-def batch_file(iterable, n=10000):
+def batch_file(iterable, n=1000):
     batch = []
     for line in iterable:
         batch.append(line)
@@ -75,8 +74,6 @@ def batch_process(batch):
                 entity += ','
             entity += '"' + doc.ents[i].text + '"' + ':' + '"' + doc.ents[i].label_ + '"'
         entity += '}'
-        #for ent in doc.ents:
-            #entity += (ent.text + ':' + ent.label_ + ',')
 
         analyzed = analyzer.analyze(body)
         for token in analyzed:
@@ -91,8 +88,15 @@ def batch_process(batch):
                "entity": entity}
         doc["text_bert_tok"] = getRetokenized(bertTokenizer, body.lower())
         return doc
-
-    return [process(line) for line in batch]
+    res = []
+    start = time.time()
+    for line in batch:
+        res.append(process(line))
+        if len(res) % 100 == 0:
+            end = time.time()
+            print(f'finish {len(res)} using {end-start}')
+            start = end
+    return res
 
 
 if __name__ == '__main__':
