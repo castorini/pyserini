@@ -28,7 +28,7 @@ parser.add_argument('--index', type=str, metavar='path to index or index name', 
                     help="Path to Faiss index or name of prebuilt index.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: msmarco_passage_dev_subset.")
-parser.add_argument('--query_emb', type=str, metavar='path to query embedding or query name', required=True,
+parser.add_argument('--encoded-queries', type=str, metavar='path to query embedding or query name', required=True,
                     help="Path to query embedding or name of pre encoded queries")
 parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
 parser.add_argument('--batch', type=int, metavar='num', required=False, default=1,
@@ -39,12 +39,12 @@ args = parser.parse_args()
 
 topics = get_topics(args.topics)
 
-if os.path.exists(args.query_emb):
+if os.path.exists(args.encoded_queries):
     # create query encoder from query embedding directory
-    query_encoder = QueryEncoder(args.query_emb)
+    query_encoder = QueryEncoder(args.encoded_queries)
 else:
     # create query encoder from pre encoded query name
-    query_encoder = QueryEncoder.load_encoded_queries(args.query_emb)
+    query_encoder = QueryEncoder.load_encoded_queries(args.encoded_queries)
 
 if not query_encoder:
     exit()
@@ -84,6 +84,7 @@ if args.batch > 1:
                         target_file.write(f'{topic}\t{hit.docid}\t{idx + 1}\n')
                     else:
                         target_file.write(f'{topic} Q0 {hit.docid} {idx + 1} {hit.score:.6f} {tag}\n')
+    exit()
 
 with open(output_path, 'w') as target_file:
     for index, topic in enumerate(tqdm(sorted(topics.keys()))):
