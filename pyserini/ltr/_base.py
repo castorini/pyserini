@@ -273,6 +273,11 @@ class scqStat(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.scqStat')
         self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
+class EntityRule(Feature):
+    def __init__(self, field='contents', qfield='analyzed'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.EntityRule')
+        self.extractor = Jclass(JString(field), JString(qfield))
+
 class FeatureExtractor:
     def __init__(self, index_dir, worker_num=1):
         JFeatureExtractorUtils = autoclass('io.anserini.ltr.FeatureExtractorUtils')
