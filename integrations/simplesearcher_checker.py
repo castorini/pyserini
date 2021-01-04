@@ -31,7 +31,8 @@ class SimpleSearcherChecker:
                                               'target/appassembler/bin/SearchCollection -topicreader Trec')
         self.pyserini_base_cmd = 'python3 -m pyserini.search'
 
-        self.eval_base_cmd = 'tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30'
+        # self.eval_base_cmd = 'tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30'
+        self.eval_base_cmd = 'tools/eval/trec_eval.9.0.4/trec_eval -c -M1000 -m map -m ndcg_cut_20'
 
     @staticmethod
     def _cleanup(files: List[str]):
@@ -51,6 +52,7 @@ class SimpleSearcherChecker:
                        + f'-topics {self.topics} -output {anserini_output} {anserini_extras}'
         pyserini_cmd = f'{self.pyserini_base_cmd} --index {self.index_path} ' \
                        + f'--topics {self.pyserini_topics} --output {pyserini_output} {pyserini_extras}'
+        print(pyserini_cmd)
 
         status = os.system(anserini_cmd)
         if not status == 0:
