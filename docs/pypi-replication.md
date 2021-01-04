@@ -27,7 +27,7 @@ P_30                  	all	0.3102
 MS MARCO passage ranking task, BM25 baseline:
 
 ```bash
-$ python -m pyserini.search --topics msmarco_passage_dev_subset --index ms-marco-passage --output run.msmarco-passage.txt --bm25
+$ python -m pyserini.search --topics msmarco_passage_dev_subset --index msmarco-passage --output run.msmarco-passage.txt --bm25
 ```
 
 To evaluate:
@@ -36,14 +36,14 @@ To evaluate:
 $ wget -O jtreceval-0.0.5-jar-with-dependencies.jar https://search.maven.org/remotecontent?filepath=uk/ac/gla/dcs/terrierteam/jtreceval/0.0.5/jtreceval-0.0.5-jar-with-dependencies.jar
 $ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt
 $ java -jar jtreceval-0.0.5-jar-with-dependencies.jar -m map -c -m recall.1000 -c qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.txt
-map                   	all	0.1926
-recall_1000           	all	0.8526
+map                   	all	0.1958
+recall_1000           	all	0.8573
 ```
 
 MS MARCO passage ranking task, BM25 baseline with [docTTTTTquery expansions](http://doc2query.ai/):
 
 ```bash
-$ python -m pyserini.search --topics msmarco_passage_dev_subset --index ms-marco-passage-expanded --output run.msmarco-passage.expanded.txt --bm25
+$ python -m pyserini.search --topics msmarco_passage_dev_subset --index msmarco-passage-expanded --output run.msmarco-passage.expanded.txt --bm25
 ```
 
 To evaluate:
@@ -52,8 +52,8 @@ To evaluate:
 $ wget -O jtreceval-0.0.5-jar-with-dependencies.jar https://search.maven.org/remotecontent?filepath=uk/ac/gla/dcs/terrierteam/jtreceval/0.0.5/jtreceval-0.0.5-jar-with-dependencies.jar
 $ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt
 $ java -jar jtreceval-0.0.5-jar-with-dependencies.jar -m map -c -m recall.1000 -c qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.expanded.txt
-map                   	all	0.2805
-recall_1000           	all	0.9470
+map                   	all	0.2893
+recall_1000           	all	0.9506
 ```
 
 ## MS MARCO Document Ranking
@@ -61,7 +61,7 @@ recall_1000           	all	0.9470
 MS MARCO document ranking task, BM25 baseline:
 
 ```bash
-$ python -m pyserini.search --topics msmarco_doc_dev --index ms-marco-doc --output run.msmarco-doc.txt --bm25
+$ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc --output run.msmarco-doc.txt --bm25
 ```
 
 To evaluate:
@@ -70,6 +70,6 @@ To evaluate:
 $ wget -O jtreceval-0.0.5-jar-with-dependencies.jar https://search.maven.org/remotecontent?filepath=uk/ac/gla/dcs/terrierteam/jtreceval/0.0.5/jtreceval-0.0.5-jar-with-dependencies.jar
 $ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-doc.dev.txt
 $ java -jar jtreceval-0.0.5-jar-with-dependencies.jar -m map -m recall.1000 qrels.msmarco-doc.dev.txt run.msmarco-doc.txt
-map                   	all	0.2310
-recall_1000           	all	0.8856
+map                   	all	0.2775
+recall_1000           	all	0.9357
 ```
