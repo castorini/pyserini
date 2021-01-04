@@ -26,7 +26,7 @@ import numpy as np
 import tensorflow.compat.v1 as tf
 from tqdm import tqdm
 
-from pyserini.util import download_prebuilt_index, get_indexes_info
+from pyserini.util import download_prebuilt_index, download_encoded_queries, get_indexes_info
 
 
 @dataclass
@@ -48,7 +48,6 @@ class SimpleDenseSearcher:
         self.index, self.docids = self.load_index(index_dir)
         self.dimension = self.index.d
         self.num_docs = self.index.ntotal
-        self.index_dir = index_dir
         assert self.num_docs == len(self.docids)
 
     @classmethod
@@ -150,6 +149,30 @@ class QueryEncoder:
 
     def encode(self, query: str):
         return self.embedding[self.text2idx[query]]
+
+    @classmethod
+    def load_encoded_queries(cls, encoded_query_name: str):
+        """Build a query encoder from a pre-encoded query; download the encoded queries if necessary.
+
+        Parameters
+        ----------
+        encoded_query_name : str
+            pre encoded query name.
+
+        Returns
+        -------
+        QueryEncoder
+            Encoder built from the pre encoded queries.
+        """
+        print(f'Attempting to initialize pre-encoded queries {encoded_query_name}.')
+        try:
+            query_dir = download_encoded_queries(encoded_query_name)
+        except ValueError as e:
+            print(str(e))
+            return None
+
+        print(f'Initializing {encoded_query_name}...')
+        return cls(query_dir)
 
     def load_encoder(self, encoder_dir: str):
         q_path = os.path.join(encoder_dir, 'queries')

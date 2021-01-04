@@ -359,13 +359,13 @@ INDEX_INFO = {
         "unique_terms": -1,
         "downloaded": False
     },
-    "msmarco-passage-tct_colbert": {
+    "msmarco-passage-tct_colbert-hnsw": {
         "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as HNSW index",
         "urls": [
-            "https://www.dropbox.com/s/q9z0911l9ljcmxz/msmarco-passage-tct_colbert.tar.gz?dl=1",
+            "https://www.dropbox.com/s/35s8mx38ru6a4s1/msmarco-passage-tct_colbert-hnsw.tar.gz?dl=1",
         ],
-        "md5": "14fabbc2aa576fce949ab21f1a15a6a7",
-        "size compressed (bytes)": 33377570155,
+        "md5": "7b580df56801bd6ce704fa9e906840e2",
+        "size compressed (bytes)": 33357462267,
         "total_terms": 352316036,
         "documents": 8841823,
         "unique_terms": 2660824,
@@ -376,8 +376,8 @@ INDEX_INFO = {
         "urls": [
             "https://www.dropbox.com/s/yz0o1t8gyp29hzr/msmarco-passage-tct_colbert-bf.tar.gz?dl=1",
         ],
-        "md5": "a1427f6d02fa86fe98245054d4e209d6",
-        "size compressed (bytes)": 25223046646,
+        "md5": "d3b7d37f39f39ee3483110efb4891111",
+        "size compressed (bytes)": 25202927728,
         "total_terms": 352316036,
         "documents": 8841823,
         "unique_terms": 2660824,
