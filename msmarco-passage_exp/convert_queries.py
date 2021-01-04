@@ -18,7 +18,6 @@ parser.add_argument('--output', metavar='output file', help='output file',
                     type=str, required=True)
 parser.add_argument('--min_query_token_qty', type=int, default=0,
                     metavar='min # of query tokens', help='ignore queries that have smaller # of tokens')
-parser.add_argument('--bert_tokenize', action='store_true', help='Apply the BERT tokenizer and store result in a separate field')
 
 args = parser.parse_args()
 print(args)
@@ -33,10 +32,7 @@ print(stopWords)
 nlp = SpacyTextParser('en_core_web_sm', stopWords, keepOnlyAlphaNum=True, lowerCase=True)
 analyzer = Analyzer(get_lucene_analyzer())
 nlp_ent = spacy.load("en_core_web_sm")
-
-if 'bert_tokenize' in arg_vars:
-    print('BERT-tokenizing input into the field: ' + 'text_bert_tok')
-    bertTokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")
+bertTokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")
 
 # Input file is a TSV file
 ln = 0
@@ -62,12 +58,10 @@ for line in tqdm(inpFile):
     query_toks = query_lemmas.split()
 
     doc = nlp_ent(query)
-    entity = '{'
+    entity = {}
     for i in range(len(doc.ents)):
-        if (i != 0):
-            entity += ','
-        entity += '"' + doc.ents[i].text + '"' + ':' + '"' + doc.ents[i].label_ + '"'
-    entity += '}'
+        entity[doc.ents[i].text] = doc.ents[i].label_
+    entity = json.dumps(entity)
 
     if len(query_toks) >= minQueryTokQty:
         doc = {"id": did,

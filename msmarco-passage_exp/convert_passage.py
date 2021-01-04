@@ -23,7 +23,7 @@ parser.add_argument('--max_doc_size', metavar='max doc size bytes',
                     help='the threshold for the document size, if a document is larger it is truncated',
                     type=int, default=16536 )
 parser.add_argument('--proc_qty', metavar='# of processes', help='# of NLP processes to span',
-                    type=int, default=multiprocessing.cpu_count() - 1)
+                    type=int, default=multiprocessing.cpu_count() - 2)
 
 args = parser.parse_args()
 print(args)
@@ -68,12 +68,10 @@ def batch_process(batch):
 
 
         doc = nlp_ent(body)
-        entity = '{'
+        entity = {}
         for i in range(len(doc.ents)):
-            if (i != 0):
-                entity += ','
-            entity += '"' + doc.ents[i].text + '"' + ':' + '"' + doc.ents[i].label_ + '"'
-        entity += '}'
+            entity[doc.ents[i].text] = doc.ents[i].label_
+        entity = json.dumps(entity)
 
         analyzed = analyzer.analyze(body)
         for token in analyzed:
