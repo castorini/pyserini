@@ -273,10 +273,45 @@ class scqStat(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.scqStat')
         self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
-class EntityRule(Feature):
-    def __init__(self, field='contents', qfield='analyzed'):
-        Jclass = autoclass('io.anserini.ltr.feature.base.EntityRule')
-        self.extractor = Jclass(JString(field), JString(qfield))
+class EntityHowMany(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.EntityHowMany')
+        self.extractor = Jclass()
+
+class EntityHowMuch(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.EntityHowMuch')
+        self.extractor = Jclass()
+
+class EntityHowLong(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.EntityHowLong')
+        self.extractor = Jclass()
+
+class EntityWhen(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.EntityWhen')
+        self.extractor = Jclass()
+
+class EntityWhere(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.EntityWhere')
+        self.extractor = Jclass()
+
+class EntityWho(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.EntityWho')
+        self.extractor = Jclass()
+
+class EntityWhereMatch(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.EntityWhereMatch')
+        self.extractor = Jclass()
+
+class EntityWhoMatch(Feature):
+    def __init__(self):
+        Jclass = autoclass('io.anserini.ltr.feature.base.EntityWhoMatch')
+        self.extractor = Jclass()
 
 class FeatureExtractor:
     def __init__(self, index_dir, worker_num=1):
