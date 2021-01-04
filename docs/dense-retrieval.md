@@ -6,7 +6,7 @@ It's easy to replicate runs on many "standard" IR test collections directly from
 
 MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, HNSW index.
 ```bash
-$ python -m pyserini.dsearch --topics msmarco_passage_dev_subset --index msmarco-passage-tct_colbert --output run.msmarco-passage.tct_colbert.hnsw.txt
+$ python -m pyserini.dsearch --topics msmarco_passage_dev_subset --index msmarco-passage-tct_colbert-hnsw --query_emb msmarco-passage-dev-subset-tct_colbert --output run.msmarco-passage.tct_colbert.hnsw.txt
 ```
 
 To evaluate:
@@ -21,7 +21,7 @@ recall_1000           	all	0.9618
 
 MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, brute force index.
 ```bash
-$ python -m pyserini.dsearch --topics msmarco_passage_dev_subset --index msmarco-passage-tct_colbert-bf --batch 48  --output run.msmarco-passage.tct_colbert.bf.txt
+$ python -m pyserini.dsearch --topics msmarco_passage_dev_subset --index msmarco-passage-tct_colbert-bf --query_emb msmarco-passage-dev-subset-tct_colbert --batch 48  --output run.msmarco-passage.tct_colbert.bf.txt
 ```
 
 To evaluate:
