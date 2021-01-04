@@ -358,5 +358,29 @@ INDEX_INFO = {
         "documents": 38429835,
         "unique_terms": -1,
         "downloaded": False
+    },
+    "msmarco-passage-tct_colbert-hnsw": {
+        "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as HNSW index",
+        "urls": [
+            "https://www.dropbox.com/s/35s8mx38ru6a4s1/msmarco-passage-tct_colbert-hnsw.tar.gz?dl=1",
+        ],
+        "md5": "7b580df56801bd6ce704fa9e906840e2",
+        "size compressed (bytes)": 33357462267,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+    "msmarco-passage-tct_colbert-bf": {
+        "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as brute force index",
+        "urls": [
+            "https://www.dropbox.com/s/yz0o1t8gyp29hzr/msmarco-passage-tct_colbert-bf.tar.gz?dl=1",
+        ],
+        "md5": "d3b7d37f39f39ee3483110efb4891111",
+        "size compressed (bytes)": 25202927728,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
     }
 }

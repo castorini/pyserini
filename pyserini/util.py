@@ -24,6 +24,7 @@ from urllib.request import urlretrieve
 from urllib.error import HTTPError
 import pandas as pd
 from pyserini.prebuilt_index_info import INDEX_INFO
+from pyserini.encoded_query_info import QUERY_INFO
 
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5
@@ -168,5 +169,16 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
             return download_and_unpack_index(url, prebuilt=True, md5=index_md5)
         except HTTPError:
             print(f'Unable to download pre-built index at {url}, trying next URL...')
+    raise ValueError(f'Unable to download pre-built index at any known URLs.')
 
+
+def download_encoded_queries(query_name, force=False, verbose=True, mirror=None):
+    if query_name not in QUERY_INFO:
+        raise ValueError(f'Unrecognized query name {query_name}')
+    query_md5 = QUERY_INFO[query_name]['md5']
+    for url in QUERY_INFO[query_name]['urls']:
+        try:
+            return download_and_unpack_index(url, index_directory='queries', prebuilt=True, md5=query_md5)
+        except HTTPError:
+            print(f'Unable to download pre-built index at {url}, trying next URL...')
     raise ValueError(f'Unable to download pre-built index at any known URLs.')
