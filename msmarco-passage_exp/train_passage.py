@@ -304,9 +304,9 @@ def train(train_extracted, dev_extracted, feature_name, eval_fn):
         'boosting_type': 'gbdt',
         'objective': 'lambdarank',
         'max_bin': 255,
-        'num_leaves': 63,
+        'num_leaves': 100,
         'max_depth': -1,
-        'min_data_in_leaf': 30,
+        'min_data_in_leaf': 50,
         'min_sum_hessian_in_leaf': 0,
         # 'bagging_fraction': 0.8,
         # 'bagging_freq': 50,
@@ -561,6 +561,15 @@ if __name__ == '__main__':
         fe.add(OrderedQueryPairs(3, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(8, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
+
+    fe.add(EntityHowLong())
+    fe.add(EntityHowMany())
+    fe.add(EntityHowMuch())
+    fe.add(EntityWhen())
+    fe.add(EntityWhere())
+    fe.add(EntityWho())
+    fe.add(EntityWhereMatch())
+    fe.add(EntityWhoMatch())
 
     fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm",
                      "title_unlemm", "text_unlemm"))
