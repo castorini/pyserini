@@ -34,7 +34,7 @@ outFile = open(args.output, 'w')
 maxDocSize = args.max_doc_size
 
 
-def batch_file(iterable, n=1000):
+def batch_file(iterable, n=10000):
     batch = []
     for line in iterable:
         batch.append(line)
@@ -90,7 +90,7 @@ def batch_process(batch):
     start = time.time()
     for line in batch:
         res.append(process(line))
-        if len(res) % 100 == 0:
+        if len(res) % 1000 == 0:
             end = time.time()
             print(f'finish {len(res)} using {end-start}')
             start = end
