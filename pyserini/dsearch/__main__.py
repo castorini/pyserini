@@ -23,6 +23,10 @@ from tqdm import tqdm
 from pyserini.dsearch import QueryEncoder, SimpleDenseSearcher
 from pyserini.search import get_topics
 
+# Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
+# https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
+
 parser = argparse.ArgumentParser(description='Search a Faiss index.')
 parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                     help="Path to Faiss index or name of prebuilt index.")

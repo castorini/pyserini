@@ -1,7 +1,10 @@
 # Dense Retrieval Replication
 
-Please follow the development installation [here](https://github.com/castorini/pyserini#development-installation) to setup `pyserini`
-It's easy to replicate runs on dense retrieval experiments!
+This guide provides replication instructions for the following dense retrieval work:
+
++ Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [Distilling Dense Representations for Ranking using Tightly-Coupled Teachers.](https://arxiv.org/abs/2010.11386) arXiv:2010.11386, October 2020. 
+
+You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
 
 ## MS MARCO Passage Ranking
 
@@ -16,34 +19,23 @@ $ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
 
 To evaluate:
 
-Using official MS MARCO evaluation script:
 ```bash
-$ wget https://www.dropbox.com/s/khsplt2fhqwjs0v/qrels.dev.small.tsv -P collections/msmarco-passage/
-$ python tools/scripts/msmarco/msmarco_eval.py qrels.dev.small.tsv runs/run.msmarco-passage.tct_colbert.hnsw.tsv
-```
-```
+$ python tools/scripts/msmarco/msmarco_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+   runs/run.msmarco-passage.tct_colbert.hnsw.tsv
 #####################
 MRR @10: 0.33395142584254184
 QueriesRanked: 6980
 #####################
 ```
-We can also use the official TREC evaluation tool, trec_eval, to compute other metrics than MRR@10. 
+
+We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10.
 For that we first need to convert runs and qrels files to the TREC format:
-```
-python tools/scripts/msmarco/convert_msmarco_to_trec_run.py \
-       --input runs/run.msmarco-passage.tct_colbert.hnsw.tsv \
-       --output runs/run.msmarco-passage.tct_colbert.hnsw.trec
+
+```bash
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.hnsw.tsv --output runs/run.msmarco-passage.tct_colbert.hnsw.trec
                                                             
-python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
-       --input collections/msmarco-passage/qrels.dev.small.tsv \
-       --output collections/msmarco-passage/qrels.dev.small.trec
-```
-And run the trec_eval tool:
-```
-tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
- collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.tct_colbert.hnsw.trec
-```
-```
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
+   collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.tct_colbert.hnsw.trec
 map                     all     0.3407
 recall_1000             all     0.9618
 ```
@@ -61,36 +53,25 @@ $ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
 
 To evaluate:
 
-Using official MS MARCO evaluation script:
 ```bash
-$ wget https://www.dropbox.com/s/khsplt2fhqwjs0v/qrels.dev.small.tsv -P collections/msmarco-passage/
-$ python tools/scripts/msmarco/msmarco_eval.py collections/msmarco-passage/qrels.dev.small.tsv runs/run.msmarco-passage.tct_colbert.bf.tsv
-```
-```
+$ python tools/scripts/msmarco/msmarco_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+   runs/run.msmarco-passage.tct_colbert.bf.tsv
 #####################
 MRR @10: 0.3344603629417369
 QueriesRanked: 6980
 #####################
 ```
 
-We can also use the official TREC evaluation tool, trec_eval, to compute other metrics than MRR@10. 
+We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10. 
 For that we first need to convert runs and qrels files to the TREC format:
-```
-python tools/scripts/msmarco/convert_msmarco_to_trec_run.py \
-       --input runs/run.msmarco-passage.tct_colbert.bf.tsv \
-       --output runs/run.msmarco-passage.tct_colbert.bf.trec
-                                                            
-python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
-       --input collections/msmarco-passage/qrels.dev.small.tsv \
-       --output collections/msmarco-passage/qrels.dev.small.trec
-```
-And run the trec_eval tool:
-```
-tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
- collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.tct_colbert.bf.trec
-```
 
-```
+```bash
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.bf.tsv --output runs/run.msmarco-passage.tct_colbert.bf.trec
+
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
+    collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.tct_colbert.bf.trec
 map                   	all	0.3412
 recall_1000           	all	0.9637
 ```
+
+You'll notice that hnsw index leads to a small loss in effectiveness.
