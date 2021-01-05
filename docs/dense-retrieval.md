@@ -47,6 +47,7 @@ $ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
                              --index msmarco-passage-tct_colbert-bf \
                              --encoded-queries msmarco-passage-dev-subset-tct_colbert \
                              --batch 12  \
+                             --thread 12  \
                              --output runs/run.msmarco-passage.tct_colbert.bf.tsv \
                              --msmarco
 ```

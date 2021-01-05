@@ -79,7 +79,7 @@ class SimpleDenseSearcher:
         """Display information about available prebuilt indexes."""
         get_indexes_info()
 
-    def search(self, emb_q: np.array, k: int = 10) -> List[DenseSearchResult]:
+    def search(self, emb_q: np.array, k: int = 10, threads: int = 1) -> List[DenseSearchResult]:
         """Search the collection.
 
         Parameters
@@ -88,6 +88,8 @@ class SimpleDenseSearcher:
             query embedding
         k : int
             Number of hits to return.
+        threads : int
+            Maximum number of threads to use for intra-query search.
         Returns
         -------
         List[DenseSearchResult]
@@ -95,6 +97,7 @@ class SimpleDenseSearcher:
         """
         assert len(emb_q) == self.dimension
         emb_q = emb_q.reshape((1, len(emb_q)))
+        faiss.omp_set_num_threads(threads)
         distances, indexes = self.index.search(emb_q, k)
         distances = distances.flat
         indexes = indexes.flat

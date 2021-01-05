@@ -37,6 +37,8 @@ parser.add_argument('--encoded-queries', type=str, metavar='path to query embedd
 parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
 parser.add_argument('--batch', type=int, metavar='num', required=False, default=1,
                     help="search batch of queries in parallel")
+parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
+                    help="maximum threads to use during search")
 parser.add_argument('--msmarco',  action='store_true', default=False, help="Output in MS MARCO format.")
 parser.add_argument('--output', type=str, metavar='path', required=True, help="Path to output file.")
 args = parser.parse_args()
@@ -81,7 +83,7 @@ if args.batch > 1:
             topic_key_batch = topic_keys[i: i+args.batch]
             topic_emb_batch = np.array([query_encoder.encode(topics[topic].get('title').strip())
                                         for topic in topic_key_batch])
-            hits = searcher.batch_search(topic_emb_batch, topic_key_batch, k=args.hits, threads=args.batch)
+            hits = searcher.batch_search(topic_emb_batch, topic_key_batch, k=args.hits, threads=args.threads)
             for topic in hits:
                 for idx, hit in enumerate(hits[topic]):
                     if args.msmarco:
@@ -93,7 +95,7 @@ if args.batch > 1:
 with open(output_path, 'w') as target_file:
     for index, topic in enumerate(tqdm(sorted(topics.keys()))):
         search = topics[topic].get('title').strip()
-        hits = searcher.search(query_encoder.encode(search), args.hits)
+        hits = searcher.search(query_encoder.encode(search), args.hits, threads=args.threads)
         docids = [hit.docid.strip() for hit in hits]
         scores = [hit.score for hit in hits]
 
