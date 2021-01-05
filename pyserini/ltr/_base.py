@@ -313,6 +313,22 @@ class EntityWhoMatch(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.EntityWhoMatch')
         self.extractor = Jclass()
 
+class EntityDocCount(Feature):
+    def __init__(self, type):
+        Jclass = autoclass('io.anserini.ltr.feature.base.EntityDocCount')
+        self.extractor = Jclass(JString(type))
+
+class EntityQueryCount(Feature):
+    def __init__(self, type):
+        Jclass = autoclass('io.anserini.ltr.feature.base.EntityQueryCount')
+        self.extractor = Jclass(JString(type))
+
+class QueryRegex(Feature):
+    def __init__(self, regexString):
+        Jclass = autoclass('io.anserini.ltr.feature.base.QueryRegex')
+        self.extractor = Jclass(JString(regexString))
+
+
 class FeatureExtractor:
     def __init__(self, index_dir, worker_num=1):
         JFeatureExtractorUtils = autoclass('io.anserini.ltr.FeatureExtractorUtils')
