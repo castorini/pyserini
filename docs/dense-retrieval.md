@@ -76,3 +76,41 @@ recall_1000           	all	0.9637
 ```
 
 You'll notice that hnsw index leads to a small loss in effectiveness.
+
+### Hybrid Dense-Sparse Ranking
+MS MARCO passage ranking task, 
+Hybrid
+- dense retrieval with TCT-ColBERT, HNSW index.
+- sparse retrieval with doc2query-T5 expanded index.
+
+```
+python -m pyserini.hsearch --topics msmarco_passage_dev_subset \
+                             --dindex msmarco-passage-tct_colbert-hnsw \
+                             --sindex msmarco-passage-expanded \
+                             --encoded-queries msmarco-passage-dev-subset-tct_colbert \
+                             --output runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.tsv \
+                             --msmarco \
+                             --alpha 0.24
+```
+
+To evaluate:
+```bash
+$ python tools/scripts/msmarco/msmarco_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+   runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.tsv
+#####################
+MRR @10: 0.3634984877427564
+QueriesRanked: 6980
+#####################
+```
+
+We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10. 
+For that we first need to convert runs and qrels files to the TREC format:
+
+```bash
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.tsv --output runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.trec
+
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
+    collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.trec
+map                     all     0.3700
+recall_1000             all     0.9733
+```
