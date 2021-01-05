@@ -36,9 +36,9 @@ class HybridSearcher:
         self.query_encoder = query_encoder
         self.sparse_searcher = sparse_searcher
 
-    def search(self, query: str, alpha: int = 0.1, k: int = 10) -> List[DenseSearchResult]:
+    def search(self, query: str, k: int = 10, alpha: float = 0.1) -> List[DenseSearchResult]:
         query_emb = self.query_encoder.encode(query)
-        dense_hits = self.dense_searcher.search(query_emb, k)
+        dense_hits = self.dense_searcher.search(query_emb, k, threads=1)
         sparse_hits = self.sparse_searcher.search(query, k)
         return self._hybrid_results(dense_hits, sparse_hits, alpha)
 
@@ -51,8 +51,8 @@ class HybridSearcher:
             if doc not in dense_hits:
                 score = alpha * sparse_hits[doc] + min(dense_hits.values())
             elif doc not in sparse_hits:
-                score = alpha * min(sparse_hits) + dense_hits[doc]
+                score = alpha * min(sparse_hits.values()) + dense_hits[doc]
             else:
                 score = alpha * sparse_hits[doc] + dense_hits[doc]
             hybrid_result.append(DenseSearchResult(doc, score))
-        return hybrid_result
+        return sorted(hybrid_result, key=lambda x: x.score, reverse=True)
