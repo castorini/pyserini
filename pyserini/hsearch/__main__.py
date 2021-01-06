@@ -40,6 +40,10 @@ parser.add_argument('--encoded-queries', type=str, metavar='path to query embedd
 parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
 parser.add_argument('--alpha', type=float, metavar='num', required=False, default=0.1, help="alpha for hybrid search")
 parser.add_argument('--msmarco',  action='store_true', default=False, help="Output in MS MARCO format.")
+parser.add_argument('--batch', type=int, metavar='num', required=False, default=1,
+                    help="search batch of queries in parallel")
+parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
+                    help="maximum threads to use during search")
 parser.add_argument('--output', type=str, metavar='path', required=True, help="Path to output file.")
 args = parser.parse_args()
 
@@ -89,6 +93,25 @@ output_path = args.output
 
 print(f'Running {args.topics} topics, saving to {output_path}...')
 tag = 'hybrid'
+
+if args.batch > 1:
+    with open(output_path, 'w') as target_file:
+        topic_keys = sorted(topics.keys())
+        for i in tqdm(range(0, len(topic_keys), args.batch)):
+            topic_key_batch = topic_keys[i: i+args.batch]
+            topic_batch = [topics[topic].get('title').strip() for topic in topic_key_batch]
+            hits = hsearcher.batch_search(topic_batch,
+                                          list(map(str, topic_key_batch)),
+                                          k=args.hits, threads=args.threads, alpha=args.alpha)
+            for topic in hits:
+                for idx, hit in enumerate(hits[str(topic)]):
+                    if args.msmarco:
+                        if idx < args.hits:
+                            target_file.write(f'{topic}\t{hit.docid}\t{idx + 1}\n')
+                    else:
+                        if idx < args.hits:
+                            target_file.write(f'{topic} Q0 {hit.docid} {idx + 1} {hit.score:.6f} {tag}\n')
+    exit()
 
 with open(output_path, 'w') as target_file:
     for topic in tqdm(sorted(topics.keys())):

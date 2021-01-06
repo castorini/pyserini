@@ -16,9 +16,11 @@
 """
 This module provides Pyserini's hybrid searcher by Dense + Sparse
 """
-from typing import List
+from typing import List, Dict
 from pyserini.search import SimpleSearcher
 from pyserini.dsearch import SimpleDenseSearcher, QueryEncoder, DenseSearchResult
+
+import numpy as np
 
 
 class HybridSearcher:
@@ -38,9 +40,20 @@ class HybridSearcher:
 
     def search(self, query: str, k: int = 10, alpha: float = 0.1) -> List[DenseSearchResult]:
         query_emb = self.query_encoder.encode(query)
-        dense_hits = self.dense_searcher.search(query_emb, k, threads=1)
+        dense_hits = self.dense_searcher.search(query_emb, k)
         sparse_hits = self.sparse_searcher.search(query, k)
         return self._hybrid_results(dense_hits, sparse_hits, alpha)
+
+    def batch_search(self, queries: List[str], q_ids: List[str], k: int = 10, threads: int = 1, alpha: float = 0.1) \
+            -> Dict[str, List[DenseSearchResult]]:
+        query_embs = np.array([self.query_encoder.encode(query) for query in queries])
+        dense_result = self.dense_searcher.batch_search(query_embs, q_ids, k, threads)
+        sparse_result = self.sparse_searcher.batch_search(queries, q_ids, k, threads)
+        hybrid_result = {
+            key: self._hybrid_results(dense_result[key], sparse_result[key], alpha)
+            for key in dense_result
+        }
+        return hybrid_result
 
     @staticmethod
     def _hybrid_results(dense_results, sparse_results, alpha):
