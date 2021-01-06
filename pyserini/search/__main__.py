@@ -30,19 +30,26 @@ parser.add_argument('--index', type=str, metavar='path to index or index name', 
                     help="Path to Lucene index or name of prebuilt index.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: robust04, robust05, core17, core18.")
-parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
-parser.add_argument('--msmarco',  action='store_true', default=False, help="Output in MS MARCO format.")
-parser.add_argument('--output', type=str, metavar='path', help="Path to output file.")
-parser.add_argument('--batch-size', type=int, metavar='num', required=False, default=1, help="Specify batch size to search the collection concurrently.")
-parser.add_argument('--threads', type=int, metavar='num', required=False, default=1, help="Maximum number of threads to use.")
+parser.add_argument('--hits', type=int, metavar='num',
+                    required=False, default=1000, help="Number of hits.")
+parser.add_argument('--msmarco',  action='store_true',
+                    default=False, help="Output in MS MARCO format.")
+parser.add_argument('--output', type=str, metavar='path',
+                    help="Path to output file.")
+parser.add_argument('--batch-size', type=int, metavar='num', required=False,
+                    default=1, help="Specify batch size to search the collection concurrently.")
+parser.add_argument('--threads', type=int, metavar='num', required=False,
+                    default=1, help="Maximum number of threads to use.")
 
-parser.add_argument('--max-passage',  action='store_true', default=False, help="Select only max passage from document.")
+parser.add_argument('--max-passage',  action='store_true',
+                    default=False, help="Select only max passage from document.")
 parser.add_argument('--max-passage-hits', type=int, metavar='num', required=False, default=100,
                     help="Final number of hits when selecting only max passage.")
 parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
                     help="Delimiter between docid and passage id.")
 
-parser.add_argument('--bm25',  action='store_true', default=True, help="Use BM25 (default).")
+parser.add_argument('--bm25',  action='store_true',
+                    default=True, help="Use BM25 (default).")
 parser.add_argument('--rm3',  action='store_true', help="Use RM3")
 parser.add_argument('--qld',  action='store_true', help="Use QLD")
 
@@ -184,7 +191,8 @@ with open(output_path, 'w') as target_file:
             results = [(topic, hits)]
         else:
             batch_topics.append(topic)
-            if (index + 1) % args.batch_size == 0 or index == len(topics.keys()) - 1:
+            if (index + 1) % args.batch_size == 0 or \
+                    index == len(topics.keys()) - 1:
                 queries = [topics[topic].get('title')
                            for topic in batch_topics]
                 ids = [str(topic) for topic in batch_topics]
