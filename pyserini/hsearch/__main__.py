@@ -29,9 +29,9 @@ from pyserini.hsearch import HybridSearcher
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 parser = argparse.ArgumentParser(description='Conduct a hybrid search on dense+sparse indexes.')
-parser.add_argument('--dindex', type=str, metavar='path to dense index or index name', required=True,
+parser.add_argument('--dense-index', type=str, metavar='path to dense index or index name', required=True,
                     help="Path to Faiss index or name of prebuilt index.")
-parser.add_argument('--sindex', type=str, metavar='path to sparse index or index name', required=True,
+parser.add_argument('--sparse-index', type=str, metavar='path to sparse index or index name', required=True,
                     help="Path to Anserini index or name of prebuilt index.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: msmarco_passage_dev_subset.")
@@ -59,22 +59,22 @@ else:
 if not query_encoder:
     exit()
 
-if os.path.exists(args.dindex):
+if os.path.exists(args.dense_index):
     # create searcher from index directory
-    dsearcher = SimpleDenseSearcher(args.dindex)
+    dsearcher = SimpleDenseSearcher(args.dense_index)
 else:
     # create searcher from prebuilt index name
-    dsearcher = SimpleDenseSearcher.from_prebuilt_index(args.dindex)
+    dsearcher = SimpleDenseSearcher.from_prebuilt_index(args.dense_index)
 
 if not dsearcher:
     exit()
 
-if os.path.exists(args.sindex):
+if os.path.exists(args.sparse_index):
     # create searcher from index directory
-    ssearcher = SimpleSearcher(args.sindex)
+    ssearcher = SimpleSearcher(args.sparse_index)
 else:
     # create searcher from prebuilt index name
-    ssearcher = SimpleSearcher.from_prebuilt_index(args.sindex)
+    ssearcher = SimpleSearcher.from_prebuilt_index(args.sparse_index)
 
 if not ssearcher:
     exit()
