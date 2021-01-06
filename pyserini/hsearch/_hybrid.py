@@ -60,11 +60,13 @@ class HybridSearcher:
         dense_hits = {hit.docid: hit.score for hit in dense_results}
         sparse_hits = {hit.docid: hit.score for hit in sparse_results}
         hybrid_result = []
+        min_dense_score = min(dense_hits.values())
+        min_sparse_score = min(sparse_hits.values())
         for doc in set(dense_hits.keys()) | set(sparse_hits.keys()):
             if doc not in dense_hits:
-                score = alpha * sparse_hits[doc] + min(dense_hits.values())
+                score = alpha * sparse_hits[doc] + min_dense_score
             elif doc not in sparse_hits:
-                score = alpha * min(sparse_hits.values()) + dense_hits[doc]
+                score = alpha * min_sparse_score + dense_hits[doc]
             else:
                 score = alpha * sparse_hits[doc] + dense_hits[doc]
             hybrid_result.append(DenseSearchResult(doc, score))
