@@ -42,6 +42,7 @@ Note that unless the underlying index was built with the `-optimize` option (i.e
 Nope, that's not a bug.
 
 Below is a summary of the pre-built indexes that are currently available.
+Detailed configuration information for the pre-built indexes are stored in [`pyserini/prebuilt_index_info.py`](../pyserini/prebuilt_index_info.py)
 
 ## MS MARCO Indexes
 
@@ -50,6 +51,8 @@ Below is a summary of the pre-built indexes that are currently available.
 + `msmarco-passage-expanded`: MS MARCO passage corpus with docTTTTTquery expansion (see [this guide](http://doc2query.ai/))
 + `msmarco-doc`: MS MARCO document corpus (the index associated with [this guide](docs/experiments-msmarco-doc.md))
 + `msmarco-doc-slim`: A "slim" version of the above index that does not include the corpus text.
++ `msmarco-doc-per-passage`: MS MARCO document corpus, segmented into passages (see [this guide](docs/experiments-msmarco-doc.md))
++ `msmarco-doc-per-passage-doc-slim`: A "slim" version of the above index that does not include the corpus text.
 + `msmarco-doc-expanded-per-doc`: MS MARCO document corpus with per-document docTTTTTquery expansion (see [this guide](http://doc2query.ai/))
 + `msmarco-doc-expanded-per-passage`: MS MARCO document corpus with per-passage docTTTTTquery expansion (see [this guide](http://doc2query.ai/))
 
