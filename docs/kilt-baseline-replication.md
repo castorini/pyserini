@@ -139,16 +139,11 @@ nohup ./pyserini/scripts/kilt/eval_runs.sh pyserini/runs/<name of run> 1,100,100
 
 For R-Precision:
 
-Baseline:
-
-| model | FEV | AY2 | WnWi | WnCw | T-REx | zsRE | NQ | HoPo | TQA | ELI5 | WoW |
-|-|-|-|-|-|-|-|-|-|-|-|-|
-| drqa (tfidf + bigram hashing) | 50.75 | 2.44 | 0.15 | 1.27 | 43.43 | 60.63 | 28.59 | 34.63 | 45.70 | 11.02 | 41.82 |
-
 Document-level:
 
 | model | FEV | AY2 | WnWi | WnCw | T-REx | zsRE | NQ | HoPo | TQA | ELI5 | WoW |
 |-|-|-|-|-|-|-|-|-|-|-|-|
+| baseline drqa (tfidf + bigram hashing) | 50.75 | 2.44 | 0.15 | 1.27 | 43.43 | 60.63 | 28.59 | 34.63 | 45.70 | 11.02 | 41.82 |
 | anserini (document) | 38.21 | 3.43 | 0.09 | 2.71 | 44.64 | 50.08 | 29.93 | 38.37 | 36.76 | 7.17 | 22.27 |
 | anserini (document + bigram) | 43.97 | - | - | - | 46.24 | 52.93 | 30.95 | 42.96 | 32.54 | 7.23 | 33.58 |
 | anserini (document + stopword filter + bigram) | 40.13 | - | - | - | 54.36 | 70.84 | 27.63 | 45.34 | 29.76 | 7.37 | 30.94 |
