@@ -36,8 +36,8 @@ To evaluate:
 $ wget -O jtreceval-0.0.5-jar-with-dependencies.jar https://search.maven.org/remotecontent?filepath=uk/ac/gla/dcs/terrierteam/jtreceval/0.0.5/jtreceval-0.0.5-jar-with-dependencies.jar
 $ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt
 $ java -jar jtreceval-0.0.5-jar-with-dependencies.jar -m map -c -m recall.1000 -c qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.txt
-map                   	all	0.1958
-recall_1000           	all	0.8573
+map                   	all	0.1926
+recall_1000           	all	0.8526
 ```
 
 MS MARCO passage ranking task, BM25 baseline with [docTTTTTquery expansions](http://doc2query.ai/):
@@ -52,8 +52,8 @@ To evaluate:
 $ wget -O jtreceval-0.0.5-jar-with-dependencies.jar https://search.maven.org/remotecontent?filepath=uk/ac/gla/dcs/terrierteam/jtreceval/0.0.5/jtreceval-0.0.5-jar-with-dependencies.jar
 $ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt
 $ java -jar jtreceval-0.0.5-jar-with-dependencies.jar -m map -c -m recall.1000 -c qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.expanded.txt
-map                   	all	0.2893
-recall_1000           	all	0.9506
+map                   	all	0.2805
+recall_1000           	all	0.9470
 ```
 
 ## MS MARCO Document Ranking
@@ -70,6 +70,36 @@ To evaluate:
 $ wget -O jtreceval-0.0.5-jar-with-dependencies.jar https://search.maven.org/remotecontent?filepath=uk/ac/gla/dcs/terrierteam/jtreceval/0.0.5/jtreceval-0.0.5-jar-with-dependencies.jar
 $ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-doc.dev.txt
 $ java -jar jtreceval-0.0.5-jar-with-dependencies.jar -m map -m recall.1000 qrels.msmarco-doc.dev.txt run.msmarco-doc.txt
+map                   	all	0.2310
+recall_1000           	all	0.8856
+```
+
+## Note
+- Replicate above experiments with `pyserini==0.10.0.1` are expected to get exactly same result.
+- To replicate with `pyserini==0.10.0.0`, please change indexes with `msmarco` prefix to `ms-marco`. 
+  E.g., `msmarco-doc` should be change to  `ms-marco-doc`. Exactly same results are expected to obtain.
+  
+- WARNING: In `pyserini==0.10.0.0`, hits are hard coded to 1000. see [here](https://github.com/castorini/pyserini/blob/pyserini-0.10.0.0/pyserini/search/__main__.py#L110).
+  Even though for MS MARCO doc we only evaluate top 100.
+  In `pyserini==0.10.0.1`, the hits are has been parameterized. see [here](https://github.com/castorini/pyserini/blob/pyserini-0.10.0.1/pyserini/search/__main__.py#L112).
+  
+CAVEAT: current HEAD of master is getting different results.
+```
+MS MARCO passage ranking task, BM25 baseline:
+map                   	all	0.1958
+recall_1000           	all	0.8573
+
+MS MARCO passage ranking task, BM25 baseline with docTTTTTquery expansions:
+map                   	all	0.2893
+recall_1000           	all	0.9506
+
+MS MARCO Document Ranking
 map                   	all	0.2775
 recall_1000           	all	0.9357
 ```
+
+## Replication Log
+
++ Results replicated by [@MXueguang](https://github.com/MXueguang) on 2021-01-05 (commit [`b6da95a`](https://github.com/castorini/pyserini/commit/b6da95aaf81ebb26d51be5c7f2cf68b44361307b))
+
+ 
