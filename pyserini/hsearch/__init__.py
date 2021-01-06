@@ -14,6 +14,6 @@
 # limitations under the License.
 #
 
-from ._dsearcher import DenseSearchResult, SimpleDenseSearcher, QueryEncoder
+from ._hybrid import HybridSearcher
 
-__all__ = ['DenseSearchResult', 'SimpleDenseSearcher', 'QueryEncoder']
+__all__ = ['HybridSearcher']
