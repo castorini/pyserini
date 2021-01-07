@@ -144,6 +144,7 @@ def query_loader():
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            del query['raw']
             queries[qid] = query
     with open('queries.dev.small.Flex.json') as f:
         for line in f:
@@ -153,6 +154,7 @@ def query_loader():
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            del query['raw']
             queries[qid] = query
     with open('queries.eval.small.Flex.json') as f:
         for line in f:
@@ -162,60 +164,64 @@ def query_loader():
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
+            del query['raw']
             queries[qid] = query
     return queries
 
 
+def batch_extract(df, queries, fe):
+    tasks = []
+    task_infos = []
+    group_lst = []
 
-def extract(df, queries, fe):
-    df_pieces = []
-    fetch_later = []
-    qidpid2rel = defaultdict(dict)
-    need_rows = 0
+    info_dfs = []
+    feature_dfs = []
+    group_dfs = []
+
     for qid, group in tqdm(df.groupby('qid')):
+        task = {
+            "qid": str(qid),
+            "docIds": [],
+            "rels": [],
+            "query_dict": queries[str(qid)]
+        }
         for t in group.reset_index().itertuples():
-            assert t.pid not in qidpid2rel[t.qid]
-            qidpid2rel[t.qid][t.pid] = t.rel
-            need_rows += 1
-        #test.py has bug here, it does not convert pid to str, not sure why it does not cause problem in java
-        fe.lazy_extract(str(qid), [str(pid) for pid in qidpid2rel[t.qid].keys()], queries[str(qid)])
-        fetch_later.append(str(qid))
-        if len(fetch_later) == 10000:
-            info = np.zeros(shape=(need_rows, 3), dtype=np.int32)
-            feature = np.zeros(shape=(need_rows, len(fe.feature_names())), dtype=np.float32)
-            idx = 0
-            for qid in fetch_later:
-                ##bug here
-                for doc in fe.get_result(qid):
-                    info[idx, 0] = int(qid)
-                    info[idx, 1] = int(doc['pid'])
-                    info[idx, 2] = qidpid2rel[int(qid)][int(doc['pid'])]
-                    feature[idx, :] = doc['features']
-                    idx += 1
-            info = pd.DataFrame(info, columns=['qid', 'pid', 'rel'])
-            feature = pd.DataFrame(feature, columns=fe.feature_names())
-            df_pieces.append(pd.concat([info, feature], axis=1))
-            fetch_later = []
-            need_rows = 0
+            task["docIds"].append(str(t.pid))
+            task_infos.append((qid, t.pid, t.rel))
+        tasks.append(task)
+        group_lst.append((qid, len(task['docIds'])))
+        if len(tasks) == 10000:
+            features = fe.batch_extract(tasks)
+            task_infos = pd.DataFrame(task_infos, columns=['qid', 'pid', 'rel'])
+            group = pd.DataFrame(group_lst, columns=['qid', 'count'])
+            print(features.shape)
+            print(task_infos.qid.drop_duplicates().shape)
+            print(group.mean())
+            print(features.head(10))
+            print(features.info())
+            info_dfs.append(task_infos)
+            feature_dfs.append(features)
+            group_dfs.append(group)
+            tasks = []
+            task_infos = []
+            group_lst = []
     # deal with rest
-    if len(fetch_later) > 0:
-        info = np.zeros(shape=(need_rows, 3), dtype=np.int32)
-        feature = np.zeros(shape=(need_rows, len(fe.feature_names())), dtype=np.float32)
-        idx = 0
-        for qid in fetch_later:
-            for doc in fe.get_result(qid):
-                info[idx, 0] = int(qid)
-                info[idx, 1] = int(doc['pid'])
-                info[idx, 2] = qidpid2rel[int(qid)][int(doc['pid'])]
-                feature[idx, :] = doc['features']
-                idx += 1
-        info = pd.DataFrame(info, columns=['qid', 'pid', 'rel'])
-        feature = pd.DataFrame(feature, columns=fe.feature_names())
-        df_pieces.append(pd.concat([info, feature], axis=1))
-    data = pd.concat(df_pieces, axis=0, ignore_index=True)
-    data = data.sort_values(by='qid', kind='mergesort')
-    group = data.groupby('qid').agg(count=('pid', 'count'))['count']
-    return data, group
+    if len(tasks) > 0:
+        features = fe.batch_extract(tasks)
+        task_infos = pd.DataFrame(task_infos, columns=['qid', 'pid', 'rel'])
+        group = pd.DataFrame(group_lst, columns=['qid', 'count'])
+        print(features.shape)
+        print(task_infos.qid.drop_duplicates().shape)
+        print(group.mean())
+        print(features.head(10))
+        print(features.info())
+        info_dfs.append(task_infos)
+        feature_dfs.append(features)
+        group_dfs.append(group)
+    info_dfs = pd.concat(info_dfs, axis=0, ignore_index=True)
+    feature_dfs = pd.concat(feature_dfs, axis=0, ignore_index=True, copy=False)
+    group_dfs = pd.concat(group_dfs, axis=0, ignore_index=True)
+    return info_dfs, feature_dfs, group_dfs
 
 
 def hash_df(df):
@@ -240,78 +246,74 @@ def data_loader(task, df, queries, fe):
     fe_hash = hash_fe(fe)
     if os.path.exists(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle'):
         res = pickle.load(open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'rb'))
-        print(res['data'].shape)
-        print(res['data'].qid.drop_duplicates().shape)
+        print(res['info'].shape)
+        print(res['info'].qid.drop_duplicates().shape)
         print(res['group'].mean())
-        print(res['data'].head(10))
-        print(res['data'].info())
         return res
     else:
         if task == 'train' or task == 'dev':
-            data, group = extract(df, queries, fe)
-            obj = {'data': data, 'group': group, 'df_hash': df_hash, 'jar_hash': jar_hash, 'fe_hash': fe_hash}
-            print(data.shape)
-            print(data.qid.drop_duplicates().shape)
+            info, data, group = batch_extract(df, queries, fe)
+            obj = {'info':info, 'data': data, 'group': group,
+                   'df_hash': df_hash, 'jar_hash': jar_hash, 'fe_hash': fe_hash}
+            print(info.shape)
+            print(info.qid.drop_duplicates().shape)
             print(group.mean())
-            print(data.head(10))
-            print(data.info())
             pickle.dump(obj, open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'wb'))
             return obj
         else:
             raise Exception('unknown parameters')
 
-def gen_dev_group_rel_num(dev_qrel, dev_extracted, feature_name):
+def gen_dev_group_rel_num(dev_qrel, dev_extracted):
     dev_rel_num = dev_qrel[dev_qrel['rel']>0].groupby('qid').count()['rel']
-    gid = 0
-    sample_id = 0
-    dev_group_rel_num = []
-    for qid,group in dev_extracted['data'].groupby('qid'):
-        group = group.sort_values(['pid'])
-        assert len(group) == dev_extracted['group'].iloc[gid]
-        assert np.isclose(group.iloc[0,:].loc[feature_name],
-                          dev_extracted['data'].iloc[sample_id,:].loc[feature_name], equal_nan=True).all()
-        dev_group_rel_num.append(dev_rel_num.loc[qid])
-        gid += 1
-        sample_id += len(group)
-    return dev_group_rel_num, dev_extracted['group']
+    prev_qid = None
+    dev_rel_num_list = []
+    for t in dev_extracted['info'].itertuples():
+        if prev_qid is None or t.qid != prev_qid:
+            prev_qid = t.qid
+            dev_rel_num_list.append(dev_rel_num.loc[t.qid])
+        else:
+            continue
+    assert len(dev_rel_num_list) == dev_qrel.qid.drop_duplicates().shape[0]
 
-def recall_at_200(preds, dataset):
-    global dev_group_rel_num
-    global dev_group
-    labels = dataset.get_label()
-    groups = dataset.get_group()
-    assert np.equal(groups, dev_group).all()
-    idx = 0
-    recall = 0
-    for g,gnum in zip(groups, dev_group_rel_num):
-        top_preds = labels[idx:idx+g][np.argsort(preds[idx:idx+g])]
-        recall += np.sum(top_preds[-200:])/gnum
-        idx += g
-    assert idx == len(preds)
-    return 'recall@200', recall/len(groups), True
+    def recall_at_200(preds, dataset):
+        labels = dataset.get_label()
+        groups = dataset.get_group()
+        idx = 0
+        recall = 0
+        assert len(dev_rel_num_list) == len(groups)
+        for g, gnum in zip(groups, dev_rel_num_list):
+            top_preds = labels[idx:idx + g][np.argsort(preds[idx:idx + g])]
+            recall += np.sum(top_preds[-200:]) / gnum
+            idx += g
+        assert idx == len(preds)
+        return 'recall@200', recall / len(groups), True
 
-def train(train_extracted, dev_extracted, feature_name):
-    train_X = train_extracted['data'].loc[:, feature_name]
-    train_Y = train_extracted['data']['rel']
-    dev_X = dev_extracted['data'].loc[:, feature_name]
-    dev_Y = dev_extracted['data']['rel']
-    lgb_train = lgb.Dataset(train_X, label=train_Y, group=train_extracted['group'])
-    lgb_valid = lgb.Dataset(dev_X, label=dev_Y, group=dev_extracted['group'])
+    return recall_at_200
+
+
+def train(train_extracted, dev_extracted, feature_name, eval_fn):
+    lgb_train = lgb.Dataset(train_extracted['data'].loc[:, feature_name],
+                            label=train_extracted['info']['rel'],
+                            group=train_extracted['group']['count'])
+    lgb_valid = lgb.Dataset(dev_extracted['data'].loc[:, feature_name],
+                            label=dev_extracted['info']['rel'],
+                            group=dev_extracted['group']['count'],
+                            free_raw_data=False)
     #max_leaves = -1 seems to work better for many settings, although 10 is also good
     params = {
         'boosting_type': 'gbdt',
         'objective': 'lambdarank',
         'max_bin': 255,
-        'num_leaves': 63,
+        'num_leaves': 100,
         'max_depth': -1,
-        'min_data_in_leaf': 30,
+        'min_data_in_leaf': 50,
         'min_sum_hessian_in_leaf': 0,
-        'bagging_fraction': 0.8,
-        'bagging_freq': 50,
+        # 'bagging_fraction': 0.8,
+        # 'bagging_freq': 50,
         'feature_fraction': 1,
         'learning_rate': 0.1,
         'num_boost_round': 1000,
-        'early_stopping_round': 300,
+        'early_stopping_round': 200,
         'metric': 'custom',
         'label_gain': [0, 1],
         'lambdarank_truncation_level': 20,
@@ -324,10 +326,11 @@ def train(train_extracted, dev_extracted, feature_name):
                     valid_sets=lgb_valid,
                     num_boost_round=num_boost_round,
                     early_stopping_rounds=early_stopping_round,
-                    feval=recall_at_200,
+                    feval=eval_fn,
                     feature_name=feature_name,
                     verbose_eval=True)
-    dev_extracted['data']['score'] = gbm.predict(dev_X)
+    del lgb_train
+    dev_extracted['info']['score'] = gbm.predict(lgb_valid.get_data())
     best_score = gbm.best_score['valid_0']['recall@200']
     print(best_score)
     best_iteration = gbm.best_iteration
@@ -337,7 +340,9 @@ def train(train_extracted, dev_extracted, feature_name):
     print(feature_importances)
     params['num_boost_round'] = num_boost_round
     params['early_stopping_round'] = early_stopping_round
-    return {'model': [gbm], 'params': params, 'feature_importances': feature_importances}
+    return {'model': [gbm], 'params': params,
+            'feature_names': feature_name,
+            'feature_importances': feature_importances}
 
 
 def eval_mrr(dev_data):
@@ -425,7 +430,7 @@ def gen_exp_dir():
 def save_exp(dirname,
              train_extracted, dev_extracted,
              train_res, eval_res):
-    dev_extracted['data'][['qid', 'pid', 'score']].to_json(f'{dirname}/output.json')
+    dev_extracted['info'][['qid', 'pid', 'score']].to_json(f'{dirname}/output.json')
     subprocess.check_output(['gzip', f'{dirname}/output.json'])
     with open(f'{dirname}/model.pkl', 'wb') as f:
         pickle.dump(train_res['model'], f)
@@ -436,131 +441,158 @@ def save_exp(dirname,
         'dev_df_hash': dev_extracted['df_hash'],
         'dev_jar_hash': dev_extracted['jar_hash'],
         'dev_fe_hash': dev_extracted['fe_hash'],
+        'feature_names': train_res['feature_names'],
         'feature_importances': train_res['feature_importances'],
         'params': train_res['params'],
         'score_tie': eval_res['score_tie'],
         'mrr_10': eval_res['mrr_10']
     }
     json.dump(metadata, open(f'{dirname}/metadata.json', 'w'))
-    shutil.copytree('anserini_ltr_source', f'{dirname}/anserini_ltr_source')
-    shutil.copytree('pyserini_ltr_source', f'{dirname}/pyserini_ltr_source')
+    shutil.copytree('../anserini_ltr_source', f'{dirname}/anserini_ltr_source')
+    shutil.copytree('../pyserini_ltr_source', f'{dirname}/pyserini_ltr_source')
     shutil.copy('train_passage.py', f'{dirname}/train_passage.py')
 
 
 if __name__ == '__main__':
-    sampled_train = train_data_loader(task='triple', neg_sample=10)
+    sampled_train = train_data_loader(task='triple', neg_sample=20)
     dev, dev_qrel = dev_data_loader(task='pygaggle')
     queries = query_loader()
 
     fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco-flex/', max(multiprocessing.cpu_count()//2, 1))
-    fe.add(BM25(k1=0.9, b=0.4))
-    fe.add(BM25(k1=1.2, b=0.75))
-    fe.add(BM25(k1=2.0, b=0.75))
+    for qfield, ifield in [('analyzed', 'contents'),
+                           ('text', 'text'),
+                           ('text_unlemm', 'text_unlemm'),
+                           ('text_bert_tok', 'text_bert_tok')]:
+        print(qfield, ifield)
+        fe.add(BM25(k1=0.9, b=0.4, field=ifield, qfield=qfield))
+        fe.add(BM25(k1=1.2, b=0.75, field=ifield, qfield=qfield))
+        fe.add(BM25(k1=2.0, b=0.75, field=ifield, qfield=qfield))
 
-    fe.add(LMDir(mu=1000))
-    fe.add(LMDir(mu=1500))
-    fe.add(LMDir(mu=2500))
+        fe.add(LMDir(mu=1000, field=ifield, qfield=qfield))
+        fe.add(LMDir(mu=1500, field=ifield, qfield=qfield))
+        fe.add(LMDir(mu=2500, field=ifield, qfield=qfield))
 
-    fe.add(LMJM(0.1))
-    fe.add(LMJM(0.4))
-    fe.add(LMJM(0.7))
+        fe.add(LMJM(0.1, field=ifield, qfield=qfield))
+        fe.add(LMJM(0.4, field=ifield, qfield=qfield))
+        fe.add(LMJM(0.7, field=ifield, qfield=qfield))
 
-    fe.add(NTFIDF())
-    fe.add(ProbalitySum())
+        fe.add(NTFIDF(field=ifield, qfield=qfield))
+        fe.add(ProbalitySum(field=ifield, qfield=qfield))
 
-    fe.add(DFR_GL2())
-    fe.add(DFR_In_expB2())
-    fe.add(DPH())
+        fe.add(DFR_GL2(field=ifield, qfield=qfield))
+        fe.add(DFR_In_expB2(field=ifield, qfield=qfield))
+        fe.add(DPH(field=ifield, qfield=qfield))
 
-    fe.add(Proximity())
-    fe.add(TPscore())
-    fe.add(tpDist())
+        fe.add(Proximity(field=ifield, qfield=qfield))
+        fe.add(TPscore(field=ifield, qfield=qfield))
+        fe.add(tpDist(field=ifield, qfield=qfield))
 
-    fe.add(DocSize())
-    fe.add(Entropy())
-    fe.add(StopCover())
-    fe.add(StopRatio())
+        fe.add(DocSize(field=ifield))
 
-    fe.add(QueryLength())
-    #fe.add(QueryLengthNonStopWords())
-    fe.add(QueryCoverageRatio())
-    fe.add(UniqueTermCount())
-    fe.add(MatchingTermCount())
-    fe.add(SCS())
+        fe.add(QueryLength(qfield=qfield))
+        fe.add(QueryCoverageRatio(qfield=qfield))
+        fe.add(UniqueTermCount(qfield=qfield))
+        fe.add(MatchingTermCount(field=ifield, qfield=qfield))
+        fe.add(SCS(field=ifield, qfield=qfield))
 
-    fe.add(tfStat(AvgPooler()))
-    fe.add(tfStat(SumPooler()))
-    fe.add(tfStat(MinPooler()))
-    fe.add(tfStat(MaxPooler()))
-    fe.add(tfStat(VarPooler()))
-    fe.add(tfIdfStat(AvgPooler()))
-    fe.add(tfIdfStat(SumPooler()))
-    fe.add(tfIdfStat(MinPooler()))
-    fe.add(tfIdfStat(MaxPooler()))
-    fe.add(tfIdfStat(VarPooler()))
-    fe.add(scqStat(AvgPooler()))
-    fe.add(scqStat(SumPooler()))
-    fe.add(scqStat(MinPooler()))
-    fe.add(scqStat(MaxPooler()))
-    fe.add(scqStat(VarPooler()))
-    fe.add(normalizedTfStat(AvgPooler()))
-    fe.add(normalizedTfStat(SumPooler()))
-    fe.add(normalizedTfStat(MinPooler()))
-    fe.add(normalizedTfStat(MaxPooler()))
-    fe.add(normalizedTfStat(VarPooler()))
+        fe.add(tfStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(VarPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+        fe.add(tfStat(ConfidencePooler(), field=ifield, qfield=qfield))
 
-    fe.add(idfStat(AvgPooler()))
-    fe.add(idfStat(SumPooler()))
-    fe.add(idfStat(MinPooler()))
-    fe.add(idfStat(MaxPooler()))
-    fe.add(idfStat(VarPooler()))
-    fe.add(idfStat(MaxMinRatioPooler()))
-    fe.add(idfStat(ConfidencePooler()))
-    fe.add(ictfStat(AvgPooler()))
-    fe.add(ictfStat(SumPooler()))
-    fe.add(ictfStat(MinPooler()))
-    fe.add(ictfStat(MaxPooler()))
-    fe.add(ictfStat(VarPooler()))
-    fe.add(ictfStat(MaxMinRatioPooler()))
-    fe.add(ictfStat(ConfidencePooler()))
+        fe.add(tfIdfStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(VarPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(ConfidencePooler(), field=ifield, qfield=qfield))
 
-    fe.add(UnorderedSequentialPairs(3))
-    fe.add(UnorderedSequentialPairs(8))
-    fe.add(UnorderedSequentialPairs(15))
-    fe.add(OrderedSequentialPairs(3))
-    fe.add(OrderedSequentialPairs(8))
-    fe.add(OrderedSequentialPairs(15))
-    fe.add(UnorderedQueryPairs(3))
-    fe.add(UnorderedQueryPairs(8))
-    fe.add(UnorderedQueryPairs(15))
-    fe.add(OrderedQueryPairs(3))
-    fe.add(OrderedQueryPairs(8))
-    fe.add(OrderedQueryPairs(15))
+        fe.add(scqStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(VarPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+        fe.add(scqStat(ConfidencePooler(), field=ifield, qfield=qfield))
 
-    fe.add(BM25Mean(MaxPooler()))
-    fe.add(BM25Mean(MinPooler()))
-    fe.add(BM25Min(MaxPooler()))
-    fe.add(BM25Min(MinPooler()))
-    fe.add(BM25Max(MaxPooler()))
-    fe.add(BM25Max(MinPooler()))
-    fe.add(BM25HMean(MaxPooler()))
-    fe.add(BM25HMean(MinPooler()))
-    fe.add(BM25Var(MaxPooler()))
-    fe.add(BM25Var(MinPooler()))
-    fe.add(BM25Quartile(MaxPooler()))
-    fe.add(BM25Quartile(MinPooler()))
-#     fe.add(IBMModel1('../collections/msmarco-passage/body','Unlemma', 'Body', 'text_unlemm'))
-    fe.add(IBMModel1('../collections/msmarco-passage/text_bert_tok','Bert','BERT','text_bert_tok'))
+        fe.add(normalizedTfStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(VarPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+        fe.add(normalizedTfStat(ConfidencePooler(), field=ifield, qfield=qfield))
+
+        fe.add(idfStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(VarPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+        fe.add(idfStat(ConfidencePooler(), field=ifield, qfield=qfield))
+
+        fe.add(ictfStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(VarPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+        fe.add(ictfStat(ConfidencePooler(), field=ifield, qfield=qfield))
+
+        fe.add(UnorderedSequentialPairs(3, field=ifield, qfield=qfield))
+        fe.add(UnorderedSequentialPairs(8, field=ifield, qfield=qfield))
+        fe.add(UnorderedSequentialPairs(15, field=ifield, qfield=qfield))
+        fe.add(OrderedSequentialPairs(3, field=ifield, qfield=qfield))
+        fe.add(OrderedSequentialPairs(8, field=ifield, qfield=qfield))
+        fe.add(OrderedSequentialPairs(15, field=ifield, qfield=qfield))
+        fe.add(UnorderedQueryPairs(3, field=ifield, qfield=qfield))
+        fe.add(UnorderedQueryPairs(8, field=ifield, qfield=qfield))
+        fe.add(UnorderedQueryPairs(15, field=ifield, qfield=qfield))
+        fe.add(OrderedQueryPairs(3, field=ifield, qfield=qfield))
+        fe.add(OrderedQueryPairs(8, field=ifield, qfield=qfield))
+        fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
+
+    fe.add(EntityHowLong())
+    fe.add(EntityHowMany())
+    fe.add(EntityHowMuch())
+    fe.add(EntityWhen())
+    fe.add(EntityWhere())
+    fe.add(EntityWho())
+    fe.add(EntityWhereMatch())
+    fe.add(EntityWhoMatch())
+
+    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm",
+                     "title_unlemm", "text_unlemm"))
+    print("IBM Model loaded")
+    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm",
+                     "url_unlemm", "text_unlemm"))
+    print("IBM Model loaded")
+    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm",
+                     "body", "text_unlemm"))
+    print("IBM Model loaded")
+    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
+                     "text_bert_tok", "text_bert_tok"))
+    print("IBM Model loaded")
 
     train_extracted = data_loader('train', sampled_train, queries, fe)
     dev_extracted = data_loader('dev', dev, queries, fe)
     feature_name = fe.feature_names()
     del sampled_train, dev, queries, fe
 
-    dev_group_rel_num, dev_group = gen_dev_group_rel_num(dev_qrel, dev_extracted, feature_name)
-    train_res = train(train_extracted, dev_extracted, feature_name)
-    eval_res = eval_mrr(dev_extracted['data'])
-    eval_res.update(eval_recall(dev_qrel, dev_extracted['data']))
+    eval_fn = gen_dev_group_rel_num(dev_qrel, dev_extracted)
+    train_res = train(train_extracted, dev_extracted, feature_name, eval_fn)
+    eval_res = eval_mrr(dev_extracted['info'])
+    eval_res.update(eval_recall(dev_qrel, dev_extracted['info']))
 
     dirname = gen_exp_dir()
     save_exp(dirname, train_extracted, dev_extracted, train_res, eval_res)

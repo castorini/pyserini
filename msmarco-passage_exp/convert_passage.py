@@ -10,8 +10,7 @@ import spacy
 import re
 from convert_common import readStopWords, SpacyTextParser, getRetokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
-from flair.data import Sentence
-from flair.models import MultiTagger
+import time
 
 sys.path.append('.')
 
@@ -24,7 +23,7 @@ parser.add_argument('--max_doc_size', metavar='max doc size bytes',
                     help='the threshold for the document size, if a document is larger it is truncated',
                     type=int, default=16536 )
 parser.add_argument('--proc_qty', metavar='# of processes', help='# of NLP processes to span',
-                    type=int, default=multiprocessing.cpu_count() - 1)
+                    type=int, default=multiprocessing.cpu_count() - 2)
 
 args = parser.parse_args()
 print(args)
@@ -48,10 +47,10 @@ def batch_file(iterable, n=10000):
     return
 
 def batch_process(batch):
-    stopWords = readStopWords('./msmarco-passage_exp/stopwords.txt', lowerCase=True)
+    stopWords = readStopWords('stopwords.txt', lowerCase=True)
     nlp = SpacyTextParser('en_core_web_sm', stopWords, keepOnlyAlphaNum=True, lowerCase=True)
     analyzer = Analyzer(get_lucene_analyzer())
-    tagger = MultiTagger.load(['pos-fast', 'ner-fast'])
+    nlp_ent = spacy.load("en_core_web_sm")
     bertTokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")
 
     def process(line):
@@ -67,14 +66,12 @@ def batch_process(batch):
 
         text, text_unlemm = nlp.procText(body)
 
-        sentence = Sentence(body)
-        tagger.predict(sentence)
-        line = sentence.to_tagged_string().split(' ')
-        entity = []
-        i = 0
-        while (i < len(line)):
-            entity.append(line[i] + ':' + line[i + 1])
-            i = i + 2
+
+        doc = nlp_ent(body)
+        entity = {}
+        for i in range(len(doc.ents)):
+            entity[doc.ents[i].text] = doc.ents[i].label_
+        entity = json.dumps(entity)
 
         analyzed = analyzer.analyze(body)
         for token in analyzed:
@@ -89,8 +86,15 @@ def batch_process(batch):
                "entity": entity}
         doc["text_bert_tok"] = getRetokenized(bertTokenizer, body.lower())
         return doc
-
-    return [process(line) for line in batch]
+    res = []
+    start = time.time()
+    for line in batch:
+        res.append(process(line))
+        if len(res) % 1000 == 0:
+            end = time.time()
+            print(f'finish {len(res)} using {end-start}')
+            start = end
+    return res
 
 
 if __name__ == '__main__':
@@ -106,7 +110,7 @@ if __name__ == '__main__':
             else:
                 print('Ignoring misformatted line %d' % ln)
 
-            if ln % 10000 == 0:
+            if ln % 100 == 0:
                 print('Processed %d passages' % ln)
 
     print('Processed %d passages' % ln)
