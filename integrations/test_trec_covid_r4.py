@@ -46,44 +46,47 @@ class TestSearchIntegration(unittest.TestCase):
         os.mkdir(self.tmp)
         os.mkdir(f'{self.tmp}/runs')
 
-        self.round3_runs = {
+        self.round4_runs = {
             'https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.covid-round3-cumulative.txt':
                 'dfccc32efd58a8284ae411e5c6b27ce9',
             'https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.covid-round4-cumulative.txt':
                 '7a5c27e8e052c49ff72d557051825973',
         }
 
-        download_url('https://storage.googleapis.com/neuralresearcher_data/trec_covid/data/53/covidex.t5.final.txt',
+        download_url('https://ir.nist.gov/covidSubmit/archive/round4/covidex.r4.d2q.duot5.gz',
                      f'{self.tmp}/runs')
 
+        with gzip.open(f'{self.tmp}/runs/covidex.r4.d2q.duot5.gz', 'rb') as f_in:
+            with open(f'{self.tmp}/runs/covidex.r4.d2q.duot5', 'wb') as f_out:
+                shutil.copyfileobj(f_in, f_out)
 
-        for url in self.round3_runs:
+        for url in self.round4_runs:
             print(f'Verifying stored run at {url}...')
             filename = url.split('/')[-1]
             filename = re.sub('\\?dl=1$', '', filename)  # Remove the Dropbox 'force download' parameter
 
-            download_url(url, self.tmp, md5=self.round3_runs[url], force=True)
+            download_url(url, self.tmp, md5=self.round4_runs[url], force=True)
             self.assertTrue(os.path.exists(os.path.join(self.tmp, filename)))
             print('')
 
     def test_bm25(self):
         tmp_folder_name = self.tmp.split('/')[-1]
-        prebuilt_index_path = download_prebuilt_index('trec-covid-r3-abstract')
+        prebuilt_index_path = download_prebuilt_index('trec-covid-r4-abstract')
         os.system(f'python3 {self.pyserini_root}/scripts/trec-covid-ranker.py \
-                    -alpha 0.5 \
+                    -alpha 0.6 \
                     -clf lr \
                     -vectorizer tfidf \
-                    -new_qrels {self.pyserini_root}/tools/topics-and-qrels/qrels.covid-round3.txt \
-                    -base {self.tmp}/runs/covidex.t5.final.txt \
+                    -new_qrels {self.pyserini_root}/tools/topics-and-qrels/qrels.covid-round4.txt \
+                    -base {self.tmp}/runs/covidex.r4.d2q.duot5 \
                     -tmp_base {tmp_folder_name} \
-                    -qrels {self.pyserini_root}/tools/topics-and-qrels/qrels.covid-round2-cumulative.txt \
+                    -qrels {self.pyserini_root}/tools/topics-and-qrels/qrels.covid-round3-cumulative.txt \
                     -index {prebuilt_index_path} \
-                    -tag covidex.r3.t5.lr \
+                    -tag covidex.r4.d2q.duot5.lr \
                     -output {self.tmp}/output.json')
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.3311\\n'", data['map'])
-            self.assertEqual("0.6866\\n'", data['ndcg'])
+            self.assertEqual("0.3846\\n'", data['map'])
+            self.assertEqual("0.7745\\n'", data['ndcg'])
 
     def tearDown(self):
         shutil.rmtree(self.tmp)
