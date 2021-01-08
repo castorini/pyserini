@@ -32,8 +32,10 @@ parser.add_argument('--index', type=str, metavar='path to index or index name', 
                     help="Path to Faiss index or name of prebuilt index.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: msmarco_passage_dev_subset.")
-parser.add_argument('--encoded-queries', type=str, metavar='path to query embedding or query name', required=True,
+parser.add_argument('--encoded-queries', type=str, metavar='path to query embedding or query name', required=False,
                     help="Path to query embedding or name of pre encoded queries")
+parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name', required=False,
+                    help="Path to query encoder pytorch checkpoint or hgf encoder model name")
 parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
 parser.add_argument('--batch', type=int, metavar='num', required=False, default=1,
                     help="search batch of queries in parallel")
@@ -45,12 +47,15 @@ args = parser.parse_args()
 
 topics = get_topics(args.topics)
 
-if os.path.exists(args.encoded_queries):
-    # create query encoder from query embedding directory
-    query_encoder = QueryEncoder(args.encoded_queries)
+if args.encoded_queries:
+    if os.path.exists(args.encoded_queries):
+        # create query encoder from query embedding directory
+        query_encoder = QueryEncoder(args.encoded_queries)
+    else:
+        # create query encoder from pre encoded query name
+        query_encoder = QueryEncoder.load_encoded_queries(args.encoded_queries)
 else:
-    # create query encoder from pre encoded query name
-    query_encoder = QueryEncoder.load_encoded_queries(args.encoded_queries)
+    query_encoder = QueryEncoder(encoder_dir=args.encoder)
 
 if not query_encoder:
     exit()

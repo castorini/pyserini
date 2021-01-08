@@ -25,6 +25,7 @@ import faiss
 import numpy as np
 import tensorflow.compat.v1 as tf
 from tqdm import tqdm
+from transformers import BertTokenizer, BertModel
 
 from pyserini.util import download_prebuilt_index, download_encoded_queries, get_indexes_info
 
@@ -104,7 +105,7 @@ class SimpleDenseSearcher:
         return [DenseSearchResult(self.docids[idx], score)
                 for score, idx in zip(distances, indexes) if idx != -1]
 
-    def batch_search(self, q_embs: np.array, q_ids: List[str], k: int = 10, threads: int = 1)\
+    def batch_search(self, q_embs: np.array, q_ids: List[str], k: int = 10, threads: int = 1) \
             -> Dict[str, List[DenseSearchResult]]:
         """
 
@@ -147,11 +148,33 @@ class SimpleDenseSearcher:
 
 
 class QueryEncoder:
-    def __init__(self, encoder_dir: str):
-        self.embedding, self.text2idx = self.load_encoder(encoder_dir)
+    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None):
+        self.has_model = False
+        if (not encoder_dir) and (not encoded_query_dir):
+            raise Exception('Neither query encoder model nor encoded queries provided.\
+                             Please provide at least one')
+        if encoder_dir:
+            self.model = BertModel.from_pretrained(encoder_dir)
+            self.tokenizer = BertTokenizer.from_pretrained(encoder_dir)
+            self.has_model = True
+        else:
+            self.embedding, self.text2idx = self._load_embeddings(encoded_query_dir)
 
     def encode(self, query: str):
-        return self.embedding[self.text2idx[query]]
+        if self.has_model:
+            max_length = 36  # hardcode for now
+            inputs = self.tokenizer(
+                '[CLS] [Q] ' + query + " [MASK]" * max_length,
+                max_length=max_length,
+                truncation=True,
+                add_special_tokens=False,
+                return_tensors="pt"
+            )
+            outputs = self.model(**inputs)
+            embeddings = outputs.last_hidden_state.detach().numpy()
+            return np.average(embeddings[:, 4:, :], axis=-2).flatten()
+        else:
+            return self.embedding[self.text2idx[query]]
 
     @classmethod
     def load_encoded_queries(cls, encoded_query_name: str):
@@ -175,15 +198,15 @@ class QueryEncoder:
             return None
 
         print(f'Initializing {encoded_query_name}...')
-        return cls(query_dir)
+        return cls(encoded_query_dir=query_dir)
 
-    def load_encoder(self, encoder_dir: str):
+    def _load_embeddings(self, encoder_dir: str):
         q_path = os.path.join(encoder_dir, 'queries')
         emb_path = os.path.join(encoder_dir, 'query_embs')
-        return self.load_embedding_from_tfds(emb_path), self.load_queries(q_path)
+        return self._load_embedding_from_tfds(emb_path), self._load_queries(q_path)
 
     @staticmethod
-    def load_queries(queries_path: str):
+    def _load_queries(queries_path: str):
         text2idx = {}
         with open(queries_path, 'r') as f:
             for idx, line in tqdm(enumerate(f)):
@@ -193,7 +216,7 @@ class QueryEncoder:
         return text2idx
 
     @staticmethod
-    def load_embedding_from_tfds(srcfile):
+    def _load_embedding_from_tfds(srcfile):
 
         def _parse_function(example_proto):
             features = {'doc_emb': tf.FixedLenFeature([], tf.string),
