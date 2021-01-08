@@ -31,10 +31,12 @@ class TestSearchIntegration(unittest.TestCase):
             anserini_root = '../anserini'
             pyserini_root = '.'
 
+        index_cache_root = "~/.cache/pyserini/indexes/"
+
         self.checker = SimpleSearcherChecker(
             anserini_root=anserini_root,
-            index=os.path.join(
-                anserini_root, 'indexes/lucene-index.robust04.pos+docvectors+raw'),
+            index=os.path.join(index_cache_root,
+                               'index-robust04-20191213.15f3d001489c97849a010b0a4734d018'),
             topics=os.path.join(
                 pyserini_root, 'tools/topics-and-qrels/topics.robust04.txt'),
             pyserini_topics='robust04',
@@ -43,41 +45,40 @@ class TestSearchIntegration(unittest.TestCase):
         self.checker_msmarco = SimpleSearcherChecker(
             anserini_root=anserini_root,
             index=os.path.join(
-                # TODO: What is the proper name of the index?
-                anserini_root, 'indexes/lucene-index.index-msmarco-passage-20201117-f87c94'),
+                index_cache_root, 'index-msmarco-passage-20201117-f87c94.1efad4f1ae6a77e235042eff4be1612d'),
             topics=os.path.join(
-                pyserini_root, 'tools/topics-and-qrels/topics.msmarco-doc.dev.txt'),
+                pyserini_root, 'tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt'),
             pyserini_topics='msmarco_passage_dev_subset',
             qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt'))
 
         self.checker_doc_per_passage = SimpleSearcherChecker(
             anserini_root=anserini_root,
-            index=os.path.join(
-                # TODO: What is the proper name of the index?
-                anserini_root, 'indexes/lucene-index.index-msmarco-doc-per-passage-20201204-f50dcc'),
+            index=os.path.join(index_cache_root,
+                               'index-msmarco-doc-per-passage-20201204-f50dcc.797367406a7542b649cefa6b41cf4c33'),
             topics=os.path.join(
                 pyserini_root, 'tools/topics-and-qrels/topics.msmarco-doc.dev.txt'),
             pyserini_topics='msmarco_doc_dev',
             qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.msmarco-doc.dev.txt'))
 
-        self.anserini_max_passage_extras = '-hits 1000 -selectMaxPassage -selectMaxPassage.hits 100'
-        self.pyserini_max_passage_extras = '--msmarco --hits 1000 --max-passage --max-passage-hits 100'
+        self.anserini_msmarco_extras = '-bm25 -topicreader TsvInt'
+        self.anserini_max_passage_extras = '-hits 1000 -selectMaxPassage -selectMaxPassage.hits 100 -selectMaxPassage.delimiter \#'
+        self.pyserini_max_passage_extras = '--hits 1000 --max-passage --max-passage-hits 100'
 
     def test_single_thread_(self):
         self.assertTrue(self.checker.run(
             'robust04', '-bm25', '--bm25 --threads 1 --batch-size 64'))
-        # self.assertTrue(self.checker_msmarco.run(
-        #     'msmarco_passage_dev_subset', '-bm25', '--bm25 --threads 1 --batch-size 64'))
-        # self.assertTrue(self.checker_doc_per_passage.run('msmarco_doc_dev', f'-bm25 {self.anserini_max_passage_extras}',
-        #                                          f'--threads 1 --batch-size 64 {self.pyserini_max_passage_extras}'))
+        self.assertTrue(self.checker_msmarco.run(
+            'msmarco_passage_dev_subset', self.anserini_msmarco_extras, '--bm25 --threads 1 --batch-size 64'))
+        self.assertTrue(self.checker_doc_per_passage.run('msmarco_doc_dev', f'{self.anserini_msmarco_extras} {self.anserini_max_passage_extras}',
+                                                         f'--threads 1 --batch-size 64 {self.pyserini_max_passage_extras}'))
 
-    def test_thread_4_(self):
+    def test_four_thread(self):
         self.assertTrue(self.checker.run(
             'robust04', '-bm25', '--bm25 --threads 4 --batch-size 64'))
-        # self.assertTrue(self.checker_msmarco.run(
-        #     'msmarco_passage_dev_subset', '-bm25', '--bm25 --threads 4 --batch-size 64'))
-        # self.assertTrue(self.checker_doc_per_passage.run('msmarco_doc_dev', f'-bm25 {self.anserini_max_passage_extras}',
-        #                                          f'--threads 1 --batch-size 64 {self.pyserini_max_passage_extras}'))
+        self.assertTrue(self.checker_msmarco.run(
+            'msmarco_passage_dev_subset', self.anserini_msmarco_extras, '--bm25 --threads 4 --batch-size 64'))
+        self.assertTrue(self.checker_doc_per_passage.run('msmarco_doc_dev', f'{self.anserini_msmarco_extras} {self.anserini_max_passage_extras}',
+                                                         f'--threads 4 --batch-size 64 {self.pyserini_max_passage_extras}'))
 
     def tearDown(self):
         pass
