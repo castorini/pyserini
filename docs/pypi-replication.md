@@ -28,7 +28,7 @@ P_30                  	all	0.3102
 Before we can evaluate the output, we need to first fetch the eval script and relevance judgments:
 
 ```bash
-$ wget https://raw.githubusercontent.com/castorini/anserini-tools/master/scripts/msmarco/msmarco_eval.py
+$ wget https://raw.githubusercontent.com/castorini/anserini-tools/master/scripts/msmarco/msmarco_passage_eval.py
 $ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt
 ```
 
@@ -41,7 +41,7 @@ $ python -m pyserini.search --topics msmarco_passage_dev_subset --index msmarco-
 Evaluation command:
 
 ```bash
-$ python msmarco_eval.py qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.txt
+$ python msmarco_passage_eval.py qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.txt
 #####################
 MRR @10: 0.18741227770955543
 QueriesRanked: 6980
@@ -57,7 +57,7 @@ $ python -m pyserini.search --topics msmarco_passage_dev_subset --index msmarco-
 Evaluation command:
 
 ```bash
-$ python msmarco_eval.py qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.expanded.txt
+$ python msmarco_passage_eval.py qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.expanded.txt
 #####################
 MRR @10: 0.2815607518078854
 QueriesRanked: 6980
@@ -69,7 +69,7 @@ QueriesRanked: 6980
 Before we can evaluate the output, we need to first fetch the eval script and relevance judgments:
 
 ```bash
-$ wget https://raw.githubusercontent.com/castorini/anserini-tools/master/scripts/msmarco/ms_marco_doc_eval.py
+$ wget https://raw.githubusercontent.com/castorini/anserini-tools/master/scripts/msmarco/msmarco_doc_eval.py
 $ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-doc.dev.txt
 ```
 
@@ -82,7 +82,7 @@ $ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc --outpu
 Evaluation command:
 
 ```bash
-$ python ms_marco_doc_eval.py --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.doc.txt
+$ python msmarco_doc_eval.py --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.doc.txt
 #####################
 MRR @100: 0.2770296928568709
 QueriesRanked: 5193
@@ -98,7 +98,7 @@ $ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc-expande
 Evaluation command:
 
 ```bash
-$ python ms_marco_doc_eval.py --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.doc-expanded.txt
+$ python msmarco_doc_eval.py --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.doc-expanded.txt
 #####################
 MRR @100: 0.32651902964919355
 QueriesRanked: 5193
@@ -114,7 +114,7 @@ $ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc-per-pas
 Evaluation command:
 
 ```bash
-$ python ms_marco_doc_eval.py --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.passage.txt
+$ python msmarco_doc_eval.py --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.passage.txt
 #####################
 MRR @100: 0.2751202109946906
 QueriesRanked: 5193
@@ -130,7 +130,7 @@ $ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc-expande
 Evaluation command:
 
 ```bash
-$ python ms_marco_doc_eval.py --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.passage-expanded.txt
+$ python msmarco_doc_eval.py --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.passage-expanded.txt
 #####################
 MRR @100: 0.32081861579183807
 QueriesRanked: 5193
@@ -144,6 +144,8 @@ Prior to v0.10.1.0, the above commands get different results:
 + With `pyserini==0.10.0.0`, hits are hard coded to 1000 (see [here](https://github.com/castorini/pyserini/blob/pyserini-0.10.0.0/pyserini/search/__main__.py#L110)), even though for MS MARCO doc we only evaluate top 100 hits.
 + With `pyserini==0.10.0.1`, the number hits have been parameterized (see [here](https://github.com/castorini/pyserini/blob/pyserini-0.10.0.1/pyserini/search/__main__.py#L112)), although retrieval is performed using default BM25 parameters.
 + With `pyserini==0.10.1.0`, `pyserini.search` automatically sets BM25 parameters depending on task (see [here](https://github.com/castorini/pyserini/blob/pyserini-0.10.1.0/pyserini/search/__main__.py#L73)).
+
+For additional details, see the snapshot of this replication documentation page at [`pyserini-0.10.1.0`](https://github.com/castorini/pyserini/blob/pyserini-0.10.1.0/docs/pypi-replication.md), which is just before the document has been updated for `pyserini==0.10.1.0`.
 
 ## Replication Log
 
