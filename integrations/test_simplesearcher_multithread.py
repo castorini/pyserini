@@ -17,45 +17,53 @@
 import os
 import unittest
 
-from integrations.compare_simplesearcher import CompareSimpleSearcher
+from integrations.run_simplesearcher import RunSimpleSearcher
 
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
-        index_cache_root = "~/.cache/pyserini/indexes/"
-
-        self.checker_robust = CompareSimpleSearcher(
-            index=os.path.join(index_cache_root,
-                               'index-robust04-20191213.15f3d001489c97849a010b0a4734d018'),
+        self.checker_robust = RunSimpleSearcher(
+            index='robust04',
             topics='robust04')
 
-        self.checker_msmarco = CompareSimpleSearcher(
-            index=os.path.join(
-                index_cache_root, 'index-msmarco-passage-20201117-f87c94.1efad4f1ae6a77e235042eff4be1612d'),
+        self.checker_msmarco = RunSimpleSearcher(
+            index='msmarco-passage',
             topics='msmarco_passage_dev_subset')
 
-        self.checker_doc_per_passage = CompareSimpleSearcher(
-            index=os.path.join(index_cache_root,
-                               'index-msmarco-doc-per-passage-20201204-f50dcc.797367406a7542b649cefa6b41cf4c33'),
+        self.checker_doc_per_passage = RunSimpleSearcher(
+            index='msmarco-doc-per-passage',
             topics='msmarco_doc_dev')
 
         self.test_threads = ['--threads 1 --batch-size 64',
                              '--threads 4 --batch-size 64']
 
+    def check_equal(self, runner: RunSimpleSearcher, runtag: str, extras: str) -> bool:
+        checksums = []
+        for i, config in enumerate(self.test_threads):
+            checksum = runner.run(runtag=f'{runtag}-{i}',
+                                  extras=f'{config} {extras}')
+            if len(checksum) == 0:
+                print(f'[FAIL] {runtag} {config} failed to run!')
+                return False
+            checksums.append(checksum)
+        equal = all(x == checksums[0] for x in checksums)
+        if equal:
+            print(f'[SUCCESS] {runtag} results match!')
+        else:
+            print(f'[FAIL] {runtag} results do not match!')
+        return equal
+
     def test_robust04_(self):
-        self.assertTrue(self.checker_robust.run(
-            'robust04', '', self.test_threads))
+        self.assertTrue(self.check_equal(self.checker_robust,
+                                         'robust04', extras=''))
 
     def test_msmarco_passage_(self):
-        self.assertTrue(self.checker_msmarco.run(
-            'msmarco_passage_dev_subset', '', self.test_threads))
+        self.assertTrue(self.check_equal(self.checker_msmarco,
+                                         'msmarco_passage_dev_subset', extras=''))
 
     def test_msmarco_doc_(self):
-        max_passage = '--hits 1000 --max-passage --max-passage-hits 100'
-        extras = [
-            f'{max_passage} {threads}' for threads in self.test_threads]
-        self.assertTrue(self.checker_doc_per_passage.run('msmarco_doc_dev', max_passage,
-                                                         extras))
+        self.assertTrue(self.check_equal(self.checker_doc_per_passage, 'msmarco_doc_dev',
+                                         extras='--hits 1000 --max-passage --max-passage-hits 100'))
 
     def tearDown(self):
         pass
