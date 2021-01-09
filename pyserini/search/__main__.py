@@ -18,6 +18,7 @@ import argparse
 import os
 from pyserini.search import get_topics, SimpleSearcher
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
+from pyserini.query_iterator import QUERY_IDS, query_iterator
 from tqdm import tqdm
 
 parser = argparse.ArgumentParser(description='Search a Lucene index.')
@@ -25,6 +26,7 @@ parser.add_argument('--index', type=str, metavar='path to index or index name', 
                     help="Path to Lucene index or name of prebuilt index.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: robust04, robust05, core17, core18.")
+parser.add_argument('--ordered',  action='store_true', default=False, help="search queries in predefined order")
 parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
 parser.add_argument('--msmarco',  action='store_true', default=False, help="Output in MS MARCO format.")
 parser.add_argument('--output', type=str, metavar='path', help="Path to output file.")
@@ -130,10 +132,13 @@ if output_path is None:
 print(f'Running {args.topics} topics, saving to {output_path}...')
 tag = output_path[:-4] if args.output is None else 'Anserini'
 
+order = None
+if args.ordered:
+    order = QUERY_IDS[args.topics]
+
 with open(output_path, 'w') as target_file:
-    for index, topic in enumerate(tqdm(sorted(topics.keys()))):
-        search = topics[topic].get('title')
-        hits = searcher.search(search, args.hits)
+    for topic_id, text in tqdm(list(query_iterator(topics, order))):
+        hits = searcher.search(text, args.hits)
 
         if not args.max_passage:
             docids = [hit.docid.strip() for hit in hits]
@@ -144,10 +149,10 @@ with open(output_path, 'w') as target_file:
 
             if args.msmarco:
                 for i, docid in enumerate(docids):
-                    target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+                    target_file.write(f'{topic_id}\t{docid}\t{i + 1}\n')
             else:
                 for i, (docid, score) in enumerate(zip(docids, scores)):
-                    target_file.write(f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
+                    target_file.write(f'{topic_id} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
         else:
             unique_docs = set()
             rank = 1
@@ -157,9 +162,9 @@ with open(output_path, 'w') as target_file:
                     continue
 
                 if args.msmarco:
-                    target_file.write(f'{topic}\t{docid}\t{rank}\n')
+                    target_file.write(f'{topic_id}\t{docid}\t{rank}\n')
                 else:
-                    target_file.write(f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
+                    target_file.write(f'{topic_id} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
                 rank = rank + 1
                 unique_docs.add(docid)
                 if rank > args.max_passage_hits:
