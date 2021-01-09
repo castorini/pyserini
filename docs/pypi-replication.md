@@ -1,6 +1,7 @@
 # Direct PyPI Package Replication
 
 It's easy to replicate runs on many "standard" IR test collections directly from the PyPI package (i.e., with only `pip install`)!
+The following results can be replicated with v0.10.1.0 or anything later, including HEAD.
 
 ## Robust04
 
@@ -14,7 +15,7 @@ That's it!
 
 A dependency-free way to evaluate the run:
 
-```
+```bash
 $ wget -O jtreceval-0.0.5-jar-with-dependencies.jar https://search.maven.org/remotecontent?filepath=uk/ac/gla/dcs/terrierteam/jtreceval/0.0.5/jtreceval-0.0.5-jar-with-dependencies.jar
 $ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.robust04.txt
 $ java -jar jtreceval-0.0.5-jar-with-dependencies.jar -m map -m P.30 qrels.robust04.txt run.robust04.txt
@@ -24,80 +25,127 @@ P_30                  	all	0.3102
 
 ## MS MARCO Passage Ranking
 
+Before we can evaluate the output, we need to first fetch the eval script and relevance judgments:
+
+```bash
+$ wget https://raw.githubusercontent.com/castorini/anserini-tools/master/scripts/msmarco/msmarco_passage_eval.py
+$ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt
+```
+
 MS MARCO passage ranking task, BM25 baseline:
 
 ```bash
-$ python -m pyserini.search --topics msmarco_passage_dev_subset --index msmarco-passage --output run.msmarco-passage.txt --bm25
+$ python -m pyserini.search --topics msmarco_passage_dev_subset --index msmarco-passage --output run.msmarco-passage.txt --bm25 --msmarco
 ```
 
-To evaluate:
+Evaluation command:
 
 ```bash
-$ wget -O jtreceval-0.0.5-jar-with-dependencies.jar https://search.maven.org/remotecontent?filepath=uk/ac/gla/dcs/terrierteam/jtreceval/0.0.5/jtreceval-0.0.5-jar-with-dependencies.jar
-$ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt
-$ java -jar jtreceval-0.0.5-jar-with-dependencies.jar -m map -c -m recall.1000 -c qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.txt
-map                   	all	0.1926
-recall_1000           	all	0.8526
+$ python msmarco_passage_eval.py qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.txt
+#####################
+MRR @10: 0.18741227770955543
+QueriesRanked: 6980
+#####################
 ```
 
 MS MARCO passage ranking task, BM25 baseline with [docTTTTTquery expansions](http://doc2query.ai/):
 
 ```bash
-$ python -m pyserini.search --topics msmarco_passage_dev_subset --index msmarco-passage-expanded --output run.msmarco-passage.expanded.txt --bm25
+$ python -m pyserini.search --topics msmarco_passage_dev_subset --index msmarco-passage-expanded --output run.msmarco-passage.expanded.txt --bm25 --msmarco
 ```
 
-To evaluate:
+Evaluation command:
 
 ```bash
-$ wget -O jtreceval-0.0.5-jar-with-dependencies.jar https://search.maven.org/remotecontent?filepath=uk/ac/gla/dcs/terrierteam/jtreceval/0.0.5/jtreceval-0.0.5-jar-with-dependencies.jar
-$ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt
-$ java -jar jtreceval-0.0.5-jar-with-dependencies.jar -m map -c -m recall.1000 -c qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.expanded.txt
-map                   	all	0.2805
-recall_1000           	all	0.9470
+$ python msmarco_passage_eval.py qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.expanded.txt
+#####################
+MRR @10: 0.2815607518078854
+QueriesRanked: 6980
+#####################
 ```
 
-
 ## MS MARCO Document Ranking
+
+Before we can evaluate the output, we need to first fetch the eval script and relevance judgments:
+
+```bash
+$ wget https://raw.githubusercontent.com/castorini/anserini-tools/master/scripts/msmarco/msmarco_doc_eval.py
+$ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-doc.dev.txt
+```
 
 MS MARCO document ranking task, BM25 baseline:
 
 ```bash
-$ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc --output run.msmarco-doc.txt --bm25
+$ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc --output run.msmarco-doc.doc.txt --bm25 --hits 100 --msmarco
 ```
 
-To evaluate:
+Evaluation command:
 
 ```bash
-$ wget -O jtreceval-0.0.5-jar-with-dependencies.jar https://search.maven.org/remotecontent?filepath=uk/ac/gla/dcs/terrierteam/jtreceval/0.0.5/jtreceval-0.0.5-jar-with-dependencies.jar
-$ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-doc.dev.txt
-$ java -jar jtreceval-0.0.5-jar-with-dependencies.jar -m map -m recall.1000 qrels.msmarco-doc.dev.txt run.msmarco-doc.txt
-map                   	all	0.2310
-recall_1000           	all	0.8856
+$ python msmarco_doc_eval.py --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.doc.txt
+#####################
+MRR @100: 0.2770296928568709
+QueriesRanked: 5193
+#####################
 ```
 
-## Note
-- Replicate above experiments with `pyserini==0.10.0.1` are expected to get exactly same result.
-- To replicate with `pyserini==0.10.0.0`, please change indexes with `msmarco` prefix to `ms-marco`. 
-  E.g., `msmarco-doc` should be change to  `ms-marco-doc`. Exactly same results are expected to obtain.
-  
-- WARNING: In `pyserini==0.10.0.0`, hits are hard coded to 1000. see [here](https://github.com/castorini/pyserini/blob/pyserini-0.10.0.0/pyserini/search/__main__.py#L110).
-  Even though for MS MARCO doc we only evaluate top 100.
-  In `pyserini==0.10.0.1`, the hits are has been parameterized. see [here](https://github.com/castorini/pyserini/blob/pyserini-0.10.0.1/pyserini/search/__main__.py#L112).
-  
-CAVEAT: current HEAD of master is getting different results.
-```
-MS MARCO passage ranking task, BM25 baseline:
-map                   	all	0.1958
-recall_1000           	all	0.8573
+MS MARCO document ranking task, BM25 baseline with [docTTTTTquery expansions](http://doc2query.ai/) (per-document):
 
-MS MARCO passage ranking task, BM25 baseline with docTTTTTquery expansions:
-map                   	all	0.2893
-recall_1000           	all	0.9506
-
-MS MARCO Document Ranking
-map                   	all	0.2775
-recall_1000           	all	0.9357
+```bash
+$ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc-expanded-per-doc --output run.msmarco-doc.doc-expanded.txt --bm25 --hits 100 --msmarco
 ```
+
+Evaluation command:
+
+```bash
+$ python msmarco_doc_eval.py --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.doc-expanded.txt
+#####################
+MRR @100: 0.32651902964919355
+QueriesRanked: 5193
+#####################
+```
+
+MS MARCO document ranking task, BM25 baseline, but with documents segmented into passages and selecting the best-scoring passage per document:
+
+```bash
+$ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc-per-passage --output run.msmarco-doc.passage.txt --bm25 --hits 1000 --max-passage --max-passage-hits 100 --msmarco
+```
+
+Evaluation command:
+
+```bash
+$ python msmarco_doc_eval.py --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.passage.txt
+#####################
+MRR @100: 0.2751202109946906
+QueriesRanked: 5193
+#####################
+```
+
+MS MARCO document ranking task, BM25 baseline with [docTTTTTquery expansions](http://doc2query.ai/) (per-passage):
+
+```bash
+$ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc-expanded-per-passage --output run.msmarco-doc.passage-expanded.txt --bm25 --hits 1000 --max-passage --max-passage-hits 100 --msmarco
+```
+
+Evaluation command:
+
+```bash
+$ python msmarco_doc_eval.py --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.passage-expanded.txt
+#####################
+MRR @100: 0.32081861579183807
+QueriesRanked: 5193
+#####################
+```
+
+## Notes
+
+Prior to v0.10.1.0, the above commands get different results:
+
++ With `pyserini==0.10.0.0`, hits are hard coded to 1000 (see [here](https://github.com/castorini/pyserini/blob/pyserini-0.10.0.0/pyserini/search/__main__.py#L110)), even though for MS MARCO doc we only evaluate top 100 hits.
++ With `pyserini==0.10.0.1`, the number hits have been parameterized (see [here](https://github.com/castorini/pyserini/blob/pyserini-0.10.0.1/pyserini/search/__main__.py#L112)), although retrieval is performed using default BM25 parameters.
++ With `pyserini==0.10.1.0`, `pyserini.search` automatically sets BM25 parameters depending on task (see [here](https://github.com/castorini/pyserini/blob/pyserini-0.10.1.0/pyserini/search/__main__.py#L73)).
+
+For additional details, see the snapshot of this replication documentation page at [`pyserini-0.10.1.0`](https://github.com/castorini/pyserini/blob/pyserini-0.10.1.0/docs/pypi-replication.md), which is just before the document has been updated for `pyserini==0.10.1.0`.
 
 ## Replication Log
 
