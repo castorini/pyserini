@@ -299,10 +299,10 @@ def train(train_extracted, dev_extracted, feature_name, eval_fn):
                             free_raw_data=False)
     #max_leaves = -1 seems to work better for many settings, although 10 is also good
     params = {
-        'boosting_type': 'goss',
+        'boosting_type': 'gbdt',
         'objective': 'lambdarank',
         'max_bin': 255,
-        'num_leaves': 100,
+        'num_leaves': 200,
         'max_depth': -1,
         'min_data_in_leaf': 50,
         'min_sum_hessian_in_leaf': 0,
@@ -314,7 +314,6 @@ def train(train_extracted, dev_extracted, feature_name, eval_fn):
         'early_stopping_round': 200,
         'metric': 'custom',
         'label_gain': [0, 1],
-        'lambdarank_truncation_level': 20,
         'seed': 12345,
         'num_threads': max(multiprocessing.cpu_count() // 2, 1)
     }
@@ -458,7 +457,7 @@ if __name__ == '__main__':
     dev, dev_qrel = dev_data_loader(task='pygaggle')
     queries = query_loader()
 
-    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco-ent/', max(multiprocessing.cpu_count()//2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
                            ('text', 'text'),
                            ('text_unlemm', 'text_unlemm'),
@@ -590,7 +589,6 @@ if __name__ == '__main__':
     print("dev extracted")
     feature_name = fe.feature_names()
     del sampled_train, dev, queries, fe
-    print("generate dev group rel_num")
     eval_fn = gen_dev_group_rel_num(dev_qrel, dev_extracted)
     print("start train")
     train_res = train(train_extracted, dev_extracted, feature_name, eval_fn)
