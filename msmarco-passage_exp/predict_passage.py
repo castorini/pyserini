@@ -266,7 +266,6 @@ def output(file, dev_data):
 
 if __name__ == '__main__':
     os.environ["ANSERINI_CLASSPATH"] = "../pyserini/resources/jars"
-    total_start_time = time.time()
     parser = argparse.ArgumentParser(description='Learning to rank')
     parser.add_argument('--rank_list_path', required=True)
     parser.add_argument('--rank_list_top', type=int, default=10000)
@@ -411,16 +410,22 @@ if __name__ == '__main__':
     feature_used = metadata['feature_names']
 
     batch_info = []
+    start_extract = time.time()
     for dev_extracted in batch_extract(dev, queries, fe):
-        task_infos, features, group = dev_extracted    
+        end_extract = time.time()
+        print(f'extract 1000 queries take {end_extract - start_extract}')
+        task_infos, features, group = dev_extracted
+        start_predict = time.time()
         batch_predict(models, dev_extracted, feature_used)
-        batch_info.append(task_infos)
-    batch_info = pd.concat(batch_info,axis=0, ignore_index=True)
+        end_predict = time.time()
+        print(f'predict 1000 queries take {end_predict - start_predict}')
+    batch_info.append(task_infos)
+    batch_info = pd.concat(batch_info, axis=0, ignore_index=True)
     del dev, queries, fe
 
     eval_res = eval_mrr(batch_info)
     eval_recall(dev_qrel, batch_info)
     output(args.ltr_output_path, batch_info)
     total_time = (time.time() - total_start_time)
-    print(f'Total training time: {total_time:0.3f} s')
+    print(f'Total extract time: {total_time:0.3f} s')
     print('Done!')
