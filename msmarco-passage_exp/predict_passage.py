@@ -9,6 +9,7 @@ import os
 import shutil
 import subprocess
 import uuid
+import time
 
 import numpy as np
 import pandas as pd
@@ -20,7 +21,7 @@ from pyserini.ltr import *
 from pyserini.search import get_topics_with_reader
 
 
-def dev_data_loader(file, format, top=10000):
+def dev_data_loader(file, format, top=100):
     if format == 'tsv':
         dev = pd.read_csv(file, sep="\t",
                           names=['qid', 'pid', 'rank'],
@@ -81,7 +82,7 @@ def dev_data_loader(file, format, top=10000):
 
 def query_loader():
     queries = {}
-    with open('queries.train.small.Flex.json') as f:
+    with open('queries.train.small.entity.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -89,9 +90,8 @@ def query_loader():
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
-            del query['raw']
             queries[qid] = query
-    with open('queries.dev.small.Flex.json') as f:
+    with open('queries.dev.small.entity.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -99,9 +99,8 @@ def query_loader():
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
-            del query['raw']
             queries[qid] = query
-    with open('queries.eval.small.Flex.json') as f:
+    with open('queries.eval.small.entity.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -109,7 +108,6 @@ def query_loader():
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
-            del query['raw']
             queries[qid] = query
     return queries
 
@@ -267,6 +265,8 @@ def output(file, dev_data):
 
 
 if __name__ == '__main__':
+    os.environ["ANSERINI_CLASSPATH"] = "../pyserini/resources/jars"
+    total_start_time = time.time()
     parser = argparse.ArgumentParser(description='Learning to rank')
     parser.add_argument('--rank_list_path', required=True)
     parser.add_argument('--rank_list_top', type=int, default=10000)
@@ -275,10 +275,12 @@ if __name__ == '__main__':
     parser.add_argument('--ltr_output_path', required=True)
 
     args = parser.parse_args()
+    print("load dev")
     dev, dev_qrel = dev_data_loader(args.rank_list_path, args.rank_list_format, args.rank_list_top)
+    print("load queries")
     queries = query_loader()
-
-    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco-flex/', max(multiprocessing.cpu_count()//2, 1))
+    print("add feature")
+    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
                            ('text', 'text'),
                            ('text_unlemm', 'text_unlemm'),
@@ -391,16 +393,16 @@ if __name__ == '__main__':
     fe.add(EntityWhereMatch())
     fe.add(EntityWhoMatch())
 
-    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm",
+    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm",
                      "title_unlemm", "text_unlemm"))
     print("IBM Model loaded")
-    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm",
+    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm",
                      "url_unlemm", "text_unlemm"))
     print("IBM Model loaded")
-    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm",
+    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm",
                      "body", "text_unlemm"))
     print("IBM Model loaded")
-    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
+    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
                      "text_bert_tok", "text_bert_tok"))
     print("IBM Model loaded")
 
@@ -419,3 +421,6 @@ if __name__ == '__main__':
     eval_res = eval_mrr(batch_info)
     eval_recall(dev_qrel, batch_info)
     output(args.ltr_output_path, batch_info)
+    total_time = (time.time() - total_start_time)
+    print(f'Total training time: {total_time:0.3f} s')
+    print('Done!')

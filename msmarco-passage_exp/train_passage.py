@@ -11,6 +11,7 @@ import shutil
 import subprocess
 import uuid
 import json
+import time
 
 import sys
 sys.path.append('..')
@@ -112,7 +113,7 @@ def dev_data_loader(task='pygaggle'):
             dev = pd.read_csv('../runs/msmarco-passage/run.msmarco-passage.dev.small.tsv', sep="\t",
                               names=['qid', 'pid', 'rank'], dtype=np.int32)
         elif task == 'pygaggle':
-            dev = pd.read_csv('../../pygaggle/data/msmarco_ans_entire/run.dev.small.tsv', sep="\t",
+            dev = pd.read_csv('../collections/msmarco-passage/run.dev.small.tsv', sep="\t",
                               names=['qid', 'pid', 'rank'], dtype=np.int32)
         else:
             raise Exception('unknown parameters')
@@ -136,7 +137,7 @@ def dev_data_loader(task='pygaggle'):
 
 def query_loader():
     queries = {}
-    with open('queries.train.small.Flex.json') as f:
+    with open('queries.train.small.entity.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -144,9 +145,8 @@ def query_loader():
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
-            del query['raw']
             queries[qid] = query
-    with open('queries.dev.small.Flex.json') as f:
+    with open('queries.dev.small.entity.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -154,9 +154,8 @@ def query_loader():
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
-            del query['raw']
             queries[qid] = query
-    with open('queries.eval.small.Flex.json') as f:
+    with open('queries.eval.small.entity.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -164,7 +163,6 @@ def query_loader():
             query['text'] = query['text_unlemm'].split(" ")
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
-            del query['raw']
             queries[qid] = query
     return queries
 
@@ -244,24 +242,24 @@ def data_loader(task, df, queries, fe):
     df_hash = hash_df(df)
     jar_hash = hash_anserini_jar()
     fe_hash = hash_fe(fe)
-    if os.path.exists(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle'):
-        res = pickle.load(open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'rb'))
-        print(res['info'].shape)
-        print(res['info'].qid.drop_duplicates().shape)
-        print(res['group'].mean())
-        return res
-    else:
-        if task == 'train' or task == 'dev':
-            info, data, group = batch_extract(df, queries, fe)
-            obj = {'info':info, 'data': data, 'group': group,
+    #if os.path.exists(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle'):
+        #res = pickle.load(open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'rb'))
+        #print(res['info'].shape)
+        #print(res['info'].qid.drop_duplicates().shape)
+        #print(res['group'].mean())
+        #return res
+    #else:
+    if task == 'train' or task == 'dev':
+        info, data, group = batch_extract(df, queries, fe)
+        obj = {'info':info, 'data': data, 'group': group,
                    'df_hash': df_hash, 'jar_hash': jar_hash, 'fe_hash': fe_hash}
-            print(info.shape)
-            print(info.qid.drop_duplicates().shape)
-            print(group.mean())
-            pickle.dump(obj, open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'wb'))
-            return obj
-        else:
-            raise Exception('unknown parameters')
+        print(info.shape)
+        print(info.qid.drop_duplicates().shape)
+        print(group.mean())
+            #pickle.dump(obj, open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'wb'))
+        return obj
+    else:
+        raise Exception('unknown parameters')
 
 def gen_dev_group_rel_num(dev_qrel, dev_extracted):
     dev_rel_num = dev_qrel[dev_qrel['rel']>0].groupby('qid').count()['rel']
@@ -448,17 +446,19 @@ def save_exp(dirname,
         'mrr_10': eval_res['mrr_10']
     }
     json.dump(metadata, open(f'{dirname}/metadata.json', 'w'))
-    shutil.copytree('../anserini_ltr_source', f'{dirname}/anserini_ltr_source')
-    shutil.copytree('../pyserini_ltr_source', f'{dirname}/pyserini_ltr_source')
-    shutil.copy('train_passage.py', f'{dirname}/train_passage.py')
+    ##shutil.copytree('../anserini_ltr_source', f'{dirname}/anserini_ltr_source')
+    ##shutil.copytree('../pyserini_ltr_source', f'{dirname}/pyserini_ltr_source')
+    ##shutil.copy('train_passage.py', f'{dirname}/train_passage.py')
 
 
 if __name__ == '__main__':
+    os.environ["ANSERINI_CLASSPATH"] = "../pyserini/resources/jars"
+    total_start_time = time.time()
     sampled_train = train_data_loader(task='triple', neg_sample=20)
     dev, dev_qrel = dev_data_loader(task='pygaggle')
     queries = query_loader()
 
-    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco-flex/', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
                            ('text', 'text'),
                            ('text_unlemm', 'text_unlemm'),
@@ -571,28 +571,35 @@ if __name__ == '__main__':
     fe.add(EntityWhereMatch())
     fe.add(EntityWhoMatch())
 
-    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm",
+    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm",
                      "title_unlemm", "text_unlemm"))
     print("IBM Model loaded")
-    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm",
+    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm",
                      "url_unlemm", "text_unlemm"))
     print("IBM Model loaded")
-    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm",
+    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm",
                      "body", "text_unlemm"))
     print("IBM Model loaded")
-    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
+    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
                      "text_bert_tok", "text_bert_tok"))
     print("IBM Model loaded")
-
+    
     train_extracted = data_loader('train', sampled_train, queries, fe)
+    print("train_extracted")
     dev_extracted = data_loader('dev', dev, queries, fe)
+    print("dev extracted")
     feature_name = fe.feature_names()
     del sampled_train, dev, queries, fe
-
+    print("generate dev group rel_num")
     eval_fn = gen_dev_group_rel_num(dev_qrel, dev_extracted)
+    print("start train")
     train_res = train(train_extracted, dev_extracted, feature_name, eval_fn)
+    print("end train")
     eval_res = eval_mrr(dev_extracted['info'])
     eval_res.update(eval_recall(dev_qrel, dev_extracted['info']))
 
     dirname = gen_exp_dir()
     save_exp(dirname, train_extracted, dev_extracted, train_res, eval_res)
+    total_time = (time.time() - total_start_time)
+    print(f'Total training time: {total_time:0.3f} s')
+    print('Done!')
