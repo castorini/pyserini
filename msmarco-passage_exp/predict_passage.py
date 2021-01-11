@@ -427,6 +427,4 @@ if __name__ == '__main__':
     eval_res = eval_mrr(batch_info)
     eval_recall(dev_qrel, batch_info)
     output(args.ltr_output_path, batch_info)
-    total_time = (time.time() - total_start_time)
-    print(f'Total extract time: {total_time:0.3f} s')
     print('Done!')
