@@ -413,13 +413,14 @@ if __name__ == '__main__':
     start_extract = time.time()
     for dev_extracted in batch_extract(dev, queries, fe):
         end_extract = time.time()
-        print(f'extract 1000 queries take {end_extract - start_extract}')
+        print(f'extract 1000 queries take {end_extract - start_extract}s')
         task_infos, features, group = dev_extracted
         start_predict = time.time()
         batch_predict(models, dev_extracted, feature_used)
         end_predict = time.time()
-        print(f'predict 1000 queries take {end_predict - start_predict}')
-    batch_info.append(task_infos)
+        print(f'predict 1000 queries take {end_predict - start_predict}s')
+        batch_info.append(task_infos)
+        start_extract = time.time()
     batch_info = pd.concat(batch_info, axis=0, ignore_index=True)
     del dev, queries, fe
 
