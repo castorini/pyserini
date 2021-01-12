@@ -23,7 +23,7 @@ To evaluate:
 $ python tools/scripts/msmarco/msmarco_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.tct_colbert.hnsw.tsv
 #####################
-MRR @10: 0.33395142584254184
+MRR @10: 0.3344676399690711
 QueriesRanked: 6980
 #####################
 ```
@@ -36,9 +36,14 @@ $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.m
                                                             
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
    collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.tct_colbert.hnsw.trec
-map                     all     0.3407
+map                     all     0.3410
 recall_1000             all     0.9618
 ```
+
+> To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
+> `--encoder tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`
+> NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349694137444839)
+
 
 MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, brute force index.
 
@@ -46,7 +51,7 @@ MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, brute force ind
 $ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
                              --index msmarco-passage-tct_colbert-bf \
                              --encoded-queries msmarco-passage-dev-subset-tct_colbert \
-                             --batch 12  \
+                             --batch 36  \
                              --threads 12  \
                              --output runs/run.msmarco-passage.tct_colbert.bf.tsv \
                              --msmarco
@@ -58,7 +63,7 @@ To evaluate:
 $ python tools/scripts/msmarco/msmarco_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.tct_colbert.bf.tsv
 #####################
-MRR @10: 0.3344603629417369
+MRR @10: 0.3349694137444839
 QueriesRanked: 6980
 #####################
 ```
@@ -71,11 +76,15 @@ $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.m
 
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
     collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.tct_colbert.bf.trec
-map                   	all	0.3412
-recall_1000           	all	0.9637
+map                     all     0.3416
+recall_1000             all     0.9640
 ```
 
 You'll notice that hnsw index leads to a small loss in effectiveness.
+> To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
+> `--encoder tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`
+> NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349479237731372)
+
 
 ### Hybrid Dense-Sparse Ranking
 MS MARCO passage ranking task, 
