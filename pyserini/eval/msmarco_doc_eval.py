@@ -1,14 +1,12 @@
-import argparse
 import subprocess
+import sys
+
 from pyserini.util import download_evaluation_script
 
-parser = argparse.ArgumentParser(description='Evaluate msmarco doc runs.')
-parser.add_argument('--qrel', type=str, required=True, help="Path to qrel file")
-parser.add_argument('--run', type=str, required=True, help="Path to run file")
-args = parser.parse_args()
-
 script_path = download_evaluation_script('msmarco_doc_eval')
-cmd = ['python3', script_path, '--judgments', args.qrel, '--run', args.run]
+cmd_prefix = ['python3', script_path]
+args = sys.argv
+cmd = cmd_prefix + args[1:] if len(args) > 1 else cmd_prefix
 print(f'Running command: {cmd}')
 process = subprocess.Popen(cmd,
                            stdout=subprocess.PIPE,

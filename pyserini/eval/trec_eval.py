@@ -1,20 +1,12 @@
-import argparse
 import subprocess
-from pyserini.util import download_evaluation_script
+import sys
 
-parser = argparse.ArgumentParser(description='Evaluate trec runs.')
-parser.add_argument('--qrel', type=str, required=True, help="Path to qrel file")
-parser.add_argument('--run', type=str, required=True, help="Path to run file")
-parser.add_argument('--metrics', type=str, nargs='+', required=True, help="metrics to evaluate")
-args = parser.parse_args()
+from pyserini.util import download_evaluation_script
 
 script_path = download_evaluation_script('trec_eval')
 cmd_prefix = ['java', '-jar', script_path]
-metrics = []
-for metric in args.metrics:
-    metrics += ['-m', metric]
-cmd_suffix = [args.qrel, args.run]
-cmd = cmd_prefix + metrics + cmd_suffix
+args = sys.argv
+cmd = cmd_prefix + args[1:] if len(args) > 1 else cmd_prefix
 print(f'Running command: {cmd}')
 process = subprocess.Popen(cmd,
                            stdout=subprocess.PIPE,
