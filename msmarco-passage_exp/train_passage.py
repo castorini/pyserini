@@ -489,8 +489,8 @@ if __name__ == '__main__':
         fe.add(DocSize(field=ifield))
 
         fe.add(QueryLength(qfield=qfield))
-        fe.add(QueryCoverageRatio(qfield=qfield))
         fe.add(UniqueTermCount(qfield=qfield))
+        fe.add(QueryCoverageRatio(field=ifield, qfield=qfield))
         fe.add(MatchingTermCount(field=ifield, qfield=qfield))
         fe.add(SCS(field=ifield, qfield=qfield))
 
