@@ -139,7 +139,6 @@ nohup ./pyserini/scripts/kilt/eval_runs.sh pyserini/runs/<name of run> 1,100,100
 
 For R-Precision:
 
-Document-level:
 
 | model | FEV | AY2 | WnWi | WnCw | T-REx | zsRE | NQ | HoPo | TQA | ELI5 | WoW |
 |-|-|-|-|-|-|-|-|-|-|-|-|
@@ -148,21 +147,23 @@ Document-level:
 | anserini (document + bigram) | 43.97 | - | - | - | 46.24 | 52.93 | 30.95 | 42.96 | 32.54 | 7.23 | 33.58 |
 | anserini (document + stopword filter + bigram) | 40.13 | - | - | - | 54.36 | 70.84 | 27.63 | 45.34 | 29.76 | 7.37 | 30.94 |
 | anserini (document + stopword filter + stem + bigram) | 39.89 | - | - | - | 54.22 | 70.09 | 26.89 | 45.04 | 29.65 | 7.23 | 31.36 |
-
-Passage-level:
-
-| model | FEV | AY2 | WnWi | WnCw | T-REx | zsRE | NQ | HoPo | TQA | ELI5 | WoW |
-|-|-|-|-|-|-|-|-|-|-|-|-|
 | anserini (passage) | 43.04 | 3.18 | 0.15 | 2.75 | 55.06 | 67.50 | 24.64 | 41.43 | 24.95 | 5.84 | 24.85 |
 | anserini (100w passages) | 52.04 | 3.03 | 0.06 | 2.96 | 34.00 | 57.81 | 26.33 | 41.41 | 31.74 | 6.83 | 28.74 |
 | anserini (passage + stopword filter + stem + bigram) | 25.13 | - | - | - | 23.6 | 37.94 | 12.16 | 34.23 | 13.85 | 3.78 | 30.09 |
-
-
-Sections-level:
-
-| model | FEV | AY2 | WnWi | WnCw | T-REx | zsRE | NQ | HoPo | TQA | ELI5 | WoW |
-|-|-|-|-|-|-|-|-|-|-|-|-|
 | anserini (sections) | 44.72 | - | - | - | 49.9 | 60.20 | 25.06 | 40.84 | 30.7 | 7.1 | 21.55 |
 | anserini (sections + stopword filter + bigram) | 35.98 | - | - | - | 40.72 | 59.96 | 19.95 | 41.39 | 21.42 | 5.51 | 30.54 |
 | anserini (sections + stopword filter + stem + bigram) | 35.61 | - | - | - | 37.42 | 59.34 | 19.77 | 41.23 | 21.10 | 5.11 | 30.94 |
+
+For Recall@100/1000:
+
+| model | FEV | AY2 | WnWi | WnCw | T-REx | zsRE | NQ | HoPo | TQA | ELI5 | WoW |
+|-|-|-|-|-|-|-|-|-|-|-|-|
+| baseline drqa (tfidf + bigram hashing) | 91.87/96.54 | - | - | - | 84.82/94.16 | 94.12/97.29 | 70.98/84.99 | 62.32/80.57 | 87.04/94.95 | 39.98/56.77 | 91.53/96.47 |
+| anserini (document) | 88.41/95.65 | - | - | - | 83.24/92.36 | 91.83/97.82 | 75.12/87.59 | 59.66/78.59 | 81.21/92.36 | 34.00/53.12 | 69.95/83.58 |
+| anserini (document + stopword filter + stem + bigram) | 89.89/96.60 | - | - | - | 88.07/95.10 | 98.31/99.73 | 75.21/87.87 | 68.09/83.84 | 79.37/91.98 | 34.52/52.22 | 75.83/87.02 |
+| anserini (passage) | 91.99/95.79 | - | - | - | 88.03/94.25 | 98.01/99.25 | 75.55/87.08 | 61.52/77.80 | 80.18/91.32 | 32.50/47.85 | 65.96/78.45 |
+| anserini (100w passages) | 91.36/95.09 | - | - | - | 54.25/58.95 | 84.56/86.49 | 75.76/86.53 | 56.89/70.14 | 81.92/91.80 | 32.62/48.62 | 69.00/81.43 |
+| anserini (passage + stopword filter + stem + bigram) | 85.91/94.74 | - | - | - | 82.32/92.77 | 97.45/99.54 | 67.39/83.99 | 57.61/77.23 | 70.25/87.27 | 27.73/43.38 | 67.79/79.63 |
+| anserini (sections) | 91.79/96.15 | - | - | - | 87.13/93.77 | 95.86/98.85 | 76.87/88.16 | 61.59/79.11 | 82.58/92.60 | 32.99/49.98 | 65.43/79.27 |
+| anserini (sections + stopword filter + stem + bigram) | 89.36/96.01 | - | - | - | 84.19/93.61 | 98.95/99.68 | 72.34/86.64 | 63.32/80.91 | 76.73/90.41 | 31.24/47.71 | 69.91/82.63 |
 
