@@ -182,17 +182,14 @@ def write_result_max_passage(result: Tuple[str, List[JSimpleSearcher]]):
         if rank > args.max_passage_hits:
             break
 
-
-order = QUERY_IDS[args.topics]
-
-with open(output_path, 'w') as target_file:
-    for topic_id, text in tqdm(list(query_iterator(topics, order))):
-        hits = searcher.search(text, args.hits)
+order = None
+if args.topics in QUERY_IDS:
+    order = QUERY_IDS[args.topics]
 
 with open(output_path, 'w') as target_file:
     batch_topics = list()
     batch_topic_ids = list()
-    for index, topic_id, text in enumerate(tqdm(list(query_iterator(topics, order)))):
+    for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
         if args.batch_size <= 1 and args.threads <= 1:
             hits = searcher.search(text, args.hits)
             results = [(topic_id, hits)]
