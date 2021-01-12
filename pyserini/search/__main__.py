@@ -16,28 +16,41 @@
 
 import argparse
 import os
+from typing import Tuple, List
+
+from pyserini.pyclass import autoclass
 from pyserini.search import get_topics, SimpleSearcher
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 from pyserini.query_iterator import QUERY_IDS, query_iterator
 from tqdm import tqdm
+
+JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
 
 parser = argparse.ArgumentParser(description='Search a Lucene index.')
 parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                     help="Path to Lucene index or name of prebuilt index.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: robust04, robust05, core17, core18.")
-parser.add_argument('--ordered',  action='store_true', default=False, help="search queries in predefined order")
-parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
-parser.add_argument('--msmarco',  action='store_true', default=False, help="Output in MS MARCO format.")
-parser.add_argument('--output', type=str, metavar='path', help="Path to output file.")
+parser.add_argument('--hits', type=int, metavar='num',
+                    required=False, default=1000, help="Number of hits.")
+parser.add_argument('--msmarco',  action='store_true',
+                    default=False, help="Output in MS MARCO format.")
+parser.add_argument('--output', type=str, metavar='path',
+                    help="Path to output file.")
+parser.add_argument('--batch-size', type=int, metavar='num', required=False,
+                    default=1, help="Specify batch size to search the collection concurrently.")
+parser.add_argument('--threads', type=int, metavar='num', required=False,
+                    default=1, help="Maximum number of threads to use.")
 
-parser.add_argument('--max-passage',  action='store_true', default=False, help="Select only max passage from document.")
+parser.add_argument('--max-passage',  action='store_true',
+                    default=False, help="Select only max passage from document.")
 parser.add_argument('--max-passage-hits', type=int, metavar='num', required=False, default=100,
                     help="Final number of hits when selecting only max passage.")
 parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
                     help="Delimiter between docid and passage id.")
 
-parser.add_argument('--bm25',  action='store_true', default=True, help="Use BM25 (default).")
+parser.add_argument('--bm25',  action='store_true',
+                    default=True, help="Use BM25 (default).")
 parser.add_argument('--rm3',  action='store_true', help="Use RM3")
 parser.add_argument('--qld',  action='store_true', help="Use QLD")
 
@@ -132,40 +145,73 @@ if output_path is None:
 print(f'Running {args.topics} topics, saving to {output_path}...')
 tag = output_path[:-4] if args.output is None else 'Anserini'
 
-order = None
-if args.ordered:
-    order = QUERY_IDS[args.topics]
+
+def write_result(result: Tuple[str, List[JSimpleSearcher]]):
+    topic, hits = result
+    docids = [hit.docid.strip() for hit in hits]
+    scores = [hit.score for hit in hits]
+
+    if use_prcl and len(hits) > (args.r + args.n):
+        scores, docids = ranker.rerank(docids, scores)
+
+    if args.msmarco:
+        for i, docid in enumerate(docids):
+            target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+    else:
+        for i, (docid, score) in enumerate(zip(docids, scores)):
+            target_file.write(
+                f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
+
+
+def write_result_max_passage(result: Tuple[str, List[JSimpleSearcher]]):
+    topic, hits = result
+    unique_docs = set()
+    rank = 1
+    for hit in hits:
+        docid, _ = hit.docid.split(args.max_passage_delimiter)
+        if docid in unique_docs:
+            continue
+
+        if args.msmarco:
+            target_file.write(f'{topic}\t{docid}\t{rank}\n')
+        else:
+            target_file.write(
+                f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
+        rank = rank + 1
+        unique_docs.add(docid)
+        if rank > args.max_passage_hits:
+            break
+
+
+order = QUERY_IDS[args.topics]
 
 with open(output_path, 'w') as target_file:
     for topic_id, text in tqdm(list(query_iterator(topics, order))):
         hits = searcher.search(text, args.hits)
 
-        if not args.max_passage:
-            docids = [hit.docid.strip() for hit in hits]
-            scores = [hit.score for hit in hits]
-
-            if use_prcl and len(hits) > (args.r + args.n):
-                scores, docids = ranker.rerank(docids, scores)
-
-            if args.msmarco:
-                for i, docid in enumerate(docids):
-                    target_file.write(f'{topic_id}\t{docid}\t{i + 1}\n')
-            else:
-                for i, (docid, score) in enumerate(zip(docids, scores)):
-                    target_file.write(f'{topic_id} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
+with open(output_path, 'w') as target_file:
+    batch_topics = list()
+    batch_topic_ids = list()
+    for index, topic_id, text in enumerate(tqdm(list(query_iterator(topics, order)))):
+        if args.batch_size <= 1 and args.threads <= 1:
+            hits = searcher.search(text, args.hits)
+            results = [(topic_id, hits)]
         else:
-            unique_docs = set()
-            rank = 1
-            for hit in hits:
-                docid, _ = hit.docid.split(args.max_passage_delimiter)
-                if docid in unique_docs:
-                    continue
+            batch_topic_ids.append(str(topic_id))
+            batch_topics.append(text)
+            if (index + 1) % args.batch_size == 0 or \
+                    index == len(topics.keys()) - 1:
+                results = searcher.batch_search(
+                    batch_topics, batch_topic_ids, args.hits, args.threads)
+                results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                batch_topic_ids.clear()
+                batch_topics.clear()
+            else:
+                continue
 
-                if args.msmarco:
-                    target_file.write(f'{topic_id}\t{docid}\t{rank}\n')
-                else:
-                    target_file.write(f'{topic_id} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
-                rank = rank + 1
-                unique_docs.add(docid)
-                if rank > args.max_passage_hits:
-                    break
+        for result in results:
+            if args.max_passage:
+                write_result_max_passage(result)
+            else:
+                write_result(result)
+        results.clear()

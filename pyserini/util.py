@@ -25,6 +25,7 @@ from urllib.error import HTTPError
 import pandas as pd
 from pyserini.prebuilt_index_info import INDEX_INFO
 from pyserini.encoded_query_info import QUERY_INFO
+from pyserini.evaluate_script_info import EVALUATION_INFO
 
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5
@@ -72,7 +73,7 @@ def download_url(url, save_dir, md5=None, force=False, verbose=True):
         if not force:
             if verbose:
                 print(f'Skipping download.')
-            return
+            return destination_path
         if verbose:
             print(f'force=True, removing {destination_path}; fetching fresh copy...')
         os.remove(destination_path)
@@ -96,7 +97,7 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
 
     if prebuilt:
-        index_directory = os.path.join(get_cache_home(), 'indexes')
+        index_directory = os.path.join(get_cache_home(), index_directory)
         index_path = os.path.join(index_directory, f'{index_name}.{md5}')
 
         if not os.path.exists(index_directory):
@@ -180,5 +181,19 @@ def download_encoded_queries(query_name, force=False, verbose=True, mirror=None)
         try:
             return download_and_unpack_index(url, index_directory='queries', prebuilt=True, md5=query_md5)
         except HTTPError:
-            print(f'Unable to download pre-built index at {url}, trying next URL...')
-    raise ValueError(f'Unable to download pre-built index at any known URLs.')
+            print(f'Unable to download encoded query at {url}, trying next URL...')
+    raise ValueError(f'Unable to download encoded query at any known URLs.')
+
+
+def download_evaluation_script(evaluation_name, force=False, verbose=True, mirror=None):
+    if evaluation_name not in EVALUATION_INFO:
+        raise ValueError(f'Unrecognized evaluation name {evaluation_name}')
+    for url in EVALUATION_INFO[evaluation_name]['urls']:
+        try:
+            save_dir = os.path.join(get_cache_home(), 'eval')
+            if not os.path.exists(save_dir):
+                os.makedirs(save_dir)
+            return download_url(url, save_dir=save_dir)
+        except HTTPError:
+            print(f'Unable to download evaluation script at {url}, trying next URL...')
+    raise ValueError(f'Unable to download evaluation script at any known URLs.')

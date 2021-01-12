@@ -32,8 +32,12 @@ parser.add_argument('--index', type=str, metavar='path to index or index name', 
                     help="Path to Faiss index or name of prebuilt index.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: msmarco_passage_dev_subset.")
-parser.add_argument('--encoded-queries', type=str, metavar='path to query embedding or query name', required=True,
+parser.add_argument('--encoded-queries', type=str, metavar='path to query embedding or query name', required=False,
                     help="Path to query embedding or name of pre encoded queries")
+parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name', required=False,
+                    help="Path to query encoder pytorch checkpoint or hgf encoder model name")
+parser.add_argument('--device', type=str, metavar='device to run query encoder', required=False, default='cpu',
+                    help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
 parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
 parser.add_argument('--batch', type=int, metavar='num', required=False, default=1,
                     help="search batch of queries in parallel")
@@ -45,22 +49,25 @@ args = parser.parse_args()
 
 topics = get_topics(args.topics)
 
-if os.path.exists(args.encoded_queries):
-    # create query encoder from query embedding directory
-    query_encoder = QueryEncoder(args.encoded_queries)
+if args.encoded_queries:
+    if os.path.exists(args.encoded_queries):
+        # create query encoder from query embedding directory
+        query_encoder = QueryEncoder(args.encoded_queries)
+    else:
+        # create query encoder from pre encoded query name
+        query_encoder = QueryEncoder.load_encoded_queries(args.encoded_queries)
 else:
-    # create query encoder from pre encoded query name
-    query_encoder = QueryEncoder.load_encoded_queries(args.encoded_queries)
+    query_encoder = QueryEncoder(encoder_dir=args.encoder, device=args.device)
 
 if not query_encoder:
     exit()
 
 if os.path.exists(args.index):
     # create searcher from index directory
-    searcher = SimpleDenseSearcher(args.index)
+    searcher = SimpleDenseSearcher(args.index, query_encoder)
 else:
     # create searcher from prebuilt index name
-    searcher = SimpleDenseSearcher.from_prebuilt_index(args.index)
+    searcher = SimpleDenseSearcher.from_prebuilt_index(args.index, query_encoder)
 
 if not searcher:
     exit()
@@ -81,9 +88,8 @@ if args.batch > 1:
         topic_keys = sorted(topics.keys())
         for i in tqdm(range(0, len(topic_keys), args.batch)):
             topic_key_batch = topic_keys[i: i+args.batch]
-            topic_emb_batch = np.array([query_encoder.encode(topics[topic].get('title').strip())
-                                        for topic in topic_key_batch])
-            hits = searcher.batch_search(topic_emb_batch, topic_key_batch, k=args.hits, threads=args.threads)
+            topic_batch = [topics[topic].get('title').strip() for topic in topic_key_batch]
+            hits = searcher.batch_search(topic_batch, topic_key_batch, k=args.hits, threads=args.threads)
             for topic in hits:
                 for idx, hit in enumerate(hits[topic]):
                     if args.msmarco:
@@ -95,7 +101,7 @@ if args.batch > 1:
 with open(output_path, 'w') as target_file:
     for index, topic in enumerate(tqdm(sorted(topics.keys()))):
         search = topics[topic].get('title').strip()
-        hits = searcher.search(query_encoder.encode(search), args.hits, threads=args.threads)
+        hits = searcher.search(search, args.hits, threads=args.threads)
         docids = [hit.docid.strip() for hit in hits]
         scores = [hit.score for hit in hits]
 

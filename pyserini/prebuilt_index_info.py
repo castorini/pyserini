@@ -362,10 +362,10 @@ INDEX_INFO = {
     "msmarco-passage-tct_colbert-hnsw": {
         "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as HNSW index",
         "urls": [
-            "https://www.dropbox.com/s/35s8mx38ru6a4s1/msmarco-passage-tct_colbert-hnsw.tar.gz?dl=1",
+            "https://www.dropbox.com/s/dsmtv6asjpd9lkc/dindex-hnsw-msmarco-passage-20210112-be7119.tar.gz?dl=1",
         ],
-        "md5": "7b580df56801bd6ce704fa9e906840e2",
-        "size compressed (bytes)": 33357462267,
+        "md5": "732773b80dae174b3d372a56b6a55a0d",
+        "size compressed (bytes)": 33359123138,
         "total_terms": 352316036,
         "documents": 8841823,
         "unique_terms": 2660824,
@@ -374,10 +374,10 @@ INDEX_INFO = {
     "msmarco-passage-tct_colbert-bf": {
         "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as brute force index",
         "urls": [
-            "https://www.dropbox.com/s/yz0o1t8gyp29hzr/msmarco-passage-tct_colbert-bf.tar.gz?dl=1",
+            "https://www.dropbox.com/s/uwwo2xigvhx3bz7/dindex-faissbf-msmarco-passage-20210112-be7119.tar.gz?dl=1",
         ],
-        "md5": "d3b7d37f39f39ee3483110efb4891111",
-        "size compressed (bytes)": 25202927728,
+        "md5": "ca89a411b111d46b7a579f200d3ac1f5",
+        "size compressed (bytes)": 25204501665,
         "total_terms": 352316036,
         "documents": 8841823,
         "unique_terms": 2660824,
