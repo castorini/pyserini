@@ -364,8 +364,8 @@ INDEX_INFO = {
         "urls": [
             "https://www.dropbox.com/s/35s8mx38ru6a4s1/msmarco-passage-tct_colbert-hnsw.tar.gz?dl=1",
         ],
-        "md5": "7b580df56801bd6ce704fa9e906840e2",
-        "size compressed (bytes)": 33357462267,
+        "md5": "c67b160411705bc7ab9ae3727b8493f9",
+        "size compressed (bytes)": 33359103431,
         "total_terms": 352316036,
         "documents": 8841823,
         "unique_terms": 2660824,
@@ -376,8 +376,8 @@ INDEX_INFO = {
         "urls": [
             "https://www.dropbox.com/s/yz0o1t8gyp29hzr/msmarco-passage-tct_colbert-bf.tar.gz?dl=1",
         ],
-        "md5": "d3b7d37f39f39ee3483110efb4891111",
-        "size compressed (bytes)": 25202927728,
+        "md5": "28f8525497ee3083cc033ec3f7df2b64",
+        "size compressed (bytes)": 25204515098,
         "total_terms": 352316036,
         "documents": 8841823,
         "unique_terms": 2660824,

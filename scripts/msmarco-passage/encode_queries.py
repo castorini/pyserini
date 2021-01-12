@@ -26,7 +26,8 @@ if __name__ == '__main__':
     parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
     parser.add_argument('--input', type=str, help='query file to be encoded.', required=True)
     parser.add_argument('--output', type=str, help='path to store query embeddings', required=True)
-    parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]', required=True)
+    parser.add_argument('--device', type=str,
+                        help='device cpu or cuda [cuda:0, cuda:1...]', default='cpu', required=False)
     args = parser.parse_args()
 
     tokenizer = BertTokenizer.from_pretrained(args.encoder)
