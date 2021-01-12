@@ -35,8 +35,12 @@ parser.add_argument('--sparse-index', type=str, metavar='path to sparse index or
                     help="Path to Anserini index or name of prebuilt index.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: msmarco_passage_dev_subset.")
-parser.add_argument('--encoded-queries', type=str, metavar='path to query embedding or query name', required=True,
+parser.add_argument('--encoded-queries', type=str, metavar='path to query embedding or query name', required=False,
                     help="Path to query embedding or name of pre encoded queries")
+parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name', required=False,
+                    help="Path to query encoder pytorch checkpoint or hgf encoder model name")
+parser.add_argument('--device', type=str, metavar='device to run query encoder', required=False, default='cpu',
+                    help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
 parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
 parser.add_argument('--alpha', type=float, metavar='num', required=False, default=0.1, help="alpha for hybrid search")
 parser.add_argument('--msmarco',  action='store_true', default=False, help="Output in MS MARCO format.")
@@ -49,22 +53,25 @@ args = parser.parse_args()
 
 topics = get_topics(args.topics)
 
-if os.path.exists(args.encoded_queries):
-    # create query encoder from query embedding directory
-    query_encoder = QueryEncoder(args.encoded_queries)
+if args.encoded_queries:
+    if os.path.exists(args.encoded_queries):
+        # create query encoder from query embedding directory
+        query_encoder = QueryEncoder(args.encoded_queries)
+    else:
+        # create query encoder from pre encoded query name
+        query_encoder = QueryEncoder.load_encoded_queries(args.encoded_queries)
 else:
-    # create query encoder from pre encoded query name
-    query_encoder = QueryEncoder.load_encoded_queries(args.encoded_queries)
+    query_encoder = QueryEncoder(encoder_dir=args.encoder, device=args.device)
 
 if not query_encoder:
     exit()
 
 if os.path.exists(args.dense_index):
     # create searcher from index directory
-    dsearcher = SimpleDenseSearcher(args.dense_index)
+    dsearcher = SimpleDenseSearcher(args.dense_index, query_encoder)
 else:
     # create searcher from prebuilt index name
-    dsearcher = SimpleDenseSearcher.from_prebuilt_index(args.dense_index)
+    dsearcher = SimpleDenseSearcher.from_prebuilt_index(args.dense_index, query_encoder)
 
 if not dsearcher:
     exit()
@@ -79,7 +86,7 @@ else:
 if not ssearcher:
     exit()
 
-hsearcher = HybridSearcher(dsearcher, query_encoder, ssearcher)
+hsearcher = HybridSearcher(dsearcher, ssearcher)
 if not hsearcher:
     exit()
 
