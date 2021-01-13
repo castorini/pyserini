@@ -21,6 +21,7 @@ from typing import Tuple, List
 from pyserini.pyclass import autoclass
 from pyserini.search import get_topics, SimpleSearcher
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
+from pyserini.query_iterator import QUERY_IDS, query_iterator
 from tqdm import tqdm
 
 JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
@@ -181,25 +182,26 @@ def write_result_max_passage(result: Tuple[str, List[JSimpleSearcher]]):
         if rank > args.max_passage_hits:
             break
 
+order = None
+if args.topics in QUERY_IDS:
+    order = QUERY_IDS[args.topics]
 
 with open(output_path, 'w') as target_file:
     batch_topics = list()
-    for index, topic in enumerate(tqdm(sorted(topics.keys()))):
+    batch_topic_ids = list()
+    for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
         if args.batch_size <= 1 and args.threads <= 1:
-            search = topics[topic].get('title')
-            hits = searcher.search(search, args.hits)
-            results = [(topic, hits)]
+            hits = searcher.search(text, args.hits)
+            results = [(topic_id, hits)]
         else:
-            batch_topics.append(topic)
+            batch_topic_ids.append(str(topic_id))
+            batch_topics.append(text)
             if (index + 1) % args.batch_size == 0 or \
                     index == len(topics.keys()) - 1:
-                queries = [topics[topic].get('title')
-                           for topic in batch_topics]
-                ids = [str(topic) for topic in batch_topics]
                 results = searcher.batch_search(
-                    queries, ids, args.hits, args.threads)
-                results = sorted(
-                    results.items(), key=lambda item: int(item[0]))
+                    batch_topics, batch_topic_ids, args.hits, args.threads)
+                results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                batch_topic_ids.clear()
                 batch_topics.clear()
             else:
                 continue

@@ -41,7 +41,7 @@ Evaluation command:
 ```bash
 $ python -m pyserini.eval.msmarco_passage_eval qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.txt
 #####################
-MRR @10: 0.18741227770955543
+MRR @10: 0.18741227770955546
 QueriesRanked: 6980
 #####################
 ```
@@ -57,7 +57,7 @@ Evaluation command:
 ```bash
 $ python -m pyserini.eval.msmarco_passage_eval qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.expanded.txt
 #####################
-MRR @10: 0.2815607518078854
+MRR @10: 0.281560751807885
 QueriesRanked: 6980
 #####################
 ```
@@ -81,7 +81,7 @@ Evaluation command:
 ```bash
 $ python -m pyserini.eval.msmarco_doc_eval --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.doc.txt
 #####################
-MRR @100: 0.2770296928568709
+MRR @100: 0.2770296928568702
 QueriesRanked: 5193
 #####################
 ```
@@ -97,7 +97,7 @@ Evaluation command:
 ```bash
 $ python -m pyserini.eval.msmarco_doc_eval --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.doc-expanded.txt
 #####################
-MRR @100: 0.32651902964919355
+MRR @100: 0.3265190296491929
 QueriesRanked: 5193
 #####################
 ```
@@ -113,7 +113,7 @@ Evaluation command:
 ```bash
 $ python -m pyserini.eval.msmarco_doc_eval --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.passage.txt
 #####################
-MRR @100: 0.2751202109946906
+MRR @100: 0.275120210994691
 QueriesRanked: 5193
 #####################
 ```
@@ -129,7 +129,7 @@ Evaluation command:
 ```bash
 $ python -m pyserini.eval.msmarco_doc_eval --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.passage-expanded.txt
 #####################
-MRR @100: 0.32081861579183807
+MRR @100: 0.3208186157918374
 QueriesRanked: 5193
 #####################
 ```
