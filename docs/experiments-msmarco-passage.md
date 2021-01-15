@@ -86,7 +86,7 @@ On a reasonably modern CPU with an SSD, we might get around 13 qps (queries per 
 We can perform multi-threaded retrieval by using the `--threads` and `--batch-size` arguments.
 For example, setting `--threads 16 --batch-size 64` on a CPU with sufficient cores, the entire run will finish in a couple of minutes.
 
-After the run finishes, we can evaluate the results using this the official MS MARCO evaluation script:
+After the run finishes, we can evaluate the results using the official MS MARCO evaluation script:
 
 ```bash
 $ python tools/scripts/msmarco/msmarco_passage_eval.py \
@@ -97,7 +97,7 @@ QueriesRanked: 6980
 #####################
 ```
 
-We can also use the official TREC evaluation tool, `trec_eval`, to compute other metrics than MRR@10. 
+We can also use the official TREC evaluation tool, `trec_eval`, to compute metrics other than MRR@10.
 For that we first need to convert the run file into TREC format:
 
 ```bash
@@ -105,7 +105,7 @@ $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py \
    --input runs/run.msmarco-passage.bm25tuned.txt --output runs/run.msmarco-passage.bm25tuned.trec
 ```
 
-And run then the `trec_eval` tool:
+And then run the `trec_eval` tool:
 
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
