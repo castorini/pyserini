@@ -65,7 +65,7 @@ python -m pyserini.search --topics msmarco_doc_dev \
  --bm25 --msmarco --hits 100 --k1 4.46 --b 0.82
 ```
 
-Here, we set the BM25 parameters to `k1=4.46`, `b=0.82`.
+Here, we set the BM25 parameters to `k1=4.46`, `b=0.82` (tuned by grid search).
 The option `--msmarco` says to generate output in the MS MARCO output format.
 The option `--hits` specifies the number of documents to return per query.
 Note that for the [MS MARCO Document Ranking Leaderboard](https://microsoft.github.io/MSMARCO-Document-Ranking-Submissions/leaderboard/), the official metric is MRR@100, so submissions should only return 100 hits per query. 
@@ -86,7 +86,7 @@ QueriesRanked: 5193
 #####################
 ```
 
-We can also use the official TREC evaluation tool, `trec_eval`, to compute other metrics than MRR@100.
+We can also use the official TREC evaluation tool, `trec_eval`, to compute metrics other than MRR@100.
 For that we first need to convert the run file into TREC format:
 
 ```bash
@@ -94,7 +94,7 @@ $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py \
    --input runs/run.msmarco-doc.bm25tuned.txt --output runs/run.msmarco-doc.bm25tuned.trec
 ```
 
-And run then the `trec_eval` tool:
+And then run the `trec_eval` tool:
 
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap \
@@ -103,7 +103,7 @@ map                   	all	0.2770
 recall_100            	all	0.8076
 ```
 
-Let's compare to the baselines provided by Microsoft.
+Let's compare to the baseline provided by Microsoft.
 First, download:
 
 ```
@@ -111,8 +111,7 @@ wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-docdev-top100.
 gunzip runs/msmarco-docdev-top100.gz
 ```
 
-Then, run `trec_eval` to compare.
-Note that to be fair, we restrict evaluation to top 100 hits per topic (which is what Microsoft provides):
+Then, run `trec_eval` to compare:
 
 ```
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap \
