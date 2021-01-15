@@ -36,7 +36,7 @@ We can now index these docs as a `JsonCollection` using Anserini:
 ```bash
 python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
  -threads 9 -input collections/msmarco-passage/collection_jsonl \
- -index indexes/msmarco-passage/lucene-index-msmarco -storePositions -storeDocvectors -storeRaw
+ -index indexes/lucene-index-msmarco-passage -storePositions -storeDocvectors -storeRaw
 ```
 
 Note that the indexing program simply dispatches command-line arguments to an underlying Java program, and so we use the Java single dash convention, e.g., `-index` and not `--index`.
@@ -46,45 +46,51 @@ The indexing speed may vary; on a modern desktop with an SSD, indexing takes a c
 
 ## Performing Retrieval on the Dev Queries
 
-Since queries of the set are too many (+100k), it would take a long time to retrieve all of them. To speed this up, we use only the queries that are in the qrels file:
+The 6980 queries in the development set are already stored in the repo.
+Let's take a peek:
 
 ```bash
-python tools/scripts/msmarco/filter_queries.py \
- --qrels collections/msmarco-passage/qrels.dev.small.tsv \
- --queries collections/msmarco-passage/queries.dev.tsv \
- --output collections/msmarco-passage/queries.dev.small.tsv
+$ head tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt 
+1048585	what is paula deen's brother
+2	 Androgen receptor define
+524332	treating tension headaches without medication
+1048642	what is paranoid sc
+524447	treatment of varicose veins in legs
+786674	what is prime rate in canada
+1048876	who plays young dr mallard on ncis
+1048917	what is operating system misconfiguration
+786786	what is priority pass
+524699	tricare service number
+$ wc tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt 
+    6980   48335  290193 tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
 ```
 
-The output queries file should contain 6980 lines.
-We can now perform a retrieval run using this smaller set of queries:
+Each line contains a tab-delimited (query id, query) pair.
+Conveniently, Pyserini already knows how to load and iterate through these pairs.
+We can now perform retrieval using these queries:
 
 ```bash
-python tools/scripts/msmarco/retrieve.py --hits 1000 --threads 1 \
- --index indexes/msmarco-passage/lucene-index-msmarco \
- --queries collections/msmarco-passage/queries.dev.small.tsv \
- --output runs/run.msmarco-passage.dev.small.tsv
+python -m pyserini.search --topics msmarco_passage_dev_subset \
+ --index indexes/lucene-index-msmarco-passage \
+ --output runs/run.msmarco-passage.bm25tuned.txt \
+ --bm25 --msmarco --hits 1000 --k1 0.82 --b 0.68
 ```
 
-Note that by default, the above script uses BM25 with tuned parameters `k1=0.82`, `b=0.68`.
-The option `--hits` specifies the of documents per query to be retrieved.
+Here, we set the BM25 parameters to `k1=0.82`, `b=0.68`.
+The option `--msmarco` says to generate output in the MS MARCO output format.
+The option `--hits` specifies the number of documents to return per query.
 Thus, the output file should have approximately 6980 × 1000 = 6.9M lines.
 
 Retrieval speed will vary by machine:
-On a modern desktop with an SSD, we can get ~0.07 s/query, so the run should finish in under ten minutes.
-We can perform multi-threaded retrieval by changing the `--threads` argument.
+On a reasonably modern CPU with an SSD, we might get around 13 qps (queries per second), and so the entire run should finish in under ten minutes (using a single thread).
+We can perform multi-threaded retrieval by using the `--threads` and `--batch-size` arguments.
+For example, with `--threads 16 --batch-size 64` on CPU with sufficient cores, the entire run will finish in a couple of minutes.
 
-## Evaluating the Results
-
-Finally, we can evaluate the retrieved documents using this the official MS MARCO evaluation script:
+After the run finishes, we can evaluate the results using this the official MS MARCO evaluation script:
 
 ```bash
-python tools/scripts/msmarco/msmarco_eval.py \
- collections/msmarco-passage/qrels.dev.small.tsv runs/run.msmarco-passage.dev.small.tsv
-```
-
-And the output should be like this:
-
-```
+$ python tools/scripts/msmarco/msmarco_passage_eval.py \
+   tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.bm25tuned.txt
 #####################
 MRR @10: 0.18741227770955546
 QueriesRanked: 6980
@@ -92,28 +98,18 @@ QueriesRanked: 6980
 ```
 
 We can also use the official TREC evaluation tool, `trec_eval`, to compute other metrics than MRR@10. 
-For that we first need to convert runs and qrels files to the TREC format:
+For that we first need to convert the run file into TREC format:
 
 ```bash
-python tools/scripts/msmarco/convert_msmarco_to_trec_run.py \
- --input runs/run.msmarco-passage.dev.small.tsv \
- --output runs/run.msmarco-passage.dev.small.trec
-
-python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
- --input collections/msmarco-passage/qrels.dev.small.tsv \
- --output collections/msmarco-passage/qrels.dev.small.trec
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py \
+   --input runs/run.msmarco-passage.bm25tuned.txt --output runs/run.msmarco-passage.bm25tuned.trec
 ```
 
-And run the `trec_eval` tool:
+And run then the `trec_eval` tool:
 
 ```bash
-tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
- collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.dev.small.trec
-```
-
-The output should be:
-
-```
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
+   collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.bm25tuned.trec
 map                   	all	0.1957
 recall_1000           	all	0.8573
 ```
