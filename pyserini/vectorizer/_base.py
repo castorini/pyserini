@@ -48,11 +48,10 @@ class Vectorizer:
 
         # build vocabulary
         self.vocabulary_ = set()
-        self.term_to_df = {}
         for term in self.index_reader.terms():
             if term.df > self.min_df:
                 self.vocabulary_.add(term.term)
-                self.term_to_df[term.term] = term.df
+        self.vocabulary_ = sorted(self.vocabulary_)
 
         # build term to index mapping
         self.term_to_index = {}
@@ -100,10 +99,7 @@ class TfidfVectorizer(Vectorizer):
         matrix_row, matrix_col, matrix_data = [], [], []
         num_docs = len(docids)
 
-        for index, doc_id in enumerate(docids):
-            if index % 1000 == 0 and num_docs > 1000 and self.verbose:
-                print(f'Vectorizing: {index}/{len(docids)}')
-
+        for index, doc_id in enumerate(tqdm(docids)):
             # Term Frequency
             tf = self.index_reader.get_document_vector(doc_id)
             if tf is None:
@@ -138,6 +134,9 @@ class BM25Vectorizer(Vectorizer):
 
     def __init__(self, lucene_index_path: str, min_df: int = 1, verbose: bool = False):
         super().__init__(lucene_index_path, min_df, verbose)
+        self.idf_ = {}
+        for term in self.index_reader.terms():
+            self.idf_[term.term] = math.log(self.num_docs / term.df)
 
     def get_vectors(self, docids: List[str]):
         """Get the BM25 vectors given a list of docids
@@ -156,8 +155,6 @@ class BM25Vectorizer(Vectorizer):
         num_docs = len(docids)
 
         for index, doc_id in enumerate(tqdm(docids)):
-            # if index % 1000 == 0 and num_docs > 1000 and self.verbose:
-            #     print(f'Vectorizing: {index}/{len(docids)}')
 
             # Term Frequency
             tf = self.index_reader.get_document_vector(doc_id)
@@ -177,16 +174,12 @@ class BM25Vectorizer(Vectorizer):
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
         return normalize(vectors, norm='l2')
 
-    def get_query_vector(self, query: str, k1: float = 0.9, b: float = 0.4):
+    def get_query_vector(self, query: str):
         matrix_row, matrix_col, matrix_data = [], [], []
         tokens = self.analyzer.analyze(query)
         for term in tokens:
             if term in self.vocabulary_:
-                tf = 1
-                df = self.term_to_df[term]
-                ld = len(tokens)
-                L = self.stats['total_terms'] / self.stats['non_empty_documents']
-                bm25_weight = math.log((self.num_docs-df+0.5)/(df+0.5)) * tf * (k1 + 1) / (tf + k1*(1-b+b*ld/L))
+                bm25_weight = self.idf_[term]
                 matrix_row.append(0)
                 matrix_col.append(self.term_to_index[term])
                 matrix_data.append(bm25_weight)
