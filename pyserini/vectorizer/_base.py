@@ -24,6 +24,7 @@ from pyserini import index, search
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from tqdm import tqdm
 
+
 class Vectorizer:
     """Base class for vectorizer implemented on top of Pyserini.
 
@@ -134,9 +135,9 @@ class BM25Vectorizer(Vectorizer):
 
     def __init__(self, lucene_index_path: str, min_df: int = 1, verbose: bool = False):
         super().__init__(lucene_index_path, min_df, verbose)
-        self.idf_ = {}
-        for term in self.index_reader.terms():
-            self.idf_[term.term] = math.log(self.num_docs / term.df)
+        # self.idf_ = {}
+        # for term in self.index_reader.terms():
+        #     self.idf_[term.term] = math.log(self.num_docs-term.df + 0.5 / (term.df+0.5))
 
     def get_vectors(self, docids: List[str]):
         """Get the BM25 vectors given a list of docids
@@ -172,16 +173,16 @@ class BM25Vectorizer(Vectorizer):
                 matrix_data.append(bm25_weight)
 
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
-        return normalize(vectors, norm='l2')
+        return vectors  # normalize(vectors, norm='l2')
 
     def get_query_vector(self, query: str):
         matrix_row, matrix_col, matrix_data = [], [], []
         tokens = self.analyzer.analyze(query)
         for term in tokens:
             if term in self.vocabulary_:
-                bm25_weight = self.idf_[term]
+                # bm25_weight = self.idf_[term]
                 matrix_row.append(0)
                 matrix_col.append(self.term_to_index[term])
-                matrix_data.append(bm25_weight)
+                matrix_data.append(1)  # bm25_weight)
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(1, self.vocabulary_size))
-        return normalize(vectors, norm='l2')
+        return vectors  # normalize(vectors, norm='l2')
