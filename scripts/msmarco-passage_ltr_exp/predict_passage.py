@@ -37,7 +37,7 @@ def dev_data_loader(file, format, top=100):
     assert dev['pid'].dtype == np.object
     assert dev['rank'].dtype == np.int32
     dev = dev[dev['rank']<=top]
-    dev_qrel = pd.read_csv('../collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
+    dev_qrel = pd.read_csv('../../collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
                            names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
                            dtype={'qid': 'S','pid': 'S', 'rel':'i'})
     assert dev['qid'].dtype == np.object
@@ -265,7 +265,7 @@ def output(file, dev_data):
 
 
 if __name__ == '__main__':
-    os.environ["ANSERINI_CLASSPATH"] = "../pyserini/resources/jars"
+    os.environ["ANSERINI_CLASSPATH"] = "../../pyserini/resources/jars"
     parser = argparse.ArgumentParser(description='Learning to rank')
     parser.add_argument('--rank_list_path', required=True)
     parser.add_argument('--rank_list_top', type=int, default=10000)
@@ -279,7 +279,7 @@ if __name__ == '__main__':
     print("load queries")
     queries = query_loader()
     print("add feature")
-    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor('../../indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count() // 2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
                            ('text', 'text'),
                            ('text_unlemm', 'text_unlemm'),
@@ -383,16 +383,16 @@ if __name__ == '__main__':
         fe.add(OrderedQueryPairs(8, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
 
-    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm",
+    fe.add(IBMModel1("../../../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm",
                      "title_unlemm", "text_unlemm"))
     print("IBM Model loaded")
-    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm",
+    fe.add(IBMModel1("../../../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm",
                      "url_unlemm", "text_unlemm"))
     print("IBM Model loaded")
-    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm",
+    fe.add(IBMModel1("../../../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm",
                      "body", "text_unlemm"))
     print("IBM Model loaded")
-    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
+    fe.add(IBMModel1("../../../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
                      "text_bert_tok", "text_bert_tok"))
     print("IBM Model loaded")
 
