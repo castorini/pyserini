@@ -383,15 +383,6 @@ if __name__ == '__main__':
         fe.add(OrderedQueryPairs(8, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
 
-#    fe.add(EntityHowLong())
-#    fe.add(EntityHowMany())
-#    fe.add(EntityHowMuch())
-#    fe.add(EntityWhen())
-#    fe.add(EntityWhere())
-#    fe.add(EntityWho())
-#    fe.add(EntityWhereMatch())
-#    fe.add(EntityWhoMatch())
-
     fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm",
                      "title_unlemm", "text_unlemm"))
     print("IBM Model loaded")

@@ -242,13 +242,6 @@ def data_loader(task, df, queries, fe):
     df_hash = hash_df(df)
     jar_hash = hash_anserini_jar()
     fe_hash = hash_fe(fe)
-    #if os.path.exists(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle'):
-        #res = pickle.load(open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'rb'))
-        #print(res['info'].shape)
-        #print(res['info'].qid.drop_duplicates().shape)
-        #print(res['group'].mean())
-        #return res
-    #else:
     if task == 'train' or task == 'dev':
         info, data, group = batch_extract(df, queries, fe)
         obj = {'info':info, 'data': data, 'group': group,
@@ -256,7 +249,6 @@ def data_loader(task, df, queries, fe):
         print(info.shape)
         print(info.qid.drop_duplicates().shape)
         print(group.mean())
-            #pickle.dump(obj, open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'wb'))
         return obj
     else:
         raise Exception('unknown parameters')
@@ -445,9 +437,6 @@ def save_exp(dirname,
         'mrr_10': eval_res['mrr_10']
     }
     json.dump(metadata, open(f'{dirname}/metadata.json', 'w'))
-    ##shutil.copytree('../anserini_ltr_source', f'{dirname}/anserini_ltr_source')
-    ##shutil.copytree('../pyserini_ltr_source', f'{dirname}/pyserini_ltr_source')
-    ##shutil.copy('train_passage.py', f'{dirname}/train_passage.py')
 
 
 if __name__ == '__main__':
@@ -560,15 +549,6 @@ if __name__ == '__main__':
         fe.add(OrderedQueryPairs(3, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(8, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
-
-#    fe.add(EntityHowLong())
-#    fe.add(EntityHowMany())
-#    fe.add(EntityHowMuch())
-#    fe.add(EntityWhen())
-#    fe.add(EntityWhere())
-#    fe.add(EntityWho())
-#    fe.add(EntityWhereMatch())
-#    fe.add(EntityWhoMatch())
 
     fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm",
                      "title_unlemm", "text_unlemm"))
