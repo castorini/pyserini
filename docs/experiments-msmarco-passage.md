@@ -50,7 +50,7 @@ The 6980 queries in the development set are already stored in the repo.
 Let's take a peek:
 
 ```bash
-$ head tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt 
+$ head tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
 1048585	what is paula deen's brother
 2	 Androgen receptor define
 524332	treating tension headaches without medication
@@ -61,7 +61,7 @@ $ head tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
 1048917	what is operating system misconfiguration
 786786	what is priority pass
 524699	tricare service number
-$ wc tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt 
+$ wc tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
     6980   48335  290193 tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
 ```
 

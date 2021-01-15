@@ -20,7 +20,7 @@ $ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
 To evaluate:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+$ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.tct_colbert.hnsw.tsv
 #####################
 MRR @10: 0.3344676399690711
@@ -60,7 +60,7 @@ $ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
 To evaluate:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+$ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.tct_colbert.bf.tsv
 #####################
 MRR @10: 0.3349694137444839
@@ -104,7 +104,7 @@ python -m pyserini.hsearch --topics msmarco_passage_dev_subset \
 
 To evaluate:
 ```bash
-$ python tools/scripts/msmarco/msmarco_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+$ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.tsv
 #####################
 MRR @10: 0.36371895893027617
@@ -143,7 +143,7 @@ python -m pyserini.hsearch --topics msmarco_passage_dev_subset \
 
 To evaluate:
 ```bash
-$ python tools/scripts/msmarco/msmarco_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+$ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv
 #####################
 MRR @10: 0.36410435712011574
