@@ -81,10 +81,10 @@ The option `--msmarco` says to generate output in the MS MARCO output format.
 The option `--hits` specifies the number of documents to return per query.
 Thus, the output file should have approximately 6980 × 1000 = 6.9M lines.
 
-Retrieval speed will vary by machine:
+Retrieval speed will vary by hardware:
 On a reasonably modern CPU with an SSD, we might get around 13 qps (queries per second), and so the entire run should finish in under ten minutes (using a single thread).
 We can perform multi-threaded retrieval by using the `--threads` and `--batch-size` arguments.
-For example, with `--threads 16 --batch-size 64` on CPU with sufficient cores, the entire run will finish in a couple of minutes.
+For example, setting `--threads 16 --batch-size 64` on a CPU with sufficient cores, the entire run will finish in a couple of minutes.
 
 After the run finishes, we can evaluate the results using this the official MS MARCO evaluation script:
 
