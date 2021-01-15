@@ -70,10 +70,10 @@ The option `--msmarco` says to generate output in the MS MARCO output format.
 The option `--hits` specifies the number of documents to return per query.
 Note that for the [MS MARCO Document Ranking Leaderboard](https://microsoft.github.io/MSMARCO-Document-Ranking-Submissions/leaderboard/), the official metric is MRR@100, so submissions should only return 100 hits per query. 
 
-Retrieval speed will vary by machine:
+Retrieval speed will vary by hardware:
 On a reasonably modern CPU with an SSD, we might get around 18 qps (queries per second), and so the entire run should finish in under five minutes (using a single thread).
 We can perform multi-threaded retrieval by using the `--threads` and `--batch-size` arguments.
-For example, with `--threads 16 --batch-size 64` on CPU with sufficient cores, the entire run will finish in under a minute.
+For example, setting `--threads 16 --batch-size 64` on a CPU with sufficient cores, the entire run will finish in under a minute.
 
 After the run finishes, we can evaluate the results using the official MS MARCO evaluation script:
 
