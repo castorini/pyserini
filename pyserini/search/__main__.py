@@ -16,19 +16,46 @@
 
 import argparse
 import os
+from typing import Tuple, List
+
+from pyserini.pyclass import autoclass
 from pyserini.search import get_topics, SimpleSearcher
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
+from pyserini.query_iterator import QUERY_IDS, query_iterator
 from tqdm import tqdm
 
+JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
+
 parser = argparse.ArgumentParser(description='Search a Lucene index.')
-parser.add_argument('--index', type=str, metavar='path to index or index name', required=True, help="Path to Lucene index or prebuilt index's name.")
+parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
+                    help="Path to Lucene index or name of prebuilt index.")
 parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                     help="Name of topics. Available: robust04, robust05, core17, core18.")
-parser.add_argument('--msmarco',  action='store_true', default=False, help="Output in MS MARCO format.")
-parser.add_argument('--output', type=str, metavar='path', help="Path to output file.")
+parser.add_argument('--hits', type=int, metavar='num',
+                    required=False, default=1000, help="Number of hits.")
+parser.add_argument('--msmarco',  action='store_true',
+                    default=False, help="Output in MS MARCO format.")
+parser.add_argument('--output', type=str, metavar='path',
+                    help="Path to output file.")
+parser.add_argument('--batch-size', type=int, metavar='num', required=False,
+                    default=1, help="Specify batch size to search the collection concurrently.")
+parser.add_argument('--threads', type=int, metavar='num', required=False,
+                    default=1, help="Maximum number of threads to use.")
+
+parser.add_argument('--max-passage',  action='store_true',
+                    default=False, help="Select only max passage from document.")
+parser.add_argument('--max-passage-hits', type=int, metavar='num', required=False, default=100,
+                    help="Final number of hits when selecting only max passage.")
+parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
+                    help="Delimiter between docid and passage id.")
+
 parser.add_argument('--bm25',  action='store_true', default=True, help="Use BM25 (default).")
+parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
+parser.add_argument('--b', type=float, help='BM25 b parameter.')
+
 parser.add_argument('--rm3',  action='store_true', help="Use RM3")
 parser.add_argument('--qld',  action='store_true', help="Use QLD")
+
 parser.add_argument('--prcl',  type=ClassifierType, nargs='+', default=[],
                     help='Specify the classifier PseudoRelevanceClassifierReranker uses.')
 parser.add_argument('--prcl.vectorizer',  dest='vectorizer', type=str,
@@ -49,7 +76,8 @@ if os.path.exists(args.index):
 else:
     # create searcher from prebuilt index name
     searcher = SimpleSearcher.from_prebuilt_index(args.index)
-if searcher == None:
+
+if not searcher:
     exit()
 
 search_rankers = []
@@ -59,11 +87,33 @@ if args.qld:
     searcher.set_qld()
 else:
     search_rankers.append('bm25')
-    if args.msmarco:
-        # setting k1=0.82 and b=0.68 for ms-marco passage
-        # tuned parameters from grid search of parameter values
-        # link to BM25 tuning: https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md#bm25-tuning
-        searcher.set_bm25(0.82, 0.68)
+
+    if args.k1 is not None or args.b is not None:
+        if args.k1 is None or args.b is None:
+            print('Must set *both* k1 and b for BM25!')
+            exit()
+        print(f'Setting BM25 parameters: k1={args.k1}, b={args.b}')
+        searcher.set_bm25(args.k1, args.b)
+    else:
+        # Automatically set bm25 parameters based on known index:
+        if args.index == 'msmarco-passage' or args.index == 'msmarco-passage-slim':
+            print('MS MARCO passage: setting k1=0.82, b=0.68')
+            searcher.set_bm25(0.82, 0.68)
+        elif args.index == 'msmarco-passage-expanded':
+            print('MS MARCO passage w/ doc2query-T5 expansion: setting k1=2.18, b=0.86')
+            searcher.set_bm25(2.18, 0.86)
+        elif args.index == 'msmarco-doc' or args.index == 'msmarco-doc-slim':
+            print('MS MARCO doc: setting k1=4.46, b=0.82')
+            searcher.set_bm25(4.46, 0.82)
+        elif args.index == 'msmarco-doc-per-passage' or args.index == 'msmarco-doc-per-passage-slim':
+            print('MS MARCO doc, per passage: setting k1=2.16, b=0.61')
+            searcher.set_bm25(2.16, 0.61)
+        elif args.index == 'msmarco-doc-expanded-per-doc':
+            print('MS MARCO doc w/ doc2query-T5 (per doc) expansion: setting k1=4.68, b=0.87')
+            searcher.set_bm25(4.68, 0.87)
+        elif args.index == 'msmarco-doc-expanded-per-passage':
+            print('MS MARCO doc w/ doc2query-T5 (per passage) expansion: setting k1=2.56, b=0.59')
+            searcher.set_bm25(2.56, 0.59)
 
 if args.rm3:
     search_rankers.append('rm3')
@@ -103,21 +153,73 @@ if output_path is None:
         output_path = '.'.join(tokens)
 
 print(f'Running {args.topics} topics, saving to {output_path}...')
+tag = output_path[:-4] if args.output is None else 'Anserini'
 
-with open(output_path, 'w') as target_file:
-    for index, topic in enumerate(tqdm(sorted(topics.keys()))):
-        search = topics[topic].get('title')
-        hits = searcher.search(search, 1000)
-        doc_ids = [hit.docid.strip() for hit in hits]
-        scores = [hit.score for hit in hits]
 
-        if use_prcl and len(hits) > (args.r + args.n):
-            scores, doc_ids = ranker.rerank(doc_ids, scores)
+def write_result(result: Tuple[str, List[JSimpleSearcher]]):
+    topic, hits = result
+    docids = [hit.docid.strip() for hit in hits]
+    scores = [hit.score for hit in hits]
+
+    if use_prcl and len(hits) > (args.r + args.n):
+        scores, docids = ranker.rerank(docids, scores)
+
+    if args.msmarco:
+        for i, docid in enumerate(docids):
+            target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+    else:
+        for i, (docid, score) in enumerate(zip(docids, scores)):
+            target_file.write(
+                f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
+
+
+def write_result_max_passage(result: Tuple[str, List[JSimpleSearcher]]):
+    topic, hits = result
+    unique_docs = set()
+    rank = 1
+    for hit in hits:
+        docid, _ = hit.docid.split(args.max_passage_delimiter)
+        if docid in unique_docs:
+            continue
 
         if args.msmarco:
-            for i, doc_id in enumerate(doc_ids):
-                target_file.write('{}\t{}\t{}\n'.format(topic, doc_id, i + 1))
+            target_file.write(f'{topic}\t{docid}\t{rank}\n')
         else:
-            tag = output_path[:-4] if args.output is None else 'Anserini'
-            for i, (doc_id, score) in enumerate(zip(doc_ids, scores)):
-                target_file.write(f'{topic} Q0 {doc_id} {i + 1} {score:.6f} {tag}\n')
+            target_file.write(
+                f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
+        rank = rank + 1
+        unique_docs.add(docid)
+        if rank > args.max_passage_hits:
+            break
+
+
+order = None
+if args.topics in QUERY_IDS:
+    order = QUERY_IDS[args.topics]
+
+with open(output_path, 'w') as target_file:
+    batch_topics = list()
+    batch_topic_ids = list()
+    for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+        if args.batch_size <= 1 and args.threads <= 1:
+            hits = searcher.search(text, args.hits)
+            results = [(topic_id, hits)]
+        else:
+            batch_topic_ids.append(str(topic_id))
+            batch_topics.append(text)
+            if (index + 1) % args.batch_size == 0 or \
+                    index == len(topics.keys()) - 1:
+                results = searcher.batch_search(
+                    batch_topics, batch_topic_ids, args.hits, args.threads)
+                results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                batch_topic_ids.clear()
+                batch_topics.clear()
+            else:
+                continue
+
+        for result in results:
+            if args.max_passage:
+                write_result_max_passage(result)
+            else:
+                write_result(result)
+        results.clear()
