@@ -12,7 +12,7 @@ A low-effort way to try out Pyserini is to look at our [online notebooks](https:
 For convenience, we've pre-built a few common indexes, available to download [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
 
 Pyserini versions adopt the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
-The current stable release of Pyserini is [v0.9.4.0](https://pypi.org/project/pyserini/) on PyPI.
+The current stable release of Pyserini is [v0.10.1.0](https://pypi.org/project/pyserini/) on PyPI.
 The current experimental release of Pyserini on TestPyPI is behind the current stable release (i.e., do not use).
 In general, documentation is kept up to date with the latest code in the repo.
 
@@ -23,7 +23,7 @@ If you're looking to work with the [COVID-19 Open Research Dataset (CORD-19)](ht
 Install via PyPI:
 
 ```
-pip install pyserini==0.9.4.0
+pip install pyserini==0.10.1.0
 ```
 
 ## Development Installation
@@ -56,6 +56,15 @@ Assuming all tests pass, you should be ready to go!
 + [How do I search?](#how-do-i-search)
 + [How do I fetch a document?](#how-do-i-fetch-a-document)
 + [How do I search my own documents?](#how-do-i-search-my-own-documents)
++ [How do I replicate results on Robust04, MS MARCO...?](#replication-guides)
++ [How do I iterate over index terms and access term statistics?](docs/usage-indexreader.md#how-do-i-iterate-over-index-terms-and-access-term-statistics) (Index Reader API)
++ [How do I traverse postings?](docs/usage-indexreader.md#how-do-i-traverse-postings) (Index Reader API)
++ [How do I access and manipulate term vectors?](docs/usage-indexreader.md#how-do-i-access-and-manipulate-term-vectors) (Index Reader API)
++ [How do I compute the tf-idf or BM25 score of a document?](docs/usage-indexreader.md#how-do-i-compute-the-tf-idf-or-BM25-score-of-a-document) (Index Reader API)
++ [How do I access basic index statistics?](docs/usage-indexreader.md#how-do-i-access-basic-index-statistics) (Index Reader API)
++ [How do I access underlying Lucene analyzers?](docs/usage-analyzer.md) (Analyzer API)
++ [How do I build custom Lucene queries?](docs/usage-querybuilder.md) (Query Builder API)
++ [How do I iterate over raw collections?](docs/usage-collection.md) (Collection API)
 
 ## How do I search?
 
@@ -136,13 +145,7 @@ The following method will list available pre-built indexes:
 SimpleSearcher.list_prebuilt_indexes()
 ```
 
-A summary of what's currently available:
-
-+ `robust04`: TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track
-+ `ms-marco-passage`: MS MARCO passage corpus
-+ `ms-marco-doc`: MS MARCO document corpus
-+ `enwiki-paragraphs`: English Wikipedia
-+ `zhwiki-paragraphs`: Chinese Wikipedia
+A description of what's available can be found [here](docs/prebuilt-indexes.md).
 
 ## How do I fetch a document?
 
@@ -250,11 +253,18 @@ For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entiti
 
 Happy honking!
 
+## Replication Guides
+
+With Pyserini, it's easy to replicate runs on a number of standard IR test collections!
+
++ The easiest way, start here: [Replicating runs directly from the Python package](docs/pypi-replication.md)
++ [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
++ [Guide to running the BM25 baseline for the MS MARCO Document Retrieval Task](docs/experiments-msmarco-doc.md)
+
 ## Additional Documentation
 
 + [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
-+ [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
-+ [Guide to running the BM25 baseline for the MS MARCO Document Retrieval Task](docs/experiments-msmarco-doc.md)
++ [Guide to text classification with the 20Newsgroups dataset](docs/20newgroups.md)
 + [Usage of the Analyzer API](docs/usage-analyzer.md)
 + [Usage of the Index Reader API](docs/usage-indexreader.md)
 + [Usage of the Query Builder API](docs/usage-querybuilder.md)
@@ -270,6 +280,9 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 ## Release History
 
++ v0.10.1.0: January 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.10.1.0.md)]
++ v0.10.0.1: December 2, 2020 [[Release Notes](docs/release-notes/release-notes-v0.10.0.1.md)]
++ v0.10.0.0: November 26, 2020 [[Release Notes](docs/release-notes/release-notes-v0.10.0.0.md)]
 + v0.9.4.0: June 26, 2020 [[Release Notes](docs/release-notes/release-notes-v0.9.4.0.md)]
 + v0.9.3.1: June 11, 2020 [[Release Notes](docs/release-notes/release-notes-v0.9.3.1.md)]
 + v0.9.3.0: May 27, 2020 [[Release Notes](docs/release-notes/release-notes-v0.9.3.0.md)]
