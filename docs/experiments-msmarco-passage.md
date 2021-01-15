@@ -76,7 +76,7 @@ python -m pyserini.search --topics msmarco_passage_dev_subset \
  --bm25 --msmarco --hits 1000 --k1 0.82 --b 0.68
 ```
 
-Here, we set the BM25 parameters to `k1=0.82`, `b=0.68`.
+Here, we set the BM25 parameters to `k1=0.82`, `b=0.68` (tuned by grid search).
 The option `--msmarco` says to generate output in the MS MARCO output format.
 The option `--hits` specifies the number of documents to return per query.
 Thus, the output file should have approximately 6980 × 1000 = 6.9M lines.
