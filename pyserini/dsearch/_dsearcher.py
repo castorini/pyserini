@@ -82,8 +82,7 @@ class TCTColBERTQueryEncoder(QueryEncoder):
             self.tokenizer = BertTokenizer.from_pretrained(encoder_dir)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided.\
-                             Please provide at least one')
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
     def encode(self, query: str):
         if self.has_model:
@@ -114,8 +113,7 @@ class DPRQueryEncoder(QueryEncoder):
             self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(encoder_dir)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided.\
-                             Please provide at least one')
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
     def encode(self, query: str):
         if self.has_model:
