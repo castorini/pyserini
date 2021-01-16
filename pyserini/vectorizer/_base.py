@@ -15,7 +15,7 @@
 #
 
 import math
-from typing import List
+from typing import List, Optional
 from sklearn.preprocessing import normalize
 
 from scipy.sparse import csr_matrix
@@ -95,7 +95,7 @@ class TfidfVectorizer(Vectorizer):
         for term in self.index_reader.terms():
             self.idf_[term.term] = math.log(self.num_docs / term.df)
 
-    def get_vectors(self, docids: List[str], norm: str = 'l2'):
+    def get_vectors(self, docids: List[str], norm: Optional[str] = 'l2'):
         """Get the tf-idf vectors given a list of docids
 
         Parameters
@@ -152,7 +152,7 @@ class BM25Vectorizer(Vectorizer):
     def __init__(self, lucene_index_path: str, min_df: int = 1, verbose: bool = False):
         super().__init__(lucene_index_path, min_df, verbose)
 
-    def get_vectors(self, docids: List[str], norm: str = 'l2'):
+    def get_vectors(self, docids: List[str], norm: Optional[str] = 'l2'):
         """Get the BM25 vectors given a list of docids
 
         Parameters
