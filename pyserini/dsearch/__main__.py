@@ -20,7 +20,7 @@ import os
 import numpy as np
 from tqdm import tqdm
 
-from pyserini.dsearch import QueryEncoder, SimpleDenseSearcher
+from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder
 from pyserini.search import get_topics
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
@@ -52,12 +52,12 @@ topics = get_topics(args.topics)
 if args.encoded_queries:
     if os.path.exists(args.encoded_queries):
         # create query encoder from query embedding directory
-        query_encoder = QueryEncoder(args.encoded_queries)
+        query_encoder = TCTColBERTQueryEncoder(args.encoded_queries)
     else:
         # create query encoder from pre encoded query name
-        query_encoder = QueryEncoder.load_encoded_queries(args.encoded_queries)
+        query_encoder = TCTColBERTQueryEncoder.load_encoded_queries(args.encoded_queries)
 else:
-    query_encoder = QueryEncoder(encoder_dir=args.encoder, device=args.device)
+    query_encoder = TCTColBERTQueryEncoder(encoder_dir=args.encoder, device=args.device)
 
 if not query_encoder:
     exit()

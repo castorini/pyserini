@@ -18,9 +18,7 @@ This module provides Pyserini's hybrid searcher by Dense + Sparse
 """
 from typing import List, Dict
 from pyserini.search import SimpleSearcher
-from pyserini.dsearch import SimpleDenseSearcher, QueryEncoder, DenseSearchResult
-
-import numpy as np
+from pyserini.dsearch import SimpleDenseSearcher, DenseSearchResult
 
 
 class HybridSearcher:
