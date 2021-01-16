@@ -95,13 +95,13 @@ class TfidfVectorizer(Vectorizer):
         for term in self.index_reader.terms():
             self.idf_[term.term] = math.log(self.num_docs / term.df)
 
-    def get_vectors(self, docids: List[str], normalize: bool = True):
+    def get_vectors(self, docids: List[str], norm: str = 'l2'):
         """Get the tf-idf vectors given a list of docids
 
         Parameters
         ----------
-        normalize : bool
-            L2 Normalize the sparse matrix
+        norm : str
+            Normalize the sparse matrix
         docids : List[str]
             The piece of text to analyze.
 
@@ -131,8 +131,8 @@ class TfidfVectorizer(Vectorizer):
 
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
 
-        if normalize:
-            return preprocessing.normalize(vectors, norm='l2')
+        if norm:
+            return preprocessing.normalize(vectors, norm=norm)
         return vectors
 
 
@@ -152,13 +152,13 @@ class BM25Vectorizer(Vectorizer):
     def __init__(self, lucene_index_path: str, min_df: int = 1, verbose: bool = False):
         super().__init__(lucene_index_path, min_df, verbose)
 
-    def get_vectors(self, docids: List[str], normalize: bool = True):
+    def get_vectors(self, docids: List[str], norm: str = 'l2'):
         """Get the BM25 vectors given a list of docids
 
         Parameters
         ----------
-        normalize : bool
-            L2 Normalize the sparse matrix
+        norm : str
+            Normalize the sparse matrix
         docids : List[str]
             The piece of text to analyze.
 
@@ -189,6 +189,6 @@ class BM25Vectorizer(Vectorizer):
 
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
 
-        if normalize:
-            return preprocessing.normalize(vectors, norm='l2')
+        if norm:
+            return preprocessing.normalize(vectors, norm=norm)
         return vectors
