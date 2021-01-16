@@ -16,7 +16,7 @@
 
 import math
 from typing import List
-from sklearn import preprocessing
+from sklearn.preprocessing import normalize
 
 from scipy.sparse import csr_matrix
 
@@ -132,7 +132,7 @@ class TfidfVectorizer(Vectorizer):
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
 
         if norm:
-            return preprocessing.normalize(vectors, norm=norm)
+            return normalize(vectors, norm=norm)
         return vectors
 
 
@@ -190,5 +190,5 @@ class BM25Vectorizer(Vectorizer):
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
 
         if norm:
-            return preprocessing.normalize(vectors, norm=norm)
+            return normalize(vectors, norm=norm)
         return vectors
