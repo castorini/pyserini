@@ -18,7 +18,6 @@ import math
 from typing import List
 
 from scipy.sparse import csr_matrix
-from sklearn.preprocessing import normalize
 
 from pyserini import index, search
 from pyserini.analysis import Analyzer, get_lucene_analyzer
@@ -62,6 +61,17 @@ class Vectorizer:
 
         if self.verbose:
             print(f'Found {self.vocabulary_size} terms with min_df={self.min_df}')
+
+    def get_query_vector(self, query: str):
+        matrix_row, matrix_col, matrix_data = [], [], []
+        tokens = self.analyzer.analyze(query)
+        for term in tokens:
+            if term in self.vocabulary_:
+                matrix_row.append(0)
+                matrix_col.append(self.term_to_index[term])
+                matrix_data.append(1)
+        vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(1, self.vocabulary_size))
+        return vectors
 
 
 class TfidfVectorizer(Vectorizer):
@@ -117,7 +127,7 @@ class TfidfVectorizer(Vectorizer):
                 matrix_data.append(tfidf)
 
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
-        return normalize(vectors, norm='l2')
+        return vectors
 
 
 class BM25Vectorizer(Vectorizer):
@@ -170,15 +180,4 @@ class BM25Vectorizer(Vectorizer):
                 matrix_data.append(bm25_weight)
 
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
-        return vectors  # normalize(vectors, norm='l2')
-
-    def get_query_vector(self, query: str):
-        matrix_row, matrix_col, matrix_data = [], [], []
-        tokens = self.analyzer.analyze(query)
-        for term in tokens:
-            if term in self.vocabulary_:
-                matrix_row.append(0)
-                matrix_col.append(self.term_to_index[term])
-                matrix_data.append(1)
-        vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(1, self.vocabulary_size))
-        return vectors  # normalize(vectors, norm='l2')
+        return vectors
