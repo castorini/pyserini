@@ -24,4 +24,4 @@ if __name__ == '__main__':
     print(vectors)
     print('Indexing')
     hnsw_index.add(vectors)
-    faiss.write_index(hnsw_index, os.path.join(args.bf_index, 'index'))
+    faiss.write_index(hnsw_index, os.path.join(args.hnsw_index, 'index'))
