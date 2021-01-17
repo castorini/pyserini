@@ -47,7 +47,7 @@ class TestIndexUtils(unittest.TestCase):
         self.searcher = search.SimpleSearcher(self.index_path)
         self.index_reader = index.IndexReader(self.index_path)
 
-    def test_tfidf_vectorizer(self):
+    def test_tfidf_vectorizer_train(self):
         vectorizer = TfidfVectorizer(self.index_path, min_df=5)
         train_docs = ['CACM-0239', 'CACM-0440', 'CACM-3168', 'CACM-3169']
         train_labels = [1, 1, 0, 0]
@@ -62,7 +62,7 @@ class TestIndexUtils(unittest.TestCase):
         self.assertAlmostEqual(0.51837413, pred[1][0], places=8)
         self.assertAlmostEqual(0.48162587, pred[1][1], places=8)
 
-    def test_bm25_vectorizer(self):
+    def test_bm25_vectorizer_train(self):
         vectorizer = BM25Vectorizer(self.index_path, min_df=5)
         train_docs = ['CACM-0239', 'CACM-0440', 'CACM-3168', 'CACM-3169']
         train_labels = [1, 1, 0, 0]
@@ -76,6 +76,25 @@ class TestIndexUtils(unittest.TestCase):
         self.assertAlmostEqual(0.5370251, pred[0][1], places=8)
         self.assertAlmostEqual(0.48288416, pred[1][0], places=8)
         self.assertAlmostEqual(0.51711584, pred[1][1], places=8)
+
+    def test_tfidf_vectorizer(self):
+        vectorizer = TfidfVectorizer(self.index_path, min_df=5)
+        result = vectorizer.get_vectors(['CACM-0239', 'CACM-0440'], norm=None)
+        self.assertAlmostEqual(result[0, 190], 2.907369334264736, places=8)
+        self.assertAlmostEqual(result[1, 391], 0.07516490235060004, places=8)
+
+    def test_bm25_vectorizer(self):
+        vectorizer = BM25Vectorizer(self.index_path, min_df=5)
+        result = vectorizer.get_vectors(['CACM-0239', 'CACM-0440'], norm=None)
+        self.assertAlmostEqual(result[0, 190], 1.7513844966888428, places=8)
+        self.assertAlmostEqual(result[1, 391], 0.03765463829040527, places=8)
+
+    def test_vectorizer_query(self):
+        vectorizer = BM25Vectorizer(self.index_path, min_df=5)
+        result = vectorizer.get_query_vector('this is a query to test query vector')
+        self.assertEqual(result[0, 2703], 2)
+        self.assertEqual(result[0, 3078], 1)
+        self.assertEqual(result[0, 3204], 1)
 
     def test_terms_count(self):
         # We're going to iterate through the index and make sure we have the correct number of terms.
