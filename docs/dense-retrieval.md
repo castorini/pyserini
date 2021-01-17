@@ -41,7 +41,8 @@ recall_1000             all     0.9618
 ```
 
 > To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
-> `--encoder tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`
+> on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) 
+> `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
 > NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349694137444839)
 
 
@@ -82,7 +83,8 @@ recall_1000             all     0.9640
 
 You'll notice that hnsw index leads to a small loss in effectiveness.
 > To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
-> `--encoder tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`
+> on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) 
+> `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
 > NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349479237731372)
 
 
