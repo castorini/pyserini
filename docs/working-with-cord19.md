@@ -93,12 +93,12 @@ The easiest way to get started with Neo4j and start an instance is to [download 
 
 In the desktop app create a new project and add a database (create local graph). Give it any name and password and use Neo4j version `4.0.4`. The click "start" to start running database locally.
 
-Once you have the [Pyserini development environment](https://github.com/castorini/pyserini#development-installation) setup run the `extract_citation_graph.py` script in the root of the pyserini project. For example:
+Once you have the [Pyserini development environment](https://github.com/castorini/pyserini#development-installation) setup run the `extract_citation_graph.py` script. For example:
 ```
-python extract_citation_graph.py --path path/to/cord19
+python scripts/cord19/extract_citation_graph.py --path path/to/cord19
 ```
 
-Due to security reasons Neo4j only allows Cypher queries to acess files in certain directories. Move the generated csv files, `node.csv` and `edge.csv` to the import directory of Neo4j. Follow [this guide](https://neo4j.com/docs/operations-manual/current/configuration/file-locations/) to find the import directory on your machine.
+Due to security reasons Neo4j only allows Cypher queries to acess files in certain directories. Move the generated csv files, `edges.csv` to the import directory of Neo4j. Follow [this guide](https://neo4j.com/docs/operations-manual/current/configuration/file-locations/) to find the import directory on your machine.
 
 
 To load the csv files into Neo4j run the following Cypher queries in the Neo4j Browser.
@@ -160,3 +160,4 @@ You should get the following visualization:
 ## Replication Log
 
 + Results replicated by [@Dahlia-Chehata](https://github.com/Dahlia-Chehata) on 2020-12-26 (commit [`b6da95a`](https://github.com/castorini/pyserini/commit/b6da95aaf81ebb26d51be5c7f2cf68b44361307b))
++ Results replicated by [@jrzhang12](https://github.com/jrzhang12) on 2021-01-03 (commit [`c71d368`](https://github.com/castorini/pyserini/commit/c71d3686bfa64eba82608ec79249572281ce1615))
