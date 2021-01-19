@@ -32,8 +32,8 @@ JQuery = autoclass('org.apache.lucene.search.Query')
 JDocument = autoclass('org.apache.lucene.document.Document')
 
 # Wrappers around Anserini classes
-JQrels = autoclass('io.anserini.util.Qrels')
-JQrelsID = autoclass('io.anserini.util.QrelsID')
+JQrels = autoclass('io.anserini.eval.Qrels')
+JRelevanceJudgments = autoclass('io.anserini.eval.RelevanceJudgments')
 JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 JTopics = autoclass('io.anserini.search.topicreader.Topics')
 JQueryGenerator = autoclass('io.anserini.search.query.QueryGenerator')
@@ -169,41 +169,41 @@ def get_qrels(collection_name):
     """
     qrels = None
     if collection_name == 'robust04':
-        qrels = JQrelsID.ROBUST04
+        qrels = JQrels.ROBUST04
     elif collection_name == 'robust05':
-        qrels = JQrelsID.ROBUST05
+        qrels = JQrels.ROBUST05
     elif collection_name == 'core17':
-        qrels = JQrelsID.CORE17
+        qrels = JQrels.CORE17
     elif collection_name == 'core18':
-        qrels = JQrelsID.CORE18
+        qrels = JQrels.CORE18
     elif collection_name == 'car17v1.5_benchmarkY1test':
-        qrels = JQrelsID.CAR17V15_BENCHMARK_Y1_TEST
+        qrels = JQrels.CAR17V15_BENCHMARK_Y1_TEST
     elif collection_name == 'car17v2.0_benchmarkY1test':
-        qrels = JQrelsID.CAR17V20_BENCHMARK_Y1_TEST
+        qrels = JQrels.CAR17V20_BENCHMARK_Y1_TEST
     elif collection_name == 'msmarco_doc_dev':
-        qrels = JQrelsID.MSMARCO_DOC_DEV
+        qrels = JQrels.MSMARCO_DOC_DEV
     elif collection_name == 'msmarco_passage_dev_subset':
-        qrels = JQrelsID.MSMARCO_PASSAGE_DEV_SUBSET
+        qrels = JQrels.MSMARCO_PASSAGE_DEV_SUBSET
     elif collection_name == 'covid_round1':
-        qrels = JQrelsID.COVID_ROUND1
+        qrels = JQrels.COVID_ROUND1
     elif collection_name == 'covid_round2':
-        qrels = JQrelsID.COVID_ROUND2
+        qrels = JQrels.COVID_ROUND2
     elif collection_name == 'covid_round3':
-        qrels = JQrelsID.COVID_ROUND3
+        qrels = JQrels.COVID_ROUND3
     elif collection_name == 'covid_round3_cumulative':
-        qrels = JQrelsID.COVID_ROUND3_CUMULATIVE
+        qrels = JQrels.COVID_ROUND3_CUMULATIVE
     elif collection_name == 'covid_round4':
-        qrels = JQrelsID.COVID_ROUND4
+        qrels = JQrels.COVID_ROUND4
     elif collection_name == 'covid_round4_cumulative':
-        qrels = JQrelsID.COVID_ROUND4_CUMULATIVE
+        qrels = JQrels.COVID_ROUND4_CUMULATIVE
     elif collection_name == 'covid_round5':
-        qrels = JQrelsID.COVID_ROUND5
+        qrels = JQrels.COVID_ROUND5
     elif collection_name == 'covid_complete':
-        qrels = JQrelsID.COVID_COMPLETE
+        qrels = JQrels.COVID_COMPLETE
     elif collection_name == 'trec2018_bl':
-        qrels = JQrelsID.TREC2018_BL
+        qrels = JQrels.TREC2018_BL
     elif collection_name == 'trec2019_bl':
-        qrels = JQrelsID.TREC2019_BL
+        qrels = JQrels.TREC2019_BL
     if qrels:
         target_path = os.path.join(get_cache_home(), qrels.path)
         if os.path.exists(target_path):
@@ -212,7 +212,7 @@ def get_qrels(collection_name):
         if not os.path.exists(target_dir):
             os.makedirs(target_dir)
         with open(target_path, 'w') as file:
-            qrels_content = JQrels.getQrelsResource(qrels)
+            qrels_content = JRelevanceJudgments.getQrelsResource(qrels)
             file.write(qrels_content)
         return target_path
     raise FileNotFoundError(f'no qrels file for {collection_name}')
