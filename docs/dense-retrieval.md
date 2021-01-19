@@ -40,10 +40,10 @@ map                     all     0.3410
 recall_1000             all     0.9618
 ```
 
-> To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
-> on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) 
-> `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
-> NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349694137444839)
+To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
+on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) 
+`--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
+NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349694137444839)
 
 
 MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, brute force index.
@@ -81,11 +81,11 @@ map                     all     0.3416
 recall_1000             all     0.9640
 ```
 
-You'll notice that hnsw index leads to a small loss in effectiveness.
-> To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
-> on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) 
-> `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
-> NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349479237731372)
+You'll notice that hnsw index leads to a small loss in effectiveness. 
+To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
+on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main)
+`--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
+NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349479237731372)
 
 
 ### Hybrid Dense-Sparse Ranking
@@ -95,13 +95,13 @@ Hybrid
 - sparse retrieval with doc2query-T5 expanded index.
 
 ```
-python -m pyserini.hsearch --topics msmarco_passage_dev_subset \
-                             --dense-index msmarco-passage-tct_colbert-hnsw \
-                             --sparse-index msmarco-passage-expanded \
-                             --encoded-queries msmarco-passage-dev-subset-tct_colbert \
-                             --output runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.tsv \
-                             --msmarco \
-                             --alpha 0.24
+python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-hnsw \
+                                   --encoded-queries msmarco-passage-dev-subset-tct_colbert  \
+                             sparse --index msmarco-passage-expanded \
+                             fusion --alpha 0.24 \
+                             run  --topics msmarco_passage_dev_subset \
+                                  --output runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.tsv \
+                                  --msmarco
 ```
 
 To evaluate:
@@ -125,6 +125,9 @@ $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
 map                     all     0.3702
 recall_1000             all     0.9734
 ```
+To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
+on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) 
+`--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
 
 MS MARCO passage ranking task, 
 Hybrid
@@ -132,15 +135,14 @@ Hybrid
 - sparse retrieval with doc2query-T5 expanded index.
 
 ```
-python -m pyserini.hsearch --topics msmarco_passage_dev_subset \
-                             --dense-index msmarco-passage-tct_colbert-bf \
-                             --sparse-index msmarco-passage-expanded \
-                             --encoded-queries msmarco-passage-dev-subset-tct_colbert \
-                             --output runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv \
-                             --msmarco \
-                             --alpha 0.24 \
-                             --batch 36 \
-                             --threads 12
+python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-bf \
+                                   --batch 36 --threads 12 \
+                                   --encoded-queries msmarco-passage-dev-subset-tct_colbert  \
+                             sparse --index msmarco-passage-expanded \
+                             fusion --alpha 0.24 \
+                             run  --topics msmarco_passage_dev_subset \
+                                  --output runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv \
+                                  --msmarco
 ```
 
 To evaluate:
@@ -164,3 +166,7 @@ $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
 map                     all     0.3706
 recall_1000             all     0.9736
 ```
+
+To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
+on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) 
+`--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
