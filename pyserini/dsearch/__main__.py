@@ -17,10 +17,11 @@
 import argparse
 import os
 
+import json
 import numpy as np
 from tqdm import tqdm
 
-from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder
+from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder, QueryEncoder, DPRQueryEncoder
 from pyserini.search import get_topics
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
@@ -31,8 +32,6 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 def define_dsearch_args(parser):
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                         help="Path to Faiss index or name of prebuilt index.")
-    parser.add_argument('--encoded-queries', type=str, metavar='path to query embedding or query name', required=False,
-                        help="Path to query embedding or name of pre encoded queries")
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
                         required=False,
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
@@ -42,6 +41,20 @@ def define_dsearch_args(parser):
                         help="search batch of queries in parallel")
     parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
                         help="maximum threads to use during search")
+
+
+def init_query_encoder(encoder, topics_name, device):
+    encoded_queries = {
+        'msmarco-passage': 'msmarco-passage-dev-subset-tct_colbert'
+    }
+    if encoder:
+        if 'dpr' in encoder:
+            return DPRQueryEncoder(encoder_dir=encoder, device=device)
+        elif 'tct_colbert' in encoder:
+            return TCTColBERTQueryEncoder(encoder_dir=encoder, device=device)
+    if topics_name in encoded_queries:
+        return QueryEncoder.load_encoded_queries(encoded_queries[topics_name])
+    return None
 
 
 if __name__ == '__main__':
@@ -54,19 +67,19 @@ if __name__ == '__main__':
     define_dsearch_args(parser)
     args = parser.parse_args()
 
-    topics = get_topics(args.topics)
-
-    if args.encoded_queries:
-        if os.path.exists(args.encoded_queries):
-            # create query encoder from query embedding directory
-            query_encoder = TCTColBERTQueryEncoder(args.encoded_queries)
-        else:
-            # create query encoder from pre encoded query name
-            query_encoder = TCTColBERTQueryEncoder.load_encoded_queries(args.encoded_queries)
+    if os.path.exists(args.topics) and args.topics.endswith('.json'):
+        topics = json.load(open(args.topics))
     else:
-        query_encoder = TCTColBERTQueryEncoder(encoder_dir=args.encoder, device=args.device)
+        topics = get_topics(args.topics)
 
+    # invalid topics name
+    if topics == {}:
+        print(f'Topic {args.topics} Not Found')
+        exit()
+
+    query_encoder = init_query_encoder(args.encoder, args.topics, args.device)
     if not query_encoder:
+        print(f'No encoded queries for topic {args.topics}')
         exit()
 
     if os.path.exists(args.index):
@@ -77,11 +90,6 @@ if __name__ == '__main__':
         searcher = SimpleDenseSearcher.from_prebuilt_index(args.index, query_encoder)
 
     if not searcher:
-        exit()
-
-    # invalid topics name
-    if topics == {}:
-        print(f'Topic {args.topics} Not Found')
         exit()
 
     # build output path

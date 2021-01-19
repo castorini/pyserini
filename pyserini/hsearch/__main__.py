@@ -15,6 +15,7 @@
 #
 
 import argparse
+import json
 import os
 import sys
 
@@ -24,7 +25,7 @@ from pyserini.dsearch import TCTColBERTQueryEncoder, SimpleDenseSearcher
 from pyserini.search import SimpleSearcher, get_topics
 from pyserini.hsearch import HybridSearcher
 
-from pyserini.dsearch.__main__ import define_dsearch_args
+from pyserini.dsearch.__main__ import define_dsearch_args, init_query_encoder
 from pyserini.search.__main__ import define_search_args
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
@@ -81,19 +82,18 @@ if __name__ == '__main__':
 
     args = parse_args(parser, commands)
 
-    topics = get_topics(args.run.topics)
-
-    if args.dense.encoded_queries:
-        if os.path.exists(args.dense.encoded_queries):
-            # create query encoder from query embedding directory
-            query_encoder = TCTColBERTQueryEncoder(args.dense.encoded_queries)
-        else:
-            # create query encoder from pre encoded query name
-            query_encoder = TCTColBERTQueryEncoder.load_encoded_queries(args.dense.encoded_queries)
+    if os.path.exists(args.run.topics) and args.run.topics.endswith('.json'):
+        topics = json.load(open(args.run.topics))
     else:
-        query_encoder = TCTColBERTQueryEncoder(encoder_dir=args.dense.encoder, device=args.dense.device)
+        topics = get_topics(args.run.topics)
+    # invalid topics name
+    if topics == {}:
+        print(f'Topic {args.run.topics} Not Found')
+        exit()
 
+    query_encoder = init_query_encoder(args.dense.encoder, args.run.topics, args.dense.device)
     if not query_encoder:
+        print(f'No encoded queries for topic {args.topics}')
         exit()
 
     if os.path.exists(args.dense.index):
@@ -118,11 +118,6 @@ if __name__ == '__main__':
 
     hsearcher = HybridSearcher(dsearcher, ssearcher)
     if not hsearcher:
-        exit()
-
-    # invalid topics name
-    if topics == {}:
-        print(f'Topic {args.run.topics} Not Found')
         exit()
 
     # build output path
