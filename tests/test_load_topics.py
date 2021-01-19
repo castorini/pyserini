@@ -69,7 +69,7 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual('coronavirus remdesivir', topics[30]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    def test_covid_round1(self):
+    def test_covid_round1_udel(self):
         topics = search.get_topics('covid_round1_udel')
         self.assertEqual(len(topics), 30)
         self.assertEqual('coronavirus origin origin COVID-19', topics[1]['query'])
