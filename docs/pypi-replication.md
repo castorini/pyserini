@@ -17,7 +17,7 @@ A dependency-free way to evaluate the run:
 
 ```bash
 $ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.robust04.txt
-$ python -m pyserini.eval.trec_eval -m map -m P.30 qrels.robust04.txt run.robust04.txt
+$ python -m pyserini.eval.trec_eval -m map -m P.30 robust04 run.robust04.txt
 map                   	all	0.2531
 P_30                  	all	0.3102
 ```
@@ -39,7 +39,7 @@ $ python -m pyserini.search --topics msmarco_passage_dev_subset --index msmarco-
 Evaluation command:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.txt
+$ python -m pyserini.eval.msmarco_passage_eval msmarco_passage_dev_subset run.msmarco-passage.txt
 #####################
 MRR @10: 0.18741227770955546
 QueriesRanked: 6980
@@ -55,7 +55,7 @@ $ python -m pyserini.search --topics msmarco_passage_dev_subset --index msmarco-
 Evaluation command:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval qrels.msmarco-passage.dev-subset.txt run.msmarco-passage.expanded.txt
+$ python -m pyserini.eval.msmarco_passage_eval msmarco_passage_dev_subset run.msmarco-passage.expanded.txt
 #####################
 MRR @10: 0.281560751807885
 QueriesRanked: 6980
@@ -79,7 +79,7 @@ $ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc --outpu
 Evaluation command:
 
 ```bash
-$ python -m pyserini.eval.msmarco_doc_eval --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.doc.txt
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco_doc_dev --run run.msmarco-doc.doc.txt
 #####################
 MRR @100: 0.2770296928568702
 QueriesRanked: 5193
@@ -95,7 +95,7 @@ $ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc-expande
 Evaluation command:
 
 ```bash
-$ python -m pyserini.eval.msmarco_doc_eval --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.doc-expanded.txt
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco_doc_dev --run run.msmarco-doc.doc-expanded.txt
 #####################
 MRR @100: 0.3265190296491929
 QueriesRanked: 5193
@@ -111,7 +111,7 @@ $ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc-per-pas
 Evaluation command:
 
 ```bash
-$ python -m pyserini.eval.msmarco_doc_eval --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.passage.txt
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco_doc_dev --run run.msmarco-doc.passage.txt
 #####################
 MRR @100: 0.275120210994691
 QueriesRanked: 5193
@@ -127,7 +127,7 @@ $ python -m pyserini.search --topics msmarco_doc_dev --index msmarco-doc-expande
 Evaluation command:
 
 ```bash
-$ python -m pyserini.eval.msmarco_doc_eval --judgments qrels.msmarco-doc.dev.txt --run run.msmarco-doc.passage-expanded.txt
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco_doc_dev --run run.msmarco-doc.passage-expanded.txt
 #####################
 MRR @100: 0.3208186157918374
 QueriesRanked: 5193

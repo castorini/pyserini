@@ -24,202 +24,205 @@ from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierRe
 from pyserini.query_iterator import QUERY_IDS, query_iterator
 from tqdm import tqdm
 
-JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
 
-parser = argparse.ArgumentParser(description='Search a Lucene index.')
-parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
-                    help="Path to Lucene index or name of prebuilt index.")
-parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
-                    help="Name of topics. Available: robust04, robust05, core17, core18.")
-parser.add_argument('--hits', type=int, metavar='num',
-                    required=False, default=1000, help="Number of hits.")
-parser.add_argument('--msmarco',  action='store_true',
-                    default=False, help="Output in MS MARCO format.")
-parser.add_argument('--output', type=str, metavar='path',
-                    help="Path to output file.")
-parser.add_argument('--batch-size', type=int, metavar='num', required=False,
-                    default=1, help="Specify batch size to search the collection concurrently.")
-parser.add_argument('--threads', type=int, metavar='num', required=False,
-                    default=1, help="Maximum number of threads to use.")
+def define_search_args(parser):
+    parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
+                        help="Path to Lucene index or name of prebuilt index.")
+    parser.add_argument('--batch-size', type=int, metavar='num', required=False,
+                        default=1, help="Specify batch size to search the collection concurrently.")
+    parser.add_argument('--threads', type=int, metavar='num', required=False,
+                        default=1, help="Maximum number of threads to use.")
+    parser.add_argument('--bm25', action='store_true', default=True, help="Use BM25 (default).")
+    parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
+    parser.add_argument('--b', type=float, help='BM25 b parameter.')
 
-parser.add_argument('--max-passage',  action='store_true',
-                    default=False, help="Select only max passage from document.")
-parser.add_argument('--max-passage-hits', type=int, metavar='num', required=False, default=100,
-                    help="Final number of hits when selecting only max passage.")
-parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
-                    help="Delimiter between docid and passage id.")
+    parser.add_argument('--rm3', action='store_true', help="Use RM3")
+    parser.add_argument('--qld', action='store_true', help="Use QLD")
 
-parser.add_argument('--bm25',  action='store_true', default=True, help="Use BM25 (default).")
-parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
-parser.add_argument('--b', type=float, help='BM25 b parameter.')
+    parser.add_argument('--prcl', type=ClassifierType, nargs='+', default=[],
+                        help='Specify the classifier PseudoRelevanceClassifierReranker uses.')
+    parser.add_argument('--prcl.vectorizer', dest='vectorizer', type=str,
+                        help='Type of vectorizer. Available: TfidfVectorizer, BM25Vectorizer.')
+    parser.add_argument('--prcl.r', dest='r', type=int, default=10,
+                        help='Number of positive labels in pseudo relevance feedback.')
+    parser.add_argument('--prcl.n', dest='n', type=int, default=100,
+                        help='Number of negative labels in pseudo relevance feedback.')
+    parser.add_argument('--prcl.alpha', dest='alpha', type=float, default=0.5,
+                        help='Alpha value for interpolation in pseudo relevance feedback.')
 
-parser.add_argument('--rm3',  action='store_true', help="Use RM3")
-parser.add_argument('--qld',  action='store_true', help="Use QLD")
 
-parser.add_argument('--prcl',  type=ClassifierType, nargs='+', default=[],
-                    help='Specify the classifier PseudoRelevanceClassifierReranker uses.')
-parser.add_argument('--prcl.vectorizer',  dest='vectorizer', type=str,
-                    help='Type of vectorizer. Available: TfidfVectorizer, BM25Vectorizer.')
-parser.add_argument('--prcl.r',  dest='r', type=int, default=10,
-                    help='Number of positive labels in pseudo relevance feedback.')
-parser.add_argument('--prcl.n', dest='n', type=int, default=100,
-                    help='Number of negative labels in pseudo relevance feedback.')
-parser.add_argument('--prcl.alpha', dest='alpha', type=float, default=0.5,
-                    help='Alpha value for interpolation in pseudo relevance feedback.')
-args = parser.parse_args()
+if __name__ == "__main__":
+    JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
+    parser = argparse.ArgumentParser(description='Search a Lucene index.')
+    define_search_args(parser)
+    parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
+                        help="Name of topics. Available: robust04, robust05, core17, core18.")
+    parser.add_argument('--hits', type=int, metavar='num',
+                        required=False, default=1000, help="Number of hits.")
+    parser.add_argument('--msmarco',  action='store_true',
+                        default=False, help="Output in MS MARCO format.")
+    parser.add_argument('--output', type=str, metavar='path',
+                        help="Path to output file.")
+    parser.add_argument('--max-passage',  action='store_true',
+                        default=False, help="Select only max passage from document.")
+    parser.add_argument('--max-passage-hits', type=int, metavar='num', required=False, default=100,
+                        help="Final number of hits when selecting only max passage.")
+    parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
+                        help="Delimiter between docid and passage id.")
+    args = parser.parse_args()
 
-topics = get_topics(args.topics)
+    topics = get_topics(args.topics)
 
-if os.path.exists(args.index):
-    # create searcher from index directory
-    searcher = SimpleSearcher(args.index)
-else:
-    # create searcher from prebuilt index name
-    searcher = SimpleSearcher.from_prebuilt_index(args.index)
-
-if not searcher:
-    exit()
-
-search_rankers = []
-
-if args.qld:
-    search_rankers.append('qld')
-    searcher.set_qld()
-else:
-    search_rankers.append('bm25')
-
-    if args.k1 is not None or args.b is not None:
-        if args.k1 is None or args.b is None:
-            print('Must set *both* k1 and b for BM25!')
-            exit()
-        print(f'Setting BM25 parameters: k1={args.k1}, b={args.b}')
-        searcher.set_bm25(args.k1, args.b)
+    if os.path.exists(args.index):
+        # create searcher from index directory
+        searcher = SimpleSearcher(args.index)
     else:
-        # Automatically set bm25 parameters based on known index:
-        if args.index == 'msmarco-passage' or args.index == 'msmarco-passage-slim':
-            print('MS MARCO passage: setting k1=0.82, b=0.68')
-            searcher.set_bm25(0.82, 0.68)
-        elif args.index == 'msmarco-passage-expanded':
-            print('MS MARCO passage w/ doc2query-T5 expansion: setting k1=2.18, b=0.86')
-            searcher.set_bm25(2.18, 0.86)
-        elif args.index == 'msmarco-doc' or args.index == 'msmarco-doc-slim':
-            print('MS MARCO doc: setting k1=4.46, b=0.82')
-            searcher.set_bm25(4.46, 0.82)
-        elif args.index == 'msmarco-doc-per-passage' or args.index == 'msmarco-doc-per-passage-slim':
-            print('MS MARCO doc, per passage: setting k1=2.16, b=0.61')
-            searcher.set_bm25(2.16, 0.61)
-        elif args.index == 'msmarco-doc-expanded-per-doc':
-            print('MS MARCO doc w/ doc2query-T5 (per doc) expansion: setting k1=4.68, b=0.87')
-            searcher.set_bm25(4.68, 0.87)
-        elif args.index == 'msmarco-doc-expanded-per-passage':
-            print('MS MARCO doc w/ doc2query-T5 (per passage) expansion: setting k1=2.56, b=0.59')
-            searcher.set_bm25(2.56, 0.59)
+        # create searcher from prebuilt index name
+        searcher = SimpleSearcher.from_prebuilt_index(args.index)
 
-if args.rm3:
-    search_rankers.append('rm3')
-    searcher.set_rm3()
+    if not searcher:
+        exit()
 
-# invalid topics name
-if topics == {}:
-    print(f'Topic {args.topics} Not Found')
-    exit()
+    search_rankers = []
 
-# get re-ranker
-use_prcl = args.prcl and len(args.prcl) > 0 and args.alpha > 0
-if use_prcl is True:
-    ranker = PseudoRelevanceClassifierReranker(
-        searcher.index_dir, args.vectorizer, args.prcl, r=args.r, n=args.n, alpha=args.alpha)
+    if args.qld:
+        search_rankers.append('qld')
+        searcher.set_qld()
+    else:
+        search_rankers.append('bm25')
 
-# build output path
-output_path = args.output
-if output_path is None:
+        if args.k1 is not None or args.b is not None:
+            if args.k1 is None or args.b is None:
+                print('Must set *both* k1 and b for BM25!')
+                exit()
+            print(f'Setting BM25 parameters: k1={args.k1}, b={args.b}')
+            searcher.set_bm25(args.k1, args.b)
+        else:
+            # Automatically set bm25 parameters based on known index:
+            if args.index == 'msmarco-passage' or args.index == 'msmarco-passage-slim':
+                print('MS MARCO passage: setting k1=0.82, b=0.68')
+                searcher.set_bm25(0.82, 0.68)
+            elif args.index == 'msmarco-passage-expanded':
+                print('MS MARCO passage w/ doc2query-T5 expansion: setting k1=2.18, b=0.86')
+                searcher.set_bm25(2.18, 0.86)
+            elif args.index == 'msmarco-doc' or args.index == 'msmarco-doc-slim':
+                print('MS MARCO doc: setting k1=4.46, b=0.82')
+                searcher.set_bm25(4.46, 0.82)
+            elif args.index == 'msmarco-doc-per-passage' or args.index == 'msmarco-doc-per-passage-slim':
+                print('MS MARCO doc, per passage: setting k1=2.16, b=0.61')
+                searcher.set_bm25(2.16, 0.61)
+            elif args.index == 'msmarco-doc-expanded-per-doc':
+                print('MS MARCO doc w/ doc2query-T5 (per doc) expansion: setting k1=4.68, b=0.87')
+                searcher.set_bm25(4.68, 0.87)
+            elif args.index == 'msmarco-doc-expanded-per-passage':
+                print('MS MARCO doc w/ doc2query-T5 (per passage) expansion: setting k1=2.56, b=0.59')
+                searcher.set_bm25(2.56, 0.59)
+
+    if args.rm3:
+        search_rankers.append('rm3')
+        searcher.set_rm3()
+
+    # invalid topics name
+    if topics == {}:
+        print(f'Topic {args.topics} Not Found')
+        exit()
+
+    # get re-ranker
+    use_prcl = args.prcl and len(args.prcl) > 0 and args.alpha > 0
     if use_prcl is True:
-        clf_rankers = []
-        for t in args.prcl:
-            if t == ClassifierType.LR:
-                clf_rankers.append('lr')
-            elif t == ClassifierType.SVM:
-                clf_rankers.append('svm')
+        ranker = PseudoRelevanceClassifierReranker(
+            searcher.index_dir, args.vectorizer, args.prcl, r=args.r, n=args.n, alpha=args.alpha)
 
-        r_str = f'prcl.r_{args.r}'
-        n_str = f'prcl.n_{args.n}'
-        a_str = f'prcl.alpha_{args.alpha}'
-        clf_str = 'prcl_' + '+'.join(clf_rankers)
-        tokens1 = ['run', args.topics, '+'.join(search_rankers)]
-        tokens2 = [args.vectorizer, clf_str, r_str, n_str, a_str]
-        output_path = '.'.join(tokens1) + '-' + '-'.join(tokens2) + ".txt"
-    else:
-        tokens = ['run', args.topics, '+'.join(search_rankers), 'txt']
-        output_path = '.'.join(tokens)
+    # build output path
+    output_path = args.output
+    if output_path is None:
+        if use_prcl is True:
+            clf_rankers = []
+            for t in args.prcl:
+                if t == ClassifierType.LR:
+                    clf_rankers.append('lr')
+                elif t == ClassifierType.SVM:
+                    clf_rankers.append('svm')
 
-print(f'Running {args.topics} topics, saving to {output_path}...')
-tag = output_path[:-4] if args.output is None else 'Anserini'
+            r_str = f'prcl.r_{args.r}'
+            n_str = f'prcl.n_{args.n}'
+            a_str = f'prcl.alpha_{args.alpha}'
+            clf_str = 'prcl_' + '+'.join(clf_rankers)
+            tokens1 = ['run', args.topics, '+'.join(search_rankers)]
+            tokens2 = [args.vectorizer, clf_str, r_str, n_str, a_str]
+            output_path = '.'.join(tokens1) + '-' + '-'.join(tokens2) + ".txt"
+        else:
+            tokens = ['run', args.topics, '+'.join(search_rankers), 'txt']
+            output_path = '.'.join(tokens)
 
-
-def write_result(result: Tuple[str, List[JSimpleSearcher]]):
-    topic, hits = result
-    docids = [hit.docid.strip() for hit in hits]
-    scores = [hit.score for hit in hits]
-
-    if use_prcl and len(hits) > (args.r + args.n):
-        scores, docids = ranker.rerank(docids, scores)
-
-    if args.msmarco:
-        for i, docid in enumerate(docids):
-            target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
-    else:
-        for i, (docid, score) in enumerate(zip(docids, scores)):
-            target_file.write(
-                f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
+    print(f'Running {args.topics} topics, saving to {output_path}...')
+    tag = output_path[:-4] if args.output is None else 'Anserini'
 
 
-def write_result_max_passage(result: Tuple[str, List[JSimpleSearcher]]):
-    topic, hits = result
-    unique_docs = set()
-    rank = 1
-    for hit in hits:
-        docid, _ = hit.docid.split(args.max_passage_delimiter)
-        if docid in unique_docs:
-            continue
+    def write_result(result: Tuple[str, List[JSimpleSearcher]]):
+        topic, hits = result
+        docids = [hit.docid.strip() for hit in hits]
+        scores = [hit.score for hit in hits]
+
+        if use_prcl and len(hits) > (args.r + args.n):
+            scores, docids = ranker.rerank(docids, scores)
 
         if args.msmarco:
-            target_file.write(f'{topic}\t{docid}\t{rank}\n')
+            for i, docid in enumerate(docids):
+                target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
         else:
-            target_file.write(
-                f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
-        rank = rank + 1
-        unique_docs.add(docid)
-        if rank > args.max_passage_hits:
-            break
+            for i, (docid, score) in enumerate(zip(docids, scores)):
+                target_file.write(
+                    f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
 
 
-order = None
-if args.topics in QUERY_IDS:
-    order = QUERY_IDS[args.topics]
-
-with open(output_path, 'w') as target_file:
-    batch_topics = list()
-    batch_topic_ids = list()
-    for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
-        if args.batch_size <= 1 and args.threads <= 1:
-            hits = searcher.search(text, args.hits)
-            results = [(topic_id, hits)]
-        else:
-            batch_topic_ids.append(str(topic_id))
-            batch_topics.append(text)
-            if (index + 1) % args.batch_size == 0 or \
-                    index == len(topics.keys()) - 1:
-                results = searcher.batch_search(
-                    batch_topics, batch_topic_ids, args.hits, args.threads)
-                results = [(id_, results[id_]) for id_ in batch_topic_ids]
-                batch_topic_ids.clear()
-                batch_topics.clear()
-            else:
+    def write_result_max_passage(result: Tuple[str, List[JSimpleSearcher]]):
+        topic, hits = result
+        unique_docs = set()
+        rank = 1
+        for hit in hits:
+            docid, _ = hit.docid.split(args.max_passage_delimiter)
+            if docid in unique_docs:
                 continue
 
-        for result in results:
-            if args.max_passage:
-                write_result_max_passage(result)
+            if args.msmarco:
+                target_file.write(f'{topic}\t{docid}\t{rank}\n')
             else:
-                write_result(result)
-        results.clear()
+                target_file.write(
+                    f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
+            rank = rank + 1
+            unique_docs.add(docid)
+            if rank > args.max_passage_hits:
+                break
+
+
+    order = None
+    if args.topics in QUERY_IDS:
+        order = QUERY_IDS[args.topics]
+
+    with open(output_path, 'w') as target_file:
+        batch_topics = list()
+        batch_topic_ids = list()
+        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+            if args.batch_size <= 1 and args.threads <= 1:
+                hits = searcher.search(text, args.hits)
+                results = [(topic_id, hits)]
+            else:
+                batch_topic_ids.append(str(topic_id))
+                batch_topics.append(text)
+                if (index + 1) % args.batch_size == 0 or \
+                        index == len(topics.keys()) - 1:
+                    results = searcher.batch_search(
+                        batch_topics, batch_topic_ids, args.hits, args.threads)
+                    results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                    batch_topic_ids.clear()
+                    batch_topics.clear()
+                else:
+                    continue
+
+            for result in results:
+                if args.max_passage:
+                    write_result_max_passage(result)
+                else:
+                    write_result(result)
+            results.clear()
