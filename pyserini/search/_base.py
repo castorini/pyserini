@@ -19,18 +19,21 @@ This module provides Pyserini's Python search interface to Anserini. The main en
 class, which wraps the Java class with the same name in Anserini.
 """
 
+import os
 import logging
 
 from ..pyclass import autoclass, JPaths
+from pyserini.util import get_cache_home
 
 logger = logging.getLogger(__name__)
-
 
 # Wrappers around Lucene classes
 JQuery = autoclass('org.apache.lucene.search.Query')
 JDocument = autoclass('org.apache.lucene.document.Document')
 
 # Wrappers around Anserini classes
+JQrels = autoclass('io.anserini.util.Qrels')
+JQrelsID = autoclass('io.anserini.util.QrelsID')
 JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 JTopics = autoclass('io.anserini.search.topicreader.Topics')
 JQueryGenerator = autoclass('io.anserini.search.query.QueryGenerator')
@@ -150,3 +153,64 @@ def get_topics_with_reader(reader_class, file):
         for key in topics.get(topic).keySet().toArray():
             t[topic_key][key] = topics.get(topic).get(key)
     return t
+
+
+def get_qrels(collection_name):
+    """
+    Parameters
+    ----------
+    collection_name : str
+        collection_name
+
+    Returns
+    -------
+    path : str
+        path of the qrels file
+    """
+    qrels = None
+    if collection_name == 'robust04':
+        qrels = JQrelsID.ROBUST04
+    elif collection_name == 'robust05':
+        qrels = JQrelsID.ROBUST05
+    elif collection_name == 'core17':
+        qrels = JQrelsID.CORE17
+    elif collection_name == 'core18':
+        qrels = JQrelsID.CORE18
+    elif collection_name == 'car17v1.5_benchmarkY1test':
+        qrels = JQrelsID.CAR17V15_BENCHMARK_Y1_TEST
+    elif collection_name == 'car17v2.0_benchmarkY1test':
+        qrels = JQrelsID.CAR17V20_BENCHMARK_Y1_TEST
+    elif collection_name == 'msmarco_doc_dev':
+        qrels = JQrelsID.MSMARCO_DOC_DEV
+    elif collection_name == 'msmarco_passage_dev_subset':
+        qrels = JQrelsID.MSMARCO_PASSAGE_DEV_SUBSET
+    elif collection_name == 'covid_round1':
+        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND1)
+    elif collection_name == 'covid_round2':
+        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND2)
+    elif collection_name == 'covid_round3':
+        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND3)
+    elif collection_name == 'covid_round3_cumulative':
+        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND3_CUMULATIVE)
+    elif collection_name == 'covid_round4':
+        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND4)
+    elif collection_name == 'covid_round4_cumulative':
+        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND4_CUMULATIVE)
+    elif collection_name == 'covid_round5':
+        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND5)
+    elif collection_name == 'covid_complete':
+        qrels = JQrels.getQrelsResource(JQrelsID.COVID_COMPLETE)
+    elif collection_name == 'trec2018_bl':
+        qrels = JQrels.getQrelsResource(JQrelsID.TREC2018_BL)
+    elif collection_name == 'trec2019_bl':
+        qrels = JQrels.getQrelsResource(JQrelsID.TREC2019_BL)
+    if qrels:
+        target_path = os.path.join(get_cache_home(), qrels.path)
+        if os.path.exists(target_path):
+            return target_path
+        os.makedirs(os.path.split(target_path)[0])
+        with open(target_path, 'w') as file:
+            qrels_content = JQrels.getQrelsResource(qrels)
+            file.write(qrels_content)
+        return target_path
+    raise FileNotFoundError(f'no qrels file for {collection_name}')
