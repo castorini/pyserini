@@ -185,30 +185,32 @@ def get_qrels(collection_name):
     elif collection_name == 'msmarco_passage_dev_subset':
         qrels = JQrelsID.MSMARCO_PASSAGE_DEV_SUBSET
     elif collection_name == 'covid_round1':
-        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND1)
+        qrels = JQrelsID.COVID_ROUND1
     elif collection_name == 'covid_round2':
-        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND2)
+        qrels = JQrelsID.COVID_ROUND2
     elif collection_name == 'covid_round3':
-        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND3)
+        qrels = JQrelsID.COVID_ROUND3
     elif collection_name == 'covid_round3_cumulative':
-        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND3_CUMULATIVE)
+        qrels = JQrelsID.COVID_ROUND3_CUMULATIVE
     elif collection_name == 'covid_round4':
-        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND4)
+        qrels = JQrelsID.COVID_ROUND4
     elif collection_name == 'covid_round4_cumulative':
-        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND4_CUMULATIVE)
+        qrels = JQrelsID.COVID_ROUND4_CUMULATIVE
     elif collection_name == 'covid_round5':
-        qrels = JQrels.getQrelsResource(JQrelsID.COVID_ROUND5)
+        qrels = JQrelsID.COVID_ROUND5
     elif collection_name == 'covid_complete':
-        qrels = JQrels.getQrelsResource(JQrelsID.COVID_COMPLETE)
+        qrels = JQrelsID.COVID_COMPLETE
     elif collection_name == 'trec2018_bl':
-        qrels = JQrels.getQrelsResource(JQrelsID.TREC2018_BL)
+        qrels = JQrelsID.TREC2018_BL
     elif collection_name == 'trec2019_bl':
-        qrels = JQrels.getQrelsResource(JQrelsID.TREC2019_BL)
+        qrels = JQrelsID.TREC2019_BL
     if qrels:
         target_path = os.path.join(get_cache_home(), qrels.path)
         if os.path.exists(target_path):
             return target_path
-        os.makedirs(os.path.split(target_path)[0])
+        target_dir = os.path.split(target_path)[0]
+        if not os.path.exists(target_dir):
+            os.makedirs(target_dir)
         with open(target_path, 'w') as file:
             qrels_content = JQrels.getQrelsResource(qrels)
             file.write(qrels_content)
