@@ -21,7 +21,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     topic = {}
-    for idx, (question, answers) in parse_qa_csv_file(args.qas):
+    for idx, (question, answers) in enumerate(parse_qa_csv_file(args.input)):
         topic[str(idx)] = {'title': question, 'answers': answers}
 
     json.dump(topic, open(args.output, 'w'), indent=4)

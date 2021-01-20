@@ -2,6 +2,7 @@ import re
 import string
 import argparse
 import json
+from tqdm import tqdm
 import numpy as np
 
 
@@ -36,15 +37,18 @@ def has_answers(text, answers):
 parser = argparse.ArgumentParser()
 parser.add_argument('--retrieval', type=str, metavar='path',
                     help="Path to retrieval output file.")
+parser.add_argument('--topk', type=int, help="topk to evaluate")
 args = parser.parse_args()
 
 retrieval = json.load(open(args.retrieval))
 accuracy = []
-for qid in retrieval:
+for qid in tqdm(list(retrieval.keys())):
     answers = retrieval[qid]['answers']
     contexts = retrieval[qid]['contexts']
     has_ans = 0
-    for ctx in contexts:
+    for idx, ctx in enumerate(contexts):
+        if idx >= args.topk:
+            break
         text = ctx['text']
         if has_answers(text, answers):
             has_ans = 1

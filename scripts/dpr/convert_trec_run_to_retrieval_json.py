@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+from tqdm import tqdm
 from pyserini.search import SimpleSearcher
 
 if __name__ == '__main__':
@@ -22,15 +23,15 @@ if __name__ == '__main__':
 
     retrieval = {}
     with open(args.input) as f_in:
-        for line in f_in:
+        for line in tqdm(f_in):
             question_id, _, doc_id, _, score, _ = line.strip().split()
             question = qas[question_id]['title']
             answers = qas[question_id]['answers']
-            ctx = searcher.doc(doc_id).raw()
+            ctx = json.loads(searcher.doc(doc_id).raw())['contents']
             if question_id not in retrieval:
                 retrieval[question_id] = {'question': question, 'answers': answers, 'contexts': []}
             retrieval[question_id]['contexts'].append(
                 {'docid': doc_id, 'score': score, 'text': ctx}
             )
 
-    json.dump(retrieval, open(args.output, 'w'))
+    json.dump(retrieval, open(args.output, 'w'), indent=4)
