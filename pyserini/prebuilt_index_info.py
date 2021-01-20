@@ -426,5 +426,15 @@ INDEX_INFO = {
         "documents": 21015324,
         "unique_terms": -1,
         "downloaded": False
-    }
+    },
+    "msmarco-doc-tct_colbert-bf": {
+        "description": "MS MARCO document corpus encoded by TCT-ColBERT and indexed as brute force index",
+        "urls": [
+            "https://www.dropbox.com/s/tsf0oudr98bb0tq/msmarco-doc-tct_colbert-bf.tar.gz?dl=1",
+        ],
+        "md5": "cb85d46e8a9205829ada11f6534c12b2",
+        "size compressed (bytes)": 58514326130,
+        "documents": 20544550,
+        "downloaded": False
+    },
 }

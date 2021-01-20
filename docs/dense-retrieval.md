@@ -166,6 +166,30 @@ To evaluate with on-the-fly query encoding with our pretrained encoder model
 on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) add
 `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
 
+## MS MARCO Document Ranking (Zero Shot)
+MS MARCO document ranking task, dense retrieval with TCT-ColBERT trained on MS MARCO passages, brute force index.
+
+```bash
+$ python -m pyserini.dsearch --topics msmarco_doc_dev \
+                             --index msmarco-doc-tct_colbert-bf \
+                             --encoder castorini/tct_colbert-msmarco \
+                             --output run.msmarco-doc.passage.tct_colbert.txt \
+                             --hits 1000 \
+                             --max-passage \
+                             --max-passage-hits 100 \
+                             --msmarco \
+                             --batch 72 \
+                             --threads 72
+```
+
+To evaluate:
+```bash
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco_doc_dev --run run.msmarco-doc.passage.tct_colbert.txt
+#####################
+MRR @100: 0.33232214098153917
+QueriesRanked: 5193
+#####################
+```
 ## DPR Retrieval
 
 Vladimir Karpukhin, Barlas Oğuz, Sewon Min, Patrick Lewis, Ledell Wu, Sergey Edunov, Danqi Chen, Wen-tau Yih, [Dense Passage Retrieval for Open-Domain Question Answering](https://arxiv.org/abs/2004.04906), Preprint 2020.
