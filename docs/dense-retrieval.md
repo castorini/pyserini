@@ -192,9 +192,9 @@ $ python -m pyserini.dsearch --topics nq-dev.qa.json \
 Convert the TREC style run file to retrieval result file in `json` format
 ```bash
 $ python -m scripts.dpr.convert_trec_run_to_retrieval_json --qas nq-dev.qa.json \
-                                                         --index lucene_index_wikipedia_psgs_w100_with_options \
-                                                         --input runs/run.dpr.hnsw.trec \
-                                                         --output retrieval.json
+                                                           --index wikipedia-dpr \
+                                                           --input runs/run.dpr.hnsw.trec \
+                                                           --output retrieval.json
 ```
 
 Evaluate
@@ -204,3 +204,10 @@ Top20  accuracy: 0.7777777777777778
 $ python scripts/dpr/evaluate.py --retrieval retrieval.json --topk 100
 Top100 accuracy: 0.8442388945986068
 ```
+
+In original paper, the corresponding results are:
+```
+Top20  accuracy: 78.4
+Top100 accuracy: 85.4
+```
+The slightly difference can come from the different ways of implementing text normalization.
