@@ -15,7 +15,7 @@
 #
 
 """
-Most of the tokenizers code here is copied from Facebook/DPR codebase to avoid adding extra dependency
+Most of the tokenization code here is copied from Facebook/DPR & DrQA codebase to avoid adding an extra dependency
 """
 
 import argparse
