@@ -45,7 +45,7 @@ def define_dsearch_args(parser):
 
 def init_query_encoder(encoder, topics_name, device):
     encoded_queries = {
-        'msmarco-passage': 'msmarco-passage-dev-subset-tct_colbert'
+        'msmarco_passage_dev_subset': 'msmarco-passage-dev-subset-tct_colbert'
     }
     if encoder:
         if 'dpr' in encoder:
