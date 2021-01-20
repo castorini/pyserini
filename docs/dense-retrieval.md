@@ -200,9 +200,9 @@ $ python -m scripts.dpr.convert_trec_run_to_retrieval_json --qas nq-dev.qa.json 
 Evaluate
 ```bash
 $ python scripts/dpr/evaluate.py --retrieval retrieval.json --topk 20
-Top20  accuracy: 0.7777777777777778
+Top20  accuracy: 0.7814319972593354
 $ python scripts/dpr/evaluate.py --retrieval retrieval.json --topk 100
-Top100 accuracy: 0.8442388945986068
+Top100 accuracy: 0.8497202238209433
 ```
 
 In original paper, the corresponding results are:
@@ -210,4 +210,4 @@ In original paper, the corresponding results are:
 Top20  accuracy: 78.4
 Top100 accuracy: 85.4
 ```
-The slightly difference can come from the different ways of implementing text normalization.
+The slightly difference can come from the different ways of implementing question encoder.
