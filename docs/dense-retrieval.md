@@ -12,7 +12,6 @@ MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, HNSW index.
 ```bash
 $ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
                              --index msmarco-passage-tct_colbert-hnsw \
-                             --encoded-queries msmarco-passage-dev-subset-tct_colbert \
                              --output runs/run.msmarco-passage.tct_colbert.hnsw.tsv \
                              --msmarco 
 ```
@@ -40,8 +39,8 @@ map                     all     0.3410
 recall_1000             all     0.9618
 ```
 
-To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
-on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) 
+To evaluate with on-the-fly query encoding with our pretrained encoder model
+on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) add
 `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
 NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349694137444839)
 
@@ -51,7 +50,6 @@ MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, brute force ind
 ```bash
 $ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
                              --index msmarco-passage-tct_colbert-bf \
-                             --encoded-queries msmarco-passage-dev-subset-tct_colbert \
                              --batch 36  \
                              --threads 12  \
                              --output runs/run.msmarco-passage.tct_colbert.bf.tsv \
@@ -81,9 +79,8 @@ map                     all     0.3416
 recall_1000             all     0.9640
 ```
 
-You'll notice that hnsw index leads to a small loss in effectiveness. 
-To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
-on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main)
+To evaluate with on-the-fly query encoding with our pretrained encoder model
+on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) add
 `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
 NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349479237731372)
 
@@ -96,7 +93,6 @@ Hybrid
 
 ```
 python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-hnsw \
-                                   --encoded-queries msmarco-passage-dev-subset-tct_colbert  \
                              sparse --index msmarco-passage-expanded \
                              fusion --alpha 0.24 \
                              run  --topics msmarco_passage_dev_subset \
@@ -125,8 +121,8 @@ $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
 map                     all     0.3702
 recall_1000             all     0.9734
 ```
-To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
-on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) 
+To evaluate with on-the-fly query encoding with our pretrained encoder model
+on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) add
 `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
 
 MS MARCO passage ranking task, 
@@ -137,7 +133,6 @@ Hybrid
 ```
 python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-bf \
                                    --batch 36 --threads 12 \
-                                   --encoded-queries msmarco-passage-dev-subset-tct_colbert  \
                              sparse --index msmarco-passage-expanded \
                              fusion --alpha 0.24 \
                              run  --topics msmarco_passage_dev_subset \
@@ -167,6 +162,52 @@ map                     all     0.3706
 recall_1000             all     0.9736
 ```
 
-To evaluate with on-the-fly query encoding, replace `--encoded-queries` with our pretrained encoder model
-on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) 
+To evaluate with on-the-fly query encoding with our pretrained encoder model
+on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) add
 `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
+
+## DPR Retrieval
+
+Vladimir Karpukhin, Barlas Oğuz, Sewon Min, Patrick Lewis, Ledell Wu, Sergey Edunov, Danqi Chen, Wen-tau Yih, [Dense Passage Retrieval for Open-Domain Question Answering](https://arxiv.org/abs/2004.04906), Preprint 2020.
+
+
+Download question&answers from Natural Question dev set
+```bash
+$ wget https://dl.fbaipublicfiles.com/dpr/data/retriever/nq-dev.qa.csv
+```
+
+Convert the `nq-dev.qa.csv` to topics file in `json` format
+```bash
+$ python scripts/dpr/convert_qas_csv_to_topic_json.json --input nq-dev.qa.csv --output nq-dev.qa.json
+```
+
+Run DPR retrieval with Wikipedia HNSW index
+```bash
+$ python -m pyserini.dsearch --topics nq-dev.qa.json \
+                             --index wikipedia-dpr-hnsw \
+                             --encoder facebook/dpr-question_encoder-single-nq-base \
+                             --output runs/run.dpr.hnsw.trec 
+```
+
+Convert the TREC style run file to retrieval result file in `json` format
+```bash
+$ python -m scripts.dpr.convert_trec_run_to_retrieval_json --qas nq-dev.qa.json \
+                                                           --index wikipedia-dpr \
+                                                           --input runs/run.dpr.hnsw.trec \
+                                                           --output retrieval.json
+```
+
+Evaluate
+```bash
+$ python scripts/dpr/evaluate.py --retrieval retrieval.json --topk 20
+Top20  accuracy: 0.7777777777777778
+$ python scripts/dpr/evaluate.py --retrieval retrieval.json --topk 100
+Top100 accuracy: 0.8442388945986068
+```
+
+In original paper, the corresponding results are:
+```
+Top20  accuracy: 78.4
+Top100 accuracy: 85.4
+```
+The slightly difference can come from the different ways of implementing text normalization.
