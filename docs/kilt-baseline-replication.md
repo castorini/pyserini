@@ -1,4 +1,4 @@
-# Replication guide KILT
+# BM25 (Anserini) baseline replication guide for KILT
 
 Note: Currently this replication guide requires at least ~100GB of disk space available, since we will be working with snapshots of Wikipedia.
 
