@@ -49,7 +49,7 @@ The rest of the instructions assume you are working at the following directory:
 
 ## Index the knowledge source
 
-Convert to passage or document level JSONL format indexable by Pyserini (takes 1-2hr if bigrams is enabled):
+Convert to passage or document level JSONL format indexable by Pyserini. You can inspect the individual nohup output files using `tail -f <file>`:
 
 ### Document-level
 
@@ -103,7 +103,7 @@ nohup python -m pyserini.index -collection JsonCollection -generator DefaultLuce
 
 ## Create runs
 
-Compute a run for a given index. Tasks can be configured using `--config`, I recommend ignoring the Entity Linking task, as it is slow and Anserini performs very poorly on it. You can increase the number of threads, but you may encounter OOM issues. I find that 8-20 is usually a good amount. This will take a 1-2 hours.
+Compute a run for a given index. Tasks can be configured using `--config`. You can increase the number of threads, but you may encounter OOM issues. I find that 8-20 is usually a good amount. This will take a 1-2 hours.
 
 ```bash
 nohup python pyserini/scripts/kilt/run_retrieval.py \
