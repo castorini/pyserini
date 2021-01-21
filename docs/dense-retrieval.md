@@ -166,14 +166,14 @@ To evaluate with on-the-fly query encoding with our pretrained encoder model
 on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) add
 `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
 
-## TREC2019-DL Document Ranking (Zero Shot)
-TREC-2019 DL document ranking task, dense retrieval with TCT-ColBERT trained on MS MARCO passages, brute force index.
+## MS MARCO Document Ranking (Zero Shot)
+MS MARCO document ranking task, dense retrieval with TCT-ColBERT trained on MS MARCO passages, brute force index.
 
 ```bash
-$ python -m pyserini.dsearch --topics dl19_doc \
+$ python -m pyserini.dsearch --topics msmarco_doc_dev \
                              --index msmarco-doc-tct_colbert-bf \
                              --encoder castorini/tct_colbert-msmarco \
-                             --output run.dl19.tct_colbert.txt \
+                             --output runs/run.msmarco-doc.passage.tct_colbert.txt \
                              --hits 1000 \
                              --max-passage \
                              --max-passage-hits 100 \
@@ -182,13 +182,24 @@ $ python -m pyserini.dsearch --topics dl19_doc \
                              --threads 72
 ```
 
-We can use the official TREC evaluation tool `trec_eval` to compute metrics such as recall and ndcg
+To evaluate:
+```bash
+$ python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
+                                                   --run runs/run.msmarco-doc.passage.tct_colbert.txt
+#####################
+MRR @100: 0.33232214098153917
+QueriesRanked: 5193
+#####################
+```
+
+We also can use the official TREC evaluation tool `trec_eval` to compute metrics other than MRR
 For that we first need to convert runs and qrels files to the TREC format:
 ```bash
-$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.dl19.tct_colbert.txt --output runs/run.dl19.tct_colbert.trec
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mndcg_cut.3 tools/topics-and-qrels/qrels.dl19-doc.txt runs/run.dl19.tct_colbert.trec
-recall_100            	all	0.3415
-ndcg_cut_3            	all	0.6800
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-doc.passage.tct_colbert.txt --output runs/run.msmarco-doc.passage.tct_colbert.trec
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap \
+    tools/topics-and-qrels/qrels.msmarco-doc.dev.txt runs/run.msmarco-doc.passage.tct_colbert.trec
+map                   	all	0.3323
+recall_100            	all	0.8664
 ```
 
 ## DPR Retrieval
