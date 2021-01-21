@@ -64,6 +64,12 @@ if __name__ == '__main__':
     parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
     parser.add_argument('--msmarco', action='store_true', default=False, help="Output in MS MARCO format.")
     parser.add_argument('--output', type=str, metavar='path', required=True, help="Path to output file.")
+    parser.add_argument('--max-passage',  action='store_true',
+                        default=False, help="Select only max passage from document.")
+    parser.add_argument('--max-passage-hits', type=int, metavar='num', required=False, default=100,
+                        help="Final number of hits when selecting only max passage.")
+    parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
+                        help="Delimiter between docid and passage id.")
     define_dsearch_args(parser)
     args = parser.parse_args()
 
@@ -106,11 +112,27 @@ if __name__ == '__main__':
                 topic_batch = [topics[topic].get('title').strip() for topic in topic_key_batch]
                 hits = searcher.batch_search(topic_batch, topic_key_batch, k=args.hits, threads=args.threads)
                 for topic in hits:
+                    unique_docs = set()
+                    rank = 1
                     for idx, hit in enumerate(hits[topic]):
-                        if args.msmarco:
-                            target_file.write(f'{topic}\t{hit.docid}\t{idx + 1}\n')
+                        if args.max_passage:
+                            docid, _ = hit.docid.split(args.max_passage_delimiter)
+                            if docid in unique_docs:
+                                continue
+                            if args.msmarco:
+                                target_file.write(f'{topic}\t{docid}\t{rank}\n')
+                            else:
+                                target_file.write(
+                                    f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
+                            rank = rank + 1
+                            unique_docs.add(docid)
+                            if rank > args.max_passage_hits:
+                                break
                         else:
-                            target_file.write(f'{topic} Q0 {hit.docid} {idx + 1} {hit.score:.6f} {tag}\n')
+                            if args.msmarco:
+                                target_file.write(f'{topic}\t{hit.docid}\t{idx + 1}\n')
+                            else:
+                                target_file.write(f'{topic} Q0 {hit.docid} {idx + 1} {hit.score:.6f} {tag}\n')
         exit()
 
     with open(output_path, 'w') as target_file:
@@ -119,10 +141,26 @@ if __name__ == '__main__':
             hits = searcher.search(search, args.hits, threads=args.threads)
             docids = [hit.docid.strip() for hit in hits]
             scores = [hit.score for hit in hits]
-
-            if args.msmarco:
-                for i, docid in enumerate(docids):
-                    target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+            if args.max_passage:
+                unique_docs = set()
+                rank = 1
+                for idx, hit in enumerate(hits):
+                    docid, _ = hit.docid.split(args.max_passage_delimiter)
+                    if docid in unique_docs:
+                        continue
+                    if args.msmarco:
+                        target_file.write(f'{topic}\t{docid}\t{rank}\n')
+                    else:
+                        target_file.write(
+                            f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
+                    rank = rank + 1
+                    unique_docs.add(docid)
+                    if rank > args.max_passage_hits:
+                        break
             else:
-                for i, (docid, score) in enumerate(zip(docids, scores)):
-                    target_file.write(f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
+                if args.msmarco:
+                    for i, docid in enumerate(docids):
+                        target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+                else:
+                    for i, (docid, score) in enumerate(zip(docids, scores)):
+                        target_file.write(f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
