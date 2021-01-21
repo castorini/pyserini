@@ -100,6 +100,10 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.CAR17V15_BENCHMARK_Y1_TEST)
     elif collection_name == 'car17v2.0_benchmarkY1test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.CAR17V20_BENCHMARK_Y1_TEST)
+    elif collection_name == 'dl19_doc':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_DL_DOC)
+    elif collection_name == 'dl19_passage':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_DL_PASSAGE)
     elif collection_name == 'msmarco_doc_dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV)
     elif collection_name == 'msmarco_passage_dev_subset':
@@ -180,10 +184,6 @@ def get_qrels(collection_name):
         qrels = JQrels.CAR17V15_BENCHMARK_Y1_TEST
     elif collection_name == 'car17v2.0_benchmarkY1test':
         qrels = JQrels.CAR17V20_BENCHMARK_Y1_TEST
-    elif collection_name == 'dl19_doc':
-        qrels = JQrels.TREC2019_DL_DOC
-    elif collection_name == 'dl19_passage':
-        qrels = JQrels.TREC2019_DL_PASSAGE
     elif collection_name == 'msmarco_doc_dev':
         qrels = JQrels.MSMARCO_DOC_DEV
     elif collection_name == 'msmarco_passage_dev_subset':
