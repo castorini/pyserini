@@ -406,25 +406,25 @@ INDEX_INFO = {
     "wikipedia-dpr": {
         "description": "Wikipedia (DPR 100 word splits) Anserini index",
         "urls": [
-            "https://www.dropbox.com/s/ofx9yquifdctv37/index-wikipedia-dpr-20210119-d2ee6e.tar.gz?dl=1",
+            "https://www.dropbox.com/s/spohu55l6608ho2/index-wikipedia-dpr-20210120-d1b9e6.tar.gz?dl=1",
         ],
-        "md5": "882ea250a287ff3b78250de6ec36eee8",
-        "size compressed (bytes)": 16597793444,
+        "md5": "c28f3a56b2dfcef25bf3bf755c264d04",
+        "size compressed (bytes)": 9177942656,
         "total_terms": 1512973270,
         "documents": 21015324,
-        "unique_terms": -1,
+        "unique_terms": 5345463,
         "downloaded": False
     },
     "wikipedia-dpr-slim": {
         "description": "Wikipedia (DPR 100 word splits) Anserini index, without raw texts stored",
         "urls": [
-            "https://www.dropbox.com/s/oyrunxwik39s47b/index-wikipedia-dpr-slim-20210119-d2ee6e.tar.gz?dl=1",
+            "https://www.dropbox.com/s/r2xpo3e0pecibir/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz?dl=1",
         ],
-        "md5": "c1a69d2b0e4f7073abd797875b726336",
-        "size compressed (bytes)": 1902241452,
+        "md5": "7d40604a824b5df37a1ae9d25ea38071",
+        "size compressed (bytes)": 1810342390,
         "total_terms": 1512973270,
         "documents": 21015324,
-        "unique_terms": -1,
+        "unique_terms": 5345463,
         "downloaded": False
     }
 }
