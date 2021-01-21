@@ -166,14 +166,14 @@ To evaluate with on-the-fly query encoding with our pretrained encoder model
 on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) add
 `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
 
-## MS MARCO Document Ranking (Zero Shot)
-MS MARCO document ranking task, dense retrieval with TCT-ColBERT trained on MS MARCO passages, brute force index.
+## TREC2019-DL Document Ranking (Zero Shot)
+TREC-2019 DL document ranking task, dense retrieval with TCT-ColBERT trained on MS MARCO passages, brute force index.
 
 ```bash
-$ python -m pyserini.dsearch --topics msmarco_doc_dev \
+$ python -m pyserini.dsearch --topics dl19_doc \
                              --index msmarco-doc-tct_colbert-bf \
                              --encoder castorini/tct_colbert-msmarco \
-                             --output run.msmarco-doc.passage.tct_colbert.txt \
+                             --output run.dl19.tct_colbert.txt \
                              --hits 1000 \
                              --max-passage \
                              --max-passage-hits 100 \
@@ -182,14 +182,15 @@ $ python -m pyserini.dsearch --topics msmarco_doc_dev \
                              --threads 72
 ```
 
-To evaluate:
+We can use the official TREC evaluation tool `trec_eval` to compute metrics such as recall and ndcg
+For that we first need to convert runs and qrels files to the TREC format:
 ```bash
-$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco_doc_dev --run run.msmarco-doc.passage.tct_colbert.txt
-#####################
-MRR @100: 0.33232214098153917
-QueriesRanked: 5193
-#####################
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.dl19.tct_colbert.txt --output runs/run.dl19.tct_colbert.trec
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mndcg_cut.3 tools/topics-and-qrels/qrels.dl19-doc.txt runs/run.dl19.tct_colbert.trec
+recall_100            	all	0.3415
+ndcg_cut_3            	all	0.6800
 ```
+
 ## DPR Retrieval
 
 Vladimir Karpukhin, Barlas Oğuz, Sewon Min, Patrick Lewis, Ledell Wu, Sergey Edunov, Danqi Chen, Wen-tau Yih, [Dense Passage Retrieval for Open-Domain Question Answering](https://arxiv.org/abs/2004.04906), Preprint 2020.
