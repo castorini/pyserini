@@ -2,17 +2,17 @@ import argparse
 import json
 import os
 from tqdm import tqdm
-from pyserini.search import SimpleSearcher
+from pyserini.search import SimpleSearcher, get_topics
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert an TREC run to DPR retrieval result json.')
-    parser.add_argument('--qas', required=True, help='Topic json file')
+    parser.add_argument('--topic', required=True, help='topic name')
     parser.add_argument('--index', required=True, help='Anserini Index that contains raw')
     parser.add_argument('--input', required=True, help='Input TREC run file.')
     parser.add_argument('--output', required=True, help='Output DPR Retrieval json file.')
     args = parser.parse_args()
 
-    qas = json.load(open(args.qas))
+    qas = get_topics(args.topic)
 
     if os.path.exists(args.index):
         searcher = SimpleSearcher(args.index)
@@ -26,7 +26,7 @@ if __name__ == '__main__':
         for line in tqdm(f_in):
             question_id, _, doc_id, _, score, _ = line.strip().split()
             question = qas[question_id]['title']
-            answers = qas[question_id]['answers']
+            answers = json.dumps(qas[question_id]['answers'])
             ctx = json.loads(searcher.doc(doc_id).raw())['contents']
             if question_id not in retrieval:
                 retrieval[question_id] = {'question': question, 'answers': answers, 'contexts': []}
