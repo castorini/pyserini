@@ -25,8 +25,9 @@ if __name__ == '__main__':
     with open(args.input) as f_in:
         for line in tqdm(f_in):
             question_id, _, doc_id, _, score, _ = line.strip().split()
+            question_id = int(question_id)
             question = qas[question_id]['title']
-            answers = json.loads(qas[question_id]['answers'])
+            answers = eval(qas[question_id]['answers'])
             ctx = json.loads(searcher.doc(doc_id).raw())['contents']
             if question_id not in retrieval:
                 retrieval[question_id] = {'question': question, 'answers': answers, 'contexts': []}
