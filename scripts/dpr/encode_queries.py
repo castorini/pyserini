@@ -16,9 +16,9 @@ def parse_qa_csv_file(location):
 
 
 def encode_query(text, tokenizer, model, device='cpu'):
-    input_ids = tokenizer(text, return_tensors='pt')["input_ids"]
+    input_ids = tokenizer(text, return_tensors='pt')
     input_ids.to(device)
-    embeddings = model(input_ids).pooler_output.detach().cpu().numpy()
+    embeddings = model(input_ids["input_ids"]).pooler_output.detach().cpu().numpy()
     return embeddings.flatten()
 
 

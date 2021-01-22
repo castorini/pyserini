@@ -117,9 +117,9 @@ class DPRQueryEncoder(QueryEncoder):
 
     def encode(self, query: str):
         if self.has_model:
-            input_ids = self.tokenizer(query, return_tensors='pt')["input_ids"]
+            input_ids = self.tokenizer(query, return_tensors='pt')
             input_ids.to(self.device)
-            embeddings = self.model(input_ids).pooler_output.detach().cpu().numpy()
+            embeddings = self.model(input_ids["input_ids"]).pooler_output.detach().cpu().numpy()
             return embeddings.flatten()
         else:
             return super().encode(query)
