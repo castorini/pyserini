@@ -6,7 +6,7 @@ from pyserini.search import SimpleSearcher, get_topics
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert an TREC run to DPR retrieval result json.')
-    parser.add_argument('--topic', required=True, help='topic name')
+    parser.add_argument('--topics', required=True, help='topic name')
     parser.add_argument('--index', required=True, help='Anserini Index that contains raw')
     parser.add_argument('--input', required=True, help='Input TREC run file.')
     parser.add_argument('--output', required=True, help='Output DPR Retrieval json file.')
