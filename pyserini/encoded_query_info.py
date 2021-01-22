@@ -18,5 +18,15 @@ QUERY_INFO = {
         "size (bytes)": 25123119,
         "total_queries": 8757,
         "downloaded": False
+    },
+    "nq-test-dpr": {
+        "description": "Natural Question test set questions encoded by DPR question encoder",
+        "urls": [
+            "https://www.dropbox.com/s/q69lxg1irier7sw/query-embedding-nq-test-dpr-20210121-a5983b.tar.gz?dl=1",
+        ],
+        "md5": "f91de0a295db2907a47cfb00961e98e6",
+        "size (bytes)": 10357275,
+        "total_queries": 3610,
+        "downloaded": False
     }
 }
