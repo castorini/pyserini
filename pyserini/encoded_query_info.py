@@ -8,5 +8,15 @@ QUERY_INFO = {
         "size (bytes)": 20075071,
         "total_queries": 6980,
         "downloaded": False
+    },
+    "nq-dev-dpr": {
+        "description": "Natural Question dev set questions encoded by DPR question encoder",
+        "urls": [
+            "https://www.dropbox.com/s/xbhtpib9irkek94/query-embedding-nq-dev-dpr-20210121-a5983b.tar.gz?dl=1",
+        ],
+        "md5": "237f13ab04603e160d841f303d8212ec",
+        "size (bytes)": 25123119,
+        "total_queries": 8757,
+        "downloaded": False
     }
 }
