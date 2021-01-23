@@ -14,8 +14,8 @@ QUERY_INFO = {
         "urls": [
             "https://www.dropbox.com/s/xbhtpib9irkek94/query-embedding-nq-dev-dpr-20210121-a5983b.tar.gz?dl=1",
         ],
-        "md5": "237f13ab04603e160d841f303d8212ec",
-        "size (bytes)": 25123119,
+        "md5": "cc4168964b4aac0fdc2b071d1c54c8ce",
+        "size (bytes)": 25115164,
         "total_queries": 8757,
         "downloaded": False
     },
