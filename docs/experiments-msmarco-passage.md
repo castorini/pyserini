@@ -103,13 +103,16 @@ For that we first need to convert the run file into TREC format:
 ```bash
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py \
    --input runs/run.msmarco-passage.bm25tuned.txt --output runs/run.msmarco-passage.bm25tuned.trec
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
+   --input tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt --output tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.trec
 ```
+
 
 And then run the `trec_eval` tool:
 
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
-   collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.bm25tuned.trec
+   tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.trec runs/run.msmarco-passage.bm25tuned.trec
 map                   	all	0.1957
 recall_1000           	all	0.8573
 ```
