@@ -5,6 +5,8 @@ Note that there is a separate guide for the [MS MARCO *passage* ranking task](ex
 
 ## Data Prep
 
+The guide requires the [development installation](https://github.com/castorini/pyserini/#development-installation) for additional resource that are not shipped with the Python module; for the (more limited) runs that directly work from the Python module installed via `pip`, see [this guide](https://github.com/castorini/pyserini/blob/master/docs/pypi-replication.md).
+
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO document dataset:
 
