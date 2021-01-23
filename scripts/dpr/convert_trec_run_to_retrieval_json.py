@@ -27,7 +27,10 @@ if __name__ == '__main__':
             question_id, _, doc_id, _, score, _ = line.strip().split()
             question_id = int(question_id)
             question = qas[question_id]['title']
-            answers = eval(qas[question_id]['answers'])
+            answers = qas[question_id]['answers']
+            if answers[0] == '"':
+                answers = answers[1:-1].replace('""', '"')
+            answers = eval(answers)
             ctx = json.loads(searcher.doc(doc_id).raw())['contents']
             if question_id not in retrieval:
                 retrieval[question_id] = {'question': question, 'answers': answers, 'contexts': []}
