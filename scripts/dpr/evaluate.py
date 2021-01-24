@@ -235,7 +235,7 @@ for qid in tqdm(list(retrieval.keys())):
     for idx, ctx in enumerate(contexts):
         if idx >= args.topk:
             break
-        text = ctx['text']
+        text = ctx['text'].split('\n')[1]  # [0] is title, [1] is text
         if has_answers(text, answers, tokenizer):
             has_ans = 1
     accuracy.append(has_ans)
