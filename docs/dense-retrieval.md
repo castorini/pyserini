@@ -202,48 +202,38 @@ map                   	all	0.3323
 recall_100            	all	0.8664
 ```
 
-## DPR Retrieval
+## MS MARCO Document Ranking, Dense-Sparse Hybrid (Zero Shot)
+Hybrid
+- dense retrieval with TCT-ColBERT, brute force index.
+- sparse retrieval with doc2query-T5 expanded index.
 
-Vladimir Karpukhin, Barlas Oğuz, Sewon Min, Patrick Lewis, Ledell Wu, Sergey Edunov, Danqi Chen, Wen-tau Yih, [Dense Passage Retrieval for Open-Domain Question Answering](https://arxiv.org/abs/2004.04906), Preprint 2020.
+```
+python -m pyserini.hsearch   dense --index msmarco-doc-tct_colbert-bf \
+                                   --encoder castorini/tct_colbert-msmarco \
+                                   --batch 36 --threads 12 \
+                             sparse --index msmarco-doc-expanded-per-passage \
+                             fusion --alpha 0.24 \
+                             run  --topics msmarco_doc_dev \
+                                  --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv \
+                                  --hits 1000 --max-passage --max-passage-hits 100 \
+                                  --msmarco
+```
 
-
-Download question&answers from Natural Question dev set
 ```bash
-$ wget https://dl.fbaipublicfiles.com/dpr/data/retriever/nq-dev.qa.csv
+$ python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
+                                                   --run runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv
+#####################
+MRR @100: 0.3744121871718217
+QueriesRanked: 5193
+#####################
 ```
 
-Convert the `nq-dev.qa.csv` to topics file in `json` format
+We also can use the official TREC evaluation tool `trec_eval` to compute metrics other than MRR
+For that we first need to convert runs and qrels files to the TREC format:
 ```bash
-$ python scripts/dpr/convert_qas_csv_to_topic_json.json --input nq-dev.qa.csv --output nq-dev.qa.json
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.trec
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap \
+    tools/topics-and-qrels/qrels.msmarco-doc.dev.txt runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.trec
+map                   	all	0.3744
+recall_100            	all	0.9070
 ```
-
-Run DPR retrieval with Wikipedia HNSW index
-```bash
-$ python -m pyserini.dsearch --topics nq-dev.qa.json \
-                             --index wikipedia-dpr-hnsw \
-                             --encoder facebook/dpr-question_encoder-single-nq-base \
-                             --output runs/run.dpr.hnsw.trec 
-```
-
-Convert the TREC style run file to retrieval result file in `json` format
-```bash
-$ python -m scripts.dpr.convert_trec_run_to_retrieval_json --qas nq-dev.qa.json \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.hnsw.trec \
-                                                           --output retrieval.json
-```
-
-Evaluate
-```bash
-$ python scripts/dpr/evaluate.py --retrieval retrieval.json --topk 20
-Top20  accuracy: 0.7814319972593354
-$ python scripts/dpr/evaluate.py --retrieval retrieval.json --topk 100
-Top100 accuracy: 0.8497202238209433
-```
-
-In original paper, the corresponding results are:
-```
-Top20  accuracy: 78.4
-Top100 accuracy: 85.4
-```
-The slightly difference can come from the different ways of implementing question encoder.
