@@ -99,7 +99,7 @@ if __name__ == '__main__':
 
     query_encoder = init_query_encoder(args.dense.encoder, args.run.topics, args.dense.device)
     if not query_encoder:
-        print(f'No encoded queries for topic {args.topics}')
+        print(f'No encoded queries for topic {args.run.topics}')
         exit()
 
     if os.path.exists(args.dense.index):
