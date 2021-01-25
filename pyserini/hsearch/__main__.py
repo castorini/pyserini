@@ -75,10 +75,16 @@ if __name__ == '__main__':
 
     run_parser = commands.add_parser('run')
     run_parser.add_argument('--topics', type=str, metavar='topic_name', required=False,
-                               help="Name of topics. Available: msmarco_passage_dev_subset.")
+                            help="Name of topics. Available: msmarco_passage_dev_subset.")
     run_parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
     run_parser.add_argument('--msmarco', action='store_true', default=False, help="Output in MS MARCO format.")
     run_parser.add_argument('--output', type=str, metavar='path', required=False, help="Path to output file.")
+    run_parser.add_argument('--max-passage', action='store_true',
+                            default=False, help="Select only max passage from document.")
+    run_parser.add_argument('--max-passage-hits', type=int, metavar='num', required=False, default=100,
+                            help="Final number of hits when selecting only max passage.")
+    run_parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
+                            help="Delimiter between docid and passage id.")
 
     args = parse_args(parser, commands)
 
@@ -136,13 +142,30 @@ if __name__ == '__main__':
                                               list(map(str, topic_key_batch)),
                                               k=args.run.hits, threads=args.dense.threads, alpha=args.fusion.alpha)
                 for topic in hits:
+                    unique_docs = set()
+                    rank = 1
                     for idx, hit in enumerate(hits[str(topic)]):
-                        if args.run.msmarco:
+                        if args.run.max_passage:
                             if idx < args.run.hits:
-                                target_file.write(f'{topic}\t{hit.docid}\t{idx + 1}\n')
+                                docid, _ = hit.docid.split(args.run.max_passage_delimiter)
+                                if docid in unique_docs:
+                                    continue
+                                if args.run.msmarco:
+                                    target_file.write(f'{topic}\t{docid}\t{rank}\n')
+                                else:
+                                    target_file.write(
+                                        f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
+                                rank = rank + 1
+                                unique_docs.add(docid)
+                                if rank > args.run.max_passage_hits:
+                                    break
                         else:
-                            if idx < args.run.hits:
-                                target_file.write(f'{topic} Q0 {hit.docid} {idx + 1} {hit.score:.6f} {tag}\n')
+                            if args.run.msmarco:
+                                if idx < args.run.hits:
+                                    target_file.write(f'{topic}\t{hit.docid}\t{idx + 1}\n')
+                            else:
+                                if idx < args.run.hits:
+                                    target_file.write(f'{topic} Q0 {hit.docid} {idx + 1} {hit.score:.6f} {tag}\n')
         exit()
 
     with open(output_path, 'w') as target_file:
@@ -152,11 +175,29 @@ if __name__ == '__main__':
             docids = [hit.docid.strip() for hit in hits]
             scores = [hit.score for hit in hits]
 
-            if args.run.msmarco:
-                for i, docid in enumerate(docids):
+            if args.run.max_passage:
+                unique_docs = set()
+                rank = 1
+                for idx, hit in enumerate(hits):
                     if i < args.run.hits:
-                        target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+                        docid, _ = hit.docid.split(args.run.max_passage_delimiter)
+                        if docid in unique_docs:
+                            continue
+                        if args.run.msmarco:
+                            target_file.write(f'{topic}\t{docid}\t{rank}\n')
+                        else:
+                            target_file.write(
+                                f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
+                        rank = rank + 1
+                        unique_docs.add(docid)
+                        if rank > args.run.max_passage_hits:
+                            break
             else:
-                for i, (docid, score) in enumerate(zip(docids, scores)):
-                    if i < args.run.hits:
-                        target_file.write(f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
+                if args.run.msmarco:
+                    for i, docid in enumerate(docids):
+                        if i < args.run.hits:
+                            target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+                else:
+                    for i, (docid, score) in enumerate(zip(docids, scores)):
+                        if i < args.run.hits:
+                            target_file.write(f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
