@@ -16,13 +16,49 @@
 
 import argparse
 import os
-from typing import Tuple, List
+from typing import Tuple, List, TextIO
 
 from pyserini.pyclass import autoclass
-from pyserini.search import get_topics, SimpleSearcher
+from pyserini.search import get_topics, SimpleSearcher, JSimpleSearcherResult
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 from pyserini.query_iterator import QUERY_IDS, query_iterator
 from tqdm import tqdm
+
+
+def write_result(target_file: TextIO, result: Tuple[str, List[JSimpleSearcherResult]], msmarco: bool, tag: str):
+    topic, hits = result
+    docids = [hit.docid.strip() for hit in hits]
+    scores = [hit.score for hit in hits]
+
+    if msmarco:
+        for i, docid in enumerate(docids):
+            target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+    else:
+        for i, (docid, score) in enumerate(zip(docids, scores)):
+            target_file.write(
+                f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
+
+
+def write_result_max_passage(target_file: TextIO, result: Tuple[str, List[JSimpleSearcherResult]],
+                             max_passage_delimiter: str, max_passage_hits: int,
+                             msmarco: bool, tag: str):
+    topic, hits = result
+    unique_docs = set()
+    rank = 1
+    for hit in hits:
+        docid, _ = hit.docid.split(max_passage_delimiter)
+        if docid in unique_docs:
+            continue
+
+        if msmarco:
+            target_file.write(f'{topic}\t{docid}\t{rank}\n')
+        else:
+            target_file.write(
+                f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
+        rank = rank + 1
+        unique_docs.add(docid)
+        if rank > max_passage_hits:
+            break
 
 
 def define_search_args(parser):
@@ -158,44 +194,6 @@ if __name__ == "__main__":
     print(f'Running {args.topics} topics, saving to {output_path}...')
     tag = output_path[:-4] if args.output is None else 'Anserini'
 
-
-    def write_result(result: Tuple[str, List[JSimpleSearcher]]):
-        topic, hits = result
-        docids = [hit.docid.strip() for hit in hits]
-        scores = [hit.score for hit in hits]
-
-        if use_prcl and len(hits) > (args.r + args.n):
-            scores, docids = ranker.rerank(docids, scores)
-
-        if args.msmarco:
-            for i, docid in enumerate(docids):
-                target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
-        else:
-            for i, (docid, score) in enumerate(zip(docids, scores)):
-                target_file.write(
-                    f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
-
-
-    def write_result_max_passage(result: Tuple[str, List[JSimpleSearcher]]):
-        topic, hits = result
-        unique_docs = set()
-        rank = 1
-        for hit in hits:
-            docid, _ = hit.docid.split(args.max_passage_delimiter)
-            if docid in unique_docs:
-                continue
-
-            if args.msmarco:
-                target_file.write(f'{topic}\t{docid}\t{rank}\n')
-            else:
-                target_file.write(
-                    f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
-            rank = rank + 1
-            unique_docs.add(docid)
-            if rank > args.max_passage_hits:
-                break
-
-
     order = None
     if args.topics in QUERY_IDS:
         order = QUERY_IDS[args.topics]
@@ -221,8 +219,20 @@ if __name__ == "__main__":
                     continue
 
             for result in results:
+                # do rerank
+                if use_prcl and len(hits) > (args.r + args.n):
+                    hits = result[1]
+                    docids = [hit.docid.strip() for hit in hits]
+                    scores = [hit.score for hit in hits]
+                    scores, docids = ranker.rerank(docids, scores)
+                    docid_score_map = dict(zip(docids, scores))
+                    for hit in hits:
+                        hit.score = docid_score_map[hit.docid.strip()]
+
+                # write results
                 if args.max_passage:
-                    write_result_max_passage(result)
+                    write_result_max_passage(result, args.max_passage_delimiter,
+                                             args.max_passage_hits, args.msmarco, tag)
                 else:
-                    write_result(result)
+                    write_result(result, args.msmarco, tag)
             results.clear()

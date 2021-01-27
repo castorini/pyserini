@@ -21,12 +21,13 @@ import sys
 
 from tqdm import tqdm
 
-from pyserini.dsearch import TCTColBERTQueryEncoder, SimpleDenseSearcher
+from pyserini.dsearch import SimpleDenseSearcher
+from pyserini.query_iterator import QUERY_IDS, query_iterator
 from pyserini.search import SimpleSearcher, get_topics
 from pyserini.hsearch import HybridSearcher
 
 from pyserini.dsearch.__main__ import define_dsearch_args, init_query_encoder
-from pyserini.search.__main__ import define_search_args
+from pyserini.search.__main__ import define_search_args, write_result, write_result_max_passage
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -132,72 +133,35 @@ if __name__ == '__main__':
     print(f'Running {args.run.topics} topics, saving to {output_path}...')
     tag = 'hybrid'
 
-    if args.dense.batch > 1:
-        with open(output_path, 'w') as target_file:
-            topic_keys = sorted(topics.keys())
-            for i in tqdm(range(0, len(topic_keys), args.dense.batch)):
-                topic_key_batch = topic_keys[i: i + args.dense.batch]
-                topic_batch = [topics[topic].get('title').strip() for topic in topic_key_batch]
-                hits = hsearcher.batch_search(topic_batch,
-                                              list(map(str, topic_key_batch)),
-                                              k=args.run.hits, threads=args.dense.threads, alpha=args.fusion.alpha)
-                for topic in hits:
-                    unique_docs = set()
-                    rank = 1
-                    for idx, hit in enumerate(hits[str(topic)]):
-                        if args.run.max_passage:
-                            if idx < args.run.hits:
-                                docid, _ = hit.docid.split(args.run.max_passage_delimiter)
-                                if docid in unique_docs:
-                                    continue
-                                if args.run.msmarco:
-                                    target_file.write(f'{topic}\t{docid}\t{rank}\n')
-                                else:
-                                    target_file.write(
-                                        f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
-                                rank = rank + 1
-                                unique_docs.add(docid)
-                                if rank > args.run.max_passage_hits:
-                                    break
-                        else:
-                            if args.run.msmarco:
-                                if idx < args.run.hits:
-                                    target_file.write(f'{topic}\t{hit.docid}\t{idx + 1}\n')
-                            else:
-                                if idx < args.run.hits:
-                                    target_file.write(f'{topic} Q0 {hit.docid} {idx + 1} {hit.score:.6f} {tag}\n')
-        exit()
+    order = None
+    if args.run.topics in QUERY_IDS:
+        print(f'Using pre-defined topic order for {args.run.topics}')
+        order = QUERY_IDS[args.run.topics]
 
     with open(output_path, 'w') as target_file:
-        for topic in tqdm(sorted(topics.keys())):
-            search = topics[topic].get('title').strip()
-            hits = hsearcher.search(search, k=args.run.hits, alpha=args.fusion.alpha)
-            docids = [hit.docid.strip() for hit in hits]
-            scores = [hit.score for hit in hits]
-
-            if args.run.max_passage:
-                unique_docs = set()
-                rank = 1
-                for idx, hit in enumerate(hits):
-                    if i < args.run.hits:
-                        docid, _ = hit.docid.split(args.run.max_passage_delimiter)
-                        if docid in unique_docs:
-                            continue
-                        if args.run.msmarco:
-                            target_file.write(f'{topic}\t{docid}\t{rank}\n')
-                        else:
-                            target_file.write(
-                                f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
-                        rank = rank + 1
-                        unique_docs.add(docid)
-                        if rank > args.run.max_passage_hits:
-                            break
+        batch_topics = list()
+        batch_topic_ids = list()
+        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+            if args.dense.batch_size <= 1 and args.dense.threads <= 1:
+                hits = hsearcher.search(text, args.run.hits)
+                results = [(topic_id, hits)]
             else:
-                if args.run.msmarco:
-                    for i, docid in enumerate(docids):
-                        if i < args.run.hits:
-                            target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+                batch_topic_ids.append(str(topic_id))
+                batch_topics.append(text)
+                if (index + 1) % args.dense.batch_size == 0 or \
+                        index == len(topics.keys()) - 1:
+                    results = hsearcher.batch_search(
+                        batch_topics, batch_topic_ids, args.run.hits, args.dense.threads)
+                    results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                    batch_topic_ids.clear()
+                    batch_topics.clear()
                 else:
-                    for i, (docid, score) in enumerate(zip(docids, scores)):
-                        if i < args.run.hits:
-                            target_file.write(f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
+                    continue
+
+            for result in results:
+                if args.run.max_passage:
+                    write_result_max_passage(target_file, result, args.run.max_passage_delimiter,
+                                             args.run.max_passage_hits, args.run.msmarco, tag)
+                else:
+                    write_result(target_file, result, args.run.msmarco, tag)
+            results.clear()
