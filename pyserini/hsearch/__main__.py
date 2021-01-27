@@ -27,7 +27,7 @@ from pyserini.search import SimpleSearcher, get_topics
 from pyserini.hsearch import HybridSearcher
 
 from pyserini.dsearch.__main__ import define_dsearch_args, init_query_encoder
-from pyserini.search.__main__ import define_search_args, write_result, write_result_max_passage
+from pyserini.search.__main__ import define_search_args, set_bm25_parameters, write_result, write_result_max_passage
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -122,6 +122,8 @@ if __name__ == '__main__':
 
     if not ssearcher:
         exit()
+
+    set_bm25_parameters(ssearcher, args.sparse.index, args.sparse.k1, args.sparse.b1)
 
     hsearcher = HybridSearcher(dsearcher, ssearcher)
     if not hsearcher:

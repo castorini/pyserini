@@ -61,6 +61,35 @@ def write_result_max_passage(target_file: TextIO, result: Tuple[str, List[JSimpl
             break
 
 
+def set_bm25_parameters(searcher, index, k1=None, b=None):
+    if k1 is not None or b is not None:
+        if k1 is None or b is None:
+            print('Must set *both* k1 and b for BM25!')
+            exit()
+        print(f'Setting BM25 parameters: k1={k1}, b={b}')
+        searcher.set_bm25(k1, b)
+    else:
+        # Automatically set bm25 parameters based on known index:
+        if index == 'msmarco-passage' or index == 'msmarco-passage-slim':
+            print('MS MARCO passage: setting k1=0.82, b=0.68')
+            searcher.set_bm25(0.82, 0.68)
+        elif index == 'msmarco-passage-expanded':
+            print('MS MARCO passage w/ doc2query-T5 expansion: setting k1=2.18, b=0.86')
+            searcher.set_bm25(2.18, 0.86)
+        elif index == 'msmarco-doc' or index == 'msmarco-doc-slim':
+            print('MS MARCO doc: setting k1=4.46, b=0.82')
+            searcher.set_bm25(4.46, 0.82)
+        elif index == 'msmarco-doc-per-passage' or index == 'msmarco-doc-per-passage-slim':
+            print('MS MARCO doc, per passage: setting k1=2.16, b=0.61')
+            searcher.set_bm25(2.16, 0.61)
+        elif index == 'msmarco-doc-expanded-per-doc':
+            print('MS MARCO doc w/ doc2query-T5 (per doc) expansion: setting k1=4.68, b=0.87')
+            searcher.set_bm25(4.68, 0.87)
+        elif index == 'msmarco-doc-expanded-per-passage':
+            print('MS MARCO doc w/ doc2query-T5 (per passage) expansion: setting k1=2.56, b=0.59')
+            searcher.set_bm25(2.56, 0.59)
+
+
 def define_search_args(parser):
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                         help="Path to Lucene index or name of prebuilt index.")
@@ -126,33 +155,7 @@ if __name__ == "__main__":
         searcher.set_qld()
     else:
         search_rankers.append('bm25')
-
-        if args.k1 is not None or args.b is not None:
-            if args.k1 is None or args.b is None:
-                print('Must set *both* k1 and b for BM25!')
-                exit()
-            print(f'Setting BM25 parameters: k1={args.k1}, b={args.b}')
-            searcher.set_bm25(args.k1, args.b)
-        else:
-            # Automatically set bm25 parameters based on known index:
-            if args.index == 'msmarco-passage' or args.index == 'msmarco-passage-slim':
-                print('MS MARCO passage: setting k1=0.82, b=0.68')
-                searcher.set_bm25(0.82, 0.68)
-            elif args.index == 'msmarco-passage-expanded':
-                print('MS MARCO passage w/ doc2query-T5 expansion: setting k1=2.18, b=0.86')
-                searcher.set_bm25(2.18, 0.86)
-            elif args.index == 'msmarco-doc' or args.index == 'msmarco-doc-slim':
-                print('MS MARCO doc: setting k1=4.46, b=0.82')
-                searcher.set_bm25(4.46, 0.82)
-            elif args.index == 'msmarco-doc-per-passage' or args.index == 'msmarco-doc-per-passage-slim':
-                print('MS MARCO doc, per passage: setting k1=2.16, b=0.61')
-                searcher.set_bm25(2.16, 0.61)
-            elif args.index == 'msmarco-doc-expanded-per-doc':
-                print('MS MARCO doc w/ doc2query-T5 (per doc) expansion: setting k1=4.68, b=0.87')
-                searcher.set_bm25(4.68, 0.87)
-            elif args.index == 'msmarco-doc-expanded-per-passage':
-                print('MS MARCO doc w/ doc2query-T5 (per passage) expansion: setting k1=2.56, b=0.59')
-                searcher.set_bm25(2.56, 0.59)
+        set_bm25_parameters(searcher, args.index, args.k1, args.b1)
 
     if args.rm3:
         search_rankers.append('rm3')
