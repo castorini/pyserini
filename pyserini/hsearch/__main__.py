@@ -147,9 +147,9 @@ if __name__ == '__main__':
     tag = 'hybrid'
 
     order = None
-    # if args.run.topics in QUERY_IDS:
-    #     print(f'Using pre-defined topic order for {args.run.topics}')
-    #     order = QUERY_IDS[args.run.topics]
+    if args.run.topics in QUERY_IDS:
+        print(f'Using pre-defined topic order for {args.run.topics}')
+        order = QUERY_IDS[args.run.topics]
 
     with open(output_path, 'w') as target_file:
         batch_topics = list()
