@@ -403,6 +403,16 @@ INDEX_INFO = {
         "documents": 21015320,
         "downloaded": False
     },
+    "wikipedia-dpr-multi-bf": {
+        "description": "Wikipedia corpus encoded by DPR doc encoder trained on multiset, indexed as brute force index",
+        "urls": [
+            "https://www.dropbox.com/s/6o4lbi626j0mc4e/dindex-faissbf-wikipedia-dpr-multi-20200127-f403c3.tar.gz?dl=1",
+        ],
+        "md5": "5d4aa45f440dcd1e047cb74602a239f9",
+        "size compressed (bytes)": 59838070136,
+        "documents": 21015320,
+        "downloaded": False
+    },
     "wikipedia-dpr": {
         "description": "Wikipedia (DPR 100 word splits) Anserini index",
         "urls": [
