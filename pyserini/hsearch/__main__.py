@@ -165,5 +165,5 @@ if __name__ == '__main__':
                     write_result_max_passage(target_file, result, args.run.max_passage_delimiter,
                                              args.run.max_passage_hits, args.run.msmarco, tag)
                 else:
-                    write_result(target_file, result, args.run.msmarco, tag)
+                    write_result(target_file, result, args.run.hits, args.run.msmarco, tag)
             results.clear()

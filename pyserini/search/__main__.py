@@ -25,16 +25,21 @@ from pyserini.query_iterator import QUERY_IDS, query_iterator
 from tqdm import tqdm
 
 
-def write_result(target_file: TextIO, result: Tuple[str, List[JSimpleSearcherResult]], msmarco: bool, tag: str):
+def write_result(target_file: TextIO, result: Tuple[str, List[JSimpleSearcherResult]],
+                 hits_num: int, msmarco: bool, tag: str):
     topic, hits = result
     docids = [hit.docid.strip() for hit in hits]
     scores = [hit.score for hit in hits]
 
     if msmarco:
         for i, docid in enumerate(docids):
+            if i >= hits_num:
+                break
             target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
     else:
         for i, (docid, score) in enumerate(zip(docids, scores)):
+            if i >= hits_num:
+                break
             target_file.write(
                 f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
 
@@ -237,5 +242,5 @@ if __name__ == "__main__":
                     write_result_max_passage(target_file, result, args.max_passage_delimiter,
                                              args.max_passage_hits, args.msmarco, tag)
                 else:
-                    write_result(target_file, result, args.msmarco, tag)
+                    write_result(target_file, result, args.hits, args.msmarco, tag)
             results.clear()
