@@ -123,7 +123,7 @@ if __name__ == '__main__':
     if not ssearcher:
         exit()
 
-    set_bm25_parameters(ssearcher, args.sparse.index, args.sparse.k1, args.sparse.b1)
+    set_bm25_parameters(ssearcher, args.sparse.index, args.sparse.k1, args.sparse.b)
 
     hsearcher = HybridSearcher(dsearcher, ssearcher)
     if not hsearcher:

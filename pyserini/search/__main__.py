@@ -155,7 +155,7 @@ if __name__ == "__main__":
         searcher.set_qld()
     else:
         search_rankers.append('bm25')
-        set_bm25_parameters(searcher, args.index, args.k1, args.b1)
+        set_bm25_parameters(searcher, args.index, args.k1, args.b)
 
     if args.rm3:
         search_rankers.append('rm3')
