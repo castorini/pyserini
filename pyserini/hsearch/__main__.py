@@ -147,16 +147,16 @@ if __name__ == '__main__':
     tag = 'hybrid'
 
     order = None
-    if args.run.topics in QUERY_IDS:
-        print(f'Using pre-defined topic order for {args.run.topics}')
-        order = QUERY_IDS[args.run.topics]
+    # if args.run.topics in QUERY_IDS:
+    #     print(f'Using pre-defined topic order for {args.run.topics}')
+    #     order = QUERY_IDS[args.run.topics]
 
     with open(output_path, 'w') as target_file:
         batch_topics = list()
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
             if args.dense.batch_size <= 1 and args.dense.threads <= 1:
-                hits = hsearcher.search(text, args.run.hits)
+                hits = hsearcher.search(text, args.run.hits, args.fusion.alpha)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
@@ -164,7 +164,7 @@ if __name__ == '__main__':
                 if (index + 1) % args.dense.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
                     results = hsearcher.batch_search(
-                        batch_topics, batch_topic_ids, args.run.hits, args.dense.threads)
+                        batch_topics, batch_topic_ids, args.run.hits, args.dense.threads, args.fusion.alpha)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
