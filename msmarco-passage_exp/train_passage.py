@@ -459,28 +459,27 @@ if __name__ == '__main__':
 
     fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco-ent/', max(multiprocessing.cpu_count()//2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
-                           ('text', 'text'),
                            ('text_unlemm', 'text_unlemm'),
                            ('text_bert_tok', 'text_bert_tok')]:
         print(qfield, ifield)
-        fe.add(BM25(k1=0.9, b=0.4, field=ifield, qfield=qfield))
-        fe.add(BM25(k1=1.2, b=0.75, field=ifield, qfield=qfield))
-        fe.add(BM25(k1=2.0, b=0.75, field=ifield, qfield=qfield))
+        fe.add(BM25Stat(SumPooler(), k1=0.9, b=0.4, field=ifield, qfield=qfield))
+        fe.add(BM25Stat(SumPooler(), k1=1.2, b=0.75, field=ifield, qfield=qfield))
+        fe.add(BM25Stat(SumPooler(), k1=2.0, b=0.75, field=ifield, qfield=qfield))
 
-        fe.add(LMDir(mu=1000, field=ifield, qfield=qfield))
-        fe.add(LMDir(mu=1500, field=ifield, qfield=qfield))
-        fe.add(LMDir(mu=2500, field=ifield, qfield=qfield))
+        fe.add(LMDirStat(SumPooler(), mu=1000, field=ifield, qfield=qfield))
+        fe.add(LMDirStat(SumPooler(), mu=1500, field=ifield, qfield=qfield))
+        fe.add(LMDirStat(SumPooler(), mu=2500, field=ifield, qfield=qfield))
 
-        fe.add(LMJM(0.1, field=ifield, qfield=qfield))
-        fe.add(LMJM(0.4, field=ifield, qfield=qfield))
-        fe.add(LMJM(0.7, field=ifield, qfield=qfield))
+        fe.add(LMJMStat(SumPooler(), 0.1, field=ifield, qfield=qfield))
+        fe.add(LMJMStat(SumPooler(), 0.4, field=ifield, qfield=qfield))
+        fe.add(LMJMStat(SumPooler(), 0.7, field=ifield, qfield=qfield))
 
         fe.add(NTFIDF(field=ifield, qfield=qfield))
         fe.add(ProbalitySum(field=ifield, qfield=qfield))
 
-        fe.add(DFR_GL2(field=ifield, qfield=qfield))
-        fe.add(DFR_In_expB2(field=ifield, qfield=qfield))
-        fe.add(DPH(field=ifield, qfield=qfield))
+        fe.add(DFR_GL2Stat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(DFR_In_expB2Stat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(DPHStat(SumPooler(), field=ifield, qfield=qfield))
 
         fe.add(Proximity(field=ifield, qfield=qfield))
         fe.add(TPscore(field=ifield, qfield=qfield))

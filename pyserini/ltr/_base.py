@@ -7,11 +7,6 @@ class Feature:
    def name(self):
         return self.extractor.getName()
 
-class BM25(Feature):
-    def __init__(self, k1=0.9, b=0.4, field='contents', qfield='analyzed'):
-        Jclass = autoclass('io.anserini.ltr.feature.base.BM25')
-        self.extractor = Jclass(k1, b, JString(field), JString(qfield))
-
 class BM25Min(Feature):
     def __init__(self, pooler, k1=0.9, b=0.4, field='contents'):
         Jclass = autoclass('io.anserini.ltr.feature.base.BM25Min')
@@ -42,45 +37,20 @@ class BM25Quartile(Feature):
         Jclass = autoclass('io.anserini.ltr.feature.base.BM25Quartile')
         self.extractor = Jclass(pooler.extractor, k1, b, JString(field))
 
-class LMDir(Feature):
-    def __init__(self,mu=1000, field='contents', qfield='analyzed'):
-        Jclass = autoclass('io.anserini.ltr.feature.base.LMDir')
-        self.extractor = Jclass(mu, JString(field), JString(qfield))
-
-class LMJM(Feature):
-    def __init__(self,lamda=0.5, field='contents', qfield='analyzed'):
-        Jclass = autoclass('io.anserini.ltr.feature.base.LMJM')
-        self.extractor = Jclass(lamda, JString(field), JString(qfield))
-
 class NTFIDF(Feature):
     def __init__(self, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.NTFIDF')
         self.extractor = Jclass(JString(field), JString(qfield))
 
 class ProbalitySum(Feature):
-    def __init__(self , field='contents', qfield='analyzed'):
-        Jclass = autoclass('io.anserini.ltr.feature.base.ProbalitySum')
-        self.extractor = Jclass(JString(field), JString(qfield))
-
-class DFR_GL2(Feature):
     def __init__(self, field='contents', qfield='analyzed'):
-        Jclass = autoclass('io.anserini.ltr.feature.base.DFR_GL2')
+        Jclass = autoclass('io.anserini.ltr.feature.base.ProbalitySum')
         self.extractor = Jclass(JString(field), JString(qfield))
 
 class IBMModel1(Feature):
     def __init__(self, path, field, tag, qfield):
         Jclass = autoclass('io.anserini.ltr.feature.base.IBMModel1')
         self.extractor = Jclass(JString(path), JString(field), JString(tag), JString(qfield))
-
-class DFR_In_expB2(Feature):
-    def __init__(self, field='contents', qfield='analyzed'):
-        Jclass = autoclass('io.anserini.ltr.feature.base.DFR_In_expB2')
-        self.extractor = Jclass(JString(field), JString(qfield))
-
-class DPH(Feature):
-    def __init__(self, field='contents', qfield='analyzed'):
-        Jclass = autoclass('io.anserini.ltr.feature.base.DPH')
-        self.extractor = Jclass(JString(field), JString(qfield))
 
 class ContextDFR_GL2(Feature):
     def __init__(self, pooler, field='contents', qfield='analyzed'):
@@ -271,6 +241,36 @@ class ictfStat(Feature):
 class scqStat(Feature):
     def __init__(self, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.scqStat')
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
+
+class BM25Stat(Feature):
+    def __init__(self, pooler, k1=0.9, b=0.4, field='contents', qfield='analyzed'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.BM25Stat')
+        self.extractor = Jclass(pooler.extractor, k1, b, JString(field), JString(qfield))
+
+class DFR_In_expB2Stat(Feature):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.DFR_In_expB2Stat')
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
+
+class DPHStat(Feature):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.DPHStat')
+        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
+
+class LMDirStat(Feature):
+    def __init__(self, pooler, mu=1000, field='contents', qfield='analyzed'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.LMDirStat')
+        self.extractor = Jclass(pooler.extractor, mu, JString(field), JString(qfield))
+
+class LMJMStat(Feature):
+    def __init__(self, pooler, lamda=0.5, field='contents', qfield='analyzed'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.LMJMStat')
+        self.extractor = Jclass(pooler.extractor,lamda, JString(field), JString(qfield))
+
+class DFR_GL2Stat(Feature):
+    def __init__(self, pooler, field='contents', qfield='analyzed'):
+        Jclass = autoclass('io.anserini.ltr.feature.base.DFR_GL2Stat')
         self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class EntityHowMany(Feature):
