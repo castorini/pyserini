@@ -6,6 +6,7 @@ Vladimir Karpukhin, Barlas Oğuz, Sewon Min, Patrick Lewis, Ledell Wu, Sergey Ed
 
 You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
 
+## Encoder trained on NQ Single
 ### Retrieval with HNSW index
 ```bash
 $ python -m pyserini.dsearch --topics nq_dev_dpr \
@@ -75,6 +76,49 @@ Top20  accuracy: 0.7813178029005368
 Top100 accuracy: 0.8498344181797419
 ```
 which is closer to our implementation.
+
+
+## Encoder trained on multiset
+Run DPR retrieval with Wikipedia brute force index
+
+```bash
+$ python -m pyserini.dsearch --topics nq_dev_dpr \
+                             --index wikipedia-dpr-multi-bf \
+                             --encoder facebook/dpr-question_encoder-multiset-base \
+                             --output runs/run.dpr.nq.multi.bf.trec \
+                             --batch 36 --threads 12
+```
+
+To evaluate convert the TREC style run file to retrieval result file in `json` format
+```bash
+$ python -m scripts.dpr.convert_trec_run_to_retrieval_json --topics nq_dev_dpr \
+                                                           --index wikipedia-dpr \
+                                                           --input runs/run.dpr.nq.multi.bf.trec \
+                                                           --output runs/run.dpr.nq.multi.bf.json
+```
+
+Evaluate
+```bash
+$ python scripts/dpr/evaluate.py --retrieval runs/run.dpr.nq.multi.bf.json --topk 20
+$ python scripts/dpr/evaluate.py --retrieval runs/run.dpr.nq.multi.bf.json --topk 100
+Top20  accuracy: 0.7738951695786228
+Top100 accuracy: 0.8467511704921777
+```
+
+In original paper, the corresponding results are:
+```bash
+Top20  accuracy: 79.4
+Top100 accuracy: 86.0
+```
+However, by running retrieval and evaluation from [DPR repo](https://github.com/facebookresearch/DPR),
+via [this](https://github.com/efficientqa/retrieval-based-baselines/blob/master/run_inference.py).
+we are getting:
+
+```bash
+Top20  accuracy: 0.7738951695786228
+Top100 accuracy: 0.8467511704921777
+```
+which is same to our implementation.
 
 ### BM25 retrieval
 
