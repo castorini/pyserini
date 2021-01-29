@@ -132,6 +132,16 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_NQ_DEV)
     elif collection_name == 'nq_test_dpr':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_NQ_TEST)
+    elif collection_name == 'trivia_dev_dpr':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_TRIVIA_DEV)
+    elif collection_name == 'trivia_test_dpr':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_TRIVIA_TEST)
+    elif collection_name == 'wq_test_dpr':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_WQ_TEST)
+    elif collection_name == 'squad_test_dpr':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_SQUAD_TEST)
+    elif collection_name == 'curated_test_dpr':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_CURATED_TEST)
     else:
         return {}
     t = {}
