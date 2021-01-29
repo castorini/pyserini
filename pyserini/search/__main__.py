@@ -16,13 +16,83 @@
 
 import argparse
 import os
-from typing import Tuple, List
+from typing import Tuple, List, TextIO
 
 from pyserini.pyclass import autoclass
-from pyserini.search import get_topics, SimpleSearcher
+from pyserini.search import get_topics, SimpleSearcher, JSimpleSearcherResult
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 from pyserini.query_iterator import QUERY_IDS, query_iterator
 from tqdm import tqdm
+
+
+def write_result(target_file: TextIO, result: Tuple[str, List[JSimpleSearcherResult]],
+                 hits_num: int, msmarco: bool, tag: str):
+    topic, hits = result
+    docids = [hit.docid.strip() for hit in hits]
+    scores = [hit.score for hit in hits]
+
+    if msmarco:
+        for i, docid in enumerate(docids):
+            if i >= hits_num:
+                break
+            target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+    else:
+        for i, (docid, score) in enumerate(zip(docids, scores)):
+            if i >= hits_num:
+                break
+            target_file.write(
+                f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
+
+
+def write_result_max_passage(target_file: TextIO, result: Tuple[str, List[JSimpleSearcherResult]],
+                             max_passage_delimiter: str, max_passage_hits: int,
+                             msmarco: bool, tag: str):
+    topic, hits = result
+    unique_docs = set()
+    rank = 1
+    for hit in hits:
+        docid, _ = hit.docid.split(max_passage_delimiter)
+        if docid in unique_docs:
+            continue
+
+        if msmarco:
+            target_file.write(f'{topic}\t{docid}\t{rank}\n')
+        else:
+            target_file.write(
+                f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
+        rank = rank + 1
+        unique_docs.add(docid)
+        if rank > max_passage_hits:
+            break
+
+
+def set_bm25_parameters(searcher, index, k1=None, b=None):
+    if k1 is not None or b is not None:
+        if k1 is None or b is None:
+            print('Must set *both* k1 and b for BM25!')
+            exit()
+        print(f'Setting BM25 parameters: k1={k1}, b={b}')
+        searcher.set_bm25(k1, b)
+    else:
+        # Automatically set bm25 parameters based on known index:
+        if index == 'msmarco-passage' or index == 'msmarco-passage-slim':
+            print('MS MARCO passage: setting k1=0.82, b=0.68')
+            searcher.set_bm25(0.82, 0.68)
+        elif index == 'msmarco-passage-expanded':
+            print('MS MARCO passage w/ doc2query-T5 expansion: setting k1=2.18, b=0.86')
+            searcher.set_bm25(2.18, 0.86)
+        elif index == 'msmarco-doc' or index == 'msmarco-doc-slim':
+            print('MS MARCO doc: setting k1=4.46, b=0.82')
+            searcher.set_bm25(4.46, 0.82)
+        elif index == 'msmarco-doc-per-passage' or index == 'msmarco-doc-per-passage-slim':
+            print('MS MARCO doc, per passage: setting k1=2.16, b=0.61')
+            searcher.set_bm25(2.16, 0.61)
+        elif index == 'msmarco-doc-expanded-per-doc':
+            print('MS MARCO doc w/ doc2query-T5 (per doc) expansion: setting k1=4.68, b=0.87')
+            searcher.set_bm25(4.68, 0.87)
+        elif index == 'msmarco-doc-expanded-per-passage':
+            print('MS MARCO doc w/ doc2query-T5 (per passage) expansion: setting k1=2.56, b=0.59')
+            searcher.set_bm25(2.56, 0.59)
 
 
 def define_search_args(parser):
@@ -90,33 +160,7 @@ if __name__ == "__main__":
         searcher.set_qld()
     else:
         search_rankers.append('bm25')
-
-        if args.k1 is not None or args.b is not None:
-            if args.k1 is None or args.b is None:
-                print('Must set *both* k1 and b for BM25!')
-                exit()
-            print(f'Setting BM25 parameters: k1={args.k1}, b={args.b}')
-            searcher.set_bm25(args.k1, args.b)
-        else:
-            # Automatically set bm25 parameters based on known index:
-            if args.index == 'msmarco-passage' or args.index == 'msmarco-passage-slim':
-                print('MS MARCO passage: setting k1=0.82, b=0.68')
-                searcher.set_bm25(0.82, 0.68)
-            elif args.index == 'msmarco-passage-expanded':
-                print('MS MARCO passage w/ doc2query-T5 expansion: setting k1=2.18, b=0.86')
-                searcher.set_bm25(2.18, 0.86)
-            elif args.index == 'msmarco-doc' or args.index == 'msmarco-doc-slim':
-                print('MS MARCO doc: setting k1=4.46, b=0.82')
-                searcher.set_bm25(4.46, 0.82)
-            elif args.index == 'msmarco-doc-per-passage' or args.index == 'msmarco-doc-per-passage-slim':
-                print('MS MARCO doc, per passage: setting k1=2.16, b=0.61')
-                searcher.set_bm25(2.16, 0.61)
-            elif args.index == 'msmarco-doc-expanded-per-doc':
-                print('MS MARCO doc w/ doc2query-T5 (per doc) expansion: setting k1=4.68, b=0.87')
-                searcher.set_bm25(4.68, 0.87)
-            elif args.index == 'msmarco-doc-expanded-per-passage':
-                print('MS MARCO doc w/ doc2query-T5 (per passage) expansion: setting k1=2.56, b=0.59')
-                searcher.set_bm25(2.56, 0.59)
+        set_bm25_parameters(searcher, args.index, args.k1, args.b)
 
     if args.rm3:
         search_rankers.append('rm3')
@@ -158,44 +202,6 @@ if __name__ == "__main__":
     print(f'Running {args.topics} topics, saving to {output_path}...')
     tag = output_path[:-4] if args.output is None else 'Anserini'
 
-
-    def write_result(result: Tuple[str, List[JSimpleSearcher]]):
-        topic, hits = result
-        docids = [hit.docid.strip() for hit in hits]
-        scores = [hit.score for hit in hits]
-
-        if use_prcl and len(hits) > (args.r + args.n):
-            scores, docids = ranker.rerank(docids, scores)
-
-        if args.msmarco:
-            for i, docid in enumerate(docids):
-                target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
-        else:
-            for i, (docid, score) in enumerate(zip(docids, scores)):
-                target_file.write(
-                    f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
-
-
-    def write_result_max_passage(result: Tuple[str, List[JSimpleSearcher]]):
-        topic, hits = result
-        unique_docs = set()
-        rank = 1
-        for hit in hits:
-            docid, _ = hit.docid.split(args.max_passage_delimiter)
-            if docid in unique_docs:
-                continue
-
-            if args.msmarco:
-                target_file.write(f'{topic}\t{docid}\t{rank}\n')
-            else:
-                target_file.write(
-                    f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
-            rank = rank + 1
-            unique_docs.add(docid)
-            if rank > args.max_passage_hits:
-                break
-
-
     order = None
     if args.topics in QUERY_IDS:
         order = QUERY_IDS[args.topics]
@@ -221,8 +227,20 @@ if __name__ == "__main__":
                     continue
 
             for result in results:
+                # do rerank
+                if use_prcl and len(hits) > (args.r + args.n):
+                    hits = result[1]
+                    docids = [hit.docid.strip() for hit in hits]
+                    scores = [hit.score for hit in hits]
+                    scores, docids = ranker.rerank(docids, scores)
+                    docid_score_map = dict(zip(docids, scores))
+                    for hit in hits:
+                        hit.score = docid_score_map[hit.docid.strip()]
+
+                # write results
                 if args.max_passage:
-                    write_result_max_passage(result)
+                    write_result_max_passage(target_file, result, args.max_passage_delimiter,
+                                             args.max_passage_hits, args.msmarco, tag)
                 else:
-                    write_result(result)
+                    write_result(target_file, result, args.hits, args.msmarco, tag)
             results.clear()

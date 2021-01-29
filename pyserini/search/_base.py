@@ -128,6 +128,10 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2018_BL)
     elif collection_name == 'trec2019_bl':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_BL)
+    elif collection_name == 'nq_dev_dpr':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_NQ_DEV)
+    elif collection_name == 'nq_test_dpr':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_NQ_TEST)
     else:
         return {}
     t = {}

@@ -18,11 +18,12 @@ import argparse
 import os
 
 import json
-import numpy as np
 from tqdm import tqdm
 
 from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder, QueryEncoder, DPRQueryEncoder
+from pyserini.query_iterator import QUERY_IDS, query_iterator
 from pyserini.search import get_topics
+from pyserini.search.__main__ import write_result, write_result_max_passage
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -37,7 +38,7 @@ def define_dsearch_args(parser):
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
     parser.add_argument('--device', type=str, metavar='device to run query encoder', required=False, default='cpu',
                         help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
-    parser.add_argument('--batch', type=int, metavar='num', required=False, default=1,
+    parser.add_argument('--batch-size', type=int, metavar='num', required=False, default=1,
                         help="search batch of queries in parallel")
     parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
                         help="maximum threads to use during search")
@@ -45,7 +46,9 @@ def define_dsearch_args(parser):
 
 def init_query_encoder(encoder, topics_name, device):
     encoded_queries = {
-        'msmarco_passage_dev_subset': 'msmarco-passage-dev-subset-tct_colbert'
+        'msmarco_passage_dev_subset': 'msmarco-passage-dev-subset-tct_colbert',
+        'nq_dev_dpr': 'nq-dev-dpr',
+        'nq_test_dpr': 'nq-test-dpr',
     }
     if encoder:
         if 'dpr' in encoder:
@@ -104,63 +107,35 @@ if __name__ == '__main__':
     print(f'Running {args.topics} topics, saving to {output_path}...')
     tag = 'Faiss'
 
-    if args.batch > 1:
-        with open(output_path, 'w') as target_file:
-            topic_keys = sorted(topics.keys())
-            for i in tqdm(range(0, len(topic_keys), args.batch)):
-                topic_key_batch = topic_keys[i: i + args.batch]
-                topic_batch = [topics[topic].get('title').strip() for topic in topic_key_batch]
-                hits = searcher.batch_search(topic_batch, topic_key_batch, k=args.hits, threads=args.threads)
-                for topic in hits:
-                    unique_docs = set()
-                    rank = 1
-                    for idx, hit in enumerate(hits[topic]):
-                        if args.max_passage:
-                            docid, _ = hit.docid.split(args.max_passage_delimiter)
-                            if docid in unique_docs:
-                                continue
-                            if args.msmarco:
-                                target_file.write(f'{topic}\t{docid}\t{rank}\n')
-                            else:
-                                target_file.write(
-                                    f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
-                            rank = rank + 1
-                            unique_docs.add(docid)
-                            if rank > args.max_passage_hits:
-                                break
-                        else:
-                            if args.msmarco:
-                                target_file.write(f'{topic}\t{hit.docid}\t{idx + 1}\n')
-                            else:
-                                target_file.write(f'{topic} Q0 {hit.docid} {idx + 1} {hit.score:.6f} {tag}\n')
-        exit()
+    order = None
+    if args.topics in QUERY_IDS:
+        print(f'Using pre-defined topic order for {args.topics}')
+        order = QUERY_IDS[args.topics]
 
     with open(output_path, 'w') as target_file:
-        for index, topic in enumerate(tqdm(sorted(topics.keys()))):
-            search = topics[topic].get('title').strip()
-            hits = searcher.search(search, args.hits, threads=args.threads)
-            docids = [hit.docid.strip() for hit in hits]
-            scores = [hit.score for hit in hits]
-            if args.max_passage:
-                unique_docs = set()
-                rank = 1
-                for idx, hit in enumerate(hits):
-                    docid, _ = hit.docid.split(args.max_passage_delimiter)
-                    if docid in unique_docs:
-                        continue
-                    if args.msmarco:
-                        target_file.write(f'{topic}\t{docid}\t{rank}\n')
-                    else:
-                        target_file.write(
-                            f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
-                    rank = rank + 1
-                    unique_docs.add(docid)
-                    if rank > args.max_passage_hits:
-                        break
+        batch_topics = list()
+        batch_topic_ids = list()
+        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+            if args.batch_size <= 1 and args.threads <= 1:
+                hits = searcher.search(text, args.hits)
+                results = [(topic_id, hits)]
             else:
-                if args.msmarco:
-                    for i, docid in enumerate(docids):
-                        target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+                batch_topic_ids.append(str(topic_id))
+                batch_topics.append(text)
+                if (index + 1) % args.batch_size == 0 or \
+                        index == len(topics.keys()) - 1:
+                    results = searcher.batch_search(
+                        batch_topics, batch_topic_ids, args.hits, args.threads)
+                    results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                    batch_topic_ids.clear()
+                    batch_topics.clear()
                 else:
-                    for i, (docid, score) in enumerate(zip(docids, scores)):
-                        target_file.write(f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
+                    continue
+
+            for result in results:
+                if args.max_passage:
+                    write_result_max_passage(target_file, result, args.max_passage_delimiter,
+                                             args.max_passage_hits, args.msmarco, tag)
+                else:
+                    write_result(target_file, result, args.hits, args.msmarco, tag)
+            results.clear()
