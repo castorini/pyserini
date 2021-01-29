@@ -112,7 +112,7 @@ And then run the `trec_eval` tool:
 
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
-   tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.trec runs/run.msmarco-passage.bm25tuned.trec
+   collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.bm25tuned.trec
 map                   	all	0.1957
 recall_1000           	all	0.8573
 ```
