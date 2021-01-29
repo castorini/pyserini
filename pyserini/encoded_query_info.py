@@ -9,24 +9,74 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
-    "nq-dev-dpr": {
-        "description": "Natural Question dev set questions encoded by DPR question encoder",
+    "nq-dev-dpr-multi": {
+        "description": "Natural Question dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/xbhtpib9irkek94/query-embedding-nq-dev-dpr-20210121-a5983b.tar.gz?dl=1",
+            "https://www.dropbox.com/s/tit9qn0oxmerlyk/query-embedding-nq-dev-dpr-multi-20210129-3a276c.tar.gz?dl=1",
         ],
-        "md5": "cc4168964b4aac0fdc2b071d1c54c8ce",
-        "size (bytes)": 25115164,
+        "md5": "c584f779c56d6396d3aab5a1f4be53f0",
+        "size (bytes)": 25121360,
         "total_queries": 8757,
         "downloaded": False
     },
-    "nq-test-dpr": {
-        "description": "Natural Question test set questions encoded by DPR question encoder",
+    "nq-test-dpr-multi": {
+        "description": "Natural Question test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/q69lxg1irier7sw/query-embedding-nq-test-dpr-20210121-a5983b.tar.gz?dl=1",
+            "https://www.dropbox.com/s/hxvnhe6evk0vdeu/query-embedding-nq-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
         ],
-        "md5": "f91de0a295db2907a47cfb00961e98e6",
-        "size (bytes)": 10357275,
+        "md5": "dd92355c7661cf23a802e793cd5a73ff",
+        "size (bytes)": 10359974,
         "total_queries": 3610,
+        "downloaded": False
+    },
+    "trivia_qa-dev-dpr-multi": {
+        "description": "TriviaQA dev set questions encoded by DPR question encoder trained on multiset",
+        "urls": [
+            "https://www.dropbox.com/s/azcdwrq1pp64eqz/query-embedding-trivia_qa-dev-dpr-multi-20210129-3a276c.tar.gz?dl=1",
+        ],
+        "md5": "7305f26c4ccff3222a77c4f3175693a0",
+        "size (bytes)": 25504210,
+        "total_queries": 8837,
+        "downloaded": False
+    },
+    "trivia_qa-test-dpr-multi": {
+        "description": "TriviaQA test set questions encoded by DPR question encoder trained on multiset",
+        "urls": [
+            "https://www.dropbox.com/s/30ys0nmu8izz9di/query-embedding-trivia_qa-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
+        ],
+        "md5": "c7b3c2a415ce9ace27da13432a817824",
+        "size (bytes)": 32644071,
+        "total_queries": 11313,
+        "downloaded": False
+    },
+    "wq-test-dpr-multi": {
+        "description": "Web Questions test set questions encoded by DPR question encoder trained on multiset",
+        "urls": [
+            "https://www.dropbox.com/s/0ii86f1a1mj5gzr/query-embedding-wq-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
+        ],
+        "md5": "8b8a9054ec1e6ce57446acdc133fecbe",
+        "size (bytes)": 5824579,
+        "total_queries": 2032,
+        "downloaded": False
+    },
+    "squad-test-dpr-multi": {
+        "description": "Natural Question dev set questions encoded by DPR question encoder trained on multiset",
+        "urls": [
+            "https://www.dropbox.com/s/pz1qkqpqt1ae285/query-embedding-squad-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
+        ],
+        "md5": "e1c41fe5261c8b09c442ee57f525be53",
+        "size (bytes)": 30245472,
+        "total_queries": 10570,
+        "downloaded": False
+    },
+    "curated_trec-test-dpr-multi": {
+        "description": "Natural Question dev set questions encoded by DPR question encoder trained on multiset",
+        "urls": [
+            "https://www.dropbox.com/s/f5i8l5ut9848ggs/query-embedding-curated_trec-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
+        ],
+        "md5": "e4c6e96e9f4a733c32941a6288b92316",
+        "size (bytes)": 1994408,
+        "total_queries": 694,
         "downloaded": False
     }
 }
