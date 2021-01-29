@@ -104,7 +104,7 @@ For that we first need to convert the run file into TREC format:
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py \
    --input runs/run.msmarco-passage.bm25tuned.txt --output runs/run.msmarco-passage.bm25tuned.trec
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
-   --input tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt --output tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.trec
+   --input tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt --output collections/msmarco-passage/qrels.dev.small.trec
 ```
 
 
