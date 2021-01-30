@@ -128,19 +128,19 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2018_BL)
     elif collection_name == 'trec2019_bl':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_BL)
-    elif collection_name == 'nq_dev_dpr':
+    elif collection_name == 'dpr_nq_dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_NQ_DEV)
-    elif collection_name == 'nq_test_dpr':
+    elif collection_name == 'dpr_nq_test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_NQ_TEST)
-    elif collection_name == 'trivia_dev_dpr':
+    elif collection_name == 'dpr_trivia_dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_TRIVIA_DEV)
-    elif collection_name == 'trivia_test_dpr':
+    elif collection_name == 'dpr_trivia_test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_TRIVIA_TEST)
-    elif collection_name == 'wq_test_dpr':
+    elif collection_name == 'dpr_wq_test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_WQ_TEST)
-    elif collection_name == 'squad_test_dpr':
+    elif collection_name == 'dpr_squad_test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_SQUAD_TEST)
-    elif collection_name == 'curated_test_dpr':
+    elif collection_name == 'dpr_curated_test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_CURATED_TEST)
     else:
         return {}
