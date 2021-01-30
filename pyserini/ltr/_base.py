@@ -214,9 +214,9 @@ class tfStat(Feature):
         self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class tfIdfStat(Feature):
-    def __init__(self, pooler, field='contents', qfield='analyzed'):
+    def __init__(self, sublinear, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.tfIdfStat')
-        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
+        self.extractor = Jclass(sublinear, pooler.extractor, JString(field), JString(qfield))
 
 class normalizedDocSizeStat(Feature):
     def __init__(self, pooler, field='contents', qfield='analyzed'):
@@ -236,11 +236,6 @@ class idfStat(Feature):
 class ictfStat(Feature):
     def __init__(self, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.ictfStat')
-        self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
-
-class scqStat(Feature):
-    def __init__(self, pooler, field='contents', qfield='analyzed'):
-        Jclass = autoclass('io.anserini.ltr.feature.base.scqStat')
         self.extractor = Jclass(pooler.extractor, JString(field), JString(qfield))
 
 class BM25Stat(Feature):
