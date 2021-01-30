@@ -216,7 +216,8 @@ class tfStat(Feature):
 class tfIdfStat(Feature):
     def __init__(self, sublinear, pooler, field='contents', qfield='analyzed'):
         Jclass = autoclass('io.anserini.ltr.feature.base.tfIdfStat')
-        self.extractor = Jclass(sublinear, pooler.extractor, JString(field), JString(qfield))
+        JBoolean = autoclass('java.lang.Boolean')
+        self.extractor = Jclass(JBoolean(sublinear), pooler.extractor, JString(field), JString(qfield))
 
 class normalizedDocSizeStat(Feature):
     def __init__(self, pooler, field='contents', qfield='analyzed'):
