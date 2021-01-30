@@ -60,7 +60,7 @@ QUERY_INFO = {
         "downloaded": False
     },
     "dpr-squad-test-multi": {
-        "description": "Natural Question dev set questions encoded by DPR question encoder trained on multiset",
+        "description": "SQUAD dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/pz1qkqpqt1ae285/query-embedding-squad-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
         ],
@@ -70,7 +70,7 @@ QUERY_INFO = {
         "downloaded": False
     },
     "dpr-curated_trec-test-multi": {
-        "description": "Natural Question dev set questions encoded by DPR question encoder trained on multiset",
+        "description": "CuratedTREC test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/f5i8l5ut9848ggs/query-embedding-curated_trec-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
         ],

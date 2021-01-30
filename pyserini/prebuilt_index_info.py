@@ -383,8 +383,8 @@ INDEX_INFO = {
         "unique_terms": 2660824,
         "downloaded": False
     },
-    "wikipedia-dpr-hnsw": {
-        "description": "Wikipedia corpus encoded by DPR and indexed as brute force index",
+    "wikipedia-dpr-nq_single-hnsw": {
+        "description": "Wikipedia corpus encoded by DPR trained on NQ single set and indexed as brute force index",
         "urls": [
             "https://www.dropbox.com/s/ctos2lvmkof7l0g/dindex-hnsw-wikipedia-20200115-cd5034.tar.gz?dl=1",
         ],
@@ -393,8 +393,8 @@ INDEX_INFO = {
         "documents": 21015320,
         "downloaded": False
     },
-    "wikipedia-dpr-bf": {
-        "description": "Wikipedia corpus encoded by DPR and indexed as brute force index",
+    "wikipedia-dpr-nq_single-bf": {
+        "description": "Wikipedia corpus encoded by DPR trained on NQ single set and indexed as brute force index",
         "urls": [
             "https://www.dropbox.com/s/coat4uu7tdz3wu9/dindex-faissbf-wikipedia-20200115-cd5034.tar.gz?dl=1",
         ],
