@@ -72,6 +72,31 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 3610)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+    def test_wq_test_dpr(self):
+        topics = search.get_topics('wq_test_dpr')
+        self.assertEqual(len(topics), 2032)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_squad_test_dpr(self):
+        topics = search.get_topics('squad_test_dpr')
+        self.assertEqual(len(topics), 10570)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_curated_test_dpr(self):
+        topics = search.get_topics('curated_test_dpr')
+        self.assertEqual(len(topics), 694)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trivia_test_dpr(self):
+        topics = search.get_topics('trivia_test_dpr')
+        self.assertEqual(len(topics), 11313)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trivia_dev_dpr(self):
+        topics = search.get_topics('trivia_dev_dpr')
+        self.assertEqual(len(topics), 8837)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
     def test_covid_round1(self):
         topics = search.get_topics('covid_round1')
         self.assertEqual(len(topics), 30)

@@ -22,6 +22,7 @@ import argparse
 import copy
 import json
 import logging
+import re
 import unicodedata
 from tqdm import tqdm
 import numpy as np
@@ -203,19 +204,37 @@ class SimpleTokenizer(Tokenizer):
         return Tokens(data, self.annotators)
 
 
+def regex_match(text, pattern):
+    """Test if a regex pattern is contained within a text."""
+    try:
+        pattern = re.compile(
+            pattern,
+            flags=re.IGNORECASE + re.UNICODE + re.MULTILINE,
+        )
+    except BaseException:
+        return False
+    return pattern.search(text) is not None
+
+
 def _normalize(text):
     return unicodedata.normalize('NFD', text)
 
 
-def has_answers(text, answers, tokenizer):
+def has_answers(text, answers, tokenizer, regex=False):
     text = _normalize(text)
-    text = tokenizer.tokenize(text).words(uncased=True)
-    for ans in answers:
-        ans = _normalize(ans)
-        ans = tokenizer.tokenize(ans).words(uncased=True)
-        for i in range(0, len(text) - len(ans) + 1):
-            if ans == text[i: i + len(ans)]:
+    if regex:
+        for ans in answers:
+            ans = _normalize(ans)
+            if regex_match(text, ans):
                 return True
+    else:
+        text = tokenizer.tokenize(text).words(uncased=True)
+        for ans in answers:
+            ans = _normalize(ans)
+            ans = tokenizer.tokenize(ans).words(uncased=True)
+            for i in range(0, len(text) - len(ans) + 1):
+                if ans == text[i: i + len(ans)]:
+                    return True
     return False
 
 
@@ -223,6 +242,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--retrieval', type=str, metavar='path',
                     help="Path to retrieval output file.")
 parser.add_argument('--topk', type=int, help="topk to evaluate")
+parser.add_argument('--regex', action='store_true', default=False, help="regex match")
 args = parser.parse_args()
 
 tokenizer = SimpleTokenizer()
@@ -236,7 +256,7 @@ for qid in tqdm(list(retrieval.keys())):
         if idx >= args.topk:
             break
         text = ctx['text'].split('\n')[1]  # [0] is title, [1] is text
-        if has_answers(text, answers, tokenizer):
+        if has_answers(text, answers, tokenizer, args.regex):
             has_ans = 1
     accuracy.append(has_ans)
 print(np.mean(accuracy))
