@@ -299,7 +299,7 @@ def train(train_extracted, dev_extracted, feature_name, eval_fn):
                             free_raw_data=False)
     #max_leaves = -1 seems to work better for many settings, although 10 is also good
     params = {
-        'boosting_type': 'gbdt',
+        'boosting_type': 'goss',
         'objective': 'lambdarank',
         'max_bin': 255,
         'num_leaves': 200,
@@ -459,28 +459,74 @@ if __name__ == '__main__':
 
     fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco-ent/', max(multiprocessing.cpu_count()//2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
-                           ('text', 'text'),
                            ('text_unlemm', 'text_unlemm'),
                            ('text_bert_tok', 'text_bert_tok')]:
         print(qfield, ifield)
-        fe.add(BM25(k1=0.9, b=0.4, field=ifield, qfield=qfield))
-        fe.add(BM25(k1=1.2, b=0.75, field=ifield, qfield=qfield))
-        fe.add(BM25(k1=2.0, b=0.75, field=ifield, qfield=qfield))
+        #     fe.add(BM25Stat(SumPooler(), k1=0.9,b=0.4, field=ifield, qfield=qfield))
+        #     fe.add(BM25Stat(AvgPooler(), k1=0.9,b=0.4, field=ifield, qfield=qfield))
+        #     fe.add(BM25Stat(MedianPooler(), k1=0.9,b=0.4, field=ifield, qfield=qfield))
+        #     fe.add(BM25Stat(MaxPooler(), k1=0.9,b=0.4, field=ifield, qfield=qfield))
+        #     fe.add(BM25Stat(MinPooler(), k1=0.9,b=0.4, field=ifield, qfield=qfield))
+        #     fe.add(BM25Stat(MaxMinRatioPooler(), k1=0.9,b=0.4, field=ifield, qfield=qfield))
 
-        fe.add(LMDir(mu=1000, field=ifield, qfield=qfield))
-        fe.add(LMDir(mu=1500, field=ifield, qfield=qfield))
-        fe.add(LMDir(mu=2500, field=ifield, qfield=qfield))
+        #     fe.add(BM25Stat(SumPooler(), k1=1.2,b=0.75, field=ifield, qfield=qfield))
+        #     fe.add(BM25Stat(AvgPooler(), k1=1.2,b=0.75, field=ifield, qfield=qfield))
+        #     fe.add(BM25Stat(MedianPooler(), k1=1.2,b=0.75, field=ifield, qfield=qfield))
+        #     fe.add(BM25Stat(MaxPooler(), k1=1.2,b=0.75, field=ifield, qfield=qfield))
+        #     fe.add(BM25Stat(MinPooler(), k1=1.2,b=0.75, field=ifield, qfield=qfield))
+        #     fe.add(BM25Stat(MaxMinRatioPooler(), k1=1.2,b=0.75, field=ifield, qfield=qfield))
 
-        fe.add(LMJM(0.1, field=ifield, qfield=qfield))
-        fe.add(LMJM(0.4, field=ifield, qfield=qfield))
-        fe.add(LMJM(0.7, field=ifield, qfield=qfield))
+        fe.add(BM25Stat(SumPooler(), k1=2.0, b=0.75, field=ifield, qfield=qfield))
+        fe.add(BM25Stat(AvgPooler(), k1=2.0, b=0.75, field=ifield, qfield=qfield))
+        fe.add(BM25Stat(MedianPooler(), k1=2.0, b=0.75, field=ifield, qfield=qfield))
+        fe.add(BM25Stat(MaxPooler(), k1=2.0, b=0.75, field=ifield, qfield=qfield))
+        fe.add(BM25Stat(MinPooler(), k1=2.0, b=0.75, field=ifield, qfield=qfield))
+        fe.add(BM25Stat(MaxMinRatioPooler(), k1=2.0, b=0.75, field=ifield, qfield=qfield))
+
+        fe.add(LMDirStat(SumPooler(), mu=1000, field=ifield, qfield=qfield))
+        fe.add(LMDirStat(AvgPooler(), mu=1000, field=ifield, qfield=qfield))
+        fe.add(LMDirStat(MedianPooler(), mu=1000, field=ifield, qfield=qfield))
+        fe.add(LMDirStat(MaxPooler(), mu=1000, field=ifield, qfield=qfield))
+        fe.add(LMDirStat(MinPooler(), mu=1000, field=ifield, qfield=qfield))
+        fe.add(LMDirStat(MaxMinRatioPooler(), mu=1000, field=ifield, qfield=qfield))
+
+        #     fe.add(LMDirStat(SumPooler(), mu=1500, field=ifield, qfield=qfield))
+        #     fe.add(LMDirStat(AvgPooler(), mu=1500, field=ifield, qfield=qfield))
+        #     fe.add(LMDirStat(MedianPooler(), mu=1500, field=ifield, qfield=qfield))
+        #     fe.add(LMDirStat(MaxPooler(), mu=1500, field=ifield, qfield=qfield))
+        #     fe.add(LMDirStat(MinPooler(), mu=1500, field=ifield, qfield=qfield))
+        #     fe.add(LMDirStat(MaxMinRatioPooler(), mu=1500, field=ifield, qfield=qfield))
+
+        #     fe.add(LMDirStat(SumPooler(), mu=2500, field=ifield, qfield=qfield))
+        #     fe.add(LMDirStat(AvgPooler(), mu=2500, field=ifield, qfield=qfield))
+        #     fe.add(LMDirStat(MedianPooler(), mu=2500, field=ifield, qfield=qfield))
+        #     fe.add(LMDirStat(MaxPooler(), mu=2500, field=ifield, qfield=qfield))
+        #     fe.add(LMDirStat(MinPooler(), mu=2500, field=ifield, qfield=qfield))
+        #     fe.add(LMDirStat(MaxMinRatioPooler(), mu=2500, field=ifield, qfield=qfield))
 
         fe.add(NTFIDF(field=ifield, qfield=qfield))
         fe.add(ProbalitySum(field=ifield, qfield=qfield))
 
-        fe.add(DFR_GL2(field=ifield, qfield=qfield))
-        fe.add(DFR_In_expB2(field=ifield, qfield=qfield))
-        fe.add(DPH(field=ifield, qfield=qfield))
+        fe.add(DFR_GL2Stat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(DFR_GL2Stat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(DFR_GL2Stat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(DFR_GL2Stat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(DFR_GL2Stat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(DFR_GL2Stat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+
+        fe.add(DFR_In_expB2Stat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(DFR_In_expB2Stat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(DFR_In_expB2Stat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(DFR_In_expB2Stat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(DFR_In_expB2Stat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(DFR_In_expB2Stat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
+
+        fe.add(DPHStat(SumPooler(), field=ifield, qfield=qfield))
+        fe.add(DPHStat(AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(DPHStat(MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(DPHStat(MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(DPHStat(MinPooler(), field=ifield, qfield=qfield))
+        fe.add(DPHStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
 
         fe.add(Proximity(field=ifield, qfield=qfield))
         fe.add(TPscore(field=ifield, qfield=qfield))
@@ -499,54 +545,42 @@ if __name__ == '__main__':
         fe.add(tfStat(SumPooler(), field=ifield, qfield=qfield))
         fe.add(tfStat(MinPooler(), field=ifield, qfield=qfield))
         fe.add(tfStat(MaxPooler(), field=ifield, qfield=qfield))
-        fe.add(tfStat(VarPooler(), field=ifield, qfield=qfield))
         fe.add(tfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
-        fe.add(tfStat(ConfidencePooler(), field=ifield, qfield=qfield))
 
-        fe.add(tfIdfStat(AvgPooler(), field=ifield, qfield=qfield))
-        fe.add(tfIdfStat(MedianPooler(), field=ifield, qfield=qfield))
-        fe.add(tfIdfStat(SumPooler(), field=ifield, qfield=qfield))
-        fe.add(tfIdfStat(MinPooler(), field=ifield, qfield=qfield))
-        fe.add(tfIdfStat(MaxPooler(), field=ifield, qfield=qfield))
-        fe.add(tfIdfStat(VarPooler(), field=ifield, qfield=qfield))
-        fe.add(tfIdfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
-        fe.add(tfIdfStat(ConfidencePooler(), field=ifield, qfield=qfield))
+        #     fe.add(tfIdfStat(False, AvgPooler(), field=ifield, qfield=qfield))
+        #     fe.add(tfIdfStat(False, MedianPooler(), field=ifield, qfield=qfield))
+        #     fe.add(tfIdfStat(False, SumPooler(), field=ifield, qfield=qfield))
+        #     fe.add(tfIdfStat(False, MinPooler(), field=ifield, qfield=qfield))
+        #     fe.add(tfIdfStat(False, MaxPooler(), field=ifield, qfield=qfield))
+        #     fe.add(tfIdfStat(False, MaxMinRatioPooler(), field=ifield, qfield=qfield))
 
-        fe.add(scqStat(AvgPooler(), field=ifield, qfield=qfield))
-        fe.add(scqStat(MedianPooler(), field=ifield, qfield=qfield))
-        fe.add(scqStat(SumPooler(), field=ifield, qfield=qfield))
-        fe.add(scqStat(MinPooler(), field=ifield, qfield=qfield))
-        fe.add(scqStat(MaxPooler(), field=ifield, qfield=qfield))
-        fe.add(scqStat(VarPooler(), field=ifield, qfield=qfield))
-        fe.add(scqStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
-        fe.add(scqStat(ConfidencePooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(True, AvgPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(True, MedianPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(True, SumPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(True, MinPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(True, MaxPooler(), field=ifield, qfield=qfield))
+        fe.add(tfIdfStat(True, MaxMinRatioPooler(), field=ifield, qfield=qfield))
 
         fe.add(normalizedTfStat(AvgPooler(), field=ifield, qfield=qfield))
         fe.add(normalizedTfStat(MedianPooler(), field=ifield, qfield=qfield))
         fe.add(normalizedTfStat(SumPooler(), field=ifield, qfield=qfield))
         fe.add(normalizedTfStat(MinPooler(), field=ifield, qfield=qfield))
         fe.add(normalizedTfStat(MaxPooler(), field=ifield, qfield=qfield))
-        fe.add(normalizedTfStat(VarPooler(), field=ifield, qfield=qfield))
         fe.add(normalizedTfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
-        fe.add(normalizedTfStat(ConfidencePooler(), field=ifield, qfield=qfield))
 
         fe.add(idfStat(AvgPooler(), field=ifield, qfield=qfield))
         fe.add(idfStat(MedianPooler(), field=ifield, qfield=qfield))
         fe.add(idfStat(SumPooler(), field=ifield, qfield=qfield))
         fe.add(idfStat(MinPooler(), field=ifield, qfield=qfield))
         fe.add(idfStat(MaxPooler(), field=ifield, qfield=qfield))
-        fe.add(idfStat(VarPooler(), field=ifield, qfield=qfield))
         fe.add(idfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
-        fe.add(idfStat(ConfidencePooler(), field=ifield, qfield=qfield))
 
         fe.add(ictfStat(AvgPooler(), field=ifield, qfield=qfield))
         fe.add(ictfStat(MedianPooler(), field=ifield, qfield=qfield))
         fe.add(ictfStat(SumPooler(), field=ifield, qfield=qfield))
         fe.add(ictfStat(MinPooler(), field=ifield, qfield=qfield))
         fe.add(ictfStat(MaxPooler(), field=ifield, qfield=qfield))
-        fe.add(ictfStat(VarPooler(), field=ifield, qfield=qfield))
         fe.add(ictfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
-        fe.add(ictfStat(ConfidencePooler(), field=ifield, qfield=qfield))
 
         fe.add(UnorderedSequentialPairs(3, field=ifield, qfield=qfield))
         fe.add(UnorderedSequentialPairs(8, field=ifield, qfield=qfield))
@@ -561,27 +595,32 @@ if __name__ == '__main__':
         fe.add(OrderedQueryPairs(8, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
 
-#    fe.add(EntityHowLong())
-#    fe.add(EntityHowMany())
-#    fe.add(EntityHowMuch())
-#    fe.add(EntityWhen())
-#    fe.add(EntityWhere())
-#    fe.add(EntityWho())
-#    fe.add(EntityWhereMatch())
-#    fe.add(EntityWhoMatch())
+    # fe.add(EntityHowLong())
+    # fe.add(EntityHowMany())
+    # fe.add(EntityHowMuch())
+    # fe.add(EntityWhen())
+    # fe.add(EntityWhere())
+    # fe.add(EntityWho())
+    # fe.add(EntityWhereMatch())
+    # fe.add(EntityWhoMatch())
 
-    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm",
-                     "title_unlemm", "text_unlemm"))
-    print("IBM Model loaded")
-    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm",
-                     "url_unlemm", "text_unlemm"))
-    print("IBM Model loaded")
-    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm",
-                     "body", "text_unlemm"))
-    print("IBM Model loaded")
-    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
-                     "text_bert_tok", "text_bert_tok"))
-    print("IBM Model loaded")
+    start = time.time()
+    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm","text_unlemm","title_unlemm","text_unlemm"))
+    end = time.time()
+    print('IBM model Load takes %.2f seconds'%(end-start))
+    start = end
+    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm","text_unlemm","url_unlemm","text_unlemm"))
+    end = time.time()
+    print('IBM model Load takes %.2f seconds'%(end-start))
+    start = end
+    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/body","text_unlemm","body","text_unlemm"))
+    end = time.time()
+    print('IBM model Load takes %.2f seconds'%(end-start))
+    start = end
+    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok","text_bert_tok","text_bert_tok","text_bert_tok"))
+    end = time.time()
+    print('IBM model Load takes %.2f seconds'%(end-start))
+    start = end
     
     train_extracted = data_loader('train', sampled_train, queries, fe)
     print("train_extracted")
