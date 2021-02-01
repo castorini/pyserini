@@ -106,7 +106,7 @@ def dev_data_loader(task='anserini'):
             dev = pd.read_csv('../collections/msmarco-passage/top1000.dev', sep="\t",
                               names=['qid', 'pid', 'query', 'doc'], usecols=['qid', 'pid'], dtype=np.int32)
         elif task == 'anserini':
-            dev = pd.read_csv('../runs/run.msmarco-passage-flex-ent-expanded.dev.small.txt', sep="\t",
+            dev = pd.read_csv('../runs/run.msmarco-passage-expanded.dev.small.txt', sep="\t",
                               names=['qid', 'pid', 'rank'], dtype=np.int32)
         elif task == 'pygaggle':
             dev = pd.read_csv('../collections/msmarco-passage/run.dev.small.tsv', sep="\t",
@@ -441,7 +441,7 @@ if __name__ == '__main__':
     dev, dev_qrel = dev_data_loader(task='pygaggle')
     queries = query_loader()
 
-    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco-ent/',
+    fe = FeatureExtractor('../indexes/lucene-index-msmarco-passage-flex-ent-expanded',
                           max(multiprocessing.cpu_count() // 2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
                            ('analyzed', 'predict'),
