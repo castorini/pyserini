@@ -441,7 +441,7 @@ if __name__ == '__main__':
     dev, dev_qrel = dev_data_loader(task='pygaggle')
     queries = query_loader()
 
-    fe = FeatureExtractor('../indexes/lucene-index-msmarco-passage-flex-ent-expanded',
+    fe = FeatureExtractor('../indexes/lucene-msmarco-passage-flex-ent-expanded',
                           max(multiprocessing.cpu_count() // 2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
                            ('analyzed', 'predict'),
@@ -492,10 +492,11 @@ if __name__ == '__main__':
         fe.add(tpDist(field=ifield, qfield=qfield))
 
         fe.add(DocSize(field=ifield))
-
-        fe.add(QueryLength(qfield=qfield))
-        fe.add(QueryCoverageRatio(qfield=qfield))
-        fe.add(UniqueTermCount(qfield=qfield))
+        if (qfield == 'analyzed' and ifield == 'contents'):
+            fe.add(QueryLength(qfield=qfield))
+            fe.add(QueryCoverageRatio(qfield=qfield))
+            fe.add(UniqueTermCount(qfield=qfield))
+        
         fe.add(MatchingTermCount(field=ifield, qfield=qfield))
         fe.add(SCS(field=ifield, qfield=qfield))
 
@@ -549,22 +550,22 @@ if __name__ == '__main__':
 
     start = time.time()
     fe.add(
-        IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm", "title_unlemm",
+        IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm", "title_unlemm",
                   "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
-    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm", "url_unlemm",
+    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm", "url_unlemm",
                      "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
     fe.add(
-        IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm", "body", "text_unlemm"))
+        IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm", "body", "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
-    fe.add(IBMModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
+    fe.add(IBMModel1("../../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
                      "text_bert_tok", "text_bert_tok"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
