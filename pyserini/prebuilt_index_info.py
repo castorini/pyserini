@@ -383,23 +383,13 @@ INDEX_INFO = {
         "unique_terms": 2660824,
         "downloaded": False
     },
-    "wikipedia-dpr-hnsw": {
-        "description": "Wikipedia corpus encoded by DPR and indexed as brute force index",
+    "wikipedia-dpr-multi-bf": {
+        "description": "Wikipedia corpus encoded by DPR doc encoder trained on multiset, indexed as brute force index",
         "urls": [
-            "https://www.dropbox.com/s/ctos2lvmkof7l0g/dindex-hnsw-wikipedia-20200115-cd5034.tar.gz?dl=1",
+            "https://www.dropbox.com/s/6o4lbi626j0mc4e/dindex-faissbf-wikipedia-dpr-multi-20200127-f403c3.tar.gz?dl=1",
         ],
-        "md5": "b91a50493233593a3ce872b71ca37574",
-        "size compressed (bytes)": 77724801312,
-        "documents": 21015320,
-        "downloaded": False
-    },
-    "wikipedia-dpr-bf": {
-        "description": "Wikipedia corpus encoded by DPR and indexed as brute force index",
-        "urls": [
-            "https://www.dropbox.com/s/coat4uu7tdz3wu9/dindex-faissbf-wikipedia-20200115-cd5034.tar.gz?dl=1",
-        ],
-        "md5": "dd3c29e426d33b49d2b86eb573915783",
-        "size compressed (bytes)": 59836863765,
+        "md5": "b3a6bdc4ece29ebe777cc5e1f7d64d4e",
+        "size compressed (bytes)": 59836766531,
         "documents": 21015320,
         "downloaded": False
     },
