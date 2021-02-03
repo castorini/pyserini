@@ -22,7 +22,7 @@ To evaluate:
 $ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.tct_colbert.hnsw.tsv
 #####################
-MRR @10: 0.3344676399690711
+MRR @10: 0.33446763996907186
 QueriesRanked: 6980
 #####################
 ```
@@ -34,7 +34,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.hnsw.tsv --output runs/run.msmarco-passage.tct_colbert.hnsw.trec
                                                             
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
-   collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.tct_colbert.hnsw.trec
+      tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.hnsw.trec
 map                     all     0.3410
 recall_1000             all     0.9618
 ```
@@ -50,7 +50,7 @@ MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, brute force ind
 ```bash
 $ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
                              --index msmarco-passage-tct_colbert-bf \
-                             --batch 36  \
+                             --batch-size 36  \
                              --threads 12  \
                              --output runs/run.msmarco-passage.tct_colbert.bf.tsv \
                              --msmarco
@@ -62,7 +62,7 @@ To evaluate:
 $ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.tct_colbert.bf.tsv
 #####################
-MRR @10: 0.3349694137444839
+MRR @10: 0.33498851594123724
 QueriesRanked: 6980
 #####################
 ```
@@ -74,7 +74,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.bf.tsv --output runs/run.msmarco-passage.tct_colbert.bf.trec
 
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
-    collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.tct_colbert.bf.trec
+    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.bf.trec
 map                     all     0.3416
 recall_1000             all     0.9640
 ```
@@ -91,7 +91,7 @@ Hybrid
 - dense retrieval with TCT-ColBERT, HNSW index.
 - sparse retrieval with doc2query-T5 expanded index.
 
-```
+```bash
 python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-hnsw \
                              sparse --index msmarco-passage-expanded \
                              fusion --alpha 0.24 \
@@ -105,7 +105,7 @@ To evaluate:
 $ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.tsv
 #####################
-MRR @10: 0.36371895893027617
+MRR @10: 0.36371895893027684
 QueriesRanked: 6980
 #####################
 ```
@@ -117,7 +117,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.tsv --output runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.trec
 
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
-    collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.trec
+    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.trec
 map                     all     0.3702
 recall_1000             all     0.9734
 ```
@@ -130,9 +130,9 @@ Hybrid
 - dense retrieval with TCT-ColBERT, brute force index.
 - sparse retrieval with doc2query-T5 expanded index.
 
-```
+```bash
 python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-bf \
-                                   --batch 36 --threads 12 \
+                                   --batch-size 36 --threads 12 \
                              sparse --index msmarco-passage-expanded \
                              fusion --alpha 0.24 \
                              run  --topics msmarco_passage_dev_subset \
@@ -145,7 +145,7 @@ To evaluate:
 $ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv
 #####################
-MRR @10: 0.36410435712011574
+MRR @10: 0.3641043571201164
 QueriesRanked: 6980
 #####################
 
@@ -157,7 +157,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 ```bash
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv --output runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.trec
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
-    collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.trec
+    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.trec
 map                     all     0.3706
 recall_1000             all     0.9736
 ```
@@ -178,7 +178,7 @@ $ python -m pyserini.dsearch --topics msmarco_doc_dev \
                              --max-passage \
                              --max-passage-hits 100 \
                              --msmarco \
-                             --batch 72 \
+                             --batch-size 72 \
                              --threads 72
 ```
 
@@ -187,7 +187,7 @@ To evaluate:
 $ python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
                                                    --run runs/run.msmarco-doc.passage.tct_colbert.txt
 #####################
-MRR @100: 0.33232214098153917
+MRR @100: 0.3323255796764856
 QueriesRanked: 5193
 #####################
 ```
@@ -202,48 +202,38 @@ map                   	all	0.3323
 recall_100            	all	0.8664
 ```
 
-## DPR Retrieval
+## MS MARCO Document Ranking, Dense-Sparse Hybrid (Zero Shot)
+Hybrid
+- dense retrieval with TCT-ColBERT, brute force index.
+- sparse retrieval with doc2query-T5 expanded index.
 
-Vladimir Karpukhin, Barlas Oğuz, Sewon Min, Patrick Lewis, Ledell Wu, Sergey Edunov, Danqi Chen, Wen-tau Yih, [Dense Passage Retrieval for Open-Domain Question Answering](https://arxiv.org/abs/2004.04906), Preprint 2020.
-
-
-Download question&answers from Natural Question dev set
 ```bash
-$ wget https://dl.fbaipublicfiles.com/dpr/data/retriever/nq-dev.qa.csv
+python -m pyserini.hsearch   dense --index msmarco-doc-tct_colbert-bf \
+                                   --encoder castorini/tct_colbert-msmarco \
+                                   --batch-size 36 --threads 12 \
+                             sparse --index msmarco-doc-expanded-per-passage \
+                             fusion --alpha 0.24 \
+                             run  --topics msmarco_doc_dev \
+                                  --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv \
+                                  --hits 1000 --max-passage --max-passage-hits 100 \
+                                  --msmarco
 ```
 
-Convert the `nq-dev.qa.csv` to topics file in `json` format
 ```bash
-$ python scripts/dpr/convert_qas_csv_to_topic_json.json --input nq-dev.qa.csv --output nq-dev.qa.json
+$ python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
+                                                   --run runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv
+#####################
+MRR @100: 0.3744121871718217
+QueriesRanked: 5193
+#####################
 ```
 
-Run DPR retrieval with Wikipedia HNSW index
+We also can use the official TREC evaluation tool `trec_eval` to compute metrics other than MRR
+For that we first need to convert runs and qrels files to the TREC format:
 ```bash
-$ python -m pyserini.dsearch --topics nq-dev.qa.json \
-                             --index wikipedia-dpr-hnsw \
-                             --encoder facebook/dpr-question_encoder-single-nq-base \
-                             --output runs/run.dpr.hnsw.trec 
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.trec
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap \
+    tools/topics-and-qrels/qrels.msmarco-doc.dev.txt runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.trec
+map                   	all	0.3744
+recall_100            	all	0.9070
 ```
-
-Convert the TREC style run file to retrieval result file in `json` format
-```bash
-$ python -m scripts.dpr.convert_trec_run_to_retrieval_json --qas nq-dev.qa.json \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.hnsw.trec \
-                                                           --output retrieval.json
-```
-
-Evaluate
-```bash
-$ python scripts/dpr/evaluate.py --retrieval retrieval.json --topk 20
-Top20  accuracy: 0.7814319972593354
-$ python scripts/dpr/evaluate.py --retrieval retrieval.json --topk 100
-Top100 accuracy: 0.8497202238209433
-```
-
-In original paper, the corresponding results are:
-```
-Top20  accuracy: 78.4
-Top100 accuracy: 85.4
-```
-The slightly difference can come from the different ways of implementing question encoder.

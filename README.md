@@ -242,11 +242,10 @@ For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entiti
 ```json
 {
   "id": "doc1",
-  "contents": "Apple is looking at buying U.K. startup for $1 billion.",
+  "contents": "The Manhattan Project and its atomic bomb helped bring an end to World War II. Its legacy of peaceful uses of atomic energy continues to have an impact on history and science.",
   "NER": {
-            "ORG": ["Apple"],
-            "GPE": ["U.K."],
-            "MONEY": ["$1 billion"]
+            "ORG": ["The Manhattan Project"],
+            "MONEY": ["World War II"]
          }
 }
 ```

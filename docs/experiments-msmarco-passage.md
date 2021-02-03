@@ -5,6 +5,8 @@ Note that there is a separate guide for the [MS MARCO *document* ranking task](e
 
 ## Data Prep
 
+The guide requires the [development installation](https://github.com/castorini/pyserini/#development-installation) for additional resource that are not shipped with the Python module; for the (more limited) runs that directly work from the Python module installed via `pip`, see [this guide](https://github.com/castorini/pyserini/blob/master/docs/pypi-replication.md).
+
 We're going to use `collections/msmarco-passage/` as the working directory.
 First, we need to download and extract the MS MARCO passage dataset:
 
@@ -103,7 +105,10 @@ For that we first need to convert the run file into TREC format:
 ```bash
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py \
    --input runs/run.msmarco-passage.bm25tuned.txt --output runs/run.msmarco-passage.bm25tuned.trec
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
+   --input tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt --output collections/msmarco-passage/qrels.dev.small.trec
 ```
+
 
 And then run the `trec_eval` tool:
 
@@ -127,3 +132,4 @@ On the other hand, recall@1000 provides the upper bound effectiveness of downstr
 + Results replicated by [@jrzhang12](https://github.com/jrzhang12) on 2021-01-03 (commit [`7caedfc`](https://github.com/castorini/pyserini/commit/7caedfc150f916de302297406c45dead27b475ba))
 + Results replicated by [@HEC2018](https://github.com/HEC2018) on 2021-01-04 (commit [`46a6d47`](https://github.com/castorini/pyserini/commit/46a6d472267a559152495d004c2a12f8e95e53f0))
 + Results replicated by [@KaiSun314](https://github.com/KaiSun314) on 2021-01-08 (commit [`aeec31f`](https://github.com/castorini/pyserini/commit/aeec31fbe17d39ecf3081597b4832f5af57ea549))
++ Results replicated by [@yemiliey](https://github.com/yemiliey) on 2021-01-18 (commit [`98f3236`](https://github.com/castorini/pyserini/commit/98f323659c8a0a5d8ef26bb3f6768458a34e3eb9))
