@@ -147,6 +147,13 @@ SimpleSearcher.list_prebuilt_indexes()
 
 A description of what's available can be found [here](docs/prebuilt-indexes.md).
 
+### Sparse, Dense and Hybrid Search
+Pyserini supports sparse retrieval (e.g., BM25 scoring using bag-of-words representations), 
+dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), 
+as well hybrid retrieval that integrates both approaches. 
+
+Please see [here](docs/examples-interactive-search.md) for detailed examples.
+
 ## How do I fetch a document?
 
 The other commonly used feature is to fetch a document given its `docid`.
