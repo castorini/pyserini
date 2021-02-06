@@ -85,7 +85,7 @@ Evaluate
 $ python scripts/dpr/evaluate.py --retrieval runs/run.nq-test.dpr.bf.bm25.json --topk 20
 $ python scripts/dpr/evaluate.py --retrieval runs/run.nq-test.dpr.bf.bm25.json --topk 100
 Top20  accuracy: 0.8260387811634349
-Top100 accuracy: 0.8700831024930747
+Top100 accuracy: 0.8858725761772853
 ```
 
 ## TriviaQA
