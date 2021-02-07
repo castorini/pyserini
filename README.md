@@ -266,6 +266,8 @@ With Pyserini, it's easy to replicate runs on a number of standard IR test colle
 + The easiest way, start here: [Replicating runs directly from the Python package](docs/pypi-replication.md)
 + [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
 + [Guide to running the BM25 baseline for the MS MARCO Document Retrieval Task](docs/experiments-msmarco-doc.md)
++ [Guide to running the TCT_ColBERT baseline for the MS MARCO Passage Retrieval Task](docs/experiments-tct_colbert.md)
++ [Guide to running the DPR baseline for the Open Domain QA Tasks](docs/experiments-dpr.md)
 
 ## Additional Documentation
 
