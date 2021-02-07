@@ -8,43 +8,6 @@ You'll need a Pyserini [development installation](https://github.com/castorini/p
 
 ## MS MARCO Passage Ranking
 
-MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, HNSW index.
-```bash
-$ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
-                             --index msmarco-passage-tct_colbert-hnsw \
-                             --output runs/run.msmarco-passage.tct_colbert.hnsw.tsv \
-                             --msmarco 
-```
-
-To evaluate:
-
-```bash
-$ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-   runs/run.msmarco-passage.tct_colbert.hnsw.tsv
-#####################
-MRR @10: 0.33446763996907186
-QueriesRanked: 6980
-#####################
-```
-
-We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10.
-For that we first need to convert runs and qrels files to the TREC format:
-
-```bash
-$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.hnsw.tsv --output runs/run.msmarco-passage.tct_colbert.hnsw.trec
-                                                            
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
-      tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.hnsw.trec
-map                     all     0.3410
-recall_1000             all     0.9618
-```
-
-To evaluate with on-the-fly query encoding with our pretrained encoder model
-on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) add
-`--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
-NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349694137444839)
-
-
 MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, brute force index.
 
 ```bash
@@ -84,46 +47,85 @@ on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main
 `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
 NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349479237731372)
 
+MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, HNSW index.
+```bash
+$ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
+                             --index msmarco-passage-tct_colbert-hnsw \
+                             --output runs/run.msmarco-passage.tct_colbert.hnsw.tsv \
+                             --msmarco 
+```
+
+To evaluate:
+
+```bash
+$ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+   runs/run.msmarco-passage.tct_colbert.hnsw.tsv
+#####################
+MRR @10: 0.33446763996907186
+QueriesRanked: 6980
+#####################
+```
+
+We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10.
+For that we first need to convert runs and qrels files to the TREC format:
+
+```bash
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.hnsw.tsv --output runs/run.msmarco-passage.tct_colbert.hnsw.trec
+                                                            
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
+      tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.hnsw.trec
+map                     all     0.3410
+recall_1000             all     0.9618
+```
+
+To evaluate with on-the-fly query encoding with our pretrained encoder model
+on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) add
+`--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
+NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @10: 0.3349694137444839)
+
 
 ### Hybrid Dense-Sparse Ranking
 MS MARCO passage ranking task, 
 Hybrid
-- dense retrieval with TCT-ColBERT, HNSW index.
-- sparse retrieval with doc2query-T5 expanded index.
+- dense retrieval with TCT-ColBERT, brute force index.
+- sparse retrieval with BM25 msmarco-passage index.
 
 ```bash
-python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-hnsw \
-                             sparse --index msmarco-passage-expanded \
-                             fusion --alpha 0.24 \
+python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-bf \
+                                   --batch-size 36 --threads 12 \
+                             sparse --index msmarco-passage \
+                             fusion --alpha 0.24 \ # untuned
                              run  --topics msmarco_passage_dev_subset \
-                                  --output runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.tsv \
+                                  --output runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv \
                                   --msmarco
 ```
 
 To evaluate:
 ```bash
 $ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-   runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.tsv
+   runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv
 #####################
-MRR @10: 0.36371895893027684
+MRR @10: 0.3356465183972346
 QueriesRanked: 6980
 #####################
+
 ```
 
 We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10. 
 For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
-$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.tsv --output runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.trec
-
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv --output runs/run.msmarco-passage.tct_colbert.bf.bm25.trec
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
-    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.hnsw.doc2queryT5.trec
-map                     all     0.3702
-recall_1000             all     0.9734
+    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.bf.bm25.trec
+map                   	all	0.3430
+recall_1000           	all	0.9676
 ```
+
 To evaluate with on-the-fly query encoding with our pretrained encoder model
 on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) add
 `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
+
 
 MS MARCO passage ranking task, 
 Hybrid
@@ -165,6 +167,7 @@ recall_1000             all     0.9736
 To evaluate with on-the-fly query encoding with our pretrained encoder model
 on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) add
 `--encoder castorini/tct_colbert-msmarco`. The encoding will run on CPU by default. To enable GPU, add `--device cuda:0`.
+
 
 ## MS MARCO Document Ranking (Zero Shot)
 MS MARCO document ranking task, dense retrieval with TCT-ColBERT trained on MS MARCO passages, brute force index.
