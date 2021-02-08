@@ -23,7 +23,7 @@ parser.add_argument('--max_doc_size', metavar='max doc size bytes',
                     help='the threshold for the document size, if a document is larger it is truncated',
                     type=int, default=16536 )
 parser.add_argument('--proc_qty', metavar='# of processes', help='# of NLP processes to span',
-                    type=int, default=multiprocessing.cpu_count() - 2)
+                    type=int, default=multiprocessing.cpu_count()//2)
 
 args = parser.parse_args()
 print(args)
