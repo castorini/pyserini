@@ -173,7 +173,7 @@ def get_topics_with_reader(reader_class, file):
     return t
 
 
-def get_qrels(collection_name):
+def get_qrels_file(collection_name):
     """
     Parameters
     ----------
@@ -238,3 +238,35 @@ def get_qrels(collection_name):
             file.write(qrels_content)
         return target_path
     raise FileNotFoundError(f'no qrels file for {collection_name}')
+
+
+def get_qrels(collection_name):
+    """
+    Parameters
+    ----------
+    collection_name : str
+        collection_name
+
+    Returns
+    -------
+    result : dictionary
+        qrels as a dictionary
+    """
+    file_path = get_qrels_file(collection_name)
+    qrels = {}
+    with open(file_path, 'r') as f:
+        for line in f:
+            qid, _, docid, judgement = line.rstrip().split()
+            try:
+                qrels_key = int(qid)
+            except ValueError:
+                qrels_key = qid
+            try:
+                doc_key = int(docid)
+            except ValueError:
+                doc_key = docid
+            if qrels_key in qrels:
+                qrels[qrels_key][doc_key] = judgement
+            else:
+                qrels[qrels_key] = {doc_key: judgement}
+    return qrels
