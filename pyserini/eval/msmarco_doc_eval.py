@@ -2,7 +2,7 @@ import os
 import subprocess
 import sys
 
-from pyserini.search import get_qrels
+from pyserini.search import get_qrels_file
 from pyserini.util import download_evaluation_script
 
 script_path = download_evaluation_script('msmarco_doc_eval')
@@ -13,7 +13,7 @@ if len(args) > 1:
     for i in range(len(cmd)-1):
         if cmd[i] == '--judgments':
             if not os.path.exists(cmd[i+1]):
-                cmd[i+1] = get_qrels(cmd[i+1])
+                cmd[i+1] = get_qrels_file(cmd[i + 1])
 else:
     cmd = cmd_prefix
 print(f'Running command: {cmd}')
