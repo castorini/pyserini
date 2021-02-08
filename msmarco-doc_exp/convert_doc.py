@@ -53,8 +53,6 @@ def batch_process(batch):
     bertTokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")
 
     def process(line):
-        if not line:
-            return None
         fields = json.loads(line.rstrip())
         pid = fields['id']
         body = fields['contents']
@@ -93,16 +91,14 @@ if __name__ == '__main__':
     print(f'Spanning {proc_qty} processes')
     pool = Parallel(n_jobs=proc_qty, verbose=10)
     ln = 0
-    for batch_json in pool([delayed(batch_process)(batch) for batch in batch_file(inpFile)]):
-        for docJson in batch_json:
-            ln = ln + 1
-            if docJson is not None:
-                outFile.write(json.dumps(docJson) + '\n')
-            else:
-                print('Ignoring misformatted line %d' % ln)
-
-            if ln % 100 == 0:
-                print('Processed %d passages' % ln)
+    for big_batch in batch_file(inpFile, 20000*proc_qty):
+        for batch_json in pool(delayed(batch_process)(batch) for batch in batch_file(big_batch)):
+            for docJson in batch_json:
+                ln = ln + 1
+                if docJson is not None:
+                    outFile.write(json.dumps(docJson) + '\n')
+                else:
+                    print('Ignoring misformatted line %d' % ln)
 
     print('Processed %d passages' % ln)
 
