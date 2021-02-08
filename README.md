@@ -147,6 +147,13 @@ SimpleSearcher.list_prebuilt_indexes()
 
 A description of what's available can be found [here](docs/prebuilt-indexes.md).
 
+### Sparse, Dense and Hybrid Search
+Pyserini supports sparse retrieval (e.g., BM25 scoring using bag-of-words representations), 
+dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), 
+as well hybrid retrieval that integrates both approaches. 
+
+Please see [here](docs/examples-interactive-search.md) for detailed examples.
+
 ## How do I fetch a document?
 
 The other commonly used feature is to fetch a document given its `docid`.
@@ -259,6 +266,8 @@ With Pyserini, it's easy to replicate runs on a number of standard IR test colle
 + The easiest way, start here: [Replicating runs directly from the Python package](docs/pypi-replication.md)
 + [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
 + [Guide to running the BM25 baseline for the MS MARCO Document Retrieval Task](docs/experiments-msmarco-doc.md)
++ [Guide to running the TCT_ColBERT baseline for the MS MARCO Passage Retrieval Task](docs/experiments-tct_colbert.md)
++ [Guide to running the DPR baseline for the Open Domain QA Tasks](docs/experiments-dpr.md)
 
 ## Additional Documentation
 

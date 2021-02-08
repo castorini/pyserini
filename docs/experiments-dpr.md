@@ -85,7 +85,7 @@ Evaluate
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.nq-test.dpr.bf.bm25.json --topk 20
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.nq-test.dpr.bf.bm25.json --topk 100
 Top20  accuracy: 0.8260387811634349
-Top100 accuracy: 0.8700831024930747
+Top100 accuracy: 0.8858725761772853
 ```
 
 ## TriviaQA
@@ -417,7 +417,7 @@ Top100 accuracy: 0.8437086092715231
 |-------------|---------------|---------------|------------|----------------|-------------|
 | NQ          | BM25          | 59.1          | 62.9       | 73.7           | 78.3        |
 | NQ          | DPR           | 79.4          | 79.5       | 86.0           | 86.1        |
-| NQ          | Hybrid (1.30) | 78.0          | 82.6       | 83.9           | 87.0        |
+| NQ          | Hybrid (1.30) | 78.0          | 82.6       | 83.9           | 88.6        |
 | TriviaQA    | BM25          | 66.0          | 76.4       | 76.7           | 83.2        |
 | TriviaQA    | DPR           | 78.8          | 78.8       | 84.7           | 84.8        |
 | TriviaQA    | Hybrid (0.95) | 79.9          | 82.6       | 84.4           | 86.5        |
