@@ -54,10 +54,12 @@ Assuming all tests pass, you should be ready to go!
 ## Quick Links
 
 + [How do I search?](#how-do-i-search) (Simple BM25)
-+ [How do I perform dense and hybrid retrieval?](docs/examples-interactive-search.md#how-do-i-perform-dense-and-hybrid-retrieval) (Guide to Interactive Search)
 + [How do I fetch a document?](#how-do-i-fetch-a-document)
 + [How do I search my own documents?](#how-do-i-search-my-own-documents)
 + [How do I replicate results on Robust04, MS MARCO...?](#replication-guides)
++ [How do I configure search?](docs/usage-interactive-search.md#how-do-i-configure-search) (Guide to Interactive Search)
++ [How do I manually download indexes?](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) (Guide to Interactive Search)
++ [How do I perform dense and hybrid retrieval?](docs/usage-interactive-search.md#how-do-i-perform-dense-and-hybrid-retrieval) (Guide to Interactive Search)
 + [How do I iterate over index terms and access term statistics?](docs/usage-indexreader.md#how-do-i-iterate-over-index-terms-and-access-term-statistics) (Index Reader API)
 + [How do I traverse postings?](docs/usage-indexreader.md#how-do-i-traverse-postings) (Index Reader API)
 + [How do I access and manipulate term vectors?](docs/usage-indexreader.md#how-do-i-access-and-manipulate-term-vectors) (Index Reader API)
