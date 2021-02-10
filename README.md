@@ -77,7 +77,7 @@ Sparse retrieval is the most mature feature in Pyserini; dense and hybrid retrie
 
 The `SimpleSearcher` class provides the entry point for sparse retrieval.
 Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
-Here's one for the [MS MARCO passage ranking task](http://www.msmarco.org/):
+Here's how to use a pre-built index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively:
 
 ```python
 from pyserini.search import SimpleSearcher
@@ -128,7 +128,7 @@ For a guide to dense retrieval and hybrid retrieval, see [this answer](docs/usag
 
 ## How do I fetch a document?
 
-The other commonly used feature is to fetch a document given its `docid`.
+Another commonly used feature in Pyserini is to fetch a document (i.e., its text) given its `docid`.
 This is easy to do:
 
 ```python
@@ -141,9 +141,9 @@ doc = searcher.doc('7157715')
 From `doc`, you can access its `contents` as well as its `raw` representation.
 The `contents` hold the representation of what's actually indexed; the `raw` representation is usually the original "raw document".
 A simple example can illustrate this distinction: for an article from CORD-19, `raw` holds the complete JSON of the article, which obviously includes the article contents, but has metadata and other information as well.
-The `contents` are extracts from the article that's actually indexed (for example, the title and abstract).
-In most cases, `contents` can be deterministically reconstructed from the `raw`.
-When building the index, we specify flags to store `contents` and/or `raw`; it's rarely the case we store both, since it's usually a waste of space.
+The `contents` contain extracts from the article that's actually indexed (for example, the title and abstract).
+In most cases, `contents` can be deterministically reconstructed from `raw`.
+When building the index, we specify flags to store `contents` and/or `raw`; it is rarely the case that we store both, since that would be a waste of space.
 In the case of the pre-built `msmacro-passage` index, we only store `raw`.
 Thus:
 
@@ -160,7 +160,7 @@ As you'd expected, `doc.id()` returns the `docid`, which is `7157715` in this ca
 Finally, `doc.lucene_document()` returns the underlying Lucene `Document` (i.e., a Java object).
 With that, you get direct access to the complete Lucene API for manipulating documents.
 
-Since each text in the MS MARCO passage corpus is a JSON object, we can read into Python and manipulate:
+Since each text in the MS MARCO passage corpus is a JSON object, we can read the document into Python and manipulate:
 
 ```python
 import json
