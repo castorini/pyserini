@@ -1,6 +1,6 @@
-# Pyserini: Replicating TCT_ColBERT Results
+# Pyserini: Replicating TCT-ColBERT Results
 
-This guide provides replication instructions for the TCT_ColBERT dense retrieval model described in the following paper:
+This guide provides replication instructions for the TCT-ColBERT dense retrieval model described in the following paper:
 
 + Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [Distilling Dense Representations for Ranking using Tightly-Coupled Teachers.](https://arxiv.org/abs/2010.11386) arXiv:2010.11386, October 2020. 
 
@@ -19,7 +19,7 @@ Summary of results:
 
 ## Dense Retrieval
 
-MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, brute force index.
+MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, brute-force index:
 
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
@@ -56,9 +56,7 @@ map                     all     0.3416
 recall_1000             all     0.9640
 ```
 
-To evaluate with on-the-fly query encoding with our pretrained encoder model
-on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) use the option
-`--encoder castorini/tct_colbert-msmarco`.
+To perform on-the-fly query encoding with our [pretrained encoder model](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) use the option `--encoder castorini/tct_colbert-msmarco`.
 Query encoding will run on the CPU by default.
 To perform query encoding on the GPU, use the option `--device cuda:0`.
 
@@ -66,7 +64,8 @@ Note that we have observed minor differences in MRR@10 depending on the source o
 We have noticed differences in MRR@10 between Linux and macOS as well.
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a replicability perspective.
 
-MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, HNSW index.
+MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, HNSW index:
+
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-hnsw \
@@ -101,7 +100,7 @@ The caveat about minor differences in score applies here as well.
 
 ## Hybrid Dense-Sparse Retrieval
 
-Pyserini also supports hybrid ranking with dense-sparse representations:
+Pyserini also supports hybrid ranking with dense-sparse representations (without document expansion):
 - dense retrieval with TCT-ColBERT, brute force index.
 - sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
 
@@ -116,6 +115,7 @@ python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-bf \
 ```
 
 To evaluate:
+
 ```bash
 $ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv
@@ -138,7 +138,7 @@ recall_1000           	all	0.9698
 Follow the same instructions above to perform on-the-fly query encoding.
 The caveat about minor differences in score applies here as well.
 
-Finally, hybrid ranking with dense-sparse representations:
+Finally, hybrid ranking with dense-sparse representations (with document expansion):
 - dense retrieval with TCT-ColBERT, brute force index.
 - sparse retrieval with doc2query-T5 expanded index.
 
@@ -179,7 +179,7 @@ The caveat about minor differences in score applies here as well.
 ## MS MARCO Document Ranking
 
 Although this is not described in the paper, we have adapted TCT_ColBERT to the MS MARCO document ranking task in a zero-shot manner.
-Documents in the MS MARCO document collection are first segmented, and each segment is then encoded with the TCT_ColBERT model trained on trained on MS MARCO passages.
+Documents in the MS MARCO document collection are first segmented, and each segment is then encoded with the TCT-ColBERT model trained on trained on MS MARCO passages.
 The score of a document is the maximum score of all passages in that document.
 
 Dense retrieval using a brute force index:
