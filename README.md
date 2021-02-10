@@ -255,6 +255,7 @@ With Pyserini, it's easy to replicate runs on a number of standard IR test colle
 + [Guide to replicating Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
 + [Guide to replicating TCT-ColBERT experiments for MS MARCO Passage/Document Ranking](docs/experiments-tct_colbert.md)
 + [Guide to replicating DPR experiments for Open-Domain QA](docs/experiments-dpr.md)
++ [Guide to replicating BM25 Baselines for KILT](docs/experiments-kilt.md)
 
 ## Additional Documentation
 
