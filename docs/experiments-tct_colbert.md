@@ -218,15 +218,15 @@ Dense-sparse hybrid retrieval (with document expansion):
 - sparse retrieval with doc2query-T5 expanded index.
 
 ```bash
-python -m pyserini.hsearch dense --index msmarco-doc-tct_colbert-bf \
-                                 --encoder castorini/tct_colbert-msmarco \
-                                 --batch-size 36 --threads 12 \
-                           sparse --index msmarco-doc-expanded-per-passage \
-                           fusion --alpha 0.32 \
-                           run  --topics msmarco-doc-dev \
-                                --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv \
-                                --hits 1000 --max-passage --max-passage-hits 100 \
-                                --msmarco
+$ python -m pyserini.hsearch dense --index msmarco-doc-tct_colbert-bf \
+                                   --encoder castorini/tct_colbert-msmarco \
+                                   --batch-size 36 --threads 12 \
+                             sparse --index msmarco-doc-expanded-per-passage \
+                             fusion --alpha 0.32 \
+                             run  --topics msmarco-doc-dev \
+                                  --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv \
+                                  --hits 1000 --max-passage --max-passage-hits 100 \
+                                  --msmarco
 ```
 
 To compute the official metric MRR@100 using the official evaluation scripts:
