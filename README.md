@@ -259,9 +259,11 @@ With Pyserini, it's easy to replicate runs on a number of standard IR test colle
 ## Additional Documentation
 
 + [Guide to pre-built indexes](docs/prebuilt-indexes.md)
-+ [Guide to interactive searching](docs/examples-interactive-search.md)
-+ [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
++ [Guide to interactive searching](docs/usage-interactive-search.md)
 + [Guide to text classification with the 20Newsgroups dataset](docs/20newgroups.md)
++ [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
++ [Guide to working with entity linking](https://github.com/castorini/pyserini/blob/master/docs/working-with-entity-linking.md)
++ [Guide to working with spaCy](https://github.com/castorini/pyserini/blob/master/docs/working-with-spacy.md)
 + [Usage of the Analyzer API](docs/usage-analyzer.md)
 + [Usage of the Index Reader API](docs/usage-indexreader.md)
 + [Usage of the Query Builder API](docs/usage-querybuilder.md)
