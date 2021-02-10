@@ -359,40 +359,6 @@ INDEX_INFO = {
         "unique_terms": -1,
         "downloaded": False
     },
-    "msmarco-passage-tct_colbert-hnsw": {
-        "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as HNSW index",
-        "urls": [
-            "https://www.dropbox.com/s/xrsjn38lk3axfdd/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz?dl=1",
-        ],
-        "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
-        "size compressed (bytes)": 33359100887,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
-    "msmarco-passage-tct_colbert-bf": {
-        "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as brute force index",
-        "urls": [
-            "https://www.dropbox.com/s/sgmugleqwwirx3n/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz?dl=1",
-        ],
-        "md5": "7312e0e7acec2a686e994902ca064fc5",
-        "size compressed (bytes)": 25204514289,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
-    "wikipedia-dpr-multi-bf": {
-        "description": "Wikipedia corpus encoded by DPR doc encoder trained on multiset, indexed as brute force index",
-        "urls": [
-            "https://www.dropbox.com/s/9g4e2ps73lf4ysl/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz?dl=1",
-        ],
-        "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
-        "size compressed (bytes)": 59836766981,
-        "documents": 21015320,
-        "downloaded": False
-    },
     "wikipedia-dpr": {
         "description": "Wikipedia (DPR 100 word splits) Anserini index",
         "urls": [
@@ -417,6 +383,29 @@ INDEX_INFO = {
         "unique_terms": 5345463,
         "downloaded": False
     },
+}
+
+DINDEX_INFO = {
+    "msmarco-passage-tct_colbert-hnsw": {
+        "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as HNSW index",
+        "urls": [
+            "https://www.dropbox.com/s/xrsjn38lk3axfdd/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz?dl=1",
+        ],
+        "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
+        "size compressed (bytes)": 33359100887,
+        "documents": 8841823,
+        "downloaded": False
+    },
+    "msmarco-passage-tct_colbert-bf": {
+        "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as brute force index",
+        "urls": [
+            "https://www.dropbox.com/s/sgmugleqwwirx3n/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz?dl=1",
+        ],
+        "md5": "7312e0e7acec2a686e994902ca064fc5",
+        "size compressed (bytes)": 25204514289,
+        "documents": 8841823,
+        "downloaded": False
+    },
     "msmarco-doc-tct_colbert-bf": {
         "description": "MS MARCO document corpus encoded by TCT-ColBERT and indexed as brute force index",
         "urls": [
@@ -425,6 +414,16 @@ INDEX_INFO = {
         "md5": "f0b4c3bff3bb685be5c475511004c3b0",
         "size compressed (bytes)": 58514325936,
         "documents": 20544550,
+        "downloaded": False
+    },
+    "wikipedia-dpr-multi-bf": {
+        "description": "Wikipedia corpus encoded by DPR doc encoder trained on multiset, indexed as brute force index",
+        "urls": [
+            "https://www.dropbox.com/s/9g4e2ps73lf4ysl/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz?dl=1",
+        ],
+        "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
+        "size compressed (bytes)": 59836766981,
+        "documents": 21015320,
         "downloaded": False
     },
 }

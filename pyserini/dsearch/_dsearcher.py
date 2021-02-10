@@ -27,7 +27,7 @@ import pandas as pd
 from transformers import BertModel, BertTokenizer, DPRQuestionEncoder, DPRQuestionEncoderTokenizer
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
-                           get_indexes_info)
+                           get_dense_indexes_info)
 
 
 class QueryEncoder:
@@ -176,7 +176,7 @@ class SimpleDenseSearcher:
     @staticmethod
     def list_prebuilt_indexes():
         """Display information about available prebuilt indexes."""
-        get_indexes_info()
+        get_dense_indexes_info()
 
     def search(self, query: str, k: int = 10, threads: int = 1) -> List[DenseSearchResult]:
         """Search the collection.
