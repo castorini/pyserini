@@ -176,7 +176,7 @@ class SimpleDenseSearcher:
     @staticmethod
     def list_prebuilt_indexes():
         """Display information about available prebuilt indexes."""
-        get_indexes_info()
+        get_indexes_info(dense=True)
 
     def search(self, query: str, k: int = 10, threads: int = 1) -> List[DenseSearchResult]:
         """Search the collection.

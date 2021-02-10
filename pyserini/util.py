@@ -23,7 +23,7 @@ from tqdm import tqdm
 from urllib.request import urlretrieve
 from urllib.error import HTTPError
 import pandas as pd
-from pyserini.prebuilt_index_info import INDEX_INFO
+from pyserini.prebuilt_index_info import INDEX_INFO, DINDEX_INFO
 from pyserini.encoded_query_info import QUERY_INFO
 from pyserini.evaluate_script_info import EVALUATION_INFO
 
@@ -140,8 +140,12 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
 
 
 def check_downloaded(index_name):
-    index_url = INDEX_INFO[index_name]['urls'][0]
-    index_md5 = INDEX_INFO[index_name]['md5']
+    if index_name in INDEX_INFO:
+        target_index = INDEX_INFO[index_name]
+    else:
+        target_index = DINDEX_INFO[index_name]
+    index_url = target_index['urls'][0]
+    index_md5 = target_index['md5']
     index_name = index_url.split('/')[-1]
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
     index_directory = os.path.join(get_cache_home(), 'indexes')
@@ -150,8 +154,11 @@ def check_downloaded(index_name):
     return os.path.exists(index_path)
 
 
-def get_indexes_info():
-    df = pd.DataFrame.from_dict(INDEX_INFO)
+def get_indexes_info(dense=False):
+    if dense:
+        df = pd.DataFrame.from_dict(DINDEX_INFO)
+    else:
+        df = pd.DataFrame.from_dict(INDEX_INFO)
     for index in df.keys():
         df[index]['downloaded'] = check_downloaded(index)
 
@@ -161,11 +168,14 @@ def get_indexes_info():
 
 
 def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
-    if index_name not in INDEX_INFO:
+    if index_name not in INDEX_INFO and index_name not in DINDEX_INFO:
         raise ValueError(f'Unrecognized index name {index_name}')
-
-    index_md5 = INDEX_INFO[index_name]['md5']
-    for url in INDEX_INFO[index_name]['urls']:
+    if index_name in INDEX_INFO:
+        target_index = INDEX_INFO[index_name]
+    else:
+        target_index = DINDEX_INFO[index_name]
+    index_md5 = target_index['md5']
+    for url in target_index['urls']:
         try:
             return download_and_unpack_index(url, prebuilt=True, md5=index_md5)
         except HTTPError:
