@@ -1,4 +1,4 @@
-# Working with the COVID-19 Open Research Dataset
+# Pyserini: Working with the COVID-19 Open Research Dataset
 
 This page describes how to use Pyserini's Collection API to work with the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research) from the [Allen Institute for AI](https://allenai.org/).
 This API provides access to the raw collection, independent of search.
