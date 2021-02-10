@@ -53,7 +53,8 @@ Assuming all tests pass, you should be ready to go!
 
 ## Quick Links
 
-+ [How do I search?](#how-do-i-search)
++ [How do I search?](#how-do-i-search) (Simple BM25)
++ [How do I perform dense and hybrid retrieval?](docs/examples-interactive-search.md#how-do-i-perform-dense-and-hybrid-retrieval) (Guide to Interactive Search)
 + [How do I fetch a document?](#how-do-i-fetch-a-document)
 + [How do I search my own documents?](#how-do-i-search-my-own-documents)
 + [How do I replicate results on Robust04, MS MARCO...?](#replication-guides)
@@ -247,11 +248,11 @@ Happy honking!
 With Pyserini, it's easy to replicate runs on a number of standard IR test collections!
 
 + The easiest way, start here: [Replicating runs directly from the Python package](docs/pypi-replication.md)
-+ [Guide to replicating Robust04 baselines](docs/experiments-robust04.md)
-+ [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
-+ [Guide to running the BM25 baseline for the MS MARCO Document Retrieval Task](docs/experiments-msmarco-doc.md)
-+ [Guide to running the TCT_ColBERT baseline for the MS MARCO Passage Retrieval Task](docs/experiments-tct_colbert.md)
-+ [Guide to running the DPR baseline for the Open Domain QA Tasks](docs/experiments-dpr.md)
++ [Guide to replicating the BM25 baseline for MS MARCO Passage Ranking](docs/experiments-msmarco-passage.md)
++ [Guide to replicating the BM25 baseline for MS MARCO Document Ranking](docs/experiments-msmarco-doc.md)
++ [Guide to replicating Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
++ [Guide to replicating TCT-ColBERT experiments for MS MARCO Passage/Document Ranking](docs/experiments-tct_colbert.md)
++ [Guide to replicating DPR experiments for Open-Domain QA](docs/experiments-dpr.md)
 
 ## Additional Documentation
 

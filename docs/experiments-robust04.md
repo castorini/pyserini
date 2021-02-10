@@ -1,8 +1,7 @@
 # Pyserini: Replicating Robust04 Baselines
 
 The `SimpleSearcher` class provides the entry point for searching.
-Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
-Here's one on TREC Disks 4 &amp; 5, used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md):
+Pyserini provides, out of the box, a pre-built index for TREC Disks 4 &amp; 5, used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md):
 
 ```python
 from pyserini.search import SimpleSearcher
@@ -53,18 +52,15 @@ for i in range(0, 10):
     print(f'{i+1:2} {hits2[i].docid:15} {hits2[i].score:.5f}')
 ```
 
-BM25 baseline from the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md) on TREC Disks 4 &amp; 5: 
+If you want to perform a batch retrieval run, it's simple:
 
 ```bash
 $ python -m pyserini.search --topics robust04 --index robust04 --output run.robust04.txt --bm25
 ```
 
-That's it!
-
-A dependency-free way to evaluate the run:
+And to evaluate using `trec_eval`:
 
 ```bash
-$ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.robust04.txt
 $ python -m pyserini.eval.trec_eval -m map -m P.30 robust04 run.robust04.txt
 map                   	all	0.2531
 P_30                  	all	0.3102
