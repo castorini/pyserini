@@ -122,9 +122,9 @@ SimpleSearcher.list_prebuilt_indexes()
 ```
 
 A description of what's available can be found [here](docs/prebuilt-indexes.md).
-Alternatively, see [this guide](docs/examples-interactive-search.md) for how to download an index manually.
+Alternatively, see [this anser](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) for how to download an index manually.
 
-Examples of how to use dense retrieval and hybrid retrieval, as well as other search features, can be found in this [guide to interactive searching](docs/examples-interactive-search.md).
+For a guide to dense retrieval and hybrid retrieval, see [this answer](docs/usage-interactive-search.md#how-do-i-perform-dense-and-hybrid-retrieval).
 
 ## How do I fetch a document?
 
