@@ -91,13 +91,13 @@ Hybrid
 - sparse retrieval with BM25 msmarco-passage index.
 
 ```bash
-python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-bf \
-                                   --batch-size 36 --threads 12 \
+python -m pyserini.hsearch   dense  --index msmarco-passage-tct_colbert-bf \
                              sparse --index msmarco-passage \
                              fusion --alpha 0.12 \
-                             run  --topics msmarco-passage-dev-subset \
-                                  --output runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv \
-                                  --msmarco
+                             run    --topics msmarco-passage-dev-subset \
+                                    --output runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv \
+                                    --batch-size 36 --threads 12 \
+                                    --msmarco
 ```
 
 To evaluate:
@@ -133,13 +133,13 @@ Hybrid
 - sparse retrieval with doc2query-T5 expanded index.
 
 ```bash
-python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-bf \
-                                   --batch-size 36 --threads 12 \
+python -m pyserini.hsearch   dense  --index msmarco-passage-tct_colbert-bf \
                              sparse --index msmarco-passage-expanded \
                              fusion --alpha 0.22 \
-                             run  --topics msmarco-passage-dev-subset \
-                                  --output runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv \
-                                  --msmarco
+                             run    --topics msmarco-passage-dev-subset \
+                                    --output runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv \
+                                    --batch-size 36 --threads 12 \
+                                    --msmarco
 ```
 
 To evaluate:
@@ -210,15 +210,15 @@ Hybrid
 - sparse retrieval with doc2query-T5 expanded index.
 
 ```bash
-python -m pyserini.hsearch   dense --index msmarco-doc-tct_colbert-bf \
-                                   --encoder castorini/tct_colbert-msmarco \
-                                   --batch-size 36 --threads 12 \
+python -m pyserini.hsearch   dense  --index msmarco-doc-tct_colbert-bf \
+                                    --encoder castorini/tct_colbert-msmarco \
                              sparse --index msmarco-doc-expanded-per-passage \
                              fusion --alpha 0.32 \
-                             run  --topics msmarco-doc-dev \
-                                  --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv \
-                                  --hits 1000 --max-passage --max-passage-hits 100 \
-                                  --msmarco
+                             run    --topics msmarco-doc-dev \
+                                    --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv \
+                                    --hits 1000 --max-passage --max-passage-hits 100 \
+                                    --batch-size 36 --threads 12 \
+                                    --msmarco
 ```
 
 ```bash
