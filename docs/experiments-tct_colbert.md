@@ -168,7 +168,15 @@ The caveat about minor differences in score applies here as well.
 
 ## MS MARCO Document Ranking
 
-Although this is not described in the paper, we have adapted TCT_ColBERT to the MS MARCO document ranking task in a zero-shot manner.
+Summary of results:
+
+| Condition | MRR@10 | MAP | Recall@1000 |
+|:----------|-------:|----:|------------:|
+| TCT-ColBERT (brute-force index) | 0.3323 | 0.3323 | 0.8664 |
+| TCT-ColBERT (brute-force index) + BoW BM25 | - | - | - |
+| TCT-ColBERT (brute-force index) + BM25 w/ doc2query-T5 | 0.3784 | 0.3784 | 0.9081 |
+
+Although this is not described in the paper, we have adapted TCT-ColBERT to the MS MARCO document ranking task in a zero-shot manner.
 Documents in the MS MARCO document collection are first segmented, and each segment is then encoded with the TCT-ColBERT model trained on trained on MS MARCO passages.
 The score of a document is the maximum score of all passages in that document.
 
@@ -205,7 +213,7 @@ map                   	all	0.3323
 recall_100            	all	0.8664
 ```
 
-We can also run dense-sparse hybrid retrieval:
+Dense-sparse hybrid retrieval (with document expansion):
 - dense retrieval with TCT-ColBERT, brute force index.
 - sparse retrieval with doc2query-T5 expanded index.
 
