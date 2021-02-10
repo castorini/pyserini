@@ -51,7 +51,8 @@ Note that the results are different!
 
 ## How do I manually download indexes?
 
-Pyserini comes with many pre-built indexes:
+Pyserini comes with many pre-built indexes.
+Here's how to use the one for `Robust04`:
 
 ```python
 from pyserini.search import SimpleSearcher
@@ -91,7 +92,7 @@ A description of what's available can be found [here](docs/prebuilt-indexes.md).
 Pyserini supports sparse retrieval (e.g., BM25 ranking using bag-of-words representations), dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), 
 as well hybrid retrieval that integrates both approaches. 
 Sparse retrieval is the most mature feature in Pyserini and its usage is already illustrated in the main [README](../README.md#how-do-i-search).
-Here, we illustrate dense and hybrid retrieval.
+Here, we show how to use dense and hybrid retrieval.
 
 The `SimpleDenseSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `SimpleSearcher`.
 The only additional thing we need to specify for dense retrieval is the query encoder.
