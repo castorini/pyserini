@@ -1,4 +1,5 @@
-# Working with Entity Linking
+# Pyserini: Working with Entity Linking
+
 In this page, we introduce an entity linking [script](../scripts/entity_linking.py) which links texts to both Wikipedia and Wikidata entities, using [Radboud Entity Linker (REL)](https://github.com/informagi/REL#rel-radboud-entity-linker) and [spaCy NER](https://spacy.io/usage/linguistic-features#named-entities).
 The input should be a JSONL file which has one json object per line, like [this](https://github.com/castorini/pyserini/blob/master/integrations/resources/sample_collection_jsonl/documents.jsonl), while the output is also a JSONL file, where each json object is of format:
 
