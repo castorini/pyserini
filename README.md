@@ -247,6 +247,7 @@ Happy honking!
 With Pyserini, it's easy to replicate runs on a number of standard IR test collections!
 
 + The easiest way, start here: [Replicating runs directly from the Python package](docs/pypi-replication.md)
++ [Guide to replicating Robust04 baselines](docs/experiments-robust04.md)
 + [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
 + [Guide to running the BM25 baseline for the MS MARCO Document Retrieval Task](docs/experiments-msmarco-doc.md)
 + [Guide to running the TCT_ColBERT baseline for the MS MARCO Passage Retrieval Task](docs/experiments-tct_colbert.md)
@@ -254,7 +255,7 @@ With Pyserini, it's easy to replicate runs on a number of standard IR test colle
 
 ## Additional Documentation
 
-+ [Guide to pre-built idnexes](docs/prebuilt-indexes.md)
++ [Guide to pre-built indexes](docs/prebuilt-indexes.md)
 + [Guide to interactive searching](docs/examples-interactive-search.md)
 + [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
 + [Guide to text classification with the 20Newsgroups dataset](docs/20newgroups.md)

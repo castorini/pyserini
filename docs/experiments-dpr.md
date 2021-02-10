@@ -1,4 +1,4 @@
-## DPR Retrieval
+# Pyserini: Replicating Facbook's DPR Results
 
 This guide provides replication instructions for the following dense retrieval work:
 

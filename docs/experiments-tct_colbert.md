@@ -1,4 +1,4 @@
-# Dense Retrieval Replication
+# Pyserini: Replicating TCT_ColBERT Results
 
 This guide provides replication instructions for the following dense retrieval work:
 
