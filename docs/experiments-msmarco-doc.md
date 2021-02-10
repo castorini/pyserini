@@ -61,7 +61,7 @@ Conveniently, Pyserini already knows how to load and iterate through these pairs
 We can now perform retrieval using these queries:
 
 ```bash
-python -m pyserini.search --topics msmarco_doc_dev \
+python -m pyserini.search --topics msmarco-doc-dev \
  --index indexes/lucene-index-msmarco-doc \
  --output runs/run.msmarco-doc.bm25tuned.txt \
  --bm25 --msmarco --hits 100 --k1 4.46 --b 0.82

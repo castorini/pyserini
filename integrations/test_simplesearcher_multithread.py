@@ -50,42 +50,42 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage(self):
         checker = RunSimpleSearcher(
             index='msmarco-passage',
-            topics='msmarco_passage_dev_subset')
+            topics='msmarco-passage-dev-subset')
         self.assertTrue(self.check_equal(checker,
                                          'msmarco_passage', extras='--msmarco'))
 
     def test_msmarco_passage_docTTTTTquery(self):
         checker = RunSimpleSearcher(
             index='msmarco-passage-expanded',
-            topics='msmarco_passage_dev_subset')
+            topics='msmarco-passage-dev-subset')
         self.assertTrue(self.check_equal(checker,
                                          'msmarco_passage_docTTTTTquery', extras='--msmarco'))
 
     def test_msmarco_doc(self):
         checker = RunSimpleSearcher(
             index='msmarco-doc',
-            topics='msmarco_doc_dev')
+            topics='msmarco-doc-dev')
         self.assertTrue(self.check_equal(checker, 'msmarco_doc',
                                          extras='--hits 100 --msmarco'))
 
     def test_msmarco_doc_docTTTTTquery(self):
         checker = RunSimpleSearcher(
             index='msmarco-doc-expanded-per-doc',
-            topics='msmarco_doc_dev')
+            topics='msmarco-doc-dev')
         self.assertTrue(self.check_equal(checker, 'msmarco_doc_docTTTTTquery',
                                          extras='--hits 100 --msmarco'))
 
     def test_msmarco_doc_per_passage(self):
         checker = RunSimpleSearcher(
             index='msmarco-doc-per-passage',
-            topics='msmarco_doc_dev')
+            topics='msmarco-doc-dev')
         self.assertTrue(self.check_equal(checker, 'msmarco_doc_per_passage',
                                          extras='--hits 1000 --max-passage --max-passage-hits 100 --msmarco'))
 
     def test_msmarco_doc_docTTTTTquery_passage(self):
         checker = RunSimpleSearcher(
             index='msmarco-doc-expanded-per-passage',
-            topics='msmarco_doc_dev')
+            topics='msmarco-doc-dev')
         self.assertTrue(self.check_equal(checker, 'msmarco_doc_docTTTTTquery_passage',
                                          extras='--hits 1000 --max-passage --max-passage-hits 100 --msmarco'))
 

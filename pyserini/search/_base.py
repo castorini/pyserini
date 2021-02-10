@@ -96,51 +96,51 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.CORE17)
     elif collection_name == 'core18':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.CORE18)
-    elif collection_name == 'car17v1.5_benchmarkY1test':
+    elif collection_name == 'car17v1.5-benchmarkY1test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.CAR17V15_BENCHMARK_Y1_TEST)
-    elif collection_name == 'car17v2.0_benchmarkY1test':
+    elif collection_name == 'car17v2.0-benchmarkY1test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.CAR17V20_BENCHMARK_Y1_TEST)
-    elif collection_name == 'dl19_doc':
+    elif collection_name == 'dl19-doc':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_DL_DOC)
-    elif collection_name == 'dl19_passage':
+    elif collection_name == 'dl19-passage':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_DL_PASSAGE)
-    elif collection_name == 'msmarco_doc_dev':
+    elif collection_name == 'msmarco-doc-dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV)
-    elif collection_name == 'msmarco_passage_dev_subset':
+    elif collection_name == 'msmarco-passage-dev-subset':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
-    elif collection_name == 'covid_round1':
+    elif collection_name == 'covid-round1':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND1)
-    elif collection_name == 'covid_round1_udel':
+    elif collection_name == 'covid-round1-udel':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND1_UDEL)
-    elif collection_name == 'covid_round2':
+    elif collection_name == 'covid-round2':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND2)
-    elif collection_name == 'covid_round2_udel':
+    elif collection_name == 'covid-round2-udel':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND2_UDEL)
-    elif collection_name == 'covid_round3':
+    elif collection_name == 'covid-round3':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND3)
-    elif collection_name == 'covid_round3_udel':
+    elif collection_name == 'covid-round3-udel':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND3_UDEL)
-    elif collection_name == 'covid_round4':
+    elif collection_name == 'covid-round4':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND4)
-    elif collection_name == 'covid_round4_udel':
+    elif collection_name == 'covid-round4-udel':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND4_UDEL)
-    elif collection_name == 'trec2018_bl':
+    elif collection_name == 'trec2018-bl':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2018_BL)
-    elif collection_name == 'trec2019_bl':
+    elif collection_name == 'trec2019-bl':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_BL)
-    elif collection_name == 'dpr_nq_dev':
+    elif collection_name == 'dpr-nq-dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_NQ_DEV)
-    elif collection_name == 'dpr_nq_test':
+    elif collection_name == 'dpr-nq-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_NQ_TEST)
-    elif collection_name == 'dpr_trivia_dev':
+    elif collection_name == 'dpr-trivia-dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_TRIVIA_DEV)
-    elif collection_name == 'dpr_trivia_test':
+    elif collection_name == 'dpr-trivia-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_TRIVIA_TEST)
-    elif collection_name == 'dpr_wq_test':
+    elif collection_name == 'dpr-wq-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_WQ_TEST)
-    elif collection_name == 'dpr_squad_test':
+    elif collection_name == 'dpr-squad-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_SQUAD_TEST)
-    elif collection_name == 'dpr_curated_test':
+    elif collection_name == 'dpr-curated-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_CURATED_TEST)
     else:
         return {}
@@ -194,37 +194,37 @@ def get_qrels_file(collection_name):
         qrels = JQrels.CORE17
     elif collection_name == 'core18':
         qrels = JQrels.CORE18
-    elif collection_name == 'car17v1.5_benchmarkY1test':
+    elif collection_name == 'car17v1.5-benchmarkY1test':
         qrels = JQrels.CAR17V15_BENCHMARK_Y1_TEST
-    elif collection_name == 'car17v2.0_benchmarkY1test':
+    elif collection_name == 'car17v2.0-benchmarkY1test':
         qrels = JQrels.CAR17V20_BENCHMARK_Y1_TEST
-    elif collection_name == 'dl19_doc':
+    elif collection_name == 'dl19-doc':
         qrels = JQrels.TREC2019_DL_DOC
-    elif collection_name == 'dl19_passage':
+    elif collection_name == 'dl19-passage':
         qrels = JQrels.TREC2019_DL_PASSAGE
-    elif collection_name == 'msmarco_doc_dev':
+    elif collection_name == 'msmarco-doc-dev':
         qrels = JQrels.MSMARCO_DOC_DEV
-    elif collection_name == 'msmarco_passage_dev_subset':
+    elif collection_name == 'msmarco-passage-dev-subset':
         qrels = JQrels.MSMARCO_PASSAGE_DEV_SUBSET
-    elif collection_name == 'covid_round1':
+    elif collection_name == 'covid-round1':
         qrels = JQrels.COVID_ROUND1
-    elif collection_name == 'covid_round2':
+    elif collection_name == 'covid-round2':
         qrels = JQrels.COVID_ROUND2
-    elif collection_name == 'covid_round3':
+    elif collection_name == 'covid-round3':
         qrels = JQrels.COVID_ROUND3
-    elif collection_name == 'covid_round3_cumulative':
+    elif collection_name == 'covid-round3-cumulative':
         qrels = JQrels.COVID_ROUND3_CUMULATIVE
-    elif collection_name == 'covid_round4':
+    elif collection_name == 'covid-round4':
         qrels = JQrels.COVID_ROUND4
-    elif collection_name == 'covid_round4_cumulative':
+    elif collection_name == 'covid-round4-cumulative':
         qrels = JQrels.COVID_ROUND4_CUMULATIVE
-    elif collection_name == 'covid_round5':
+    elif collection_name == 'covid-round5':
         qrels = JQrels.COVID_ROUND5
-    elif collection_name == 'covid_complete':
+    elif collection_name == 'covid-complete':
         qrels = JQrels.COVID_COMPLETE
-    elif collection_name == 'trec2018_bl':
+    elif collection_name == 'trec2018-bl':
         qrels = JQrels.TREC2018_BL
-    elif collection_name == 'trec2019_bl':
+    elif collection_name == 'trec2019-bl':
         qrels = JQrels.TREC2019_BL
     if qrels:
         target_path = os.path.join(get_cache_home(), qrels.path)
