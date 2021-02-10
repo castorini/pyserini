@@ -72,7 +72,7 @@ Conveniently, Pyserini already knows how to load and iterate through these pairs
 We can now perform retrieval using these queries:
 
 ```bash
-python -m pyserini.search --topics msmarco_passage_dev_subset \
+python -m pyserini.search --topics msmarco-passage-dev-subset \
  --index indexes/lucene-index-msmarco-passage \
  --output runs/run.msmarco-passage.bm25tuned.txt \
  --bm25 --msmarco --hits 1000 --k1 0.82 --b 0.68

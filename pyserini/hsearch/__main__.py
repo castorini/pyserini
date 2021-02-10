@@ -76,7 +76,7 @@ if __name__ == '__main__':
 
     run_parser = commands.add_parser('run')
     run_parser.add_argument('--topics', type=str, metavar='topic_name', required=False,
-                            help="Name of topics. Available: msmarco_passage_dev_subset.")
+                            help="Name of topics. Available: msmarco-passage-dev-subset.")
     run_parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
     run_parser.add_argument('--msmarco', action='store_true', default=False, help="Output in MS MARCO format.")
     run_parser.add_argument('--output', type=str, metavar='path', required=False, help="Path to output file.")

@@ -50,7 +50,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         searcher = SimpleFusionSearcher(index_dirs, method=FusionMethod.RRF)
 
-        runs, topics = [], get_topics('covid_round2')
+        runs, topics = [], get_topics('covid-round2')
         for topic in tqdm(sorted(topics.keys())):
             query = topics[topic]['question'] + ' ' + topics[topic]['query']
             hits = searcher.search(query, k=10000, query_generator=None, strip_segment_id=True, remove_dups=True)

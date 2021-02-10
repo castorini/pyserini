@@ -362,10 +362,10 @@ INDEX_INFO = {
     "msmarco-passage-tct_colbert-hnsw": {
         "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as HNSW index",
         "urls": [
-            "https://www.dropbox.com/s/dsmtv6asjpd9lkc/dindex-hnsw-msmarco-passage-20210112-be7119.tar.gz?dl=1",
+            "https://www.dropbox.com/s/xrsjn38lk3axfdd/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz?dl=1",
         ],
-        "md5": "732773b80dae174b3d372a56b6a55a0d",
-        "size compressed (bytes)": 33359123138,
+        "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
+        "size compressed (bytes)": 33359100887,
         "total_terms": 352316036,
         "documents": 8841823,
         "unique_terms": 2660824,
@@ -374,10 +374,10 @@ INDEX_INFO = {
     "msmarco-passage-tct_colbert-bf": {
         "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as brute force index",
         "urls": [
-            "https://www.dropbox.com/s/uwwo2xigvhx3bz7/dindex-faissbf-msmarco-passage-20210112-be7119.tar.gz?dl=1",
+            "https://www.dropbox.com/s/sgmugleqwwirx3n/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz?dl=1",
         ],
-        "md5": "ca89a411b111d46b7a579f200d3ac1f5",
-        "size compressed (bytes)": 25204501665,
+        "md5": "7312e0e7acec2a686e994902ca064fc5",
+        "size compressed (bytes)": 25204514289,
         "total_terms": 352316036,
         "documents": 8841823,
         "unique_terms": 2660824,
@@ -386,10 +386,10 @@ INDEX_INFO = {
     "wikipedia-dpr-multi-bf": {
         "description": "Wikipedia corpus encoded by DPR doc encoder trained on multiset, indexed as brute force index",
         "urls": [
-            "https://www.dropbox.com/s/6o4lbi626j0mc4e/dindex-faissbf-wikipedia-dpr-multi-20200127-f403c3.tar.gz?dl=1",
+            "https://www.dropbox.com/s/9g4e2ps73lf4ysl/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz?dl=1",
         ],
-        "md5": "b3a6bdc4ece29ebe777cc5e1f7d64d4e",
-        "size compressed (bytes)": 59836766531,
+        "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
+        "size compressed (bytes)": 59836766981,
         "documents": 21015320,
         "downloaded": False
     },
@@ -420,10 +420,10 @@ INDEX_INFO = {
     "msmarco-doc-tct_colbert-bf": {
         "description": "MS MARCO document corpus encoded by TCT-ColBERT and indexed as brute force index",
         "urls": [
-            "https://www.dropbox.com/s/tsf0oudr98bb0tq/msmarco-doc-tct_colbert-bf.tar.gz?dl=1",
+            "https://www.dropbox.com/s/jse0j82l4ouqdna/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz?dl=1",
         ],
-        "md5": "cb85d46e8a9205829ada11f6534c12b2",
-        "size compressed (bytes)": 58514326130,
+        "md5": "f0b4c3bff3bb685be5c475511004c3b0",
+        "size compressed (bytes)": 58514325936,
         "documents": 20544550,
         "downloaded": False
     },

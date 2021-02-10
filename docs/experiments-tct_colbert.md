@@ -11,7 +11,7 @@ You'll need a Pyserini [development installation](https://github.com/castorini/p
 MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, brute force index.
 
 ```bash
-$ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
+$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-bf \
                              --batch-size 36  \
                              --threads 12  \
@@ -49,7 +49,7 @@ NOTE: Using GPU query encoding will give slightly different result. (E.g. MRR @1
 
 MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, HNSW index.
 ```bash
-$ python -m pyserini.dsearch --topics msmarco_passage_dev_subset \
+$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-hnsw \
                              --output runs/run.msmarco-passage.tct_colbert.hnsw.tsv \
                              --msmarco 
@@ -95,7 +95,7 @@ python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-bf \
                                    --batch-size 36 --threads 12 \
                              sparse --index msmarco-passage \
                              fusion --alpha 0.12 \
-                             run  --topics msmarco_passage_dev_subset \
+                             run  --topics msmarco-passage-dev-subset \
                                   --output runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv \
                                   --msmarco
 ```
@@ -137,7 +137,7 @@ python -m pyserini.hsearch   dense --index msmarco-passage-tct_colbert-bf \
                                    --batch-size 36 --threads 12 \
                              sparse --index msmarco-passage-expanded \
                              fusion --alpha 0.22 \
-                             run  --topics msmarco_passage_dev_subset \
+                             run  --topics msmarco-passage-dev-subset \
                                   --output runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv \
                                   --msmarco
 ```
@@ -173,7 +173,7 @@ on [Hugging Face](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main
 MS MARCO document ranking task, dense retrieval with TCT-ColBERT trained on MS MARCO passages, brute force index.
 
 ```bash
-$ python -m pyserini.dsearch --topics msmarco_doc_dev \
+$ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --index msmarco-doc-tct_colbert-bf \
                              --encoder castorini/tct_colbert-msmarco \
                              --output runs/run.msmarco-doc.passage.tct_colbert.txt \
@@ -215,7 +215,7 @@ python -m pyserini.hsearch   dense --index msmarco-doc-tct_colbert-bf \
                                    --batch-size 36 --threads 12 \
                              sparse --index msmarco-doc-expanded-per-passage \
                              fusion --alpha 0.32 \
-                             run  --topics msmarco_doc_dev \
+                             run  --topics msmarco-doc-dev \
                                   --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv \
                                   --hits 1000 --max-passage --max-passage-hits 100 \
                                   --msmarco
