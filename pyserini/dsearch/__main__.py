@@ -38,10 +38,6 @@ def define_dsearch_args(parser):
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
     parser.add_argument('--device', type=str, metavar='device to run query encoder', required=False, default='cpu',
                         help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
-    parser.add_argument('--batch-size', type=int, metavar='num', required=False, default=1,
-                        help="search batch of queries in parallel")
-    parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
-                        help="maximum threads to use during search")
 
 
 def init_query_encoder(encoder, topics_name, device):
@@ -80,6 +76,10 @@ if __name__ == '__main__':
                         help="Final number of hits when selecting only max passage.")
     parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
                         help="Delimiter between docid and passage id.")
+    parser.add_argument('--batch-size', type=int, metavar='num', required=False, default=1,
+                        help="search batch of queries in parallel")
+    parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
+                        help="maximum threads to use during search")
     define_dsearch_args(parser)
     args = parser.parse_args()
 

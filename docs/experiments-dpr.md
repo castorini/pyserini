@@ -65,12 +65,12 @@ Hybrid
 - sparse retrieval with BM25.
 
 ```bash
-$ python -m pyserini.hsearch   dense --index wikipedia-dpr-multi-bf \
-                                     --batch-size 72 --threads 72 \
+$ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 1.3 \
-                             run  --topics dpr-nq-test \
-                                  --output runs/run.nq-test.dpr.bf.bm25.trec 
+                             run    --topics dpr-nq-test \
+                                    --batch-size 72 --threads 72 \
+                                    --output runs/run.nq-test.dpr.bf.bm25.trec 
 ```
 
 To evaluate convert the TREC style run file to retrieval result file in `json` format
@@ -147,10 +147,10 @@ Hybrid
 
 ```bash
 $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
-                                    --batch-size 72 --threads 72 \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 0.95 \
                              run    --topics dpr-trivia-test \
+                                    --batch-size 72 --threads 72 \
                                     --output runs/run.trivia-test.dpr.bf.bm25.trec 
 ```
 
@@ -227,12 +227,12 @@ Hybrid
 - sparse retrieval with BM25.
 
 ```bash
-$ python -m pyserini.hsearch   dense --index wikipedia-dpr-multi-bf \
-                                     --batch-size 72 --threads 72 \
+$ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 0.95 \
-                             run  --topics dpr-wq-test \
-                                  --output runs/run.wq-test.dpr.bf.bm25.trec 
+                             run    --topics dpr-wq-test \
+                                    --batch-size 72 --threads 72 \
+                                    --output runs/run.wq-test.dpr.bf.bm25.trec 
 ```
 
 To evaluate convert the TREC style run file to retrieval result file in `json` format
@@ -308,12 +308,12 @@ Hybrid
 - sparse retrieval with BM25.
 
 ```bash
-$ python -m pyserini.hsearch   dense --index wikipedia-dpr-multi-bf \
-                                     --batch-size 72 --threads 72 \
+$ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 1.05 \
-                             run  --topics dpr-curated-test \
-                                  --output runs/run.curated-test.dpr.bf.bm25.trec 
+                             run    --topics dpr-curated-test \
+                                    --batch-size 72 --threads 72 \
+                                    --output runs/run.curated-test.dpr.bf.bm25.trec 
 ```
 
 To evaluate convert the TREC style run file to retrieval result file in `json` format
@@ -389,12 +389,12 @@ Hybrid
 - sparse retrieval with BM25.
 
 ```bash
-$ python -m pyserini.hsearch   dense --index wikipedia-dpr-multi-bf \
-                                     --batch-size 72 --threads 72 \
+$ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 2.00 \
-                             run  --topics dpr-squad-test \
-                                  --output runs/run.squad-test.dpr.bf.bm25.trec 
+                             run    --topics dpr-squad-test \
+                                    --batch-size 72 --threads 72 \
+                                    --output runs/run.squad-test.dpr.bf.bm25.trec 
 ```
 
 To evaluate convert the TREC style run file to retrieval result file in `json` format

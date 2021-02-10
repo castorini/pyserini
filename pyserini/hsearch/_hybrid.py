@@ -37,20 +37,20 @@ class HybridSearcher:
     def search(self, query: str, k: int = 10, alpha: float = 0.1) -> List[DenseSearchResult]:
         dense_hits = self.dense_searcher.search(query, k)
         sparse_hits = self.sparse_searcher.search(query, k)
-        return self._hybrid_results(dense_hits, sparse_hits, alpha)
+        return self._hybrid_results(dense_hits, sparse_hits, alpha, k)
 
     def batch_search(self, queries: List[str], q_ids: List[str], k: int = 10, threads: int = 1, alpha: float = 0.1) \
             -> Dict[str, List[DenseSearchResult]]:
         dense_result = self.dense_searcher.batch_search(queries, q_ids, k, threads)
         sparse_result = self.sparse_searcher.batch_search(queries, q_ids, k, threads)
         hybrid_result = {
-            key: self._hybrid_results(dense_result[key], sparse_result[key], alpha)
+            key: self._hybrid_results(dense_result[key], sparse_result[key], alpha, k)
             for key in dense_result
         }
         return hybrid_result
 
     @staticmethod
-    def _hybrid_results(dense_results, sparse_results, alpha):
+    def _hybrid_results(dense_results, sparse_results, alpha, k):
         dense_hits = {hit.docid: hit.score for hit in dense_results}
         sparse_hits = {hit.docid: hit.score for hit in sparse_results}
         hybrid_result = []
@@ -64,4 +64,4 @@ class HybridSearcher:
             else:
                 score = alpha * sparse_hits[doc] + dense_hits[doc]
             hybrid_result.append(DenseSearchResult(doc, score))
-        return sorted(hybrid_result, key=lambda x: x.score, reverse=True)
+        return sorted(hybrid_result, key=lambda x: x.score, reverse=True)[:k]
