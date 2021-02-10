@@ -98,10 +98,6 @@ def set_bm25_parameters(searcher, index, k1=None, b=None):
 def define_search_args(parser):
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                         help="Path to Lucene index or name of prebuilt index.")
-    parser.add_argument('--batch-size', type=int, metavar='num', required=False,
-                        default=1, help="Specify batch size to search the collection concurrently.")
-    parser.add_argument('--threads', type=int, metavar='num', required=False,
-                        default=1, help="Maximum number of threads to use.")
     parser.add_argument('--bm25', action='store_true', default=True, help="Use BM25 (default).")
     parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
     parser.add_argument('--b', type=float, help='BM25 b parameter.')
@@ -139,6 +135,10 @@ if __name__ == "__main__":
                         help="Final number of hits when selecting only max passage.")
     parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
                         help="Delimiter between docid and passage id.")
+    parser.add_argument('--batch-size', type=int, metavar='num', required=False,
+                        default=1, help="Specify batch size to search the collection concurrently.")
+    parser.add_argument('--threads', type=int, metavar='num', required=False,
+                        default=1, help="Maximum number of threads to use.")
     args = parser.parse_args()
 
     topics = get_topics(args.topics)
