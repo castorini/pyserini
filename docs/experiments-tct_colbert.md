@@ -183,8 +183,8 @@ $ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --max-passage \
                              --max-passage-hits 100 \
                              --msmarco \
-                             --batch-size 72 \
-                             --threads 72
+                             --batch-size 36 \
+                             --threads 12
 ```
 
 To compute the official metric MRR@100 using the official evaluation scripts:
