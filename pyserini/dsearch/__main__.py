@@ -46,14 +46,14 @@ def define_dsearch_args(parser):
 
 def init_query_encoder(encoder, topics_name, device):
     encoded_queries = {
-        'msmarco_passage_dev_subset': 'msmarco-passage-dev-subset-tct_colbert',
-        'dpr_nq_dev': 'dpr-nq-dev-multi',
-        'dpr_nq_test': 'dpr-nq-test-multi',
-        'dpr_trivia_dev': 'dpr-trivia_qa-dev-multi',
-        'dpr_trivia_test': 'dpr-trivia_qa-test-multi',
-        'dpr_wq_test': 'dpr-wq-test-multi',
-        'dpr_squad_test': 'dpr-squad-test-multi',
-        'dpr_curated_test': 'dpr-curated_trec-test-multi'
+        'msmarco-passage-dev-subset': 'msmarco-passage-dev-subset-tct_colbert',
+        'dpr-nq-dev': 'dpr-nq-dev-multi',
+        'dpr-nq-test': 'dpr-nq-test-multi',
+        'dpr-trivia-dev': 'dpr-trivia_qa-dev-multi',
+        'dpr-trivia-test': 'dpr-trivia_qa-test-multi',
+        'dpr-wq-test': 'dpr-wq-test-multi',
+        'dpr-squad-test': 'dpr-squad-test-multi',
+        'dpr-curated-test': 'dpr-curated_trec-test-multi'
 
 
     }
@@ -70,7 +70,7 @@ def init_query_encoder(encoder, topics_name, device):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Search a Faiss index.')
     parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
-                        help="Name of topics. Available: msmarco_passage_dev_subset.")
+                        help="Name of topics. Available: msmarco-passage-dev-subset.")
     parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
     parser.add_argument('--msmarco', action='store_true', default=False, help="Output in MS MARCO format.")
     parser.add_argument('--output', type=str, metavar='path', required=True, help="Path to output file.")
