@@ -154,11 +154,18 @@ def check_downloaded(index_name):
     return os.path.exists(index_path)
 
 
-def get_indexes_info(dense=False):
-    if dense:
-        df = pd.DataFrame.from_dict(DINDEX_INFO)
-    else:
-        df = pd.DataFrame.from_dict(INDEX_INFO)
+def get_sparse_indexes_info():
+    df = pd.DataFrame.from_dict(INDEX_INFO)
+    for index in df.keys():
+        df[index]['downloaded'] = check_downloaded(index)
+
+    with pd.option_context('display.max_rows', None, 'display.max_columns',
+                           None, 'display.max_colwidth', -1, 'display.colheader_justify', 'left'):
+        print(df)
+
+
+def get_dense_indexes_info():
+    df = pd.DataFrame.from_dict(DINDEX_INFO)
     for index in df.keys():
         df[index]['downloaded'] = check_downloaded(index)
 

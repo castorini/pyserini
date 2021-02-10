@@ -26,7 +26,7 @@ from ._base import Document, JQuery, JQueryGenerator
 from pyserini.pyclass import autoclass, JString, JArrayList
 from pyserini.trectools import TrecRun
 from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
-from pyserini.util import download_prebuilt_index, get_indexes_info
+from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
 
 logger = logging.getLogger(__name__)
 
@@ -77,7 +77,7 @@ class SimpleSearcher:
     @staticmethod
     def list_prebuilt_indexes():
         """Display information about available prebuilt indexes."""
-        get_indexes_info()
+        get_sparse_indexes_info()
 
     def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
         """Search the collection.
