@@ -10,12 +10,12 @@ You'll need a Pyserini [development installation](https://github.com/castorini/p
 
 Summary of results:
 
-| Condition | MRR@10 |
-|:----------|:-------|
-| TCT-ColBERT (brute-force index) | 0.3350 |
-| TCT-ColBERT (HNSW index) | 0.3345 |
-| TCT-ColBERT (brute-force index) + BoW BM25 | 0.3529 |
-| TCT-ColBERT (brute-force index) + BM25 w/ doc2query-T5 | 0.3647 |
+| Condition | MRR@10 | MAP | Recall@1000 |
+|:----------|-------:|----:|------------:|
+| TCT-ColBERT (brute-force index) | 0.3350 | 0.3416 | 0.9640 |
+| TCT-ColBERT (HNSW index) | 0.3345 | 0.3410 | 0.9618 |
+| TCT-ColBERT (brute-force index) + BoW BM25 | 0.3529 | 0.3594 | 0.9698 |
+| TCT-ColBERT (brute-force index) + BM25 w/ doc2query-T5 | 0.3647 | 0.3711 | 0.9751 |
 
 ## Dense Retrieval
 
