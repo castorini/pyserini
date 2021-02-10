@@ -99,13 +99,13 @@ Pyserini also supports hybrid ranking with dense-sparse representations (without
 - sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
 
 ```bash
-python -m pyserini.hsearch dense --index msmarco-passage-tct_colbert-bf \
-                                 --batch-size 36 --threads 12 \
-                           sparse --index msmarco-passage \
-                           fusion --alpha 0.12 \
-                           run  --topics msmarco-passage-dev-subset \
-                                --output runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv \
-                                --msmarco
+$ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
+                             sparse --index msmarco-passage \
+                             fusion --alpha 0.12 \
+                             run    --topics msmarco-passage-dev-subset \
+                                    --output runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv \
+                                    --batch-size 36 --threads 12 \
+                                    --msmarco
 ```
 
 To evaluate:
@@ -135,13 +135,13 @@ Finally, hybrid ranking with dense-sparse representations (with document expansi
 - sparse retrieval with doc2query-T5 expanded index.
 
 ```bash
-python -m pyserini.hsearch dense --index msmarco-passage-tct_colbert-bf \
-                                 --batch-size 36 --threads 12 \
-                           sparse --index msmarco-passage-expanded \
-                           fusion --alpha 0.22 \
-                           run  --topics msmarco-passage-dev-subset \
-                                --output runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv \
-                                --msmarco
+$ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
+                             sparse --index msmarco-passage-expanded \
+                             fusion --alpha 0.22 \
+                             run    --topics msmarco-passage-dev-subset \
+                                    --output runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv \
+                                    --batch-size 36 --threads 12 \
+                                    --msmarco
 ```
 
 To evaluate:
@@ -218,15 +218,15 @@ Dense-sparse hybrid retrieval (with document expansion):
 - sparse retrieval with doc2query-T5 expanded index.
 
 ```bash
-$ python -m pyserini.hsearch dense --index msmarco-doc-tct_colbert-bf \
-                                   --encoder castorini/tct_colbert-msmarco \
-                                   --batch-size 36 --threads 12 \
+$ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
+                                    --encoder castorini/tct_colbert-msmarco \
                              sparse --index msmarco-doc-expanded-per-passage \
                              fusion --alpha 0.32 \
-                             run  --topics msmarco-doc-dev \
-                                  --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv \
-                                  --hits 1000 --max-passage --max-passage-hits 100 \
-                                  --msmarco
+                             run    --topics msmarco-doc-dev \
+                                    --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv \
+                                    --hits 1000 --max-passage --max-passage-hits 100 \
+                                    --batch-size 36 --threads 12 \
+                                    --msmarco
 ```
 
 To compute the official metric MRR@100 using the official evaluation scripts:

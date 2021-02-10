@@ -86,6 +86,10 @@ if __name__ == '__main__':
                             help="Final number of hits when selecting only max passage.")
     run_parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
                             help="Delimiter between docid and passage id.")
+    run_parser.add_argument('--batch-size', type=int, metavar='num', required=False,
+                            default=1, help="Specify batch size to search the collection concurrently.")
+    run_parser.add_argument('--threads', type=int, metavar='num', required=False,
+                            default=1, help="Maximum number of threads to use.")
 
     args = parse_args(parser, commands)
 
@@ -144,16 +148,16 @@ if __name__ == '__main__':
         batch_topics = list()
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
-            if args.dense.batch_size <= 1 and args.dense.threads <= 1:
+            if args.run.batch_size <= 1 and args.run.threads <= 1:
                 hits = hsearcher.search(text, args.run.hits, args.fusion.alpha)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
                 batch_topics.append(text)
-                if (index + 1) % args.dense.batch_size == 0 or \
+                if (index + 1) % args.run.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
                     results = hsearcher.batch_search(
-                        batch_topics, batch_topic_ids, args.run.hits, args.dense.threads, args.fusion.alpha)
+                        batch_topics, batch_topic_ids, args.run.hits, args.run.threads, args.fusion.alpha)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
