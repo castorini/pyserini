@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     retrieval = {}
     with open(args.input) as f_in:
-        for line in tqdm(f_in):
+        for line in tqdm(f_in.readlines()):
             question_id, _, doc_id, _, score, _ = line.strip().split()
             question_id = int(question_id)
             question = qas[question_id]['title']
