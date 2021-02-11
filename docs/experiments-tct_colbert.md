@@ -173,7 +173,7 @@ Summary of results:
 | Condition | MRR@10 | MAP | Recall@1000 |
 |:----------|-------:|----:|------------:|
 | TCT-ColBERT (brute-force index) | 0.3323 | 0.3323 | 0.8664 |
-| TCT-ColBERT (brute-force index) + BoW BM25 | - | - | - |
+| TCT-ColBERT (brute-force index) + BoW BM25 | 0.3701 | 0.3701 | 0.9020 |
 | TCT-ColBERT (brute-force index) + BM25 w/ doc2query-T5 | 0.3784 | 0.3784 | 0.9081 |
 
 Although this is not described in the paper, we have adapted TCT-ColBERT to the MS MARCO document ranking task in a zero-shot manner.
@@ -211,6 +211,41 @@ $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.m
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap tools/topics-and-qrels/qrels.msmarco-doc.dev.txt runs/run.msmarco-doc.passage.tct_colbert.trec
 map                   	all	0.3323
 recall_100            	all	0.8664
+```
+
+Dense-sparse hybrid retrieval (without document expansion):
+- dense retrieval with TCT-ColBERT, brute force index.
+- sparse retrieval with BoW BM25 index.
+
+```bash
+$ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
+                                    --encoder castorini/tct_colbert-msmarco \
+                             sparse --index msmarco-doc-per-passage \
+                             fusion --alpha 0.25 \
+                             run    --topics msmarco-doc-dev \
+                                    --output runs/run.msmarco-doc.tct_colbert.bf.bm25.tsv \
+                                    --hits 1000 --max-passage --max-passage-hits 100 \
+                                    --batch-size 36 --threads 12 \
+                                    --msmarco
+```
+
+To compute the official metric MRR@100 using the official evaluation scripts:
+
+```bash
+$ python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt --run runs/run.msmarco-doc.tct_colbert.bf.bm25.tsv
+#####################
+MRR @100: 0.37010655317790453
+QueriesRanked: 5193
+#####################
+```
+
+To compute additional metrics using `trec_eval`, we first need to convert the run to TREC format:
+
+```bash
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-doc.tct_colbert.bf.bm25.tsv --output runs/run.msmarco-doc.tct_colbert.bf.bm25.trec
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap tools/topics-and-qrels/qrels.msmarco-doc.dev.txt runs/run.msmarco-doc.tct_colbert.bf.bm25.trec
+map                   	all	0.3701
+recall_100            	all	0.9020
 ```
 
 Dense-sparse hybrid retrieval (with document expansion):
