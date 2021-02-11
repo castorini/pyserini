@@ -22,7 +22,7 @@ from tqdm import tqdm
 from pyserini.ltr import *
 
 
-def train_data_loader(task='rank', neg_sample=10, random_seed=12345):
+def train_data_loader(task, neg_sample, random_seed=12345):
     if os.path.exists(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle'):
         sampled_train = pd.read_pickle(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
         print(sampled_train.shape)
@@ -91,7 +91,7 @@ def train_data_loader(task='rank', neg_sample=10, random_seed=12345):
         return sampled_train
 
 
-def dev_data_loader(task='anserini'):
+def dev_data_loader(task):
     if os.path.exists(f'dev_{task}.pickle'):
         dev = pd.read_pickle(f'dev_{task}.pickle')
         print(dev.shape)
