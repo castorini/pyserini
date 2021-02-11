@@ -57,6 +57,9 @@ Assuming all tests pass, you should be ready to go!
 + [How do I fetch a document?](#how-do-i-fetch-a-document)
 + [How do I search my own documents?](#how-do-i-search-my-own-documents)
 + [How do I replicate results on Robust04, MS MARCO...?](#replication-guides)
++ [How do I configure search?](docs/usage-interactive-search.md#how-do-i-configure-search) (Guide to Interactive Search)
++ [How do I manually download indexes?](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) (Guide to Interactive Search)
++ [How do I perform dense and hybrid retrieval?](docs/usage-interactive-search.md#how-do-i-perform-dense-and-hybrid-retrieval) (Guide to Interactive Search)
 + [How do I iterate over index terms and access term statistics?](docs/usage-indexreader.md#how-do-i-iterate-over-index-terms-and-access-term-statistics) (Index Reader API)
 + [How do I traverse postings?](docs/usage-indexreader.md#how-do-i-traverse-postings) (Index Reader API)
 + [How do I access and manipulate term vectors?](docs/usage-indexreader.md#how-do-i-access-and-manipulate-term-vectors) (Index Reader API)
@@ -68,75 +71,48 @@ Assuming all tests pass, you should be ready to go!
 
 ## How do I search?
 
-The `SimpleSearcher` class provides the entry point for searching.
+Pyserini supports sparse retrieval (e.g., BM25 ranking using bag-of-words representations), dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), 
+as well hybrid retrieval that integrates both approaches. 
+Sparse retrieval is the most mature feature in Pyserini; dense and hybrid retrieval are relatively new capabilities that aren't fully stable (yet).
+
+The `SimpleSearcher` class provides the entry point for sparse retrieval.
 Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
-Here's one on TREC Disks 4 &amp; 5, used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md):
+Here's how to use a pre-built index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively:
 
 ```python
 from pyserini.search import SimpleSearcher
 
-searcher = SimpleSearcher.from_prebuilt_index('robust04')
-hits = searcher.search('hubble space telescope')
+searcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+hits = searcher.search('what is a lobster roll?')
 
-# Print the first 10 hits:
 for i in range(0, 10):
-    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
 ```
 
 The results should be as follows:
 
 ```
- 1 LA071090-0047   16.85690
- 2 FT934-5418      16.75630
- 3 FT921-7107      16.68290
- 4 LA052890-0021   16.37390
- 5 LA070990-0052   16.36460
- 6 LA062990-0180   16.19260
- 7 LA070890-0154   16.15610
- 8 FT934-2516      16.08950
- 9 LA041090-0148   16.08810
-10 FT944-128       16.01920
+ 1 7157707 11.00830
+ 2 6034357 10.94310
+ 3 5837606 10.81740
+ 4 7157715 10.59820
+ 5 6034350 10.48360
+ 6 2900045 10.31190
+ 7 7157713 10.12300
+ 8 1584344 10.05290
+ 9 533614  9.96350
+10 6234461 9.92200
 ```
 
 To further examine the results:
 
-```
+```python
 # Grab the raw text:
 hits[0].raw
 
 # Grab the raw Lucene Document:
 hits[0].lucene_document
 ```
-
-Configure BM25 parameters and use RM3 query expansion:
-
-```python
-searcher.set_bm25(0.9, 0.4)
-searcher.set_rm3(10, 10, 0.5)
-
-hits2 = searcher.search('hubble space telescope')
-
-# Print the first 10 hits:
-for i in range(0, 10):
-    print(f'{i+1:2} {hits2[i].docid:15} {hits2[i].score:.5f}')
-```
-
-More generally, `SimpleSearcher` can be initialized with a location to an index.
-For example, you can download the same pre-built index as above by hand:
-
-```bash
-wget https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz
-tar xvfz index-robust04-20191213.tar.gz -C indexes
-rm index-robust04-20191213.tar.gz
-```
-
-And initialize `SimpleSearcher` as follows:
-
-```python
-searcher = SimpleSearcher('indexes/index-robust04-20191213/')
-```
-
-The result will be exactly the same.
 
 Pre-built Anserini indexes are hosted at the University of Waterloo's [GitLab](https://git.uwaterloo.ca/jimmylin/anserini-indexes) and mirrored on Dropbox.
 The following method will list available pre-built indexes:
@@ -146,44 +122,54 @@ SimpleSearcher.list_prebuilt_indexes()
 ```
 
 A description of what's available can be found [here](docs/prebuilt-indexes.md).
+Alternatively, see [this answer](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) for how to download an index manually.
 
-### Sparse, Dense and Hybrid Search
-Pyserini supports sparse retrieval (e.g., BM25 scoring using bag-of-words representations), 
-dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), 
-as well hybrid retrieval that integrates both approaches. 
-
-Please see [here](docs/examples-interactive-search.md) for detailed examples.
+For a guide to dense retrieval and hybrid retrieval, see [this answer](docs/usage-interactive-search.md#how-do-i-perform-dense-and-hybrid-retrieval).
 
 ## How do I fetch a document?
 
-The other commonly used feature is to fetch a document given its `docid`.
+Another commonly used feature in Pyserini is to fetch a document (i.e., its text) given its `docid`.
 This is easy to do:
 
 ```python
-doc = searcher.doc('LA071090-0047')
+from pyserini.search import SimpleSearcher
+
+searcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+doc = searcher.doc('7157715')
 ```
 
 From `doc`, you can access its `contents` as well as its `raw` representation.
 The `contents` hold the representation of what's actually indexed; the `raw` representation is usually the original "raw document".
 A simple example can illustrate this distinction: for an article from CORD-19, `raw` holds the complete JSON of the article, which obviously includes the article contents, but has metadata and other information as well.
-The `contents` are extracts from the article that's actually indexed (for example, the title and abstract).
-In most cases, `contents` can be deterministically reconstructed from the `raw`.
-When building the index, we specify flags to store `contents` and/or `raw`; it's rarely the case we store both, since it's usually a waste of space.
-In the case of the pre-built `robust04` index, we only store `raw`.
+The `contents` contain extracts from the article that's actually indexed (for example, the title and abstract).
+In most cases, `contents` can be deterministically reconstructed from `raw`.
+When building the index, we specify flags to store `contents` and/or `raw`; it is rarely the case that we store both, since that would be a waste of space.
+In the case of the pre-built `msmacro-passage` index, we only store `raw`.
 Thus:
 
 ```python
 # Document contents: what's actually indexed.
-# Note, this is not stored in the pre-built robust04 index.
+# Note, this is not stored in the pre-built msmacro-passage index.
 doc.contents()
                                                                                                    
 # Raw document
 doc.raw()
 ```
 
-As you'd expected, `doc.id()` returns the `docid`, which is `LA071090-0047` in this case.
+As you'd expected, `doc.id()` returns the `docid`, which is `7157715` in this case.
 Finally, `doc.lucene_document()` returns the underlying Lucene `Document` (i.e., a Java object).
 With that, you get direct access to the complete Lucene API for manipulating documents.
+
+Since each text in the MS MARCO passage corpus is a JSON object, we can read the document into Python and manipulate:
+
+```python
+import json
+json_doc = json.loads(doc.raw())
+
+json_doc['contents']
+# 'contents' of the document:
+# A Lobster Roll is a bread roll filled with bite-sized chunks of lobster meat...
+```
 
 Every document has a `docid`, of type string, assigned by the collection it is part of.
 In addition, Lucene assigns each document a unique internal id (confusingly, Lucene also calls this the `docid`), which is an integer numbered sequentially starting from zero to one less than the number of documents in the index.
@@ -264,15 +250,21 @@ Happy honking!
 With Pyserini, it's easy to replicate runs on a number of standard IR test collections!
 
 + The easiest way, start here: [Replicating runs directly from the Python package](docs/pypi-replication.md)
-+ [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
-+ [Guide to running the BM25 baseline for the MS MARCO Document Retrieval Task](docs/experiments-msmarco-doc.md)
-+ [Guide to running the TCT_ColBERT baseline for the MS MARCO Passage Retrieval Task](docs/experiments-tct_colbert.md)
-+ [Guide to running the DPR baseline for the Open Domain QA Tasks](docs/experiments-dpr.md)
++ [Guide to replicating the BM25 baseline for MS MARCO Passage Ranking](docs/experiments-msmarco-passage.md)
++ [Guide to replicating the BM25 baseline for MS MARCO Document Ranking](docs/experiments-msmarco-doc.md)
++ [Guide to replicating Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
++ [Guide to replicating TCT-ColBERT experiments for MS MARCO Passage/Document Ranking](docs/experiments-tct_colbert.md)
++ [Guide to replicating DPR experiments for Open-Domain QA](docs/experiments-dpr.md)
++ [Guide to replicating BM25 Baselines for KILT](docs/experiments-kilt.md)
 
 ## Additional Documentation
 
-+ [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
++ [Guide to pre-built indexes](docs/prebuilt-indexes.md)
++ [Guide to interactive searching](docs/usage-interactive-search.md)
 + [Guide to text classification with the 20Newsgroups dataset](docs/20newgroups.md)
++ [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
++ [Guide to working with entity linking](https://github.com/castorini/pyserini/blob/master/docs/working-with-entity-linking.md)
++ [Guide to working with spaCy](https://github.com/castorini/pyserini/blob/master/docs/working-with-spacy.md)
 + [Usage of the Analyzer API](docs/usage-analyzer.md)
 + [Usage of the Index Reader API](docs/usage-indexreader.md)
 + [Usage of the Query Builder API](docs/usage-querybuilder.md)
