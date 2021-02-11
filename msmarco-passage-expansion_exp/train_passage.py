@@ -437,8 +437,8 @@ def save_exp(dirname,
 if __name__ == '__main__':
     os.environ["ANSERINI_CLASSPATH"] = "../pyserini/resources/jars"
     total_start_time = time.time()
-    sampled_train = train_data_loader(task='triple', neg_sample=20)
-    dev, dev_qrel = dev_data_loader(task='pygaggle')
+    sampled_train = train_data_loader(task='rank', neg_sample=20)
+    dev, dev_qrel = dev_data_loader(task='anserini')
     queries = query_loader()
 
     fe = FeatureExtractor('../indexes/lucene-msmarco-passage-flex-ent-expanded',
