@@ -90,7 +90,7 @@ $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 1.3 \
                              run    --topics dpr-nq-test \
-                                    --batch-size 72 --threads 72 \
+                                    --batch-size 36 --threads 12 \
                                     --output runs/run.nq-test.dpr.bf.bm25.trec 
 ```
 
@@ -117,7 +117,7 @@ Run DPR retrieval with Wikipedia brute force index
 $ python -m pyserini.dsearch --topics dpr-trivia-test \
                              --index wikipedia-dpr-multi-bf \
                              --output runs/run.dpr.trivia.multi.bf.trec \
-                             --batch 72 --threads 72
+                             --batch-size 36 --threads 12
 ```
 
 To evaluate convert the TREC style run file to retrieval result file in `json` format
@@ -171,7 +171,7 @@ $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 0.95 \
                              run    --topics dpr-trivia-test \
-                                    --batch-size 72 --threads 72 \
+                                    --batch-size 36 --threads 12 \
                                     --output runs/run.trivia-test.dpr.bf.bm25.trec 
 ```
 
@@ -198,7 +198,7 @@ Run DPR retrieval with Wikipedia brute force index
 $ python -m pyserini.dsearch --topics dpr-wq-test \
                              --index wikipedia-dpr-multi-bf \
                              --output runs/run.dpr.wq.multi.bf.trec \
-                             --batch 72 --threads 72
+                             --batch-size 36 --threads 12
 ```
 
 To evaluate convert the TREC style run file to retrieval result file in `json` format
@@ -252,7 +252,7 @@ $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 0.95 \
                              run    --topics dpr-wq-test \
-                                    --batch-size 72 --threads 72 \
+                                    --batch-size 36 --threads 12 \
                                     --output runs/run.wq-test.dpr.bf.bm25.trec 
 ```
 
@@ -279,7 +279,7 @@ Run DPR retrieval with Wikipedia brute force index
 $ python -m pyserini.dsearch --topics dpr-curated-test \
                              --index wikipedia-dpr-multi-bf \
                              --output runs/run.dpr.curated.multi.bf.trec \
-                             --batch 72 --threads 72
+                             --batch-size 36 --threads 12
 ```
 
 To evaluate convert the TREC style run file to retrieval result file in `json` format
@@ -333,7 +333,7 @@ $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 1.05 \
                              run    --topics dpr-curated-test \
-                                    --batch-size 72 --threads 72 \
+                                    --batch-size 36 --threads 12 \
                                     --output runs/run.curated-test.dpr.bf.bm25.trec 
 ```
 
@@ -360,7 +360,7 @@ Run DPR retrieval with Wikipedia brute force index
 $ python -m pyserini.dsearch --topics dpr-squad-test \
                              --index wikipedia-dpr-multi-bf \
                              --output runs/run.dpr.squad.multi.bf.trec \
-                             --batch 72 --threads 72
+                             --batch-size 36 --threads 12
 ```
 
 To evaluate convert the TREC style run file to retrieval result file in `json` format
@@ -414,7 +414,7 @@ $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 2.00 \
                              run    --topics dpr-squad-test \
-                                    --batch-size 72 --threads 72 \
+                                    --batch-size 36 --threads 12 \
                                     --output runs/run.squad-test.dpr.bf.bm25.trec 
 ```
 
