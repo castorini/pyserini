@@ -19,7 +19,7 @@ Summary of results:
 
 ## Dense Retrieval
 
-MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, brute-force index:
+Dense retrieval with TCT-ColBERT, brute-force index:
 
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
@@ -61,7 +61,7 @@ Note that we have observed minor differences in MRR@10 depending on the source o
 We have noticed differences in MRR@10 between Linux and macOS as well.
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a replicability perspective.
 
-MS MARCO passage ranking task, dense retrieval with TCT-ColBERT, HNSW index:
+Dense retrieval with TCT-ColBERT, HNSW index:
 
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
