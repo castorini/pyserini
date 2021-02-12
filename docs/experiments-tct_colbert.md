@@ -158,7 +158,7 @@ The caveat about minor differences in score applies here as well.
 
 Summary of results:
 
-| Condition | MRR@10 | MAP | Recall@1000 |
+| Condition | MRR@10 | MAP | Recall@100 |
 |:----------|-------:|----:|------------:|
 | TCT-ColBERT (brute-force index) | 0.3323 | 0.3323 | 0.8664 |
 | TCT-ColBERT (brute-force index) + BoW BM25 | 0.3701 | 0.3701 | 0.9020 |
