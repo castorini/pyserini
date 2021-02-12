@@ -90,7 +90,7 @@ The caveat about minor differences in score applies here as well.
 
 ## Hybrid Dense-Sparse Retrieval
 
-Pyserini also supports hybrid ranking with dense-sparse representations (without document expansion):
+Hybrid retrieval with dense-sparse representations (without document expansion):
 - dense retrieval with TCT-ColBERT, brute force index.
 - sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
 
@@ -122,7 +122,7 @@ recall_1000           	all	0.9698
 Follow the same instructions above to perform on-the-fly query encoding.
 The caveat about minor differences in score applies here as well.
 
-Finally, hybrid ranking with dense-sparse representations (with document expansion):
+Hybrid retrieval with dense-sparse representations (with document expansion):
 - dense retrieval with TCT-ColBERT, brute force index.
 - sparse retrieval with doc2query-T5 expanded index.
 
