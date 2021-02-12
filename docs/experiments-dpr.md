@@ -24,11 +24,11 @@ Here's how our results stack up against results reported in the paper:
 | CuratedTREC | BM25          | 70.9          | 80.7       | 84.1           | 89.9        |
 | CuratedTREC | DPR           | 89.1          | 88.8       | 93.9           | 93.4        |
 | CuratedTREC | Hybrid (1.05) | 88.5          | 90.1       | 94.1           | 95.0        |
-| SQUAD       | BM25          | 68.8          | 71.1       | 80.0           | 81.8        |
-| SQUAD       | DPR           | 51.6          | 52.0       | 67.6           | 67.7        |
-| SQUAD       | Hybrid (2.00) | 66.2          | 75.1       | 78.6           | 84.3        |
+| SQuAD       | BM25          | 68.8          | 71.1       | 80.0           | 81.8        |
+| SQuAD       | DPR           | 51.6          | 52.0       | 67.6           | 67.7        |
+| SQuAD       | Hybrid (2.00) | 66.2          | 75.1       | 78.6           | 84.3        |
 
-## Natural Questions
+## Natural Questions (NQ)
 
 **DPR retrieval** with brute-force index:
 
@@ -166,7 +166,7 @@ Top20  accuracy: 0.8263944135065854
 Top100 accuracy: 0.8654645098559179
 ```
 
-## Web Questions
+## WebQuestions (WQ)
 
 **DPR retrieval** with brute-force index:
 
@@ -235,7 +235,7 @@ Top20  accuracy: 0.7711614173228346
 Top100 accuracy: 0.843996062992126
 ```
 
-## Curated TREC
+## CuratedTREC
 
 **DPR retrieval** with brute-force index:
 
@@ -304,7 +304,7 @@ Top20  accuracy: 0.9005763688760807
 Top100 accuracy: 0.9495677233429395
 ```
 
-## SQUAD
+## SQuAD
 
 **DPR retrieval** with brute-force index:
 
@@ -373,3 +373,7 @@ $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.squad-
 Top20  accuracy: 0.7510879848628192
 Top100 accuracy: 0.8437086092715231
 ```
+
+## Replication Log
+
++ Results replicated by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
