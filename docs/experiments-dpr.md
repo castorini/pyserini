@@ -15,8 +15,8 @@ Here's how our results stack up against results reported in the paper:
 | NQ          | DPR           | 79.4          | 79.5       | 86.0           | 86.1        |
 | NQ          | BM25          | 59.1          | 62.9       | 73.7           | 78.3        |
 | NQ          | Hybrid (1.30) | 78.0          | 82.6       | 83.9           | 88.6        |
-| TriviaQA    | DPR           | 78.8          | 78.8       | 84.7           | 84.8        |
-| TriviaQA    | BM25          | 66.0          | 76.4       | 76.7           | 83.2        |
+| TriviaQA    | DPR           | 78.8          | 78.9       | 84.7           | 84.8        |
+| TriviaQA    | BM25          | 66.9          | 76.4       | 76.7           | 83.2        |
 | TriviaQA    | Hybrid (0.95) | 79.9          | 82.6       | 84.4           | 86.5        |
 | WQ          | DPR           | 75.0          | 75.0       | 82.9           | 83.0        |
 | WQ          | BM25          | 55.0          | 62.4       | 71.1           | 75.5        |
@@ -26,7 +26,7 @@ Here's how our results stack up against results reported in the paper:
 | CuratedTREC | Hybrid (1.05) | 88.5          | 90.1       | 94.1           | 95.0        |
 | SQuAD       | DPR           | 51.6          | 52.0       | 67.6           | 67.7        |
 | SQuAD       | BM25          | 68.8          | 71.1       | 80.0           | 81.8        |
-| SQuAD       | Hybrid (2.00) | 66.2          | 75.1       | 78.6           | 84.3        |
+| SQuAD       | Hybrid (2.00) | 66.2          | 75.1       | 78.6           | 84.4        |
 
 ## Natural Questions (NQ)
 
