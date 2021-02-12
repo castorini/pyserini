@@ -161,7 +161,7 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-trivia-t
                                                            --input runs/run.dpr.trivia-test.multi.bf.bm25.trec \
                                                            --output runs/run.dpr.trivia-test.multi.bf.bm25.json 
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval run.dpr.trivia-test.multi.bf.bm25.json --topk 20 100
+$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.trivia-test.multi.bf.bm25.json --topk 20 100
 Top20  accuracy: 0.8263944135065854
 Top100 accuracy: 0.8654645098559179
 ```
