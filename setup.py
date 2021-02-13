@@ -16,7 +16,7 @@ setuptools.setup(
      ]},
     url="https://github.com/castorini/pyserini",
     install_requires=['Cython', 'pyjnius', 'numpy', 'scipy', 'scikit-learn',
-                      'pandas', 'tqdm', 'tensorflow', 'faiss-cpu', 'transformers'],
+                      'pandas', 'tqdm', 'tensorflow', 'faiss-cpu', 'transformers==4.0.0'],
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

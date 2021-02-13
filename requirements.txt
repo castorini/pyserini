@@ -6,4 +6,4 @@ scipy==1.4.1
 tqdm
 tensorflow
 faiss-cpu
-transformers
+transformers==4.0.0
