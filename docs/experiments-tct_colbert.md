@@ -262,3 +262,7 @@ $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap tools/topics-and-qr
 map                   	all	0.3784
 recall_100            	all	0.9081
 ```
+
+## Replication Log
+
++ Results replicated by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
