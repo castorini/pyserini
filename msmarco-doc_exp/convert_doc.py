@@ -56,6 +56,7 @@ def batch_process(batch):
         fields = json.loads(line.rstrip())
         pid = fields['id']
         body = fields['contents']
+        pred = fields['predication']
 
         text, text_unlemm = nlp.procText(body)
 
@@ -72,7 +73,9 @@ def batch_process(batch):
                "text_unlemm": text_unlemm,
                'contents': contents,
                "raw": body,
-               "entity": entity}
+               "entity": entity,
+               "prediction":pred
+               }
         doc["text_bert_tok"] = getRetokenized(bertTokenizer, body.lower())
         return doc
     res = []
