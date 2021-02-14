@@ -303,12 +303,6 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(self.index_reader.convert_internal_docid_to_collection_docid(1000), 'CACM-1001')
         self.assertEqual(self.index_reader.convert_collection_docid_to_internal_docid('CACM-1001'), 1000)
 
-    def test_jstring_term(self):
-        self.assertEqual(self.index_reader.get_term_counts('zoölogy'), (0, 0))
-        with self.assertRaises(ValueError):
-            # Should fail when pyjnius has solved this internally.
-            JString('zoölogy')
-
     def test_query_doc_score_default(self):
         queries = ['information retrieval', 'databases']
 

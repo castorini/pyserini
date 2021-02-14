@@ -62,38 +62,38 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 6980)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    def test_nq_dev_dpr(self):
-        topics = search.get_topics('nq_dev_dpr')
+    def test_dpr_nq_dev(self):
+        topics = search.get_topics('dpr-nq-dev')
         self.assertEqual(len(topics), 8757)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    def test_nq_test_dpr(self):
-        topics = search.get_topics('nq_test_dpr')
+    def test_dpr_nq_test(self):
+        topics = search.get_topics('dpr-nq-test')
         self.assertEqual(len(topics), 3610)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    def test_wq_test_dpr(self):
-        topics = search.get_topics('wq_test_dpr')
+    def test_dpr_wq_test(self):
+        topics = search.get_topics('dpr-wq-test')
         self.assertEqual(len(topics), 2032)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    def test_squad_test_dpr(self):
-        topics = search.get_topics('squad_test_dpr')
+    def test_dpr_squad_test(self):
+        topics = search.get_topics('dpr-squad-test')
         self.assertEqual(len(topics), 10570)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    def test_curated_test_dpr(self):
-        topics = search.get_topics('curated_test_dpr')
+    def test_dpr_curated_test(self):
+        topics = search.get_topics('dpr-curated-test')
         self.assertEqual(len(topics), 694)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    def test_trivia_test_dpr(self):
-        topics = search.get_topics('trivia_test_dpr')
+    def test_dpr_trivia_test(self):
+        topics = search.get_topics('dpr-trivia-test')
         self.assertEqual(len(topics), 11313)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    def test_trivia_dev_dpr(self):
-        topics = search.get_topics('trivia_dev_dpr')
+    def test_dpr_trivia_dev(self):
+        topics = search.get_topics('dpr-trivia-dev')
         self.assertEqual(len(topics), 8837)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
