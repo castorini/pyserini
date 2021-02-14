@@ -1,24 +1,14 @@
 import argparse
-import datetime
-import glob
-import hashlib
 import json
 import multiprocessing
 import pickle
 import os
-import shutil
-import subprocess
-import uuid
 import time
 
 import numpy as np
 import pandas as pd
-import lightgbm as lgb
-from collections import defaultdict
 from tqdm import tqdm
-from pyserini.analysis import Analyzer, get_lucene_analyzer
 from pyserini.ltr import *
-from pyserini.search import get_topics_with_reader
 
 
 def dev_data_loader(file, format, top=100):
@@ -37,7 +27,7 @@ def dev_data_loader(file, format, top=100):
     assert dev['pid'].dtype == np.object
     assert dev['rank'].dtype == np.int32
     dev = dev[dev['rank']<=top]
-    dev_qrel = pd.read_csv('../collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
+    dev_qrel = pd.read_csv('../src/main/resources/topics-and-qrels/qrels.msmarco-doc.dev.txt', sep="\t",
                            names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
                            dtype={'qid': 'S','pid': 'S', 'rel':'i'})
     assert dev['qid'].dtype == np.object
@@ -82,7 +72,7 @@ def dev_data_loader(file, format, top=100):
 
 def query_loader():
     queries = {}
-    with open('queries.train.small.entity.json') as f:
+    with open('queries.dev.doc.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -91,7 +81,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
-    with open('queries.dev.small.entity.json') as f:
+    with open('queries.train.doc.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -100,7 +90,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
-    with open('queries.eval.small.entity.json') as f:
+    with open('queries.test.doc.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -279,7 +269,7 @@ if __name__ == '__main__':
     print("load queries")
     queries = query_loader()
     print("add feature")
-    fe = FeatureExtractor('../indexes/msmarco-passage/lucene-index-msmarco/', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor('../indexes/lucene-index-msmarco-passage-doc-expanded-all', max(multiprocessing.cpu_count()//2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
                            ('text', 'text'),
                            ('text_unlemm', 'text_unlemm'),
@@ -298,20 +288,6 @@ if __name__ == '__main__':
         fe.add(LMDirStat(MaxPooler(), mu=1000, field=ifield, qfield=qfield))
         fe.add(LMDirStat(MinPooler(), mu=1000, field=ifield, qfield=qfield))
         fe.add(LMDirStat(MaxMinRatioPooler(), mu=1000, field=ifield, qfield=qfield))
-
-        #     fe.add(LMDirStat(SumPooler(), mu=1500, field=ifield, qfield=qfield))
-        #     fe.add(LMDirStat(AvgPooler(), mu=1500, field=ifield, qfield=qfield))
-        #     fe.add(LMDirStat(MedianPooler(), mu=1500, field=ifield, qfield=qfield))
-        #     fe.add(LMDirStat(MaxPooler(), mu=1500, field=ifield, qfield=qfield))
-        #     fe.add(LMDirStat(MinPooler(), mu=1500, field=ifield, qfield=qfield))
-        #     fe.add(LMDirStat(MaxMinRatioPooler(), mu=1500, field=ifield, qfield=qfield))
-
-        #     fe.add(LMDirStat(SumPooler(), mu=2500, field=ifield, qfield=qfield))
-        #     fe.add(LMDirStat(AvgPooler(), mu=2500, field=ifield, qfield=qfield))
-        #     fe.add(LMDirStat(MedianPooler(), mu=2500, field=ifield, qfield=qfield))
-        #     fe.add(LMDirStat(MaxPooler(), mu=2500, field=ifield, qfield=qfield))
-        #     fe.add(LMDirStat(MinPooler(), mu=2500, field=ifield, qfield=qfield))
-        #     fe.add(LMDirStat(MaxMinRatioPooler(), mu=2500, field=ifield, qfield=qfield))
 
         fe.add(NTFIDF(field=ifield, qfield=qfield))
         fe.add(ProbalitySum(field=ifield, qfield=qfield))
@@ -342,10 +318,10 @@ if __name__ == '__main__':
         fe.add(tpDist(field=ifield, qfield=qfield))
 
         fe.add(DocSize(field=ifield))
-
-        fe.add(QueryLength(qfield=qfield))
-        fe.add(QueryCoverageRatio(qfield=qfield))
-        fe.add(UniqueTermCount(qfield=qfield))
+        if (qfield == 'analyzed' and ifield == 'contents'):
+            fe.add(QueryLength(qfield=qfield))
+            fe.add(QueryCoverageRatio(qfield=qfield))
+            fe.add(UniqueTermCount(qfield=qfield))
         fe.add(MatchingTermCount(field=ifield, qfield=qfield))
         fe.add(SCS(field=ifield, qfield=qfield))
 
@@ -355,13 +331,6 @@ if __name__ == '__main__':
         fe.add(tfStat(MinPooler(), field=ifield, qfield=qfield))
         fe.add(tfStat(MaxPooler(), field=ifield, qfield=qfield))
         fe.add(tfStat(MaxMinRatioPooler(), field=ifield, qfield=qfield))
-
-        #     fe.add(tfIdfStat(False, AvgPooler(), field=ifield, qfield=qfield))
-        #     fe.add(tfIdfStat(False, MedianPooler(), field=ifield, qfield=qfield))
-        #     fe.add(tfIdfStat(False, SumPooler(), field=ifield, qfield=qfield))
-        #     fe.add(tfIdfStat(False, MinPooler(), field=ifield, qfield=qfield))
-        #     fe.add(tfIdfStat(False, MaxPooler(), field=ifield, qfield=qfield))
-        #     fe.add(tfIdfStat(False, MaxMinRatioPooler(), field=ifield, qfield=qfield))
 
         fe.add(tfIdfStat(True, AvgPooler(), field=ifield, qfield=qfield))
         fe.add(tfIdfStat(True, MedianPooler(), field=ifield, qfield=qfield))
@@ -403,15 +372,6 @@ if __name__ == '__main__':
         fe.add(OrderedQueryPairs(3, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(8, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
-
-    # fe.add(EntityHowLong())
-    # fe.add(EntityHowMany())
-    # fe.add(EntityHowMuch())
-    # fe.add(EntityWhen())
-    # fe.add(EntityWhere())
-    # fe.add(EntityWho())
-    # fe.add(EntityWhereMatch())
-    # fe.add(EntityWhoMatch())
 
     start = time.time()
     fe.add(
