@@ -141,7 +141,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "MRR @100")
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3323255796764856, places=4)
+        self.assertAlmostEqual(score, 0.37010655317790453, places=4)
 
     def test_msmarco_doc_tct_colbert_bf_d2q_hybrid(self):
         output_file = 'test_run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv'
@@ -163,7 +163,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "MRR @100")
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3323255796764856, places=4)
+        self.assertAlmostEqual(score, 0.3784381632329968, places=4)
 
     def tearDown(self):
         clean_files(self.temp_files)
