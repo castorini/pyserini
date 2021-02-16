@@ -112,8 +112,8 @@ class TestSearchIntegration(unittest.TestCase):
                              --batch-size 36 \
                              --threads 12'
         cmd2 = f'python tools/scripts/msmarco/msmarco_doc_eval.py \
-                    tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-                    {output_file}'
+                        --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
+                        --run {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @100")
@@ -134,8 +134,8 @@ class TestSearchIntegration(unittest.TestCase):
                                     --batch-size 36 --threads 12 \
                                     --msmarco'
         cmd2 = f'python tools/scripts/msmarco/msmarco_doc_eval.py \
-                    tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-                    {output_file}'
+                        --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
+                        --run {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @100")
@@ -156,8 +156,8 @@ class TestSearchIntegration(unittest.TestCase):
                                     --batch-size 36 --threads 12 \
                                     --msmarco'
         cmd2 = f'python tools/scripts/msmarco/msmarco_doc_eval.py \
-                    tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-                    {output_file}'
+                        --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
+                        --run {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @100")
