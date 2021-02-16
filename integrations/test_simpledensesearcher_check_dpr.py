@@ -41,7 +41,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertAlmostEqual(score, 0.7947368421052632, places=4)
+        self.assertAlmostEqual(score, 0.7947, places=4)
 
     def test_dpr_nq_test_bf_bm25_hybrid(self):
         output_file = 'test_run.dpr.nq-test.multi.bf.bm25.trec'
@@ -64,7 +64,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertAlmostEqual(score, 0.8260387811634349, places=4)
+        self.assertAlmostEqual(score, 0.8260, places=4)
 
     def test_dpr_trivia_test_bf(self):
         output_file = 'test_run.dpr.trivia-test.multi.bf.trec'
@@ -85,7 +85,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertAlmostEqual(score, 0.7887386192875453, places=4)
+        self.assertAlmostEqual(score, 0.7887, places=4)
 
     def test_dpr_trivia_test_bf_bm25_hybrid(self):
         output_file = 'test_run.dpr.trivia-test.multi.bf.bm25.trec'
@@ -108,7 +108,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertAlmostEqual(score, 0.8263944135065854, places=4)
+        self.assertAlmostEqual(score, 0.8264, places=4)
 
     def test_dpr_wq_test_bf(self):
         output_file = 'test_run.dpr.wq-test.multi.bf.trec'
@@ -129,7 +129,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertAlmostEqual(score, 0.750492125984252, places=4)
+        self.assertAlmostEqual(score, 0.7505, places=4)
 
     def test_dpr_wq_test_bf_bm25_hybrid(self):
         output_file = 'test_run.dpr.wq-test.multi.bf.bm25.trec'
@@ -152,7 +152,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertAlmostEqual(score, 0.7711614173228346, places=4)
+        self.assertAlmostEqual(score, 0.7712, places=4)
 
     def test_dpr_curated_test_bf(self):
         output_file = 'test_run.dpr.curated-test.multi.bf.trec'
@@ -173,7 +173,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertAlmostEqual(score, 0.8876080691642652, places=4)
+        self.assertAlmostEqual(score, 0.8876, places=4)
 
     def test_dpr_curated_test_bf_bm25_hybrid(self):
         output_file = 'test_run.dpr.curated-test.multi.bf.bm25.trec'
@@ -196,7 +196,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertAlmostEqual(score, 0.9005763688760807, places=4)
+        self.assertAlmostEqual(score, 0.9006, places=4)
 
     def test_dpr_squad_test_bf(self):
         output_file = 'test_run.dpr.squad-test.multi.bf.trec'
@@ -217,7 +217,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertAlmostEqual(score, 0.5198675496688742, places=4)
+        self.assertAlmostEqual(score, 0.5199, places=4)
 
     def test_dpr_squad_test_bf_bm25_hybrid(self):
         output_file = 'test_run.dpr.squad-test.multi.bf.bm25.trec'
@@ -240,7 +240,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertAlmostEqual(score, 0.7510879848628192, places=4)
+        self.assertAlmostEqual(score, 0.7511, places=4)
 
     def tearDown(self):
         clean_files(self.temp_files)
