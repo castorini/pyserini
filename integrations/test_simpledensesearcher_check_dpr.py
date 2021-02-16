@@ -25,7 +25,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_dpr_nq_test_bf(self):
         output_file = 'test_run.dpr.nq-test.multi.bf.trec'
         retrieval_file = 'test_run.dpr.nq-test.multi.bf.json'
-        self.temp_files.append(output_file)
+        self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-nq-test \
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
@@ -46,7 +46,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_dpr_nq_test_bf_bm25_hybrid(self):
         output_file = 'test_run.dpr.nq-test.multi.bf.bm25.trec'
         retrieval_file = 'test_run.dpr.nq-test.multi.bf.bm25.json'
-        self.temp_files.append(output_file)
+        self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 1.3 \
@@ -69,7 +69,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_dpr_trivia_test_bf(self):
         output_file = 'test_run.dpr.trivia-test.multi.bf.trec'
         retrieval_file = 'test_run.dpr.trivia-test.multi.bf.json'
-        self.temp_files.append(output_file)
+        self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-trivia-test \
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
@@ -90,10 +90,10 @@ class TestSearchIntegration(unittest.TestCase):
     def test_dpr_trivia_test_bf_bm25_hybrid(self):
         output_file = 'test_run.dpr.trivia-test.multi.bf.bm25.trec'
         retrieval_file = 'test_run.dpr.trivia-test.multi.bf.bm25.json'
-        self.temp_files.append(output_file)
+        self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
-                             fusion --alpha 1.3 \
+                             fusion --alpha 0.95 \
                              run    --topics dpr-trivia-test \
                                     --batch-size 36 --threads 12 \
                                     --output {output_file} '
@@ -113,7 +113,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_dpr_wq_test_bf(self):
         output_file = 'test_run.dpr.wq-test.multi.bf.trec'
         retrieval_file = 'test_run.dpr.wq-test.multi.bf.json'
-        self.temp_files.append(output_file)
+        self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-wq-test \
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
@@ -134,10 +134,10 @@ class TestSearchIntegration(unittest.TestCase):
     def test_dpr_wq_test_bf_bm25_hybrid(self):
         output_file = 'test_run.dpr.wq-test.multi.bf.bm25.trec'
         retrieval_file = 'test_run.dpr.wq-test.multi.bf.bm25.json'
-        self.temp_files.append(output_file)
+        self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
-                             fusion --alpha 1.3 \
+                             fusion --alpha 0.95 \
                              run    --topics dpr-wq-test \
                                     --batch-size 36 --threads 12 \
                                     --output {output_file} '
@@ -157,7 +157,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_dpr_curated_test_bf(self):
         output_file = 'test_run.dpr.curated-test.multi.bf.trec'
         retrieval_file = 'test_run.dpr.curated-test.multi.bf.json'
-        self.temp_files.append(output_file)
+        self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-curated-test \
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
@@ -178,10 +178,10 @@ class TestSearchIntegration(unittest.TestCase):
     def test_dpr_curated_test_bf_bm25_hybrid(self):
         output_file = 'test_run.dpr.curated-test.multi.bf.bm25.trec'
         retrieval_file = 'test_run.dpr.curated-test.multi.bf.bm25.json'
-        self.temp_files.append(output_file)
+        self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
-                             fusion --alpha 1.3 \
+                             fusion --alpha 1.05 \
                              run    --topics dpr-curated-test \
                                     --batch-size 36 --threads 12 \
                                     --output {output_file} '
@@ -201,7 +201,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_dpr_squad_test_bf(self):
         output_file = 'test_run.dpr.squad-test.multi.bf.trec'
         retrieval_file = 'test_run.dpr.squad-test.multi.bf.json'
-        self.temp_files.append(output_file)
+        self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-squad-test \
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
@@ -222,10 +222,10 @@ class TestSearchIntegration(unittest.TestCase):
     def test_dpr_squad_test_bf_bm25_hybrid(self):
         output_file = 'test_run.dpr.squad-test.multi.bf.bm25.trec'
         retrieval_file = 'test_run.dpr.squad-test.multi.bf.bm25.json'
-        self.temp_files.append(output_file)
+        self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                              sparse --index wikipedia-dpr \
-                             fusion --alpha 1.3 \
+                             fusion --alpha 2.0 \
                              run    --topics dpr-squad-test \
                                     --batch-size 36 --threads 12 \
                                     --output {output_file} '
