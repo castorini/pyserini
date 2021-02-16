@@ -5,7 +5,7 @@ This guide provides replication instructions for the following dense retrieval w
 > Vladimir Karpukhin, Barlas Oğuz, Sewon Min, Patrick Lewis, Ledell Wu, Sergey Edunov, Danqi Chen, Wen-tau Yih, [Dense Passage Retrieval for Open-Domain Question Answering](https://www.aclweb.org/anthology/2020.emnlp-main.550/), _Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)_, pages 6769-6781, 2929.
 
 You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
-These experiments were performed on a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`, `torch==1.7.1`, and `tensorflow==2.4.0`; results have also been replicated on macOS 10.14.6 with the same Python dependency versions.
+These experiments were performed on a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`,  `transformers==4.0.0`, `torch==1.7.1`, and `tensorflow==2.4.0`; results have also been replicated on macOS 10.14.6 with the same Python dependency versions.
 
 Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a replicability perspective.
