@@ -41,7 +41,6 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.7947368421052632, places=4)
 
     def test_dpr_nq_test_bf_bm25_hybrid(self):
@@ -65,7 +64,6 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.8260387811634349, places=4)
 
     def test_dpr_trivia_test_bf(self):
@@ -87,7 +85,6 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.7887386192875453, places=4)
 
     def test_dpr_trivia_test_bf_bm25_hybrid(self):
@@ -111,7 +108,6 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.8263944135065854, places=4)
 
     def test_dpr_wq_test_bf(self):
@@ -133,7 +129,6 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.750492125984252, places=4)
 
     def test_dpr_wq_test_bf_bm25_hybrid(self):
@@ -157,7 +152,6 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.7711614173228346, places=4)
 
     def test_dpr_curated_test_bf(self):
@@ -179,7 +173,6 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.8876080691642652, places=4)
 
     def test_dpr_curated_test_bf_bm25_hybrid(self):
@@ -203,7 +196,6 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.9005763688760807, places=4)
 
     def test_dpr_squad_test_bf(self):
@@ -225,7 +217,6 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.5198675496688742, places=4)
 
     def test_dpr_squad_test_bf_bm25_hybrid(self):
@@ -249,7 +240,6 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "Top20")
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.7510879848628192, places=4)
 
     def tearDown(self):
