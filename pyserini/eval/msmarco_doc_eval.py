@@ -22,7 +22,7 @@ process = subprocess.Popen(cmd,
                            stderr=subprocess.PIPE)
 stdout, stderr = process.communicate()
 if stderr:
-    print('Results:')
     print(stderr.decode("utf-8"))
 else:
+    print('Results:')
     print(stdout.decode("utf-8"))
