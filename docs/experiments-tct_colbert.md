@@ -24,8 +24,8 @@ Dense retrieval with TCT-ColBERT, brute-force index:
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-bf \
-                             --batch-size 36  \
-                             --threads 12  \
+                             --batch-size 36 \
+                             --threads 12 \
                              --output runs/run.msmarco-passage.tct_colbert.bf.tsv \
                              --msmarco
 ```
@@ -109,7 +109,7 @@ To evaluate:
 ```bash
 $ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv
 #####################
-MRR @10: 0.3528888661481785
+MRR @10: 0.35290080502114884
 QueriesRanked: 6980
 #####################
 
