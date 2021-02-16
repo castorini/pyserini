@@ -3,6 +3,9 @@ import setuptools
 with open("project-description.md", "r") as fh:
     long_description = fh.read()
 
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
+
 setuptools.setup(
     name="pyserini",
     version="0.10.1.0",
@@ -15,8 +18,7 @@ setuptools.setup(
         "resources/jars/anserini-0.10.1-fatjar.jar",
      ]},
     url="https://github.com/castorini/pyserini",
-    install_requires=['Cython', 'pyjnius', 'numpy', 'scipy', 'scikit-learn',
-                      'pandas', 'tqdm', 'tensorflow', 'faiss-cpu', 'transformers==4.0.0'],
+    install_requires=requirements,
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
