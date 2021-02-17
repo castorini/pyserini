@@ -47,7 +47,7 @@ QueriesRanked: 6980
 Note that we have observed minor differences in MRR@10 depending on the source of the query representations (see below; pre-computed vs. on-the-fly encoding on the CPU vs. on-the-fly encoding on the GPU).
 We have also noticed differences in MRR@10 between Linux and macOS.
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a replicability perspective.
-Thus, while the MS MARCO scoring scripts provides results to much higher precision, we have intentionally rounded to 4 digits.
+Thus, while the MS MARCO scoring scripts provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
 We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10. 
 For that we first need to convert runs and qrels files to the TREC format:
