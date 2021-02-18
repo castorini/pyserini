@@ -12,7 +12,7 @@ A low-effort way to try out Pyserini is to look at our [online notebooks](https:
 For convenience, we've pre-built a few common indexes, available to download [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
 
 Pyserini versions adopt the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
-The current stable release of Pyserini is [v0.10.1.0](https://pypi.org/project/pyserini/) on PyPI.
+The current stable release of Pyserini is [v0.11.0.0](https://pypi.org/project/pyserini/) on PyPI.
 The current experimental release of Pyserini on TestPyPI is behind the current stable release (i.e., do not use).
 In general, documentation is kept up to date with the latest code in the repo.
 
@@ -23,8 +23,10 @@ If you're looking to work with the [COVID-19 Open Research Dataset (CORD-19)](ht
 Install via PyPI:
 
 ```
-pip install pyserini==0.10.1.0
+pip install pyserini==0.11.0.0
 ```
+
+Pyserini requires Python 3.6+.
 
 ## Development Installation
 
@@ -75,7 +77,7 @@ Pyserini supports sparse retrieval (e.g., BM25 ranking using bag-of-words repres
 as well hybrid retrieval that integrates both approaches. 
 Sparse retrieval is the most mature feature in Pyserini; dense and hybrid retrieval are relatively new capabilities that aren't fully stable (yet).
 
-The `SimpleSearcher` class provides the entry point for sparse retrieval.
+The `SimpleSearcher` class provides the entry point for sparse retrieval using bag-of-words representations.
 Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
 Here's how to use a pre-built index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively:
 
