@@ -130,8 +130,8 @@ Top100 accuracy: 0.8479
 
 ```bash
 $ python -m pyserini.search --topics dpr-trivia-test \
-                             --index wikipedia-dpr \
-                             --output runs/run.dpr.trivia-test.bm25.trec
+                            --index wikipedia-dpr \
+                            --output runs/run.dpr.trivia-test.bm25.trec
 ```
 
 
@@ -199,8 +199,8 @@ Top100 accuracy: 0.8297
 
 ```bash
 $ python -m pyserini.search --topics dpr-wq-test \
-                             --index wikipedia-dpr \
-                             --output runs/run.dpr.wq-test.bm25.trec
+                            --index wikipedia-dpr \
+                            --output runs/run.dpr.wq-test.bm25.trec
 ```
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
@@ -268,8 +268,8 @@ Top100 accuracy: 0.9337
 
 ```bash
 $ python -m pyserini.search --topics dpr-curated-test \
-                             --index wikipedia-dpr \
-                             --output runs/run.dpr.curated-test.bm25.trec
+                            --index wikipedia-dpr \
+                            --output runs/run.dpr.curated-test.bm25.trec
 ```
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
@@ -337,8 +337,8 @@ Top100 accuracy: 0.6773
 
 ```bash
 $ python -m pyserini.search --topics dpr-squad-test \
-                             --index wikipedia-dpr \
-                             --output runs/run.dpr.squad-test.bm25.trec
+                            --index wikipedia-dpr \
+                            --output runs/run.dpr.squad-test.bm25.trec
 ```
 
 
