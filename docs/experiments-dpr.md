@@ -5,6 +5,11 @@ This guide provides replication instructions for the following dense retrieval w
 > Vladimir Karpukhin, Barlas Oğuz, Sewon Min, Patrick Lewis, Ledell Wu, Sergey Edunov, Danqi Chen, Wen-tau Yih, [Dense Passage Retrieval for Open-Domain Question Answering](https://www.aclweb.org/anthology/2020.emnlp-main.550/), _Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)_, pages 6769-6781, 2929.
 
 You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
+These experiments were performed on a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`,  `transformers==4.0.0`, `torch==1.7.1`, and `tensorflow==2.4.0`; results have also been replicated on macOS 10.14.6 with the same Python dependency versions.
+
+Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
+However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a replicability perspective.
+Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
 ## Summary
 
@@ -48,8 +53,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-nq-test 
                                                            --output runs/run.dpr.nq-test.multi.bf.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.nq-test.multi.bf.json --topk 20 100
-Top20  accuracy: 0.7947368421052632
-Top100 accuracy: 0.8609418282548477
+Top20  accuracy: 0.7947
+Top100 accuracy: 0.8609
 ```
 
 **BM25 retrieval**:
@@ -69,8 +74,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-nq-test 
                                                            --output runs/run.dpr.nq-test.bm25.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.nq-test.bm25.json --topk 20 100
-Top20  accuracy: 0.6293628808864266
-Top100 accuracy: 0.7825484764542936
+Top20  accuracy: 0.6294
+Top100 accuracy: 0.7825
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
@@ -93,8 +98,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-nq-test 
                                                            --output runs/run.dpr.nq-test.multi.bf.bm25.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.nq-test.multi.bf.bm25.json --topk 20 100
-Top20  accuracy: 0.8260387811634349
-Top100 accuracy: 0.8858725761772853
+Top20  accuracy: 0.8260
+Top100 accuracy: 0.8859
 ```
 
 ## TriviaQA
@@ -117,8 +122,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-trivia-t
                                                            --output runs/run.dpr.trivia-test.multi.bf.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.trivia-test.multi.bf.json --topk 20 100
-Top20  accuracy: 0.7887386192875453
-Top100 accuracy: 0.847874127110404
+Top20  accuracy: 0.7887
+Top100 accuracy: 0.8479
 ```
 
 **BM25 retrieval**:
@@ -138,8 +143,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-trivia-t
                                                            --input runs/run.dpr.trivia-test.bm25.trec \
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.trivia-test.bm25.json --topk 20 100
-Top20  accuracy: 0.7640767258905684
-Top100 accuracy: 0.8315212587288959
+Top20  accuracy: 0.7641
+Top100 accuracy: 0.8315
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
@@ -162,8 +167,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-trivia-t
                                                            --output runs/run.dpr.trivia-test.multi.bf.bm25.json 
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.trivia-test.multi.bf.bm25.json --topk 20 100
-Top20  accuracy: 0.8263944135065854
-Top100 accuracy: 0.8654645098559179
+Top20  accuracy: 0.8264
+Top100 accuracy: 0.8655
 ```
 
 ## WebQuestions (WQ)
@@ -186,8 +191,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-wq-test 
                                                            --output runs/run.dpr.wq-test.multi.bf.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.wq-test.multi.bf.json --topk 20 100
-Top20  accuracy: 0.750492125984252
-Top100 accuracy: 0.8297244094488189
+Top20  accuracy: 0.7505
+Top100 accuracy: 0.8297
 ```
 
 **BM25 retrieval**:
@@ -207,8 +212,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-wq-test 
                                                            --output runs/run.dpr.wq-test.bm25.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.wq-test.bm25.json --topk 20 100
-Top20  accuracy: 0.6240157480314961
-Top100 accuracy: 0.7549212598425197
+Top20  accuracy: 0.6240
+Top100 accuracy: 0.7549
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
@@ -231,8 +236,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-wq-test 
                                                            --output runs/run.dpr.wq-test.multi.bf.bm25.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.wq-test.multi.bf.bm25.json --topk 20 100
-Top20  accuracy: 0.7711614173228346
-Top100 accuracy: 0.843996062992126
+Top20  accuracy: 0.7712
+Top100 accuracy: 0.8440
 ```
 
 ## CuratedTREC
@@ -255,8 +260,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-curated-
                                                            --output runs/run.dpr.curated-test.multi.bf.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.curated-test.multi.bf.json --topk 20 100 --regex
-Top20  accuracy: 0.8876080691642652
-Top100 accuracy: 0.9337175792507204
+Top20  accuracy: 0.8876
+Top100 accuracy: 0.9337
 ```
 
 **BM25 retrieval**:
@@ -276,8 +281,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-curated-
                                                            --output runs/run.dpr.curated-test.bm25.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.curated-test.bm25.json --topk 20 100 --regex
-Top20  accuracy: 0.8069164265129684
-Top100 accuracy: 0.899135446685879
+Top20  accuracy: 0.8069
+Top100 accuracy: 0.8991
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
@@ -300,8 +305,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-curated-
                                                            --output runs/run.dpr.curated-test.multi.bf.bm25.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.curated-test.multi.bf.bm25.json --topk 20 100 --regex
-Top20  accuracy: 0.9005763688760807
-Top100 accuracy: 0.9495677233429395
+Top20  accuracy: 0.9006
+Top100 accuracy: 0.9496
 ```
 
 ## SQuAD
@@ -324,8 +329,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-squad-te
                                                            --output runs/run.dpr.squad-test.multi.bf.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.squad-test.multi.bf.json --topk 20 100
-Top20  accuracy: 0.5198675496688742
-Top100 accuracy: 0.6772942289498581
+Top20  accuracy: 0.5199
+Top100 accuracy: 0.6773
 ```
 
 **BM25 retrieval**:
@@ -346,8 +351,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-squad-te
                                                            --output runs/run.dpr.squad-test.bm25.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.squad-test.bm25.json --topk 20 100
-Top20  accuracy: 0.710879848628193
-Top100 accuracy: 0.8183538315988647
+Top20  accuracy: 0.7109
+Top100 accuracy: 0.8184
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
@@ -370,8 +375,8 @@ $ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-squad-te
                                                            --output runs/run.dpr.squad-test.multi.bf.bm25.json
 
 $ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.squad-test.multi.bf.bm25.json --topk 20 100
-Top20  accuracy: 0.7510879848628192
-Top100 accuracy: 0.8437086092715231
+Top20  accuracy: 0.7511
+Top100 accuracy: 0.8437
 ```
 
 ## Replication Log
