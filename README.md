@@ -26,7 +26,7 @@ Install via PyPI:
 pip install pyserini==0.11.0.0
 ```
 
-Pyserini requires Python 3.6+.
+Pyserini requires Python 3.6+ and Java 11 (due to its dependency on [Anserini](http://anserini.io/)).
 
 ## Development Installation
 
