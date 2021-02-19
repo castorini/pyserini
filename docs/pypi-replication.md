@@ -11,24 +11,15 @@ BM25 baseline from the [TREC 2004 Robust Track](https://github.com/castorini/ans
 $ python -m pyserini.search --topics robust04 --index robust04 --output run.robust04.txt --bm25
 ```
 
-That's it!
-
-A dependency-free way to evaluate the run:
+To evaluate:
 
 ```bash
-$ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.robust04.txt
 $ python -m pyserini.eval.trec_eval -m map -m P.30 robust04 run.robust04.txt
 map                   	all	0.2531
 P_30                  	all	0.3102
 ```
 
 ## MS MARCO Passage Ranking
-
-Before we can evaluate the output, we need to first fetch the relevance judgments:
-
-```bash
-$ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt
-```
 
 MS MARCO passage ranking task, BM25 baseline:
 
@@ -63,12 +54,6 @@ QueriesRanked: 6980
 ```
 
 ## MS MARCO Document Ranking
-
-Before we can evaluate the output, we need to first fetch the relevance judgments:
-
-```bash
-$ wget https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.msmarco-doc.dev.txt
-```
 
 MS MARCO document ranking task, BM25 baseline:
 
@@ -135,6 +120,8 @@ QueriesRanked: 5193
 ```
 
 ## Notes
+
+There are minor differences between v0.10.1.0 to v0.11.0.0 due to changes in the iteration order of the MS MARCO queries (see [#309](https://github.com/castorini/pyserini/pull/309/)).
 
 Prior to v0.10.1.0, the above commands get different results:
 
