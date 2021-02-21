@@ -16,6 +16,7 @@
 
 import platform
 import os
+import socket
 import unittest
 from integrations.utils import clean_files, run_command, parse_score
 
@@ -23,14 +24,21 @@ from integrations.utils import clean_files, run_command, parse_score
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
+        self.threads = 12
+        self.batch_size = 36
+
+        # Hard-code larger values for internal servers
+        if socket.gethostname().startswith('damiano') or socket.gethostname().startswith('orca'):
+            self.threads = 36
+            self.batch_size = 144
 
     def test_msmarco_passage_tct_colbert_bf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert.bf.tsv'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-bf \
-                             --batch-size 36 \
-                             --threads 12 \
+                             --batch-size {self.batch_size} \
+                             --threads {self.threads} \
                              --output {output_file} \
                              --msmarco'
         cmd2 = f'python tools/scripts/msmarco/msmarco_passage_eval.py \
@@ -72,7 +80,7 @@ class TestSearchIntegration(unittest.TestCase):
                              fusion --alpha 0.12 \
                              run    --topics msmarco-passage-dev-subset \
                                     --output {output_file} \
-                                    --batch-size 36 --threads 12 \
+                                    --batch-size {self.batch_size} --threads {self.threads} \
                                     --msmarco'
         cmd2 = f'python tools/scripts/msmarco/msmarco_passage_eval.py \
                     tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
@@ -92,7 +100,7 @@ class TestSearchIntegration(unittest.TestCase):
                              fusion --alpha 0.22 \
                              run    --topics msmarco-passage-dev-subset \
                                     --output {output_file} \
-                                    --batch-size 36 --threads 12 \
+                                    --batch-size {self.batch_size} --threads {self.threads} \
                                     --msmarco'
         cmd2 = f'python tools/scripts/msmarco/msmarco_passage_eval.py \
                     tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
@@ -115,8 +123,8 @@ class TestSearchIntegration(unittest.TestCase):
                              --max-passage \
                              --max-passage-hits 100 \
                              --msmarco \
-                             --batch-size 36 \
-                             --threads 12'
+                             --batch-size {self.batch_size} \
+                             --threads {self.threads}'
         cmd2 = f'python tools/scripts/msmarco/msmarco_doc_eval.py \
                         --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
                         --run {output_file}'
@@ -137,7 +145,7 @@ class TestSearchIntegration(unittest.TestCase):
                              run    --topics msmarco-doc-dev \
                                     --output {output_file} \
                                     --hits 1000 --max-passage --max-passage-hits 100 \
-                                    --batch-size 36 --threads 12 \
+                                    --batch-size {self.batch_size} --threads {self.threads} \
                                     --msmarco'
         cmd2 = f'python tools/scripts/msmarco/msmarco_doc_eval.py \
                         --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
@@ -159,7 +167,7 @@ class TestSearchIntegration(unittest.TestCase):
                              run    --topics msmarco-doc-dev \
                                     --output {output_file} \
                                     --hits 1000 --max-passage --max-passage-hits 100 \
-                                    --batch-size 36 --threads 12 \
+                                    --batch-size {self.batch_size} --threads {self.threads} \
                                     --msmarco'
         cmd2 = f'python tools/scripts/msmarco/msmarco_doc_eval.py \
                         --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
