@@ -41,7 +41,7 @@ Here's how our results stack up against results reported in the paper:
 $ python -m pyserini.dsearch --topics dpr-nq-test \
                              --index wikipedia-dpr-multi-bf \
                              --output runs/run.dpr.nq-test.multi.bf.trec \
-                             --batch 36 --threads 12
+                             --batch-size 36 --threads 12
 ```
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
