@@ -8,11 +8,11 @@ from tqdm import tqdm
 from transformers import DPRContextEncoderTokenizer, DPRContextEncoder
 
 
-def encode_passage(title, text, tokenizer, model, device='cuda:0'):
+def encode_passage(titles, texts, tokenizer, model, device='cuda:0'):
     max_length = 256  # hardcode for now
     inputs = tokenizer(
-        title,
-        text_pair=text,
+        titles,
+        text_pair=texts,
         max_length=max_length,
         truncation=True,
         add_special_tokens=True,
@@ -20,7 +20,7 @@ def encode_passage(title, text, tokenizer, model, device='cuda:0'):
     )
     inputs.to(device)
     embeddings = model(inputs["input_ids"]).pooler_output.detach().cpu().numpy()
-    return embeddings.flatten()
+    return embeddings
 
 
 if __name__ == '__main__':
@@ -42,6 +42,8 @@ if __name__ == '__main__':
     if not os.path.exists(args.index):
         os.mkdir(args.index)
 
+    titles = []
+    texts = []
     with open(os.path.join(args.index, 'docid'), 'w') as id_file:
         for file in sorted(os.listdir(args.corpus)):
             file = os.path.join(args.corpus, file)
@@ -55,6 +57,11 @@ if __name__ == '__main__':
                         title = title.replace('"', '')
                         text = text.replace('""', '"')
                         id_file.write(f'{docid}\n')
-                        embedding = encode_passage(title, text, tokenizer, model, args.device)
-                        index.add(np.array([embedding]))
+                        titles.append(title)
+                        texts.append(text)
+    for idx in tqdm(range(0, len(titles), args.batch)):
+        title_batch = titles[idx: idx+args.batch]
+        text_batch = texts[idx: idx+args.batch]
+        embeddings = encode_passage(title_batch, text_batch, tokenizer, model, args.device)
+        index.add(np.array(embeddings))
     faiss.write_index(index, os.path.join(args.index, 'index'))
