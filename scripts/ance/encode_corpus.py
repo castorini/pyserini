@@ -14,6 +14,7 @@ def encode_passage(titles, texts, tokenizer, model, device='cuda:0'):
         titles,
         text_pair=texts,
         max_length=max_length,
+        padding='longest',
         truncation=True,
         add_special_tokens=True,
         return_tensors='pt'
@@ -30,6 +31,7 @@ if __name__ == '__main__':
     parser.add_argument('--corpus', type=str,
                         help='directory that contains corpus files to be encoded, in jsonl format.', required=True)
     parser.add_argument('--index', type=str, help='directory to store brute force index of corpus', required=True)
+    parser.add_argument('--batch', type=int, help='batch size', default=8)
     parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]', default='cuda:0')
     args = parser.parse_args()
 
