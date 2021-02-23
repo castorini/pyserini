@@ -29,7 +29,7 @@ from transformers import BertModel, BertTokenizer, DPRQuestionEncoder, DPRQuesti
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info)
 
-from pyserini.dsearch import AnceEncoder
+from ._model import AnceEncoder
 
 
 class QueryEncoder:
