@@ -90,7 +90,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     tokenizer = RobertaTokenizer.from_pretrained(args.encoder)
-    model = AnceEncoder.from_pretrained('/home/xueguang/Research/roberta-base')
+    model = AnceEncoder.from_pretrained(args.encoder)
     model.to(args.device)
 
     index = faiss.IndexFlatIP(args.dimension)
