@@ -61,7 +61,7 @@ if __name__ == '__main__':
                         docid = info['id']
                         text = info['contents'].strip().replace('\n', ' ')
                         id_file.write(f'{docid}\n')
-                        texts.append(text)
+                        texts.append(text.lower())
     for idx in tqdm(range(0, len(texts), args.batch)):
         text_batch = texts[idx: idx+args.batch]
         embeddings = encode_passage(text_batch, tokenizer, model, args.device)
