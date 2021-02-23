@@ -24,10 +24,12 @@ from typing import Dict, List
 import faiss
 import numpy as np
 import pandas as pd
-from transformers import BertModel, BertTokenizer, DPRQuestionEncoder, DPRQuestionEncoderTokenizer
+from transformers import BertModel, BertTokenizer, DPRQuestionEncoder, DPRQuestionEncoderTokenizer, RobertaTokenizer
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info)
+
+from pyserini.dsearch import AnceEncoder
 
 
 class QueryEncoder:
@@ -120,6 +122,36 @@ class DPRQueryEncoder(QueryEncoder):
             input_ids = self.tokenizer(query, return_tensors='pt')
             input_ids.to(self.device)
             embeddings = self.model(input_ids["input_ids"]).pooler_output.detach().cpu().numpy()
+            return embeddings.flatten()
+        else:
+            return super().encode(query)
+
+
+class AnceQueryEncoder(QueryEncoder):
+
+    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu'):
+        super().__init__(encoded_query_dir)
+        if encoder_dir:
+            self.device = device
+            self.model = AnceEncoder.from_pretrained(encoder_dir)
+            self.model.to(self.device)
+            self.tokenizer = RobertaTokenizer.from_pretrained(encoder_dir)
+            self.has_model = True
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+
+    def encode(self, query: str):
+        if self.has_model:
+            inputs = self.tokenizer(
+                [query],
+                max_length=512,
+                padding='longest',
+                truncation=True,
+                add_special_tokens=True,
+                return_tensors='pt'
+            )
+            inputs.to(self.device)
+            embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
             return embeddings.flatten()
         else:
             return super().encode(query)
