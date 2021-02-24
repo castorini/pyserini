@@ -1,15 +1,16 @@
-import torch
-from torch import nn, Tensor
 from typing import Optional
+
+import torch
+from torch import Tensor, nn
 from transformers import PreTrainedModel, RobertaConfig, RobertaModel
 
 
 class AnceEncoder(PreTrainedModel):
     config_class = RobertaConfig
-    base_model_prefix = "ance_encoder"
+    base_model_prefix = 'ance_encoder'
     load_tf_weights = None
-    _keys_to_ignore_on_load_missing = [r"position_ids"]
-    _keys_to_ignore_on_load_unexpected = [r"pooler", r"classifier"]
+    _keys_to_ignore_on_load_missing = [r'position_ids']
+    _keys_to_ignore_on_load_unexpected = [r'pooler", r"classifier']
 
     def __init__(self, config: RobertaConfig):
         super().__init__(config)

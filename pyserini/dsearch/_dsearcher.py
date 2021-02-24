@@ -24,7 +24,8 @@ from typing import Dict, List
 import faiss
 import numpy as np
 import pandas as pd
-from transformers import BertModel, BertTokenizer, DPRQuestionEncoder, DPRQuestionEncoderTokenizer, RobertaTokenizer
+from transformers import (BertModel, BertTokenizer, DPRQuestionEncoder,
+                          DPRQuestionEncoderTokenizer, RobertaTokenizer)
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info)
