@@ -426,4 +426,24 @@ DINDEX_INFO = {
         "documents": 21015320,
         "downloaded": False
     },
+    "msmarco-passage-ance-bf": {
+        "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as brute force index",
+        "urls": [
+            "https://www.dropbox.com/s/ahpxwtgh56o6j2f/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz?dl=1",
+        ],
+        "md5": "f6332edb8f06ba796850388cf975b414",
+        "size compressed (bytes)": 25102344985,
+        "documents": 8841823,
+        "downloaded": False
+    },
+    "wikipedia-ance-multi-bf": {
+        "description": "Wikipedia corpus encoded by ANCE-multi doc encoder and indexed as brute force index",
+        "urls": [
+            "https://www.dropbox.com/s/j89z1vnhe12cva4/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz?dl=1",
+        ],
+        "md5": "715605b56dc393b8f939e12682dfd467",
+        "size compressed (bytes)": 59890492088,
+        "documents": 21015320,
+        "downloaded": False
+    },
 }
