@@ -2,7 +2,7 @@
 
 This guide provides replication instructions for the following dense retrieval work:
 
-> Lee Xiong*, Chenyan Xiong*, Ye Li, Kwok-Fung Tang, Jialin Liu, Paul Bennett, Junaid Ahmed, Arnold Overwijk, [Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval](https://arxiv.org/pdf/2007.00808.pdf)
+> Lee Xiong, Chenyan Xiong, Ye Li, Kwok-Fung Tang, Jialin Liu, Paul Bennett, Junaid Ahmed, Arnold Overwijk. [Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval](https://arxiv.org/pdf/2007.00808.pdf)
 
 You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
 
@@ -17,7 +17,7 @@ $ tar -xvf ance-msmarco-passage-encoder.tar.gz
 **ANCE retrieval** with brute-force index:
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-                             --index dindex-msmarco-passage-ance-bf-20210224-060cef \
+                             --index msmarco-passage-ance-bf \
                              --encoder ance-msmarco-passage-encoder \
                              --batch-size 36 \
                              --threads 12 \
@@ -54,7 +54,7 @@ $ tar -xvf ance-dpr-question_encoder-multi.tar.gz
 
 ```bash
 $ python -m pyserini.dsearch --topics dpr-nq-test \
-                             --index dindex-wikipedia-ance_multi-bf-20210224-060cef \
+                             --index wikipedia-ance-multi-bf \
                              --encoder ance-dpr-question_encoder-multi \
                              --output runs/run.ance.nq-test.multi.bf.trec \
                              --batch-size 36 --threads 12
@@ -84,7 +84,7 @@ $ tar -xvf ance-dpr-question_encoder-multi.tar.gz
 
 ```bash
 $ python -m pyserini.dsearch --topics dpr-trivia-test \
-                             --index dindex-wikipedia-ance_multi-bf-20210224-060cef \
+                             --index wikipedia-ance-multi-bf \
                              --encoder ance-dpr-question_encoder-multi \
                              --output runs/run.ance.trivia-test.multi.bf.trec \
                              --batch-size 36 --threads 12

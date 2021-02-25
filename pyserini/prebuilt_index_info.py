@@ -427,7 +427,7 @@ DINDEX_INFO = {
         "downloaded": False
     },
     "msmarco-passage-ance-bf": {
-        "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as brute force index",
+        "description": "MS MARCO passage corpus encoded by ANCE msmarco passage encoder and indexed as brute force index",
         "urls": [
             "https://www.dropbox.com/s/ahpxwtgh56o6j2f/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz?dl=1",
         ],
