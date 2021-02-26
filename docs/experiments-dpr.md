@@ -47,12 +47,12 @@ $ python -m pyserini.dsearch --topics dpr-nq-test \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-nq-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.nq-test.multi.bf.trec \
-                                                           --output runs/run.dpr.nq-test.multi.bf.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-nq-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.nq-test.multi.bf.trec \
+                                                             --output runs/run.dpr.nq-test.multi.bf.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.nq-test.multi.bf.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.nq-test.multi.bf.json --topk 20 100
 Top20  accuracy: 0.7947
 Top100 accuracy: 0.8609
 ```
@@ -68,12 +68,12 @@ $ python -m pyserini.search --topics dpr-nq-test \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-nq-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.nq-test.bm25.trec \
-                                                           --output runs/run.dpr.nq-test.bm25.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-nq-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.nq-test.bm25.trec \
+                                                             --output runs/run.dpr.nq-test.bm25.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.nq-test.bm25.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.nq-test.bm25.json --topk 20 100
 Top20  accuracy: 0.6294
 Top100 accuracy: 0.7825
 ```
@@ -92,12 +92,12 @@ $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-nq-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.nq-test.multi.bf.bm25.trec \
-                                                           --output runs/run.dpr.nq-test.multi.bf.bm25.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-nq-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.nq-test.multi.bf.bm25.trec \
+                                                             --output runs/run.dpr.nq-test.multi.bf.bm25.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.nq-test.multi.bf.bm25.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.nq-test.multi.bf.bm25.json --topk 20 100
 Top20  accuracy: 0.8260
 Top100 accuracy: 0.8859
 ```
@@ -116,12 +116,12 @@ $ python -m pyserini.dsearch --topics dpr-trivia-test \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-trivia-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.trivia-test.multi.bf.trec \
-                                                           --output runs/run.dpr.trivia-test.multi.bf.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-trivia-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.trivia-test.multi.bf.trec \
+                                                             --output runs/run.dpr.trivia-test.multi.bf.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.trivia-test.multi.bf.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.trivia-test.multi.bf.json --topk 20 100
 Top20  accuracy: 0.7887
 Top100 accuracy: 0.8479
 ```
@@ -138,11 +138,11 @@ $ python -m pyserini.search --topics dpr-trivia-test \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-trivia-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.trivia-test.bm25.trec \
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-trivia-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.trivia-test.bm25.trec \
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.trivia-test.bm25.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.trivia-test.bm25.json --topk 20 100
 Top20  accuracy: 0.7641
 Top100 accuracy: 0.8315
 ```
@@ -161,12 +161,12 @@ $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-trivia-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.trivia-test.multi.bf.bm25.trec \
-                                                           --output runs/run.dpr.trivia-test.multi.bf.bm25.json 
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-trivia-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.trivia-test.multi.bf.bm25.trec \
+                                                             --output runs/run.dpr.trivia-test.multi.bf.bm25.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.trivia-test.multi.bf.bm25.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.trivia-test.multi.bf.bm25.json --topk 20 100
 Top20  accuracy: 0.8264
 Top100 accuracy: 0.8655
 ```
@@ -185,12 +185,12 @@ $ python -m pyserini.dsearch --topics dpr-wq-test \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-wq-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.wq-test.multi.bf.trec \
-                                                           --output runs/run.dpr.wq-test.multi.bf.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-wq-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.wq-test.multi.bf.trec \
+                                                             --output runs/run.dpr.wq-test.multi.bf.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.wq-test.multi.bf.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.wq-test.multi.bf.json --topk 20 100
 Top20  accuracy: 0.7505
 Top100 accuracy: 0.8297
 ```
@@ -206,12 +206,12 @@ $ python -m pyserini.search --topics dpr-wq-test \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-wq-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.wq-test.bm25.trec \
-                                                           --output runs/run.dpr.wq-test.bm25.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-wq-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.wq-test.bm25.trec \
+                                                             --output runs/run.dpr.wq-test.bm25.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.wq-test.bm25.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.wq-test.bm25.json --topk 20 100
 Top20  accuracy: 0.6240
 Top100 accuracy: 0.7549
 ```
@@ -230,12 +230,12 @@ $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-wq-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.wq-test.multi.bf.bm25.trec \
-                                                           --output runs/run.dpr.wq-test.multi.bf.bm25.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-wq-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.wq-test.multi.bf.bm25.trec \
+                                                             --output runs/run.dpr.wq-test.multi.bf.bm25.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.wq-test.multi.bf.bm25.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.wq-test.multi.bf.bm25.json --topk 20 100
 Top20  accuracy: 0.7712
 Top100 accuracy: 0.8440
 ```
@@ -254,12 +254,12 @@ $ python -m pyserini.dsearch --topics dpr-curated-test \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-curated-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.curated-test.multi.bf.trec \
-                                                           --output runs/run.dpr.curated-test.multi.bf.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-curated-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.curated-test.multi.bf.trec \
+                                                             --output runs/run.dpr.curated-test.multi.bf.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.curated-test.multi.bf.json --topk 20 100 --regex
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.curated-test.multi.bf.json --topk 20 100 --regex
 Top20  accuracy: 0.8876
 Top100 accuracy: 0.9337
 ```
@@ -275,12 +275,12 @@ $ python -m pyserini.search --topics dpr-curated-test \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-curated-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.curated-test.bm25.trec \
-                                                           --output runs/run.dpr.curated-test.bm25.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-curated-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.curated-test.bm25.trec \
+                                                             --output runs/run.dpr.curated-test.bm25.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.curated-test.bm25.json --topk 20 100 --regex
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.curated-test.bm25.json --topk 20 100 --regex
 Top20  accuracy: 0.8069
 Top100 accuracy: 0.8991
 ```
@@ -299,12 +299,12 @@ $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-curated-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.curated-test.multi.bf.bm25.trec \
-                                                           --output runs/run.dpr.curated-test.multi.bf.bm25.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-curated-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.curated-test.multi.bf.bm25.trec \
+                                                             --output runs/run.dpr.curated-test.multi.bf.bm25.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.curated-test.multi.bf.bm25.json --topk 20 100 --regex
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.curated-test.multi.bf.bm25.json --topk 20 100 --regex
 Top20  accuracy: 0.9006
 Top100 accuracy: 0.9496
 ```
@@ -323,12 +323,12 @@ $ python -m pyserini.dsearch --topics dpr-squad-test \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-squad-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.squad-test.multi.bf.trec \
-                                                           --output runs/run.dpr.squad-test.multi.bf.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-squad-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.squad-test.multi.bf.trec \
+                                                             --output runs/run.dpr.squad-test.multi.bf.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.squad-test.multi.bf.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.squad-test.multi.bf.json --topk 20 100
 Top20  accuracy: 0.5199
 Top100 accuracy: 0.6773
 ```
@@ -345,12 +345,12 @@ $ python -m pyserini.search --topics dpr-squad-test \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-squad-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.squad-test.bm25.trec \
-                                                           --output runs/run.dpr.squad-test.bm25.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-squad-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.squad-test.bm25.trec \
+                                                             --output runs/run.dpr.squad-test.bm25.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.squad-test.bm25.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.squad-test.bm25.json --topk 20 100
 Top20  accuracy: 0.7109
 Top100 accuracy: 0.8184
 ```
@@ -369,12 +369,12 @@ $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-squad-test \
-                                                           --index wikipedia-dpr \
-                                                           --input runs/run.dpr.squad-test.multi.bf.bm25.trec \
-                                                           --output runs/run.dpr.squad-test.multi.bf.bm25.json
+$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-squad-test \
+                                                             --index wikipedia-dpr \
+                                                             --input runs/run.dpr.squad-test.multi.bf.bm25.trec \
+                                                             --output runs/run.dpr.squad-test.multi.bf.bm25.json
 
-$ python tools/scripts/dpr/evaluate_retrieval.py --retrieval runs/run.dpr.squad-test.multi.bf.bm25.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.squad-test.multi.bf.bm25.json --topk 20 100
 Top20  accuracy: 0.7511
 Top100 accuracy: 0.8437
 ```
