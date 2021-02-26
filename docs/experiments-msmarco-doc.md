@@ -92,7 +92,7 @@ We can also use the official TREC evaluation tool, `trec_eval`, to compute metri
 For that we first need to convert the run file into TREC format:
 
 ```bash
-$ python -m pyserini.eval.convert_msmarco_to_trec_run \
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
    --input runs/run.msmarco-doc.bm25tuned.txt --output runs/run.msmarco-doc.bm25tuned.trec
 ```
 

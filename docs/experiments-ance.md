@@ -37,7 +37,7 @@ We can also use the official TREC evaluation tool `trec_eval` to compute other m
 For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
-$ python -m pyserini.eval.convert_msmarco_to_trec_run --input runs/run.msmarco-passage.ance.bf.tsv --output runs/run.msmarco-passage.ance.bf.trec
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.ance.bf.tsv --output runs/run.msmarco-passage.ance.bf.trec
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.ance.bf.trec
 map                   	all	0.3363
 recall_1000           	all	0.9584
@@ -63,10 +63,10 @@ $ python -m pyserini.dsearch --topics dpr-nq-test \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-nq-test \
-                                                             --index wikipedia-dpr \
-                                                             --input runs/run.ance.nq-test.multi.bf.trec \
-                                                             --output runs/run.ance.nq-test.multi.bf.json
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
+                                                                --index wikipedia-dpr \
+                                                                --input runs/run.ance.nq-test.multi.bf.trec \
+                                                                --output runs/run.ance.nq-test.multi.bf.json
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.ance.nq-test.multi.bf.json --topk 20 100
 Top20	accuracy: 0.8224376731301939
@@ -93,10 +93,10 @@ $ python -m pyserini.dsearch --topics dpr-trivia-test \
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-trivia-test \
-                                                             --index wikipedia-dpr \
-                                                             --input runs/run.ance.trivia-test.multi.bf.trec \
-                                                             --output runs/run.ance.trivia-test.multi.bf.json
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
+                                                                --index wikipedia-dpr \
+                                                                --input runs/run.ance.trivia-test.multi.bf.trec \
+                                                                --output runs/run.ance.trivia-test.multi.bf.json
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.ance.trivia-test.multi.bf.json --topk 20 100
 Top20	accuracy: 0.8010253690444621

@@ -39,7 +39,7 @@ class TestSearchIntegration(unittest.TestCase):
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
-        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-nq-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
@@ -62,7 +62,7 @@ class TestSearchIntegration(unittest.TestCase):
                              run    --topics dpr-nq-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
-        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-nq-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
@@ -83,7 +83,7 @@ class TestSearchIntegration(unittest.TestCase):
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
-        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-trivia-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
@@ -106,7 +106,7 @@ class TestSearchIntegration(unittest.TestCase):
                              run    --topics dpr-trivia-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
-        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-trivia-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
@@ -127,7 +127,7 @@ class TestSearchIntegration(unittest.TestCase):
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
-        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-wq-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-wq-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
@@ -150,7 +150,7 @@ class TestSearchIntegration(unittest.TestCase):
                              run    --topics dpr-wq-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
-        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-wq-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-wq-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
@@ -171,7 +171,7 @@ class TestSearchIntegration(unittest.TestCase):
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
-        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-curated-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
@@ -194,7 +194,7 @@ class TestSearchIntegration(unittest.TestCase):
                              run    --topics dpr-curated-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
-        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-curated-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
@@ -215,7 +215,7 @@ class TestSearchIntegration(unittest.TestCase):
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
-        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-squad-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-squad-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
@@ -238,7 +238,7 @@ class TestSearchIntegration(unittest.TestCase):
                              run    --topics dpr-squad-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
-        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_retrieval_json --topics dpr-squad-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-squad-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
