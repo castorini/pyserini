@@ -37,7 +37,7 @@ As an alternative, to perform "on-the-fly" query encoding, see additional instru
 To evaluate:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.bf.tsv
 #####################
 MRR @10: 0.3350
 QueriesRanked: 6980
@@ -54,7 +54,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.bf.tsv --output runs/run.msmarco-passage.tct_colbert.bf.trec
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.bf.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.bf.trec
 map                     all     0.3416
 recall_1000             all     0.9640
 ```
@@ -75,14 +75,14 @@ $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
 To evaluate:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.hnsw.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.hnsw.tsv
 #####################
 MRR @10: 0.3345
 QueriesRanked: 6980
 #####################
 
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.hnsw.tsv --output runs/run.msmarco-passage.tct_colbert.hnsw.trec
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.hnsw.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.hnsw.trec
 map                     all     0.3410
 recall_1000             all     0.9618
 ```
@@ -109,14 +109,14 @@ $ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
 To evaluate:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv
 #####################
 MRR @10: 0.3529
 QueriesRanked: 6980
 #####################
 
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv --output runs/run.msmarco-passage.tct_colbert.bf.bm25.trec
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.bf.bm25.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.bf.bm25.trec
 map                   	all	0.3594
 recall_1000           	all	0.9698
 ```
@@ -141,14 +141,14 @@ $ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
 To evaluate:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv
 #####################
 MRR @10: 0.3647
 QueriesRanked: 6980
 #####################
 
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv --output runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.trec
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.trec
 map                   	all	0.3711
 recall_1000           	all	0.9751
 ```
@@ -188,7 +188,7 @@ $ python -m pyserini.dsearch --topics msmarco-doc-dev \
 To compute the official metric MRR@100 using the official evaluation scripts:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt --run runs/run.msmarco-doc.passage.tct_colbert.txt
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.passage.tct_colbert.txt
 #####################
 MRR @100: 0.3323
 #####################
@@ -198,7 +198,7 @@ To compute additional metrics using `trec_eval`, we first need to convert the ru
 
 ```bash
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-doc.passage.tct_colbert.txt --output runs/run.msmarco-doc.passage.tct_colbert.trec
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap tools/topics-and-qrels/qrels.msmarco-doc.dev.txt runs/run.msmarco-doc.passage.tct_colbert.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev runs/run.msmarco-doc.passage.tct_colbert.trec
 map                   	all	0.3323
 recall_100            	all	0.8664
 ```
@@ -222,14 +222,14 @@ $ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
 To evaluate:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt --run runs/run.msmarco-doc.tct_colbert.bf.bm25.tsv
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.tct_colbert.bf.bm25.tsv
 #####################
 MRR @100: 0.3701
 QueriesRanked: 5193
 #####################
 
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-doc.tct_colbert.bf.bm25.tsv --output runs/run.msmarco-doc.tct_colbert.bf.bm25.trec
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap tools/topics-and-qrels/qrels.msmarco-doc.dev.txt runs/run.msmarco-doc.tct_colbert.bf.bm25.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev runs/run.msmarco-doc.tct_colbert.bf.bm25.trec
 map                   	all	0.3701
 recall_100            	all	0.9020
 ```
@@ -260,7 +260,7 @@ QueriesRanked: 5193
 #####################
 
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.trec
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap tools/topics-and-qrels/qrels.msmarco-doc.dev.txt runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.trec
 map                   	all	0.3784
 recall_100            	all	0.9081
 ```
