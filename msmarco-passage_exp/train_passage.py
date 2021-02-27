@@ -242,24 +242,24 @@ def data_loader(task, df, queries, fe):
     df_hash = hash_df(df)
     jar_hash = hash_anserini_jar()
     fe_hash = hash_fe(fe)
-    #if os.path.exists(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle'):
-        #res = pickle.load(open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'rb'))
-        #print(res['info'].shape)
-        #print(res['info'].qid.drop_duplicates().shape)
-        #print(res['group'].mean())
-        #return res
-    #else:
-    if task == 'train' or task == 'dev':
-        info, data, group = batch_extract(df, queries, fe)
-        obj = {'info':info, 'data': data, 'group': group,
-                   'df_hash': df_hash, 'jar_hash': jar_hash, 'fe_hash': fe_hash}
-        print(info.shape)
-        print(info.qid.drop_duplicates().shape)
-        print(group.mean())
-            #pickle.dump(obj, open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'wb'))
-        return obj
+    if os.path.exists(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle'):
+        res = pickle.load(open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'rb'))
+        print(res['info'].shape)
+        print(res['info'].qid.drop_duplicates().shape)
+        print(res['group'].mean())
+        return res
     else:
-        raise Exception('unknown parameters')
+        if task == 'train' or task == 'dev':
+            info, data, group = batch_extract(df, queries, fe)
+            obj = {'info':info, 'data': data, 'group': group,
+                       'df_hash': df_hash, 'jar_hash': jar_hash, 'fe_hash': fe_hash}
+            print(info.shape)
+            print(info.qid.drop_duplicates().shape)
+            print(group.mean())
+            pickle.dump(obj, open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'wb'))
+            return obj
+        else:
+            raise Exception('unknown parameters')
 
 def gen_dev_group_rel_num(dev_qrel, dev_extracted):
     dev_rel_num = dev_qrel[dev_qrel['rel']>0].groupby('qid').count()['rel']
@@ -594,6 +594,20 @@ if __name__ == '__main__':
         fe.add(OrderedQueryPairs(3, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(8, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
+
+        fe.add(BM25Mean(MaxPooler()))
+        fe.add(BM25Mean(MinPooler()))
+        fe.add(BM25Min(MaxPooler()))
+        fe.add(BM25Min(MinPooler()))
+        fe.add(BM25Max(MaxPooler()))
+        fe.add(BM25Max(MinPooler()))
+        fe.add(BM25HMean(MaxPooler()))
+        fe.add(BM25HMean(MinPooler()))
+        fe.add(BM25Var(MaxPooler()))
+        fe.add(BM25Var(MinPooler()))
+        fe.add(BM25Quartile(MaxPooler()))
+        fe.add(BM25Quartile(MinPooler()))
+        print("test")
 
     # fe.add(EntityHowLong())
     # fe.add(EntityHowMany())
