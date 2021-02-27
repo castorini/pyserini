@@ -39,11 +39,11 @@ class TestSearchIntegration(unittest.TestCase):
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
-        cmd2 = f'python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-nq-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
-        cmd3 = f'python tools/scripts/dpr/evaluate_retrieval.py --retrieval {retrieval_file} --topk 20'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
@@ -62,11 +62,11 @@ class TestSearchIntegration(unittest.TestCase):
                              run    --topics dpr-nq-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
-        cmd2 = f'python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-nq-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
-        cmd3 = f'python tools/scripts/dpr/evaluate_retrieval.py --retrieval {retrieval_file} --topk 20'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
@@ -83,11 +83,11 @@ class TestSearchIntegration(unittest.TestCase):
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
-        cmd2 = f'python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-trivia-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
-        cmd3 = f'python tools/scripts/dpr/evaluate_retrieval.py --retrieval {retrieval_file} --topk 20'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
@@ -106,11 +106,11 @@ class TestSearchIntegration(unittest.TestCase):
                              run    --topics dpr-trivia-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
-        cmd2 = f'python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-trivia-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
-        cmd3 = f'python tools/scripts/dpr/evaluate_retrieval.py --retrieval {retrieval_file} --topk 20'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
@@ -127,11 +127,11 @@ class TestSearchIntegration(unittest.TestCase):
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
-        cmd2 = f'python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-wq-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-wq-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
-        cmd3 = f'python tools/scripts/dpr/evaluate_retrieval.py --retrieval {retrieval_file} --topk 20'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
@@ -150,11 +150,11 @@ class TestSearchIntegration(unittest.TestCase):
                              run    --topics dpr-wq-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
-        cmd2 = f'python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-wq-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-wq-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
-        cmd3 = f'python tools/scripts/dpr/evaluate_retrieval.py --retrieval {retrieval_file} --topk 20'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
@@ -171,11 +171,11 @@ class TestSearchIntegration(unittest.TestCase):
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
-        cmd2 = f'python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-curated-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
-        cmd3 = f'python tools/scripts/dpr/evaluate_retrieval.py --retrieval {retrieval_file} --topk 20 --regex'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20 --regex'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
@@ -194,11 +194,11 @@ class TestSearchIntegration(unittest.TestCase):
                              run    --topics dpr-curated-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
-        cmd2 = f'python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-curated-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
-        cmd3 = f'python tools/scripts/dpr/evaluate_retrieval.py --retrieval {retrieval_file} --topk 20 --regex'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20 --regex'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
@@ -215,11 +215,11 @@ class TestSearchIntegration(unittest.TestCase):
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
-        cmd2 = f'python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-squad-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-squad-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
-        cmd3 = f'python tools/scripts/dpr/evaluate_retrieval.py --retrieval {retrieval_file} --topk 20'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
@@ -238,11 +238,11 @@ class TestSearchIntegration(unittest.TestCase):
                              run    --topics dpr-squad-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
-        cmd2 = f'python scripts/dpr/convert_trec_run_to_retrieval_json.py --topics dpr-squad-test \
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-squad-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
-        cmd3 = f'python tools/scripts/dpr/evaluate_retrieval.py --retrieval {retrieval_file} --topk 20'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
