@@ -62,6 +62,8 @@ def init_query_encoder(encoder, topics_name, encoded_queries, device):
         elif 'ance' in encoder:
             return AnceQueryEncoder(encoder_dir=encoder, device=device)
     if encoded_queries:
+        if os.path.exists(encoded_queries):
+            return QueryEncoder(encoded_queries)
         return QueryEncoder.load_encoded_queries(encoded_queries)
     if topics_name in encoded_queries_map:
         return QueryEncoder.load_encoded_queries(encoded_queries_map[topics_name])
