@@ -145,7 +145,7 @@ class AnceQueryEncoder(QueryEncoder):
         if self.has_model:
             inputs = self.tokenizer(
                 [query],
-                max_length=512,
+                max_length=64,
                 padding='longest',
                 truncation=True,
                 add_special_tokens=True,

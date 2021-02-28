@@ -36,12 +36,15 @@ def define_dsearch_args(parser):
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
                         required=False,
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
+    parser.add_argument('--encoded-queries', type=str, metavar='path to query encoded queries dir or queries name',
+                        required=False,
+                        help="Path to query encoder pytorch checkpoint or hgf encoder model name")
     parser.add_argument('--device', type=str, metavar='device to run query encoder', required=False, default='cpu',
                         help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
 
 
-def init_query_encoder(encoder, topics_name, device):
-    encoded_queries = {
+def init_query_encoder(encoder, topics_name, encoded_queries, device):
+    encoded_queries_map = {
         'msmarco-passage-dev-subset': 'msmarco-passage-dev-subset-tct_colbert',
         'dpr-nq-dev': 'dpr-nq-dev-multi',
         'dpr-nq-test': 'dpr-nq-test-multi',
@@ -50,8 +53,6 @@ def init_query_encoder(encoder, topics_name, device):
         'dpr-wq-test': 'dpr-wq-test-multi',
         'dpr-squad-test': 'dpr-squad-test-multi',
         'dpr-curated-test': 'dpr-curated_trec-test-multi'
-
-
     }
     if encoder:
         if 'dpr' in encoder:
@@ -60,8 +61,10 @@ def init_query_encoder(encoder, topics_name, device):
             return TCTColBERTQueryEncoder(encoder_dir=encoder, device=device)
         elif 'ance' in encoder:
             return AnceQueryEncoder(encoder_dir=encoder, device=device)
-    if topics_name in encoded_queries:
-        return QueryEncoder.load_encoded_queries(encoded_queries[topics_name])
+    if encoded_queries:
+        return QueryEncoder.load_encoded_queries(encoded_queries)
+    if topics_name in encoded_queries_map:
+        return QueryEncoder.load_encoded_queries(encoded_queries_map[topics_name])
     return None
 
 
@@ -95,7 +98,7 @@ if __name__ == '__main__':
         print(f'Topic {args.topics} Not Found')
         exit()
 
-    query_encoder = init_query_encoder(args.encoder, args.topics, args.device)
+    query_encoder = init_query_encoder(args.encoder, args.topics, args.encoded_queries, args.device)
     if not query_encoder:
         print(f'No encoded queries for topic {args.topics}')
         exit()

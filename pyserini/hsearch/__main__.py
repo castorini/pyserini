@@ -102,7 +102,10 @@ if __name__ == '__main__':
         print(f'Topic {args.run.topics} Not Found')
         exit()
 
-    query_encoder = init_query_encoder(args.dense.encoder, args.run.topics, args.dense.device)
+    query_encoder = init_query_encoder(args.dense.encoder,
+                                       args.run.topics,
+                                       args.dense.encoded_queries,
+                                       args.dense.device)
     if not query_encoder:
         print(f'No encoded queries for topic {args.run.topics}')
         exit()
