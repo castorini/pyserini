@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+"""Integration tests for DPR model using pre-encoded queries."""
+
 import os
 import socket
 import unittest
