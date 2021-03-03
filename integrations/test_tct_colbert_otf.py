@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+"""Integration tests for TCT-ColBERT model using on-the-fly query encoding."""
+
 import platform
 import os
 import socket
@@ -32,29 +34,6 @@ class TestSearchIntegration(unittest.TestCase):
             self.threads = 36
             self.batch_size = 144
 
-    def test_msmarco_passage_tct_colbert_bf(self):
-        output_file = 'test_run.msmarco-passage.tct_colbert.bf.tsv'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-                             --index msmarco-passage-tct_colbert-bf \
-                             --batch-size {self.batch_size} \
-                             --threads {self.threads} \
-                             --output {output_file} \
-                             --msmarco'
-        cmd2 = f'python tools/scripts/msmarco/msmarco_passage_eval.py \
-                    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-                    {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
-        # We get a small difference in scores on macOS (vs. Linux):
-        if platform.system() == 'Darwin':
-            self.assertAlmostEqual(score, 0.3349, places=4)
-        else:
-            self.assertAlmostEqual(score, 0.3350, places=4)
-
     def test_msmarco_passage_tct_colbert_bf_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert.bf-otf.tsv'
         self.temp_files.append(output_file)
@@ -65,36 +44,17 @@ class TestSearchIntegration(unittest.TestCase):
                              --threads {self.threads} \
                              --output {output_file} \
                              --msmarco'
-        cmd2 = f'python tools/scripts/msmarco/msmarco_passage_eval.py \
-                    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-                    {output_file}'
+        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-                # We get a small difference in scores on macOS (vs. Linux):
+        # We get a small difference in scores on macOS (vs. Linux):
         if platform.system() == 'Darwin':
             self.assertAlmostEqual(score, 0.3350, places=4)
         else:
             self.assertAlmostEqual(score, 0.3349, places=4)
-
-    def test_msmarco_passage_tct_colbert_hnsw(self):
-        output_file = 'test_run.msmarco-passage.tct_colbert.hnsw.tsv'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-                             --index msmarco-passage-tct_colbert-hnsw \
-                             --output {output_file} \
-                             --msmarco '
-        cmd2 = f'python tools/scripts/msmarco/msmarco_passage_eval.py \
-                    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-                    {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3345, places=4)
 
     def test_msmarco_passage_tct_colbert_hnsw_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert.hnsw-otf.tsv'
@@ -104,35 +64,13 @@ class TestSearchIntegration(unittest.TestCase):
                              --encoder castorini/tct_colbert-msmarco \
                              --output {output_file} \
                              --msmarco '
-        cmd2 = f'python tools/scripts/msmarco/msmarco_passage_eval.py \
-                    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-                    {output_file}'
+        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3345, places=4)
-
-    def test_msmarco_passage_tct_colbert_bf_bm25_hybrid(self):
-        output_file = 'test_run.msmarco-passage.tct_colbert.bf.bm25.tsv'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
-                             sparse --index msmarco-passage \
-                             fusion --alpha 0.12 \
-                             run    --topics msmarco-passage-dev-subset \
-                                    --output {output_file} \
-                                    --batch-size {self.batch_size} --threads {self.threads} \
-                                    --msmarco'
-        cmd2 = f'python tools/scripts/msmarco/msmarco_passage_eval.py \
-                    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-                    {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3529, places=4)
 
     def test_msmarco_passage_tct_colbert_bf_bm25_hybrid_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert.bf-otf.bm25.tsv'
@@ -145,35 +83,13 @@ class TestSearchIntegration(unittest.TestCase):
                                     --output {output_file} \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --msmarco'
-        cmd2 = f'python tools/scripts/msmarco/msmarco_passage_eval.py \
-                    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-                    {output_file}'
+        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3529, places=4)
-
-    def test_msmarco_passage_tct_colbert_bf_d2q_hybrid(self):
-        output_file = 'test_run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
-                             sparse --index msmarco-passage-expanded \
-                             fusion --alpha 0.22 \
-                             run    --topics msmarco-passage-dev-subset \
-                                    --output {output_file} \
-                                    --batch-size {self.batch_size} --threads {self.threads} \
-                                    --msmarco'
-        cmd2 = f'python tools/scripts/msmarco/msmarco_passage_eval.py \
-                    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-                    {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3647, places=4)
 
     def test_msmarco_passage_tct_colbert_bf_d2q_hybrid_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert.bf-otf.doc2queryT5.tsv'
@@ -186,9 +102,7 @@ class TestSearchIntegration(unittest.TestCase):
                                     --output {output_file} \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --msmarco'
-        cmd2 = f'python tools/scripts/msmarco/msmarco_passage_eval.py \
-                    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-                    {output_file}'
+        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
@@ -196,7 +110,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3647, places=4)
 
-    def test_msmarco_doc_tct_colbert_bf(self):
+    def test_msmarco_doc_tct_colbert_bf_otf(self):
         output_file = 'test_run.msmarco-doc.passage.tct_colbert.txt'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.dsearch --topics msmarco-doc-dev \
@@ -209,9 +123,7 @@ class TestSearchIntegration(unittest.TestCase):
                              --msmarco \
                              --batch-size {self.batch_size} \
                              --threads {self.threads}'
-        cmd2 = f'python tools/scripts/msmarco/msmarco_doc_eval.py \
-                        --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-                        --run {output_file}'
+        cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @100")
@@ -219,7 +131,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3323, places=4)
 
-    def test_msmarco_doc_tct_colbert_bf_bm25_hybrid(self):
+    def test_msmarco_doc_tct_colbert_bf_bm25_hybrid_otf(self):
         output_file = 'test_run.msmarco-doc.tct_colbert.bf.bm25.tsv'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
@@ -231,9 +143,7 @@ class TestSearchIntegration(unittest.TestCase):
                                     --hits 1000 --max-passage --max-passage-hits 100 \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --msmarco'
-        cmd2 = f'python tools/scripts/msmarco/msmarco_doc_eval.py \
-                        --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-                        --run {output_file}'
+        cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @100")
@@ -241,7 +151,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3701, places=4)
 
-    def test_msmarco_doc_tct_colbert_bf_d2q_hybrid(self):
+    def test_msmarco_doc_tct_colbert_bf_d2q_hybrid_otf(self):
         output_file = 'test_run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
@@ -253,9 +163,7 @@ class TestSearchIntegration(unittest.TestCase):
                                     --hits 1000 --max-passage --max-passage-hits 100 \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --msmarco'
-        cmd2 = f'python tools/scripts/msmarco/msmarco_doc_eval.py \
-                        --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-                        --run {output_file}'
+        cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @100")
