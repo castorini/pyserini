@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for TCT-ColBERT model with pre-encoded queries."""
+"""Integration tests for TCT-ColBERT model using pre-encoded queries."""
 
 import platform
 import os
