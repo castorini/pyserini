@@ -43,6 +43,45 @@ map                   	all	0.3363
 recall_1000           	all	0.9584
 ```
 
+## MS MARCO Document
+Download the query encoder checkpoint:
+```bash
+$ wget https://www.dropbox.com/s/475d9yax0gxxukf/ance-msmarco-doc-maxp-encoder.tar.gz
+$ tar -xvf ance-msmarco-doc-maxp-encoder.tar.gz
+```
+
+**ANCE retrieval** with brute-force index:
+```bash
+$ python -m pyserini.dsearch --topics msmarco-doc-dev \
+                             --index msmarco-doc-ance-maxp-bf \
+                             --encoder ance-msmarco-doc-maxp-encoder \
+                             --output runs/run.msmarco-doc.passage.ance-maxp.txt \
+                             --hits 1000 \
+                             --max-passage \
+                             --max-passage-hits 100 \
+                             --msmarco \
+                             --batch-size 36 \
+                             --threads 12
+```
+To evaluate:
+```bash
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.passage.ance-maxp.txt
+#####################
+MRR @100: 0.37965620295359753
+QueriesRanked: 5193
+#####################
+```
+
+We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@100. 
+For that we first need to convert runs and qrels files to the TREC format:
+
+```bash
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-doc.passage.ance-maxp.txt --output runs/run.msmarco-doc.passage.ance-maxp.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev runs/run.msmarco-doc.passage.ance-maxp.trec
+map                   	all	0.3797
+recall_100            	all	0.9033
+```
+
 ## Natural Questions (NQ)
 Download the query encoder checkpoint:
 ```bash

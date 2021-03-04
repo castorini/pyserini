@@ -446,4 +446,14 @@ DINDEX_INFO = {
         "documents": 21015320,
         "downloaded": False
     },
+    "msmarco-doc-ance-maxp-bf": {
+        "description": "MS MARCO document corpus encoded by ANCE maxp encoder and indexed as brute force index",
+        "urls": [
+            "https://www.dropbox.com/s/bddpw1nwcka7pdf/dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz?dl=1",
+        ],
+        "md5": "a9f8d77ea0cef7c6acdba881c45b7d99",
+        "size compressed (bytes)": 58312805496,
+        "documents": 20544550,
+        "downloaded": False
+    },
 }
