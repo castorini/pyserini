@@ -120,6 +120,29 @@ class TestSearch(unittest.TestCase):
         self.assertTrue(isinstance(results['q2'][0], JSimpleSearcherResult))
         self.assertEqual(len(results['q2']), 100)
 
+    def test_basic_fields(self):
+        # This test just provides a sanity check, it's not that interesting as it only searches one field.
+        hits = self.searcher.search('information retrieval', k=42, fields={'contents': 2.0})
+
+        self.assertEqual(3204, self.searcher.num_docs)
+        self.assertTrue(isinstance(hits, List))
+        self.assertTrue(isinstance(hits[0], JSimpleSearcherResult))
+        self.assertEqual(len(hits), 42)
+
+    def test_batch_fields(self):
+        # This test just provides a sanity check, it's not that interesting as it only searches one field.
+        results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], k=42,
+                                              threads=2, fields={'contents': 2.0})
+
+        self.assertEqual(3204, self.searcher.num_docs)
+        self.assertTrue(isinstance(results, Dict))
+        self.assertTrue(isinstance(results['q1'], List))
+        self.assertTrue(isinstance(results['q1'][0], JSimpleSearcherResult))
+        self.assertEqual(len(results['q1']), 42)
+        self.assertTrue(isinstance(results['q2'], List))
+        self.assertTrue(isinstance(results['q2'][0], JSimpleSearcherResult))
+        self.assertEqual(len(results['q2']), 42)
+
     def test_different_similarity(self):
         # qld, default mu
         self.searcher.set_qld()

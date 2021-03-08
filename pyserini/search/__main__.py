@@ -19,7 +19,8 @@ import os
 from typing import Tuple, List, TextIO
 
 from pyserini.pyclass import autoclass
-from pyserini.search import get_topics, SimpleSearcher, JSimpleSearcherResult
+from pyserini.analysis import JDefaultEnglishAnalyzer
+from pyserini.search import get_topics, SimpleSearcher, JSimpleSearcherResult, JDisjunctionMaxQueryGenerator
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 from pyserini.query_iterator import QUERY_IDS, query_iterator
 from tqdm import tqdm
@@ -116,6 +117,15 @@ def define_search_args(parser):
     parser.add_argument('--prcl.alpha', dest='alpha', type=float, default=0.5,
                         help='Alpha value for interpolation in pseudo relevance feedback.')
 
+    parser.add_argument('--fields', metavar="key=value", nargs='+',
+                        help='Fields to search with assigned float weights.')
+    parser.add_argument('--dismax', action='store_true', default=False,
+                        help='Use disjunction max queries when searching multiple fields.')
+    parser.add_argument('--dismax.tiebreaker', dest='tiebreaker', type=float, default=0.0,
+                        help='The tiebreaker weight to use in disjunction max queries.')
+
+    parser.add_argument('--stopwords', type=str, help='Path to file with customstopwords.')
+
 
 if __name__ == "__main__":
     JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
@@ -166,6 +176,21 @@ if __name__ == "__main__":
         search_rankers.append('rm3')
         searcher.set_rm3()
 
+    fields = dict()
+    if args.fields:
+        fields = dict([pair.split('=') for pair in args.fields])
+        print(f'Searching over fields: {fields}')
+
+    query_generator = None
+    if args.dismax:
+        query_generator = JDisjunctionMaxQueryGenerator(args.tiebreaker)
+        print(f'Using dismax query generator with tiebreaker={args.tiebreaker}')
+
+    if args.stopwords:
+        analyzer = JDefaultEnglishAnalyzer.fromArguments('porter', False, args.stopwords)
+        searcher.set_analyzer(analyzer)
+        print(f'Using custom stopwords={args.stopwords}')
+
     # invalid topics name
     if topics == {}:
         print(f'Topic {args.topics} Not Found')
@@ -211,15 +236,15 @@ if __name__ == "__main__":
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
             if args.batch_size <= 1 and args.threads <= 1:
-                hits = searcher.search(text, args.hits)
+                hits = searcher.search(text, args.hits, query_generator=query_generator, fields=fields)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
                 batch_topics.append(text)
                 if (index + 1) % args.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
-                    results = searcher.batch_search(
-                        batch_topics, batch_topic_ids, args.hits, args.threads)
+                    results = searcher.batch_search(batch_topics, batch_topic_ids, args.hits, args.threads,
+                                                    query_generator=query_generator, fields=fields)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
