@@ -55,7 +55,7 @@ class JGenerators(Enum):
     AclAnthologyGenerator = autoclass('io.anserini.index.generator.AclAnthologyGenerator')
     DefaultLuceneDocumentGenerator = autoclass('io.anserini.index.generator.DefaultLuceneDocumentGenerator')
     TweetGenerator = autoclass('io.anserini.index.generator.TweetGenerator')
-    WapoGenerator = autoclass('io.anserini.index.generator.WashingtonPostGenerator')
+    WashingtonPostGenerator = autoclass('io.anserini.index.generator.WashingtonPostGenerator')
 
 
 class Generator:
