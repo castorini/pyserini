@@ -22,7 +22,7 @@ import sys
 from tqdm import tqdm
 
 from pyserini.dsearch import SimpleDenseSearcher
-from pyserini.query_iterator import QUERY_IDS, query_iterator
+from pyserini.query_iterator import get_query_iterator, QueryFormat
 from pyserini.search import SimpleSearcher, get_topics
 from pyserini.hsearch import HybridSearcher
 
@@ -78,6 +78,8 @@ if __name__ == '__main__':
     run_parser.add_argument('--topics', type=str, metavar='topic_name', required=False,
                             help="Name of topics. Available: msmarco-passage-dev-subset.")
     run_parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
+    run_parser.add_argument('--format', type=str, metavar='format', default="default",
+                            help="Format of topics. Available: default, kilt")
     run_parser.add_argument('--msmarco', action='store_true', default=False, help="Output in MS MARCO format.")
     run_parser.add_argument('--output', type=str, metavar='path', required=False, help="Path to output file.")
     run_parser.add_argument('--max-passage', action='store_true',
@@ -93,14 +95,7 @@ if __name__ == '__main__':
 
     args = parse_args(parser, commands)
 
-    if os.path.exists(args.run.topics) and args.run.topics.endswith('.json'):
-        topics = json.load(open(args.run.topics))
-    else:
-        topics = get_topics(args.run.topics)
-    # invalid topics name
-    if topics == {}:
-        print(f'Topic {args.run.topics} Not Found')
-        exit()
+    queries = list(get_query_iterator(args.run.topics, QueryFormat(args.run.format)))
 
     query_encoder = init_query_encoder(args.dense.encoder,
                                        args.run.topics,
@@ -142,15 +137,10 @@ if __name__ == '__main__':
     print(f'Running {args.run.topics} topics, saving to {output_path}...')
     tag = 'hybrid'
 
-    order = None
-    if args.run.topics in QUERY_IDS:
-        print(f'Using pre-defined topic order for {args.run.topics}')
-        order = QUERY_IDS[args.run.topics]
-
     with open(output_path, 'w') as target_file:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+        for index, (topic_id, text) in enumerate(tqdm(queries)):
             if args.run.batch_size <= 1 and args.run.threads <= 1:
                 hits = hsearcher.search(text, args.run.hits, args.fusion.alpha)
                 results = [(topic_id, hits)]
@@ -158,7 +148,7 @@ if __name__ == '__main__':
                 batch_topic_ids.append(str(topic_id))
                 batch_topics.append(text)
                 if (index + 1) % args.run.batch_size == 0 or \
-                        index == len(topics.keys()) - 1:
+                        index == len(queries) - 1:
                     results = hsearcher.batch_search(
                         batch_topics, batch_topic_ids, args.run.hits, args.run.threads, args.fusion.alpha)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]

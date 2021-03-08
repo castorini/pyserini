@@ -19,9 +19,9 @@ import os
 from typing import Tuple, List, TextIO
 
 from pyserini.pyclass import autoclass
-from pyserini.search import get_topics, SimpleSearcher, JSimpleSearcherResult
+from pyserini.search import SimpleSearcher, JSimpleSearcherResult
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
-from pyserini.query_iterator import QUERY_IDS, query_iterator
+from pyserini.query_iterator import get_query_iterator, QueryFormat
 from tqdm import tqdm
 
 
@@ -125,6 +125,8 @@ if __name__ == "__main__":
                         help="Name of topics. Available: robust04, robust05, core17, core18.")
     parser.add_argument('--hits', type=int, metavar='num',
                         required=False, default=1000, help="Number of hits.")
+    parser.add_argument('--format', type=str, metavar='format', default="default",
+                        help="Format of topics. Available: default, kilt")
     parser.add_argument('--msmarco',  action='store_true',
                         default=False, help="Output in MS MARCO format.")
     parser.add_argument('--output', type=str, metavar='path',
@@ -141,7 +143,7 @@ if __name__ == "__main__":
                         default=1, help="Maximum number of threads to use.")
     args = parser.parse_args()
 
-    topics = get_topics(args.topics)
+    queries = list(get_query_iterator(args.topics, QueryFormat(args.format)))
 
     if os.path.exists(args.index):
         # create searcher from index directory
@@ -165,11 +167,6 @@ if __name__ == "__main__":
     if args.rm3:
         search_rankers.append('rm3')
         searcher.set_rm3()
-
-    # invalid topics name
-    if topics == {}:
-        print(f'Topic {args.topics} Not Found')
-        exit()
 
     # get re-ranker
     use_prcl = args.prcl and len(args.prcl) > 0 and args.alpha > 0
@@ -202,14 +199,10 @@ if __name__ == "__main__":
     print(f'Running {args.topics} topics, saving to {output_path}...')
     tag = output_path[:-4] if args.output is None else 'Anserini'
 
-    order = None
-    if args.topics in QUERY_IDS:
-        order = QUERY_IDS[args.topics]
-
     with open(output_path, 'w') as target_file:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+        for index, (topic_id, text) in enumerate(tqdm(queries)):
             if args.batch_size <= 1 and args.threads <= 1:
                 hits = searcher.search(text, args.hits)
                 results = [(topic_id, hits)]
@@ -217,7 +210,7 @@ if __name__ == "__main__":
                 batch_topic_ids.append(str(topic_id))
                 batch_topics.append(text)
                 if (index + 1) % args.batch_size == 0 or \
-                        index == len(topics.keys()) - 1:
+                        index == len(queries) - 1:
                     results = searcher.batch_search(
                         batch_topics, batch_topic_ids, args.hits, args.threads)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
