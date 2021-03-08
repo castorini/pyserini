@@ -6,9 +6,10 @@ from pyserini.search import get_topics
 
 
 @unique
-class QueryFormat(Enum):
+class TopicsFormat(Enum):
     DEFAULT = 'default'
-    KILT = 'kilt'
+    KILT_DRQA = 'kilt-drqa'
+    KILT_DPR = 'kilt-dpr'
 
 
 class DefaultQueryIterator:
@@ -52,27 +53,30 @@ class KiltQueryIterator:
 
     def __init__(self, topics_path: str):
         self.topics_path = topics_path
+        self.topics = {}
 
     def __iter__(self):
         with open(self.topics_path, 'r') as f:
             for line in f:
-                data = json.loads(line)
+                datapoint = json.loads(line)
+                self.topics[datapoint["id"]] = datapoint
                 query = (
-                    data["input"]
+                    datapoint["input"]
                     .replace(KiltQueryIterator.ENT_START_TOKEN, "")
                     .replace(KiltQueryIterator.ENT_END_TOKEN, "")
                     .strip()
                 )
-                yield data["id"], query
+                yield datapoint["id"], query
 
     @classmethod
     def from_topics(cls, topics_path: str):
         return cls(topics_path)
 
 
-def get_query_iterator(topics_path: str, query_format: QueryFormat):
+def get_query_iterator(topics_path: str, query_format: TopicsFormat):
     mapping = {
-        QueryFormat.DEFAULT: DefaultQueryIterator,
-        QueryFormat.KILT: KiltQueryIterator
+        TopicsFormat.DEFAULT: DefaultQueryIterator,
+        TopicsFormat.KILT_DRQA: KiltQueryIterator,
+        TopicsFormat.KILT_DPR: KiltQueryIterator
     }
     return mapping[query_format].from_topics(topics_path)

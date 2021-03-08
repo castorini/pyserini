@@ -22,12 +22,13 @@ import sys
 from tqdm import tqdm
 
 from pyserini.dsearch import SimpleDenseSearcher
-from pyserini.query_iterator import get_query_iterator, QueryFormat
-from pyserini.search import SimpleSearcher, get_topics
+from pyserini.query_iterator import get_query_iterator, TopicsFormat
+from pyserini.output_writer import get_output_writer, OutputFormat
+from pyserini.search import SimpleSearcher
 from pyserini.hsearch import HybridSearcher
 
 from pyserini.dsearch.__main__ import define_dsearch_args, init_query_encoder
-from pyserini.search.__main__ import define_search_args, write_result, write_result_max_passage, set_bm25_parameters
+from pyserini.search.__main__ import define_search_args, set_bm25_parameters
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -78,9 +79,10 @@ if __name__ == '__main__':
     run_parser.add_argument('--topics', type=str, metavar='topic_name', required=False,
                             help="Name of topics. Available: msmarco-passage-dev-subset.")
     run_parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
-    run_parser.add_argument('--format', type=str, metavar='format', default="default",
-                            help="Format of topics. Available: default, kilt")
-    run_parser.add_argument('--msmarco', action='store_true', default=False, help="Output in MS MARCO format.")
+    run_parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
+                            help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
+    run_parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
+                            help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
     run_parser.add_argument('--output', type=str, metavar='path', required=False, help="Path to output file.")
     run_parser.add_argument('--max-passage', action='store_true',
                             default=False, help="Select only max passage from document.")
@@ -95,7 +97,9 @@ if __name__ == '__main__':
 
     args = parse_args(parser, commands)
 
-    queries = list(get_query_iterator(args.run.topics, QueryFormat(args.run.format)))
+    query_iterator = get_query_iterator(args.run.topics, TopicsFormat(args.run.topics_format))
+    queries = list(query_iterator)
+    topics = query_iterator.topics
 
     query_encoder = init_query_encoder(args.dense.encoder,
                                        args.run.topics,
@@ -137,7 +141,15 @@ if __name__ == '__main__':
     print(f'Running {args.run.topics} topics, saving to {output_path}...')
     tag = 'hybrid'
 
-    with open(output_path, 'w') as target_file:
+    if args.max_passage:
+        output_writer = get_output_writer(output_path, OutputFormat(args.run.output_format), 'w',
+                                          max_hits=args.run.max_passage_hits, tag=tag, topics=topics,
+                                          use_max_passage=True, passage_delimiter=args.run.max_passage_delimiter)
+    else:
+        output_writer = get_output_writer(output_path, OutputFormat(args.run.output_format), 'w',
+                                          max_hits=args.run.hits, tag=tag, topics=topics)
+
+    with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(queries)):
@@ -157,10 +169,7 @@ if __name__ == '__main__':
                 else:
                     continue
 
-            for result in results:
-                if args.run.max_passage:
-                    write_result_max_passage(target_file, result, args.run.max_passage_delimiter,
-                                             args.run.max_passage_hits, args.run.msmarco, tag)
-                else:
-                    write_result(target_file, result, args.run.hits, args.run.msmarco, tag)
+            for topic, hits in results:
+                output_writer.write(topic, hits)
+
             results.clear()

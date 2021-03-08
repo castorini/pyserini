@@ -16,54 +16,13 @@
 
 import argparse
 import os
-from typing import Tuple, List, TextIO
 
 from pyserini.pyclass import autoclass
-from pyserini.search import SimpleSearcher, JSimpleSearcherResult
+from pyserini.search import SimpleSearcher
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
-from pyserini.query_iterator import get_query_iterator, QueryFormat
+from pyserini.query_iterator import get_query_iterator, TopicsFormat
+from pyserini.output_writer import OutputFormat, get_output_writer
 from tqdm import tqdm
-
-
-def write_result(target_file: TextIO, result: Tuple[str, List[JSimpleSearcherResult]],
-                 hits_num: int, msmarco: bool, tag: str):
-    topic, hits = result
-    docids = [hit.docid.strip() for hit in hits]
-    scores = [hit.score for hit in hits]
-
-    if msmarco:
-        for i, docid in enumerate(docids):
-            if i >= hits_num:
-                break
-            target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
-    else:
-        for i, (docid, score) in enumerate(zip(docids, scores)):
-            if i >= hits_num:
-                break
-            target_file.write(
-                f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
-
-
-def write_result_max_passage(target_file: TextIO, result: Tuple[str, List[JSimpleSearcherResult]],
-                             max_passage_delimiter: str, max_passage_hits: int,
-                             msmarco: bool, tag: str):
-    topic, hits = result
-    unique_docs = set()
-    rank = 1
-    for hit in hits:
-        docid, _ = hit.docid.split(max_passage_delimiter)
-        if docid in unique_docs:
-            continue
-
-        if msmarco:
-            target_file.write(f'{topic}\t{docid}\t{rank}\n')
-        else:
-            target_file.write(
-                f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
-        rank = rank + 1
-        unique_docs.add(docid)
-        if rank > max_passage_hits:
-            break
 
 
 def set_bm25_parameters(searcher, index, k1=None, b=None):
@@ -125,10 +84,10 @@ if __name__ == "__main__":
                         help="Name of topics. Available: robust04, robust05, core17, core18.")
     parser.add_argument('--hits', type=int, metavar='num',
                         required=False, default=1000, help="Number of hits.")
-    parser.add_argument('--format', type=str, metavar='format', default="default",
-                        help="Format of topics. Available: default, kilt")
-    parser.add_argument('--msmarco',  action='store_true',
-                        default=False, help="Output in MS MARCO format.")
+    parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
+                        help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
+    parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
+                        help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
     parser.add_argument('--output', type=str, metavar='path',
                         help="Path to output file.")
     parser.add_argument('--max-passage',  action='store_true',
@@ -143,7 +102,9 @@ if __name__ == "__main__":
                         default=1, help="Maximum number of threads to use.")
     args = parser.parse_args()
 
-    queries = list(get_query_iterator(args.topics, QueryFormat(args.format)))
+    query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
+    queries = list(query_iterator)
+    topics = query_iterator.topics
 
     if os.path.exists(args.index):
         # create searcher from index directory
@@ -199,7 +160,15 @@ if __name__ == "__main__":
     print(f'Running {args.topics} topics, saving to {output_path}...')
     tag = output_path[:-4] if args.output is None else 'Anserini'
 
-    with open(output_path, 'w') as target_file:
+    if args.max_passage:
+        output_writer = get_output_writer(output_path, OutputFormat(args.output_format), 'w',
+                                          max_hits=args.max_passage_hits, tag=tag, topics=topics,
+                                          use_max_passage=True, passage_delimiter=args.max_passage_delimiter)
+    else:
+        output_writer = get_output_writer(output_path, OutputFormat(args.output_format), 'w',
+                                          max_hits=args.hits, tag=tag, topics=topics)
+
+    with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(queries)):
@@ -219,10 +188,9 @@ if __name__ == "__main__":
                 else:
                     continue
 
-            for result in results:
+            for topic, hits in results:
                 # do rerank
                 if use_prcl and len(hits) > (args.r + args.n):
-                    hits = result[1]
                     docids = [hit.docid.strip() for hit in hits]
                     scores = [hit.score for hit in hits]
                     scores, docids = ranker.rerank(docids, scores)
@@ -231,9 +199,6 @@ if __name__ == "__main__":
                         hit.score = docid_score_map[hit.docid.strip()]
 
                 # write results
-                if args.max_passage:
-                    write_result_max_passage(target_file, result, args.max_passage_delimiter,
-                                             args.max_passage_hits, args.msmarco, tag)
-                else:
-                    write_result(target_file, result, args.hits, args.msmarco, tag)
+                output_writer.write(topic, hits)
+
             results.clear()

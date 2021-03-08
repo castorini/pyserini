@@ -20,7 +20,8 @@ import os
 from tqdm import tqdm
 
 from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder, QueryEncoder, DPRQueryEncoder, AnceQueryEncoder
-from pyserini.query_iterator import get_query_iterator, QueryFormat
+from pyserini.query_iterator import get_query_iterator, TopicsFormat
+from pyserini.output_writer import get_output_writer, OutputFormat
 from pyserini.search.__main__ import write_result, write_result_max_passage
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
@@ -73,9 +74,10 @@ if __name__ == '__main__':
     parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                         help="Name of topics. Available: msmarco-passage-dev-subset.")
     parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
-    parser.add_argument('--format', type=str, metavar='format', default="default",
-                        help="Format of topics. Available: default, kilt")
-    parser.add_argument('--msmarco', action='store_true', default=False, help="Output in MS MARCO format.")
+    parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
+                        help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
+    parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
+                        help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
     parser.add_argument('--output', type=str, metavar='path', required=True, help="Path to output file.")
     parser.add_argument('--max-passage',  action='store_true',
                         default=False, help="Select only max passage from document.")
@@ -90,7 +92,9 @@ if __name__ == '__main__':
     define_dsearch_args(parser)
     args = parser.parse_args()
 
-    queries = list(get_query_iterator(args.topics, QueryFormat(args.format)))
+    query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
+    queries = list(query_iterator)
+    topics = query_iterator.topics
 
     query_encoder = init_query_encoder(args.encoder, args.topics, args.encoded_queries, args.device)
     if not query_encoder:
@@ -113,7 +117,15 @@ if __name__ == '__main__':
     print(f'Running {args.topics} topics, saving to {output_path}...')
     tag = 'Faiss'
 
-    with open(output_path, 'w') as target_file:
+    if args.max_passage:
+        output_writer = get_output_writer(output_path, OutputFormat(args.output_format), 'w',
+                                          max_hits=args.max_passage_hits, tag=tag, topics=topics,
+                                          use_max_passage=True, passage_delimiter=args.max_passage_delimiter)
+    else:
+        output_writer = get_output_writer(output_path, OutputFormat(args.output_format), 'w',
+                                          max_hits=args.hits, tag=tag, topics=topics)
+
+    with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(queries)):
@@ -133,10 +145,7 @@ if __name__ == '__main__':
                 else:
                     continue
 
-            for result in results:
-                if args.max_passage:
-                    write_result_max_passage(target_file, result, args.max_passage_delimiter,
-                                             args.max_passage_hits, args.msmarco, tag)
-                else:
-                    write_result(target_file, result, args.hits, args.msmarco, tag)
+            for topic, hits in results:
+                output_writer.write(topic, hits)
+
             results.clear()
