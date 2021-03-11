@@ -1,17 +1,18 @@
-# Pyserini: Elastic Multi-field Baseline for MS MARCO Document Ranking
+# Pyserini: Multi-field Baseline for MS MARCO Document Ranking
 
-This page contains instructions for reproducing the Elasticsearch optimized
-multi_match best_fields" entry on the the [MS MARCO Document Ranking Leaderboard](https://microsoft.github.io/MSMARCO-Document-Ranking-Submissions/leaderboard/).
+This page contains instructions for reproducing the "Elasticsearch optimized
+multi_match best_fields" entry (2020/11/25) on the the [MS MARCO Document Ranking Leaderboard](https://microsoft.github.io/MSMARCO-Document-Ranking-Submissions/leaderboard/) using Pyserini.
+Details behind this run are described in this [blog post](https://www.elastic.co/blog/improving-search-relevance-with-data-driven-query-optimization);
+the official leaderboard submission corresponds to the run denoted "multi_match best_fields tuned (all-in-one): all
+params" in the blog post.
 
 This run makes sure to preserve the distinction between document fields when
 preparing and indexing documents. For ranking, we use a disjunction max query to
-combine score contributions across fields. The weights for the disjunction max
-query are taken from the "multi_match best_fields tuned (all-in-one): all
-params" entry in the [blog post](https://www.elastic.co/blog/improving-search-relevance-with-data-driven-query-optimization)
-that describes the leaderboard submission.
+combine score contributions across fields; the weights for the disjunction max
+query are taken from the blog post reference above.
 
 To match the leaderboard results, this run makes use of a custom stopwords file
-'elastic-msmarco-stopwords.txt'. The file contains the default English stopwords
+[`elastic-msmarco-stopwords.txt`](elastic-msmarco-stopwords.txt). The file contains the default English stopwords
 from Lucene, plus some additional words targeted at question-style queries.
 
 ## Data Prep
@@ -69,9 +70,7 @@ python -m pyserini.search --msmarco --hits 100 \
 After the run completes, we can evaluate the results:
 
 ```bash
-python tools/scripts/msmarco/msmarco_doc_eval.py \
-  --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-  --run runs/run.msmarco-doc.leaderboard-dev.elastic.txt
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.leaderboard-dev.elastic.txt
 #####################
 MRR @100: 0.3071421845448626
 QueriesRanked: 5193
