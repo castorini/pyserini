@@ -103,10 +103,11 @@ def download_and_unpack_index(url, index_directory='indexes', local_filename=Fal
     # If caller does not specify local filename, figure it out from the download URL:
     if not local_filename:
         index_name = url.split('/')[-1]
-        index_name = re.sub('''.tar.gz.*$''', '', index_name)
     else:
         # Otherwise, use the specified local_filename:
         index_name = local_filename
+    # Remove the suffix:
+    index_name = re.sub('''.tar.gz.*$''', '', index_name)
 
     if prebuilt:
         index_directory = os.path.join(get_cache_home(), index_directory)
