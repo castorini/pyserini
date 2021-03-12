@@ -18,11 +18,10 @@ import hashlib
 import re
 import os
 import shutil
-import socket
 import tarfile
 from tqdm import tqdm
 from urllib.request import urlretrieve
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 import pandas as pd
 from pyserini.prebuilt_index_info import INDEX_INFO, DINDEX_INFO
 from pyserini.encoded_query_info import QUERY_INFO
@@ -200,7 +199,7 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
         local_filename = target_index['filename'] if 'filename' in target_index else None
         try:
             return download_and_unpack_index(url, local_filename=local_filename, prebuilt=True, md5=index_md5)
-        except (HTTPError, socket.gaierror) as e:
+        except (HTTPError, URLError) as e:
             print(f'Unable to download pre-built index at {url}, trying next URL...')
     raise ValueError(f'Unable to download pre-built index at any known URLs.')
 
@@ -212,7 +211,7 @@ def download_encoded_queries(query_name, force=False, verbose=True, mirror=None)
     for url in QUERY_INFO[query_name]['urls']:
         try:
             return download_and_unpack_index(url, index_directory='queries', prebuilt=True, md5=query_md5)
-        except HTTPError:
+        except (HTTPError, URLError) as e:
             print(f'Unable to download encoded query at {url}, trying next URL...')
     raise ValueError(f'Unable to download encoded query at any known URLs.')
 
