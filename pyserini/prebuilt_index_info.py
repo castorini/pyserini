@@ -395,6 +395,7 @@ INDEX_INFO = {
 DINDEX_INFO = {
     "msmarco-passage-tct_colbert-hnsw": {
         "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as HNSW index",
+        "filename": "dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
         "urls": [
             "https://www.dropbox.com/s/xrsjn38lk3axfdd/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz?dl=1",
         ],
@@ -405,7 +406,9 @@ DINDEX_INFO = {
     },
     "msmarco-passage-tct_colbert-bf": {
         "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as brute force index",
+        "filename": "dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
+            "https://vault.cs.uwaterloo.ca/s/7qDCqLep547Gc2Z/download",
             "https://www.dropbox.com/s/sgmugleqwwirx3n/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz?dl=1",
         ],
         "md5": "7312e0e7acec2a686e994902ca064fc5",
@@ -415,6 +418,7 @@ DINDEX_INFO = {
     },
     "msmarco-doc-tct_colbert-bf": {
         "description": "MS MARCO document corpus encoded by TCT-ColBERT and indexed as brute force index",
+        "filename": "dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
             "https://www.dropbox.com/s/jse0j82l4ouqdna/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz?dl=1",
         ],
@@ -425,6 +429,7 @@ DINDEX_INFO = {
     },
     "wikipedia-dpr-multi-bf": {
         "description": "Wikipedia corpus encoded by DPR doc encoder trained on multiset, indexed as brute force index",
+        "filename": "dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
         "urls": [
             "https://www.dropbox.com/s/9g4e2ps73lf4ysl/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz?dl=1",
         ],
@@ -435,6 +440,7 @@ DINDEX_INFO = {
     },
     "msmarco-passage-ance-bf": {
         "description": "MS MARCO passage corpus encoded by ANCE msmarco passage encoder and indexed as brute force index",
+        "filename": "dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
         "urls": [
             "https://www.dropbox.com/s/ahpxwtgh56o6j2f/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz?dl=1",
         ],
@@ -445,6 +451,7 @@ DINDEX_INFO = {
     },
     "wikipedia-ance-multi-bf": {
         "description": "Wikipedia corpus encoded by ANCE-multi doc encoder and indexed as brute force index",
+        "filename": "dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
         "urls": [
             "https://www.dropbox.com/s/j89z1vnhe12cva4/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz?dl=1",
         ],
@@ -455,6 +462,7 @@ DINDEX_INFO = {
     },
     "msmarco-doc-ance-maxp-bf": {
         "description": "MS MARCO document corpus encoded by ANCE maxp encoder and indexed as brute force index",
+        "filename": "dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz",
         "urls": [
             "https://www.dropbox.com/s/bddpw1nwcka7pdf/dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz?dl=1",
         ],
