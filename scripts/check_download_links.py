@@ -50,6 +50,9 @@ def main(args):
             md5sum_match = md5sum_pattern.search(line)
             if md5sum_match:
                 url = match.group()
+                if args.vault:
+                    if not url.endswith('/download'):
+                        url = url + '/download'
                 md5sum = md5sum_match.group(1)
                 print(f'Downloading and verifying {url}')
                 destination = download_url(url, '.', md5=md5sum)
