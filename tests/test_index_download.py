@@ -17,22 +17,19 @@
 import unittest
 import os
 import shutil
-from pyserini import search
-from pyserini.util import get_cache_home
+from pyserini.search import SimpleSearcher
 
 
 class TestIndexDownload(unittest.TestCase):
 
     def test_default_cache(self):
         os.unsetenv('PYSERINI_CACHE')
-        search.SimpleSearcher.from_prebuilt_index('robust04')
-        print(get_cache_home())
+        SimpleSearcher.from_prebuilt_index('robust04')
         self.assertTrue(os.path.exists(os.path.expanduser('~/.cache/pyserini/indexes')))
 
     def test_custom_cache(self):
         os.environ['PYSERINI_CACHE'] = 'temp_dir'
-        search.SimpleSearcher.from_prebuilt_index('robust04')
-        print(get_cache_home())
+        SimpleSearcher.from_prebuilt_index('robust04')
         self.assertTrue(os.path.exists('temp_dir/indexes'))
 
     def tearDown(self):
