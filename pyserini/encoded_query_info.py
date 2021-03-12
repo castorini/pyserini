@@ -22,9 +22,9 @@ QUERY_INFO = {
     "dpr-nq-dev-multi": {
         "description": "Natural Question dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/tit9qn0oxmerlyk/query-embedding-nq-dev-dpr-multi-20210129-3a276c.tar.gz?dl=1",
+            "https://www.dropbox.com/s/jr25kv1aub6qn36/query-embedding-dpr-nq-dev-multi-20210129-3a276c.tar.gz?dl=1",
         ],
-        "md5": "c584f779c56d6396d3aab5a1f4be53f0",
+        "md5": "33b6bf5c5abb35aafa3e5d3f16cb96da",
         "size (bytes)": 25121360,
         "total_queries": 8757,
         "downloaded": False
@@ -32,9 +32,9 @@ QUERY_INFO = {
     "dpr-nq-test-multi": {
         "description": "Natural Question test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/hxvnhe6evk0vdeu/query-embedding-nq-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
+            "https://www.dropbox.com/s/sclw33ljzzajiji/query-embedding-dpr-nq-test-multi-20210129-3a276c.tar.gz?dl=1",
         ],
-        "md5": "dd92355c7661cf23a802e793cd5a73ff",
+        "md5": "3b25331c4cef93e0bc1cc5997919ce6e",
         "size (bytes)": 10359974,
         "total_queries": 3610,
         "downloaded": False
@@ -62,20 +62,20 @@ QUERY_INFO = {
     "dpr-trivia-dev-multi": {
         "description": "TriviaQA dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/azcdwrq1pp64eqz/query-embedding-trivia_qa-dev-dpr-multi-20210129-3a276c.tar.gz?dl=1",
+            "https://www.dropbox.com/s/qpx8x3vk0xapyjj/query-embedding-dpr-trivia-dev-multi-20210129-3a276c.tar.gz?dl=1",
         ],
-        "md5": "7305f26c4ccff3222a77c4f3175693a0",
-        "size (bytes)": 25504210,
+        "md5": "91a59a6430206861ed63837e37799f9e",
+        "size (bytes)": 25504217,
         "total_queries": 8837,
         "downloaded": False
     },
     "dpr-trivia-test-multi": {
         "description": "TriviaQA test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/30ys0nmu8izz9di/query-embedding-trivia_qa-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
+            "https://www.dropbox.com/s/00c3mvxhznh7rk6/query-embedding-dpr-trivia-test-multi-20210129-3a276c.tar.gz?dl=1",
         ],
-        "md5": "c7b3c2a415ce9ace27da13432a817824",
-        "size (bytes)": 32644071,
+        "md5": "36c2b5d9af83b04c8237abe84167942c",
+        "size (bytes)": 32644066,
         "total_queries": 11313,
         "downloaded": False
     },
@@ -102,9 +102,9 @@ QUERY_INFO = {
     "dpr-wq-test-multi": {
         "description": "Web Questions test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/0ii86f1a1mj5gzr/query-embedding-wq-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
+            "https://www.dropbox.com/s/x4zhqjv8h0nnj3g/query-embedding-dpr-wq-test-multi-20210129-3a276c.tar.gz?dl=1",
         ],
-        "md5": "8b8a9054ec1e6ce57446acdc133fecbe",
+        "md5": "61e4cdbf381bc10313d6d10665e35570",
         "size (bytes)": 5824579,
         "total_queries": 2032,
         "downloaded": False
@@ -112,20 +112,20 @@ QUERY_INFO = {
     "dpr-squad-test-multi": {
         "description": "SQUAD dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/pz1qkqpqt1ae285/query-embedding-squad-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
+            "https://www.dropbox.com/s/kdjvnfa33gdaskj/query-embedding-dpr-squad-test-multi-20210129-3a276c.tar.gz?dl=1",
         ],
-        "md5": "e1c41fe5261c8b09c442ee57f525be53",
+        "md5": "1aa4a5fbca5b21f7c12296d9889d4e4d",
         "size (bytes)": 30245472,
         "total_queries": 10570,
         "downloaded": False
     },
-    "dpr-curated_trec-test-multi": {
+    "dpr-curated-test-multi": {
         "description": "CuratedTREC test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/f5i8l5ut9848ggs/query-embedding-curated_trec-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
+            "https://www.dropbox.com/s/swg1ypxqxpk9zmy/query-embedding-dpr-curated-test-multi-20210129-3a276c.tar.gz?dl=1",
         ],
-        "md5": "e4c6e96e9f4a733c32941a6288b92316",
-        "size (bytes)": 1994408,
+        "md5": "9f6471877e2a8b823a61b2e55e4e9ac7",
+        "size (bytes)": 1994406,
         "total_queries": 694,
         "downloaded": False
     }

@@ -52,7 +52,7 @@ def init_query_encoder(encoder, topics_name, encoded_queries, device):
         'dpr-trivia-test': 'dpr-trivia-test-multi',
         'dpr-wq-test': 'dpr-wq-test-multi',
         'dpr-squad-test': 'dpr-squad-test-multi',
-        'dpr-curated-test': 'dpr-curated_trec-test-multi'
+        'dpr-curated-test': 'dpr-curated-test-multi'
     }
     if encoder:
         if 'dpr' in encoder:
