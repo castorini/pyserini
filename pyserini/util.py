@@ -92,12 +92,15 @@ def get_cache_home():
     return os.path.expanduser(os.path.join(f'~{os.path.sep}.cache', "pyserini"))
 
 
-def download_and_unpack_index(url, index_directory='indexes', force=False, verbose=True, prebuilt=False, md5=None):
+def download_and_unpack_index(url, cache_dir, index_directory='indexes', force=False, verbose=True, prebuilt=False, md5=None):
     index_name = url.split('/')[-1]
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
 
     if prebuilt:
-        index_directory = os.path.join(get_cache_home(), index_directory)
+        if cache_dir is not None:
+            index_directory = os.path.join(cache_dir, index_directory)
+        else:
+            index_directory = os.path.join(get_cache_home(), index_directory)
         index_path = os.path.join(index_directory, f'{index_name}.{md5}')
 
         if not os.path.exists(index_directory):
@@ -174,7 +177,7 @@ def get_dense_indexes_info():
         print(df)
 
 
-def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
+def download_prebuilt_index(index_name, cache_dir, force=False, verbose=True, mirror=None):
     if index_name not in INDEX_INFO and index_name not in DINDEX_INFO:
         raise ValueError(f'Unrecognized index name {index_name}')
     if index_name in INDEX_INFO:
@@ -184,7 +187,7 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
     index_md5 = target_index['md5']
     for url in target_index['urls']:
         try:
-            return download_and_unpack_index(url, prebuilt=True, md5=index_md5)
+            return download_and_unpack_index(url, cache_dir, prebuilt=True, md5=index_md5)
         except HTTPError:
             print(f'Unable to download pre-built index at {url}, trying next URL...')
     raise ValueError(f'Unable to download pre-built index at any known URLs.')

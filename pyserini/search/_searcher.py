@@ -51,14 +51,15 @@ class SimpleSearcher:
         self.num_docs = self.object.getTotalNumDocuments()
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, cache_dir: str = None):
         """Build a searcher from a pre-built index; download the index if necessary.
 
         Parameters
         ----------
         prebuilt_index_name : str
             Prebuilt index name.
-
+        cache_dir : str
+            Path to a directory in which a downloaded index should be cached if the standard cache should not be used.
         Returns
         -------
         SimpleSearcher
@@ -66,7 +67,7 @@ class SimpleSearcher:
         """
         print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
         try:
-            index_dir = download_prebuilt_index(prebuilt_index_name)
+            index_dir = download_prebuilt_index(prebuilt_index_name, cache_dir)
         except ValueError as e:
             print(str(e))
             return None
