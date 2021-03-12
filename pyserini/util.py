@@ -18,6 +18,7 @@ import hashlib
 import re
 import os
 import shutil
+import socket
 import tarfile
 from tqdm import tqdm
 from urllib.request import urlretrieve
@@ -199,7 +200,7 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
         local_filename = target_index['filename'] if 'filename' in target_index else None
         try:
             return download_and_unpack_index(url, local_filename=local_filename, prebuilt=True, md5=index_md5)
-        except HTTPError:
+        except (HTTPError, socket.gaierror) as e:
             print(f'Unable to download pre-built index at {url}, trying next URL...')
     raise ValueError(f'Unable to download pre-built index at any known URLs.')
 
