@@ -129,9 +129,10 @@ INDEX_INFO = {
         "downloaded": False
     },
     "enwiki-paragraphs": {
-        "description": "English Wikipedia",
+        "description": "English Wikipedia (for BERTserini)",
         "urls": [
-            "https://www.dropbox.com/s/b7qqaos9ot3atlp/lucene-index.enwiki-20180701-paragraphs.tar.gz?dl=1"
+            "https://www.dropbox.com/s/b7qqaos9ot3atlp/lucene-index.enwiki-20180701-paragraphs.tar.gz?dl=1",
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/lucene-index.enwiki-20180701-paragraphs.tar.gz"
         ],
         "md5": "77d1cd530579905dad2ee3c2bda1b73d",
         "size compressed (bytes)": 17725958785,
@@ -141,9 +142,10 @@ INDEX_INFO = {
         "downloaded": False
     },
     "zhwiki-paragraphs": {
-        "description": "Chinese Wikipedia",
+        "description": "Chinese Wikipedia (for BERTserini)",
         "urls": [
-            "https://www.dropbox.com/s/6zn16mombt0wirs/lucene-index.zhwiki-20181201-paragraphs.tar.gz?dl=1"
+            "https://www.dropbox.com/s/6zn16mombt0wirs/lucene-index.zhwiki-20181201-paragraphs.tar.gz?dl=1",
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/lucene-index.zhwiki-20181201-paragraphs.tar.gz"
         ],
         "md5": "c005af4036296972831288c894918a92",
         "size compressed (bytes)": 3284531213,
@@ -351,6 +353,7 @@ INDEX_INFO = {
         "description": "TREC 2019 CaST",
         "urls": [
             "https://www.dropbox.com/s/ba89k4xyn0srbk0/index-cast2019.tar.gz?dl=1",
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-cast2019.tar.gz"
         ],
         "md5": "36e604d7f5a4e08ade54e446be2f6345",
         "size compressed (bytes)": 21266884884,
@@ -362,7 +365,9 @@ INDEX_INFO = {
     "wikipedia-dpr": {
         "description": "Wikipedia (DPR 100 word splits) Anserini index",
         "urls": [
-            "https://www.dropbox.com/s/spohu55l6608ho2/index-wikipedia-dpr-20210120-d1b9e6.tar.gz?dl=1",
+            "https://www.dropbox.com/s/spohu55l6608ho2/index-wikipedia-dpr-20210120-d1b9e6.tar.gz?dl=1",  # Xueguang
+            "https://www.dropbox.com/s/v0545smnlrmxm72/index-wikipedia-dpr-20210120-d1b9e6.tar.gz?dl=1",  # Jimmy
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-wikipedia-dpr-20210120-d1b9e6.tar.gz"
         ],
         "md5": "c28f3a56b2dfcef25bf3bf755c264d04",
         "size compressed (bytes)": 9177942656,
@@ -374,7 +379,9 @@ INDEX_INFO = {
     "wikipedia-dpr-slim": {
         "description": "Wikipedia (DPR 100 word splits) Anserini index, without raw texts stored",
         "urls": [
-            "https://www.dropbox.com/s/r2xpo3e0pecibir/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz?dl=1",
+            "https://www.dropbox.com/s/r2xpo3e0pecibir/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz?dl=1",  # Xueguang
+            "https://www.dropbox.com/s/jx29yftvn2qnm4d/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz?dl=1",  # Jimmy
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz"
         ],
         "md5": "7d40604a824b5df37a1ae9d25ea38071",
         "size compressed (bytes)": 1810342390,
