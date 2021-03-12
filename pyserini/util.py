@@ -21,7 +21,7 @@ import shutil
 import tarfile
 from tqdm import tqdm
 from urllib.request import urlretrieve
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 import pandas as pd
 from pyserini.prebuilt_index_info import INDEX_INFO, DINDEX_INFO
 from pyserini.encoded_query_info import QUERY_INFO
@@ -57,9 +57,15 @@ def compute_md5(file, block_size=2**20):
     return m.hexdigest()
 
 
-def download_url(url, save_dir, md5=None, force=False, verbose=True):
-    filename = url.split('/')[-1]
-    filename = re.sub('\\?dl=1$', '', filename)  # Remove the Dropbox 'force download' parameter
+def download_url(url, save_dir, local_filename=None, md5=None, force=False, verbose=True):
+    # If caller does not specify local filename, figure it out from the download URL:
+    if not local_filename:
+        filename = url.split('/')[-1]
+        filename = re.sub('\\?dl=1$', '', filename)  # Remove the Dropbox 'force download' parameter
+    else:
+        # Otherwise, use the specified local_filename:
+        filename = local_filename
+
     destination_path = os.path.join(save_dir, filename)
 
     if verbose:
@@ -94,8 +100,15 @@ def get_cache_home():
     return os.path.expanduser(os.path.join(f'~{os.path.sep}.cache', "pyserini"))
 
 
-def download_and_unpack_index(url, index_directory='indexes', force=False, verbose=True, prebuilt=False, md5=None):
-    index_name = url.split('/')[-1]
+def download_and_unpack_index(url, index_directory='indexes', local_filename=False,
+                              force=False, verbose=True, prebuilt=False, md5=None):
+    # If caller does not specify local filename, figure it out from the download URL:
+    if not local_filename:
+        index_name = url.split('/')[-1]
+    else:
+        # Otherwise, use the specified local_filename:
+        index_name = local_filename
+    # Remove the suffix:
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
 
     if prebuilt:
@@ -126,7 +139,7 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
         shutil.rmtree(index_path)
 
     print(f'Downloading index at {url}...')
-    download_url(url, index_directory, verbose=False, md5=md5)
+    download_url(url, index_directory, local_filename=local_filename, verbose=False, md5=md5)
 
     if verbose:
         print(f'Extracting {local_tarball} into {index_path}...')
@@ -185,9 +198,10 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
         target_index = DINDEX_INFO[index_name]
     index_md5 = target_index['md5']
     for url in target_index['urls']:
+        local_filename = target_index['filename'] if 'filename' in target_index else None
         try:
-            return download_and_unpack_index(url, prebuilt=True, md5=index_md5)
-        except HTTPError:
+            return download_and_unpack_index(url, local_filename=local_filename, prebuilt=True, md5=index_md5)
+        except (HTTPError, URLError) as e:
             print(f'Unable to download pre-built index at {url}, trying next URL...')
     raise ValueError(f'Unable to download pre-built index at any known URLs.')
 
@@ -199,7 +213,7 @@ def download_encoded_queries(query_name, force=False, verbose=True, mirror=None)
     for url in QUERY_INFO[query_name]['urls']:
         try:
             return download_and_unpack_index(url, index_directory='queries', prebuilt=True, md5=query_md5)
-        except HTTPError:
+        except (HTTPError, URLError) as e:
             print(f'Unable to download encoded query at {url}, trying next URL...')
     raise ValueError(f'Unable to download encoded query at any known URLs.')
 
