@@ -95,8 +95,9 @@ def download_url(url, save_dir, local_filename=None, md5=None, force=False, verb
 
 
 def get_cache_home():
-    if os.environ["PYSERINI_CACHE"]:
-        return os.environ["PYSERINI_CACHE"]
+    custom_dir = os.environ.get("PYSERINI_CACHE")
+    if custom_dir is not None and custom_dir != '':
+        return custom_dir
     return os.path.expanduser(os.path.join(f'~{os.path.sep}.cache', "pyserini"))
 
 
