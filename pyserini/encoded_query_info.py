@@ -9,6 +9,16 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
+    "msmarco-passage-dev-subset-ance": {
+        "description": "MS MARCO passage dev set queries encoded by ANCE",
+        "urls": [
+            "https://www.dropbox.com/s/30nz5uuoke777ik/query-embedding-msmarco-dev-subset-ance-20210312-646582.tar.gz?dl=1",
+        ],
+        "md5": "e94acb8b04a8ca91f90ca40ec3095e6d",
+        "size (bytes)": 19960589,
+        "total_queries": 6980,
+        "downloaded": False
+    },
     "dpr-nq-dev-multi": {
         "description": "Natural Question dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
@@ -29,7 +39,27 @@ QUERY_INFO = {
         "total_queries": 3610,
         "downloaded": False
     },
-    "dpr-trivia_qa-dev-multi": {
+    "dpr-nq-dev-ance-multi": {
+        "description": "Natural Question dev set questions encoded by ANCE question encoder trained on multiset",
+        "urls": [
+            "https://www.dropbox.com/s/vcfekv3mwr0t75c/query-embedding-dpr-nq-dev-ance-multi-20210312-646582.tar.gz?dl=1",
+        ],
+        "md5": "f5daa7029d13a6d66fc7685e3ec3ab9e",
+        "size (bytes)": 25153811,
+        "total_queries": 8757,
+        "downloaded": False
+    },
+    "dpr-nq-test-ance-multi": {
+        "description": "Natural Question test set questions encoded by ANCE question encoder trained on multiset",
+        "urls": [
+            "https://www.dropbox.com/s/efxohlcdj3vj4ui/query-embedding-dpr-nq-test-ance-multi-20210312-646582.tar.gz?dl=1",
+        ],
+        "md5": "f73135775ff56ee5025ee4ea22356ba9",
+        "size (bytes)": 10373469,
+        "total_queries": 3610,
+        "downloaded": False
+    },
+    "dpr-trivia-dev-multi": {
         "description": "TriviaQA dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/azcdwrq1pp64eqz/query-embedding-trivia_qa-dev-dpr-multi-20210129-3a276c.tar.gz?dl=1",
@@ -39,13 +69,33 @@ QUERY_INFO = {
         "total_queries": 8837,
         "downloaded": False
     },
-    "dpr-trivia_qa-test-multi": {
+    "dpr-trivia-test-multi": {
         "description": "TriviaQA test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/30ys0nmu8izz9di/query-embedding-trivia_qa-test-dpr-multi-20210129-3a276c.tar.gz?dl=1",
         ],
         "md5": "c7b3c2a415ce9ace27da13432a817824",
         "size (bytes)": 32644071,
+        "total_queries": 11313,
+        "downloaded": False
+    },
+    "dpr-trivia-dev-ance-multi": {
+        "description": "TriviaQA dev set questions encoded by ANCE question encoder trained on multiset",
+        "urls": [
+            "https://www.dropbox.com/s/k7rlj9r5l2bhldj/query-embedding-dpr-trivia-dev-ance-multi-20210312-646582.tar.gz?dl=1",
+        ],
+        "md5": "68ee8bd2a6306b48bcabdf623a96ded9",
+        "size (bytes)": 25544142,
+        "total_queries": 8837,
+        "downloaded": False
+    },
+    "dpr-trivia-test-ance-multi": {
+        "description": "TriviaQA test set questions encoded by ANCE question encoder trained on multiset",
+        "urls": [
+            "https://www.dropbox.com/s/299y2oaq04cnzz1/query-embedding-dpr-trivia-test-ance-multi-20210312-646582.tar.gz?dl=1",
+        ],
+        "md5": "a5bbe2dced6da53f9b87acd55310084d",
+        "size (bytes)": 32693817,
         "total_queries": 11313,
         "downloaded": False
     },
