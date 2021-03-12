@@ -58,12 +58,12 @@ def compute_md5(file, block_size=2**20):
 
 
 def download_url(url, save_dir, local_filename=None, md5=None, force=False, verbose=True):
-    # If caller does not specify local filename, figure it out from the download URL
+    # If caller does not specify local filename, figure it out from the download URL:
     if not local_filename:
         filename = url.split('/')[-1]
         filename = re.sub('\\?dl=1$', '', filename)  # Remove the Dropbox 'force download' parameter
     else:
-        # Otherwise, use the specified local_filename
+        # Otherwise, use the specified local_filename:
         filename = local_filename
 
     destination_path = os.path.join(save_dir, filename)
@@ -100,8 +100,13 @@ def get_cache_home():
 
 def download_and_unpack_index(url, index_directory='indexes', local_filename=False,
                               force=False, verbose=True, prebuilt=False, md5=None):
-    index_name = url.split('/')[-1]
-    index_name = re.sub('''.tar.gz.*$''', '', index_name)
+    # If caller does not specify local filename, figure it out from the download URL:
+    if not local_filename:
+        index_name = url.split('/')[-1]
+        index_name = re.sub('''.tar.gz.*$''', '', index_name)
+    else:
+        # Otherwise, use the specified local_filename:
+        index_name = local_filename
 
     if prebuilt:
         index_directory = os.path.join(get_cache_home(), index_directory)
