@@ -78,3 +78,5 @@ QueriesRanked: 5193
 ```
 
 ## Replication Log
+
++ Results replicated by [@lintool](https://github.com/lintool) on 2021-03-10 (commit [`8d51d9`](https://github.com/castorini/pyserini/commit/8d51d9c2ebc0d39e37e3ccda63085de50d536fcb))
