@@ -168,9 +168,10 @@ INDEX_INFO = {
     },
     "trec-covid-r5-abstract": {
         "description": "TREC-COVID Round 5: abstract index",
+        "filename": "lucene-index-cord19-abstract-2020-07-16.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-07-16/lucene-index-cord19-abstract-2020-07-16.tar.gz",
-            "https://www.dropbox.com/s/9hfowxi7zenuaay/lucene-index-cord19-abstract-2020-07-16.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/c37JxKYQ7Hogs72/download"
         ],
         "md5": "c883571ccc78b4c2ce05b41eb07f5405",
         "size compressed (bytes)": 2796524,
@@ -181,9 +182,10 @@ INDEX_INFO = {
     },
     "trec-covid-r5-full-text": {
         "description": "TREC-COVID Round 5: full-text index",
+        "filename": "lucene-index-cord19-full-text-2020-07-16.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-07-16/lucene-index-cord19-full-text-2020-07-16.tar.gz",
-            "https://www.dropbox.com/s/dyd9sggrqo44d0n/lucene-index-cord19-full-text-2020-07-16.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/c7CcxRbFWfiFnFq/download"
         ],
         "md5": "23cfad89b4c206d66125f5736f60248f",
         "size compressed (bytes)": 5351744,
@@ -194,9 +196,10 @@ INDEX_INFO = {
     },
     "trec-covid-r5-paragraph": {
         "description": "TREC-COVID Round 5: paragraph index",
+        "filename": "lucene-index-cord19-paragraph-2020-07-16.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-07-16/lucene-index-cord19-paragraph-2020-07-16.tar.gz",
-            "https://www.dropbox.com/s/jdfbrnohtkrvds5/lucene-index-cord19-paragraph-2020-07-16.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/HXigraF5KJL3xS8/download"
         ],
         "md5": "c2c6ac832f8a1fcb767d2356d2b1e1df",
         "size compressed (bytes)": 11352968,
@@ -207,9 +210,10 @@ INDEX_INFO = {
     },
     "trec-covid-r4-abstract": {
         "description": "TREC-COVID Round 4: abstract index",
+        "filename": "lucene-index-cord19-abstract-2020-06-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-06-19/lucene-index-cord19-abstract-2020-06-19.tar.gz",
-            "https://www.dropbox.com/s/x8wbuy0atgnajfd/lucene-index-cord19-abstract-2020-06-19.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/fBta6sAt4MdaHQX/download"
         ],
         "md5": "029bd55daba8800fbae2be9e5fcd7b33",
         "size compressed (bytes)": 2584264,
@@ -220,9 +224,10 @@ INDEX_INFO = {
     },
     "trec-covid-r4-full-text": {
         "description": "TREC-COVID Round 4: full-text index",
+        "filename": "lucene-index-cord19-full-text-2020-06-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-06-19/lucene-index-cord19-full-text-2020-06-19.tar.gz",
-            "https://www.dropbox.com/s/tf469r70r8aigu2/lucene-index-cord19-full-text-2020-06-19.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/yErSHZHD38jcDSY/download"
         ],
         "md5": "3d0eb12094a24cff9bcacd1f17c3ea1c",
         "size compressed (bytes)": 4983900,
@@ -233,9 +238,10 @@ INDEX_INFO = {
     },
     "trec-covid-r4-paragraph": {
         "description": "TREC-COVID Round 4: paragraph index",
+        "filename": "lucene-index-cord19-paragraph-2020-06-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-06-19/lucene-index-cord19-paragraph-2020-06-19.tar.gz",
-            "https://www.dropbox.com/s/fr3v69vhryevwp9/lucene-index-cord19-paragraph-2020-06-19.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/7md4kwNNgy3oxiH/download"
         ],
         "md5": "5cd8cd6998177bed7a3e0057ef8b3595",
         "size compressed (bytes)": 10382704,
@@ -246,9 +252,10 @@ INDEX_INFO = {
     },
     "trec-covid-r3-abstract": {
         "description": "TREC-COVID Round 3: abstract index",
+        "filename": "lucene-index-cord19-abstract-2020-05-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-05-19/lucene-index-cord19-abstract-2020-05-19.tar.gz",
-            "https://www.dropbox.com/s/7bbz6pm4rduqvx3/lucene-index-cord19-abstract-2020-05-19.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/Zg9p2D5tJgiTGx2/download"
         ],
         "md5": "37bb97d0c41d650ba8e135fd75ae8fd8",
         "size compressed (bytes)": 2190328,
@@ -259,9 +266,10 @@ INDEX_INFO = {
     },
     "trec-covid-r3-full-text": {
         "description": "TREC-COVID Round 3: full-text index",
+        "filename": "lucene-index-cord19-full-text-2020-05-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-05-19/lucene-index-cord19-full-text-2020-05-19.tar.gz",
-            "https://www.dropbox.com/s/bxhldgks1rxz4ly/lucene-index-cord19-full-text-2020-05-19.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/BTzaQgZ55898dXM/download"
         ],
         "md5": "f5711915a66cd2b511e0fb8d03e4c325",
         "size compressed (bytes)": 4233300,
@@ -272,9 +280,10 @@ INDEX_INFO = {
     },
     "trec-covid-r3-paragraph": {
         "description": "TREC-COVID Round 3: paragraph index",
+        "filename": "lucene-index-cord19-paragraph-2020-05-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-05-19/lucene-index-cord19-paragraph-2020-05-19.tar.gz",
-            "https://www.dropbox.com/s/2ewjchln0ihm6hh/lucene-index-cord19-paragraph-2020-05-19.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/nPyMYTys6NkmEdN/download"
         ],
         "md5": "012ab1f804382b2275c433a74d7d31f2",
         "size compressed (bytes)": 9053524,
@@ -285,9 +294,10 @@ INDEX_INFO = {
     },
     "trec-covid-r2-abstract": {
         "description": "TREC-COVID Round 2: abstract index",
+        "filename": "lucene-index-cord19-abstract-2020-05-01.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-05-01/lucene-index-cord19-abstract-2020-05-01.tar.gz",
-            "https://www.dropbox.com/s/jdsc6wu0vbumpup/lucene-index-cord19-abstract-2020-05-01.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/3YZE65FSypwfnQQ/download"
         ],
         "md5": "a06e71a98a68d31148cb0e97e70a2ee1",
         "size compressed (bytes)": 1575804,
@@ -298,9 +308,10 @@ INDEX_INFO = {
     },
     "trec-covid-r2-full-text": {
         "description": "TREC-COVID Round 2: full-text index",
+        "filename": "lucene-index-cord19-full-text-2020-05-01.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-05-01/lucene-index-cord19-full-text-2020-05-01.tar.gz",
-            "https://www.dropbox.com/s/ouvp7zyqsp9y9gh/lucene-index-cord19-full-text-2020-05-01.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/NdPEB7swXeZnq3o/download"
         ],
         "md5": "e7eca1b976cdf2cd80e908c9ac2263cb",
         "size compressed (bytes)": 3088540,
@@ -311,9 +322,10 @@ INDEX_INFO = {
     },
     "trec-covid-r2-paragraph": {
         "description": "TREC-COVID Round 2: paragraph index",
+        "filename": "lucene-index-cord19-paragraph-2020-05-01.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-05-01/lucene-index-cord19-paragraph-2020-05-01.tar.gz",
-            "https://www.dropbox.com/s/e1118vjuf58ojt4/lucene-index-cord19-paragraph-2020-05-01.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/Mz7n5FAt7rmnYCY/download"
         ],
         "md5": "8f9321757a03985ac1c1952b2fff2c7d",
         "size compressed (bytes)": 6881696,
@@ -324,9 +336,10 @@ INDEX_INFO = {
     },
     "trec-covid-r1-abstract": {
         "description": "TREC-COVID Round 1: abstract index",
+        "filename": "lucene-index-covid-2020-04-10.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-04-10/lucene-index-covid-2020-04-10.tar.gz",
-            "https://www.dropbox.com/s/iebape2yfgkzkt1/lucene-index-covid-2020-04-10.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/Rz8AEmsFo9NWGP6/download"
         ],
         "md5": "ec239d56498c0e7b74e3b41e1ce5d42a",
         "size compressed (bytes)": 1621440,
@@ -337,9 +350,10 @@ INDEX_INFO = {
     },
     "trec-covid-r1-full-text": {
         "description": "TREC-COVID Round 1: full-text index",
+        "filename": "lucene-index-covid-full-text-2020-04-10.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-04-10/lucene-index-covid-full-text-2020-04-10.tar.gz",
-            "https://www.dropbox.com/s/pfouskfoxb471e6/lucene-index-covid-full-text-2020-04-10.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/oQzSoxrT3grGmBe/download"
         ],
         "md5": "401a6f5583b0f05340c73fbbeb3279c8",
         "size compressed (bytes)": 4471820,
@@ -350,9 +364,10 @@ INDEX_INFO = {
     },
     "trec-covid-r1-paragraph": {
         "description": "TREC-COVID Round 1: paragraph index",
+        "filename": "lucene-index-covid-paragraph-2020-04-10.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-04-10/lucene-index-covid-paragraph-2020-04-10.tar.gz",
-            "https://www.dropbox.com/s/yr0bj5pxu2k89n0/lucene-index-covid-paragraph-2020-04-10.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/HDtb5Ys7MYBkePC/download"
         ],
         "md5": "8b87a2c55bc0a15b87f11e796860216a",
         "size compressed (bytes)": 5994192,
