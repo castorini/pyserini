@@ -502,4 +502,15 @@ DINDEX_INFO = {
         "documents": 20544550,
         "downloaded": False
     },
+    "msmarco-passage-sbert-bf": {
+        "description": "MS MARCO passage corpus encoded by SBERT msmarco passage encoder and indexed as brute force index",
+        "filename": "dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/puj3lqxt661a3c0/dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz?dl=1",
+        ],
+        "md5": "3f98b9564cd3a33e45bfeca4d4fec623",
+        "size compressed (bytes)": 25214193901,
+        "documents": 8841823,
+        "downloaded": False
+    },
 }
