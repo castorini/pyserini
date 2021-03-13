@@ -8,22 +8,21 @@ You'll need a Pyserini [development installation](https://github.com/castorini/p
 
 
 ## MS MARCO Passage
-Download the query encoder checkpoint:
-```bash
-$ wget https://www.dropbox.com/s/u02glpszk3jv6ws/ance-msmarco-passage-encoder.tar.gz
-$ tar -xvf ance-msmarco-passage-encoder.tar.gz
-```
 
 **ANCE retrieval** with brute-force index:
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-ance-bf \
-                             --encoder ance-msmarco-passage-encoder \
+                             --encoded-queries msmarco-passage-dev-subset-ance \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.ance.bf.tsv \
                              --msmarco
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder castorini/ance-msmarco-passage`
+> for on-the-fly query encoding.
+
+
 To evaluate:
 ```bash
 $ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.ance.bf.tsv
@@ -44,17 +43,12 @@ recall_1000           	all	0.9584
 ```
 
 ## MS MARCO Document
-Download the query encoder checkpoint:
-```bash
-$ wget https://www.dropbox.com/s/475d9yax0gxxukf/ance-msmarco-doc-maxp-encoder.tar.gz
-$ tar -xvf ance-msmarco-doc-maxp-encoder.tar.gz
-```
 
 **ANCE retrieval** with brute-force index:
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --index msmarco-doc-ance-maxp-bf \
-                             --encoder ance-msmarco-doc-maxp-encoder \
+                             --encoder castorini/ance-msmarco-doc-maxp \
                              --output runs/run.msmarco-doc.passage.ance-maxp.txt \
                              --hits 1000 \
                              --max-passage \
@@ -83,21 +77,18 @@ recall_100            	all	0.9033
 ```
 
 ## Natural Questions (NQ)
-Download the query encoder checkpoint:
-```bash
-$ https://www.dropbox.com/s/pps5rzzn4ynh3x3/ance-dpr-question_encoder-multi.tar.gz
-$ tar -xvf ance-dpr-question_encoder-multi.tar.gz
-```
 
 **ANCE retrieval** with brute-force index:
 
 ```bash
 $ python -m pyserini.dsearch --topics dpr-nq-test \
                              --index wikipedia-ance-multi-bf \
-                             --encoder ance-dpr-question_encoder-multi \
+                             --encoded-queires dpr-nq-dev-ance-multi \
                              --output runs/run.ance.nq-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder castorini/ance-dpr-question-multi`
+> for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -113,21 +104,18 @@ Top100	accuracy: 0.8786703601108034
 ```
 
 ## Trivia QA
-Download the query encoder checkpoint:
-```bash
-$ wget https://www.dropbox.com/s/pps5rzzn4ynh3x3/ance-dpr-question_encoder-multi.tar.gz
-$ tar -xvf ance-dpr-question_encoder-multi.tar.gz
-```
 
 **ANCE retrieval** with brute-force index:
 
 ```bash
 $ python -m pyserini.dsearch --topics dpr-trivia-test \
                              --index wikipedia-ance-multi-bf \
-                             --encoder ance-dpr-question_encoder-multi \
+                             --encoded-queries dpr-trivia-test-multi \
                              --output runs/run.ance.trivia-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder castorini/ance-dpr-question-multi`
+> for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
