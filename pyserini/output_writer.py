@@ -1,4 +1,5 @@
 import json
+import os
 
 from abc import ABC, abstractmethod
 from enum import Enum, unique
@@ -30,6 +31,9 @@ class OutputWriter(ABC):
         self.file = None
 
     def __enter__(self):
+        dirname = os.path.dirname(self.file_path)
+        if dirname:
+            os.makedirs(dirname, exist_ok=True)
         self.file = open(self.file_path, self.mode)
         return self
 
