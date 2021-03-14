@@ -22,7 +22,6 @@ from tqdm import tqdm
 from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder, QueryEncoder, DPRQueryEncoder, AnceQueryEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
-from pyserini.search.__main__ import write_result, write_result_max_passage
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
