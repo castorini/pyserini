@@ -24,13 +24,14 @@ from typing import Dict, List
 import faiss
 import numpy as np
 import pandas as pd
-from transformers import (BertModel, BertTokenizer, DPRQuestionEncoder,
+from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, DPRQuestionEncoder,
                           DPRQuestionEncoderTokenizer, RobertaTokenizer)
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info)
 
 from ._model import AnceEncoder
+import torch
 
 
 class QueryEncoder:
@@ -153,6 +154,39 @@ class AnceQueryEncoder(QueryEncoder):
             )
             inputs.to(self.device)
             embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
+            return embeddings.flatten()
+        else:
+            return super().encode(query)
+
+
+class SBERTQueryEncoder(QueryEncoder):
+
+    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu'):
+        super().__init__(encoded_query_dir)
+        if encoder_dir:
+            self.device = device
+            self.model = AutoModel.from_pretrained(encoder_dir)
+            self.model.to(self.device)
+            self.tokenizer = AutoTokenizer.from_pretrained(encoder_dir)
+            self.has_model = True
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+
+    @staticmethod
+    def _mean_pooling(model_output, attention_mask):
+        token_embeddings = model_output[0]  # First element of model_output contains all token embeddings
+        input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
+        sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
+        sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
+        return sum_embeddings / sum_mask
+
+    def encode(self, query: str):
+        if self.has_model:
+            inputs = self.tokenizer(query, padding=True, truncation=True, return_tensors='pt')
+            inputs.to(self.device)
+            outputs = self.model(**inputs)
+            embeddings = self._mean_pooling(outputs, inputs['attention_mask']).detach().cpu().numpy()
+            faiss.normalize_L2(embeddings)
             return embeddings.flatten()
         else:
             return super().encode(query)

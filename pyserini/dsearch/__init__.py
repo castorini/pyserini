@@ -15,8 +15,8 @@
 #
 
 from ._dsearcher import DenseSearchResult, SimpleDenseSearcher, QueryEncoder, \
-    DPRQueryEncoder, TCTColBERTQueryEncoder, AnceQueryEncoder
+    DPRQueryEncoder, TCTColBERTQueryEncoder, AnceQueryEncoder, SBERTQueryEncoder
 from ._model import AnceEncoder
 
 __all__ = ['DenseSearchResult', 'SimpleDenseSearcher', 'QueryEncoder', 'DPRQueryEncoder',
-           'TCTColBERTQueryEncoder', 'AnceEncoder']
+           'TCTColBERTQueryEncoder', 'AnceEncoder', 'SBERTQueryEncoder', 'AnceQueryEncoder']
