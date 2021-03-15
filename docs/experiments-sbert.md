@@ -1,4 +1,4 @@
-# Pyserini: Replicating S-BERT MSMARCO Results
+# Pyserini: Replicating SBERT MSMARCO Results
 
 ## Dense Retrieval
 
