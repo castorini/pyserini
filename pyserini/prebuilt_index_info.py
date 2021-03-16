@@ -427,6 +427,7 @@ DINDEX_INFO = {
         "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as HNSW index",
         "filename": "dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
             "https://www.dropbox.com/s/xrsjn38lk3axfdd/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz?dl=1",
         ],
         "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
@@ -438,7 +439,7 @@ DINDEX_INFO = {
         "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as brute force index",
         "filename": "dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/7qDCqLep547Gc2Z/download",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
             "https://www.dropbox.com/s/sgmugleqwwirx3n/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz?dl=1",
         ],
         "md5": "7312e0e7acec2a686e994902ca064fc5",
@@ -450,6 +451,7 @@ DINDEX_INFO = {
         "description": "MS MARCO document corpus encoded by TCT-ColBERT and indexed as brute force index",
         "filename": "dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
             "https://www.dropbox.com/s/jse0j82l4ouqdna/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz?dl=1",
         ],
         "md5": "f0b4c3bff3bb685be5c475511004c3b0",
@@ -461,6 +463,7 @@ DINDEX_INFO = {
         "description": "Wikipedia corpus encoded by DPR doc encoder trained on multiset, indexed as brute force index",
         "filename": "dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
             "https://www.dropbox.com/s/9g4e2ps73lf4ysl/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz?dl=1",
         ],
         "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
@@ -472,7 +475,7 @@ DINDEX_INFO = {
         "description": "MS MARCO passage corpus encoded by ANCE msmarco passage encoder and indexed as brute force index",
         "filename": "dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/Drx9wEF29wEsnXm/download",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
             "https://www.dropbox.com/s/ahpxwtgh56o6j2f/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz?dl=1",
         ],
         "md5": "f6332edb8f06ba796850388cf975b414",
@@ -484,6 +487,7 @@ DINDEX_INFO = {
         "description": "Wikipedia corpus encoded by ANCE-multi doc encoder and indexed as brute force index",
         "filename": "dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
             "https://www.dropbox.com/s/j89z1vnhe12cva4/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz?dl=1",
         ],
         "md5": "715605b56dc393b8f939e12682dfd467",
@@ -495,6 +499,7 @@ DINDEX_INFO = {
         "description": "MS MARCO document corpus encoded by ANCE maxp encoder and indexed as brute force index",
         "filename": "dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz",
             "https://www.dropbox.com/s/bddpw1nwcka7pdf/dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz?dl=1",
         ],
         "md5": "a9f8d77ea0cef7c6acdba881c45b7d99",
