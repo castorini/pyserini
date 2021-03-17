@@ -192,6 +192,36 @@ class SBERTQueryEncoder(QueryEncoder):
             return super().encode(query)
 
 
+class AutoQueryEncoder(QueryEncoder):
+
+    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu'):
+        super().__init__(encoded_query_dir)
+        if encoder_dir:
+            self.device = device
+            self.model = AutoModel.from_pretrained(encoder_dir)
+            self.model.to(self.device)
+            self.tokenizer = AutoTokenizer.from_pretrained(encoder_dir)
+            self.has_model = True
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+
+    def encode(self, query: str):
+        if self.has_model:
+            inputs = self.tokenizer(
+                query,
+                padding='longest',
+                truncation=True,
+                add_special_tokens=True,
+                return_tensors='pt'
+            )
+            inputs.to(self.device)
+            outputs = self.model(**inputs)
+            embeddings = outputs[0][:, 0, :].detach().cpu().numpy()
+            return embeddings.flatten()
+        else:
+            return super().encode(query)
+
+
 @dataclass
 class DenseSearchResult:
     docid: str
