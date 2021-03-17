@@ -513,7 +513,7 @@ DINDEX_INFO = {
         "documents": 8841823,
         "downloaded": False
     },
-    "msmarco-passage-ensemble_kd-bf": {
+    "msmarco-passage-distilbert-dot-margin_mse-T2-bf": {
         "description": "MS MARCO passage corpus encoded by distilbert-dot-margin_mse-T2-msmarco passage encoder and "
                        "indexed as brute force index",
         "filename": "dindex-msmarco-passage-ensemble_kd-20210316-d44c3a.tar.gz",
