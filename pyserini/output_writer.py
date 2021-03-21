@@ -20,14 +20,14 @@ class OutputWriter(ABC):
 
     def __init__(self, file_path: str, mode: str = 'w',
                  max_hits: int = float('inf'), tag: str = None, topics: dict = None,
-                 use_max_passage: bool = False, passage_delimiter: str = None):
+                 use_max_passage: bool = False, max_passage_delimiter: str = None):
         self.file_path = file_path
         self.mode = mode
         self.max_hits = max_hits
         self.tag = tag
         self.topics = topics
         self.use_max_passage = use_max_passage
-        self.passage_delimiter = passage_delimiter
+        self.max_passage_delimiter = max_passage_delimiter
         self.file = None
 
     def __enter__(self):
@@ -44,7 +44,10 @@ class OutputWriter(ABC):
         unique_docs = set()
         rank = 1
         for hit in hits:
-            docid = hit.docid.split(self.passage_delimiter)[0] if self.passage_delimiter else hit.docid.strip()
+            if self.use_max_passage and self.max_passage_delimiter:
+                docid = hit.docid.split(self.max_passage_delimiter)[0]
+            else:
+                docid = hit.docid.strip()
 
             if self.use_max_passage:
                 if docid in unique_docs:
