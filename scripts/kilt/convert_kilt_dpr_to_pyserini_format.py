@@ -2,20 +2,30 @@ import argparse
 import pickle
 import csv
 from tqdm import tqdm
+import glob
+
+import faiss
+from dpr.indexer.faiss_indexers import DenseFlatIndexer
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Convert KILT-dpr corpus into the docids file read by pyserini-dpr')
-    parser.add_argument('--input', required=True, help='Path to the kilt_w100_title.tsv file')
-    parser.add_argument('--mapping', required=True, help='Path to the mapping_KILT_title.p file')
-    parser.add_argument('--output', required=True, help='Name and path of the output file')
+    parser = argparse.ArgumentParser(description='Convert KILT-dpr corpus into the index & docid file read by pyserini')
+    parser.add_argument('--input_dir', required=True, help='Path to the input dir. Must contain the files: '
+                                                           'kilt_w100_title.tsv,'
+                                                           'mapping_KILT_title.p,'
+                                                           'kilt_passages_2048_0.pkl')
+    parser.add_argument('--output_dir', required=True, help='Path of the output dir')
 
     args = parser.parse_args()
 
-    KILT_mapping = pickle.load(open(args.mapping, "rb"))
+    print('Loading KILT mapping...')
+    with open(f'{args.input_dir}/mapping_KILT_title.p', "rb") as f:
+        KILT_mapping = pickle.load(f)
 
+    print('Creating docid file...')
     not_found = set()
-    with open(args.input, 'r') as f, open(args.output, 'w') as outp:
+    with open(f'{args.input_dir}/kilt_w100_title.tsv', 'r') as f, \
+            open(f'{args.output_dir}/docid', 'w') as outp:
         tsv = csv.reader(f, delimiter='\t')
         next(tsv)  # skip headers
         for row in tqdm(tsv, mininterval=10.0, maxinterval=20.0):
@@ -26,5 +36,15 @@ if __name__ == '__main__':
             else:
                 _ = outp.write(f'{KILT_mapping[title]}\n')
 
-    print('Done!')
-    print(f'Not found: {not_found}')
+    print("Done writing docid file!")
+    print(f'Some documents did not have a docid in the mapping: {not_found}')
+
+    print('Creating index file...')
+    ctx_files_pattern = f'{args.input_dir}/kilt_passages_2048_0.pkl'
+    input_paths = glob.glob(ctx_files_pattern)
+
+    vector_size = 768
+    index = DenseFlatIndexer(vector_size)
+    index.index_data(input_paths)
+    faiss.write_index(index, f'{args.output_dir}/index')
+    print('Done writing index file!')
