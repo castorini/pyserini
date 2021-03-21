@@ -52,13 +52,20 @@ class KiltQueryIterator:
 
     def __init__(self, topics_path: str):
         self.topics_path = topics_path
-        self.topics = {}
+        self.complete_iteration = False
+        self._topics = {}
+
+    @property
+    def topics(self):
+        if not self.complete_iteration:
+            raise ValueError('KILTQueryIterator has not been fully iterated through. `topics` property is incomplete.')
+        return self._topics
 
     def __iter__(self):
         with open(self.topics_path, 'r') as f:
             for line in f:
                 datapoint = json.loads(line)
-                self.topics[datapoint["id"]] = datapoint
+                self._topics[datapoint["id"]] = datapoint
                 query = (
                     datapoint["input"]
                     .replace(KiltQueryIterator.ENT_START_TOKEN, "")
@@ -66,6 +73,7 @@ class KiltQueryIterator:
                     .strip()
                 )
                 yield datapoint["id"], query
+        self.complete_iteration = True
 
     @classmethod
     def from_topics(cls, topics_path: str):
