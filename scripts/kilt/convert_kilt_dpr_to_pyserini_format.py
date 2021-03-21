@@ -8,6 +8,12 @@ import faiss
 from dpr.indexer.faiss_indexers import DenseFlatIndexer
 
 
+# All files required for this script can be found at:
+# https://github.com/facebookresearch/KILT/tree/master/kilt/retrievers#download-models-1
+# Note: Use this script
+# https://github.com/huggingface/transformers/blob/053efc5d2d2e87833e9b7290a0dd83fa77cd6ae8/src/transformers/models/dpr/convert_dpr_original_checkpoint_to_pytorch.py
+# to convert KILT's dpr_multi_set_f_bert.0 model into a PyTorch checkpoint
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert KILT-dpr corpus into the index & docid file read by pyserini')
     parser.add_argument('--input_dir', required=True, help='Path to the input dir. Must contain the files: '
