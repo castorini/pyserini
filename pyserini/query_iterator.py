@@ -8,8 +8,7 @@ from pyserini.search import get_topics
 @unique
 class TopicsFormat(Enum):
     DEFAULT = 'default'
-    KILT_DRQA = 'kilt-drqa'
-    KILT_DPR = 'kilt-dpr'
+    KILT = 'kilt'
 
 
 class DefaultQueryIterator:
@@ -76,7 +75,6 @@ class KiltQueryIterator:
 def get_query_iterator(topics_path: str, query_format: TopicsFormat):
     mapping = {
         TopicsFormat.DEFAULT: DefaultQueryIterator,
-        TopicsFormat.KILT_DRQA: KiltQueryIterator,
-        TopicsFormat.KILT_DPR: KiltQueryIterator
+        TopicsFormat.KILT: KiltQueryIterator,
     }
     return mapping[query_format].from_topics(topics_path)

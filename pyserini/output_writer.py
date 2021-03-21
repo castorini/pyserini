@@ -12,8 +12,7 @@ from pyserini.search import JSimpleSearcherResult
 class OutputFormat(Enum):
     TREC = 'trec'
     MSMARCO = "msmarco"
-    KILT_DRQA = 'kilt-drqa'
-    KILT_DPR = 'kilt-dpr'
+    KILT = 'kilt'
 
 
 class OutputWriter(ABC):
@@ -77,7 +76,7 @@ class MsMarcoWriter(OutputWriter):
             self.file.write(f'{topic}\t{docid}\t{rank}\n')
 
 
-class KiltDrQAWriter(OutputWriter):
+class KiltWriter(OutputWriter):
     def write(self, topic: str, hits: List[JSimpleSearcherResult]):
         datapoint = self.topics[topic]
         provenance = []
@@ -88,15 +87,10 @@ class KiltDrQAWriter(OutputWriter):
         self.file.write('\n')
 
 
-class KiltDprWriter(OutputWriter):
-    pass
-
-
 def get_output_writer(file_path: str, output_format: OutputFormat, *args, **kwargs) -> OutputWriter:
     mapping = {
         OutputFormat.TREC: TrecWriter,
         OutputFormat.MSMARCO: MsMarcoWriter,
-        OutputFormat.KILT_DRQA: KiltDrQAWriter,
-        OutputFormat.KILT_DPR: KiltDprWriter
+        OutputFormat.KILT: KiltWriter,
     }
     return mapping[output_format](file_path, *args, **kwargs)
