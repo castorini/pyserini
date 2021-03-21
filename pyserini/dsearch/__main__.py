@@ -34,6 +34,9 @@ def define_dsearch_args(parser):
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
                         required=False,
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
+    parser.add_argument('--tokenizer', type=str, metavar='name or path',
+                        required=False,
+                        help="Path to a hgf tokenizer name or path")
     parser.add_argument('--encoded-queries', type=str, metavar='path to query encoded queries dir or queries name',
                         required=False,
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
@@ -41,7 +44,7 @@ def define_dsearch_args(parser):
                         help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
 
 
-def init_query_encoder(encoder, topics_name, encoded_queries, device):
+def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device):
     encoded_queries_map = {
         'msmarco-passage-dev-subset': 'msmarco-passage-dev-subset-tct_colbert',
         'dpr-nq-dev': 'dpr-nq-dev-multi',
@@ -54,11 +57,11 @@ def init_query_encoder(encoder, topics_name, encoded_queries, device):
     }
     if encoder:
         if 'dpr' in encoder:
-            return DPRQueryEncoder(encoder_dir=encoder, device=device)
+            return DPRQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'tct_colbert' in encoder:
-            return TCTColBERTQueryEncoder(encoder_dir=encoder, device=device)
+            return TCTColBERTQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'ance' in encoder:
-            return AnceQueryEncoder(encoder_dir=encoder, device=device)
+            return AnceQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
     if encoded_queries:
         if os.path.exists(encoded_queries):
             return QueryEncoder(encoded_queries)
@@ -95,7 +98,7 @@ if __name__ == '__main__':
     queries = list(query_iterator)
     topics = query_iterator.topics
 
-    query_encoder = init_query_encoder(args.encoder, args.topics, args.encoded_queries, args.device)
+    query_encoder = init_query_encoder(args.encoder, args.tokenizer, args.topics, args.encoded_queries, args.device)
     if not query_encoder:
         print(f'No encoded queries for topic {args.topics}')
         exit()

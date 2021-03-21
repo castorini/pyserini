@@ -102,6 +102,7 @@ if __name__ == '__main__':
     topics = query_iterator.topics
 
     query_encoder = init_query_encoder(args.dense.encoder,
+                                       args.dense.tokenizer,
                                        args.run.topics,
                                        args.dense.encoded_queries,
                                        args.dense.device)
