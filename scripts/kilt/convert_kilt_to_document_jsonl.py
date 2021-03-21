@@ -26,7 +26,7 @@ if __name__ == '__main__':
             doc["id"] = raw["_id"]
             doc["contents"] = "".join(raw["text"])
             if args.bigrams:
-                tokens = filter(lambda word: word not in STOPWORDS, word_tokenize(doc["contents"]))
+                tokens = filter(lambda word: word.lower() not in STOPWORDS, word_tokenize(doc["contents"]))
                 if args.stem:
                     tokens = map(stemmer.stem, tokens)
                 bigram_doc = bigrams(tokens)

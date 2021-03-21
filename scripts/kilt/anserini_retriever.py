@@ -63,7 +63,7 @@ def _get_predictions_thread(arguments):
         doc_scores = []
 
         if use_bigrams:
-            tokens = filter(lambda word: word not in STOPWORDS, word_tokenize(query))
+            tokens = filter(lambda word: word.lower() not in STOPWORDS, word_tokenize(query))
             if stem_bigrams:
                 tokens = map(stemmer.stem, tokens)
             bigram_query = bigrams(tokens)
