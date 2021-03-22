@@ -259,6 +259,9 @@ With Pyserini, it's easy to replicate runs on a number of standard IR test colle
 + [Guide to replicating TCT-ColBERT experiments for MS MARCO Passage/Document Ranking](docs/experiments-tct_colbert.md)
 + [Guide to replicating DPR experiments for Open-Domain QA](docs/experiments-dpr.md)
 + [Guide to replicating BM25 Baselines for KILT](docs/experiments-kilt.md)
++ [Guide to replicating ANCE experiments for MS MARCO Passage/Document Ranking](docs/experiments-ance.md)
++ [Guide to replicating DistilBERT KD experiments for MS MARCO Passage Ranking](docs/experiments-distilbert_kd.md)
++ [Guide to replicating SBERT experiments for MS MARCO Passage Ranking](docs/experiments-sbert.md)
 
 ## Additional Documentation
 
