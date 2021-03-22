@@ -2,7 +2,7 @@
 
 ## Dense Retrieval
 
-Dense retrieval with distilbert-dot-margin_mse-T2, brute-force index:
+Dense retrieval with DistilBERT KD, brute-force index:
 
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
