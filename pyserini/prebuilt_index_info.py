@@ -516,12 +516,12 @@ DINDEX_INFO = {
     "msmarco-passage-distilbert-dot-margin_mse-T2-bf": {
         "description": "MS MARCO passage corpus encoded by distilbert-dot-margin_mse-T2-msmarco passage encoder and "
                        "indexed as brute force index",
-        "filename": "dindex-msmarco-passage-ensemble_kd-20210316-d44c3a.tar.gz",
+        "filename": "dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz",
         "urls": [
-            "https://www.dropbox.com/s/2izernhy4f6bltj/dindex-msmarco-passage-ensemble_kd-20210316-d44c3a.tar.gz?dl=1",
+            "https://www.dropbox.com/s/sn06dukchscnyxf/dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz?dl=1",
         ],
-        "md5": "6f72816dce33ea77138a20aaa0e6aec5",
-        "size compressed (bytes)": 25162771310,
+        "md5": "83a8081d6020910058164978b095615f",
+        "size compressed (bytes)": 25162770962,
         "documents": 8841823,
         "downloaded": False
     },
