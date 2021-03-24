@@ -1,4 +1,4 @@
-# 20Newsgroups Replication
+# Pyserini: 20Newsgroups Replication
 
 We're going to perform text classification using scikit on 20Newsgroups dataset.
 

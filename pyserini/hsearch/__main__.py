@@ -15,123 +15,162 @@
 #
 
 import argparse
+import json
 import os
+import sys
 
-import numpy as np
 from tqdm import tqdm
 
-from pyserini.dsearch import QueryEncoder, SimpleDenseSearcher
+from pyserini.dsearch import SimpleDenseSearcher
+from pyserini.query_iterator import QUERY_IDS, query_iterator
 from pyserini.search import SimpleSearcher, get_topics
 from pyserini.hsearch import HybridSearcher
+
+from pyserini.dsearch.__main__ import define_dsearch_args, init_query_encoder
+from pyserini.search.__main__ import define_search_args, write_result, write_result_max_passage, set_bm25_parameters
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
-parser = argparse.ArgumentParser(description='Conduct a hybrid search on dense+sparse indexes.')
-parser.add_argument('--dense-index', type=str, metavar='path to dense index or index name', required=True,
-                    help="Path to Faiss index or name of prebuilt index.")
-parser.add_argument('--sparse-index', type=str, metavar='path to sparse index or index name', required=True,
-                    help="Path to Anserini index or name of prebuilt index.")
-parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
-                    help="Name of topics. Available: msmarco_passage_dev_subset.")
-parser.add_argument('--encoded-queries', type=str, metavar='path to query embedding or query name', required=False,
-                    help="Path to query embedding or name of pre encoded queries")
-parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name', required=False,
-                    help="Path to query encoder pytorch checkpoint or hgf encoder model name")
-parser.add_argument('--device', type=str, metavar='device to run query encoder', required=False, default='cpu',
-                    help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
-parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
-parser.add_argument('--alpha', type=float, metavar='num', required=False, default=0.1, help="alpha for hybrid search")
-parser.add_argument('--msmarco',  action='store_true', default=False, help="Output in MS MARCO format.")
-parser.add_argument('--batch', type=int, metavar='num', required=False, default=1,
-                    help="search batch of queries in parallel")
-parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
-                    help="maximum threads to use during search")
-parser.add_argument('--output', type=str, metavar='path', required=True, help="Path to output file.")
-args = parser.parse_args()
 
-topics = get_topics(args.topics)
+def define_fusion_args(parser):
+    parser.add_argument('--alpha', type=float, metavar='num', required=False, default=0.1,
+                        help="alpha for hybrid search")
 
-if args.encoded_queries:
-    if os.path.exists(args.encoded_queries):
-        # create query encoder from query embedding directory
-        query_encoder = QueryEncoder(args.encoded_queries)
-    else:
-        # create query encoder from pre encoded query name
-        query_encoder = QueryEncoder.load_encoded_queries(args.encoded_queries)
-else:
-    query_encoder = QueryEncoder(encoder_dir=args.encoder, device=args.device)
 
-if not query_encoder:
-    exit()
-
-if os.path.exists(args.dense_index):
-    # create searcher from index directory
-    dsearcher = SimpleDenseSearcher(args.dense_index, query_encoder)
-else:
-    # create searcher from prebuilt index name
-    dsearcher = SimpleDenseSearcher.from_prebuilt_index(args.dense_index, query_encoder)
-
-if not dsearcher:
-    exit()
-
-if os.path.exists(args.sparse_index):
-    # create searcher from index directory
-    ssearcher = SimpleSearcher(args.sparse_index)
-else:
-    # create searcher from prebuilt index name
-    ssearcher = SimpleSearcher.from_prebuilt_index(args.sparse_index)
-
-if not ssearcher:
-    exit()
-
-hsearcher = HybridSearcher(dsearcher, ssearcher)
-if not hsearcher:
-    exit()
-
-# invalid topics name
-if topics == {}:
-    print(f'Topic {args.topics} Not Found')
-    exit()
-
-# build output path
-output_path = args.output
-
-print(f'Running {args.topics} topics, saving to {output_path}...')
-tag = 'hybrid'
-
-if args.batch > 1:
-    with open(output_path, 'w') as target_file:
-        topic_keys = sorted(topics.keys())
-        for i in tqdm(range(0, len(topic_keys), args.batch)):
-            topic_key_batch = topic_keys[i: i+args.batch]
-            topic_batch = [topics[topic].get('title').strip() for topic in topic_key_batch]
-            hits = hsearcher.batch_search(topic_batch,
-                                          list(map(str, topic_key_batch)),
-                                          k=args.hits, threads=args.threads, alpha=args.alpha)
-            for topic in hits:
-                for idx, hit in enumerate(hits[str(topic)]):
-                    if args.msmarco:
-                        if idx < args.hits:
-                            target_file.write(f'{topic}\t{hit.docid}\t{idx + 1}\n')
-                    else:
-                        if idx < args.hits:
-                            target_file.write(f'{topic} Q0 {hit.docid} {idx + 1} {hit.score:.6f} {tag}\n')
-    exit()
-
-with open(output_path, 'w') as target_file:
-    for topic in tqdm(sorted(topics.keys())):
-        search = topics[topic].get('title').strip()
-        hits = hsearcher.search(search, k=args.hits, alpha=args.alpha)
-        docids = [hit.docid.strip() for hit in hits]
-        scores = [hit.score for hit in hits]
-
-        if args.msmarco:
-            for i, docid in enumerate(docids):
-                if i < args.hits:
-                    target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
+def parse_args(parser, commands):
+    # Divide argv by commands
+    split_argv = [[]]
+    for c in sys.argv[1:]:
+        if c in commands.choices:
+            split_argv.append([c])
         else:
-            for i, (docid, score) in enumerate(zip(docids, scores)):
-                if i < args.hits:
-                    target_file.write(f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
+            split_argv[-1].append(c)
+    # Initialize namespace
+    args = argparse.Namespace()
+    for c in commands.choices:
+        setattr(args, c, None)
+    # Parse each command
+    parser.parse_args(split_argv[0], namespace=args)  # Without command
+    for argv in split_argv[1:]:  # Commands
+        n = argparse.Namespace()
+        setattr(args, argv[0], n)
+        parser.parse_args(argv, namespace=n)
+    return args
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Conduct a hybrid search on dense+sparse indexes.')
+
+    commands = parser.add_subparsers(title='sub-commands')
+
+    dense_parser = commands.add_parser('dense')
+    define_dsearch_args(dense_parser)
+
+    sparse_parser = commands.add_parser('sparse')
+    define_search_args(sparse_parser)
+
+    fusion_parser = commands.add_parser('fusion')
+    define_fusion_args(fusion_parser)
+
+    run_parser = commands.add_parser('run')
+    run_parser.add_argument('--topics', type=str, metavar='topic_name', required=False,
+                            help="Name of topics. Available: msmarco-passage-dev-subset.")
+    run_parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
+    run_parser.add_argument('--msmarco', action='store_true', default=False, help="Output in MS MARCO format.")
+    run_parser.add_argument('--output', type=str, metavar='path', required=False, help="Path to output file.")
+    run_parser.add_argument('--max-passage', action='store_true',
+                            default=False, help="Select only max passage from document.")
+    run_parser.add_argument('--max-passage-hits', type=int, metavar='num', required=False, default=100,
+                            help="Final number of hits when selecting only max passage.")
+    run_parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
+                            help="Delimiter between docid and passage id.")
+    run_parser.add_argument('--batch-size', type=int, metavar='num', required=False,
+                            default=1, help="Specify batch size to search the collection concurrently.")
+    run_parser.add_argument('--threads', type=int, metavar='num', required=False,
+                            default=1, help="Maximum number of threads to use.")
+
+    args = parse_args(parser, commands)
+
+    if os.path.exists(args.run.topics) and args.run.topics.endswith('.json'):
+        topics = json.load(open(args.run.topics))
+    else:
+        topics = get_topics(args.run.topics)
+    # invalid topics name
+    if topics == {}:
+        print(f'Topic {args.run.topics} Not Found')
+        exit()
+
+    query_encoder = init_query_encoder(args.dense.encoder,
+                                       args.run.topics,
+                                       args.dense.encoded_queries,
+                                       args.dense.device)
+    if not query_encoder:
+        print(f'No encoded queries for topic {args.run.topics}')
+        exit()
+
+    if os.path.exists(args.dense.index):
+        # create searcher from index directory
+        dsearcher = SimpleDenseSearcher(args.dense.index, query_encoder)
+    else:
+        # create searcher from prebuilt index name
+        dsearcher = SimpleDenseSearcher.from_prebuilt_index(args.dense.index, query_encoder)
+
+    if not dsearcher:
+        exit()
+
+    if os.path.exists(args.sparse.index):
+        # create searcher from index directory
+        ssearcher = SimpleSearcher(args.sparse.index)
+    else:
+        # create searcher from prebuilt index name
+        ssearcher = SimpleSearcher.from_prebuilt_index(args.sparse.index)
+
+    if not ssearcher:
+        exit()
+
+    set_bm25_parameters(ssearcher, args.sparse.index, args.sparse.k1, args.sparse.b)
+
+    hsearcher = HybridSearcher(dsearcher, ssearcher)
+    if not hsearcher:
+        exit()
+
+    # build output path
+    output_path = args.run.output
+
+    print(f'Running {args.run.topics} topics, saving to {output_path}...')
+    tag = 'hybrid'
+
+    order = None
+    if args.run.topics in QUERY_IDS:
+        print(f'Using pre-defined topic order for {args.run.topics}')
+        order = QUERY_IDS[args.run.topics]
+
+    with open(output_path, 'w') as target_file:
+        batch_topics = list()
+        batch_topic_ids = list()
+        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+            if args.run.batch_size <= 1 and args.run.threads <= 1:
+                hits = hsearcher.search(text, args.run.hits, args.fusion.alpha)
+                results = [(topic_id, hits)]
+            else:
+                batch_topic_ids.append(str(topic_id))
+                batch_topics.append(text)
+                if (index + 1) % args.run.batch_size == 0 or \
+                        index == len(topics.keys()) - 1:
+                    results = hsearcher.batch_search(
+                        batch_topics, batch_topic_ids, args.run.hits, args.run.threads, args.fusion.alpha)
+                    results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                    batch_topic_ids.clear()
+                    batch_topics.clear()
+                else:
+                    continue
+
+            for result in results:
+                if args.run.max_passage:
+                    write_result_max_passage(target_file, result, args.run.max_passage_delimiter,
+                                             args.run.max_passage_hits, args.run.msmarco, tag)
+                else:
+                    write_result(target_file, result, args.run.hits, args.run.msmarco, tag)
+            results.clear()

@@ -5,6 +5,8 @@ Note that there is a separate guide for the [MS MARCO *passage* ranking task](ex
 
 ## Data Prep
 
+The guide requires the [development installation](https://github.com/castorini/pyserini/#development-installation) for additional resource that are not shipped with the Python module; for the (more limited) runs that directly work from the Python module installed via `pip`, see [this guide](https://github.com/castorini/pyserini/blob/master/docs/pypi-replication.md).
+
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO document dataset:
 
@@ -59,7 +61,7 @@ Conveniently, Pyserini already knows how to load and iterate through these pairs
 We can now perform retrieval using these queries:
 
 ```bash
-python -m pyserini.search --topics msmarco_doc_dev \
+python -m pyserini.search --topics msmarco-doc-dev \
  --index indexes/lucene-index-msmarco-doc \
  --output runs/run.msmarco-doc.bm25tuned.txt \
  --bm25 --msmarco --hits 100 --k1 4.46 --b 0.82
@@ -90,7 +92,7 @@ We can also use the official TREC evaluation tool, `trec_eval`, to compute metri
 For that we first need to convert the run file into TREC format:
 
 ```bash
-$ python tools/scripts/msmarco/convert_msmarco_to_trec_run.py \
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
    --input runs/run.msmarco-doc.bm25tuned.txt --output runs/run.msmarco-doc.bm25tuned.trec
 ```
 
@@ -131,3 +133,5 @@ We can see that Anserini's (tuned) BM25 baseline is already much better than the
 + Results replicated by [@jrzhang12](https://github.com/jrzhang12) on 2021-01-03 (commit [`7caedfc`](https://github.com/castorini/pyserini/commit/7caedfc150f916de302297406c45dead27b475ba))
 + Results replicated by [@HEC2018](https://github.com/HEC2018) on 2021-01-04 (commit [`46a6d47`](https://github.com/castorini/pyserini/commit/46a6d472267a559152495d004c2a12f8e95e53f0))
 + Results replicated by [@KaiSun314](https://github.com/KaiSun314) on 2021-01-08 (commit [`aeec31f`](https://github.com/castorini/pyserini/commit/aeec31fbe17d39ecf3081597b4832f5af57ea549))
++ Results replicated by [@yemiliey](https://github.com/yemiliey) on 2021-01-18 (commit [`98f3236`](https://github.com/castorini/pyserini/commit/98f323659c8a0a5d8ef26bb3f6768458a34e3eb9))
++ Results replicated by [@larryli1999](https://github.com/larryli1999) on 2021-01-04 (commit [`74a87e4`](https://github.com/castorini/pyserini/commit/74a87e4951c98d7b066273140576d3cccd9ea0ed))

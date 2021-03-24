@@ -21,9 +21,9 @@ import shutil
 import tarfile
 from tqdm import tqdm
 from urllib.request import urlretrieve
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 import pandas as pd
-from pyserini.prebuilt_index_info import INDEX_INFO
+from pyserini.prebuilt_index_info import INDEX_INFO, DINDEX_INFO
 from pyserini.encoded_query_info import QUERY_INFO
 from pyserini.evaluate_script_info import EVALUATION_INFO
 
@@ -57,9 +57,15 @@ def compute_md5(file, block_size=2**20):
     return m.hexdigest()
 
 
-def download_url(url, save_dir, md5=None, force=False, verbose=True):
-    filename = url.split('/')[-1]
-    filename = re.sub('\\?dl=1$', '', filename)  # Remove the Dropbox 'force download' parameter
+def download_url(url, save_dir, local_filename=None, md5=None, force=False, verbose=True):
+    # If caller does not specify local filename, figure it out from the download URL:
+    if not local_filename:
+        filename = url.split('/')[-1]
+        filename = re.sub('\\?dl=1$', '', filename)  # Remove the Dropbox 'force download' parameter
+    else:
+        # Otherwise, use the specified local_filename:
+        filename = local_filename
+
     destination_path = os.path.join(save_dir, filename)
 
     if verbose:
@@ -89,11 +95,21 @@ def download_url(url, save_dir, md5=None, force=False, verbose=True):
 
 
 def get_cache_home():
+    custom_dir = os.environ.get("PYSERINI_CACHE")
+    if custom_dir is not None and custom_dir != '':
+        return custom_dir
     return os.path.expanduser(os.path.join(f'~{os.path.sep}.cache', "pyserini"))
 
 
-def download_and_unpack_index(url, index_directory='indexes', force=False, verbose=True, prebuilt=False, md5=None):
-    index_name = url.split('/')[-1]
+def download_and_unpack_index(url, index_directory='indexes', local_filename=False,
+                              force=False, verbose=True, prebuilt=False, md5=None):
+    # If caller does not specify local filename, figure it out from the download URL:
+    if not local_filename:
+        index_name = url.split('/')[-1]
+    else:
+        # Otherwise, use the specified local_filename:
+        index_name = local_filename
+    # Remove the suffix:
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
 
     if prebuilt:
@@ -124,7 +140,7 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
         shutil.rmtree(index_path)
 
     print(f'Downloading index at {url}...')
-    download_url(url, index_directory, verbose=False, md5=md5)
+    download_url(url, index_directory, local_filename=local_filename, verbose=False, md5=md5)
 
     if verbose:
         print(f'Extracting {local_tarball} into {index_path}...')
@@ -140,8 +156,12 @@ def download_and_unpack_index(url, index_directory='indexes', force=False, verbo
 
 
 def check_downloaded(index_name):
-    index_url = INDEX_INFO[index_name]['urls'][0]
-    index_md5 = INDEX_INFO[index_name]['md5']
+    if index_name in INDEX_INFO:
+        target_index = INDEX_INFO[index_name]
+    else:
+        target_index = DINDEX_INFO[index_name]
+    index_url = target_index['urls'][0]
+    index_md5 = target_index['md5']
     index_name = index_url.split('/')[-1]
     index_name = re.sub('''.tar.gz.*$''', '', index_name)
     index_directory = os.path.join(get_cache_home(), 'indexes')
@@ -150,7 +170,7 @@ def check_downloaded(index_name):
     return os.path.exists(index_path)
 
 
-def get_indexes_info():
+def get_sparse_indexes_info():
     df = pd.DataFrame.from_dict(INDEX_INFO)
     for index in df.keys():
         df[index]['downloaded'] = check_downloaded(index)
@@ -160,15 +180,29 @@ def get_indexes_info():
         print(df)
 
 
-def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
-    if index_name not in INDEX_INFO:
-        raise ValueError(f'Unrecognized index name {index_name}')
+def get_dense_indexes_info():
+    df = pd.DataFrame.from_dict(DINDEX_INFO)
+    for index in df.keys():
+        df[index]['downloaded'] = check_downloaded(index)
 
-    index_md5 = INDEX_INFO[index_name]['md5']
-    for url in INDEX_INFO[index_name]['urls']:
+    with pd.option_context('display.max_rows', None, 'display.max_columns',
+                           None, 'display.max_colwidth', -1, 'display.colheader_justify', 'left'):
+        print(df)
+
+
+def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
+    if index_name not in INDEX_INFO and index_name not in DINDEX_INFO:
+        raise ValueError(f'Unrecognized index name {index_name}')
+    if index_name in INDEX_INFO:
+        target_index = INDEX_INFO[index_name]
+    else:
+        target_index = DINDEX_INFO[index_name]
+    index_md5 = target_index['md5']
+    for url in target_index['urls']:
+        local_filename = target_index['filename'] if 'filename' in target_index else None
         try:
-            return download_and_unpack_index(url, prebuilt=True, md5=index_md5)
-        except HTTPError:
+            return download_and_unpack_index(url, local_filename=local_filename, prebuilt=True, md5=index_md5)
+        except (HTTPError, URLError) as e:
             print(f'Unable to download pre-built index at {url}, trying next URL...')
     raise ValueError(f'Unable to download pre-built index at any known URLs.')
 
@@ -180,7 +214,7 @@ def download_encoded_queries(query_name, force=False, verbose=True, mirror=None)
     for url in QUERY_INFO[query_name]['urls']:
         try:
             return download_and_unpack_index(url, index_directory='queries', prebuilt=True, md5=query_md5)
-        except HTTPError:
+        except (HTTPError, URLError) as e:
             print(f'Unable to download encoded query at {url}, trying next URL...')
     raise ValueError(f'Unable to download encoded query at any known URLs.')
 

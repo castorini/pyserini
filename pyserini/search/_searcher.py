@@ -23,10 +23,10 @@ import logging
 from typing import Dict, List, Optional, Union
 
 from ._base import Document, JQuery, JQueryGenerator
-from pyserini.pyclass import autoclass, JString, JArrayList
+from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap, JString
 from pyserini.trectools import TrecRun
 from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
-from pyserini.util import download_prebuilt_index, get_indexes_info
+from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
 
 logger = logging.getLogger(__name__)
 
@@ -77,9 +77,10 @@ class SimpleSearcher:
     @staticmethod
     def list_prebuilt_indexes():
         """Display information about available prebuilt indexes."""
-        get_indexes_info()
+        get_sparse_indexes_info()
 
-    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
+    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None,
+               fields=dict(), strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
         """Search the collection.
 
         Parameters
@@ -90,6 +91,8 @@ class SimpleSearcher:
             Number of hits to return.
         query_generator : JQueryGenerator
             Generator to build queries. Set to ``None`` by default to use Anserini default.
+        fields : dict
+            Optional map of fields to search with associated boosts.
         strip_segment_id : bool
             Remove the .XXXXX suffix used to denote different segments from an document.
         remove_dups : bool
@@ -100,9 +103,17 @@ class SimpleSearcher:
         List[JSimpleSearcherResult]
             List of search results.
         """
+
+        jfields = JHashMap()
+        for (field, boost) in fields.items():
+            jfields.put(JString(field), JFloat(boost))
+
         hits = None
         if query_generator:
-            hits = self.object.search(query_generator, JString(q), k)
+            if not fields:
+                hits = self.object.search(query_generator, JString(q.encode('utf8')), k)
+            else:
+                hits = self.object.searchFields(query_generator, JString(q.encode('utf8')), jfields, k)
         elif isinstance(q, JQuery):
             # Note that RM3 requires the notion of a query (string) to estimate the appropriate models. If we're just
             # given a Lucene query, it's unclear what the "query" is for this estimation. One possibility is to extract
@@ -111,9 +122,14 @@ class SimpleSearcher:
             # here explicitly.
             if self.is_using_rm3():
                 raise NotImplementedError('RM3 incompatible with search using a Lucene query.')
+            if fields:
+                raise NotImplementedError('Cannot specify fields to search when using a Lucene query.')
             hits = self.object.search(q, k)
         else:
-            hits = self.object.search(JString(q.encode('utf8')), k)
+            if not fields:
+                hits = self.object.search(JString(q.encode('utf8')), k)
+            else:
+                hits = self.object.searchFields(JString(q.encode('utf8')), jfields, k)
 
         docids = set()
         filtered_hits = []
@@ -132,8 +148,8 @@ class SimpleSearcher:
 
         return filtered_hits
 
-    def batch_search(self, queries: List[str], qids: List[str], k: int = 10,
-                     threads: int = 1) -> Dict[str, List[JSimpleSearcherResult]]:
+    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1,
+                     query_generator: JQueryGenerator = None, fields = dict()) -> Dict[str, List[JSimpleSearcherResult]]:
         """Search the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
@@ -146,6 +162,10 @@ class SimpleSearcher:
             Number of hits to return.
         threads : int
             Maximum number of threads to use.
+        query_generator : JQueryGenerator
+            Generator to build queries. Set to ``None`` by default to use Anserini default.
+        fields : dict
+            Optional map of fields to search with associated boosts.
 
         Returns
         -------
@@ -163,29 +183,21 @@ class SimpleSearcher:
             jqid = JString(qid)
             qid_strings.add(jqid)
 
-        results = self.object.batchSearch(query_strings, qid_strings, int(k), int(threads)).entrySet().toArray()
-        return {r.getKey(): r.getValue() for r in results}
+        jfields = JHashMap()
+        for (field, boost) in fields.items():
+            jfields.put(JString(field), JFloat(boost))
 
-    def search_fields(self, q, f, boost, k):
-        """Search the collection, scoring a separate field with a boost weight.
-
-        Parameters
-        ----------
-        q : str
-            Query string.
-        f : str
-            Additional field to search.
-        boost : float
-            Weight boost for additional field.
-        k : int
-            Number of hits to return.
-
-        Returns
-        -------
-        List[JSimpleSearcherResult]
-            List of document hits returned from search
-        """
-        return self.object.searchFields(JString(q), JString(f), float(boost), k)
+        if query_generator:
+            if not fields:
+                results = self.object.batchSearch(query_generator, query_strings, qid_strings, int(k), int(threads))
+            else:
+                results = self.object.batchSearchFields(query_generator, query_strings, qid_strings, int(k), int(threads), jfields)
+        else:
+            if not fields:
+                results = self.object.batchSearch(query_strings, qid_strings, int(k), int(threads))
+            else:
+                results = self.object.batchSearchFields(query_strings, qid_strings, int(k), int(threads), jfields)
+        return {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
 
     def set_analyzer(self, analyzer):
         """Set the Java ``Analyzer`` to use.
