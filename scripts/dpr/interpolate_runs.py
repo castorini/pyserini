@@ -14,13 +14,12 @@ if __name__ == '__main__':
     parser.add_argument('--output-dir', required=True, help='hybrid result')
     args = parser.parse_args()
 
-    run1_result = json.load(open(args.run1))
-    run2_result = json.load(open(args.run2))
-
     if not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
 
     for alpha in np.arange(args.start_weight, args.end_weight, args.step):
+        run1_result = json.load(open(args.run1))
+        run2_result = json.load(open(args.run2))
         hybrid_result = {}
         for key in tqdm(list(run1_result.keys())):
             question = run1_result[key]['question']
