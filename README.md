@@ -57,7 +57,7 @@ Assuming all tests pass, you should be ready to go!
 
 + [How do I search?](#how-do-i-search)
 + [How do I fetch a document?](#how-do-i-fetch-a-document)
-+ [How do I search my own documents?](#how-do-i-search-my-own-documents)
++ [How do I index and search my own documents?](#how-do-i-index-and-search-my-own-documents)
 + [How do I replicate results on Robust04, MS MARCO...?](#replication-guides)
 + [How do I configure search?](docs/usage-interactive-search.md#how-do-i-configure-search) (Guide to Interactive Search)
 + [How do I manually download indexes?](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) (Guide to Interactive Search)
@@ -191,7 +191,7 @@ for i in range(searcher.num_docs):
     print(searcher.doc(i).docid())
 ```
 
-## How do I search my own documents?
+## How do I index and search my own documents?
 
 Pyserini (via Anserini) provides ingestors for document collections in many different formats.
 The simplest, however, is the following JSON format:
