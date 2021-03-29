@@ -37,7 +37,7 @@ def define_dsearch_args(parser):
     parser.add_argument('--tokenizer', type=str, metavar='name or path',
                         required=False,
                         help="Path to a hgf tokenizer name or path")
-    parser.add_argument('--encoded-queries', type=str, metavar='path to query encoded queries dir or queries name',
+    parser.add_argument('--encoded-queries', type=str, metavar='path to query encoded queries file or queries name',
                         required=False,
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
     parser.add_argument('--device', type=str, metavar='device to run query encoder', required=False, default='cpu',

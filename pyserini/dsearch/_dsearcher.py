@@ -34,11 +34,11 @@ from ._model import AnceEncoder
 
 
 class QueryEncoder:
-    def __init__(self, encoded_query_dir: str = None):
+    def __init__(self, encoded_query_file: str = None):
         self.has_model = False
         self.has_encoded_query = False
-        if encoded_query_dir:
-            self.embedding = self._load_embeddings(encoded_query_dir)
+        if encoded_query_file:
+            self.embedding = self._load_embeddings(encoded_query_file)
             self.has_encoded_query = True
 
     def encode(self, query: str):
@@ -61,24 +61,25 @@ class QueryEncoder:
         print(f'Attempting to initialize pre-encoded queries {encoded_query_name}.')
         try:
             query_dir = download_encoded_queries(encoded_query_name)
+            query_file = os.path.join(query_dir, 'embedding.pkl')
         except ValueError as e:
             print(str(e))
             return None
 
         print(f'Initializing {encoded_query_name}...')
-        return cls(encoded_query_dir=query_dir)
+        return cls(encoded_query_file=query_file)
 
     @staticmethod
-    def _load_embeddings(encoded_query_dir):
-        df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
+    def _load_embeddings(encoded_query_file):
+        df = pd.read_pickle(encoded_query_file)
         return dict(zip(df['text'].tolist(), df['embedding'].tolist()))
 
 
 class TCTColBERTQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu'):
-        super().__init__(encoded_query_dir)
+                 encoded_query_file: str = None, device: str = 'cpu'):
+        super().__init__(encoded_query_file)
         if encoder_dir:
             self.device = device
             self.model = BertModel.from_pretrained(encoder_dir)
@@ -109,8 +110,8 @@ class TCTColBERTQueryEncoder(QueryEncoder):
 class DPRQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu'):
-        super().__init__(encoded_query_dir)
+                 encoded_query_file: str = None, device: str = 'cpu'):
+        super().__init__(encoded_query_file)
         if encoder_dir:
             self.device = device
             self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
@@ -133,8 +134,8 @@ class DPRQueryEncoder(QueryEncoder):
 class AnceQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu'):
-        super().__init__(encoded_query_dir)
+                 encoded_query_file: str = None, device: str = 'cpu'):
+        super().__init__(encoded_query_file)
         if encoder_dir:
             self.device = device
             self.model = AnceEncoder.from_pretrained(encoder_dir)
