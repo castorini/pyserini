@@ -21,7 +21,7 @@ import json
 from tqdm import tqdm
 
 from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder, \
-    QueryEncoder, DPRQueryEncoder, AnceQueryEncoder, SBERTQueryEncoder
+    QueryEncoder, DPRQueryEncoder, DKRRQueryEncoder, AnceQueryEncoder, SBERTQueryEncoder
 from pyserini.query_iterator import QUERY_IDS, query_iterator
 from pyserini.search import get_topics
 from pyserini.search.__main__ import write_result, write_result_max_passage
@@ -44,7 +44,7 @@ def define_dsearch_args(parser):
                         help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
 
 
-def init_query_encoder(encoder, topics_name, encoded_queries, device):
+def init_query_encoder(encoder, topics_name, encoded_queries, device, prefix):
     encoded_queries_map = {
         'msmarco-passage-dev-subset': 'msmarco-passage-dev-subset-tct_colbert',
         'dpr-nq-dev': 'dpr-nq-dev-multi',
@@ -56,7 +56,9 @@ def init_query_encoder(encoder, topics_name, encoded_queries, device):
         'dpr-curated-test': 'dpr-curated-test-multi'
     }
     if encoder:
-        if 'dpr' in encoder:
+        if 'dkrr' in encoder:
+            return DKRRQueryEncoder(encoder_dir=encoder, device=device, prefix=prefix)
+        elif 'dpr' in encoder:
             return DPRQueryEncoder(encoder_dir=encoder, device=device)
         elif 'tct_colbert' in encoder:
             return TCTColBERTQueryEncoder(encoder_dir=encoder, device=device)
@@ -90,6 +92,8 @@ if __name__ == '__main__':
                         help="search batch of queries in parallel")
     parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
                         help="maximum threads to use during search")
+    parser.add_argument('--query-prefix', type=str, metavar='str', required=False, default=None,
+                        help="Query prefix if exists.")
     define_dsearch_args(parser)
     args = parser.parse_args()
 
@@ -103,7 +107,7 @@ if __name__ == '__main__':
         print(f'Topic {args.topics} Not Found')
         exit()
 
-    query_encoder = init_query_encoder(args.encoder, args.topics, args.encoded_queries, args.device)
+    query_encoder = init_query_encoder(args.encoder, args.topics, args.encoded_queries, args.device, args.query_prefix)
     if not query_encoder:
         print(f'No encoded queries for topic {args.topics}')
         exit()
