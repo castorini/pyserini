@@ -65,3 +65,7 @@ $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-s
 map                     all     0.3445
 recall_1000             all     0.9659
 ```
+
+## Replication Log
+
++ Results replicated by [@lintool](https://github.com/lintool) on 2021-04-02 (commit [`8dcf99`](https://github.com/castorini/pyserini/commit/8dcf99982a7bfd447ce9182ff219a9dad2ddd1f2))
