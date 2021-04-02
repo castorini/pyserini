@@ -21,17 +21,20 @@ import os
 from dataclasses import dataclass
 from typing import Dict, List
 
-import faiss
 import numpy as np
 import pandas as pd
 from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, DPRQuestionEncoder,
                           DPRQuestionEncoderTokenizer, RobertaTokenizer)
+from transformers.file_utils import is_faiss_available, requires_faiss
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info)
 
 from ._model import AnceEncoder
 import torch
+
+if is_faiss_available():
+    import faiss
 
 
 class QueryEncoder:
@@ -221,6 +224,7 @@ class SimpleDenseSearcher:
     """
 
     def __init__(self, index_dir: str, query_encoder: QueryEncoder):
+        requires_faiss(self)
         self.query_encoder = query_encoder
         self.index, self.docids = self.load_index(index_dir)
         self.dimension = self.index.d
