@@ -20,8 +20,8 @@ import os
 import json
 from tqdm import tqdm
 
-from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder, \
-    QueryEncoder, DPRQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
+from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, \
+    QueryEncoder, DprQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
 from pyserini.query_iterator import QUERY_IDS, query_iterator
 from pyserini.search import get_topics
 from pyserini.search.__main__ import write_result, write_result_max_passage
@@ -57,9 +57,9 @@ def init_query_encoder(encoder, topics_name, encoded_queries, device):
     }
     if encoder:
         if 'dpr' in encoder:
-            return DPRQueryEncoder(encoder_dir=encoder, device=device)
+            return DprQueryEncoder(encoder_dir=encoder, device=device)
         elif 'tct_colbert' in encoder:
-            return TCTColBERTQueryEncoder(encoder_dir=encoder, device=device)
+            return TctColBertQueryEncoder(encoder_dir=encoder, device=device)
         elif 'ance' in encoder:
             return AnceQueryEncoder(encoder_dir=encoder, device=device)
         elif 'sentence' in encoder:
