@@ -1,11 +1,11 @@
-# Pyserini: Replicating TCT-ColBERT Results
+# Pyserini: Reproducing TCT-ColBERT Results
 
-This guide provides replication instructions for the TCT-ColBERT dense retrieval model described in the following paper:
+This guide provides instructions reproducing the TCT-ColBERT dense retrieval model described in the following paper:
 
 > Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [Distilling Dense Representations for Ranking using Tightly-Coupled Teachers.](https://arxiv.org/abs/2010.11386) arXiv:2010.11386, October 2020. 
 
 You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
-These experiments were performed on a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`, `transformers==4.0.0`, `torch==1.7.1`, and `tensorflow==2.4.0`; results have also been replicated on macOS 10.14.6 with the same Python dependency versions.
+These experiments were performed on a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`, `transformers==4.0.0`, `torch==1.7.1`, and `tensorflow==2.4.0`; results have also been reproduced on macOS 10.14.6 with the same Python dependency versions.
 
 ## MS MARCO Passage Ranking
 
@@ -31,7 +31,7 @@ $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --msmarco
 ```
 
-Note that to ensure maximum replicability, by default Pyserini uses pre-computed query representations that are automatically downloaded.
+Note that to ensure maximum reproducibility, by default Pyserini uses pre-computed query representations that are automatically downloaded.
 As an alternative, to perform "on-the-fly" query encoding, see additional instructions below.
 
 To evaluate:
@@ -46,7 +46,7 @@ QueriesRanked: 6980
 
 Note that we have observed minor differences in MRR@10 depending on the source of the query representations (see below; pre-computed vs. on-the-fly encoding on the CPU vs. on-the-fly encoding on the GPU).
 We have also noticed differences in MRR@10 between Linux and macOS.
-However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a replicability perspective.
+However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
 Thus, while the MS MARCO scoring scripts provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
 We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10. 
@@ -265,6 +265,6 @@ map                   	all	0.3784
 recall_100            	all	0.9081
 ```
 
-## Replication Log
+## Reproduction Log[*](reproducibility.md)
 
-+ Results replicated by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))

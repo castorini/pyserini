@@ -1,4 +1,4 @@
-# Pyserini: Replicating SBERT MSMARCO Results
+# Pyserini: Reproducing SBERT MS MARCO Results
 
 ## Dense Retrieval
 
@@ -66,6 +66,6 @@ map                     all     0.3445
 recall_1000             all     0.9659
 ```
 
-## Replication Log
+## Reproduction Log[*](reproducibility.md)
 
-+ Results replicated by [@lintool](https://github.com/lintool) on 2021-04-02 (commit [`8dcf99`](https://github.com/castorini/pyserini/commit/8dcf99982a7bfd447ce9182ff219a9dad2ddd1f2))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-02 (commit [`8dcf99`](https://github.com/castorini/pyserini/commit/8dcf99982a7bfd447ce9182ff219a9dad2ddd1f2))

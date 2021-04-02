@@ -1,6 +1,6 @@
-# Pyserini: Replicating BM25 Baselines for KILT
+# Pyserini: Reproducing BM25 Baselines for KILT
 
-Note: Currently this replication guide requires at least ~100GB of disk space available, since we will be working with snapshots of Wikipedia.
+Note: Currently, this guide requires at least ~100GB of disk space available, since we will be working with snapshots of Wikipedia.
 
 ## Setup env
 

@@ -58,7 +58,7 @@ Assuming all tests pass, you should be ready to go!
 + [How do I search?](#how-do-i-search)
 + [How do I fetch a document?](#how-do-i-fetch-a-document)
 + [How do I index and search my own documents?](#how-do-i-index-and-search-my-own-documents)
-+ [How do I replicate results on Robust04, MS MARCO...?](#replication-guides)
++ [How do I reproduce results on Robust04, MS MARCO...?](#reproduction-guides)
 + [How do I configure search?](docs/usage-interactive-search.md#how-do-i-configure-search) (Guide to Interactive Search)
 + [How do I manually download indexes?](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) (Guide to Interactive Search)
 + [How do I perform dense and hybrid retrieval?](docs/usage-interactive-search.md#how-do-i-perform-dense-and-hybrid-retrieval) (Guide to Interactive Search)
@@ -247,33 +247,33 @@ For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entiti
 
 Happy honking!
 
-## Replication Guides
+## Reproduction Guides
 
-With Pyserini, it's easy to replicate runs on a number of standard IR test collections!
+With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a number of standard IR test collections!
 
-The easiest way, start here: [replicating runs directly from the Python package](docs/pypi-replication.md)
+The easiest way, start here: [reproducing runs directly from the Python package](docs/pypi-reproduction.md)
 
 ### Sparse Retrieval
 
-+ [Guide to replicating the BM25 baseline for MS MARCO Passage Ranking](docs/experiments-msmarco-passage.md)
-+ [Guide to replicating the BM25 baseline for MS MARCO Document Ranking](docs/experiments-msmarco-doc.md)
-+ [Guide to replicating the multi-field BM25 baseline for MS MARCO Document Ranking from Elasticsearch](docs/experiments-elastic.md)
-+ [Guide to replicating Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
-+ [Guide to replicating BM25 Baselines for KILT](docs/experiments-kilt.md)
++ [Guide to reproducing the BM25 baseline for MS MARCO Passage Ranking](docs/experiments-msmarco-passage.md)
++ [Guide to reproducing the BM25 baseline for MS MARCO Document Ranking](docs/experiments-msmarco-doc.md)
++ [Guide to reproducing the multi-field BM25 baseline for MS MARCO Document Ranking from Elasticsearch](docs/experiments-elastic.md)
++ [Guide to reproducing Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
++ [Guide to reproducing BM25 Baselines for KILT](docs/experiments-kilt.md)
 
 ### Dense Retrieval
 
-+ [Guide to replicating TCT-ColBERT experiments for MS MARCO Passage/Document Ranking](docs/experiments-tct_colbert.md)
-+ [Guide to replicating DPR experiments for Open-Domain QA](docs/experiments-dpr.md)
-+ [Guide to replicating ANCE experiments for MS MARCO Passage/Document Ranking](docs/experiments-ance.md)
-+ [Guide to replicating DistilBERT KD experiments for MS MARCO Passage Ranking](docs/experiments-distilbert_kd.md)
-+ [Guide to replicating SBERT experiments for MS MARCO Passage Ranking](docs/experiments-sbert.md)
++ [Guide to reproducing TCT-ColBERT experiments for MS MARCO Passage/Document Ranking](docs/experiments-tct_colbert.md)
++ [Guide to reproducing DPR experiments for Open-Domain QA](docs/experiments-dpr.md)
++ [Guide to reproducing ANCE experiments for MS MARCO Passage/Document Ranking](docs/experiments-ance.md)
++ [Guide to reproducing DistilBERT KD experiments for MS MARCO Passage Ranking](docs/experiments-distilbert_kd.md)
++ [Guide to reproducing SBERT experiments for MS MARCO Passage Ranking](docs/experiments-sbert.md)
 
 ## Additional Documentation
 
 + [Guide to pre-built indexes](docs/prebuilt-indexes.md)
 + [Guide to interactive searching](docs/usage-interactive-search.md)
-+ [Guide to text classification with the 20Newsgroups dataset](docs/20newgroups.md)
++ [Guide to text classification with the 20Newsgroups dataset](docs/experiments-20newgroups.md)
 + [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
 + [Guide to working with entity linking](https://github.com/castorini/pyserini/blob/master/docs/working-with-entity-linking.md)
 + [Guide to working with spaCy](https://github.com/castorini/pyserini/blob/master/docs/working-with-spacy.md)
