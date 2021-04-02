@@ -1,4 +1,4 @@
-# Pyserini: Replicating DistilBERT KD Results
+# Pyserini: Reproducing DistilBERT KD Results
 
 ## Dense Retrieval
 

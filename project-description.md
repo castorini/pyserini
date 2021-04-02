@@ -1,4 +1,4 @@
-Pyserini is a Python toolkit designed to support replicable information retrieval research.
+Pyserini is a Python toolkit designed to support reproducible information retrieval research.
 It provides sparse retrieval (e.g., BM25 ranking using bag-of-words representations), dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), as well hybrid retrieval that integrates both approaches.
 
 ## Installation
