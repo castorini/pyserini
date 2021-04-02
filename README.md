@@ -1,4 +1,4 @@
-# Pyserini: Anserini Integration with Python
+# Pyserini
 
 [![Generic badge](https://img.shields.io/badge/Lucene-v8.3.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/8.3.0/)
 [![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
@@ -6,10 +6,14 @@
 [![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
-Pyserini provides a simple Python interface to the [Anserini](http://anserini.io/) IR toolkit via [pyjnius](https://github.com/kivy/pyjnius).
+Pyserini is a Python toolkit designed to support reproducible IR Research with sparse and dense representations.
+Retrieval using sparse representations is provided via the [Anserini](http://anserini.io/) IR toolkit, which is built on Lucene.
 
-A low-effort way to try out Pyserini is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
-For convenience, we've pre-built a few common indexes, available to download [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
+Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multistage ranking architecture.
+Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, pre-built indexes, and evaluation scripts for many commonly used IR test collections
+
+With Pyserini, it's easy to [reproduce](docs/pypi-reproduction.md) runs on a number of standard IR test collections!
+A low-effort way to try things out is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
 
 Pyserini versions adopt the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
 The current stable release of Pyserini is [v0.11.0.0](https://pypi.org/project/pyserini/) on PyPI.
