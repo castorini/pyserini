@@ -251,14 +251,20 @@ Happy honking!
 
 With Pyserini, it's easy to replicate runs on a number of standard IR test collections!
 
-+ The easiest way, start here: [Replicating runs directly from the Python package](docs/pypi-replication.md)
+The easiest way, start here: [replicating runs directly from the Python package](docs/pypi-replication.md)
+
+### Sparse Retrieval
+
 + [Guide to replicating the BM25 baseline for MS MARCO Passage Ranking](docs/experiments-msmarco-passage.md)
 + [Guide to replicating the BM25 baseline for MS MARCO Document Ranking](docs/experiments-msmarco-doc.md)
 + [Guide to replicating the multi-field BM25 baseline for MS MARCO Document Ranking from Elasticsearch](docs/experiments-elastic.md)
 + [Guide to replicating Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
++ [Guide to replicating BM25 Baselines for KILT](docs/experiments-kilt.md)
+
+### Dense Retrieval
+
 + [Guide to replicating TCT-ColBERT experiments for MS MARCO Passage/Document Ranking](docs/experiments-tct_colbert.md)
 + [Guide to replicating DPR experiments for Open-Domain QA](docs/experiments-dpr.md)
-+ [Guide to replicating BM25 Baselines for KILT](docs/experiments-kilt.md)
 + [Guide to replicating ANCE experiments for MS MARCO Passage/Document Ranking](docs/experiments-ance.md)
 + [Guide to replicating DistilBERT KD experiments for MS MARCO Passage Ranking](docs/experiments-distilbert_kd.md)
 + [Guide to replicating SBERT experiments for MS MARCO Passage Ranking](docs/experiments-sbert.md)
