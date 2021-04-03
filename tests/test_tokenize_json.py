@@ -28,15 +28,14 @@ class TestTokenizeJson(unittest.TestCase):
         f = open(inj, 'w')
         f.write('{"id": "doc1","contents": "I have a new gpu!"}\n{"id": "doc2","contents": "I do have an old gpu!"}')
         f.close()
-        writer = tok_json.JsonTokenizerWriter('bert_base_uncased')
-        writer.write_to_file(inj,outj)
+        os.system(f'python3 ../pyserini/tokenize_json_collection.py --input {inj} --output {outj}')
         with open(outj,'r') as ret:
             for i, line in enumerate(ret):
                 contents = json.loads(line)['contents']
                 if (i == 0):
-                    self.assertEqual(['i', 'have', 'a', 'new', 'gp', '##u', '!'], contents)
+                    self.assertEqual('i have a new gp ##u !', contents)
                 else:
-                    self.assertEqual(['i', 'do', 'have', 'an', 'old', 'gp', '##u', '!'], contents)
+                    self.assertEqual('i do have an old gp ##u !', contents)
         ret.close()
         os.remove(inj)
         os.remove(outj)
@@ -51,22 +50,21 @@ class TestTokenizeJson(unittest.TestCase):
         f2 = open(indir+'/doc01.json','w')
         f2.write('{"id": "doc1","contents": "A new gpu!"}\n{"id": "doc2","contents": "An old gpu!"}')
         f2.close()
-        writer = tok_json.JsonTokenizerWriter('bert_base_uncased')
-        writer.write_to_dir(indir,outdir)
+        os.system(f'python3 ../pyserini/tokenize_json_collection.py --input {indir} --output {outdir}')
         with open(outdir+'/docs00.json','r') as ret:
             for i, line in enumerate(ret):
                 contents = json.loads(line)['contents']
                 if (i == 0):
-                    self.assertEqual(['i', 'have', 'a', 'new', 'gp', '##u', '!'], contents)
+                    self.assertEqual('i have a new gp ##u !', contents)
                 else:
-                    self.assertEqual(['i', 'do', 'have', 'an', 'old', 'gp', '##u', '!'], contents)
+                    self.assertEqual('i do have an old gp ##u !', contents)
         with open(outdir+'/docs01.json','r') as ret:
             for i, line in enumerate(ret):
                 contents = json.loads(line)['contents']
                 if (i == 0):
-                    self.assertEqual(['a', 'new', 'gp', '##u', '!'], contents)
+                    self.assertEqual('a new gp ##u !', contents)
                 else:
-                    self.assertEqual(['an', 'old', 'gp', '##u', '!'], contents)
+                    self.assertEqual('an old gp ##u !', contents)
         rmtree(outdir)
         rmtree(indir)
 
