@@ -64,7 +64,7 @@ class TestSearchIntegration(unittest.TestCase):
                              --msmarco \
                              --batch-size {self.batch_size} \
                              --threads {self.threads}'
-        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
+        cmd2 = f'python -m pyserini.eval.msmarco_doc_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
