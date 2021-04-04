@@ -78,7 +78,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-nq-test \
                              --index wikipedia-ance-multi-bf \
-                             --encoded-queires dpr-nq-dev-ance-multi \
+                             --encoded-queries dpr-nq-dev-ance-multi \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
