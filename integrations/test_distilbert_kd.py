@@ -49,7 +49,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3314, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3251, delta=0.0001)
 
     def tearDown(self):
         clean_files(self.temp_files)

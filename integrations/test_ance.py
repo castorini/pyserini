@@ -64,13 +64,13 @@ class TestSearchIntegration(unittest.TestCase):
                              --msmarco \
                              --batch-size {self.batch_size} \
                              --threads {self.threads}'
-        cmd2 = f'python -m pyserini.eval.msmarco_doc_eval msmarco-passage-dev-subset {output_file}'
+        cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
+        score = parse_score(stdout, "MRR @100")
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3797, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3797, places=4)
 
     def test_nq_test_ance_bf(self):
         output_file = 'test_run.ance.nq-test.multi.bf.trec'
