@@ -13,7 +13,7 @@ You'll need a Pyserini [development installation](https://github.com/castorini/p
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-ance-bf \
-                             --encoded-queries msmarco-passage-dev-subset-ance \
+                             --encoded-queries ance-msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.ance.bf.tsv \
@@ -83,7 +83,7 @@ recall_100            	all	0.9033
 ```bash
 $ python -m pyserini.dsearch --topics dpr-nq-test \
                              --index wikipedia-ance-multi-bf \
-                             --encoded-queires dpr-nq-dev-ance-multi \
+                             --encoded-queires ance_multi-nq-dev \
                              --output runs/run.ance.nq-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
@@ -110,7 +110,7 @@ Top100	accuracy: 0.8786703601108034
 ```bash
 $ python -m pyserini.dsearch --topics dpr-trivia-test \
                              --index wikipedia-ance-multi-bf \
-                             --encoded-queries dpr-trivia-test-multi \
+                             --encoded-queries dpr_multi-trivia-test \
                              --output runs/run.ance.trivia-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
