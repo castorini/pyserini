@@ -46,14 +46,14 @@ def define_dsearch_args(parser):
 
 def init_query_encoder(encoder, topics_name, encoded_queries, device):
     encoded_queries_map = {
-        'msmarco-passage-dev-subset': 'msmarco-passage-dev-subset-tct_colbert',
-        'dpr-nq-dev': 'dpr-nq-dev-multi',
-        'dpr-nq-test': 'dpr-nq-test-multi',
-        'dpr-trivia-dev': 'dpr-trivia-dev-multi',
-        'dpr-trivia-test': 'dpr-trivia-test-multi',
-        'dpr-wq-test': 'dpr-wq-test-multi',
-        'dpr-squad-test': 'dpr-squad-test-multi',
-        'dpr-curated-test': 'dpr-curated-test-multi'
+        'msmarco-passage-dev-subset': 'tct_colbert-msmarco-passage-dev-subset',
+        'dpr-nq-dev': 'dpr_multi-nq-dev',
+        'dpr-nq-test': 'dpr_multi-nq-test',
+        'dpr-trivia-dev': 'dpr_multi-trivia-dev',
+        'dpr-trivia-test': 'dpr_multi-trivia-test',
+        'dpr-wq-test': 'dpr_multi-wq-test',
+        'dpr-squad-test': 'dpr_multi-squad-test',
+        'dpr-curated-test': 'dpr_multi-curated-test'
     }
     if encoder:
         if 'dpr' in encoder:
