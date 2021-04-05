@@ -1,5 +1,5 @@
 QUERY_INFO = {
-    "msmarco-passage-dev-subset-tct_colbert": {
+    "tct_colbert-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT",
         "urls": [
             "https://www.dropbox.com/s/vdfjmvayn8bobop/query-embedding-tct_colbert-msmarco-passage-dev-subset-20210404-727692.tar.gz?dl=1",
@@ -9,7 +9,7 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
-    "msmarco-passage-dev-subset-ance": {
+    "ance-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by ANCE",
         "urls": [
             "https://www.dropbox.com/s/eh7enn1hc0cvf7u/query-embedding-ance-msmarco-passage-dev-subset-20210404-727692.tar.gz?dl=1",
@@ -19,7 +19,7 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
-    "msmarco-doc-dev-tct_colbert": {
+    "tct_colbert-msmarco-doc-dev": {
         "description": "MS MARCO Document dev set queries encoded by TCT-ColBERT zero-shot",
         "urls": [
             "https://www.dropbox.com/s/kzgbhvb9qvkf78m/query-embedding-tct_colbert-msmarco-doc-dev-20210404-727692.tar.gz?dl=1",
@@ -29,7 +29,7 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
-    "msmarco-doc-dev-ance_maxp": {
+    "ance_maxp-msmarco-doc-dev": {
         "description": "MS MARCO Document dev set queries encoded by ANCE maxp",
         "urls": [
             "https://www.dropbox.com/s/u4tu08vpj0w3dl4/query-embedding-ance_maxp-msmarco-doc-dev-20210404-727692.tar.gz?dl=1",
@@ -39,7 +39,7 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
-    "msmarco-passage-dev-subset-sbert": {
+    "sbert-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by SBERT",
         "urls": [
             "https://www.dropbox.com/s/7tg1byavfcjy66u/query-embedding-sbert-msmarco-passage-dev-subset-20210404-727692.tar.gz?dl=1",
@@ -49,7 +49,7 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
-    "msmarco-passage-dev-subset-distilbert_kd": {
+    "distilbert_kd-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by SBERT",
         "urls": [
             "https://www.dropbox.com/s/annm4pw3xfht8xn/query-embedding-distilbert_kd-msmarco-passage-dev-subset.tar.gz?dl=1",
@@ -59,7 +59,7 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
-    "dpr-nq-dev-multi": {
+    "dpr_multi-nq-dev": {
         "description": "Natural Question dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/33ks0ekwsvm6lk0/query-embedding-dpr_multi-nq-dev-20210404-727692.tar.gz?dl=1",
@@ -69,7 +69,7 @@ QUERY_INFO = {
         "total_queries": 8757,
         "downloaded": False
     },
-    "dpr-nq-test-multi": {
+    "dpr_multi-nq-test": {
         "description": "Natural Question test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/2p5k63yhfooicqe/query-embedding-dpr_multi-nq-test-20210404-727692.tar.gz?dl=1",
@@ -79,7 +79,7 @@ QUERY_INFO = {
         "total_queries": 3610,
         "downloaded": False
     },
-    "dpr-nq-dev-ance-multi": {
+    "ance_multi-nq-dev": {
         "description": "Natural Question dev set questions encoded by ANCE question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/l2apd5505iu03ul/query-embedding-ance_multi-nq-dev-20210404-727692.tar.gz?dl=1",
@@ -89,7 +89,7 @@ QUERY_INFO = {
         "total_queries": 8757,
         "downloaded": False
     },
-    "dpr-nq-test-ance-multi": {
+    "ance_multi-nq-test": {
         "description": "Natural Question test set questions encoded by ANCE question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/i09ej3c5zj7s0zj/query-embedding-ance_multi-nq-test-20210404-727692.tar.gz?dl=1",
@@ -99,7 +99,7 @@ QUERY_INFO = {
         "total_queries": 3610,
         "downloaded": False
     },
-    "dpr-trivia-dev-multi": {
+    "dpr_multi-trivia-dev": {
         "description": "TriviaQA dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/pdis1zhtojfc6zu/query-embedding-dpr_multi-trivia-dev-20210404-727692.tar.gz?dl=1",
@@ -109,7 +109,7 @@ QUERY_INFO = {
         "total_queries": 8837,
         "downloaded": False
     },
-    "dpr-trivia-test-multi": {
+    "dpr_multi-trivia-test": {
         "description": "TriviaQA test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/nip4b8aqawq78xz/query-embedding-dpr_multi-trivia-test-20210404-727692.tar.gz?dl=1",
@@ -119,7 +119,7 @@ QUERY_INFO = {
         "total_queries": 11313,
         "downloaded": False
     },
-    "dpr-trivia-dev-ance-multi": {
+    "ance_multi-trivia-dev": {
         "description": "TriviaQA dev set questions encoded by ANCE question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/ihql2r00nn89qlg/query-embedding-ance_multi-trivia-dev-20210404-727692.tar.gz?dl=1",
@@ -129,7 +129,7 @@ QUERY_INFO = {
         "total_queries": 8837,
         "downloaded": False
     },
-    "dpr-trivia-test-ance-multi": {
+    "ance_multi-trivia-test": {
         "description": "TriviaQA test set questions encoded by ANCE question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/nbur4u2kjveir82/query-embedding-ance_multi-trivia-test-20210404-727692.tar.gz?dl=1",
@@ -139,7 +139,7 @@ QUERY_INFO = {
         "total_queries": 11313,
         "downloaded": False
     },
-    "dpr-wq-test-multi": {
+    "dpr_multi-wq-test": {
         "description": "Web Questions test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/fkiqg4inpyqg54o/query-embedding-dpr_multi-wq-test-20210404-727692.tar.gz?dl=1",
@@ -149,7 +149,7 @@ QUERY_INFO = {
         "total_queries": 2032,
         "downloaded": False
     },
-    "dpr-squad-test-multi": {
+    "dpr_multi-squad-test": {
         "description": "SQUAD dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/gqlnmum83cijgxm/query-embedding-dpr_multi-squad-test-20210404-727692.tar.gz?dl=1",
@@ -159,7 +159,7 @@ QUERY_INFO = {
         "total_queries": 10570,
         "downloaded": False
     },
-    "dpr-curated-test-multi": {
+    "dpr_multi-curated-test": {
         "description": "CuratedTREC test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
             "https://www.dropbox.com/s/2pt3eviuygx107y/query-embedding-dpr_multi-curated-test-20210404-727692.tar.gz?dl=1",
