@@ -38,7 +38,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-ance-bf \
-                             --encoded-queries msmarco-passage-dev-subset-ance \
+                             --encoder castorini/ance-msmarco-passage \
                              --batch-size {self.batch_size} \
                              --threads {self.threads} \
                              --output {output_file} \
@@ -78,7 +78,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-nq-test \
                              --index wikipedia-ance-multi-bf \
-                             --encoded-queries dpr-nq-dev-ance-multi \
+                             --encoder castorini/ance-dpr-question-multi \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
@@ -100,7 +100,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-trivia-test \
                              --index wikipedia-ance-multi-bf \
-                             --encoded-queries dpr-trivia-test-multi \
+                             --encoder castorini/ance-dpr-question-multi \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
