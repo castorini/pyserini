@@ -40,9 +40,12 @@ Here's how our results stack up against results reported in the paper:
 ```bash
 $ python -m pyserini.dsearch --topics dpr-nq-test \
                              --index wikipedia-dpr-multi-bf \
+                             --encoded-queries dpr_multi-nq-test \
                              --output runs/run.dpr.nq-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base`
+> for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -82,12 +85,15 @@ Top100 accuracy: 0.7825
 
 ```bash
 $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+                                    --encoded-queries dpr_multi-nq-test \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 1.3 \
                              run    --topics dpr-nq-test \
                                     --batch-size 36 --threads 12 \
                                     --output runs/run.dpr.nq-test.multi.bf.bm25.trec 
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base`
+> for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -109,9 +115,12 @@ Top100 accuracy: 0.8859
 ```bash
 $ python -m pyserini.dsearch --topics dpr-trivia-test \
                              --index wikipedia-dpr-multi-bf \
+                             --encoded-queries dpr_multi-trivia-test \
                              --output runs/run.dpr.trivia-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base`
+> for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -151,12 +160,15 @@ Top100 accuracy: 0.8315
 
 ```bash
 $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+                                    --encoded-queries dpr_multi-trivia-test \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 0.95 \
                              run    --topics dpr-trivia-test \
                                     --batch-size 36 --threads 12 \
                                     --output runs/run.dpr.trivia-test.multi.bf.bm25.trec 
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base`
+> for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -178,9 +190,12 @@ Top100 accuracy: 0.8655
 ```bash
 $ python -m pyserini.dsearch --topics dpr-wq-test \
                              --index wikipedia-dpr-multi-bf \
+                             --encoded-queries dpr_multi-wq-test \
                              --output runs/run.dpr.wq-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base`
+> for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -220,12 +235,15 @@ Top100 accuracy: 0.7549
 
 ```bash
 $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+                                    --encoded-queries dpr_multi-wq-test \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 0.95 \
                              run    --topics dpr-wq-test \
                                     --batch-size 36 --threads 12 \
                                     --output runs/run.dpr.wq-test.multi.bf.bm25.trec 
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base`
+> for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -247,9 +265,12 @@ Top100 accuracy: 0.8440
 ```bash
 $ python -m pyserini.dsearch --topics dpr-curated-test \
                              --index wikipedia-dpr-multi-bf \
+                             --encoded-queries dpr_multi-curated-test \
                              --output runs/run.dpr.curated-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base`
+> for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -289,12 +310,15 @@ Top100 accuracy: 0.8991
 
 ```bash
 $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+                                    --encoded-queries dpr_multi-curated-test \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 1.05 \
                              run    --topics dpr-curated-test \
                                     --batch-size 36 --threads 12 \
                                     --output runs/run.dpr.curated-test.multi.bf.bm25.trec 
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base`
+> for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -316,9 +340,12 @@ Top100 accuracy: 0.9496
 ```bash
 $ python -m pyserini.dsearch --topics dpr-squad-test \
                              --index wikipedia-dpr-multi-bf \
+                             --encoded-queries dpr_multi-squad-test \
                              --output runs/run.dpr.squad-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base`
+> for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -359,12 +386,15 @@ Top100 accuracy: 0.8184
 
 ```bash
 $ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+                                    --encoded-queries dpr_multi-squad-test \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 2.00 \
                              run    --topics dpr-squad-test \
                                     --batch-size 36 --threads 12 \
                                     --output runs/run.dpr.squad-test.multi.bf.bm25.trec 
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base`
+> for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
