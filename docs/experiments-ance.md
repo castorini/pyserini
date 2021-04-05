@@ -1,6 +1,6 @@
-# Pyserini: Replicating Microsoft's ANCE Results
+# Pyserini: Reproducing ANCE Results
 
-This guide provides replication instructions for the following dense retrieval work:
+This guide provides instructions to reproduce the following dense retrieval work:
 
 > Lee Xiong, Chenyan Xiong, Ye Li, Kwok-Fung Tang, Jialin Liu, Paul Bennett, Junaid Ahmed, Arnold Overwijk. [Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval](https://arxiv.org/pdf/2007.00808.pdf)
 

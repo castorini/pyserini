@@ -78,7 +78,7 @@ class QueryEncoder:
         return dict(zip(df['text'].tolist(), df['embedding'].tolist()))
 
 
-class TCTColBERTQueryEncoder(QueryEncoder):
+class TctColBertQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu'):
         super().__init__(encoded_query_dir)
@@ -109,7 +109,7 @@ class TCTColBERTQueryEncoder(QueryEncoder):
             return super().encode(query)
 
 
-class DPRQueryEncoder(QueryEncoder):
+class DprQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu'):
         super().__init__(encoded_query_dir)

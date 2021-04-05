@@ -98,9 +98,9 @@ The `SimpleDenseSearcher` class provides the entry point for dense retrieval, an
 The only additional thing we need to specify for dense retrieval is the query encoder.
 
 ```python
-from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder
+from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
 
-encoder = TCTColBERTQueryEncoder('castorini/tct_colbert-msmarco')
+encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
 searcher = SimpleDenseSearcher.from_prebuilt_index(
     'msmarco-passage-tct_colbert-hnsw',
     encoder
@@ -137,11 +137,11 @@ The `HybridSearcher` class provides the entry point to perform hybrid sparse-den
 
 ```python
 from pyserini.search import SimpleSearcher
-from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder
+from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
 from pyserini.hsearch import HybridSearcher
 
 ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
-encoder = TCTColBERTQueryEncoder('castorini/tct_colbert-msmarco')
+encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
 dsearcher = SimpleDenseSearcher.from_prebuilt_index(
     'msmarco-passage-tct_colbert-hnsw',
     encoder
