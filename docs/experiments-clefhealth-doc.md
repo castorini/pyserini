@@ -16,7 +16,7 @@ wget -c https://www.dropbox.com/s/ixnqt33u5xeelth/clef2018collection.tar.gz -P c
 
 There's is a need to decompress the file as the corpus is not in proper answerini format. Its worth noting that the full corpus is over 500gb and needs to be convered to answerini format so make sure your machine has at least 1tb of free space.
 ```bash
-
+tar -xf clef2018collection.tar.gz
 ```
 Since the CLEF dataset is not in Answerini format you need to conver it using [a simple conversion script](https://github.com/spacemanidol/pyserini/blob/master/scripts/convert_clef_to_pyserini.py) which is run like this:
 ```bash
@@ -36,7 +36,7 @@ python -m pyserini.index -collection CleanTrecCollection \
 Note that the indexing program simply dispatches command-line arguments to an underlying Java program, and so we use the Java single dash convention, e.g., `-index` and not `--index`.
 
 On a modern desktop with an SSD, indexing takes a few hours.
-There should be a total of 3,213,835 documents indexed.
+There should be a total of 5,379,303 documents indexed.
 
 ## Performing Retrieval on the Dev Queries
 
