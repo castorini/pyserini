@@ -43,6 +43,10 @@ class TestTokenizeJson(unittest.TestCase):
     def test_bert_dir(self):
         indir = './test_tokenize_json'
         outdir = './test_out_tokenize_json'
+        if(os.path.isdir(indir)):
+            rmtree(indir)
+        if(os.path.isdir(outdir)):
+            rmtree(outdir)
         os.mkdir(indir)
         f1 = open(indir+'/doc00.json','w')
         f1.write('{"id": "doc1","contents": "I have a new gpu!"}\n{"id": "doc2","contents": "I do have an old gpu!"}')
