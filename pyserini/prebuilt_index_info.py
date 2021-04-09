@@ -525,4 +525,15 @@ DINDEX_INFO = {
         "documents": 8841823,
         "downloaded": False
     },
+    "wikipedia-dpr-single-nq-bf": {
+        "description": "Wikipedia corpus encoded by DPR doc encoder trained on NQ, indexed as brute force index",
+        "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/negktsxze5sy7e2/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz?dl=1",
+        ],
+        "md5": "d1ef9286ddb38633cd052171963c62cb",
+        "size compressed (bytes)": 59836863670,
+        "documents": 21015320,
+        "downloaded": False
+    },
 }
