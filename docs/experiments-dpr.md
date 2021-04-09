@@ -409,6 +409,61 @@ Top20  accuracy: 0.7511
 Top100 accuracy: 0.8437
 ```
 
+## Natural Questions (NQ) with DPR-Single
+
+**DPR retrieval** with brute-force index:
+
+```bash
+$ python -m pyserini.dsearch --topics dpr-nq-test \
+                             --index wikipedia-dpr-single-nq-bf \
+                             --encoded-queries dpr_single_nq-nq-test \
+                             --output runs/run.dpr.nq-test.single.bf.trec \
+                             --batch-size 36 --threads 12
+```
+> _Optional_: replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-single-nq-base`
+> for on-the-fly query encoding.
+
+To evaluate, first convert the TREC output format to DPR's `json` format:
+
+```bash
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
+                                                                --index wikipedia-dpr \
+                                                                --input runs/run.dpr.nq-test.single.bf.trec \
+                                                                --output runs/run.dpr.nq-test.single.bf.json
+
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.nq-test.single.bf.json --topk 20 100
+Top20	accuracy: 0.8006
+Top100	accuracy: 0.8610
+```
+
+
+**Hybrid dense-sparse retrieval**:
+
+```bash
+$ python -m pyserini.hsearch dense  --index wikipedia-dpr-single-nq-bf \
+                                    --encoded-queries dpr_single_nq-nq-test \
+                             sparse --index wikipedia-dpr \
+                             fusion --alpha 1.2 \
+                             run    --topics dpr-nq-test \
+                                    --batch-size 36 --threads 12 \
+                                    --output runs/run.dpr.nq-test.single.bf.bm25.trec 
+```
+> _Optional_: replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-single-nq-base`
+> for on-the-fly query encoding.
+
+To evaluate, first convert the TREC output format to DPR's `json` format:
+
+```bash
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
+                                                                --index wikipedia-dpr \
+                                                                --input runs/run.dpr.nq-test.single.bf.bm25.trec \
+                                                                --output runs/run.dpr.nq-test.single.bf.bm25.json
+
+$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.nq-test.single.bf.bm25.json --topk 20 100
+Top20	accuracy: 0.8288
+Top100	accuracy: 0.8837
+```
+
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
