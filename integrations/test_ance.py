@@ -70,7 +70,8 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "MRR @100")
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3797, places=4)
+        # We get a small difference, 0.3794 on macOS.
+        self.assertAlmostEqual(score, 0.3797, delta=0.0003)
 
     def test_nq_test_ance_bf(self):
         output_file = 'test_run.ance.nq-test.multi.bf.trec'
