@@ -13,7 +13,7 @@ You'll need a Pyserini [development installation](https://github.com/castorini/p
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-ance-bf \
-                             --encoded-queries msmarco-passage-dev-subset-ance \
+                             --encoded-queries ance-msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.ance.bf.tsv \
@@ -48,7 +48,7 @@ recall_1000           	all	0.9584
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --index msmarco-doc-ance-maxp-bf \
-                             --encoder castorini/ance-msmarco-doc-maxp \
+                             --encoded-queries ance_maxp-msmarco-doc-dev \
                              --output runs/run.msmarco-doc.passage.ance-maxp.txt \
                              --hits 1000 \
                              --max-passage \
@@ -57,6 +57,9 @@ $ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --batch-size 36 \
                              --threads 12
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder castorini/ance-msmarco-doc-maxp`
+> for on-the-fly query encoding.
+
 To evaluate:
 ```bash
 $ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.passage.ance-maxp.txt
@@ -83,7 +86,7 @@ recall_100            	all	0.9033
 ```bash
 $ python -m pyserini.dsearch --topics dpr-nq-test \
                              --index wikipedia-ance-multi-bf \
-                             --encoded-queires dpr-nq-dev-ance-multi \
+                             --encoded-queires ance_multi-nq-dev \
                              --output runs/run.ance.nq-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
@@ -110,7 +113,7 @@ Top100	accuracy: 0.8786703601108034
 ```bash
 $ python -m pyserini.dsearch --topics dpr-trivia-test \
                              --index wikipedia-ance-multi-bf \
-                             --encoded-queries dpr-trivia-test-multi \
+                             --encoded-queries ance_multi-trivia-test \
                              --output runs/run.ance.trivia-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
