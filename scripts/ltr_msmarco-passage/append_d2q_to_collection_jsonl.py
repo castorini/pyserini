@@ -20,8 +20,7 @@ from pyserini.analysis import Analyzer, get_lucene_analyzer
 #append d2q prediction as an extra field to collection jsonl
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Converts MSMARCO\'s tsv collection to Anserini jsonl '
-                    'files.')
+        description='Converts MSMARCO\'s tsv collection to Anserini jsonl files.')
     parser.add_argument('--collection_path', required=True, help='MS MARCO .tsv collection file')
     parser.add_argument('--predictions', required=True, help='File containing predicted queries.')
     parser.add_argument('--output_folder', required=True, help='output folder')
