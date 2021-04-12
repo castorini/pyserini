@@ -18,57 +18,57 @@ import spacy
 """
 This file provides helpers to convert passage and queries
 """
-def read_stopwords(fileName='stopwords.txt', lowerCase=True):
+def read_stopwords(fileName='stopwords.txt', lower_case=True):
     """Reads a list of stopwords from a file. By default the words
-       are read from a standard repo location and are lowercased.
+       are read from a standard repo location and are lower_cased.
       :param fileName a stopword file name
-      :param lowerCase  a boolean flag indicating if lowercasing is needed.
+      :param lower_case  a boolean flag indicating if lowercasing is needed.
       :return a list of stopwords
     """
-    stopWords = set()
+    stopwords = set()
     with open(fileName) as f:
         for w in f:
             w = w.strip()
             if w:
-                if lowerCase:
+                if lower_case:
                     w = w.lower()
-                stopWords.add(w)
-    return stopWords
+                stopwords.add(w)
+    return stopwords
 
 def is_alpha_num(s):
     return s and (re.match("^[a-zA-Z-_.0-9]+$", s) is not None)
 
 class SpacyTextParser:
-    def __init__(self, modelName, stopWords,
-                 removePunct=True,
-                 sentSplit=False,
-                 keepOnlyAlphaNum=False,
-                 lowerCase=True,
-                 enablePOS=True):
+    def __init__(self, model_name, stopwords,
+                 remove_punct=True,
+                 sent_split=False,
+                 keep_only_alpha_num=False,
+                 lower_case=True,
+                 enable_POS=True):
         """Constructor.
-                :param  modelName    a name of the spacy model to use, e.g., en_core_web_sm
-                :param  stopWords    a list of stop words to be excluded (case insensitive);
+                :param  model_name    a name of the spacy model to use, e.g., en_core_web_sm
+                :param  stopwords    a list of stop words to be excluded (case insensitive);
                                      a token is also excluded when its lemma is in the stop word list.
-                :param  removePunct  a bool flag indicating if the punctuation tokens need to be removed
-                :param  sentSplit    a bool flag indicating if sentence splitting is necessary
-                :param  keepOnlyAlphaNum a bool flag indicating if we need to keep only alpha-numeric characters
-                :param  enablePOS    a bool flag that enables POS tagging (which, e.g., can improve lemmatization)
+                :param  remove_punct  a bool flag indicating if the punctuation tokens need to be removed
+                :param  sent_split    a bool flag indicating if sentence splitting is necessary
+                :param  keep_only_alpha_num a bool flag indicating if we need to keep only alpha-numeric characters
+                :param  enable_POS    a bool flag that enables POS tagging (which, e.g., can improve lemmatization)
         """
 
-        disableList = ['ner', 'parser']
-        if not enablePOS:
-            disableList.append('tagger')
-        print('Disabled Spacy components: ', disableList)
+        disable_list = ['ner', 'parser']
+        if not enable_POS:
+            disable_list.append('tagger')
+        print('Disabled Spacy components: ', disable_list)
 
-        self._nlp = spacy.load(modelName, disable=disableList)
-        if sentSplit:
+        self._nlp = spacy.load(model_name, disable=disable_list)
+        if sent_split:
             sentencizer = self._nlp.create_pipe("sentencizer")
             self._nlp.add_pipe(sentencizer)
 
-        self._removePunct = removePunct
-        self._stopWords = frozenset([w.lower() for w in stopWords])
-        self._keepOnlyAlphaNum = keepOnlyAlphaNum
-        self._lowerCase = lowerCase
+        self._remove_punct = remove_punct
+        self._stopwords = frozenset([w.lower() for w in stopwords])
+        self._keep_only_alpha_num = keep_only_alpha_num
+        self._lower_case = lower_case
 
     @staticmethod
     def _basic_clean(text):
@@ -93,18 +93,18 @@ class SpacyTextParser:
         tokens = []
         doc = self(text)
         for tokObj in doc:
-            if self._removePunct and tokObj.is_punct:
+            if self._remove_punct and tokObj.is_punct:
                 continue
             lemma = tokObj.lemma_
             text = tokObj.text
-            if self._keepOnlyAlphaNum and not isAlphaNum(text):
+            if self._keep_only_alpha_num and not is_alpha_num(text):
                 continue
             tok1 = text.lower()
             tok2 = lemma.lower()
-            if tok1 in self._stopWords or tok2 in self._stopWords:
+            if tok1 in self._stopwords or tok2 in self._stopwords:
                 continue
 
-            if self._lowerCase:
+            if self._lower_case:
                 text = text.lower()
                 lemma = lemma.lower()
 
@@ -123,20 +123,20 @@ def get_retokenized(tokenizer, text):
     return ' '.join(tokenizer.tokenize(text))
 
 
-def add_retokenized_field(dataEntry,
-                        srcField,
-                        dstField,
+def add_retokenized_field(data_entry,
+                        src_field,
+                        dst_field,
                         tokenizer):
     """
     Create a re-tokenized field from an existing one.
-    :param dataEntry:   a dictionary of entries (keys are field names, values are text items)
-    :param srcField:    a source field
-    :param dstField:    a target field
+    :param data_entry:   a dictionary of entries (keys are field names, values are text items)
+    :param src_field:    a source field
+    :param dst_field:    a target field
     :param tokenizer:    a tokenizer to use, if None, nothing is done
     """
     if tokenizer is not None:
         dst = ''
-        if srcField in dataEntry:
-            dst = get_retokenized(tokenizer, dataEntry[srcField])
+        if src_field in data_entry:
+            dst = get_retokenized(tokenizer, data_entry[src_field])
 
-        dataEntry[dstField] = dst
+        data_entry[dst_field] = dst

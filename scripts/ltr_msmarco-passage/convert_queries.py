@@ -44,9 +44,9 @@ inpFile = open(args.input)
 outFile = open(args.output, 'w')
 minQueryTokQty = args.min_query_token_qty
 
-stopwords = read_stopwords('stopwords.txt', lowerCase=True)
+stopwords = read_stopwords('stopwords.txt', lower_case=True)
 print(stopwords)
-nlp = SpacyTextParser('en_core_web_sm', stopwords, keepOnlyAlphaNum=True, lowerCase=True)
+nlp = SpacyTextParser('en_core_web_sm', stopwords, keep_only_alpha_num=True, lower_case=True)
 analyzer = Analyzer(get_lucene_analyzer())
 nlp_ent = spacy.load("en_core_web_sm")
 bert_tokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")
