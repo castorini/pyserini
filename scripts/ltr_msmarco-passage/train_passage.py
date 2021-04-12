@@ -36,7 +36,7 @@ from collections import defaultdict
 from tqdm import tqdm
 from pyserini.ltr import *
 
-
+#train a LTR model with lambdaRank library and save to pickle for future inference
 def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
     print(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
     if os.path.exists(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle'):

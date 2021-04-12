@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 # Convert MSMARCO passage
+# add fields to jsonl with text(lemmatized), text_unlemm, contents(analyzer), raw, entity(NER), text_bert_tok(BERT token)
 import multiprocessing
 from joblib import Parallel, delayed
 import sys

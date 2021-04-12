@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 # Convert MSMARCO queries
+# add fields to query json with text(lemmatized), text_unlemm, contents(analyzer), raw, entity(NER), text_bert_tok(BERT token)
 import sys
 import json
 import argparse

@@ -15,7 +15,7 @@
 #
 import re
 import spacy
-
+#helpers for preprocessing passage and queries script
 def readStopWords(fileName='stopwords.txt', lowerCase=True):
     """Reads a list of stopwords from a file. By default the words
        are read from a standard repo location and are lowercased.
