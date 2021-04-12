@@ -13,8 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Convert MSMARCO passage
-# add fields to jsonl with text(lemmatized), text_unlemm, contents(analyzer), raw, entity(NER), text_bert_tok(BERT token)
+
 import multiprocessing
 from joblib import Parallel, delayed
 import sys
@@ -23,10 +22,12 @@ import argparse
 from transformers import AutoTokenizer, AutoModel
 import spacy
 import re
-from convert_common import readStopWords, SpacyTextParser, getRetokenized
+from convert_common import read_stopwords, SpacyTextParser, get_retokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 import time
-
+"""
+add fields to jsonl with text(lemmatized), text_unlemm, contents(analyzer), raw, entity(NER), text_bert_tok(BERT token)
+"""
 sys.path.append('.')
 
 parser = argparse.ArgumentParser(description='Convert MSMARCO-adhoc documents.')
@@ -62,11 +63,11 @@ def batch_file(iterable, n=10000):
     return
 
 def batch_process(batch):
-    stopWords = readStopWords('stopwords.txt', lowerCase=True)
-    nlp = SpacyTextParser('en_core_web_sm', stopWords, keepOnlyAlphaNum=True, lowerCase=True)
+    stopwords = read_stopwords('stopwords.txt', lowerCase=True)
+    nlp = SpacyTextParser('en_core_web_sm', stopwords, keepOnlyAlphaNum=True, lowerCase=True)
     analyzer = Analyzer(get_lucene_analyzer())
     nlp_ent = spacy.load("en_core_web_sm")
-    bertTokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")
+    bert_tokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")
 
     def process(line):
         if not line:
@@ -79,7 +80,7 @@ def batch_process(batch):
 
         pid, body = fields
 
-        text, text_unlemm = nlp.procText(body)
+        text, text_unlemm = nlp.proc_text(body)
 
 
         doc = nlp_ent(body)
@@ -99,7 +100,7 @@ def batch_process(batch):
                'contents': contents,
                "raw": body,
                "entity": entity}
-        doc["text_bert_tok"] = getRetokenized(bertTokenizer, body.lower())
+        doc["text_bert_tok"] = get_retokenized(bert_tokenizer, body.lower())
         return doc
     res = []
     start = time.time()

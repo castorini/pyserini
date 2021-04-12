@@ -17,7 +17,9 @@ import argparse
 import json
 import os
 from pyserini.analysis import Analyzer, get_lucene_analyzer
-#append d2q prediction as an extra field to collection jsonl
+"""
+append d2q prediction as an extra field to collection jsonl
+"""
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Converts MSMARCO\'s tsv collection to Anserini jsonl files.')

@@ -14,16 +14,18 @@
 # limitations under the License.
 #
 # Convert MSMARCO queries
-# add fields to query json with text(lemmatized), text_unlemm, contents(analyzer), raw, entity(NER), text_bert_tok(BERT token)
+
 import sys
 import json
 import argparse
 from transformers import AutoTokenizer, AutoModel
 import spacy
-from convert_common import readStopWords, SpacyTextParser, getRetokenized
+from convert_common import read_stopwords, SpacyTextParser, get_retokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from tqdm import tqdm
-
+"""
+add fields to query json with text(lemmatized), text_unlemm, contents(analyzer), raw, entity(NER), text_bert_tok(BERT token)
+"""
 sys.path.append('.')
 
 parser = argparse.ArgumentParser(description='Convert MSMARCO-adhoc queries.')
@@ -42,12 +44,12 @@ inpFile = open(args.input)
 outFile = open(args.output, 'w')
 minQueryTokQty = args.min_query_token_qty
 
-stopWords = readStopWords('stopwords.txt', lowerCase=True)
-print(stopWords)
-nlp = SpacyTextParser('en_core_web_sm', stopWords, keepOnlyAlphaNum=True, lowerCase=True)
+stopwords = read_stopwords('stopwords.txt', lowerCase=True)
+print(stopwords)
+nlp = SpacyTextParser('en_core_web_sm', stopwords, keepOnlyAlphaNum=True, lowerCase=True)
 analyzer = Analyzer(get_lucene_analyzer())
 nlp_ent = spacy.load("en_core_web_sm")
-bertTokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")
+bert_tokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")
 
 # Input file is a TSV file
 ln = 0
@@ -64,7 +66,7 @@ for line in tqdm(inpFile):
 
     did, query = fields
 
-    query_lemmas, query_unlemm = nlp.procText(query)
+    query_lemmas, query_unlemm = nlp.proc_text(query)
     analyzed = analyzer.analyze(query)
     for token in analyzed:
         if ' ' in token:
@@ -86,7 +88,7 @@ for line in tqdm(inpFile):
                "entity": entity,
                "raw": query}
 
-        doc["text_bert_tok"] = getRetokenized(bertTokenizer, query.lower())
+        doc["text_bert_tok"] = get_retokenized(bert_tokenizer, query.lower())
 
         docStr = json.dumps(doc) + '\n'
         outFile.write(docStr)

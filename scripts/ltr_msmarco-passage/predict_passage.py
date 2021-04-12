@@ -25,7 +25,9 @@ import pandas as pd
 from tqdm import tqdm
 from pyserini.ltr import *
 
-#Running prediction on candidates
+"""
+Running prediction on candidates
+"""
 def dev_data_loader(file, format, top=100):
     if format == 'tsv':
         dev = pd.read_csv(file, sep="\t",

@@ -18,7 +18,9 @@ import json
 import os
 import argparse
 
-#convert collection to jsonl
+"""
+convert collection to jsonl
+"""
 def convert_collection(args):
     print('Converting collection...')
     file_index = 0

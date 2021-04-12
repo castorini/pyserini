@@ -15,8 +15,10 @@
 #
 import re
 import spacy
-#helpers for preprocessing passage and queries script
-def readStopWords(fileName='stopwords.txt', lowerCase=True):
+"""
+This file provides helpers to convert passage and queries
+"""
+def read_stopwords(fileName='stopwords.txt', lowerCase=True):
     """Reads a list of stopwords from a file. By default the words
        are read from a standard repo location and are lowercased.
       :param fileName a stopword file name
@@ -33,7 +35,7 @@ def readStopWords(fileName='stopwords.txt', lowerCase=True):
                 stopWords.add(w)
     return stopWords
 
-def isAlphaNum(s):
+def is_alpha_num(s):
     return s and (re.match("^[a-zA-Z-_.0-9]+$", s) is not None)
 
 class SpacyTextParser:
@@ -80,7 +82,7 @@ class SpacyTextParser:
 
         return self._nlp(SpacyTextParser._basic_clean(text))
 
-    def procText(self, text):
+    def proc_text(self, text):
         """Process text, remove stopwords and obtain lemmas, but does not split into sentences.
         This function should not emit newlines!
         :param text     input text string
@@ -112,7 +114,7 @@ class SpacyTextParser:
         return ' '.join(lemmas), ' '.join(tokens)
 
 
-def getRetokenized(tokenizer, text):
+def get_retokenized(tokenizer, text):
     """Obtain a space separated re-tokenized text.
     :param tokenizer:  a tokenizer that has the function
                        tokenize that returns an array of tokens.
@@ -121,7 +123,7 @@ def getRetokenized(tokenizer, text):
     return ' '.join(tokenizer.tokenize(text))
 
 
-def addRetokenizedField(dataEntry,
+def add_retokenized_field(dataEntry,
                         srcField,
                         dstField,
                         tokenizer):
@@ -135,6 +137,6 @@ def addRetokenizedField(dataEntry,
     if tokenizer is not None:
         dst = ''
         if srcField in dataEntry:
-            dst = getRetokenized(tokenizer, dataEntry[srcField])
+            dst = get_retokenized(tokenizer, dataEntry[srcField])
 
         dataEntry[dstField] = dst
