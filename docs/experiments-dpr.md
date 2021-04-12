@@ -464,6 +464,9 @@ Top20	accuracy: 0.8288
 Top100	accuracy: 0.8837
 ```
 
+## End-to-end QA
+For end-to-end answer prediction and evaluation, please see out experiments in Pygaggle [here](https://github.com/castorini/pygaggle/blob/master/docs/experiments-dpr-reader.md)
+
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
