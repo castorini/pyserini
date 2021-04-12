@@ -135,4 +135,4 @@ On the other hand, recall@1000 provides the upper bound effectiveness of downstr
 + Results reproduced by [@yemiliey](https://github.com/yemiliey) on 2021-01-18 (commit [`98f3236`](https://github.com/castorini/pyserini/commit/98f323659c8a0a5d8ef26bb3f6768458a34e3eb9))
 + Results reproduced by [@larryli1999](https://github.com/larryli1999) on 2021-01-22 (commit [`74a87e4`](https://github.com/castorini/pyserini/commit/74a87e4951c98d7b066273140576d3cccd9ea0ed))
 + Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-04-08 (commit [`7261223`](https://github.com/castorini/pyserini/commit/72612232bc886e71e8de9431a899a7c68f1d82c7))
-+ Results reproduced by [@printfCalvin](https://github.com/printfCalvin) on 2021-04-11 (commit [`16131e5`](https://github.com/castorini/pyserini/commit/16131e5e584831c876c329d53345ab6fe219d4a8))
++ Results reproduced by [@printfCalvin](https://github.com/printfCalvin) on 2021-04-11 (commit [`7e9bf7e`](https://github.com/castorini/pyserini/commit/7e9bf7e04589938a066aff783152381d01b9890b))

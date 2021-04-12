@@ -28,7 +28,10 @@ class TestTokenizeJson(unittest.TestCase):
         f = open(inj, 'w')
         f.write('{"id": "doc1","contents": "I have a new gpu!"}\n{"id": "doc2","contents": "I do have an old gpu!"}')
         f.close()
-        os.system(f'python3 ../pyserini/tokenize_json_collection.py --input {inj} --output {outj}')
+        if(os.getcwd().endswith('tests')):
+            os.system(f'python3 ../pyserini/tokenize_json_collection.py --input {inj} --output {outj}')
+        else:
+            os.system(f'python3 pyserini/tokenize_json_collection.py --input {inj} --output {outj}')
         with open(outj,'r') as ret:
             for i, line in enumerate(ret):
                 contents = json.loads(line)['contents']
@@ -43,6 +46,8 @@ class TestTokenizeJson(unittest.TestCase):
     def test_bert_dir(self):
         indir = './test_tokenize_json'
         outdir = './test_out_tokenize_json'
+        if(os.path.isdir(indir)):
+            rmtree(indir)
         os.mkdir(indir)
         f1 = open(indir+'/doc00.json','w')
         f1.write('{"id": "doc1","contents": "I have a new gpu!"}\n{"id": "doc2","contents": "I do have an old gpu!"}')
@@ -50,7 +55,10 @@ class TestTokenizeJson(unittest.TestCase):
         f2 = open(indir+'/doc01.json','w')
         f2.write('{"id": "doc1","contents": "A new gpu!"}\n{"id": "doc2","contents": "An old gpu!"}')
         f2.close()
-        os.system(f'python3 ../pyserini/tokenize_json_collection.py --input {indir} --output {outdir}')
+        if (os.getcwd().endswith('tests')):
+            os.system(f'python3 ../pyserini/tokenize_json_collection.py --input {indir} --output {outdir}')
+        else:
+            os.system(f'python3 pyserini/tokenize_json_collection.py --input {indir} --output {outdir}')
         with open(outdir+'/docs00.json','r') as ret:
             for i, line in enumerate(ret):
                 contents = json.loads(line)['contents']

@@ -168,5 +168,25 @@ QUERY_INFO = {
         "size (bytes)": 1995260,
         "total_queries": 694,
         "downloaded": False
-    }
+    },
+    "dpr_single_nq-nq-dev": {
+        "description": "NQ dev set questions encoded by DPR question encoder trained on NQ dataset",
+        "urls": [
+            "https://www.dropbox.com/s/dffwcq39jt6v88f/query-embedding-dpr_single_nq-nq-dev-20210409-8b42b0.tar.gz?dl=1",
+        ],
+        "md5": "cfdedaf618ff18634ea76e3dd77c9ef4",
+        "size (bytes)": 25122168,
+        "total_queries": 8757,
+        "downloaded": False
+    },
+    "dpr_single_nq-nq-test": {
+        "description": "NQ test set questions encoded by DPR question encoder trained on NQ dataset",
+        "urls": [
+            "https://www.dropbox.com/s/ln8wfekegxuzxp0/query-embedding-dpr_single_nq-nq-test-20210409-8b42b0.tar.gz?dl=1",
+        ],
+        "md5": "e87b19860afa88c4b2369dd8daf0cc80",
+        "size (bytes)": 10361853,
+        "total_queries": 3610,
+        "downloaded": False
+     }
 }
