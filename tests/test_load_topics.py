@@ -43,76 +43,111 @@ class TestLoadTopics(unittest.TestCase):
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     def test_car15(self):
-        topics = search.get_topics('car17v1.5_benchmarkY1test')
+        topics = search.get_topics('car17v1.5-benchmarkY1test')
         self.assertEqual(len(topics), 2125)
         self.assertFalse(isinstance(next(iter(topics.keys())), int))
 
     def test_car20(self):
-        topics = search.get_topics('car17v2.0_benchmarkY1test')
+        topics = search.get_topics('car17v2.0-benchmarkY1test')
         self.assertEqual(len(topics), 2254)
         self.assertFalse(isinstance(next(iter(topics.keys())), int))
 
     def test_msmarco_doc(self):
-        topics = search.get_topics('msmarco_doc_dev')
+        topics = search.get_topics('msmarco-doc-dev')
         self.assertEqual(len(topics), 5193)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     def test_msmarco_passage(self):
-        topics = search.get_topics('msmarco_passage_dev_subset')
+        topics = search.get_topics('msmarco-passage-dev-subset')
         self.assertEqual(len(topics), 6980)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+    def test_dpr_nq_dev(self):
+        topics = search.get_topics('dpr-nq-dev')
+        self.assertEqual(len(topics), 8757)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_dpr_nq_test(self):
+        topics = search.get_topics('dpr-nq-test')
+        self.assertEqual(len(topics), 3610)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_dpr_wq_test(self):
+        topics = search.get_topics('dpr-wq-test')
+        self.assertEqual(len(topics), 2032)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_dpr_squad_test(self):
+        topics = search.get_topics('dpr-squad-test')
+        self.assertEqual(len(topics), 10570)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_dpr_curated_test(self):
+        topics = search.get_topics('dpr-curated-test')
+        self.assertEqual(len(topics), 694)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_dpr_trivia_test(self):
+        topics = search.get_topics('dpr-trivia-test')
+        self.assertEqual(len(topics), 11313)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_dpr_trivia_dev(self):
+        topics = search.get_topics('dpr-trivia-dev')
+        self.assertEqual(len(topics), 8837)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
     def test_covid_round1(self):
-        topics = search.get_topics('covid_round1')
+        topics = search.get_topics('covid-round1')
         self.assertEqual(len(topics), 30)
         self.assertEqual('coronavirus origin', topics[1]['query'])
         self.assertEqual('coronavirus remdesivir', topics[30]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    def test_covid_round1(self):
-        topics = search.get_topics('covid_round1_udel')
+    def test_covid_round1_udel(self):
+        topics = search.get_topics('covid-round1-udel')
         self.assertEqual(len(topics), 30)
         self.assertEqual('coronavirus origin origin COVID-19', topics[1]['query'])
         self.assertEqual('coronavirus remdesivir remdesivir effective treatment COVID-19', topics[30]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     def test_covid_round2(self):
-        topics = search.get_topics('covid_round2')
+        topics = search.get_topics('covid-round2')
         self.assertEqual(len(topics), 35)
         self.assertEqual('coronavirus origin', topics[1]['query'])
         self.assertEqual('coronavirus public datasets', topics[35]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     def test_covid_round2_udel(self):
-        topics = search.get_topics('covid_round2_udel')
+        topics = search.get_topics('covid-round2-udel')
         self.assertEqual(len(topics), 35)
         self.assertEqual('coronavirus origin origin COVID-19', topics[1]['query'])
         self.assertEqual('coronavirus public datasets public datasets COVID-19', topics[35]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     def test_covid_round3(self):
-        topics = search.get_topics('covid_round3')
+        topics = search.get_topics('covid-round3')
         self.assertEqual(len(topics), 40)
         self.assertEqual('coronavirus origin', topics[1]['query'])
         self.assertEqual('coronavirus mutations', topics[40]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     def test_covid_round3_udel(self):
-        topics = search.get_topics('covid_round3_udel')
+        topics = search.get_topics('covid-round3-udel')
         self.assertEqual(len(topics), 40)
         self.assertEqual('coronavirus origin origin COVID-19', topics[1]['query'])
         self.assertEqual('coronavirus mutations observed mutations SARS-CoV-2 genome mutations', topics[40]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     def test_covid_round4(self):
-        topics = search.get_topics('covid_round4')
+        topics = search.get_topics('covid-round4')
         self.assertEqual(len(topics), 45)
         self.assertEqual('coronavirus origin', topics[1]['query'])
         self.assertEqual('coronavirus mental health impact', topics[45]['query'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     def test_covid_round4_udel(self):
-        topics = search.get_topics('covid_round4_udel')
+        topics = search.get_topics('covid-round4-udel')
         self.assertEqual(len(topics), 45)
         self.assertEqual('coronavirus origin origin COVID-19', topics[1]['query'])
         self.assertEqual('coronavirus mental health impact COVID-19 pandemic impacted mental health',
@@ -120,14 +155,14 @@ class TestLoadTopics(unittest.TestCase):
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     def test_trec2018_bl(self):
-        topics = search.get_topics('trec2018_bl')
+        topics = search.get_topics('trec2018-bl')
         self.assertEqual(len(topics), 50)
         self.assertEqual('fef0f232a9bd94bdb96bac48c7705503', topics[393]['title'])
         self.assertEqual('a1c41a70-35c7-11e3-8a0e-4e2cf80831fc', topics[825]['title'])
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
     
     def test_trec2019_bl(self):
-        topics = search.get_topics('trec2019_bl')
+        topics = search.get_topics('trec2019-bl')
         self.assertEqual(len(topics), 60)
         self.assertEqual('d7d906991e2883889f850de9ae06655e', topics[870]['title'])
         self.assertEqual('0d7f5e24cafc019265d3ee4b9745e7ea', topics[829]['title'])
@@ -144,7 +179,7 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 5193)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        self.assertEqual(search.get_topics('msmarco_doc_dev'), topics)
+        self.assertEqual(search.get_topics('msmarco-doc-dev'), topics)
 
     def test_trec_topicreader(self):
         # Running from command-line, we're in root of repo, but running in IDE, we're in tests/

@@ -1,0 +1,23 @@
+{
+    "Fact Checking": {
+        "FEVER": "KILT/data/fever-dev-kilt.jsonl"
+    },
+    "Entity Linking": {
+        "AIDA-YAGO2": "KILT/data/aidayago2-dev-kilt.jsonl",
+        "WNED": "KILT/data/wned-dev-kilt.jsonl",
+        "CWEB": "KILT/data/cweb-dev-kilt.jsonl"
+    },
+    "Slot Filling": {
+        "Zero Shot RE": "KILT/data/structured_zeroshot-dev-kilt.jsonl",
+        "T-REx": "KILT/data/trex-dev-kilt.jsonl"
+    },
+    "Open Domain QA": {
+        "Natural Questions": "KILT/data/nq-dev-kilt.jsonl",
+        "HotpotQA": "KILT/data/hotpotqa-dev-kilt.jsonl",
+        "TriviaQA": "KILT/data/triviaqa-dev-kilt.jsonl",
+        "ELI5": "KILT/data/eli5-dev-kilt.jsonl"
+    },
+    "Dialogue": {
+        "Wizard of Wikipedia": "KILT/data/wow-dev-kilt.jsonl"
+    }
+}

@@ -30,14 +30,29 @@ from pyserini.util import download_url
 def main(args):
     print(args.url)
     contents = urllib.request.urlopen(args.url).read().decode('utf-8')
-    dropbox_pattern = re.compile('https://www.dropbox.com/[^)]+')
+    pattern = None
+    if args.dropbox:
+        pattern = re.compile('https://www.dropbox.com/[^)]+')
+    elif args.gitlab:
+        pattern = re.compile('https://git.uwaterloo.ca/([^)]+).tar.gz')
+        # See https://git.uwaterloo.ca/jimmylin/anserini-indexes/-/raw/master/README.md
+        # Tricky pattern to write because some lines might have two GitLab URLs
+    elif args.vault:
+        pattern = re.compile('https://vault.cs.uwaterloo.ca/[^)]+')
+    else:
+        print('Must specify one of --dropbox, --gitlab, --vault: type of link to check.')
+        exit(0)
+
     md5sum_pattern = re.compile('`([a-z0-9]{32})`')
     for line in contents.splitlines():
-        match = dropbox_pattern.search(line)
+        match = pattern.search(line)
         if match:
             md5sum_match = md5sum_pattern.search(line)
             if md5sum_match:
                 url = match.group()
+                if args.vault:
+                    if not url.endswith('/download'):
+                        url = url + '/download'
                 md5sum = md5sum_match.group(1)
                 print(f'Downloading and verifying {url}')
                 destination = download_url(url, '.', md5=md5sum)
@@ -48,5 +63,8 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--url', type=str, metavar='url', required=True, help='URL to check.')
+    parser.add_argument('--dropbox',  action='store_true', default=False, help='Check Dropbox links.')
+    parser.add_argument('--gitlab',  action='store_true', default=False, help='Check UWaterloo GitLab links.')
+    parser.add_argument('--vault',  action='store_true', default=False, help='Check UWaterloo CS Vault links.')
 
     main(parser.parse_args())

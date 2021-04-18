@@ -15,12 +15,14 @@
 #
 
 import math
-from typing import List
-
-from scipy.sparse import csr_matrix
+from typing import List, Optional
 from sklearn.preprocessing import normalize
 
+from scipy.sparse import csr_matrix
+
 from pyserini import index, search
+from pyserini.analysis import Analyzer, get_lucene_analyzer
+from tqdm import tqdm
 
 
 class Vectorizer:
@@ -42,12 +44,15 @@ class Vectorizer:
         self.index_reader = index.IndexReader(lucene_index_path)
         self.searcher = search.SimpleSearcher(lucene_index_path)
         self.num_docs: int = self.searcher.num_docs
+        self.stats = self.index_reader.stats()
+        self.analyzer = Analyzer(get_lucene_analyzer())
 
         # build vocabulary
         self.vocabulary_ = set()
         for term in self.index_reader.terms():
             if term.df > self.min_df:
                 self.vocabulary_.add(term.term)
+        self.vocabulary_ = sorted(self.vocabulary_)
 
         # build term to index mapping
         self.term_to_index = {}
@@ -57,6 +62,17 @@ class Vectorizer:
 
         if self.verbose:
             print(f'Found {self.vocabulary_size} terms with min_df={self.min_df}')
+
+    def get_query_vector(self, query: str):
+        matrix_row, matrix_col, matrix_data = [], [], []
+        tokens = self.analyzer.analyze(query)
+        for term in tokens:
+            if term in self.vocabulary_:
+                matrix_row.append(0)
+                matrix_col.append(self.term_to_index[term])
+                matrix_data.append(1)
+        vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(1, self.vocabulary_size))
+        return vectors
 
 
 class TfidfVectorizer(Vectorizer):
@@ -79,26 +95,25 @@ class TfidfVectorizer(Vectorizer):
         for term in self.index_reader.terms():
             self.idf_[term.term] = math.log(self.num_docs / term.df)
 
-    def get_vectors(self, docids: List[str]):
+    def get_vectors(self, docids: List[str], norm: Optional[str] = 'l2'):
         """Get the tf-idf vectors given a list of docids
 
         Parameters
         ----------
+        norm : str
+            Normalize the sparse matrix
         docids : List[str]
             The piece of text to analyze.
 
         Returns
         -------
         csr_matrix
-            L2 normalized sparse matrix representation of tf-idf vectors
+            Sparse matrix representation of tf-idf vectors
         """
         matrix_row, matrix_col, matrix_data = [], [], []
         num_docs = len(docids)
 
-        for index, doc_id in enumerate(docids):
-            if index % 1000 == 0 and num_docs > 1000 and self.verbose:
-                print(f'Vectorizing: {index}/{len(docids)}')
-
+        for index, doc_id in enumerate(tqdm(docids)):
             # Term Frequency
             tf = self.index_reader.get_document_vector(doc_id)
             if tf is None:
@@ -115,7 +130,10 @@ class TfidfVectorizer(Vectorizer):
                 matrix_data.append(tfidf)
 
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
-        return normalize(vectors, norm='l2')
+
+        if norm:
+            return normalize(vectors, norm=norm)
+        return vectors
 
 
 class BM25Vectorizer(Vectorizer):
@@ -134,25 +152,25 @@ class BM25Vectorizer(Vectorizer):
     def __init__(self, lucene_index_path: str, min_df: int = 1, verbose: bool = False):
         super().__init__(lucene_index_path, min_df, verbose)
 
-    def get_vectors(self, docids: List[str]):
+    def get_vectors(self, docids: List[str], norm: Optional[str] = 'l2'):
         """Get the BM25 vectors given a list of docids
 
         Parameters
         ----------
+        norm : str
+            Normalize the sparse matrix
         docids : List[str]
             The piece of text to analyze.
 
         Returns
         -------
         csr_matrix
-            L2 normalized sparse matrix representation of BM25 vectors
+            Sparse matrix representation of BM25 vectors
         """
         matrix_row, matrix_col, matrix_data = [], [], []
         num_docs = len(docids)
 
-        for index, doc_id in enumerate(docids):
-            if index % 1000 == 0 and num_docs > 1000 and self.verbose:
-                print(f'Vectorizing: {index}/{len(docids)}')
+        for index, doc_id in enumerate(tqdm(docids)):
 
             # Term Frequency
             tf = self.index_reader.get_document_vector(doc_id)
@@ -170,4 +188,7 @@ class BM25Vectorizer(Vectorizer):
                 matrix_data.append(bm25_weight)
 
         vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(num_docs, self.vocabulary_size))
-        return normalize(vectors, norm='l2')
+
+        if norm:
+            return normalize(vectors, norm=norm)
+        return vectors

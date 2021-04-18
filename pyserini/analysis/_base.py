@@ -32,6 +32,7 @@ JCharArraySet = autoclass('org.apache.lucene.analysis.CharArraySet')
 
 # Wrappers around Anserini classes
 JAnalyzerUtils = autoclass('io.anserini.analysis.AnalyzerUtils')
+JDefaultEnglishAnalyzer = autoclass('io.anserini.analysis.DefaultEnglishAnalyzer')
 JFreebaseAnalyzer = autoclass('io.anserini.analysis.FreebaseAnalyzer')
 JTweetAnalyzer = autoclass('io.anserini.analysis.TweetAnalyzer')
 
