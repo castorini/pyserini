@@ -69,7 +69,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertAlmostEqual(score, 0.2495, delta=0.0001)
 
     def test_core18_lr(self):
-        os.system(f'python3 {self.pyserini_root}/scripts/classifier_prf/cross_validate.py --anserini {self.anserini_root} \
+        os.system(f'python {self.pyserini_root}/scripts/classifier_prf/cross_validate.py --anserini {self.anserini_root} \
                      --run_file {self.tmp} --pyserini {self.pyserini_root} \
                      --collection core18 --output {self.tmp}/core18_lr.txt --classifier lr ')
 
@@ -85,7 +85,7 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_core18_svm(self):
             os.system(
-                f'python3 {self.pyserini_root}/scripts/classifier_prf/cross_validate.py --anserini {self.anserini_root} \
+                f'python {self.pyserini_root}/scripts/classifier_prf/cross_validate.py --anserini {self.anserini_root} \
                       --run_file {self.tmp} --pyserini {self.pyserini_root} \
                       --collection core18 --output {self.tmp}/core18_svm.txt --classifier svm ')
 
