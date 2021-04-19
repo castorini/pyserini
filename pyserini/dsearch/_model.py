@@ -12,7 +12,7 @@ class AnceEncoder(PreTrainedModel):
     base_model_prefix = 'ance_encoder'
     load_tf_weights = None
     _keys_to_ignore_on_load_missing = [r'position_ids']
-    _keys_to_ignore_on_load_unexpected = [r'pooler", r"classifier']
+    _keys_to_ignore_on_load_unexpected = [r'pooler', r'classifier']
 
     def __init__(self, config: RobertaConfig):
         requires_pytorch(self)
