@@ -32,6 +32,11 @@ pip install pyserini==0.11.0.0
 
 Pyserini requires Python 3.6+ and Java 11 (due to its dependency on [Anserini](http://anserini.io/)).
 
+If you get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
+In `bash`, use `echo $JAVA_HOME` to find out what the environmental variable is currently set to, and use `export JAVA_HOME=/path/to/java/home` to change it to the correct path.
+On a Linux system, the correct path might look something like `/usr/lib/jvm/java-11`.
+Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.
+
 ## Development Installation
 
 If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
