@@ -37,7 +37,7 @@ In `bash`, use `echo $JAVA_HOME` to find out what the environmental variable is 
 On a Linux system, the correct path might look something like `/usr/lib/jvm/java-11`.
 Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.
 
-Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies.
+Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
 A `pip` installation will automatically pull in the [🤗 Transformers library](https://github.com/huggingface/transformers) to satisfy the package requirements.
 Pyserini also depends on [PyTorch](https://pytorch.org/) and [Faiss](https://github.com/facebookresearch/faiss), but since these packages may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
 We leave the installation of these packages to you.
