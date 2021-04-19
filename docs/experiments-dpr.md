@@ -12,7 +12,9 @@ Our own efforts are described in the following paper:
 To be clear, we started with model checkpoint releases in the official [DPR repo](https://github.com/facebookresearch/DPR) and did _not_ retrain the query and passage encoders from scratch.
 Our implementation does not share any code with the DPR repo, other than evaluation scripts to ensure that results are comparable.
 
-This guide provides instructions to reproduce our replication effort.
+This guide provides instructions to reproduce our replication study.
+Our efforts include both retrieval as well as end-to-end answer extraction.
+We cover only retrieval here; for end-to-end answer extraction, please see [this guide](https://github.com/castorini/pygaggle/blob/master/docs/experiments-dpr-reader.md) in our PyGaggle neural text ranking library.
 
 You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
 Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
@@ -473,9 +475,6 @@ $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.nq-tes
 Top20	accuracy: 0.8288
 Top100	accuracy: 0.8837
 ```
-
-## End-to-end QA
-For end-to-end answer prediction and evaluation, please see our experiments in Pygaggle [here](https://github.com/castorini/pygaggle/blob/master/docs/experiments-dpr-reader.md).
 
 ## Reproduction Log[*](reproducibility.md)
 
