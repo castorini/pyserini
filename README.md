@@ -43,10 +43,10 @@ Pyserini also depends on [PyTorch](https://pytorch.org/) and [Faiss](https://git
 We leave the installation of these packages to you.
 
 In general, the development team tries to keep dependent packages at the same versions and upgrade in lockstep.
-Currently, our "reference" configuration is a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`,  `transformers==4.0.0`, `torch==1.7.1`, and `tensorflow==2.4.0`.
+Currently, our "reference" configuration is a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`,  `transformers==4.0.0`, and `torch==1.7.1`.
 This is the configuration used to run our many regression tests.
 However, in most cases results have also been reproduced on macOS with the same dependency versions.
-Use other versions of the software packages at your own risk...
+Use other versions of the dependent packages at your own risk...
 
 ## Development Installation
 
@@ -65,7 +65,7 @@ cd tools/eval/ndeval && make && cd ../../..
 Next, you'll need to clone and build [Anserini](http://anserini.io/).
 It makes sense to put both `pyserini/` and `anserini/` in a common folder.
 After you've successfully built Anserini, copy the fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
-All the instructions about installing Python additional dependencies with `pip` also applies here (see above).
+All the instructions about installing additional Python dependencies above also applies here.
 
 You can confirm everything is working by running the unit tests:
 
