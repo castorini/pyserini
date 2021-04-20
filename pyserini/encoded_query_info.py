@@ -104,8 +104,8 @@ QUERY_INFO = {
         "urls": [
             "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dpr_multi-trivia-dev-20210419-9323ec.tar.gz",
         ],
-        "md5": "12ed3d843e30de5e2a38964ebd5a6c3e",
-        "size (bytes)": 25518070,
+        "md5": "efac7b71ef52ca073331e896089456a4",
+        "size (bytes)": 25517034,
         "total_queries": 8837,
         "downloaded": False
     },
@@ -114,8 +114,8 @@ QUERY_INFO = {
         "urls": [
             "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dpr_multi-trivia-test-20210419-9323ec.tar.gz",
         ],
-        "md5": "412136831eae937b2963170b4b792e93",
-        "size (bytes)": 32665322,
+        "md5": "01e95455d55d0495d806549f04a02c24",
+        "size (bytes)": 32664437,
         "total_queries": 11313,
         "downloaded": False
     },
@@ -124,8 +124,8 @@ QUERY_INFO = {
         "urls": [
             "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-ance_multi-trivia-dev-20210419-9323ec.tar.gz",
         ],
-        "md5": "22e65eaa8825811487ebdeb43136505a",
-        "size (bytes)": 25560867,
+        "md5": "bd88499a5785b15ba702173cc0e91417",
+        "size (bytes)": 25559775,
         "total_queries": 8837,
         "downloaded": False
     },
@@ -134,8 +134,8 @@ QUERY_INFO = {
         "urls": [
             "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-ance_multi-trivia-test-20210419-9323ec.tar.gz",
         ],
-        "md5": "3c412cb624da3f5b6e9990ad3605313d",
-        "size (bytes)": 32719265,
+        "md5": "3844dfb7f8feb6b064fa48775a35c6ee",
+        "size (bytes)": 32717910,
         "total_queries": 11313,
         "downloaded": False
     },
