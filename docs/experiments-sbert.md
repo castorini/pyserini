@@ -7,12 +7,14 @@ Dense retrieval with SBERT, brute-force index:
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-sbert-bf \
-                             --encoder sentence-transformers/msmarco-distilbert-base-v3 \
+                             --encoded-queries sbert-msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.sbert.bf.tsv \
                              --msmarco
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3`
+> for on-the-fly query encoding.
 
 To evaluate:
 
@@ -42,7 +44,7 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 
 ```bas
 $ python -m pyserini.hsearch dense  --index msmarco-passage-sbert-bf \
-                                    --encoder sentence-transformers/msmarco-distilbert-base-v3 \
+                                    --encoded-queries sbert-msmarco-passage-dev-subset \
                              sparse --index msmarco-passage \
                              fusion --alpha 0.015  \
                              run    --topics msmarco-passage-dev-subset \
@@ -50,6 +52,8 @@ $ python -m pyserini.hsearch dense  --index msmarco-passage-sbert-bf \
                                     --batch-size 36 --threads 12 \
                                     --msmarco
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3`
+> for on-the-fly query encoding.
 
 To evaluate:
 
