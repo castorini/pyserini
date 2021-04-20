@@ -1,4 +1,16 @@
 INDEX_INFO = {
+    "cacm": {
+        "description": "CACM corpus",
+        "filename": "lucene-index.cacm.tar.gz",
+        "urls": [
+            "https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.tar.gz",
+        ],
+        "md5": "e47164fbd18aab72cdc18aecc0744bb1",
+        "size compressed (bytes)": 2372903,
+        "total_terms": 320968,
+        "documents": 3204,
+        "unique_terms": 14363,
+    },
     "robust04": {
         "description": "TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track",
         "filename": "index-robust04-20191213.tar.gz",
