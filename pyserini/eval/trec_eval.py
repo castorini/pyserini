@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import platform
 
 from pyserini.search import get_qrels_file
 from pyserini.util import download_evaluation_script
@@ -15,9 +16,11 @@ if len(args) > 1:
 else:
     cmd = cmd_prefix
 print(f'Running command: {cmd}')
+shell = platform.system() == "Windows"
 process = subprocess.Popen(cmd,
                            stdout=subprocess.PIPE,
-                           stderr=subprocess.PIPE)
+                           stderr=subprocess.PIPE,
+                           shell=shell)
 stdout, stderr = process.communicate()
 if stderr:
     print(stderr.decode("utf-8"))
