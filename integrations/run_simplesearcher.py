@@ -24,7 +24,7 @@ class RunSimpleSearcher:
     def __init__(self, index: str, topics: str):
         self.index_path = index
         self.topics = topics
-        self.pyserini_base_cmd = 'python3 -m pyserini.search'
+        self.pyserini_base_cmd = 'python -m pyserini.search'
 
     @staticmethod
     def _cleanup(files: List[str]):
