@@ -20,6 +20,8 @@ import os
 import socket
 import unittest
 from integrations.utils import clean_files, run_command, parse_score
+from pyserini.search import get_topics
+from pyserini.dsearch import QueryEncoder
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -51,23 +53,11 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3314, delta=0.0001)
 
-    def test_msmarco_passage_sbert_bf(self):
-        output_file = 'test_run.msmarco-passage.sbert.bf.tsv'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-                             --index msmarco-passage-sbert-bf \
-                             --encoded-queries sbert-msmarco-passage-dev-subset \
-                             --batch-size {self.batch_size} \
-                             --threads {self.threads} \
-                             --output {output_file} \
-                             --msmarco'
-        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3314, delta=0.0001)
+    def test_msmarco_passage_sbert_encoded_queries(self):
+        encoder = QueryEncoder.load_encoded_queries('sbert-msmarco-passage-dev-subset')
+        topics = get_topics('msmarco-passage-dev-subset')
+        for t in topics:
+            self.assertTrue(topics[t]['title'] in encoder.embedding)
 
     def tearDown(self):
         clean_files(self.temp_files)
