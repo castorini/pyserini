@@ -23,7 +23,7 @@ Thus, while the scoring script provides results to much higher precision, we hav
 
 ## Summary
 
-Here's how our results stack up against results reported in the paper:
+Here's how our results stack up against results reported in the paper using the DPR-Multi model:
 
 | Dataset     | Method        | Top-20 (orig) | Top-20 (us)| Top-100 (orig) | Top-100 (us)|
 |:------------|:--------------|--------------:|-----------:|---------------:|------------:|
@@ -45,7 +45,7 @@ Here's how our results stack up against results reported in the paper:
 
 The hybrid results reported above for "us" capture what we call the "norm" condition (see paper for details).
 
-## Natural Questions (NQ)
+## Natural Questions (NQ) with DPR-Multi
 
 **DPR retrieval** with brute-force index:
 
@@ -121,7 +121,7 @@ Top20  accuracy: 0.8260
 Top100 accuracy: 0.8859
 ```
 
-## TriviaQA
+## TriviaQA with DPR-Multi
 
 **DPR retrieval** with brute-force index:
 
@@ -195,7 +195,7 @@ Top20  accuracy: 0.8264
 Top100 accuracy: 0.8655
 ```
 
-## WebQuestions (WQ)
+## WebQuestions (WQ) with DPR-Multi
 
 **DPR retrieval** with brute-force index:
 
@@ -270,7 +270,7 @@ Top20  accuracy: 0.7712
 Top100 accuracy: 0.8440
 ```
 
-## CuratedTREC
+## CuratedTREC with DPR-Multi
 
 **DPR retrieval** with brute-force index:
 
@@ -345,7 +345,7 @@ Top20  accuracy: 0.9006
 Top100 accuracy: 0.9496
 ```
 
-## SQuAD
+## SQuAD with DPR-Multi
 
 **DPR retrieval** with brute-force index:
 
