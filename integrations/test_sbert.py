@@ -33,12 +33,30 @@ class TestSearchIntegration(unittest.TestCase):
             self.threads = 36
             self.batch_size = 144
 
+    def test_msmarco_passage_sbert_bf_otf(self):
+        output_file = 'test_run.msmarco-passage.sbert.bf.otf.tsv'
+        self.temp_files.append(output_file)
+        cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
+                             --index msmarco-passage-sbert-bf \
+                             --encoder sentence-transformers/msmarco-distilbert-base-v3 \
+                             --batch-size {self.batch_size} \
+                             --threads {self.threads} \
+                             --output {output_file} \
+                             --msmarco'
+        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
+        status = os.system(cmd1)
+        stdout, stderr = run_command(cmd2)
+        score = parse_score(stdout, "MRR @10")
+        self.assertEqual(status, 0)
+        self.assertEqual(stderr, '')
+        self.assertAlmostEqual(score, 0.3314, delta=0.0001)
+
     def test_msmarco_passage_sbert_bf(self):
         output_file = 'test_run.msmarco-passage.sbert.bf.tsv'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-sbert-bf \
-                             --encoder sentence-transformers/msmarco-distilbert-base-v3 \
+                             --encoded-queries sbert-msmarco-passage-dev-subset \
                              --batch-size {self.batch_size} \
                              --threads {self.threads} \
                              --output {output_file} \

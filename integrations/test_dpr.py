@@ -33,9 +33,9 @@ class TestSearchIntegration(unittest.TestCase):
             self.threads = 36
             self.batch_size = 144
 
-    def test_dpr_nq_test_bf(self):
-        output_file = 'test_run.dpr.nq-test.multi.bf.trec'
-        retrieval_file = 'test_run.dpr.nq-test.multi.bf.json'
+    def test_dpr_nq_test_bf_otf(self):
+        output_file = 'test_run.dpr.nq-test.multi.bf.otf.trec'
+        retrieval_file = 'test_run.dpr.nq-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-nq-test \
                              --index wikipedia-dpr-multi-bf \
@@ -55,9 +55,31 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.7947, places=4)
 
-    def test_dpr_nq_test_bf_bm25_hybrid(self):
-        output_file = 'test_run.dpr.nq-test.multi.bf.bm25.trec'
-        retrieval_file = 'test_run.dpr.nq-test.multi.bf.bm25.json'
+    def test_dpr_nq_test_bf(self):
+        output_file = 'test_run.dpr.nq-test.multi.bf.trec'
+        retrieval_file = 'test_run.dpr.nq-test.multi.bf.json'
+        self.temp_files.extend([output_file, retrieval_file])
+        cmd1 = f'python -m pyserini.dsearch --topics dpr-nq-test \
+                             --index wikipedia-dpr-multi-bf \
+                             --encoded-queries dpr_multi-nq-test \
+                             --output {output_file} \
+                             --batch-size {self.batch_size} --threads {self.threads}'
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
+                                                           --index wikipedia-dpr \
+                                                           --input {output_file} \
+                                                           --output {retrieval_file}'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
+        status1 = os.system(cmd1)
+        status2 = os.system(cmd2)
+        stdout, stderr = run_command(cmd3)
+        score = parse_score(stdout, "Top20")
+        self.assertEqual(status1, 0)
+        self.assertEqual(status2, 0)
+        self.assertAlmostEqual(score, 0.7947, places=4)
+
+    def test_dpr_nq_test_bf_bm25_hybrid_otf(self):
+        output_file = 'test_run.dpr.nq-test.multi.bf.otf.bm25.trec'
+        retrieval_file = 'test_run.dpr.nq-test.multi.bf.otf.bm25.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
@@ -79,9 +101,33 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8260, places=4)
 
-    def test_dpr_trivia_test_bf(self):
-        output_file = 'test_run.dpr.trivia-test.multi.bf.trec'
-        retrieval_file = 'test_run.dpr.trivia-test.multi.bf.json'
+    def test_dpr_nq_test_bf_bm25_hybrid(self):
+        output_file = 'test_run.dpr.nq-test.multi.bf.bm25.trec'
+        retrieval_file = 'test_run.dpr.nq-test.multi.bf.bm25.json'
+        self.temp_files.extend([output_file, retrieval_file])
+        cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+                                    --encoded-queries dpr_multi-nq-test \
+                             sparse --index wikipedia-dpr \
+                             fusion --alpha 1.3 \
+                             run    --topics dpr-nq-test \
+                                    --batch-size {self.batch_size} --threads {self.threads} \
+                                    --output {output_file} '
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
+                                                           --index wikipedia-dpr \
+                                                           --input {output_file} \
+                                                           --output {retrieval_file}'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
+        status1 = os.system(cmd1)
+        status2 = os.system(cmd2)
+        stdout, stderr = run_command(cmd3)
+        score = parse_score(stdout, "Top20")
+        self.assertEqual(status1, 0)
+        self.assertEqual(status2, 0)
+        self.assertAlmostEqual(score, 0.8260, places=4)
+
+    def test_dpr_trivia_test_bf_otf(self):
+        output_file = 'test_run.dpr.trivia-test.multi.bf.otf.trec'
+        retrieval_file = 'test_run.dpr.trivia-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-trivia-test \
                              --encoder facebook/dpr-question_encoder-multiset-base \
@@ -101,9 +147,31 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.7887, places=4)
 
-    def test_dpr_trivia_test_bf_bm25_hybrid(self):
-        output_file = 'test_run.dpr.trivia-test.multi.bf.bm25.trec'
-        retrieval_file = 'test_run.dpr.trivia-test.multi.bf.bm25.json'
+    def test_dpr_trivia_test_bf(self):
+        output_file = 'test_run.dpr.trivia-test.multi.bf.trec'
+        retrieval_file = 'test_run.dpr.trivia-test.multi.bf.json'
+        self.temp_files.extend([output_file, retrieval_file])
+        cmd1 = f'python -m pyserini.dsearch --topics dpr-trivia-test \
+                             --encoded-queries dpr_multi-trivia-test \
+                             --index wikipedia-dpr-multi-bf \
+                             --output {output_file} \
+                             --batch-size {self.batch_size} --threads {self.threads}'
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
+                                                           --index wikipedia-dpr \
+                                                           --input {output_file} \
+                                                           --output {retrieval_file}'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
+        status1 = os.system(cmd1)
+        status2 = os.system(cmd2)
+        stdout, stderr = run_command(cmd3)
+        score = parse_score(stdout, "Top20")
+        self.assertEqual(status1, 0)
+        self.assertEqual(status2, 0)
+        self.assertAlmostEqual(score, 0.7887, places=4)
+
+    def test_dpr_trivia_test_bf_bm25_hybrid_otf(self):
+        output_file = 'test_run.dpr.trivia-test.multi.bf.otf.bm25.trec'
+        retrieval_file = 'test_run.dpr.trivia-test.multi.bf.otf.bm25.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
@@ -125,9 +193,33 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8264, places=4)
 
-    def test_dpr_wq_test_bf(self):
-        output_file = 'test_run.dpr.wq-test.multi.bf.trec'
-        retrieval_file = 'test_run.dpr.wq-test.multi.bf.json'
+    def test_dpr_trivia_test_bf_bm25_hybrid(self):
+        output_file = 'test_run.dpr.trivia-test.multi.bf.bm25.trec'
+        retrieval_file = 'test_run.dpr.trivia-test.multi.bf.bm25.json'
+        self.temp_files.extend([output_file, retrieval_file])
+        cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+                                    --encoded-queries dpr_multi-trivia-test \
+                             sparse --index wikipedia-dpr \
+                             fusion --alpha 0.95 \
+                             run    --topics dpr-trivia-test \
+                                    --batch-size {self.batch_size} --threads {self.threads} \
+                                    --output {output_file} '
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
+                                                           --index wikipedia-dpr \
+                                                           --input {output_file} \
+                                                           --output {retrieval_file}'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
+        status1 = os.system(cmd1)
+        status2 = os.system(cmd2)
+        stdout, stderr = run_command(cmd3)
+        score = parse_score(stdout, "Top20")
+        self.assertEqual(status1, 0)
+        self.assertEqual(status2, 0)
+        self.assertAlmostEqual(score, 0.8264, places=4)
+
+    def test_dpr_wq_test_bf_otf(self):
+        output_file = 'test_run.dpr.wq-test.multi.bf.otf.trec'
+        retrieval_file = 'test_run.dpr.wq-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-wq-test \
                              --index wikipedia-dpr-multi-bf \
@@ -147,9 +239,31 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.7505, places=4)
 
-    def test_dpr_wq_test_bf_bm25_hybrid(self):
-        output_file = 'test_run.dpr.wq-test.multi.bf.bm25.trec'
-        retrieval_file = 'test_run.dpr.wq-test.multi.bf.bm25.json'
+    def test_dpr_wq_test_bf(self):
+        output_file = 'test_run.dpr.wq-test.multi.bf.trec'
+        retrieval_file = 'test_run.dpr.wq-test.multi.bf.json'
+        self.temp_files.extend([output_file, retrieval_file])
+        cmd1 = f'python -m pyserini.dsearch --topics dpr-wq-test \
+                             --index wikipedia-dpr-multi-bf \
+                             --encoded-queries dpr_multi-wq-test \
+                             --output {output_file} \
+                             --batch-size {self.batch_size} --threads {self.threads}'
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-wq-test \
+                                                           --index wikipedia-dpr \
+                                                           --input {output_file} \
+                                                           --output {retrieval_file}'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
+        status1 = os.system(cmd1)
+        status2 = os.system(cmd2)
+        stdout, stderr = run_command(cmd3)
+        score = parse_score(stdout, "Top20")
+        self.assertEqual(status1, 0)
+        self.assertEqual(status2, 0)
+        self.assertAlmostEqual(score, 0.7505, places=4)
+
+    def test_dpr_wq_test_bf_bm25_hybrid_otf(self):
+        output_file = 'test_run.dpr.wq-test.multi.bf.otf.bm25.trec'
+        retrieval_file = 'test_run.dpr.wq-test.multi.bf.otf.bm25.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
@@ -171,9 +285,33 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.7712, places=4)
 
-    def test_dpr_curated_test_bf(self):
-        output_file = 'test_run.dpr.curated-test.multi.bf.trec'
-        retrieval_file = 'test_run.dpr.curated-test.multi.bf.json'
+    def test_dpr_wq_test_bf_bm25_hybrid(self):
+        output_file = 'test_run.dpr.wq-test.multi.bf.bm25.trec'
+        retrieval_file = 'test_run.dpr.wq-test.multi.bf.bm25.json'
+        self.temp_files.extend([output_file, retrieval_file])
+        cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+                                    --encoded-queries dpr_multi-wq-test \
+                             sparse --index wikipedia-dpr \
+                             fusion --alpha 0.95 \
+                             run    --topics dpr-wq-test \
+                                    --batch-size {self.batch_size} --threads {self.threads} \
+                                    --output {output_file} '
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-wq-test \
+                                                           --index wikipedia-dpr \
+                                                           --input {output_file} \
+                                                           --output {retrieval_file}'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
+        status1 = os.system(cmd1)
+        status2 = os.system(cmd2)
+        stdout, stderr = run_command(cmd3)
+        score = parse_score(stdout, "Top20")
+        self.assertEqual(status1, 0)
+        self.assertEqual(status2, 0)
+        self.assertAlmostEqual(score, 0.7712, places=4)
+
+    def test_dpr_curated_test_bf_otf(self):
+        output_file = 'test_run.dpr.curated-test.multi.bf.otf.trec'
+        retrieval_file = 'test_run.dpr.curated-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-curated-test \
                              --index wikipedia-dpr-multi-bf \
@@ -193,9 +331,31 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8876, places=4)
 
-    def test_dpr_curated_test_bf_bm25_hybrid(self):
-        output_file = 'test_run.dpr.curated-test.multi.bf.bm25.trec'
-        retrieval_file = 'test_run.dpr.curated-test.multi.bf.bm25.json'
+    def test_dpr_curated_test_bf(self):
+        output_file = 'test_run.dpr.curated-test.multi.bf.trec'
+        retrieval_file = 'test_run.dpr.curated-test.multi.bf.json'
+        self.temp_files.extend([output_file, retrieval_file])
+        cmd1 = f'python -m pyserini.dsearch --topics dpr-curated-test \
+                             --index wikipedia-dpr-multi-bf \
+                             --encoded-queries dpr_multi-curated-test \
+                             --output {output_file} \
+                             --batch-size {self.batch_size} --threads {self.threads}'
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
+                                                           --index wikipedia-dpr \
+                                                           --input {output_file} \
+                                                           --output {retrieval_file}'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20 --regex'
+        status1 = os.system(cmd1)
+        status2 = os.system(cmd2)
+        stdout, stderr = run_command(cmd3)
+        score = parse_score(stdout, "Top20")
+        self.assertEqual(status1, 0)
+        self.assertEqual(status2, 0)
+        self.assertAlmostEqual(score, 0.8876, places=4)
+
+    def test_dpr_curated_test_bf_bm25_hybrid_otf(self):
+        output_file = 'test_run.dpr.curated-test.multi.bf.otf.bm25.trec'
+        retrieval_file = 'test_run.dpr.curated-test.multi.bf.otf.bm25.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
@@ -217,9 +377,33 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.9006, places=4)
 
-    def test_dpr_squad_test_bf(self):
-        output_file = 'test_run.dpr.squad-test.multi.bf.trec'
-        retrieval_file = 'test_run.dpr.squad-test.multi.bf.json'
+    def test_dpr_curated_test_bf_bm25_hybrid(self):
+        output_file = 'test_run.dpr.curated-test.multi.bf.bm25.trec'
+        retrieval_file = 'test_run.dpr.curated-test.multi.bf.bm25.json'
+        self.temp_files.extend([output_file, retrieval_file])
+        cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+                                    --encoded-queries dpr_multi-curated-test \
+                             sparse --index wikipedia-dpr \
+                             fusion --alpha 1.05 \
+                             run    --topics dpr-curated-test \
+                                    --batch-size {self.batch_size} --threads {self.threads} \
+                                    --output {output_file} '
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
+                                                           --index wikipedia-dpr \
+                                                           --input {output_file} \
+                                                           --output {retrieval_file}'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20 --regex'
+        status1 = os.system(cmd1)
+        status2 = os.system(cmd2)
+        stdout, stderr = run_command(cmd3)
+        score = parse_score(stdout, "Top20")
+        self.assertEqual(status1, 0)
+        self.assertEqual(status2, 0)
+        self.assertAlmostEqual(score, 0.9006, places=4)
+
+    def test_dpr_squad_test_bf_otf(self):
+        output_file = 'test_run.dpr.squad-test.multi.bf.otf.trec'
+        retrieval_file = 'test_run.dpr.squad-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-squad-test \
                              --index wikipedia-dpr-multi-bf \
@@ -239,12 +423,58 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.5199, places=4)
 
+    def test_dpr_squad_test_bf(self):
+        output_file = 'test_run.dpr.squad-test.multi.bf.trec'
+        retrieval_file = 'test_run.dpr.squad-test.multi.bf.json'
+        self.temp_files.extend([output_file, retrieval_file])
+        cmd1 = f'python -m pyserini.dsearch --topics dpr-squad-test \
+                             --index wikipedia-dpr-multi-bf \
+                             --encoded-queries dpr_multi-squad-test \
+                             --output {output_file} \
+                             --batch-size {self.batch_size} --threads {self.threads}'
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-squad-test \
+                                                           --index wikipedia-dpr \
+                                                           --input {output_file} \
+                                                           --output {retrieval_file}'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
+        status1 = os.system(cmd1)
+        status2 = os.system(cmd2)
+        stdout, stderr = run_command(cmd3)
+        score = parse_score(stdout, "Top20")
+        self.assertEqual(status1, 0)
+        self.assertEqual(status2, 0)
+        self.assertAlmostEqual(score, 0.5199, places=4)
+
+    def test_dpr_squad_test_bf_bm25_hybrid_otf(self):
+        output_file = 'test_run.dpr.squad-test.multi.bf.otf.bm25.trec'
+        retrieval_file = 'test_run.dpr.squad-test.multi.bf.otf.bm25.json'
+        self.temp_files.extend([output_file, retrieval_file])
+        cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+                                    --encoder facebook/dpr-question_encoder-multiset-base \
+                             sparse --index wikipedia-dpr \
+                             fusion --alpha 2.0 \
+                             run    --topics dpr-squad-test \
+                                    --batch-size {self.batch_size} --threads {self.threads} \
+                                    --output {output_file} '
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-squad-test \
+                                                           --index wikipedia-dpr \
+                                                           --input {output_file} \
+                                                           --output {retrieval_file}'
+        cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
+        status1 = os.system(cmd1)
+        status2 = os.system(cmd2)
+        stdout, stderr = run_command(cmd3)
+        score = parse_score(stdout, "Top20")
+        self.assertEqual(status1, 0)
+        self.assertEqual(status2, 0)
+        self.assertAlmostEqual(score, 0.7511, places=4)
+
     def test_dpr_squad_test_bf_bm25_hybrid(self):
         output_file = 'test_run.dpr.squad-test.multi.bf.bm25.trec'
         retrieval_file = 'test_run.dpr.squad-test.multi.bf.bm25.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
-                                    --encoder facebook/dpr-question_encoder-multiset-base \
+                                    --encoded-queries dpr_multi-squad-test \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 2.0 \
                              run    --topics dpr-squad-test \
