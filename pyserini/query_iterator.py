@@ -7,18 +7,18 @@ from pyserini.search import get_topics
 
 @unique
 class TopicsFormat(Enum):
-    PYSERINI = 'default'
+    JSON = 'json'
     KILT = 'kilt'
 
 
-class PyseriniQueryIterator:
+class JsonQueryIterator:
 
     PREDEFINED_ORDER = {'msmarco-doc-dev',
                         'msmarco_doc_test',
                         'msmarco-passage-dev-subset',
                         'msmarco_passage_test_subset'}
 
-    def __init__(self, topics: dict, order=None):
+    def __init__(self, topics: dict, order: list = None):
         self.order = order if order else sorted(topics.keys())
         self.topics = topics
 
@@ -37,7 +37,7 @@ class PyseriniQueryIterator:
         if not topics:
             raise FileNotFoundError(f'Topic {topics_path} Not Found')
         order = None
-        if topics_path in PyseriniQueryIterator.PREDEFINED_ORDER:
+        if topics_path in JsonQueryIterator.PREDEFINED_ORDER:
             print(f'Using pre-defined topic order for {topics_path}')
             # Lazy import:
             from pyserini.query_iterator_order_info import QUERY_IDS
@@ -50,7 +50,7 @@ class KiltQueryIterator:
     ENT_START_TOKEN = "[START_ENT]"
     ENT_END_TOKEN = "[END_ENT]"
 
-    def __init__(self, topics: dict, order):
+    def __init__(self, topics: dict, order: list):
         self.order = order
         self.topics = topics
 
@@ -79,7 +79,7 @@ class KiltQueryIterator:
 
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
-        TopicsFormat.PYSERINI: PyseriniQueryIterator,
+        TopicsFormat.JSON: JsonQueryIterator,
         TopicsFormat.KILT: KiltQueryIterator,
     }
     return mapping[topics_format].from_topics(topics_path)
