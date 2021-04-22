@@ -27,7 +27,7 @@ class SimpleSearcherScoreChecker:
         self.qrels = qrels
         self.pyserini_topics = pyserini_topics
 
-        self.pyserini_base_cmd = 'python3 -m pyserini.search'
+        self.pyserini_base_cmd = 'python -m pyserini.search'
 
         self.eval_base_cmd = eval
 
