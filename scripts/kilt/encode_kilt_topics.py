@@ -3,7 +3,7 @@ import pandas as pd
 
 from tqdm import tqdm
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from pyserini.dsearch import DPRQueryEncoder
+from pyserini.dsearch import DprQueryEncoder
 
 
 if __name__ == '__main__':
@@ -21,7 +21,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     query_iterator = get_query_iterator(args.topics, TopicsFormat.KILT)
-    query_encoder = DPRQueryEncoder(encoder_dir=args.encoder, tokenizer_name=args.tokenizer, device=args.device)
+    query_encoder = DprQueryEncoder(encoder_dir=args.encoder, tokenizer_name=args.tokenizer, device=args.device)
 
     texts = []
     embeddings = []

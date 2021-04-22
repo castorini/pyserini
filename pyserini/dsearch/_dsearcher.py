@@ -21,24 +21,28 @@ import os
 from dataclasses import dataclass
 from typing import Dict, List
 
-import faiss
 import numpy as np
 import pandas as pd
-from transformers import (BertModel, BertTokenizer, DPRQuestionEncoder,
+from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, DPRQuestionEncoder,
                           DPRQuestionEncoderTokenizer, RobertaTokenizer)
+from transformers.file_utils import is_faiss_available, requires_faiss
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info)
 
 from ._model import AnceEncoder
+import torch
+
+if is_faiss_available():
+    import faiss
 
 
 class QueryEncoder:
-    def __init__(self, encoded_query_file: str = None):
+    def __init__(self, encoded_query_dir: str = None):
         self.has_model = False
         self.has_encoded_query = False
-        if encoded_query_file:
-            self.embedding = self._load_embeddings(encoded_query_file)
+        if encoded_query_dir:
+            self.embedding = self._load_embeddings(encoded_query_dir)
             self.has_encoded_query = True
 
     def encode(self, query: str):
@@ -61,25 +65,24 @@ class QueryEncoder:
         print(f'Attempting to initialize pre-encoded queries {encoded_query_name}.')
         try:
             query_dir = download_encoded_queries(encoded_query_name)
-            query_file = os.path.join(query_dir, 'embedding.pkl')
         except ValueError as e:
             print(str(e))
             return None
 
         print(f'Initializing {encoded_query_name}...')
-        return cls(encoded_query_file=query_file)
+        return cls(encoded_query_dir=query_dir)
 
     @staticmethod
-    def _load_embeddings(encoded_query_file):
-        df = pd.read_pickle(encoded_query_file)
+    def _load_embeddings(encoded_query_dir):
+        df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
         return dict(zip(df['text'].tolist(), df['embedding'].tolist()))
 
 
-class TCTColBERTQueryEncoder(QueryEncoder):
+class TctColBertQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_file: str = None, device: str = 'cpu'):
-        super().__init__(encoded_query_file)
+                 encoded_query_dir: str = None, device: str = 'cpu'):
+        super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
             self.model = BertModel.from_pretrained(encoder_dir)
@@ -107,11 +110,11 @@ class TCTColBERTQueryEncoder(QueryEncoder):
             return super().encode(query)
 
 
-class DPRQueryEncoder(QueryEncoder):
+class DprQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_file: str = None, device: str = 'cpu'):
-        super().__init__(encoded_query_file)
+                 encoded_query_dir: str = None, device: str = 'cpu'):
+        super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
             self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
@@ -134,8 +137,8 @@ class DPRQueryEncoder(QueryEncoder):
 class AnceQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_file: str = None, device: str = 'cpu'):
-        super().__init__(encoded_query_file)
+                 encoded_query_dir: str = None, device: str = 'cpu'):
+        super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
             self.model = AnceEncoder.from_pretrained(encoder_dir)
@@ -162,6 +165,53 @@ class AnceQueryEncoder(QueryEncoder):
             return super().encode(query)
 
 
+class AutoQueryEncoder(QueryEncoder):
+
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu',
+                 pooling: str = 'cls', l2_norm: bool = False):
+        super().__init__(encoded_query_dir)
+        if encoder_dir:
+            self.device = device
+            self.model = AutoModel.from_pretrained(encoder_dir)
+            self.model.to(self.device)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            self.has_model = True
+            self.pooling = pooling
+            self.l2_norm = l2_norm
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+
+    @staticmethod
+    def _mean_pooling(model_output, attention_mask):
+        token_embeddings = model_output[0]  # First element of model_output contains all token embeddings
+        input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
+        sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
+        sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
+        return sum_embeddings / sum_mask
+
+    def encode(self, query: str):
+        if self.has_model:
+            inputs = self.tokenizer(
+                query,
+                padding='longest',
+                truncation=True,
+                add_special_tokens=True,
+                return_tensors='pt'
+            )
+            inputs.to(self.device)
+            outputs = self.model(**inputs)
+            if self.pooling == "mean":
+                embeddings = self._mean_pooling(outputs, inputs['attention_mask']).detach().cpu().numpy()
+            else:
+                embeddings = outputs[0][:, 0, :].detach().cpu().numpy()
+            if self.l2_norm:
+                faiss.normalize_L2(embeddings)
+            return embeddings.flatten()
+        else:
+            return super().encode(query)
+
+
 @dataclass
 class DenseSearchResult:
     docid: str
@@ -178,6 +228,7 @@ class SimpleDenseSearcher:
     """
 
     def __init__(self, index_dir: str, query_encoder: QueryEncoder):
+        requires_faiss(self)
         self.query_encoder = query_encoder
         self.index, self.docids = self.load_index(index_dir)
         self.dimension = self.index.d

@@ -19,9 +19,11 @@ import os
 
 from tqdm import tqdm
 
-from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder, QueryEncoder, DPRQueryEncoder, AnceQueryEncoder
+from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, QueryEncoder, DprQueryEncoder,\
+    AnceQueryEncoder, AutoQueryEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
+
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -37,7 +39,7 @@ def define_dsearch_args(parser):
     parser.add_argument('--tokenizer', type=str, metavar='name or path',
                         required=False,
                         help="Path to a hgf tokenizer name or path")
-    parser.add_argument('--encoded-queries', type=str, metavar='path to query encoded queries file or queries name',
+    parser.add_argument('--encoded-queries', type=str, metavar='path to query encoded queries dir or queries name',
                         required=False,
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
     parser.add_argument('--device', type=str, metavar='device to run query encoder', required=False, default='cpu',
@@ -46,29 +48,35 @@ def define_dsearch_args(parser):
 
 def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device):
     encoded_queries_map = {
-        'msmarco-passage-dev-subset': 'msmarco-passage-dev-subset-tct_colbert',
-        'dpr-nq-dev': 'dpr-nq-dev-multi',
-        'dpr-nq-test': 'dpr-nq-test-multi',
-        'dpr-trivia-dev': 'dpr-trivia_qa-dev-multi',
-        'dpr-trivia-test': 'dpr-trivia_qa-test-multi',
-        'dpr-wq-test': 'dpr-wq-test-multi',
-        'dpr-squad-test': 'dpr-squad-test-multi',
-        'dpr-curated-test': 'dpr-curated_trec-test-multi'
+        'msmarco-passage-dev-subset': 'tct_colbert-msmarco-passage-dev-subset',
+        'dpr-nq-dev': 'dpr_multi-nq-dev',
+        'dpr-nq-test': 'dpr_multi-nq-test',
+        'dpr-trivia-dev': 'dpr_multi-trivia-dev',
+        'dpr-trivia-test': 'dpr_multi-trivia-test',
+        'dpr-wq-test': 'dpr_multi-wq-test',
+        'dpr-squad-test': 'dpr_multi-squad-test',
+        'dpr-curated-test': 'dpr_multi-curated-test'
     }
     if encoder:
         if 'dpr' in encoder:
-            return DPRQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
+            return DprQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'tct_colbert' in encoder:
-            return TCTColBERTQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
+            return TctColBertQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'ance' in encoder:
             return AnceQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
+        elif 'sentence' in encoder:
+            return AutoQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device,
+                                    pooling='mean', l2_norm=True)
+        else:
+            return AutoQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
+
     if encoded_queries:
         if os.path.exists(encoded_queries):
             return QueryEncoder(encoded_queries)
         return QueryEncoder.load_encoded_queries(encoded_queries)
     if topics_name in encoded_queries_map:
         return QueryEncoder.load_encoded_queries(encoded_queries_map[topics_name])
-    return None
+    raise ValueError(f'No encoded queries for topic {topics_name}')
 
 
 if __name__ == '__main__':
@@ -76,7 +84,7 @@ if __name__ == '__main__':
     parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                         help="Name of topics. Available: msmarco-passage-dev-subset.")
     parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
-    parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
+    parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.PYSERINI.value,
                         help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
     parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
                         help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
@@ -95,13 +103,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
-    queries = list(query_iterator)
     topics = query_iterator.topics
 
     query_encoder = init_query_encoder(args.encoder, args.tokenizer, args.topics, args.encoded_queries, args.device)
-    if not query_encoder:
-        print(f'No encoded queries for topic {args.topics}')
-        exit()
 
     if os.path.exists(args.index):
         # create searcher from index directory
@@ -130,7 +134,7 @@ if __name__ == '__main__':
     with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(queries)):
+        for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.batch_size <= 1 and args.threads <= 1:
                 hits = searcher.search(text, args.hits)
                 results = [(topic_id, hits)]
@@ -138,7 +142,7 @@ if __name__ == '__main__':
                 batch_topic_ids.append(str(topic_id))
                 batch_topics.append(text)
                 if (index + 1) % args.batch_size == 0 or \
-                        index == len(queries) - 1:
+                        index == len(topics.keys()) - 1:
                     results = searcher.batch_search(
                         batch_topics, batch_topic_ids, args.hits, args.threads)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]

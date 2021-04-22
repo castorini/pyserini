@@ -18,7 +18,8 @@ import argparse
 import os
 
 from pyserini.pyclass import autoclass
-from pyserini.search import SimpleSearcher
+from pyserini.analysis import JDefaultEnglishAnalyzer
+from pyserini.search import SimpleSearcher, JDisjunctionMaxQueryGenerator
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import OutputFormat, get_output_writer
@@ -75,6 +76,15 @@ def define_search_args(parser):
     parser.add_argument('--prcl.alpha', dest='alpha', type=float, default=0.5,
                         help='Alpha value for interpolation in pseudo relevance feedback.')
 
+    parser.add_argument('--fields', metavar="key=value", nargs='+',
+                        help='Fields to search with assigned float weights.')
+    parser.add_argument('--dismax', action='store_true', default=False,
+                        help='Use disjunction max queries when searching multiple fields.')
+    parser.add_argument('--dismax.tiebreaker', dest='tiebreaker', type=float, default=0.0,
+                        help='The tiebreaker weight to use in disjunction max queries.')
+
+    parser.add_argument('--stopwords', type=str, help='Path to file with customstopwords.')
+
 
 if __name__ == "__main__":
     JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
@@ -84,7 +94,7 @@ if __name__ == "__main__":
                         help="Name of topics. Available: robust04, robust05, core17, core18.")
     parser.add_argument('--hits', type=int, metavar='num',
                         required=False, default=1000, help="Number of hits.")
-    parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
+    parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.PYSERINI.value,
                         help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
     parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
                         help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
@@ -103,7 +113,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
-    queries = list(query_iterator)
     topics = query_iterator.topics
 
     if os.path.exists(args.index):
@@ -128,6 +137,21 @@ if __name__ == "__main__":
     if args.rm3:
         search_rankers.append('rm3')
         searcher.set_rm3()
+
+    fields = dict()
+    if args.fields:
+        fields = dict([pair.split('=') for pair in args.fields])
+        print(f'Searching over fields: {fields}')
+
+    query_generator = None
+    if args.dismax:
+        query_generator = JDisjunctionMaxQueryGenerator(args.tiebreaker)
+        print(f'Using dismax query generator with tiebreaker={args.tiebreaker}')
+
+    if args.stopwords:
+        analyzer = JDefaultEnglishAnalyzer.fromArguments('porter', False, args.stopwords)
+        searcher.set_analyzer(analyzer)
+        print(f'Using custom stopwords={args.stopwords}')
 
     # get re-ranker
     use_prcl = args.prcl and len(args.prcl) > 0 and args.alpha > 0
@@ -171,17 +195,19 @@ if __name__ == "__main__":
     with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(queries)):
+        for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.batch_size <= 1 and args.threads <= 1:
-                hits = searcher.search(text, args.hits)
+                hits = searcher.search(text, args.hits, query_generator=query_generator, fields=fields)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
                 batch_topics.append(text)
                 if (index + 1) % args.batch_size == 0 or \
-                        index == len(queries) - 1:
+                        index == len(topics.keys()) - 1:
                     results = searcher.batch_search(
-                        batch_topics, batch_topic_ids, args.hits, args.threads)
+                        batch_topics, batch_topic_ids, args.hits, args.threads,
+                        query_generator=query_generator, fields=fields
+                    )
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()

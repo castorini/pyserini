@@ -79,7 +79,7 @@ if __name__ == '__main__':
     run_parser.add_argument('--topics', type=str, metavar='topic_name', required=False,
                             help="Name of topics. Available: msmarco-passage-dev-subset.")
     run_parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
-    run_parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
+    run_parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.PYSERINI.value,
                             help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
     run_parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
                             help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
@@ -98,7 +98,6 @@ if __name__ == '__main__':
     args = parse_args(parser, commands)
 
     query_iterator = get_query_iterator(args.run.topics, TopicsFormat(args.run.topics_format))
-    queries = list(query_iterator)
     topics = query_iterator.topics
 
     query_encoder = init_query_encoder(args.dense.encoder,
@@ -106,9 +105,6 @@ if __name__ == '__main__':
                                        args.run.topics,
                                        args.dense.encoded_queries,
                                        args.dense.device)
-    if not query_encoder:
-        print(f'No encoded queries for topic {args.run.topics}')
-        exit()
 
     if os.path.exists(args.dense.index):
         # create searcher from index directory
@@ -142,7 +138,7 @@ if __name__ == '__main__':
     print(f'Running {args.run.topics} topics, saving to {output_path}...')
     tag = 'hybrid'
 
-    if args.max_passage:
+    if args.run.max_passage:
         output_writer = get_output_writer(output_path, OutputFormat(args.run.output_format), 'w',
                                           max_hits=args.run.max_passage_hits, tag=tag, topics=topics,
                                           use_max_passage=True, max_passage_delimiter=args.run.max_passage_delimiter)
@@ -153,7 +149,7 @@ if __name__ == '__main__':
     with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(queries)):
+        for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.run.batch_size <= 1 and args.run.threads <= 1:
                 hits = hsearcher.search(text, args.run.hits, args.fusion.alpha)
                 results = [(topic_id, hits)]
@@ -161,7 +157,7 @@ if __name__ == '__main__':
                 batch_topic_ids.append(str(topic_id))
                 batch_topics.append(text)
                 if (index + 1) % args.run.batch_size == 0 or \
-                        index == len(queries) - 1:
+                        index == len(topics.keys()) - 1:
                     results = hsearcher.batch_search(
                         batch_topics, batch_topic_ids, args.run.hits, args.run.threads, args.fusion.alpha)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]

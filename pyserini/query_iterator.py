@@ -7,11 +7,11 @@ from pyserini.search import get_topics
 
 @unique
 class TopicsFormat(Enum):
-    DEFAULT = 'default'
+    PYSERINI = 'default'
     KILT = 'kilt'
 
 
-class DefaultQueryIterator:
+class PyseriniQueryIterator:
 
     PREDEFINED_ORDER = {'msmarco-doc-dev',
                         'msmarco_doc_test',
@@ -37,7 +37,7 @@ class DefaultQueryIterator:
         if not topics:
             raise FileNotFoundError(f'Topic {topics_path} Not Found')
         order = None
-        if topics_path in DefaultQueryIterator.PREDEFINED_ORDER:
+        if topics_path in PyseriniQueryIterator.PREDEFINED_ORDER:
             print(f'Using pre-defined topic order for {topics_path}')
             # Lazy import:
             from pyserini.query_iterator_order_info import QUERY_IDS
@@ -50,39 +50,36 @@ class KiltQueryIterator:
     ENT_START_TOKEN = "[START_ENT]"
     ENT_END_TOKEN = "[END_ENT]"
 
-    def __init__(self, topics_path: str):
-        self.topics_path = topics_path
-        self.complete_iteration = False
-        self._topics = {}
-
-    @property
-    def topics(self):
-        if not self.complete_iteration:
-            raise ValueError('KILTQueryIterator has not been fully iterated through. `topics` property is incomplete.')
-        return self._topics
+    def __init__(self, topics: dict, order):
+        self.order = order
+        self.topics = topics
 
     def __iter__(self):
-        with open(self.topics_path, 'r') as f:
-            for line in f:
-                datapoint = json.loads(line)
-                self._topics[datapoint["id"]] = datapoint
-                query = (
-                    datapoint["input"]
-                    .replace(KiltQueryIterator.ENT_START_TOKEN, "")
-                    .replace(KiltQueryIterator.ENT_END_TOKEN, "")
-                    .strip()
-                )
-                yield datapoint["id"], query
-        self.complete_iteration = True
+        for id_ in self.order:
+            datapoint = self.topics[id_]
+            query = (
+                datapoint["input"]
+                .replace(KiltQueryIterator.ENT_START_TOKEN, "")
+                .replace(KiltQueryIterator.ENT_END_TOKEN, "")
+                .strip()
+            )
+            yield id_, query
 
     @classmethod
     def from_topics(cls, topics_path: str):
-        return cls(topics_path)
+        topics = {}
+        order = []
+        with open(topics_path, 'r') as f:
+            for line in f:
+                datapoint = json.loads(line)
+                topics[datapoint["id"]] = datapoint
+                order.append(datapoint["id"])
+        return cls(topics, order)
 
 
-def get_query_iterator(topics_path: str, query_format: TopicsFormat):
+def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
-        TopicsFormat.DEFAULT: DefaultQueryIterator,
+        TopicsFormat.PYSERINI: PyseriniQueryIterator,
         TopicsFormat.KILT: KiltQueryIterator,
     }
-    return mapping[query_format].from_topics(topics_path)
+    return mapping[topics_format].from_topics(topics_path)
