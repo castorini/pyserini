@@ -16,11 +16,12 @@
 
 """Integration tests for TCT-ColBERT model using on-the-fly query encoding."""
 
-import platform
 import os
 import socket
 import unittest
 from integrations.utils import clean_files, run_command, parse_score
+from pyserini.search import get_topics
+from pyserini.dsearch import QueryEncoder
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -49,7 +50,6 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
         # We get a small difference in scores on macOS vs. Linux, better way to check:
         self.assertAlmostEqual(score, 0.3350, delta=0.0001)
 
@@ -66,7 +66,6 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3345, places=4)
 
     def test_msmarco_passage_tct_colbert_bf_bm25_hybrid_otf(self):
@@ -85,7 +84,6 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3529, places=4)
 
     def test_msmarco_passage_tct_colbert_bf_d2q_hybrid_otf(self):
@@ -104,11 +102,16 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3647, places=4)
 
+    def test_msmarco_passage_tct_colbert_encoded_queries(self):
+        encoder = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-passage-dev-subset')
+        topics = get_topics('msmarco-passage-dev-subset')
+        for t in topics:
+            self.assertTrue(topics[t]['title'] in encoder.embedding)
+
     def test_msmarco_doc_tct_colbert_bf_otf(self):
-        output_file = 'test_run.msmarco-doc.passage.tct_colbert.txt'
+        output_file = 'test_run.msmarco-doc.passage.tct_colbert-otf.txt'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --index msmarco-doc-tct_colbert-bf \
@@ -125,11 +128,10 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @100")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3323, places=4)
 
     def test_msmarco_doc_tct_colbert_bf_bm25_hybrid_otf(self):
-        output_file = 'test_run.msmarco-doc.tct_colbert.bf.bm25.tsv'
+        output_file = 'test_run.msmarco-doc.tct_colbert.bf-otf.bm25.tsv'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
                                     --encoder castorini/tct_colbert-msmarco \
@@ -145,11 +147,10 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @100")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3701, places=4)
 
     def test_msmarco_doc_tct_colbert_bf_d2q_hybrid_otf(self):
-        output_file = 'test_run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv'
+        output_file = 'test_run.msmarco-doc.tct_colbert.bf-otf.doc2queryT5.tsv'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
                                     --encoder castorini/tct_colbert-msmarco \
@@ -165,8 +166,13 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @100")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3784, places=4)
+
+    def test_msmarco_doc_tct_colbert_encoded_queries(self):
+        encoder = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-doc-dev')
+        topics = get_topics('msmarco-doc-dev')
+        for t in topics:
+            self.assertTrue(topics[t]['title'] in encoder.embedding)
 
     def tearDown(self):
         clean_files(self.temp_files)

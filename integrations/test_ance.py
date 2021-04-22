@@ -20,7 +20,8 @@ import os
 import socket
 import unittest
 from integrations.utils import clean_files, run_command, parse_score
-
+from pyserini.search import get_topics
+from pyserini.dsearch import QueryEncoder
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
@@ -33,8 +34,8 @@ class TestSearchIntegration(unittest.TestCase):
             self.threads = 36
             self.batch_size = 144
 
-    def test_msmarco_passage_ance_bf(self):
-        output_file = 'test_run.msmarco-passage.ance.bf.tsv'
+    def test_msmarco_passage_ance_bf_otf(self):
+        output_file = 'test_run.msmarco-passage.ance.bf.otf.tsv'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-ance-bf \
@@ -48,11 +49,16 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3302, delta=0.0001)
 
-    def test_msmarco_doc_ance_bf(self):
-        output_file = 'test_run.msmarco-doc.passage.ance-maxp.txt '
+    def test_msmarco_passage_ance_encoded_queries(self):
+        encoder = QueryEncoder.load_encoded_queries('ance-msmarco-passage-dev-subset')
+        topics = get_topics('msmarco-passage-dev-subset')
+        for t in topics:
+            self.assertTrue(topics[t]['title'] in encoder.embedding)
+
+    def test_msmarco_doc_ance_bf_otf(self):
+        output_file = 'test_run.msmarco-doc.passage.ance-maxp.otf.txt '
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --index msmarco-doc-ance-maxp-bf \
@@ -69,13 +75,18 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @100")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
         # We get a small difference, 0.3794 on macOS.
         self.assertAlmostEqual(score, 0.3797, delta=0.0003)
 
-    def test_nq_test_ance_bf(self):
-        output_file = 'test_run.ance.nq-test.multi.bf.trec'
-        retrieval_file = 'test_run.ance.nq-test.multi.bf.json'
+    def test_msmarco_doc_ance_bf_encoded_queries(self):
+        encoder = QueryEncoder.load_encoded_queries('ance_maxp-msmarco-doc-dev')
+        topics = get_topics('maxp-msmarco-doc-dev')
+        for t in topics:
+            self.assertTrue(topics[t]['title'] in encoder.embedding)
+
+    def test_nq_test_ance_bf_otf(self):
+        output_file = 'test_run.ance.nq-test.multi.bf.otf.trec'
+        retrieval_file = 'test_run.ance.nq-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-nq-test \
                              --index wikipedia-ance-multi-bf \
@@ -95,9 +106,15 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8224, places=4)
 
-    def test_trivia_test_ance_bf(self):
-        output_file = 'test_run.ance.trivia-test.multi.bf.trec'
-        retrieval_file = 'test_run.ance.trivia-test.multi.bf.json'
+    def test_nq_test_ance_encoded_queries(self):
+        encoder = QueryEncoder.load_encoded_queries('dpr_multi-nq-test')
+        topics = get_topics('dpr-nq-test')
+        for t in topics:
+            self.assertTrue(topics[t]['title'] in encoder.embedding)
+
+    def test_trivia_test_ance_bf_otf(self):
+        output_file = 'test_run.ance.trivia-test.multi.bf.otf.trec'
+        retrieval_file = 'test_run.ance.trivia-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.dsearch --topics dpr-trivia-test \
                              --index wikipedia-ance-multi-bf \
@@ -116,6 +133,12 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8010, places=4)
+
+    def test_trivia_test_ance_encoded_queries(self):
+        encoder = QueryEncoder.load_encoded_queries('dpr_multi-trivia-test')
+        topics = get_topics('dpr-trivia-test')
+        for t in topics:
+            self.assertTrue(topics[t]['title'] in encoder.embedding)
 
     def tearDown(self):
         clean_files(self.temp_files)
