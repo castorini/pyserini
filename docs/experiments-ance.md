@@ -17,7 +17,7 @@ $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.ance.bf.tsv \
-                             --msmarco
+                             --output-format msmarco
 ```
 > _Optional_: replace `--encoded-queries` by `--encoder castorini/ance-msmarco-passage`
 > for on-the-fly query encoding.
@@ -53,7 +53,7 @@ $ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --hits 1000 \
                              --max-passage \
                              --max-passage-hits 100 \
-                             --msmarco \
+                             --output-format msmarco \
                              --batch-size 36 \
                              --threads 12
 ```

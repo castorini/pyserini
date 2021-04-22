@@ -43,7 +43,7 @@ class TestSearchIntegration(unittest.TestCase):
                              --batch-size {self.batch_size} \
                              --threads {self.threads} \
                              --output {output_file} \
-                             --msmarco'
+                             --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
@@ -67,7 +67,7 @@ class TestSearchIntegration(unittest.TestCase):
                              --hits 1000 \
                              --max-passage \
                              --max-passage-hits 100 \
-                             --msmarco \
+                             --output-format msmarco \
                              --batch-size {self.batch_size} \
                              --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'

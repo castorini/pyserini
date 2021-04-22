@@ -11,7 +11,7 @@ $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.sbert.bf.tsv \
-                             --msmarco
+                             --output-format msmarco
 ```
 > _Optional_: replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3`
 > for on-the-fly query encoding.
@@ -50,7 +50,7 @@ $ python -m pyserini.hsearch dense  --index msmarco-passage-sbert-bf \
                              run    --topics msmarco-passage-dev-subset \
                                     --output runs/run.msmarco-passage.sbert.bf.bm25.tsv \
                                     --batch-size 36 --threads 12 \
-                                    --msmarco
+                                    --output-format msmarco
 ```
 > _Optional_: replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3`
 > for on-the-fly query encoding.
