@@ -24,6 +24,5 @@ process = subprocess.Popen(cmd,
 stdout, stderr = process.communicate()
 if stderr:
     print(stderr.decode("utf-8"))
-else:
-    print('Results:')
-    print(stdout.decode("utf-8"))
+print('Results:')
+print(stdout.decode("utf-8"))
