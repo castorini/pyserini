@@ -22,7 +22,7 @@ from tqdm import tqdm
 
 from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, \
     QueryEncoder, DprQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
-from pyserini.query_iterator import QUERY_IDS, query_iterator
+from pyserini.query_iterator import query_iterator
 from pyserini.search import get_topics
 from pyserini.search.__main__ import write_result, write_result_max_passage
 
@@ -126,15 +126,10 @@ if __name__ == '__main__':
     print(f'Running {args.topics} topics, saving to {output_path}...')
     tag = 'Faiss'
 
-    order = None
-    if args.topics in QUERY_IDS:
-        print(f'Using pre-defined topic order for {args.topics}')
-        order = QUERY_IDS[args.topics]
-
     with open(output_path, 'w') as target_file:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, args.topics)))):
             if args.batch_size <= 1 and args.threads <= 1:
                 hits = searcher.search(text, args.hits)
                 results = [(topic_id, hits)]
