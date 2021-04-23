@@ -48,7 +48,6 @@ This is the configuration used to run our many regression tests.
 However, in most cases results have also been reproduced on macOS with the same dependency versions.
 Use other versions of the dependent packages at your own risk...
 
-### Notification for Windows
 Windows uses GBK character encoding by default, which makes the resource file reading in Anserini inconsistent with that in Linux/macOS.
 Manually set environment variable `set _JAVA_OPTIONS=-Dfile.encoding=UTF-8` to use `UTF-8` encoding.
 
