@@ -22,7 +22,7 @@ from pyserini.pyclass import autoclass
 from pyserini.analysis import JDefaultEnglishAnalyzer
 from pyserini.search import get_topics, SimpleSearcher, JSimpleSearcherResult, JDisjunctionMaxQueryGenerator
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
-from pyserini.query_iterator import QUERY_IDS, query_iterator
+from pyserini.query_iterator import query_iterator
 from tqdm import tqdm
 
 

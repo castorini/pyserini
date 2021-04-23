@@ -22,7 +22,7 @@ import sys
 from tqdm import tqdm
 
 from pyserini.dsearch import SimpleDenseSearcher
-from pyserini.query_iterator import QUERY_IDS, query_iterator
+from pyserini.query_iterator import query_iterator
 from pyserini.search import SimpleSearcher, get_topics
 from pyserini.hsearch import HybridSearcher
 
