@@ -142,6 +142,16 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_SQUAD_TEST)
     elif collection_name == 'dpr-curated-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_CURATED_TEST)
+    elif os.path.exists(collection_name):
+        t = {}
+        for line in open(collection_name).readlines():
+            topic, text = line.rstrip().split('\t')
+            try:
+                topic = int(topic)
+            except ValueError:
+                pass
+            t[topic]['title'] = text
+        return t
     else:
         return {}
     t = {}

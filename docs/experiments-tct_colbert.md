@@ -25,6 +25,7 @@ Dense retrieval with TCT-ColBERT, brute-force index:
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-bf \
+                             --encoded-queries tct_colbert-msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.tct_colbert.bf.tsv \
@@ -98,6 +99,7 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 
 ```bash
 $ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
+                                    --encoded-queries tct_colbert-msmarco-passage-dev-subset \
                              sparse --index msmarco-passage \
                              fusion --alpha 0.12 \
                              run    --topics msmarco-passage-dev-subset \
@@ -130,6 +132,7 @@ Hybrid retrieval with dense-sparse representations (with document expansion):
 
 ```bash
 $ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
+                                    --encoded-queries tct_colbert-msmarco-passage-dev-subset \
                              sparse --index msmarco-passage-expanded \
                              fusion --alpha 0.22 \
                              run    --topics msmarco-passage-dev-subset \
@@ -175,7 +178,7 @@ Dense retrieval using a brute force index:
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --index msmarco-doc-tct_colbert-bf \
-                             --encoder castorini/tct_colbert-msmarco \
+                             --encoded-queries tct_colbert-msmarco-doc-dev \
                              --output runs/run.msmarco-doc.passage.tct_colbert.txt \
                              --hits 1000 \
                              --max-passage \
@@ -184,6 +187,8 @@ $ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --batch-size 36 \
                              --threads 12
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco`
+> for on-the-fly query encoding.
 
 To compute the official metric MRR@100 using the official evaluation scripts:
 
@@ -209,7 +214,7 @@ Dense-sparse hybrid retrieval (without document expansion):
 
 ```bash
 $ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
-                                    --encoder castorini/tct_colbert-msmarco \
+                                    --encoded-queries tct_colbert-msmarco-doc-dev \
                              sparse --index msmarco-doc-per-passage \
                              fusion --alpha 0.25 \
                              run    --topics msmarco-doc-dev \
@@ -218,6 +223,8 @@ $ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
                                     --batch-size 36 --threads 12 \
                                     --msmarco
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco`
+> for on-the-fly query encoding.
 
 To evaluate:
 
@@ -240,7 +247,7 @@ Dense-sparse hybrid retrieval (with document expansion):
 
 ```bash
 $ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
-                                    --encoder castorini/tct_colbert-msmarco \
+                                    --encoded-queries tct_colbert-msmarco-doc-dev \
                              sparse --index msmarco-doc-expanded-per-passage \
                              fusion --alpha 0.32 \
                              run    --topics msmarco-doc-dev \
@@ -249,6 +256,8 @@ $ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
                                     --batch-size 36 --threads 12 \
                                     --msmarco
 ```
+> _Optional_: replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco`
+> for on-the-fly query encoding.
 
 To evaluate:
 
