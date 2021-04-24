@@ -145,7 +145,7 @@ if __name__ == '__main__':
     with open(output_path, 'w') as target_file:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, args.topics)))):
+        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, args.run.topics)))):
             if args.run.batch_size <= 1 and args.run.threads <= 1:
                 hits = hsearcher.search(text, args.run.hits, args.fusion.alpha)
                 results = [(topic_id, hits)]
