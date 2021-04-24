@@ -36,30 +36,12 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.tmp = f'{self.pyserini_root}/integrations/tmp{randint(0, 10000)}'
 
-        self.checker18 = SimpleSearcherScoreChecker(
-                index=os.path.join(self.anserini_root, 'indexes/lucene-index.core18.pos+docvectors+raw'),
-                topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.core18.txt'),
-                pyserini_topics='core18',
-                qrels=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.core18.txt'),
-                eval=f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
-
-
         if os.path.exists(self.tmp):
             shutil.rmtree(self.tmp)
         else:
             os.mkdir(self.tmp)
 
-        try:
-            if os.path.exists(f'{self.tmp}/core18') == False:
-                tar = tarfile.open(f"{self.pyserini_root}/integrations/core18.tar.gz", "r:gz")
-                tar.extractall(path=f'{self.tmp}')
-                tar.close()
-        except:
-            shutil.rmtree(f'{self.tmp}')
-            print(f'core18.tar.gz is not saved in {self.pyserini_root}/integrations')
-            raise
-
-        self.checker17 = SimpleSearcherScoreChecker(
+        self.core17_checker = SimpleSearcherScoreChecker(
             index=os.path.join(self.anserini_root, 'indexes/lucene-index.core17.pos+docvectors+raw'),
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.core17.txt'),
             pyserini_topics='core17',
@@ -76,7 +58,24 @@ class TestSearchIntegration(unittest.TestCase):
             print(f'core17.tar.gz is not saved in {self.pyserini_root}/integrations')
             raise
 
-        self.checkerrobust04 = SimpleSearcherScoreChecker(
+        self.core18_checker = SimpleSearcherScoreChecker(
+                index=os.path.join(self.anserini_root, 'indexes/lucene-index.core18.pos+docvectors+raw'),
+                topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.core18.txt'),
+                pyserini_topics='core18',
+                qrels=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.core18.txt'),
+                eval=f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
+
+        try:
+            if os.path.exists(f'{self.tmp}/core18') == False:
+                tar = tarfile.open(f"{self.pyserini_root}/integrations/core18.tar.gz", "r:gz")
+                tar.extractall(path=f'{self.tmp}')
+                tar.close()
+        except:
+            shutil.rmtree(f'{self.tmp}')
+            print(f'core18.tar.gz is not saved in {self.pyserini_root}/integrations')
+            raise
+
+        self.robust04_checker = SimpleSearcherScoreChecker(
             index=os.path.join(self.anserini_root, 'indexes/lucene-index.robust04.pos+docvectors+raw'),
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.robust04.txt'),
             pyserini_topics='robust04',
@@ -93,7 +92,7 @@ class TestSearchIntegration(unittest.TestCase):
             print(f'robust04.tar.gz is not saved in {self.pyserini_root}/integrations')
             raise
 
-        self.checkerrobust05 = SimpleSearcherScoreChecker(
+        self.robust05_checker = SimpleSearcherScoreChecker(
             index=os.path.join(self.anserini_root, 'indexes/lucene-index.robust05.pos+docvectors+raw'),
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.robust05.txt'),
             pyserini_topics='robust05',
@@ -117,9 +116,6 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertTrue(self.core17_checker.run('core17_bm25', '--bm25 --rm3', 0.2823))
 
     def test_core17_lr(self):
-        print(f'python {self.pyserini_root}/scripts/classifier_prf/cross_validate.py \
-                    --anserini {self.anserini_root} --run_file {self.tmp} --pyserini {self.pyserini_root} \
-                    --collection core17 --output {self.tmp}/core17_lr.txt --classifier lr ')
         os.system(f'python {self.pyserini_root}/scripts/classifier_prf/cross_validate.py \
                     --anserini {self.anserini_root} --run_file {self.tmp} --pyserini {self.pyserini_root} \
                     --collection core17 --output {self.tmp}/core17_lr.txt --classifier lr ')
