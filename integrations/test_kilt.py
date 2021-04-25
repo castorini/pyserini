@@ -59,7 +59,7 @@ class TestSearchIntegration(unittest.TestCase):
         cmd2 = f'python -m pyserini.eval.evaluate_kilt_retrieval {run_file} {topics_file} --ks 1,100'
         stdout, stderr = run_command(cmd2)
         score = parse_kilt_score(stdout, "Rprec")
-        # self.assertAlmostEqual(score, 0.3302, delta=0.0001)
+        self.assertAlmostEqual(score, 0.5, delta=0.0001)
 
     def tearDown(self):
         clean_files(self.temp_files)
