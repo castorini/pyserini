@@ -86,7 +86,7 @@ recall_100            	all	0.9033
 ```bash
 $ python -m pyserini.dsearch --topics dpr-nq-test \
                              --index wikipedia-ance-multi-bf \
-                             --encoded-queires ance_multi-nq-dev \
+                             --encoded-queires ance_multi-nq-test \
                              --output runs/run.ance.nq-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
