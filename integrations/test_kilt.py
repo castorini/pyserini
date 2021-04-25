@@ -19,9 +19,19 @@
 import os
 import socket
 import unittest
-from integrations.utils import clean_files, run_command, parse_score
+import re
+from integrations.utils import clean_files, run_command
 from pyserini.search import get_topics
 from pyserini.dsearch import QueryEncoder
+
+
+def parse_kilt_score(output, metric, digits=4):
+    pattern = re.compile(r"[0-1]\.[0-9]*")
+    for line in output.split('\n')[::-1]:
+        if metric in line:
+            score = float(pattern.search(line).group(0))
+            return round(score, digits)
+    return None
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -36,15 +46,20 @@ class TestSearchIntegration(unittest.TestCase):
             self.batch_size = 144
 
     def test_kilt_search(self):
-        output_file = 'test_run.nq-dev-kilt.jsonl'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search --topics integrations/resources/sample_kilt_topics/nq-dev-kilt.jsonl \
+        topics_file = "integrations/resources/sample_kilt_topics/nq-dev-kilt.jsonl"
+        run_file = 'test_run.nq-dev-kilt.jsonl'
+        self.temp_files.append(run_file)
+        cmd1 = f'python -m pyserini.search --topics {topics_file} \
                              --topics-format kilt \
                              --index wikipedia-kilt-doc \
-                             --output {output_file} \
+                             --output {run_file} \
                              --output-format kilt'
         status = os.system(cmd1)
         self.assertEqual(status, 0)
+        cmd2 = f'python -m pyserini.eval.evaluate_kilt_retrieval {run_file} {topics_file} --ks 1,100'
+        stdout, stderr = run_command(cmd2)
+        score = parse_kilt_score(stdout, "Rprec")
+        # self.assertAlmostEqual(score, 0.3302, delta=0.0001)
 
     def tearDown(self):
         clean_files(self.temp_files)
