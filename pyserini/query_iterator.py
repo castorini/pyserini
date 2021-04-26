@@ -19,6 +19,9 @@ from enum import Enum, unique
 from pathlib import Path
 
 from pyserini.search import get_topics
+from pyserini.util import download_url, get_cache_home
+from pyserini.external_query_info import KILT_QUERY_INFO
+from urllib.error import HTTPError, URLError
 
 
 @unique
@@ -114,12 +117,31 @@ class KiltQueryIterator(QueryIterator):
     def from_topics(cls, topics_path: str):
         topics = {}
         order = []
+        if not os.path.exists(topics_path):
+            # Download if necessary:
+            topics_path = cls.download_kilt_topics(topics_path)
         with open(topics_path, 'r') as f:
             for line in f:
                 datapoint = json.loads(line)
                 topics[datapoint["id"]] = datapoint
                 order.append(datapoint["id"])
         return cls(topics, order)
+
+    @classmethod
+    def download_kilt_topics(cls, task: str, force=False):
+        if task not in KILT_QUERY_INFO:
+            raise ValueError(f'Unrecognized query name {task}')
+        task = KILT_QUERY_INFO[task]
+        md5 = task['md5']
+        save_dir = os.path.join(get_cache_home(), 'queries')
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir)
+        for url in task['urls']:
+            try:
+                return download_url(url, save_dir, force=force, md5=md5)
+            except (HTTPError, URLError) as e:
+                print(f'Unable to download encoded query at {url}, trying next URL...')
+        raise ValueError(f'Unable to download encoded query at any known URLs.')
 
 
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
