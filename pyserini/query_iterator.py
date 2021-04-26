@@ -16,6 +16,7 @@ import os
 import json
 from abc import ABC, abstractmethod
 from enum import Enum, unique
+from pathlib import Path
 
 from pyserini.search import get_topics
 
@@ -53,8 +54,11 @@ class QueryIterator(ABC):
     @staticmethod
     def get_predefined_order(topics_path: str):
         order = None
-        if topics_path in QueryIterator.PREDEFINED_ORDER:
-            print(f'Using pre-defined topic order for {topics_path}')
+        normalized_path = Path(topics_path).stem  # get filename w/o extension
+        normalized_path = normalized_path.replace('_', '-')
+
+        if normalized_path in QueryIterator.PREDEFINED_ORDER:
+            print(f'Using pre-defined topic order for {normalized_path}')
             # Lazy import:
             from pyserini.query_iterator_order_info import QUERY_IDS
             order = QUERY_IDS[topics_path]
