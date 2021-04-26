@@ -6,6 +6,9 @@ import pprint
 import json
 from collections import defaultdict, OrderedDict
 
+import os
+from pyserini.query_iterator import KiltQueryIterator
+
 
 ##########################################################################################
 # Replaced:
@@ -363,4 +366,12 @@ if __name__ == "__main__":
     args.ks = [int(k) for k in args.ks.split(",")]
     args.rank_keys = [rank_key for rank_key in args.rank_keys.split(",")]
 
-    evaluate(args.gold, args.guess, args.ks, args.rank_keys)
+    ##########################################################################################
+    # Pyserini change:
+    # Download gold file if necessary
+    gold = args.gold
+    if not os.path.exists(args.gold):
+        gold = KiltQueryIterator.download_kilt_topics(gold)
+    ##########################################################################################
+
+    evaluate(gold, args.guess, args.ks, args.rank_keys)
