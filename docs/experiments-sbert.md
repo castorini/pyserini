@@ -40,7 +40,7 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 - dense retrieval with SBERT, brute force index.
 - sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
 
-```bas
+```bash
 $ python -m pyserini.hsearch dense  --index msmarco-passage-sbert-bf \
                                     --encoded-queries sbert-msmarco-passage-dev-subset \
                              sparse --index msmarco-passage \
