@@ -1,6 +1,6 @@
 # Pyserini: Reproducing DistilBERT KD Results
 
-This guide provides instructions to reproduce the TCT-ColBERT dense retrieval model on the MS MARCO passage ranking task, described in the following paper:
+This guide provides instructions to reproduce the DistilBERT KD dense retrieval model on the MS MARCO passage ranking task, described in the following paper:
 
 > Sebastian Hofstätter, Sophia Althammer, Michael Schröder, Mete Sertkan, and Allan Hanbury. [Improving Efficient Neural Ranking Models with Cross-Architecture Knowledge Distillation
 .](https://arxiv.org/abs/2010.02666) arXiv:2010.02666, October 2020. 
