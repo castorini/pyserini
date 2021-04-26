@@ -46,14 +46,15 @@ class TestSearchIntegration(unittest.TestCase):
             self.batch_size = 144
 
     def test_kilt_search(self):
-        topics_file = "integrations/resources/sample_kilt_topics/nq-dev-kilt.jsonl"
         run_file = 'test_run.nq-dev-kilt.jsonl'
         self.temp_files.append(run_file)
         cmd1 = f'python -m pyserini.search --topics fever-dev-kilt \
                              --topics-format kilt \
                              --index wikipedia-kilt-doc \
                              --output {run_file} \
-                             --output-format kilt'
+                             --output-format kilt \
+                             --threads {self.threads} \
+                             --batch-size {self.batch_size}'
         status = os.system(cmd1)
         self.assertEqual(status, 0)
         cmd2 = f'python -m pyserini.eval.evaluate_kilt_retrieval {run_file} fever-dev-kilt --ks 1,100'
