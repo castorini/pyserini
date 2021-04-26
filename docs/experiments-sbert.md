@@ -1,6 +1,6 @@
 # Pyserini: Reproducing SBERT Results
 
-This guide provides instructions to reproduce the SBERT dense retrieval models for MS MARCO (v3) described [here](https://github.com/UKPLab/sentence-transformers/blob/master/docs/pretrained-models/msmarco-v3.md).
+This guide provides instructions to reproduce the SBERT dense retrieval models for MS MARCO passage ranking (v3) described [here](https://github.com/UKPLab/sentence-transformers/blob/master/docs/pretrained-models/msmarco-v3.md).
 
 Dense retrieval, brute-force index:
 
