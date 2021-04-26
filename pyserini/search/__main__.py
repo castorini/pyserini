@@ -184,13 +184,11 @@ if __name__ == "__main__":
     print(f'Running {args.topics} topics, saving to {output_path}...')
     tag = output_path[:-4] if args.output is None else 'Anserini'
 
-    if args.max_passage:
-        output_writer = get_output_writer(output_path, OutputFormat(args.output_format), 'w',
-                                          max_hits=args.max_passage_hits, tag=tag, topics=topics,
-                                          use_max_passage=True, max_passage_delimiter=args.max_passage_delimiter)
-    else:
-        output_writer = get_output_writer(output_path, OutputFormat(args.output_format), 'w',
-                                          max_hits=args.hits, tag=tag, topics=topics)
+    output_writer = get_output_writer(output_path, OutputFormat(args.output_format), 'w',
+                                      max_hits=args.hits, tag=tag, topics=topics,
+                                      use_max_passage=args.max_passage,
+                                      max_passage_delimiter=args.max_passage_delimiter,
+                                      max_passage_hits=args.max_passage_hits)
 
     with output_writer:
         batch_topics = list()
