@@ -18,26 +18,26 @@ class OutputFormat(Enum):
 class OutputWriter(ABC):
 
     def __init__(self, file_path: str, mode: str = 'w',
-                 max_hits: int = float('inf'), tag: str = None, topics: dict = None,
-                 use_max_passage: bool = False, max_passage_delimiter: str = None):
+                 max_hits: int = 1000, tag: str = None, topics: dict = None,
+                 use_max_passage: bool = False, max_passage_delimiter: str = None, max_passage_hits: int = 100):
         self.file_path = file_path
         self.mode = mode
-        self.max_hits = max_hits
         self.tag = tag
         self.topics = topics
         self.use_max_passage = use_max_passage
-        self.max_passage_delimiter = max_passage_delimiter
-        self.file = None
+        self.max_passage_delimiter = max_passage_delimiter if use_max_passage else None
+        self.max_hits = max_passage_hits if use_max_passage else max_hits
+        self._file = None
 
     def __enter__(self):
         dirname = os.path.dirname(self.file_path)
         if dirname:
             os.makedirs(dirname, exist_ok=True)
-        self.file = open(self.file_path, self.mode)
+        self._file = open(self.file_path, self.mode)
         return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
-        self.file.close()
+        self._file.close()
 
     def hits_iterator(self, hits: List[JSimpleSearcherResult]):
         unique_docs = set()
@@ -67,13 +67,13 @@ class OutputWriter(ABC):
 class TrecWriter(OutputWriter):
     def write(self, topic: str, hits: List[JSimpleSearcherResult]):
         for docid, rank, score, _ in self.hits_iterator(hits):
-            self.file.write(f'{topic} Q0 {docid} {rank} {score:.6f} {self.tag}\n')
+            self._file.write(f'{topic} Q0 {docid} {rank} {score:.6f} {self.tag}\n')
 
 
 class MsMarcoWriter(OutputWriter):
     def write(self, topic: str, hits: List[JSimpleSearcherResult]):
         for docid, rank, score, _ in self.hits_iterator(hits):
-            self.file.write(f'{topic}\t{docid}\t{rank}\n')
+            self._file.write(f'{topic}\t{docid}\t{rank}\n')
 
 
 class KiltWriter(OutputWriter):
@@ -83,8 +83,8 @@ class KiltWriter(OutputWriter):
         for docid, rank, score, _ in self.hits_iterator(hits):
             provenance.append({"wikipedia_id": docid})
         datapoint["output"] = [{"provenance": provenance}]
-        json.dump(datapoint, self.file)
-        self.file.write('\n')
+        json.dump(datapoint, self._file)
+        self._file.write('\n')
 
 
 def get_output_writer(file_path: str, output_format: OutputFormat, *args, **kwargs) -> OutputWriter:
