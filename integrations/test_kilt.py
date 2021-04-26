@@ -49,17 +49,17 @@ class TestSearchIntegration(unittest.TestCase):
         topics_file = "integrations/resources/sample_kilt_topics/nq-dev-kilt.jsonl"
         run_file = 'test_run.nq-dev-kilt.jsonl'
         self.temp_files.append(run_file)
-        cmd1 = f'python -m pyserini.search --topics {topics_file} \
+        cmd1 = f'python -m pyserini.search --topics fever-dev-kilt \
                              --topics-format kilt \
                              --index wikipedia-kilt-doc \
                              --output {run_file} \
                              --output-format kilt'
         status = os.system(cmd1)
         self.assertEqual(status, 0)
-        cmd2 = f'python -m pyserini.eval.evaluate_kilt_retrieval {run_file} {topics_file} --ks 1,100'
+        cmd2 = f'python -m pyserini.eval.evaluate_kilt_retrieval {run_file} fever-dev-kilt --ks 1,100'
         stdout, stderr = run_command(cmd2)
         score = parse_kilt_score(stdout, "Rprec")
-        self.assertAlmostEqual(score, 0.5, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3821, delta=0.0001)
 
     def tearDown(self):
         clean_files(self.temp_files)
