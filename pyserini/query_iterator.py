@@ -14,6 +14,7 @@
 
 import os
 import json
+from abc import ABC, abstractmethod
 from enum import Enum, unique
 
 from pyserini.search import get_topics
@@ -21,63 +22,89 @@ from pyserini.search import get_topics
 
 @unique
 class TopicsFormat(Enum):
-    JSON = 'json'
+    DEFAULT = 'default'
     KILT = 'kilt'
 
 
-class JsonQueryIterator:
+class QueryIterator(ABC):
 
     PREDEFINED_ORDER = {'msmarco-doc-dev',
-                        'msmarco_doc_test',
+                        'msmarco-doc-test',
                         'msmarco-passage-dev-subset',
-                        'msmarco_passage_test_subset'}
+                        'msmarco-passage-test-subset'}
 
     def __init__(self, topics: dict, order: list = None):
-        self.order = order if order else sorted(topics.keys())
+        self.order = order if order else topics.keys()
         self.topics = topics
+
+    @abstractmethod
+    def get_query(self, id_):
+        raise NotImplementedError()
+
+    @classmethod
+    @abstractmethod
+    def from_topics(cls, topics_path: str):
+        raise NotImplementedError()
 
     def __iter__(self):
         for id_ in self.order:
-            yield id_, self.topics[id_].get('title')
+            yield id_, self.get_query(id_)
 
-    @classmethod
-    def from_topics(cls, topics_path: str):
-        if os.path.exists(topics_path):
-            f = open(topics_path, 'r')
-            topics = json.load(f)
-            f.close()
-        else:
-            topics = get_topics(topics_path)
-        if not topics:
-            raise FileNotFoundError(f'Topic {topics_path} Not Found')
+    @staticmethod
+    def get_predefined_order(topics_path: str):
         order = None
-        if topics_path in JsonQueryIterator.PREDEFINED_ORDER:
+        if topics_path in QueryIterator.PREDEFINED_ORDER:
             print(f'Using pre-defined topic order for {topics_path}')
             # Lazy import:
             from pyserini.query_iterator_order_info import QUERY_IDS
             order = QUERY_IDS[topics_path]
+        return order
+
+
+class DefaultQueryIterator(QueryIterator):
+
+    def get_query(self, id_):
+        return self.topics[id_].get('title')
+
+    @classmethod
+    def from_topics(cls, topics_path: str):
+        if os.path.exists(topics_path):
+            with open(topics_path, 'r') as f:
+                if topics_path.endswith('.json'):
+                    topics = json.load(f)
+                elif topics_path.endswith('.tsv'):
+                    topics = {}
+                    for line in f:
+                        topic, text = line.rstrip().split('\t')
+                        try:
+                            topic = int(topic)
+                        except ValueError:
+                            pass
+                        topics[topic] = {'title': text}
+                else:
+                    raise NotImplementedError(f"Not sure how to parse {topics_path}. Please specify the file extension.")
+        else:
+            topics = get_topics(topics_path)
+        if not topics:
+            raise FileNotFoundError(f'Topic {topics_path} Not Found')
+        order = QueryIterator.get_predefined_order(topics_path)
         return cls(topics, order)
 
 
-class KiltQueryIterator:
+class KiltQueryIterator(QueryIterator):
 
     ENT_START_TOKEN = "[START_ENT]"
     ENT_END_TOKEN = "[END_ENT]"
 
-    def __init__(self, topics: dict, order: list):
-        self.order = order
-        self.topics = topics
-
-    def __iter__(self):
-        for id_ in self.order:
-            datapoint = self.topics[id_]
-            query = (
-                datapoint["input"]
-                .replace(KiltQueryIterator.ENT_START_TOKEN, "")
-                .replace(KiltQueryIterator.ENT_END_TOKEN, "")
-                .strip()
-            )
-            yield id_, query
+    def get_query(self, id_):
+        datapoint = self.topics[id_]
+        query = (
+            datapoint["input"]
+            .replace(KiltQueryIterator.ENT_START_TOKEN, "")
+            .replace(KiltQueryIterator.ENT_END_TOKEN, "")
+            .strip()
+        )
+        return query
 
     @classmethod
     def from_topics(cls, topics_path: str):
@@ -93,8 +120,7 @@ class KiltQueryIterator:
 
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
-        TopicsFormat.JSON: JsonQueryIterator,
+        TopicsFormat.DEFAULT: DefaultQueryIterator,
         TopicsFormat.KILT: KiltQueryIterator,
     }
     return mapping[topics_format].from_topics(topics_path)
-  

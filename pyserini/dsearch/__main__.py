@@ -84,7 +84,7 @@ if __name__ == '__main__':
     parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                         help="Name of topics. Available: msmarco-passage-dev-subset.")
     parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
-    parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.JSON.value,
+    parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
                         help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
     parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
                         help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
