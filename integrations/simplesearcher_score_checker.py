@@ -14,17 +14,22 @@
 # limitations under the License.
 #
 
+import filecmp
 import os
 from typing import List
+from integrations.utils import run_command, parse_score
 
-import hashlib
 
-
-class RunSimpleSearcher:
-    def __init__(self, index: str, topics: str):
+class SimpleSearcherScoreChecker:
+    def __init__(self, index: str, topics: str, pyserini_topics: str, qrels: str, eval:str):
         self.index_path = index
         self.topics = topics
+        self.qrels = qrels
+        self.pyserini_topics = pyserini_topics
+
         self.pyserini_base_cmd = 'python -m pyserini.search'
+
+        self.eval_base_cmd = eval
 
     @staticmethod
     def _cleanup(files: List[str]):
@@ -32,21 +37,28 @@ class RunSimpleSearcher:
             if os.path.exists(file):
                 os.remove(file)
 
-    def run(self, runtag: str, extras: str) -> str:
+    def run(self, runtag: str, pyserini_extras: str, actualscore: float):
         print('-------------------------')
         print(f'Running {runtag}:')
         print('-------------------------')
 
-        output = f'verify.pyserini.{runtag}.txt'
+        pyserini_output = f'verify.pyserini.{runtag}.txt'
+
         pyserini_cmd = f'{self.pyserini_base_cmd} --index {self.index_path} ' \
-            + f'--topics {self.topics} --output {output} {extras}'
+                       + f'--topics {self.pyserini_topics} --output {pyserini_output} {pyserini_extras}'
 
         status = os.system(pyserini_cmd)
         if not status == 0:
-            self._cleanup([output])
-            return ""
+            return False
 
-        with open(output, 'rb') as f:
-            md5 = hashlib.md5(f.read()).hexdigest()
-        self._cleanup([output])
-        return md5
+        eval_cmd = f'{self.eval_base_cmd} {self.qrels} {pyserini_output}'
+        status = os.system(eval_cmd)
+        if not status == 0:
+            return False
+        stdout, stderr = run_command(eval_cmd)
+        score = parse_score(stdout, "map")
+        if actualscore !=score:
+            return False
+        return True
+
+
