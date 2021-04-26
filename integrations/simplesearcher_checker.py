@@ -19,7 +19,7 @@ import os
 from typing import List
 
 
-class SimpleSearcherChecker:
+class SimpleSercherAnseriniMatchChecker:
     def __init__(self, anserini_root: str, index: str, topics: str, pyserini_topics: str, qrels: str):
         self.anserini_root = anserini_root
         self.index_path = index
@@ -29,7 +29,7 @@ class SimpleSearcherChecker:
 
         self.anserini_base_cmd = os.path.join(self.anserini_root,
                                               'target/appassembler/bin/SearchCollection -topicreader Trec')
-        self.pyserini_base_cmd = 'python3 -m pyserini.search'
+        self.pyserini_base_cmd = 'python -m pyserini.search'
 
         self.eval_base_cmd = 'tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30'
 

@@ -97,3 +97,4 @@ def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
         TopicsFormat.KILT: KiltQueryIterator,
     }
     return mapping[topics_format].from_topics(topics_path)
+  
