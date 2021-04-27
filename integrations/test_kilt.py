@@ -14,14 +14,24 @@
 # limitations under the License.
 #
 
-"""Integration tests for ANCE model using on-the-fly query encoding."""
+"""Integration tests for KILT integration."""
 
 import os
 import socket
 import unittest
-from integrations.utils import clean_files, run_command, parse_score
+import re
+from integrations.utils import clean_files, run_command
 from pyserini.search import get_topics
 from pyserini.dsearch import QueryEncoder
+
+
+def parse_kilt_score(output, metric, digits=4):
+    pattern = re.compile(r"[0-1]\.[0-9]*")
+    for line in output.split('\n')[::-1]:
+        if metric in line:
+            score = float(pattern.search(line).group(0))
+            return round(score, digits)
+    return None
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -35,29 +45,22 @@ class TestSearchIntegration(unittest.TestCase):
             self.threads = 36
             self.batch_size = 144
 
-    def test_msmarco_passage_sbert_bf_otf(self):
-        output_file = 'test_run.msmarco-passage.sbert.bf.otf.tsv'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-                             --index msmarco-passage-sbert-bf \
-                             --encoder sentence-transformers/msmarco-distilbert-base-v3 \
-                             --batch-size {self.batch_size} \
+    def test_kilt_search(self):
+        run_file = 'test_run.fever-dev-kilt.jsonl'
+        self.temp_files.append(run_file)
+        cmd1 = f'python -m pyserini.search --topics fever-dev-kilt \
+                             --topics-format kilt \
+                             --index wikipedia-kilt-doc \
+                             --output {run_file} \
+                             --output-format kilt \
                              --threads {self.threads} \
-                             --output {output_file} \
-                             --output-format msmarco'
-        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
+                             --batch-size {self.batch_size}'
         status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3314, delta=0.0001)
-
-    def test_msmarco_passage_sbert_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('sbert-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+        cmd2 = f'python -m pyserini.eval.evaluate_kilt_retrieval {run_file} fever-dev-kilt --ks 1,100'
+        stdout, stderr = run_command(cmd2)
+        score = parse_kilt_score(stdout, "Rprec")
+        self.assertAlmostEqual(score, 0.3821, delta=0.0001)
 
     def tearDown(self):
         clean_files(self.temp_files)

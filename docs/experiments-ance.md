@@ -19,7 +19,7 @@ $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.ance.bf.tsv \
-                             --msmarco
+                             --output-format msmarco
 ```
 
 The option `--encoded-queries` specifies the use of encoded queries (i.e., queries that have already been converted into dense vectors and cached).
@@ -56,7 +56,7 @@ $ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --hits 1000 \
                              --max-passage \
                              --max-passage-hits 100 \
-                             --msmarco \
+                             --output-format msmarco \
                              --batch-size 36 \
                              --threads 12
 ```
