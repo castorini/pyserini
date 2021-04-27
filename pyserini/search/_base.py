@@ -143,15 +143,7 @@ def get_topics(collection_name):
     elif collection_name == 'dpr-curated-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_CURATED_TEST)
     elif os.path.exists(collection_name):
-        t = {}
-        for line in open(collection_name).readlines():
-            topic, text = line.rstrip().split('\t')
-            try:
-                topic = int(topic)
-            except ValueError:
-                pass
-            t[topic]['title'] = text
-        return t
+        topics = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', collection_name)
     else:
         return {}
     t = {}
