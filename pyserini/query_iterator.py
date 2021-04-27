@@ -38,7 +38,7 @@ class QueryIterator(ABC):
                         'msmarco-passage-test-subset'}
 
     def __init__(self, topics: dict, order: list = None):
-        self.order = order if order else topics.keys()
+        self.order = order if order else sorted(topics.keys())
         self.topics = topics
 
     @abstractmethod

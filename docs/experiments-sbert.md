@@ -1,8 +1,8 @@
-# Pyserini: Reproducing SBERT MS MARCO Results
+# Pyserini: Reproducing SBERT Results
 
-## Dense Retrieval
+This guide provides instructions to reproduce the SBERT dense retrieval models for MS MARCO passage ranking (v3) described [here](https://github.com/UKPLab/sentence-transformers/blob/master/docs/pretrained-models/msmarco-v3.md).
 
-Dense retrieval with SBERT, brute-force index:
+Dense retrieval, brute-force index:
 
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
@@ -13,8 +13,8 @@ $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --output runs/run.msmarco-passage.sbert.bf.tsv \
                              --msmarco
 ```
-> _Optional_: replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3`
-> for on-the-fly query encoding.
+
+Replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -36,13 +36,11 @@ map                     all     0.3372
 recall_1000             all     0.9558
 ```
 
-## Hybrid Dense-Sparse Retrieval
-
 Hybrid retrieval with dense-sparse representations (without document expansion):
 - dense retrieval with SBERT, brute force index.
 - sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
 
-```bas
+```bash
 $ python -m pyserini.hsearch dense  --index msmarco-passage-sbert-bf \
                                     --encoded-queries sbert-msmarco-passage-dev-subset \
                              sparse --index msmarco-passage \
@@ -52,8 +50,8 @@ $ python -m pyserini.hsearch dense  --index msmarco-passage-sbert-bf \
                                     --batch-size 36 --threads 12 \
                                     --msmarco
 ```
-> _Optional_: replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3`
-> for on-the-fly query encoding.
+
+Replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -73,3 +71,4 @@ recall_1000             all     0.9659
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-02 (commit [`8dcf99`](https://github.com/castorini/pyserini/commit/8dcf99982a7bfd447ce9182ff219a9dad2ddd1f2))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-26 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
