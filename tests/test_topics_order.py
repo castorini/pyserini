@@ -17,8 +17,8 @@
 import unittest
 import os
 import shutil
-from pyserini.search import get_topics
-from pyserini.query_iterator import query_iterator
+
+from pyserini.query_iterator import DefaultQueryIterator
 
 
 class TestEncodedQueries(unittest.TestCase):
@@ -27,15 +27,15 @@ class TestEncodedQueries(unittest.TestCase):
         pass
 
     def test_default_order(self):
-        topics = get_topics('core17')
-        topic_ids, _ = zip(*list(query_iterator(topics, 'core17')))
+        query_iterator = DefaultQueryIterator.from_topics('core17')
+        topic_ids, _ = zip(*list(query_iterator))
         self.assertTrue(topic_ids[0], 307)
         self.assertTrue(topic_ids[1], 310)
         self.assertTrue(topic_ids[-1], 690)
 
     def test_specified_order(self):
-        topics = get_topics('msmarco-passage-dev-subset')
-        topic_ids, _ = zip(*list(query_iterator(topics, 'msmarco-passage-dev-subset')))
+        query_iterator = DefaultQueryIterator.from_topics('msmarco-passage-dev-subset')
+        topic_ids, _ = zip(*list(query_iterator))
         self.assertTrue(topic_ids[0], 1048585)
         self.assertTrue(topic_ids[1], 2)
         self.assertTrue(topic_ids[-1], 524332)
