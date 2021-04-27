@@ -5,7 +5,9 @@ This guide provides instructions to reproduce the TCT-ColBERT dense retrieval mo
 > Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [Distilling Dense Representations for Ranking using Tightly-Coupled Teachers.](https://arxiv.org/abs/2010.11386) arXiv:2010.11386, October 2020. 
 
 You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
-These experiments were performed on a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`, `transformers==4.0.0`, `torch==1.7.1`, and `tensorflow==2.4.0`; results have also been reproduced on macOS 10.14.6 with the same Python dependency versions.
+Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
+However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
+Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
 ## MS MARCO Passage Ranking
 
@@ -44,11 +46,6 @@ MRR @10: 0.3350
 QueriesRanked: 6980
 #####################
 ```
-
-Note that we have observed minor differences in MRR@10 depending on the source of the query representations (see below; pre-computed vs. on-the-fly encoding on the CPU vs. on-the-fly encoding on the GPU).
-We have also noticed differences in MRR@10 between Linux and macOS.
-However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
-Thus, while the MS MARCO scoring scripts provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
 We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10. 
 For that we first need to convert runs and qrels files to the TREC format:
@@ -187,8 +184,8 @@ $ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --batch-size 36 \
                              --threads 12
 ```
-> _Optional_: replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco`
-> for on-the-fly query encoding.
+
+Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-the-fly query encoding.
 
 To compute the official metric MRR@100 using the official evaluation scripts:
 
@@ -223,8 +220,8 @@ $ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
                                     --batch-size 36 --threads 12 \
                                     --msmarco
 ```
-> _Optional_: replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco`
-> for on-the-fly query encoding.
+
+Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -256,8 +253,8 @@ $ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
                                     --batch-size 36 --threads 12 \
                                     --msmarco
 ```
-> _Optional_: replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco`
-> for on-the-fly query encoding.
+
+Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -277,3 +274,4 @@ recall_100            	all	0.9081
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-25 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))

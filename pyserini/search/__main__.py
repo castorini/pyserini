@@ -22,7 +22,7 @@ from pyserini.pyclass import autoclass
 from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
 from pyserini.search import get_topics, get_topics_with_reader, SimpleSearcher, JSimpleSearcherResult, JDisjunctionMaxQueryGenerator
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
-from pyserini.query_iterator import QUERY_IDS, query_iterator
+from pyserini.query_iterator import query_iterator
 from tqdm import tqdm
 
 
@@ -236,14 +236,10 @@ if __name__ == "__main__":
     print(f'Running {args.topics} topics, saving to {output_path}...')
     tag = output_path[:-4] if args.output is None else 'Anserini'
 
-    order = None
-    if args.topics in QUERY_IDS:
-        order = QUERY_IDS[args.topics]
-
     with open(output_path, 'w') as target_file:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, args.topics)))):
             if args.batch_size <= 1 and args.threads <= 1:
                 hits = searcher.search(text, args.hits, query_generator=query_generator, fields=fields)
                 results = [(topic_id, hits)]

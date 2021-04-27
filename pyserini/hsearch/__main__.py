@@ -22,7 +22,7 @@ import sys
 from tqdm import tqdm
 
 from pyserini.dsearch import SimpleDenseSearcher
-from pyserini.query_iterator import QUERY_IDS, query_iterator
+from pyserini.query_iterator import query_iterator
 from pyserini.search import SimpleSearcher, get_topics
 from pyserini.hsearch import HybridSearcher
 
@@ -142,15 +142,10 @@ if __name__ == '__main__':
     print(f'Running {args.run.topics} topics, saving to {output_path}...')
     tag = 'hybrid'
 
-    order = None
-    if args.run.topics in QUERY_IDS:
-        print(f'Using pre-defined topic order for {args.run.topics}')
-        order = QUERY_IDS[args.run.topics]
-
     with open(output_path, 'w') as target_file:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, args.run.topics)))):
             if args.run.batch_size <= 1 and args.run.threads <= 1:
                 hits = hsearcher.search(text, args.run.hits, args.fusion.alpha)
                 results = [(topic_id, hits)]

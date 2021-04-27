@@ -1,8 +1,16 @@
 # Pyserini: Reproducing DistilBERT KD Results
 
-## Dense Retrieval
+This guide provides instructions to reproduce the DistilBERT KD dense retrieval model on the MS MARCO passage ranking task, described in the following paper:
 
-Dense retrieval with DistilBERT KD, brute-force index:
+> Sebastian Hofstätter, Sophia Althammer, Michael Schröder, Mete Sertkan, and Allan Hanbury. [Improving Efficient Neural Ranking Models with Cross-Architecture Knowledge Distillation
+.](https://arxiv.org/abs/2010.02666) arXiv:2010.02666, October 2020. 
+
+You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
+Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
+However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
+Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
+
+Dense retrieval, with brute-force index:
 
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
@@ -13,15 +21,15 @@ $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --output runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv \
                              --msmarco
 ```
-> _Optional_: replace `--encoded-queries` by `--encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco`
-> for on-the-fly query encoding.
+
+Replace `--encoded-queries` with `--encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco` for on-the-fly query encoding.
 
 To evaluate:
 
 ```bash
 $ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv
 #####################
-MRR @10: 0.32505867103288255
+MRR @10: 0.3251
 QueriesRanked: 6980
 #####################
 ```
@@ -35,3 +43,7 @@ $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-s
 map                     all     0.3308
 recall_1000             all     0.9553
 ```
+
+## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-26 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
