@@ -18,6 +18,6 @@ def query_iterator(topics, topic_name):
                 order = QUERY_IDS[key]
                 break
     if order is None:
-        order = topics.keys()
+        order = sorted(topics.keys())
     for id_ in order:
         yield id_, topics[id_].get('title')
