@@ -28,6 +28,7 @@ JSpanishAnalyzer = autoclass('org.apache.lucene.analysis.es.SpanishAnalyzer')
 JFrenchAnalyzer = autoclass('org.apache.lucene.analysis.fr.FrenchAnalyzer')
 JHindiAnalyzer = autoclass('org.apache.lucene.analysis.hi.HindiAnalyzer')
 JDefaultEnglishAnalyzer = autoclass('io.anserini.analysis.DefaultEnglishAnalyzer')
+JWhiteSpaceAnalyzer = autoclass('org.apache.lucene.analysis.core.WhitespaceAnalyzer')
 JCharArraySet = autoclass('org.apache.lucene.analysis.CharArraySet')
 
 # Wrappers around Anserini classes
