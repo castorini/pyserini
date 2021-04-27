@@ -18,7 +18,7 @@ from abc import ABC, abstractmethod
 from enum import Enum, unique
 from pathlib import Path
 
-from pyserini.search import get_topics
+from pyserini.search import get_topics, get_topics_with_reader
 from pyserini.util import download_url, get_cache_home
 from pyserini.external_query_info import KILT_QUERY_INFO
 from urllib.error import HTTPError, URLError
@@ -76,20 +76,13 @@ class DefaultQueryIterator(QueryIterator):
     @classmethod
     def from_topics(cls, topics_path: str):
         if os.path.exists(topics_path):
-            with open(topics_path, 'r') as f:
-                if topics_path.endswith('.json'):
+            if topics_path.endswith('.json'):
+                with open(topics_path, 'r') as f:
                     topics = json.load(f)
-                elif topics_path.endswith('.tsv'):
-                    topics = {}
-                    for line in f:
-                        topic, text = line.rstrip().split('\t')
-                        try:
-                            topic = int(topic)
-                        except ValueError:
-                            pass
-                        topics[topic] = {'title': text}
-                else:
-                    raise NotImplementedError(f"Not sure how to parse {topics_path}. Please specify the file extension.")
+            elif topics_path.endswith('.tsv'):
+                topics = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', topics_path)
+            else:
+                raise NotImplementedError(f"Not sure how to parse {topics_path}. Please specify the file extension.")
         else:
             topics = get_topics(topics_path)
         if not topics:
