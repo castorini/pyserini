@@ -46,7 +46,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.batch_size = 144
 
     def test_kilt_search(self):
-        run_file = 'test_run.nq-dev-kilt.jsonl'
+        run_file = 'test_run.fever-dev-kilt.jsonl'
         self.temp_files.append(run_file)
         cmd1 = f'python -m pyserini.search --topics fever-dev-kilt \
                              --topics-format kilt \
