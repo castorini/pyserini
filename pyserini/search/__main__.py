@@ -17,10 +17,11 @@
 import argparse
 import os
 from typing import Tuple, List, TextIO
+from transformers import BertTokenizer, T5Tokenizer
 
 from pyserini.pyclass import autoclass
 from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
-from pyserini.search import get_topics, get_topics_with_reader, SimpleSearcher, JSimpleSearcherResult, JDisjunctionMaxQueryGenerator
+from pyserini.search import get_topics, SimpleSearcher, JSimpleSearcherResult, JDisjunctionMaxQueryGenerator
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 from pyserini.query_iterator import query_iterator
 from tqdm import tqdm
@@ -149,13 +150,10 @@ if __name__ == "__main__":
                         default=1, help="Specify batch size to search the collection concurrently.")
     parser.add_argument('--threads', type=int, metavar='num', required=False,
                         default=1, help="Maximum number of threads to use.")
-    parser.add_argument('--pretokenized', help='Boolean switch to accept pretokenized query', default=False, action='store_true')
+    parser.add_argument('--tokenizer', type=str, help='tokenizer used to preprocess topics')
     args = parser.parse_args()
 
-    if os.path.isfile(args.topics):
-        topics = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', args.topics)
-    else:
-        topics = get_topics(args.topics)
+    topics = get_topics(args.topics)
 
     if os.path.exists(args.index):
         # create searcher from index directory
@@ -190,10 +188,15 @@ if __name__ == "__main__":
         query_generator = JDisjunctionMaxQueryGenerator(args.tiebreaker)
         print(f'Using dismax query generator with tiebreaker={args.tiebreaker}')
     
-    if args.pretokenized:
+    if args.tokenizer != None:
         analyzer = JWhiteSpaceAnalyzer()
         searcher.set_analyzer(analyzer)
-        print(f'Using whitespace analyzer because of pretokenized option')
+        print(f'Using whitespace analyzer because of pretokenized topics')
+        if ('bert' in args.tokenizer):
+            tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+        else:
+            tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco')
+        print(f'Using {args.tokenizer} to preprocess topics')
 
     if args.stopwords:
         analyzer = JDefaultEnglishAnalyzer.fromArguments('porter', False, args.stopwords)
@@ -240,6 +243,10 @@ if __name__ == "__main__":
         batch_topics = list()
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, args.topics)))):
+            if (args.tokenizer != None):
+                toks = tokenizer.tokenize(text)
+                text = ' '
+                text = text.join(toks)
             if args.batch_size <= 1 and args.threads <= 1:
                 hits = searcher.search(text, args.hits, query_generator=query_generator, fields=fields)
                 results = [(topic_id, hits)]
