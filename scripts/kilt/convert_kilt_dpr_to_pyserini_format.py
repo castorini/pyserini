@@ -3,6 +3,7 @@ import pickle
 import csv
 from tqdm import tqdm
 import glob
+import os
 
 import faiss
 from dpr.indexer.faiss_indexers import DenseFlatIndexer
@@ -28,13 +29,15 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     print('Loading KILT mapping...')
-    with open(f'{args.input_dir}/mapping_KILT_title.p', "rb") as f:
+
+    with open(os.path.join(args.input_dir, 'mapping_KILT_title.p'), "rb") as f:
         KILT_mapping = pickle.load(f)
 
     print('Creating docid file...')
     not_found = set()
-    with open(f'{args.input_dir}/kilt_w100_title.tsv', 'r') as f, \
-            open(f'{args.output_dir}/docid', 'w') as outp:
+
+    with open(os.path.join(args.input_dir, 'kilt_w100_title.tsv'), 'r') as f, \
+            open(os.path.join(args.input_dir, 'docid'), 'w') as outp:
         tsv = csv.reader(f, delimiter='\t')
         next(tsv)  # skip headers
         for row in tqdm(tsv, mininterval=10.0, maxinterval=20.0):
