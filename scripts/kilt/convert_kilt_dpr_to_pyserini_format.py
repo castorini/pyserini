@@ -21,6 +21,9 @@ if __name__ == '__main__':
                                                            'mapping_KILT_title.p,'
                                                            'kilt_passages_2048_0.pkl')
     parser.add_argument('--output_dir', required=True, help='Path of the output dir')
+    parser.add_argument('--passage', action="store_true",
+                        help='If true, includes the index i in the docid, delimited by #,'
+                             ' which makes it suitable for hybrid search w/ a passage level index')
 
     args = parser.parse_args()
 
@@ -35,12 +38,15 @@ if __name__ == '__main__':
         tsv = csv.reader(f, delimiter='\t')
         next(tsv)  # skip headers
         for row in tqdm(tsv, mininterval=10.0, maxinterval=20.0):
+            i = row[0]
             title = row[2]
             if title not in KILT_mapping:
-                not_found.add(title)
-                _ = outp.write('N/A\n')
+                not_found.add(f"{title}#{i}")
+                wikipedia_id = 'N/A'
             else:
-                _ = outp.write(f'{KILT_mapping[title]}\n')
+                wikipedia_id = KILT_mapping[title]
+            docid = f"{wikipedia_id}#{i}" if args.passage else wikipedia_id
+            _ = outp.write(f'{docid}\n')
 
     print("Done writing docid file!")
     print(f'Some documents did not have a docid in the mapping: {not_found}')
