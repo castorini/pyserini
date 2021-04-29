@@ -203,7 +203,7 @@ if __name__ == "__main__":
     with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, args.topics)))):
+        for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if (args.tokenizer != None):
                 toks = tokenizer.tokenize(text)
                 text = ' '
