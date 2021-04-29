@@ -64,11 +64,11 @@ We can now perform retrieval using these queries:
 python -m pyserini.search --topics msmarco-doc-dev \
  --index indexes/lucene-index-msmarco-doc \
  --output runs/run.msmarco-doc.bm25tuned.txt \
- --bm25 --msmarco --hits 100 --k1 4.46 --b 0.82
+ --bm25 --output-format msmarco --hits 100 --k1 4.46 --b 0.82
 ```
 
 Here, we set the BM25 parameters to `k1=4.46`, `b=0.82` (tuned by grid search).
-The option `--msmarco` says to generate output in the MS MARCO output format.
+The option `--output-format msmarco` says to generate output in the MS MARCO output format.
 The option `--hits` specifies the number of documents to return per query.
 Note that for the [MS MARCO Document Ranking Leaderboard](https://microsoft.github.io/MSMARCO-Document-Ranking-Submissions/leaderboard/), the official metric is MRR@100, so submissions should only return 100 hits per query. 
 

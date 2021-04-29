@@ -24,7 +24,7 @@ P_30                  	all	0.3102
 MS MARCO passage ranking task, BM25 baseline:
 
 ```bash
-$ python -m pyserini.search --topics msmarco-passage-dev-subset --index msmarco-passage --output run.msmarco-passage.txt --bm25 --msmarco
+$ python -m pyserini.search --topics msmarco-passage-dev-subset --index msmarco-passage --output run.msmarco-passage.txt --bm25 --output-format msmarco
 ```
 
 Evaluation command:
@@ -40,7 +40,7 @@ QueriesRanked: 6980
 MS MARCO passage ranking task, BM25 baseline with [docTTTTTquery expansions](http://doc2query.ai/):
 
 ```bash
-$ python -m pyserini.search --topics msmarco-passage-dev-subset --index msmarco-passage-expanded --output run.msmarco-passage.expanded.txt --bm25 --msmarco
+$ python -m pyserini.search --topics msmarco-passage-dev-subset --index msmarco-passage-expanded --output run.msmarco-passage.expanded.txt --bm25 --output-format msmarco
 ```
 
 Evaluation command:
@@ -58,7 +58,7 @@ QueriesRanked: 6980
 MS MARCO document ranking task, BM25 baseline:
 
 ```bash
-$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc --output run.msmarco-doc.doc.txt --bm25 --hits 100 --msmarco
+$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc --output run.msmarco-doc.doc.txt --bm25 --hits 100 --output-format msmarco
 ```
 
 Evaluation command:
@@ -74,7 +74,7 @@ QueriesRanked: 5193
 MS MARCO document ranking task, BM25 baseline with [docTTTTTquery expansions](http://doc2query.ai/) (per-document):
 
 ```bash
-$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc-expanded-per-doc --output run.msmarco-doc.doc-expanded.txt --bm25 --hits 100 --msmarco
+$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc-expanded-per-doc --output run.msmarco-doc.doc-expanded.txt --bm25 --hits 100 --output-format msmarco
 ```
 
 Evaluation command:
@@ -90,7 +90,7 @@ QueriesRanked: 5193
 MS MARCO document ranking task, BM25 baseline, but with documents segmented into passages and selecting the best-scoring passage per document:
 
 ```bash
-$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc-per-passage --output run.msmarco-doc.passage.txt --bm25 --hits 1000 --max-passage --max-passage-hits 100 --msmarco
+$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc-per-passage --output run.msmarco-doc.passage.txt --bm25 --hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco
 ```
 
 Evaluation command:
@@ -106,7 +106,7 @@ QueriesRanked: 5193
 MS MARCO document ranking task, BM25 baseline with [docTTTTTquery expansions](http://doc2query.ai/) (per-passage):
 
 ```bash
-$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc-expanded-per-passage --output run.msmarco-doc.passage-expanded.txt --bm25 --hits 1000 --max-passage --max-passage-hits 100 --msmarco
+$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc-expanded-per-passage --output run.msmarco-doc.passage-expanded.txt --bm25 --hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco
 ```
 
 Evaluation command:

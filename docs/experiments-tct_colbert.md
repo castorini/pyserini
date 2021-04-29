@@ -31,7 +31,7 @@ $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.tct_colbert.bf.tsv \
-                             --msmarco
+                             --output-format msmarco
 ```
 
 Note that to ensure maximum reproducibility, by default Pyserini uses pre-computed query representations that are automatically downloaded.
@@ -67,7 +67,7 @@ Dense retrieval with TCT-ColBERT, HNSW index:
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-hnsw \
                              --output runs/run.msmarco-passage.tct_colbert.hnsw.tsv \
-                             --msmarco 
+                             --output-format msmarco 
 ```
 
 To evaluate:
@@ -102,7 +102,7 @@ $ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
                              run    --topics msmarco-passage-dev-subset \
                                     --output runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv \
                                     --batch-size 36 --threads 12 \
-                                    --msmarco
+                                    --output-format msmarco
 ```
 
 To evaluate:
@@ -135,7 +135,7 @@ $ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
                              run    --topics msmarco-passage-dev-subset \
                                     --output runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv \
                                     --batch-size 36 --threads 12 \
-                                    --msmarco
+                                    --output-format msmarco
 ```
 
 To evaluate:
@@ -180,7 +180,7 @@ $ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --hits 1000 \
                              --max-passage \
                              --max-passage-hits 100 \
-                             --msmarco \
+                             --output-format msmarco \
                              --batch-size 36 \
                              --threads 12
 ```
@@ -218,7 +218,7 @@ $ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
                                     --output runs/run.msmarco-doc.tct_colbert.bf.bm25.tsv \
                                     --hits 1000 --max-passage --max-passage-hits 100 \
                                     --batch-size 36 --threads 12 \
-                                    --msmarco
+                                    --output-format msmarco
 ```
 
 Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-the-fly query encoding.
@@ -251,7 +251,7 @@ $ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
                                     --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv \
                                     --hits 1000 --max-passage --max-passage-hits 100 \
                                     --batch-size 36 --threads 12 \
-                                    --msmarco
+                                    --output-format msmarco
 ```
 
 Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-the-fly query encoding.

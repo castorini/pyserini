@@ -80,13 +80,14 @@ class QueryEncoder:
 
 class TctColBertQueryEncoder(QueryEncoder):
 
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu'):
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu'):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
             self.model = BertModel.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = BertTokenizer.from_pretrained(encoder_dir)
+            self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or encoder_dir)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
@@ -111,13 +112,14 @@ class TctColBertQueryEncoder(QueryEncoder):
 
 class DprQueryEncoder(QueryEncoder):
 
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu'):
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu'):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
             self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(encoder_dir)
+            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or encoder_dir)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
@@ -134,13 +136,14 @@ class DprQueryEncoder(QueryEncoder):
 
 class AnceQueryEncoder(QueryEncoder):
 
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu'):
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu'):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
             self.model = AnceEncoder.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = RobertaTokenizer.from_pretrained(encoder_dir)
+            self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or encoder_dir)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
@@ -164,14 +167,15 @@ class AnceQueryEncoder(QueryEncoder):
 
 class AutoQueryEncoder(QueryEncoder):
 
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu',
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu',
                  pooling: str = 'cls', l2_norm: bool = False):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
             self.model = AutoModel.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = AutoTokenizer.from_pretrained(encoder_dir)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
             self.has_model = True
             self.pooling = pooling
             self.l2_norm = l2_norm
