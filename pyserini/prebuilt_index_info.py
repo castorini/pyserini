@@ -432,6 +432,19 @@ INDEX_INFO = {
         "unique_terms": 5345463,
         "downloaded": False
     },
+    "wikipedia-kilt-doc": {
+        "description": "Wikipedia snapshot used as KILT's knowledge source. Indexed by documents.",
+        "filename": "index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+        ],
+        "md5": "b8ec8feb654f7aaa86f9901dc6c804a8",
+        "size compressed (bytes)": 10901127209,
+        "total_terms": 1915061164,
+        "documents": 5903530,
+        "unique_terms": 8722502,
+        "downloaded": False
+    },
 }
 
 DINDEX_INFO = {

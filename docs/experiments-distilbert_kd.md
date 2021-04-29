@@ -19,7 +19,7 @@ $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv \
-                             --msmarco
+                             --output-format msmarco
 ```
 
 Replace `--encoded-queries` with `--encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco` for on-the-fly query encoding.
