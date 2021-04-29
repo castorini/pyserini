@@ -61,9 +61,7 @@ class SimpleSearcherScoreChecker:
         stdout, stderr = run_command(eval_cmd)
         score = parse_score(stdout, "map")
         if actualscore !=score:
-            self._cleanup([pyserini_output])
             return False
-        self._cleanup([pyserini_output])
         return True
 
 
