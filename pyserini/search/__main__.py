@@ -17,7 +17,7 @@
 import argparse
 import os
 from typing import Tuple, List, TextIO
-from transformers import BertTokenizer, T5Tokenizer
+from transformers import AutoTokenizer
 
 from pyserini.pyclass import autoclass
 from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
@@ -192,10 +192,7 @@ if __name__ == "__main__":
         analyzer = JWhiteSpaceAnalyzer()
         searcher.set_analyzer(analyzer)
         print(f'Using whitespace analyzer because of pretokenized topics')
-        if ('bert' in args.tokenizer):
-            tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-        else:
-            tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco')
+        tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
         print(f'Using {args.tokenizer} to preprocess topics')
 
     if args.stopwords:
