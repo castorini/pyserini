@@ -114,7 +114,6 @@ if __name__ == "__main__":
                         default=1, help="Maximum number of threads to use.")
     parser.add_argument('--tokenizer', type=str, help='tokenizer used to preprocess topics')
     args = parser.parse_args()
-
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
     topics = query_iterator.topics
 

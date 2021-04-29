@@ -37,7 +37,7 @@ class SimpleSearcherScoreChecker:
             if os.path.exists(file):
                 os.remove(file)
 
-    def run(self, runtag: str, pyserini_extras: str, actualscore: float):
+    def run(self, runtag: str, pyserini_extras: str, actualscore: float, tokenizer = None):
         print('-------------------------')
         print(f'Running {runtag}:')
         print('-------------------------')
@@ -46,6 +46,9 @@ class SimpleSearcherScoreChecker:
 
         pyserini_cmd = f'{self.pyserini_base_cmd} --index {self.index_path} ' \
                        + f'--topics {self.pyserini_topics} --output {pyserini_output} {pyserini_extras}'
+
+        if tokenizer != None:
+            pyserini_cmd = pyserini_cmd + f' --tokenizer {tokenizer}'
 
         status = os.system(pyserini_cmd)
         if not status == 0:
