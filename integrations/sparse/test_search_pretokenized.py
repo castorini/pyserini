@@ -28,10 +28,8 @@ class TestSearchIntegration(unittest.TestCase):
         curdir = os.getcwd()
         if curdir.endswith('integrations'):
             self.pyserini_root = '..'
-            self.anserini_root = '../../anserini'
         else:
             self.pyserini_root = '.'
-            self.anserini_root = '../anserini'
 
         self.tmp = f'{self.pyserini_root}/integrations/tmp{randint(0, 10000)}'
 
