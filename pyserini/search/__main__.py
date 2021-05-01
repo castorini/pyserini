@@ -16,9 +16,11 @@
 
 import argparse
 import os
+from typing import Tuple, List, TextIO
+from transformers import AutoTokenizer
 
 from pyserini.pyclass import autoclass
-from pyserini.analysis import JDefaultEnglishAnalyzer
+from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
 from pyserini.search import SimpleSearcher, JDisjunctionMaxQueryGenerator
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
@@ -110,6 +112,7 @@ if __name__ == "__main__":
                         default=1, help="Specify batch size to search the collection concurrently.")
     parser.add_argument('--threads', type=int, metavar='num', required=False,
                         default=1, help="Maximum number of threads to use.")
+    parser.add_argument('--tokenizer', type=str, help='tokenizer used to preprocess topics')
     args = parser.parse_args()
 
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
@@ -147,6 +150,13 @@ if __name__ == "__main__":
     if args.dismax:
         query_generator = JDisjunctionMaxQueryGenerator(args.tiebreaker)
         print(f'Using dismax query generator with tiebreaker={args.tiebreaker}')
+    
+    if args.tokenizer != None:
+        analyzer = JWhiteSpaceAnalyzer()
+        searcher.set_analyzer(analyzer)
+        print(f'Using whitespace analyzer because of pretokenized topics')
+        tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
+        print(f'Using {args.tokenizer} to preprocess topics')
 
     if args.stopwords:
         analyzer = JDefaultEnglishAnalyzer.fromArguments('porter', False, args.stopwords)
@@ -194,6 +204,10 @@ if __name__ == "__main__":
         batch_topics = list()
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
+            if (args.tokenizer != None):
+                toks = tokenizer.tokenize(text)
+                text = ' '
+                text = text.join(toks)
             if args.batch_size <= 1 and args.threads <= 1:
                 hits = searcher.search(text, args.hits, query_generator=query_generator, fields=fields)
                 results = [(topic_id, hits)]
