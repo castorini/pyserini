@@ -26,10 +26,10 @@ from integrations.simplesearcher_score_checker import SimpleSearcherScoreChecker
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
         curdir = os.getcwd()
-        if curdir.endswith('integrations'):
-            self.pyserini_root = '..'
+        if curdir.endswith('sparse'):
+            self.pyserini_root = '../../'
         else:
-            self.pyserini_root = '.'
+            self.pyserini_root = './'
 
         self.tmp = f'{self.pyserini_root}/integrations/tmp{randint(0, 10000)}'
 
