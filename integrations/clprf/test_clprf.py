@@ -16,7 +16,6 @@
 
 import os
 import shutil
-import tarfile
 import unittest
 
 from random import randint
@@ -26,10 +25,11 @@ from integrations.simplesearcher_score_checker import SimpleSearcherScoreChecker
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
+        # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
-        if curdir.endswith('integrations'):
-            self.pyserini_root = '..'
-            self.anserini_root = '../../anserini'
+        if curdir.endswith('clprf'):
+            self.pyserini_root = '../..'
+            self.anserini_root = '../../../anserini'
         else:
             self.pyserini_root = '.'
             self.anserini_root = '../anserini'

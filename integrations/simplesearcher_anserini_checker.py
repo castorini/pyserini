@@ -20,7 +20,7 @@ from typing import List
 
 
 class SimpleSercherAnseriniMatchChecker:
-    def __init__(self, anserini_root: str, index: str, topics: str, pyserini_topics: str, qrels: str):
+    def __init__(self, anserini_root: str, index: str, topics: str, pyserini_topics: str, qrels: str, eval_root: str):
         self.anserini_root = anserini_root
         self.index_path = index
         self.topics = topics
@@ -31,7 +31,7 @@ class SimpleSercherAnseriniMatchChecker:
                                               'target/appassembler/bin/SearchCollection -topicreader Trec')
         self.pyserini_base_cmd = 'python -m pyserini.search'
 
-        self.eval_base_cmd = 'tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30'
+        self.eval_base_cmd = os.path.join(eval_root, 'tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
 
     @staticmethod
     def _cleanup(files: List[str]):
@@ -63,12 +63,13 @@ class SimpleSercherAnseriniMatchChecker:
 
         res = filecmp.cmp(anserini_output, pyserini_output)
         if res is True:
-            print(f'[SUCCESS] {runtag} results verified!')
             eval_cmd = f'{self.eval_base_cmd} {self.qrels} {anserini_output}'
             status = os.system(eval_cmd)
             if not status == 0:
+                print(f'[FAIL] {runtag} evaluation failure!')
                 self._cleanup([anserini_output, pyserini_output])
                 return False
+            print(f'[SUCCESS] {runtag} results verified!')
             self._cleanup([anserini_output, pyserini_output])
             return True
         else:
