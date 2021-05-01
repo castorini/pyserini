@@ -17,16 +17,16 @@
 import os
 import unittest
 
-from integrations.simplesearcher_checker import SimpleSercherAnseriniMatchChecker
+from integrations.simplesearcher_anserini_checker import SimpleSercherAnseriniMatchChecker
 
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
-        if curdir.endswith('integrations'):
-            anserini_root = '../../anserini'
-            pyserini_root = '..'
+        if curdir.endswith('sparse'):
+            anserini_root = '../../../anserini'
+            pyserini_root = '../..'
         else:
             anserini_root = '../anserini'
             pyserini_root = '.'
@@ -36,7 +36,8 @@ class TestSearchIntegration(unittest.TestCase):
             index=os.path.join(anserini_root, 'indexes/lucene-index.robust04.pos+docvectors+raw'),
             topics=os.path.join(pyserini_root, 'tools/topics-and-qrels/topics.robust04.txt'),
             pyserini_topics='robust04',
-            qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.robust04.txt'))
+            qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.robust04.txt'),
+            eval_root=pyserini_root)
 
     def test_bm25(self):
         self.assertTrue(self.checker.run('robust04_bm25', '-bm25', '--bm25'))

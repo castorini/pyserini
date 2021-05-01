@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 from transformers import BertTokenizer, T5Tokenizer
 import argparse
 import json
@@ -47,6 +48,7 @@ def main(args):
             write_to_file(tokenizer,os.path.join(args.input, inf), outf)
     else:
         write_to_file(tokenizer,args.input, args.output)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
