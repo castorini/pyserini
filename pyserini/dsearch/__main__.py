@@ -17,14 +17,13 @@
 import argparse
 import os
 
-import json
 from tqdm import tqdm
 
-from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder, \
-    QueryEncoder, DPRQueryEncoder, AnceQueryEncoder, SBERTQueryEncoder
-from pyserini.query_iterator import QUERY_IDS, query_iterator
-from pyserini.search import get_topics
-from pyserini.search.__main__ import write_result, write_result_max_passage
+from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, QueryEncoder, DprQueryEncoder,\
+    AnceQueryEncoder, AutoQueryEncoder
+from pyserini.query_iterator import get_query_iterator, TopicsFormat
+from pyserini.output_writer import get_output_writer, OutputFormat
+
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -37,6 +36,9 @@ def define_dsearch_args(parser):
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
                         required=False,
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
+    parser.add_argument('--tokenizer', type=str, metavar='name or path',
+                        required=False,
+                        help="Path to a hgf tokenizer name or path")
     parser.add_argument('--encoded-queries', type=str, metavar='path to query encoded queries dir or queries name',
                         required=False,
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
@@ -44,33 +46,37 @@ def define_dsearch_args(parser):
                         help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
 
 
-def init_query_encoder(encoder, topics_name, encoded_queries, device):
+def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device):
     encoded_queries_map = {
-        'msmarco-passage-dev-subset': 'msmarco-passage-dev-subset-tct_colbert',
-        'dpr-nq-dev': 'dpr-nq-dev-multi',
-        'dpr-nq-test': 'dpr-nq-test-multi',
-        'dpr-trivia-dev': 'dpr-trivia-dev-multi',
-        'dpr-trivia-test': 'dpr-trivia-test-multi',
-        'dpr-wq-test': 'dpr-wq-test-multi',
-        'dpr-squad-test': 'dpr-squad-test-multi',
-        'dpr-curated-test': 'dpr-curated-test-multi'
+        'msmarco-passage-dev-subset': 'tct_colbert-msmarco-passage-dev-subset',
+        'dpr-nq-dev': 'dpr_multi-nq-dev',
+        'dpr-nq-test': 'dpr_multi-nq-test',
+        'dpr-trivia-dev': 'dpr_multi-trivia-dev',
+        'dpr-trivia-test': 'dpr_multi-trivia-test',
+        'dpr-wq-test': 'dpr_multi-wq-test',
+        'dpr-squad-test': 'dpr_multi-squad-test',
+        'dpr-curated-test': 'dpr_multi-curated-test'
     }
     if encoder:
         if 'dpr' in encoder:
-            return DPRQueryEncoder(encoder_dir=encoder, device=device)
+            return DprQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'tct_colbert' in encoder:
-            return TCTColBERTQueryEncoder(encoder_dir=encoder, device=device)
+            return TctColBertQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'ance' in encoder:
-            return AnceQueryEncoder(encoder_dir=encoder, device=device)
+            return AnceQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'sentence' in encoder:
-            return SBERTQueryEncoder(encoder_dir=encoder, device=device)
+            return AutoQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device,
+                                    pooling='mean', l2_norm=True)
+        else:
+            return AutoQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
+
     if encoded_queries:
         if os.path.exists(encoded_queries):
             return QueryEncoder(encoded_queries)
         return QueryEncoder.load_encoded_queries(encoded_queries)
     if topics_name in encoded_queries_map:
         return QueryEncoder.load_encoded_queries(encoded_queries_map[topics_name])
-    return None
+    raise ValueError(f'No encoded queries for topic {topics_name}')
 
 
 if __name__ == '__main__':
@@ -78,7 +84,10 @@ if __name__ == '__main__':
     parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                         help="Name of topics. Available: msmarco-passage-dev-subset.")
     parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
-    parser.add_argument('--msmarco', action='store_true', default=False, help="Output in MS MARCO format.")
+    parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
+                        help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
+    parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
+                        help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
     parser.add_argument('--output', type=str, metavar='path', required=True, help="Path to output file.")
     parser.add_argument('--max-passage',  action='store_true',
                         default=False, help="Select only max passage from document.")
@@ -93,20 +102,10 @@ if __name__ == '__main__':
     define_dsearch_args(parser)
     args = parser.parse_args()
 
-    if os.path.exists(args.topics) and args.topics.endswith('.json'):
-        topics = json.load(open(args.topics))
-    else:
-        topics = get_topics(args.topics)
+    query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
+    topics = query_iterator.topics
 
-    # invalid topics name
-    if topics == {}:
-        print(f'Topic {args.topics} Not Found')
-        exit()
-
-    query_encoder = init_query_encoder(args.encoder, args.topics, args.encoded_queries, args.device)
-    if not query_encoder:
-        print(f'No encoded queries for topic {args.topics}')
-        exit()
+    query_encoder = init_query_encoder(args.encoder, args.tokenizer, args.topics, args.encoded_queries, args.device)
 
     if os.path.exists(args.index):
         # create searcher from index directory
@@ -124,15 +123,16 @@ if __name__ == '__main__':
     print(f'Running {args.topics} topics, saving to {output_path}...')
     tag = 'Faiss'
 
-    order = None
-    if args.topics in QUERY_IDS:
-        print(f'Using pre-defined topic order for {args.topics}')
-        order = QUERY_IDS[args.topics]
+    output_writer = get_output_writer(output_path, OutputFormat(args.output_format), 'w',
+                                      max_hits=args.hits, tag=tag, topics=topics,
+                                      use_max_passage=args.max_passage,
+                                      max_passage_delimiter=args.max_passage_delimiter,
+                                      max_passage_hits=args.max_passage_hits)
 
-    with open(output_path, 'w') as target_file:
+    with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+        for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.batch_size <= 1 and args.threads <= 1:
                 hits = searcher.search(text, args.hits)
                 results = [(topic_id, hits)]
@@ -149,10 +149,7 @@ if __name__ == '__main__':
                 else:
                     continue
 
-            for result in results:
-                if args.max_passage:
-                    write_result_max_passage(target_file, result, args.max_passage_delimiter,
-                                             args.max_passage_hits, args.msmarco, tag)
-                else:
-                    write_result(target_file, result, args.hits, args.msmarco, tag)
+            for topic, hits in results:
+                output_writer.write(topic, hits)
+
             results.clear()

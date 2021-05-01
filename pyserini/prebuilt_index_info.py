@@ -1,4 +1,16 @@
 INDEX_INFO = {
+    "cacm": {
+        "description": "CACM corpus",
+        "filename": "lucene-index.cacm.tar.gz",
+        "urls": [
+            "https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.tar.gz",
+        ],
+        "md5": "e47164fbd18aab72cdc18aecc0744bb1",
+        "size compressed (bytes)": 2372903,
+        "total_terms": 320968,
+        "documents": 3204,
+        "unique_terms": 14363,
+    },
     "robust04": {
         "description": "TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track",
         "filename": "index-robust04-20191213.tar.gz",
@@ -420,6 +432,19 @@ INDEX_INFO = {
         "unique_terms": 5345463,
         "downloaded": False
     },
+    "wikipedia-kilt-doc": {
+        "description": "Wikipedia snapshot used as KILT's knowledge source. Indexed by documents.",
+        "filename": "index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+        ],
+        "md5": "b8ec8feb654f7aaa86f9901dc6c804a8",
+        "size compressed (bytes)": 10901127209,
+        "total_terms": 1915061164,
+        "documents": 5903530,
+        "unique_terms": 8722502,
+        "downloaded": False
+    },
 }
 
 DINDEX_INFO = {
@@ -516,6 +541,29 @@ DINDEX_INFO = {
         "md5": "3f98b9564cd3a33e45bfeca4d4fec623",
         "size compressed (bytes)": 25214193901,
         "documents": 8841823,
+        "downloaded": False
+    },
+    "msmarco-passage-distilbert-dot-margin_mse-T2-bf": {
+        "description": "MS MARCO passage corpus encoded by distilbert-dot-margin_mse-T2-msmarco passage encoder and "
+                       "indexed as brute force index",
+        "filename": "dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/sn06dukchscnyxf/dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz?dl=1",
+        ],
+        "md5": "83a8081d6020910058164978b095615f",
+        "size compressed (bytes)": 25162770962,
+        "documents": 8841823,
+        "downloaded": False
+    },
+    "wikipedia-dpr-single-nq-bf": {
+        "description": "Wikipedia corpus encoded by DPR doc encoder trained on NQ, indexed as brute force index",
+        "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/negktsxze5sy7e2/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz?dl=1",
+        ],
+        "md5": "d1ef9286ddb38633cd052171963c62cb",
+        "size compressed (bytes)": 59836863670,
+        "documents": 21015320,
         "downloaded": False
     },
 }

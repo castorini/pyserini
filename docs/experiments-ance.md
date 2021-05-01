@@ -1,11 +1,13 @@
-# Pyserini: Replicating Microsoft's ANCE Results
+# Pyserini: Reproducing ANCE Results
 
-This guide provides replication instructions for the following dense retrieval work:
+This guide provides instructions to reproduce the following dense retrieval work:
 
 > Lee Xiong, Chenyan Xiong, Ye Li, Kwok-Fung Tang, Jialin Liu, Paul Bennett, Junaid Ahmed, Arnold Overwijk. [Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval](https://arxiv.org/pdf/2007.00808.pdf)
 
 You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
-
+Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
+However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
+Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
 ## MS MARCO Passage
 
@@ -13,21 +15,22 @@ You'll need a Pyserini [development installation](https://github.com/castorini/p
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-ance-bf \
-                             --encoded-queries msmarco-passage-dev-subset-ance \
+                             --encoded-queries ance-msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.ance.bf.tsv \
-                             --msmarco
+                             --output-format msmarco
 ```
-> _Optional_: replace `--encoded-queries` by `--encoder castorini/ance-msmarco-passage`
-> for on-the-fly query encoding.
 
+The option `--encoded-queries` specifies the use of encoded queries (i.e., queries that have already been converted into dense vectors and cached).
+As an alternative, replace with `--encoder castorini/ance-msmarco-passage` to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process.
 
 To evaluate:
+
 ```bash
-$ python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.ance.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.ance.bf.tsv
 #####################
-MRR @10: 0.3301838017919672
+MRR @10: 0.3302
 QueriesRanked: 6980
 #####################
 ```
@@ -37,7 +40,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.ance.bf.tsv --output runs/run.msmarco-passage.ance.bf.trec
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.ance.bf.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.ance.bf.trec
 map                   	all	0.3363
 recall_1000           	all	0.9584
 ```
@@ -48,20 +51,24 @@ recall_1000           	all	0.9584
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --index msmarco-doc-ance-maxp-bf \
-                             --encoder castorini/ance-msmarco-doc-maxp \
+                             --encoded-queries ance_maxp-msmarco-doc-dev \
                              --output runs/run.msmarco-doc.passage.ance-maxp.txt \
                              --hits 1000 \
                              --max-passage \
                              --max-passage-hits 100 \
-                             --msmarco \
+                             --output-format msmarco \
                              --batch-size 36 \
                              --threads 12
 ```
+
+Same as above, replace `--encoded-queries` with `--encoder castorini/ance-msmarco-doc-maxp` for on-the-fly query encoding.
+
 To evaluate:
+
 ```bash
 $ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.passage.ance-maxp.txt
 #####################
-MRR @100: 0.37965620295359753
+MRR @100: 0.3797
 QueriesRanked: 5193
 #####################
 ```
@@ -83,12 +90,12 @@ recall_100            	all	0.9033
 ```bash
 $ python -m pyserini.dsearch --topics dpr-nq-test \
                              --index wikipedia-ance-multi-bf \
-                             --encoded-queires dpr-nq-dev-ance-multi \
+                             --encoded-queries ance_multi-nq-test \
                              --output runs/run.ance.nq-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
-> _Optional_: replace `--encoded-queries` by `--encoder castorini/ance-dpr-question-multi`
-> for on-the-fly query encoding.
+
+Same as above, replace `--encoded-queries` with `--encoder castorini/ance-dpr-question-multi` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -99,8 +106,8 @@ $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-
                                                                 --output runs/run.ance.nq-test.multi.bf.json
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.ance.nq-test.multi.bf.json --topk 20 100
-Top20	accuracy: 0.8224376731301939
-Top100	accuracy: 0.8786703601108034
+Top20	accuracy: 0.8224
+Top100	accuracy: 0.8787
 ```
 
 ## Trivia QA
@@ -110,12 +117,12 @@ Top100	accuracy: 0.8786703601108034
 ```bash
 $ python -m pyserini.dsearch --topics dpr-trivia-test \
                              --index wikipedia-ance-multi-bf \
-                             --encoded-queries dpr-trivia-test-multi \
+                             --encoded-queries ance_multi-trivia-test \
                              --output runs/run.ance.trivia-test.multi.bf.trec \
                              --batch-size 36 --threads 12
 ```
-> _Optional_: replace `--encoded-queries` by `--encoder castorini/ance-dpr-question-multi`
-> for on-the-fly query encoding.
+
+Same as above, replace `--encoded-queries` with `--encoder castorini/ance-dpr-question-multi` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -126,7 +133,10 @@ $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-tri
                                                                 --output runs/run.ance.trivia-test.multi.bf.json
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.ance.trivia-test.multi.bf.json --topk 20 100
-Top20	accuracy: 0.8010253690444621
-Top100	accuracy: 0.852205427384425
-
+Top20	accuracy: 0.8010
+Top100	accuracy: 0.8522
 ```
+
+## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-25 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))

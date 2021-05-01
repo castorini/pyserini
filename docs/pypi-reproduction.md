@@ -1,7 +1,7 @@
-# Direct PyPI Package Replication
+# Reproducing Results Directly via PyPI Package
 
-It's easy to replicate runs on many "standard" IR test collections directly from the PyPI package (i.e., with only `pip install`)!
-The following results can be replicated with v0.10.1.0 or anything later, including HEAD.
+It's easy to reproduce runs on many "standard" IR test collections directly from the PyPI package (i.e., with only `pip install`)!
+The following results can be reproduced with v0.10.1.0 or anything later, including HEAD.
 
 ## Robust04
 
@@ -24,7 +24,7 @@ P_30                  	all	0.3102
 MS MARCO passage ranking task, BM25 baseline:
 
 ```bash
-$ python -m pyserini.search --topics msmarco-passage-dev-subset --index msmarco-passage --output run.msmarco-passage.txt --bm25 --msmarco
+$ python -m pyserini.search --topics msmarco-passage-dev-subset --index msmarco-passage --output run.msmarco-passage.txt --bm25 --output-format msmarco
 ```
 
 Evaluation command:
@@ -40,7 +40,7 @@ QueriesRanked: 6980
 MS MARCO passage ranking task, BM25 baseline with [docTTTTTquery expansions](http://doc2query.ai/):
 
 ```bash
-$ python -m pyserini.search --topics msmarco-passage-dev-subset --index msmarco-passage-expanded --output run.msmarco-passage.expanded.txt --bm25 --msmarco
+$ python -m pyserini.search --topics msmarco-passage-dev-subset --index msmarco-passage-expanded --output run.msmarco-passage.expanded.txt --bm25 --output-format msmarco
 ```
 
 Evaluation command:
@@ -58,7 +58,7 @@ QueriesRanked: 6980
 MS MARCO document ranking task, BM25 baseline:
 
 ```bash
-$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc --output run.msmarco-doc.doc.txt --bm25 --hits 100 --msmarco
+$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc --output run.msmarco-doc.doc.txt --bm25 --hits 100 --output-format msmarco
 ```
 
 Evaluation command:
@@ -74,7 +74,7 @@ QueriesRanked: 5193
 MS MARCO document ranking task, BM25 baseline with [docTTTTTquery expansions](http://doc2query.ai/) (per-document):
 
 ```bash
-$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc-expanded-per-doc --output run.msmarco-doc.doc-expanded.txt --bm25 --hits 100 --msmarco
+$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc-expanded-per-doc --output run.msmarco-doc.doc-expanded.txt --bm25 --hits 100 --output-format msmarco
 ```
 
 Evaluation command:
@@ -90,7 +90,7 @@ QueriesRanked: 5193
 MS MARCO document ranking task, BM25 baseline, but with documents segmented into passages and selecting the best-scoring passage per document:
 
 ```bash
-$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc-per-passage --output run.msmarco-doc.passage.txt --bm25 --hits 1000 --max-passage --max-passage-hits 100 --msmarco
+$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc-per-passage --output run.msmarco-doc.passage.txt --bm25 --hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco
 ```
 
 Evaluation command:
@@ -106,7 +106,7 @@ QueriesRanked: 5193
 MS MARCO document ranking task, BM25 baseline with [docTTTTTquery expansions](http://doc2query.ai/) (per-passage):
 
 ```bash
-$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc-expanded-per-passage --output run.msmarco-doc.passage-expanded.txt --bm25 --hits 1000 --max-passage --max-passage-hits 100 --msmarco
+$ python -m pyserini.search --topics msmarco-doc-dev --index msmarco-doc-expanded-per-passage --output run.msmarco-doc.passage-expanded.txt --bm25 --hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco
 ```
 
 Evaluation command:
@@ -129,10 +129,10 @@ Prior to v0.10.1.0, the above commands get different results:
 + With `pyserini==0.10.0.1`, the number hits have been parameterized (see [here](https://github.com/castorini/pyserini/blob/pyserini-0.10.0.1/pyserini/search/__main__.py#L112)), although retrieval is performed using default BM25 parameters.
 + With `pyserini==0.10.1.0`, `pyserini.search` automatically sets BM25 parameters depending on task (see [here](https://github.com/castorini/pyserini/blob/pyserini-0.10.1.0/pyserini/search/__main__.py#L73)).
 
-For additional details, see the snapshot of this replication documentation page at [`pyserini-0.10.1.0`](https://github.com/castorini/pyserini/blob/pyserini-0.10.1.0/docs/pypi-replication.md), which is just before the document has been updated for `pyserini==0.10.1.0`.
+For additional details, see the snapshot of this documentation page at [`pyserini-0.10.1.0`](https://github.com/castorini/pyserini/blob/pyserini-0.10.1.0/docs/pypi-replication.md), which is just before the document has been updated for `pyserini==0.10.1.0`.
 
-## Replication Log
+## Reproduction Log[*](reproducibility.md)
 
-+ Results replicated by [@MXueguang](https://github.com/MXueguang) on 2021-01-05 (commit [`b6da95a`](https://github.com/castorini/pyserini/commit/b6da95aaf81ebb26d51be5c7f2cf68b44361307b))
++ Results reproduced by [@MXueguang](https://github.com/MXueguang) on 2021-01-05 (commit [`b6da95a`](https://github.com/castorini/pyserini/commit/b6da95aaf81ebb26d51be5c7f2cf68b44361307b))
 
  

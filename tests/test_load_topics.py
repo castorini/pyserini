@@ -22,6 +22,21 @@ from pyserini import search
 
 class TestLoadTopics(unittest.TestCase):
 
+    def test_trec1_adhoc(self):
+        topics = search.get_topics('trec1-adhoc')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2_adhoc(self):
+        topics = search.get_topics('trec2-adhoc')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec3_adhoc(self):
+        topics = search.get_topics('trec3-adhoc')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
     def test_robust04(self):
         topics = search.get_topics('robust04')
         self.assertEqual(len(topics), 250)
@@ -42,6 +57,86 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+    def test_wt10g(self):
+        topics = search.get_topics('wt10g')
+        self.assertEqual(len(topics), 100)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2004_terabyte(self):
+        topics = search.get_topics('trec2004-terabyte')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2005_terabyte(self):
+        topics = search.get_topics('trec2005-terabyte')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2006_terabyte(self):
+        topics = search.get_topics('trec2006-terabyte')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2007_million_query(self):
+        topics = search.get_topics('trec2007-million-query')
+        self.assertEqual(len(topics), 10000)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2008_million_query(self):
+        topics = search.get_topics('trec2008-million-query')
+        self.assertEqual(len(topics), 10000)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2009_million_query(self):
+        topics = search.get_topics('trec2009-million-query')
+        self.assertEqual(len(topics), 40000)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2010_web(self):
+        topics = search.get_topics('trec2010-web')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2011_web(self):
+        topics = search.get_topics('trec2011-web')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2012_web(self):
+        topics = search.get_topics('trec2012-web')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2013_web(self):
+        topics = search.get_topics('trec2013-web')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2014_web(self):
+        topics = search.get_topics('trec2014-web')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_mb11(self):
+        topics = search.get_topics('mb11')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_mb12(self):
+        topics = search.get_topics('mb12')
+        self.assertEqual(len(topics), 60)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_mb13(self):
+        topics = search.get_topics('mb13')
+        self.assertEqual(len(topics), 60)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_mb14(self):
+        topics = search.get_topics('mb14')
+        self.assertEqual(len(topics), 55)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
     def test_car15(self):
         topics = search.get_topics('car17v1.5-benchmarkY1test')
         self.assertEqual(len(topics), 2125)
@@ -52,14 +147,84 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 2254)
         self.assertFalse(isinstance(next(iter(topics.keys())), int))
 
+    def test_dl19_doc(self):
+        topics = search.get_topics('dl19-doc')
+        self.assertEqual(len(topics), 43)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+    def test_dl19_passage(self):
+        topics = search.get_topics('dl19-passage')
+        self.assertEqual(len(topics), 43)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+    def test_dl20(self):
+        topics = search.get_topics('dl20')
+        self.assertEqual(len(topics), 200)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
     def test_msmarco_doc(self):
         topics = search.get_topics('msmarco-doc-dev')
         self.assertEqual(len(topics), 5193)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+    def test_msmarco_doc_test(self):
+        topics = search.get_topics('msmarco-doc-test')
+        self.assertEqual(len(topics), 5793)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
     def test_msmarco_passage(self):
         topics = search.get_topics('msmarco-passage-dev-subset')
         self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_msmarco_passage_test(self):
+        topics = search.get_topics('msmarco-passage-test-subset')
+        self.assertEqual(len(topics), 6837)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_ntcir8_zh(self):
+        topics = search.get_topics('ntcir8-zh')
+        self.assertEqual(len(topics), 73)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
+    def test_clef2006_fr(self):
+        topics = search.get_topics('clef2006-fr')
+        self.assertEqual(len(topics), 49)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
+    def test_trec2002_ar(self):
+        topics = search.get_topics('trec2002-ar')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_fire2012_bn(self):
+        topics = search.get_topics('fire2012-bn')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_fire2012_hi(self):
+        topics = search.get_topics('fire2012-hi')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_fire2012_en(self):
+        topics = search.get_topics('fire2012-en')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_trec2020_bl(self):
+        topics = search.get_topics('trec2020-bl')
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_epidemic_qa_expert_prelim(self):
+        topics = search.get_topics('epidemic-qa-expert-prelim')
+        self.assertEqual(len(topics), 45)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_epidemic_qa_consumer_prelim(self):
+        topics = search.get_topics('epidemic-qa-consumer-prelim')
+        self.assertEqual(len(topics), 42)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     def test_dpr_nq_dev(self):

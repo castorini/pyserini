@@ -17,54 +17,15 @@
 import argparse
 import os
 from typing import Tuple, List, TextIO
+from transformers import AutoTokenizer
 
 from pyserini.pyclass import autoclass
-from pyserini.analysis import JDefaultEnglishAnalyzer
-from pyserini.search import get_topics, SimpleSearcher, JSimpleSearcherResult, JDisjunctionMaxQueryGenerator
+from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
+from pyserini.search import SimpleSearcher, JDisjunctionMaxQueryGenerator
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
-from pyserini.query_iterator import QUERY_IDS, query_iterator
+from pyserini.query_iterator import get_query_iterator, TopicsFormat
+from pyserini.output_writer import OutputFormat, get_output_writer
 from tqdm import tqdm
-
-
-def write_result(target_file: TextIO, result: Tuple[str, List[JSimpleSearcherResult]],
-                 hits_num: int, msmarco: bool, tag: str):
-    topic, hits = result
-    docids = [hit.docid.strip() for hit in hits]
-    scores = [hit.score for hit in hits]
-
-    if msmarco:
-        for i, docid in enumerate(docids):
-            if i >= hits_num:
-                break
-            target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
-    else:
-        for i, (docid, score) in enumerate(zip(docids, scores)):
-            if i >= hits_num:
-                break
-            target_file.write(
-                f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
-
-
-def write_result_max_passage(target_file: TextIO, result: Tuple[str, List[JSimpleSearcherResult]],
-                             max_passage_delimiter: str, max_passage_hits: int,
-                             msmarco: bool, tag: str):
-    topic, hits = result
-    unique_docs = set()
-    rank = 1
-    for hit in hits:
-        docid, _ = hit.docid.split(max_passage_delimiter)
-        if docid in unique_docs:
-            continue
-
-        if msmarco:
-            target_file.write(f'{topic}\t{docid}\t{rank}\n')
-        else:
-            target_file.write(
-                f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
-        rank = rank + 1
-        unique_docs.add(docid)
-        if rank > max_passage_hits:
-            break
 
 
 def set_bm25_parameters(searcher, index, k1=None, b=None):
@@ -135,8 +96,10 @@ if __name__ == "__main__":
                         help="Name of topics. Available: robust04, robust05, core17, core18.")
     parser.add_argument('--hits', type=int, metavar='num',
                         required=False, default=1000, help="Number of hits.")
-    parser.add_argument('--msmarco',  action='store_true',
-                        default=False, help="Output in MS MARCO format.")
+    parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
+                        help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
+    parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
+                        help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
     parser.add_argument('--output', type=str, metavar='path',
                         help="Path to output file.")
     parser.add_argument('--max-passage',  action='store_true',
@@ -149,9 +112,11 @@ if __name__ == "__main__":
                         default=1, help="Specify batch size to search the collection concurrently.")
     parser.add_argument('--threads', type=int, metavar='num', required=False,
                         default=1, help="Maximum number of threads to use.")
+    parser.add_argument('--tokenizer', type=str, help='tokenizer used to preprocess topics')
     args = parser.parse_args()
 
-    topics = get_topics(args.topics)
+    query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
+    topics = query_iterator.topics
 
     if os.path.exists(args.index):
         # create searcher from index directory
@@ -185,16 +150,18 @@ if __name__ == "__main__":
     if args.dismax:
         query_generator = JDisjunctionMaxQueryGenerator(args.tiebreaker)
         print(f'Using dismax query generator with tiebreaker={args.tiebreaker}')
+    
+    if args.tokenizer != None:
+        analyzer = JWhiteSpaceAnalyzer()
+        searcher.set_analyzer(analyzer)
+        print(f'Using whitespace analyzer because of pretokenized topics')
+        tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
+        print(f'Using {args.tokenizer} to preprocess topics')
 
     if args.stopwords:
         analyzer = JDefaultEnglishAnalyzer.fromArguments('porter', False, args.stopwords)
         searcher.set_analyzer(analyzer)
         print(f'Using custom stopwords={args.stopwords}')
-
-    # invalid topics name
-    if topics == {}:
-        print(f'Topic {args.topics} Not Found')
-        exit()
 
     # get re-ranker
     use_prcl = args.prcl and len(args.prcl) > 0 and args.alpha > 0
@@ -227,14 +194,20 @@ if __name__ == "__main__":
     print(f'Running {args.topics} topics, saving to {output_path}...')
     tag = output_path[:-4] if args.output is None else 'Anserini'
 
-    order = None
-    if args.topics in QUERY_IDS:
-        order = QUERY_IDS[args.topics]
+    output_writer = get_output_writer(output_path, OutputFormat(args.output_format), 'w',
+                                      max_hits=args.hits, tag=tag, topics=topics,
+                                      use_max_passage=args.max_passage,
+                                      max_passage_delimiter=args.max_passage_delimiter,
+                                      max_passage_hits=args.max_passage_hits)
 
-    with open(output_path, 'w') as target_file:
+    with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+        for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
+            if (args.tokenizer != None):
+                toks = tokenizer.tokenize(text)
+                text = ' '
+                text = text.join(toks)
             if args.batch_size <= 1 and args.threads <= 1:
                 hits = searcher.search(text, args.hits, query_generator=query_generator, fields=fields)
                 results = [(topic_id, hits)]
@@ -243,18 +216,19 @@ if __name__ == "__main__":
                 batch_topics.append(text)
                 if (index + 1) % args.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
-                    results = searcher.batch_search(batch_topics, batch_topic_ids, args.hits, args.threads,
-                                                    query_generator=query_generator, fields=fields)
+                    results = searcher.batch_search(
+                        batch_topics, batch_topic_ids, args.hits, args.threads,
+                        query_generator=query_generator, fields=fields
+                    )
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
                 else:
                     continue
 
-            for result in results:
+            for topic, hits in results:
                 # do rerank
                 if use_prcl and len(hits) > (args.r + args.n):
-                    hits = result[1]
                     docids = [hit.docid.strip() for hit in hits]
                     scores = [hit.score for hit in hits]
                     scores, docids = ranker.rerank(docids, scores)
@@ -263,9 +237,6 @@ if __name__ == "__main__":
                         hit.score = docid_score_map[hit.docid.strip()]
 
                 # write results
-                if args.max_passage:
-                    write_result_max_passage(target_file, result, args.max_passage_delimiter,
-                                             args.max_passage_hits, args.msmarco, tag)
-                else:
-                    write_result(target_file, result, args.hits, args.msmarco, tag)
+                output_writer.write(topic, hits)
+
             results.clear()

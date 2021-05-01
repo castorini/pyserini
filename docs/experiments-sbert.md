@@ -1,18 +1,20 @@
-# Pyserini: Replicating SBERT MSMARCO Results
+# Pyserini: Reproducing SBERT Results
 
-## Dense Retrieval
+This guide provides instructions to reproduce the SBERT dense retrieval models for MS MARCO passage ranking (v3) described [here](https://github.com/UKPLab/sentence-transformers/blob/master/docs/pretrained-models/msmarco-v3.md).
 
-Dense retrieval with SBERT, brute-force index:
+Dense retrieval, brute-force index:
 
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-                             --index dindex-msmarco-passage-sbert-bf-20210313-a0fbb3 \
-                             --encoder sentence-transformers/msmarco-distilbert-base-v3 \
+                             --index msmarco-passage-sbert-bf \
+                             --encoded-queries sbert-msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.sbert.bf.tsv \
-                             --msmarco
+                             --output-format msmarco
 ```
+
+Replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -33,3 +35,40 @@ $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-s
 map                     all     0.3372
 recall_1000             all     0.9558
 ```
+
+Hybrid retrieval with dense-sparse representations (without document expansion):
+- dense retrieval with SBERT, brute force index.
+- sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
+
+```bash
+$ python -m pyserini.hsearch dense  --index msmarco-passage-sbert-bf \
+                                    --encoded-queries sbert-msmarco-passage-dev-subset \
+                             sparse --index msmarco-passage \
+                             fusion --alpha 0.015  \
+                             run    --topics msmarco-passage-dev-subset \
+                                    --output runs/run.msmarco-passage.sbert.bf.bm25.tsv \
+                                    --batch-size 36 --threads 12 \
+                                    --output-format msmarco
+```
+
+Replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3` for on-the-fly query encoding.
+
+To evaluate:
+
+```bash
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.sbert.bf.bm25.tsv
+#####################
+MRR @10: 0.337881134306635
+QueriesRanked: 6980
+#####################
+
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.sbert.bf.bm25.tsv --output runs/run.msmarco-passage.sbert.bf.bm25.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.sbert.bf.bm25.trec
+map                     all     0.3445
+recall_1000             all     0.9659
+```
+
+## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-02 (commit [`8dcf99`](https://github.com/castorini/pyserini/commit/8dcf99982a7bfd447ce9182ff219a9dad2ddd1f2))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-26 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))

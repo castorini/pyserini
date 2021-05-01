@@ -57,7 +57,7 @@ attention to: the official metric is MRR@100, so we want to only return the top
 format.
 
 ```bash
-python -m pyserini.search --msmarco --hits 100 \
+python -m pyserini.search --output-format msmarco --hits 100 \
   --topics msmarco-doc-dev \
   --index indexes/msmarco-doc/lucene-index-msmarco/ \
   --output runs/run.msmarco-doc.leaderboard-dev.elastic.txt \
@@ -77,6 +77,6 @@ QueriesRanked: 5193
 #####################
 ```
 
-## Replication Log
+## Reproduction Log[*](reproducibility.md)
 
-+ Results replicated by [@lintool](https://github.com/lintool) on 2021-03-10 (commit [`8d51d9`](https://github.com/castorini/pyserini/commit/8d51d9c2ebc0d39e37e3ccda63085de50d536fcb))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-03-10 (commit [`8d51d9`](https://github.com/castorini/pyserini/commit/8d51d9c2ebc0d39e37e3ccda63085de50d536fcb))

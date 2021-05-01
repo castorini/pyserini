@@ -157,7 +157,8 @@ From the Layout panel in Gephi, choose `ForceAtlas 2` algorithm and tune the `sc
 
 You should get the following visualization:
 ![graph](images/cord19_gephi.png)
-## Replication Log
 
-+ Results replicated by [@Dahlia-Chehata](https://github.com/Dahlia-Chehata) on 2020-12-26 (commit [`b6da95a`](https://github.com/castorini/pyserini/commit/b6da95aaf81ebb26d51be5c7f2cf68b44361307b))
-+ Results replicated by [@jrzhang12](https://github.com/jrzhang12) on 2021-01-03 (commit [`c71d368`](https://github.com/castorini/pyserini/commit/c71d3686bfa64eba82608ec79249572281ce1615))
+## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@Dahlia-Chehata](https://github.com/Dahlia-Chehata) on 2020-12-26 (commit [`b6da95a`](https://github.com/castorini/pyserini/commit/b6da95aaf81ebb26d51be5c7f2cf68b44361307b))
++ Results reproduced by [@jrzhang12](https://github.com/jrzhang12) on 2021-01-03 (commit [`c71d368`](https://github.com/castorini/pyserini/commit/c71d3686bfa64eba82608ec79249572281ce1615))

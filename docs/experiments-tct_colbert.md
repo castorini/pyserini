@@ -1,11 +1,13 @@
-# Pyserini: Replicating TCT-ColBERT Results
+# Pyserini: Reproducing TCT-ColBERT Results
 
-This guide provides replication instructions for the TCT-ColBERT dense retrieval model described in the following paper:
+This guide provides instructions to reproduce the TCT-ColBERT dense retrieval model described in the following paper:
 
 > Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [Distilling Dense Representations for Ranking using Tightly-Coupled Teachers.](https://arxiv.org/abs/2010.11386) arXiv:2010.11386, October 2020. 
 
 You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
-These experiments were performed on a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`, `transformers==4.0.0`, `torch==1.7.1`, and `tensorflow==2.4.0`; results have also been replicated on macOS 10.14.6 with the same Python dependency versions.
+Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
+However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
+Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
 ## MS MARCO Passage Ranking
 
@@ -25,13 +27,14 @@ Dense retrieval with TCT-ColBERT, brute-force index:
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-bf \
+                             --encoded-queries tct_colbert-msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.tct_colbert.bf.tsv \
-                             --msmarco
+                             --output-format msmarco
 ```
 
-Note that to ensure maximum replicability, by default Pyserini uses pre-computed query representations that are automatically downloaded.
+Note that to ensure maximum reproducibility, by default Pyserini uses pre-computed query representations that are automatically downloaded.
 As an alternative, to perform "on-the-fly" query encoding, see additional instructions below.
 
 To evaluate:
@@ -43,11 +46,6 @@ MRR @10: 0.3350
 QueriesRanked: 6980
 #####################
 ```
-
-Note that we have observed minor differences in MRR@10 depending on the source of the query representations (see below; pre-computed vs. on-the-fly encoding on the CPU vs. on-the-fly encoding on the GPU).
-We have also noticed differences in MRR@10 between Linux and macOS.
-However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a replicability perspective.
-Thus, while the MS MARCO scoring scripts provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
 We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10. 
 For that we first need to convert runs and qrels files to the TREC format:
@@ -69,7 +67,7 @@ Dense retrieval with TCT-ColBERT, HNSW index:
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-hnsw \
                              --output runs/run.msmarco-passage.tct_colbert.hnsw.tsv \
-                             --msmarco 
+                             --output-format msmarco 
 ```
 
 To evaluate:
@@ -98,12 +96,13 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 
 ```bash
 $ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
+                                    --encoded-queries tct_colbert-msmarco-passage-dev-subset \
                              sparse --index msmarco-passage \
                              fusion --alpha 0.12 \
                              run    --topics msmarco-passage-dev-subset \
                                     --output runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv \
                                     --batch-size 36 --threads 12 \
-                                    --msmarco
+                                    --output-format msmarco
 ```
 
 To evaluate:
@@ -130,12 +129,13 @@ Hybrid retrieval with dense-sparse representations (with document expansion):
 
 ```bash
 $ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
+                                    --encoded-queries tct_colbert-msmarco-passage-dev-subset \
                              sparse --index msmarco-passage-expanded \
                              fusion --alpha 0.22 \
                              run    --topics msmarco-passage-dev-subset \
                                     --output runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv \
                                     --batch-size 36 --threads 12 \
-                                    --msmarco
+                                    --output-format msmarco
 ```
 
 To evaluate:
@@ -175,15 +175,17 @@ Dense retrieval using a brute force index:
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --index msmarco-doc-tct_colbert-bf \
-                             --encoder castorini/tct_colbert-msmarco \
+                             --encoded-queries tct_colbert-msmarco-doc-dev \
                              --output runs/run.msmarco-doc.passage.tct_colbert.txt \
                              --hits 1000 \
                              --max-passage \
                              --max-passage-hits 100 \
-                             --msmarco \
+                             --output-format msmarco \
                              --batch-size 36 \
                              --threads 12
 ```
+
+Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-the-fly query encoding.
 
 To compute the official metric MRR@100 using the official evaluation scripts:
 
@@ -209,15 +211,17 @@ Dense-sparse hybrid retrieval (without document expansion):
 
 ```bash
 $ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
-                                    --encoder castorini/tct_colbert-msmarco \
+                                    --encoded-queries tct_colbert-msmarco-doc-dev \
                              sparse --index msmarco-doc-per-passage \
                              fusion --alpha 0.25 \
                              run    --topics msmarco-doc-dev \
                                     --output runs/run.msmarco-doc.tct_colbert.bf.bm25.tsv \
                                     --hits 1000 --max-passage --max-passage-hits 100 \
                                     --batch-size 36 --threads 12 \
-                                    --msmarco
+                                    --output-format msmarco
 ```
+
+Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -240,15 +244,17 @@ Dense-sparse hybrid retrieval (with document expansion):
 
 ```bash
 $ python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
-                                    --encoder castorini/tct_colbert-msmarco \
+                                    --encoded-queries tct_colbert-msmarco-doc-dev \
                              sparse --index msmarco-doc-expanded-per-passage \
                              fusion --alpha 0.32 \
                              run    --topics msmarco-doc-dev \
                                     --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv \
                                     --hits 1000 --max-passage --max-passage-hits 100 \
                                     --batch-size 36 --threads 12 \
-                                    --msmarco
+                                    --output-format msmarco
 ```
+
+Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -265,6 +271,7 @@ map                   	all	0.3784
 recall_100            	all	0.9081
 ```
 
-## Replication Log
+## Reproduction Log[*](reproducibility.md)
 
-+ Results replicated by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-25 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
