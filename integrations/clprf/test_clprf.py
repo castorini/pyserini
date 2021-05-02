@@ -16,7 +16,6 @@
 
 import os
 import shutil
-import tarfile
 import unittest
 
 from random import randint
@@ -27,9 +26,11 @@ from integrations.simplesearcher_score_checker import SimpleSearcherScoreChecker
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
         curdir = os.getcwd()
-        if curdir.endswith('integrations'):
-            self.pyserini_root = '..'
-            self.anserini_root = '../../anserini'
+        # The current directory depends on if you're running inside an IDE or from command line.
+        curdir = os.getcwd()
+        if curdir.endswith('clprf'):
+            self.pyserini_root = '../..'
+            self.anserini_root = '../../../anserini'
         else:
             self.pyserini_root = '.'
             self.anserini_root = '../anserini'
@@ -299,7 +300,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'python -m pyserini.fusion ' \
                   + f'--runs {self.tmp}/core17_lr_rm3.txt {self.tmp}/core17_svm_rm3.txt ' \
-                  + f'--out {self.tmp}/core17_rrf_rm3.txt'
+                  + f'--output {self.tmp}/core17_rrf_rm3.txt'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -472,7 +473,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'python -m pyserini.fusion ' \
                   + f'--runs {self.tmp}/core18_lr.txt {self.tmp}/core18_svm.txt ' \
-                  + f'--out {self.tmp}/core18_rrf.txt'
+                  + f'--output {self.tmp}/core18_rrf.txt'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -507,7 +508,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'python -m pyserini.fusion ' \
                   + f'--runs {self.tmp}/core18_lr_rm3.txt {self.tmp}/core18_svm_rm3.txt ' \
-                  + f'--out {self.tmp}/core18_rrf_rm3.txt'
+                  + f'--output {self.tmp}/core18_rrf_rm3.txt'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -680,7 +681,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'python -m pyserini.fusion ' \
                   + f'--runs {self.tmp}/robust04_lr.txt {self.tmp}/robust04_svm.txt ' \
-                  + f'--out {self.tmp}/robust04_rrf.txt'
+                  + f'--output {self.tmp}/robust04_rrf.txt'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -715,7 +716,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'python -m pyserini.fusion ' \
                   + f'--runs {self.tmp}/robust04_lr_rm3.txt {self.tmp}/robust04_svm_rm3.txt ' \
-                  + f'--out {self.tmp}/robust04_rrf_rm3.txt'
+                  + f'--output {self.tmp}/robust04_rrf_rm3.txt'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -888,7 +889,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'python -m pyserini.fusion ' \
                   + f'--runs {self.tmp}/robust05_lr.txt {self.tmp}/robust05_svm.txt ' \
-                  + f'--out {self.tmp}/robust05_rrf.txt'
+                  + f'--output {self.tmp}/robust05_rrf.txt'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -923,7 +924,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'python -m pyserini.fusion ' \
                   + f'--runs {self.tmp}/robust05_lr_rm3.txt {self.tmp}/robust05_svm_rm3.txt ' \
-                  + f'--out {self.tmp}/robust05_rrf_rm3.txt'
+                  + f'--output {self.tmp}/robust05_rrf_rm3.txt'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
