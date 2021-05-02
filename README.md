@@ -6,21 +6,15 @@
 [![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
-Pyserini is a Python toolkit designed to support reproducible IR Research with sparse and dense representations.
-Retrieval using sparse representations is provided via the [Anserini](http://anserini.io/) IR toolkit, which is built on Lucene.
+Pyserini is a Python toolkit designed to support reproducible information retrieval research with sparse and dense representations.
+Retrieval using sparse representations is provided via integration with our group's [Anserini](http://anserini.io/) IR toolkit, which is built on Lucene.
+Retrieval using dense representations is provided via integration with Facebook's [Faiss](https://github.com/facebookresearch/faiss) library.
 
 Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multistage ranking architecture.
 Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, pre-built indexes, and evaluation scripts for many commonly used IR test collections
 
 With Pyserini, it's easy to [reproduce](docs/pypi-reproduction.md) runs on a number of standard IR test collections!
 A low-effort way to try things out is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
-
-Pyserini versions adopt the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
-The current stable release of Pyserini is [v0.11.0.0](https://pypi.org/project/pyserini/) on PyPI.
-The current experimental release of Pyserini on TestPyPI is behind the current stable release (i.e., do not use).
-In general, documentation is kept up to date with the latest code in the repo.
-
-If you're looking to work with the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research), start with [this guide](docs/working-with-cord19.md).
 
 ## Package Installation
 
@@ -31,6 +25,26 @@ pip install pyserini==0.11.0.0
 ```
 
 Pyserini requires Python 3.6+ and Java 11 (due to its dependency on [Anserini](http://anserini.io/)).
+
+Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
+A `pip` installation will automatically pull in the [🤗 Transformers library](https://github.com/huggingface/transformers) to satisfy the package requirements.
+Pyserini also depends on [PyTorch](https://pytorch.org/) and [Faiss](https://github.com/facebookresearch/faiss), but since these packages may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
+We leave the installation of these packages to you.
+
+In general, the development team tries to keep dependent packages at the same versions and upgrade in lockstep.
+Currently, our "reference" configuration is a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`,  `transformers==4.0.0`, and `torch==1.7.1`.
+This is the configuration used to run our many regression tests.
+However, in most cases results have also been reproduced on macOS with the same dependency versions.
+Use other versions of the dependent packages at your own risk...
+
+Troubleshooting tips:
+
++ If you get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
+In `bash`, use `echo $JAVA_HOME` to find out what the environmental variable is currently set to, and use `export JAVA_HOME=/path/to/java/home` to change it to the correct path.
+On a Linux system, the correct path might look something like `/usr/lib/jvm/java-11`.
+Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.
++ Windows uses GBK character encoding by default, which makes resource file reading in Anserini inconsistent with that in Linux and macOS.
+To fix, manually set environment variable `set _JAVA_OPTIONS=-Dfile.encoding=UTF-8` to use `UTF-8` encoding.
 
 ## Development Installation
 
@@ -49,6 +63,8 @@ cd tools/eval/ndeval && make && cd ../../..
 Next, you'll need to clone and build [Anserini](http://anserini.io/).
 It makes sense to put both `pyserini/` and `anserini/` in a common folder.
 After you've successfully built Anserini, copy the fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
+All the instructions about installing additional Python dependencies above also applies here.
+
 You can confirm everything is working by running the unit tests:
 
 ```bash
@@ -312,3 +328,6 @@ The previous error was documented in [this notebook](https://github.com/castorin
 + v0.7.1.0: January 9, 2020 [[Release Notes](docs/release-notes/release-notes-v0.7.1.0.md)]
 + v0.7.0.0: December 13, 2019 [[Release Notes](docs/release-notes/release-notes-v0.7.0.0.md)]
 + v0.6.0.0: November 2, 2019
+
+With v0.11.0.0 and before, Pyserini versions adopted the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
+Starting with Anserini v0.12.0, Anserini and Pyserini versions have become decoupled.

@@ -28,12 +28,12 @@ JSpanishAnalyzer = autoclass('org.apache.lucene.analysis.es.SpanishAnalyzer')
 JFrenchAnalyzer = autoclass('org.apache.lucene.analysis.fr.FrenchAnalyzer')
 JHindiAnalyzer = autoclass('org.apache.lucene.analysis.hi.HindiAnalyzer')
 JDefaultEnglishAnalyzer = autoclass('io.anserini.analysis.DefaultEnglishAnalyzer')
+JWhiteSpaceAnalyzer = autoclass('org.apache.lucene.analysis.core.WhitespaceAnalyzer')
 JCharArraySet = autoclass('org.apache.lucene.analysis.CharArraySet')
 
 # Wrappers around Anserini classes
 JAnalyzerUtils = autoclass('io.anserini.analysis.AnalyzerUtils')
 JDefaultEnglishAnalyzer = autoclass('io.anserini.analysis.DefaultEnglishAnalyzer')
-JFreebaseAnalyzer = autoclass('io.anserini.analysis.FreebaseAnalyzer')
 JTweetAnalyzer = autoclass('io.anserini.analysis.TweetAnalyzer')
 
 
@@ -70,8 +70,6 @@ def get_lucene_analyzer(name='english', stemming=True, stemmer='porter', stopwor
         return JFrenchAnalyzer()
     elif name.lower() == 'hindi':
         return JHindiAnalyzer()
-    elif name.lower() == 'freebase':
-        return JFreebaseAnalyzer()
     elif name.lower() == 'tweet':
         return JTweetAnalyzer()
     elif name.lower() == 'english':

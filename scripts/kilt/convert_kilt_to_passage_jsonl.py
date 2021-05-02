@@ -42,7 +42,7 @@ if __name__ == '__main__':
                 doc["id"] = f"{raw['_id']}-{i}"
                 p = texts[i]
                 if args.bigrams:
-                    tokens = filter(lambda word: word not in STOPWORDS, word_tokenize(p))
+                    tokens = filter(lambda word: word.lower() not in STOPWORDS, word_tokenize(p))
                     if args.stem:
                         tokens = map(stemmer.stem, tokens)
                     bigram_doc = bigrams(tokens)

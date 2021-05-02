@@ -1,4 +1,16 @@
 INDEX_INFO = {
+    "cacm": {
+        "description": "CACM corpus",
+        "filename": "lucene-index.cacm.tar.gz",
+        "urls": [
+            "https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.tar.gz",
+        ],
+        "md5": "e47164fbd18aab72cdc18aecc0744bb1",
+        "size compressed (bytes)": 2372903,
+        "total_terms": 320968,
+        "documents": 3204,
+        "unique_terms": 14363,
+    },
     "robust04": {
         "description": "TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track",
         "filename": "index-robust04-20191213.tar.gz",
@@ -418,6 +430,19 @@ INDEX_INFO = {
         "total_terms": 1512973270,
         "documents": 21015324,
         "unique_terms": 5345463,
+        "downloaded": False
+    },
+    "wikipedia-kilt-doc": {
+        "description": "Wikipedia snapshot used as KILT's knowledge source. Indexed by documents.",
+        "filename": "index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+        ],
+        "md5": "b8ec8feb654f7aaa86f9901dc6c804a8",
+        "size compressed (bytes)": 10901127209,
+        "total_terms": 1915061164,
+        "documents": 5903530,
+        "unique_terms": 8722502,
         "downloaded": False
     },
 }

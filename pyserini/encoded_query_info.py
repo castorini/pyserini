@@ -2,190 +2,190 @@ QUERY_INFO = {
     "tct_colbert-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT",
         "urls": [
-            "https://www.dropbox.com/s/vdfjmvayn8bobop/query-embedding-tct_colbert-msmarco-passage-dev-subset-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-msmarco-passage-dev-subset-20210419-9323ec.tar.gz",
         ],
-        "md5": "31b6d2a83c9f7a2d0d2ce982d5449da1",
-        "size (bytes)": 20077831,
+        "md5": "b2fe6494241639153f26cc61acf3b39d",
+        "size (bytes)": 20078757,
         "total_queries": 6980,
         "downloaded": False
     },
     "ance-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by ANCE",
         "urls": [
-            "https://www.dropbox.com/s/eh7enn1hc0cvf7u/query-embedding-ance-msmarco-passage-dev-subset-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-ance-msmarco-passage-dev-subset-20210419-9323ec.tar.gz",
         ],
-        "md5": "14588c19be7df7479e724ebbee6d93af",
-        "size (bytes)": 19964196,
+        "md5": "adad81bb1495eff2f0463e809ecc01b8",
+        "size (bytes)": 19965095,
         "total_queries": 6980,
         "downloaded": False
     },
     "tct_colbert-msmarco-doc-dev": {
         "description": "MS MARCO Document dev set queries encoded by TCT-ColBERT zero-shot",
         "urls": [
-            "https://www.dropbox.com/s/kzgbhvb9qvkf78m/query-embedding-tct_colbert-msmarco-doc-dev-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-msmarco-doc-dev-20210419-9323ec.tar.gz",
         ],
-        "md5": "a1c2195ae0d66d3e3acacef9eb49a510",
-        "size (bytes)": 14939500,
+        "md5": "565fe57f92b229643b68fa3263f089a9",
+        "size (bytes)": 14940124,
         "total_queries": 6980,
         "downloaded": False
     },
     "ance_maxp-msmarco-doc-dev": {
         "description": "MS MARCO Document dev set queries encoded by ANCE maxp",
         "urls": [
-            "https://www.dropbox.com/s/u4tu08vpj0w3dl4/query-embedding-ance_maxp-msmarco-doc-dev-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-ance_maxp-msmarco-doc-dev-20210419-9323ec.tar.gz",
         ],
-        "md5": "4c2b9aff50b92161c955a4018d014943",
-        "size (bytes)": 14853556,
+        "md5": "3d41ae797cb97e42649c4f4fa7b97d56",
+        "size (bytes)": 14854155,
         "total_queries": 6980,
         "downloaded": False
     },
     "sbert-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by SBERT",
         "urls": [
-            "https://www.dropbox.com/s/7tg1byavfcjy66u/query-embedding-sbert-msmarco-passage-dev-subset-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-sbert-msmarco-passage-dev-subset-20210419-9323ec.tar.gz",
         ],
-        "md5": "edfac9e18258aa37839d21dda033f184",
-        "size (bytes)": 20057735,
+        "md5": "dc0d09a0f5803824c1ad46a39417aa1e",
+        "size (bytes)": 20058701,
         "total_queries": 6980,
         "downloaded": False
     },
     "distilbert_kd-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by SBERT",
         "urls": [
-            "https://www.dropbox.com/s/annm4pw3xfht8xn/query-embedding-distilbert_kd-msmarco-passage-dev-subset.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-distilbert_kd-msmarco-passage-dev-subset-20210419-9323ec.tar.gz",
         ],
-        "md5": "a4c4d6a2428741399893b39324e120fd",
-        "size (bytes)": 20012135,
+        "md5": "4706ec91183eefa9771e9311fe4799e0",
+        "size (bytes)": 20013009,
         "total_queries": 6980,
         "downloaded": False
     },
     "dpr_multi-nq-dev": {
         "description": "Natural Question dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/33ks0ekwsvm6lk0/query-embedding-dpr_multi-nq-dev-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dpr_multi-nq-dev-20210419-9323ec.tar.gz",
         ],
-        "md5": "0265ade8390ea2c0df6c0b610b270b95",
-        "size (bytes)": 25128295,
+        "md5": "c2fd32438129e4994ce2ce71e08de875",
+        "size (bytes)": 25129398,
         "total_queries": 8757,
         "downloaded": False
     },
     "dpr_multi-nq-test": {
         "description": "Natural Question test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/2p5k63yhfooicqe/query-embedding-dpr_multi-nq-test-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dpr_multi-nq-test-20210419-9323ec.tar.gz",
         ],
-        "md5": "41753d4d35f61fd10724b71eb6eb3259",
-        "size (bytes)": 10364610,
+        "md5": "1791f1ed078beb3a00847f75023eb020",
+        "size (bytes)": 10365005,
         "total_queries": 3610,
         "downloaded": False
     },
     "ance_multi-nq-dev": {
         "description": "Natural Question dev set questions encoded by ANCE question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/l2apd5505iu03ul/query-embedding-ance_multi-nq-dev-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-ance_multi-nq-dev-20210419-9323ec.tar.gz",
         ],
-        "md5": "db54c870ef60022474d4f6aa36ab71a0",
-        "size (bytes)": 25162822,
+        "md5": "a3ed32ec8d5a474f61e3c3a9968b26fd",
+        "size (bytes)": 25163934,
         "total_queries": 8757,
         "downloaded": False
     },
     "ance_multi-nq-test": {
         "description": "Natural Question test set questions encoded by ANCE question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/i09ej3c5zj7s0zj/query-embedding-ance_multi-nq-test-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-ance_multi-nq-test-20210419-9323ec.tar.gz",
         ],
-        "md5": "c8788d86549261dc723b828046b4fbbf",
-        "size (bytes)": 10379027,
+        "md5": "a356202b7c8f73758732c893a76a8005",
+        "size (bytes)": 10379384,
         "total_queries": 3610,
         "downloaded": False
     },
     "dpr_multi-trivia-dev": {
         "description": "TriviaQA dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/pdis1zhtojfc6zu/query-embedding-dpr_multi-trivia-dev-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dpr_multi-trivia-dev-20210419-9323ec.tar.gz",
         ],
-        "md5": "3a6a49b9ae88d2ad8fbd77be428ab7d6",
-        "size (bytes)": 25516865,
+        "md5": "efac7b71ef52ca073331e896089456a4",
+        "size (bytes)": 25517034,
         "total_queries": 8837,
         "downloaded": False
     },
     "dpr_multi-trivia-test": {
         "description": "TriviaQA test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/nip4b8aqawq78xz/query-embedding-dpr_multi-trivia-test-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dpr_multi-trivia-test-20210419-9323ec.tar.gz",
         ],
-        "md5": "144c848ee406d2fdfdea168071d559bb",
-        "size (bytes)": 32663752,
+        "md5": "01e95455d55d0495d806549f04a02c24",
+        "size (bytes)": 32664437,
         "total_queries": 11313,
         "downloaded": False
     },
     "ance_multi-trivia-dev": {
         "description": "TriviaQA dev set questions encoded by ANCE question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/ihql2r00nn89qlg/query-embedding-ance_multi-trivia-dev-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-ance_multi-trivia-dev-20210419-9323ec.tar.gz",
         ],
-        "md5": "e4a280905f3dc30761f2d9ed13353733",
-        "size (bytes)": 25559727,
+        "md5": "bd88499a5785b15ba702173cc0e91417",
+        "size (bytes)": 25559775,
         "total_queries": 8837,
         "downloaded": False
     },
     "ance_multi-trivia-test": {
         "description": "TriviaQA test set questions encoded by ANCE question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/nbur4u2kjveir82/query-embedding-ance_multi-trivia-test-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-ance_multi-trivia-test-20210419-9323ec.tar.gz",
         ],
-        "md5": "ceea6ac9d84047f50c26c18533f6daad",
-        "size (bytes)": 32717721,
+        "md5": "3844dfb7f8feb6b064fa48775a35c6ee",
+        "size (bytes)": 32717910,
         "total_queries": 11313,
         "downloaded": False
     },
     "dpr_multi-wq-test": {
         "description": "Web Questions test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/fkiqg4inpyqg54o/query-embedding-dpr_multi-wq-test-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dpr_multi-wq-test-20210419-9323ec.tar.gz",
         ],
-        "md5": "4a3b5e88fd80823627b6f1743c8fbb96",
-        "size (bytes)": 5826640,
+        "md5": "19aa721632d05afe031cc2da83a9a5a5",
+        "size (bytes)": 5826854,
         "total_queries": 2032,
         "downloaded": False
     },
     "dpr_multi-squad-test": {
         "description": "SQUAD dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/gqlnmum83cijgxm/query-embedding-dpr_multi-squad-test-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dpr_multi-squad-test-20210419-9323ec.tar.gz",
         ],
-        "md5": "83d5da45c1e5cf5c03c76af59cf27802",
-        "size (bytes)": 30326384,
+        "md5": "d11e0f801a488d51ad2a63b0748f4ae0",
+        "size (bytes)": 30328268,
         "total_queries": 10570,
         "downloaded": False
     },
     "dpr_multi-curated-test": {
         "description": "CuratedTREC test set questions encoded by DPR question encoder trained on multiset",
         "urls": [
-            "https://www.dropbox.com/s/2pt3eviuygx107y/query-embedding-dpr_multi-curated-test-20210404-727692.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dpr_multi-curated-test-20210419-9323ec.tar.gz",
         ],
-        "md5": "2dfd1bc4db407ab832d7bae13e93b022",
-        "size (bytes)": 1995260,
+        "md5": "d1737d3ec5a080d93350ae76b02c7fd1",
+        "size (bytes)": 1995280,
         "total_queries": 694,
         "downloaded": False
     },
     "dpr_single_nq-nq-dev": {
         "description": "NQ dev set questions encoded by DPR question encoder trained on NQ dataset",
         "urls": [
-            "https://www.dropbox.com/s/dffwcq39jt6v88f/query-embedding-dpr_single_nq-nq-dev-20210409-8b42b0.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dpr_single_nq-nq-dev-20210419-9323ec.tar.gz",
         ],
-        "md5": "cfdedaf618ff18634ea76e3dd77c9ef4",
-        "size (bytes)": 25122168,
+        "md5": "1a992f8d5336dc8654bba5ab7e375ebe",
+        "size (bytes)": 25123288,
         "total_queries": 8757,
         "downloaded": False
     },
     "dpr_single_nq-nq-test": {
         "description": "NQ test set questions encoded by DPR question encoder trained on NQ dataset",
         "urls": [
-            "https://www.dropbox.com/s/ln8wfekegxuzxp0/query-embedding-dpr_single_nq-nq-test-20210409-8b42b0.tar.gz?dl=1",
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dpr_single_nq-nq-test-20210419-9323ec.tar.gz",
         ],
-        "md5": "e87b19860afa88c4b2369dd8daf0cc80",
-        "size (bytes)": 10361853,
+        "md5": "e64bb009b6ba8bfe40d4b9967fd69240",
+        "size (bytes)": 10362252,
         "total_queries": 3610,
         "downloaded": False
      }

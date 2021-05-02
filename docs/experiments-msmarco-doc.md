@@ -64,11 +64,11 @@ We can now perform retrieval using these queries:
 python -m pyserini.search --topics msmarco-doc-dev \
  --index indexes/lucene-index-msmarco-doc \
  --output runs/run.msmarco-doc.bm25tuned.txt \
- --bm25 --msmarco --hits 100 --k1 4.46 --b 0.82
+ --bm25 --output-format msmarco --hits 100 --k1 4.46 --b 0.82
 ```
 
 Here, we set the BM25 parameters to `k1=4.46`, `b=0.82` (tuned by grid search).
-The option `--msmarco` says to generate output in the MS MARCO output format.
+The option `--output-format msmarco` says to generate output in the MS MARCO output format.
 The option `--hits` specifies the number of documents to return per query.
 Note that for the [MS MARCO Document Ranking Leaderboard](https://microsoft.github.io/MSMARCO-Document-Ranking-Submissions/leaderboard/), the official metric is MRR@100, so submissions should only return 100 hits per query. 
 
@@ -137,3 +137,5 @@ We can see that Anserini's (tuned) BM25 baseline is already much better than the
 + Results reproduced by [@larryli1999](https://github.com/larryli1999) on 2021-01-04 (commit [`74a87e4`](https://github.com/castorini/pyserini/commit/74a87e4951c98d7b066273140576d3cccd9ea0ed))
 + Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-01-04 (commit [`7261223`](https://github.com/castorini/pyserini/commit/72612232bc886e71e8de9431a899a7c68f1d82c7))
 + Results reproduced by [@printfCalvin](https://github.com/printfCalvin) on 2021-04-12 (commit [`0801f7f`](https://github.com/castorini/pyserini/commit/0801f7fb15e249f2e67901a6523d6ce68c667207))
++ Results replicated by [@saileshnankani](https://github.com/saileshnankani) on 2021-04-26 (commit [`6d48609`](https://github.com/castorini/pyserini/commit/6d486094137a26c8a0a57652a06ab4d42d5bce32))
++ Results replicated by [@andrewyguo](https://github.com/andrewyguo) on 2021-04-30 (commit [`ecfed61`](https://github.com/castorini/pyserini/commit/ecfed61bfba065aa958848cff96ba9f22609aeb1))

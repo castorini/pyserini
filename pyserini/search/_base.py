@@ -88,7 +88,13 @@ def get_topics(collection_name):
         Topics as a dictionary
     """
     topics = None
-    if collection_name == 'robust04':
+    if collection_name == 'trec1-adhoc':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC1_ADHOC)
+    elif collection_name == 'trec2-adhoc':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2_ADHOC)
+    elif collection_name == 'trec3-adhoc':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC3_ADHOC)
+    elif collection_name == 'robust04':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.ROBUST04)
     elif collection_name == 'robust05':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.ROBUST05)
@@ -96,6 +102,38 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.CORE17)
     elif collection_name == 'core18':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.CORE18)
+    elif collection_name == 'wt10g':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.WT10G)
+    elif collection_name == 'trec2004-terabyte':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2004_TERABYTE)
+    elif collection_name == 'trec2005-terabyte':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2005_TERABYTE)
+    elif collection_name == 'trec2006-terabyte':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2006_TERABYTE)
+    elif collection_name == 'trec2007-million-query':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2007_MILLION_QUERY)
+    elif collection_name == 'trec2008-million-query':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2008_MILLION_QUERY)
+    elif collection_name == 'trec2009-million-query':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2009_MILLION_QUERY)
+    elif collection_name == 'trec2010-web':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2010_WEB)
+    elif collection_name == 'trec2011-web':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2011_WEB)
+    elif collection_name == 'trec2012-web':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2012_WEB)
+    elif collection_name == 'trec2013-web':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2013_WEB)
+    elif collection_name == 'trec2014-web':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2014_WEB)
+    elif collection_name == 'mb11':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MB11)
+    elif collection_name == 'mb12':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MB12)
+    elif collection_name == 'mb13':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MB13)
+    elif collection_name == 'mb14':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MB14)
     elif collection_name == 'car17v1.5-benchmarkY1test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.CAR17V15_BENCHMARK_Y1_TEST)
     elif collection_name == 'car17v2.0-benchmarkY1test':
@@ -104,10 +142,28 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_DL_DOC)
     elif collection_name == 'dl19-passage':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_DL_PASSAGE)
+    elif collection_name == 'dl20':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2020_DL)
     elif collection_name == 'msmarco-doc-dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV)
+    elif collection_name == 'msmarco-doc-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_TEST)
     elif collection_name == 'msmarco-passage-dev-subset':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
+    elif collection_name == 'msmarco-passage-test-subset':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_TEST_SUBSET)
+    elif collection_name == 'ntcir8-zh':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.NTCIR8_ZH)
+    elif collection_name == 'clef2006-fr':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.CLEF2006_FR)
+    elif collection_name == 'trec2002-ar':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2002_AR)
+    elif collection_name == 'fire2012-bn':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.FIRE2012_BN)
+    elif collection_name == 'fire2012-hi':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.FIRE2012_HI)
+    elif collection_name == 'fire2012-en':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.FIRE2012_EN)
     elif collection_name == 'covid-round1':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND1)
     elif collection_name == 'covid-round1-udel':
@@ -128,6 +184,12 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2018_BL)
     elif collection_name == 'trec2019-bl':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_BL)
+    elif collection_name == 'trec2020-bl':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2020_BL)
+    elif collection_name == 'epidemic-qa-expert-prelim':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.EPIDEMIC_QA_EXPERT_PRELIM)
+    elif collection_name == 'epidemic-qa-consumer-prelim':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.EPIDEMIC_QA_CONSUMER_PRELIM)
     elif collection_name == 'dpr-nq-dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_NQ_DEV)
     elif collection_name == 'dpr-nq-test':
