@@ -51,7 +51,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
         # We get a small difference in scores on macOS vs. Linux, better way to check:
-        self.assertAlmostEqual(score, 0.3350, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3350, delta=0.0002)
 
     def test_msmarco_passage_tct_colbert_hnsw_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert.hnsw-otf.tsv'
