@@ -31,9 +31,10 @@ parser.add_argument('--rrf.k', dest='rrf_k', type=int, default=60,
 parser.add_argument('--alpha', type=float, default=0.5, required=False, help='Alpha value used for interpolation.')
 parser.add_argument('--depth', type=int, default=1000, required=False, help='Pool depth per topic.')
 parser.add_argument('--k', type=int, default=1000, required=False, help='Number of documents to output per topic.')
+parser.add_argument('--resort', type=bool, default=False, required=False, help='We resort the Trec run files or not')
 args = parser.parse_args()
 
-trec_runs = [TrecRun(filepath=path) for path in args.runs]
+trec_runs = [TrecRun(filepath=path,resort=args.resort) for path in args.runs]
 
 fused_run = None
 if args.method == FusionMethod.RRF:
