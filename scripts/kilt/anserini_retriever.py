@@ -81,7 +81,7 @@ def _get_predictions_thread(arguments):
         except jnius.JavaException as e:
             if logger:
                 logger.warning("{query} jnius.JavaException: {}".format(query_element, e))
-            if 'maxClauseError' in str(e):
+            if 'maxClauseCount' in str(e):
                 query = " ".join(query.split()[:950])
                 hits = ranker.search(query, k=topk)
                 doc_ids, doc_scores = parse_hits(hits)
