@@ -41,7 +41,7 @@ def main(args):
     else:
         tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco')
     if (os.path.isdir(args.input)):
-        for i, inf in enumerate(os.listdir(args.input)):
+        for i, inf in enumerate(sorted(os.listdir(args.input))):
             if not os.path.isdir(args.output):
                 os.mkdir(args.output)
             outf = os.path.join(args.output, 'docs{:02d}.json'.format(i))
