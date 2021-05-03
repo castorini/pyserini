@@ -265,7 +265,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
                   + f'--runs {self.tmp}/core17_lr.txt {self.tmp}/core17_svm.txt ' \
-                  + f'--output {self.tmp}/core17_rrf.txt --resort True'
+                  + f'--output {self.tmp}/core17_rrf.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -300,7 +300,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
                   + f'--runs {self.tmp}/core17_lr_rm3.txt {self.tmp}/core17_svm_rm3.txt ' \
-                  + f'--output {self.tmp}/core17_rrf_rm3.txt --resort True'
+                  + f'--output {self.tmp}/core17_rrf_rm3.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -473,7 +473,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
                   + f'--runs {self.tmp}/core18_lr.txt {self.tmp}/core18_svm.txt ' \
-                  + f'--output {self.tmp}/core18_rrf.txt --resort True'
+                  + f'--output {self.tmp}/core18_rrf.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -508,7 +508,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
                   + f'--runs {self.tmp}/core18_lr_rm3.txt {self.tmp}/core18_svm_rm3.txt ' \
-                  + f'--output {self.tmp}/core18_rrf_rm3.txt --resort True'
+                  + f'--output {self.tmp}/core18_rrf_rm3.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -681,7 +681,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
                   + f'--runs {self.tmp}/robust04_lr.txt {self.tmp}/robust04_svm.txt ' \
-                  + f'--output {self.tmp}/robust04_rrf.txt --resort True'
+                  + f'--output {self.tmp}/robust04_rrf.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -716,7 +716,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
                   + f'--runs {self.tmp}/robust04_lr_rm3.txt {self.tmp}/robust04_svm_rm3.txt ' \
-                  + f'--output {self.tmp}/robust04_rrf_rm3.txt --resort True'
+                  + f'--output {self.tmp}/robust04_rrf_rm3.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -889,7 +889,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
                   + f'--runs {self.tmp}/robust05_lr.txt {self.tmp}/robust05_svm.txt ' \
-                  + f'--output {self.tmp}/robust05_rrf.txt --resort True'
+                  + f'--output {self.tmp}/robust05_rrf.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
@@ -924,7 +924,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
                   + f'--runs {self.tmp}/robust05_lr_rm3.txt {self.tmp}/robust05_svm_rm3.txt ' \
-                  + f'--output {self.tmp}/robust05_rrf_rm3.txt --resort True'
+                  + f'--output {self.tmp}/robust05_rrf_rm3.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
