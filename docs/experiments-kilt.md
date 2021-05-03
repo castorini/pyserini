@@ -15,6 +15,9 @@ pip install pyserini
 # Get KILT scripts, input and gold data, and install the package
 git clone https://github.com/facebookresearch/KILT.git
 cd KILT
+
+# go back to an older version
+git reset 2130aafaaee0671bdbd03d781b1fa57ee02650d2
 pip install -r requirements.txt
 pip install .
 mkdir data
@@ -145,3 +148,7 @@ For Recall@100/1000:
 | baseline drqa (tfidf + bigram hashing) | 91.87/96.54 | - | - | - | 84.82/94.16 | 94.12/97.29 | 70.98/84.99 | 62.32/80.57 | 87.04/94.95 | 39.98/56.77 | 91.53/96.47 |
 | anserini (document) | 88.41/95.65 | - | - | - | 83.24/92.36 | 91.83/97.82 | 75.12/87.59 | 59.66/78.59 | 81.21/92.36 | 34.00/53.12 | 69.95/83.58 |
 | anserini (passage) | 91.99/95.79 | - | - | - | 88.03/94.25 | 98.01/99.25 | 75.55/87.08 | 61.52/77.80 | 80.18/91.32 | 32.50/47.85 | 65.96/78.45 |
+
+## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-05-03 (commit [`6d48609`](https://github.com/castorini/pyserini/commit/6d486094137a26c8a0a57652a06ab4d42d5bce32))
