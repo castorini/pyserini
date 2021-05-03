@@ -95,20 +95,22 @@ class TrecRun:
 
     columns = ['topic', 'q0', 'docid', 'rank', 'score', 'tag']
 
-    def __init__(self, filepath: str = None):
+    def __init__(self, filepath: str = None, resort: bool = False):
         self.reset_data()
         self.filepath = filepath
+        self.resort = resort
 
         if filepath is not None:
-            self.read_run(self.filepath)
+            self.read_run(self.filepath,self.resort)
 
     def reset_data(self):
         self.run_data = pd.DataFrame(columns=TrecRun.columns)
 
-    def read_run(self, filepath: str) -> None:
+    def read_run(self, filepath: str, resort: bool = False) -> None:
         self.run_data = pd.read_csv(filepath, sep='\s+', names=TrecRun.columns, dtype={'docid': 'str'})
-        self.run_data.sort_values(["topic", "score"], inplace=True, ascending=[True, False])
-        self.run_data["rank"] = self.run_data.groupby("topic")[["docid","score"]].rank(ascending=False,method='first')
+        if resort:
+            self.run_data.sort_values(["topic", "score"], inplace=True, ascending=[True, False])
+            self.run_data["rank"] = self.run_data.groupby("topic")[["docid","score"]].rank(ascending=False,method='first')
 
     def topics(self) -> Set[str]:
         """Return a set with all topics."""
