@@ -89,7 +89,7 @@ def dev_data_loader(file, format, top=100):
 
 def query_loader():
     queries = {}
-    with open('queries.train.small.entity.json') as f:
+    with open('collections/msmarco-ltr-passage/queries.train.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -98,7 +98,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
-    with open('queries.dev.small.entity.json') as f:
+    with open('collections/msmarco-ltr-passage/queries.dev.small.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -107,7 +107,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
-    with open('queries.eval.small.entity.json') as f:
+    with open('collections/msmarco-ltr-passage/queries.eval.small.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -265,7 +265,7 @@ def output(file, dev_data):
                 score_tie_query.add(qid)
             prev_score = t.score
             rank += 1
-            output_file.write(f"{qid}\tQ0\t{t.pid}\t{rank}\t{t.score}\t'ltr'\n")
+            output_file.write(f"{qid}\t{t.pid}\t{rank}\n")
 
     score_tie = f'score_tie occurs {score_tie_counter} times in {len(score_tie_query)} queries'
     print(score_tie)
@@ -275,7 +275,7 @@ if __name__ == '__main__':
     os.environ["ANSERINI_CLASSPATH"] = "../pyserini/resources/jars"
     parser = argparse.ArgumentParser(description='Learning to rank')
     parser.add_argument('--rank_list_path', required=True)
-    parser.add_argument('--rank_list_top', type=int, default=10000)
+    parser.add_argument('--rank_list_top', type=int, default=1000)
     parser.add_argument('--rank_list_format', required=True)
     parser.add_argument('--ltr_model_path', required=True)
     parser.add_argument('--ltr_output_path', required=True)
