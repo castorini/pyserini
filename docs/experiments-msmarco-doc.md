@@ -139,4 +139,4 @@ We can see that Anserini's (tuned) BM25 baseline is already much better than the
 + Results reproduced by [@printfCalvin](https://github.com/printfCalvin) on 2021-04-12 (commit [`0801f7f`](https://github.com/castorini/pyserini/commit/0801f7fb15e249f2e67901a6523d6ce68c667207))
 + Results replicated by [@saileshnankani](https://github.com/saileshnankani) on 2021-04-26 (commit [`6d48609`](https://github.com/castorini/pyserini/commit/6d486094137a26c8a0a57652a06ab4d42d5bce32))
 + Results replicated by [@andrewyguo](https://github.com/andrewyguo) on 2021-04-30 (commit [`ecfed61`](https://github.com/castorini/pyserini/commit/ecfed61bfba065aa958848cff96ba9f22609aeb1))
-+ Results replicated by [@amayankanand007](https://github.com/mayankanand007) on 2021-05-04 
++ Results replicated by [@mayankanand007](https://github.com/mayankanand007) on 2021-05-04 
