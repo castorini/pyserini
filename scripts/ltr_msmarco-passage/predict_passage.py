@@ -44,7 +44,7 @@ def dev_data_loader(file, format, top=100):
     assert dev['pid'].dtype == np.object
     assert dev['rank'].dtype == np.int32
     dev = dev[dev['rank']<=top]
-    dev_qrel = pd.read_csv('../collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
+    dev_qrel = pd.read_csv('./collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
                            names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
                            dtype={'qid': 'S','pid': 'S', 'rel':'i'})
     assert dev['qid'].dtype == np.object
@@ -89,7 +89,7 @@ def dev_data_loader(file, format, top=100):
 
 def query_loader():
     queries = {}
-    with open('queries.train.small.entity.json') as f:
+    with open('./collections/msmarco-ltr-passage/queries.eval.small.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -98,7 +98,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
-    with open('queries.dev.small.entity.json') as f:
+    with open('./collections/msmarco-ltr-passage/queries.dev.small.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -107,7 +107,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
-    with open('queries.eval.small.entity.json') as f:
+    with open('./collections/msmarco-ltr-passage/queries.train.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -272,7 +272,7 @@ def output(file, dev_data):
 
 
 if __name__ == '__main__':
-    os.environ["ANSERINI_CLASSPATH"] = "../pyserini/resources/jars"
+    os.environ["ANSERINI_CLASSPATH"] = "./pyserini/resources/jars"
     parser = argparse.ArgumentParser(description='Learning to rank')
     parser.add_argument('--rank_list_path', required=True)
     parser.add_argument('--rank_list_top', type=int, default=10000)
@@ -286,7 +286,7 @@ if __name__ == '__main__':
     print("load queries")
     queries = query_loader()
     print("add feature")
-    fe = FeatureExtractor('../../indexes/msmarco-passage/lucene-index-msmarco-ent/', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor('./indexes/lucene-index-msmarco-passage-ltr', max(multiprocessing.cpu_count()//2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
                            ('text', 'text'),
                            ('text_unlemm', 'text_unlemm'),
@@ -392,22 +392,22 @@ if __name__ == '__main__':
 
     start = time.time()
     fe.add(
-        IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm", "title_unlemm",
+        IbmModel1("./FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm", "title_unlemm",
                   "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
-    fe.add(IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm", "url_unlemm",
+    fe.add(IbmModel1("./FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm", "url_unlemm",
                      "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
     fe.add(
-        IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm", "body", "text_unlemm"))
+        IbmModel1("./FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm", "body", "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
-    fe.add(IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
+    fe.add(IbmModel1("./FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
                      "text_bert_tok", "text_bert_tok"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
