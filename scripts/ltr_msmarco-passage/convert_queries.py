@@ -23,6 +23,7 @@ import spacy
 from convert_common import read_stopwords, SpacyTextParser, get_retokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from tqdm import tqdm
+import os
 """
 add fields to query json with text(lemmatized), text_unlemm, contents(analyzer), raw, entity(NER), text_bert_tok(BERT token)
 """
@@ -43,8 +44,10 @@ arg_vars = vars(args)
 inpFile = open(args.input)
 outFile = open(args.output, 'w')
 minQueryTokQty = args.min_query_token_qty
-
-stopwords = read_stopwords('stopwords.txt', lower_case=True)
+if(os.getcwd().endswith('ltr_msmarco-passage')):
+    stopwords = read_stopwords('stopwords.txt', lower_case=True)
+else:
+    stopwords = read_stopwords('./scripts/ltr_msmarco-passage/stopwords.txt', lower_case=True)
 print(stopwords)
 nlp = SpacyTextParser('en_core_web_sm', stopwords, keep_only_alpha_num=True, lower_case=True)
 analyzer = Analyzer(get_lucene_analyzer())

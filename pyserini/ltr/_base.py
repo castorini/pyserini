@@ -99,42 +99,42 @@ class OrderedQueryPairs(Feature):
 
 class AvgPooler(Feature):
     def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.AvgPooler')
+        Jclass = autoclass('io.anserini.ltr.AvgPooler')
         self.extractor = Jclass()
 
 class SumPooler(Feature):
     def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.SumPooler')
+        Jclass = autoclass('io.anserini.ltr.SumPooler')
         self.extractor = Jclass()
 
 class MedianPooler(Feature):
     def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.MedianPooler')
+        Jclass = autoclass('io.anserini.ltr.MedianPooler')
         self.extractor = Jclass()
 
 class MinPooler(Feature):
     def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.MinPooler')
+        Jclass = autoclass('io.anserini.ltr.MinPooler')
         self.extractor = Jclass()
 
 class MaxPooler(Feature):
     def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.MaxPooler')
+        Jclass = autoclass('io.anserini.ltr.MaxPooler')
         self.extractor = Jclass()
 
 class VarPooler(Feature):
     def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.VarPooler')
+        Jclass = autoclass('io.anserini.ltr.VarPooler')
         self.extractor = Jclass()
 
 class ConfidencePooler(Feature):
     def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.ConfidencePooler')
+        Jclass = autoclass('io.anserini.ltr.ConfidencePooler')
         self.extractor = Jclass()
 
 class MaxMinRatioPooler(Feature):
     def __init__(self):
-        Jclass = autoclass('io.anserini.ltr.feature.MaxMinRatioPooler')
+        Jclass = autoclass('io.anserini.ltr.MaxMinRatioPooler')
         self.extractor = Jclass()
 
 class TfStat(Feature):
