@@ -9,26 +9,25 @@ Next, we're going to use `collections/msmarco-ltr-passage/` as the working direc
 ```bash
 mkdir collections/msmarco-ltr-passage/
 
-wget [url] -P collections/msmarco-ltr-passage/   (collection)
-wget [url] -P collections/msmarco-ltr-passage/   (queries)
+wget [url] -P collections/msmarco-ltr-passage/   (collection/index)
 ```
 
 Equivalently, we can preprocess collection and queries with our scripts:
 ```bash
-python scripts/ltr_msmarco-passage/convert_passage.py 
---input collections/msmarco-passage/collection.tsv 
---output collection/msmarco-ltr-passage/ltr_collection.json
+python scripts/ltr_msmarco-passage/convert_passage.py \
+--input collections/msmarco-passage/collection.tsv \
+--output collections/msmarco-ltr-passage/ltr_collection.json 
 
-python scripts/ltr_msmarco-passage/convert_queries.py 
---input collections/msmarco-passage/queries.eval.small.tsv
---output collections/msmarco-ltr-passage/queries.eval.small.json
+python scripts/ltr_msmarco-passage/convert_queries.py \
+--input collections/msmarco-passage/queries.eval.small.tsv \
+--output collections/msmarco-ltr-passage/queries.eval.small.json 
 
-python scripts/ltr_msmarco-passage/convert_queries.py 
---input collections/msmarco-passage/queries.dev.small.tsv
+python scripts/ltr_msmarco-passage/convert_queries.py \
+--input collections/msmarco-passage/queries.dev.small.tsv \
 --output collections/msmarco-ltr-passage/queries.dev.small.json
 
-python scripts/ltr_msmarco-passage/convert_queries.py 
---input collections/msmarco-passage/queries.train.tsv
+python scripts/ltr_msmarco-passage/convert_queries.py \
+--input collections/msmarco-passage/queries.train.tsv \
 --output collections/msmarco-ltr-passage/queries.train.json
 ```
 
@@ -37,9 +36,9 @@ The above script will convert the collection and queries to json files with text
 Next, we need to convert the MS MARCO jsonv collection into Anserini's jsonl files (which have one json object per line):
 
 ```bash
-python scripts/ltr_msmarco-passage/convert_collection_to_jsonl.py 
---collection-path collection/msmarco-ltr-passage/ltr_collection.json
---output-folder collection/msmarco-ltr-passage/ltr_collection_jsonl 
+python scripts/ltr_msmarco-passage/convert_collection_to_jsonl.py \
+--collection-path collections/msmarco-ltr-passage/ltr_collection.json \
+--output-folder collections/msmarco-ltr-passage/ltr_collection_jsonl 
 ```
 
 The above script should generate 9 jsonl files in `collections/msmarco-ltr-passage/ltr_collection_jsonl`, each with 1M lines (except for the last one, which should have 841,823 lines).
@@ -48,7 +47,7 @@ We can now index these docs as a `JsonCollection` using Anserini with pretokeniz
 
 ```bash
 python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
- -threads 9 -input collections/msmarco-passage/ltr_collection_jsonl  \
+ -threads 9 -input collections/msmarco-ltr-passage/ltr_collection_jsonl  \
  -index indexes/lucene-index-msmarco-passage-ltr -storePositions -storeDocvectors -storeRaw -pretokenized
 ```
 
