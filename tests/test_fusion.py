@@ -29,7 +29,7 @@ class TestSearch(unittest.TestCase):
 
         qruns_str = ' '.join(input_paths)
         os.system(
-            f'python3 -m pyserini.fusion --method rrf --runs {qruns_str} --output {self.output_path} --runtag test')
+            f'python -m pyserini.fusion --method rrf --runs {qruns_str} --output {self.output_path} --runtag test')
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
 
     def test_interpolation_fusion_simple(self):
@@ -38,7 +38,7 @@ class TestSearch(unittest.TestCase):
 
         qruns_str = ' '.join(input_paths)
         os.system(
-            f'python3 -m pyserini.fusion --method interpolation --alpha 0.4 --runs {qruns_str} --output {self.output_path} --runtag test')
+            f'python -m pyserini.fusion --method interpolation --alpha 0.4 --runs {qruns_str} --output {self.output_path} --runtag test')
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
 
     def test_average_fusion_simple(self):
@@ -47,7 +47,7 @@ class TestSearch(unittest.TestCase):
 
         qruns_str = ' '.join(input_paths)
         os.system(
-            f'python3 -m pyserini.fusion --method average --runs {qruns_str} --output {self.output_path} --runtag test')
+            f'python -m pyserini.fusion --method average --runs {qruns_str} --output {self.output_path} --runtag test')
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
 
     def test_reciprocal_rank_fusion_complex(self):
@@ -62,7 +62,7 @@ class TestSearch(unittest.TestCase):
 
         qruns_str = ' '.join(txt_paths)
         os.system(
-            f'python3 -m pyserini.fusion --method rrf --runs {qruns_str} --output {self.output_path} --runtag reciprocal_rank_fusion_k=60')
+            f'python -m pyserini.fusion --method rrf --runs {qruns_str} --output {self.output_path} --runtag reciprocal_rank_fusion_k=60')
         verify_path = 'anserini.covid-r2.fusion1.txt'
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
         os.system('rm anserini.covid-r2.*')
