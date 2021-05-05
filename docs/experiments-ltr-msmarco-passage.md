@@ -4,19 +4,11 @@ This guide contains instructions for running Learning to Rank baselines on the [
 Learning to Rank serves as a second stage re-ranking after bm25 retrieval.
 
 ## Data Preprocesse
-Please first follow the [pyserini bm25 retrieval guide](https://github.com/castorini/pyserini/docs/experiments-msmarco-passage.md) first to obtain our reranking candidate.
-Next, we're going to use `collections/msmarco-ltr-passage/` as the working directory to download pre processed jsonl collection and queries.
+Please first follow the [pyserini bm25 retrieval guide](https://github.com/castorini/pyserini/docs/experiments-msmarco-passage.md) to obtain our reranking candidate.
+Next, we're going to use `collections/msmarco-ltr-passage/` as the working directory to download pre processed data.
+
 ```bash
 mkdir collections/msmarco-ltr-passage/
-
-wget [url] -P collections/msmarco-ltr-passage/   (collection/index)
-```
-
-Equivalently, we can preprocess collection and queries with our scripts:
-```bash
-python scripts/ltr_msmarco-passage/convert_passage.py \
---input collections/msmarco-passage/collection.tsv \
---output collections/msmarco-ltr-passage/ltr_collection.json 
 
 python scripts/ltr_msmarco-passage/convert_queries.py \
 --input collections/msmarco-passage/queries.eval.small.tsv \
@@ -29,8 +21,25 @@ python scripts/ltr_msmarco-passage/convert_queries.py \
 python scripts/ltr_msmarco-passage/convert_queries.py \
 --input collections/msmarco-passage/queries.train.tsv \
 --output collections/msmarco-ltr-passage/queries.train.json
-```
 
+```
+The above scripts convert queries to json objects with text, text_unlemm, raw, text_bert_tok fields.
+
+
+```bash
+wget [url] -P indexes/   (index)
+```
+We can download pre-built index by running the above command.
+To confirm, `lucene-index-msmarco-passage-ltr.tar.gz` should have MD5 checksum of `2c36082b2d5a3a52469e849f70b2b965`.
+
+Equivalently, we can preprocess collection and queries with our scripts:
+
+```bash
+python scripts/ltr_msmarco-passage/convert_passage.py \
+--input collections/msmarco-passage/collection.tsv \
+--output collections/msmarco-ltr-passage/ltr_collection.json 
+
+```
 
 The above script will convert the collection and queries to json files with text_unlemm, analyzed, text_bert_tok and raw fields.
 Next, we need to convert the MS MARCO jsonv collection into Anserini's jsonl files (which have one json object per line):
@@ -53,26 +62,24 @@ python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocu
 
 Note that pretokenized option let Anserini use whitespace analyzer so that do not break our preprocessed tokenization.
 
-Then we need to get models for ibm model.
+Then we need to download pre-trained ibm models from [link](https://drive.google.com/file/d/1p2H-tjdMe69oIJXX0xEIpLLNbHrkO4Xy/view?usp=sharing).
 ```bash
-wget
+wget 
 ```
 ## Performing inference using our pretrained model
 First we need to download our pretrained model.
-We're going to use `runs/ltr/` as the working directory.
 
 ```bash
-mkdir runs/ltr
-
-wget [url] -P runs/ltr
+wget https://www.dropbox.com/sh/j33jr9sq8rmaxlg/AAASPb93zMdbAjLAcG-3NR6Oa?dl=0 -P runs
 ```
 Next we can run our inference script to get our reranking result.
+
 ```bash
 python scripts/ltr_msmarco-passage/predict_passage.py 
 --rank_list_path runs/run.msmarco-passage.bm25tuned.txt
 --rank_list_format tsv
---ltr_model_path runs/ltr/model.pkl
---ltr_output_path runs/ltr/run.ltr.msmarco-passage.tsv
+--ltr_model_path runs/ltr_model
+--ltr_output_path runs/run.ltr.msmarco-passage.tsv
 ```
 
 Here, our model is trained to maximize MRR@10.
@@ -84,9 +91,9 @@ After the run finishes, we can evaluate the results using the official MS MARCO 
 
 ```bash
 $ python tools/scripts/msmarco/msmarco_passage_eval.py \
-   tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/ltr/run.ltr.msmarco-passage.tsv
+   tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.ltr.msmarco-passage.tsv
 #####################
-MRR @10: 
+MRR @10: 0.24860445945331225
 QueriesRanked: 6980
 #####################
 ```
@@ -96,19 +103,18 @@ For that we first need to convert the run file into TREC format:
 
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
-   --input runs/ltr/run.ltr.msmarco-passage.tsv --output runs/ltr/run.ltr.msmarco-passage.trec
+   --input runs/run.ltr.msmarco-passage.tsv --output runs/run.ltr.msmarco-passage.trec
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
    --input tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt --output collections/msmarco-passage/qrels.dev.small.trec
 ```
-
 
 And then run the `trec_eval` tool:
 
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
-   collections/msmarco-passage/qrels.dev.small.trec runs/ltr/run.ltr.msmarco-passage.tsv
-map                   	
-recall_1000           	
+   collections/msmarco-passage/qrels.dev.small.trec runs/run.ltr.msmarco-passage.trec
+map                     all     0.2564
+recall_1000             all     0.8573         	
 ```
 
 Average precision or AP (also called mean average precision, MAP) and recall@1000 (recall at rank 1000) are the two metrics we care about the most.

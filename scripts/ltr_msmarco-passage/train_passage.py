@@ -42,8 +42,8 @@ run from python root dir
 """
 def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
     print(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
-    if os.path.exists(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle'):
-        sampled_train = pd.read_pickle(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
+    if os.path.exists(f'./collections/msmarco-ltr-passage/train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle'):
+        sampled_train = pd.read_pickle(f'./collections/msmarco-ltr-passage/train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
         print(sampled_train.shape)
         print(sampled_train.index.get_level_values('qid').drop_duplicates().shape)
         print(sampled_train.groupby('qid').count().mean())
@@ -70,7 +70,7 @@ def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
             print(sampled_train.head(10))
             print(sampled_train.info())
 
-            sampled_train.to_pickle(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
+            sampled_train.to_pickle(f'./collections/msmarco-ltr-passage/train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
         elif task == 'rank':
             qrel = defaultdict(list)
             with open("./collections/msmarco-passage/qrels.train.tsv") as f:
@@ -104,21 +104,21 @@ def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
             print(sampled_train.head(10))
             print(sampled_train.info())
 
-            sampled_train.to_pickle(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
+            sampled_train.to_pickle(f'./collections/msmarco-ltr-passage/train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
         else:
             raise Exception('unknown parameters')
         return sampled_train
 
 
 def dev_data_loader(task='anserini'):
-    if os.path.exists(f'dev_{task}.pickle'):
-        dev = pd.read_pickle(f'dev_{task}.pickle')
+    if os.path.exists(f'./collections/msmarco-ltr-passage/dev_{task}.pickle'):
+        dev = pd.read_pickle(f'./collections/msmarco-ltr-passage/dev_{task}.pickle')
         print(dev.shape)
         print(dev.index.get_level_values('qid').drop_duplicates().shape)
         print(dev.groupby('qid').count().mean())
         print(dev.head(10))
         print(dev.info())
-        dev_qrel = pd.read_pickle(f'dev_qrel.pickle')
+        dev_qrel = pd.read_pickle(f'./collections/msmarco-ltr-passage/dev_qrel.pickle')
         return dev, dev_qrel
     else:
         if task == 'rerank':
@@ -145,8 +145,8 @@ def dev_data_loader(task='anserini'):
         print(dev.head(10))
         print(dev.info())
 
-        dev.to_pickle(f'dev_{task}.pickle')
-        dev_qrel.to_pickle(f'dev_qrel.pickle')
+        dev.to_pickle(f'./collections/msmarco-ltr-passage/dev_{task}.pickle')
+        dev_qrel.to_pickle(f'./collections/msmarco-ltr-passage/dev_qrel.pickle')
         return dev, dev_qrel
 
 
@@ -257,24 +257,16 @@ def data_loader(task, df, queries, fe):
     df_hash = hash_df(df)
     jar_hash = hash_anserini_jar()
     fe_hash = hash_fe(fe)
-    if os.path.exists(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle'):
-        res = pickle.load(open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'rb'))
-        print(res['info'].shape)
-        print(res['info'].qid.drop_duplicates().shape)
-        print(res['group'].mean())
-        return res
-    else:
-        if task == 'train' or task == 'dev':
-            info, data, group = batch_extract(df, queries, fe)
-            obj = {'info': info, 'data': data, 'group': group,
+    if task == 'train' or task == 'dev':
+        info, data, group = batch_extract(df, queries, fe)
+        obj = {'info': info, 'data': data, 'group': group,
                    'df_hash': df_hash, 'jar_hash': jar_hash, 'fe_hash': fe_hash}
-            print(info.shape)
-            print(info.qid.drop_duplicates().shape)
-            print(group.mean())
-            pickle.dump(obj, open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'wb'))
-            return obj
-        else:
-            raise Exception('unknown parameters')
+        print(info.shape)
+        print(info.qid.drop_duplicates().shape)
+        print(group.mean())
+        return obj
+    else:
+        raise Exception('unknown parameters')
 
 
 def gen_dev_group_rel_num(dev_qrel, dev_extracted):
@@ -303,6 +295,26 @@ def gen_dev_group_rel_num(dev_qrel, dev_extracted):
         return 'recall@200', recall / len(groups), True
 
     return recall_at_200
+
+def mrr_at_10(preds, dataset):
+    labels = dataset.get_label()
+    groups = dataset.get_group()
+    idx = 0
+    recall = 0
+    MRR = []
+    for g in groups:
+        top_preds = labels[idx:idx + g][np.argsort(preds[idx:idx + g])][-10:][::-1]
+        rank = 0
+        while(rank < len(top_preds)):
+            if(top_preds[rank] > 0):
+                MRR.append(1.0/(rank+1))
+                break
+            rank += 1
+        if (rank == len(top_preds)):
+            MRR.append(0.)
+        idx += g
+    assert idx == len(preds)
+    return 'mrr@10', np.mean(MRR).item(), True
 
 
 def train(train_extracted, dev_extracted, feature_name, eval_fn):
@@ -342,7 +354,7 @@ def train(train_extracted, dev_extracted, feature_name, eval_fn):
                     verbose_eval=True)
     del lgb_train
     dev_extracted['info']['score'] = gbm.predict(lgb_valid.get_data())
-    best_score = gbm.best_score['valid_0']['recall@200']
+    best_score = gbm.best_score['valid_0']['mrr@10']
     print(best_score)
     best_iteration = gbm.best_iteration
     print(best_iteration)
@@ -433,6 +445,7 @@ def eval_recall(dev_qrel, dev_data):
 
 def gen_exp_dir():
     dirname = datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S') + '_' + str(uuid.uuid1())
+    dirname = './runs/'+dirname
     assert not os.path.exists(dirname)
     os.mkdir(dirname)
     return dirname
@@ -599,7 +612,7 @@ if __name__ == '__main__':
     del sampled_train, dev, queries, fe
     eval_fn = gen_dev_group_rel_num(dev_qrel, dev_extracted)
     print("start train")
-    train_res = train(train_extracted, dev_extracted, feature_name, eval_fn)
+    train_res = train(train_extracted, dev_extracted, feature_name, mrr_at_10)
     print("end train")
     eval_res = eval_mrr(dev_extracted['info'])
     eval_res.update(eval_recall(dev_qrel, dev_extracted['info']))
