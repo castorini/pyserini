@@ -11,7 +11,7 @@ setuptools.setup(
     version="0.12.0",
     author="Jimmy Lin",
     author_email="jimmylin@uwaterloo.ca",
-    description="Python interface to the Anserini IR toolkit built on Lucene",
+    description="A Python toolkit for reproducible information retrieval research with sparse and dense representations",
     long_description=long_description,
     long_description_content_type="text/markdown",
     package_data={"pyserini": [

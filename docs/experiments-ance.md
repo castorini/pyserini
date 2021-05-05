@@ -4,7 +4,10 @@ This guide provides instructions to reproduce the following dense retrieval work
 
 > Lee Xiong, Chenyan Xiong, Ye Li, Kwok-Fung Tang, Jialin Liu, Paul Bennett, Junaid Ahmed, Arnold Overwijk. [Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval](https://arxiv.org/pdf/2007.00808.pdf)
 
-You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
+Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
+Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
+See [package installation notes](../README.md#package-installation) for more details.
+
 Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
 Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
