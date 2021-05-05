@@ -21,7 +21,7 @@ A low-effort way to try things out is to look at our [online notebooks](https://
 Install via PyPI:
 
 ```
-pip install pyserini==0.11.0.0
+pip install pyserini==0.12.0
 ```
 
 Pyserini requires Python 3.6+ and Java 11 (due to its dependency on [Anserini](http://anserini.io/)).

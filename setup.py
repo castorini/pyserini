@@ -8,14 +8,14 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name="pyserini",
-    version="0.11.0.0",
+    version="0.12.0",
     author="Jimmy Lin",
     author_email="jimmylin@uwaterloo.ca",
     description="Python interface to the Anserini IR toolkit built on Lucene",
     long_description=long_description,
     long_description_content_type="text/markdown",
     package_data={"pyserini": [
-        "resources/jars/anserini-0.11.0-fatjar.jar",
+        "resources/jars/anserini-0.12.0-fatjar.jar",
      ]},
     url="https://github.com/castorini/pyserini",
     install_requires=requirements,
