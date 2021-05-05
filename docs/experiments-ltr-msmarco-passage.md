@@ -4,7 +4,6 @@ This guide contains instructions for running Learning to Rank baselines on the [
 Learning to Rank serves as a second stage re-ranking after bm25 retrieval.
 
 ## Data Preprocesse
-<<<<<<< HEAD
 Please first follow the [pyserini bm25 retrieval guide](https://github.com/castorini/pyserini/docs/experiments-msmarco-passage.md) to obtain our reranking candidate.
 Next, we're going to use `collections/msmarco-ltr-passage/` as the working directory to download pre processed data.
 
@@ -44,24 +43,6 @@ python scripts/ltr_msmarco-passage/convert_passage.py \
 
 The above script will convert the collection and queries to json files with text_unlemm, analyzed, text_bert_tok and raw fields.
 Next, we need to convert the MS MARCO jsonv collection into Anserini's jsonl files (which have one json object per line):
-=======
-Please follow the [pyserini bm25 retrieval guide](https://github.com/castorini/pyserini/docs/experiments-msmarco-passage.md) first to obtain our reranking candidate.
-After bm25 retrieval, we're going to use `collections/msmarco-ltr-passage/` as the working directory to download pre processed jsonl collection.
-```bash
-mkdir collections/msmarco-ltr-passage/
-
-wget [url] -P collections/msmarco-ltr-passage/   (collection/index)
-```
-
-Equivalently, we can preprocess collection with our scripts:
-```bash
-python scripts/ltr_msmarco-passage/convert_passage.py \
---input collections/msmarco-passage/collection.tsv \
---output collections/msmarco-ltr-passage/ltr_collection.json 
-```
-The above script will convert the collection to json files with text_unlemm, analyzed, text_bert_tok and raw fields.
-Then, we need to convert the MS MARCO json collection into Anserini's jsonl files (which have one json object per line):
->>>>>>> a600129d343a2280c43c9b59963b127a7dfb6a4a
 
 ```bash
 python scripts/ltr_msmarco-passage/convert_collection_to_jsonl.py \
@@ -80,26 +61,7 @@ python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocu
 
 Note that pretokenized option let Anserini use whitespace analyzer so that do not break our preprocessed tokenization.
 
-<<<<<<< HEAD
 Then we need to download pre-trained ibm models from [link](https://drive.google.com/file/d/1p2H-tjdMe69oIJXX0xEIpLLNbHrkO4Xy/view?usp=sharing).
-=======
-Next, we prepare queries by scripts.
-```bash
-python scripts/ltr_msmarco-passage/convert_queries.py \
---input collections/msmarco-passage/queries.eval.small.tsv \
---output collections/msmarco-ltr-passage/queries.eval.small.json 
-
-python scripts/ltr_msmarco-passage/convert_queries.py \
---input collections/msmarco-passage/queries.dev.small.tsv \
---output collections/msmarco-ltr-passage/queries.dev.small.json
-
-python scripts/ltr_msmarco-passage/convert_queries.py \
---input collections/msmarco-passage/queries.train.tsv \
---output collections/msmarco-ltr-passage/queries.train.json
-```
-
-Then we need to get models for ibm model.
->>>>>>> a600129d343a2280c43c9b59963b127a7dfb6a4a
 ```bash
 wget 
 ```
@@ -157,5 +119,11 @@ recall_1000             all     0.8573
 Average precision or AP (also called mean average precision, MAP) and recall@1000 (recall at rank 1000) are the two metrics we care about the most.
 AP captures aspects of both precision and recall in a single metric, and is the most common metric used by information retrieval researchers.
 On the other hand, recall@1000 provides the upper bound effectiveness of downstream reranking modules (i.e., rerankers are useless if there isn't a relevant document in the results).
+
+## Train a model by yourself
+```bash
+python scripts/ltr_msmarco-passage/train_passage.py   	
+```
+The above scripts will train a model at `runs/` with your running date in the file name. You can use this as the `--ltr_model_path` parameter for `predict_passage.py`.
 
 ## Reproduction Log[*](reproducibility.md)
