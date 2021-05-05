@@ -5,13 +5,13 @@
 + Added dense retrieval support for DistilBERT KD, SBERT, and ANCE.
 + Added support for KILT, including integration tests.
 + Added support for pre-tokenized collections and tokenization using sentencepiece and other models.
-+ Added support and guide to reproduce Elastic multi-field experiments 
++ Added support and guide to reproduce Elasticsearch multi-field experiments 
 + Added integration tests to reproduce text classification pseudo-relevance feedback experiments.
 + Added option to make cache directory configurable.
 + Improved `pyserini.fusion`.
 + Improved support on Windows.
 + Improved dense retrieval integration test cases.
-+ Organized integration test cases into `sparse`, `dense`, and `clprf`.
++ Organized integration tests into `sparse`, `dense`, and `clprf`.
 + Refactored dense query encoders.
 + Fixed bugs related to iteration order of topics.
 + Cleaned up LTR related code.
