@@ -262,7 +262,7 @@ Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-
 To evaluate:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt --run runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv
 #####################
 MRR @100: 0.3784
 QueriesRanked: 5193

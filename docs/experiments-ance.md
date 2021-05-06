@@ -43,7 +43,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.ance.bf.tsv --output runs/run.msmarco-passage.ance.bf.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.ance.bf.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.ance.bf.trec
 map                   	all	0.3363
 recall_1000           	all	0.9584
 ```
