@@ -27,10 +27,11 @@ The above scripts convert queries to json objects with text, text_unlemm, raw, t
 
 
 ```bash
-wget [url] -P indexes/   (index)
+wget https://www.dropbox.com/s/se5kokw1qqu8yxs/lucene-index-msmarco-passage-ltr.tar.gz?dl=0 -P indexes/   (index)
+tar -xzvf lucene-index-msmarco-passage-ltr.tar.gz -C indexes/
 ```
 We can download pre-built index by running the above command.
-To confirm, `lucene-index-msmarco-passage-ltr.tar.gz` should have MD5 checksum of `2c36082b2d5a3a52469e849f70b2b965`.
+To confirm, `lucene-index-msmarco-passage-ltr.tar.gz` should have MD5 checksum of `89ffdd8feecfc13aa66e7a9dc1635624`.
 
 Equivalently, we can preprocess collection and queries with our scripts:
 
@@ -63,13 +64,17 @@ Note that pretokenized option let Anserini use whitespace analyzer so that do no
 
 Then we need to download pre-trained ibm models from [link](https://drive.google.com/file/d/1p2H-tjdMe69oIJXX0xEIpLLNbHrkO4Xy/view?usp=sharing).
 ```bash
-wget 
+wget https://www.dropbox.com/s/vo7h90j0wqzxvbq/ibm_model.tar.gz?dl=0 -P collections/msmarco-ltr-passage/
+tar -xzvf ibm_model.tar.gz -C collections/msmarco-ltr-passage/
+
 ```
 ## Performing inference using our pretrained model
 First we need to download our pretrained model.
 
 ```bash
-wget https://www.dropbox.com/sh/j33jr9sq8rmaxlg/AAASPb93zMdbAjLAcG-3NR6Oa?dl=0 -P runs
+wget https://www.dropbox.com/s/vusfjbvy9jl3144/ltr_model.tar.gz?dl=0 -P runs/
+tar -xzvf ltr_model.tar.gz -C runs/
+
 ```
 Next we can run our inference script to get our reranking result.
 

@@ -392,29 +392,29 @@ if __name__ == '__main__':
 
     start = time.time()
     fe.add(
-        IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm", "text_unlemm", "title_unlemm",
+        IbmModel1("collections/msmarco-ltr-passage/ibm_model/title_unlemm", "text_unlemm", "title_unlemm",
                   "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
-    fe.add(IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm", "text_unlemm", "url_unlemm",
+    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/url_unlemm", "text_unlemm", "url_unlemm",
                      "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
     fe.add(
-        IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/body", "text_unlemm", "body", "text_unlemm"))
+        IbmModel1("collections/msmarco-ltr-passage/ibm_model/body", "text_unlemm", "body", "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
-    fe.add(IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok", "text_bert_tok",
+    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/text_bert_tok", "text_bert_tok",
                      "text_bert_tok", "text_bert_tok"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
 
-    models = pickle.load(open(args.ltr_model_path+'/model.pkl','rb'))
-    metadata = json.load(open(args.ltr_model_path+'/metadata.json','r'))
+    models = pickle.load(open(args.ltr_model_path+'/model.pkl', 'rb'))
+    metadata = json.load(open(args.ltr_model_path+'/metadata.json', 'r'))
     feature_used = metadata['feature_names']
 
     batch_info = []

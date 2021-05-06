@@ -587,19 +587,19 @@ if __name__ == '__main__':
         fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
 
     start = time.time()
-    fe.add(IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm","text_unlemm","title_unlemm","text_unlemm"))
+    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/title_unlemm","text_unlemm","title_unlemm","text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds'%(end-start))
     start = end
-    fe.add(IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm","text_unlemm","url_unlemm","text_unlemm"))
+    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/url_unlemm","text_unlemm","url_unlemm","text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds'%(end-start))
     start = end
-    fe.add(IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/body","text_unlemm","body","text_unlemm"))
+    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/body","text_unlemm","body","text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds'%(end-start))
     start = end
-    fe.add(IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok","text_bert_tok","text_bert_tok","text_bert_tok"))
+    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/text_bert_tok","text_bert_tok","text_bert_tok","text_bert_tok"))
     end = time.time()
     print('IBM model Load takes %.2f seconds'%(end-start))
     start = end
