@@ -125,7 +125,7 @@ Average precision or AP (also called mean average precision, MAP) and recall@100
 AP captures aspects of both precision and recall in a single metric, and is the most common metric used by information retrieval researchers.
 On the other hand, recall@1000 provides the upper bound effectiveness of downstream reranking modules (i.e., rerankers are useless if there isn't a relevant document in the results).
 
-## Train a model by yourself
+## Train a Model By Yourself
 ```bash
 python scripts/ltr_msmarco-passage/train_passage.py   	
 ```
