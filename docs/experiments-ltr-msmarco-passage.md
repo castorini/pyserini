@@ -62,7 +62,7 @@ python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocu
 
 Note that pretokenized option let Anserini use whitespace analyzer so that do not break our preprocessed tokenization.
 
-Then we need to download pre-trained ibm models from [link](https://drive.google.com/file/d/1p2H-tjdMe69oIJXX0xEIpLLNbHrkO4Xy/view?usp=sharing).
+Then we need to download pre-trained ibm models
 ```bash
 wget https://www.dropbox.com/s/vo7h90j0wqzxvbq/ibm_model.tar.gz?dl=0 -P collections/msmarco-ltr-passage/
 tar -xzvf ibm_model.tar.gz -C collections/msmarco-ltr-passage/
