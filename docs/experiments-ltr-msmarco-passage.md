@@ -27,7 +27,7 @@ The above scripts convert queries to json objects with text, text_unlemm, raw, t
 
 
 ```bash
-wget https://www.dropbox.com/s/se5kokw1qqu8yxs/lucene-index-msmarco-passage-ltr.tar.gz?dl=0 -P indexes/   (index)
+wget https://www.dropbox.com/s/se5kokw1qqu8yxs/lucene-index-msmarco-passage-ltr.tar.gz?dl=0 -P indexes/ 
 tar -xzvf lucene-index-msmarco-passage-ltr.tar.gz -C indexes/
 ```
 We can download pre-built index by running the above command.
