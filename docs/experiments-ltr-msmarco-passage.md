@@ -4,7 +4,7 @@ This guide contains instructions for running Learning to Rank baselines on the [
 Learning to Rank serves as a second stage re-ranking after bm25 retrieval.
 
 ## Data Preprocesse
-Please first follow the [pyserini bm25 retrieval guide](https://github.com/castorini/pyserini/docs/experiments-msmarco-passage.md) to obtain our reranking candidate.
+Please first follow the [pyserini bm25 retrieval guide](https://github.com/castorini/pyserini/blob/master/docs/experiments-msmarco-passage.md) to obtain our reranking candidate.
 Next, we're going to use `collections/msmarco-ltr-passage/` as the working directory to download pre processed data.
 
 ```bash
