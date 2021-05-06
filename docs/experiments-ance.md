@@ -4,7 +4,10 @@ This guide provides instructions to reproduce the following dense retrieval work
 
 > Lee Xiong, Chenyan Xiong, Ye Li, Kwok-Fung Tang, Jialin Liu, Paul Bennett, Junaid Ahmed, Arnold Overwijk. [Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval](https://arxiv.org/pdf/2007.00808.pdf)
 
-You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
+Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
+Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
+See [package installation notes](../README.md#package-installation) for more details.
+
 Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
 Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
@@ -40,7 +43,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.ance.bf.tsv --output runs/run.msmarco-passage.ance.bf.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.ance.bf.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.ance.bf.trec
 map                   	all	0.3363
 recall_1000           	all	0.9584
 ```

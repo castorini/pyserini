@@ -16,7 +16,10 @@ This guide provides instructions to reproduce our replication study.
 Our efforts include both retrieval as well as end-to-end answer extraction.
 We cover only retrieval here; for end-to-end answer extraction, please see [this guide](https://github.com/castorini/pygaggle/blob/master/docs/experiments-dpr-reader.md) in our PyGaggle neural text ranking library.
 
-You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
+Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
+Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
+See [package installation notes](../README.md#package-installation) for more details.
+
 Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
 Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
