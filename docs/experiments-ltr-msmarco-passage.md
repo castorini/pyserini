@@ -1,9 +1,9 @@
-# Pyserini: Learning To Rank Baseline for MS MARCO Passage Reranking
+# Pyserini: Learning-To-Rank Baseline for MS MARCO Passage Reranking
 
-This guide contains instructions for running Learning to Rank baselines on the [MS MARCO *passage* reranking task](https://microsoft.github.io/msmarco/).
-Learning to Rank serves as a second stage re-ranking after bm25 retrieval.
+This guide contains instructions for running Learning-to-Rank baseline on the [MS MARCO *passage* reranking task](https://microsoft.github.io/msmarco/).
+Learning-to-Rank serves as a second stage re-ranking after bm25 retrieval.
 
-## Data Preprocesse
+## Data Preprocess
 Please first follow the [pyserini bm25 retrieval guide](https://github.com/castorini/pyserini/blob/master/docs/experiments-msmarco-passage.md) to obtain our reranking candidate.
 Next, we're going to use `collections/msmarco-ltr-passage/` as the working directory to download pre processed data.
 
@@ -43,7 +43,7 @@ python scripts/ltr_msmarco-passage/convert_passage.py \
 ```
 
 The above script will convert the collection and queries to json files with text_unlemm, analyzed, text_bert_tok and raw fields.
-Next, we need to convert the MS MARCO jsonv collection into Anserini's jsonl files (which have one json object per line):
+Next, we need to convert the MS MARCO json collection into Anserini's jsonl files (which have one json object per line):
 
 ```bash
 python scripts/ltr_msmarco-passage/convert_collection_to_jsonl.py \
@@ -68,8 +68,8 @@ wget https://www.dropbox.com/s/vo7h90j0wqzxvbq/ibm_model.tar.gz?dl=0 -P collecti
 tar -xzvf ibm_model.tar.gz -C collections/msmarco-ltr-passage/
 
 ```
-## Performing inference using our pretrained model
-First we need to download our pretrained model.
+## Performing Inference Using Pretrained Model
+First we need to download the pretrained model.
 
 ```bash
 wget https://www.dropbox.com/s/vusfjbvy9jl3144/ltr_model.tar.gz?dl=0 -P runs/
@@ -79,11 +79,11 @@ tar -xzvf ltr_model.tar.gz -C runs/
 Next we can run our inference script to get our reranking result.
 
 ```bash
-python scripts/ltr_msmarco-passage/predict_passage.py 
---rank_list_path runs/run.msmarco-passage.bm25tuned.txt
---rank_list_format tsv
---ltr_model_path runs/ltr_model
---ltr_output_path runs/run.ltr.msmarco-passage.tsv
+python scripts/ltr_msmarco-passage/predict_passage.py \
+--rank_list_path runs/run.msmarco-passage.bm25tuned.txt \
+--rank_list_format tsv \
+--ltr_model_path runs/ltr_model \
+--ltr_output_path runs/run.ltr.msmarco-passage.tsv 
 ```
 
 Here, our model is trained to maximize MRR@10.
