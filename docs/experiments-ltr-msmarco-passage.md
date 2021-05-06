@@ -28,7 +28,7 @@ The above scripts convert queries to json objects with text, text_unlemm, raw, t
 
 ```bash
 wget https://www.dropbox.com/s/se5kokw1qqu8yxs/lucene-index-msmarco-passage-ltr.tar.gz?dl=0 -P indexes/ 
-tar -xzvf lucene-index-msmarco-passage-ltr.tar.gz -C indexes/
+tar -xzvf indexes/lucene-index-msmarco-passage-ltr.tar.gz -C indexes/
 ```
 We can download pre-built index by running the above command.
 To confirm, `lucene-index-msmarco-passage-ltr.tar.gz` should have MD5 checksum of `89ffdd8feecfc13aa66e7a9dc1635624`.
@@ -65,7 +65,7 @@ Note that pretokenized option let Anserini use whitespace analyzer so that do no
 Then we need to download pre-trained ibm models
 ```bash
 wget https://www.dropbox.com/s/vo7h90j0wqzxvbq/ibm_model.tar.gz?dl=0 -P collections/msmarco-ltr-passage/
-tar -xzvf ibm_model.tar.gz -C collections/msmarco-ltr-passage/
+tar -xzvf collections/msmarco-ltr-passage/ibm_model.tar.gz -C collections/msmarco-ltr-passage/
 
 ```
 ## Performing Inference Using Pretrained Model
