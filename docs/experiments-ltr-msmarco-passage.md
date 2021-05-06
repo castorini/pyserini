@@ -73,7 +73,7 @@ First we need to download the pretrained model.
 
 ```bash
 wget https://www.dropbox.com/s/vusfjbvy9jl3144/ltr_model.tar.gz?dl=0 -P runs/
-tar -xzvf ltr_model.tar.gz -C runs/
+tar -xzvf runs/ltr_model.tar.gz -C runs/
 
 ```
 Next we can run our inference script to get our reranking result.
