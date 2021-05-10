@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-from transformers import BertTokenizer, T5Tokenizer
+from transformers import BertTokenizer, T5Tokenizer, AutoTokenizer
 import unittest
 
 
@@ -52,6 +52,22 @@ class TestTokenization(unittest.TestCase):
 
         tokens = tokenizer.tokenize('adversarial')
         self.assertEqual(['ad', '##vers', '##aria', '##l'], tokens)
+
+    def test_xlm_roberta_base(self):
+        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base')
+
+        tokens = tokenizer.tokenize('walking talking balking biking hiking rolling scrolling')
+        self.assertEqual(['▁walking', '▁talking', '▁bal', 'king', '▁bi', 'king', '▁hi', 'king', '▁roll', 'ing', '▁scroll', 'ing'], tokens)
+
+        tokens = tokenizer.tokenize('rolling scrolling')
+        self.assertEqual(['▁roll', 'ing', '▁scroll', 'ing'], tokens)
+
+        tokens = tokenizer.tokenize('biostatistics')
+        self.assertEqual(['▁bio', 'stat', 'istic', 's'], tokens)
+
+        tokens = tokenizer.tokenize('adversarial')
+        self.assertEqual(['▁adversari', 'al'], tokens)
+
 
     def test_bert_base_multilingual_en(self):
         tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
