@@ -6,11 +6,11 @@
 [![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
-Pyserini is a Python toolkit designed to support reproducible information retrieval research with sparse and dense representations.
+Pyserini is a Python toolkit for reproducible information retrieval research with sparse and dense representations.
 Retrieval using sparse representations is provided via integration with our group's [Anserini](http://anserini.io/) IR toolkit, which is built on Lucene.
 Retrieval using dense representations is provided via integration with Facebook's [Faiss](https://github.com/facebookresearch/faiss) library.
 
-Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multistage ranking architecture.
+Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
 Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, pre-built indexes, and evaluation scripts for many commonly used IR test collections
 
 With Pyserini, it's easy to [reproduce](docs/pypi-reproduction.md) runs on a number of standard IR test collections!
@@ -21,7 +21,7 @@ A low-effort way to try things out is to look at our [online notebooks](https://
 Install via PyPI:
 
 ```
-pip install pyserini==0.11.0.0
+pip install pyserini==0.12.0
 ```
 
 Pyserini requires Python 3.6+ and Java 11 (due to its dependency on [Anserini](http://anserini.io/)).
@@ -31,7 +31,7 @@ A `pip` installation will automatically pull in the [🤗 Transformers library](
 Pyserini also depends on [PyTorch](https://pytorch.org/) and [Faiss](https://github.com/facebookresearch/faiss), but since these packages may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
 We leave the installation of these packages to you.
 
-In general, the development team tries to keep dependent packages at the same versions and upgrade in lockstep.
+In general, our development team tries to keep dependent packages at the same versions and upgrade in lockstep.
 Currently, our "reference" configuration is a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`,  `transformers==4.0.0`, and `torch==1.7.1`.
 This is the configuration used to run our many regression tests.
 However, in most cases results have also been reproduced on macOS with the same dependency versions.
@@ -95,7 +95,8 @@ Assuming all tests pass, you should be ready to go!
 
 Pyserini supports sparse retrieval (e.g., BM25 ranking using bag-of-words representations), dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), 
 as well hybrid retrieval that integrates both approaches. 
-Sparse retrieval is the most mature feature in Pyserini; dense and hybrid retrieval are relatively new capabilities that aren't fully stable (yet).
+
+### Sparse Retrieval
 
 The `SimpleSearcher` class provides the entry point for sparse retrieval using bag-of-words representations.
 Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
@@ -146,7 +147,85 @@ SimpleSearcher.list_prebuilt_indexes()
 A description of what's available can be found [here](docs/prebuilt-indexes.md).
 Alternatively, see [this answer](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) for how to download an index manually.
 
-For a guide to dense retrieval and hybrid retrieval, see [this answer](docs/usage-interactive-search.md#how-do-i-perform-dense-and-hybrid-retrieval).
+### Dense Retrieval
+
+The `SimpleDenseSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `SimpleSearcher`.
+The only additional thing we need to specify for dense retrieval is the query encoder.
+
+```python
+from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
+
+encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
+searcher = SimpleDenseSearcher.from_prebuilt_index(
+    'msmarco-passage-tct_colbert-hnsw',
+    encoder
+)
+hits = searcher.search('what is a lobster roll')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+```
+
+If you encounter an error (on macOS), you'll need the following:
+
+```python
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+```
+
+The results should be as follows:
+
+```
+ 1 7157710 70.53742
+ 2 7157715 70.50040
+ 3 7157707 70.13804
+ 4 6034350 69.93666
+ 5 6321969 69.62683
+ 6 4112862 69.34587
+ 7 5515474 69.21354
+ 8 7157708 69.08416
+ 9 6321974 69.06841
+10 2920399 69.01737
+```
+
+### Hybrid Sparse-Dense Retrieval
+
+The `HybridSearcher` class provides the entry point to perform hybrid sparse-dense retrieval:
+
+```python
+from pyserini.search import SimpleSearcher
+from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
+from pyserini.hsearch import HybridSearcher
+
+ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
+dsearcher = SimpleDenseSearcher.from_prebuilt_index(
+    'msmarco-passage-tct_colbert-hnsw',
+    encoder
+)
+hsearcher = HybridSearcher(dsearcher, ssearcher)
+hits = hsearcher.search('what is a lobster roll')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+```
+
+The results should be as follows:
+
+```
+ 1 7157715 71.56022
+ 2 7157710 71.52962
+ 3 7157707 71.23887
+ 4 6034350 70.98502
+ 5 6321969 70.61903
+ 6 4112862 70.33807
+ 7 5515474 70.20574
+ 8 6034357 70.11168
+ 9 5837606 70.09911
+10 7157708 70.07636
+```
+
+In general, hybrid retrieval will be more effective than dense retrieval, which will be more effective than sparse retrieval.
 
 ## How do I fetch a document?
 
@@ -271,10 +350,9 @@ Happy honking!
 
 With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a number of standard IR test collections!
 
-The easiest way, start here: [reproducing runs directly from the Python package](docs/pypi-reproduction.md)
-
 ### Sparse Retrieval
 
++ [Reproducing runs directly from the Python package](docs/pypi-reproduction.md)
 + [Guide to reproducing the BM25 baseline for MS MARCO Passage Ranking](docs/experiments-msmarco-passage.md)
 + [Guide to reproducing the BM25 baseline for MS MARCO Document Ranking](docs/experiments-msmarco-doc.md)
 + [Guide to reproducing the multi-field BM25 baseline for MS MARCO Document Ranking from Elasticsearch](docs/experiments-elastic.md)
@@ -312,6 +390,7 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 ## Release History
 
++ v0.12.0: May 5, 2021 [[Release Notes](docs/release-notes/release-notes-v0.12.0.md)]
 + v0.11.0.0: February 18, 2021 [[Release Notes](docs/release-notes/release-notes-v0.11.0.0.md)]
 + v0.10.1.0: January 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.10.1.0.md)]
 + v0.10.0.1: December 2, 2020 [[Release Notes](docs/release-notes/release-notes-v0.10.0.1.md)]

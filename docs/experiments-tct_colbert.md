@@ -4,7 +4,10 @@ This guide provides instructions to reproduce the TCT-ColBERT dense retrieval mo
 
 > Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [Distilling Dense Representations for Ranking using Tightly-Coupled Teachers.](https://arxiv.org/abs/2010.11386) arXiv:2010.11386, October 2020. 
 
-You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
+Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
+Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
+See [package installation notes](../README.md#package-installation) for more details.
+
 Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
 Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
@@ -259,7 +262,7 @@ Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-
 To evaluate:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt --run runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv
 #####################
 MRR @100: 0.3784
 QueriesRanked: 5193
