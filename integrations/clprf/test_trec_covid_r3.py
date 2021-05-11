@@ -28,7 +28,7 @@ class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
 
         curdir = os.getcwd()
-        if curdir.endswith('classifier_prf'):
+        if curdir.endswith('clprf'):
             self.pyserini_root = '../..'
         else:
             self.pyserini_root = '.'
@@ -65,7 +65,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_bm25(self):
         tmp_folder_name = self.tmp.split('/')[-1]
         prebuilt_index_path = download_prebuilt_index('trec-covid-r3-abstract')
-        os.system(f'python {self.pyserini_root}/scripts/trec-covid-ranker.py \
+        os.system(f'python {self.pyserini_root}/scripts/classifier_prf/trec-covid-ranker.py \
                     -alpha 0.5 \
                     -clf lr \
                     -vectorizer tfidf \
