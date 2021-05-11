@@ -38,11 +38,12 @@ from pyserini.ltr import *
 
 """
 train a LTR model with lambdaRank library and save to pickle for future inference
+run from python root dir
 """
 def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
     print(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
-    if os.path.exists(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle'):
-        sampled_train = pd.read_pickle(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
+    if os.path.exists(f'./collections/msmarco-ltr-passage/train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle'):
+        sampled_train = pd.read_pickle(f'./collections/msmarco-ltr-passage/train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
         print(sampled_train.shape)
         print(sampled_train.index.get_level_values('qid').drop_duplicates().shape)
         print(sampled_train.groupby('qid').count().mean())
@@ -51,7 +52,7 @@ def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
         return sampled_train
     else:
         if task == 'triple':
-            train = pd.read_csv('../../collections/msmarco-passage/qidpidtriples.train.full.2.tsv', sep="\t",
+            train = pd.read_csv('./collections/msmarco-passage/qidpidtriples.train.full.2.tsv', sep="\t",
                                 names=['qid', 'pos_pid', 'neg_pid'], dtype=np.int32)
             pos_half = train[['qid', 'pos_pid']].rename(columns={"pos_pid": "pid"}).drop_duplicates()
             pos_half['rel'] = np.int32(1)
@@ -69,10 +70,10 @@ def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
             print(sampled_train.head(10))
             print(sampled_train.info())
 
-            sampled_train.to_pickle(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
+            sampled_train.to_pickle(f'./collections/msmarco-ltr-passage/train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
         elif task == 'rank':
             qrel = defaultdict(list)
-            with open("../../collections/msmarco-passage/qrels.train.tsv") as f:
+            with open("./collections/msmarco-passage/qrels.train.tsv") as f:
                 for line in f:
                     topicid, _, docid, rel = line.strip().split('\t')
                     assert rel == "1", line.split(' ')
@@ -80,7 +81,7 @@ def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
 
             qid2pos = defaultdict(list)
             qid2neg = defaultdict(list)
-            with open("../../runs/msmarco-passage/run.train.small.tsv") as f:
+            with open("./runs/msmarco-passage/run.train.small.tsv") as f:
                 for line in tqdm(f):
                     topicid, docid, rank = line.split()
                     assert topicid in qrel
@@ -103,36 +104,36 @@ def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
             print(sampled_train.head(10))
             print(sampled_train.info())
 
-            sampled_train.to_pickle(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
+            sampled_train.to_pickle(f'./collections/msmarco-ltr-passage/train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
         else:
             raise Exception('unknown parameters')
         return sampled_train
 
 
-def dev_data_loader(task='pygaggle'):
-    if os.path.exists(f'dev_{task}.pickle'):
-        dev = pd.read_pickle(f'dev_{task}.pickle')
+def dev_data_loader(task='anserini'):
+    if os.path.exists(f'./collections/msmarco-ltr-passage/dev_{task}.pickle'):
+        dev = pd.read_pickle(f'./collections/msmarco-ltr-passage/dev_{task}.pickle')
         print(dev.shape)
         print(dev.index.get_level_values('qid').drop_duplicates().shape)
         print(dev.groupby('qid').count().mean())
         print(dev.head(10))
         print(dev.info())
-        dev_qrel = pd.read_pickle(f'dev_qrel.pickle')
+        dev_qrel = pd.read_pickle(f'./collections/msmarco-ltr-passage/dev_qrel.pickle')
         return dev, dev_qrel
     else:
         if task == 'rerank':
-            dev = pd.read_csv('../../collections/msmarco-passage/top1000.dev', sep="\t",
+            dev = pd.read_csv('./collections/msmarco-passage/top1000.dev', sep="\t",
                               names=['qid', 'pid', 'query', 'doc'], usecols=['qid', 'pid'], dtype=np.int32)
         elif task == 'anserini':
-            dev = pd.read_csv('../../runs/msmarco-passage/run.msmarco-passage.dev.small.tsv', sep="\t",
+            dev = pd.read_csv('./runs/run.msmarco-passage.bm25tuned.txt', sep="\t",
                               names=['qid', 'pid', 'rank'], dtype=np.int32)
         elif task == 'pygaggle':
             #pygaggle bm25 top 1000 input
-            dev = pd.read_csv('../../collections/msmarco-passage/run.dev.small.tsv', sep="\t",
+            dev = pd.read_csv('./collections/msmarco-passage/run.dev.small.tsv', sep="\t",
                               names=['qid', 'pid', 'rank'], dtype=np.int32)
         else:
             raise Exception('unknown parameters')
-        dev_qrel = pd.read_csv('../../collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
+        dev_qrel = pd.read_csv('./collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
                                names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'], dtype=np.int32)
         dev = dev.merge(dev_qrel, left_on=['qid', 'pid'], right_on=['qid', 'pid'], how='left')
         dev['rel'] = dev['rel'].fillna(0).astype(np.int32)
@@ -144,14 +145,14 @@ def dev_data_loader(task='pygaggle'):
         print(dev.head(10))
         print(dev.info())
 
-        dev.to_pickle(f'dev_{task}.pickle')
-        dev_qrel.to_pickle(f'dev_qrel.pickle')
+        dev.to_pickle(f'./collections/msmarco-ltr-passage/dev_{task}.pickle')
+        dev_qrel.to_pickle(f'./collections/msmarco-ltr-passage/dev_qrel.pickle')
         return dev, dev_qrel
 
 
 def query_loader():
     queries = {}
-    with open('./queries.train.small.entity.json') as f:
+    with open('./collections/msmarco-ltr-passage/queries.eval.small.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -160,7 +161,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
-    with open('./queries.dev.small.entity.json') as f:
+    with open('./collections/msmarco-ltr-passage/queries.dev.small.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -169,7 +170,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
-    with open('./queries.eval.small.entity.json') as f:
+    with open('./collections/msmarco-ltr-passage/queries.train.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -256,24 +257,16 @@ def data_loader(task, df, queries, fe):
     df_hash = hash_df(df)
     jar_hash = hash_anserini_jar()
     fe_hash = hash_fe(fe)
-    if os.path.exists(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle'):
-        res = pickle.load(open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'rb'))
-        print(res['info'].shape)
-        print(res['info'].qid.drop_duplicates().shape)
-        print(res['group'].mean())
-        return res
-    else:
-        if task == 'train' or task == 'dev':
-            info, data, group = batch_extract(df, queries, fe)
-            obj = {'info': info, 'data': data, 'group': group,
+    if task == 'train' or task == 'dev':
+        info, data, group = batch_extract(df, queries, fe)
+        obj = {'info': info, 'data': data, 'group': group,
                    'df_hash': df_hash, 'jar_hash': jar_hash, 'fe_hash': fe_hash}
-            print(info.shape)
-            print(info.qid.drop_duplicates().shape)
-            print(group.mean())
-            pickle.dump(obj, open(f'{task}_{df_hash}_{jar_hash}_{fe_hash}.pickle', 'wb'))
-            return obj
-        else:
-            raise Exception('unknown parameters')
+        print(info.shape)
+        print(info.qid.drop_duplicates().shape)
+        print(group.mean())
+        return obj
+    else:
+        raise Exception('unknown parameters')
 
 
 def gen_dev_group_rel_num(dev_qrel, dev_extracted):
@@ -302,6 +295,26 @@ def gen_dev_group_rel_num(dev_qrel, dev_extracted):
         return 'recall@200', recall / len(groups), True
 
     return recall_at_200
+
+def mrr_at_10(preds, dataset):
+    labels = dataset.get_label()
+    groups = dataset.get_group()
+    idx = 0
+    recall = 0
+    MRR = []
+    for g in groups:
+        top_preds = labels[idx:idx + g][np.argsort(preds[idx:idx + g])][-10:][::-1]
+        rank = 0
+        while(rank < len(top_preds)):
+            if(top_preds[rank] > 0):
+                MRR.append(1.0/(rank+1))
+                break
+            rank += 1
+        if (rank == len(top_preds)):
+            MRR.append(0.)
+        idx += g
+    assert idx == len(preds)
+    return 'mrr@10', np.mean(MRR).item(), True
 
 
 def train(train_extracted, dev_extracted, feature_name, eval_fn):
@@ -341,7 +354,7 @@ def train(train_extracted, dev_extracted, feature_name, eval_fn):
                     verbose_eval=True)
     del lgb_train
     dev_extracted['info']['score'] = gbm.predict(lgb_valid.get_data())
-    best_score = gbm.best_score['valid_0']['recall@200']
+    best_score = gbm.best_score['valid_0']['mrr@10']
     print(best_score)
     best_iteration = gbm.best_iteration
     print(best_iteration)
@@ -432,6 +445,7 @@ def eval_recall(dev_qrel, dev_data):
 
 def gen_exp_dir():
     dirname = datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S') + '_' + str(uuid.uuid1())
+    dirname = './runs/'+dirname
     assert not os.path.exists(dirname)
     os.mkdir(dirname)
     return dirname
@@ -461,13 +475,13 @@ def save_exp(dirname,
 
 
 if __name__ == '__main__':
-    os.environ["ANSERINI_CLASSPATH"] = "../../pyserini/resources/jars"
+    os.environ["ANSERINI_CLASSPATH"] = "pyserini/resources/jars"
     total_start_time = time.time()
     sampled_train = train_data_loader(task='triple', neg_sample=10)
-    dev, dev_qrel = dev_data_loader(task='pygaggle')
+    dev, dev_qrel = dev_data_loader(task='anserini')
     queries = query_loader()
 
-    fe = FeatureExtractor('../../indexes/msmarco-passage/lucene-index-msmarco-ent/',
+    fe = FeatureExtractor('indexes/lucene-index-msmarco-passage-ltr',
                           max(multiprocessing.cpu_count() // 2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
                            ('text_unlemm', 'text_unlemm'),
@@ -573,23 +587,22 @@ if __name__ == '__main__':
         fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
 
     start = time.time()
-    fe.add(IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/title_unlemm","text_unlemm","title_unlemm","text_unlemm"))
+    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/title_unlemm","text_unlemm","title_unlemm","text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds'%(end-start))
     start = end
-    fe.add(IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/url_unlemm","text_unlemm","url_unlemm","text_unlemm"))
+    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/url_unlemm","text_unlemm","url_unlemm","text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds'%(end-start))
     start = end
-    fe.add(IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/body","text_unlemm","body","text_unlemm"))
+    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/body","text_unlemm","body","text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds'%(end-start))
     start = end
-    fe.add(IbmModel1("../FlexNeuART/collections/msmarco_doc/derived_data/giza/text_bert_tok","text_bert_tok","text_bert_tok","text_bert_tok"))
+    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/text_bert_tok","text_bert_tok","text_bert_tok","text_bert_tok"))
     end = time.time()
     print('IBM model Load takes %.2f seconds'%(end-start))
     start = end
-    #fe.add(RunList("../../../../Downloads/run.monobert.ans_entire.dev.trec", "BERT"))
 
     train_extracted = data_loader('train', sampled_train, queries, fe)
     print("train_extracted")
@@ -599,7 +612,7 @@ if __name__ == '__main__':
     del sampled_train, dev, queries, fe
     eval_fn = gen_dev_group_rel_num(dev_qrel, dev_extracted)
     print("start train")
-    train_res = train(train_extracted, dev_extracted, feature_name, eval_fn)
+    train_res = train(train_extracted, dev_extracted, feature_name, mrr_at_10)
     print("end train")
     eval_res = eval_mrr(dev_extracted['info'])
     eval_res.update(eval_recall(dev_qrel, dev_extracted['info']))
