@@ -68,7 +68,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_bm25(self):
         tmp_folder_name = self.tmp.split('/')[-1]
         prebuilt_index_path = download_prebuilt_index('trec-covid-r4-abstract')
-        os.system(f'python {self.pyserini_root}/scripts/classifier_prf/trec-covid-ranker.py \
+        os.system(f'python {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
                     -alpha 0.6 \
                     -clf lr \
                     -vectorizer tfidf \
