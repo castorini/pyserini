@@ -56,6 +56,7 @@ class MsMarcoDemo(cmd.Cmd):
             self.searcher = self.dsearcher
         elif arg == "hybrid":
             self.searcher = self.hsearcher
+        print(f'setting retriver = {arg}')
 
     def do_model(self, arg):
         if arg == "tct":
@@ -73,6 +74,7 @@ class MsMarcoDemo(cmd.Cmd):
             encoder
         )
         self.hsearcher = HybridSearcher(self.dsearcher, self.ssearcher)
+        print(f'setting model = {arg}')
 
     def do_EOF(self, line):
         return True
