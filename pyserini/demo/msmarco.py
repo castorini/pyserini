@@ -60,7 +60,7 @@ class MsMarcoDemo(cmd.Cmd):
 
     def do_model(self, arg):
         if arg == "tct":
-            encoder = TctColBertQueryEncoder("astorini/tct_colbert-msmarco")
+            encoder = TctColBertQueryEncoder("castorini/tct_colbert-msmarco")
             index = "msmarco-passage-tct_colbert-hnsw"
         elif arg == "ance":
             encoder = AnceQueryEncoder("castorini/ance-msmarco-passage")
