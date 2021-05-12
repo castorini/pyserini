@@ -53,8 +53,14 @@ class MsMarcoDemo(cmd.Cmd):
         if arg == "sparse":
             self.searcher = self.ssearcher
         elif arg == "dense":
+            if self.dsearcher is None:
+                print(f'specify model through /model before using dense retrieval')
+                return
             self.searcher = self.dsearcher
         elif arg == "hybrid":
+            if self.hsearcher is None:
+                print(f'specify model through /model before using hybrid retrieval')
+                return
             self.searcher = self.hsearcher
         print(f'setting retriver = {arg}')
 
