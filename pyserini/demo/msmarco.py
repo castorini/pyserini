@@ -62,6 +62,10 @@ class MsMarcoDemo(cmd.Cmd):
                 print(f'specify model through /model before using hybrid retrieval')
                 return
             self.searcher = self.hsearcher
+        else:
+            print(
+                f'invalid retrieval method. retrievel should be one of [sparse, dense, retrieval]')
+            return
         print(f'setting retriver = {arg}')
 
     def do_model(self, arg):
@@ -72,7 +76,8 @@ class MsMarcoDemo(cmd.Cmd):
             encoder = AnceQueryEncoder("castorini/ance-msmarco-passage")
             index = "msmarco-passage-ance-bf"
         else:
-            print(f"Invalid argument {arg}. model should be one [tct, ance]")
+            print(
+                f"Invalid argument {arg}. model should be one of [tct, ance]")
             return
 
         self.dsearcher = SimpleDenseSearcher.from_prebuilt_index(
