@@ -43,13 +43,13 @@ class MsMarcoDemo(cmd.Cmd):
         print(
             f'/model [MODEL] : sets encoder to use the model [MODEL] (one of tct, ance)')
         print(
-            f'/retriever [RETRIEVER] : sets retriver type to [RETRIEVER] (one of sparse, dense, hybrid)')
+            f'/mode [MODE] : sets retriver type to [MODE] (one of sparse, dense, hybrid)')
 
     def do_k(self, arg):
         print(f'setting k = {int(arg)}')
         self.k = int(arg)
 
-    def do_retriever(self, arg):
+    def do_mode(self, arg):
         if arg == "sparse":
             self.searcher = self.ssearcher
         elif arg == "dense":
@@ -64,7 +64,7 @@ class MsMarcoDemo(cmd.Cmd):
             self.searcher = self.hsearcher
         else:
             print(
-                f'invalid retrieval method. retrieval should be one of [sparse, dense, retrieval]')
+                f'invalid mode. mode should be one of [sparse, dense, hybrid]')
             return
         print(f'setting retriver = {arg}')
 
