@@ -18,10 +18,16 @@ import cmd
 import json
 
 from pyserini.search import SimpleSearcher
+from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, AnceQueryEncoder
+from pyserini.hsearch import HybridSearcher
 
 
 class MsMarcoDemo(cmd.Cmd):
-    searcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+    ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+    dsearcher = None
+    hsearcher = None
+    searcher = ssearcher
+
     k = 10
     prompt = '>>> '
 
@@ -34,10 +40,39 @@ class MsMarcoDemo(cmd.Cmd):
     def do_help(self, arg):
         print(f'/help    : returns this message')
         print(f'/k [NUM] : sets k (number of hits to return) to [NUM]')
+        print(
+            f'/model [MODEL] : sets encoder to use the model [MODEL] (one of tct, ance)')
+        print(
+            f'/retriever [RETRIEVER] : sets retriver type to [RETRIEVER] (one of sparse, dense, hybrid)')
 
     def do_k(self, arg):
         print(f'setting k = {int(arg)}')
         self.k = int(arg)
+
+    def do_retriever(self, arg):
+        if arg == "sparse":
+            self.searcher = self.ssearcher
+        elif arg == "dense":
+            self.searcher = self.dsearcher
+        elif arg == "hybrid":
+            self.searcher = self.hsearcher
+
+    def do_model(self, arg):
+        if arg == "tct":
+            encoder = TctColBertQueryEncoder("astorini/tct_colbert-msmarco")
+            index = "msmarco-passage-tct_colbert-hnsw"
+        elif arg == "ance":
+            encoder = AnceQueryEncoder("castorini/ance-msmarco-passage")
+            index = "msmarco-passage-ance-bf"
+        else:
+            print(f"Invalid argument {arg}. model should be one [tct, ance]")
+            return
+
+        self.dsearcher = SimpleDenseSearcher.from_prebuilt_index(
+            index,
+            encoder
+        )
+        self.hsearcher = HybridSearcher(self.dsearcher, self.ssearcher)
 
     def do_EOF(self, line):
         return True
