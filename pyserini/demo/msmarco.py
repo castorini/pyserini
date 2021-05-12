@@ -64,7 +64,7 @@ class MsMarcoDemo(cmd.Cmd):
             self.searcher = self.hsearcher
         else:
             print(
-                f'invalid retrieval method. retrievel should be one of [sparse, dense, retrieval]')
+                f'invalid retrieval method. retrieval should be one of [sparse, dense, retrieval]')
             return
         print(f'setting retriver = {arg}')
 
