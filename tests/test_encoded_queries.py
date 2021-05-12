@@ -46,7 +46,7 @@ class TestEncodedQueries(unittest.TestCase):
 
     def test_ance_maxp_msmarco_doc_dev(self):
         encoder = QueryEncoder.load_encoded_queries('ance_maxp-msmarco-doc-dev')
-        topics = get_topics('maxp-msmarco-doc-dev')
+        topics = get_topics('msmarco-doc-dev')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)
 
