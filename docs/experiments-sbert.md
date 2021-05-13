@@ -2,6 +2,14 @@
 
 This guide provides instructions to reproduce the SBERT dense retrieval models for MS MARCO passage ranking (v3) described [here](https://github.com/UKPLab/sentence-transformers/blob/master/docs/pretrained-models/msmarco-v3.md).
 
+Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
+Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
+See [package installation notes](../README.md#package-installation) for more details.
+
+Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
+However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
+Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
+
 Dense retrieval, brute-force index:
 
 ```bash

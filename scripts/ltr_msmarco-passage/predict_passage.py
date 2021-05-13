@@ -13,11 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
+
+# We're going to explicitly use a local installation of Pyserini (as opposed to a pip-installed one).
+# Comment these lines out to use a pip-installed one instead.
+sys.path.insert(0, './')
+
 import argparse
 import json
 import multiprocessing
-import pickle
 import os
+import pickle
 import time
 
 import numpy as np
