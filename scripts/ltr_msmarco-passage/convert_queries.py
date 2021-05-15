@@ -29,10 +29,6 @@ from convert_common import read_stopwords, SpacyTextParser, get_retokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from tqdm import tqdm
 import os
-<<<<<<< HEAD
-=======
-
->>>>>>> 6e156a2f002283d5b825055d31ab9c4dd643b7c7
 """
 add fields to query json with text(lemmatized), text_unlemm, contents(analyzer), raw, entity(NER), text_bert_tok(BERT token)
 """
