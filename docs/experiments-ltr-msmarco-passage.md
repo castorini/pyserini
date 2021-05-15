@@ -25,6 +25,7 @@ python scripts/ltr_msmarco-passage/convert_queries.py \
 ```
 
 The above scripts convert queries to json objects with `text`, `text_unlemm`, `raw`, and `text_bert_tok` fields.
+The first two scripts take ~1 min and the third one is a bit longer (~1.5h).
 
 ```bash
 wget https://www.dropbox.com/s/se5kokw1qqu8yxs/lucene-index-msmarco-passage-ltr.tar.gz -P indexes/ 
@@ -40,14 +41,14 @@ Download pretrained IBM models:
 
 ```bash
 wget https://www.dropbox.com/s/vlrfcz3vmr4nt0q/ibm_model.tar.gz -P collections/msmarco-ltr-passage/
-tar -xzvf collections/msmarco-ltr-passage/ibm_model.tar.gz
+tar -xzvf collections/msmarco-ltr-passage/ibm_model.tar.gz -C collections/msmarco-ltr-passage/
 ```
 
 Download our pretrained LTR model:
 
 ```bash
-wget https://www.dropbox.com/s/vusfjbvy9jl3144/msmarco-passage-ltr-mrr-v1.tar.gz -P runs/
-tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz
+wget https://www.dropbox.com/s/y4c7lci76xtpjqg/msmarco-passage-ltr-mrr-v1.tar.gz -P runs/
+tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
 ```
 
 Next we can run our inference script to get our reranking result.
@@ -71,7 +72,7 @@ After the run finishes, we can evaluate the results using the official MS MARCO 
 $ python tools/scripts/msmarco/msmarco_passage_eval.py \
    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.ltr.msmarco-passage.tsv
 #####################
-MRR @10: 0.24860445945331225
+MRR @10: 0.24819336426069846
 QueriesRanked: 6980
 #####################
 ```
@@ -91,7 +92,7 @@ And then run the `trec_eval` tool:
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
    collections/msmarco-passage/qrels.dev.small.trec runs/run.ltr.msmarco-passage.trec
-map                     all     0.2564
+map                     all     0.2561
 recall_1000             all     0.8573         	
 ```
 
