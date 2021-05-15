@@ -27,8 +27,8 @@ python scripts/ltr_msmarco-passage/convert_queries.py \
 The above scripts convert queries to json objects with `text`, `text_unlemm`, `raw`, and `text_bert_tok` fields.
 
 ```bash
-wget https://www.dropbox.com/s/se5kokw1qqu8yxs/lucene-index-msmarco-passage-ltr.tar.gz?dl=0 -P indexes/ 
-tar -xzvf indexes/lucene-index-msmarco-passage-ltr.tar.gz -C indexes/
+wget https://www.dropbox.com/s/se5kokw1qqu8yxs/lucene-index-msmarco-passage-ltr.tar.gz -P indexes/ 
+tar -xzvf indexes/lucene-index-msmarco-passage-ltr.tar.gz 
 ```
 
 We can download pre-built index by running the above command.
@@ -39,15 +39,15 @@ To confirm, `lucene-index-msmarco-passage-ltr.tar.gz` should have MD5 checksum o
 Download pretrained IBM models:
 
 ```bash
-wget https://www.dropbox.com/s/vo7h90j0wqzxvbq/ibm_model.tar.gz?dl=0 -P collections/msmarco-ltr-passage/
-tar -xzvf collections/msmarco-ltr-passage/ibm_model.tar.gz -C collections/msmarco-ltr-passage/
+wget https://www.dropbox.com/s/vlrfcz3vmr4nt0q/ibm_model.tar.gz -P collections/msmarco-ltr-passage/
+tar -xzvf collections/msmarco-ltr-passage/ibm_model.tar.gz
 ```
 
 Download our pretrained LTR model:
 
 ```bash
-wget https://www.dropbox.com/s/vusfjbvy9jl3144/ltr_model.tar.gz?dl=0 -P runs/
-tar -xzvf runs/ltr_model.tar.gz -C runs/
+wget https://www.dropbox.com/s/vusfjbvy9jl3144/msmarco-passage-ltr-mrr-v1.tar.gz -P runs/
+tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz
 ```
 
 Next we can run our inference script to get our reranking result.
@@ -56,13 +56,9 @@ Next we can run our inference script to get our reranking result.
 python scripts/ltr_msmarco-passage/predict_passage.py \
   --rank_list_path runs/run.msmarco-passage.bm25tuned.txt \
   --rank_list_format tsv \
-  --ltr_model_path runs/ltr_model \
+  --ltr_model_path runs/msmarco-passage-ltr-mrr-v1 \
   --ltr_output_path runs/run.ltr.msmarco-passage.tsv 
 ```
-
-TODO:
-+ Rename `ltr_model` to something more descriptive, because we'll have many more in the future... how about `msmarco-passage-ltr-mrr-v1`?
-+ Change underscores to dashes in index.
 
 Here, our model is trained to maximize MRR@10.
 
