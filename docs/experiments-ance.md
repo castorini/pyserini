@@ -144,4 +144,3 @@ Top100	accuracy: 0.8522
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-25 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
 + Results reproduced by [@jingtaozhan](https://github.com/jingtaozhan) on 2021-05-15 (commit [`53d8d3c`](https://github.com/castorini/pyserini/commit/53d8d3cbb78c88a23ce132a42b0396caad7d2e0f))
-
