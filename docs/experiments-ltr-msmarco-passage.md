@@ -113,8 +113,8 @@ Equivalently, we can preprocess collection and queries with our scripts:
 
 ```bash
 python scripts/ltr_msmarco-passage/convert_passage.py \
---input collections/msmarco-passage/collection.tsv \
---output collections/msmarco-ltr-passage/ltr_collection.json 
+  --input collections/msmarco-passage/collection.tsv \
+  --output collections/msmarco-ltr-passage/ltr_collection.json 
 ```
 
 The above script will convert the collection and queries to json files with text_unlemm, analyzed, text_bert_tok and raw fields.
@@ -122,8 +122,8 @@ Next, we need to convert the MS MARCO json collection into Anserini's jsonl file
 
 ```bash
 python scripts/ltr_msmarco-passage/convert_collection_to_jsonl.py \
---collection-path collections/msmarco-ltr-passage/ltr_collection.json \
---output-folder collections/msmarco-ltr-passage/ltr_collection_jsonl 
+  --collection-path collections/msmarco-ltr-passage/ltr_collection.json \
+  --output-folder collections/msmarco-ltr-passage/ltr_collection_jsonl 
 ```
 The above script should generate 9 jsonl files in `collections/msmarco-ltr-passage/ltr_collection_jsonl`, each with 1M lines (except for the last one, which should have 841,823 lines).
 
