@@ -9,11 +9,16 @@ from collections import defaultdict, OrderedDict
 import os
 from pyserini.query_iterator import KiltQueryIterator
 
-
 ##########################################################################################
+# Replaced:
+# from kilt import eval_downstream
+# With the following import:
+import evaluate_kilt_downstream as eval_downstream
+
 # Replaced:
 # from kilt import kilt_utils
 # With the following directly imported code:
+
 
 def load_data(filename):
     data = []
@@ -22,44 +27,6 @@ def load_data(filename):
         for line in lines:
             data.append(json.loads(line))
     return data
-
-
-##########################################################################################
-# Replaced:
-# from kilt import eval_downstream
-# With the following directly imported code:
-
-def validate_input(gold_records, guess_records):
-
-    if len(gold_records) != len(guess_records):
-        print(
-            "WARNING: DIFFERENT SIZE gold: {} guess: {}".format(
-                len(gold_records), len(guess_records)
-            )
-        )
-
-    # align order
-    gold_ids = []
-    for gold in gold_records:
-        assert str(gold["id"]).strip() not in gold_ids, "Gold IDs should be unique"
-        gold_ids.append(str(gold["id"]).strip())
-
-    id2guess_record = {}
-    for guess in guess_records:
-        assert (
-            str(guess["id"]).strip() not in id2guess_record
-        ), "Prediction IDs should be unique"
-        id2guess_record[str(guess["id"]).strip()] = guess
-
-    guess_records = []
-    for id in gold_ids:
-        if id in id2guess_record:
-            guess_records.append(id2guess_record[id])
-        else:
-            raise ValueError("ERROR: no prediction provided for id: {}".format(id))
-
-    return gold_records, guess_records
-
 ##########################################################################################
 
 
@@ -332,7 +299,7 @@ def evaluate(gold, guess, ks, rank_keys):
     guess_dataset = load_data(guess)
 
     # 0. validate input
-    gold_dataset, guess_dataset = validate_input(
+    gold_dataset, guess_dataset = eval_downstream.validate_input(
         gold_dataset, guess_dataset
     )
 
