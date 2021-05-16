@@ -12,7 +12,7 @@ from pyserini.query_iterator import KiltQueryIterator
 # Replaced:
 # from kilt import eval_downstream
 # With the following import:
-import evaluate_kilt_downstream as eval_downstream
+import pyserini.eval.evaluate_kilt_downstream as eval_downstream
 
 # Replaced:
 # from kilt import kilt_utils

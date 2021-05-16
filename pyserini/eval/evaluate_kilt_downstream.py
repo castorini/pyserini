@@ -17,7 +17,7 @@ from pyserini.query_iterator import KiltQueryIterator
 # import kilt.eval_retrieval as retrieval_metrics
 # from kilt import kilt_utils
 # With the following import:
-import evaluate_kilt_retrieval as retrieval_metrics
+import pyserini.eval.evaluate_kilt_retrieval as retrieval_metrics
 
 
 # utility to get gold answers
