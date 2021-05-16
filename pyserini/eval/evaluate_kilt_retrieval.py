@@ -6,10 +6,9 @@ import pprint
 import json
 from collections import defaultdict, OrderedDict
 
+##########################################################################################
 import os
 from pyserini.query_iterator import KiltQueryIterator
-
-##########################################################################################
 # Replaced:
 # from kilt import eval_downstream
 # With the following import:

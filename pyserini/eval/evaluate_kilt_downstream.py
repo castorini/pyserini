@@ -10,6 +10,9 @@ from rouge import Rouge
 from collections import Counter
 
 ##########################################################################################
+import os
+from pyserini.query_iterator import KiltQueryIterator
+
 # Replaced:
 # import kilt.eval_retrieval as retrieval_metrics
 # from kilt import kilt_utils
@@ -258,4 +261,11 @@ if __name__ == "__main__":
     parser.add_argument("gold", help="Gold KILT file")
 
     args = parser.parse_args()
-    evaluate(args.gold, args.guess)
+    ##########################################################################################
+    # Pyserini change:
+    # Download gold file if necessary
+    gold = args.gold
+    if not os.path.exists(args.gold):
+        gold = KiltQueryIterator.download_kilt_topics(gold)
+    ##########################################################################################
+    evaluate(gold, args.guess)
