@@ -33,7 +33,7 @@ tar -xzvf indexes/lucene-index-msmarco-passage-ltr.tar.gz
 ```
 
 We can download pre-built index by running the above command.
-To confirm, `lucene-index-msmarco-passage-ltr.tar.gz` should have MD5 checksum of `89ffdd8feecfc13aa66e7a9dc1635624`.
+To confirm, `lucene-index-msmarco-passage-ltr.tar.gz` should have MD5 checksum of `a5de642c268ac1ed5892c069bdc29ae3`.
 
 ## Performing Inference Using Pretrained Model
 
@@ -47,7 +47,7 @@ tar -xzvf collections/msmarco-ltr-passage/ibm_model.tar.gz -C collections/msmarc
 Download our pretrained LTR model:
 
 ```bash
-wget https://www.dropbox.com/s/ffl2bfw4cd5ngyz/msmarco-passage-ltr-mrr-v1.tar.gz-P runs/
+wget https://www.dropbox.com/s/ffl2bfw4cd5ngyz/msmarco-passage-ltr-mrr-v1.tar.gz -P runs/
 tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
 ```
 
