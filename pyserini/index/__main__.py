@@ -25,7 +25,7 @@ for i in range(len(args)):
     if args[i] == '-input':
         collection_dir = args[i+1]
         if os.path.isfile(collection_dir):
-            raise ValueError('Argument -input should be a directory')
+            raise ValueError('Argument -input should be a directory.')
 
 JIndexCollection = autoclass('io.anserini.index.IndexCollection')
 JIndexCollection.main(args)
