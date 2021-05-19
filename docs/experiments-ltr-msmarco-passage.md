@@ -72,7 +72,7 @@ After the run finishes, we can evaluate the results using the official MS MARCO 
 $ python tools/scripts/msmarco/msmarco_passage_eval.py \
    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.ltr.msmarco-passage.tsv
 #####################
-MRR @10: 0.24819336426069846
+MRR @10: 0.24709612498294367
 QueriesRanked: 6980
 #####################
 ```
@@ -92,8 +92,8 @@ And then run the `trec_eval` tool:
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
    collections/msmarco-passage/qrels.dev.small.trec runs/run.ltr.msmarco-passage.trec
-map                     all     0.2561
-recall_1000             all     0.8573         	
+map                   	all	0.2551
+recall_1000           	all	0.8573       	
 ```
 
 Average precision or AP (also called mean average precision, MAP) and recall@1000 (recall at rank 1000) are the two metrics we care about the most.
