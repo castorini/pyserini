@@ -73,14 +73,7 @@ python -m unittest
 
 Assuming all tests pass, you should be ready to go!
 
-#### Using tuna or ocra
-
-If using tuna or ocra, root disk doesn't have much space, so you need to set pyserini cache path to scratch space.
-
-- For tuna, create the dir `/tuna1/scratch/{username}`
-- For ocra, create the dir `/store/scratch/{username}`
-
-Set the `PYSERINI_CACHE` environment variable to point to the directory you created above
+See additional detailed instructions for Waterloo development machines [here](./docs/installation.md)
 
 
 ## Quick Links
