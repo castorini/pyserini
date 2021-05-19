@@ -102,8 +102,7 @@ class MsMarcoDemo(cmd.Cmd):
                 if doc:
                     raw_doc = doc.raw()
             jsondoc = json.loads(raw_doc)
-            contents = jsondoc["contents"]
-            print(f'{i + 1:2} {hits[i].score:.5f} {contents}')
+            print(f'{i + 1:2} {hits[i].score:.5f} {jsondoc["contents"]}')
 
 
 if __name__ == '__main__':
