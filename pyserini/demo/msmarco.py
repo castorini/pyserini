@@ -101,7 +101,8 @@ class MsMarcoDemo(cmd.Cmd):
             else:
                 doc = self.ssearcher.doc(hits[i].docid)
                 if doc:
-                    contents = doc.contents()
+                    jsondoc = json.loads(doc.raw())
+                    contents = jsondoc["contents"]
             print(f'{i + 1:2} {hits[i].score:.5f} {contents}')
 
 
