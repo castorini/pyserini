@@ -29,7 +29,7 @@ The first two scripts take ~1 min and the third one is a bit longer (~1.5h).
 
 ```bash
 wget https://www.dropbox.com/s/2h22kt43fcnngxg/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz -P indexes/ 
-tar -xzvf indexes/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz 
+tar -xzvf indexes/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz -C indexes
 ```
 
 We can download pre-built index by running the above command.

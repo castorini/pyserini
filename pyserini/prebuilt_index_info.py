@@ -66,6 +66,19 @@ INDEX_INFO = {
         "unique_terms": 3929111,
         "downloaded": False
     },
+    "msmarco-passage-ltr": {
+        "description": "MS MARCO passage corpus (4 extra preprocessed fieldsm used for ltr pipeline",
+        "filename": "index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/2h22kt43fcnngxg/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz?dl=1"
+        ],
+        "md5": "a5de642c268ac1ed5892c069bdc29ae3",
+        "size compressed (bytes)": 14073966046,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
     "msmarco-doc": {
         "description": "MS MARCO document corpus",
         "filename": "index-msmarco-doc-20201117-f87c94.tar.gz",
