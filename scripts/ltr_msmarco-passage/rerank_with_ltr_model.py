@@ -279,22 +279,22 @@ def output(file, dev_data):
 
 if __name__ == '__main__':
     os.environ["ANSERINI_CLASSPATH"] = "./pyserini/resources/jars"
-    parser = argparse.ArgumentParser(description='Learning to rank')
-    parser.add_argument('--rank_list_path', required=True)
-    parser.add_argument('--rank_list_top', type=int, default=1000)
-    parser.add_argument('--rank_list_format', required=True)
-    parser.add_argument('--ltr_model_path', required=True)
-    parser.add_argument('--ltr_output_path', required=True)
+    parser = argparse.ArgumentParser(description='Learning to rank reranking')
+    parser.add_argument('--input', required=True)
+    parser.add_argument('--reranking-top', type=int, default=1000)
+    parser.add_argument('--input-format', required=True)
+    parser.add_argument('--model', required=True)
+    parser.add_argument('--index', required=True)
+    parser.add_argument('--output', required=True)
 
     args = parser.parse_args()
     print("load dev")
-    dev, dev_qrel = dev_data_loader(args.rank_list_path, args.rank_list_format, args.rank_list_top)
+    dev, dev_qrel = dev_data_loader(args.input, args.input-format, args.reranking-top)
     print("load queries")
     queries = query_loader()
     print("add feature")
-    fe = FeatureExtractor('./indexes/lucene-index-msmarco-passage-ltr', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor(args.index, max(multiprocessing.cpu_count()//2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
-                           ('text', 'text'),
                            ('text_unlemm', 'text_unlemm'),
                            ('text_bert_tok', 'text_bert_tok')]:
         print(qfield, ifield)
@@ -419,8 +419,8 @@ if __name__ == '__main__':
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
 
-    models = pickle.load(open(args.ltr_model_path+'/model.pkl', 'rb'))
-    metadata = json.load(open(args.ltr_model_path+'/metadata.json', 'r'))
+    models = pickle.load(open(args.model+'/model.pkl', 'rb'))
+    metadata = json.load(open(args.model+'/metadata.json', 'r'))
     feature_used = metadata['feature_names']
 
     batch_info = []
@@ -440,5 +440,5 @@ if __name__ == '__main__':
 
     eval_res = eval_mrr(batch_info)
     eval_recall(dev_qrel, batch_info)
-    output(args.ltr_output_path, batch_info)
+    output(args.output, batch_info)
     print('Done!')
