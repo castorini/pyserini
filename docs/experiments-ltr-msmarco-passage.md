@@ -54,11 +54,12 @@ tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
 Next we can run our inference script to get our reranking result.
 
 ```bash
-python scripts/ltr_msmarco-passage/predict_passage.py \
-  --rank_list_path runs/run.msmarco-passage.bm25tuned.txt \
-  --rank_list_format tsv \
-  --ltr_model_path runs/msmarco-passage-ltr-mrr-v1 \
-  --ltr_output_path runs/run.ltr.msmarco-passage.tsv 
+python scripts/ltr_msmarco-passage/rerank_with_ltr_model.py \
+  --input runs/run.msmarco-passage.bm25tuned.txt \
+  --input-format tsv \
+  --model runs/msmarco-passage-ltr-mrr-v1 \
+  --index indexes/index-msmarco-passage-ltr-20210519-e25e33f \
+  --output runs/run.ltr.msmarco-passage.tsv 
 ```
 
 Here, our model is trained to maximize MRR@10.
@@ -109,7 +110,8 @@ gzip -d collections/msmarco-passage/qidpidtriples.train.full.2.tsv.gz
 First download the file which has training triples and uncompress it.
 
 ```bash
-python scripts/ltr_msmarco-passage/train_passage.py   	
+python scripts/ltr_msmarco-passage/train_ltr_model.py  \
+ --index indexes/index-msmarco-passage-ltr-20210519-e25e33f 
 ```
 The above scripts will train a model at `runs/` with your running date in the file name. You can use this as the `--ltr_model_path` parameter for `predict_passage.py`.
 

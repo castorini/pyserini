@@ -289,7 +289,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     print("load dev")
-    dev, dev_qrel = dev_data_loader(args.input, args.input-format, args.reranking-top)
+    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.reranking_top)
     print("load queries")
     queries = query_loader()
     print("add feature")
