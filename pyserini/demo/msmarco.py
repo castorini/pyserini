@@ -40,10 +40,8 @@ class MsMarcoDemo(cmd.Cmd):
     def do_help(self, arg):
         print(f'/help    : returns this message')
         print(f'/k [NUM] : sets k (number of hits to return) to [NUM]')
-        print(
-            f'/model [MODEL] : sets encoder to use the model [MODEL] (one of tct, ance)')
-        print(
-            f'/mode [MODE] : sets retriver type to [MODE] (one of sparse, dense, hybrid)')
+        print(f'/model [MODEL] : sets encoder to use the model [MODEL] (one of tct, ance)')
+        print(f'/mode [MODE] : sets retriver type to [MODE] (one of sparse, dense, hybrid)')
 
     def do_k(self, arg):
         print(f'setting k = {int(arg)}')
@@ -54,17 +52,17 @@ class MsMarcoDemo(cmd.Cmd):
             self.searcher = self.ssearcher
         elif arg == "dense":
             if self.dsearcher is None:
-                print(f'specify model through /model before using dense retrieval')
+                print(f'Specify model through /model before using dense retrieval.')
                 return
             self.searcher = self.dsearcher
         elif arg == "hybrid":
             if self.hsearcher is None:
-                print(f'specify model through /model before using hybrid retrieval')
+                print(f'Specify model through /model before using hybrid retrieval.')
                 return
             self.searcher = self.hsearcher
         else:
             print(
-                f'invalid mode {arg}. mode should be one of [sparse, dense, hybrid]')
+                f'Mode "{arg}" is invalid. Mode should be one of [sparse, dense, hybrid].')
             return
         print(f'setting retriver = {arg}')
 
@@ -77,7 +75,7 @@ class MsMarcoDemo(cmd.Cmd):
             index = "msmarco-passage-ance-bf"
         else:
             print(
-                f"Invalid argument {arg}. model should be one of [tct, ance]")
+                f'Model "{arg}" is invalid. Model should be one of [tct, ance].')
             return
 
         self.dsearcher = SimpleDenseSearcher.from_prebuilt_index(
