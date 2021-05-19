@@ -28,7 +28,7 @@ The above scripts convert queries to json objects with `text`, `text_unlemm`, `r
 The first two scripts take ~1 min and the third one is a bit longer (~1.5h).
 
 ```bash
-wget https://www.dropbox.com/s/se5kokw1qqu8yxs/lucene-index-msmarco-passage-ltr.tar.gz -P indexes/ 
+wget TBD -P indexes/ 
 tar -xzvf indexes/lucene-index-msmarco-passage-ltr.tar.gz 
 ```
 
@@ -47,7 +47,7 @@ tar -xzvf collections/msmarco-ltr-passage/ibm_model.tar.gz -C collections/msmarc
 Download our pretrained LTR model:
 
 ```bash
-wget https://www.dropbox.com/s/y4c7lci76xtpjqg/msmarco-passage-ltr-mrr-v1.tar.gz -P runs/
+wget https://www.dropbox.com/s/ffl2bfw4cd5ngyz/msmarco-passage-ltr-mrr-v1.tar.gz-P runs/
 tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
 ```
 
@@ -103,6 +103,12 @@ On the other hand, recall@1000 provides the upper bound effectiveness of downstr
 ## Training the Model From Scratch
 
 ```bash
+wget https://msmarco.blob.core.windows.net/msmarcoranking/qidpidtriples.train.full.2.tsv.gz -P collections/msmarco-passage/	
+gzip -d collections/msmarco-passage/qidpidtriples.train.full.2.tsv.gz
+```
+First download the file which has training triples and uncompress it.
+
+```bash
 python scripts/ltr_msmarco-passage/train_passage.py   	
 ```
 The above scripts will train a model at `runs/` with your running date in the file name. You can use this as the `--ltr_model_path` parameter for `predict_passage.py`.
@@ -117,7 +123,7 @@ python scripts/ltr_msmarco-passage/convert_passage.py \
   --output collections/msmarco-ltr-passage/ltr_collection.json 
 ```
 
-The above script will convert the collection and queries to json files with text_unlemm, analyzed, text_bert_tok and raw fields.
+The above script will convert the collection and queries to json files with `text_unlemm`, `analyzed`, `text_bert_tok` and `raw` fields.
 Next, we need to convert the MS MARCO json collection into Anserini's jsonl files (which have one json object per line):
 
 ```bash
