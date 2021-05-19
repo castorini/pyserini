@@ -94,8 +94,15 @@ class MsMarcoDemo(cmd.Cmd):
         hits = self.searcher.search(q, self.k)
 
         for i in range(0, len(hits)):
-            jsondoc = json.loads(hits[i].raw)
-            print(f'{i + 1:2} {hits[i].score:.5f} {jsondoc["contents"]}')
+            contents = ""
+            if isinstance(self.searcher, SimpleSearcher):
+                jsondoc = json.loads(hits[i].raw)
+                contents = jsondoc["contents"]
+            else:
+                doc = self.ssearcher.doc(hits[i].docid)
+                if doc:
+                    contents = doc.contents()
+            print(f'{i + 1:2} {hits[i].score:.5f} {contents}')
 
 
 if __name__ == '__main__':
