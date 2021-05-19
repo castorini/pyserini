@@ -28,12 +28,10 @@ The above scripts convert queries to json objects with `text`, `text_unlemm`, `r
 The first two scripts take ~1 min and the third one is a bit longer (~1.5h).
 
 ```bash
-wget https://www.dropbox.com/s/2h22kt43fcnngxg/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz -P indexes/ 
-tar -xzvf indexes/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz -C indexes
+python -c "from pyserini.search import SimpleSearcher; SimpleSearcher.from_prebuilt_index('msmarco-passage-ltr')"
 ```
 
-We can download pre-built index by running the above command.
-To confirm, `lucene-index-msmarco-passage-ltr.tar.gz` should have MD5 checksum of `a5de642c268ac1ed5892c069bdc29ae3`.
+We run the above commands to obtain pre-built index in cache.
 
 ## Performing Inference Using Pretrained Model
 
@@ -58,7 +56,7 @@ python scripts/ltr_msmarco-passage/rerank_with_ltr_model.py \
   --input runs/run.msmarco-passage.bm25tuned.txt \
   --input-format tsv \
   --model runs/msmarco-passage-ltr-mrr-v1 \
-  --index indexes/index-msmarco-passage-ltr-20210519-e25e33f \
+  --index .cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3
   --output runs/run.ltr.msmarco-passage.tsv 
 ```
 
