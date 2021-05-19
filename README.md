@@ -77,8 +77,8 @@ Assuming all tests pass, you should be ready to go!
 
 If using tuna or ocra, root disk doesn't have much space, so you need to set pyserini cache path to scratch space.
 
-- For tuna, create a dir under `/tuna1/scratch/{username}`
-- For ocra, create a dir under `/store/scratch/{username}`
+- For tuna, create the dir `/tuna1/scratch/{username}`
+- For ocra, create the dir `/store/scratch/{username}`
 
 Set the `PYSERINI_CACHE` environment variable to point to the directory you created above
 
