@@ -64,7 +64,7 @@ class MsMarcoDemo(cmd.Cmd):
             self.searcher = self.hsearcher
         else:
             print(
-                f'invalid mode. mode should be one of [sparse, dense, hybrid]')
+                f'invalid mode {arg}. mode should be one of [sparse, dense, hybrid]')
             return
         print(f'setting retriver = {arg}')
 
@@ -94,15 +94,15 @@ class MsMarcoDemo(cmd.Cmd):
         hits = self.searcher.search(q, self.k)
 
         for i in range(0, len(hits)):
-            contents = ""
+            raw_doc = None
             if isinstance(self.searcher, SimpleSearcher):
-                jsondoc = json.loads(hits[i].raw)
-                contents = jsondoc["contents"]
+                raw_doc = hits[i].raw
             else:
                 doc = self.ssearcher.doc(hits[i].docid)
                 if doc:
-                    jsondoc = json.loads(doc.raw())
-                    contents = jsondoc["contents"]
+                    raw_doc = doc.raw()
+            jsondoc = json.loads(raw_doc)
+            contents = jsondoc["contents"]
             print(f'{i + 1:2} {hits[i].score:.5f} {contents}')
 
 
