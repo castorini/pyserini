@@ -1,3 +1,4 @@
+
 # Pyserini: Learning-To-Rank Baseline for MS MARCO Passage
 
 This guide contains instructions for running learning-to-rank baseline on the [MS MARCO *passage* reranking task](https://microsoft.github.io/msmarco/).
@@ -56,7 +57,7 @@ python scripts/ltr_msmarco-passage/rerank_with_ltr_model.py \
   --input runs/run.msmarco-passage.bm25tuned.txt \
   --input-format tsv \
   --model runs/msmarco-passage-ltr-mrr-v1 \
-  --index .cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3
+  --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3
   --output runs/run.ltr.msmarco-passage.tsv 
 ```
 
