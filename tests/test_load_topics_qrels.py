@@ -322,30 +322,30 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 73)
         self.assertTrue(isinstance(next(iter(topics.keys())), str))
 
-    # def test_ntcir8_zh_qrels(self):
-    #     qrels = search.get_qrels('ntcir8-zh')
-    #     self.assertEqual(len(qrels), 73)
-    #     self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+    def test_ntcir8_zh_qrels(self):
+        qrels = search.get_qrels('ntcir8-zh')
+        self.assertEqual(len(qrels), 100)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
 
     def test_clef2006_fr(self):
         topics = search.get_topics('clef2006-fr')
         self.assertEqual(len(topics), 49)
         self.assertTrue(isinstance(next(iter(topics.keys())), str))
 
-    # def test_clef2006_fr_qrels(self):
-    #     qrels = search.get_qrels('clef2006-fr')
-    #     self.assertEqual(len(qrels), 49)
-    #     self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+    def test_clef2006_fr_qrels(self):
+        qrels = search.get_qrels('clef2006-fr')
+        self.assertEqual(len(qrels), 49)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
 
     def test_trec2002_ar(self):
         topics = search.get_topics('trec2002-ar')
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    # def test_trec2002_ar_qrels(self):
-    #     qrels = search.get_qrels('trec2002-ar')
-    #     self.assertEqual(len(qrels), 50)
-    #     self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+    def test_trec2002_ar_qrels(self):
+        qrels = search.get_qrels('trec2002-ar')
+        self.assertEqual(len(qrels), 50)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
     def test_fire2012_bn(self):
         topics = search.get_topics('fire2012-bn')
