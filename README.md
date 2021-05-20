@@ -73,6 +73,9 @@ python -m unittest
 
 Assuming all tests pass, you should be ready to go!
 
+See additional detailed instructions for Waterloo development machines [here](./docs/installation.md)
+
+
 ## Quick Links
 
 + [How do I search?](#how-do-i-search)
