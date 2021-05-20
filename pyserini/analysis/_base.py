@@ -28,7 +28,6 @@ JSpanishAnalyzer = autoclass('org.apache.lucene.analysis.es.SpanishAnalyzer')
 JFrenchAnalyzer = autoclass('org.apache.lucene.analysis.fr.FrenchAnalyzer')
 JHindiAnalyzer = autoclass('org.apache.lucene.analysis.hi.HindiAnalyzer')
 JDefaultEnglishAnalyzer = autoclass('io.anserini.analysis.DefaultEnglishAnalyzer')
-# add more
 JHungarianAnalyzer = autoclass('org.apache.lucene.analysis.hu.HungarianAnalyzer')
 JDanishAnalyzer = autoclass('org.apache.lucene.analysis.da.DanishAnalyzer')
 JItalianAnalyzer = autoclass('org.apache.lucene.analysis.it.ItalianAnalyzer')
