@@ -37,15 +37,6 @@ This is the configuration used to run our many regression tests.
 However, in most cases results have also been reproduced on macOS with the same dependency versions.
 Use other versions of the dependent packages at your own risk...
 
-Troubleshooting tips:
-
-+ If you get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
-In `bash`, use `echo $JAVA_HOME` to find out what the environmental variable is currently set to, and use `export JAVA_HOME=/path/to/java/home` to change it to the correct path.
-On a Linux system, the correct path might look something like `/usr/lib/jvm/java-11`.
-Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.
-+ Windows uses GBK character encoding by default, which makes resource file reading in Anserini inconsistent with that in Linux and macOS.
-To fix, manually set environment variable `set _JAVA_OPTIONS=-Dfile.encoding=UTF-8` to use `UTF-8` encoding.
-
 ## Development Installation
 
 If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
@@ -73,7 +64,7 @@ python -m unittest
 
 Assuming all tests pass, you should be ready to go!
 
-See additional detailed instructions for Waterloo development machines [here](./docs/installation.md)
+See additional detailed instructions for installation [here](./docs/installation.md)
 
 
 ## Quick Links
