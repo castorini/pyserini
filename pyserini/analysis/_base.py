@@ -28,6 +28,20 @@ JSpanishAnalyzer = autoclass('org.apache.lucene.analysis.es.SpanishAnalyzer')
 JFrenchAnalyzer = autoclass('org.apache.lucene.analysis.fr.FrenchAnalyzer')
 JHindiAnalyzer = autoclass('org.apache.lucene.analysis.hi.HindiAnalyzer')
 JDefaultEnglishAnalyzer = autoclass('io.anserini.analysis.DefaultEnglishAnalyzer')
+# add more
+JHungarianAnalyzer = autoclass('org.apache.lucene.analysis.hu.HungarianAnalyzer')
+JDanishAnalyzer = autoclass('org.apache.lucene.analysis.da.DanishAnalyzer')
+JItalianAnalyzer = autoclass('org.apache.lucene.analysis.it.ItalianAnalyzer')
+JFinnishAnalyzer = autoclass('org.apache.lucene.analysis.fi.FinnishAnalyzer')
+JRussianAnalyzer = autoclass('org.apache.lucene.analysis.ru.RussianAnalyzer')
+JDutchAnalyzer = autoclass('org.apache.lucene.analysis.nl.DutchAnalyzer')
+JNorwegianAnalyzer = autoclass('org.apache.lucene.analysis.no.NorwegianAnalyzer')
+JPortugueseAnalyzer = autoclass('org.apache.lucene.analysis.pt.PortugueseAnalyzer')
+JThaiAnalyzer = autoclass('org.apache.lucene.analysis.th.ThaiAnalyzer')
+JSwedishAnalyzer = autoclass('org.apache.lucene.analysis.sv.SwedishAnalyzer')
+JIndonesianAnalyzer = autoclass('org.apache.lucene.analysis.id.IndonesianAnalyzer')
+JTurkishAnalyzer = autoclass('org.apache.lucene.analysis.tr.TurkishAnalyzer')
+
 JWhiteSpaceAnalyzer = autoclass('org.apache.lucene.analysis.core.WhitespaceAnalyzer')
 JCharArraySet = autoclass('org.apache.lucene.analysis.CharArraySet')
 
@@ -72,6 +86,28 @@ def get_lucene_analyzer(name='english', stemming=True, stemmer='porter', stopwor
         return JHindiAnalyzer()
     elif name.lower() == 'tweet':
         return JTweetAnalyzer()
+    elif name.lower() == 'indonesian':
+        return JIndonesianAnalyzer()
+    elif name.lower() == 'danish':
+        return JDanishAnalyzer()
+    elif name.lower() == 'dutch':
+        return JDutchAnalyzer()
+    elif name.lower() == 'hungarian':
+        return JHungarianAnalyzer()
+    elif name.lower() == 'russian':
+        return JRussianAnalyzer()
+    elif name.lower() == 'turkish':
+        return JTurkishAnalyzer()
+    elif name.lower() == 'thai':
+        return JThaiAnalyzer()
+    elif name.lower() == 'portuguese':
+        return JPortugueseAnalyzer()
+    elif name.lower() == 'italian':
+        return JItalianAnalyzer()
+    elif name.lower() == 'finnish':
+        return JFinnishAnalyzer()
+    elif name.lower() == 'norwegian':
+        return JNorwegianAnalyzer()
     elif name.lower() == 'english':
         if stemming:
             if stopwords:
