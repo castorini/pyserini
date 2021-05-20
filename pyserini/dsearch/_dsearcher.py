@@ -334,6 +334,7 @@ class SimpleDenseSearcher:
 
     @staticmethod
     def _init_encoder_from_str(encoder):
+        encoder = encoder.lower()
         if 'dpr' in encoder:
             return DprQueryEncoder(encoder_dir=encoder)
         elif 'tct_colbert' in encoder:
