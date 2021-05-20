@@ -19,7 +19,7 @@ The main entry point is the ``SimpleDenseSearcher`` class.
 """
 import os
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, List, Union
 
 import numpy as np
 import pandas as pd
@@ -227,9 +227,12 @@ class SimpleDenseSearcher:
         Path to faiss index directory.
     """
 
-    def __init__(self, index_dir: str, query_encoder: QueryEncoder):
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str]):
         requires_faiss(self)
-        self.query_encoder = query_encoder
+        if isinstance(query_encoder, QueryEncoder):
+            self.query_encoder = query_encoder
+        else:
+            self.query_encoder = self._init_encoder_from_str(query_encoder)
         self.index, self.docids = self.load_index(index_dir)
         self.dimension = self.index.d
         self.num_docs = self.index.ntotal
@@ -328,6 +331,20 @@ class SimpleDenseSearcher:
         index = faiss.read_index(index_path)
         docids = self.load_docids(docid_path)
         return index, docids
+
+    @staticmethod
+    def _init_encoder_from_str(encoder):
+        encoder = encoder.lower()
+        if 'dpr' in encoder:
+            return DprQueryEncoder(encoder_dir=encoder)
+        elif 'tct_colbert' in encoder:
+            return TctColBertQueryEncoder(encoder_dir=encoder)
+        elif 'ance' in encoder:
+            return AnceQueryEncoder(encoder_dir=encoder)
+        elif 'sentence' in encoder:
+            return AutoQueryEncoder(encoder_dir=encoder, pooling='mean', l2_norm=True)
+        else:
+            return AutoQueryEncoder(encoder_dir=encoder)
 
     @staticmethod
     def load_docids(docid_path: str) -> List[str]:
