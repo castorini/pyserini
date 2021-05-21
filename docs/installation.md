@@ -93,3 +93,8 @@ So, you need to set pyserini cache path to scratch space.
 - For ocra, create the dir `/store/scratch/{username}`
 
 Set the `PYSERINI_CACHE` environment variable to point to the directory you created above
+
+If you are using Compute Canada, follow above process in a compute node using Anaconda, and in addition:
+- clear the `PYTHONPATH`, i.e. `export PYTHONPATH=`
+- set the `PYSERINI_CACHE` to somewhere under `/scratch`
+- reinstall `sentencepiece` by `conda install -c conda-forge sentencepiece`
