@@ -25,7 +25,7 @@ import numpy as np
 import pandas as pd
 from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, DPRQuestionEncoder,
                           DPRQuestionEncoderTokenizer, RobertaTokenizer)
-from transformers.file_utils import is_faiss_available, requires_faiss
+from transformers.file_utils import is_faiss_available, requires_backends
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info)
@@ -228,7 +228,7 @@ class SimpleDenseSearcher:
     """
 
     def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str]):
-        requires_faiss(self)
+        requires_backends(self, "faiss")
         if isinstance(query_encoder, QueryEncoder):
             self.query_encoder = query_encoder
         else:

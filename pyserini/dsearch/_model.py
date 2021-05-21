@@ -1,7 +1,7 @@
 from typing import Optional
 
 from transformers import PreTrainedModel, RobertaConfig, RobertaModel
-from transformers.file_utils import is_torch_available, requires_pytorch
+from transformers.file_utils import is_torch_available, requires_backends
 
 if is_torch_available():
     import torch
@@ -15,7 +15,7 @@ class AnceEncoder(PreTrainedModel):
     _keys_to_ignore_on_load_unexpected = [r'pooler', r'classifier']
 
     def __init__(self, config: RobertaConfig):
-        requires_pytorch(self)
+        requires_backends(self, 'torch')
         super().__init__(config)
         self.config = config
         self.roberta = RobertaModel(config)
