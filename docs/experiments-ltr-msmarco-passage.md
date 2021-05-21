@@ -1,4 +1,3 @@
-
 # Pyserini: Learning-To-Rank Baseline for MS MARCO Passage
 
 This guide contains instructions for running learning-to-rank baseline on the [MS MARCO *passage* reranking task](https://microsoft.github.io/msmarco/).
