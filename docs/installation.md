@@ -95,6 +95,6 @@ So, you need to set pyserini cache path to scratch space.
 Set the `PYSERINI_CACHE` environment variable to point to the directory you created above
 
 If you are using Compute Canada, follow above process in a compute node using Anaconda, and in addition:
-- clear the `PYTHONPATH`, i.e. `export PYTHONPATH=`
-- set the `PYSERINI_CACHE` to somewhere under `/scratch`
-- reinstall `sentencepiece` by `conda install -c conda-forge sentencepiece`
+- clear the `PYTHONPATH` before the steps above, i.e. `export PYTHONPATH=`
+- set the `PYSERINI_CACHE` to somewhere under `/scratch` before running Pyserini
+- reinstall `sentencepiece` by `conda install -c conda-forge sentencepiece` if error occurs
