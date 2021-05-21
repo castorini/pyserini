@@ -50,7 +50,7 @@ def dev_data_loader(file, format, top=100):
     assert dev['pid'].dtype == np.object
     assert dev['rank'].dtype == np.int32
     dev = dev[dev['rank']<=top]
-    dev_qrel = pd.read_csv('./collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
+    dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt', sep=" ",
                            names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
                            dtype={'qid': 'S','pid': 'S', 'rel':'i'})
     assert dev['qid'].dtype == np.object
@@ -95,6 +95,7 @@ def dev_data_loader(file, format, top=100):
 
 def query_loader():
     queries = {}
+    '''
     with open('collections/msmarco-ltr-passage/queries.train.json') as f:
         for line in f:
             query = json.loads(line)
@@ -104,7 +105,8 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
-    with open('collections/msmarco-ltr-passage/queries.dev.small.json') as f:
+    '''
+    with open(f'{args.queries}/queries.dev.small.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -113,6 +115,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
+    '''
     with open('collections/msmarco-ltr-passage/queries.eval.small.json') as f:
         for line in f:
             query = json.loads(line)
@@ -122,6 +125,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
+    '''
     return queries
 
 
@@ -286,6 +290,8 @@ if __name__ == '__main__':
     parser.add_argument('--model', required=True)
     parser.add_argument('--index', required=True)
     parser.add_argument('--output', required=True)
+    parser.add_argument('--ibm-model',default='./collections/msmarco-ltr-passage/ibm_model/')
+    parser.add_argument('--queries',default='./collections/msmarco-ltr-passage/')
 
     args = parser.parse_args()
     print("load dev")
@@ -398,22 +404,22 @@ if __name__ == '__main__':
 
     start = time.time()
     fe.add(
-        IbmModel1("collections/msmarco-ltr-passage/ibm_model/title_unlemm", "text_unlemm", "title_unlemm",
+        IbmModel1(f"{args.ibm_model}/title_unlemm", "text_unlemm", "title_unlemm",
                   "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
-    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/url_unlemm", "text_unlemm", "url_unlemm",
+    fe.add(IbmModel1(f"{args.ibm_model}url_unlemm", "text_unlemm", "url_unlemm",
                      "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
     fe.add(
-        IbmModel1("collections/msmarco-ltr-passage/ibm_model/body", "text_unlemm", "body", "text_unlemm"))
+        IbmModel1(f"{args.ibm_model}body", "text_unlemm", "body", "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
-    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/text_bert_tok", "text_bert_tok",
+    fe.add(IbmModel1(f"{args.ibm_model}text_bert_tok", "text_bert_tok",
                      "text_bert_tok", "text_bert_tok"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
