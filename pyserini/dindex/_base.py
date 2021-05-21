@@ -17,28 +17,17 @@
 import faiss
 import torch
 from transformers import AutoModel, AutoTokenizer, BertModel, BertTokenizer, DPRContextEncoder, \
-    DPRContextEncoderTokenizer, \
-    RobertaTokenizer
+    DPRContextEncoderTokenizer, RobertaTokenizer
 
 from pyserini.dsearch import AnceEncoder
 
 
 class DocumentEncoder:
-
     def encode(self, texts):
         pass
 
 
-def mean_pooling(last_hidden_state, attention_mask):
-    token_embeddings = last_hidden_state
-    input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
-    sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
-    sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
-    return sum_embeddings / sum_mask
-
-
 class TctColBertDocumentEncoder(DocumentEncoder):
-
     def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
         self.device = device
         self.model = BertModel.from_pretrained(model_name)
@@ -133,3 +122,11 @@ class AutoDocumentEncoder(DocumentEncoder):
         if self.l2_norm:
             faiss.normalize_L2(embeddings)
         return embeddings
+
+
+def mean_pooling(last_hidden_state, attention_mask):
+    token_embeddings = last_hidden_state
+    input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
+    sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
+    sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
+    return sum_embeddings / sum_mask
