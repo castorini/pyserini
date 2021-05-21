@@ -18,24 +18,21 @@ A low-effort way to try things out is to look at our [online notebooks](https://
 
 ## Package Installation
 
-Install via PyPI:
+Install via PyPI (requires Python 3.6+):
 
 ```
 pip install pyserini==0.12.0
 ```
 
-Pyserini requires Python 3.6+ and Java 11 (due to its dependency on [Anserini](http://anserini.io/)).
+Sparse retrieval depends on [Anserini](http://anserini.io/), which is itself built on Lucene, and thus Java 11.
 
-Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
+Dense retrieval depends on neural networks and requires a more complex set of dependencies.
 A `pip` installation will automatically pull in the [🤗 Transformers library](https://github.com/huggingface/transformers) to satisfy the package requirements.
 Pyserini also depends on [PyTorch](https://pytorch.org/) and [Faiss](https://github.com/facebookresearch/faiss), but since these packages may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
 We leave the installation of these packages to you.
 
-In general, our development team tries to keep dependent packages at the same versions and upgrade in lockstep.
-Currently, our "reference" configuration is a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`,  `transformers==4.0.0`, and `torch==1.7.1`.
-This is the configuration used to run our many regression tests.
-However, in most cases results have also been reproduced on macOS with the same dependency versions.
-Use other versions of the dependent packages at your own risk...
+The software ecosystem is rapidly evolving and a potential source of frustration is incompatibility among different versions of underlying dependencies.
+We provide additional detailed installation instructions [here](./docs/installation.md).
 
 ## Development Installation
 
@@ -54,7 +51,8 @@ cd tools/eval/ndeval && make && cd ../../..
 Next, you'll need to clone and build [Anserini](http://anserini.io/).
 It makes sense to put both `pyserini/` and `anserini/` in a common folder.
 After you've successfully built Anserini, copy the fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
-All the instructions about installing additional Python dependencies above also applies here.
+As with the `pip` installation, a potential source of frustration is incompatibility among different versions of underlying dependencies.
+For these and other issues, we provide additional detailed installation instructions [here](./docs/installation.md).
 
 You can confirm everything is working by running the unit tests:
 
@@ -63,9 +61,6 @@ python -m unittest
 ```
 
 Assuming all tests pass, you should be ready to go!
-
-See additional detailed instructions for installation [here](./docs/installation.md)
-
 
 ## Quick Links
 
