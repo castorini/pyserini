@@ -28,12 +28,10 @@ The above scripts convert queries to json objects with `text`, `text_unlemm`, `r
 The first two scripts take ~1 min and the third one is a bit longer (~1.5h).
 
 ```bash
-wget https://www.dropbox.com/s/se5kokw1qqu8yxs/lucene-index-msmarco-passage-ltr.tar.gz -P indexes/ 
-tar -xzvf indexes/lucene-index-msmarco-passage-ltr.tar.gz 
+python -c "from pyserini.search import SimpleSearcher; SimpleSearcher.from_prebuilt_index('msmarco-passage-ltr')"
 ```
 
-We can download pre-built index by running the above command.
-To confirm, `lucene-index-msmarco-passage-ltr.tar.gz` should have MD5 checksum of `89ffdd8feecfc13aa66e7a9dc1635624`.
+We run the above commands to obtain pre-built index in cache.
 
 ## Performing Inference Using Pretrained Model
 
@@ -47,18 +45,19 @@ tar -xzvf collections/msmarco-ltr-passage/ibm_model.tar.gz -C collections/msmarc
 Download our pretrained LTR model:
 
 ```bash
-wget https://www.dropbox.com/s/y4c7lci76xtpjqg/msmarco-passage-ltr-mrr-v1.tar.gz -P runs/
+wget https://www.dropbox.com/s/ffl2bfw4cd5ngyz/msmarco-passage-ltr-mrr-v1.tar.gz -P runs/
 tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
 ```
 
 Next we can run our inference script to get our reranking result.
 
 ```bash
-python scripts/ltr_msmarco-passage/predict_passage.py \
-  --rank_list_path runs/run.msmarco-passage.bm25tuned.txt \
-  --rank_list_format tsv \
-  --ltr_model_path runs/msmarco-passage-ltr-mrr-v1 \
-  --ltr_output_path runs/run.ltr.msmarco-passage.tsv 
+python scripts/ltr_msmarco-passage/rerank_with_ltr_model.py \
+  --input runs/run.msmarco-passage.bm25tuned.txt \
+  --input-format tsv \
+  --model runs/msmarco-passage-ltr-mrr-v1 \
+  --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3 \
+  --output runs/run.ltr.msmarco-passage.tsv 
 ```
 
 Here, our model is trained to maximize MRR@10.
@@ -72,7 +71,7 @@ After the run finishes, we can evaluate the results using the official MS MARCO 
 $ python tools/scripts/msmarco/msmarco_passage_eval.py \
    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.ltr.msmarco-passage.tsv
 #####################
-MRR @10: 0.24819336426069846
+MRR @10: 0.24709612498294367
 QueriesRanked: 6980
 #####################
 ```
@@ -92,8 +91,8 @@ And then run the `trec_eval` tool:
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
    collections/msmarco-passage/qrels.dev.small.trec runs/run.ltr.msmarco-passage.trec
-map                     all     0.2561
-recall_1000             all     0.8573         	
+map                   	all	0.2551
+recall_1000           	all	0.8573       	
 ```
 
 Average precision or AP (also called mean average precision, MAP) and recall@1000 (recall at rank 1000) are the two metrics we care about the most.
@@ -103,7 +102,14 @@ On the other hand, recall@1000 provides the upper bound effectiveness of downstr
 ## Training the Model From Scratch
 
 ```bash
-python scripts/ltr_msmarco-passage/train_passage.py   	
+wget https://msmarco.blob.core.windows.net/msmarcoranking/qidpidtriples.train.full.2.tsv.gz -P collections/msmarco-passage/	
+gzip -d collections/msmarco-passage/qidpidtriples.train.full.2.tsv.gz
+```
+First download the file which has training triples and uncompress it.
+
+```bash
+python scripts/ltr_msmarco-passage/train_ltr_model.py  \
+ --index indexes/index-msmarco-passage-ltr-20210519-e25e33f 
 ```
 The above scripts will train a model at `runs/` with your running date in the file name. You can use this as the `--ltr_model_path` parameter for `predict_passage.py`.
 
@@ -117,7 +123,7 @@ python scripts/ltr_msmarco-passage/convert_passage.py \
   --output collections/msmarco-ltr-passage/ltr_collection.json 
 ```
 
-The above script will convert the collection and queries to json files with text_unlemm, analyzed, text_bert_tok and raw fields.
+The above script will convert the collection and queries to json files with `text_unlemm`, `analyzed`, `text_bert_tok` and `raw` fields.
 Next, we need to convert the MS MARCO json collection into Anserini's jsonl files (which have one json object per line):
 
 ```bash

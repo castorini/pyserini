@@ -50,7 +50,7 @@ def dev_data_loader(file, format, top=100):
     assert dev['pid'].dtype == np.object
     assert dev['rank'].dtype == np.int32
     dev = dev[dev['rank']<=top]
-    dev_qrel = pd.read_csv('./collections/msmarco-passage/qrels.dev.small.tsv', sep="\t",
+    dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt', sep=" ",
                            names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
                            dtype={'qid': 'S','pid': 'S', 'rel':'i'})
     assert dev['qid'].dtype == np.object
@@ -95,6 +95,7 @@ def dev_data_loader(file, format, top=100):
 
 def query_loader():
     queries = {}
+    '''
     with open('collections/msmarco-ltr-passage/queries.train.json') as f:
         for line in f:
             query = json.loads(line)
@@ -104,7 +105,8 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
-    with open('collections/msmarco-ltr-passage/queries.dev.small.json') as f:
+    '''
+    with open(f'{args.queries}/queries.dev.small.json') as f:
         for line in f:
             query = json.loads(line)
             qid = query.pop('id')
@@ -113,6 +115,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
+    '''
     with open('collections/msmarco-ltr-passage/queries.eval.small.json') as f:
         for line in f:
             query = json.loads(line)
@@ -122,6 +125,7 @@ def query_loader():
             query['text_unlemm'] = query['text_unlemm'].split(" ")
             query['text_bert_tok'] = query['text_bert_tok'].split(" ")
             queries[qid] = query
+    '''
     return queries
 
 
@@ -279,22 +283,24 @@ def output(file, dev_data):
 
 if __name__ == '__main__':
     os.environ["ANSERINI_CLASSPATH"] = "./pyserini/resources/jars"
-    parser = argparse.ArgumentParser(description='Learning to rank')
-    parser.add_argument('--rank_list_path', required=True)
-    parser.add_argument('--rank_list_top', type=int, default=1000)
-    parser.add_argument('--rank_list_format', required=True)
-    parser.add_argument('--ltr_model_path', required=True)
-    parser.add_argument('--ltr_output_path', required=True)
+    parser = argparse.ArgumentParser(description='Learning to rank reranking')
+    parser.add_argument('--input', required=True)
+    parser.add_argument('--reranking-top', type=int, default=1000)
+    parser.add_argument('--input-format', required=True)
+    parser.add_argument('--model', required=True)
+    parser.add_argument('--index', required=True)
+    parser.add_argument('--output', required=True)
+    parser.add_argument('--ibm-model',default='./collections/msmarco-ltr-passage/ibm_model/')
+    parser.add_argument('--queries',default='./collections/msmarco-ltr-passage/')
 
     args = parser.parse_args()
     print("load dev")
-    dev, dev_qrel = dev_data_loader(args.rank_list_path, args.rank_list_format, args.rank_list_top)
+    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.reranking_top)
     print("load queries")
     queries = query_loader()
     print("add feature")
-    fe = FeatureExtractor('./indexes/lucene-index-msmarco-passage-ltr', max(multiprocessing.cpu_count()//2, 1))
+    fe = FeatureExtractor(args.index, max(multiprocessing.cpu_count()//2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
-                           ('text', 'text'),
                            ('text_unlemm', 'text_unlemm'),
                            ('text_bert_tok', 'text_bert_tok')]:
         print(qfield, ifield)
@@ -398,29 +404,29 @@ if __name__ == '__main__':
 
     start = time.time()
     fe.add(
-        IbmModel1("collections/msmarco-ltr-passage/ibm_model/title_unlemm", "text_unlemm", "title_unlemm",
+        IbmModel1(f"{args.ibm_model}/title_unlemm", "text_unlemm", "title_unlemm",
                   "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
-    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/url_unlemm", "text_unlemm", "url_unlemm",
+    fe.add(IbmModel1(f"{args.ibm_model}url_unlemm", "text_unlemm", "url_unlemm",
                      "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
     fe.add(
-        IbmModel1("collections/msmarco-ltr-passage/ibm_model/body", "text_unlemm", "body", "text_unlemm"))
+        IbmModel1(f"{args.ibm_model}body", "text_unlemm", "body", "text_unlemm"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
-    fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/text_bert_tok", "text_bert_tok",
+    fe.add(IbmModel1(f"{args.ibm_model}text_bert_tok", "text_bert_tok",
                      "text_bert_tok", "text_bert_tok"))
     end = time.time()
     print('IBM model Load takes %.2f seconds' % (end - start))
     start = end
 
-    models = pickle.load(open(args.ltr_model_path+'/model.pkl', 'rb'))
-    metadata = json.load(open(args.ltr_model_path+'/metadata.json', 'r'))
+    models = pickle.load(open(args.model+'/model.pkl', 'rb'))
+    metadata = json.load(open(args.model+'/metadata.json', 'r'))
     feature_used = metadata['feature_names']
 
     batch_info = []
@@ -440,5 +446,5 @@ if __name__ == '__main__':
 
     eval_res = eval_mrr(batch_info)
     eval_recall(dev_qrel, batch_info)
-    output(args.ltr_output_path, batch_info)
+    output(args.output, batch_info)
     print('Done!')

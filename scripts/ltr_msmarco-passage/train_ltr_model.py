@@ -35,6 +35,7 @@ import lightgbm as lgb
 from collections import defaultdict
 from tqdm import tqdm
 from pyserini.ltr import *
+import argparse
 
 """
 train a LTR model with lambdaRank library and save to pickle for future inference
@@ -476,12 +477,15 @@ def save_exp(dirname,
 
 if __name__ == '__main__':
     os.environ["ANSERINI_CLASSPATH"] = "pyserini/resources/jars"
+    parser = argparse.ArgumentParser(description='Learning to rank training')
+    parser.add_argument('--index', required=True)
+    args = parser.parse_args()
     total_start_time = time.time()
     sampled_train = train_data_loader(task='triple', neg_sample=10)
     dev, dev_qrel = dev_data_loader(task='anserini')
     queries = query_loader()
 
-    fe = FeatureExtractor('indexes/lucene-index-msmarco-passage-ltr',
+    fe = FeatureExtractor(args.index,
                           max(multiprocessing.cpu_count() // 2, 1))
     for qfield, ifield in [('analyzed', 'contents'),
                            ('text_unlemm', 'text_unlemm'),
