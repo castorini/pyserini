@@ -80,7 +80,7 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_msmarco_doc_ance_bf_encoded_queries(self):
         encoder = QueryEncoder.load_encoded_queries('ance_maxp-msmarco-doc-dev')
-        topics = get_topics('maxp-msmarco-doc-dev')
+        topics = get_topics('msmarco-doc-dev')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)
 
