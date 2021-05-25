@@ -32,6 +32,7 @@ if __name__ == '__main__':
     parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
                         help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
     parser.add_argument('--output', type=str, metavar='path', required=True, help="Path to output file.")
+    parser.add_argument('--ef', type=int, required=False, default=256, help="hnsw ef_search")
     parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
                         help="maximum threads to use during search")
     parser.add_argument('--batch-size', type=int, metavar='num', required=False, default=1,
@@ -40,7 +41,7 @@ if __name__ == '__main__':
     parser.add_argument('--dim', type=int, required=True)
     args = parser.parse_args()
 
-    searcher = SimpleVectorSearcher(args.index, is_sparse=args.is_sparse)
+    searcher = SimpleVectorSearcher(args.index, ef_search=args.ef, is_sparse=args.is_sparse)
 
     topics = json.load(open(args.topics))
     topic_ids = [str(t['id']) for t in topics]
