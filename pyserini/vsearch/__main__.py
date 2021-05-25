@@ -17,7 +17,7 @@
 import argparse
 import json
 from scipy.sparse import csr_matrix, vstack
-
+import numpy as np
 from tqdm import tqdm
 
 from pyserini.vsearch import SimpleVectorSearcher
@@ -40,7 +40,6 @@ if __name__ == '__main__':
     parser.add_argument('--dim', type=int, required=True)
     args = parser.parse_args()
 
-    print(args.is_sparse)
     searcher = SimpleVectorSearcher(args.index, is_sparse=args.is_sparse)
 
     topics = json.load(open(args.topics))
@@ -53,7 +52,6 @@ if __name__ == '__main__':
             matrix_col.extend(t['vector'][0])
             matrix_data.extend(t['vector'][1])
         topic_vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(len(topics), args.dim))
-        print(topic_vectors)
     else:
         for i, t in enumerate(topics):
             topic_vectors.append(t['vector'])
@@ -75,7 +73,10 @@ if __name__ == '__main__':
         batch_topic_ids = list()
         for index, (topic_id, vec) in enumerate(tqdm(zip(topic_ids, topic_vectors))):
             if args.batch_size <= 1 and args.threads <= 1:
-                hits = searcher.search(vec, args.hits)
+                if not args.is_sparse:
+                    hits = searcher.search([np.array(vec)], args.hits)
+                else:
+                    hits = searcher.search(vec, args.hits)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))

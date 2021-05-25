@@ -66,10 +66,8 @@ class SimpleVectorSearcher:
                 for key, distances, indexes in zip(q_ids, D, I)}
 
     def _load_index(self, index_dir: str, is_sparse: bool):
-        print(is_sparse)
         if is_sparse:
             index = nmslib.init(method='hnsw', space='negdotprod_sparse', data_type=nmslib.DataType.SPARSE_VECTOR)
-            print("AAA")
         else:
             index = nmslib.init(method='hnsw', space='negdotprod', data_type=nmslib.DataType.DENSE_VECTOR)
         index_path = os.path.join(index_dir, 'sparse_index.bin')
