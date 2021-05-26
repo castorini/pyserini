@@ -36,3 +36,4 @@ class TestIndexDownload(unittest.TestCase):
     def tearDown(self):
         if os.path.exists('temp_dir'):
             shutil.rmtree('temp_dir')
+            os.environ['PYSERINI_CACHE'] = ''
