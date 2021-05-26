@@ -14,10 +14,11 @@
 # limitations under the License.
 #
 
-from transformers import BertTokenizer, T5Tokenizer
 import argparse
 import json
 import os
+
+from transformers import BertTokenizer, T5Tokenizer
 
 
 def write_to_file(tokenizer, input, output):

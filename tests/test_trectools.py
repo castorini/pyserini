@@ -16,8 +16,9 @@
 
 import filecmp
 import os
-from pyserini.trectools import TrecRun, Qrels, RescoreMethod
 import unittest
+
+from pyserini.trectools import TrecRun, Qrels, RescoreMethod
 
 
 class TestTrecTools(unittest.TestCase):

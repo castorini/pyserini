@@ -17,10 +17,10 @@
 import os
 import shutil
 import unittest
-
 from random import randint
-from integrations.utils import run_command, parse_score
+
 from integrations.simplesearcher_score_checker import SimpleSearcherScoreChecker
+from integrations.utils import run_command, parse_score
 
 
 class TestSearchIntegration(unittest.TestCase):

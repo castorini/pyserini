@@ -12,14 +12,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 import argparse
+
 import pandas as pd
-
 from tqdm import tqdm
-from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from pyserini.dsearch import DprQueryEncoder
 
+from pyserini.dsearch import DprQueryEncoder
+from pyserini.query_iterator import get_query_iterator, TopicsFormat
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Compute embeddings for KILT topics')

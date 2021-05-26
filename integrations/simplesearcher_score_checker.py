@@ -14,9 +14,9 @@
 # limitations under the License.
 #
 
-import filecmp
 import os
 from typing import List
+
 from integrations.utils import run_command, parse_score
 
 

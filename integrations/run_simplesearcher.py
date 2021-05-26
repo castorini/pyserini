@@ -14,10 +14,9 @@
 # limitations under the License.
 #
 
+import hashlib
 import os
 from typing import List
-
-import hashlib
 
 
 class RunSimpleSearcher:

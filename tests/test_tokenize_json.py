@@ -14,10 +14,9 @@
 # limitations under the License.
 #
 
-import unittest
-import pyserini.tokenize_json_collection as tok_json
 import json
 import os
+import unittest
 from shutil import rmtree
 
 

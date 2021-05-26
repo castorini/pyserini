@@ -15,17 +15,19 @@
 #
 
 import hashlib
-import re
 import os
+import re
 import shutil
 import tarfile
-from tqdm import tqdm
-from urllib.request import urlretrieve
 from urllib.error import HTTPError, URLError
+from urllib.request import urlretrieve
+
 import pandas as pd
-from pyserini.prebuilt_index_info import INDEX_INFO, DINDEX_INFO
+from tqdm import tqdm
+
 from pyserini.encoded_query_info import QUERY_INFO
 from pyserini.evaluate_script_info import EVALUATION_INFO
+from pyserini.prebuilt_index_info import INDEX_INFO, DINDEX_INFO
 
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5

@@ -15,8 +15,6 @@
 #
 
 import unittest
-import os
-import shutil
 
 from pyserini.query_iterator import DefaultQueryIterator
 

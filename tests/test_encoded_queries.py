@@ -14,11 +14,12 @@
 # limitations under the License.
 #
 
-import unittest
 import os
 import shutil
-from pyserini.search import get_topics
+import unittest
+
 from pyserini.dsearch import QueryEncoder
+from pyserini.search import get_topics
 
 
 class TestEncodedQueries(unittest.TestCase):

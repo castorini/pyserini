@@ -14,9 +14,10 @@
 # limitations under the License.
 #
 
-import unittest
 import os
 import shutil
+import unittest
+
 from pyserini.search import SimpleSearcher
 
 

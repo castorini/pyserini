@@ -14,8 +14,9 @@
 # limitations under the License.
 #
 
-from transformers import BertTokenizer, T5Tokenizer, AutoTokenizer
 import unittest
+
+from transformers import BertTokenizer, T5Tokenizer, AutoTokenizer
 
 
 class TestTokenization(unittest.TestCase):
