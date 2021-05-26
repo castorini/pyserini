@@ -58,7 +58,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.assertTrue(topics[t]['title'] in encoder.embedding)
 
     def test_msmarco_doc_ance_bf_otf(self):
-        output_file = 'test_run.msmarco-doc.passage.ance-maxp.otf.txt '
+        output_file = 'test_run.msmarco-doc.passage.ance-maxp.otf.txt'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --index msmarco-doc-ance-maxp-bf \

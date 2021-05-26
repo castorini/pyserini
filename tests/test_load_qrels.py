@@ -241,7 +241,6 @@ class TestGetQrels(unittest.TestCase):
 
     def test_trec2019_bl(self):
         qrels_path = search.get_qrels_file('trec2019-bl')
-        print(qrels_path)
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
