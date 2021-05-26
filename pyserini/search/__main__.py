@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,16 +16,16 @@
 
 import argparse
 import os
-from typing import Tuple, List, TextIO
+
+from tqdm import tqdm
 from transformers import AutoTokenizer
 
-from pyserini.pyclass import autoclass
 from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
+from pyserini.output_writer import OutputFormat, get_output_writer
+from pyserini.pyclass import autoclass
+from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.search import SimpleSearcher, JDisjunctionMaxQueryGenerator
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
-from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from pyserini.output_writer import OutputFormat, get_output_writer
-from tqdm import tqdm
 
 
 def set_bm25_parameters(searcher, index, k1=None, b=None):

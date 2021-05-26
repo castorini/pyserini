@@ -1,4 +1,5 @@
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+#
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
