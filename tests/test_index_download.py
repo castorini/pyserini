@@ -24,7 +24,6 @@ from pyserini.search import SimpleSearcher
 class TestIndexDownload(unittest.TestCase):
 
     def test_default_cache(self):
-        os.unsetenv('PYSERINI_CACHE')
         SimpleSearcher.from_prebuilt_index('cacm')
         self.assertTrue(os.path.exists(os.path.expanduser('~/.cache/pyserini/indexes')))
 
