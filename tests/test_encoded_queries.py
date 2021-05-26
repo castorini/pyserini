@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,11 +14,12 @@
 # limitations under the License.
 #
 
-import unittest
 import os
 import shutil
-from pyserini.search import get_topics
+import unittest
+
 from pyserini.dsearch import QueryEncoder
+from pyserini.search import get_topics
 
 
 class TestEncodedQueries(unittest.TestCase):

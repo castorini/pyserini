@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,9 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 """
 This module provides Pyserini's hybrid searcher by Dense + Sparse
 """
+
 from typing import List, Dict
 from pyserini.search import SimpleSearcher
 from pyserini.dsearch import SimpleDenseSearcher, DenseSearchResult

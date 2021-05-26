@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,8 +14,9 @@
 # limitations under the License.
 #
 
-from transformers import BertTokenizer, T5Tokenizer, AutoTokenizer
 import unittest
+
+from transformers import BertTokenizer, T5Tokenizer, AutoTokenizer
 
 
 class TestTokenization(unittest.TestCase):

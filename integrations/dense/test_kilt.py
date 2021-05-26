@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,12 +17,11 @@
 """Integration tests for KILT integration."""
 
 import os
+import re
 import socket
 import unittest
-import re
+
 from integrations.utils import clean_files, run_command
-from pyserini.search import get_topics
-from pyserini.dsearch import QueryEncoder
 
 
 def parse_kilt_score(output, metric, digits=4):
