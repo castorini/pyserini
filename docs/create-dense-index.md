@@ -54,5 +54,5 @@ python -m pyserini.dindex --corpus integrations/resources/sample_collection_json
 you can run 4 process on 4 gpu to speed up the process by 4 times.
 Once it down, you can create the full index by merge the sub-indexes by:
 ```bash
-python script/merge_indexes.py --prefix indexes/dindex-sample-dpr-multi- --shard-num 4
+python scripts/merge_indexes.py --prefix indexes/dindex-sample-dpr-multi- --shard-num 4
 ```

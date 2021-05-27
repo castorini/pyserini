@@ -17,9 +17,14 @@ for i in range(args.shard_num):
     docid_files.append(os.path.join(args.prefix + str(i), 'docid'))
     vectors = index.reconstruct_n(0, index.ntotal)
     new_index.add(vectors)
+
+if not os.path.exists(args.prefix + 'full'):
+    os.mkdir(args.prefix + 'full')
+
 faiss.write_index(new_index, os.path.join(args.prefix + 'full', 'index'))
 
-with open(os.path.join(args.prefix + 'full', 'docid'), 'wb') as wfd:
+with open(os.path.join(args.prefix + 'full', 'docid'), 'w') as wfd:
     for f in docid_files:
-        with open(f, 'rb') as fd:
-            shutil.copyfileobj(fd, wfd)
+        with open(f, 'r') as f1:
+            for line in f1:
+                wfd.write(line)

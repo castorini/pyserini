@@ -57,34 +57,44 @@ if __name__ == '__main__':
     if not os.path.exists(args.index):
         os.mkdir(args.index)
 
+    ids = []
     texts = []
     titles = []
-    with open(os.path.join(args.index, 'docid'), 'w') as id_file:
-        for file in sorted(os.listdir(args.corpus)):
-            file = os.path.join(args.corpus, file)
-            if file.endswith('json') or file.endswith('jsonl'):
-                print(f'Loading {file}')
-                with open(file, 'r') as corpus:
-                    for idx, line in enumerate(tqdm(corpus.readlines())):
-                        info = json.loads(line)
-                        docid = info['id']
-                        text = info['contents'].strip()
-                        id_file.write(f'{docid}\n')
-                        if args.title_delimiter is None:
-                            texts.append(text.lower())
-                        else:
-                            title, text = text.lower().split(args.title_delimiter)
-                            titles.append(title)
-                            texts.append(text)
+    for file in sorted(os.listdir(args.corpus)):
+        file = os.path.join(args.corpus, file)
+        if file.endswith('json') or file.endswith('jsonl'):
+            print(f'Loading {file}')
+            with open(file, 'r') as corpus:
+                for idx, line in enumerate(tqdm(corpus.readlines())):
+                    info = json.loads(line)
+                    docid = info['id']
+                    ids.append(docid)
+                    text = info['contents'].strip()
+                    if args.title_delimiter is None:
+                        texts.append(text.lower())
+                    else:
+                        if args.title_delimiter == '\\n':
+                            args.title_delimiter = '\n'
+                        elif args.title_delimiter == '\\t':
+                            args.title_delimiter = '\t'
+                        title, text = text.lower().split(args.title_delimiter)
+                        titles.append(title)
+                        texts.append(text)
+
     total_len = len(texts)
     shard_size = int(total_len / args.shard_num)
     start_idx = args.shard_id * shard_size
     end_idx = min(start_idx + shard_size, total_len)
 
+    with open(os.path.join(args.index, 'docid'), 'w') as id_file:
+        for idx in tqdm(range(start_idx, end_idx)):
+            id_file.write(f'{ids[idx]}\n')
+
     for idx in tqdm(range(start_idx, end_idx, args.batch)):
-        text_batch = texts[idx: idx+args.batch]
+        text_batch = texts[idx: idx+min(args.batch, end_idx)]
         if len(titles) != 0:
-            embeddings = model.encode(text_batch, titles)
+            title_batch = titles[idx: idx+min(args.batch, end_idx)]
+            embeddings = model.encode(text_batch, title_batch)
         else:
             embeddings = model.encode(text_batch)
         index.add(embeddings)
