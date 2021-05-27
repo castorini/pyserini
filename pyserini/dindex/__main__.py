@@ -18,6 +18,7 @@ import argparse
 import json
 import os
 import faiss
+import numpy as np
 from tqdm import tqdm
 from pyserini.dindex import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AutoDocumentEncoder
 
@@ -97,5 +98,5 @@ if __name__ == '__main__':
             embeddings = model.encode(text_batch, title_batch)
         else:
             embeddings = model.encode(text_batch)
-        index.add(embeddings)
+        index.add(np.array(embeddings))
     faiss.write_index(index, os.path.join(args.index, 'index'))

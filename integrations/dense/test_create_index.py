@@ -38,7 +38,7 @@ class TestSearchIntegration(unittest.TestCase):
                           --encoder facebook/dpr-ctx_encoder-multiset-base \
                           --index {index_dir} \
                           --batch 64 \
-                          --device cuda:0 \
+                          --device cpu \
                           --title-delimiter '\n'"
         status = os.system(cmd1)
         self.assertEqual(status, 0)
@@ -55,7 +55,7 @@ class TestSearchIntegration(unittest.TestCase):
                           --encoder facebook/dpr-ctx_encoder-multiset-base \
                           --index {index_dir} \
                           --batch 64 \
-                          --device cuda:0 \
+                          --device cpu \
                           --title-delimiter '\n' \
                           --shard-id 0 \
                           --shard-num 2 "
@@ -66,7 +66,7 @@ class TestSearchIntegration(unittest.TestCase):
                                   --encoder facebook/dpr-ctx_encoder-multiset-base \
                                   --index {index_dir} \
                                   --batch 64 \
-                                  --device cuda:0 \
+                                  --device cpu \
                                   --title-delimiter '\n' \
                                   --shard-id 1 \
                                   --shard-num 2 "
@@ -74,7 +74,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
         status = os.system(cmd2)
         self.assertEqual(status, 0)
-        cmd3 = f"python {self.pyserini_root}/scripts/merge_indexes.py --prefix {self.pyserini_root}/temp_index- --shard-num 2"
+        cmd3 = f"python -m pyserini.dindex.merge_indexes --prefix {self.pyserini_root}/temp_index- --shard-num 2"
         status = os.system(cmd3)
         self.assertEqual(status, 0)
         index_dir = f'{self.pyserini_root}/temp_index-full'
