@@ -75,6 +75,16 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
+    "distilbert_tas_b-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by TAS-B",
+        "urls": [
+            "https://www.dropbox.com/s/arz335iqfsl2zbi/query-embedding-distilbert_dot_tas_b_b256-msmarco-passage-dev-subset-20210527-63276f.tar.gz?dl=0",
+        ],
+        "md5": "1ef571bce0caf57fd9a3a1e7b15051f5",
+        "size (bytes)": 20016799,
+        "total_queries": 6980,
+        "downloaded": False
+    },
     "dpr_multi-nq-dev": {
         "description": "Natural Question dev set questions encoded by DPR question encoder trained on multiset",
         "urls": [

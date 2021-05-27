@@ -579,6 +579,18 @@ DINDEX_INFO = {
         "documents": 8841823,
         "downloaded": False
     },
+    "msmarco-passage-distilbert-dot-tas_b-b256-bf": {
+        "description": "MS MARCO passage corpus encoded by msmarco-passage-distilbert-dot-tas_b-b256 passage encoder and "
+                       "indexed as brute force index",
+        "filename": "dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/1iu2wo2da1ai7ca/dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz?dl=1",
+        ],
+        "md5": "cc947bf66d9552a2a7c6fe060466e490",
+        "size compressed (bytes)": 25162328596,
+        "documents": 8841823,
+        "downloaded": False
+    },
     "wikipedia-dpr-single-nq-bf": {
         "description": "Wikipedia corpus encoded by DPR doc encoder trained on NQ, indexed as brute force index",
         "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
