@@ -2,10 +2,8 @@
 
 This guide provides instructions to reproduce the DistilBERT KD TASB dense retrieval model on the MS MARCO passage ranking task, described in the following paper:
 
-> Sebastian Hofstätter, Sheng-Chieh Lin, Jheng-Hong Yang, Jimmy Lin, Allan Hanbury. [Efficiently Teaching an Effective Dense Retriever with Balanced Topic Aware Sampling
-.](https://arxiv.org/abs/2104.06967) SIGIR2021. 
+> Sebastian Hofstätter, Sheng-Chieh Lin, Jheng-Hong Yang, Jimmy Lin, Allan Hanbury. [Efficiently Teaching an Effective Dense Retriever with Balanced Topic Aware Sampling.](https://arxiv.org/abs/2104.06967) SIGIR2021. 
 
-Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
 Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
 See [package installation notes](../README.md#package-installation) for more details.
 
