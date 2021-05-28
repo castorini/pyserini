@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,19 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 """
 This module provides Pyserini's dense search interface to FAISS index.
 The main entry point is the ``SimpleDenseSearcher`` class.
 """
+
 import os
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, List, Union
 
 import numpy as np
 import pandas as pd
 from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, DPRQuestionEncoder,
                           DPRQuestionEncoderTokenizer, RobertaTokenizer)
-from transformers.file_utils import is_faiss_available, requires_faiss
+from transformers.file_utils import is_faiss_available, requires_backends
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info)
@@ -227,9 +229,12 @@ class SimpleDenseSearcher:
         Path to faiss index directory.
     """
 
-    def __init__(self, index_dir: str, query_encoder: QueryEncoder):
-        requires_faiss(self)
-        self.query_encoder = query_encoder
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str]):
+        requires_backends(self, "faiss")
+        if isinstance(query_encoder, QueryEncoder):
+            self.query_encoder = query_encoder
+        else:
+            self.query_encoder = self._init_encoder_from_str(query_encoder)
         self.index, self.docids = self.load_index(index_dir)
         self.dimension = self.index.d
         self.num_docs = self.index.ntotal
@@ -330,6 +335,22 @@ class SimpleDenseSearcher:
         return index, docids
 
     @staticmethod
+    def _init_encoder_from_str(encoder):
+        encoder = encoder.lower()
+        if 'dpr' in encoder:
+            return DprQueryEncoder(encoder_dir=encoder)
+        elif 'tct_colbert' in encoder:
+            return TctColBertQueryEncoder(encoder_dir=encoder)
+        elif 'ance' in encoder:
+            return AnceQueryEncoder(encoder_dir=encoder)
+        elif 'sentence' in encoder:
+            return AutoQueryEncoder(encoder_dir=encoder, pooling='mean', l2_norm=True)
+        else:
+            return AutoQueryEncoder(encoder_dir=encoder)
+
+    @staticmethod
     def load_docids(docid_path: str) -> List[str]:
-        docids = [line.rstrip() for line in open(docid_path, 'r').readlines()]
+        id_f = open(docid_path, 'r')
+        docids = [line.rstrip() for line in id_f.readlines()]
+        id_f.close()
         return docids

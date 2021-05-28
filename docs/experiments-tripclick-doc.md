@@ -97,3 +97,4 @@ ndcg_cut_1000           all     0.3627
 
 ## Reproduction Log[*](reproducibility.md)
 
++ Results reproduced by [@yuki617](https://github.com/yuki617) on 2021-05-17 (commit [`e34c902`](https://github.com/castorini/pyserini/commit/e34c9028a6778171f18e4f166b5c79b343f40aab)) 
