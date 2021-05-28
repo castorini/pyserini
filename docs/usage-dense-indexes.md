@@ -1,3 +1,5 @@
+# Pyserini: Guide to Dense Indexes
+
 ## How do I index and search my own documents (Dense)?
 
 Pyserini create dense index for collections with JSONL format:
