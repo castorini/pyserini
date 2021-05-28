@@ -393,11 +393,12 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 
 ### Dense Retrieval
 
-+ [Guide to reproducing TCT-ColBERT experiments for MS MARCO Passage/Document Ranking](docs/experiments-tct_colbert.md)
-+ [Guide to reproducing DPR experiments for Open-Domain QA](docs/experiments-dpr.md)
-+ [Guide to reproducing ANCE experiments for MS MARCO Passage/Document Ranking](docs/experiments-ance.md)
-+ [Guide to reproducing DistilBERT KD experiments for MS MARCO Passage Ranking](docs/experiments-distilbert_kd.md)
-+ [Guide to reproducing SBERT experiments for MS MARCO Passage Ranking](docs/experiments-sbert.md)
++ [Guide to reproducing TCT-ColBERT experiments](docs/experiments-tct_colbert.md)
++ [Guide to reproducing DPR experiments](docs/experiments-dpr.md)
++ [Guide to reproducing ANCE experiments](docs/experiments-ance.md)
++ [Guide to reproducing DistilBERT KD experiments](docs/experiments-distilbert_kd.md)
++ [Guide to reproducing DistilBERT Balanced Topic Aware Sampling experiments](docs/experiments-distilbert_tasb.md)
++ [Guide to reproducing SBERT dense retrieval experiments](docs/experiments-sbert.md)
 
 ## Additional Documentation
 
