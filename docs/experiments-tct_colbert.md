@@ -278,7 +278,6 @@ recall_100            	all	0.9081
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-25 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
-+ Results reproduced by [@isoboroff](https://github.com/isoboroff) on 2021-05-14 (PyPi [`0.12.0`](https://pypi.org/project/pyserini/0.12.0/)
++ Results reproduced by [@isoboroff](https://github.com/isoboroff) on 2021-05-14 (PyPI [`0.12.0`](https://pypi.org/project/pyserini/0.12.0/)
 + Results reproduced by [@jingtaozhan](https://github.com/jingtaozhan) on 2021-05-15 (commit [`53d8d3c`](https://github.com/castorini/pyserini/commit/53d8d3cbb78c88a23ce132a42b0396caad7d2e0f))
 + Results reproduced by [@jmmackenzie](https://github.com/jmmackenzie) on 2021-05-17 (PyPI [`0.12.0`](https://pypi.org/project/pyserini/0.12.0/))
-
