@@ -350,5 +350,7 @@ class SimpleDenseSearcher:
 
     @staticmethod
     def load_docids(docid_path: str) -> List[str]:
-        docids = [line.rstrip() for line in open(docid_path, 'r').readlines()]
+        id_f = open(docid_path, 'r')
+        docids = [line.rstrip() for line in id_f.readlines()]
+        id_f.close()
         return docids
