@@ -86,15 +86,17 @@ if __name__ == '__main__':
     shard_size = int(total_len / args.shard_num)
     start_idx = args.shard_id * shard_size
     end_idx = min(start_idx + shard_size, total_len)
+    if args.shard_id == args.shard_num - 1:
+        end_idx = total_len
 
     with open(os.path.join(args.index, 'docid'), 'w') as id_file:
         for idx in tqdm(range(start_idx, end_idx)):
             id_file.write(f'{ids[idx]}\n')
 
     for idx in tqdm(range(start_idx, end_idx, args.batch)):
-        text_batch = texts[idx: idx+min(args.batch, end_idx)]
+        text_batch = texts[idx: idx + args.batch]
         if len(titles) != 0:
-            title_batch = titles[idx: idx+min(args.batch, end_idx)]
+            title_batch = titles[idx: idx+args.batch]
             embeddings = model.encode(text_batch, title_batch)
         else:
             embeddings = model.encode(text_batch)
