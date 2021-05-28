@@ -16,7 +16,7 @@ Dense retrieval, with brute-force index:
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
-                             --encoded-queries distilbert_tas_b-b256-msmarco-passage-dev-subset \
+                             --encoded-queries distilbert_tas_b-msmarco-passage-dev-subset \
                              --batch-size 36 \
                              --threads 12 \
                              --output runs/run.msmarco-passage.distilbert-dot-tas_b-b256.bf.tsv \
@@ -29,7 +29,7 @@ To evaluate:
 
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.distilbert-dot-tas_b-b256.bf.tsv
 #####################
 MRR @10: 0.3444
 QueriesRanked: 6980
@@ -46,3 +46,4 @@ map                     all     0.3515
 recall_1000             all     0.9771
 ```
 
+## Reproduction Log[*](reproducibility.md)
