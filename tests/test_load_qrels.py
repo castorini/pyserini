@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 import os
 import shutil
 import unittest
@@ -254,6 +255,7 @@ class TestGetQrels(unittest.TestCase):
     def tearDown(self):
         if os.path.exists('temp_dir'):
             shutil.rmtree('temp_dir')
+            os.environ['PYSERINI_CACHE'] = ''
 
 
 if __name__ == '__main__':

@@ -18,33 +18,21 @@ A low-effort way to try things out is to look at our [online notebooks](https://
 
 ## Package Installation
 
-Install via PyPI:
+Install via PyPI (requires Python 3.6+):
 
 ```
 pip install pyserini==0.12.0
 ```
 
-Pyserini requires Python 3.6+ and Java 11 (due to its dependency on [Anserini](http://anserini.io/)).
+Sparse retrieval depends on [Anserini](http://anserini.io/), which is itself built on Lucene, and thus Java 11.
 
-Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
+Dense retrieval depends on neural networks and requires a more complex set of dependencies.
 A `pip` installation will automatically pull in the [🤗 Transformers library](https://github.com/huggingface/transformers) to satisfy the package requirements.
 Pyserini also depends on [PyTorch](https://pytorch.org/) and [Faiss](https://github.com/facebookresearch/faiss), but since these packages may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
 We leave the installation of these packages to you.
 
-In general, our development team tries to keep dependent packages at the same versions and upgrade in lockstep.
-Currently, our "reference" configuration is a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`,  `transformers==4.0.0`, and `torch==1.7.1`.
-This is the configuration used to run our many regression tests.
-However, in most cases results have also been reproduced on macOS with the same dependency versions.
-Use other versions of the dependent packages at your own risk...
-
-Troubleshooting tips:
-
-+ If you get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
-In `bash`, use `echo $JAVA_HOME` to find out what the environmental variable is currently set to, and use `export JAVA_HOME=/path/to/java/home` to change it to the correct path.
-On a Linux system, the correct path might look something like `/usr/lib/jvm/java-11`.
-Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.
-+ Windows uses GBK character encoding by default, which makes resource file reading in Anserini inconsistent with that in Linux and macOS.
-To fix, manually set environment variable `set _JAVA_OPTIONS=-Dfile.encoding=UTF-8` to use `UTF-8` encoding.
+The software ecosystem is rapidly evolving and a potential source of frustration is incompatibility among different versions of underlying dependencies.
+We provide additional detailed installation instructions [here](./docs/installation.md).
 
 ## Development Installation
 
@@ -63,7 +51,8 @@ cd tools/eval/ndeval && make && cd ../../..
 Next, you'll need to clone and build [Anserini](http://anserini.io/).
 It makes sense to put both `pyserini/` and `anserini/` in a common folder.
 After you've successfully built Anserini, copy the fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
-All the instructions about installing additional Python dependencies above also applies here.
+As with the `pip` installation, a potential source of frustration is incompatibility among different versions of underlying dependencies.
+For these and other issues, we provide additional detailed installation instructions [here](./docs/installation.md).
 
 You can confirm everything is working by running the unit tests:
 
@@ -292,6 +281,9 @@ for i in range(searcher.num_docs):
 
 ## How do I index and search my own documents?
 
+To build sparse (i.e., Lucene inverted indexes) on your own document collections, following the instructions below.
+To build dense indexes (e.g., the output of transformer encoders) on your own document collections, see instructions [here](docs/usage-dense-indexes.md).
+ 
 Pyserini (via Anserini) provides ingestors for document collections in many different formats.
 The simplest, however, is the following JSON format:
 
@@ -313,12 +305,24 @@ So, the quickest way to get started is to write a script that converts your docu
 Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
 
 ```bash
-python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
- -threads 1 -input integrations/resources/sample_collection_jsonl \
- -index indexes/sample_collection_jsonl -storePositions -storeDocvectors -storeRaw
+python -m pyserini.index -collection JsonCollection \
+                         -generator DefaultLuceneDocumentGenerator \
+                         -threads 1 \
+                         -input integrations/resources/sample_collection_jsonl \
+                         -index indexes/sample_collection_jsonl \
+                         -storePositions -storeDocvectors -storeRaw
 ```
 
-Once this is done, you can use `SimpleSearcher` to search the index:
+Three options control the type of index that is built:
+
++ `-storePositions`: builds a standard positional index
++ `-storeDocvectors`: stores doc vectors (required for relevance feedback)
++ `-storeRaw`: stores raw documents
+
+If you don't specify any of the three options above, Pyserini builds an index that only stores term frequencies.
+This is sufficient for simple "bag of words" querying (and yields the smallest index size).
+
+Once indexing is done, you can use `SimpleSearcher` to search the index:
 
 ```python
 from pyserini.search import SimpleSearcher
@@ -327,8 +331,38 @@ searcher = SimpleSearcher('indexes/sample_collection_jsonl')
 hits = searcher.search('document')
 
 for i in range(len(hits)):
-    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
+    print(f'{i+1:2} {hits[i].docid:4} {hits[i].score:.5f}')
 ```
+
+You should get something like the following:
+
+```
+ 1 doc2 0.25620
+ 2 doc3 0.23140
+```
+
+If you want to perform a batch retrieval run (e.g., directly from the command line), organize all your queries in a tsv file, like [here](integrations/resources/sample_queries.tsv).
+The format is simple: the first field is a query id, and the second field is the query itself.
+Note that the file extension _must_ end in `.tsv` so that Pyserini knows what format the queries are in.
+
+Then, you can run:
+
+```bash
+$ python -m pyserini.search --topics integrations/resources/sample_queries.tsv \
+                            --index indexes/sample_collection_jsonl \
+                            --output run.sample.txt \
+                            --bm25
+
+$ cat run.sample.txt 
+1 Q0 doc2 1 0.256200 Anserini
+1 Q0 doc3 2 0.231400 Anserini
+2 Q0 doc1 1 0.534600 Anserini
+3 Q0 doc1 1 0.256200 Anserini
+3 Q0 doc2 2 0.256199 Anserini
+4 Q0 doc3 1 0.483000 Anserini
+```
+
+Note that output run file is in standard TREC format.
 
 You can also add extra fields in your documents when needed, e.g. text features.
 For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entities) Named Entity Recognition (NER) result of `contents` could be stored as an additional field `NER`.
@@ -343,8 +377,6 @@ For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entiti
          }
 }
 ```
-
-Happy honking!
 
 ## Reproduction Guides
 
@@ -361,11 +393,12 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 
 ### Dense Retrieval
 
-+ [Guide to reproducing TCT-ColBERT experiments for MS MARCO Passage/Document Ranking](docs/experiments-tct_colbert.md)
-+ [Guide to reproducing DPR experiments for Open-Domain QA](docs/experiments-dpr.md)
-+ [Guide to reproducing ANCE experiments for MS MARCO Passage/Document Ranking](docs/experiments-ance.md)
-+ [Guide to reproducing DistilBERT KD experiments for MS MARCO Passage Ranking](docs/experiments-distilbert_kd.md)
-+ [Guide to reproducing SBERT experiments for MS MARCO Passage Ranking](docs/experiments-sbert.md)
++ [Guide to reproducing TCT-ColBERT experiments](docs/experiments-tct_colbert.md)
++ [Guide to reproducing DPR experiments](docs/experiments-dpr.md)
++ [Guide to reproducing ANCE experiments](docs/experiments-ance.md)
++ [Guide to reproducing DistilBERT KD experiments](docs/experiments-distilbert_kd.md)
++ [Guide to reproducing DistilBERT Balanced Topic Aware Sampling experiments](docs/experiments-distilbert_tasb.md)
++ [Guide to reproducing SBERT dense retrieval experiments](docs/experiments-sbert.md)
 
 ## Additional Documentation
 

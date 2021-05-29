@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,10 +18,16 @@ import cmd
 import json
 
 from pyserini.search import SimpleSearcher
+from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, AnceQueryEncoder
+from pyserini.hsearch import HybridSearcher
 
 
 class MsMarcoDemo(cmd.Cmd):
-    searcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+    ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+    dsearcher = None
+    hsearcher = None
+    searcher = ssearcher
+
     k = 10
     prompt = '>>> '
 
@@ -34,10 +40,50 @@ class MsMarcoDemo(cmd.Cmd):
     def do_help(self, arg):
         print(f'/help    : returns this message')
         print(f'/k [NUM] : sets k (number of hits to return) to [NUM]')
+        print(f'/model [MODEL] : sets encoder to use the model [MODEL] (one of tct, ance)')
+        print(f'/mode [MODE] : sets retriver type to [MODE] (one of sparse, dense, hybrid)')
 
     def do_k(self, arg):
         print(f'setting k = {int(arg)}')
         self.k = int(arg)
+
+    def do_mode(self, arg):
+        if arg == "sparse":
+            self.searcher = self.ssearcher
+        elif arg == "dense":
+            if self.dsearcher is None:
+                print(f'Specify model through /model before using dense retrieval.')
+                return
+            self.searcher = self.dsearcher
+        elif arg == "hybrid":
+            if self.hsearcher is None:
+                print(f'Specify model through /model before using hybrid retrieval.')
+                return
+            self.searcher = self.hsearcher
+        else:
+            print(
+                f'Mode "{arg}" is invalid. Mode should be one of [sparse, dense, hybrid].')
+            return
+        print(f'setting retriver = {arg}')
+
+    def do_model(self, arg):
+        if arg == "tct":
+            encoder = TctColBertQueryEncoder("castorini/tct_colbert-msmarco")
+            index = "msmarco-passage-tct_colbert-hnsw"
+        elif arg == "ance":
+            encoder = AnceQueryEncoder("castorini/ance-msmarco-passage")
+            index = "msmarco-passage-ance-bf"
+        else:
+            print(
+                f'Model "{arg}" is invalid. Model should be one of [tct, ance].')
+            return
+
+        self.dsearcher = SimpleDenseSearcher.from_prebuilt_index(
+            index,
+            encoder
+        )
+        self.hsearcher = HybridSearcher(self.dsearcher, self.ssearcher)
+        print(f'setting model = {arg}')
 
     def do_EOF(self, line):
         return True
@@ -46,7 +92,14 @@ class MsMarcoDemo(cmd.Cmd):
         hits = self.searcher.search(q, self.k)
 
         for i in range(0, len(hits)):
-            jsondoc = json.loads(hits[i].raw)
+            raw_doc = None
+            if isinstance(self.searcher, SimpleSearcher):
+                raw_doc = hits[i].raw
+            else:
+                doc = self.ssearcher.doc(hits[i].docid)
+                if doc:
+                    raw_doc = doc.raw()
+            jsondoc = json.loads(raw_doc)
             print(f'{i + 1:2} {hits[i].score:.5f} {jsondoc["contents"]}')
 
 

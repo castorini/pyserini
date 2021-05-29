@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ This module provides Pyserini's Python search interface to Anserini. The main en
 class, which wraps the Java class with the same name in Anserini.
 """
 
-import os
 import logging
+import os
 
-from ..pyclass import autoclass, JPaths
 from pyserini.util import get_cache_home
+from ..pyclass import autoclass
 
 logger = logging.getLogger(__name__)
 
@@ -180,6 +180,10 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND4)
     elif collection_name == 'covid-round4-udel':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND4_UDEL)
+    elif collection_name == 'covid-round5':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND5)
+    elif collection_name == 'covid-round5-udel':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.COVID_ROUND5_UDEL)
     elif collection_name == 'trec2018-bl':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2018_BL)
     elif collection_name == 'trec2019-bl':
@@ -205,7 +209,7 @@ def get_topics(collection_name):
     elif collection_name == 'dpr-curated-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_CURATED_TEST)
     else:
-        return {}
+        raise ValueError(f'Topic {collection_name} Not Found')
     t = {}
     for topic in topics.keySet().toArray():
         # Try and parse the keys into integers
@@ -248,7 +252,13 @@ def get_qrels_file(collection_name):
         path of the qrels file
     """
     qrels = None
-    if collection_name == 'robust04':
+    if collection_name == 'trec1-adhoc':
+        qrels = JQrels.TREC1_ADHOC
+    elif collection_name == 'trec2-adhoc':
+        qrels = JQrels.TREC2_ADHOC
+    elif collection_name == 'trec3-adhoc':
+        qrels = JQrels.TREC3_ADHOC
+    elif collection_name == 'robust04':
         qrels = JQrels.ROBUST04
     elif collection_name == 'robust05':
         qrels = JQrels.ROBUST05
@@ -256,6 +266,30 @@ def get_qrels_file(collection_name):
         qrels = JQrels.CORE17
     elif collection_name == 'core18':
         qrels = JQrels.CORE18
+    elif collection_name == 'wt10g':
+        qrels = JQrels.WT10G
+    elif collection_name == 'trec2004-terabyte':
+        qrels = JQrels.TREC2004_TERABYTE
+    elif collection_name == 'trec2005-terabyte':
+        qrels = JQrels.TREC2005_TERABYTE
+    elif collection_name == 'trec2006-terabyte':
+        qrels = JQrels.TREC2006_TERABYTE
+    elif collection_name == 'trec2011-web':
+        qrels = JQrels.TREC2011_WEB
+    elif collection_name == 'trec2012-web':
+        qrels = JQrels.TREC2012_WEB
+    elif collection_name == 'trec2013-web':
+        qrels = JQrels.TREC2013_WEB
+    elif collection_name == 'trec2014-web':
+        qrels = JQrels.TREC2014_WEB
+    elif collection_name == 'mb11':
+        qrels = JQrels.MB11
+    elif collection_name == 'mb12':
+        qrels = JQrels.MB12
+    elif collection_name == 'mb13':
+        qrels = JQrels.MB13
+    elif collection_name == 'mb14':
+        qrels = JQrels.MB14
     elif collection_name == 'car17v1.5-benchmarkY1test':
         qrels = JQrels.CAR17V15_BENCHMARK_Y1_TEST
     elif collection_name == 'car17v2.0-benchmarkY1test':
@@ -264,10 +298,28 @@ def get_qrels_file(collection_name):
         qrels = JQrels.TREC2019_DL_DOC
     elif collection_name == 'dl19-passage':
         qrels = JQrels.TREC2019_DL_PASSAGE
+    elif collection_name == 'dl20-doc':
+        qrels = JQrels.TREC2020_DL_DOC
+    elif collection_name == 'dl20-passage':
+        qrels = JQrels.TREC2020_DL_PASSAGE
     elif collection_name == 'msmarco-doc-dev':
         qrels = JQrels.MSMARCO_DOC_DEV
     elif collection_name == 'msmarco-passage-dev-subset':
         qrels = JQrels.MSMARCO_PASSAGE_DEV_SUBSET
+    elif collection_name == 'ntcir8-zh':
+        qrels = JQrels.NTCIR8_ZH
+    elif collection_name == 'clef2006-fr':
+        qrels = JQrels.CLEF2006_FR
+    elif collection_name == 'trec2002-ar':
+        qrels = JQrels.TREC2002_AR
+    elif collection_name == 'fire2012-bn':
+        qrels = JQrels.FIRE2012_BN
+    elif collection_name == 'fire2012-hi':
+        qrels = JQrels.FIRE2012_HI
+    elif collection_name == 'fire2012-en':
+        qrels = JQrels.FIRE2012_EN
+    elif collection_name == 'covid-complete':
+        qrels = JQrels.COVID_COMPLETE
     elif collection_name == 'covid-round1':
         qrels = JQrels.COVID_ROUND1
     elif collection_name == 'covid-round2':
@@ -282,8 +334,6 @@ def get_qrels_file(collection_name):
         qrels = JQrels.COVID_ROUND4_CUMULATIVE
     elif collection_name == 'covid-round5':
         qrels = JQrels.COVID_ROUND5
-    elif collection_name == 'covid-complete':
-        qrels = JQrels.COVID_COMPLETE
     elif collection_name == 'trec2018-bl':
         qrels = JQrels.TREC2018_BL
     elif collection_name == 'trec2019-bl':
