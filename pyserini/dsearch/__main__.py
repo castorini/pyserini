@@ -19,7 +19,7 @@ import os
 
 from tqdm import tqdm
 
-from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder, \
+from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, \
     QueryEncoder, DprQueryEncoder, DkrrQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
