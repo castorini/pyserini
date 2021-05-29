@@ -19,11 +19,10 @@ import os
 
 from tqdm import tqdm
 
-from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, QueryEncoder, DprQueryEncoder,\
-    AnceQueryEncoder, AutoQueryEncoder
+from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder, \
+    QueryEncoder, DPRQueryEncoder, DKRRQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
-
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -46,7 +45,7 @@ def define_dsearch_args(parser):
                         help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
 
 
-def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device):
+def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device, prefix):
     encoded_queries_map = {
         'msmarco-passage-dev-subset': 'tct_colbert-msmarco-passage-dev-subset',
         'dpr-nq-dev': 'dpr_multi-nq-dev',
@@ -58,7 +57,9 @@ def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, de
         'dpr-curated-test': 'dpr_multi-curated-test'
     }
     if encoder:
-        if 'dpr' in encoder:
+        if 'dkrr' in encoder:
+            return DKRRQueryEncoder(encoder_dir=encoder, device=device, prefix=prefix)
+        elif 'dpr' in encoder:
             return DprQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'tct_colbert' in encoder:
             return TctColBertQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
@@ -99,13 +100,15 @@ if __name__ == '__main__':
                         help="search batch of queries in parallel")
     parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
                         help="maximum threads to use during search")
+    parser.add_argument('--query-prefix', type=str, metavar='str', required=False, default=None,
+                        help="Query prefix if exists.")
     define_dsearch_args(parser)
     args = parser.parse_args()
 
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
     topics = query_iterator.topics
 
-    query_encoder = init_query_encoder(args.encoder, args.tokenizer, args.topics, args.encoded_queries, args.device)
+    query_encoder = init_query_encoder(args.encoder, args.tokenizer, args.topics, args.encoded_queries, args.device, args.query_prefix)
 
     if os.path.exists(args.index):
         # create searcher from index directory
