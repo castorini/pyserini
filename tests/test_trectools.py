@@ -40,7 +40,7 @@ class TestTrecTools(unittest.TestCase):
         run.save_to_txt(self.output_path)
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
 
-    def test_trec_run_manipulate(self):
+    def test_trec_run_topics(self):
         input_path = os.path.join(self.root, 'tests/resources/simple_trec_run_msmarco_doc1.txt')
 
         run = TrecRun(filepath=input_path)
