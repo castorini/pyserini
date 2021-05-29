@@ -20,7 +20,7 @@ import os
 from tqdm import tqdm
 
 from pyserini.dsearch import SimpleDenseSearcher, TCTColBERTQueryEncoder, \
-    QueryEncoder, DPRQueryEncoder, DKRRQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
+    QueryEncoder, DprQueryEncoder, DkrrQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
 
@@ -58,7 +58,7 @@ def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, de
     }
     if encoder:
         if 'dkrr' in encoder:
-            return DKRRQueryEncoder(encoder_dir=encoder, device=device, prefix=prefix)
+            return DkrrQueryEncoder(encoder_dir=encoder, device=device, prefix=prefix)
         elif 'dpr' in encoder:
             return DprQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'tct_colbert' in encoder:

@@ -140,7 +140,7 @@ class DprQueryEncoder(QueryEncoder):
             return super().encode(query)
 
 
-class DKRRQueryEncoder(QueryEncoder):
+class DkrrQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu', prefix: str = "question:"):
         super().__init__(encoded_query_dir)
