@@ -16,6 +16,8 @@
 
 import cmd
 import json
+import os
+import random
 
 from pyserini.search import SimpleSearcher
 from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, AnceQueryEncoder
@@ -23,6 +25,13 @@ from pyserini.hsearch import HybridSearcher
 
 
 class MsMarcoDemo(cmd.Cmd):
+    # read questions from dev-subset
+    script_dir = os.path.dirname(__file__)
+    rel_path = "../../tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt"
+    dev_subset_path = os.path.join(script_dir, rel_path)
+    dev_subset = open(dev_subset_path, "r")
+    questions = dev_subset.readlines()
+
     ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
     dsearcher = None
     hsearcher = None
@@ -42,6 +51,7 @@ class MsMarcoDemo(cmd.Cmd):
         print(f'/k [NUM] : sets k (number of hits to return) to [NUM]')
         print(f'/model [MODEL] : sets encoder to use the model [MODEL] (one of tct, ance)')
         print(f'/mode [MODE] : sets retriver type to [MODE] (one of sparse, dense, hybrid)')
+        print(f'/random : returns results for a random question from dev subset')
 
     def do_k(self, arg):
         print(f'setting k = {int(arg)}')
@@ -84,6 +94,12 @@ class MsMarcoDemo(cmd.Cmd):
         )
         self.hsearcher = HybridSearcher(self.dsearcher, self.ssearcher)
         print(f'setting model = {arg}')
+
+    def do_random(self, arg):
+        num_questions = len(self.questions_list)
+        q = self.questions_list[random.randrange(num_questions)].split('\t', 1)[1]
+        print(f'question: {q}')
+        self.default(q)
 
     def do_EOF(self, line):
         return True
