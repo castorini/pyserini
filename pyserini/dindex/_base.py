@@ -58,10 +58,11 @@ class DprDocumentEncoder(DocumentEncoder):
         self.model.to(self.device)
         self.tokenizer = DPRContextEncoderTokenizer.from_pretrained(tokenizer_name or model_name)
 
-    def encode(self, texts):
+    def encode(self, texts, titles):
         max_length = 256  # hardcode for now
         inputs = self.tokenizer(
-            texts,
+            titles,
+            text_pair=texts,
             max_length=max_length,
             padding='longest',
             truncation=True,

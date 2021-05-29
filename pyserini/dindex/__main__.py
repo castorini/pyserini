@@ -94,9 +94,9 @@ if __name__ == '__main__':
             id_file.write(f'{ids[idx]}\n')
 
     for idx in tqdm(range(start_idx, end_idx, args.batch)):
-        text_batch = texts[idx: idx + args.batch]
+        text_batch = texts[idx: min(idx + args.batch, end_idx)]
         if len(titles) != 0:
-            title_batch = titles[idx: idx+args.batch]
+            title_batch = titles[idx: min(idx + args.batch, end_idx)]
             embeddings = model.encode(text_batch, title_batch)
         else:
             embeddings = model.encode(text_batch)
