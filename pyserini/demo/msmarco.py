@@ -30,7 +30,12 @@ class MsMarcoDemo(cmd.Cmd):
     rel_path = "../../tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt"
     dev_subset_path = os.path.join(script_dir, rel_path)
     dev_subset = open(dev_subset_path, "r")
-    questions = dev_subset.readlines()
+    questions = []
+    try:
+        with open(dev_subset_path, "r") as f:
+            questions = f.readlines()
+    except IOError:
+        print("cannot open file containing dev subset questions")
 
     ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
     dsearcher = None
