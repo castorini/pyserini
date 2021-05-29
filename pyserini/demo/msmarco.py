@@ -25,7 +25,7 @@ from pyserini.hsearch import HybridSearcher
 
 
 class MsMarcoDemo(cmd.Cmd):
-    # read questions from dev-subset
+    # load questions from dev-subset
     script_dir = os.path.dirname(__file__)
     rel_path = "../../tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt"
     dev_subset_path = os.path.join(script_dir, rel_path)
