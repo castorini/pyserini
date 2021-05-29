@@ -96,8 +96,8 @@ class MsMarcoDemo(cmd.Cmd):
         print(f'setting model = {arg}')
 
     def do_random(self, arg):
-        num_questions = len(self.questions_list)
-        q = self.questions_list[random.randrange(num_questions)].split('\t', 1)[1]
+        num_questions = len(self.questions)
+        q = self.questions[random.randrange(num_questions)].split('\t', 1)[1]
         print(f'question: {q}')
         self.default(q)
 
