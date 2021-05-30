@@ -16,6 +16,7 @@
 
 import argparse
 import json
+from ftfy import fix_text
 
 
 def load_data(data_path):
@@ -25,6 +26,8 @@ def load_data(data_path):
     for k, example in enumerate(data):
         if not 'id' in example:
             example['id'] = k
+        example['question'] = fix_text(example['question'])
+        examples['answers'] = list(map(lambda ans: fix_text(ans), example['answers']))
         examples.append(example)
     return examples
 
