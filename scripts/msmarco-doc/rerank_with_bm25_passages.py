@@ -62,8 +62,13 @@ if __name__ == '__main__':
     parser.add_argument('--queries', type=str, help='Queries.', required=True)
     parser.add_argument('--input', type=str, help='Base run.', required=True)
     parser.add_argument('--output', type=str, help='Output.', required=True)
+    parser.add_argument('--cache', type=str, help='Cache directory.', required=False)
+    parser.add_argument('--identity', action='store_true', help="Identity reranker.")
 
     args = parser.parse_args()
+
+    if args.cache and not os.path.exists(args.cache):
+        os.mkdir(args.cache)
 
     # Load queries:
     queries = load_queries(args.queries)
@@ -82,17 +87,34 @@ if __name__ == '__main__':
         print(f'{cnt} {qid} {query}')
         docids = base_run.get_docs_by_topic(qid)['docid'].tolist()
 
-        # Create a passage collection from docs:
-        collection_dir = f'docs-{qid}'
-        collection_path = f'docs-{qid}/docs.json'
-        if not os.path.exists(collection_dir):
-            os.mkdir(collection_dir)
-        generate_passage_collection(searcher, docids, collection_path)
+        # Don't actually do reranking, just pass along the base run:
+        if args.identity:
+            rank = 1
+            for doc in docids:
+                output.append(f'{qid}\t{doc}\t{rank}')
+                rank = rank + 1
+            cnt = cnt + 1
+            continue
 
-        # Build index over this passage collection:
-        index_path = f'qid-index-{qid}'
-        os.system(f'python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator ' +
-                  f'-threads 1 -input {collection_dir} -index {index_path}')
+        # Check if we're using a cache:
+        if args.cache:
+            root = args.cache
+        else:
+            root = '.'
+
+        collection_dir = os.path.join(root, f'docs-{qid}')
+        collection_path = os.path.join(root, f'docs-{qid}/docs.json')
+        index_path = os.path.join(root, f'qid-index-{qid}')
+
+        if not os.path.exists(index_path):
+            # Create a passage collection from docs:
+            if not os.path.exists(collection_dir):
+                os.mkdir(collection_dir)
+            generate_passage_collection(searcher, docids, collection_path)
+
+            # Build index over this passage collection:
+            os.system(f'python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator ' +
+                      f'-threads 1 -input {collection_dir} -index {index_path}')
 
         s = SimpleSearcher(index_path)
         hits = s.search(query, 1000)
@@ -121,8 +143,10 @@ if __name__ == '__main__':
         for idx, r in fused_run.get_docs_by_topic(qid).iterrows():
             output.append(f'{qid}\t{r["docid"]}\t{r["rank"]}')
 
-        shutil.rmtree(collection_dir)
-        shutil.rmtree(index_path)
+        # If we're using a cache, don't clean up:
+        if not args.cache:
+            shutil.rmtree(collection_dir)
+            shutil.rmtree(index_path)
 
         # Clean up run files.
         os.remove(f'run-passage-{qid}.txt')
