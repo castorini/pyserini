@@ -39,7 +39,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     topic = {}
-    for idx, example in enumerate(load_data(args.input)):
-        topic[str(idx)] = {'title': example['question'], 'answers': example['answers']}
-
-    json.dump(topic, open(args.output, 'w'), indent=4)
+    with open(args.output, 'w') as fout:
+        for idx, example in enumerate(load_data(args.input)):
+            fout.write(f"{example['question']}\t{example['answers']}\n")
