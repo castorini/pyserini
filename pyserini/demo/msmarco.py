@@ -91,7 +91,7 @@ class MsMarcoDemo(cmd.Cmd):
 
     def do_random(self, arg):
         topics = search.get_topics('msmarco-passage-dev-subset')
-        q = self.questions[random.randrange(topics)].split('\t', 1)[1]
+        q = topics[random.randrange(len(topics))].split('\t', 1)[1]
         print(f'question: {q}')
         self.default(q)
 
