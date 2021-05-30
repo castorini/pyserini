@@ -26,6 +26,8 @@ from pyserini import search
 
 
 class MsMarcoDemo(cmd.Cmd):
+    dev_topics = list(search.get_topics('msmarco-passage-dev-subset').values())
+
     ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
     dsearcher = None
     hsearcher = None
@@ -90,8 +92,7 @@ class MsMarcoDemo(cmd.Cmd):
         print(f'setting model = {arg}')
 
     def do_random(self, arg):
-        topics = search.get_topics('msmarco-passage-dev-subset')
-        q = topics[random.randrange(len(topics))].split('\t', 1)[1]
+        q = random.choice(self.dev_topics)['title']
         print(f'question: {q}')
         self.default(q)
 
