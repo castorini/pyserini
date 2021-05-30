@@ -30,7 +30,7 @@ def init_encoder(encoder, device):
     elif 'tct_colbert' in encoder:
         return TctColBertDocumentEncoder(encoder, device=device)
     elif 'ance' in encoder:
-        return AnceDocumentEncoder(encoder)
+        return AnceDocumentEncoder(encoder, device=device)
     elif 'sentence-transformers' in encoder:
         return AutoDocumentEncoder(encoder, device=device, pooling='mean', l2_norm=True)
     else:
