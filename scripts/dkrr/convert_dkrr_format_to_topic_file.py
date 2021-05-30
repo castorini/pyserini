@@ -16,7 +16,6 @@
 
 import argparse
 import json
-from ftfy import fix_text
 
 
 def load_data(data_path):
