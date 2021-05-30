@@ -26,8 +26,6 @@ def load_data(data_path):
     for k, example in enumerate(data):
         if not 'id' in example:
             example['id'] = k
-        example['question'] = fix_text(example['question'])
-        examples['answers'] = fix_text(example['answers'])
         examples.append(example)
     return examples
 
