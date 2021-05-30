@@ -22,21 +22,10 @@ import random
 from pyserini.search import SimpleSearcher
 from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, AnceQueryEncoder
 from pyserini.hsearch import HybridSearcher
+from pyserini import search
 
 
 class MsMarcoDemo(cmd.Cmd):
-    # load questions from dev-subset
-    script_dir = os.path.dirname(__file__)
-    rel_path = "../../tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt"
-    dev_subset_path = os.path.join(script_dir, rel_path)
-    dev_subset = open(dev_subset_path, "r")
-    questions = []
-    try:
-        with open(dev_subset_path, "r") as f:
-            questions = f.readlines()
-    except IOError:
-        print("cannot open file containing dev subset questions")
-
     ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
     dsearcher = None
     hsearcher = None
@@ -101,8 +90,8 @@ class MsMarcoDemo(cmd.Cmd):
         print(f'setting model = {arg}')
 
     def do_random(self, arg):
-        num_questions = len(self.questions)
-        q = self.questions[random.randrange(num_questions)].split('\t', 1)[1]
+        topics = search.get_topics('msmarco-passage-dev-subset')
+        q = self.questions[random.randrange(topics)].split('\t', 1)[1]
         print(f'question: {q}')
         self.default(q)
 
