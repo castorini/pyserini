@@ -23,7 +23,7 @@ from pyserini.dsearch import AnceEncoder
 
 
 class DocumentEncoder:
-    def encode(self, texts):
+    def encode(self, texts, titles=None):
         pass
 
 
@@ -34,7 +34,7 @@ class TctColBertDocumentEncoder(DocumentEncoder):
         self.model.to(self.device)
         self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name)
 
-    def encode(self, texts):
+    def encode(self, texts, titles=None):
         texts = ['[CLS] [D] ' + text for text in texts]
         max_length = 154  # hardcode for now
         inputs = self.tokenizer(
@@ -58,17 +58,27 @@ class DprDocumentEncoder(DocumentEncoder):
         self.model.to(self.device)
         self.tokenizer = DPRContextEncoderTokenizer.from_pretrained(tokenizer_name or model_name)
 
-    def encode(self, texts, titles):
+    def encode(self, texts, titles=None):
         max_length = 256  # hardcode for now
-        inputs = self.tokenizer(
-            titles,
-            text_pair=texts,
-            max_length=max_length,
-            padding='longest',
-            truncation=True,
-            add_special_tokens=True,
-            return_tensors='pt'
-        )
+        if titles:
+            inputs = self.tokenizer(
+                titles,
+                text_pair=texts,
+                max_length=max_length,
+                padding='longest',
+                truncation=True,
+                add_special_tokens=True,
+                return_tensors='pt'
+            )
+        else:
+            inputs = self.tokenizer(
+                texts,
+                max_length=max_length,
+                padding='longest',
+                truncation=True,
+                add_special_tokens=True,
+                return_tensors='pt'
+            )
         inputs.to(self.device)
         return self.model(inputs["input_ids"]).pooler_output.detach().cpu().numpy()
 
@@ -80,7 +90,7 @@ class AnceDocumentEncoder(DocumentEncoder):
         self.model.to(self.device)
         self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or model_name)
 
-    def encode(self, texts):
+    def encode(self, texts, titles=None):
         max_length = 512  # hardcode for now
         inputs = self.tokenizer(
             texts,
@@ -104,7 +114,7 @@ class AutoDocumentEncoder(DocumentEncoder):
         self.pooling = pooling
         self.l2_norm = l2_norm
 
-    def encode(self, texts):
+    def encode(self, texts, titles=None):
         inputs = self.tokenizer(
             texts,
             max_length=512,
