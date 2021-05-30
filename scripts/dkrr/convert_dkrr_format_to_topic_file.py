@@ -27,7 +27,7 @@ def load_data(data_path):
         if not 'id' in example:
             example['id'] = k
         example['question'] = fix_text(example['question'])
-        examples['answers'] = list(map(lambda ans: fix_text(ans), example['answers']))
+        examples['answers'] = fix_text(example['answers'])
         examples.append(example)
     return examples
 
