@@ -25,6 +25,8 @@ def load_data(data_path):
     for k, example in enumerate(data):
         if not 'id' in example:
             example['id'] = k
+
+        example['answers'] = list(map(lambda answer: answer.replace('\xa0', ' '), example['answers']))
         examples.append(example)
     return examples
 
