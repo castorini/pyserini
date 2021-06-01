@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,13 +16,18 @@
 
 import cmd
 import json
+import os
+import random
 
 from pyserini.search import SimpleSearcher
 from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, AnceQueryEncoder
 from pyserini.hsearch import HybridSearcher
+from pyserini import search
 
 
 class MsMarcoDemo(cmd.Cmd):
+    dev_topics = list(search.get_topics('msmarco-passage-dev-subset').values())
+
     ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
     dsearcher = None
     hsearcher = None
@@ -42,6 +47,7 @@ class MsMarcoDemo(cmd.Cmd):
         print(f'/k [NUM] : sets k (number of hits to return) to [NUM]')
         print(f'/model [MODEL] : sets encoder to use the model [MODEL] (one of tct, ance)')
         print(f'/mode [MODE] : sets retriver type to [MODE] (one of sparse, dense, hybrid)')
+        print(f'/random : returns results for a random question from dev subset')
 
     def do_k(self, arg):
         print(f'setting k = {int(arg)}')
@@ -84,6 +90,11 @@ class MsMarcoDemo(cmd.Cmd):
         )
         self.hsearcher = HybridSearcher(self.dsearcher, self.ssearcher)
         print(f'setting model = {arg}')
+
+    def do_random(self, arg):
+        q = random.choice(self.dev_topics)['title']
+        print(f'question: {q}')
+        self.default(q)
 
     def do_EOF(self, line):
         return True

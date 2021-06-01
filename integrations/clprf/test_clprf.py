@@ -1,5 +1,5 @@
 #
-# Pyserini: python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@
 import os
 import shutil
 import unittest
-
 from random import randint
-from integrations.utils import run_command, parse_score
+
 from integrations.simplesearcher_score_checker import SimpleSearcherScoreChecker
+from integrations.utils import run_command, parse_score
 
 
 class TestSearchIntegration(unittest.TestCase):

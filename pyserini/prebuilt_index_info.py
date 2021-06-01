@@ -1,3 +1,19 @@
+#
+# Pyserini: Reproducible IR research with sparse and dense representations
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 INDEX_INFO = {
     "cacm": {
         "description": "CACM corpus",
@@ -560,6 +576,18 @@ DINDEX_INFO = {
         ],
         "md5": "83a8081d6020910058164978b095615f",
         "size compressed (bytes)": 25162770962,
+        "documents": 8841823,
+        "downloaded": False
+    },
+    "msmarco-passage-distilbert-dot-tas_b-b256-bf": {
+        "description": "MS MARCO passage corpus encoded by msmarco-passage-distilbert-dot-tas_b-b256 passage encoder and "
+                       "indexed as brute force index",
+        "filename": "dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/1iu2wo2da1ai7ca/dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz?dl=1",
+        ],
+        "md5": "cc947bf66d9552a2a7c6fe060466e490",
+        "size compressed (bytes)": 25162328596,
         "documents": 8841823,
         "downloaded": False
     },

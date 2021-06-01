@@ -1,3 +1,19 @@
+#
+# Pyserini: Reproducible IR research with sparse and dense representations
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 QUERY_INFO = {
     "tct_colbert-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT",
@@ -56,6 +72,16 @@ QUERY_INFO = {
         ],
         "md5": "4706ec91183eefa9771e9311fe4799e0",
         "size (bytes)": 20013009,
+        "total_queries": 6980,
+        "downloaded": False
+    },
+    "distilbert_tas_b-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by TAS-B",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-distilbert_dot_tas_b_b256-msmarco-passage-dev-subset-20210527-63276f.tar.gz",
+        ],
+        "md5": "21af03c411a647f85a061138c8f0755e",
+        "size (bytes)": 20016799,
         "total_queries": 6980,
         "downloaded": False
     },
