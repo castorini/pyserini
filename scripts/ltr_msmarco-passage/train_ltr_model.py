@@ -34,7 +34,7 @@ import pandas as pd
 import lightgbm as lgb
 from collections import defaultdict
 from tqdm import tqdm
-from pyserini.ltr import *
+from pyserini.msmarco_passage_ltr_searcher import *
 import argparse
 
 """
@@ -479,9 +479,11 @@ if __name__ == '__main__':
     os.environ["ANSERINI_CLASSPATH"] = "pyserini/resources/jars"
     parser = argparse.ArgumentParser(description='Learning to rank training')
     parser.add_argument('--index', required=True)
+    parser.add_argument('--neg-sample', defalt=10)
+    parser.add_argument('--opt', default='mrr_at_10')
     args = parser.parse_args()
     total_start_time = time.time()
-    sampled_train = train_data_loader(task='triple', neg_sample=10)
+    sampled_train = train_data_loader(task='triple', neg_sample = args.neg_sample)
     dev, dev_qrel = dev_data_loader(task='anserini')
     queries = query_loader()
 
@@ -614,7 +616,7 @@ if __name__ == '__main__':
     print("dev extracted")
     feature_name = fe.feature_names()
     del sampled_train, dev, queries, fe
-    eval_fn = gen_dev_group_rel_num(dev_qrel, dev_extracted)
+    recall_at_20 = gen_dev_group_rel_num(dev_qrel, dev_extracted)
     print("start train")
     train_res = train(train_extracted, dev_extracted, feature_name, mrr_at_10)
     print("end train")

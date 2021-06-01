@@ -1,4 +1,4 @@
-# Pyserini: Learning-To-Rank Baseline for MS MARCO Passage
+# Pyserini: Learning-To-Rank Reranking Baseline for MS MARCO Passage
 
 This guide contains instructions for running learning-to-rank baseline on the [MS MARCO *passage* reranking task](https://microsoft.github.io/msmarco/).
 Learning-to-rank serves as a second stage reranker after BM25 retrieval.
@@ -52,7 +52,7 @@ tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
 Next we can run our inference script to get our reranking result.
 
 ```bash
-python scripts/ltr_msmarco-passage/rerank_with_ltr_model.py \
+python -m pyserini.msmarco_passage_ltr_searcher \
   --input runs/run.msmarco-passage.bm25tuned.txt \
   --input-format tsv \
   --model runs/msmarco-passage-ltr-mrr-v1 \
@@ -60,7 +60,9 @@ python scripts/ltr_msmarco-passage/rerank_with_ltr_model.py \
   --output runs/run.ltr.msmarco-passage.tsv 
 ```
 
-Here, our model is trained to maximize MRR@10.
+Here, our model is trained to maximize MRR@10. 
+
+Note that we can also train other models from scratch follow [training guide](experiments-ltr-msmarco-passage-training.md), and replace `--model` argument with your trained model dir.
 
 Inference speed will vary, on orca, it takes ~0.25s/query.
 
@@ -98,20 +100,6 @@ recall_1000           	all	0.8573
 Average precision or AP (also called mean average precision, MAP) and recall@1000 (recall at rank 1000) are the two metrics we care about the most.
 AP captures aspects of both precision and recall in a single metric, and is the most common metric used by information retrieval researchers.
 On the other hand, recall@1000 provides the upper bound effectiveness of downstream reranking modules (i.e., rerankers are useless if there isn't a relevant document in the results).
-
-## Training the Model From Scratch
-
-```bash
-wget https://msmarco.blob.core.windows.net/msmarcoranking/qidpidtriples.train.full.2.tsv.gz -P collections/msmarco-passage/	
-gzip -d collections/msmarco-passage/qidpidtriples.train.full.2.tsv.gz
-```
-First download the file which has training triples and uncompress it.
-
-```bash
-python scripts/ltr_msmarco-passage/train_ltr_model.py  \
- --index indexes/index-msmarco-passage-ltr-20210519-e25e33f 
-```
-The above scripts will train a model at `runs/` with your running date in the file name. You can use this as the `--ltr_model_path` parameter for `predict_passage.py`.
 
 ## Building the Index From Scratch
 
