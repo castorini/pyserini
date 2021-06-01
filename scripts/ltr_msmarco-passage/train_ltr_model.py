@@ -480,7 +480,7 @@ if __name__ == '__main__':
     os.environ["ANSERINI_CLASSPATH"] = "pyserini/resources/jars"
     parser = argparse.ArgumentParser(description='Learning to rank training')
     parser.add_argument('--index', required=True)
-    parser.add_argument('--neg-sample', defalt=10)
+    parser.add_argument('--neg-sample', default=10)
     parser.add_argument('--opt', default='mrr_at_10')
     args = parser.parse_args()
     total_start_time = time.time()

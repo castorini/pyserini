@@ -41,7 +41,7 @@ We run the above commands to obtain pre-built index in cache.
 ## Training the Model From Scratch
 ```bash
 python scripts/ltr_msmarco-passage/train_ltr_model.py  \
- --index indexes/index-msmarco-passage-ltr-20210519-e25e33f 
+ --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3 
 ```
 The above scripts will train a model at `runs/` with your running date in the file name. You can use this as the `--model` parameter for [reranking](experiments-ltr-msmarco-passage-reranking.md).
 
