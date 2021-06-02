@@ -26,7 +26,7 @@ def load_data(data_path):
         if not 'id' in example:
             example['id'] = k
 
-        example['answers'] = list(map(lambda answer: answer.replace('\xa0', ' '), example['answers']))
+        example['answers'] = list(map(lambda answer: answer.replace('\xa0', ' ').replace('"','""'), example['answers']))
         examples.append(example)
     return examples
 
