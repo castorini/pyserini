@@ -37,6 +37,11 @@ python -c "from pyserini.search import SimpleSearcher; SimpleSearcher.from_prebu
 
 We run the above commands to obtain pre-built index in cache.
 
+```bash
+wget https://www.dropbox.com/s/vlrfcz3vmr4nt0q/ibm_model.tar.gz -P collections/msmarco-ltr-passage/
+tar -xzvf collections/msmarco-ltr-passage/ibm_model.tar.gz -C collections/msmarco-ltr-passage/
+```
+Download pretrained IBM models:
 
 ## Training the Model From Scratch
 ```bash
