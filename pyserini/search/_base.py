@@ -208,6 +208,10 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_SQUAD_TEST)
     elif collection_name == 'dpr-curated-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.DPR_CURATED_TEST)
+    elif collection_name == 'nq-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.NQ_DEV)
+    elif collection_name == 'nq-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.NQ_TEST)
     else:
         raise ValueError(f'Topic {collection_name} Not Found')
     t = {}
