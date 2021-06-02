@@ -31,7 +31,7 @@ Once this is done, you can use `SimpleDenseSearcher` to search the index:
 ```python
 from pyserini.dsearch import SimpleDenseSearcher
 
-searcher = SimpleDenseSearcher.from_prebuilt_index(
+searcher = SimpleDenseSearcher(
     'indexes/dindex-sample-dpr-multi',
     'facebook/dpr-question_encoder-multiset-base'
 )
