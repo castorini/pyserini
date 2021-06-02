@@ -32,8 +32,7 @@ Once this is done, you can use `SimpleDenseSearcher` to search the index:
 from pyserini.dsearch import SimpleDenseSearcher
 
 searcher = SimpleDenseSearcher(
-    'indexes/dindex-sample-dpr-multi',
-    'facebook/dpr-question_encoder-multiset-base'
+    'indexes/dindex-sample-dpr-multi', 'facebook/dpr-question_encoder-multiset-base'
 )
 hits = searcher.search('what is a lobster roll')
 
