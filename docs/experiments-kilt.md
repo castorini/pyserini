@@ -4,7 +4,7 @@ The guide describes reproducing competitive BM25 baselinse for [KILT](https://gi
 
 **Note:**: this guide requires ~100 GB of disk space available, since we will be working with snapshots of Wikipedia.
 
-## Setup Environment
+## Set Up Environment
 
 Do the following:
 
