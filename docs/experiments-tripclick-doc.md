@@ -16,7 +16,7 @@ Uncompress the file: ```tar -xvfz benchmark.tar.gz```
 
 Below we refer to the path to the uncompressed TripClick benchmark on your machine as ```~/../benchmark``` 
 
-### Renaming Query-Files
+### Renaming Query Files
 In the current version of TripClick benchmark query files have **.txt** file extensions. In order to be processed with Pyserini the extensions need to be changed
 to **.trec**, as the files are written in TREC format. It is done with a simple console command. Move to ```~/../benchmark/qrels``` and ```~/../benchmark/topics``` and copy
 the following to the command line for each of the two folders:
@@ -61,7 +61,7 @@ For the purpose of reproduction of the reults shown in the [TripClick paper](htt
 
 The option `--output-format msmarco` says to generate output in the trec output format.
 
-## Evaluation with TREC official evaluation tool
+## Evaluation with the TREC Official Evaluation Tool
 We can also use the official TREC evaluation tool, `trec_eval`, to compute a multitude of metrics on the result.
 For that we first need to convert the run file into TREC format:
 
