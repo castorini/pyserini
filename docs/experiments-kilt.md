@@ -2,7 +2,7 @@
 
 The guide describes reproducing competitive BM25 baselinse for [KILT](https://github.com/facebookresearch/KILT): a benchmark for Knowledge Intensive Language Tasks.
 
-**Note:**: this guide requires ~100 GB of disk space available, since we will be working with snapshots of Wikipedia.
+**Note**: this guide requires ~100 GB of disk space available, since we will be working with snapshots of Wikipedia.
 
 ## Set Up Environment
 
@@ -54,7 +54,7 @@ The rest of the instructions assume you are working at the following directory:
     pyserini/
 ```
 
-## Index the Knowledge Source
+## Index the Corpus
 
 Convert to passage or document level JSONL format indexable by Pyserini. You can inspect the individual nohup output files using `tail -f <file>`:
 
