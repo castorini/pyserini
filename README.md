@@ -389,7 +389,6 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + [Guide to reproducing the BM25 baseline for MS MARCO Document Ranking](docs/experiments-msmarco-doc.md)
 + [Guide to reproducing the multi-field BM25 baseline for MS MARCO Document Ranking from Elasticsearch](docs/experiments-elastic.md)
 + [Guide to reproducing Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
-+ [Guide to reproducing BM25 Baselines for KILT](docs/experiments-kilt.md)
 
 ### Dense Retrieval
 
@@ -399,6 +398,14 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + [Guide to reproducing DistilBERT KD experiments](docs/experiments-distilbert_kd.md)
 + [Guide to reproducing DistilBERT Balanced Topic Aware Sampling experiments](docs/experiments-distilbert_tasb.md)
 + [Guide to reproducing SBERT dense retrieval experiments](docs/experiments-sbert.md)
+
+## Baselines
+
+Pyserini provides baselines for a number of datasets.
+
++ [Baselines](docs/experiments-kilt.md) for [KILT](https://github.com/facebookresearch/KILT): a benchmark for Knowledge Intensive Language Tasks
++ [Baselines](docs/experiments-tripclick-doc.md) for [TripClick](https://tripdatabase.github.io/tripclick/): a large-scale dataset of click logs in the health domain
++ [Baselines](https://github.com/castorini/anserini/blob/master/docs/experiments-fever.md) (in Anserini) for the [FEVER (Fact Extraction and VERification)](https://fever.ai/) dataset
 
 ## Additional Documentation
 
