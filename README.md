@@ -403,9 +403,9 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 
 Pyserini provides baselines for a number of datasets.
 
-+ [KILT](docs/experiments-kilt.md): a benchmark for Knowledge Intensive Language Tasks
-+ [TripClick](docs/experiments-tripclick-doc.md): a large-scale dataset of click logs in the health domain
-+ [FEVER (Fact Extraction and VERification)](https://github.com/castorini/anserini/blob/master/docs/experiments-fever.md): a dataset for fact verification against Wikipedia (using Anserini)
++ [Baselines](docs/experiments-kilt.md) for [KILT](https://github.com/facebookresearch/KILT): a benchmark for Knowledge Intensive Language Tasks
++ [Baselines](docs/experiments-tripclick-doc.md) for [TripClick](https://tripdatabase.github.io/tripclick/): a large-scale dataset of click logs in the health domain
++ [Baselines](https://github.com/castorini/anserini/blob/master/docs/experiments-fever.md) (in Anserini) for the [FEVER (Fact Extraction and VERification)](https://fever.ai/) dataset
 
 ## Additional Documentation
 

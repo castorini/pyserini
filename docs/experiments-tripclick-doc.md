@@ -1,8 +1,8 @@
-# Pyserini: BM25 Baseline for Document Retrieval on TripClick dataset
+# Pyserini: BM25 Baseline for the TripClick Dataset
 
-This guide contains instructions for running BM25 baselines on the [TripClick benchmark collection](https://tripdatabase.github.io/tripclick/).
+This guide contains instructions for running BM25 baselines for Document Retrieval on the [TripClick benchmark collection](https://tripdatabase.github.io/tripclick/).
 
-**Setup Note:** If you're instantiating an Ubuntu VM on your system or on cloud (AWS and GCP), try to provision enough resources as the tasks such as building the index could take some time to finish such as RAM > 8GB and storage > 100 GB (SSD).
+**Note:** If you're instantiating an Ubuntu VM on your system or on cloud (AWS and GCP), try to provision enough resources as the tasks such as building the index could take some time to finish such as RAM > 8GB and storage > 100 GB (SSD).
 This will prevent going back and fixing machine configuration again and again. If you have a configuration which works for Anserini on this task, it will work with Pyserini as well.
 
 ## Data Preparation
