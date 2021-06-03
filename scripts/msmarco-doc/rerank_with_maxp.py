@@ -32,6 +32,11 @@ sys.path.insert(0, '../pyserini/')
 
 from pyserini.trectools import TrecRun
 from pyserini.search import SimpleSearcher
+from pyserini.dsearch import SimpleDenseSearcher
+
+# Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
+# https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 
 def load_queries(query_file: str):
@@ -55,27 +60,7 @@ def generate_passage_collection(docs, collection_path):
                 writer.write(json.dumps(json_doc) + '\n')
 
 
-def rerank(cache, qid, query, docs):
-    # Check if we're using a cache:
-    if cache:
-        root = cache
-    else:
-        root = '.'
-
-    collection_dir = os.path.join(root, f'docs-{qid}')
-    collection_path = os.path.join(root, f'docs-{qid}/docs.json')
-    index_path = os.path.join(root, f'qid-index-{qid}')
-
-    if not os.path.exists(index_path):
-        # Create a passage collection from docs:
-        if not os.path.exists(collection_dir):
-            os.mkdir(collection_dir)
-        generate_passage_collection(docs, collection_path)
-
-        # Build index over this passage collection:
-        os.system(f'python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator ' +
-                  f'-threads 1 -input {collection_dir} -index {index_path}')
-
+def bm25(qid, query, docs, index_path):
     s = SimpleSearcher(index_path)
     hits = s.search(query, 1000)
 
@@ -102,15 +87,73 @@ def rerank(cache, qid, query, docs):
     for idx, r in fused_run.get_docs_by_topic(qid).iterrows():
         output.append([qid, r["docid"], r["rank"]])
 
+    return output
+
+
+def ance(qid, query, docs, index_path):
+    searcher = SimpleDenseSearcher(index_path,  'castorini/ance-msmarco-doc-maxp')
+    hits = searcher.search(query, 1000)
+
+    output = []
+    n = 1
+    seen_docids = {}
+    for i in range(0, len(hits)):
+        if hits[i].docid in seen_docids:
+            continue
+        output.append([qid, hits[i].docid, n])
+        n = n + 1
+        seen_docids[hits[i].docid] = 1
+
+    return output
+
+
+def rerank(cache, qid, query, docs, reranker):
+    # Check if we're using a cache:
+    if cache:
+        root = cache
+    else:
+        root = '.'
+
+    collection_dir = os.path.join(root, f'docs-{qid}')
+    collection_path = os.path.join(root, f'docs-{qid}/docs.json')
+    index_path = ''
+    if reranker == 'bm25':
+        index_path = os.path.join(root, f'qid-index-{qid}')
+    elif reranker == 'ance':
+        index_path = os.path.join(root, f'qid-dindex-{qid}')
+
+    if not os.path.exists(index_path):
+        # Create a passage collection from docs:
+        if not os.path.exists(collection_dir):
+            os.mkdir(collection_dir)
+        generate_passage_collection(docs, collection_path)
+
+        # Build index over this passage collection:
+        if reranker == 'bm25':
+            os.system(f'python -m pyserini.index -collection JsonCollection ' +
+                      f'-generator DefaultLuceneDocumentGenerator -threads 1 ' +
+                      f'-input {collection_dir} -index {index_path}')
+        elif reranker == 'ance':
+            os.system(f'python -m pyserini.dindex --corpus {collection_dir} ' +
+                      f'--encoder castorini/ance-msmarco-doc-maxp --index {index_path} --batch 64 --device cpu')
+
+    output = []
+    # Choose which reranker to use:
+    if reranker == 'bm25':
+        output = bm25(qid, query, docs, index_path)
+    elif reranker == 'ance':
+        output = ance(qid, query, docs, index_path)
+
     # If we're using a cache, don't clean up:
     if not args.cache:
         shutil.rmtree(collection_dir)
         shutil.rmtree(index_path)
 
     # Clean up run files.
-    os.remove(f'run-passage-{qid}.txt')
-    os.remove(f'run-doc-{qid}.txt')
-    os.remove(f'run-rrf-{qid}.txt')
+    if reranker == 'bm25':
+        os.remove(f'run-passage-{qid}.txt')
+        os.remove(f'run-doc-{qid}.txt')
+        os.remove(f'run-rrf-{qid}.txt')
 
     return output
 
@@ -128,6 +171,13 @@ def main(args):
     searcher = SimpleSearcher.from_prebuilt_index('msmarco-doc')
 
     output = []
+
+    if args.bm25:
+        reranker = 'bm25'
+    elif args.ance:
+        reranker = 'ance'
+    elif not args.identity:
+        sys.exit('Unknown reranking method!')
 
     cnt = 1
     for row in queries:
@@ -155,7 +205,7 @@ def main(args):
                                       'text': raw_doc})
 
         # Perform the actual reranking:
-        output.extend(rerank(args.cache, qid, query, results_to_rerank))
+        output.extend(rerank(args.cache, qid, query, results_to_rerank, reranker))
         cnt = cnt + 1
 
     # Write the output run file:
@@ -171,6 +221,8 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=str, help='Output.', required=True)
     parser.add_argument('--cache', type=str, help='Cache directory.', required=False)
     parser.add_argument('--identity', action='store_true', help="Identity reranker.")
+    parser.add_argument('--bm25', action='store_true', help="BM25 reranker.")
+    parser.add_argument('--ance', action='store_true', help="ANCE reranker.")
 
     args = parser.parse_args()
     main(args)
