@@ -26,7 +26,7 @@ import time
 from tqdm import tqdm
 import pickle
 
-from pyserini.msmarco_passage_ltr_searcher._base import *
+from pyserini.ltr._base import *
 
 
 logger = logging.getLogger(__name__)

@@ -52,7 +52,7 @@ tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
 Next we can run our inference script to get our reranking result.
 
 ```bash
-python -m pyserini.msmarco_passage_ltr_searcher \
+python -m pyserini.ltr.search_msmarco_passage \
   --input runs/run.msmarco-passage.bm25tuned.txt \
   --input-format tsv \
   --model runs/msmarco-passage-ltr-mrr-v1 \
