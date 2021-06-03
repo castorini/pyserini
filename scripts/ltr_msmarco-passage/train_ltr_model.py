@@ -35,7 +35,7 @@ import pandas as pd
 import lightgbm as lgb
 from collections import defaultdict
 from tqdm import tqdm
-from pyserini.msmarco_passage_ltr_searcher import *
+from pyserini.ltr import *
 import argparse
 
 """

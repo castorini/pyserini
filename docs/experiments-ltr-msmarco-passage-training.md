@@ -35,7 +35,9 @@ The first two scripts take ~1 min and the third one is a bit longer (~1.5h).
 python -c "from pyserini.search import SimpleSearcher; SimpleSearcher.from_prebuilt_index('msmarco-passage-ltr')"
 ```
 
-We run the above commands to obtain pre-built index in cache.
+We run the above commands to obtain pre-built index in cache. 
+
+Note you can also build index from scratch follow [this guide](./experiments-ltr-msmarco-passage-reranking.md#L104).
 
 ```bash
 wget https://www.dropbox.com/s/vlrfcz3vmr4nt0q/ibm_model.tar.gz -P collections/msmarco-ltr-passage/
@@ -48,7 +50,7 @@ Download pretrained IBM models:
 python scripts/ltr_msmarco-passage/train_ltr_model.py  \
  --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3 
 ```
-The above scripts will train a model at `runs/` with your running date in the file name. You can use this as the `--model` parameter for [reranking](experiments-ltr-msmarco-passage-reranking.md).
+The above scripts will train a model at `runs/` with your running date in the file name. You can use this as the `--model` parameter for [reranking](experiments-ltr-msmarco-passage-reranking.md#L58).
 
 Number of negative samples used in training can be changed by `--neg-sample`, by default is 10.
 
