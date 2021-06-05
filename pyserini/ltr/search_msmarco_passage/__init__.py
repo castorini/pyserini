@@ -14,9 +14,5 @@
 # limitations under the License.
 #
 
-from ._dsearcher import DenseSearchResult, SimpleDenseSearcher, QueryEncoder, \
-    DprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
-from ._model import AnceEncoder
-
-__all__ = ['DenseSearchResult', 'SimpleDenseSearcher', 'QueryEncoder', 'DprQueryEncoder', 'DkrrDprQueryEncoder',
-           'TctColBertQueryEncoder', 'AnceEncoder', 'AnceQueryEncoder', 'AutoQueryEncoder']
+from ._search_msmarco_passage import MsmarcoPassageLtrSearcher
+__all__ = ['MsmarcoPassageLtrSearcher']

@@ -1,8 +1,8 @@
-# Pyserini: BM25 Baseline for Document Retrieval on TripClick dataset
+# Pyserini: BM25 Baseline for the TripClick Dataset
 
-This guide contains instructions for running BM25 baselines on the [TripClick benchmark collection](https://tripdatabase.github.io/tripclick/).
+This guide contains instructions for running BM25 baselines for Document Retrieval on the [TripClick benchmark collection](https://tripdatabase.github.io/tripclick/).
 
-**Setup Note:** If you're instantiating an Ubuntu VM on your system or on cloud (AWS and GCP), try to provision enough resources as the tasks such as building the index could take some time to finish such as RAM > 8GB and storage > 100 GB (SSD).
+**Note:** If you're instantiating an Ubuntu VM on your system or on cloud (AWS and GCP), try to provision enough resources as the tasks such as building the index could take some time to finish such as RAM > 8GB and storage > 100 GB (SSD).
 This will prevent going back and fixing machine configuration again and again. If you have a configuration which works for Anserini on this task, it will work with Pyserini as well.
 
 ## Data Preparation
@@ -16,7 +16,7 @@ Uncompress the file: ```tar -xvfz benchmark.tar.gz```
 
 Below we refer to the path to the uncompressed TripClick benchmark on your machine as ```~/../benchmark``` 
 
-### Renaming Query-Files
+### Renaming Query Files
 In the current version of TripClick benchmark query files have **.txt** file extensions. In order to be processed with Pyserini the extensions need to be changed
 to **.trec**, as the files are written in TREC format. It is done with a simple console command. Move to ```~/../benchmark/qrels``` and ```~/../benchmark/topics``` and copy
 the following to the command line for each of the two folders:
@@ -61,7 +61,7 @@ For the purpose of reproduction of the reults shown in the [TripClick paper](htt
 
 The option `--output-format msmarco` says to generate output in the trec output format.
 
-## Evaluation with TREC official evaluation tool
+## Evaluation with the TREC Official Evaluation Tool
 We can also use the official TREC evaluation tool, `trec_eval`, to compute a multitude of metrics on the result.
 For that we first need to convert the run file into TREC format:
 

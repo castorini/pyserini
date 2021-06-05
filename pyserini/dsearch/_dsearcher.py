@@ -25,8 +25,9 @@ from typing import Dict, List, Union
 
 import numpy as np
 import pandas as pd
-from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, DPRQuestionEncoder,
-                          DPRQuestionEncoderTokenizer, RobertaTokenizer)
+
+from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer,  BertTokenizerFast,
+                          DPRQuestionEncoder, DPRQuestionEncoderTokenizer, RobertaTokenizer)
 from transformers.file_utils import is_faiss_available, requires_backends
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
@@ -131,6 +132,37 @@ class DprQueryEncoder(QueryEncoder):
             input_ids = self.tokenizer(query, return_tensors='pt')
             input_ids.to(self.device)
             embeddings = self.model(input_ids["input_ids"]).pooler_output.detach().cpu().numpy()
+            return embeddings.flatten()
+        else:
+            return super().encode(query)
+
+
+class DkrrDprQueryEncoder(QueryEncoder):
+
+    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu', prefix: str = "question:"):
+        super().__init__(encoded_query_dir)
+        self.device = device
+        self.model = BertModel.from_pretrained(encoder_dir)
+        self.model.to(self.device)
+        self.tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
+        self.has_model = True
+        self.prefix = prefix
+
+    @staticmethod
+    def _mean_pooling(model_output, attention_mask):
+        model_output = model_output[0].masked_fill(1 - attention_mask[:, :, None], 0.)
+        model_output = torch.sum(model_output, dim=1) / torch.clamp(torch.sum(attention_mask, dim=1), min=1e-9)[:, None]
+        return model_output.flatten()
+
+    def encode(self, query: str):
+        if self.has_model:
+            if self.prefix:
+                query = f'{self.prefix} {query}'
+            inputs = self.tokenizer(query, return_tensors='pt', max_length=40, padding="max_length")
+            inputs.to(self.device)
+            outputs = self.model(input_ids=inputs["input_ids"],
+                                attention_mask=inputs["attention_mask"])
+            embeddings = self._mean_pooling(outputs, inputs['attention_mask']).detach().cpu().numpy()
             return embeddings.flatten()
         else:
             return super().encode(query)
@@ -350,5 +382,7 @@ class SimpleDenseSearcher:
 
     @staticmethod
     def load_docids(docid_path: str) -> List[str]:
-        docids = [line.rstrip() for line in open(docid_path, 'r').readlines()]
+        id_f = open(docid_path, 'r')
+        docids = [line.rstrip() for line in id_f.readlines()]
+        id_f.close()
         return docids
