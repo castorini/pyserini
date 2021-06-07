@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,9 +19,11 @@
 import os
 import socket
 import unittest
+
 from integrations.utils import clean_files, run_command, parse_score
-from pyserini.search import get_topics
 from pyserini.dsearch import QueryEncoder
+from pyserini.search import get_topics
+
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
@@ -58,7 +60,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.assertTrue(topics[t]['title'] in encoder.embedding)
 
     def test_msmarco_doc_ance_bf_otf(self):
-        output_file = 'test_run.msmarco-doc.passage.ance-maxp.otf.txt '
+        output_file = 'test_run.msmarco-doc.passage.ance-maxp.otf.txt'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.dsearch --topics msmarco-doc-dev \
                              --index msmarco-doc-ance-maxp-bf \
@@ -80,7 +82,7 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_msmarco_doc_ance_bf_encoded_queries(self):
         encoder = QueryEncoder.load_encoded_queries('ance_maxp-msmarco-doc-dev')
-        topics = get_topics('maxp-msmarco-doc-dev')
+        topics = get_topics('msmarco-doc-dev')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)
 

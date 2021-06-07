@@ -1,4 +1,5 @@
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+#
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 import os
 import json
@@ -81,6 +83,8 @@ class DefaultQueryIterator(QueryIterator):
                     topics = json.load(f)
             elif topics_path.endswith('.tsv'):
                 topics = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', topics_path)
+            elif topics_path.endswith('.trec'):
+                topics = get_topics_with_reader('io.anserini.search.topicreader.TrecTopicReader', topics_path)
             elif 'cacm' in topics_path:
                 topics = get_topics_with_reader('io.anserini.search.topicreader.CacmTopicReader', topics_path)
             else:

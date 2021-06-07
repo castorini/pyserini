@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,11 +12,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 from jnius import autoclass
 import sys
+import os
 
 args = sys.argv[1:]
+
+# argument check
+for i in range(len(args)):
+    if args[i] == '-input':
+        collection_dir = args[i+1]
+        if os.path.isfile(collection_dir):
+            raise ValueError('Argument -input should be a directory.')
+
 JIndexCollection = autoclass('io.anserini.index.IndexCollection')
 JIndexCollection.main(args)
-

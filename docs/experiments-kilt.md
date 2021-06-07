@@ -1,8 +1,12 @@
-# Pyserini: Reproducing BM25 Baselines for KILT
+# Pyserini: BM25 Baselines for KILT
 
-Note: Currently, this guide requires at least ~100GB of disk space available, since we will be working with snapshots of Wikipedia.
+The guide describes reproducing competitive BM25 baselinse for [KILT](https://github.com/facebookresearch/KILT): a benchmark for Knowledge Intensive Language Tasks.
 
-## Setup env
+**Note**: this guide requires ~100 GB of disk space available, since we will be working with snapshots of Wikipedia.
+
+## Set Up Environment
+
+Do the following:
 
 ```bash
 # Create a virtual env
@@ -50,11 +54,11 @@ The rest of the instructions assume you are working at the following directory:
     pyserini/
 ```
 
-## Index the knowledge source
+## Index the Corpus
 
 Convert to passage or document level JSONL format indexable by Pyserini. You can inspect the individual nohup output files using `tail -f <file>`:
 
-### Document-level
+### Document-Level Sources
 
 ```bash
 mkdir pyserini/collections/kilt_document
@@ -80,7 +84,7 @@ nohup python -m pyserini.index -collection JsonCollection -generator DefaultLuce
  -index pyserini/indexes/kilt_document -storePositions -storeDocvectors -storeContents &
 ```
 
-### Passage-level
+### Passage-Level Sources
 
 ```bash
 mkdir pyserini/collections/kilt_passage
@@ -104,7 +108,7 @@ nohup python -m pyserini.index -collection JsonCollection -generator DefaultLuce
  -index pyserini/indexes/kilt_passage -storePositions -storeDocvectors -storeContents &
 ``` 
 
-## Create runs
+## Create Baseline Runs
 
 Compute a run for a given index. Tasks can be configured using `--config`. You can increase the number of threads, but you may encounter OOM issues. I find that 8-20 is usually a good amount. This will take a 1-2 hours.
 
