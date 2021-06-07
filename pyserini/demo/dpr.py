@@ -77,7 +77,7 @@ class DPRDemo(cmd.Cmd):
             topics = self.trivia_dev_topics
         else:
             print(
-                f'Set "{arg}" is invalid. Set should be one of [nq, trivia].')
+                f'Collection "{arg}" is invalid. Collection should be one of [nq, trivia].')
             return
         q = random.choice(topics)['title']
         print(f'question: {q}')
