@@ -51,7 +51,7 @@ class DPRDemo(cmd.Cmd):
         print(f'/help    : returns this message')
         print(f'/k [NUM] : sets k (number of hits to return) to [NUM]')
         print(f'/mode [MODE] : sets retriver type to [MODE] (one of sparse, dense, hybrid)')
-        print(f'/random [SET]: returns results for a random question from the dev subset [SET] (one of nq, trivia)')
+        print(f'/random [COLLECTION]: returns results for a random question from the dev subset [COLLECTION] (one of nq, trivia).')
 
     def do_k(self, arg):
         print(f'setting k = {int(arg)}')
@@ -71,9 +71,15 @@ class DPRDemo(cmd.Cmd):
         print(f'setting retriver = {arg}')
 
     def do_random(self, arg):
-        q = random.choice(self.nq_dev_topics)['title']
-        if arg == "trivia":
-            q = random.choice(self.trivia_dev_topics)['title']
+        if arg == "nq":
+            topics = self.nq_dev_topics
+        elif arg == "trivia":
+            topics = self.trivia_dev_topics
+        else:
+            print(
+                f'Set "{arg}" is invalid. Set should be one of [nq, trivia].')
+            return
+        q = random.choice(topics)['title']
         print(f'question: {q}')
         self.default(q)
 
