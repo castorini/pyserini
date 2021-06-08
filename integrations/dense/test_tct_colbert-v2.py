@@ -84,10 +84,10 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertAlmostEqual(score, 0.3584, places=4)
 
     def test_msmarco_passage_tct_colbert_v2_hnp_bf_bm25_hybrid_otf(self):
-        output_file = 'test_run.msmarco-passage.tct_colbert-v2.bf-otf.bm25.tsv'
+        output_file = 'test_run.msmarco-passage.tct_colbert-v2-hnp.bf-otf.bm25.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-v2-bf \
-                                    --encoder castorini/tct_colbert-v2-msmarco \
+        cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+                                    --encoder castorini/tct_colbert-v2-hnp-msmarco \
                              sparse --index msmarco-passage \
                              fusion --alpha 0.12 \
                              run    --topics msmarco-passage-dev-subset \
@@ -102,10 +102,10 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertAlmostEqual(score, 0.3683, places=4)
 
     def test_msmarco_passage_tct_colbert_v2_hnp_bf_d2q_hybrid_otf(self):
-        output_file = 'test_run.msmarco-passage.tct_colbert-v2.bf-otf.doc2queryT5.tsv'
+        output_file = 'test_run.msmarco-passage.tct_colbert-v2-hnp.bf-otf.doc2queryT5.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-v2-bf \
-                                    --encoder castorini/tct_colbert-v2-msmarco \
+        cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+                                    --encoder castorini/tct_colbert-v2-hnp-msmarco \
                              sparse --index msmarco-passage-expanded \
                              fusion --alpha 0.22 \
                              run    --topics msmarco-passage-dev-subset \
