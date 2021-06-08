@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -56,9 +56,9 @@ if __name__ == '__main__':
     embeddings = {'id': [], 'text': [], 'embedding': []}
     for key in tqdm(topics):
         qid = str(key)
-        text = topics[key]['title'].strip()
+        text = topics[key]['title']
         embeddings['id'].append(qid)
         embeddings['text'].append(text)
-        embeddings['embedding'].append(encoder.encode(text))
+        embeddings['embedding'].append(encoder.encode(text.strip()))
     embeddings = pd.DataFrame(embeddings)
     embeddings.to_pickle(os.path.join(args.output, 'embedding.pkl'))

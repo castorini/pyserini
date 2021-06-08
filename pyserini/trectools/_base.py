@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
 from enum import Enum
-from typing import Dict, List, Set, Tuple
+from typing import List, Set, Tuple
 
 
 class AggregationMethod(Enum):
@@ -95,18 +95,22 @@ class TrecRun:
 
     columns = ['topic', 'q0', 'docid', 'rank', 'score', 'tag']
 
-    def __init__(self, filepath: str = None):
+    def __init__(self, filepath: str = None, resort: bool = False):
         self.reset_data()
         self.filepath = filepath
+        self.resort = resort
 
         if filepath is not None:
-            self.read_run(self.filepath)
+            self.read_run(self.filepath,self.resort)
 
     def reset_data(self):
         self.run_data = pd.DataFrame(columns=TrecRun.columns)
 
-    def read_run(self, filepath: str) -> None:
-        self.run_data = pd.read_csv(filepath, sep='\s+', names=TrecRun.columns)
+    def read_run(self, filepath: str, resort: bool = False) -> None:
+        self.run_data = pd.read_csv(filepath, sep='\s+', names=TrecRun.columns, dtype={'docid': 'str'})
+        if resort:
+            self.run_data.sort_values(["topic", "score"], inplace=True, ascending=[True, False])
+            self.run_data["rank"] = self.run_data.groupby("topic")[["docid","score"]].rank(ascending=False,method='first')
 
     def topics(self) -> Set[str]:
         """Return a set with all topics."""

@@ -1,4 +1,32 @@
+#
+# Pyserini: Reproducible IR research with sparse and dense representations
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 INDEX_INFO = {
+    "cacm": {
+        "description": "CACM corpus",
+        "filename": "lucene-index.cacm.tar.gz",
+        "urls": [
+            "https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.tar.gz",
+        ],
+        "md5": "e47164fbd18aab72cdc18aecc0744bb1",
+        "size compressed (bytes)": 2372903,
+        "total_terms": 320968,
+        "documents": 3204,
+        "unique_terms": 14363,
+    },
     "robust04": {
         "description": "TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track",
         "filename": "index-robust04-20191213.tar.gz",
@@ -52,6 +80,19 @@ INDEX_INFO = {
         "total_terms": 1986612263,
         "documents": 8841823,
         "unique_terms": 3929111,
+        "downloaded": False
+    },
+    "msmarco-passage-ltr": {
+        "description": "MS MARCO passage corpus (4 extra preprocessed fieldsm used for ltr pipeline",
+        "filename": "index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/2h22kt43fcnngxg/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz?dl=1"
+        ],
+        "md5": "a5de642c268ac1ed5892c069bdc29ae3",
+        "size compressed (bytes)": 14073966046,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
         "downloaded": False
     },
     "msmarco-doc": {
@@ -420,6 +461,19 @@ INDEX_INFO = {
         "unique_terms": 5345463,
         "downloaded": False
     },
+    "wikipedia-kilt-doc": {
+        "description": "Wikipedia snapshot used as KILT's knowledge source. Indexed by documents.",
+        "filename": "index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+        ],
+        "md5": "b8ec8feb654f7aaa86f9901dc6c804a8",
+        "size compressed (bytes)": 10901127209,
+        "total_terms": 1915061164,
+        "documents": 5903530,
+        "unique_terms": 8722502,
+        "downloaded": False
+    },
 }
 
 DINDEX_INFO = {
@@ -522,6 +576,18 @@ DINDEX_INFO = {
         ],
         "md5": "83a8081d6020910058164978b095615f",
         "size compressed (bytes)": 25162770962,
+        "documents": 8841823,
+        "downloaded": False
+    },
+    "msmarco-passage-distilbert-dot-tas_b-b256-bf": {
+        "description": "MS MARCO passage corpus encoded by msmarco-passage-distilbert-dot-tas_b-b256 passage encoder and "
+                       "indexed as brute force index",
+        "filename": "dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/1iu2wo2da1ai7ca/dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz?dl=1",
+        ],
+        "md5": "cc947bf66d9552a2a7c6fe060466e490",
+        "size compressed (bytes)": 25162328596,
         "documents": 8841823,
         "downloaded": False
     },

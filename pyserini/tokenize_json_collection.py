@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,10 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from transformers import BertTokenizer, T5Tokenizer
+
 import argparse
 import json
 import os
+
+from transformers import BertTokenizer, T5Tokenizer
 
 
 def write_to_file(tokenizer, input, output):
@@ -40,13 +42,14 @@ def main(args):
     else:
         tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco')
     if (os.path.isdir(args.input)):
-        for i, inf in enumerate(os.listdir(args.input)):
+        for i, inf in enumerate(sorted(os.listdir(args.input))):
             if not os.path.isdir(args.output):
                 os.mkdir(args.output)
             outf = os.path.join(args.output, 'docs{:02d}.json'.format(i))
             write_to_file(tokenizer,os.path.join(args.input, inf), outf)
     else:
         write_to_file(tokenizer,args.input, args.output)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

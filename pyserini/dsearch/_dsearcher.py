@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,19 +13,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 """
 This module provides Pyserini's dense search interface to FAISS index.
 The main entry point is the ``SimpleDenseSearcher`` class.
 """
+
 import os
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, List, Union
 
 import numpy as np
 import pandas as pd
-from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, DPRQuestionEncoder,
-                          DPRQuestionEncoderTokenizer, RobertaTokenizer)
-from transformers.file_utils import is_faiss_available, requires_faiss
+
+from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer,  BertTokenizerFast,
+                          DPRQuestionEncoder, DPRQuestionEncoderTokenizer, RobertaTokenizer)
+from transformers.file_utils import is_faiss_available, requires_backends
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info)
@@ -80,13 +83,14 @@ class QueryEncoder:
 
 class TctColBertQueryEncoder(QueryEncoder):
 
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu'):
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu'):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
             self.model = BertModel.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = BertTokenizer.from_pretrained(encoder_dir)
+            self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or encoder_dir)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
@@ -111,13 +115,14 @@ class TctColBertQueryEncoder(QueryEncoder):
 
 class DprQueryEncoder(QueryEncoder):
 
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu'):
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu'):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
             self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(encoder_dir)
+            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or encoder_dir)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
@@ -132,15 +137,47 @@ class DprQueryEncoder(QueryEncoder):
             return super().encode(query)
 
 
+class DkrrDprQueryEncoder(QueryEncoder):
+
+    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu', prefix: str = "question:"):
+        super().__init__(encoded_query_dir)
+        self.device = device
+        self.model = BertModel.from_pretrained(encoder_dir)
+        self.model.to(self.device)
+        self.tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
+        self.has_model = True
+        self.prefix = prefix
+
+    @staticmethod
+    def _mean_pooling(model_output, attention_mask):
+        model_output = model_output[0].masked_fill(1 - attention_mask[:, :, None], 0.)
+        model_output = torch.sum(model_output, dim=1) / torch.clamp(torch.sum(attention_mask, dim=1), min=1e-9)[:, None]
+        return model_output.flatten()
+
+    def encode(self, query: str):
+        if self.has_model:
+            if self.prefix:
+                query = f'{self.prefix} {query}'
+            inputs = self.tokenizer(query, return_tensors='pt', max_length=40, padding="max_length")
+            inputs.to(self.device)
+            outputs = self.model(input_ids=inputs["input_ids"],
+                                attention_mask=inputs["attention_mask"])
+            embeddings = self._mean_pooling(outputs, inputs['attention_mask']).detach().cpu().numpy()
+            return embeddings.flatten()
+        else:
+            return super().encode(query)
+
+
 class AnceQueryEncoder(QueryEncoder):
 
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu'):
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu'):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
             self.model = AnceEncoder.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = RobertaTokenizer.from_pretrained(encoder_dir)
+            self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or encoder_dir)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
@@ -164,14 +201,15 @@ class AnceQueryEncoder(QueryEncoder):
 
 class AutoQueryEncoder(QueryEncoder):
 
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu',
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu',
                  pooling: str = 'cls', l2_norm: bool = False):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
             self.model = AutoModel.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = AutoTokenizer.from_pretrained(encoder_dir)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
             self.has_model = True
             self.pooling = pooling
             self.l2_norm = l2_norm
@@ -223,9 +261,12 @@ class SimpleDenseSearcher:
         Path to faiss index directory.
     """
 
-    def __init__(self, index_dir: str, query_encoder: QueryEncoder):
-        requires_faiss(self)
-        self.query_encoder = query_encoder
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str]):
+        requires_backends(self, "faiss")
+        if isinstance(query_encoder, QueryEncoder):
+            self.query_encoder = query_encoder
+        else:
+            self.query_encoder = self._init_encoder_from_str(query_encoder)
         self.index, self.docids = self.load_index(index_dir)
         self.dimension = self.index.d
         self.num_docs = self.index.ntotal
@@ -326,6 +367,22 @@ class SimpleDenseSearcher:
         return index, docids
 
     @staticmethod
+    def _init_encoder_from_str(encoder):
+        encoder = encoder.lower()
+        if 'dpr' in encoder:
+            return DprQueryEncoder(encoder_dir=encoder)
+        elif 'tct_colbert' in encoder:
+            return TctColBertQueryEncoder(encoder_dir=encoder)
+        elif 'ance' in encoder:
+            return AnceQueryEncoder(encoder_dir=encoder)
+        elif 'sentence' in encoder:
+            return AutoQueryEncoder(encoder_dir=encoder, pooling='mean', l2_norm=True)
+        else:
+            return AutoQueryEncoder(encoder_dir=encoder)
+
+    @staticmethod
     def load_docids(docid_path: str) -> List[str]:
-        docids = [line.rstrip() for line in open(docid_path, 'r').readlines()]
+        id_f = open(docid_path, 'r')
+        docids = [line.rstrip() for line in id_f.readlines()]
+        id_f.close()
         return docids

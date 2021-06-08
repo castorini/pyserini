@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 #
 
 from ._dsearcher import DenseSearchResult, SimpleDenseSearcher, QueryEncoder, \
-    DprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
+    DprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
 from ._model import AnceEncoder
 
-__all__ = ['DenseSearchResult', 'SimpleDenseSearcher', 'QueryEncoder', 'DprQueryEncoder',
+__all__ = ['DenseSearchResult', 'SimpleDenseSearcher', 'QueryEncoder', 'DprQueryEncoder', 'DkrrDprQueryEncoder',
            'TctColBertQueryEncoder', 'AnceEncoder', 'AnceQueryEncoder', 'AutoQueryEncoder']

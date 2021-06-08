@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,12 +22,13 @@ import sys
 from tqdm import tqdm
 
 from pyserini.dsearch import SimpleDenseSearcher
-from pyserini.query_iterator import QUERY_IDS, query_iterator
-from pyserini.search import SimpleSearcher, get_topics
+from pyserini.query_iterator import get_query_iterator, TopicsFormat
+from pyserini.output_writer import get_output_writer, OutputFormat
+from pyserini.search import SimpleSearcher
 from pyserini.hsearch import HybridSearcher
 
 from pyserini.dsearch.__main__ import define_dsearch_args, init_query_encoder
-from pyserini.search.__main__ import define_search_args, write_result, write_result_max_passage, set_bm25_parameters
+from pyserini.search.__main__ import define_search_args, set_bm25_parameters
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -78,7 +79,10 @@ if __name__ == '__main__':
     run_parser.add_argument('--topics', type=str, metavar='topic_name', required=False,
                             help="Name of topics. Available: msmarco-passage-dev-subset.")
     run_parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
-    run_parser.add_argument('--msmarco', action='store_true', default=False, help="Output in MS MARCO format.")
+    run_parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
+                            help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
+    run_parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
+                            help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
     run_parser.add_argument('--output', type=str, metavar='path', required=False, help="Path to output file.")
     run_parser.add_argument('--max-passage', action='store_true',
                             default=False, help="Select only max passage from document.")
@@ -93,22 +97,14 @@ if __name__ == '__main__':
 
     args = parse_args(parser, commands)
 
-    if os.path.exists(args.run.topics) and args.run.topics.endswith('.json'):
-        topics = json.load(open(args.run.topics))
-    else:
-        topics = get_topics(args.run.topics)
-    # invalid topics name
-    if topics == {}:
-        print(f'Topic {args.run.topics} Not Found')
-        exit()
+    query_iterator = get_query_iterator(args.run.topics, TopicsFormat(args.run.topics_format))
+    topics = query_iterator.topics
 
     query_encoder = init_query_encoder(args.dense.encoder,
+                                       args.dense.tokenizer,
                                        args.run.topics,
                                        args.dense.encoded_queries,
                                        args.dense.device)
-    if not query_encoder:
-        print(f'No encoded queries for topic {args.run.topics}')
-        exit()
 
     if os.path.exists(args.dense.index):
         # create searcher from index directory
@@ -142,15 +138,16 @@ if __name__ == '__main__':
     print(f'Running {args.run.topics} topics, saving to {output_path}...')
     tag = 'hybrid'
 
-    order = None
-    if args.run.topics in QUERY_IDS:
-        print(f'Using pre-defined topic order for {args.run.topics}')
-        order = QUERY_IDS[args.run.topics]
+    output_writer = get_output_writer(output_path, OutputFormat(args.run.output_format), 'w',
+                                      max_hits=args.run.hits, tag=tag, topics=topics,
+                                      use_max_passage=args.run.max_passage,
+                                      max_passage_delimiter=args.run.max_passage_delimiter,
+                                      max_passage_hits=args.run.max_passage_hits)
 
-    with open(output_path, 'w') as target_file:
+    with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+        for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.run.batch_size <= 1 and args.run.threads <= 1:
                 hits = hsearcher.search(text, args.run.hits, args.fusion.alpha)
                 results = [(topic_id, hits)]
@@ -167,10 +164,7 @@ if __name__ == '__main__':
                 else:
                     continue
 
-            for result in results:
-                if args.run.max_passage:
-                    write_result_max_passage(target_file, result, args.run.max_passage_delimiter,
-                                             args.run.max_passage_hits, args.run.msmarco, tag)
-                else:
-                    write_result(target_file, result, args.run.hits, args.run.msmarco, tag)
+            for topic, hits in results:
+                output_writer.write(topic, hits)
+
             results.clear()

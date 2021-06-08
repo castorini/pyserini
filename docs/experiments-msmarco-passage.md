@@ -3,6 +3,8 @@
 This guide contains instructions for running BM25 baselines on the [MS MARCO *passage* ranking task](https://microsoft.github.io/msmarco/), which is nearly identical to a [similar guide in Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md), except that everything is in Python here (no Java).
 Note that there is a separate guide for the [MS MARCO *document* ranking task](experiments-msmarco-doc.md).
 
+**Setup Note:** If you're instantiating an Ubuntu VM on your system or on cloud (AWS and GCP), try to provision enough resources such as RAM > 6GB and storage ~ 100 (can also be around 70 - 80 for this task) GB (SSD). This will prevent going back and fixing machine configuration again and again. If you get a configuration which works for Anserini on this task, it will work with Pyserini as well.
+
 ## Data Prep
 
 The guide requires the [development installation](https://github.com/castorini/pyserini/#development-installation) for additional resource that are not shipped with the Python module; for the (more limited) runs that directly work from the Python module installed via `pip`, see [this guide](pypi-reproduction.md).
@@ -75,11 +77,11 @@ We can now perform retrieval using these queries:
 python -m pyserini.search --topics msmarco-passage-dev-subset \
  --index indexes/lucene-index-msmarco-passage \
  --output runs/run.msmarco-passage.bm25tuned.txt \
- --bm25 --msmarco --hits 1000 --k1 0.82 --b 0.68
+ --bm25 --output-format msmarco --hits 1000 --k1 0.82 --b 0.68
 ```
 
 Here, we set the BM25 parameters to `k1=0.82`, `b=0.68` (tuned by grid search).
-The option `--msmarco` says to generate output in the MS MARCO output format.
+The option `--output-format msmarco` says to generate output in the MS MARCO output format.
 The option `--hits` specifies the number of documents to return per query.
 Thus, the output file should have approximately 6980 × 1000 = 6.9M lines.
 
@@ -136,3 +138,7 @@ On the other hand, recall@1000 provides the upper bound effectiveness of downstr
 + Results reproduced by [@larryli1999](https://github.com/larryli1999) on 2021-01-22 (commit [`74a87e4`](https://github.com/castorini/pyserini/commit/74a87e4951c98d7b066273140576d3cccd9ea0ed))
 + Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-04-08 (commit [`7261223`](https://github.com/castorini/pyserini/commit/72612232bc886e71e8de9431a899a7c68f1d82c7))
 + Results reproduced by [@printfCalvin](https://github.com/printfCalvin) on 2021-04-12 (commit [`0801f7f`](https://github.com/castorini/pyserini/commit/0801f7fb15e249f2e67901a6523d6ce68c667207))
++ Results reproduced by [@saileshnankani](https://github.com/saileshnankani) on 2021-04-26 (commit [`6d48609`](https://github.com/castorini/pyserini/commit/6d486094137a26c8a0a57652a06ab4d42d5bce32))
++ Results reproduced by [@andrewyguo](https://github.com/andrewyguo) on 2021-04-30 (commit [`ecfed61`](https://github.com/castorini/pyserini/commit/ecfed61bfba065aa958848cff96ba9f22609aeb1))
++ Results reproduced by [@mayankanand007](https://github.com/mayankanand007) on 2021-05-04 (commit [`a9d6f66`](https://github.com/castorini/pyserini/commit/a9d6f66234b5dd2859a0dc116ef3e38a52d0f81d)) 
++ Results reproduced by [@rootofallevii](https://github.com/rootofallevii) on 2021-05-14 (commit [`e764797`](https://github.com/castorini/pyserini/commit/e764797081eebf487fa7e1fa34872a59ff97fdf7))
