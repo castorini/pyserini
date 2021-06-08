@@ -153,7 +153,7 @@ class TestTokenization(unittest.TestCase):
         self.assertEqual(['ant', '##agon', '##iste'], tokens)
 
     def test_lucene_analyzer_fr_book_examples(self):
-        analyzer = Analyzer(get_lucene_analyzer(name='french'))
+        analyzer = Analyzer(get_lucene_analyzer(language='fr'))
 
         tokens = analyzer.analyze('marche parler vélo randonnée rouler défilement')
         self.assertEqual(['march', 'parl', 'vélo', 'randon', 'roul', 'defil'], tokens)
@@ -205,7 +205,7 @@ class TestTokenization(unittest.TestCase):
         self.assertEqual(['对', '抗', '的'], tokens)
 
     def test_lucene_analyzer_zh_book_examples(self):
-        analyzer = Analyzer(get_lucene_analyzer(name='cjk'))
+        analyzer = Analyzer(get_lucene_analyzer(language='zh'))
 
         tokens = analyzer.analyze('走路说话骑自行车远足滚动滚动')
         self.assertEqual(['走路', '路说', '说话', '话骑', '骑自', '自行', '行车', '车远', '远足', '足滚', '滚动', '动滚', '滚动'], tokens)
