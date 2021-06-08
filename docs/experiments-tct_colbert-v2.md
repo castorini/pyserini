@@ -17,8 +17,8 @@ Summary of results:
 
 | Condition | MRR@10 (paper) | MAP | Recall@1000 |
 |:----------|-------:|----:|------------:|
-| TCT_ColBERT-V2 (brute-force index) |  (0.3435) | | |
-| TCT_ColBERT-V2-HN (brute-force index) |  0.3540) | | |
+| TCT_ColBERT-V2 (brute-force index) |  0.3439 (0.3435) | | |
+| TCT_ColBERT-V2-HN (brute-force index) |  0.3542 (0.3540) | 0.3608 | 0.9708 |
 | TCT_ColBERT-V2-HN+ (brute-force index) | 0.3584 (0.3586) | 0.3645 | 0.9695 |
 | TCT_ColBERT-V2-HN+ (brute-force index) + BoW BM25 | 0.3683 (0.3687)  | 0.3738 | 0.9707 |
 | TCT_ColBERT-V2-HN+ (brute-force index) + BM25 w/ doc2query-T5 | 0.3730 (0.3747) | 0.3789 | 0.9759 |
