@@ -21,7 +21,7 @@ The main entry point is the ``SimpleDenseSearcher`` class.
 
 import os
 from dataclasses import dataclass
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
 
 import numpy as np
 import pandas as pd
@@ -31,7 +31,8 @@ from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer,  B
 from transformers.file_utils import is_faiss_available, requires_backends
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
-                           get_dense_indexes_info)
+                           get_dense_indexes_info, get_sparse_index)
+from pyserini.search import SimpleSearcher, Document
 
 from ._model import AnceEncoder
 import torch
@@ -261,7 +262,7 @@ class SimpleDenseSearcher:
         Path to faiss index directory.
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str]):
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], prebuilt_index_name=None):
         requires_backends(self, "faiss")
         if isinstance(query_encoder, QueryEncoder):
             self.query_encoder = query_encoder
@@ -271,6 +272,8 @@ class SimpleDenseSearcher:
         self.dimension = self.index.d
         self.num_docs = self.index.ntotal
         assert self.num_docs == len(self.docids)
+        if prebuilt_index_name:
+            self.prebuilt_index_name = prebuilt_index_name
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: QueryEncoder):
@@ -296,7 +299,7 @@ class SimpleDenseSearcher:
             return None
 
         print(f'Initializing {prebuilt_index_name}...')
-        return cls(index_dir, query_encoder)
+        return cls(index_dir, query_encoder, prebuilt_index_name)
 
     @staticmethod
     def list_prebuilt_indexes():
@@ -365,6 +368,28 @@ class SimpleDenseSearcher:
         index = faiss.read_index(index_path)
         docids = self.load_docids(docid_path)
         return index, docids
+
+    def doc(self, docid: Union[str, int]) -> Optional[Document]:
+        """Return the :class:`Document` corresponding to ``docid``. Since dense indexes don't store documents
+        but sparse indexes do, route over to corresponding sparse index (according to prebuilt_index_info.py)
+        and use its doc API 
+
+        Parameters
+        ----------
+        docid : Union[str, int]
+            Overloaded ``docid``: either an external collection ``docid`` (``str``) or an internal Lucene ``docid``
+            (``int``).
+
+        Returns
+        -------
+        Document
+            :class:`Document` corresponding to the ``docid``.
+        """
+        if self.prebuilt_index_name is None:
+            return None
+        sparse_index = get_sparse_index(self.prebuilt_index_name)
+        ssearcher = SimpleSearcher.from_prebuilt_index(sparse_index)
+        return ssearcher.doc(docid)
 
     @staticmethod
     def _init_encoder_from_str(encoder):
