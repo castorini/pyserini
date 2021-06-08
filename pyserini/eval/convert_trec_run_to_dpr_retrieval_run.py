@@ -55,7 +55,7 @@ if __name__ == '__main__':
             ctx = json.loads(searcher.doc(doc_id).raw())['contents']
             if question_id not in retrieval:
                 retrieval[question_id] = {'question': question, 'answers': answers, 'contexts': []}
-            title, text = ctx.split('\n')[1]
+            title, text = ctx.split('\n')
             answer_exist = has_answers(text, answers, tokenizer, args.regex)
             if args.store_raw:
                 retrieval[question_id]['contexts'].append(
