@@ -13,7 +13,7 @@ Thus, while the scoring script provides results to much higher precision, we hav
 
 ## MS MARCO Passage Ranking
 
-Summary of results:
+Summary of results (figures from the paper are in parentheses):
 
 | Condition | MRR@10 (paper) | MAP | Recall@1000 |
 |:----------|-------:|----:|------------:|
