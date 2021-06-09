@@ -7,7 +7,6 @@ To be precise, by _multilingual_, we really mean anything not in English.
 Instructions for indexing and searching non-English document collections is quite similar to English document collection, so check out [this answer](../README.md#how-do-i-index-and-search-my-own-documents) first.
 
 Here's a [sample collection in Chinese](../integrations/resources/sample_collection_jsonl_zh) in the JSONL format.
-
 To index:
 
 ```bash
@@ -19,7 +18,7 @@ python -m pyserini.index -collection JsonCollection \
                          -storePositions -storeDocvectors -storeRaw
 ```
 
-The only different here is that we specify `-language zh` using the ISO language code.
+The only difference here is that we specify `-language zh` using the ISO language code.
 
 Using `SimpleSearcher` to search the index:
 
@@ -46,6 +45,7 @@ python -m pyserini.search --topics integrations/resources/sample_queries_zh.tsv 
 ```
 
 Here's what the [query file](../integrations/resources/sample_queries_zh.tsv) looks like, in tsv.
+Once again, add `-language zh`.
 
 And the expected output:
 
