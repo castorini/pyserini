@@ -283,6 +283,7 @@ for i in range(searcher.num_docs):
 
 To build sparse (i.e., Lucene inverted indexes) on your own document collections, following the instructions below.
 To build dense indexes (e.g., the output of transformer encoders) on your own document collections, see instructions [here](docs/usage-dense-indexes.md).
+The following covers English documents; if you want to index and search multilingual documents, check out [this answer](docs/usage-multilingual.md#how-do-i-index-and-search-my-own-non-english-documents).
  
 Pyserini (via Anserini) provides ingestors for document collections in many different formats.
 The simplest, however, is the following JSON format:
