@@ -67,6 +67,8 @@ def define_search_args(parser):
     parser.add_argument('--rm3', action='store_true', help="Use RM3")
     parser.add_argument('--qld', action='store_true', help="Use QLD")
 
+    parser.add_argument('--language', type=str, help='language code for BM25, e.g. zh for Chinese', default='en')
+
     parser.add_argument('--prcl', type=ClassifierType, nargs='+', default=[],
                         help='Specify the classifier PseudoRelevanceClassifierReranker uses.')
     parser.add_argument('--prcl.vectorizer', dest='vectorizer', type=str,
@@ -124,6 +126,9 @@ if __name__ == "__main__":
     else:
         # create searcher from prebuilt index name
         searcher = SimpleSearcher.from_prebuilt_index(args.index)
+
+    if args.language != 'en':
+        searcher.set_language(args.language)
 
     if not searcher:
         exit()

@@ -104,7 +104,8 @@ if __name__ == '__main__':
                                        args.dense.tokenizer,
                                        args.run.topics,
                                        args.dense.encoded_queries,
-                                       args.dense.device)
+                                       args.dense.device,
+                                       args.dense.query_prefix)
 
     if os.path.exists(args.dense.index):
         # create searcher from index directory
@@ -127,6 +128,9 @@ if __name__ == '__main__':
         exit()
 
     set_bm25_parameters(ssearcher, args.sparse.index, args.sparse.k1, args.sparse.b)
+
+    if args.sparse.language != 'en':
+        ssearcher.set_language(args.sparse.language)
 
     hsearcher = HybridSearcher(dsearcher, ssearcher)
     if not hsearcher:

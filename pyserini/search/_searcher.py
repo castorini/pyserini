@@ -209,6 +209,10 @@ class SimpleSearcher:
         """
         self.object.setAnalyzer(analyzer)
 
+    def set_language(self, language):
+        """Set language of SimpleSearcher"""
+        self.object.setLanguage(language)
+
     def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False):
         """Configure RM3 query expansion.
 
