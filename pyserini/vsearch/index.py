@@ -17,7 +17,9 @@
 import argparse
 import json
 import os
+import shutil
 import time
+import copy
 
 import nmslib
 from scipy.sparse import csr_matrix
@@ -31,24 +33,38 @@ if __name__ == '__main__':
     parser.add_argument('--threads', type=int, help='threads for hnsw', required=False, default=12)
     parser.add_argument('--dim', type=int, help='dimension of passage embeddings', required=False, default=768)
     parser.add_argument('--is-sparse', action='store_true', required=False)
+    parser.add_argument('--tokens', type=str, help='path to token list', required=False)
     args = parser.parse_args()
 
     corpus = json.load(open(args.corpus, 'r'))
     if not os.path.exists(args.hnsw_index):
         os.mkdir(args.hnsw_index)
 
-    with open(os.path.join(args.hnsw_index, 'sparse_index.bin'), 'w') as f:
+    with open(os.path.join(args.hnsw_index, 'docid'), 'w') as f:
         for d in corpus:
             docid = str(d['id'])
         f.write(f'{docid}\n')
+
+    token2id = {}
+    if args.is_sparse:
+        with open(args.tokens) as tok_f:
+            for idx, line in tok_f:
+                tok = line.rstrip()
+                token2id[tok] = idx
+
+        shutil.copy(args.tokens, os.path.join(args.hnsw_index, 'tokens'))
 
     vectors = []
     if args.is_sparse:
         matrix_row, matrix_col, matrix_data = [], [], []
         for i, d in enumerate(corpus):
-            matrix_row.extend([i] * len(d['vector'][0]))
-            matrix_col.extend(d['vector'][0])
-            matrix_data.extend(d['vector'][1])
+            weight_dict = d['vector']
+            tokens = weight_dict.keys()
+            col = [token2id[tok] for tok in tokens]
+            data = weight_dict.values()
+            matrix_row.extend([i] * len(weight_dict))
+            matrix_col.extend(col)
+            matrix_data.extend(data)
         topic_vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(len(corpus), args.dim))
     else:
         for i, d in enumerate(corpus):
@@ -66,6 +82,11 @@ if __name__ == '__main__':
     start = time.time()
     index.createIndex(index_time_params, print_progress=True)
     end = time.time()
+    index_time = end - start
     print('Index-time parameters', index_time_params)
-    print('Indexing time = %f' % (end - start))
-    index.saveIndex(os.path.join(args.hnsw_index, 'sparse_index.bin'), save_data=True)
+    print('Indexing time = %f' % index_time)
+    index.saveIndex(os.path.join(args.hnsw_index, 'index.bin'), save_data=True)
+
+    metadata = copy.deepcopy(index_time_params)
+    metadata['index-time'] = index_time
+    json.dump(metadata, open(os.path.join(args.hnsw_index, 'meta'), 'w'), indent=4)
