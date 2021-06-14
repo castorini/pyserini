@@ -62,7 +62,7 @@ if __name__ == '__main__':
     with open(os.path.join(args.hnsw_index, 'docid'), 'w') as f:
         for d in corpus:
             docid = str(d['id'])
-        f.write(f'{docid}\n')
+            f.write(f'{docid}\n')
 
     vectors = []
     if args.is_sparse:

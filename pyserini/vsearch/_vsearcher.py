@@ -110,9 +110,13 @@ class SimpleVectorSearcher:
     def _token_dict_to_sparse_vector(self, token_dict):
         matrix_row, matrix_col, matrix_data = [], [], []
         tokens = token_dict.keys()
-        col = [self.token2id[tok] for tok in tokens]
-        data = token_dict.values()
-        matrix_row.extend([0] * len(token_dict))
+        col = []
+        data = []
+        for tok in tokens:
+            if tok in self.token2id:
+                col.append(self.token2id[tok])
+                data.append(token_dict[tok])
+        matrix_row.extend([0] * len(col))
         matrix_col.extend(col)
         matrix_data.extend(data)
         vector = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(1, self.dimension))
