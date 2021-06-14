@@ -23,6 +23,7 @@ import copy
 
 import nmslib
 from scipy.sparse import csr_matrix
+from tqdm import tqdm
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -36,14 +37,8 @@ if __name__ == '__main__':
     parser.add_argument('--tokens', type=str, help='path to token list', required=False)
     args = parser.parse_args()
 
-    corpus = json.load(open(args.corpus, 'r'))
     if not os.path.exists(args.hnsw_index):
         os.mkdir(args.hnsw_index)
-
-    with open(os.path.join(args.hnsw_index, 'docid'), 'w') as f:
-        for d in corpus:
-            docid = str(d['id'])
-        f.write(f'{docid}\n')
 
     token2id = {}
     if args.is_sparse:
@@ -53,6 +48,21 @@ if __name__ == '__main__':
                 token2id[tok] = idx
 
         shutil.copy(args.tokens, os.path.join(args.hnsw_index, 'tokens'))
+
+    corpus = []
+    for file in sorted(os.listdir(args.corpus)):
+        file = os.path.join(args.corpus, file)
+        if file.endswith('json') or file.endswith('jsonl'):
+            print(f'Loading {file}')
+            with open(file, 'r') as f:
+                for idx, line in enumerate(tqdm(f.readlines())):
+                    info = json.loads(line)
+                    corpus.append(info)
+
+    with open(os.path.join(args.hnsw_index, 'docid'), 'w') as f:
+        for d in corpus:
+            docid = str(d['id'])
+        f.write(f'{docid}\n')
 
     vectors = []
     if args.is_sparse:
