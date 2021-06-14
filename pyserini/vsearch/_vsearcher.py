@@ -134,5 +134,5 @@ class SimpleVectorSearcher:
     def _load_metadata(metadata_path):
         if not os.path.exists(metadata_path):
             return None
-        meta = json.load(metadata_path)
+        meta = json.load(open(metadata_path))
         return meta

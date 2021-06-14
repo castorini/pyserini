@@ -36,7 +36,6 @@ if __name__ == '__main__':
     parser.add_argument('--batch-size', type=int, metavar='num', required=False, default=1,
                         help="search batch of queries in parallel")
     parser.add_argument('--is-sparse', action='store_true', required=False)
-    parser.add_argument('--dim', type=int, required=True)
     args = parser.parse_args()
 
     searcher = SimpleVectorSearcher(args.index, ef_search=args.ef, is_sparse=args.is_sparse)
