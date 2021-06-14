@@ -16,8 +16,6 @@
 
 import argparse
 import json
-from scipy.sparse import csr_matrix, vstack
-import numpy as np
 from tqdm import tqdm
 
 from pyserini.vsearch import SimpleVectorSearcher
@@ -43,19 +41,13 @@ if __name__ == '__main__':
 
     searcher = SimpleVectorSearcher(args.index, ef_search=args.ef, is_sparse=args.is_sparse)
 
-    topics = json.load(open(args.topics))
-    topic_ids = [str(t['id']) for t in topics]
+    topic_ids = []
     topic_vectors = []
-    if args.is_sparse:
-        matrix_row, matrix_col, matrix_data = [], [], []
-        for i, t in enumerate(topics):
-            matrix_row.extend([i]*len(t['vector'][0]))
-            matrix_col.extend(t['vector'][0])
-            matrix_data.extend(t['vector'][1])
-        topic_vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(len(topics), args.dim))
-    else:
-        for i, t in enumerate(topics):
-            topic_vectors.append(t['vector'])
+    with open(args.topics) as topic_f:
+        for line in topic_f:
+            info = json.loads(line)
+            topic_ids.append(info['id'])
+            topic_vectors.append(info['vector'])
 
     if not searcher:
         exit()
@@ -74,21 +66,14 @@ if __name__ == '__main__':
         batch_topic_ids = list()
         for index, (topic_id, vec) in enumerate(tqdm(zip(topic_ids, topic_vectors))):
             if args.batch_size <= 1 and args.threads <= 1:
-                if not args.is_sparse:
-                    hits = searcher.search([np.array(vec)], args.hits)
-                else:
-                    hits = searcher.search(vec, args.hits)
+                hits = searcher.search(vec, args.hits)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
                 batch_topic_vectors.append(vec)
                 if (index + 1) % args.batch_size == 0 or \
-                        index == len(topics) - 1:
-                    if args.is_sparse:
-                        results = searcher.batch_search(
-                            vstack(batch_topic_vectors), batch_topic_ids, args.hits, args.threads)
-                    else:
-                        results = searcher.batch_search(
+                        index == len(topic_ids) - 1:
+                    results = searcher.batch_search(
                             batch_topic_vectors, batch_topic_ids, args.hits, args.threads)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()

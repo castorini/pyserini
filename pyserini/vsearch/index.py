@@ -67,7 +67,7 @@ if __name__ == '__main__':
     vectors = []
     if args.is_sparse:
         matrix_row, matrix_col, matrix_data = [], [], []
-        for i, d in enumerate(corpus):
+        for i, d in enumerate(tqdm(corpus)):
             weight_dict = d['vector']
             tokens = weight_dict.keys()
             col = [token2id[tok] for tok in tokens]
@@ -75,9 +75,9 @@ if __name__ == '__main__':
             matrix_row.extend([i] * len(weight_dict))
             matrix_col.extend(col)
             matrix_data.extend(data)
-        topic_vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(len(corpus), args.dim))
+        vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(len(corpus), args.dim))
     else:
-        for i, d in enumerate(corpus):
+        for i, d in enumerate(tqdm(corpus)):
             vectors.append(d['vector'])
 
     M = args.M
