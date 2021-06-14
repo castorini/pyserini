@@ -43,7 +43,7 @@ if __name__ == '__main__':
     token2id = {}
     if args.is_sparse:
         with open(args.tokens) as tok_f:
-            for idx, line in tok_f:
+            for idx, line in enumerate(tok_f):
                 tok = line.rstrip()
                 token2id[tok] = idx
 
