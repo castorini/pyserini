@@ -273,7 +273,8 @@ class SimpleDenseSearcher:
         self.num_docs = self.index.ntotal
         assert self.num_docs == len(self.docids)
         if prebuilt_index_name:
-            self.prebuilt_index_name = prebuilt_index_name
+            sparse_index = get_sparse_index(prebuilt_index_name)
+            self.ssearcher = SimpleSearcher.from_prebuilt_index(sparse_index)
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: QueryEncoder):
@@ -385,11 +386,7 @@ class SimpleDenseSearcher:
         Document
             :class:`Document` corresponding to the ``docid``.
         """
-        if self.prebuilt_index_name is None:
-            return None
-        sparse_index = get_sparse_index(self.prebuilt_index_name)
-        ssearcher = SimpleSearcher.from_prebuilt_index(sparse_index)
-        return ssearcher.doc(docid)
+        return self.ssearcher.doc(docid) if self.ssearcher else None
 
     @staticmethod
     def _init_encoder_from_str(encoder):
