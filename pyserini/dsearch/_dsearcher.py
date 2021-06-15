@@ -262,7 +262,7 @@ class SimpleDenseSearcher:
         Path to faiss index directory.
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], prebuilt_index_name=None):
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], prebuilt_index_name: Optional[str] = None):
         requires_backends(self, "faiss")
         if isinstance(query_encoder, QueryEncoder):
             self.query_encoder = query_encoder
