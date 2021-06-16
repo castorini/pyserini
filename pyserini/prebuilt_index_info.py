@@ -486,7 +486,8 @@ DINDEX_INFO = {
         "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
         "size compressed (bytes)": 33359100887,
         "documents": 8841823,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "msmarco-passage-tct_colbert-bf": {
         "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as brute force index",
@@ -498,7 +499,8 @@ DINDEX_INFO = {
         "md5": "7312e0e7acec2a686e994902ca064fc5",
         "size compressed (bytes)": 25204514289,
         "documents": 8841823,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "msmarco-doc-tct_colbert-bf": {
         "description": "MS MARCO document corpus encoded by TCT-ColBERT and indexed as brute force index",
@@ -509,7 +511,8 @@ DINDEX_INFO = {
         "md5": "f0b4c3bff3bb685be5c475511004c3b0",
         "size compressed (bytes)": 58514325936,
         "documents": 20544550,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "wikipedia-dpr-multi-bf": {
         "description": "Wikipedia corpus encoded by DPR doc encoder trained on multiset, indexed as brute force index",
@@ -520,7 +523,8 @@ DINDEX_INFO = {
         "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
         "size compressed (bytes)": 59836766981,
         "documents": 21015320,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "wikipedia-dpr"
     },
     "msmarco-passage-ance-bf": {
         "description": "MS MARCO passage corpus encoded by ANCE msmarco passage encoder and indexed as brute force index",
@@ -532,7 +536,8 @@ DINDEX_INFO = {
         "md5": "f6332edb8f06ba796850388cf975b414",
         "size compressed (bytes)": 25102344985,
         "documents": 8841823,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "wikipedia-ance-multi-bf": {
         "description": "Wikipedia corpus encoded by ANCE-multi doc encoder and indexed as brute force index",
@@ -543,7 +548,8 @@ DINDEX_INFO = {
         "md5": "715605b56dc393b8f939e12682dfd467",
         "size compressed (bytes)": 59890492088,
         "documents": 21015320,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "msmarco-doc-ance-maxp-bf": {
         "description": "MS MARCO document corpus encoded by ANCE maxp encoder and indexed as brute force index",
@@ -554,7 +560,8 @@ DINDEX_INFO = {
         "md5": "a9f8d77ea0cef7c6acdba881c45b7d99",
         "size compressed (bytes)": 58312805496,
         "documents": 20544550,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "msmarco-passage-sbert-bf": {
         "description": "MS MARCO passage corpus encoded by SBERT msmarco passage encoder and indexed as brute force index",
@@ -565,7 +572,8 @@ DINDEX_INFO = {
         "md5": "3f98b9564cd3a33e45bfeca4d4fec623",
         "size compressed (bytes)": 25214193901,
         "documents": 8841823,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "msmarco-passage-distilbert-dot-margin_mse-T2-bf": {
         "description": "MS MARCO passage corpus encoded by distilbert-dot-margin_mse-T2-msmarco passage encoder and "
@@ -577,7 +585,8 @@ DINDEX_INFO = {
         "md5": "83a8081d6020910058164978b095615f",
         "size compressed (bytes)": 25162770962,
         "documents": 8841823,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "msmarco-passage-distilbert-dot-tas_b-b256-bf": {
         "description": "MS MARCO passage corpus encoded by msmarco-passage-distilbert-dot-tas_b-b256 passage encoder and "
@@ -589,7 +598,8 @@ DINDEX_INFO = {
         "md5": "cc947bf66d9552a2a7c6fe060466e490",
         "size compressed (bytes)": 25162328596,
         "documents": 8841823,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "wikipedia-dpr-single-nq-bf": {
         "description": "Wikipedia corpus encoded by DPR doc encoder trained on NQ, indexed as brute force index",
@@ -600,6 +610,7 @@ DINDEX_INFO = {
         "md5": "d1ef9286ddb38633cd052171963c62cb",
         "size compressed (bytes)": 59836863670,
         "documents": 21015320,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "wikipedia-dpr"
     },
 }
