@@ -16,27 +16,32 @@
 
 import cmd
 import json
-import os
 import random
 
 from pyserini.search import SimpleSearcher
-from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, AnceQueryEncoder
+from pyserini.dsearch import SimpleDenseSearcher, DprQueryEncoder
 from pyserini.hsearch import HybridSearcher
 from pyserini import search
 
 
-class MsMarcoDemo(cmd.Cmd):
-    dev_topics = list(search.get_topics('msmarco-passage-dev-subset').values())
+class DPRDemo(cmd.Cmd):
+    nq_dev_topics = list(search.get_topics('dpr-nq-dev').values())
+    trivia_dev_topics = list(search.get_topics('dpr-trivia-dev').values())
 
-    ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
-    dsearcher = None
-    hsearcher = None
+    ssearcher = SimpleSearcher.from_prebuilt_index('wikipedia-dpr')
     searcher = ssearcher
+
+    encoder = DprQueryEncoder("facebook/dpr-question_encoder-multiset-base")
+    index = 'wikipedia-dpr-multi-bf'
+    dsearcher = SimpleDenseSearcher.from_prebuilt_index(
+        index,
+        encoder
+    )
+    hsearcher = HybridSearcher(dsearcher, ssearcher)
 
     k = 10
     prompt = '>>> '
 
-    # https://stackoverflow.com/questions/35213134/command-prefixes-in-python-cli-using-cmd-in-pythons-standard-library
     def precmd(self, line):
         if line[0] == '/':
             line = line[1:]
@@ -45,9 +50,8 @@ class MsMarcoDemo(cmd.Cmd):
     def do_help(self, arg):
         print(f'/help    : returns this message')
         print(f'/k [NUM] : sets k (number of hits to return) to [NUM]')
-        print(f'/model [MODEL] : sets encoder to use the model [MODEL] (one of tct, ance)')
         print(f'/mode [MODE] : sets retriver type to [MODE] (one of sparse, dense, hybrid)')
-        print(f'/random : returns results for a random question from dev subset')
+        print(f'/random [COLLECTION]: returns results for a random question from the dev subset [COLLECTION] (one of nq, trivia).')
 
     def do_k(self, arg):
         print(f'setting k = {int(arg)}')
@@ -57,14 +61,8 @@ class MsMarcoDemo(cmd.Cmd):
         if arg == "sparse":
             self.searcher = self.ssearcher
         elif arg == "dense":
-            if self.dsearcher is None:
-                print(f'Specify model through /model before using dense retrieval.')
-                return
             self.searcher = self.dsearcher
         elif arg == "hybrid":
-            if self.hsearcher is None:
-                print(f'Specify model through /model before using hybrid retrieval.')
-                return
             self.searcher = self.hsearcher
         else:
             print(
@@ -72,27 +70,16 @@ class MsMarcoDemo(cmd.Cmd):
             return
         print(f'setting retriver = {arg}')
 
-    def do_model(self, arg):
-        if arg == "tct":
-            encoder = TctColBertQueryEncoder("castorini/tct_colbert-msmarco")
-            index = "msmarco-passage-tct_colbert-hnsw"
-        elif arg == "ance":
-            encoder = AnceQueryEncoder("castorini/ance-msmarco-passage")
-            index = "msmarco-passage-ance-bf"
+    def do_random(self, arg):
+        if arg == "nq":
+            topics = self.nq_dev_topics
+        elif arg == "trivia":
+            topics = self.trivia_dev_topics
         else:
             print(
-                f'Model "{arg}" is invalid. Model should be one of [tct, ance].')
+                f'Collection "{arg}" is invalid. Collection should be one of [nq, trivia].')
             return
-
-        self.dsearcher = SimpleDenseSearcher.from_prebuilt_index(
-            index,
-            encoder
-        )
-        self.hsearcher = HybridSearcher(self.dsearcher, self.ssearcher)
-        print(f'setting model = {arg}')
-
-    def do_random(self, arg):
-        q = random.choice(self.dev_topics)['title']
+        q = random.choice(topics)['title']
         print(f'question: {q}')
         self.default(q)
 
@@ -115,4 +102,4 @@ class MsMarcoDemo(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    MsMarcoDemo().cmdloop()
+    DPRDemo().cmdloop()
