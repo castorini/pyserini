@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -81,8 +81,8 @@ class TestSearchIntegration(unittest.TestCase):
                     -output {self.tmp}/output.json')
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.3859\\n'", data['map'])
-            self.assertEqual("0.8221\\n'", data['ndcg'])
+            self.assertEqual("0.3859\\n", data['map'])
+            self.assertEqual("0.8221\\n", data['ndcg'])
         
         os.system(f'python {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
                     -alpha 0.6 \
@@ -97,8 +97,8 @@ class TestSearchIntegration(unittest.TestCase):
                     -output {self.tmp}/output.json')
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.3875\\n'", data['map'])
-            self.assertEqual("0.8304\\n'", data['ndcg'])
+            self.assertEqual("0.3875\\n", data['map'])
+            self.assertEqual("0.8304\\n", data['ndcg'])
         
         os.system(f'python {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
                     -alpha 0.6 \
@@ -113,8 +113,8 @@ class TestSearchIntegration(unittest.TestCase):
                     -output {self.tmp}/output.json')
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.3885\\n'", data['map'])
-            self.assertEqual("0.8135\\n'", data['ndcg'])
+            self.assertEqual("0.3885\\n", data['map'])
+            self.assertEqual("0.8135\\n", data['ndcg'])
         
         os.system(f'python {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
                     -alpha 0.6 \
@@ -129,8 +129,8 @@ class TestSearchIntegration(unittest.TestCase):
                     -output {self.tmp}/output.json')
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.3922\\n'", data['map'])
-            self.assertEqual("0.8311\\n'", data['ndcg'])
+            self.assertEqual("0.3922\\n", data['map'])
+            self.assertEqual("0.8311\\n", data['ndcg'])
             
     def tearDown(self):
         shutil.rmtree(self.tmp)
