@@ -64,11 +64,11 @@ class TestSearchIntegration(unittest.TestCase):
             	with open(f'{self.tmp}/runs/{gzip_filename}', 'wb') as f_out:
                 	shutil.copyfileobj(f_in, f_out)
 
-    def test_covidex_r5_d2q_1s(self):
+    def test_round5(self):
         tmp_folder_name = self.tmp.split('/')[-1]
         prebuilt_index_path = download_prebuilt_index('trec-covid-r5-abstract')
         
-        os.system(f'python3 {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
+        os.system(f'python {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
                     -alpha 0.6 \
                     -clf lr \
                     -vectorizer tfidf \
@@ -84,7 +84,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.assertEqual("0.3859\\n'", data['map'])
             self.assertEqual("0.8221\\n'", data['ndcg'])
         
-        os.system(f'python3 {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
+        os.system(f'python {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
                     -alpha 0.6 \
                     -clf lr \
                     -vectorizer tfidf \
@@ -100,7 +100,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.assertEqual("0.3875\\n'", data['map'])
             self.assertEqual("0.8304\\n'", data['ndcg'])
         
-        os.system(f'python3 {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
+        os.system(f'python {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
                     -alpha 0.6 \
                     -clf lr \
                     -vectorizer tfidf \
@@ -116,7 +116,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.assertEqual("0.3885\\n'", data['map'])
             self.assertEqual("0.8135\\n'", data['ndcg'])
         
-        os.system(f'python3 {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
+        os.system(f'python {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
                     -alpha 0.6 \
                     -clf lr \
                     -vectorizer tfidf \
