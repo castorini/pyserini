@@ -45,8 +45,6 @@ class TestSearchIntegration(unittest.TestCase):
         self.round3_runs = {
             'https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.covid-round3-cumulative.txt':
                 'dfccc32efd58a8284ae411e5c6b27ce9',
-            'https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.covid-round4-cumulative.txt':
-                '7a5c27e8e052c49ff72d557051825973',
         }
 
         download_url('https://storage.googleapis.com/neuralresearcher_data/trec_covid/data/53/covidex.t5.final.txt',
@@ -60,7 +58,6 @@ class TestSearchIntegration(unittest.TestCase):
 
             download_url(url, self.tmp, md5=self.round3_runs[url], force=True)
             self.assertTrue(os.path.exists(os.path.join(self.tmp, filename)))
-            print('')
 
     def test_bm25(self):
         tmp_folder_name = self.tmp.split('/')[-1]
@@ -78,8 +75,8 @@ class TestSearchIntegration(unittest.TestCase):
                     -output {self.tmp}/output.json')
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.3311\\n'", data['map'])
-            self.assertEqual("0.6866\\n'", data['ndcg'])
+            self.assertEqual("0.3311", data['map'])
+            self.assertEqual("0.6866", data['ndcg'])
 
     def tearDown(self):
         shutil.rmtree(self.tmp)

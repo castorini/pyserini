@@ -201,8 +201,9 @@ def evaluate(qrels_path: str, run_path: str, options: str = ''):
     prefix = f"{anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -c -M1000 -m all_trec {qrels_path}"
     cmd1 = f"{prefix} {run_path} {options} | grep 'ndcg_cut_20 '"
     cmd2 = f"{prefix} {run_path} {options} | grep 'map                   	'"
-    ndcg_score = str(subprocess.check_output(cmd1, shell=True)).split('\\t')[-1]
-    map_score = str(subprocess.check_output(cmd2, shell=True)).split('\\t')[-1]
+    ndcg_score = str(subprocess.check_output(cmd1, shell=True)).split('\\t')[-1].split('\\n')[0]
+    map_score = str(subprocess.check_output(cmd2, shell=True)).split('\\t')[-1].split('\\n')[0]
+    print(str(map_score),str(ndcg_score))
     return str(map_score),str(ndcg_score)
 
 
