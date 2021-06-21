@@ -19,7 +19,7 @@ import json
 from tqdm import tqdm
 
 from pyserini.vsearch import SimpleVectorSearcher
-from pyserini.output_writer import get_output_writer, OutputFormat
+from pyserini.output_writer import get_output_writer, OutputFormat, tie_breaker
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Search a nmslib index.')
@@ -81,6 +81,6 @@ if __name__ == '__main__':
                     continue
 
             for topic, hits in results:
-                output_writer.write(topic, hits)
+                output_writer.write(topic, tie_breaker(hits))
 
             results.clear()

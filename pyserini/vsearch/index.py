@@ -32,7 +32,6 @@ if __name__ == '__main__':
     parser.add_argument('--M', type=int, help='M for hnsw', required=False, default=64)
     parser.add_argument('--ef', type=int, help='ef for hnsw', required=False, default=256)
     parser.add_argument('--threads', type=int, help='threads for hnsw', required=False, default=12)
-    parser.add_argument('--dim', type=int, help='dimension of passage embeddings', required=False, default=768)
     parser.add_argument('--is-sparse', action='store_true', required=False)
     parser.add_argument('--tokens', type=str, help='path to token list', required=False)
     args = parser.parse_args()
@@ -75,7 +74,7 @@ if __name__ == '__main__':
             matrix_row.extend([i] * len(weight_dict))
             matrix_col.extend(col)
             matrix_data.extend(data)
-        vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(len(corpus), args.dim))
+        vectors = csr_matrix((matrix_data, (matrix_row, matrix_col)), shape=(len(corpus), len(token2id)))
     else:
         for i, d in enumerate(tqdm(corpus)):
             vectors.append(d['vector'])
