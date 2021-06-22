@@ -16,6 +16,7 @@
 
 import argparse
 import json
+import time
 from tqdm import tqdm
 
 from pyserini.vsearch import SimpleVectorSearcher
@@ -60,20 +61,25 @@ if __name__ == '__main__':
     # support trec and msmarco format only for now
     output_writer = get_output_writer(output_path, OutputFormat(args.output_format), max_hits=args.hits, tag=tag)
 
+    search_time = 0
     with output_writer:
         batch_topic_vectors = list()
         batch_topic_ids = list()
         for index, (topic_id, vec) in enumerate(tqdm(zip(topic_ids, topic_vectors))):
             if args.batch_size <= 1 and args.threads <= 1:
+                start = time.time()
                 hits = searcher.search(vec, args.hits)
+                search_time += time.time() - start
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
                 batch_topic_vectors.append(vec)
                 if (index + 1) % args.batch_size == 0 or \
                         index == len(topic_ids) - 1:
+                    start = time.time()
                     results = searcher.batch_search(
                             batch_topic_vectors, batch_topic_ids, args.hits, args.threads)
+                    search_time += time.time() - start
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topic_vectors.clear()
@@ -84,3 +90,5 @@ if __name__ == '__main__':
                 output_writer.write(topic, tie_breaker(hits))
 
             results.clear()
+
+    print(f'Search {len(topic_ids)} topics in {search_time} seconds')
