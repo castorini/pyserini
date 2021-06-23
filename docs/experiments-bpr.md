@@ -42,8 +42,8 @@ $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-
                                                                 --output runs/run.bpr.rerank.nq-test.nq.hash.json
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.bpr.rerank.nq-test.nq.hash.json --topk 20 100
-Top20  accuracy: 0.7947
-Top100 accuracy: 0.8609
+Top20  accuracy: 0.779
+Top100 accuracy: 0.857
 ```
 
 ## Reproduction Log[*](reproducibility.md)
