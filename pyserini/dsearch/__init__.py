@@ -14,9 +14,9 @@
 # limitations under the License.
 #
 
-from ._dsearcher import DenseSearchResult, SimpleDenseSearcher, QueryEncoder, \
-    DprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
+from ._dsearcher import DenseSearchResult, SimpleDenseSearcher, BinaryDenseSearcher, QueryEncoder, \
+    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
 from ._model import AnceEncoder
 
-__all__ = ['DenseSearchResult', 'SimpleDenseSearcher', 'QueryEncoder', 'DprQueryEncoder', 'DkrrDprQueryEncoder',
+__all__ = ['DenseSearchResult', 'SimpleDenseSearcher', 'BinaryDenseSearcher', 'QueryEncoder', 'DprQueryEncoder', 'BprQueryEncoder', 'DkrrDprQueryEncoder',
            'TctColBertQueryEncoder', 'AnceEncoder', 'AnceQueryEncoder', 'AutoQueryEncoder']
