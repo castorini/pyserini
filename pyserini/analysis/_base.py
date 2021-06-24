@@ -33,6 +33,7 @@ JHindiAnalyzer = autoclass('org.apache.lucene.analysis.hi.HindiAnalyzer')
 JHungarianAnalyzer = autoclass('org.apache.lucene.analysis.hu.HungarianAnalyzer')
 JIndonesianAnalyzer = autoclass('org.apache.lucene.analysis.id.IndonesianAnalyzer')
 JItalianAnalyzer = autoclass('org.apache.lucene.analysis.it.ItalianAnalyzer')
+JJapaneseAnalyzer = autoclass('org.apache.lucene.analysis.ja.JapaneseAnalyzer')
 JNorwegianAnalyzer = autoclass('org.apache.lucene.analysis.no.NorwegianAnalyzer')
 JPortugueseAnalyzer = autoclass('org.apache.lucene.analysis.pt.PortugueseAnalyzer')
 JRussianAnalyzer = autoclass('org.apache.lucene.analysis.ru.RussianAnalyzer')
@@ -72,7 +73,7 @@ def get_lucene_analyzer(language='en', stemming=True, stemmer='porter', stopword
         return JArabicAnalyzer()
     elif language.lower() == 'bn':
         return JBengaliAnalyzer()
-    elif language.lower() in ['zh', 'ja', 'ko']:
+    elif language.lower() in ['zh', 'ko']:
         return JCJKAnalyzer()
     elif language.lower() == 'da':
         return JDanishAnalyzer()
@@ -92,6 +93,8 @@ def get_lucene_analyzer(language='en', stemming=True, stemmer='porter', stopword
         return JIndonesianAnalyzer()
     elif language.lower() == 'it':
         return JItalianAnalyzer()
+    elif language.lower() == 'ja':
+        return JJapaneseAnalyzer()
     elif language.lower() == 'no':
         return JNorwegianAnalyzer()
     elif language.lower() == 'pt':
