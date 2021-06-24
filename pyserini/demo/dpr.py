@@ -94,7 +94,7 @@ class DPRDemo(cmd.Cmd):
             if isinstance(self.searcher, SimpleSearcher):
                 raw_doc = hits[i].raw
             else:
-                doc = self.ssearcher.doc(hits[i].docid)
+                doc = self.searcher.doc(hits[i].docid)
                 if doc:
                     raw_doc = doc.raw()
             jsondoc = json.loads(raw_doc)
