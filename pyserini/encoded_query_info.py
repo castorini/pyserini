@@ -25,6 +25,36 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
+    "tct_colbert-v2-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT V2",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-msmarco-passage-dev-subset-20210608-5f341b.tar.gz",
+        ],
+        "md5": "31fafd49f871c18c95175c8ae4950d41",
+        "size (bytes)": 20072992,
+        "total_queries": 6980,
+        "downloaded": False
+    },
+    "tct_colbert-v2-hn-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT V2 HN",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-hn-msmarco-passage-dev-subset-20210608-5f341b.tar.gz",
+        ],
+        "md5": "30981608ee6e13dc50684f6c0c14849b",
+        "size (bytes)": 20074411,
+        "total_queries": 6980,
+        "downloaded": False
+    },
+    "tct_colbert-v2-hnp-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT V2 HN+",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-hnp-msmarco-passage-dev-subset-20210608-5f341b.tar.gz",
+        ],
+        "md5": "e36d6af40acfa722d72c939297f9dd77",
+        "size (bytes)": 20078958,
+        "total_queries": 6980,
+        "downloaded": False
+    },
     "ance-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by ANCE",
         "urls": [
