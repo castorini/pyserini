@@ -30,7 +30,7 @@ QUERY_INFO = {
         "urls": [
             "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-msmarco-passage-dev-subset-20210608-5f341b.tar.gz",
         ],
-        "md5": "31fafd49f871c18c95175c8ae4950d41",
+        "md5": "ee8d76e596aef02c5027a2ffd0ff66f8",
         "size (bytes)": 20072992,
         "total_queries": 6980,
         "downloaded": False
@@ -40,7 +40,7 @@ QUERY_INFO = {
         "urls": [
             "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-hn-msmarco-passage-dev-subset-20210608-5f341b.tar.gz",
         ],
-        "md5": "30981608ee6e13dc50684f6c0c14849b",
+        "md5": "f7e39cf2cd3ee53f7f8f2e0a1821431c",
         "size (bytes)": 20074411,
         "total_queries": 6980,
         "downloaded": False
@@ -50,7 +50,7 @@ QUERY_INFO = {
         "urls": [
             "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-hnp-msmarco-passage-dev-subset-20210608-5f341b.tar.gz",
         ],
-        "md5": "e36d6af40acfa722d72c939297f9dd77",
+        "md5": "bed8036475774d12915c8af2a44612f4",
         "size (bytes)": 20078958,
         "total_queries": 6980,
         "downloaded": False
@@ -110,7 +110,7 @@ QUERY_INFO = {
         "urls": [
             "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-distilbert_dot_tas_b_b256-msmarco-passage-dev-subset-20210527-63276f.tar.gz",
         ],
-        "md5": "21af03c411a647f85a061138c8f0755e",
+        "md5": "17a3f81de7ba497728050b83733b1c46",
         "size (bytes)": 20016799,
         "total_queries": 6980,
         "downloaded": False
