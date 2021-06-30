@@ -51,7 +51,7 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3439, places=4)
+        self.assertAlmostEqual(score, 0.344, places=3)
 
     def test_msmarco_passage_tct_colbert_v2_hn_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert-v2-hn.bf-otf.tsv'
@@ -93,7 +93,7 @@ class TestSearchIntegration(unittest.TestCase):
         cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
                                     --encoder castorini/tct_colbert-v2-hnp-msmarco \
                              sparse --index msmarco-passage \
-                             fusion --alpha 0.12 \
+                             fusion --alpha 0.06 \
                              run    --topics msmarco-passage-dev-subset \
                                     --output {output_file} \
                                     --batch-size {self.batch_size} --threads {self.threads} \
@@ -111,7 +111,7 @@ class TestSearchIntegration(unittest.TestCase):
         cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
                                     --encoder castorini/tct_colbert-v2-hnp-msmarco \
                              sparse --index msmarco-passage-expanded \
-                             fusion --alpha 0.22 \
+                             fusion --alpha 0.1 \
                              run    --topics msmarco-passage-dev-subset \
                                     --output {output_file} \
                                     --batch-size {self.batch_size} --threads {self.threads} \
