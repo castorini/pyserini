@@ -60,7 +60,9 @@ class TestSearchIntegration(unittest.TestCase):
                              --index msmarco-passage-tct_colbert-v2-hn-bf \
                              --encoder castorini/tct_colbert-v2-hn-msmarco \
                              --output {output_file} \
-                             --output-format msmarco '
+                             --threads {self.threads} \
+                             --output {output_file} \
+                             --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
@@ -75,7 +77,9 @@ class TestSearchIntegration(unittest.TestCase):
                              --index msmarco-passage-tct_colbert-v2-hnp-bf \
                              --encoder castorini/tct_colbert-v2-hnp-msmarco \
                              --output {output_file} \
-                             --output-format msmarco '
+                             --threads {self.threads} \
+                             --output {output_file} \
+                             --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
