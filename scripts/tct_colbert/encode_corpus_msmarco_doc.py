@@ -20,17 +20,47 @@ import os
 import sys
 import numpy as np
 import faiss
+import torch
 from tqdm import tqdm
 
-# from transformers import AutoTokenizer, AutoModel
+from transformers import BertTokenizer, BertModel
 
 # We're going to explicitly use a local installation of Pyserini (as opposed to a pip-installed one).
 # Comment these lines out to use a pip-installed one instead.
 sys.path.insert(0, './')
 sys.path.insert(0, '../pyserini/')
 
-from pyserini.dindex import TctColBertDocumentEncoder
+def mean_pooling(last_hidden_state, attention_mask):
+    token_embeddings = last_hidden_state
+    input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
+    sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
+    sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
+    return sum_embeddings / sum_mask
 
+
+class TctColBertDocumentEncoder(torch.nn.Module):
+    def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
+        super().__init__()
+        self.device = device
+        self.model = BertModel.from_pretrained(model_name)
+        self.model.to(self.device)
+        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name)
+
+    def encode(self, texts, titles=None):
+        texts = ['[CLS] [D] ' + text for text in texts]
+        max_length = 512  # hardcode for now
+        inputs = self.tokenizer(
+            texts,
+            max_length=max_length,
+            padding="longest",
+            truncation=True,
+            add_special_tokens=False,
+            return_tensors='pt'
+        )
+        inputs.to(self.device)
+        outputs = self.model(**inputs)
+        embeddings = mean_pooling(outputs["last_hidden_state"][:, 4:, :], inputs['attention_mask'][:, 4:])
+        return embeddings.detach().cpu().numpy()
 
 
 
@@ -64,7 +94,11 @@ if __name__ == '__main__':
                 docid = info['id']
                 text = info['contents']
                 id_file.write(f'{docid}\n')
-                url, title, text = text.split('\n')
+                # docs can have many \n ...
+                fields = text.split('\n')
+                title, text = fields[1], fields[2:]
+                if len(text) > 1:
+                    text = ' '.join(text)
                 text = f"{title} {text}"
                 texts.append(text.lower())
 
