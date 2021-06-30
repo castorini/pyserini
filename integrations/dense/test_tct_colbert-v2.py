@@ -59,7 +59,7 @@ class TestSearchIntegration(unittest.TestCase):
         cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-v2-hn-bf \
                              --encoder castorini/tct_colbert-v2-hn-msmarco \
-                             --output {output_file} \
+                             --batch-size {self.batch_size} \
                              --threads {self.threads} \
                              --output {output_file} \
                              --output-format msmarco'
@@ -76,7 +76,7 @@ class TestSearchIntegration(unittest.TestCase):
         cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-v2-hnp-bf \
                              --encoder castorini/tct_colbert-v2-hnp-msmarco \
-                             --output {output_file} \
+                             --batch-size {self.batch_size} \
                              --threads {self.threads} \
                              --output {output_file} \
                              --output-format msmarco'
