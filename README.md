@@ -393,7 +393,8 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 
 ### Dense Retrieval
 
-+ [Guide to reproducing TCT-ColBERT experiments](docs/experiments-tct_colbert.md)
++ [Guide to reproducing TCT-ColBERTv2 experiments](docs/experiments-tct_colbert-v2.md)
++ [Guide to reproducing TCT-ColBERTv1 experiments](docs/experiments-tct_colbert.md)
 + [Guide to reproducing DPR experiments](docs/experiments-dpr.md)
 + [Guide to reproducing ANCE experiments](docs/experiments-ance.md)
 + [Guide to reproducing DistilBERT KD experiments](docs/experiments-distilbert_kd.md)
