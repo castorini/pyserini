@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for TCT-ColBERT model using on-the-fly query encoding."""
+"""Integration tests for TCT-ColBERTv2 models."""
 
 import os
 import socket
@@ -51,7 +51,7 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.344, places=3)
+        self.assertAlmostEqual(score, 0.3440, delta=0.0001)
 
     def test_msmarco_passage_tct_colbert_v2_hn_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert-v2-hn.bf-otf.tsv'
@@ -68,7 +68,7 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3542, places=4)
+        self.assertAlmostEqual(score, 0.3543, delta=0.0001)
 
     def test_msmarco_passage_tct_colbert_v2_hnp_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert-v2-hnp.bf-otf.tsv'
@@ -85,7 +85,7 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3584, places=4)
+        self.assertAlmostEqual(score, 0.3585, delta=0.0001)
 
     def test_msmarco_passage_tct_colbert_v2_hnp_bf_bm25_hybrid_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert-v2-hnp.bf-otf.bm25.tsv'
@@ -103,7 +103,7 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3683, places=4)
+        self.assertAlmostEqual(score, 0.3682, delta=0.0001)
 
     def test_msmarco_passage_tct_colbert_v2_hnp_bf_d2q_hybrid_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert-v2-hnp.bf-otf.doc2queryT5.tsv'
@@ -121,7 +121,7 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3730, places=4)
+        self.assertAlmostEqual(score, 0.3731, delta=0.0001)
 
     def test_msmarco_passage_tct_colbert_v2_encoded_queries(self):
         encoder = QueryEncoder.load_encoded_queries('tct_colbert-v2-msmarco-passage-dev-subset')
