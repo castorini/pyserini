@@ -201,8 +201,9 @@ Step1: split documents for parallel encoding
 $ split -a 2 -d -n l/50 docs.json collection.part
 ```
 
-Step2-1: prepare encoder (on CC), download encoder using [git-lfs](https://git-lfs.github.com/)
-example:
+Step2-1: prepare encoder (on CC), you can download encoder using [git-lfs](https://git-lfs.github.com/)
+
+Example (after you install git-lfs):
 ```bash
 git clone https://huggingface.co/castorini/tct_colbert-v2-hnp-msmarco
 ```
