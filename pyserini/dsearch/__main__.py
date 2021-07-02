@@ -45,6 +45,8 @@ def define_dsearch_args(parser):
                         help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
     parser.add_argument('--query-prefix', type=str, metavar='str', required=False, default=None,
                         help="Query prefix if exists.")
+    parser.add_argument('--searcher', type=str, metavar='str', required=False, default='simple',
+                        help="dense searcher type")
 
 
 def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device, prefix):
@@ -120,14 +122,14 @@ if __name__ == '__main__':
     kwargs = {}
     if os.path.exists(args.index):
         # create searcher from index directory
-        if 'bpr' in args.encoded_queries or 'bpr' in args.encoder:
+        if args.searcher.lower() == 'bpr':
             kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
             searcher = BinaryDenseSearcher(args.index, query_encoder)
         else:
             searcher = SimpleDenseSearcher(args.index, query_encoder)
     else:
         # create searcher from prebuilt index name
-        if 'bpr' in args.encoded_queries or 'bpr' in args.encoder:
+        if args.searcher.lower() == 'bpr':
             kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
             searcher = BinaryDenseSearcher.from_prebuilt_index(args.index, query_encoder)
         else:
