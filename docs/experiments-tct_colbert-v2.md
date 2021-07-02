@@ -229,7 +229,7 @@ done
 
 Step3: merge / filter index, use --segment-num -1 for maxp (1 for firstp), or anyother interger you like
 ```bash
-$ python scripts/exp_firstp_maxp/merge_indexes.py \
+$ python scripts/tct_colbert/merge_indexes.py \
     --prefix <path_to_index> \
     --shard-num 50
     --segment-num -1
