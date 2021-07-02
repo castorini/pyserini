@@ -601,6 +601,45 @@ DINDEX_INFO = {
         "downloaded": False,
         "texts": "msmarco-passage"
     },
+    "msmarco-passage-tct_colbert-v2-bf": {
+        "description": "MS MARCO passage corpus encoded by tct_colbert-v2 passage encoder and "
+                       "indexed as brute force index",
+        "filename": "dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/89mjp90z37dvt85/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz?dl=1",
+        ],
+        "md5": "479591e265347ceff954ae05f6d3462b",
+        "size compressed (bytes)": 25211079381,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-passage"
+    },
+    "msmarco-passage-tct_colbert-v2-hn-bf": {
+        "description": "MS MARCO passage corpus encoded by tct_colbert-v2-hn passage encoder and "
+                       "indexed as brute force index",
+        "filename": "dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/9ekxqhya475lkjw/dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz?dl=1",
+        ],
+        "md5": "61d38e4935b3ca36c99e0cda2b27fba2",
+        "size compressed (bytes)": 25205729786,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-passage"
+    },
+    "msmarco-passage-tct_colbert-v2-hnp-bf": {
+        "description": "MS MARCO passage corpus encoded by tct_colbert-v2-hnp passage encoder and "
+                       "indexed as brute force index",
+        "filename": "dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/5q0siztt9dhwbxy/dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz?dl=1",
+        ],
+        "md5": "c3c3fc3a288bcdf61708d4bba4bc79ff",
+        "size compressed (bytes)": 25225528775,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-passage"
+    },
     "wikipedia-dpr-single-nq-bf": {
         "description": "Wikipedia corpus encoded by DPR doc encoder trained on NQ, indexed as brute force index",
         "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
