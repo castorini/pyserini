@@ -289,9 +289,9 @@ $ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.dl19-
 $ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap -mndcg_cut.10 dl19-doc 
 
 Results:
-map                     all     0.2617
-recall_100              all     0.3770
-ndcg_cut_10             all     0.6465
+map                     all     0.2683
+recall_100              all     0.3854
+ndcg_cut_10             all     0.6592
 ```
 
 
