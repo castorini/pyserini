@@ -24,7 +24,7 @@ from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.pyclass import autoclass
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from pyserini.search import SimpleSearcher, JDisjunctionMaxQueryGenerator
+from pyserini.search import ImpactSearcher, SimpleSearcher, JDisjunctionMaxQueryGenerator
 from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 
 
@@ -60,6 +60,10 @@ def set_bm25_parameters(searcher, index, k1=None, b=None):
 def define_search_args(parser):
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                         help="Path to Lucene index or name of prebuilt index.")
+
+    parser.add_argument('--impact', action='store_true', help="Use Impact.")
+    parser.add_argument('--encoder', type=str, default=None, help="encoder name")
+
     parser.add_argument('--bm25', action='store_true', default=True, help="Use BM25 (default).")
     parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
     parser.add_argument('--b', type=float, help='BM25 b parameter.')
@@ -120,12 +124,18 @@ if __name__ == "__main__":
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
     topics = query_iterator.topics
 
-    if os.path.exists(args.index):
-        # create searcher from index directory
-        searcher = SimpleSearcher(args.index)
-    else:
-        # create searcher from prebuilt index name
-        searcher = SimpleSearcher.from_prebuilt_index(args.index)
+    if not args.impact:
+        if os.path.exists(args.index):
+            # create searcher from index directory
+            searcher = SimpleSearcher(args.index)
+        else:
+            # create searcher from prebuilt index name
+            searcher = SimpleSearcher.from_prebuilt_index(args.index)
+    elif args.impact:
+        if os.path.exists(args.index):
+            searcher = ImpactSearcher(args.index, args.encoder)
+        else:
+            searcher = ImpactSearcher.from_prebuilt_index(args.index, args.encoder)
 
     if args.language != 'en':
         searcher.set_language(args.language)
@@ -138,7 +148,7 @@ if __name__ == "__main__":
     if args.qld:
         search_rankers.append('qld')
         searcher.set_qld()
-    else:
+    elif args.bm25:
         search_rankers.append('bm25')
         set_bm25_parameters(searcher, args.index, args.k1, args.b)
 
@@ -214,17 +224,25 @@ if __name__ == "__main__":
                 text = ' '
                 text = text.join(toks)
             if args.batch_size <= 1 and args.threads <= 1:
-                hits = searcher.search(text, args.hits, query_generator=query_generator, fields=fields)
+                if args.impact:
+                    hits = searcher.search(text, args.hits, fields=fields)
+                else:
+                    hits = searcher.search(text, args.hits, query_generator=query_generator, fields=fields)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
                 batch_topics.append(text)
                 if (index + 1) % args.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
-                    results = searcher.batch_search(
-                        batch_topics, batch_topic_ids, args.hits, args.threads,
-                        query_generator=query_generator, fields=fields
-                    )
+                    if args.impact:
+                        results = searcher.batch_search(
+                            batch_topics, batch_topic_ids, args.hits, args.threads, fields=fields
+                        )
+                    else:
+                        results = searcher.batch_search(
+                            batch_topics, batch_topic_ids, args.hits, args.threads,
+                            query_generator=query_generator, fields=fields
+                        )
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
