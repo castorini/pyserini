@@ -21,7 +21,7 @@ A low-effort way to try things out is to look at our [online notebooks](https://
 Install via PyPI (requires Python 3.6+):
 
 ```
-pip install pyserini==0.12.0
+pip install pyserini==0.13.0
 ```
 
 Sparse retrieval depends on [Anserini](http://anserini.io/), which is itself built on Lucene, and thus Java 11.
