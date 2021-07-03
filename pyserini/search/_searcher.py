@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -209,7 +209,11 @@ class SimpleSearcher:
         """
         self.object.setAnalyzer(analyzer)
 
-    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False):
+    def set_language(self, language):
+        """Set language of SimpleSearcher"""
+        self.object.setLanguage(language)
+
+    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False, rm3_filter_terms=True):
         """Configure RM3 query expansion.
 
         Parameters
@@ -222,8 +226,10 @@ class SimpleSearcher:
             RM3 parameter for weight to assign to the original query.
         rm3_output_query : bool
             Print the original and expanded queries as debug output.
+        rm3_filter_terms: bool
+            Whether to remove non-English terms.
         """
-        self.object.setRM3(fb_terms, fb_docs, original_query_weight, rm3_output_query)
+        self.object.setRM3(fb_terms, fb_docs, original_query_weight, rm3_output_query, rm3_filter_terms)
 
     def unset_rm3(self):
         """Disable RM3 query expansion."""

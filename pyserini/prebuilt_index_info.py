@@ -1,3 +1,19 @@
+#
+# Pyserini: Reproducible IR research with sparse and dense representations
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 INDEX_INFO = {
     "cacm": {
         "description": "CACM corpus",
@@ -64,6 +80,19 @@ INDEX_INFO = {
         "total_terms": 1986612263,
         "documents": 8841823,
         "unique_terms": 3929111,
+        "downloaded": False
+    },
+    "msmarco-passage-ltr": {
+        "description": "MS MARCO passage corpus (4 extra preprocessed fields) used for LTR pipeline",
+        "filename": "index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
+        "urls": [
+            "https://vault.cs.uwaterloo.ca/s/8qFCaCtwabRfYQD/download" # too big for UWaterloo GitLab
+        ],
+        "md5": "a5de642c268ac1ed5892c069bdc29ae3",
+        "size compressed (bytes)": 14073966046,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
         "downloaded": False
     },
     "msmarco-doc": {
@@ -182,7 +211,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 5: abstract index",
         "filename": "lucene-index-cord19-abstract-2020-07-16.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-07-16/lucene-index-cord19-abstract-2020-07-16.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-abstract-2020-07-16.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/c37JxKYQ7Hogs72/download"
         ],
         "md5": "c883571ccc78b4c2ce05b41eb07f5405",
@@ -196,7 +225,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 5: full-text index",
         "filename": "lucene-index-cord19-full-text-2020-07-16.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-07-16/lucene-index-cord19-full-text-2020-07-16.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-full-text-2020-07-16.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/c7CcxRbFWfiFnFq/download"
         ],
         "md5": "23cfad89b4c206d66125f5736f60248f",
@@ -210,7 +239,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 5: paragraph index",
         "filename": "lucene-index-cord19-paragraph-2020-07-16.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-07-16/lucene-index-cord19-paragraph-2020-07-16.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-paragraph-2020-07-16.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/HXigraF5KJL3xS8/download"
         ],
         "md5": "c2c6ac832f8a1fcb767d2356d2b1e1df",
@@ -224,7 +253,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 4: abstract index",
         "filename": "lucene-index-cord19-abstract-2020-06-19.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-06-19/lucene-index-cord19-abstract-2020-06-19.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-abstract-2020-06-19.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/fBta6sAt4MdaHQX/download"
         ],
         "md5": "029bd55daba8800fbae2be9e5fcd7b33",
@@ -238,7 +267,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 4: full-text index",
         "filename": "lucene-index-cord19-full-text-2020-06-19.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-06-19/lucene-index-cord19-full-text-2020-06-19.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-full-text-2020-06-19.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/yErSHZHD38jcDSY/download"
         ],
         "md5": "3d0eb12094a24cff9bcacd1f17c3ea1c",
@@ -252,7 +281,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 4: paragraph index",
         "filename": "lucene-index-cord19-paragraph-2020-06-19.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-06-19/lucene-index-cord19-paragraph-2020-06-19.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-paragraph-2020-06-19.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/7md4kwNNgy3oxiH/download"
         ],
         "md5": "5cd8cd6998177bed7a3e0057ef8b3595",
@@ -266,7 +295,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 3: abstract index",
         "filename": "lucene-index-cord19-abstract-2020-05-19.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-05-19/lucene-index-cord19-abstract-2020-05-19.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-abstract-2020-05-19.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Zg9p2D5tJgiTGx2/download"
         ],
         "md5": "37bb97d0c41d650ba8e135fd75ae8fd8",
@@ -280,7 +309,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 3: full-text index",
         "filename": "lucene-index-cord19-full-text-2020-05-19.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-05-19/lucene-index-cord19-full-text-2020-05-19.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-full-text-2020-05-19.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/BTzaQgZ55898dXM/download"
         ],
         "md5": "f5711915a66cd2b511e0fb8d03e4c325",
@@ -294,7 +323,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 3: paragraph index",
         "filename": "lucene-index-cord19-paragraph-2020-05-19.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-05-19/lucene-index-cord19-paragraph-2020-05-19.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-paragraph-2020-05-19.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/nPyMYTys6NkmEdN/download"
         ],
         "md5": "012ab1f804382b2275c433a74d7d31f2",
@@ -308,7 +337,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 2: abstract index",
         "filename": "lucene-index-cord19-abstract-2020-05-01.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-05-01/lucene-index-cord19-abstract-2020-05-01.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-abstract-2020-05-01.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/3YZE65FSypwfnQQ/download"
         ],
         "md5": "a06e71a98a68d31148cb0e97e70a2ee1",
@@ -322,7 +351,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 2: full-text index",
         "filename": "lucene-index-cord19-full-text-2020-05-01.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-05-01/lucene-index-cord19-full-text-2020-05-01.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-full-text-2020-05-01.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/NdPEB7swXeZnq3o/download"
         ],
         "md5": "e7eca1b976cdf2cd80e908c9ac2263cb",
@@ -336,7 +365,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 2: paragraph index",
         "filename": "lucene-index-cord19-paragraph-2020-05-01.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-05-01/lucene-index-cord19-paragraph-2020-05-01.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-paragraph-2020-05-01.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Mz7n5FAt7rmnYCY/download"
         ],
         "md5": "8f9321757a03985ac1c1952b2fff2c7d",
@@ -350,7 +379,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 1: abstract index",
         "filename": "lucene-index-covid-2020-04-10.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-04-10/lucene-index-covid-2020-04-10.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-2020-04-10.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Rz8AEmsFo9NWGP6/download"
         ],
         "md5": "ec239d56498c0e7b74e3b41e1ce5d42a",
@@ -364,7 +393,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 1: full-text index",
         "filename": "lucene-index-covid-full-text-2020-04-10.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-04-10/lucene-index-covid-full-text-2020-04-10.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-full-text-2020-04-10.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/oQzSoxrT3grGmBe/download"
         ],
         "md5": "401a6f5583b0f05340c73fbbeb3279c8",
@@ -378,7 +407,7 @@ INDEX_INFO = {
         "description": "TREC-COVID Round 1: paragraph index",
         "filename": "lucene-index-covid-paragraph-2020-04-10.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/-/raw/master/2020-04-10/lucene-index-covid-paragraph-2020-04-10.tar.gz",
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-paragraph-2020-04-10.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/HDtb5Ys7MYBkePC/download"
         ],
         "md5": "8b87a2c55bc0a15b87f11e796860216a",
@@ -407,8 +436,7 @@ INDEX_INFO = {
         "filename": "index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/t6tDJmpoxPw9tH8/download",
-            "https://www.dropbox.com/s/spohu55l6608ho2/index-wikipedia-dpr-20210120-d1b9e6.tar.gz?dl=1",  # Xueguang
+            "https://vault.cs.uwaterloo.ca/s/t6tDJmpoxPw9tH8/download"
         ],
         "md5": "c28f3a56b2dfcef25bf3bf755c264d04",
         "size compressed (bytes)": 9177942656,
@@ -422,8 +450,7 @@ INDEX_INFO = {
         "filename": "index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Gk2sfTyJCyaTrYH/download",
-            "https://www.dropbox.com/s/r2xpo3e0pecibir/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz?dl=1",  # Xueguang
+            "https://vault.cs.uwaterloo.ca/s/Gk2sfTyJCyaTrYH/download"
         ],
         "md5": "7d40604a824b5df37a1ae9d25ea38071",
         "size compressed (bytes)": 1810342390,
@@ -437,6 +464,7 @@ INDEX_INFO = {
         "filename": "index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/RqtLg3CZT38k32c/download"
         ],
         "md5": "b8ec8feb654f7aaa86f9901dc6c804a8",
         "size compressed (bytes)": 10901127209,
@@ -458,7 +486,8 @@ DINDEX_INFO = {
         "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
         "size compressed (bytes)": 33359100887,
         "documents": 8841823,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "msmarco-passage-tct_colbert-bf": {
         "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as brute force index",
@@ -470,7 +499,8 @@ DINDEX_INFO = {
         "md5": "7312e0e7acec2a686e994902ca064fc5",
         "size compressed (bytes)": 25204514289,
         "documents": 8841823,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "msmarco-doc-tct_colbert-bf": {
         "description": "MS MARCO document corpus encoded by TCT-ColBERT and indexed as brute force index",
@@ -482,7 +512,8 @@ DINDEX_INFO = {
         "md5": "f0b4c3bff3bb685be5c475511004c3b0",
         "size compressed (bytes)": 58514325936,
         "documents": 20544550,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "wikipedia-dpr-multi-bf": {
         "description": "Wikipedia corpus encoded by DPR doc encoder trained on multiset, indexed as brute force index",
@@ -494,7 +525,8 @@ DINDEX_INFO = {
         "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
         "size compressed (bytes)": 59836766981,
         "documents": 21015320,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "wikipedia-dpr"
     },
     "msmarco-passage-ance-bf": {
         "description": "MS MARCO passage corpus encoded by ANCE msmarco passage encoder and indexed as brute force index",
@@ -506,7 +538,8 @@ DINDEX_INFO = {
         "md5": "f6332edb8f06ba796850388cf975b414",
         "size compressed (bytes)": 25102344985,
         "documents": 8841823,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "wikipedia-ance-multi-bf": {
         "description": "Wikipedia corpus encoded by ANCE-multi doc encoder and indexed as brute force index",
@@ -518,7 +551,8 @@ DINDEX_INFO = {
         "md5": "715605b56dc393b8f939e12682dfd467",
         "size compressed (bytes)": 59890492088,
         "documents": 21015320,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "msmarco-doc-ance-maxp-bf": {
         "description": "MS MARCO document corpus encoded by ANCE maxp encoder and indexed as brute force index",
@@ -530,7 +564,8 @@ DINDEX_INFO = {
         "md5": "a9f8d77ea0cef7c6acdba881c45b7d99",
         "size compressed (bytes)": 58312805496,
         "documents": 20544550,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "msmarco-passage-sbert-bf": {
         "description": "MS MARCO passage corpus encoded by SBERT msmarco passage encoder and indexed as brute force index",
@@ -541,7 +576,8 @@ DINDEX_INFO = {
         "md5": "3f98b9564cd3a33e45bfeca4d4fec623",
         "size compressed (bytes)": 25214193901,
         "documents": 8841823,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "msmarco-passage-distilbert-dot-margin_mse-T2-bf": {
         "description": "MS MARCO passage corpus encoded by distilbert-dot-margin_mse-T2-msmarco passage encoder and "
@@ -553,7 +589,60 @@ DINDEX_INFO = {
         "md5": "83a8081d6020910058164978b095615f",
         "size compressed (bytes)": 25162770962,
         "documents": 8841823,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "msmarco-passage"
+    },
+    "msmarco-passage-distilbert-dot-tas_b-b256-bf": {
+        "description": "MS MARCO passage corpus encoded by msmarco-passage-distilbert-dot-tas_b-b256 passage encoder and "
+                       "indexed as brute force index",
+        "filename": "dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/1iu2wo2da1ai7ca/dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz?dl=1",
+        ],
+        "md5": "cc947bf66d9552a2a7c6fe060466e490",
+        "size compressed (bytes)": 25162328596,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-passage"
+    },
+    "msmarco-passage-tct_colbert-v2-bf": {
+        "description": "MS MARCO passage corpus encoded by tct_colbert-v2 passage encoder and "
+                       "indexed as brute force index",
+        "filename": "dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/89mjp90z37dvt85/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz?dl=1",
+        ],
+        "md5": "479591e265347ceff954ae05f6d3462b",
+        "size compressed (bytes)": 25211079381,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-passage"
+    },
+    "msmarco-passage-tct_colbert-v2-hn-bf": {
+        "description": "MS MARCO passage corpus encoded by tct_colbert-v2-hn passage encoder and "
+                       "indexed as brute force index",
+        "filename": "dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/9ekxqhya475lkjw/dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz?dl=1",
+        ],
+        "md5": "61d38e4935b3ca36c99e0cda2b27fba2",
+        "size compressed (bytes)": 25205729786,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-passage"
+    },
+    "msmarco-passage-tct_colbert-v2-hnp-bf": {
+        "description": "MS MARCO passage corpus encoded by tct_colbert-v2-hnp passage encoder and "
+                       "indexed as brute force index",
+        "filename": "dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/5q0siztt9dhwbxy/dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz?dl=1",
+        ],
+        "md5": "c3c3fc3a288bcdf61708d4bba4bc79ff",
+        "size compressed (bytes)": 25225528775,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-passage"
     },
     "wikipedia-dpr-single-nq-bf": {
         "description": "Wikipedia corpus encoded by DPR doc encoder trained on NQ, indexed as brute force index",
@@ -564,6 +653,7 @@ DINDEX_INFO = {
         "md5": "d1ef9286ddb38633cd052171963c62cb",
         "size compressed (bytes)": 59836863670,
         "documents": 21015320,
-        "downloaded": False
+        "downloaded": False,
+        "texts": "wikipedia-dpr"
     },
 }

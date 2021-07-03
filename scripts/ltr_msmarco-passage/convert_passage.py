@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,8 +25,9 @@ import re
 from convert_common import read_stopwords, SpacyTextParser, get_retokenized
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 import time
+import os
 """
-add fields to jsonl with text(lemmatized), text_unlemm, contents(analyzer), raw, entity(NER), text_bert_tok(BERT token)
+add fields to jsonl with text(lemmatized), text_unlemm, contents(analyzer), raw, text_bert_tok(BERT token)
 """
 sys.path.append('.')
 
@@ -63,10 +64,13 @@ def batch_file(iterable, n=10000):
     return
 
 def batch_process(batch):
-    stopwords = read_stopwords('stopwords.txt', lower_case=True)
+    if(os.getcwd().endswith('ltr_msmarco-passage')):
+        stopwords = read_stopwords('stopwords.txt', lower_case=True)
+    else:
+        stopwords = read_stopwords('./scripts/ltr_msmarco-passage/stopwords.txt', lower_case=True)
     nlp = SpacyTextParser('en_core_web_sm', stopwords, keep_only_alpha_num=True, lower_case=True)
     analyzer = Analyzer(get_lucene_analyzer())
-    nlp_ent = spacy.load("en_core_web_sm")
+    #nlp_ent = spacy.load("en_core_web_sm")
     bert_tokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")
 
     def process(line):
@@ -83,11 +87,11 @@ def batch_process(batch):
         text, text_unlemm = nlp.proc_text(body)
 
 
-        doc = nlp_ent(body)
-        entity = {}
-        for i in range(len(doc.ents)):
-            entity[doc.ents[i].text] = doc.ents[i].label_
-        entity = json.dumps(entity)
+        #doc = nlp_ent(body)
+        #entity = {}
+        #for i in range(len(doc.ents)):
+            #entity[doc.ents[i].text] = doc.ents[i].label_
+        #entity = json.dumps(entity)
 
         analyzed = analyzer.analyze(body)
         for token in analyzed:
@@ -98,8 +102,7 @@ def batch_process(batch):
                "text": text,
                "text_unlemm": text_unlemm,
                'contents': contents,
-               "raw": body,
-               "entity": entity}
+               "raw": body}
         doc["text_bert_tok"] = get_retokenized(bert_tokenizer, body.lower())
         return doc
     res = []

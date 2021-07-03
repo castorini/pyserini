@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,9 +19,10 @@
 import os
 import socket
 import unittest
+
 from integrations.utils import clean_files, run_command, parse_score
-from pyserini.search import get_topics
 from pyserini.dsearch import QueryEncoder
+from pyserini.search import get_topics
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -51,7 +52,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
         # We get a small difference in scores on macOS vs. Linux, better way to check:
-        self.assertAlmostEqual(score, 0.3350, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3350, delta=0.0002)
 
     def test_msmarco_passage_tct_colbert_hnsw_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert.hnsw-otf.tsv'

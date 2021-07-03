@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -252,10 +252,15 @@ def evaluate_retrieval(retrieval_file, topk, regex=False):
         for idx, ctx in enumerate(contexts):
             if idx >= max_k:
                 break
-            text = ctx['text'].split('\n')[1]  # [0] is title, [1] is text
-            if has_answers(text, answers, tokenizer, regex):
-                has_ans_idx = idx
-                break
+            if 'has_answer' in ctx:
+                if ctx['has_answer']:
+                    has_ans_idx = idx
+                    break
+            else:
+                text = ctx['text'].split('\n')[1]  # [0] is title, [1] is text
+                if has_answers(text, answers, tokenizer, regex):
+                    has_ans_idx = idx
+                    break
 
         for k in topk:
             accuracy[k].append(0 if has_ans_idx >= k else 1)

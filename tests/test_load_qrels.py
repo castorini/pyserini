@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+import os
+import shutil
 import unittest
 
 from pyserini import search
@@ -25,6 +27,9 @@ def read_file_lines(path):
 
 
 class TestGetQrels(unittest.TestCase):
+
+    def setUp(self):
+        os.environ['PYSERINI_CACHE'] = 'temp_dir'
 
     def test_robust04(self):
         qrels_path = search.get_qrels_file('robust04')
@@ -246,6 +251,11 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(first_line, "826 0 0154349511cd8c49ab862d6cb0d8f6a8 2")
         self.assertEqual(mid_line, "853 0 2444d88d62539b0b88dc919909cb9701 2")
         self.assertEqual(last_line, "885 0 fde80cb0-b4f0-11e2-bbf2-a6f9e9d79e19 0")
+
+    def tearDown(self):
+        if os.path.exists('temp_dir'):
+            shutil.rmtree('temp_dir')
+            os.environ['PYSERINI_CACHE'] = ''
 
 
 if __name__ == '__main__':
