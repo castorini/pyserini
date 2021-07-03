@@ -481,7 +481,7 @@ DINDEX_INFO = {
         "filename": "dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
-            "https://www.dropbox.com/s/xrsjn38lk3axfdd/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz?dl=1",
+            "https://www.dropbox.com/s/xrsjn38lk3axfdd/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz?dl=1"
         ],
         "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
         "size compressed (bytes)": 33359100887,
@@ -494,7 +494,7 @@ DINDEX_INFO = {
         "filename": "dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
-            "https://www.dropbox.com/s/sgmugleqwwirx3n/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz?dl=1",
+            "https://www.dropbox.com/s/sgmugleqwwirx3n/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz?dl=1"
         ],
         "md5": "7312e0e7acec2a686e994902ca064fc5",
         "size compressed (bytes)": 25204514289,
@@ -507,7 +507,7 @@ DINDEX_INFO = {
         "filename": "dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
-            "https://www.dropbox.com/s/jse0j82l4ouqdna/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz?dl=1",
+            "https://www.dropbox.com/s/jse0j82l4ouqdna/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz?dl=1"
         ],
         "md5": "f0b4c3bff3bb685be5c475511004c3b0",
         "size compressed (bytes)": 58514325936,
@@ -520,10 +520,23 @@ DINDEX_INFO = {
         "filename": "dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
-            "https://www.dropbox.com/s/9g4e2ps73lf4ysl/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz?dl=1",
+            "https://www.dropbox.com/s/9g4e2ps73lf4ysl/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz?dl=1"
         ],
         "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
         "size compressed (bytes)": 59836766981,
+        "documents": 21015320,
+        "downloaded": False,
+        "texts": "wikipedia-dpr"
+    },
+    "wikipedia-dpr-single-nq-bf": {
+        "description": "Wikipedia corpus encoded by DPR doc encoder trained on NQ, indexed as brute force index",
+        "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
+            "https://www.dropbox.com/s/negktsxze5sy7e2/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz?dl=1",
+        ],
+        "md5": "d1ef9286ddb38633cd052171963c62cb",
+        "size compressed (bytes)": 59836863670,
         "documents": 21015320,
         "downloaded": False,
         "texts": "wikipedia-dpr"
@@ -533,24 +546,11 @@ DINDEX_INFO = {
         "filename": "dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
-            "https://www.dropbox.com/s/ahpxwtgh56o6j2f/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz?dl=1",
+            "https://www.dropbox.com/s/ahpxwtgh56o6j2f/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz?dl=1"
         ],
         "md5": "f6332edb8f06ba796850388cf975b414",
         "size compressed (bytes)": 25102344985,
         "documents": 8841823,
-        "downloaded": False,
-        "texts": "msmarco-passage"
-    },
-    "wikipedia-ance-multi-bf": {
-        "description": "Wikipedia corpus encoded by ANCE-multi doc encoder and indexed as brute force index",
-        "filename": "dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
-            "https://www.dropbox.com/s/j89z1vnhe12cva4/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz?dl=1",
-        ],
-        "md5": "715605b56dc393b8f939e12682dfd467",
-        "size compressed (bytes)": 59890492088,
-        "documents": 21015320,
         "downloaded": False,
         "texts": "msmarco-passage"
     },
@@ -559,19 +559,33 @@ DINDEX_INFO = {
         "filename": "dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz",
-            "https://www.dropbox.com/s/bddpw1nwcka7pdf/dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz?dl=1",
+            "https://www.dropbox.com/s/bddpw1nwcka7pdf/dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz?dl=1"
         ],
         "md5": "a9f8d77ea0cef7c6acdba881c45b7d99",
         "size compressed (bytes)": 58312805496,
         "documents": 20544550,
         "downloaded": False,
-        "texts": "msmarco-passage"
+        "texts": "msmarco-doc"
+    },
+    "wikipedia-ance-multi-bf": {
+        "description": "Wikipedia corpus encoded by ANCE-multi doc encoder and indexed as brute force index",
+        "filename": "dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
+            "https://www.dropbox.com/s/j89z1vnhe12cva4/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz?dl=1"
+        ],
+        "md5": "715605b56dc393b8f939e12682dfd467",
+        "size compressed (bytes)": 59890492088,
+        "documents": 21015320,
+        "downloaded": False,
+        "texts": "wikipedia-dpr"
     },
     "msmarco-passage-sbert-bf": {
         "description": "MS MARCO passage corpus encoded by SBERT msmarco passage encoder and indexed as brute force index",
         "filename": "dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz",
         "urls": [
-            "https://www.dropbox.com/s/puj3lqxt661a3c0/dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz?dl=1",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz",
+            "https://www.dropbox.com/s/puj3lqxt661a3c0/dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz?dl=1"
         ],
         "md5": "3f98b9564cd3a33e45bfeca4d4fec623",
         "size compressed (bytes)": 25214193901,
@@ -584,7 +598,8 @@ DINDEX_INFO = {
                        "indexed as brute force index",
         "filename": "dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz",
         "urls": [
-            "https://www.dropbox.com/s/sn06dukchscnyxf/dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz?dl=1",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz",
+            "https://www.dropbox.com/s/sn06dukchscnyxf/dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz?dl=1"
         ],
         "md5": "83a8081d6020910058164978b095615f",
         "size compressed (bytes)": 25162770962,
@@ -597,6 +612,7 @@ DINDEX_INFO = {
                        "indexed as brute force index",
         "filename": "dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
             "https://www.dropbox.com/s/1iu2wo2da1ai7ca/dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz?dl=1",
         ],
         "md5": "cc947bf66d9552a2a7c6fe060466e490",
@@ -610,6 +626,7 @@ DINDEX_INFO = {
                        "indexed as brute force index",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz", 
             "https://www.dropbox.com/s/89mjp90z37dvt85/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz?dl=1",
         ],
         "md5": "479591e265347ceff954ae05f6d3462b",
@@ -623,6 +640,7 @@ DINDEX_INFO = {
                        "indexed as brute force index",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz",
             "https://www.dropbox.com/s/9ekxqhya475lkjw/dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz?dl=1",
         ],
         "md5": "61d38e4935b3ca36c99e0cda2b27fba2",
@@ -636,6 +654,7 @@ DINDEX_INFO = {
                        "indexed as brute force index",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
             "https://www.dropbox.com/s/5q0siztt9dhwbxy/dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz?dl=1",
         ],
         "md5": "c3c3fc3a288bcdf61708d4bba4bc79ff",
@@ -643,17 +662,5 @@ DINDEX_INFO = {
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-passage"
-    },
-    "wikipedia-dpr-single-nq-bf": {
-        "description": "Wikipedia corpus encoded by DPR doc encoder trained on NQ, indexed as brute force index",
-        "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
-        "urls": [
-            "https://www.dropbox.com/s/negktsxze5sy7e2/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz?dl=1",
-        ],
-        "md5": "d1ef9286ddb38633cd052171963c62cb",
-        "size compressed (bytes)": 59836863670,
-        "documents": 21015320,
-        "downloaded": False,
-        "texts": "wikipedia-dpr"
-    },
+    }
 }
