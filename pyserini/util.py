@@ -233,3 +233,9 @@ def download_evaluation_script(evaluation_name, force=False, verbose=True, mirro
         except HTTPError:
             print(f'Unable to download evaluation script at {url}, trying next URL...')
     raise ValueError(f'Unable to download evaluation script at any known URLs.')
+
+
+def get_sparse_index(index_name):
+    if index_name not in DINDEX_INFO:
+        raise ValueError(f'Unrecognized index name {index_name}')
+    return DINDEX_INFO[index_name]["texts"]

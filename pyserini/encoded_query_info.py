@@ -25,6 +25,36 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
+    "tct_colbert-v2-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT V2",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-msmarco-passage-dev-subset-20210608-5f341b.tar.gz",
+        ],
+        "md5": "ee8d76e596aef02c5027a2ffd0ff66f8",
+        "size (bytes)": 20072992,
+        "total_queries": 6980,
+        "downloaded": False
+    },
+    "tct_colbert-v2-hn-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT V2 HN",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-hn-msmarco-passage-dev-subset-20210608-5f341b.tar.gz",
+        ],
+        "md5": "f7e39cf2cd3ee53f7f8f2e0a1821431c",
+        "size (bytes)": 20074411,
+        "total_queries": 6980,
+        "downloaded": False
+    },
+    "tct_colbert-v2-hnp-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT V2 HN+",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-hnp-msmarco-passage-dev-subset-20210608-5f341b.tar.gz",
+        ],
+        "md5": "bed8036475774d12915c8af2a44612f4",
+        "size (bytes)": 20078958,
+        "total_queries": 6980,
+        "downloaded": False
+    },
     "ance-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by ANCE",
         "urls": [
@@ -80,7 +110,7 @@ QUERY_INFO = {
         "urls": [
             "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-distilbert_dot_tas_b_b256-msmarco-passage-dev-subset-20210527-63276f.tar.gz",
         ],
-        "md5": "21af03c411a647f85a061138c8f0755e",
+        "md5": "17a3f81de7ba497728050b83733b1c46",
         "size (bytes)": 20016799,
         "total_queries": 6980,
         "downloaded": False

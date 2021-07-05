@@ -44,8 +44,6 @@ class TestSearchIntegration(unittest.TestCase):
         os.mkdir(f'{self.tmp}/runs')
 
         self.round4_runs = {
-            'https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.covid-round3-cumulative.txt':
-                'dfccc32efd58a8284ae411e5c6b27ce9',
             'https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.covid-round4-cumulative.txt':
                 '7a5c27e8e052c49ff72d557051825973',
         }
@@ -82,8 +80,8 @@ class TestSearchIntegration(unittest.TestCase):
                     -output {self.tmp}/output.json')
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.3846\\n'", data['map'])
-            self.assertEqual("0.7745\\n'", data['ndcg'])
+            self.assertEqual("0.3846", data['map'])
+            self.assertEqual("0.7745", data['ndcg'])
 
     def tearDown(self):
         shutil.rmtree(self.tmp)

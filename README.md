@@ -21,7 +21,7 @@ A low-effort way to try things out is to look at our [online notebooks](https://
 Install via PyPI (requires Python 3.6+):
 
 ```
-pip install pyserini==0.12.0
+pip install pyserini==0.13.0
 ```
 
 Sparse retrieval depends on [Anserini](http://anserini.io/), which is itself built on Lucene, and thus Java 11.
@@ -393,7 +393,8 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 
 ### Dense Retrieval
 
-+ [Guide to reproducing TCT-ColBERT experiments](docs/experiments-tct_colbert.md)
++ [Guide to reproducing TCT-ColBERTv2 experiments](docs/experiments-tct_colbert-v2.md)
++ [Guide to reproducing TCT-ColBERTv1 experiments](docs/experiments-tct_colbert.md)
 + [Guide to reproducing DPR experiments](docs/experiments-dpr.md)
 + [Guide to reproducing ANCE experiments](docs/experiments-ance.md)
 + [Guide to reproducing DistilBERT KD experiments](docs/experiments-distilbert_kd.md)
@@ -431,6 +432,7 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 ## Release History
 
++ v0.13.0: July 3, 2021 [[Release Notes](docs/release-notes/release-notes-v0.13.0.md)]
 + v0.12.0: May 5, 2021 [[Release Notes](docs/release-notes/release-notes-v0.12.0.md)]
 + v0.11.0.0: February 18, 2021 [[Release Notes](docs/release-notes/release-notes-v0.11.0.0.md)]
 + v0.10.1.0: January 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.10.1.0.md)]

@@ -110,3 +110,7 @@ def get_output_writer(file_path: str, output_format: OutputFormat, *args, **kwar
         OutputFormat.KILT: KiltWriter,
     }
     return mapping[output_format](file_path, *args, **kwargs)
+
+
+def tie_breaker(hits):
+    return sorted(hits, key=lambda x: (-x.score, x.docid))
