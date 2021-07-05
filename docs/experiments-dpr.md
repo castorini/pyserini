@@ -15,7 +15,7 @@ Our implementation does not share any code with the DPR repo, other than evaluat
 This guide provides instructions to reproduce our replication study.
 Our efforts include both retrieval as well as end-to-end answer extraction.
 We cover only retrieval here; for end-to-end answer extraction, please see [this guide](https://github.com/castorini/pygaggle/blob/master/docs/experiments-dpr-reader.md) in our PyGaggle neural text ranking library.
-
+o evaluate, first convert the TREC output format to DPR's
 Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
 Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
 See [package installation notes](../README.md#package-installation) for more details.
@@ -165,6 +165,7 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
                                                                 --index wikipedia-dpr \
                                                                 --input runs/run.dpr.trivia-test.bm25.trec \
+                                                                --output runs/run.dpr.trivia-test.bm25.json
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.trivia-test.bm25.json --topk 20 100
 Top20  accuracy: 0.7641
