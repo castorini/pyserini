@@ -26,6 +26,7 @@ from typing import Dict, List, Optional, Union
 from ._base import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap, JString
 from pyserini.util import download_prebuilt_index
+from transformers import BertTokenizer
 
 logger = logging.getLogger(__name__)
 
@@ -66,7 +67,7 @@ class PseudoQueryEncoder(QueryEncoder):
 class TokFreqQueryEncoder(QueryEncoder):
     def __init__(self, model=None, tokenizer=None):
         super().__init__(model)
-        self.tokenizer = tokenizer
+        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
     def encode(self, text):
         vector = {}
