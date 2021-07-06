@@ -204,7 +204,8 @@ class TestSearchIntegration(unittest.TestCase):
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
-                                                           --output {retrieval_file}'
+                                                           --output {retrieval_file} \
+                                                           --regex'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20 --regex'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
@@ -228,7 +229,8 @@ class TestSearchIntegration(unittest.TestCase):
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
-                                                           --output {retrieval_file}'
+                                                           --output {retrieval_file} \
+                                                           --regex'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20 --regex'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
