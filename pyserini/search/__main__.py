@@ -115,7 +115,7 @@ if __name__ == "__main__":
     parser.add_argument('--threads', type=int, metavar='num', required=False,
                         default=1, help="Maximum number of threads to use.")
     parser.add_argument('--tokenizer', type=str, help='tokenizer used to preprocess topics')
-    parser.add_argument('--removedups', action='store_true', default=False, help="Remove duplicated docs.")
+    parser.add_argument('--remove-duplicates', action='store_true', default=False, help="Remove duplicate docs.")
 
     args = parser.parse_args()
 
