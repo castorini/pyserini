@@ -32,7 +32,7 @@ if __name__ == '__main__':
     parser.add_argument('--fields', help='fields that contents in jsonl has (in order)',
                         nargs='+', default=['text'], required=False)
     parser.add_argument('--embeddings', type=str, help='directory to store encoded corpus', required=True)
-    parser.add_argument('--batch', type=int, help='batch size', default=16)
+    parser.add_argument('--batch-size', type=int, help='batch size', default=16)
     parser.add_argument('--shard-id', type=int, help='shard-id 0-based', default=0)
     parser.add_argument('--shard-num', type=int, help='number of shards', default=1)
     parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]', default='cuda:0')
