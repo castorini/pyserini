@@ -243,7 +243,7 @@ if __name__ == "__main__":
                     for hit in hits:
                         hit.score = docid_score_map[hit.docid.strip()]
                         
-                if args.removedups:
+                if args.remove_duplicates:
                     seen_docids = set()
                     dedup_hits = []
                     for hit in hits:
