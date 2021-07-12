@@ -17,13 +17,13 @@ Summary of results (figures from the paper are in parentheses):
 
 | Condition | MRR@10 (paper) | MAP | Recall@1000 |
 |:----------|-------:|----:|------------:|
-| TCT_ColBERT-V2 (brute-force index) |  0.3440 (0.3435) | 0.3509 | 0.9670 |
-| TCT_ColBERT-V2-HN (brute-force index) |  0.3543 (0.3540) | 0.3608 | 0.9708 |
-| TCT_ColBERT-V2-HN+ (brute-force index) | 0.3585 (0.3586) | 0.3645 | 0.9695 |
-| TCT_ColBERT-V2-HN+ (brute-force index) + BoW BM25 | 0.3682 (0.3687)  | 0.3737 | 0.9707 |
-| TCT_ColBERT-V2-HN+ (brute-force index) + BM25 w/ doc2query-T5 | 0.3731 (0.3747) | 0.3789 | 0.9759 |
+| TCT_ColBERT-V2 (brute-force index) |  0.3440 (0.344) | 0.3509 | 0.9670 |
+| TCT_ColBERT-V2-HN (brute-force index) |  0.3543 (0.354) | 0.3608 | 0.9708 |
+| TCT_ColBERT-V2-HN+ (brute-force index) | 0.3585 (0.359) | 0.3645 | 0.9695 |
+| TCT_ColBERT-V2-HN+ (brute-force index) + BoW BM25 | 0.3682 (0.369)  | 0.3737 | 0.9707 |
+| TCT_ColBERT-V2-HN+ (brute-force index) + BM25 w/ doc2query-T5 | 0.3731 (0.375) | 0.3789 | 0.9759 |
 
-The slight differences can be attributed to TensorFlow implementations in the published paper and PyTorch implementations here in this reproduction guide.
+The slight differences between the reproduced scores and those reported in the paper can be attributed to TensorFlow implementations in the published paper vs. PyTorch implementations here in this reproduction guide.
 
 ## TCT_ColBERT-V2
 
