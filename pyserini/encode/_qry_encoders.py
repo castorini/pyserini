@@ -13,12 +13,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import json
 
 import numpy as np
 import sklearn
 from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, BertTokenizerFast,
                           DPRQuestionEncoder, DPRQuestionEncoderTokenizer, RobertaTokenizer)
-from pyserini.encode import AnceEncoder, QueryEncoder
+from pyserini.encode import AnceEncoder, QueryEncoder, UniCoilEncoder
+
+
+class PseudoQueryEncoder(QueryEncoder):
+    def __init__(self, model_name_or_path):
+        self.vectors = self._load_from_jsonl(model_name_or_path)
+
+    @staticmethod
+    def _load_from_jsonl(path):
+        vectors = {}
+        with open(path) as f:
+            for line in f:
+                info = json.loads(line)
+                text = info['contents'].strip()
+                vec = info['vector']
+                vectors[text] = vec
+        return vectors
+
+    def encode(self, text, **kwargs):
+        return self.vectors[text.strip()]
 
 
 class TctColBertQueryEncoder(QueryEncoder):
@@ -29,7 +49,7 @@ class TctColBertQueryEncoder(QueryEncoder):
         self.model.to(self.device)
         self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name)
 
-    def encode(self, query: str):
+    def encode(self, query: str, **kwargs):
         max_length = 36  # hardcode for now
         inputs = self.tokenizer(
             '[CLS] [Q] ' + query + '[MASK]' * max_length,
@@ -52,7 +72,7 @@ class DprQueryEncoder(QueryEncoder):
         self.model.to(self.device)
         self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or model_name)
 
-    def encode(self, query: str):
+    def encode(self, query: str, **kwargs):
         input_ids = self.tokenizer(query, return_tensors='pt')
         input_ids.to(self.device)
         embeddings = self.model(input_ids["input_ids"]).pooler_output.detach().cpu().numpy()
@@ -67,7 +87,7 @@ class BprQueryEncoder(QueryEncoder):
         self.model.to(self.device)
         self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or model_name)
 
-    def encode(self, query: str):
+    def encode(self, query: str, **kwargs):
         input_ids = self.tokenizer(query, return_tensors='pt')
         input_ids.to(self.device)
         embeddings = self.model(input_ids["input_ids"]).pooler_output.detach().cpu()
@@ -84,7 +104,7 @@ class DkrrDprQueryEncoder(QueryEncoder):
         self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or model_name)
         self.prefix = prefix
 
-    def encode(self, query: str):
+    def encode(self, query: str, **kwargs):
         if self.prefix:
             query = f'{self.prefix} {query}'
         inputs = self.tokenizer(query, return_tensors='pt', max_length=40, padding="longest")
@@ -104,7 +124,7 @@ class AnceQueryEncoder(QueryEncoder):
         self.model.to(self.device)
         self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or tokenizer_name)
 
-    def encode(self, query: str):
+    def encode(self, query: str, **kwargs):
         inputs = self.tokenizer(
             [query],
             max_length=64,
@@ -130,7 +150,7 @@ class AutoQueryEncoder(QueryEncoder):
         self.pooling = pooling
         self.l2_norm = l2_norm
 
-    def encode(self, query: str):
+    def encode(self, query: str, **kwargs):
         inputs = self.tokenizer(
             query,
             padding='longest',
@@ -147,3 +167,58 @@ class AutoQueryEncoder(QueryEncoder):
         if self.l2_norm:
             embeddings = sklearn.preprocessing.normalize(outputs, norm='l2')
         return embeddings.flatten()
+
+
+class TokFreqQueryEncoder(QueryEncoder):
+    def __init__(self, model_name_or_path):
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
+
+    def encode(self, text, **kwargs):
+        vector = {}
+        if self.tokenizer is not None:
+            tok_list = self.tokenizer.tokenize(text)
+        else:
+            tok_list = text.strip().split()
+        for tok in tok_list:
+            if tok not in vector:
+                vector[tok] = 1
+            else:
+                vector[tok] += 1
+        return vector
+
+
+class UniCoilQueryEncoder(QueryEncoder):
+    def __init__(self, model_name_or_path, tokenizer_name=None, device='cuda:0'):
+        self.device = device
+        self.model = UniCoilEncoder.from_pretrained(model_name_or_path)
+        self.model.to(self.device)
+        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name_or_path)
+
+    def encode(self, text, **kwargs):
+        max_length = 128  # hardcode for now
+        input_ids = self.tokenizer([text], max_length=max_length, padding='longest',
+                                   truncation=True, add_special_tokens=True,
+                                   return_tensors='pt').to(self.device)["input_ids"]
+        batch_weights = self.model(input_ids).cpu().detach().numpy()
+        batch_token_ids = input_ids.cpu().detach().numpy()
+        return self._output_to_weight_dicts(batch_token_ids, batch_weights)[0]
+
+    def _output_to_weight_dicts(self, batch_token_ids, batch_weights):
+        to_return = []
+        for i in range(len(batch_token_ids)):
+            weights = batch_weights[i].flatten()
+            tokens = self.tokenizer.convert_ids_to_tokens(batch_token_ids[i])
+            tok_weights = {}
+            for j in range(len(tokens)):
+                tok = str(tokens[j])
+                weight = float(weights[j])
+                if tok == '[CLS]':
+                    continue
+                if tok == '[PAD]':
+                    break
+                if tok not in tok_weights:
+                    tok_weights[tok] = weight
+                else:
+                    tok_weights[tok] += weight
+            to_return.append(tok_weights)
+        return to_return

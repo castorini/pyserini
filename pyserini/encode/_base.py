@@ -15,10 +15,10 @@
 #
 
 class DocumentEncoder:
-    def encode(self, texts):
+    def encode(self, texts, **kwargs):
         pass
 
 
 class QueryEncoder:
-    def encode(self, text):
+    def encode(self, text, **kwargs):
         pass

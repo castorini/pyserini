@@ -18,3 +18,7 @@ from ._models import AnceEncoder, UniCoilEncoder
 from ._base import DocumentEncoder, QueryEncoder
 from ._embedding_writer import JsonlEmbeddingWriter, FaissEmbeddingWriter
 from ._collection_iterator import JsonlCollectionIterator
+from ._qry_encoders import PseudoQueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder,\
+    AnceQueryEncoder, AutoQueryEncoder, DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder
+from ._doc_encoders import UniCoilDocumentEncoder, AutoDocumentEncoder, TctColBertDocumentEncoder,\
+    DprDocumentEncoder, AnceDocumentEncoder
