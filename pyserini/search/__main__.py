@@ -115,6 +115,8 @@ if __name__ == "__main__":
     parser.add_argument('--threads', type=int, metavar='num', required=False,
                         default=1, help="Maximum number of threads to use.")
     parser.add_argument('--tokenizer', type=str, help='tokenizer used to preprocess topics')
+    parser.add_argument('--remove-duplicates', action='store_true', default=False, help="Remove duplicate docs.")
+
     args = parser.parse_args()
 
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
@@ -240,6 +242,16 @@ if __name__ == "__main__":
                     docid_score_map = dict(zip(docids, scores))
                     for hit in hits:
                         hit.score = docid_score_map[hit.docid.strip()]
+                        
+                if args.remove_duplicates:
+                    seen_docids = set()
+                    dedup_hits = []
+                    for hit in hits:
+                        if hit.docid.strip() in seen_docids:
+                            continue
+                        seen_docids.add(hit.docid.strip())
+                        dedup_hits.append(hit)
+                    hits = dedup_hits
 
                 # write results
                 output_writer.write(topic, hits)
