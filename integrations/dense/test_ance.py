@@ -78,7 +78,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "MRR @100")
         self.assertEqual(status, 0)
         # We get a small difference, 0.3794 on macOS.
-        self.assertAlmostEqual(score, 0.3797, delta=0.0003)
+        self.assertAlmostEqual(score, 0.3796, delta=0.0002)
 
     def test_msmarco_doc_ance_bf_encoded_queries(self):
         encoder = QueryEncoder.load_encoded_queries('ance_maxp-msmarco-doc-dev')
