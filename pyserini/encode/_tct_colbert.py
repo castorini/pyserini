@@ -15,24 +15,34 @@
 #
 
 import numpy as np
-from transformers import BertModel, BertTokenizer
+import torch
+from torch.cuda.amp import autocast
+from transformers import BertModel, BertTokenizer, BertTokenizerFast
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
+from onnxruntime import ExecutionMode, SessionOptions, InferenceSession
 
 
 class TctColBertDocumentEncoder(DocumentEncoder):
-    def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
+    def __init__(self, model_name: str, tokenizer_name=None, device='cuda:0'):
         self.device = device
-        self.model = BertModel.from_pretrained(model_name)
-        self.model.to(self.device)
-        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name)
+        self.onnx = False
+        if model_name.endswith('onnx'):
+            options = SessionOptions()
+            self.session = InferenceSession(model_name, options)
+            self.onnx = True
+            self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or model_name[:-5])
+        else:
+            self.model = BertModel.from_pretrained(model_name)
+            self.model.to(self.device)
+            self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or model_name)
 
-    def encode(self, texts, titles=None, **kwargs):
+    def encode(self, texts, titles=None, fp16=False, **kwargs):
         if titles is not None:
             texts = [f'[CLS] [D] {title} {text}' for title, text in zip(titles, texts)]
         else:
             texts = ['[CLS] [D] ' + text for text in texts]
-        max_length = 154  # hardcode for now
+        max_length = 512  # hardcode for now
         inputs = self.tokenizer(
             texts,
             max_length=max_length,
@@ -41,9 +51,21 @@ class TctColBertDocumentEncoder(DocumentEncoder):
             add_special_tokens=False,
             return_tensors='pt'
         )
-        inputs.to(self.device)
-        outputs = self.model(**inputs)
-        embeddings = self._mean_pooling(outputs["last_hidden_state"][:, 4:, :], inputs['attention_mask'][:, 4:])
+        if self.onnx:
+            inputs_onnx = {name: np.atleast_2d(value) for name, value in inputs.items()}
+            inputs.to(self.device)
+            outputs, _ = self.session.run(None, inputs_onnx)
+            outputs = torch.from_numpy(outputs).to(self.device)
+            embeddings = self._mean_pooling(outputs[:, 4:, :], inputs['attention_mask'][:, 4:])
+        else:
+            inputs.to(self.device)
+            if fp16:
+                with autocast():
+                    with torch.no_grad():
+                        outputs = self.model(**inputs)
+            else:
+                outputs = self.model(**inputs)
+            embeddings = self._mean_pooling(outputs["last_hidden_state"][:, 4:, :], inputs['attention_mask'][:, 4:])
         return embeddings.detach().cpu().numpy()
 
 

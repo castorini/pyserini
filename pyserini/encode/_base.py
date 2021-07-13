@@ -18,6 +18,7 @@ import os
 
 import faiss
 import torch
+import numpy as np
 from tqdm import tqdm
 
 
@@ -144,8 +145,6 @@ class FaissRepresentationWriter(RepresentationWriter):
         faiss.write_index(self.index, os.path.join(self.dir_path, self.index_name))
 
     def write(self, batch_info, fields=None):
-        if fields:
-            print("Warning, for Faiss Index, we do not save contents")
         for id_ in batch_info['id']:
             self.id_file.write(f'{id_}\n')
         self.index.add(batch_info['vector'])

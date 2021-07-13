@@ -21,5 +21,5 @@ from ._auto import AutoQueryEncoder, AutoDocumentEncoder
 from ._dpr import DprDocumentEncoder, DprQueryEncoder
 from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
 from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder
-from ._pseudo import PseudoQueryEncoder
+from ._cached_data import CachedDataQueryEncoder
 from ._tok_freq import TokFreqQueryEncoder
