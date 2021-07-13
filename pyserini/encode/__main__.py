@@ -17,7 +17,7 @@
 import argparse
 import sys
 
-from pyserini.encode import JsonlEmbeddingWriter, FaissEmbeddingWriter, JsonlCollectionIterator
+from pyserini.encode import JsonlRepresentationWriter, FaissRepresentationWriter, JsonlCollectionIterator
 from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AutoDocumentEncoder
 from pyserini.encode import UniCoilDocumentEncoder
 
@@ -86,9 +86,9 @@ if __name__ == '__main__':
 
     encoder = init_encoder(args.encoder.encoder, device=args.encoder.device)
     if args.output.to_faiss:
-        embedding_writer = FaissEmbeddingWriter(args.output.embeddings)
+        embedding_writer = FaissRepresentationWriter(args.output.embeddings)
     else:
-        embedding_writer = JsonlEmbeddingWriter(args.output.embeddings)
+        embedding_writer = JsonlRepresentationWriter(args.output.embeddings)
     collection_iterator = JsonlCollectionIterator(args.input.corpus, args.input.fields)
 
     with embedding_writer:

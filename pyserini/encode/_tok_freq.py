@@ -14,12 +14,24 @@
 # limitations under the License.
 #
 
-from ._base import DocumentEncoder, QueryEncoder, JsonlCollectionIterator,\
-    RepresentationWriter, FaissRepresentationWriter, JsonlRepresentationWriter
-from ._ance import AnceEncoder, AnceDocumentEncoder, AnceQueryEncoder
-from ._auto import AutoQueryEncoder, AutoDocumentEncoder
-from ._dpr import DprDocumentEncoder, DprQueryEncoder
-from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
-from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder
-from ._pseudo import PseudoQueryEncoder
-from ._tok_freq import TokFreqQueryEncoder
+from transformers import AutoTokenizer
+
+from pyserini.encode import QueryEncoder
+
+
+class TokFreqQueryEncoder(QueryEncoder):
+    def __init__(self, model_name_or_path):
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
+
+    def encode(self, text, **kwargs):
+        vector = {}
+        if self.tokenizer is not None:
+            tok_list = self.tokenizer.tokenize(text)
+        else:
+            tok_list = text.strip().split()
+        for tok in tok_list:
+            if tok not in vector:
+                vector[tok] = 1
+            else:
+                vector[tok] += 1
+        return vector

@@ -14,12 +14,25 @@
 # limitations under the License.
 #
 
-from ._base import DocumentEncoder, QueryEncoder, JsonlCollectionIterator,\
-    RepresentationWriter, FaissRepresentationWriter, JsonlRepresentationWriter
-from ._ance import AnceEncoder, AnceDocumentEncoder, AnceQueryEncoder
-from ._auto import AutoQueryEncoder, AutoDocumentEncoder
-from ._dpr import DprDocumentEncoder, DprQueryEncoder
-from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
-from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder
-from ._pseudo import PseudoQueryEncoder
-from ._tok_freq import TokFreqQueryEncoder
+import json
+
+from pyserini.encode import QueryEncoder
+
+
+class PseudoQueryEncoder(QueryEncoder):
+    def __init__(self, model_name_or_path):
+        self.vectors = self._load_from_jsonl(model_name_or_path)
+
+    @staticmethod
+    def _load_from_jsonl(path):
+        vectors = {}
+        with open(path) as f:
+            for line in f:
+                info = json.loads(line)
+                text = info['contents'].strip()
+                vec = info['vector']
+                vectors[text] = vec
+        return vectors
+
+    def encode(self, text, **kwargs):
+        return self.vectors[text.strip()]

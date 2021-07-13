@@ -17,7 +17,9 @@
 from typing import Optional
 
 import torch
-from transformers import BertConfig, BertModel, PreTrainedModel, RobertaConfig, RobertaModel
+from transformers import PreTrainedModel, RobertaConfig, RobertaModel, RobertaTokenizer
+
+from pyserini.encode import DocumentEncoder, QueryEncoder
 
 
 class AnceEncoder(PreTrainedModel):
@@ -54,9 +56,9 @@ class AnceEncoder(PreTrainedModel):
         self.norm.apply(self._init_weights)
 
     def forward(
-        self,
-        input_ids: torch.Tensor,
-        attention_mask: Optional[torch.Tensor] = None,
+            self,
+            input_ids: torch.Tensor,
+            attention_mask: Optional[torch.Tensor] = None,
     ):
         input_shape = input_ids.size()
         device = input_ids.device
@@ -73,50 +75,46 @@ class AnceEncoder(PreTrainedModel):
         return pooled_output
 
 
-class UniCoilEncoder(PreTrainedModel):
-    config_class = BertConfig
-    base_model_prefix = 'coil_encoder'
-    load_tf_weights = None
+class AnceDocumentEncoder(DocumentEncoder):
+    def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
+        self.device = device
+        self.model = AnceEncoder.from_pretrained(model_name)
+        self.model.to(self.device)
+        self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or model_name)
 
-    def __init__(self, config: BertConfig):
-        super().__init__(config)
-        self.config = config
-        self.bert = BertModel(config)
-        self.tok_proj = torch.nn.Linear(config.hidden_size, 1)
-        self.init_weights()
+    def encode(self, texts, titles=None, **kwargs):
+        if titles is not None:
+            texts = [f'{title} {text}' for title, text in zip(titles, texts)]
+        max_length = 512  # hardcode for now
+        inputs = self.tokenizer(
+            texts,
+            max_length=max_length,
+            padding='longest',
+            truncation=True,
+            add_special_tokens=True,
+            return_tensors='pt'
+        )
+        inputs.to(self.device)
+        return self.model(inputs["input_ids"]).detach().cpu().numpy()
 
-    # Copied from transformers.models.bert.modeling_bert.BertPreTrainedModel._init_weights
-    def _init_weights(self, module):
-        """ Initialize the weights """
-        if isinstance(module, (torch.nn.Linear, torch.nn.Embedding)):
-            # Slightly different from the TF version which uses truncated_normal for initialization
-            # cf https://github.com/pytorch/pytorch/pull/5617
-            module.weight.data.normal_(mean=0.0, std=self.config.initializer_range)
-        elif isinstance(module, torch.nn.LayerNorm):
-            module.bias.data.zero_()
-            module.weight.data.fill_(1.0)
-        if isinstance(module, torch.nn.Linear) and module.bias is not None:
-            module.bias.data.zero_()
 
-    def init_weights(self):
-        self.bert.init_weights()
-        self.tok_proj.apply(self._init_weights)
+class AnceQueryEncoder(QueryEncoder):
 
-    def forward(
-            self,
-            input_ids: torch.Tensor,
-            attention_mask: Optional[torch.Tensor] = None,
-    ):
-        input_shape = input_ids.size()
-        device = input_ids.device
-        if attention_mask is None:
-            attention_mask = (
-                torch.ones(input_shape, device=device)
-                if input_ids is None
-                else (input_ids != self.bert.config.pad_token_id)
-            )
-        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
-        sequence_output = outputs.last_hidden_state
-        tok_weights = self.tok_proj(sequence_output)
-        tok_weights = torch.relu(tok_weights)
-        return tok_weights
+    def __init__(self, model_name: str, tokenizer_name: str = None, device: str = 'cpu'):
+        self.device = device
+        self.model = AnceEncoder.from_pretrained(model_name)
+        self.model.to(self.device)
+        self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or tokenizer_name)
+
+    def encode(self, query: str, **kwargs):
+        inputs = self.tokenizer(
+            [query],
+            max_length=64,
+            padding='longest',
+            truncation=True,
+            add_special_tokens=True,
+            return_tensors='pt'
+        )
+        inputs.to(self.device)
+        embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
+        return embeddings.flatten()
