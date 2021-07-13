@@ -1,4 +1,4 @@
-# Anserini: DeepImpact for MS MARCO Passage Ranking
+# Pyserini: DeepImpact for MS MARCO Passage Ranking
 
 This page describes how to reproduce the DeepImpact experiments in the following paper:
 
@@ -7,7 +7,7 @@ This page describes how to reproduce the DeepImpact experiments in the following
 Here, we start with a version of the MS MARCO passage corpus that has already been processed with DeepImpact, i.e., gone through document expansion and term reweighting.
 Thus, no neural inference is involved.
 
-
+Note: This page is just exactly like [Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage-deepimpact.md), except you can do it from Python.
 ## Data Prep
 
 We're going to use the repository's root directory as the working directory.

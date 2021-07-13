@@ -7,6 +7,8 @@ This page describes how to reproduce the uniCOIL experiments in the following pa
 Here, we start with a version of the MS MARCO passage corpus that has already been processed with uniCOIL, i.e., gone through document expansion and term reweighting.
 Thus, no neural inference is involved.
 
+Note: This page is just exactly like [Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage-unicoil.md), except you can do it from Python.
+
 
 ## Data Prep
 

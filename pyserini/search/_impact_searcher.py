@@ -18,7 +18,6 @@
 This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``ImpactSearcher``
 class, which wraps the Java class with the same name in Anserini.
 """
-import json
 import logging
 import os
 from typing import Dict, List, Optional, Union
@@ -26,7 +25,8 @@ from typing import Dict, List, Optional, Union
 from ._base import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap, JString
 from pyserini.util import download_prebuilt_index
-from transformers import BertTokenizer
+from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder
+from ..encode._pseudo import CachedDataQueryEncoder
 
 logger = logging.getLogger(__name__)
 
@@ -34,53 +34,6 @@ logger = logging.getLogger(__name__)
 # Wrappers around Anserini classes
 JImpactSearcher = autoclass('io.anserini.search.SimpleImpactSearcher')
 JImpactSearcherResult = autoclass('io.anserini.search.SimpleImpactSearcher$Result')
-
-
-class QueryEncoder:
-    def __init__(self, model):
-        self.model = model
-
-    def encode(self, text):
-        return {}
-
-
-class PseudoQueryEncoder(QueryEncoder):
-    def __init__(self, model):
-        super().__init__(model)
-        self.vectors = self._load_from_jsonl(model)
-
-    @staticmethod
-    def _load_from_jsonl(path):
-        vectors = {}
-        with open(path) as f:
-            for line in f:
-                info = json.loads(line)
-                text = info['contents'].strip()
-                vec = info['vector']
-                vectors[text] = vec
-        return vectors
-
-    def encode(self, text):
-        return self.vectors[text.strip()]
-
-
-class TokFreqQueryEncoder(QueryEncoder):
-    def __init__(self, model=None, tokenizer=None):
-        super().__init__(model)
-        self.tokenizer = None  # BertTokenizer.from_pretrained('bert-base-uncased')
-
-    def encode(self, text):
-        vector = {}
-        if self.tokenizer is not None:
-            tok_list = self.tokenizer.tokenize(text)
-        else:
-            tok_list = text.strip().split()
-        for tok in tok_list:
-            if tok not in vector:
-                vector[tok] = 1
-            else:
-                vector[tok] += 1
-        return vector
 
 
 class ImpactSearcher:
@@ -264,4 +217,6 @@ class ImpactSearcher:
         if query_encoder is None:
             return TokFreqQueryEncoder()
         elif os.path.isfile(query_encoder) and (query_encoder.endswith('jsonl') or query_encoder.encode('json')):
-            return PseudoQueryEncoder(query_encoder)
+            return CachedDataQueryEncoder(query_encoder)
+        elif 'unicoil' in query_encoder.lower():
+            return UniCoilQueryEncoder(query_encoder)
