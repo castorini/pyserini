@@ -65,7 +65,7 @@ class FaissEmbeddingWriter(EmbeddingWriter):
     def __enter__(self):
         if not os.path.exists(self.dir_path):
             os.mkdir(self.dir_path)
-        self.id_file = open(os.path.join(self.dir_path, self.id_file_name))
+        self.id_file = open(os.path.join(self.dir_path, self.id_file_name), 'w')
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.id_file.close()
