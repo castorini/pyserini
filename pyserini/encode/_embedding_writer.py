@@ -18,6 +18,7 @@ import json
 import os
 
 import faiss
+import numpy as np
 
 
 class EmbeddingWriter:
@@ -48,9 +49,11 @@ class JsonlEmbeddingWriter(EmbeddingWriter):
     def write(self, batch_info, fields=None):
         for i in range(len(batch_info['id'])):
             contents = "\n".join([batch_info[key][i] for key in fields])
+            vector = batch_info['vector'][i]
+            vector = vector.tolist() if isinstance(vector, np.ndarray) else vector
             self.file.write(json.dumps({'id': batch_info['id'][i],
                                         'contents': contents,
-                                        'vector': batch_info['vector'][i].tolist()}) + '\n')
+                                        'vector': vector}) + '\n')
 
 
 class FaissEmbeddingWriter(EmbeddingWriter):
