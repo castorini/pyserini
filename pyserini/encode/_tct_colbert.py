@@ -48,7 +48,6 @@ class TctColBertDocumentEncoder(DocumentEncoder):
 
 
 class TctColBertQueryEncoder(QueryEncoder):
-
     def __init__(self, model_name: str, tokenizer_name: str = None, device: str = 'cpu'):
         self.device = device
         self.model = BertModel.from_pretrained(model_name)

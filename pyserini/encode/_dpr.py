@@ -52,7 +52,6 @@ class DprDocumentEncoder(DocumentEncoder):
 
 
 class DprQueryEncoder(QueryEncoder):
-
     def __init__(self, model_name: str, tokenizer_name: str = None, device: str = 'cpu'):
         self.device = device
         self.model = DPRQuestionEncoder.from_pretrained(model_name)

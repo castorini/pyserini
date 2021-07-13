@@ -54,7 +54,6 @@ class AutoDocumentEncoder(DocumentEncoder):
 
 
 class AutoQueryEncoder(QueryEncoder):
-
     def __init__(self, model_name: str, tokenizer_name: str = None, device: str = 'cpu',
                  pooling: str = 'cls', l2_norm: bool = False, prefix=None):
         self.device = device

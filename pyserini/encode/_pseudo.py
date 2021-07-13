@@ -19,7 +19,7 @@ import json
 from pyserini.encode import QueryEncoder
 
 
-class PseudoQueryEncoder(QueryEncoder):
+class CachedDataQueryEncoder(QueryEncoder):
     def __init__(self, model_name_or_path):
         self.vectors = self._load_from_jsonl(model_name_or_path)
 
