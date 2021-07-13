@@ -60,9 +60,9 @@ class JsonlCollectionIterator:
                 filenames.append(os.path.join(collection_path, filename))
         all_info = {field: [] for field in self.fields}
         all_info['id'] = []
-        for filename in tqdm(filenames):
+        for filename in filenames:
             with open(filename) as f:
-                for line in f:
+                for line in tqdm(f):
                     info = json.loads(line)
                     all_info['id'].append(str(info['id']))
                     fields_info = info['contents'].rstrip().split('\n')

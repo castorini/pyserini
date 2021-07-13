@@ -77,7 +77,7 @@ if __name__ == '__main__':
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
-    encoder_parser.add_argument('--batch', type=int, help='batch size', default=64, required=False)
+    encoder_parser.add_argument('--batch-size', type=int, help='batch size', default=64, required=False)
     encoder_parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]',
                                 default='cuda:0', required=False)
 
