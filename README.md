@@ -390,6 +390,8 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + [Guide to reproducing the BM25 baseline for MS MARCO Document Ranking](docs/experiments-msmarco-doc.md)
 + [Guide to reproducing the multi-field BM25 baseline for MS MARCO Document Ranking from Elasticsearch](docs/experiments-elastic.md)
 + [Guide to reproducing Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
++ [Guide to reproducing DeepImpact experiments](docs/experiments-deepimpact.md)
++ [Guide to reproducing UniCOIL experiments](docs/experiments-unicoil.md)
 
 ### Dense Retrieval
 

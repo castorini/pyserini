@@ -4,11 +4,12 @@ This page describes how to reproduce the uniCOIL experiments in the following pa
 
 > Jimmy Lin and Xueguang Ma. [A Few Brief Notes on DeepImpact, COIL, and a Conceptual Framework for Information Retrieval Techniques.](https://arxiv.org/abs/2106.14807) _arXiv:2106.14807_.
 
-Here, we start with a version of the MS MARCO passage corpus that has already been processed with uniCOIL, i.e., gone through document expansion and term reweighting.
-Thus, no neural inference is involved.
-
 Note: This page is just exactly like [Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage-unicoil.md), except you can do it from Python.
 
+## Train & inference with uniCOIL
+Here, we start with a version of the MS MARCO passage corpus that has already been processed with uniCOIL, i.e., gone through document expansion and term reweighting.
+Thus, no neural inference is involved.
+To see the details on how to train uniCOIL and do inference, please see [here](https://github.com/luyug/COIL/tree/main/uniCOIL).
 
 ## Data Prep
 
