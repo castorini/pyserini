@@ -50,7 +50,7 @@ class JsonlEmbeddingWriter(EmbeddingWriter):
             contents = "\n".join([batch_info[key][i] for key in fields])
             self.file.write(json.dumps({'id': batch_info['id'][i],
                                         'contents': contents,
-                                        'vector': batch_info['vector'][i]}) + '\n')
+                                        'vector': batch_info['vector'][i].tolist()}) + '\n')
 
 
 class FaissEmbeddingWriter(EmbeddingWriter):
