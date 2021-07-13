@@ -67,7 +67,7 @@ class PseudoQueryEncoder(QueryEncoder):
 class TokFreqQueryEncoder(QueryEncoder):
     def __init__(self, model=None, tokenizer=None):
         super().__init__(model)
-        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+        self.tokenizer = None  # BertTokenizer.from_pretrained('bert-base-uncased')
 
     def encode(self, text):
         vector = {}

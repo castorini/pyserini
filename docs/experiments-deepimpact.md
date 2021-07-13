@@ -27,7 +27,13 @@ To confirm, `msmarco-passage-deepimpact-b8.tar.gz` should have MD5 checksum of `
 
 ## Indexing
 
-Release Soon, See Anserini for now.
+```bash
+python -m pyserini.index -collection JsonVectorCollection \
+ -input collections/msmarco-passage-deepimpact-b8/ \
+ -index indexes/lucene-index.msmarco-passage-deepimpact-b8 \
+ -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
+ -threads 18 -storeRaw
+```
 
 ## Retrieval
 

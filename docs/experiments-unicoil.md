@@ -27,7 +27,13 @@ To confirm, `msmarco-passage-unicoil-b8.tar` should have MD5 checksum of `eb28c0
 
 ## Indexing
 
-Release Soon, see Anserini for now
+```
+python -m pyserini.index -collection JsonVectorCollection \
+ -input collections/msmarco-passage-unicoil-b8/ \
+ -index indexes/lucene-index.msmarco-passage-unicoil-b8 \
+ -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
+ -threads 12 -storeRaw -optimize
+```
 
 ## Retrieval
 
@@ -70,4 +76,3 @@ QueriesRanked: 6980
 
 
 ## Reproduction Log[*](reproducibility.md)
-
