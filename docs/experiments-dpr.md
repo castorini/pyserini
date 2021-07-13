@@ -165,6 +165,7 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
                                                                 --index wikipedia-dpr \
                                                                 --input runs/run.dpr.trivia-test.bm25.trec \
+                                                                --output runs/run.dpr.trivia-test.bm25.json
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.trivia-test.bm25.json --topk 20 100
 Top20  accuracy: 0.7641
