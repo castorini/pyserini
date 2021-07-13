@@ -139,7 +139,7 @@ class UniCoilDocumentEncoder(DocumentEncoder):
 
 
 class UniCoilQueryEncoder(QueryEncoder):
-    def __init__(self, model_name_or_path, tokenizer_name=None, device='cuda:0'):
+    def __init__(self, model_name_or_path, tokenizer_name=None, device='cpu'):
         self.device = device
         self.model = UniCoilEncoder.from_pretrained(model_name_or_path)
         self.model.to(self.device)
