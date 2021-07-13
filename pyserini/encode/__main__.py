@@ -80,6 +80,7 @@ if __name__ == '__main__':
     encoder_parser.add_argument('--batch-size', type=int, help='batch size', default=64, required=False)
     encoder_parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]',
                                 default='cuda:0', required=False)
+    encoder_parser.add_argument('--fp16', action='store_true', default=False)
 
     args = parse_args(parser, commands)
 
