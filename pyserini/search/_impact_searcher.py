@@ -25,8 +25,7 @@ from typing import Dict, List, Optional, Union
 from ._base import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap, JString
 from pyserini.util import download_prebuilt_index
-from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder
-from ..encode._pseudo import CachedDataQueryEncoder
+from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder, CachedDataQueryEncoder
 
 logger = logging.getLogger(__name__)
 
