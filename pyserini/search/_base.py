@@ -41,6 +41,7 @@ JBagOfWordsQueryGenerator = autoclass('io.anserini.search.query.BagOfWordsQueryG
 JDisjunctionMaxQueryGenerator = autoclass('io.anserini.search.query.DisjunctionMaxQueryGenerator')
 JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
 
+
 class Document:
     """Wrapper class for a Lucene ``Document``.
 

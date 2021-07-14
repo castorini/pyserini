@@ -146,3 +146,4 @@ Top100	accuracy: 0.8522
 + Results reproduced by [@jingtaozhan](https://github.com/jingtaozhan) on 2021-05-15 (commit [`53d8d3c`](https://github.com/castorini/pyserini/commit/53d8d3cbb78c88a23ce132a42b0396caad7d2e0f))
 + Results reproduced by [@jmmackenzie](https://github.com/jmmackenzie) on 2021-05-17 (PyPI [`0.12.0`](https://pypi.org/project/pyserini/0.12.0/))
 + Results reproduced by [@yuki617](https://github.com/yuki617) on 2021-06-7 (commit [`c7b37d6`](https://github.com/castorini/pyserini/commit/c7b37d6073cda62685f64d6d0b99dc46f0718346))
++ Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-07-06 (commit [`c9f44b2`](https://github.com/castorini/pyserini/commit/c9f44b2a24103fff4887cade831f9b7c2472b190))
