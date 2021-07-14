@@ -19,6 +19,9 @@ import sys
 import os
 
 args = sys.argv[1:]
+for i in range(len(args)):
+    if args[i].startswith('--'):
+        args[i] = args[i][1:]
 
 # argument check
 for i in range(len(args)):
