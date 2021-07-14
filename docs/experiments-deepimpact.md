@@ -2,12 +2,15 @@
 
 This page describes how to reproduce the DeepImpact experiments in the following paper:
 
-> Antonio Mallia, Omar Khattab, Nicola Tonellotto, and Torsten Suel. [Learning Passage Impacts for Inverted Indexes.](https://arxiv.org/abs/2104.12016) _arXiv:2104.12016_.
+> Antonio Mallia, Omar Khattab, Nicola Tonellotto, and Torsten Suel. [Learning Passage Impacts for Inverted Indexes.](https://dl.acm.org/doi/10.1145/3404835.3463030) _SIGIR 2021_.
 
 Here, we start with a version of the MS MARCO passage corpus that has already been processed with DeepImpact, i.e., gone through document expansion and term reweighting.
 Thus, no neural inference is involved.
 
-Note: This page is just exactly like [Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage-deepimpact.md), except you can do it from Python.
+Note that Anserini provides [a comparable reproduction guide](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage-deepimpact.md) based on Java.
+Here, we can get _exactly_ the same results from Python.
+
+
 ## Data Prep
 
 We're going to use the repository's root directory as the working directory.
@@ -27,6 +30,8 @@ To confirm, `msmarco-passage-deepimpact-b8.tar.gz` should have MD5 checksum of `
 
 ## Indexing
 
+We can now index these docs:
+
 ```bash
 python -m pyserini.index -collection JsonVectorCollection \
  -input collections/msmarco-passage-deepimpact-b8/ \
@@ -34,6 +39,12 @@ python -m pyserini.index -collection JsonVectorCollection \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
  -threads 18 -storeRaw
 ```
+
+The important indexing options to note here are `-impact -pretokenized`: the first tells Anserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the DeepImpact tokens.
+
+Upon completion, we should have an index with 8,841,823 documents.
+The indexing speed may vary; on a modern desktop with an SSD (using 18 threads, per above), indexing takes around ten minutes.
+
 
 ## Retrieval
 
@@ -58,7 +69,11 @@ $ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subs
                             --output-format msmarco
 ```
 
-Evaluate:
+Query evaluation is much slower than with bag-of-words BM25; a complete run can take around half an hour.
+Note that the important option here is `-impact`, where we specify impact scoring.
+
+The output is in MS MARCO output format, so we can directly evaluate:
+
 ```bash
 $ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-deepimpact-b8.tsv
 ```
@@ -77,3 +92,4 @@ The final evaluation metric is very close to the one reported in the paper (0.32
 
 ## Reproduction Log[*](reproducibility.md)
 
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-07-14 (commit [`ed88e4c`](https://github.com/castorini/pyserini/commit/ed88e4c3ea9ce3bf71c06297c1768d93154d74a8))
