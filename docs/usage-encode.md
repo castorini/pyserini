@@ -1,4 +1,4 @@
-# Pyserini: Guide to Encode Collections
+# Pyserini: Guide to Encoding a Collection into Vectors
 
 ## How do I encode my own documents?
 
