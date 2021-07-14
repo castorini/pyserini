@@ -56,8 +56,8 @@ We can now run retrieval:
 
 ```bash
 $ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset.unicoil.tsv \
-                            --index indexes/lucene-index.msmarco-passage-deepimpact-b8 \
-                            --output runs/run.msmarco-passage-deepimpact-b8.tsv \
+                            --index indexes/lucene-index.msmarco-passage-unicoil-b8 \
+                            --output runs/run.msmarco-passage-unicoil-b8.tsv \
                             --impact \
                             --hits 1000 --batch 36 --threads 12 \
                             --output-format msmarco
@@ -65,7 +65,7 @@ $ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subs
 
 Evaluate:
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-deepimpact-b8.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-b8.tsv
 ```
 
 The results should be as follows:
@@ -79,3 +79,4 @@ QueriesRanked: 6980
 
 
 ## Reproduction Log[*](reproducibility.md)
++ Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-07-13 (commit [`228d5c9`](https://github.com/castorini/pyserini/commit/228d5c9c4ae0810702feccf8829b71682dd4955c))
