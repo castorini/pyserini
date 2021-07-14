@@ -52,7 +52,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3444, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3443, delta=0.0001)
 
     def test_msmarco_passage_distilbert_kd_tas_b_encoded_queries(self):
         encoder = QueryEncoder.load_encoded_queries('distilbert_tas_b-msmarco-passage-dev-subset')

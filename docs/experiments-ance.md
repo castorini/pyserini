@@ -71,7 +71,7 @@ To evaluate:
 ```bash
 $ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.passage.ance-maxp.txt
 #####################
-MRR @100: 0.3797
+MRR @100: 0.3796
 QueriesRanked: 5193
 #####################
 ```
@@ -82,7 +82,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-doc.passage.ance-maxp.txt --output runs/run.msmarco-doc.passage.ance-maxp.trec
 $ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev runs/run.msmarco-doc.passage.ance-maxp.trec
-map                   	all	0.3797
+map                   	all	0.3796
 recall_100            	all	0.9033
 ```
 
