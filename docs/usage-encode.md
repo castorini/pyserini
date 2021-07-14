@@ -33,7 +33,7 @@ If in jsonl format, each line contains following info:
 {
   "id": "doc1",
   "contents": "www.url.com\ntitle\nthis is the contents.\ndocument expansion",
-  "vector": [0.12, 0.12,..., 0.13, 0.14]
+  "vector": [0.12, 0.12,.., 0.13, 0.14]
 }
 ```
 
