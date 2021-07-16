@@ -31,7 +31,7 @@ To evaluate:
 ```bash
 $ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.distilbert-dot-tas_b-b256.bf.tsv
 #####################
-MRR @10: 0.3444
+MRR @10: 0.3443
 QueriesRanked: 6980
 #####################
 ```
@@ -42,7 +42,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.distilbert-dot-tas_b-b256.bf.tsv --output runs/run.msmarco-passage.distilbert-dot-tas_b-b256.bf.trec
 $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.distilbert-dot-tas_b-b256.bf.trec
-map                     all     0.3515
+map                     all     0.3514
 recall_1000             all     0.9771
 ```
 

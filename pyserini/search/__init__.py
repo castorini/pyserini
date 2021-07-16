@@ -17,7 +17,9 @@
 from ._base import Document, JDocument, JQuery, JDisjunctionMaxQueryGenerator, get_topics, get_topics_with_reader, get_qrels_file, get_qrels
 from ._searcher import JSimpleSearcherResult, LuceneSimilarities, SimpleFusionSearcher, SimpleSearcher
 from ._nearest_neighbor import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearcherResult
+from ._impact_searcher import JImpactSearcherResult, ImpactSearcher
 
 __all__ = ['Document', 'JDocument', 'JQuery', 'LuceneSimilarities', 'SimpleFusionSearcher', 'SimpleSearcher',
            'JSimpleSearcherResult', 'SimpleNearestNeighborSearcher', 'JSimpleNearestNeighborSearcherResult',
-           'JDisjunctionMaxQueryGenerator', 'get_topics', 'get_topics_with_reader', 'get_qrels_file', 'get_qrels']
+           'ImpactSearcher', 'JImpactSearcherResult', 'JDisjunctionMaxQueryGenerator', 'get_topics',
+           'get_topics_with_reader', 'get_qrels_file', 'get_qrels']
