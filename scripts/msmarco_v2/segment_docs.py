@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# Starting point for writing this script
+# https://github.com/castorini/docTTTTTquery/blob/master/convert_msmarco_passages_doc_to_anserini.py
 import argparse
 import os
 import sys
@@ -66,11 +68,11 @@ def split_document(f_ins, f_out):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Concatenate MS MARCO original docs with predicted queries')
+        description='Segment MS MARCO V2 original docs into passages')
     parser.add_argument('--input', required=True, help='MS MARCO V2 corpus path.')
-    parser.add_argument('--output', required=True, help='Output file path with json format.')
-    parser.add_argument('--max_length', default=10)
-    parser.add_argument('--stride', default=5)
+    parser.add_argument('--output', required=True, help='output file path with json format.')
+    parser.add_argument('--max_length', default=10, help='maximum sentence length per passage')
+    parser.add_argument('--stride', default=5, help='the distance between each beginning sentence of passage in a document')
     parser.add_argument('--num_workers', default=1, type=int)
     args = parser.parse_args()
 
@@ -84,7 +86,6 @@ if __name__ == '__main__':
     nlp.add_pipe(nlp.create_pipe("sentencizer"))
 
     files = glob.glob(os.path.join(args.original_docs_path, '*.gz'))
-    # split_document(files, os.path.join(args.output_docs_path, 'doc' + str(0) + '.json'))
     num_files = len(files)
     pool = Pool(args.num_workers)
     num_files_per_worker=num_files//args.num_workers
@@ -97,7 +98,7 @@ if __name__ == '__main__':
 
         pool.apply_async(split_document ,(file_list, f_out))
 
-    pool.close()  #  close the process pool and no longer accept new processes 
+    pool.close()
     pool.join()
 
     print('Done!')
