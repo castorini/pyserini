@@ -31,7 +31,7 @@ To evaluate:
 ```bash
 $ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv
 #####################
-MRR @10: 0.3251
+MRR @10: 0.3250
 QueriesRanked: 6980
 #####################
 ```

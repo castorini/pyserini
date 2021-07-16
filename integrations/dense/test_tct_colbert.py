@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for TCT-ColBERT model using on-the-fly query encoding."""
+"""Integration tests for TCT-ColBERTv1 models using on-the-fly query encoding."""
 
 import os
 import socket

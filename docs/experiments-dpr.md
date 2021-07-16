@@ -165,6 +165,7 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
                                                                 --index wikipedia-dpr \
                                                                 --input runs/run.dpr.trivia-test.bm25.trec \
+                                                                --output runs/run.dpr.trivia-test.bm25.json
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.trivia-test.bm25.json --topk 20 100
 Top20  accuracy: 0.7641
@@ -293,7 +294,8 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                                 --index wikipedia-dpr \
                                                                 --input runs/run.dpr.curated-test.multi.bf.trec \
-                                                                --output runs/run.dpr.curated-test.multi.bf.json
+                                                                --output runs/run.dpr.curated-test.multi.bf.json \
+                                                                --regex
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.curated-test.multi.bf.json --topk 20 100 --regex
 Top20  accuracy: 0.8876
@@ -314,7 +316,8 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                                 --index wikipedia-dpr \
                                                                 --input runs/run.dpr.curated-test.bm25.trec \
-                                                                --output runs/run.dpr.curated-test.bm25.json
+                                                                --output runs/run.dpr.curated-test.bm25.json \
+                                                                --regex
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.curated-test.bm25.json --topk 20 100 --regex
 Top20  accuracy: 0.8069
@@ -341,7 +344,8 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                                 --index wikipedia-dpr \
                                                                 --input runs/run.dpr.curated-test.multi.bf.bm25.trec \
-                                                                --output runs/run.dpr.curated-test.multi.bf.bm25.json
+                                                                --output runs/run.dpr.curated-test.multi.bf.bm25.json \
+                                                                --regex
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.curated-test.multi.bf.bm25.json --topk 20 100 --regex
 Top20  accuracy: 0.9006
