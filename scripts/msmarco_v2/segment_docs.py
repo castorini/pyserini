@@ -84,6 +84,7 @@ if __name__ == '__main__':
     nlp.add_pipe(nlp.create_pipe("sentencizer"))
 
     files = glob.glob(os.path.join(args.original_docs_path, '*.gz'))
+    # split_document(files, os.path.join(args.output_docs_path, 'doc' + str(0) + '.json'))
     num_files = len(files)
     pool = Pool(args.num_workers)
     num_files_per_worker=num_files//args.num_workers
@@ -96,7 +97,7 @@ if __name__ == '__main__':
 
         pool.apply_async(split_document ,(file_list, f_out))
 
-    pool.close()
+    pool.close()  #  close the process pool and no longer accept new processes 
     pool.join()
 
     print('Done!')
