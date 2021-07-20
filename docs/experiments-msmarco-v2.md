@@ -52,7 +52,7 @@ $ tools/eval/trec_eval.9.0.4/trec_eval -c -m map -m recall.100,1000 -m recip_ran
 map                   	all	0.0709
 recip_rank            	all	0.0719
 recall_100            	all	0.3397
-recall_1000             all 0.5733
+recall_1000             all     0.5733
 ```
 
 ## MS MARCO Doc V2
