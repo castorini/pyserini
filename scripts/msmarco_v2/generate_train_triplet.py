@@ -67,6 +67,7 @@ def open_as_write(fn):
 def main(args):
 	assert args.output.endswith(".tsv")
 	n_neg = args.n_neg_per_query
+	require_pos_in_topk = args.require_pos_in_topk
 	runs = load_runs(args.run_file)
 	qrels = load_qrels(args.qrel_file)
 	n_not_in_topk, n_total = 0, len(qrels)
@@ -80,7 +81,11 @@ def main(args):
 				continue
 
 			top_k = runs[qid]
-			pos_docids = [docid for docid in top_k if qrels[qid].get(docid, 0) > 0]
+			if require_pos_in_topk:
+				pos_docids = [docid for docid in top_k if qrels[qid].get(docid, 0) > 0]
+			else:
+				pos_docids = [docid for docid in qrels[qid] if qrels[qid][docid] > 0]
+
 			neg_docids = [docid for docid in top_k if qrels[qid].get(docid, 0) == 0]
 
 			if len(pos_docids) == 0:
@@ -99,7 +104,8 @@ if __name__ == "__main__":
 	parser.add_argument('--run-file', '-r', required=True, help='MS MARCO V2 doc or passage train_top100.txt path.')
 	parser.add_argument('--qrel-file', '-q', required=True, help='MS MARCO V2 doc or passsage train_qrels.tsv path.')
 	parser.add_argument('--output', '-o', required=True, help='output training triple .tsv path')
-	parser.add_argument('--n-neg-per-query', default=40, help='number of negative documents sampled for each query')
+	parser.add_argument('--n-neg-per-query', '-nneg', default=40, type=int, help='number of negative documents sampled for each query')
+	parser.add_argument('--require-pos-in-topk', action='store_true', default=False, help='if specified, then only keep the positive documents if they appear in the given runfile')
 	args = parser.parse_args()
 
 	random.seed(123_456)
