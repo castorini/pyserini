@@ -39,19 +39,20 @@ For reference:
 
 
 ```
-python -m pyserini.search -index indexes/msmarco-passage-v2 \
- -topicreader TsvInt -topics collections/passv2_dev_queries.tsv \
- -output runs/run.msmarco-pass-v2.dev.txt \
- -bm25 -hits 100
+ python -m pyserini.search --index indexes/msmarco-passage-v2 \
+        --topics collections/passv2_dev_queries.tsv \
+        --output runs/run.msmarco-pass-v2.dev.txt \
+        --bm25 --hits 1000 --batch-size 36 --threads 12
 ```
 
 Evaluation:
 
 ```bash
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -m map -m recall.100 -m recip_rank collections/passv2_dev_qrels.uniq.tsv runs/run.msmarco-pass-v2.dev.txt
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -m map -m recall.100,1000 -m recip_rank collections/passv2_dev_qrels.uniq.tsv runs/run.msmarco-pass-v2.dev.txt
 map                   	all	0.0709
 recip_rank            	all	0.0719
 recall_100            	all	0.3397
+recall_1000             all 0.5733
 ```
 
 ## MS MARCO Doc V2
@@ -77,10 +78,10 @@ For reference:
 Perform a run on the dev queries:
 
 ```
-python -m pyserini.search -index indexes/msmarco-doc-v2 \
- -topicreader TsvInt -topics collections/docv2_dev_queries.tsv \
- -output runs/run.msmarco-doc-v2.dev.txt \
- -bm25 -hits 100
+ python -m pyserini.search --index indexes/msmarco-doc-v2 \
+        --topics collections/docv2_dev_queries.tsv \
+        --output runs/run.msmarco-doc-v2.dev.txt \
+        --bm25 --hits 100 --batch-size 36 --threads 12
 ```
 
 Evaluation:
