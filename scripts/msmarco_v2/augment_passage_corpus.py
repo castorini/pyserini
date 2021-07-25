@@ -21,7 +21,6 @@ import os
 import sys
 import gzip
 import json
-import spacy
 from tqdm import tqdm
 import re
 import glob
