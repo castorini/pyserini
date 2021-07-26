@@ -90,7 +90,7 @@ if __name__ == '__main__':
 
 
     os.makedirs(args.output_psg_path, exist_ok=True)
-    doc_files = glob.glob(os.path.join(args.doc_path, '*.gz'))
+    doc_files = glob.glob(os.path.join(args.original_doc_path, '*.gz'))
     psg_files = glob.glob(os.path.join(args.original_psg_path, '*.gz'))
     manager = Manager()
 
