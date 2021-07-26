@@ -4,12 +4,12 @@ This page describes how to reproduce the uniCOIL experiments in the following pa
 
 > Jimmy Lin and Xueguang Ma. [A Few Brief Notes on DeepImpact, COIL, and a Conceptual Framework for Information Retrieval Techniques.](https://arxiv.org/abs/2106.14807) _arXiv:2106.14807_.
 
-Note: This page is just exactly like [Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage-unicoil.md), except you can do it from Python.
-
-## Train & inference with uniCOIL
-Here, we start with a version of the MS MARCO passage corpus that has already been processed with uniCOIL, i.e., gone through document expansion and term reweighting.
+In this guide, we start with a version of the MS MARCO passage corpus that has already been processed with uniCOIL, i.e., gone through document expansion and term reweighting.
 Thus, no neural inference is involved.
-To see the details on how to train uniCOIL and do inference, please see [here](https://github.com/luyug/COIL/tree/main/uniCOIL).
+For details on how to train uniCOIL and perform inference, please see [this guide](https://github.com/luyug/COIL/tree/main/uniCOIL).
+
+Note that Anserini provides [a comparable reproduction guide](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage-unicoil.md) based on Java.
+Here, we can get _exactly_ the same results from Python.
 
 ## Data Prep
 
@@ -30,6 +30,8 @@ To confirm, `msmarco-passage-unicoil-b8.tar` should have MD5 checksum of `eb28c0
 
 ## Indexing
 
+We can now index these docs:
+
 ```
 python -m pyserini.index -collection JsonVectorCollection \
  -input collections/msmarco-passage-unicoil-b8/ \
@@ -37,6 +39,12 @@ python -m pyserini.index -collection JsonVectorCollection \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
  -threads 12 -storeRaw -optimize
 ```
+
+The important indexing options to note here are `-impact -pretokenized`: the first tells Anserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the uniCOIL tokens.
+
+Upon completion, we should have an index with 8,841,823 documents.
+The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around ten minutes.
+
 
 ## Retrieval
 
@@ -56,16 +64,20 @@ We can now run retrieval:
 
 ```bash
 $ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset.unicoil.tsv \
-                            --index indexes/lucene-index.msmarco-passage-deepimpact-b8 \
-                            --output runs/run.msmarco-passage-deepimpact-b8.tsv \
+                            --index indexes/lucene-index.msmarco-passage-unicoil-b8 \
+                            --output runs/run.msmarco-passage-unicoil-b8.tsv \
                             --impact \
                             --hits 1000 --batch 36 --threads 12 \
                             --output-format msmarco
 ```
 
-Evaluate:
+Query evaluation is much slower than with bag-of-words BM25; a complete run can take around 15 min.
+Note that the important option here is `-impact`, where we specify impact scoring.
+
+The output is in MS MARCO output format, so we can directly evaluate:
+
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-deepimpact-b8.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-b8.tsv
 ```
 
 The results should be as follows:
@@ -79,3 +91,6 @@ QueriesRanked: 6980
 
 
 ## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-07-13 (commit [`228d5c9`](https://github.com/castorini/pyserini/commit/228d5c9c4ae0810702feccf8829b71682dd4955c))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-07-14 (commit [`ed88e4c`](https://github.com/castorini/pyserini/commit/ed88e4c3ea9ce3bf71c06297c1768d93154d74a8))
