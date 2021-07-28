@@ -54,13 +54,13 @@ def load_run(fn, topk):
     with open(fn, "r", encoding="utf-8") as f:
         for line in f:
             qid, _, docid, _, score, _ = line.strip().split()
-            run[query_id].append((doc_title, int(rank)))
+            run[qid].append((docid, float(score)))
 
     sorted_run = defaultdict(list)
-    for query_id, doc_titles_ranks in tqdm(run.items()):
-        sorted(doc_titles_ranks, key=lambda x: x[1], reverse=True)
-        doc_titles = [doc_titles for doc_titles, _ in doc_titles_ranks][:topk]
-        sorted_run[query_id] = doc_titles
+    for query_id, docid_scores in tqdm(run.items()):
+        sorted(docid_scores, key=lambda x: x[1], reverse=True)
+        doc_ids = [doc_ids for doc_ids, _ in doc_ids_ranks][:topk]
+        sorted_run[query_id] = doc_ids
 
     return sorted_run
 
