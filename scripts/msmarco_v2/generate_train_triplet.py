@@ -43,14 +43,14 @@ def load_qrels(fn):
     return qrels
 
 
-def load_runs(fn, topk):
+def load_run(fn, topk):
     """
     Loading trec format runfile into a dictionary
     :param fn: runfile path
     :param topk: top results to include
     :return: dict, in format {qid: [docid, ...], ...}
     """
-    runs = defaultdict(list)
+    run = defaultdict(list)
     with open(fn, "r", encoding="utf-8") as f:
         for line in f:
             qid, _, docid, _, score, _ = line.strip().split()
@@ -76,7 +76,7 @@ def main(args):
     assert args.output.endswith(".tsv")
     n_neg = args.n_neg_per_query
     require_pos_in_topk = args.require_pos_in_topk
-    runs = load_runs(args.run_file, args.topk)
+    run = load_run(args.run_file, args.topk)
     qrels = load_qrels(args.qrel_file)
     n_not_in_topk, n_total = 0, len(qrels)
 
@@ -85,10 +85,10 @@ def main(args):
             if n_processed > 0 and n_processed % 10_000:
                 print(f"[{n_processed:6}/{n_total}] queries processed.")
 
-            if qid not in runs:
+            if qid not in run:
                 continue
 
-            top_k = runs[qid]
+            top_k = run[qid]
             if require_pos_in_topk:
                 pos_docids = [docid for docid in top_k if qrels[qid].get(docid, 0) > 0]
             else:
