@@ -27,7 +27,7 @@ import os
 import random
 import argparse
 from collections import defaultdict
-
+from tqdm import tqdm
 
 def load_qrels(fn):
     """
@@ -81,7 +81,7 @@ def main(args):
     n_not_in_topk, n_total = 0, len(qrels)
 
     with open_as_write(args.output) as fout:
-        for n_processed, qid in enumerate(qrels):
+        for n_processed, qid in tqdm(enumerate(qrels)):
             if n_processed > 0 and n_processed % 10_000:
                 print(f"[{n_processed:6}/{n_total}] queries processed.")
 
