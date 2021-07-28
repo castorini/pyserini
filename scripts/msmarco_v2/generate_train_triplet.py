@@ -82,9 +82,6 @@ def main(args):
 
     with open_as_write(args.output) as fout:
         for n_processed, qid in tqdm(enumerate(qrels)):
-            if n_processed > 0 and n_processed % 10_000:
-                print(f"[{n_processed:6}/{n_total}] queries processed.")
-
             if qid not in run:
                 continue
 
