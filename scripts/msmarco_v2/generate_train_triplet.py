@@ -18,10 +18,10 @@
 #
 # Usage:
 # python scripts/msmarco_v2/generate_train_triplet.py \
-# 	-r v2_train_top100.txt \
-# 	-q v2_train_qrels.tsv \
-# 	-nneg 40 \
-# 	-o train-triple-ids.nneg-40.tsv
+#   -r v2_train_top100.txt \
+#   -q v2_train_qrels.tsv \
+#   -nneg 40 \
+#   -o train-triple-ids.nneg-40.tsv
 
 import os
 import random
@@ -43,70 +43,79 @@ def load_qrels(fn):
     return qrels
 
 
-def load_runs(fn):
+def load_runs(fn, topk):
     """
     Loading trec format runfile into a dictionary
     :param fn: runfile path
-    :return: dict, in format {qid: {docid: score, ...}, ...}
+    :param topk: top results to include
+    :return: dict, in format {qid: [docid, ...], ...}
     """
-    runs = defaultdict(dict)
+    runs = defaultdict(list)
     with open(fn, "r", encoding="utf-8") as f:
         for line in f:
             qid, _, docid, _, score, _ = line.strip().split()
-            runs[qid][docid] = float(score)
-    return runs
+            run[query_id].append((doc_title, int(rank)))
+
+    sorted_run = defaultdict(list)
+    for query_id, doc_titles_ranks in tqdm(run.items()):
+        sorted(doc_titles_ranks, key=lambda x: x[1], reverse=True)
+        doc_titles = [doc_titles for doc_titles, _ in doc_titles_ranks][:topk]
+        sorted_run[query_id] = doc_titles
+
+    return sorted_run
 
 
 def open_as_write(fn):
-	parent = os.path.dirname(fn)
-	if parent != "":
-		os.makedirs(parent, exist_ok=True)
-	return open(fn, "w")
+    parent = os.path.dirname(fn)
+    if parent != "":
+        os.makedirs(parent, exist_ok=True)
+    return open(fn, "w")
 
 
 def main(args):
-	assert args.output.endswith(".tsv")
-	n_neg = args.n_neg_per_query
-	require_pos_in_topk = args.require_pos_in_topk
-	runs = load_runs(args.run_file)
-	qrels = load_qrels(args.qrel_file)
-	n_not_in_topk, n_total = 0, len(qrels)
+    assert args.output.endswith(".tsv")
+    n_neg = args.n_neg_per_query
+    require_pos_in_topk = args.require_pos_in_topk
+    runs = load_runs(args.run_file, args.topk)
+    qrels = load_qrels(args.qrel_file)
+    n_not_in_topk, n_total = 0, len(qrels)
 
-	with open_as_write(args.output) as fout:
-		for n_processed, qid in enumerate(qrels):
-			if n_processed > 0 and n_processed % 10_000:
-				print(f"[{n_processed:6}/{n_total}] queries processed.")
+    with open_as_write(args.output) as fout:
+        for n_processed, qid in enumerate(qrels):
+            if n_processed > 0 and n_processed % 10_000:
+                print(f"[{n_processed:6}/{n_total}] queries processed.")
 
-			if qid not in runs:
-				continue
+            if qid not in runs:
+                continue
 
-			top_k = runs[qid]
-			if require_pos_in_topk:
-				pos_docids = [docid for docid in top_k if qrels[qid].get(docid, 0) > 0]
-			else:
-				pos_docids = [docid for docid in qrels[qid] if qrels[qid][docid] > 0]
+            top_k = runs[qid]
+            if require_pos_in_topk:
+                pos_docids = [docid for docid in top_k if qrels[qid].get(docid, 0) > 0]
+            else:
+                pos_docids = [docid for docid in qrels[qid] if qrels[qid][docid] > 0]
 
-			neg_docids = [docid for docid in top_k if qrels[qid].get(docid, 0) == 0]
+            neg_docids = [docid for docid in top_k if qrels[qid].get(docid, 0) == 0]
 
-			if len(pos_docids) == 0:
-				n_not_in_topk += 1
+            if len(pos_docids) == 0:
+                n_not_in_topk += 1
 
-			for pos_docid in pos_docids:
-				sampled_neg_docids = random.choices(neg_docids, k=n_neg)
-				lines = [f"{qid}\t{pos_docid}\t{neg_docid}\n" for neg_docid in sampled_neg_docids]
-				fout.writelines(lines)
+            for pos_docid in pos_docids:
+                sampled_neg_docids = random.choices(neg_docids, k=n_neg)
+                lines = [f"{qid}\t{pos_docid}\t{neg_docid}\n" for neg_docid in sampled_neg_docids]
+                fout.writelines(lines)
 
-	print(f"Finished. {n_not_in_topk} out of {n_total} queries have no positive document in the runfile.")
+    print(f"Finished. {n_not_in_topk} out of {n_total} queries have no positive document in the runfile.")
 
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description='Generate MS MARCO V2 training triple .tsv')
-	parser.add_argument('--run-file', '-r', required=True, help='MS MARCO V2 doc or passage train_top100.txt path.')
-	parser.add_argument('--qrel-file', '-q', required=True, help='MS MARCO V2 doc or passsage train_qrels.tsv path.')
-	parser.add_argument('--output', '-o', required=True, help='output training triple .tsv path')
-	parser.add_argument('--n-neg-per-query', '-nneg', default=40, type=int, help='number of negative documents sampled for each query')
-	parser.add_argument('--require-pos-in-topk', action='store_true', default=False, help='if specified, then only keep the positive documents if they appear in the given runfile')
-	args = parser.parse_args()
+    parser = argparse.ArgumentParser(description='Generate MS MARCO V2 training triple .tsv')
+    parser.add_argument('--run-file', '-r', required=True, help='MS MARCO V2 doc or passage train_top100.txt path.')
+    parser.add_argument('--qrel-file', '-q', required=True, help='MS MARCO V2 doc or passsage train_qrels.tsv path.')
+    parser.add_argument('--output', '-o', required=True, help='output training triple .tsv path')
+    parser.add_argument('--n-neg-per-query', '-nneg', default=40, type=int, help='number of negative documents sampled for each query')
+    parser.add_argument('--topk' , default=1000, type=int, help='number of documents from which we sample negative documents')
+    parser.add_argument('--require-pos-in-topk', action='store_true', default=False, help='if specified, then only keep the positive documents if they appear in the given runfile')
+    args = parser.parse_args()
 
-	random.seed(123_456)
-	main(args)
+    random.seed(123_456)
+    main(args)
