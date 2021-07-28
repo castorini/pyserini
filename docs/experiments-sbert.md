@@ -2,6 +2,14 @@
 
 This guide provides instructions to reproduce the SBERT dense retrieval models for MS MARCO passage ranking (v3) described [here](https://github.com/UKPLab/sentence-transformers/blob/master/docs/pretrained-models/msmarco-v3.md).
 
+Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
+Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
+See [package installation notes](../README.md#package-installation) for more details.
+
+Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
+However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
+Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
+
 Dense retrieval, brute-force index:
 
 ```bash
@@ -21,7 +29,7 @@ To evaluate:
 ```bash
 $ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.sbert.bf.tsv
 #####################
-MRR @10: 0.3313618842952645
+MRR @10: 0.3314
 QueriesRanked: 6980
 #####################
 ```
@@ -32,7 +40,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.sbert.bf.tsv --output runs/run.msmarco-passage.sbert.bf.trec
 $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.sbert.bf.trec
-map                     all     0.3372
+map                     all     0.3373
 recall_1000             all     0.9558
 ```
 
@@ -58,7 +66,7 @@ To evaluate:
 ```bash
 $ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.sbert.bf.bm25.tsv
 #####################
-MRR @10: 0.337881134306635
+MRR @10: 0.3379
 QueriesRanked: 6980
 #####################
 

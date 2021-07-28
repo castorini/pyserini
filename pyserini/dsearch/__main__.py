@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,11 +19,10 @@ import os
 
 from tqdm import tqdm
 
-from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, QueryEncoder, DprQueryEncoder,\
-    AnceQueryEncoder, AutoQueryEncoder
+from pyserini.dsearch import SimpleDenseSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, \
+    QueryEncoder, DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
-
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -44,9 +43,13 @@ def define_dsearch_args(parser):
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
     parser.add_argument('--device', type=str, metavar='device to run query encoder', required=False, default='cpu',
                         help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
+    parser.add_argument('--query-prefix', type=str, metavar='str', required=False, default=None,
+                        help="Query prefix if exists.")
+    parser.add_argument('--searcher', type=str, metavar='str', required=False, default='simple',
+                        help="dense searcher type")
 
 
-def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device):
+def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device, prefix):
     encoded_queries_map = {
         'msmarco-passage-dev-subset': 'tct_colbert-msmarco-passage-dev-subset',
         'dpr-nq-dev': 'dpr_multi-nq-dev',
@@ -58,8 +61,12 @@ def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, de
         'dpr-curated-test': 'dpr_multi-curated-test'
     }
     if encoder:
-        if 'dpr' in encoder:
+        if 'dkrr' in encoder:
+            return DkrrDprQueryEncoder(encoder_dir=encoder, device=device, prefix=prefix)
+        elif 'dpr' in encoder:
             return DprQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
+        elif 'bpr' in encoder:
+            return BprQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'tct_colbert' in encoder:
             return TctColBertQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'ance' in encoder:
@@ -72,8 +79,12 @@ def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, de
 
     if encoded_queries:
         if os.path.exists(encoded_queries):
-            return QueryEncoder(encoded_queries)
+            if 'bpr' in encoded_queries:
+                return BprQueryEncoder(encoded_query_dir=encoded_queries)
+            else:
+                return QueryEncoder(encoded_queries)
         return QueryEncoder.load_encoded_queries(encoded_queries)
+    
     if topics_name in encoded_queries_map:
         return QueryEncoder.load_encoded_queries(encoded_queries_map[topics_name])
     raise ValueError(f'No encoded queries for topic {topics_name}')
@@ -84,6 +95,8 @@ if __name__ == '__main__':
     parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                         help="Name of topics. Available: msmarco-passage-dev-subset.")
     parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
+    parser.add_argument('--binary-hits', type=int, metavar='num', required=False, default=1000, help="Number of binary hits.")
+    parser.add_argument("--rerank", action="store_true", help='whethere rerank bpr sparse results.')
     parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
                         help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
     parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
@@ -105,15 +118,23 @@ if __name__ == '__main__':
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
     topics = query_iterator.topics
 
-    query_encoder = init_query_encoder(args.encoder, args.tokenizer, args.topics, args.encoded_queries, args.device)
-
+    query_encoder = init_query_encoder(args.encoder, args.tokenizer, args.topics, args.encoded_queries, args.device, args.query_prefix)
+    kwargs = {}
     if os.path.exists(args.index):
         # create searcher from index directory
-        searcher = SimpleDenseSearcher(args.index, query_encoder)
+        if args.searcher.lower() == 'bpr':
+            kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
+            searcher = BinaryDenseSearcher(args.index, query_encoder)
+        else:
+            searcher = SimpleDenseSearcher(args.index, query_encoder)
     else:
         # create searcher from prebuilt index name
-        searcher = SimpleDenseSearcher.from_prebuilt_index(args.index, query_encoder)
-
+        if args.searcher.lower() == 'bpr':
+            kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
+            searcher = BinaryDenseSearcher.from_prebuilt_index(args.index, query_encoder)
+        else:
+            searcher = SimpleDenseSearcher.from_prebuilt_index(args.index, query_encoder)
+    
     if not searcher:
         exit()
 
@@ -134,7 +155,7 @@ if __name__ == '__main__':
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.batch_size <= 1 and args.threads <= 1:
-                hits = searcher.search(text, args.hits)
+                hits = searcher.search(text, args.hits, **kwargs)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
@@ -142,7 +163,7 @@ if __name__ == '__main__':
                 if (index + 1) % args.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
                     results = searcher.batch_search(
-                        batch_topics, batch_topic_ids, args.hits, args.threads)
+                        batch_topics, batch_topic_ids, args.hits, threads=args.threads, **kwargs)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()

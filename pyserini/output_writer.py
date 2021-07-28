@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -110,3 +110,7 @@ def get_output_writer(file_path: str, output_format: OutputFormat, *args, **kwar
         OutputFormat.KILT: KiltWriter,
     }
     return mapping[output_format](file_path, *args, **kwargs)
+
+
+def tie_breaker(hits):
+    return sorted(hits, key=lambda x: (-x.score, x.docid))

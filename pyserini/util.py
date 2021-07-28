@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,17 +15,19 @@
 #
 
 import hashlib
-import re
 import os
+import re
 import shutil
 import tarfile
-from tqdm import tqdm
-from urllib.request import urlretrieve
 from urllib.error import HTTPError, URLError
+from urllib.request import urlretrieve
+
 import pandas as pd
-from pyserini.prebuilt_index_info import INDEX_INFO, DINDEX_INFO
+from tqdm import tqdm
+
 from pyserini.encoded_query_info import QUERY_INFO
 from pyserini.evaluate_script_info import EVALUATION_INFO
+from pyserini.prebuilt_index_info import INDEX_INFO, DINDEX_INFO
 
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5
@@ -231,3 +233,9 @@ def download_evaluation_script(evaluation_name, force=False, verbose=True, mirro
         except HTTPError:
             print(f'Unable to download evaluation script at {url}, trying next URL...')
     raise ValueError(f'Unable to download evaluation script at any known URLs.')
+
+
+def get_sparse_index(index_name):
+    if index_name not in DINDEX_INFO:
+        raise ValueError(f'Unrecognized index name {index_name}')
+    return DINDEX_INFO[index_name]["texts"]

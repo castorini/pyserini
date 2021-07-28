@@ -2,7 +2,7 @@
 
 Dense passage retriever (DPR) is a dense retrieval method described in the following paper:
 
-> Vladimir Karpukhin, Barlas Oğuz, Sewon Min, Patrick Lewis, Ledell Wu, Sergey Edunov, Danqi Chen, Wen-tau Yih. [Dense Passage Retrieval for Open-Domain Question Answering](https://www.aclweb.org/anthology/2020.emnlp-main.550/). _Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)_, pages 6769-6781, 2929.
+> Vladimir Karpukhin, Barlas Oğuz, Sewon Min, Patrick Lewis, Ledell Wu, Sergey Edunov, Danqi Chen, Wen-tau Yih. [Dense Passage Retrieval for Open-Domain Question Answering](https://www.aclweb.org/anthology/2020.emnlp-main.550/). _Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)_, pages 6769-6781, 2020.
 
 We have replicated DPR results and incorporated the technique into Pyserini.
 Our own efforts are described in the following paper:
@@ -16,7 +16,10 @@ This guide provides instructions to reproduce our replication study.
 Our efforts include both retrieval as well as end-to-end answer extraction.
 We cover only retrieval here; for end-to-end answer extraction, please see [this guide](https://github.com/castorini/pygaggle/blob/master/docs/experiments-dpr-reader.md) in our PyGaggle neural text ranking library.
 
-You'll need a Pyserini [development installation](https://github.com/castorini/pyserini#development-installation) to get started.
+Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
+Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
+See [package installation notes](../README.md#package-installation) for more details.
+
 Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
 Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
@@ -162,6 +165,7 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
                                                                 --index wikipedia-dpr \
                                                                 --input runs/run.dpr.trivia-test.bm25.trec \
+                                                                --output runs/run.dpr.trivia-test.bm25.json
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.trivia-test.bm25.json --topk 20 100
 Top20  accuracy: 0.7641
@@ -290,7 +294,8 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                                 --index wikipedia-dpr \
                                                                 --input runs/run.dpr.curated-test.multi.bf.trec \
-                                                                --output runs/run.dpr.curated-test.multi.bf.json
+                                                                --output runs/run.dpr.curated-test.multi.bf.json \
+                                                                --regex
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.curated-test.multi.bf.json --topk 20 100 --regex
 Top20  accuracy: 0.8876
@@ -311,7 +316,8 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                                 --index wikipedia-dpr \
                                                                 --input runs/run.dpr.curated-test.bm25.trec \
-                                                                --output runs/run.dpr.curated-test.bm25.json
+                                                                --output runs/run.dpr.curated-test.bm25.json \
+                                                                --regex
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.curated-test.bm25.json --topk 20 100 --regex
 Top20  accuracy: 0.8069
@@ -338,7 +344,8 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                                 --index wikipedia-dpr \
                                                                 --input runs/run.dpr.curated-test.multi.bf.bm25.trec \
-                                                                --output runs/run.dpr.curated-test.multi.bf.bm25.json
+                                                                --output runs/run.dpr.curated-test.multi.bf.bm25.json \
+                                                                --regex
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.curated-test.multi.bf.bm25.json --topk 20 100 --regex
 Top20  accuracy: 0.9006
@@ -479,3 +486,4 @@ Top100	accuracy: 0.8837
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-21 (commit [`2adbf1`](https://github.com/castorini/pyserini/commit/2adbf1bedcfbfbeb3a5fbad71fad95feaab2b641))
++ Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-06-09 (commit [`5e8b917`](https://github.com/castorini/pyserini/commit/5e8b917dc806486da94a9bf1eb15b24e79c13479))

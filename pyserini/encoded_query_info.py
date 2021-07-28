@@ -1,3 +1,19 @@
+#
+# Pyserini: Reproducible IR research with sparse and dense representations
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 QUERY_INFO = {
     "tct_colbert-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT",
@@ -6,6 +22,36 @@ QUERY_INFO = {
         ],
         "md5": "b2fe6494241639153f26cc61acf3b39d",
         "size (bytes)": 20078757,
+        "total_queries": 6980,
+        "downloaded": False
+    },
+    "tct_colbert-v2-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT V2",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-msmarco-passage-dev-subset-20210608-5f341b.tar.gz",
+        ],
+        "md5": "ee8d76e596aef02c5027a2ffd0ff66f8",
+        "size (bytes)": 20072992,
+        "total_queries": 6980,
+        "downloaded": False
+    },
+    "tct_colbert-v2-hn-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT V2 HN",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-hn-msmarco-passage-dev-subset-20210608-5f341b.tar.gz",
+        ],
+        "md5": "f7e39cf2cd3ee53f7f8f2e0a1821431c",
+        "size (bytes)": 20074411,
+        "total_queries": 6980,
+        "downloaded": False
+    },
+    "tct_colbert-v2-hnp-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT V2 HN+",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-hnp-msmarco-passage-dev-subset-20210608-5f341b.tar.gz",
+        ],
+        "md5": "bed8036475774d12915c8af2a44612f4",
+        "size (bytes)": 20078958,
         "total_queries": 6980,
         "downloaded": False
     },
@@ -56,6 +102,16 @@ QUERY_INFO = {
         ],
         "md5": "4706ec91183eefa9771e9311fe4799e0",
         "size (bytes)": 20013009,
+        "total_queries": 6980,
+        "downloaded": False
+    },
+    "distilbert_tas_b-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by TAS-B",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-distilbert_dot_tas_b_b256-msmarco-passage-dev-subset-20210527-63276f.tar.gz",
+        ],
+        "md5": "17a3f81de7ba497728050b83733b1c46",
+        "size (bytes)": 20016799,
         "total_queries": 6980,
         "downloaded": False
     },

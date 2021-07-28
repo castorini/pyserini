@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,9 +19,10 @@
 import os
 import socket
 import unittest
+
 from integrations.utils import clean_files, run_command, parse_score
-from pyserini.search import get_topics
 from pyserini.dsearch import QueryEncoder
+from pyserini.search import get_topics
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -203,7 +204,8 @@ class TestSearchIntegration(unittest.TestCase):
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
-                                                           --output {retrieval_file}'
+                                                           --output {retrieval_file} \
+                                                           --regex'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20 --regex'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
@@ -227,7 +229,8 @@ class TestSearchIntegration(unittest.TestCase):
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
                                                            --index wikipedia-dpr \
                                                            --input {output_file} \
-                                                           --output {retrieval_file}'
+                                                           --output {retrieval_file} \
+                                                           --regex'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20 --regex'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)

@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,14 +14,15 @@
 # limitations under the License.
 #
 
-"""Integration tests for TCT-ColBERT model using on-the-fly query encoding."""
+"""Integration tests for TCT-ColBERTv1 models using on-the-fly query encoding."""
 
 import os
 import socket
 import unittest
+
 from integrations.utils import clean_files, run_command, parse_score
-from pyserini.search import get_topics
 from pyserini.dsearch import QueryEncoder
+from pyserini.search import get_topics
 
 
 class TestSearchIntegration(unittest.TestCase):
