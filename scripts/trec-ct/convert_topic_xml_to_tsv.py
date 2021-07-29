@@ -1,10 +1,6 @@
-import os
-import glob
 import argparse
 import xml.etree.ElementTree as ET
 import re
-import json
-from tqdm import tqdm
 from ftfy import fix_text
 
 def load_topic_trec(args):
@@ -22,7 +18,7 @@ def load_topic_trec(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--topics", required=True, type=str, help='topic file')
-    parser.add_argument('--queries', required=True, type=str, help='path to store t5_input, txt format')
+    parser.add_argument('--queries', required=True, type=str, help='convert to qid\\tquery tsv format')
     
     
     args = parser.parse_args()
