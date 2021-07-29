@@ -1,4 +1,5 @@
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+#
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,6 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 import argparse
 import json
@@ -28,12 +30,12 @@ def get_file_path(run_file, collection, classifier, alpha: str, rm3: bool):
 
 
 def get_res_file_path(run_file, collection, classifier, alpha: str, rm3: bool):
-    res = f'{run_file}/scripts/classifier_prf/cv/{collection}/scores_{collection}_{classifier}_A' + alpha
+    res = f'{run_file}/scripts/classifier_prf/cv/{collection}/{collection}_{classifier}_A' + alpha
     return res + get_file_extension(rm3)
 
 
 def get_trec_eval_cmd(anserini_root: str):
-    return os.path.join(anserini_root, 'eval/trec_eval.9.0.4/trec_eval')
+    return os.path.join(anserini_root, 'tools/eval/trec_eval.9.0.4/trec_eval')
 
 
 def get_qrels_path(anserini_root: str, collection: str):

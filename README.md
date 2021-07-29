@@ -1,4 +1,4 @@
-# Pyserini: Anserini Integration with Python
+# Pyserini
 
 [![Generic badge](https://img.shields.io/badge/Lucene-v8.3.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/8.3.0/)
 [![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
@@ -6,25 +6,33 @@
 [![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
-Pyserini provides a simple Python interface to the [Anserini](http://anserini.io/) IR toolkit via [pyjnius](https://github.com/kivy/pyjnius).
+Pyserini is a Python toolkit for reproducible information retrieval research with sparse and dense representations.
+Retrieval using sparse representations is provided via integration with our group's [Anserini](http://anserini.io/) IR toolkit, which is built on Lucene.
+Retrieval using dense representations is provided via integration with Facebook's [Faiss](https://github.com/facebookresearch/faiss) library.
 
-A low-effort way to try out Pyserini is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
-For convenience, we've pre-built a few common indexes, available to download [here](https://git.uwaterloo.ca/jimmylin/anserini-indexes).
+Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
+Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, pre-built indexes, and evaluation scripts for many commonly used IR test collections
 
-Pyserini versions adopt the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
-The current stable release of Pyserini is [v0.10.1.0](https://pypi.org/project/pyserini/) on PyPI.
-The current experimental release of Pyserini on TestPyPI is behind the current stable release (i.e., do not use).
-In general, documentation is kept up to date with the latest code in the repo.
-
-If you're looking to work with the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research), start with [this guide](docs/working-with-cord19.md).
+With Pyserini, it's easy to [reproduce](docs/pypi-reproduction.md) runs on a number of standard IR test collections!
+A low-effort way to try things out is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
 
 ## Package Installation
 
-Install via PyPI:
+Install via PyPI (requires Python 3.6+):
 
 ```
-pip install pyserini==0.10.1.0
+pip install pyserini
 ```
+
+Sparse retrieval depends on [Anserini](http://anserini.io/), which is itself built on Lucene, and thus Java 11.
+
+Dense retrieval depends on neural networks and requires a more complex set of dependencies.
+A `pip` installation will automatically pull in the [🤗 Transformers library](https://github.com/huggingface/transformers) to satisfy the package requirements.
+Pyserini also depends on [PyTorch](https://pytorch.org/) and [Faiss](https://github.com/facebookresearch/faiss), but since these packages may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
+We leave the installation of these packages to you.
+
+The software ecosystem is rapidly evolving and a potential source of frustration is incompatibility among different versions of underlying dependencies.
+We provide additional detailed installation instructions [here](./docs/installation.md).
 
 ## Development Installation
 
@@ -43,6 +51,9 @@ cd tools/eval/ndeval && make && cd ../../..
 Next, you'll need to clone and build [Anserini](http://anserini.io/).
 It makes sense to put both `pyserini/` and `anserini/` in a common folder.
 After you've successfully built Anserini, copy the fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
+As with the `pip` installation, a potential source of frustration is incompatibility among different versions of underlying dependencies.
+For these and other issues, we provide additional detailed installation instructions [here](./docs/installation.md).
+
 You can confirm everything is working by running the unit tests:
 
 ```bash
@@ -55,8 +66,11 @@ Assuming all tests pass, you should be ready to go!
 
 + [How do I search?](#how-do-i-search)
 + [How do I fetch a document?](#how-do-i-fetch-a-document)
-+ [How do I search my own documents?](#how-do-i-search-my-own-documents)
-+ [How do I replicate results on Robust04, MS MARCO...?](#replication-guides)
++ [How do I index and search my own documents?](#how-do-i-index-and-search-my-own-documents)
++ [How do I reproduce results on Robust04, MS MARCO...?](#reproduction-guides)
++ [How do I configure search?](docs/usage-interactive-search.md#how-do-i-configure-search) (Guide to Interactive Search)
++ [How do I manually download indexes?](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) (Guide to Interactive Search)
++ [How do I perform dense and hybrid retrieval?](docs/usage-interactive-search.md#how-do-i-perform-dense-and-hybrid-retrieval) (Guide to Interactive Search)
 + [How do I iterate over index terms and access term statistics?](docs/usage-indexreader.md#how-do-i-iterate-over-index-terms-and-access-term-statistics) (Index Reader API)
 + [How do I traverse postings?](docs/usage-indexreader.md#how-do-i-traverse-postings) (Index Reader API)
 + [How do I access and manipulate term vectors?](docs/usage-indexreader.md#how-do-i-access-and-manipulate-term-vectors) (Index Reader API)
@@ -68,75 +82,49 @@ Assuming all tests pass, you should be ready to go!
 
 ## How do I search?
 
-The `SimpleSearcher` class provides the entry point for searching.
+Pyserini supports sparse retrieval (e.g., BM25 ranking using bag-of-words representations), dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), 
+as well hybrid retrieval that integrates both approaches. 
+
+### Sparse Retrieval
+
+The `SimpleSearcher` class provides the entry point for sparse retrieval using bag-of-words representations.
 Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
-Here's one on TREC Disks 4 &amp; 5, used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md):
+Here's how to use a pre-built index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively:
 
 ```python
 from pyserini.search import SimpleSearcher
 
-searcher = SimpleSearcher.from_prebuilt_index('robust04')
-hits = searcher.search('hubble space telescope')
+searcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+hits = searcher.search('what is a lobster roll?')
 
-# Print the first 10 hits:
 for i in range(0, 10):
-    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
 ```
 
 The results should be as follows:
 
 ```
- 1 LA071090-0047   16.85690
- 2 FT934-5418      16.75630
- 3 FT921-7107      16.68290
- 4 LA052890-0021   16.37390
- 5 LA070990-0052   16.36460
- 6 LA062990-0180   16.19260
- 7 LA070890-0154   16.15610
- 8 FT934-2516      16.08950
- 9 LA041090-0148   16.08810
-10 FT944-128       16.01920
+ 1 7157707 11.00830
+ 2 6034357 10.94310
+ 3 5837606 10.81740
+ 4 7157715 10.59820
+ 5 6034350 10.48360
+ 6 2900045 10.31190
+ 7 7157713 10.12300
+ 8 1584344 10.05290
+ 9 533614  9.96350
+10 6234461 9.92200
 ```
 
 To further examine the results:
 
-```
+```python
 # Grab the raw text:
 hits[0].raw
 
 # Grab the raw Lucene Document:
 hits[0].lucene_document
 ```
-
-Configure BM25 parameters and use RM3 query expansion:
-
-```python
-searcher.set_bm25(0.9, 0.4)
-searcher.set_rm3(10, 10, 0.5)
-
-hits2 = searcher.search('hubble space telescope')
-
-# Print the first 10 hits:
-for i in range(0, 10):
-    print(f'{i+1:2} {hits2[i].docid:15} {hits2[i].score:.5f}')
-```
-
-More generally, `SimpleSearcher` can be initialized with a location to an index.
-For example, you can download the same pre-built index as above by hand:
-
-```bash
-wget https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz
-tar xvfz index-robust04-20191213.tar.gz -C indexes
-rm index-robust04-20191213.tar.gz
-```
-
-And initialize `SimpleSearcher` as follows:
-
-```python
-searcher = SimpleSearcher('indexes/index-robust04-20191213/')
-```
-
-The result will be exactly the same.
 
 Pre-built Anserini indexes are hosted at the University of Waterloo's [GitLab](https://git.uwaterloo.ca/jimmylin/anserini-indexes) and mirrored on Dropbox.
 The following method will list available pre-built indexes:
@@ -146,37 +134,132 @@ SimpleSearcher.list_prebuilt_indexes()
 ```
 
 A description of what's available can be found [here](docs/prebuilt-indexes.md).
+Alternatively, see [this answer](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) for how to download an index manually.
+
+### Dense Retrieval
+
+The `SimpleDenseSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `SimpleSearcher`.
+The only additional thing we need to specify for dense retrieval is the query encoder.
+
+```python
+from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
+
+encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
+searcher = SimpleDenseSearcher.from_prebuilt_index(
+    'msmarco-passage-tct_colbert-hnsw',
+    encoder
+)
+hits = searcher.search('what is a lobster roll')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+```
+
+If you encounter an error (on macOS), you'll need the following:
+
+```python
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+```
+
+The results should be as follows:
+
+```
+ 1 7157710 70.53742
+ 2 7157715 70.50040
+ 3 7157707 70.13804
+ 4 6034350 69.93666
+ 5 6321969 69.62683
+ 6 4112862 69.34587
+ 7 5515474 69.21354
+ 8 7157708 69.08416
+ 9 6321974 69.06841
+10 2920399 69.01737
+```
+
+### Hybrid Sparse-Dense Retrieval
+
+The `HybridSearcher` class provides the entry point to perform hybrid sparse-dense retrieval:
+
+```python
+from pyserini.search import SimpleSearcher
+from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
+from pyserini.hsearch import HybridSearcher
+
+ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
+dsearcher = SimpleDenseSearcher.from_prebuilt_index(
+    'msmarco-passage-tct_colbert-hnsw',
+    encoder
+)
+hsearcher = HybridSearcher(dsearcher, ssearcher)
+hits = hsearcher.search('what is a lobster roll')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+```
+
+The results should be as follows:
+
+```
+ 1 7157715 71.56022
+ 2 7157710 71.52962
+ 3 7157707 71.23887
+ 4 6034350 70.98502
+ 5 6321969 70.61903
+ 6 4112862 70.33807
+ 7 5515474 70.20574
+ 8 6034357 70.11168
+ 9 5837606 70.09911
+10 7157708 70.07636
+```
+
+In general, hybrid retrieval will be more effective than dense retrieval, which will be more effective than sparse retrieval.
 
 ## How do I fetch a document?
 
-The other commonly used feature is to fetch a document given its `docid`.
+Another commonly used feature in Pyserini is to fetch a document (i.e., its text) given its `docid`.
 This is easy to do:
 
 ```python
-doc = searcher.doc('LA071090-0047')
+from pyserini.search import SimpleSearcher
+
+searcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+doc = searcher.doc('7157715')
 ```
 
 From `doc`, you can access its `contents` as well as its `raw` representation.
 The `contents` hold the representation of what's actually indexed; the `raw` representation is usually the original "raw document".
 A simple example can illustrate this distinction: for an article from CORD-19, `raw` holds the complete JSON of the article, which obviously includes the article contents, but has metadata and other information as well.
-The `contents` are extracts from the article that's actually indexed (for example, the title and abstract).
-In most cases, `contents` can be deterministically reconstructed from the `raw`.
-When building the index, we specify flags to store `contents` and/or `raw`; it's rarely the case we store both, since it's usually a waste of space.
-In the case of the pre-built `robust04` index, we only store `raw`.
+The `contents` contain extracts from the article that's actually indexed (for example, the title and abstract).
+In most cases, `contents` can be deterministically reconstructed from `raw`.
+When building the index, we specify flags to store `contents` and/or `raw`; it is rarely the case that we store both, since that would be a waste of space.
+In the case of the pre-built `msmacro-passage` index, we only store `raw`.
 Thus:
 
 ```python
 # Document contents: what's actually indexed.
-# Note, this is not stored in the pre-built robust04 index.
+# Note, this is not stored in the pre-built msmacro-passage index.
 doc.contents()
                                                                                                    
 # Raw document
 doc.raw()
 ```
 
-As you'd expected, `doc.id()` returns the `docid`, which is `LA071090-0047` in this case.
+As you'd expected, `doc.id()` returns the `docid`, which is `7157715` in this case.
 Finally, `doc.lucene_document()` returns the underlying Lucene `Document` (i.e., a Java object).
 With that, you get direct access to the complete Lucene API for manipulating documents.
+
+Since each text in the MS MARCO passage corpus is a JSON object, we can read the document into Python and manipulate:
+
+```python
+import json
+json_doc = json.loads(doc.raw())
+
+json_doc['contents']
+# 'contents' of the document:
+# A Lobster Roll is a bread roll filled with bite-sized chunks of lobster meat...
+```
 
 Every document has a `docid`, of type string, assigned by the collection it is part of.
 In addition, Lucene assigns each document a unique internal id (confusingly, Lucene also calls this the `docid`), which is an integer numbered sequentially starting from zero to one less than the number of documents in the index.
@@ -196,8 +279,12 @@ for i in range(searcher.num_docs):
     print(searcher.doc(i).docid())
 ```
 
-## How do I search my own documents?
+## How do I index and search my own documents?
 
+To build sparse (i.e., Lucene inverted indexes) on your own document collections, following the instructions below.
+To build dense indexes (e.g., the output of transformer encoders) on your own document collections, see instructions [here](docs/usage-dense-indexes.md).
+The following covers English documents; if you want to index and search multilingual documents, check out [this answer](docs/usage-multilingual.md#how-do-i-index-and-search-my-own-non-english-documents).
+ 
 Pyserini (via Anserini) provides ingestors for document collections in many different formats.
 The simplest, however, is the following JSON format:
 
@@ -219,12 +306,24 @@ So, the quickest way to get started is to write a script that converts your docu
 Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
 
 ```bash
-python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
- -threads 1 -input integrations/resources/sample_collection_jsonl \
- -index indexes/sample_collection_jsonl -storePositions -storeDocvectors -storeRaw
+python -m pyserini.index -collection JsonCollection \
+                         -generator DefaultLuceneDocumentGenerator \
+                         -threads 1 \
+                         -input integrations/resources/sample_collection_jsonl \
+                         -index indexes/sample_collection_jsonl \
+                         -storePositions -storeDocvectors -storeRaw
 ```
 
-Once this is done, you can use `SimpleSearcher` to search the index:
+Three options control the type of index that is built:
+
++ `-storePositions`: builds a standard positional index
++ `-storeDocvectors`: stores doc vectors (required for relevance feedback)
++ `-storeRaw`: stores raw documents
+
+If you don't specify any of the three options above, Pyserini builds an index that only stores term frequencies.
+This is sufficient for simple "bag of words" querying (and yields the smallest index size).
+
+Once indexing is done, you can use `SimpleSearcher` to search the index:
 
 ```python
 from pyserini.search import SimpleSearcher
@@ -233,8 +332,38 @@ searcher = SimpleSearcher('indexes/sample_collection_jsonl')
 hits = searcher.search('document')
 
 for i in range(len(hits)):
-    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
+    print(f'{i+1:2} {hits[i].docid:4} {hits[i].score:.5f}')
 ```
+
+You should get something like the following:
+
+```
+ 1 doc2 0.25620
+ 2 doc3 0.23140
+```
+
+If you want to perform a batch retrieval run (e.g., directly from the command line), organize all your queries in a tsv file, like [here](integrations/resources/sample_queries.tsv).
+The format is simple: the first field is a query id, and the second field is the query itself.
+Note that the file extension _must_ end in `.tsv` so that Pyserini knows what format the queries are in.
+
+Then, you can run:
+
+```bash
+$ python -m pyserini.search --topics integrations/resources/sample_queries.tsv \
+                            --index indexes/sample_collection_jsonl \
+                            --output run.sample.txt \
+                            --bm25
+
+$ cat run.sample.txt 
+1 Q0 doc2 1 0.256200 Anserini
+1 Q0 doc3 2 0.231400 Anserini
+2 Q0 doc1 1 0.534600 Anserini
+3 Q0 doc1 1 0.256200 Anserini
+3 Q0 doc2 2 0.256199 Anserini
+4 Q0 doc3 1 0.483000 Anserini
+```
+
+Note that output run file is in standard TREC format.
 
 You can also add extra fields in your documents when needed, e.g. text features.
 For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entities) Named Entity Recognition (NER) result of `contents` could be stored as an additional field `NER`.
@@ -250,20 +379,46 @@ For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entiti
 }
 ```
 
-Happy honking!
+## Reproduction Guides
 
-## Replication Guides
+With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a number of standard IR test collections!
 
-With Pyserini, it's easy to replicate runs on a number of standard IR test collections!
+### Sparse Retrieval
 
-+ The easiest way, start here: [Replicating runs directly from the Python package](docs/pypi-replication.md)
-+ [Guide to running the BM25 baseline for the MS MARCO Passage Retrieval Task](docs/experiments-msmarco-passage.md)
-+ [Guide to running the BM25 baseline for the MS MARCO Document Retrieval Task](docs/experiments-msmarco-doc.md)
++ [Reproducing runs directly from the Python package](docs/pypi-reproduction.md)
++ [Guide to reproducing the BM25 baseline for MS MARCO Passage Ranking](docs/experiments-msmarco-passage.md)
++ [Guide to reproducing the BM25 baseline for MS MARCO Document Ranking](docs/experiments-msmarco-doc.md)
++ [Guide to reproducing the multi-field BM25 baseline for MS MARCO Document Ranking from Elasticsearch](docs/experiments-elastic.md)
++ [Guide to reproducing Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
++ [Guide to reproducing DeepImpact experiments](docs/experiments-deepimpact.md)
++ [Guide to reproducing UniCOIL experiments](docs/experiments-unicoil.md)
+
+### Dense Retrieval
+
++ [Guide to reproducing TCT-ColBERTv2 experiments](docs/experiments-tct_colbert-v2.md)
++ [Guide to reproducing TCT-ColBERTv1 experiments](docs/experiments-tct_colbert.md)
++ [Guide to reproducing DPR experiments](docs/experiments-dpr.md)
++ [Guide to reproducing ANCE experiments](docs/experiments-ance.md)
++ [Guide to reproducing DistilBERT KD experiments](docs/experiments-distilbert_kd.md)
++ [Guide to reproducing DistilBERT Balanced Topic Aware Sampling experiments](docs/experiments-distilbert_tasb.md)
++ [Guide to reproducing SBERT dense retrieval experiments](docs/experiments-sbert.md)
+
+## Baselines
+
+Pyserini provides baselines for a number of datasets.
+
++ [Baselines](docs/experiments-kilt.md) for [KILT](https://github.com/facebookresearch/KILT): a benchmark for Knowledge Intensive Language Tasks
++ [Baselines](docs/experiments-tripclick-doc.md) for [TripClick](https://tripdatabase.github.io/tripclick/): a large-scale dataset of click logs in the health domain
++ [Baselines](https://github.com/castorini/anserini/blob/master/docs/experiments-fever.md) (in Anserini) for the [FEVER (Fact Extraction and VERification)](https://fever.ai/) dataset
 
 ## Additional Documentation
 
++ [Guide to pre-built indexes](docs/prebuilt-indexes.md)
++ [Guide to interactive searching](docs/usage-interactive-search.md)
++ [Guide to text classification with the 20Newsgroups dataset](docs/experiments-20newgroups.md)
 + [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
-+ [Guide to text classification with the 20Newsgroups dataset](docs/20newgroups.md)
++ [Guide to working with entity linking](https://github.com/castorini/pyserini/blob/master/docs/working-with-entity-linking.md)
++ [Guide to working with spaCy](https://github.com/castorini/pyserini/blob/master/docs/working-with-spacy.md)
 + [Usage of the Analyzer API](docs/usage-analyzer.md)
 + [Usage of the Index Reader API](docs/usage-indexreader.md)
 + [Usage of the Query Builder API](docs/usage-querybuilder.md)
@@ -279,6 +434,9 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 ## Release History
 
++ v0.13.0: July 3, 2021 [[Release Notes](docs/release-notes/release-notes-v0.13.0.md)]
++ v0.12.0: May 5, 2021 [[Release Notes](docs/release-notes/release-notes-v0.12.0.md)]
++ v0.11.0.0: February 18, 2021 [[Release Notes](docs/release-notes/release-notes-v0.11.0.0.md)]
 + v0.10.1.0: January 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.10.1.0.md)]
 + v0.10.0.1: December 2, 2020 [[Release Notes](docs/release-notes/release-notes-v0.10.0.1.md)]
 + v0.10.0.0: November 26, 2020 [[Release Notes](docs/release-notes/release-notes-v0.10.0.0.md)]
@@ -294,3 +452,6 @@ The previous error was documented in [this notebook](https://github.com/castorin
 + v0.7.1.0: January 9, 2020 [[Release Notes](docs/release-notes/release-notes-v0.7.1.0.md)]
 + v0.7.0.0: December 13, 2019 [[Release Notes](docs/release-notes/release-notes-v0.7.0.0.md)]
 + v0.6.0.0: November 2, 2019
+
+With v0.11.0.0 and before, Pyserini versions adopted the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
+Starting with Anserini v0.12.0, Anserini and Pyserini versions have become decoupled.

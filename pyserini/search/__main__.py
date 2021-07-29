@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,54 +16,16 @@
 
 import argparse
 import os
-from typing import Tuple, List, TextIO
 
-from pyserini.pyclass import autoclass
-from pyserini.search import get_topics, SimpleSearcher, JSimpleSearcherResult
-from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
-from pyserini.query_iterator import QUERY_IDS, query_iterator
 from tqdm import tqdm
+from transformers import AutoTokenizer
 
-
-def write_result(target_file: TextIO, result: Tuple[str, List[JSimpleSearcherResult]],
-                 hits_num: int, msmarco: bool, tag: str):
-    topic, hits = result
-    docids = [hit.docid.strip() for hit in hits]
-    scores = [hit.score for hit in hits]
-
-    if msmarco:
-        for i, docid in enumerate(docids):
-            if i >= hits_num:
-                break
-            target_file.write(f'{topic}\t{docid}\t{i + 1}\n')
-    else:
-        for i, (docid, score) in enumerate(zip(docids, scores)):
-            if i >= hits_num:
-                break
-            target_file.write(
-                f'{topic} Q0 {docid} {i + 1} {score:.6f} {tag}\n')
-
-
-def write_result_max_passage(target_file: TextIO, result: Tuple[str, List[JSimpleSearcherResult]],
-                             max_passage_delimiter: str, max_passage_hits: int,
-                             msmarco: bool, tag: str):
-    topic, hits = result
-    unique_docs = set()
-    rank = 1
-    for hit in hits:
-        docid, _ = hit.docid.split(max_passage_delimiter)
-        if docid in unique_docs:
-            continue
-
-        if msmarco:
-            target_file.write(f'{topic}\t{docid}\t{rank}\n')
-        else:
-            target_file.write(
-                f'{topic} Q0 {docid} {rank} {hit.score:.6f} {tag}\n')
-        rank = rank + 1
-        unique_docs.add(docid)
-        if rank > max_passage_hits:
-            break
+from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
+from pyserini.output_writer import OutputFormat, get_output_writer
+from pyserini.pyclass import autoclass
+from pyserini.query_iterator import get_query_iterator, TopicsFormat
+from pyserini.search import ImpactSearcher, SimpleSearcher, JDisjunctionMaxQueryGenerator
+from pyserini.search.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 
 
 def set_bm25_parameters(searcher, index, k1=None, b=None):
@@ -98,16 +60,18 @@ def set_bm25_parameters(searcher, index, k1=None, b=None):
 def define_search_args(parser):
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                         help="Path to Lucene index or name of prebuilt index.")
-    parser.add_argument('--batch-size', type=int, metavar='num', required=False,
-                        default=1, help="Specify batch size to search the collection concurrently.")
-    parser.add_argument('--threads', type=int, metavar='num', required=False,
-                        default=1, help="Maximum number of threads to use.")
+
+    parser.add_argument('--impact', action='store_true', help="Use Impact.")
+    parser.add_argument('--encoder', type=str, default=None, help="encoder name")
+
     parser.add_argument('--bm25', action='store_true', default=True, help="Use BM25 (default).")
     parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
     parser.add_argument('--b', type=float, help='BM25 b parameter.')
 
     parser.add_argument('--rm3', action='store_true', help="Use RM3")
     parser.add_argument('--qld', action='store_true', help="Use QLD")
+
+    parser.add_argument('--language', type=str, help='language code for BM25, e.g. zh for Chinese', default='en')
 
     parser.add_argument('--prcl', type=ClassifierType, nargs='+', default=[],
                         help='Specify the classifier PseudoRelevanceClassifierReranker uses.')
@@ -120,6 +84,15 @@ def define_search_args(parser):
     parser.add_argument('--prcl.alpha', dest='alpha', type=float, default=0.5,
                         help='Alpha value for interpolation in pseudo relevance feedback.')
 
+    parser.add_argument('--fields', metavar="key=value", nargs='+',
+                        help='Fields to search with assigned float weights.')
+    parser.add_argument('--dismax', action='store_true', default=False,
+                        help='Use disjunction max queries when searching multiple fields.')
+    parser.add_argument('--dismax.tiebreaker', dest='tiebreaker', type=float, default=0.0,
+                        help='The tiebreaker weight to use in disjunction max queries.')
+
+    parser.add_argument('--stopwords', type=str, help='Path to file with customstopwords.')
+
 
 if __name__ == "__main__":
     JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
@@ -129,8 +102,10 @@ if __name__ == "__main__":
                         help="Name of topics. Available: robust04, robust05, core17, core18.")
     parser.add_argument('--hits', type=int, metavar='num',
                         required=False, default=1000, help="Number of hits.")
-    parser.add_argument('--msmarco',  action='store_true',
-                        default=False, help="Output in MS MARCO format.")
+    parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
+                        help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
+    parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
+                        help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
     parser.add_argument('--output', type=str, metavar='path',
                         help="Path to output file.")
     parser.add_argument('--max-passage',  action='store_true',
@@ -139,16 +114,33 @@ if __name__ == "__main__":
                         help="Final number of hits when selecting only max passage.")
     parser.add_argument('--max-passage-delimiter', type=str, metavar='str', required=False, default='#',
                         help="Delimiter between docid and passage id.")
+    parser.add_argument('--batch-size', type=int, metavar='num', required=False,
+                        default=1, help="Specify batch size to search the collection concurrently.")
+    parser.add_argument('--threads', type=int, metavar='num', required=False,
+                        default=1, help="Maximum number of threads to use.")
+    parser.add_argument('--tokenizer', type=str, help='tokenizer used to preprocess topics')
+    parser.add_argument('--remove-duplicates', action='store_true', default=False, help="Remove duplicate docs.")
+
     args = parser.parse_args()
 
-    topics = get_topics(args.topics)
+    query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
+    topics = query_iterator.topics
 
-    if os.path.exists(args.index):
-        # create searcher from index directory
-        searcher = SimpleSearcher(args.index)
-    else:
-        # create searcher from prebuilt index name
-        searcher = SimpleSearcher.from_prebuilt_index(args.index)
+    if not args.impact:
+        if os.path.exists(args.index):
+            # create searcher from index directory
+            searcher = SimpleSearcher(args.index)
+        else:
+            # create searcher from prebuilt index name
+            searcher = SimpleSearcher.from_prebuilt_index(args.index)
+    elif args.impact:
+        if os.path.exists(args.index):
+            searcher = ImpactSearcher(args.index, args.encoder)
+        else:
+            searcher = ImpactSearcher.from_prebuilt_index(args.index, args.encoder)
+
+    if args.language != 'en':
+        searcher.set_language(args.language)
 
     if not searcher:
         exit()
@@ -158,7 +150,7 @@ if __name__ == "__main__":
     if args.qld:
         search_rankers.append('qld')
         searcher.set_qld()
-    else:
+    elif args.bm25:
         search_rankers.append('bm25')
         set_bm25_parameters(searcher, args.index, args.k1, args.b)
 
@@ -166,10 +158,27 @@ if __name__ == "__main__":
         search_rankers.append('rm3')
         searcher.set_rm3()
 
-    # invalid topics name
-    if topics == {}:
-        print(f'Topic {args.topics} Not Found')
-        exit()
+    fields = dict()
+    if args.fields:
+        fields = dict([pair.split('=') for pair in args.fields])
+        print(f'Searching over fields: {fields}')
+
+    query_generator = None
+    if args.dismax:
+        query_generator = JDisjunctionMaxQueryGenerator(args.tiebreaker)
+        print(f'Using dismax query generator with tiebreaker={args.tiebreaker}')
+    
+    if args.tokenizer != None:
+        analyzer = JWhiteSpaceAnalyzer()
+        searcher.set_analyzer(analyzer)
+        print(f'Using whitespace analyzer because of pretokenized topics')
+        tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
+        print(f'Using {args.tokenizer} to preprocess topics')
+
+    if args.stopwords:
+        analyzer = JDefaultEnglishAnalyzer.fromArguments('porter', False, args.stopwords)
+        searcher.set_analyzer(analyzer)
+        print(f'Using custom stopwords={args.stopwords}')
 
     # get re-ranker
     use_prcl = args.prcl and len(args.prcl) > 0 and args.alpha > 0
@@ -202,45 +211,67 @@ if __name__ == "__main__":
     print(f'Running {args.topics} topics, saving to {output_path}...')
     tag = output_path[:-4] if args.output is None else 'Anserini'
 
-    order = None
-    if args.topics in QUERY_IDS:
-        order = QUERY_IDS[args.topics]
+    output_writer = get_output_writer(output_path, OutputFormat(args.output_format), 'w',
+                                      max_hits=args.hits, tag=tag, topics=topics,
+                                      use_max_passage=args.max_passage,
+                                      max_passage_delimiter=args.max_passage_delimiter,
+                                      max_passage_hits=args.max_passage_hits)
 
-    with open(output_path, 'w') as target_file:
+    with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(list(query_iterator(topics, order)))):
+        for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
+            if (args.tokenizer != None):
+                toks = tokenizer.tokenize(text)
+                text = ' '
+                text = text.join(toks)
             if args.batch_size <= 1 and args.threads <= 1:
-                hits = searcher.search(text, args.hits)
+                if args.impact:
+                    hits = searcher.search(text, args.hits, fields=fields)
+                else:
+                    hits = searcher.search(text, args.hits, query_generator=query_generator, fields=fields)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
                 batch_topics.append(text)
                 if (index + 1) % args.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
-                    results = searcher.batch_search(
-                        batch_topics, batch_topic_ids, args.hits, args.threads)
+                    if args.impact:
+                        results = searcher.batch_search(
+                            batch_topics, batch_topic_ids, args.hits, args.threads, fields=fields
+                        )
+                    else:
+                        results = searcher.batch_search(
+                            batch_topics, batch_topic_ids, args.hits, args.threads,
+                            query_generator=query_generator, fields=fields
+                        )
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
                 else:
                     continue
 
-            for result in results:
+            for topic, hits in results:
                 # do rerank
                 if use_prcl and len(hits) > (args.r + args.n):
-                    hits = result[1]
                     docids = [hit.docid.strip() for hit in hits]
                     scores = [hit.score for hit in hits]
                     scores, docids = ranker.rerank(docids, scores)
                     docid_score_map = dict(zip(docids, scores))
                     for hit in hits:
                         hit.score = docid_score_map[hit.docid.strip()]
+                        
+                if args.remove_duplicates:
+                    seen_docids = set()
+                    dedup_hits = []
+                    for hit in hits:
+                        if hit.docid.strip() in seen_docids:
+                            continue
+                        seen_docids.add(hit.docid.strip())
+                        dedup_hits.append(hit)
+                    hits = dedup_hits
 
                 # write results
-                if args.max_passage:
-                    write_result_max_passage(target_file, result, args.max_passage_delimiter,
-                                             args.max_passage_hits, args.msmarco, tag)
-                else:
-                    write_result(target_file, result, args.hits, args.msmarco, tag)
+                output_writer.write(topic, hits)
+
             results.clear()

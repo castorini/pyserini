@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+import os
+import shutil
 import unittest
 
 from pyserini import search
@@ -26,8 +28,11 @@ def read_file_lines(path):
 
 class TestGetQrels(unittest.TestCase):
 
+    def setUp(self):
+        os.environ['PYSERINI_CACHE'] = 'temp_dir'
+
     def test_robust04(self):
-        qrels_path = search.get_qrels('robust04')
+        qrels_path = search.get_qrels_file('robust04')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -39,7 +44,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "700 0 LA123090-0137 0")
 
     def test_robust05(self):
-        qrels_path = search.get_qrels('robust05')
+        qrels_path = search.get_qrels_file('robust05')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -51,7 +56,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "689 0 XIE20000925.0055 0")
 
     def test_core17(self):
-        qrels_path = search.get_qrels('core17')
+        qrels_path = search.get_qrels_file('core17')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -63,7 +68,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "690 0 996059 0")
 
     def test_core18(self):
-        qrels_path = search.get_qrels('core18')
+        qrels_path = search.get_qrels_file('core18')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -75,7 +80,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "825 0 ff3a25b0-0ba4-11e4-8341-b8072b1e7348 0")
 
     def test_car15(self):
-        qrels_path = search.get_qrels('car17v1.5_benchmarkY1test')
+        qrels_path = search.get_qrels_file('car17v1.5-benchmarkY1test')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -90,7 +95,7 @@ class TestGetQrels(unittest.TestCase):
                                     " 0 e80b5185da1493edde41bea19a389a3f62167369 1")
 
     def test_car20(self):
-        qrels_path = search.get_qrels('car17v2.0_benchmarkY1test')
+        qrels_path = search.get_qrels_file('car17v2.0-benchmarkY1test')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -104,7 +109,7 @@ class TestGetQrels(unittest.TestCase):
                                     " 0 b812fca195f74f8c563db4262260554fe3ff3731 1")
 
     def test_msmarco_doc(self):
-        qrels_path = search.get_qrels('msmarco_doc_dev')
+        qrels_path = search.get_qrels_file('msmarco-doc-dev')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -116,7 +121,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "1102400	0	D677570	1")
 
     def test_msmarco_passage(self):
-        qrels_path = search.get_qrels('msmarco_passage_dev_subset')
+        qrels_path = search.get_qrels_file('msmarco-passage-dev-subset')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -128,7 +133,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "195199 0 8009377 1")
 
     def test_covid_round1(self):
-        qrels_path = search.get_qrels('covid_round1')
+        qrels_path = search.get_qrels_file('covid-round1')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -140,7 +145,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "30 0.5  zn87f1lk 1")
 
     def test_covid_round2(self):
-        qrels_path = search.get_qrels('covid_round2')
+        qrels_path = search.get_qrels_file('covid-round2')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -152,7 +157,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "35 2  zzmfhr2s 0")
 
     def test_covid_round3(self):
-        qrels_path = search.get_qrels('covid_round3')
+        qrels_path = search.get_qrels_file('covid-round3')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -164,7 +169,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "40 3  zsx7wfyj 1")
 
     def test_covid_round4(self):
-        qrels_path = search.get_qrels('covid_round4')
+        qrels_path = search.get_qrels_file('covid-round4')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -176,7 +181,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "45 4  zzrsk1ls 2")
 
     def test_covid_round5(self):
-        qrels_path = search.get_qrels('covid_round5')
+        qrels_path = search.get_qrels_file('covid-round5')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -188,7 +193,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "50 5  zz8wvos9 1")
 
     def test_covid_round3_cumulative(self):
-        qrels_path = search.get_qrels('covid_round3_cumulative')
+        qrels_path = search.get_qrels_file('covid-round3-cumulative')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -200,7 +205,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "40 3 zsx7wfyj 1")
 
     def test_covid_round4_cumulative(self):
-        qrels_path = search.get_qrels('covid_round4_cumulative')
+        qrels_path = search.get_qrels_file('covid-round4-cumulative')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -212,7 +217,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "45 4 zzrsk1ls 2")
 
     def test_covid_complete(self):
-        qrels_path = search.get_qrels('covid_complete')
+        qrels_path = search.get_qrels_file('covid-complete')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -224,7 +229,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "50 5 zz8wvos9 1")
 
     def test_trec2018_bl(self):
-        qrels_path = search.get_qrels('trec2018_bl')
+        qrels_path = search.get_qrels_file('trec2018-bl')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -236,7 +241,7 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(last_line, "825 0 f66b624ba8689d704872fa776fb52860 0")
 
     def test_trec2019_bl(self):
-        qrels_path = search.get_qrels('trec2019_bl')
+        qrels_path = search.get_qrels_file('trec2019-bl')
         lines = read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
@@ -246,6 +251,11 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(first_line, "826 0 0154349511cd8c49ab862d6cb0d8f6a8 2")
         self.assertEqual(mid_line, "853 0 2444d88d62539b0b88dc919909cb9701 2")
         self.assertEqual(last_line, "885 0 fde80cb0-b4f0-11e2-bbf2-a6f9e9d79e19 0")
+
+    def tearDown(self):
+        if os.path.exists('temp_dir'):
+            shutil.rmtree('temp_dir')
+            os.environ['PYSERINI_CACHE'] = ''
 
 
 if __name__ == '__main__':

@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,9 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 """
 This module provides Pyserini's hybrid searcher by Dense + Sparse
 """
+
 from typing import List, Dict
 from pyserini.search import SimpleSearcher
 from pyserini.dsearch import SimpleDenseSearcher, DenseSearchResult
@@ -37,25 +39,25 @@ class HybridSearcher:
     def search(self, query: str, k: int = 10, alpha: float = 0.1) -> List[DenseSearchResult]:
         dense_hits = self.dense_searcher.search(query, k)
         sparse_hits = self.sparse_searcher.search(query, k)
-        return self._hybrid_results(dense_hits, sparse_hits, alpha)
+        return self._hybrid_results(dense_hits, sparse_hits, alpha, k)
 
     def batch_search(self, queries: List[str], q_ids: List[str], k: int = 10, threads: int = 1, alpha: float = 0.1) \
             -> Dict[str, List[DenseSearchResult]]:
         dense_result = self.dense_searcher.batch_search(queries, q_ids, k, threads)
         sparse_result = self.sparse_searcher.batch_search(queries, q_ids, k, threads)
         hybrid_result = {
-            key: self._hybrid_results(dense_result[key], sparse_result[key], alpha)
+            key: self._hybrid_results(dense_result[key], sparse_result[key], alpha, k)
             for key in dense_result
         }
         return hybrid_result
 
     @staticmethod
-    def _hybrid_results(dense_results, sparse_results, alpha):
+    def _hybrid_results(dense_results, sparse_results, alpha, k):
         dense_hits = {hit.docid: hit.score for hit in dense_results}
         sparse_hits = {hit.docid: hit.score for hit in sparse_results}
         hybrid_result = []
-        min_dense_score = min(dense_hits.values())
-        min_sparse_score = min(sparse_hits.values())
+        min_dense_score = min(dense_hits.values()) if len(dense_hits) > 0 else 0
+        min_sparse_score = min(sparse_hits.values()) if len(sparse_hits) > 0 else 0
         for doc in set(dense_hits.keys()) | set(sparse_hits.keys()):
             if doc not in dense_hits:
                 score = alpha * sparse_hits[doc] + min_dense_score
@@ -64,4 +66,4 @@ class HybridSearcher:
             else:
                 score = alpha * sparse_hits[doc] + dense_hits[doc]
             hybrid_result.append(DenseSearchResult(doc, score))
-        return sorted(hybrid_result, key=lambda x: x.score, reverse=True)
+        return sorted(hybrid_result, key=lambda x: x.score, reverse=True)[:k]

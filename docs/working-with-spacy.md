@@ -1,4 +1,4 @@
-# Working with the spaCy
+# Pyserini: Working with spaCy
 
 This page describes how to take Pyserini output and apply [spaCy](https://spacy.io/) to do some NLP basics on it.
 

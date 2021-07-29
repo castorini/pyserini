@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 
 from pyserini import analysis, index, search
-from pyserini.pyclass import JString
 from pyserini.vectorizer import BM25Vectorizer, TfidfVectorizer
 
 
@@ -302,12 +301,6 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(self.index_reader.convert_collection_docid_to_internal_docid('CACM-0002'), 1)
         self.assertEqual(self.index_reader.convert_internal_docid_to_collection_docid(1000), 'CACM-1001')
         self.assertEqual(self.index_reader.convert_collection_docid_to_internal_docid('CACM-1001'), 1000)
-
-    def test_jstring_term(self):
-        self.assertEqual(self.index_reader.get_term_counts('zoölogy'), (0, 0))
-        with self.assertRaises(ValueError):
-            # Should fail when pyjnius has solved this internally.
-            JString('zoölogy')
 
     def test_query_doc_score_default(self):
         queries = ['information retrieval', 'databases']

@@ -1,5 +1,5 @@
 #
-# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
+# Pyserini: Reproducible IR research with sparse and dense representations
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +28,9 @@ from jnius import autoclass, cast
 
 # Base Java classes
 JString = autoclass('java.lang.String')
+JFloat = autoclass('java.lang.Float')
 JPath = autoclass('java.nio.file.Path')
 JPaths = autoclass('java.nio.file.Paths')
 JList = autoclass('java.util.List')
 JArrayList = autoclass('java.util.ArrayList')
+JHashMap = autoclass('java.util.HashMap')
