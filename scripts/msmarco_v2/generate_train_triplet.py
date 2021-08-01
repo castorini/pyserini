@@ -59,7 +59,7 @@ def load_run(fn, topk):
 
     sorted_run = defaultdict(list)
     for query_id, docid_scores in tqdm(run.items()):
-        docid_scores = sorted(docid_scores, key=lambda x: x[1], reverse=True)
+        docid_scores.sort(key=lambda x: x[1], reverse=True)
         doc_ids = [doc_id for doc_id, _ in docid_scores][:topk]
         sorted_run[query_id] = doc_ids
 
