@@ -22,6 +22,7 @@
 #   -q v2_train_qrels.tsv \
 #   -nneg 40 \
 #   -o train-triple-ids.nneg-40.tsv
+#   -topk 1000
 
 import os
 import random
@@ -58,7 +59,7 @@ def load_run(fn, topk):
 
     sorted_run = defaultdict(list)
     for query_id, docid_scores in tqdm(run.items()):
-        sorted(docid_scores, key=lambda x: x[1], reverse=True)
+        docid_scores = sorted(docid_scores, key=lambda x: x[1], reverse=True)
         doc_ids = [doc_id for doc_id, _ in docid_scores][:topk]
         sorted_run[query_id] = doc_ids
 
@@ -110,7 +111,7 @@ if __name__ == "__main__":
     parser.add_argument('--qrel-file', '-q', required=True, help='MS MARCO V2 doc or passsage train_qrels.tsv path.')
     parser.add_argument('--output', '-o', required=True, help='output training triple .tsv path')
     parser.add_argument('--n-neg-per-query', '-nneg', default=40, type=int, help='number of negative documents sampled for each query')
-    parser.add_argument('--topk' , default=1000, type=int, help='number of documents from which we sample negative documents')
+    parser.add_argument('--topk' , default=1000, type=int, help='top-k documents in the run file from which we sample negatives')
     parser.add_argument('--require-pos-in-topk', action='store_true', default=False, help='if specified, then only keep the positive documents if they appear in the given runfile')
     args = parser.parse_args()
 
