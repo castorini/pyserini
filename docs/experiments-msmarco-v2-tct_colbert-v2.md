@@ -73,7 +73,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-doc-v2.tct_colbert-v2-hnp.maxp.bf.tsv --output runs/run.msmarco-doc-v2.tct_colbert-v2-hnp.maxp.bf.trec
-$ python -m pyserini.eval.trec_eval -c -m recall.10,100 -mmap -m -m recip_rank collections/docv2_dev_qrels.tsv runs/run.msmarco-pass-v2.tct_colbert-v2-hnp.bf.trec
+$ python -m pyserini.eval.trec_eval -c -m recall.10,100 -mmap -m -m recip_rank collections/docv2_dev_qrels.tsv runs/run.msmarco-doc-v2.tct_colbert-v2-hnp.maxp.bf.trec
 map                     all     0.2485
 recip_rank              all     0.2510
 recall_10               all     0.4800
