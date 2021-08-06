@@ -63,6 +63,7 @@ def define_search_args(parser):
 
     parser.add_argument('--impact', action='store_true', help="Use Impact.")
     parser.add_argument('--encoder', type=str, default=None, help="encoder name")
+    parser.add_argument('--min-idf', type=int, default=0, help="minimum idf")
 
     parser.add_argument('--bm25', action='store_true', default=True, help="Use BM25 (default).")
     parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
@@ -227,7 +228,7 @@ if __name__ == "__main__":
                 text = text.join(toks)
             if args.batch_size <= 1 and args.threads <= 1:
                 if args.impact:
-                    hits = searcher.search(text, args.hits, fields=fields)
+                    hits = searcher.search(text, args.hits, args.min_idf, fields=fields)
                 else:
                     hits = searcher.search(text, args.hits, query_generator=query_generator, fields=fields)
                 results = [(topic_id, hits)]
@@ -238,7 +239,7 @@ if __name__ == "__main__":
                         index == len(topics.keys()) - 1:
                     if args.impact:
                         results = searcher.batch_search(
-                            batch_topics, batch_topic_ids, args.hits, args.threads, fields=fields
+                            batch_topics, batch_topic_ids, args.hits, args.threads, args.min_idf, fields=fields
                         )
                     else:
                         results = searcher.batch_search(
