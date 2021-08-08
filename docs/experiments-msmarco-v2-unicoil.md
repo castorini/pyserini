@@ -16,22 +16,14 @@ If you're having issues downloading the collection via `wget`, try using [AzCopy
 2. Currently, the prebuilt index is on our Waterloo machine `orca`.
 3. We only encode `passage` (or `segment`) for passage (or document) collections.
 
-Let's prepare our environment variables:
-
-```bash
-export PSG_INDEX="/store/scratch/indexes/trec2021/lucene.unicoil-noexp.0shot.msmarco-passage-v2"
-export DOC_INDEX="/store/scratch/indexes/trec2021/lucene.unicoil-noexp.0shot.msmarco-doc-v2-segmented"
-export ENCODER="castorini/unicoil-noexp-msmarco-passage"
-```
-
 ## MS MARCO Passage V2
 
 Sparse retrieval with uniCOIL:
 
 ```bash
 python -m pyserini.search --topics collections/passv2_dev_queries.tsv \
-                          --encoder ${ENCODER} \
-                          --index ${PSG_INDEX}  \
+                          --encoder castorini/unicoil-noexp-msmarco-passage \
+                          --index /store/scratch/indexes/trec2021/lucene.unicoil-noexp.0shot.msmarco-passage-v2  \
                           --output runs/run.msmarco-passage-v2.unicoil-noexp.0shot.top1k.dev1.trec \
                           --impact \
                           --hits 1000 \
@@ -55,13 +47,37 @@ recall_100            	all	0.4964
 recall_1000           	all	0.7013
 ```
 
+Dense-Sparse hybrid retrieval (uniCOIL zeroshot + TCT_ColBERT_v2 zeroshot)
+```bash
+python -m pyserini.hsearch   dense  --index /store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp.0shot.msmarco-passage-v2-augmented \
+                                    --encoder castorini/tct_colbert-v2-hnp-msmarco \
+                             sparse --index /store/scratch/indexes/trec2021/lucene.unicoil-noexp.0shot.msmarco-passage-v2 \
+                                    --encoder castorini/unicoil-noexp-msmarco-passage \
+                                    --impact \
+                                    --min-idf 1 \
+                             fusion --alpha 0.46 --normalization \
+                             run    --topics collections/passv2_dev_queries.tsv \
+                                    --output runs/run.msmarco-passage-v2.tct_v2+unicoil-noexp.0shot.top1k.dev1.trec \
+                                    --batch-size 72 --threads 72 \
+                                    --output-format trec
+```
+
+```bash
+$ python -m pyserini.eval.trec_eval -c -m recall.10,100,1000 -mmap -m recip_rank collections/passv2_dev_qrels.tsv runs/run.msmarco-passage-v2.tct_v2+unicoil-noexp.0shot.top1k.dev1.trec
+Results:
+map                   	all	0.1823
+recip_rank            	all	0.1835
+recall_10             	all	0.3373
+recall_100            	all	0.6375
+recall_1000           	all	0.8620
+```
 ## MS MARCO Document V2
 
 Sparse retrieval with uniCOIL:
 ```bash
 python -m pyserini.search --topics collections/docv2_dev_queries.tsv \
-                          --encoder ${ENCODER} \
-                          --index ${DOC_INDEX}  \
+                          --encoder castorini/unicoil-noexp-msmarco-passage \
+                          --index /store/scratch/indexes/trec2021/lucene.unicoil-noexp.0shot.msmarco-doc-v2-segmented  \
                           --output runs/run.msmarco-document-v2-segmented.unicoil-noexp.0shot.maxp.top100.dev1.trec \
                           --impact \
                           --hits 1000 \
