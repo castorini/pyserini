@@ -24,7 +24,7 @@ from tqdm import tqdm
 from pyserini.dsearch import SimpleDenseSearcher
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
-from pyserini.search import SimpleSearcher
+from pyserini.search import ImpactSearcher, SimpleSearcher
 from pyserini.hsearch import HybridSearcher
 
 from pyserini.dsearch.__main__ import define_dsearch_args, init_query_encoder
@@ -38,6 +38,7 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 def define_fusion_args(parser):
     parser.add_argument('--alpha', type=float, metavar='num', required=False, default=0.1,
                         help="alpha for hybrid search")
+    parser.add_argument('--normalization', action='store_true', required=False, help='hybrid score with normalization')
 
 
 def parse_args(parser, commands):
@@ -119,10 +120,16 @@ if __name__ == '__main__':
 
     if os.path.exists(args.sparse.index):
         # create searcher from index directory
-        ssearcher = SimpleSearcher(args.sparse.index)
+        if args.sparse.impact:
+            ssearcher = ImpactSearcher(args.sparse.index, args.sparse.encoder)
+        else:
+            ssearcher = SimpleSearcher(args.sparse.index)
     else:
         # create searcher from prebuilt index name
-        ssearcher = SimpleSearcher.from_prebuilt_index(args.sparse.index)
+        if args.sparse.impact:
+            ssearcher = ImpactSearcher.from_prebuilt_index(args.sparse.index, args.sparse.encoder)
+        else:
+            ssearcher = SimpleSearcher.from_prebuilt_index(args.sparse.index)
 
     if not ssearcher:
         exit()
