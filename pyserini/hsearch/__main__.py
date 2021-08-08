@@ -160,7 +160,7 @@ if __name__ == '__main__':
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.run.batch_size <= 1 and args.run.threads <= 1:
-                hits = hsearcher.search(text, args.run.hits, args.fusion.alpha)
+                hits = hsearcher.search(text, args.run.hits, args.fusion.alpha, args.fusion.normalization)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
@@ -168,7 +168,8 @@ if __name__ == '__main__':
                 if (index + 1) % args.run.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
                     results = hsearcher.batch_search(
-                        batch_topics, batch_topic_ids, args.run.hits, args.run.threads, args.fusion.alpha)
+                        batch_topics, batch_topic_ids, args.run.hits, args.run.threads,
+                        args.fusion.alpha, args.fusion.normalization)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
