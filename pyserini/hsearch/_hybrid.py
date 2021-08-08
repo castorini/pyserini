@@ -72,9 +72,9 @@ class HybridSearcher:
                 sparse_score = sparse_hits[doc]
                 dense_score = dense_hits[doc]
             if normalization:
-                sparse_score = sparse_score - ((min_sparse_score + max_sparse_score) / 2) \
+                sparse_score = (sparse_score - (min_sparse_score + max_sparse_score) / 2) \
                                / (max_sparse_score - min_sparse_score)
-                dense_score = dense_score - ((min_dense_score + max_dense_score) / 2) \
+                dense_score = (dense_score - (min_dense_score + max_dense_score) / 2) \
                               / (max_dense_score - min_dense_score)
             score = alpha * sparse_score + dense_score
             hybrid_result.append(DenseSearchResult(doc, score))
