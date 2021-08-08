@@ -121,13 +121,13 @@ if __name__ == '__main__':
     if os.path.exists(args.sparse.index):
         # create searcher from index directory
         if args.sparse.impact:
-            ssearcher = ImpactSearcher(args.sparse.index, args.sparse.encoder)
+            ssearcher = ImpactSearcher(args.sparse.index, args.sparse.encoder, args.sparse.min_idf)
         else:
             ssearcher = SimpleSearcher(args.sparse.index)
     else:
         # create searcher from prebuilt index name
         if args.sparse.impact:
-            ssearcher = ImpactSearcher.from_prebuilt_index(args.sparse.index, args.sparse.encoder)
+            ssearcher = ImpactSearcher.from_prebuilt_index(args.sparse.index, args.sparse.encoder, args.sparse.min_idf)
         else:
             ssearcher = SimpleSearcher.from_prebuilt_index(args.sparse.index)
 

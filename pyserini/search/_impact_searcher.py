@@ -46,9 +46,10 @@ class ImpactSearcher:
         QueryEncoder to encode query text
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str]):
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], min_idf=0):
         self.index_dir = index_dir
         self.idf = self._compute_idf(index_dir)
+        self.min_idf = min_idf
         self.object = JImpactSearcher(JString(index_dir))
         self.num_docs = self.object.getTotalNumDocuments()
         if isinstance(query_encoder, str) or query_encoder is None:
@@ -57,7 +58,7 @@ class ImpactSearcher:
             self.query_encoder = query_encoder
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str]):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0):
         """Build a searcher from a pre-built index; download the index if necessary.
 
         Parameters
@@ -78,14 +79,14 @@ class ImpactSearcher:
             return None
 
         print(f'Initializing {prebuilt_index_name}...')
-        return cls(index_dir, query_encoder)
+        return cls(index_dir, query_encoder, min_idf)
 
     @staticmethod
     def list_prebuilt_indexes():
         """Display information about available prebuilt indexes."""
         print("Not Implemented")
 
-    def search(self, q: str, k: int = 10, min_idf: int = 0, fields=dict()) -> List[JImpactSearcherResult]:
+    def search(self, q: str, k: int = 10, fields=dict()) -> List[JImpactSearcherResult]:
         """Search the collection.
 
         Parameters
@@ -112,7 +113,7 @@ class ImpactSearcher:
         encoded_query = self.query_encoder.encode(q)
         jquery = JHashMap()
         for (token, weight) in encoded_query.items():
-            if self.idf[token] > min_idf:
+            if self.idf[token] > self.min_idf:
                 jquery.put(JString(token.encode('utf8')), JFloat(weight))
 
         if not fields:
@@ -123,7 +124,7 @@ class ImpactSearcher:
         return hits
 
     def batch_search(self, queries: List[str], qids: List[str],
-                     k: int = 10, threads: int = 1, min_idf: int = 0, fields=dict()) -> Dict[str, List[JImpactSearcherResult]]:
+                     k: int = 10, threads: int = 1, fields=dict()) -> Dict[str, List[JImpactSearcherResult]]:
         """Search the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
@@ -153,7 +154,7 @@ class ImpactSearcher:
             encoded_query = self.query_encoder.encode(q)
             jquery = JHashMap()
             for (token, weight) in encoded_query.items():
-                if self.idf[token] > min_idf:
+                if self.idf[token] > self.min_idf:
                     jquery.put(JString(token.encode('utf8')), JFloat(weight))
             query_lst.add(jquery)
 

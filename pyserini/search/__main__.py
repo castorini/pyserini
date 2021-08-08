@@ -136,9 +136,9 @@ if __name__ == "__main__":
             searcher = SimpleSearcher.from_prebuilt_index(args.index)
     elif args.impact:
         if os.path.exists(args.index):
-            searcher = ImpactSearcher(args.index, args.encoder)
+            searcher = ImpactSearcher(args.index, args.encoder, args.min_idf)
         else:
-            searcher = ImpactSearcher.from_prebuilt_index(args.index, args.encoder)
+            searcher = ImpactSearcher.from_prebuilt_index(args.index, args.encoder, args.min_idf)
 
     if args.language != 'en':
         searcher.set_language(args.language)
@@ -228,7 +228,7 @@ if __name__ == "__main__":
                 text = text.join(toks)
             if args.batch_size <= 1 and args.threads <= 1:
                 if args.impact:
-                    hits = searcher.search(text, args.hits, args.min_idf, fields=fields)
+                    hits = searcher.search(text, args.hits, fields=fields)
                 else:
                     hits = searcher.search(text, args.hits, query_generator=query_generator, fields=fields)
                 results = [(topic_id, hits)]
@@ -239,7 +239,7 @@ if __name__ == "__main__":
                         index == len(topics.keys()) - 1:
                     if args.impact:
                         results = searcher.batch_search(
-                            batch_topics, batch_topic_ids, args.hits, args.threads, args.min_idf, fields=fields
+                            batch_topics, batch_topic_ids, args.hits, args.threads, fields=fields
                         )
                     else:
                         results = searcher.batch_search(
