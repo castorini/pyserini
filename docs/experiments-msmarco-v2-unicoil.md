@@ -101,5 +101,29 @@ recall_10             	all	0.3981
 recall_100            	all	0.7200
 ```
 
+Dense-Sparse hybrid retrieval (uniCOIL zeroshot + TCT_ColBERT_v2 zeroshot)
+```bash
+python -m pyserini.hsearch   dense  --index /store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp.0shot.msmarco-doc-v2-segmented \
+                                    --encoder castorini/tct_colbert-v2-hnp-msmarco \
+                             sparse --index /store/scratch/indexes/trec2021/lucene.unicoil-noexp.0shot.msmarco-doc-v2-segmented \
+                                    --encoder castorini/unicoil-noexp-msmarco-passage \
+                                    --impact \
+                                    --min-idf 1 \
+                             fusion --alpha 0.56 --normalization \
+                             run    --topics collections/docv2_dev_queries.tsv \
+                                    --output runs/run.msmarco-document-v2-segmented.tct_v2+unicoil_noexp.0shot.maxp.top100.dev1.trec \
+                                    --batch-size 72 --threads 72 \
+                                    --max-passage \
+                                    --max-passage-hits 100 \
+                                    --output-format trec
+```
 
+```bash
+$ python -m pyserini.eval.trec_eval -c -m recall.10,100 -mmap -m recip_rank collections/docv2_dev_qrels.tsv runs/run.msmarco-document-v2-segmented.tct_v2+unicoil_noexp.0shot.maxp.top100.dev1.trec
+Results:
+map                   	all	0.2550
+recip_rank            	all	0.2575
+recall_10             	all	0.5051
+recall_100            	all	0.8082
+```
 ## Reproduction Log[*](reproducibility.md)
