@@ -71,6 +71,32 @@ recall_10             	all	0.3373
 recall_100            	all	0.6375
 recall_1000           	all	0.8620
 ```
+
+Dense-Sparse hybrid retrieval (uniCOIL zeroshot + TCT_ColBERT_v2 trained)
+```bash
+python -m pyserini.hsearch   dense  --index /store/scratch/j587yang/project/trec_2021/indexes/dl2021/passage/title_headings_body/tct_colbert-v2-hnp-msmarco-hn-msmarcov2-full \
+                                    --encoder /store/scratch/j587yang/project/trec_2021/checkpoints/torch_ckpt/tct_colbert-v2-hnp-msmarco-hn-msmarcov2 \
+                             sparse --index /store/scratch/indexes/trec2021/lucene.unicoil-noexp.0shot.msmarco-passage-v2 \
+                                    --encoder castorini/unicoil-noexp-msmarco-passage \
+                                    --impact \
+                                    --min-idf 1 \
+                             fusion --alpha 0.29 --normalization \
+                             run    --topics collections/passv2_dev_queries.tsv \
+                                    --output runs/run.msmarco-passage-v2.tct_v2-trained+unicoil-noexp-0shot.top1k.dev1.trec \
+                                    --batch-size 72 --threads 72 \
+                                    --output-format trec
+```
+
+```bash
+$ python -m pyserini.eval.trec_eval -c -m recall.10,100,1000 -mmap -m recip_rank collections/passv2_dev_qrels.tsv runs/run.msmarco-passage-v2.tct_v2-trained+unicoil-noexp-0shot.top1k.dev1.trec
+Results:
+map                   	all	0.2265
+recip_rank            	all	0.2283
+recall_10             	all	0.3964
+recall_100            	all	0.6701
+recall_1000           	all	0.8748
+```
+
 ## MS MARCO Document V2
 
 Sparse retrieval with uniCOIL:
@@ -126,4 +152,31 @@ recip_rank            	all	0.2575
 recall_10             	all	0.5051
 recall_100            	all	0.8082
 ```
+
+Dense-Sparse hybrid retrieval (uniCOIL zeroshot + TCT_ColBERT_v2 trained)
+```bash
+python -m pyserini.hsearch   dense  --index /store/scratch/j587yang/project/trec_2021/indexes/dl2021/document/title_headings_body/tct_colbert-v2-hnp-msmarco-hn-msmarcov2-full-maxp \
+                                    --encoder /store/scratch/j587yang/project/trec_2021/checkpoints/torch_ckpt/tct_colbert-v2-hnp-msmarco-hn-msmarcov2 \
+                             sparse --index /store/scratch/indexes/trec2021/lucene.unicoil-noexp.0shot.msmarco-doc-v2-segmented \
+                                    --encoder castorini/unicoil-noexp-msmarco-passage \
+                                    --impact \
+                                    --min-idf 1 \
+                             fusion --alpha 0.54 --normalization \
+                             run    --topics collections/docv2_dev_queries.tsv \
+                                    --output runs/run.msmarco-document-v2-segmented.tct_v2-trained+unicoil-noexp-0shot.maxp.top100.dev1.trec \
+                                    --batch-size 72 --threads 72 \
+                                    --max-passage \
+                                    --max-passage-hits 100 \
+                                    --output-format trec
+```
+
+```bash
+$ python -m pyserini.eval.trec_eval -c -m recall.10,100 -mmap -m recip_rank collections/docv2_dev_qrels.tsv runs/run.msmarco-document-v2-segmented.tct_v2-trained+unicoil-noexp-0shot.maxp.top100.dev1.trec
+Results:
+map                   	all	0.2945
+recip_rank            	all	0.2970
+recall_10             	all	0.5389
+recall_100            	all	0.8128
+```
+
 ## Reproduction Log[*](reproducibility.md)
