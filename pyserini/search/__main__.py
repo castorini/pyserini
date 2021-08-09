@@ -63,6 +63,7 @@ def define_search_args(parser):
 
     parser.add_argument('--impact', action='store_true', help="Use Impact.")
     parser.add_argument('--encoder', type=str, default=None, help="encoder name")
+    parser.add_argument('--min-idf', type=int, default=0, help="minimum idf")
 
     parser.add_argument('--bm25', action='store_true', default=True, help="Use BM25 (default).")
     parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
@@ -135,9 +136,9 @@ if __name__ == "__main__":
             searcher = SimpleSearcher.from_prebuilt_index(args.index)
     elif args.impact:
         if os.path.exists(args.index):
-            searcher = ImpactSearcher(args.index, args.encoder)
+            searcher = ImpactSearcher(args.index, args.encoder, args.min_idf)
         else:
-            searcher = ImpactSearcher.from_prebuilt_index(args.index, args.encoder)
+            searcher = ImpactSearcher.from_prebuilt_index(args.index, args.encoder, args.min_idf)
 
     if args.language != 'en':
         searcher.set_language(args.language)
