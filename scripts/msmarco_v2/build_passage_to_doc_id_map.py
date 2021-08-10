@@ -17,7 +17,7 @@
 # from the passage collection
 #
 # Usage:
-# python scripts/msmarco_v2/build_psg_doc_idmap.py \
+# python scripts/msmarco_v2/build_passage_to_doc_id_map.py \
 # 	--input collections/msmarco_v2_passage \
 # 	--output /path/to/idmap_dir
 import os
@@ -39,7 +39,7 @@ def write_mapping(psg_fn, outp_fn):
 
 def main(args):
 	input_dir, output_dir = args.input, args.output
-	n_workers = args.n_workers
+	threads = args.threads
 	if not os.path.exists(output_dir):
 		os.makedirs(output_dir, exist_ok=True)
 
@@ -48,7 +48,7 @@ def main(args):
 		os.path.join(output_dir, f"{psg_fn.rstrip('.gz')}.idmap.tsv")
 	) for psg_fn in os.listdir(input_dir)]
 
-	with Pool(args.n_workers) as p:
+	with Pool(threads) as p:
 		p.starmap(write_mapping, inp_outp_fn_pairs)
 
 
@@ -56,7 +56,7 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="Build mapping from passage id to document id (MS MARCO v2)")
 	parser.add_argument("--input", type=str, required=True, help="path to msmarco passage.")
 	parser.add_argument("--output", type=str, required=True, help="output directory to store the mapping tsv files.")
-	parser.add_argument("--n-workers", type=int, default=5, help="Number of workers for mul")
+	parser.add_argument("--threads", type=int, default=5, help="Number of threads to use.")
 
 	args = parser.parse_args()
 
