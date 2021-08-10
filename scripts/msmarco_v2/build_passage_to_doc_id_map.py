@@ -45,7 +45,7 @@ def main(args):
 
 	inp_outp_fn_pairs = [(
 		os.path.join(input_dir, psg_fn),
-		os.path.join(output_dir, f"{psg_fn}.idmap.tsv")
+		os.path.join(output_dir, f"{psg_fn.rstrip('.gz')}.idmap.tsv")
 	) for psg_fn in os.listdir(input_dir)]
 
 	with Pool(args.n_workers) as p:
