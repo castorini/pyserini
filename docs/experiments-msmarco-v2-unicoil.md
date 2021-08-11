@@ -1,4 +1,4 @@
-# Pyserini: uniCOIL for MS MARCO V2
+# Pyserini: uniCOIL for the MS MARCO V2 Collections
 
 This page describes how to reproduce retrieval experiments with the uniCOIL model on the MS MARCO V2 collections.
 Details about our model can be found in the following paper:
