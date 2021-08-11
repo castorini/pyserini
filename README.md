@@ -391,7 +391,7 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + [Reproducing the BM25 baseline for MS MARCO Document Ranking](docs/experiments-msmarco-doc.md)
 + [Reproducing the multi-field BM25 baseline for MS MARCO Document Ranking from Elasticsearch](docs/experiments-elastic.md)
 + [Reproducing BM25 baselines on the MS MARCO (V2) Collections](docs/experiments-msmarco-v2.md)
-+ [Reproducing DeepImpact experiments](docs/experiments-deepimpact.md)
++ [Reproducing DeepImpact experiments for MS MARCO Passage Ranking](docs/experiments-deepimpact.md)
 + [Reproducing uniCOIL experiments for MS MARCO Passage Ranking](docs/experiments-unicoil.md)
 + [Reproducing uniCOIL experiments on the MS MARCO (V2) Collections](docs/experiments-msmarco-v2-unicoil.md)
 
