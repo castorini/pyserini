@@ -386,10 +386,11 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 ### Sparse Retrieval
 
 + [Reproducing runs directly from the Python package](docs/pypi-reproduction.md)
++ [Reproducing Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
 + [Reproducing the BM25 baseline for MS MARCO Passage Ranking](docs/experiments-msmarco-passage.md)
 + [Reproducing the BM25 baseline for MS MARCO Document Ranking](docs/experiments-msmarco-doc.md)
 + [Reproducing the multi-field BM25 baseline for MS MARCO Document Ranking from Elasticsearch](docs/experiments-elastic.md)
-+ [Reproducing Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
++ [Reproducing BM25 baselines on the MS MARCO (V2) Collections](docs/experiments-msmarco-v2.md)
 + [Reproducing DeepImpact experiments](docs/experiments-deepimpact.md)
 + [Reproducing uniCOIL experiments for MS MARCO Passage Ranking](docs/experiments-unicoil.md)
 + [Reproducing uniCOIL experiments on the MS MARCO (V2) Collections](docs/experiments-msmarco-v2-unicoil.md)
