@@ -209,3 +209,5 @@ recall_100            	all	0.8128
 ```
 
 ## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-08-13 (commit [`2b96b9`](https://github.com/castorini/pyserini/commit/2b96b99773302315e4d7dbe4a373b36b3eadeaa6))
