@@ -15,7 +15,7 @@ Thus, we applied uniCOIL without expansions in a zero-shot manner using the mode
 
 Specifically, we applied inference over the MS MARCO V2 [passage corpus](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-v2.md#passage-collection) and [segmented document corpus](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-v2.md#document-collection-segmented) to obtain the term weights.
 
-### Passage V2 Corpus
+### Passage V2
 
 Sparse retrieval with uniCOIL:
 
@@ -48,7 +48,7 @@ recall_1000           	all	0.7013
 Note that we evaluate MAP and MRR at a cutoff of 100 hits to match the official evaluation metrics.
 However, we measure recall at both 100 and 1000 hits; the latter is a common setting for reranking.
 
-### Document V2 Corpus
+### Document V2
 
 Sparse retrieval with uniCOIL:
 
@@ -82,15 +82,15 @@ recall_100            	all	0.7190
 recall_1000           	all	0.8813
 ```
 
-Note that we evaluate MAP and MRR at a cutoff of 100 hits to match the official evaluation metrics.
+We evaluate MAP and MRR at a cutoff of 100 hits to match the official evaluation metrics.
 However, we measure recall at both 100 and 1000 hits; the latter is a common setting for reranking.
 
 ## Zero-Shot uniCOIL + Dense Retrieval Hybrid
 
-Note that there are duplicate passages in MS MARCO V2 collections, so score differences might be observed due to tie-breaking effects.
+Because there are duplicate passages in MS MARCO V2 collections, score differences might be observed due to tie-breaking effects.
 For example, if we output in MS MARCO format `--output-format msmarco` and then convert to TREC format with `pyserini.eval.convert_msmarco_run_to_trec_run`, the scores will be different.
 
-### Passage V2 Corpus
+### Passage V2
 
 Dense-sparse hybrid retrieval (uniCOIL zero-shot + TCT_ColBERT_v2 zero-shot):
 
@@ -148,7 +148,7 @@ recall_100            	all	0.6701
 recall_1000           	all	0.8748
 ```
 
-### Document V2 Corpus
+### Document V2
 
 Dense-sparse hybrid retrieval (uniCOIL zero-shot + TCT_ColBERT_v2 zero-shot):
 
