@@ -1,8 +1,8 @@
-# Pyserini: Reproducing TCT-ColBERT-V2 Results
+# Pyserini: TCT-ColBERTv2 for MS MARCO (V1) Collections
 
 This guide provides instructions to reproduce the family of TCT-ColBERT-V2 dense retrieval models described in the following paper:
 
-> Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [In-Batch Negatives for Knowledge Distillation with Tightly-CoupledTeachers for Dense Retrieval.](https://cs.uwaterloo.ca/~jimmylin/publications/Lin_etal_2021_RepL4NLP.pdf) _RepL4NLP 2021_.
+> Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [In-Batch Negatives for Knowledge Distillation with Tightly-CoupledTeachers for Dense Retrieval.](https://aclanthology.org/2021.repl4nlp-1.17/) _Proceedings of the 6th Workshop on Representation Learning for NLP (RepL4NLP-2021)_, pages 163-173, August 2021.
 
 Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
 See [package installation notes](../README.md#package-installation) for more details.
@@ -25,7 +25,7 @@ Summary of results (figures from the paper are in parentheses):
 
 The slight differences between the reproduced scores and those reported in the paper can be attributed to TensorFlow implementations in the published paper vs. PyTorch implementations here in this reproduction guide.
 
-## TCT_ColBERT-V2
+### TCT_ColBERT-V2
 
 Dense retrieval with TCT-ColBERT, brute-force index:
 
@@ -61,7 +61,7 @@ map                     all     0.3509
 recall_1000             all     0.9670
 ```
 
-## TCT_ColBERT-V2-HN
+### TCT_ColBERT-V2-HN
 
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
@@ -88,7 +88,7 @@ map                     all     0.3608
 recall_1000             all     0.9708
 ```
 
-## TCT_ColBERT-V2-HN+
+### TCT_ColBERT-V2-HN+
 
 ```bash
 $ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
@@ -118,7 +118,6 @@ recall_1000             all     0.9695
 To perform on-the-fly query encoding with our [pretrained encoder model](https://huggingface.co/castorini/tct_colbert-v2-hnp-msmarco) use the option `--encoder castorini/tct_colbert-v2-hnp-msmarco`.
 Query encoding will run on the CPU by default.
 To perform query encoding on the GPU, use the option `--device cuda:0`.
-
 
 ### Hybrid Dense-Sparse Retrieval with TCT_ColBERT-V2-HN+
 
@@ -293,7 +292,6 @@ map                     all     0.2683
 recall_100              all     0.3854
 ndcg_cut_10             all     0.6592
 ```
-
 
 
 ## Reproduction Log[*](reproducibility.md)
