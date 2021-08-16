@@ -15,7 +15,7 @@ For the TREC 2021 Deep Learning Track, we tried two different approaches:
 
 In both cases, we applied inference over the MS MARCO V2 [passage corpus](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-v2.md#passage-collection) and [segmented document corpus](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-v2.md#document-collection-segmented) to obtain the dense vectors.
 
-These are indexes and the encoder for the zero-shot (V1) models:
+These are the indexes and the encoder for the zero-shot (V1) models:
 
 ```bash
 export PASSAGE_INDEX0="/store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp.0shot.msmarco-passage-v2-augmented"
@@ -23,7 +23,7 @@ export DOC_INDEX0="/store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp
 export ENCODER0="castorini/tct_colbert-v2-hnp-msmarco"
 ```
 
-These are indexes and the encoder for the fine-tuned (V2) models:
+These are the indexes and the encoder for the fine-tuned (V2) models:
 
 ```bash
 export PASSAGE_INDEX1="/store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp.psg_v2_ft.msmarco-passage-v2-augmented"
