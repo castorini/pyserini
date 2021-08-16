@@ -1,4 +1,4 @@
-# Pyserini: Reproducing TCT-ColBERT Results
+# Pyserini: TCT-ColBERT for MS MARCO (V1) Collections
 
 This guide provides instructions to reproduce the TCT-ColBERT dense retrieval model described in the following paper:
 
@@ -23,7 +23,7 @@ Summary of results:
 | TCT-ColBERT (brute-force index) + BoW BM25 | 0.3529 | 0.3594 | 0.9698 |
 | TCT-ColBERT (brute-force index) + BM25 w/ doc2query-T5 | 0.3647 | 0.3711 | 0.9751 |
 
-## Dense Retrieval
+### Dense Retrieval
 
 Dense retrieval with TCT-ColBERT, brute-force index:
 
@@ -91,7 +91,7 @@ recall_1000             all     0.9618
 Follow the same instructions above to perform on-the-fly query encoding.
 The caveat about minor differences in score applies here as well.
 
-## Hybrid Dense-Sparse Retrieval
+### Hybrid Dense-Sparse Retrieval
 
 Hybrid retrieval with dense-sparse representations (without document expansion):
 - dense retrieval with TCT-ColBERT, brute force index.
