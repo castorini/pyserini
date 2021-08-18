@@ -38,7 +38,9 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 def define_fusion_args(parser):
     parser.add_argument('--alpha', type=float, metavar='num', required=False, default=0.1,
                         help="alpha for hybrid search")
+    parser.add_argument('--hits', type=int, required=False, default=10, help='number of hits from dense and sparse')
     parser.add_argument('--normalization', action='store_true', required=False, help='hybrid score with normalization')
+    parser.add_argument('--weight-on-dense', action='store_true', required=False, help='weight on dense part')
 
 
 def parse_args(parser, commands):
@@ -160,7 +162,7 @@ if __name__ == '__main__':
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.run.batch_size <= 1 and args.run.threads <= 1:
-                hits = hsearcher.search(text, args.run.hits, args.fusion.alpha, args.fusion.normalization)
+                hits = hsearcher.search(text, args.fusion.hits, args.run.hits, args.fusion.alpha, args.fusion.normalization, args.fusion.weight_on_dense)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
@@ -168,8 +170,8 @@ if __name__ == '__main__':
                 if (index + 1) % args.run.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
                     results = hsearcher.batch_search(
-                        batch_topics, batch_topic_ids, args.run.hits, args.run.threads,
-                        args.fusion.alpha, args.fusion.normalization)
+                        batch_topics, batch_topic_ids, args.fusion.hits, args.run.hits, args.run.threads,
+                        args.fusion.alpha, args.fusion.normalization, args.fusion.weight_on_dense)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
