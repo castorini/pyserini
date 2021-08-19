@@ -23,7 +23,6 @@ import os
 from typing import Dict, List, Optional, Union
 import numpy as np
 from ._base import Document
-from pyserini.index import IndexReader
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap, JString
 from pyserini.util import download_prebuilt_index
 from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder, CachedDataQueryEncoder
@@ -230,6 +229,7 @@ class ImpactSearcher:
 
     @staticmethod
     def _compute_idf(index_path):
+        from pyserini.index import IndexReader
         index_reader = IndexReader(index_path)
         tokens = []
         dfs = []
