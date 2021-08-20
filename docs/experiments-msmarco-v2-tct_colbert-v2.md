@@ -161,4 +161,4 @@ recall_1000           	all	0.8974
 ```
 
 ## Reproduction Log[*](reproducibility.md)
-
++ Results reproduced by [@crystina-z](https://github.com/crystina-z) on 2021-08-20 (commit [`45a2fb`](https://github.com/castorini/pyserini/commit/45a2fb4bacbbd92f54ff0f98463662cbc09d78bb))
