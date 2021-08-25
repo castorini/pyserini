@@ -32,7 +32,7 @@ python -m pyserini.index -collection JsonVectorCollection \
  -input collections/msmarco-passage-v2-unicoil-noexp-0shot-b8 \
  -index indexes/lucene.unicoil-noexp.0shot.msmarco-passage-v2 \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
- -threads 12 -optimize
+ -threads 32 -optimize
 ```
 
 ### Document V2
@@ -48,7 +48,7 @@ python -m pyserini.index -collection JsonVectorCollection \
  -input collections/msmarco-doc-v2-seg-unicoil-noexp-0shot-b8 \
  -index indexes/lucene.unicoil-noexp.0shot.msmarco-doc-v2-segmented \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
- -threads 12 -optimize
+ -threads 32 -optimize
 ```
 
 ## Search
