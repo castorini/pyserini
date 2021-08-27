@@ -541,6 +541,18 @@ DINDEX_INFO = {
         "downloaded": False,
         "texts": "wikipedia-dpr"
     },
+    "wikipedia-bpr-single-nq-hash": {
+        "description": "Wikipedia corpus encoded by BPR doc encoder trained on NQ, indexed as faiss binary index",
+        "filename": "dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/obz5q1td4f6o1l1/dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz?dl=1",
+        ],
+        "md5": "e60e5ed1d7fab924bfa9149ed169d082",
+        "size compressed (bytes)": 1887382350,
+        "documents": 21015320,
+        "downloaded": False,
+        "texts": "wikipedia-dpr"
+    },
     "msmarco-passage-ance-bf": {
         "description": "MS MARCO passage corpus encoded by ANCE msmarco passage encoder and indexed as brute force index",
         "filename": "dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
