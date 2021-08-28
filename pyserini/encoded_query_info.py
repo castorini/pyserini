@@ -244,5 +244,15 @@ QUERY_INFO = {
         "size (bytes)": 10362252,
         "total_queries": 3610,
         "downloaded": False
+     },
+    "bpr_single_nq-nq-test": {
+        "description": "NQ test set questions encoded by BPR question encoder trained on NQ dataset",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-bpr_single_nq-nq-test-20210827-8a8f75.tar.gz",
+        ],
+        "md5": "afd1a50ab9dfb8e95f46aac29701ddf8",
+        "size (bytes)": 11094680,
+        "total_queries": 3610,
+        "downloaded": False
      }
 }
