@@ -250,7 +250,7 @@ QUERY_INFO = {
         "urls": [
             "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-bpr_single_nq-nq-test-20210827-8a8f75.tar.gz",
         ],
-        "md5": "afd1a50ab9dfb8e95f46aac29701ddf8",
+        "md5": "b139d5a096ad52d2abc66fb54ec66158",
         "size (bytes)": 11094680,
         "total_queries": 3610,
         "downloaded": False
