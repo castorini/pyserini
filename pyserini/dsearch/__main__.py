@@ -83,7 +83,11 @@ def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, de
                 return BprQueryEncoder(encoded_query_dir=encoded_queries)
             else:
                 return QueryEncoder(encoded_queries)
-        return QueryEncoder.load_encoded_queries(encoded_queries)
+        else:
+            if 'bpr' in encoded_queries:
+                return BprQueryEncoder.load_encoded_queries(encoded_queries)
+            else:
+                return QueryEncoder.load_encoded_queries(encoded_queries)
     
     if topics_name in encoded_queries_map:
         return QueryEncoder.load_encoded_queries(encoded_queries_map[topics_name])
