@@ -21,6 +21,7 @@ from tqdm import tqdm
 
 from pyserini.dsearch import SimpleDenseSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, \
     QueryEncoder, DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
+from pyserini.encode import PcaEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
 
@@ -41,6 +42,8 @@ def define_dsearch_args(parser):
     parser.add_argument('--encoded-queries', type=str, metavar='path to query encoded queries dir or queries name',
                         required=False,
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
+    parser.add_argument('--pca-model', type=str, metavar='path', required=False,
+                        default=None, help="Path to a faiss pca model")
     parser.add_argument('--device', type=str, metavar='device to run query encoder', required=False, default='cpu',
                         help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
     parser.add_argument('--query-prefix', type=str, metavar='str', required=False, default=None,
@@ -119,6 +122,9 @@ if __name__ == '__main__':
     topics = query_iterator.topics
 
     query_encoder = init_query_encoder(args.encoder, args.tokenizer, args.topics, args.encoded_queries, args.device, args.query_prefix)
+
+    if args.pca_model:
+        query_encoder = PcaEncoder(query_encoder, args.pca_model)
     kwargs = {}
     if os.path.exists(args.index):
         # create searcher from index directory
