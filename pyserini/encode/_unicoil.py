@@ -17,7 +17,8 @@
 from typing import Optional
 
 import torch
-from torch.cuda.amp import autocast
+if torch.cuda.is_available():
+    from torch.cuda.amp import autocast
 from transformers import BertConfig, BertModel, BertTokenizer, PreTrainedModel
 
 from pyserini.encode import DocumentEncoder, QueryEncoder

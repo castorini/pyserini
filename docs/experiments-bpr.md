@@ -23,12 +23,13 @@ Here's how our results stack up against results reported in the paper using the 
 
 ```bash
 $ python -m pyserini.dsearch --topics dpr-nq-test \
-                             --index wikipedia-bpr-nq-hash \
-                             --encoded-queries bpr-nq-test \
+                             --index wikipedia-bpr-single-nq-hash \
+                             --encoded-queries bpr_single_nq-nq-test \
                              --output runs/run.bpr.rerank.nq-test.nq.hash.trec \
                              --rerank \
                              --hits 100 --binary-hits 1000 \
-                             --batch-size 36 --threads 12
+                             --batch-size 36 --threads 12 \
+                             --searcher bpr
 ```
 
 The option `--encoded-queries` specifies the use of encoded queries (i.e., queries that have already been converted into dense vectors and cached).
