@@ -20,7 +20,7 @@ Here's how our results stack up against results reported in the paper using the 
 
 ## Natural Questions (NQ) with BPR
 
-**DPR retrieval** with brute-force index:
+BPR with brute-force index:
 
 ```bash
 $ python -m pyserini.dsearch --topics dpr-nq-test \
