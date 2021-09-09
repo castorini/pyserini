@@ -69,7 +69,7 @@ Note that the important option here is `-impact`, where we specify impact scorin
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset run.msmarco-passage-unicoil-tilde-expansion-b8.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-tilde-expansion-b8.tsv
 ```
 
 The results should be as follows:
