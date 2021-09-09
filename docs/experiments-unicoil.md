@@ -1,4 +1,4 @@
-# Pyserini: uniCOIL for MS MARCO Passage Ranking
+# Pyserini: uniCOIL (w/ doc2query-T5) for MS MARCO Passage Ranking
 
 This page describes how to reproduce the uniCOIL experiments in the following paper:
 
@@ -43,7 +43,7 @@ python -m pyserini.index -collection JsonVectorCollection \
 The important indexing options to note here are `-impact -pretokenized`: the first tells Anserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the uniCOIL tokens.
 
 Upon completion, we should have an index with 8,841,823 documents.
-The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around ten minutes.
+The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 20 minutes.
 
 
 ## Retrieval
@@ -71,7 +71,7 @@ $ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subs
                             --output-format msmarco
 ```
 
-Query evaluation is much slower than with bag-of-words BM25; a complete run can take around 15 min.
+Query evaluation is much slower than with bag-of-words BM25; a complete run can take around 15 minutes.
 Note that the important option here is `-impact`, where we specify impact scoring.
 
 The output is in MS MARCO output format, so we can directly evaluate:
