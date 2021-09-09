@@ -43,7 +43,7 @@ python -m pyserini.index -collection JsonVectorCollection \
 The important indexing options to note here are `-impact -pretokenized`: the first tells Anserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the uniCOIL tokens.
 
 Upon completion, we should have an index with 8,841,823 documents.
-The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around ten minutes.
+The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 20 minutes.
 
 
 ## Retrieval
