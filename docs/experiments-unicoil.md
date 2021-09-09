@@ -1,4 +1,4 @@
-# Pyserini: uniCOIL for MS MARCO Passage Ranking
+# Pyserini: uniCOIL (w/ doc2query-T5) for MS MARCO Passage Ranking
 
 This page describes how to reproduce the uniCOIL experiments in the following paper:
 
