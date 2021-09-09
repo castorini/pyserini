@@ -9,7 +9,9 @@ The original uniCOIL model is described here:
 
 > Jimmy Lin and Xueguang Ma. [A Few Brief Notes on DeepImpact, COIL, and a Conceptual Framework for Information Retrieval Techniques.](https://arxiv.org/abs/2106.14807) _arXiv:2106.14807_.
 
-Instead of using docTquery-T5 to perform document expansion which is slow and expensive, in this guide, the TILDE model is used to expand the corpus, resulting in a faster and cheaper document expansion process. For details of how to use TILDE to expand documents, please see [this guide](https://github.com/ielab/TILDE).
+In the original uniCOIL paper, doc2query-T5 is used to perform document expansion, which is slow and expensive.
+As an alternative, Zhuang and Zuccon proposed to use the TILDE model to expand the corpus, resulting in a faster and cheaper document expansion process.
+For details of how to use TILDE to expand documents, please see [this guide](https://github.com/ielab/TILDE).
 
 In this guide, we start with a version of the MS MARCO passage corpus that has already been processed with uniCOIL, i.e., gone through document expansion and term reweighting.
 Thus, no neural inference is involved.
