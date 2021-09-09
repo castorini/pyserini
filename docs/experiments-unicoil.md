@@ -71,7 +71,7 @@ $ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subs
                             --output-format msmarco
 ```
 
-Query evaluation is much slower than with bag-of-words BM25; a complete run can take around 15 min.
+Query evaluation is much slower than with bag-of-words BM25; a complete run can take around 15 minutes.
 Note that the important option here is `-impact`, where we specify impact scoring.
 
 The output is in MS MARCO output format, so we can directly evaluate:
