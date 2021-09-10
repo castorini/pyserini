@@ -86,3 +86,4 @@ QueriesRanked: 6980
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-09-08 (commit [`f026b87`](https://github.com/castorini/pyserini/commit/f026b871e0e581743fcb09d1eb309e9698767a8d))
++ Results reproduced by [@MXueguang](https://github.com/MXueguang) on 2021-09-10 (commit [`c71a69e`](https://github.com/castorini/pyserini/commit/c71a69e2dfad487e492b9b2b3c21b9b9c2e7cdb5))
