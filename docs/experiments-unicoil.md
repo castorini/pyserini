@@ -11,8 +11,9 @@ For details on how to train uniCOIL and perform inference, please see [this guid
 Note that Anserini provides [a comparable reproduction guide](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage-unicoil.md) based on Java.
 Here, we can get _exactly_ the same results from Python.
 
-# Passage Ranking
-## Data Prep
+## Passage Ranking
+
+### Data Prep
 
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
@@ -26,10 +27,10 @@ wget https://vault.cs.uwaterloo.ca/s/Rm6fknT432YdBts/download -O collections/msm
 tar -xvf collections/msmarco-passage-unicoil-b8.tar -C collections/
 ```
 
+
 To confirm, `msmarco-passage-unicoil-b8.tar` should have MD5 checksum of `eb28c059fad906da2840ce77949bffd7`.
 
-
-## Indexing
+### Indexing
 
 We can now index these docs:
 
@@ -47,7 +48,7 @@ Upon completion, we should have an index with 8,841,823 documents.
 The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 20 minutes.
 
 
-## Retrieval
+### Retrieval
 
 To ensure that the tokenization in the index aligns exactly with the queries, we use pre-tokenized queries.
 First, fetch the MS MARCO passage ranking dev set queries: 
@@ -90,8 +91,9 @@ QueriesRanked: 6980
 #####################
 ```
 
-# Document Ranking
-## Data Prep
+## Document Ranking
+
+### Data Prep
 
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
@@ -107,7 +109,8 @@ tar -xvf collections/msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar -C col
 
 To confirm, `msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar` should have MD5 checksum of `88f365b148c7702cf30c0fb95af35149`.
 
-## Indexing
+
+### Indexing
 
 We can now index these docs:
 
@@ -123,7 +126,9 @@ The important indexing options to note here are `-impact -pretokenized`: the fir
 
 The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around an hour.
 
-## Retrieval
+
+### Retrieval
+
 We can now run retrieval:
 
 ```bash
@@ -136,7 +141,6 @@ $ python -m pyserini.search --topics msmarco-doc-dev \
                             --max-passage --max-passage-hits 100 \
                             --output-format msmarco
 ```
-
 
 Query evaluation is much slower than with bag-of-words BM25; a complete run can take around 40 minutes.
 Note that the important option here is `-impact`, where we specify impact scoring.
