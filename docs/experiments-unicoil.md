@@ -97,12 +97,15 @@ We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
 
 ```bash
-wget https://www.dropbox.com/s/86f1011xb92adbk/msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar.gz -P collections/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar -P collections/
 
-tar -xvf collections/msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar.gz -C collections/
+# Alternate mirror
+wget https://vault.cs.uwaterloo.ca/s/ZmF6SKpgMZJYXd6/download -O collections/msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar
+
+tar -xvf collections/msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar -C collections/
 ```
 
-To confirm, `msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar.gz` should have MD5 checksum of `a1c95132830906b599d137f28089ceae`.
+To confirm, `msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar` should have MD5 checksum of `88f365b148c7702cf30c0fb95af35149`.
 
 ## Indexing
 
@@ -113,12 +116,12 @@ python -m pyserini.index -collection JsonVectorCollection \
  -input collections/msmarco-doc-per-passage-expansion-unicoil-d2q-b8/ \
  -index indexes/lucene-index.msmarco-doc-unicoil-d2q-b8 \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
- -threads 72 -optimize
+ -threads 12
 ```
 
 The important indexing options to note here are `-impact -pretokenized`: the first tells Anserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the uniCOIL tokens.
 
-The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 20 minutes.
+The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around an hour.
 
 ## Retrieval
 We can now run retrieval:
@@ -135,7 +138,7 @@ $ python -m pyserini.search --topics msmarco-doc-dev \
 ```
 
 
-Query evaluation is much slower than with bag-of-words BM25; a complete run can take around 30 minutes.
+Query evaluation is much slower than with bag-of-words BM25; a complete run can take around 40 minutes.
 Note that the important option here is `-impact`, where we specify impact scoring.
 
 The output is in MS MARCO output format, so we can directly evaluate:
@@ -157,3 +160,4 @@ QueriesRanked: 5193
 
 + Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-07-13 (commit [`228d5c9`](https://github.com/castorini/pyserini/commit/228d5c9c4ae0810702feccf8829b71682dd4955c))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-07-14 (commit [`ed88e4c`](https://github.com/castorini/pyserini/commit/ed88e4c3ea9ce3bf71c06297c1768d93154d74a8))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-09-17 (commit [`79eb5cf`](https://github.com/castorini/pyserini/commit/79eb5cf49d50443efc75c718bcf7c7a887ec176f))
