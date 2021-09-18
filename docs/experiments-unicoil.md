@@ -101,24 +101,8 @@ $ python -m pyserini.search --topics msmarco-passage-dev-subset \
                             --output-format msmarco
 ```
 
-Query evaluation is much slower than above because we're performing neural inference on the CPU.
-
-We can evaluate in the same way:
-
-```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-b8.tsv
-```
-
-The results should be something like the following:
-
-```
-#####################
-MRR @10: 0.35088535270841803
-QueriesRanked: 6980
-#####################
-```
-
-Note that with on-the-fly query encoding, effectiveness may be slightly different due to differences in inference across different platforms.
+Query evaluation is much slower than above because we're performing neural inference over the queries on the CPU.
+We can evaluate in the same way as above, but the scores may be slightly different due to differences in inference across different platforms.
 
 ## Document Ranking
 
