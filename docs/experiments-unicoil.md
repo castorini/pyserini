@@ -165,3 +165,4 @@ QueriesRanked: 5193
 + Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-07-13 (commit [`228d5c9`](https://github.com/castorini/pyserini/commit/228d5c9c4ae0810702feccf8829b71682dd4955c))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-07-14 (commit [`ed88e4c`](https://github.com/castorini/pyserini/commit/ed88e4c3ea9ce3bf71c06297c1768d93154d74a8))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-09-17 (commit [`79eb5cf`](https://github.com/castorini/pyserini/commit/79eb5cf49d50443efc75c718bcf7c7a887ec176f))
++ Results reproduced by [@mayankanand007](https://github.com/mayankanand007) on 2021-09-18 (commit [`331dfe7`](https://github.com/castorini/pyserini/commit/331dfe7b2801cca09fbbb971b017073bf6f726ad))
