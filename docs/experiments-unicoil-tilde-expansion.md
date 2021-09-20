@@ -1,4 +1,4 @@
-# Pyserini: uniCOIL (w/ TILDE) for MS MARCO Passage Ranking
+# Pyserini: uniCOIL (w/ TILDE) for MS MARCO (V1) Passage Ranking
 
 This page describes how to reproduce experiments using uniCOIL with TILDE document expansion, as described in the following paper:
 
@@ -71,7 +71,7 @@ Note that the important option here is `-impact`, where we specify impact scorin
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-tilde-expansion-b8.tsv
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-tilde-expansion-b8.tsv
 ```
 
 The results should be as follows:
