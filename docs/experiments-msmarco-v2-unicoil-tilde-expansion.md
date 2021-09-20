@@ -53,15 +53,15 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 If you want to save time and skip the indexing step, download the prebuilt index directly:
 
 ```bash
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -P indexes/
+xxx wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -P indexes/
 
 # Alternate mirror
-wget https://vault.cs.uwaterloo.ca/s/7aMTQsEbtCnmsrw/download -O indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz
+xxx wget https://vault.cs.uwaterloo.ca/s/7aMTQsEbtCnmsrw/download -O indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz
 
 tar -xzvf indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -C indexes/
 ```
 
-To confirm, `lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz` should have MD5 checksum of `2563e4f757b8100c01b41e1ba7cd9fde`.
+To confirm, `lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz` should have MD5 checksum of `0f9b1f90751d49dd3a66be54dd0b4f82`.
 This pre-built index was created with the above command, but with the addition of the `-optimize` option to merge index segments.
 
 ## Retrieval
