@@ -239,6 +239,9 @@ def get_topics(collection_name):
 def get_topics_with_reader(reader_class, file):
     # Yes, this is an insanely ridiculous method name.
     topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(reader_class, file)
+    if topics is None:
+        raise ValueError(f'Unable to initialize TopicReader {reader_class} with file {file}!')
+
     t = {}
     for topic in topics.keySet().toArray():
         # Try and parse the keys into integers

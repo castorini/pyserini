@@ -9,7 +9,6 @@ Thus, no neural inference is involved.
 For details on how to train uniCOIL and perform inference, please see [this guide](https://github.com/luyug/COIL/tree/main/uniCOIL).
 
 Note that Anserini provides [a comparable reproduction guide](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage-unicoil.md) based on Java.
-Here, we can get _exactly_ the same results from Python.
 
 ## Passage Ranking
 
@@ -26,7 +25,6 @@ wget https://vault.cs.uwaterloo.ca/s/Rm6fknT432YdBts/download -O collections/msm
 
 tar -xvf collections/msmarco-passage-unicoil-b8.tar -C collections/
 ```
-
 
 To confirm, `msmarco-passage-unicoil-b8.tar` should have MD5 checksum of `eb28c059fad906da2840ce77949bffd7`.
 
@@ -47,10 +45,9 @@ The important indexing options to note here are `-impact -pretokenized`: the fir
 Upon completion, we should have an index with 8,841,823 documents.
 The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 20 minutes.
 
-
 ### Retrieval
 
-To ensure that the tokenization in the index aligns exactly with the queries, we use pre-tokenized queries.
+To ensure that the tokenization in the index aligns exactly with the queries, we use pre-tokenized queries with pre-computed weights.
 First, fetch the MS MARCO passage ranking dev set queries: 
 
 ```bash
@@ -58,14 +55,14 @@ wget https://git.uwaterloo.ca/jimmylin/unicoil/-/raw/master/topics.msmarco-passa
 
 # Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/QGoHeBm4YsAgt6H/download -O collections/topics.msmarco-passage.dev-subset.unicoil.tsv.gz
-
-gzip -d collections/topics.msmarco-passage.dev-subset.unicoil.tsv.gz
 ```
 
-We can now run retrieval:
+The MD5 checksum of the topics file is `1af1da05ae5fe0b9d8ddf2d143b6e7f8`.
+
+We can now run retrieval, here with the use pre-tokenized queries with pre-computed weights:
 
 ```bash
-$ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset.unicoil.tsv \
+$ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset.unicoil.tsv.gz \
                             --index indexes/lucene-index.msmarco-passage-unicoil-b8 \
                             --output runs/run.msmarco-passage-unicoil-b8.tsv \
                             --impact \
@@ -91,6 +88,22 @@ QueriesRanked: 6980
 #####################
 ```
 
+In the run above, we are using the pre-tokenized queries with pre-computed weights.
+Alternatively, we can perform the retrieval run, but using the transformer model to encode the queries on the fly:
+
+```bash
+$ python -m pyserini.search --topics msmarco-passage-dev-subset \
+                            --encoder castorini/unicoil-d2q-msmarco-passage \
+                            --index indexes/lucene-index.msmarco-passage-unicoil-b8 \
+                            --output runs/run.msmarco-passage-unicoil-b8.tsv \
+                            --impact \
+                            --hits 1000 --batch 36 --threads 12 \
+                            --output-format msmarco
+```
+
+Query evaluation is much slower than above because we're performing neural inference over the queries on the CPU.
+We can evaluate in the same way as above, but the scores may be slightly different due to differences in inference across different platforms.
+
 ## Document Ranking
 
 ### Data Prep
@@ -109,7 +122,6 @@ tar -xvf collections/msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar -C col
 
 To confirm, `msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar` should have MD5 checksum of `88f365b148c7702cf30c0fb95af35149`.
 
-
 ### Indexing
 
 We can now index these docs:
@@ -126,15 +138,14 @@ The important indexing options to note here are `-impact -pretokenized`: the fir
 
 The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around an hour.
 
-
 ### Retrieval
 
 We can now run retrieval:
 
 ```bash
 $ python -m pyserini.search --topics msmarco-doc-dev \
-                            --index indexes/lucene-index.msmarco-doc-unicoil-d2q-b8 \
                             --encoder castorini/unicoil-d2q-msmarco-passage \
+                            --index indexes/lucene-index.msmarco-doc-unicoil-d2q-b8 \
                             --output runs/run.msmarco-doc-unicoil-d2q-b8.tsv \
                             --impact \
                             --hits 1000 --batch 36 --threads 12 \
