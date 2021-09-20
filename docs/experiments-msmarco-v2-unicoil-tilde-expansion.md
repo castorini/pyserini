@@ -53,10 +53,10 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 If you want to save time and skip the indexing step, download the prebuilt index directly:
 
 ```bash
-xxx wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -P indexes/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -P indexes/
 
 # Alternate mirror
-xxx wget https://vault.cs.uwaterloo.ca/s/7aMTQsEbtCnmsrw/download -O indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz
+wget https://vault.cs.uwaterloo.ca/s/rmFJCYEqfPrxcFE/download -O indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz
 
 tar -xzvf indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -C indexes/
 ```
