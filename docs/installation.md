@@ -37,7 +37,8 @@ $ conda install -c conda-forge openjdk=11
 
 ```bash
 $ pip install pyserini
-$ pip install transformers==4.5.0 # https://github.com/castorini/pyserini/issues/567
+$ pip install transformers==4.6.0 # https://github.com/castorini/pyserini/issues/734
+$ pip install onnxruntime
 $ conda install -c conda-forge pyjnius 
 ```
 
