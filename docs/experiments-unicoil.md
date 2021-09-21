@@ -18,7 +18,7 @@ We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
 
 ```bash
-wget https://git.uwaterloo.ca/jimmylin/unicoil/-/raw/master/msmarco-passage-unicoil-b8.tar -P collections/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-unicoil-b8.tar -P collections/
 
 # Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/Rm6fknT432YdBts/download -O collections/msmarco-passage-unicoil-b8.tar
@@ -37,7 +37,7 @@ python -m pyserini.index -collection JsonVectorCollection \
  -input collections/msmarco-passage-unicoil-b8/ \
  -index indexes/lucene-index.msmarco-passage-unicoil-b8 \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
- -threads 12 -storeRaw -optimize
+ -threads 12
 ```
 
 The important indexing options to note here are `-impact -pretokenized`: the first tells Anserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the uniCOIL tokens.
@@ -47,11 +47,46 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 
 ### Retrieval
 
-To ensure that the tokenization in the index aligns exactly with the queries, we use pre-tokenized queries with pre-computed weights.
-First, fetch the MS MARCO passage ranking dev set queries: 
+We can now run retrieval:
 
 ```bash
-wget https://git.uwaterloo.ca/jimmylin/unicoil/-/raw/master/topics.msmarco-passage.dev-subset.unicoil.tsv.gz -P collections/
+python -m pyserini.search --topics msmarco-passage-dev-subset \
+                          --encoder castorini/unicoil-d2q-msmarco-passage \
+                          --index indexes/lucene-index.msmarco-passage-unicoil-b8 \
+                          --output runs/run.msmarco-passage-unicoil-b8.tsv \
+                          --impact \
+                          --hits 1000 --batch 36 --threads 12 \
+                          --output-format msmarco
+```
+
+Here, we are using the transformer model to encode the queries on the fly using the CPU.
+Note that the important option here is `-impact`, where we specify impact scoring.
+With these impact scores, query evaluation is already slower than bag-of-words BM25; on top of that we're adding neural inference on the CPU.
+A complete run can take around 30 minutes.
+
+The output is in MS MARCO output format, so we can directly evaluate:
+
+```bash
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-b8.tsv
+```
+
+The results should be something along these lines:
+
+```
+#####################
+MRR @10: 0.3508734138354477
+QueriesRanked: 6980
+#####################
+```
+
+There might be small differences in score due to platform differences in neural inference.
+The above score was obtained on Linux; macOS results may be slightly different.
+
+Alternatively, we can use pre-tokenized queries with pre-computed weights.
+First, fetch the MS MARCO passage ranking dev set queries:
+
+```bash
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage.dev-subset.unicoil.tsv.gz -P collections/
 
 # Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/QGoHeBm4YsAgt6H/download -O collections/topics.msmarco-passage.dev-subset.unicoil.tsv.gz
@@ -59,24 +94,24 @@ wget https://vault.cs.uwaterloo.ca/s/QGoHeBm4YsAgt6H/download -O collections/top
 
 The MD5 checksum of the topics file is `1af1da05ae5fe0b9d8ddf2d143b6e7f8`.
 
-We can now run retrieval, here with the use pre-tokenized queries with pre-computed weights:
+We can now run retrieval:
 
 ```bash
-$ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset.unicoil.tsv.gz \
-                            --index indexes/lucene-index.msmarco-passage-unicoil-b8 \
-                            --output runs/run.msmarco-passage-unicoil-b8.tsv \
-                            --impact \
-                            --hits 1000 --batch 36 --threads 12 \
-                            --output-format msmarco
+python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset.unicoil.tsv.gz \
+                          --index indexes/lucene-index.msmarco-passage-unicoil-b8 \
+                          --output runs/run.msmarco-passage-unicoil-b8.tsv \
+                          --impact \
+                          --hits 1000 --batch 36 --threads 12 \
+                          --output-format msmarco
 ```
 
-Query evaluation is much slower than with bag-of-words BM25; a complete run can take around 15 minutes.
-Note that the important option here is `-impact`, where we specify impact scoring.
+Here, we also specify `-impact` for impact scoring.
+Since we're not applying neural inference over the queries, speed is faster, typically less than 10 minutes.
 
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-b8.tsv
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-b8.tsv
 ```
 
 The results should be as follows:
@@ -88,21 +123,7 @@ QueriesRanked: 6980
 #####################
 ```
 
-In the run above, we are using the pre-tokenized queries with pre-computed weights.
-Alternatively, we can perform the retrieval run, but using the transformer model to encode the queries on the fly:
-
-```bash
-$ python -m pyserini.search --topics msmarco-passage-dev-subset \
-                            --encoder castorini/unicoil-d2q-msmarco-passage \
-                            --index indexes/lucene-index.msmarco-passage-unicoil-b8 \
-                            --output runs/run.msmarco-passage-unicoil-b8.tsv \
-                            --impact \
-                            --hits 1000 --batch 36 --threads 12 \
-                            --output-format msmarco
-```
-
-Query evaluation is much slower than above because we're performing neural inference over the queries on the CPU.
-We can evaluate in the same way as above, but the scores may be slightly different due to differences in inference across different platforms.
+Note that in this case, the results should be deterministic.
 
 ## Document Ranking
 
@@ -143,26 +164,28 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 We can now run retrieval:
 
 ```bash
-$ python -m pyserini.search --topics msmarco-doc-dev \
-                            --encoder castorini/unicoil-d2q-msmarco-passage \
-                            --index indexes/lucene-index.msmarco-doc-unicoil-d2q-b8 \
-                            --output runs/run.msmarco-doc-unicoil-d2q-b8.tsv \
-                            --impact \
-                            --hits 1000 --batch 36 --threads 12 \
-                            --max-passage --max-passage-hits 100 \
-                            --output-format msmarco
+python -m pyserini.search --topics msmarco-doc-dev \
+                          --encoder castorini/unicoil-d2q-msmarco-passage \
+                          --index indexes/lucene-index.msmarco-doc-unicoil-d2q-b8 \
+                          --output runs/run.msmarco-doc-unicoil-d2q-b8.tsv \
+                          --impact \
+                          --hits 1000 --batch 36 --threads 12 \
+                          --max-passage --max-passage-hits 100 \
+                          --output-format msmarco
 ```
 
-Query evaluation is much slower than with bag-of-words BM25; a complete run can take around 40 minutes.
+Here, we are using the transformer model to encode the queries on the fly using the CPU.
 Note that the important option here is `-impact`, where we specify impact scoring.
+With these impact scores, query evaluation is already slower than bag-of-words BM25; on top of that we're adding neural inference on the CPU.
+A complete run can take around 40 minutes.
 
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc-unicoil-d2q-b8.tsv
+python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc-unicoil-d2q-b8.tsv
 ```
 
-The results should be as follows:
+The results should be something along these lines:
 
 ```
 #####################
@@ -170,6 +193,53 @@ MRR @100: 0.3530641289682811
 QueriesRanked: 5193
 #####################
 ```
+
+There might be small differences in score due to platform differences in neural inference.
+The above score was obtained on Linux; macOS results may be slightly different.
+
+Alternatively, we can use pre-tokenized queries with pre-computed weights.
+First, fetch the MS MARCO passage ranking dev set queries:
+
+```bash
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-doc.dev.unicoil.tsv.gz -P collections/
+
+# Alternate mirror
+wget https://vault.cs.uwaterloo.ca/s/6D5JtJQxYpPbByM/download -O collections/topics.msmarco-doc.dev.unicoil.tsv.gz
+```
+
+The MD5 checksum of the topics file is `40e5f64500272ecde270e55beecd5e94`.
+
+We can now run retrieval:
+
+```bash
+python -m pyserini.search --topics collections/topics.msmarco-doc.dev.unicoil.tsv.gz \
+                          --index indexes/lucene-index.msmarco-doc-unicoil-d2q-b8 \
+                          --output runs/run.msmarco-doc-unicoil-d2q-b8.tsv \
+                          --impact \
+                          --hits 1000 --batch 36 --threads 12 \
+                          --max-passage --max-passage-hits 100 \
+                          --output-format msmarco
+```
+
+Here, we also specify `-impact` for impact scoring.
+Since we're not applying neural inference over the queries, speed is faster, typically less than 10 minutes.
+
+The output is in MS MARCO output format, so we can directly evaluate:
+
+```bash
+python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc-unicoil-d2q-b8.tsv
+```
+
+The results should be as follows:
+
+```
+#####################
+MRR @100: 0.352997702662614
+QueriesRanked: 5193
+#####################
+```
+
+Note that in this case, the results should be deterministic.
 
 ## Reproduction Log[*](reproducibility.md)
 

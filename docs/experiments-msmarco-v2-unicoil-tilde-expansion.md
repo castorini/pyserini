@@ -1,4 +1,4 @@
-# Pyserini: uniCOIL (w/ TILDE) for MS MARCO V2 Passage Ranking
+# Pyserini: uniCOIL (w/ TILDE) for MS MARCO (V2) Passage Ranking
 
 This page describes how to reproduce experiments using uniCOIL with TILDE document expansion on MS MARCO V2 Collection, as described in the following paper:
 
@@ -23,16 +23,15 @@ We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO V2 passage dataset with uniCOIL processing:
 
 ```bash
-wget https://git.uwaterloo.ca/jimmylin/unicoil/-/raw/master/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -P collections/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar -P collections/
 
 # Alternate mirror
-wget https://vault.cs.uwaterloo.ca/s/6LECmLdiaBoPwrL/download -O collections/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz
+wget https://vault.cs.uwaterloo.ca/s/tb3m3J45HFJNAbq/download -O collections/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar
 
-tar -xzvf collections/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -C collections/
+tar -xvf collections/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar -C collections/
 ```
 
-To confirm, `msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz` should have MD5 checksum of `7610a9fcdbed1104b49df13476dab472`.
-
+To confirm, `msmarco-passage-v2-unicoil-tilde-expansion-b8.tar` should have MD5 checksum of `acc4c9bc3506c3a496bf3e009fa6e50b`.
 
 ## Indexing
 
@@ -43,26 +42,27 @@ python -m pyserini.index -collection JsonVectorCollection \
  -input collections/msmarco-passage-v2-unicoil-tilde-expansion-b8/ \
  -index indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8 \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
- -threads 12 -storeRaw -optimize
+ -threads 12
 ```
 
 The important indexing options to note here are `-impact -pretokenized`: the first tells Anserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the uniCOIL tokens.
 
 Upon completion, we should have an index with 138,364,198 documents.
-The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 7 hours.
+The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 5 hours.
 
 If you want to save time and skip the indexing step, download the prebuilt index directly:
 
 ```bash
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -P indexes/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -P indexes/
 
 # Alternate mirror
-# wget https://vault.cs.uwaterloo.ca/s/PwHpjHrS2fcgR2Y/download -O indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz
+wget https://vault.cs.uwaterloo.ca/s/rmFJCYEqfPrxcFE/download -O indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz
 
 tar -xzvf indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -C indexes/
 ```
 
-To confirm, `lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz` should have MD5 checksum of `e8b92ab06fc1808ade82a437cd37fb14`.
+To confirm, `lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz` should have MD5 checksum of `0f9b1f90751d49dd3a66be54dd0b4f82`.
+This pre-built index was created with the above command, but with the addition of the `-optimize` option to merge index segments.
 
 ## Retrieval
 
@@ -70,8 +70,8 @@ We can now run retrieval:
 
 ```bash
 python -m pyserini.search --topics msmarco-passage-v2-dev \
-                          --index indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8 \
                           --encoder ielab/unicoil-tilde200-msmarco-passage \
+                          --index indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8 \
                           --output runs/run.msmarco-passage-v2-dev-unicoil-tilde-expansion-b8.txt \
                           --impact \
                           --hits 1000 --batch 144 --threads 36 \
@@ -96,3 +96,5 @@ recall_1000           	all	0.7701
 ```
 
 ## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-09-19 (commit [`6b9cc5b`](https://github.com/castorini/pyserini/commit/6b9cc5b1c2fee89597c5841a9f88395cf76bf60a))
