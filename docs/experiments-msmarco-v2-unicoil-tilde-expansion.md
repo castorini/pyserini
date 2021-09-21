@@ -70,16 +70,18 @@ We can now run retrieval:
 
 ```bash
 python -m pyserini.search --topics msmarco-passage-v2-dev \
-                          --index indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8 \
                           --encoder ielab/unicoil-tilde200-msmarco-passage \
+                          --index indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8 \
                           --output runs/run.msmarco-passage-v2-dev-unicoil-tilde-expansion-b8.txt \
                           --impact \
                           --hits 1000 --batch 144 --threads 36 \
                           --min-idf 1
 ```
 
-Query evaluation is much slower than with bag-of-words BM25; a complete run can take around 45 minutes.
-Note that the important option here is `-impact`, where we specify impact scoring.
+Here, we are using the transformer model to encode the queries on the fly using the CPU.
+Note that the important option here is `-impact`, where we specify impact scoring. 
+With these impact scores, query evaluation is already slower than bag-of-words BM25; on top of that we're adding neural inference on the CPU.
+A complete run should take less than 30 minutes.
 
 To evaluate, using `trec_eval`:
 
@@ -94,5 +96,35 @@ Results:
 recall_100            	all	0.5566
 recall_1000           	all	0.7701
 ```
+
+There might be small differences in score due to platform differences in neural inference.
+The above score was obtained on Linux; macOS results may be slightly different.
+
+Alternatively, we can use pre-tokenized queries with pre-computed weights. First, fetch the MS MARCO passage ranking dev set queries:
+
+```
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage-v2.dev.unicoil-tilde-expansion.tsv.gz -P collections/
+
+# Alternate mirror
+wget https://vault.cs.uwaterloo.ca/s/AAgRffaWQXdo8zi/download -O collections/topics.msmarco-passage-v2.dev.unicoil-tilde-expansion.tsv.gz
+```
+
+The MD5 checksum of the topics file is `9c4fe0513cc8f45b44809f65c3c8bc20`.
+
+We can now run retrieval:
+
+```bash
+python -m pyserini.search --topics collections/topics.msmarco-passage-v2.dev.unicoil-tilde-expansion.tsv.gz \
+                          --index indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8 \
+                          --output runs/run.msmarco-passage-v2-dev-unicoil-tilde-expansion-b8.txt \
+                          --impact \
+                          --hits 1000 --batch 144 --threads 36 \
+                          --min-idf 1
+```
+
+Here, we also specify `-impact` for impact scoring. 
+Since we're not applying neural inference over the queries, speed is faster, typically less than 10 minutes.
+To evaluate using `trec_eval`, follow the same instructions above.
+These results may be slightly different from the figures above, but they should be the same across platforms.
 
 ## Reproduction Log[*](reproducibility.md)
