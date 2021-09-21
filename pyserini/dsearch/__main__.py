@@ -172,46 +172,47 @@ if __name__ == '__main__':
                                       max_passage_delimiter=args.max_passage_delimiter,
                                       max_passage_hits=args.max_passage_hits)
 
-    if PRF_FLAG:
-        with output_writer:
-            for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
-                if args.batch_size <= 1 and args.threads <= 1:
-                    emb_q, prf_candidates = searcher.prf_candidate_search(text, args.prf_depth, **kwargs)
-                    if args.prf_method == 'avg':
+    with output_writer:
+        batch_topics = list()
+        batch_topic_ids = list()
+        for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
+            if args.batch_size <= 1 and args.threads <= 1:
+                if PRF_FLAG:
+                    emb_q, prf_candidates = searcher.get_prf_candidates(text, args.prf_depth, **kwargs)
+                    if args.prf_method.lower() == 'avg':
                         prf_emb_q = average_prf(topic_id, emb_q, prf_candidates)
-                    elif args.prf_method == 'rocchio':
+                    elif args.prf_method.lower() == 'rocchio':
                         prf_emb_q = rocchio_prf(topic_id, emb_q, prf_candidates, args.rocchio_alpha, args.rocchio_beta)
-                    hits = searcher.search(prf_emb_q, args.hits, **kwargs)
-                    results = [(topic_id, hits)]
-                else:
-                    pass
-
-                for topic, hits in results:
-                    output_writer.write(topic, hits)
-
-                results.clear()
-    else:
-        with output_writer:
-            batch_topics = list()
-            batch_topic_ids = list()
-            for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
-                if args.batch_size <= 1 and args.threads <= 1:
-                    hits = searcher.search(text, args.hits, **kwargs)
-                    results = [(topic_id, hits)]
-                else:
-                    batch_topic_ids.append(str(topic_id))
-                    batch_topics.append(text)
-                    if (index + 1) % args.batch_size == 0 or \
-                            index == len(topics.keys()) - 1:
-                        results = searcher.batch_search(
-                            batch_topics, batch_topic_ids, args.hits, threads=args.threads, **kwargs)
-                        results = [(id_, results[id_]) for id_ in batch_topic_ids]
-                        batch_topic_ids.clear()
-                        batch_topics.clear()
                     else:
-                        continue
+                        raise ValueError(f'PRF Method {args.prf_method} Not Implemented')
+                    hits = searcher.search(prf_emb_q, args.hits, **kwargs)
+                else:
+                    hits = searcher.search(text, args.hits, **kwargs)
+                results = [(topic_id, hits)]
+            else:
+                batch_topic_ids.append(str(topic_id))
+                batch_topics.append(text)
+                if (index + 1) % args.batch_size == 0 or \
+                        index == len(topics.keys()) - 1:
+                    if PRF_FLAG:
+                        q_embs, prf_candidates = searcher.get_batch_prf_candidates(batch_topics, batch_topic_ids, args.prf_depth, **kwargs)
+                        if args.prf_method.lower() == 'avg':
+                            prf_embs_q = average_prf(batch_topic_ids, q_embs, prf_candidates)
+                        elif args.prf_method.lower() == 'rocchio':
+                            prf_embs_q = rocchio_prf(batch_topic_ids, q_embs, prf_candidates, args.rocchio_alpha, args.rocchio_beta)
+                        else:
+                            raise ValueError(f'PRF Method {args.prf_method} Not Implemented')
+                        results = searcher.batch_search(prf_embs_q, batch_topic_ids, args.hits, threads=args.threads, **kwargs)
+                        results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                    else:
+                        results = searcher.batch_search(batch_topics, batch_topic_ids, args.hits, threads=args.threads, **kwargs)
+                        results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                    batch_topic_ids.clear()
+                    batch_topics.clear()
+                else:
+                    continue
 
-                for topic, hits in results:
-                    output_writer.write(topic, hits)
+            for topic, hits in results:
+                output_writer.write(topic, hits)
 
-                results.clear()
+            results.clear()
