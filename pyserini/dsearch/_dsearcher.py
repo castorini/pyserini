@@ -26,7 +26,7 @@ from typing import Dict, List, Union, Optional
 import numpy as np
 import pandas as pd
 
-from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer,  BertTokenizerFast,
+from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, BertTokenizerFast,
                           DPRQuestionEncoder, DPRQuestionEncoderTokenizer, RobertaTokenizer)
 from transformers.file_utils import is_faiss_available, requires_backends
 
@@ -147,7 +147,7 @@ class BprQueryEncoder(QueryEncoder):
         if encoded_query_dir:
             self.embedding = self._load_embeddings(encoded_query_dir)
             self.has_encoded_query = True
-        
+
         if encoder_dir:
             self.device = device
             self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
@@ -164,25 +164,27 @@ class BprQueryEncoder(QueryEncoder):
             embeddings = self.model(input_ids["input_ids"]).pooler_output.detach().cpu()
             dense_embeddings = embeddings.numpy()
             sparse_embeddings = self.convert_to_binary_code(embeddings).numpy()
-            return {'dense':dense_embeddings.flatten(), 'sparse':sparse_embeddings.flatten()}
+            return {'dense': dense_embeddings.flatten(), 'sparse': sparse_embeddings.flatten()}
         else:
             return super().encode(query)
-    
+
     def convert_to_binary_code(self, input_repr: torch.Tensor):
         return input_repr.new_ones(input_repr.size()).masked_fill_(input_repr < 0, -1.0)
-    
+
     @staticmethod
     def _load_embeddings(encoded_query_dir):
         df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
         ret = {}
-        for text, dense, sparse in zip(df['text'].tolist(), df['dense_embedding'].tolist(), df['sparse_embedding'].tolist()):
+        for text, dense, sparse in zip(df['text'].tolist(), df['dense_embedding'].tolist(),
+                                       df['sparse_embedding'].tolist()):
             ret[text] = {'dense': dense, 'sparse': sparse}
         return ret
 
 
 class DkrrDprQueryEncoder(QueryEncoder):
 
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu', prefix: str = "question:"):
+    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu',
+                 prefix: str = "question:"):
         super().__init__(encoded_query_dir)
         self.device = device
         self.model = BertModel.from_pretrained(encoder_dir)
@@ -204,7 +206,7 @@ class DkrrDprQueryEncoder(QueryEncoder):
             inputs = self.tokenizer(query, return_tensors='pt', max_length=40, padding="max_length")
             inputs.to(self.device)
             outputs = self.model(input_ids=inputs["input_ids"],
-                                attention_mask=inputs["attention_mask"])
+                                 attention_mask=inputs["attention_mask"])
             embeddings = self._mean_pooling(outputs, inputs['attention_mask']).detach().cpu().numpy()
             return embeddings.flatten()
         else:
@@ -295,6 +297,13 @@ class DenseSearchResult:
     score: float
 
 
+@dataclass
+class PRFDenseSearchResult:
+    docid: str
+    score: float
+    vectors: [float]
+
+
 class SimpleDenseSearcher:
     """Simple Searcher for dense representation
 
@@ -304,7 +313,8 @@ class SimpleDenseSearcher:
         Path to faiss index directory.
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], prebuilt_index_name: Optional[str] = None):
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str],
+                 prebuilt_index_name: Optional[str] = None):
         requires_backends(self, "faiss")
         if isinstance(query_encoder, QueryEncoder):
             self.query_encoder = query_encoder
@@ -313,7 +323,7 @@ class SimpleDenseSearcher:
         self.index, self.docids = self.load_index(index_dir)
         self.dimension = self.index.d
         self.num_docs = self.index.ntotal
-        
+
         assert self.docids is None or self.num_docs == len(self.docids)
         if prebuilt_index_name:
             sparse_index = get_sparse_index(prebuilt_index_name)
@@ -350,7 +360,7 @@ class SimpleDenseSearcher:
         """Display information about available prebuilt indexes."""
         get_dense_indexes_info()
 
-    def search(self, query: str, k: int = 10, threads: int = 1) -> List[DenseSearchResult]:
+    def search(self, query: Union[str, List], k: int = 10, threads: int = 1) -> List[DenseSearchResult]:
         """Search the collection.
 
         Parameters
@@ -366,15 +376,68 @@ class SimpleDenseSearcher:
         List[DenseSearchResult]
             List of search results.
         """
-        emb_q = self.query_encoder.encode(query)
-        assert len(emb_q) == self.dimension
-        emb_q = emb_q.reshape((1, len(emb_q)))
+        if isinstance(query, str):
+            emb_q = self.query_encoder.encode(query)
+            assert len(emb_q) == self.dimension
+            emb_q = emb_q.reshape((1, len(emb_q)))
+        else:
+            emb_q = query
         faiss.omp_set_num_threads(threads)
         distances, indexes = self.index.search(emb_q, k)
         distances = distances.flat
         indexes = indexes.flat
         return [DenseSearchResult(self.docids[idx], score)
                 for score, idx in zip(distances, indexes) if idx != -1]
+
+    def prf_candidate_search(self, query: str, k: int = 10, threads: int = 1):
+        """Search the collection to get PRF candidates
+
+        Parameters
+        ----------
+        query : str
+            query text
+        k : int
+            Number of hits to return.
+        threads : int
+            Maximum number of threads to use for intra-query search.
+        Returns
+        -------
+
+        List[PRFDenseSearchResult]
+            List of search results, with doc vectors returned.
+        """
+        emb_q = self.query_encoder.encode(query)
+        assert len(emb_q) == self.dimension
+        emb_q = emb_q.reshape((1, len(emb_q)))
+        faiss.omp_set_num_threads(threads)
+        distances, indexes, vectors = self.index.search_and_reconstruct(emb_q, k)
+        vectors = vectors[0]
+        distances = distances.flat
+        indexes = indexes.flat
+        return emb_q, [PRFDenseSearchResult(self.docids[idx], score, vector)
+                       for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
+
+    def prf_batch_candidate_search(self):
+        """Batch search to get the PRF candidates
+
+        Parameters
+        ----------
+        queries : List[str]
+            List of query texts
+        q_ids : List[str]
+            List of corresponding query ids.
+        k : int
+            Number of hits to return.
+        threads : int
+            Maximum number of threads to use.
+
+        Returns
+        -------
+        Dict[str, List[DenseSearchResult]]
+            Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
+            results as the values.
+        """
+        pass
 
     def batch_search(self, queries: List[str], q_ids: List[str], k: int = 10, threads: int = 1) \
             -> Dict[str, List[DenseSearchResult]]:
@@ -462,10 +525,12 @@ class BinaryDenseSearcher(SimpleDenseSearcher):
         Path to faiss index directory.
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], prebuilt_index_name: Optional[str] = None):
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str],
+                 prebuilt_index_name: Optional[str] = None):
         super().__init__(index_dir, query_encoder, prebuilt_index_name)
 
-    def search(self, query: str, k: int = 10, binary_k: int = 100, rerank: bool = True, threads: int = 1) -> List[DenseSearchResult]:
+    def search(self, query: str, k: int = 10, binary_k: int = 100, rerank: bool = True, threads: int = 1) -> List[
+        DenseSearchResult]:
         """Search the collection.
 
         Parameters
@@ -490,7 +555,7 @@ class BinaryDenseSearcher(SimpleDenseSearcher):
         sparse_emb_q = ret['sparse']
         assert len(dense_emb_q) == self.dimension
         assert len(sparse_emb_q) == self.dimension
-        
+
         dense_emb_q = dense_emb_q.reshape((1, len(dense_emb_q)))
         sparse_emb_q = sparse_emb_q.reshape((1, len(sparse_emb_q)))
         faiss.omp_set_num_threads(threads)
@@ -501,7 +566,7 @@ class BinaryDenseSearcher(SimpleDenseSearcher):
                 for score, idx in zip(distances, indexes) if idx != -1]
 
     def batch_search(self, queries: List[str], q_ids: List[str], k: int = 10, binary_k: int = 100, \
-            rerank: bool = True, threads: int = 1) -> Dict[str, List[DenseSearchResult]]:
+                     rerank: bool = True, threads: int = 1) -> Dict[str, List[DenseSearchResult]]:
         """
 
         Parameters
@@ -566,7 +631,7 @@ class BinaryDenseSearcher(SimpleDenseSearcher):
             indexes = indexes.reshape(num_queries, -1)[:, :k]
             distances = distances[np.arange(num_queries)[:, None], sorted_indices][:, :k]
         return distances, indexes
-    
+
     def load_index(self, index_dir: str):
         index_path = os.path.join(index_dir, 'index')
         index = faiss.read_index_binary(index_path)

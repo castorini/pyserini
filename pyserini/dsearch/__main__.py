@@ -24,6 +24,8 @@ from pyserini.dsearch import SimpleDenseSearcher, BinaryDenseSearcher, TctColBer
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
 
+from ._prf import average_prf, rocchio_prf
+
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
@@ -47,6 +49,14 @@ def define_dsearch_args(parser):
                         help="Query prefix if exists.")
     parser.add_argument('--searcher', type=str, metavar='str', required=False, default='simple',
                         help="dense searcher type")
+    parser.add_argument('--prf-depth', type=int, metavar='num of passages used for PRF', required=False, default=0,
+                        help="Specify how many passages are used for PRF, 0: Simple retrieval with no PRF, > 0: perform PRF")
+    parser.add_argument('--prf-method', type=str, metavar='avg or rocchio', required=False, default='avg',
+                        help="Choose PRF methods, avg or rocchio")
+    parser.add_argument('--rocchio-alpha', type=float, metavar='alpha parameter for rocchio', required=False, default=0.9,
+                        help="The alpha parameter to control the contribution from the query vector")
+    parser.add_argument('--rocchio-beta', type=float, metavar='beta parameter for rocchio', required=False, default=0.1,
+                        help="The beta parameter to control the contribution from the average vector of the PRF passages")
 
 
 def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device, prefix):
@@ -119,6 +129,14 @@ if __name__ == '__main__':
     define_dsearch_args(parser)
     args = parser.parse_args()
 
+    if args.prf_depth > 0 and ('ance' in args.encoder.lower() or
+                               'ance' in args.tokenizer.lower() or
+                               'ance' in args.index.lower() or
+                               'ance' in args.encoded_queries.lower()):
+        PRF_FLAG = True
+    else:
+        PRF_FLAG = False
+
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
     topics = query_iterator.topics
 
@@ -154,27 +172,46 @@ if __name__ == '__main__':
                                       max_passage_delimiter=args.max_passage_delimiter,
                                       max_passage_hits=args.max_passage_hits)
 
-    with output_writer:
-        batch_topics = list()
-        batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
-            if args.batch_size <= 1 and args.threads <= 1:
-                hits = searcher.search(text, args.hits, **kwargs)
-                results = [(topic_id, hits)]
-            else:
-                batch_topic_ids.append(str(topic_id))
-                batch_topics.append(text)
-                if (index + 1) % args.batch_size == 0 or \
-                        index == len(topics.keys()) - 1:
-                    results = searcher.batch_search(
-                        batch_topics, batch_topic_ids, args.hits, threads=args.threads, **kwargs)
-                    results = [(id_, results[id_]) for id_ in batch_topic_ids]
-                    batch_topic_ids.clear()
-                    batch_topics.clear()
+    if PRF_FLAG:
+        with output_writer:
+            for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
+                if args.batch_size <= 1 and args.threads <= 1:
+                    emb_q, prf_candidates = searcher.prf_candidate_search(text, args.prf_depth, **kwargs)
+                    if args.prf_method == 'avg':
+                        prf_emb_q = average_prf(topic_id, emb_q, prf_candidates)
+                    elif args.prf_method == 'rocchio':
+                        prf_emb_q = rocchio_prf(topic_id, emb_q, prf_candidates, args.rocchio_alpha, args.rocchio_beta)
+                    hits = searcher.search(prf_emb_q, args.hits, **kwargs)
+                    results = [(topic_id, hits)]
                 else:
-                    continue
+                    pass
 
-            for topic, hits in results:
-                output_writer.write(topic, hits)
+                for topic, hits in results:
+                    output_writer.write(topic, hits)
 
-            results.clear()
+                results.clear()
+    else:
+        with output_writer:
+            batch_topics = list()
+            batch_topic_ids = list()
+            for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
+                if args.batch_size <= 1 and args.threads <= 1:
+                    hits = searcher.search(text, args.hits, **kwargs)
+                    results = [(topic_id, hits)]
+                else:
+                    batch_topic_ids.append(str(topic_id))
+                    batch_topics.append(text)
+                    if (index + 1) % args.batch_size == 0 or \
+                            index == len(topics.keys()) - 1:
+                        results = searcher.batch_search(
+                            batch_topics, batch_topic_ids, args.hits, threads=args.threads, **kwargs)
+                        results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                        batch_topic_ids.clear()
+                        batch_topics.clear()
+                    else:
+                        continue
+
+                for topic, hits in results:
+                    output_writer.write(topic, hits)
+
+                results.clear()
