@@ -131,3 +131,4 @@ These results may be slightly different from the figures above, but they should 
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-09-19 (commit [`6b9cc5b`](https://github.com/castorini/pyserini/commit/6b9cc5b1c2fee89597c5841a9f88395cf76bf60a))
++ Results reproduced by [@MXueguang](https://github.com/MXueguang) on 2021-09-22 (commit [`a4c12d2`](https://github.com/castorini/pyserini/commit/a4c12d28979b4ed9177845733932f94a1fcdfe64))
