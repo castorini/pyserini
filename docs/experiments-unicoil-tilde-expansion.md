@@ -91,7 +91,7 @@ Alternatively, we can use pre-tokenized queries with pre-computed weights.
 First, fetch the queries:
 
 ```
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage-v2.dev.unicoil-tilde-expansion.tsv.gz -P collections/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz -P collections/
 
 # Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/GZEPQkNQGoszHTx/download -O collections/topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz
@@ -111,7 +111,7 @@ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset
 ```
 
 Here, we also specify `-impact` for impact scoring.
-Since we're not applying neural inference over the queries, speed is faster, typically less than 10 minutes.
+Since we're not applying neural inference over the queries, retrieval is faster, typically less than 10 minutes.
 
 The output is in MS MARCO output format, so we can directly evaluate:
 
