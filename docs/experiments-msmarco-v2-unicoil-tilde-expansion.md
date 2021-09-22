@@ -45,7 +45,7 @@ python -m pyserini.index -collection JsonVectorCollection \
  -threads 12
 ```
 
-The important indexing options to note here are `-impact -pretokenized`: the first tells Anserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the uniCOIL tokens.
+The important indexing options to note here are `-impact -pretokenized`: the first tells Pyserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the uniCOIL tokens.
 
 Upon completion, we should have an index with 138,364,198 documents.
 The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 5 hours.
@@ -101,7 +101,7 @@ There might be small differences in score due to platform differences in neural 
 The above score was obtained on Linux; macOS results may be slightly different.
 
 Alternatively, we can use pre-tokenized queries with pre-computed weights.
-First, fetch the MS MARCO passage ranking dev set queries:
+First, fetch the queries:
 
 ```
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage-v2.dev.unicoil-tilde-expansion.tsv.gz -P collections/
