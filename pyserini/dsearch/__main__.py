@@ -24,6 +24,8 @@ from pyserini.dsearch import SimpleDenseSearcher, BinaryDenseSearcher, TctColBer
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
 
+from ._prf import AveragePRF, RocchioPRF
+
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
@@ -47,6 +49,15 @@ def define_dsearch_args(parser):
                         help="Query prefix if exists.")
     parser.add_argument('--searcher', type=str, metavar='str', required=False, default='simple',
                         help="dense searcher type")
+    parser.add_argument('--prf-depth', type=int, metavar='num of passages used for PRF', required=False, default=0,
+                        help="Specify how many passages are used for PRF, 0: Simple retrieval with no PRF, > 0: perform PRF")
+    parser.add_argument('--prf-method', type=str, metavar='avg or rocchio', required=False, default='avg',
+                        help="Choose PRF methods, avg or rocchio")
+    parser.add_argument('--rocchio-alpha', type=float, metavar='alpha parameter for rocchio', required=False,
+                        default=0.9,
+                        help="The alpha parameter to control the contribution from the query vector")
+    parser.add_argument('--rocchio-beta', type=float, metavar='beta parameter for rocchio', required=False, default=0.1,
+                        help="The beta parameter to control the contribution from the average vector of the PRF passages")
 
 
 def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device, prefix):
@@ -88,10 +99,23 @@ def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, de
                 return BprQueryEncoder.load_encoded_queries(encoded_queries)
             else:
                 return QueryEncoder.load_encoded_queries(encoded_queries)
-    
+
     if topics_name in encoded_queries_map:
         return QueryEncoder.load_encoded_queries(encoded_queries_map[topics_name])
     raise ValueError(f'No encoded queries for topic {topics_name}')
+
+
+def run_prf(topic_ids, query_embs, candidates, arg):
+    if arg.prf_method.lower() == 'avg':
+        average_prf = AveragePRF(topic_ids, query_embs, candidates)
+        prf_query_embs = average_prf.get_prf_q_emb()
+    elif arg.prf_method.lower() == 'rocchio':
+        rocchio_prf = RocchioPRF(topic_ids, query_embs, candidates,
+                                 rocchio_alpha=arg.rocchio_alpha, rocchio_beta=arg.rocchio_beta)
+        prf_query_embs = rocchio_prf.get_prf_q_emb()
+    else:
+        raise ValueError(f'PRF Method {arg.prf_method} Not Implemented')
+    return prf_query_embs
 
 
 if __name__ == '__main__':
@@ -99,14 +123,15 @@ if __name__ == '__main__':
     parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                         help="Name of topics. Available: msmarco-passage-dev-subset.")
     parser.add_argument('--hits', type=int, metavar='num', required=False, default=1000, help="Number of hits.")
-    parser.add_argument('--binary-hits', type=int, metavar='num', required=False, default=1000, help="Number of binary hits.")
+    parser.add_argument('--binary-hits', type=int, metavar='num', required=False, default=1000,
+                        help="Number of binary hits.")
     parser.add_argument("--rerank", action="store_true", help='whethere rerank bpr sparse results.')
     parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
                         help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
     parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
                         help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
     parser.add_argument('--output', type=str, metavar='path', required=True, help="Path to output file.")
-    parser.add_argument('--max-passage',  action='store_true',
+    parser.add_argument('--max-passage', action='store_true',
                         default=False, help="Select only max passage from document.")
     parser.add_argument('--max-passage-hits', type=int, metavar='num', required=False, default=100,
                         help="Final number of hits when selecting only max passage.")
@@ -122,7 +147,8 @@ if __name__ == '__main__':
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
     topics = query_iterator.topics
 
-    query_encoder = init_query_encoder(args.encoder, args.tokenizer, args.topics, args.encoded_queries, args.device, args.query_prefix)
+    query_encoder = init_query_encoder(args.encoder, args.tokenizer, args.topics, args.encoded_queries, args.device,
+                                       args.query_prefix)
     kwargs = {}
     if os.path.exists(args.index):
         # create searcher from index directory
@@ -138,9 +164,15 @@ if __name__ == '__main__':
             searcher = BinaryDenseSearcher.from_prebuilt_index(args.index, query_encoder)
         else:
             searcher = SimpleDenseSearcher.from_prebuilt_index(args.index, query_encoder)
-    
+
     if not searcher:
         exit()
+
+    # Check PRF Flag
+    if args.prf_depth > 0 and type(searcher) == SimpleDenseSearcher:
+        PRF_FLAG = True
+    else:
+        PRF_FLAG = False
 
     # build output path
     output_path = args.output
@@ -159,16 +191,29 @@ if __name__ == '__main__':
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.batch_size <= 1 and args.threads <= 1:
-                hits = searcher.search(text, args.hits, **kwargs)
+                if PRF_FLAG:
+                    emb_q, prf_candidates = searcher.get_prf_candidates(text, args.prf_depth, **kwargs)
+                    prf_emb_q = run_prf(topic_id, emb_q, prf_candidates, args)
+                    hits = searcher.search(prf_emb_q, args.hits, **kwargs)
+                else:
+                    hits = searcher.search(text, args.hits, **kwargs)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
                 batch_topics.append(text)
                 if (index + 1) % args.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
-                    results = searcher.batch_search(
-                        batch_topics, batch_topic_ids, args.hits, threads=args.threads, **kwargs)
-                    results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                    if PRF_FLAG:
+                        q_embs, prf_candidates = searcher.get_batch_prf_candidates(batch_topics, batch_topic_ids,
+                                                                                   args.prf_depth, **kwargs)
+                        prf_embs_q = run_prf(batch_topic_ids, q_embs, prf_candidates, args)
+                        results = searcher.batch_search(prf_embs_q, batch_topic_ids, args.hits, threads=args.threads,
+                                                        **kwargs)
+                        results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                    else:
+                        results = searcher.batch_search(batch_topics, batch_topic_ids, args.hits, threads=args.threads,
+                                                        **kwargs)
+                        results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
                 else:
