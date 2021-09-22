@@ -129,14 +129,6 @@ if __name__ == '__main__':
     define_dsearch_args(parser)
     args = parser.parse_args()
 
-    if args.prf_depth > 0 and ('ance' in args.encoder.lower() or
-                               'ance' in args.tokenizer.lower() or
-                               'ance' in args.index.lower() or
-                               'ance' in args.encoded_queries.lower()):
-        PRF_FLAG = True
-    else:
-        PRF_FLAG = False
-
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
     topics = query_iterator.topics
 
@@ -159,6 +151,12 @@ if __name__ == '__main__':
     
     if not searcher:
         exit()
+
+    # Check PRF Flag
+    if args.prf_depth > 0 and type(searcher) == SimpleDenseSearcher:
+        PRF_FLAG = True
+    else:
+        PRF_FLAG = False
 
     # build output path
     output_path = args.output
@@ -202,6 +200,7 @@ if __name__ == '__main__':
                             prf_embs_q = rocchio_prf(batch_topic_ids, q_embs, prf_candidates, args.rocchio_alpha, args.rocchio_beta)
                         else:
                             raise ValueError(f'PRF Method {args.prf_method} Not Implemented')
+                        print(type(searcher))
                         results = searcher.batch_search(prf_embs_q, batch_topic_ids, args.hits, threads=args.threads, **kwargs)
                         results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     else:

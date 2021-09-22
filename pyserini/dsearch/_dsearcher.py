@@ -360,12 +360,12 @@ class SimpleDenseSearcher:
         """Display information about available prebuilt indexes."""
         get_dense_indexes_info()
 
-    def search(self, query: Union[str, List], k: int = 10, threads: int = 1) -> List[DenseSearchResult]:
+    def search(self, query: Union[str, np.ndarray], k: int = 10, threads: int = 1) -> List[DenseSearchResult]:
         """Search the collection.
 
         Parameters
         ----------
-        query : Union[str, List]
+        query : Union[str, np.ndarray]
             query text or query embeddings
         k : int
             Number of hits to return.
@@ -402,7 +402,8 @@ class SimpleDenseSearcher:
             Maximum number of threads to use for intra-query search.
         Returns
         -------
-
+        np.ndarray
+            Holds the query embeddings
         List[PRFDenseSearchResult]
             List of search results, with doc vectors returned.
         """
@@ -433,6 +434,8 @@ class SimpleDenseSearcher:
 
         Returns
         -------
+        np.ndarray
+            Holds the query embeddings
         Dict[str, List[PRFDenseSearchResult]]
             Dictionary holding the PRF candidate results, with the query ids as keys and the corresponding lists of
             candidates as the values.
@@ -452,7 +455,7 @@ class SimpleDenseSearcher:
 
         Parameters
         ----------
-        queries : Union[List[str], List[float]]
+        queries : Union[List[str], np.ndarray]
             List of query texts or list of query embeddings
         q_ids : List[str]
             List of corresponding query ids.
@@ -539,8 +542,8 @@ class BinaryDenseSearcher(SimpleDenseSearcher):
                  prebuilt_index_name: Optional[str] = None):
         super().__init__(index_dir, query_encoder, prebuilt_index_name)
 
-    def search(self, query: str, k: int = 10, binary_k: int = 100, rerank: bool = True, threads: int = 1) -> List[
-        DenseSearchResult]:
+    def search(self, query: str, k: int = 10, binary_k: int = 100, rerank: bool = True, threads: int = 1) \
+            -> List[DenseSearchResult]:
         """Search the collection.
 
         Parameters
@@ -575,7 +578,7 @@ class BinaryDenseSearcher(SimpleDenseSearcher):
         return [DenseSearchResult(str(idx), score)
                 for score, idx in zip(distances, indexes) if idx != -1]
 
-    def batch_search(self, queries: List[str], q_ids: List[str], k: int = 10, binary_k: int = 100, \
+    def batch_search(self, queries: List[str], q_ids: List[str], k: int = 10, binary_k: int = 100,
                      rerank: bool = True, threads: int = 1) -> Dict[str, List[DenseSearchResult]]:
         """
 
