@@ -200,7 +200,6 @@ if __name__ == '__main__':
                             prf_embs_q = rocchio_prf(batch_topic_ids, q_embs, prf_candidates, args.rocchio_alpha, args.rocchio_beta)
                         else:
                             raise ValueError(f'PRF Method {args.prf_method} Not Implemented')
-                        print(type(searcher))
                         results = searcher.batch_search(prf_embs_q, batch_topic_ids, args.hits, threads=args.threads, **kwargs)
                         results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     else:
