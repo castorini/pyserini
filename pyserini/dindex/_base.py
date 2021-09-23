@@ -19,8 +19,6 @@ import torch
 from transformers import AutoModel, AutoTokenizer, BertModel, BertTokenizer, DPRContextEncoder, \
     DPRContextEncoderTokenizer, RobertaTokenizer
 
-from pyserini.dsearch import AnceEncoder
-
 
 class DocumentEncoder:
     def encode(self, texts, titles=None):
@@ -85,6 +83,7 @@ class DprDocumentEncoder(DocumentEncoder):
 
 class AnceDocumentEncoder(DocumentEncoder):
     def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
+        from pyserini.dsearch import AnceEncoder
         self.device = device
         self.model = AnceEncoder.from_pretrained(model_name)
         self.model.to(self.device)
