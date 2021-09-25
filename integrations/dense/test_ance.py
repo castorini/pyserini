@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for ANCE model using on-the-fly query encoding."""
+"""Integration tests for ANCE model and ANCE PRF using on-the-fly query encoding."""
 
 import os
 import socket
@@ -30,6 +30,8 @@ class TestSearchIntegration(unittest.TestCase):
         self.temp_files = []
         self.threads = 12
         self.batch_size = 36
+        self.rocchio_alpha = 0.4
+        self.rocchio_beta = 0.6
 
         # Hard-code larger values for internal servers
         if socket.gethostname().startswith('damiano') or socket.gethostname().startswith('orca'):
@@ -58,6 +60,12 @@ class TestSearchIntegration(unittest.TestCase):
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)
+
+    def test_msmarco_passage_ance_avg_prf_otf(self):
+        pass
+
+    def test_msmarco_passage_ance_rocchio_prf_otf(self):
+        pass
 
     def test_msmarco_doc_ance_bf_otf(self):
         output_file = 'test_run.msmarco-doc.passage.ance-maxp.otf.txt'

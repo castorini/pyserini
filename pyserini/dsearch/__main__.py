@@ -24,7 +24,7 @@ from pyserini.dsearch import SimpleDenseSearcher, BinaryDenseSearcher, TctColBer
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
 
-from ._prf import AveragePRF, RocchioPRF
+from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -105,13 +105,13 @@ def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, de
     raise ValueError(f'No encoded queries for topic {topics_name}')
 
 
-def run_prf(topic_ids, query_embs, candidates, arg):
+def run_dense_vector_prf(topic_ids, query_embs, candidates, arg):
     if arg.prf_method.lower() == 'avg':
-        average_prf = AveragePRF(topic_ids, query_embs, candidates)
+        average_prf = DenseVectorAveragePrf(topic_ids, query_embs, candidates)
         prf_query_embs = average_prf.get_prf_q_emb()
     elif arg.prf_method.lower() == 'rocchio':
-        rocchio_prf = RocchioPRF(topic_ids, query_embs, candidates,
-                                 rocchio_alpha=arg.rocchio_alpha, rocchio_beta=arg.rocchio_beta)
+        rocchio_prf = DenseVectorRocchioPrf(topic_ids, query_embs, candidates,
+                                            rocchio_alpha=arg.rocchio_alpha, rocchio_beta=arg.rocchio_beta)
         prf_query_embs = rocchio_prf.get_prf_q_emb()
     else:
         raise ValueError(f'PRF Method {arg.prf_method} Not Implemented')
@@ -192,8 +192,8 @@ if __name__ == '__main__':
         for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.batch_size <= 1 and args.threads <= 1:
                 if PRF_FLAG:
-                    emb_q, prf_candidates = searcher.get_prf_candidates(text, args.prf_depth, **kwargs)
-                    prf_emb_q = run_prf(topic_id, emb_q, prf_candidates, args)
+                    emb_q, prf_candidates = searcher.search(text, args.prf_depth, return_vector=True, **kwargs)
+                    prf_emb_q = run_dense_vector_prf(topic_id, emb_q, prf_candidates, args)
                     hits = searcher.search(prf_emb_q, args.hits, **kwargs)
                 else:
                     hits = searcher.search(text, args.hits, **kwargs)
@@ -204,9 +204,9 @@ if __name__ == '__main__':
                 if (index + 1) % args.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
                     if PRF_FLAG:
-                        q_embs, prf_candidates = searcher.get_batch_prf_candidates(batch_topics, batch_topic_ids,
-                                                                                   args.prf_depth, **kwargs)
-                        prf_embs_q = run_prf(batch_topic_ids, q_embs, prf_candidates, args)
+                        q_embs, prf_candidates = searcher.batch_search(batch_topics, batch_topic_ids,
+                                                                       args.prf_depth, return_vector=True, **kwargs)
+                        prf_embs_q = run_dense_vector_prf(batch_topic_ids, q_embs, prf_candidates, args)
                         results = searcher.batch_search(prf_embs_q, batch_topic_ids, args.hits, threads=args.threads,
                                                         **kwargs)
                         results = [(id_, results[id_]) for id_ in batch_topic_ids]

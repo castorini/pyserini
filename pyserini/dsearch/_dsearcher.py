@@ -360,7 +360,8 @@ class SimpleDenseSearcher:
         """Display information about available prebuilt indexes."""
         get_dense_indexes_info()
 
-    def search(self, query: Union[str, np.ndarray], k: int = 10, threads: int = 1) -> List[DenseSearchResult]:
+    def search(self, query: Union[str, np.ndarray], k: int = 10, threads: int = 1, return_vector: bool = False) \
+            -> Union[List[DenseSearchResult], (np.ndarray, List[PRFDenseSearchResult])]:
         """Search the collection.
 
         Parameters
@@ -371,10 +372,13 @@ class SimpleDenseSearcher:
             Number of hits to return.
         threads : int
             Maximum number of threads to use for intra-query search.
+        return_vector : bool
+            Return the results with vectors
         Returns
         -------
-        List[DenseSearchResult]
-            List of search results.
+        Union[List[DenseSearchResult], (np.ndarray, List[PRFDenseSearchResult])]
+            Either returns a list of search results.
+            Or returns the query vector with the list of PRF dense search results with vectors.
         """
         if isinstance(query, str):
             emb_q = self.query_encoder.encode(query)
@@ -383,74 +387,23 @@ class SimpleDenseSearcher:
         else:
             emb_q = query
         faiss.omp_set_num_threads(threads)
-        distances, indexes = self.index.search(emb_q, k)
-        distances = distances.flat
-        indexes = indexes.flat
-        return [DenseSearchResult(self.docids[idx], score)
-                for score, idx in zip(distances, indexes) if idx != -1]
+        if return_vector:
+            distances, indexes, vectors = self.index.search_and_reconstruct(emb_q, k)
+            vectors = vectors[0]
+            distances = distances.flat
+            indexes = indexes.flat
+            return emb_q, [PRFDenseSearchResult(self.docids[idx], score, vector)
+                           for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
+        else:
+            distances, indexes = self.index.search(emb_q, k)
+            distances = distances.flat
+            indexes = indexes.flat
+            return [DenseSearchResult(self.docids[idx], score)
+                    for score, idx in zip(distances, indexes) if idx != -1]
 
-    def get_prf_candidates(self, query: str, k: int = 10, threads: int = 1):
-        """Search the collection to get PRF candidates
-
-        Parameters
-        ----------
-        query : str
-            query text
-        k : int
-            Number of hits to return.
-        threads : int
-            Maximum number of threads to use for intra-query search.
-        Returns
-        -------
-        np.ndarray
-            Holds the query embeddings
-        List[PRFDenseSearchResult]
-            List of search results, with doc vectors returned.
-        """
-        emb_q = self.query_encoder.encode(query)
-        assert len(emb_q) == self.dimension
-        emb_q = emb_q.reshape((1, len(emb_q)))
-        faiss.omp_set_num_threads(threads)
-        distances, indexes, vectors = self.index.search_and_reconstruct(emb_q, k)
-        vectors = vectors[0]
-        distances = distances.flat
-        indexes = indexes.flat
-        return emb_q, [PRFDenseSearchResult(self.docids[idx], score, vector)
-                       for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
-
-    def get_batch_prf_candidates(self, queries: List[str], q_ids: List[str], k: int = 10, threads: int = 1):
-        """Batch search to get the PRF candidates
-
-        Parameters
-        ----------
-        queries : List[str]
-            List of query texts
-        q_ids : List[str]
-            List of corresponding query ids.
-        k : int
-            Number of hits to return.
-        threads : int
-            Maximum number of threads to use.
-
-        Returns
-        -------
-        np.ndarray
-            Holds the query embeddings
-        Dict[str, List[PRFDenseSearchResult]]
-            Dictionary holding the PRF candidate results, with the query ids as keys and the corresponding lists of
-            candidates as the values.
-        """
-        q_embs = np.array([self.query_encoder.encode(q) for q in queries])
-        n, m = q_embs.shape
-        assert m == self.dimension
-        faiss.omp_set_num_threads(threads)
-        D, I, V = self.index.search_and_reconstruct(q_embs, k)
-        return q_embs, {key: [PRFDenseSearchResult(self.docids[idx], score, vector)
-                              for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
-                        for key, distances, indexes, vectors in zip(q_ids, D, I, V)}
-
-    def batch_search(self, queries: Union[List[str], np.ndarray], q_ids: List[str], k: int = 10, threads: int = 1) \
-            -> Dict[str, List[DenseSearchResult]]:
+    def batch_search(self, queries: Union[List[str], np.ndarray], q_ids: List[str], k: int = 10,
+                     threads: int = 1, return_vector: bool = False) \
+            -> Union[Dict[str, List[DenseSearchResult]], (np.ndarray, Dict[str, List[PRFDenseSearchResult]])]:
         """
 
         Parameters
@@ -463,12 +416,15 @@ class SimpleDenseSearcher:
             Number of hits to return.
         threads : int
             Maximum number of threads to use.
+        return_vector : bool
+            Return the results with vectors
 
         Returns
         -------
-        Dict[str, List[DenseSearchResult]]
-            Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
-            results as the values.
+        Union[Dict[str, List[DenseSearchResult]], (np.ndarray, Dict[str, List[PRFDenseSearchResult]])]
+            Either returns a dictionary holding the search results, with the query ids as keys and the
+            corresponding lists of search results as the values.
+            Or returns a tuple with ndarray of query vectors and a dictionary of PRF Dense Search Results with vectors
         """
         if isinstance(queries, np.ndarray):
             q_embs = queries
@@ -477,10 +433,16 @@ class SimpleDenseSearcher:
             n, m = q_embs.shape
             assert m == self.dimension
         faiss.omp_set_num_threads(threads)
-        D, I = self.index.search(q_embs, k)
-        return {key: [DenseSearchResult(self.docids[idx], score)
-                      for score, idx in zip(distances, indexes) if idx != -1]
-                for key, distances, indexes in zip(q_ids, D, I)}
+        if return_vector:
+            D, I, V = self.index.search_and_reconstruct(q_embs, k)
+            return q_embs, {key: [PRFDenseSearchResult(self.docids[idx], score, vector)
+                                  for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
+                            for key, distances, indexes, vectors in zip(q_ids, D, I, V)}
+        else:
+            D, I = self.index.search(q_embs, k)
+            return {key: [DenseSearchResult(self.docids[idx], score)
+                          for score, idx in zip(distances, indexes) if idx != -1]
+                    for key, distances, indexes in zip(q_ids, D, I)}
 
     def load_index(self, index_dir: str):
         index_path = os.path.join(index_dir, 'index')

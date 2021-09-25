@@ -5,7 +5,7 @@ from typing import List, Union, Dict
 from ._dsearcher import PRFDenseSearchResult
 
 
-class PRF:
+class DenseVectorPrf:
     def __init__(self, topic_ids: Union[int, List[str]], emb_qs: np.ndarray,
                  prf_candidates: Union[List[PRFDenseSearchResult], Dict[str, List[PRFDenseSearchResult]]], **kwargs):
         self.topic_ids = topic_ids
@@ -17,9 +17,9 @@ class PRF:
         pass
 
 
-class AveragePRF(PRF):
+class DenseVectorAveragePrf(DenseVectorPrf):
     def get_prf_q_emb(self):
-        """Perform Average PRF
+        """Perform Average PRF with Dense Vectors
 
         Parameters
         ----------
@@ -39,18 +39,15 @@ class AveragePRF(PRF):
             new_emb_qs = np.array(new_emb_qs).astype('float32')
             return new_emb_qs
         else:
-            if len(self.prf_candidates) == 0:
-                new_emb_qs = self.emb_qs[0]
-            else:
-                all_candidate_embs = [item.vectors for item in self.prf_candidates]
-                new_emb_qs = np.mean(np.vstack((self.emb_qs[0], all_candidate_embs)), axis=0)
+            all_candidate_embs = [item.vectors for item in self.prf_candidates]
+            new_emb_qs = np.mean(np.vstack((self.emb_qs[0], all_candidate_embs)), axis=0)
             new_emb_qs = np.array([new_emb_qs]).astype('float32')
             return new_emb_qs
 
 
-class RocchioPRF(PRF):
+class DenseVectorRocchioPrf(DenseVectorPrf):
     def get_prf_q_emb(self):
-        """Perform Average PRF
+        """Perform Rocchio PRF with Dense Vectors
 
         Parameters
         ----------
@@ -75,12 +72,9 @@ class RocchioPRF(PRF):
             new_emb_qs = np.array(new_emb_qs).astype('float32')
             return new_emb_qs
         else:
-            if len(self.prf_candidates) == 0:
-                new_emb_q = self.emb_qs[0]
-            else:
-                all_candidate_embs = [item.vectors for item in self.prf_candidates]
-                weighted_mean_doc_embs = rocchio_beta * np.mean(all_candidate_embs, axis=0)
-                weighted_query_embs = rocchio_alpha * self.emb_qs[0]
-                new_emb_q = np.sum(np.vstack((weighted_query_embs, weighted_mean_doc_embs)), axis=0)
+            all_candidate_embs = [item.vectors for item in self.prf_candidates]
+            weighted_mean_doc_embs = rocchio_beta * np.mean(all_candidate_embs, axis=0)
+            weighted_query_embs = rocchio_alpha * self.emb_qs[0]
+            new_emb_q = np.sum(np.vstack((weighted_query_embs, weighted_mean_doc_embs)), axis=0)
             new_emb_q = np.array([new_emb_q]).astype('float32')
             return new_emb_q

@@ -408,6 +408,7 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + Reproducing [DistilBERT KD experiments](docs/experiments-distilbert_kd.md)
 + Reproducing [DistilBERT Balanced Topic Aware Sampling experiments](docs/experiments-distilbert_tasb.md)
 + Reproducing [SBERT dense retrieval experiments](docs/experiments-sbert.md)
++ Reproducing [Vector PRF experiments](docs/experiments-vector-prf.md)
 
 ## Baselines
 
