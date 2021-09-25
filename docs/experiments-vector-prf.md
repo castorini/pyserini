@@ -1,4 +1,4 @@
-# Pyserini: Reproducing ANCE Results
+# Pyserini: Reproducing Vector PRF Results
 
 This guide provides instructions to reproduce the Vector PRF in the following work:
 
