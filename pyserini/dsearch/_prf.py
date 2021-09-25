@@ -1,15 +1,9 @@
 import numpy as np
-from typing import List, Union, Dict
+from typing import List, Dict
 from pyserini.dsearch import PRFDenseSearchResult
 
 
 class DenseVectorPrf:
-    # def __init__(self, topic_ids: Union[int, List[str]], emb_qs: np.ndarray,
-    #              prf_candidates: Union[List[PRFDenseSearchResult], Dict[str, List[PRFDenseSearchResult]]], **kwargs):
-    #     self.topic_ids = topic_ids
-    #     self.emb_qs = emb_qs
-    #     self.prf_candidates = prf_candidates
-    #     self.kwargs = kwargs
     def __init__(self):
         pass
 

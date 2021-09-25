@@ -163,6 +163,7 @@ if __name__ == '__main__':
             prfRule = DenseVectorAveragePrf()
         elif args.prf_method.lower() == 'rocchio':
             prfRule = DenseVectorRocchioPrf(args.rocchio_alpha, args.rocchio_beta)
+        print(f'Running SimpleDenseSearcher with {args.prf_method.upper()} PRF...')
     else:
         PRF_FLAG = False
 
