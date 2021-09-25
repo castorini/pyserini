@@ -21,7 +21,7 @@ The main entry point is the ``SimpleDenseSearcher`` class.
 
 import os
 from dataclasses import dataclass
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Union, Optional, Tuple
 
 import numpy as np
 import pandas as pd
@@ -361,7 +361,7 @@ class SimpleDenseSearcher:
         get_dense_indexes_info()
 
     def search(self, query: Union[str, np.ndarray], k: int = 10, threads: int = 1, return_vector: bool = False) \
-            -> Union[List[DenseSearchResult], (np.ndarray, List[PRFDenseSearchResult])]:
+            -> Union[List[DenseSearchResult], Tuple[np.ndarray, List[PRFDenseSearchResult]]]:
         """Search the collection.
 
         Parameters
@@ -376,7 +376,7 @@ class SimpleDenseSearcher:
             Return the results with vectors
         Returns
         -------
-        Union[List[DenseSearchResult], (np.ndarray, List[PRFDenseSearchResult])]
+        Union[List[DenseSearchResult], Tuple[np.ndarray, List[PRFDenseSearchResult]]]
             Either returns a list of search results.
             Or returns the query vector with the list of PRF dense search results with vectors.
         """
@@ -403,7 +403,7 @@ class SimpleDenseSearcher:
 
     def batch_search(self, queries: Union[List[str], np.ndarray], q_ids: List[str], k: int = 10,
                      threads: int = 1, return_vector: bool = False) \
-            -> Union[Dict[str, List[DenseSearchResult]], (np.ndarray, Dict[str, List[PRFDenseSearchResult]])]:
+            -> Union[Dict[str, List[DenseSearchResult]], Tuple[np.ndarray, Dict[str, List[PRFDenseSearchResult]]]]:
         """
 
         Parameters
@@ -421,7 +421,7 @@ class SimpleDenseSearcher:
 
         Returns
         -------
-        Union[Dict[str, List[DenseSearchResult]], (np.ndarray, Dict[str, List[PRFDenseSearchResult]])]
+        Union[Dict[str, List[DenseSearchResult]], Tuple[np.ndarray, Dict[str, List[PRFDenseSearchResult]]]]
             Either returns a dictionary holding the search results, with the query ids as keys and the
             corresponding lists of search results as the values.
             Or returns a tuple with ndarray of query vectors and a dictionary of PRF Dense Search Results with vectors
