@@ -51,7 +51,6 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3250, delta=0.0001)
 
     def test_msmarco_passage_distilbert_kd_encoded_queries(self):
