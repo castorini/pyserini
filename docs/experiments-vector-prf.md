@@ -1,6 +1,6 @@
 # Pyserini: Reproducing Vector PRF Results
 
-This guide provides instructions to reproduce the Vector PRF in the following work:
+This guide provides instructions to reproduce the Vector PRF in the following work and on all datasets and DR models available in Pyserini:
 
 > Hang Li, Ahmed Mourad, Shengyao Zhuang, Bevan Koopman, Guido Zuccon. [Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls](https://arxiv.org/pdf/2108.11044.pdf)
 
@@ -12,813 +12,194 @@ Note that we have observed minor differences in scores between different computi
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
 Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
-## TREC DL 2019
 
-For testing with TREC DL 2019 Passage Ranking dataset, the collection is the same as MS MARCO Passage Ranking dataset,
-the index, query and qrels are already available in Pyserini, 
-so to reproduce the results, just copy and paste the following commands in terminal, hit `enter` and Voilà!
+## Summary
+Here's how our results stack up against all available models and datasets in Pyserini:
 
-**ANCE + Vector PRF** with Average approach:
+### Passage Ranking Datasets
+
+#### TREC DL 2019 Passage
+
+| Model                | Method                  | MAP    | nDCG@100 | Recall@1000 |
+|:---------------------|:------------------------|:------:|:--------:|:-----------:|
+| ANCE                 | Original                | 0.3710 | 0.5540   | 0.7554      |
+| ANCE                 | Average PRF 3           | 0.4247 | 0.5937   | 0.7739      |
+| ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.4211 | 0.5928   | 0.7825      |
+| TCT-ColBERT V1       | Original                | 0.3906 | 0.5730   | 0.7916      |
+| TCT-ColBERT V1       | Average PRF 3           | 0.4336 | 0.6119   | 0.8230      |
+| TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.4463 | 0.6143   | 0.8393      |
+| TCT-ColBERT V2       | Original                | 0.4269 | 0.6129   | 0.8342      |
+| TCT-ColBERT V2       | Average PRF 3           | 0.4766 | 0.6487   | 0.8574      |
+| TCT-ColBERT V2       | Rocchio PRF 5 A0.4 B0.6 | 0.4709 | 0.6435   | 0.8496      |
+| DistillBERT KD       | Original                | 0.3759 | 0.5765   | 0.6853      |
+| DistillBERT KD       | Average PRF 3           | 0.4362 | 0.6217   | 0.7180      |
+| DistillBERT KD       | Rocchio PRF 5 A0.4 B0.6 | 0.4378 | 0.6189   | 0.7291      |
+| DistillBERT Balanced | Original                | 0.4761 | 0.6360   | 0.7826      |
+| DistillBERT Balanced | Average PRF 3           | 0.5057 | 0.6526   | 0.8054      |
+| DistillBERT Balanced | Rocchio PRF 5 A0.4 B0.6 | 0.5249 | 0.6684   | 0.8352      |
+| SBERT                | Original                | 0.4060 | 0.5985   | 0.7872      |
+| SBERT                | Average PRF 3           | 0.4354 | 0.6149   | 0.7937      |
+| SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.4371 | 0.6149   | 0.7941      |
+
+#### TREC DL 2020 Passage
+
+| Model                | Method                  | MAP    | nDCG@100 | Recall@1000 |
+|:---------------------|:------------------------|:------:|:--------:|:-----------:|
+| ANCE                 | Original                | 0.4076 | 0.5679   | 0.7764      |
+| ANCE                 | Average PRF 3           | 0.4325 | 0.5793   | 0.7909      |
+| ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.4315 | 0.5800   | 0.7957      |
+| TCT-ColBERT V1       | Original                | 0.4290 | 0.5826   | 0.8181      |
+| TCT-ColBERT V1       | Average PRF 3           | 0.4725 | 0.6101   | 0.8667      |
+| TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.4625 | 0.6056   | 0.8576      |
+| TCT-ColBERT V2       | Original                | 0.4717 | 0.6200   | 0.8407      |
+| TCT-ColBERT V2       | Average PRF 3           | 0.4701 | 0.6209   | 0.8739      |
+| TCT-ColBERT V2       | Rocchio PRF 5 A0.4 B0.6 | 0.4819 | 0.6324   | 0.8760      |
+| DistillBERT KD       | Original                | 0.3909 | 0.5728   | 0.6893      |
+| DistillBERT KD       | Average PRF 3           | 0.3955 | 0.5755   | 0.7279      |
+| DistillBERT KD       | Rocchio PRF 5 A0.4 B0.6 | 0.3990 | 0.5760   | 0.7222      |
+| DistillBERT Balanced | Original                | 0.4755 | 0.6346   | 0.8009      |
+| DistillBERT Balanced | Average PRF 3           | 0.4873 | 0.6449   | 0.8392      |
+| DistillBERT Balanced | Rocchio PRF 5 A0.4 B0.6 | 0.4846 | 0.6470   | 0.8262      |
+| SBERT                | Original                | 0.4124 | 0.5734   | 0.7937      |
+| SBERT                | Average PRF 3           | 0.4258 | 0.5781   | 0.8169      |
+| SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.4342 | 0.5851   | 0.8226      |
+
+#### MS MARCO Passage V1
+
+The PRF does not perform well with sparse judgements like in MS MARCO, the results here are just complements.
+
+| Model                | Method                  | MAP    | nDCG@100 | Recall@1000 |
+|:---------------------|:------------------------|:------:|:--------:|:-----------:|
+| ANCE                 | Original                | 0.3363 | 0.4457   | 0.9584      | 
+| ANCE                 | Average PRF 3           | 0.3132 | 0.4246   | 0.9490      | 
+| ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.3116 | 0.4250   | 0.9547      | 
+| TCT-ColBERT V1       | Original                | 0.3416 | 0.4514   | 0.9640      | 
+| TCT-ColBERT V1       | Average PRF 3           | 0.2882 | 0.4014   | 0.9452      | 
+| TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.2809 | 0.3988   | 0.9543      | 
+| TCT-ColBERT V2       | Original                | 0.3504 | 0.4625   | 0.9679      | 
+| TCT-ColBERT V2       | Average PRF 3           | 0.3055 | 0.4189   | 0.9547      | 
+| TCT-ColBERT V2       | Rocchio PRF 5 A0.4 B0.6 | 0.3002 | 0.4190   | 0.9627      | 
+| DistillBERT KD       | Original                | 0.3309 | 0.4391   | 0.9553      | 
+| DistillBERT KD       | Average PRF 3           | 0.2830 | 0.3940   | 0.9325      | 
+| DistillBERT KD       | Rocchio PRF 5 A0.4 B0.6 | 0.2787 | 0.3937   | 0.9432      | 
+| DistillBERT Balanced | Original                | 0.3515 | 0.4651   | 0.9771      | 
+| DistillBERT Balanced | Average PRF 3           | 0.2978 | 0.4150   | 0.9613      | 
+| DistillBERT Balanced | Rocchio PRF 5 A0.4 B0.6 | 0.2969 | 0.4178   | 0.9702      | 
+| SBERT                | Original                | 0.3373 | 0.4453   | 0.9558      | 
+| SBERT                | Average PRF 3           | 0.3094 | 0.4183   | 0.9446      | 
+| SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.3034 | 0.4157   | 0.9529      | 
+
+## Reproducing Results
+
+To reproduce the Average Vector PRF on different models, same command with different parameter values can be used:
+```
+$ python -m pyserini.dsearch --topics topic \
+    --index index \
+    --encoder encoder \
+    --batch-size 64 \
+    --threads 12 \
+    --output runs/run.average_prf3.trec \
+    --prf-depth 3 \
+    --prf-method avg
+```
+
+To reproduce the Rocchio Vector PRF on different models, similar with Average:
+```
+$ python -m pyserini.dsearch --topics topic \
+    --index index \
+    --encoder encoder \
+    --batch-size 64 \
+    --threads 12 \
+    --output runs/run.rocchio_prf5_a0.4_b0.6.trec \
+    --prf-depth 5 \
+    --prf-method rocchio \
+    --rocchio-alpha 0.4 \
+    --rocchio-beta 0.6
+```
+
+For different models and datasets, the `--topics`, `--index`, and `--encoder` are different, since Pyserini has all these datasets available, we can pass in
+different values to run on different datasets.
+
+`--topics`: <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `dl19-passage` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `dl20` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `msmarco-passage-dev-subset` <br />
+
+`--index`: <br />
+&nbsp;&nbsp;&nbsp;&nbsp;ANCE index with MS MARCO V1 passage collection: `msmarco-passage-ance-bf` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TCT-ColBERT V1 index with MS MARCO V1 passage collection: `msmarco-passage-tct_colbert-bf` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TCT-ColBERT V2 index with MS MARCO V1 passage collection: `msmarco-passage-tct_colbert-v2-bf` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;DistillBERT KD index with MS MARCO V1 passage collection: `msmarco-passage-distilbert-dot-margin_mse-T2-bf` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;DistillBERT Balanced index with MS MARCO V1 passage collection: `msmarco-passage-distilbert-dot-tas_b-b256-bf` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;SBERT index with MS MARCO V1 passage collection: `msmarco-passage-sbert-bf` <br />
+
+_Note: TREC DL 2019, TREC DL 2020, and MS MARCO Passage V1 use the same passage collection, so the index of the same model will be the same among these three datasets._<br />
+
+`--encoder`: <br />
+&nbsp;&nbsp;&nbsp;&nbsp;ANCE: `castorini/ance-msmarco-passage` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TCT-ColBERT V1: `castorini/tct_colbert-msmarco` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TCT-ColBERT V2: `castorini/tct_colbert-v2-hnp-msmarco` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;DistillBERT KD: `sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;DistillBERT Balanced: `sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;SBERT: `sentence-transformers/msmarco-distilbert-base-v3` <br />
+
+_Note: If you have pre-computed queries available, the `--encoder` can be replaced with `--encoded-queries` to avoid "on-the-fly" query encoding by passing in the path to your pre-computed query file. 
+For example, Pyserini has the ANCE pre-computed query available for MS MARCO Passage V1, so instead of using `--encoder castorini/ance-msmarco-passage`,
+one can use `--encoded-queries ance-msmarco-passage-dev-subset`._
+
+With these parameters, one can easily reproduce the results above, for example, to reproduce `TREC DL 2019 Passage with ANCE Average Vector PRF 3` the command will be:
 ```
 $ python -m pyserini.dsearch --topics dl19-passage \
     --index msmarco-passage-ance-bf \
     --encoder castorini/ance-msmarco-passage \
     --batch-size 64 \
-    --output runs/run.trec_dl_2019.ance.avg.prf3.trec \
+    --threads 12 \
+    --output runs/run.ance.dl19-passage.average_prf3.trec \
     --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
+    --prf-method avg
 ```
-The option `--encoder castorini/ance-msmarco-passage` is used to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process. 
-To use the pre-encoded query file, replace `--encoder castorini/ance-msmarco-passage` with `--encoded-queries` that points to the pre-encoded query file.
 
-To evaluate:
+To reproduce `TREC DL 2019 Passage with ANCE Rocchio Vector PRF 5 Alpha 0.4 Beta 0.6`, the command will be:
 ```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.trec_dl_2019.ance.avg.prf3.trec
+$ python -m pyserini.dsearch --topics dl19-passage \
+    --index msmarco-passage-ance-bf \
+    --encoder castorini/ance-msmarco-passage \
+    --batch-size 64 \
+    --threads 12 \
+    --output runs/run.ance.dl19-passage.rocchio_prf5_a0.4_b0.6.trec \
+    --prf-depth 5 \
+    --prf-method rocchio \
+    --rocchio-alpha 0.4 \
+    --rocchio-beta 0.6
+```
+
+To evaluate, we use `trec_eval` built in Pyserini:
+
+For TREC DL 2019, use this command to evaluate your run file:
+```
+$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.ance.dl19-passage.average_prf3.trec
 map                 all     0.4247
 ndcg_cut_100        all     0.5937
 recall_1000         all     0.7739
 ```
+Qrels file is available in Pyserini, so just replace the `runs/run.ance.dl19-passage.average_prf3.trec` with your own run file path to test your reproduced results.
 
-**ANCE + Vector PRF** with Rocchio approach:
+Similarly, for TREC DL 2020:
 ```
-$ python -m pyserini.dsearch --topics dl19-passage \
-    --index msmarco-passage-ance-bf \
-    --encoder castorini/ance-msmarco-passage \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2019.ance.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/ance-msmarco-passage` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.trec_dl_2019.ance.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.4211
-ndcg_cut_100        all     0.5928
-recall_1000         all     0.7825
-```
-
-**TCT-ColBERT V1 + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics dl19-passage \
-    --index msmarco-passage-tct_colbert-bf \
-    --encoder castorini/tct_colbert-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2019.tctv1.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/tct_colbert-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.trec_dl_2019.tctv1.avg.prf3.trec
-map                 all     0.4336
-ndcg_cut_100        all     0.6119
-recall_1000         all     0.8230
-```
-
-**TCT-ColBERT V1 + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics dl19-passage \
-    --index msmarco-passage-tct_colbert-bf \
-    --encoder castorini/tct_colbert-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2019.tctv1.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/tct_colbert-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.trec_dl_2019.tctv1.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.4463
-ndcg_cut_100        all     0.6143
-recall_1000         all     0.8393
-```
-
-**TCT-ColBERT V2 + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics dl19-passage \
-    --index msmarco-passage-tct_colbert-v2-bf \
-    --encoder castorini/tct_colbert-v2-hnp-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2019.tctv2.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/tct_colbert-v2-hnp-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.trec_dl_2019.tctv2.avg.prf3.trec
-map                 all     0.4766
-ndcg_cut_100        all     0.6487
-recall_1000         all     0.8574
-```
-
-**TCT-ColBERT V2 + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics dl19-passage \
-    --index msmarco-passage-tct_colbert-v2-bf \
-    --encoder castorini/tct_colbert-v2-hnp-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2019.tctv2.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/tct_colbert-v2-hnp-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.trec_dl_2019.tctv2.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.4709
-ndcg_cut_100        all     0.6435
-recall_1000         all     0.8496
-```
-
-**SBERT + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics dl19-passage \
-    --index msmarco-passage-sbert-bf \
-    --encoder sentence-transformers/msmarco-distilbert-base-v3 \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2019.sbert.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder sentence-transformers/msmarco-distilbert-base-v3` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.trec_dl_2019.sbert.avg.prf3.trec
-map                 all     0.4354
-ndcg_cut_100        all     0.6149
-recall_1000         all     0.7937
-```
-
-**SBERT + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics dl19-passage \
-    --index msmarco-passage-sbert-bf \
-    --encoder sentence-transformers/msmarco-distilbert-base-v3 \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2019.sbert.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder sentence-transformers/msmarco-distilbert-base-v3` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.trec_dl_2019.sbert.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.4371
-ndcg_cut_100        all     0.6149
-recall_1000         all     0.7941
-```
-
-**DistillBERT KD + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics dl19-passage \
-    --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
-    --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2019.distillbert.kd.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.trec_dl_2019.distillbert.kd.avg.prf3.trec
-map                 all     0.4362
-ndcg_cut_100        all     0.6217
-recall_1000         all     0.7180
-```
-
-**DistillBERT KD + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics dl19-passage \
-    --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
-    --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2019.distillbert.kd.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.trec_dl_2019.distillbert.kd.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.4378
-ndcg_cut_100        all     0.6189
-recall_1000         all     0.7291
-```
-
-**DistillBERT Balanced + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics dl19-passage \
-    --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
-    --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2019.distillbert.balanced.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.trec_dl_2019.distillbert.balanced.avg.prf3.trec
-map                 all     0.5057
-ndcg_cut_100        all     0.6526
-recall_1000         all     0.7180
-```
-
-**DistillBERT Balanced + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics dl19-passage \
-    --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
-    --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2019.distillbert.balanced.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl19-passage runs/run.trec_dl_2019.distillbert.balanced.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.5249
-ndcg_cut_100        all     0.6684
-recall_1000         all     0.8352
-```
-
-## TREC DL 2020
-
-For testing with TREC DL 2020 Passage Ranking dataset, the query and qrels files are already available in Pyserini, run the commands below without any further efforts.
-
-**ANCE + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics dl20 \
-    --index msmarco-passage-ance-bf \
-    --encoder castorini/ance-msmarco-passage \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.ance.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-The option `--encoder castorini/ance-msmarco-passage` is used to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process. 
-To use the pre-encoded query file, replace `--encoder castorini/ance-msmarco-passage` with `--encoded-queries` that points to the pre-encoded query file.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.trec_dl_2020.ance.avg.prf3.trec
+$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.ance.dl20-passage.average_prf3.trec
 map                 all     0.4325
 ndcg_cut_100        all     0.5793
 recall_1000         all     0.7909
 ```
+Qrels file also available in Pyserini, just replace the `runs/run.ance.dl20-passage.average_prf3.trec` with your own run file path to test your reproduced results.
 
-**ANCE + Vector PRF** with Rocchio approach:
+For MS MARCO Passage V1, no need to use `-l 2` option:
 ```
-$ python -m pyserini.dsearch --topics dl20 \
-    --index msmarco-passage-ance-bf \
-    --encoder castorini/ance-msmarco-passage \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.ance.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/ance-msmarco-passage` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.trec_dl_2019.ance.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.4315
-ndcg_cut_100        all     0.5800
-recall_1000         all     0.7957
-```
-
-**TCT-ColBERT V1 + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics dl20 \
-    --index msmarco-passage-tct_colbert-bf \
-    --encoder castorini/tct_colbert-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.tctv1.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/tct_colbert-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.trec_dl_2020.tctv1.avg.prf3.trec
-map                 all     0.4725
-ndcg_cut_100        all     0.6101
-recall_1000         all     0.8667
-```
-
-**TCT-ColBERT V1 + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics dl20 \
-    --index msmarco-passage-tct_colbert-bf \
-    --encoder castorini/tct_colbert-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.tctv1.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/tct_colbert-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.trec_dl_2020.tctv1.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.4625
-ndcg_cut_100        all     0.6056
-recall_1000         all     0.8576
-```
-
-**TCT-ColBERT V2 + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics dl20 \
-    --index msmarco-passage-tct_colbert-v2-bf \
-    --encoder castorini/tct_colbert-v2-hnp-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.tctv2.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/tct_colbert-v2-hnp-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.trec_dl_2020.tctv2.avg.prf3.trec
-map                 all     0.4701
-ndcg_cut_100        all     0.6209
-recall_1000         all     0.8739
-```
-
-**TCT-ColBERT V2 + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics dl20 \
-    --index msmarco-passage-tct_colbert-v2-bf \
-    --encoder castorini/tct_colbert-v2-hnp-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.tctv2.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/tct_colbert-v2-hnp-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.trec_dl_2020.tctv2.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.4819
-ndcg_cut_100        all     0.6324
-recall_1000         all     0.8760
-```
-
-**SBERT + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics dl20 \
-    --index msmarco-passage-sbert-bf \
-    --encoder sentence-transformers/msmarco-distilbert-base-v3 \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.sbert.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder sentence-transformers/msmarco-distilbert-base-v3` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.trec_dl_2020.sbert.avg.prf3.trec
-map                 all     0.4258
-ndcg_cut_100        all     0.5781
-recall_1000         all     0.8169
-```
-
-**SBERT + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics dl20 \
-    --index msmarco-passage-sbert-bf \
-    --encoder sentence-transformers/msmarco-distilbert-base-v3 \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.sbert.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder sentence-transformers/msmarco-distilbert-base-v3` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.trec_dl_2020.sbert.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.4342
-ndcg_cut_100        all     0.5851
-recall_1000         all     0.8226
-```
-
-**DistillBERT KD + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics dl20 \
-    --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
-    --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.distillbert.kd.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.trec_dl_2020.distillbert.kd.avg.prf3.trec
-map                 all     0.3955
-ndcg_cut_100        all     0.5755
-recall_1000         all     0.7279
-```
-
-**DistillBERT KD + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics dl20 \
-    --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
-    --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.distillbert.kd.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.trec_dl_2019.distillbert.kd.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.3990
-ndcg_cut_100        all     0.5760
-recall_1000         all     0.7222
-```
-
-**DistillBERT Balanced + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics dl20 \
-    --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
-    --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.distillbert.balanced.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.trec_dl_2020.distillbert.balanced.avg.prf3.trec
-map                 all     0.4873
-ndcg_cut_100        all     0.6449
-recall_1000         all     0.8392
-```
-
-**DistillBERT Balanced + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics dl20 \
-    --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
-    --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.distillbert.balanced.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 -l 2 dl20-passage runs/run.trec_dl_2020.distillbert.balanced.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.4846
-ndcg_cut_100        all     0.6470
-recall_1000         all     0.8262
-```
-
-## MS MARCO Passage (V1)
-
-For testing with MS MARCO (V1) Passage Ranking dataset, the query and qrels files are already available in Pyserini, run the commands below without any further efforts.
-
-**ANCE + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-ance-bf \
-    --encoder castorini/ance-msmarco-passage \
-    --batch-size 64 \
-    --output runs/run.msmarco-passage.ance.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-The option `--encoder castorini/ance-msmarco-passage` is used to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process. 
-To use the pre-encoded query file, replace `--encoder castorini/ance-msmarco-passage` with `--encoded-queries` that points to the pre-encoded query file.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.msmarco-passage.ance.avg.prf3.trec
+$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.ance.msmarco-passage.average_prf3.trec
 map                 all     0.3132
 ndcg_cut_100        all     0.4246
 recall_1000         all     0.9490
 ```
-
-**ANCE + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-ance-bf \
-    --encoder castorini/ance-msmarco-passage \
-    --batch-size 64 \
-    --output runs/run.msmarco-passage.ance.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/ance-msmarco-passage` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.msmarco-passage.ance.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.3116
-ndcg_cut_100        all     0.4250
-recall_1000         all     0.9547
-```
-
-**TCT-ColBERT V1 + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-tct_colbert-bf \
-    --encoder castorini/tct_colbert-msmarco \
-    --batch-size 64 \
-    --output runs/run.msmarco-passage.tctv1.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/tct_colbert-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.msmarco-passage.tctv1.avg.prf3.trec
-map                 all     0.2882
-ndcg_cut_100        all     0.4014
-recall_1000         all     0.9452
-```
-
-**TCT-ColBERT V1 + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-tct_colbert-bf \
-    --encoder castorini/tct_colbert-msmarco \
-    --batch-size 64 \
-    --output runs/run.msmarco-passage.tctv1.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/tct_colbert-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.msmarco-passage.tctv1.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.2809
-ndcg_cut_100        all     0.3988
-recall_1000         all     0.9543
-```
-
-**TCT-ColBERT V2 + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-tct_colbert-v2-bf \
-    --encoder castorini/tct_colbert-v2-hnp-msmarco \
-    --batch-size 64 \
-    --output runs/run.msmarco-passage.tctv2.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/tct_colbert-v2-hnp-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.msmarco-passage.tctv2.avg.prf3.trec
-map                 all     0.3055
-ndcg_cut_100        all     0.4189
-recall_1000         all     0.9547
-```
-
-**TCT-ColBERT V2 + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-tct_colbert-v2-bf \
-    --encoder castorini/tct_colbert-v2-hnp-msmarco \
-    --batch-size 64 \
-    --output runs/run.msmarco-passage.tctv2.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder castorini/tct_colbert-v2-hnp-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.msmarco-passage.tctv2.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.3002
-ndcg_cut_100        all     0.4190
-recall_1000         all     0.9627
-```
-
-**SBERT + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-sbert-bf \
-    --encoder sentence-transformers/msmarco-distilbert-base-v3 \
-    --batch-size 64 \
-    --output runs/run.msmarco-passage.sbert.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder sentence-transformers/msmarco-distilbert-base-v3` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.msmarco-passage.sbert.avg.prf3.trec
-map                 all     0.3094
-ndcg_cut_100        all     0.4183
-recall_1000         all     0.9446
-```
-
-**SBERT + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-sbert-bf \
-    --encoder sentence-transformers/msmarco-distilbert-base-v3 \
-    --batch-size 64 \
-    --output runs/run.msmarco-passage.sbert.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder sentence-transformers/msmarco-distilbert-base-v3` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.msmarco-passage.sbert.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.3034
-ndcg_cut_100        all     0.4157
-recall_1000         all     0.9529
-```
-
-**DistillBERT KD + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
-    --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
-    --batch-size 64 \
-    --output runs/run.trec_dl_2020.distillbert.kd.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.msmarco-passage.distillbert.kd.avg.prf3.trec
-map                 all     0.2830
-ndcg_cut_100        all     0.3940
-recall_1000         all     0.9325
-```
-
-**DistillBERT KD + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
-    --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
-    --batch-size 64 \
-    --output runs/run.msmarco-passage.distillbert.kd.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.msmarco-passage.distillbert.kd.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.2787
-ndcg_cut_100        all     0.3937
-recall_1000         all     0.9432
-```
-
-**DistillBERT Balanced + Vector PRF** with Average approach:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
-    --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
-    --batch-size 64 \
-    --output runs/run.msmarco-passage.distillbert.balanced.avg.prf3.trec \
-    --prf-depth 3 \
-    --prf-method avg \
-    --threads 12
-```
-Same as above, replace `--encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.msmarco-passage.distillbert.balanced.avg.prf3.trec
-map                 all     0.2978
-ndcg_cut_100        all     0.4150
-recall_1000         all     0.9613
-```
-
-**DistillBERT Balanced + Vector PRF** with Rocchio approach:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
-    --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
-    --batch-size 64 \
-    --output runs/run.msmarco-passage.distillbert.balanced.rocchio.prf5.alpha0.4.beta0.6.trec \
-    --prf-depth 5 \
-    --prf-method rocchio \
-    --rocchio-alpha 0.4 \
-    --rocchio-beta 0.6 \
-    --threads 12
-```
-Same as above, replace `--encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco` with `--encoded-queries` that points to the pre-encoded query file to skip query encoding.
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.100 -m recall.1000 msmarco-passage-dev-subset runs/run.msmarco-passage.distillbert.balanced.rocchio.prf5.alpha0.4.beta0.6.trec
-map                 all     0.2969
-ndcg_cut_100        all     0.4178
-recall_1000         all     0.9702
-```
+Qrels file already available, replace the `runs/run.ance.msmarco-passage.average_prf3.trec` with your own run file path to test your reproduced results.
 
 ## Reproduction Log[*](reproducibility.md)
