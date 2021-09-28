@@ -66,12 +66,10 @@ Here's how our results stack up against all available models and datasets in Pys
 | DistillBERT Balanced | Rocchio PRF 5 A0.4 B0.6 | 0.4846 | 0.6470   | 0.8262      |
 | SBERT                | Original                | 0.4124 | 0.5734   | 0.7937      |
 | SBERT                | Average PRF 3           | 0.4258 | 0.5781   | 0.8169      |
-| SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.4342 | 0.5851   | 0.8226
-|
+| SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.4342 | 0.5851   | 0.8226      |
 | ADORE                | Original                | 0.4418 | 0.5949   | 0.8151      |
 | ADORE                | Average PRF 3           | 0.4706 | 0.6176   | 0.8323      |
-| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.4760 | 0.6193   | 0.8251
-|
+| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.4760 | 0.6193   | 0.8251      |
 
 #### MS MARCO Passage V1
 
@@ -157,7 +155,7 @@ _Note: TREC DL 2019, TREC DL 2020, and MS MARCO Passage V1 use the same passage 
 
 _Note: If you have pre-computed queries available, the `--encoder` can be replaced with `--encoded-queries` to avoid "on-the-fly" query encoding by passing in the path to your pre-computed query file. 
 For example, Pyserini has the ANCE pre-computed query available for MS MARCO Passage V1, so instead of using `--encoder castorini/ance-msmarco-passage`,
-one can use `--encoded-queries ance-msmarco-passage-dev-subset`. For ADORE model, you can only use `--encoded-queries`._
+one can use `--encoded-queries ance-msmarco-passage-dev-subset`. For ADORE model, you can only use `--encoded-queries`, otf encoding is not available._
 
 With these parameters, one can easily reproduce the results above, for example, to reproduce `TREC DL 2019 Passage with ANCE Average Vector PRF 3` the command will be:
 ```
