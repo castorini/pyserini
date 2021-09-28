@@ -74,5 +74,29 @@ recall_1000             all     0.7759
 ndcg_cut_10             all     0.6832
 ```
 
+## TREC DL2020 Passage
+
+**ANCE retrieval** with brute-force index:
+
+```bash
+$ python -m pyserini.dsearch --topics dl20  \
+                             --index msmarco-passage-adore-bf \
+                             --encoded-queries adore-dl20-passage \ 
+                             --batch-size 36 \
+                             --threads 12 \
+                             --output runs/run.dl20-passage.adore.bf.trec
+```
+
+Same as above, you cannot use the "on-the-fly" query encoding feature.
+
+To evaluate:
+
+```bash
+$ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -m recall.1000 -l 2 dl20-passage runs/run.dl20-passage.adore.bf.trec
+map                     all     0.4418
+recall_1000             all     0.8151
+ndcg_cut_10             all     0.6655
+```
+
 ## Reproduction Log[*](reproducibility.md)
 
