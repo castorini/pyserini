@@ -1,23 +1,23 @@
 import numpy as np
 from typing import List, Dict
-from pyserini.dsearch import PRFDenseSearchResult, AnceQueryEncoder
-from pyserini.search import SimpleSearcher
+from pyserini.dsearch import PRFDenseSearchResult
 
 
 class DenseVectorPrf:
     def __init__(self):
         pass
 
-    def get_prf_q_emb(self, **kwargs):
+    def get_prf_q_emb(self, emb_qs: np.ndarray, prf_candidates: List[PRFDenseSearchResult]) -> np.ndarray:
         pass
 
-    def get_batch_prf_q_emb(self, **kwargs):
+    def get_batch_prf_q_emb(self, topic_ids: List[str], emb_qs: np.ndarray,
+                            prf_candidates: Dict[str, List[PRFDenseSearchResult]]) -> np.ndarray:
         pass
 
 
 class DenseVectorAveragePrf(DenseVectorPrf):
 
-    def get_prf_q_emb(self, emb_qs: np.ndarray = None, prf_candidates: List[PRFDenseSearchResult] = None):
+    def get_prf_q_emb(self, emb_qs: np.ndarray, prf_candidates: List[PRFDenseSearchResult]):
         """Perform Average PRF with Dense Vectors
 
         Parameters
@@ -37,8 +37,7 @@ class DenseVectorAveragePrf(DenseVectorPrf):
         new_emb_qs = np.array([new_emb_qs]).astype('float32')
         return new_emb_qs
 
-    def get_batch_prf_q_emb(self, topic_ids: List[str] = None, emb_qs: np.ndarray = None,
-                            prf_candidates: Dict[str, List[PRFDenseSearchResult]] = None):
+    def get_batch_prf_q_emb(self, topic_ids: List[str], emb_qs: np.ndarray, prf_candidates: Dict[str, List[PRFDenseSearchResult]]):
         """Perform Average PRF with Dense Vectors
 
         Parameters
@@ -77,11 +76,10 @@ class DenseVectorRocchioPrf(DenseVectorPrf):
         beta : float
             Rocchio parameter, controls the weight assigned to the document embeddings.
         """
-        DenseVectorPrf.__init__(self)
         self.alpha = alpha
         self.beta = beta
 
-    def get_prf_q_emb(self, emb_qs: np.ndarray = None, prf_candidates: List[PRFDenseSearchResult] = None):
+    def get_prf_q_emb(self, emb_qs: np.ndarray, prf_candidates: List[PRFDenseSearchResult]):
         """Perform Rocchio PRF with Dense Vectors
 
         Parameters
@@ -104,8 +102,7 @@ class DenseVectorRocchioPrf(DenseVectorPrf):
         new_emb_q = np.array([new_emb_q]).astype('float32')
         return new_emb_q
 
-    def get_batch_prf_q_emb(self, topic_ids: List[str] = None, emb_qs: np.ndarray = None,
-                            prf_candidates: Dict[str, List[PRFDenseSearchResult]] = None):
+    def get_batch_prf_q_emb(self, topic_ids: List[str], emb_qs: np.ndarray, prf_candidates: Dict[str, List[PRFDenseSearchResult]]):
         """Perform Rocchio PRF with Dense Vectors
 
         Parameters
@@ -133,32 +130,3 @@ class DenseVectorRocchioPrf(DenseVectorPrf):
             new_emb_qs.append(new_emb_q)
         new_emb_qs = np.array(new_emb_qs).astype('float32')
         return new_emb_qs
-
-
-class DenseVectorAncePrf(DenseVectorPrf):
-    def __init__(self, encoder: AnceQueryEncoder, sparse_searcher: SimpleSearcher):
-        DenseVectorPrf.__init__(self)
-        self.encoder = encoder
-        self.sparse_searcher = sparse_searcher
-
-    def get_prf_q_emb(self, query: str = None, prf_candidates: List[PRFDenseSearchResult] = None):
-        passage_texts = [query]
-        for item in prf_candidates:
-            passage_texts.append(self.sparse_searcher.doc(item.docid).raw())
-        full_text = f'{self.encoder.tokenizer.cls_token}{self.encoder.tokenizer.sep_token.join(passage_texts)}{self.encoder.tokenizer.sep_token}'
-        emb_q = self.encoder.prf_encode(full_text)
-        emb_q = emb_q.reshape((1, len(emb_q)))
-        return emb_q
-
-    def get_batch_prf_q_emb(self, topics: List[str], topic_ids: List[str],
-                            prf_candidates: Dict[str, List[PRFDenseSearchResult]]) -> np.ndarray:
-        prf_passage_texts = list()
-        for index, query in enumerate(topics):
-            passage_texts = [query]
-            prf_candidate = prf_candidates[topic_ids[index]]
-            for item in prf_candidate:
-                passage_texts.append(self.sparse_searcher.doc(item.docid).raw())
-            full_text = f'{self.encoder.tokenizer.cls_token}{self.encoder.tokenizer.sep_token.join(passage_texts)}{self.encoder.tokenizer.sep_token}'
-            prf_passage_texts.append(full_text)
-        emb_q = self.encoder.prf_batch_encode(prf_passage_texts)
-        return emb_q

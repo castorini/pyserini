@@ -243,35 +243,6 @@ class AnceQueryEncoder(QueryEncoder):
         else:
             return super().encode(query)
 
-    def prf_encode(self, query: str):
-        if self.has_model:
-            inputs = self.tokenizer(
-                [query],
-                max_length=512,
-                padding='longest',
-                truncation=True,
-                add_special_tokens=False,
-                return_tensors='pt'
-            )
-            inputs.to(self.device)
-            embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
-            return embeddings.flatten()
-        else:
-            return super().encode(query)
-
-    def prf_batch_encode(self, query: List[str]):
-        inputs = self.tokenizer(
-            query,
-            max_length=512,
-            padding='longest',
-            truncation=True,
-            add_special_tokens=False,
-            return_tensors='pt'
-        )
-        inputs.to(self.device)
-        embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
-        return embeddings
-
 
 class AutoQueryEncoder(QueryEncoder):
 
