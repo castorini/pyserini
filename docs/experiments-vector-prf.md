@@ -224,6 +224,8 @@ First of all, different PRF depths need to use different `--ance-prf-encoder`, t
 
 Second, it takes two more parameters, one `--ance-prf-encoder` which points to the checkpoint directory, and `--sparse-index` that points to a lucene index.
 
+For the lucene index, it needs to have `--storeRaw` enabled when building the index.
+
 To reproduce `TREC DL 2019 Passage`, use the command below, change `--ance-prf-encoder` to the path that stores the checkpoint:
 ```
 $ python -m pyserini.dsearch --topics dl19-passage \                                               

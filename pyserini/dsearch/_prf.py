@@ -2,6 +2,7 @@ import numpy as np
 from typing import List, Dict
 from pyserini.dsearch import PRFDenseSearchResult, AnceQueryEncoder
 from pyserini.search import SimpleSearcher
+import json
 
 
 class DenseVectorPrf:
@@ -157,7 +158,8 @@ class DenseVectorAncePrf(DenseVectorPrf):
             passage_texts = [query]
             prf_candidate = prf_candidates[topic_ids[index]]
             for item in prf_candidate:
-                passage_texts.append(self.sparse_searcher.doc(item.docid).raw())
+                raw_text = json.loads(self.sparse_searcher.doc(item.docid).raw())
+                passage_texts.append(raw_text['contents'])
             full_text = f'{self.encoder.tokenizer.cls_token}{self.encoder.tokenizer.sep_token.join(passage_texts)}{self.encoder.tokenizer.sep_token}'
             prf_passage_texts.append(full_text)
         emb_q = self.encoder.prf_batch_encode(prf_passage_texts)
