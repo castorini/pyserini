@@ -138,11 +138,33 @@ class DenseVectorRocchioPrf(DenseVectorPrf):
 
 class DenseVectorAncePrf(DenseVectorPrf):
     def __init__(self, encoder: AnceQueryEncoder, sparse_searcher: SimpleSearcher):
+        """
+        Parameters
+        ----------
+        encoder : AnceQueryEncoder
+            The new ANCE query encoder for ANCE-PRF.
+        sparse_searcher : SimpleSearcher
+            The sparse searcher using lucene index, for retrieving doc contents.
+        """
         DenseVectorPrf.__init__(self)
         self.encoder = encoder
         self.sparse_searcher = sparse_searcher
 
     def get_prf_q_emb(self, query: str = None, prf_candidates: List[PRFDenseSearchResult] = None):
+        """Perform single ANCE-PRF with Dense Vectors
+
+        Parameters
+        ----------
+        query : str
+            query text
+        prf_candidates : List[PRFDenseSearchResult]
+            List of PRFDenseSearchResult, contains document embeddings.
+
+        Returns
+        -------
+        np.ndarray
+            return new query embeddings
+        """
         passage_texts = [query]
         for item in prf_candidates:
             passage_texts.append(self.sparse_searcher.doc(item.docid).raw())
@@ -153,6 +175,22 @@ class DenseVectorAncePrf(DenseVectorPrf):
 
     def get_batch_prf_q_emb(self, topics: List[str], topic_ids: List[str],
                             prf_candidates: Dict[str, List[PRFDenseSearchResult]]) -> np.ndarray:
+        """Perform batch ANCE-PRF with Dense Vectors
+
+        Parameters
+        ----------
+        topics : List[str]
+            List of query texts.
+        topic_ids: List[str]
+            List of topic ids.
+        prf_candidates : List[PRFDenseSearchResult]
+            List of PRFDenseSearchResult, contains document embeddings.
+
+        Returns
+        -------
+        np.ndarray
+            return new query embeddings
+        """
         prf_passage_texts = list()
         for index, query in enumerate(topics):
             passage_texts = [query]

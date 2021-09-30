@@ -29,6 +29,7 @@ Here's how our results stack up against all available models and datasets in Pys
 | ANCE                 | Original                | 0.3710 | 0.5540   | 0.7554      |
 | ANCE                 | Average PRF 3           | 0.4247 | 0.5937   | 0.7739      |
 | ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.4211 | 0.5928   | 0.7825      |
+| ANCE-PRF             | PRF 3                   | 0.4250 | 0.5966   | 0.7915      |
 | TCT-ColBERT V1       | Original                | 0.3906 | 0.5730   | 0.7916      |
 | TCT-ColBERT V1       | Average PRF 3           | 0.4336 | 0.6119   | 0.8230      |
 | TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.4463 | 0.6143   | 0.8393      |
@@ -56,6 +57,7 @@ Here's how our results stack up against all available models and datasets in Pys
 | ANCE                 | Original                | 0.4076 | 0.5679   | 0.7764      |
 | ANCE                 | Average PRF 3           | 0.4325 | 0.5793   | 0.7909      |
 | ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.4315 | 0.5800   | 0.7957      |
+| ANCE-PRF             | PRF 3                   | 0.4338 | 0.5815   | 0.7942      |
 | TCT-ColBERT V1       | Original                | 0.4290 | 0.5826   | 0.8181      |
 | TCT-ColBERT V1       | Average PRF 3           | 0.4725 | 0.6101   | 0.8667      |
 | TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.4625 | 0.6056   | 0.8576      |
@@ -83,7 +85,8 @@ The PRF does not perform well with sparse judgements like in MS MARCO, the resul
 |:---------------------|:------------------------|:------:|:--------:|:-----------:|
 | ANCE                 | Original                | 0.3363 | 0.4457   | 0.9584      | 
 | ANCE                 | Average PRF 3           | 0.3132 | 0.4246   | 0.9490      | 
-| ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.3116 | 0.4250   | 0.9547      | 
+| ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.3116 | 0.4250   | 0.9547      |
+| ANCE-PRF             | PRF 3                   | 0.3468 | 0.4554   | 0.9596      |
 | TCT-ColBERT V1       | Original                | 0.3416 | 0.4514   | 0.9640      | 
 | TCT-ColBERT V1       | Average PRF 3           | 0.2882 | 0.4014   | 0.9452      | 
 | TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.2809 | 0.3988   | 0.9543      | 
@@ -220,7 +223,7 @@ Qrels file already available, replace the `runs/run.ance.msmarco-passage.average
 
 To reproduce the ANCE-PRF results, it has certain limitations. 
 
-First of all, different PRF depths need to use different `--ance-prf-encoder`, the one we provided for downloading is only for `k=3`, which means it can only do `--prf-depth 3`.
+First of all, different PRF depths need to use different `--ance-prf-encoder`, the one we provided is only for `k=3`, which means it can only do `--prf-depth 3`.
 
 Second, it takes two more parameters, one `--ance-prf-encoder` which points to the checkpoint directory, and `--sparse-index` that points to a lucene index.
 

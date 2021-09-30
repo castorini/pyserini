@@ -168,6 +168,7 @@ if __name__ == '__main__':
             prfRule = DenseVectorAveragePrf()
         elif args.prf_method.lower() == 'rocchio':
             prfRule = DenseVectorRocchioPrf(args.rocchio_alpha, args.rocchio_beta)
+        # ANCE-PRF is using a new query encoder, so the input to DenseVectorAncePrf is different
         elif args.prf_method.lower() == 'ance-prf' and type(query_encoder) == AnceQueryEncoder:
             if os.path.exists(args.sparse_index):
                 sparse_searcher = SimpleSearcher(args.sparse_index)
@@ -199,6 +200,7 @@ if __name__ == '__main__':
             if args.batch_size <= 1 and args.threads <= 1:
                 if PRF_FLAG:
                     emb_q, prf_candidates = searcher.search(text, k=args.prf_depth, return_vector=True, **kwargs)
+                    # ANCE-PRF input is different, do not need query embeddings
                     if args.prf_method.lower() == 'ance-prf':
                         prf_emb_q = prfRule.get_prf_q_emb(text, prf_candidates)
                     else:
@@ -215,6 +217,7 @@ if __name__ == '__main__':
                     if PRF_FLAG:
                         q_embs, prf_candidates = searcher.batch_search(batch_topics, batch_topic_ids,
                                                                        k=args.prf_depth, return_vector=True, **kwargs)
+                        # ANCE-PRF input is different, do not need query embeddings
                         if args.prf_method.lower() == 'ance-prf':
                             prf_embs_q = prfRule.get_batch_prf_q_emb(batch_topics, batch_topic_ids, prf_candidates)
                         else:
