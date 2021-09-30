@@ -169,7 +169,10 @@ if __name__ == '__main__':
         elif args.prf_method.lower() == 'rocchio':
             prfRule = DenseVectorRocchioPrf(args.rocchio_alpha, args.rocchio_beta)
         elif args.prf_method.lower() == 'ance-prf' and type(query_encoder) == AnceQueryEncoder:
-            sparse_searcher = SimpleSearcher(args.sparse_index)
+            if os.path.exists(args.sparse_index):
+                sparse_searcher = SimpleSearcher(args.sparse_index)
+            else:
+                sparse_searcher = SimpleSearcher.from_prebuilt_index(args.sparse_index)
             prf_query_encoder = AnceQueryEncoder(encoder_dir=args.ance_prf_encoder, tokenizer_name=args.tokenizer,
                                                  device=args.device)
             prfRule = DenseVectorAncePrf(prf_query_encoder, sparse_searcher)
