@@ -385,26 +385,31 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 
 ### Sparse Retrieval
 
-+ [Reproducing runs directly from the Python package](docs/pypi-reproduction.md)
-+ [Reproducing Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
-+ [Reproducing the BM25 baseline for MS MARCO (V1) Passage Ranking](docs/experiments-msmarco-passage.md)
-+ [Reproducing the BM25 baseline for MS MARCO (V1) Document Ranking](docs/experiments-msmarco-doc.md)
-+ [Reproducing the multi-field BM25 baseline for MS MARCO (V1) Document Ranking from Elasticsearch](docs/experiments-elastic.md)
-+ [Reproducing BM25 baselines on the MS MARCO (V2) Collections](docs/experiments-msmarco-v2.md)
-+ [Reproducing DeepImpact experiments for MS MARCO (V1) Passage Ranking](docs/experiments-deepimpact.md)
-+ [Reproducing uniCOIL experiments for MS MARCO (V1) Passage Ranking](docs/experiments-unicoil.md)
-+ [Reproducing uniCOIL experiments on the MS MARCO (V2) Collections](docs/experiments-msmarco-v2-unicoil.md)
++ Reproducing [runs directly from the Python package](docs/pypi-reproduction.md)
++ Reproducing [Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
++ Reproducing the [BM25 baseline for MS MARCO (V1) Passage Ranking](docs/experiments-msmarco-passage.md)
++ Reproducing the [BM25 baseline for MS MARCO (V1) Document Ranking](docs/experiments-msmarco-doc.md)
++ Reproducing the [multi-field BM25 baseline for MS MARCO (V1) Document Ranking from Elasticsearch](docs/experiments-elastic.md)
++ Reproducing [BM25 baselines on the MS MARCO (V2) Collections](docs/experiments-msmarco-v2.md)
++ Reproducing [DeepImpact experiments for MS MARCO (V1) Passage Ranking](docs/experiments-deepimpact.md)
++ Reproducing [uniCOIL experiments with doc2query-T5 expansions for MS MARCO (V1)](docs/experiments-unicoil.md)
++ Reproducing [uniCOIL experiments with TILDE expansions for MS MARCO (V1) Passage Ranking](docs/experiments-unicoil-tilde-expansion.md)
++ Reproducing [uniCOIL experiments with TILDE expansions for MS MARCO (V2) Passage Ranking](docs/experiments-msmarco-v2-unicoil-tilde-expansion.md)
++ Reproducing [uniCOIL experiments on the MS MARCO (V2) Collections](docs/experiments-msmarco-v2-unicoil.md)
 
 ### Dense Retrieval
 
-+ [Reproducing TCT-ColBERTv1 experiments on the MS MARCO (V1) Collections](docs/experiments-tct_colbert.md)
-+ [Reproducing TCT-ColBERTv2 experiments on the MS MARCO (V1) Collections](docs/experiments-tct_colbert-v2.md)
-+ [Reproducing TCT-ColBERTv2 experiments on the MS MARCO (V2) Collections](docs/experiments-msmarco-v2-tct_colbert-v2.md)
-+ [Reproducing DPR experiments](docs/experiments-dpr.md)
-+ [Reproducing ANCE experiments](docs/experiments-ance.md)
-+ [Reproducing DistilBERT KD experiments](docs/experiments-distilbert_kd.md)
-+ [Reproducing DistilBERT Balanced Topic Aware Sampling experiments](docs/experiments-distilbert_tasb.md)
-+ [Reproducing SBERT dense retrieval experiments](docs/experiments-sbert.md)
++ Reproducing [TCT-ColBERTv1 experiments on the MS MARCO (V1) Collections](docs/experiments-tct_colbert.md)
++ Reproducing [TCT-ColBERTv2 experiments on the MS MARCO (V1) Collections](docs/experiments-tct_colbert-v2.md)
++ Reproducing [TCT-ColBERTv2 experiments on the MS MARCO (V2) Collections](docs/experiments-msmarco-v2-tct_colbert-v2.md)
++ Reproducing [DPR experiments](docs/experiments-dpr.md)
++ Reproducing [BPR experiments](docs/experiments-bpr.md)
++ Reproducing [ANCE experiments](docs/experiments-ance.md)
++ Reproducing [DistilBERT KD experiments](docs/experiments-distilbert_kd.md)
++ Reproducing [DistilBERT Balanced Topic Aware Sampling experiments](docs/experiments-distilbert_tasb.md)
++ Reproducing [SBERT dense retrieval experiments](docs/experiments-sbert.md)
++ Reproducing [ADORE dense retrieval experiments](docs/experiments-adore.md)
++ Reproducing [Vector PRF experiments](docs/experiments-vector-prf.md)
 
 ## Baselines
 
