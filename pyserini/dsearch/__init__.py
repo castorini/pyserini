@@ -15,7 +15,7 @@
 #
 
 from ._dsearcher import DenseSearchResult, PRFDenseSearchResult, SimpleDenseSearcher, BinaryDenseSearcher, QueryEncoder, \
-     TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
+    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
 from ._model import AnceEncoder
 from._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
 
