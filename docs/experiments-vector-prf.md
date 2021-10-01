@@ -4,10 +4,6 @@ This guide provides instructions to reproduce the Vector PRF in the following wo
 
 > Hang Li, Ahmed Mourad, Shengyao Zhuang, Bevan Koopman, Guido Zuccon. [Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls](https://arxiv.org/pdf/2108.11044.pdf)
 
-And the ANCE-PRF model from the following work:
-
-> HongChien Yu, Chenyan Xiong, Jamie Callan. [Improving Query Representations for Dense Retrieval with Pseudo Relevance Feedback](https://arxiv.org/abs/2108.13454)
-
 Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
 Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
 See [package installation notes](../README.md#package-installation) for more details.
@@ -29,7 +25,6 @@ Here's how our results stack up against all available models and datasets in Pys
 | ANCE                 | Original                | 0.3710 | 0.5540   | 0.7554      |
 | ANCE                 | Average PRF 3           | 0.4247 | 0.5937   | 0.7739      |
 | ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.4211 | 0.5928   | 0.7825      |
-| ANCE-PRF             | PRF 3                   | 0.4250 | 0.5966   | 0.7915      |
 | TCT-ColBERT V1       | Original                | 0.3906 | 0.5730   | 0.7916      |
 | TCT-ColBERT V1       | Average PRF 3           | 0.4336 | 0.6119   | 0.8230      |
 | TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.4463 | 0.6143   | 0.8393      |
@@ -57,7 +52,6 @@ Here's how our results stack up against all available models and datasets in Pys
 | ANCE                 | Original                | 0.4076 | 0.5679   | 0.7764      |
 | ANCE                 | Average PRF 3           | 0.4325 | 0.5793   | 0.7909      |
 | ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.4315 | 0.5800   | 0.7957      |
-| ANCE-PRF             | PRF 3                   | 0.4338 | 0.5815   | 0.7942      |
 | TCT-ColBERT V1       | Original                | 0.4290 | 0.5826   | 0.8181      |
 | TCT-ColBERT V1       | Average PRF 3           | 0.4725 | 0.6101   | 0.8667      |
 | TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.4625 | 0.6056   | 0.8576      |
@@ -86,7 +80,6 @@ The PRF does not perform well with sparse judgements like in MS MARCO, the resul
 | ANCE                 | Original                | 0.3363 | 0.4457   | 0.9584      | 
 | ANCE                 | Average PRF 3           | 0.3132 | 0.4246   | 0.9490      | 
 | ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.3116 | 0.4250   | 0.9547      |
-| ANCE-PRF             | PRF 3                   | 0.3468 | 0.4554   | 0.9596      |
 | TCT-ColBERT V1       | Original                | 0.3416 | 0.4514   | 0.9640      | 
 | TCT-ColBERT V1       | Average PRF 3           | 0.2882 | 0.4014   | 0.9452      | 
 | TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.2809 | 0.3988   | 0.9543      | 
@@ -218,89 +211,5 @@ ndcg_cut_100        all     0.4246
 recall_1000         all     0.9490
 ```
 Qrels file already available, replace the `runs/run.ance.msmarco-passage.average_prf3.trec` with your own run file path to test your reproduced results.
-
-## Reproducing ANCE-PRF Results
-
-To reproduce the ANCE-PRF results, it has certain limitations. 
-
-First of all, different PRF depths need to use different `--ance-prf-encoder`, the one we provided is only for `k=3`, which means it can only do `--prf-depth 3`.
-
-Second, it takes two more parameters, one `--ance-prf-encoder` which points to the checkpoint directory, and `--sparse-index` that points to a lucene index.
-
-For the lucene index, it needs to have `--storeRaw` enabled when building the index.
-
-To reproduce `TREC DL 2019 Passage`, use the command below, change `--ance-prf-encoder` to the path that stores the checkpoint:
-```
-$ python -m pyserini.dsearch --topics dl19-passage \                                               
-    --index msmarco-passage-ance-bf \
-    --encoder castorini/ance-msmarco-passage \
-    --batch-size 32 \
-    --output runs/run.dl19-passage.ance-prf3.trec \
-    --prf-depth 3 \
-    --prf-method ance-prf \
-    --threads 12 \
-    --sparse-index msmarco-passage \
-    --ance-prf-encoder ckpt/ance_prf_k3_checkpoint
-```
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.1000 -l 2 dl19-passage runs/run.dl19-passage.ance-prf3.trec
-ndcg_cut_10         all     0.6776
-recall_1000         all     0.7915
-```
-
-For `TREC DL 2020 Passage`:
-```
-$ python -m pyserini.dsearch --topics dl20 \                                               
-    --index msmarco-passage-ance-bf \
-    --encoder castorini/ance-msmarco-passage \
-    --batch-size 32 \
-    --output runs/run.dl20-passage.ance-prf3.trec \
-    --prf-depth 3 \
-    --prf-method ance-prf \
-    --threads 12 \
-    --sparse-index msmarco-passage \
-    --ance-prf-encoder ckpt/ance_prf_k3_checkpoint
-```
-
-To evaluate:
-```
-$ python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.1000 -l 2 dl20-passage runs/run.dl20-passage.ance-prf3.trec
-ndcg_cut_10         all     0.6736
-recall_1000         all     0.7942
-```
-
-For `MS MARCO V1 Passage`:
-```
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \                                               
-    --index msmarco-passage-ance-bf \
-    --encoder castorini/ance-msmarco-passage \
-    --batch-size 32 \
-    --output runs/run.marco-passagev1.ance-prf3.tsv \
-    --prf-depth 3 \
-    --prf-method ance-prf \
-    --threads 12 \
-    --sparse-index msmarco-passage \
-    --ance-prf-encoder ckpt/ance_prf_k3_checkpoint \
-    --output-format msmarco
-```
-
-To evaluate:
-```
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.marco-passagev1.ance-prf3.tsv
-#####################
-MRR @10: 0.34179202483285515
-QueriesRanked: 6980
-#####################
-```
-
-```
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.marco-passagev1.ance-prf3.tsv --output runs/run.marco-passagev1.ance-prf3.trec
-$ python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.1000 msmarco-passage-dev-subset runs/run.marco-passagev1.ance-prf3.trec
-ndcg_cut_10         all     0.3991
-recall_1000         all     0.9596
-```
-
 
 ## Reproduction Log[*](reproducibility.md)

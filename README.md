@@ -410,6 +410,7 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + Reproducing [SBERT dense retrieval experiments](docs/experiments-sbert.md)
 + Reproducing [ADORE dense retrieval experiments](docs/experiments-adore.md)
 + Reproducing [Vector PRF experiments](docs/experiments-vector-prf.md)
++ Reproducing [ANCE-PRF experiments](docs/experiments-ance-prf.md)
 
 ## Baselines
 
