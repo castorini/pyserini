@@ -21,9 +21,10 @@ from tqdm import tqdm
 
 from pyserini.dsearch import SimpleDenseSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, QueryEncoder, \
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AutoQueryEncoder, DenseVectorAveragePrf, \
-    DenseVectorRocchioPrf
+    DenseVectorRocchioPrf, DenseVectorAncePrf
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
+from pyserini.search import SimpleSearcher
 
 # from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf
 
@@ -59,6 +60,10 @@ def define_dsearch_args(parser):
                         help="The alpha parameter to control the contribution from the query vector")
     parser.add_argument('--rocchio-beta', type=float, metavar='beta parameter for rocchio', required=False, default=0.1,
                         help="The beta parameter to control the contribution from the average vector of the PRF passages")
+    parser.add_argument('--sparse-index', type=str, metavar='sparse lucene index containing contents', required=False,
+                        help='The path to sparse index containing the passage contents')
+    parser.add_argument('--ance-prf-encoder', type=str, metavar='query encoder path for ANCE-PRF', required=False,
+                        help='The path or name to ANCE-PRF model checkpoint')
 
 
 def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device, prefix):
@@ -163,6 +168,15 @@ if __name__ == '__main__':
             prfRule = DenseVectorAveragePrf()
         elif args.prf_method.lower() == 'rocchio':
             prfRule = DenseVectorRocchioPrf(args.rocchio_alpha, args.rocchio_beta)
+        # ANCE-PRF is using a new query encoder, so the input to DenseVectorAncePrf is different
+        elif args.prf_method.lower() == 'ance-prf' and type(query_encoder) == AnceQueryEncoder:
+            if os.path.exists(args.sparse_index):
+                sparse_searcher = SimpleSearcher(args.sparse_index)
+            else:
+                sparse_searcher = SimpleSearcher.from_prebuilt_index(args.sparse_index)
+            prf_query_encoder = AnceQueryEncoder(encoder_dir=args.ance_prf_encoder, tokenizer_name=args.tokenizer,
+                                                 device=args.device)
+            prfRule = DenseVectorAncePrf(prf_query_encoder, sparse_searcher)
         print(f'Running SimpleDenseSearcher with {args.prf_method.upper()} PRF...')
     else:
         PRF_FLAG = False
@@ -186,7 +200,11 @@ if __name__ == '__main__':
             if args.batch_size <= 1 and args.threads <= 1:
                 if PRF_FLAG:
                     emb_q, prf_candidates = searcher.search(text, k=args.prf_depth, return_vector=True, **kwargs)
-                    prf_emb_q = prfRule.get_prf_q_emb(emb_q, prf_candidates)
+                    # ANCE-PRF input is different, do not need query embeddings
+                    if args.prf_method.lower() == 'ance-prf':
+                        prf_emb_q = prfRule.get_prf_q_emb(text, prf_candidates)
+                    else:
+                        prf_emb_q = prfRule.get_prf_q_emb(emb_q, prf_candidates)
                     hits = searcher.search(prf_emb_q, k=args.hits, **kwargs)
                 else:
                     hits = searcher.search(text, args.hits, **kwargs)
@@ -199,7 +217,11 @@ if __name__ == '__main__':
                     if PRF_FLAG:
                         q_embs, prf_candidates = searcher.batch_search(batch_topics, batch_topic_ids,
                                                                        k=args.prf_depth, return_vector=True, **kwargs)
-                        prf_embs_q = prfRule.get_batch_prf_q_emb(batch_topic_ids, q_embs, prf_candidates)
+                        # ANCE-PRF input is different, do not need query embeddings
+                        if args.prf_method.lower() == 'ance-prf':
+                            prf_embs_q = prfRule.get_batch_prf_q_emb(batch_topics, batch_topic_ids, prf_candidates)
+                        else:
+                            prf_embs_q = prfRule.get_batch_prf_q_emb(batch_topic_ids, q_embs, prf_candidates)
                         results = searcher.batch_search(prf_embs_q, batch_topic_ids, k=args.hits, threads=args.threads,
                                                         **kwargs)
                         results = [(id_, results[id_]) for id_ in batch_topic_ids]
