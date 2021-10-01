@@ -167,7 +167,8 @@ class DenseVectorAncePrf(DenseVectorPrf):
         """
         passage_texts = [query]
         for item in prf_candidates:
-            passage_texts.append(self.sparse_searcher.doc(item.docid).raw())
+            raw_text = json.loads(self.sparse_searcher.doc(item.docid).raw())
+            passage_texts.append(raw_text['contents'])
         full_text = f'{self.encoder.tokenizer.cls_token}{self.encoder.tokenizer.sep_token.join(passage_texts)}{self.encoder.tokenizer.sep_token}'
         emb_q = self.encoder.prf_encode(full_text)
         emb_q = emb_q.reshape((1, len(emb_q)))
