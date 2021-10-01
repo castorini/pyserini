@@ -112,7 +112,7 @@ class ImpactSearcher:
         encoded_query = self.query_encoder.encode(q)
         jquery = JHashMap()
         for (token, weight) in encoded_query.items():
-            if self.idf[token] > self.min_idf:
+            if token in self.idf and self.idf[token] > self.min_idf:
                 jquery.put(JString(token.encode('utf8')), JFloat(weight))
 
         if not fields:
@@ -153,7 +153,7 @@ class ImpactSearcher:
             encoded_query = self.query_encoder.encode(q)
             jquery = JHashMap()
             for (token, weight) in encoded_query.items():
-                if self.idf[token] > self.min_idf:
+                if token in self.idf and self.idf[token] > self.min_idf:
                     jquery.put(JString(token.encode('utf8')), JFloat(weight))
             query_lst.add(jquery)
 
