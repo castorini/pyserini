@@ -31,7 +31,7 @@ if __name__ == '__main__':
     parser.add_argument('--M', type=int, default=256, required=False)
     parser.add_argument('--efC', type=int, default=256, required=False)
     parser.add_argument('--pq', action="store_true", required=False)
-    parser.add_argument('--pq_m', type=int, default=192, required=False)
+    parser.add_argument('--pq-m', type=int, default=192, required=False)
     parser.add_argument('--threads', type=int, default=12, required=False)
     args = parser.parse_args()
 
