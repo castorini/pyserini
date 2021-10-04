@@ -66,7 +66,7 @@ if __name__ == '__main__':
         index = faiss.IndexHNSWFlat(args.dim, args.M, faiss.METRIC_INNER_PRODUCT)
         index.hnsw.efConstruction = args.efC
     elif args.pq:
-        index = faiss.IndexPQ(args.dim, args.M, 8, faiss.METRIC_INNER_PRODUCT)
+        index = faiss.IndexPQ(args.dim, args.pq_m, 8, faiss.METRIC_INNER_PRODUCT)
     else:
         index = faiss.IndexFlatIP(args.dim)
     index.verbose = True
