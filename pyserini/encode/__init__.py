@@ -15,7 +15,7 @@
 #
 
 from ._base import DocumentEncoder, QueryEncoder, JsonlCollectionIterator,\
-    RepresentationWriter, FaissRepresentationWriter, JsonlRepresentationWriter
+    RepresentationWriter, FaissRepresentationWriter, JsonlRepresentationWriter, PcaEncoder
 from ._ance import AnceEncoder, AnceDocumentEncoder, AnceQueryEncoder
 from ._auto import AutoQueryEncoder, AutoDocumentEncoder
 from ._dpr import DprDocumentEncoder, DprQueryEncoder
