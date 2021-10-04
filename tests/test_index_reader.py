@@ -25,6 +25,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 
 from pyserini import analysis, index, search
+from pyserini.pyclass import JString
 from pyserini.vectorizer import BM25Vectorizer, TfidfVectorizer
 
 
@@ -345,6 +346,12 @@ class TestIndexUtils(unittest.TestCase):
     def test_index_stats(self):
         self.assertEqual(3204, self.index_reader.stats()['documents'])
         self.assertEqual(14363, self.index_reader.stats()['unique_terms'])
+
+    def test_jstring_encoding(self):
+        # When using pyjnius in a version prior 1.3.0, creating a JString with non-ASCII characters resulted in a
+        # failure. This test simply ensures that a compatible version of pyjnius is used. More details can be found in
+        # the discussion here: https://github.com/castorini/pyserini/issues/770
+        JString('zoölogy')
 
     def tearDown(self):
         os.remove(self.tarball_name)
