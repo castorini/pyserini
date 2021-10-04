@@ -151,7 +151,7 @@ class Analyzer:
         List[str]
             List of tokens corresponding to the output of the analyzer.
         """
-        results = JAnalyzerUtils.analyze(self.analyzer, JString(text.encode('utf-8')))
+        results = JAnalyzerUtils.analyze(self.analyzer, JString(text))
         tokens = []
         for token in results.toArray():
             tokens.append(token)
