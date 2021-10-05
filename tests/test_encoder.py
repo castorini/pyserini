@@ -47,8 +47,8 @@ class TestSearch(unittest.TestCase):
         vectors = encoder.encode(self.texts[:3])
         self.assertAlmostEqual(vectors[0]['generation'], 2.2441017627716064, places=4)
         self.assertAlmostEqual(vectors[0]['normal'], 2.4618067741394043, places=4)
-        self.assertAlmostEqual(vectors[0]['rounding'], 3.9474332332611084, places=4)
-        self.assertAlmostEqual(vectors[0]['commercial'], 3.288801670074463, places=4)
+        self.assertAlmostEqual(vectors[2]['rounding'], 3.9474332332611084, places=4)
+        self.assertAlmostEqual(vectors[2]['commercial'], 3.288801670074463, places=4)
 
 
 if __name__ == '__main__':
