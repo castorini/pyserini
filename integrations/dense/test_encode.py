@@ -21,6 +21,7 @@ import shutil
 import unittest
 from pyserini.dsearch import SimpleDenseSearcher
 from pyserini.search import ImpactSearcher
+from urllib.request import urlretrieve
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -31,7 +32,11 @@ class TestSearchIntegration(unittest.TestCase):
         else:
             self.pyserini_root = '.'
         self.temp_folders = []
-        self.corpus_path = f"{self.pyserini_root}/integrations/resources/sample_collection_cacm"
+        self.corpus_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/corpus/jsonl/cacm.json'
+        self.corpus_path = f"{self.pyserini_root}/integrations/dense/temp_cacm/"
+        os.makedirs(self.corpus_path, exist_ok=True)
+        self.temp_folders.append(self.corpus_path)
+        urlretrieve(self.corpus_url, os.path.join(self.corpus_path, 'cacm.json'))
 
     def test_dpr_encode_as_faiss(self):
         index_dir = f'{self.pyserini_root}/temp_index'
