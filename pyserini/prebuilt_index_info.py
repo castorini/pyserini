@@ -30,6 +30,7 @@ INDEX_INFO = {
     "robust04": {
         "description": "TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track",
         "filename": "index-robust04-20191213.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-robust04-20191213-readme.txt",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/eqFacNeSGc4pLLH/download"
@@ -43,6 +44,7 @@ INDEX_INFO = {
     "msmarco-passage": {
         "description": "MS MARCO passage corpus",
         "filename": "index-msmarco-passage-20201117-f87c94.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-20201117-f87c94-readme.txt",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-20201117-f87c94.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/QQsZMFG8MpF4P8M/download"
