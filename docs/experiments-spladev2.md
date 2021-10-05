@@ -64,7 +64,7 @@ $ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subs
 
 Query evaluation is much slower than with bag-of-words BM25; a complete run can take around half an hour. Note that the important option here is `-impact`, where we specify impact scoring.
 
-*Note from authors*: We are still investigating why it takes so long using Pyserini, while the same model (including distilbert forward in CPU) takes only 10 minutes on similar hardware using a numba implementation for the inverted index and using sequential processing (only 1-query at a time).
+*Note from authors*: We are still investigating why it takes so long using Pyserini, while the same model (including distilbert query encoder forward pass in CPU) takes only **10 minutes** on similar hardware using a numba implementation for the inverted index and using sequential processing (only 1-query at a time).
 
 The output is in MS MARCO output format, so we can directly evaluate:
 
