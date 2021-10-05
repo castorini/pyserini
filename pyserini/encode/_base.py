@@ -163,4 +163,4 @@ class FaissRepresentationWriter(RepresentationWriter):
     def write(self, batch_info, fields=None):
         for id_ in batch_info['id']:
             self.id_file.write(f'{id_}\n')
-        self.index.add(batch_info['vector'])
+        self.index.add(np.ascontiguousarray(batch_info['vector']))
