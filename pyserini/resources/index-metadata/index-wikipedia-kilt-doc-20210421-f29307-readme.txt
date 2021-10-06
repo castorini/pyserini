@@ -16,4 +16,3 @@ Note that to reduce index size:
 However, the raw documents are stored, so they can be fetched and fed to further downstream reranking components.
 
 index-wikipedia-kilt-doc-20210421-f29307.tar.gz MD5 checksum = b8ec8feb654f7aaa86f9901dc6c804a8
-
