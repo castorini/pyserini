@@ -33,7 +33,7 @@ python -m pyserini.index -collection JsonVectorCollection \
  -input collections/msmarco-passage-distill-splade-max \
  -index indexes/lucene-index.msmarco-passage-distill-splade-max \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
- -threads 12
+ -threads 18
 ```
 
 The important indexing options to note here are `-impact -pretokenized`: the first tells Anserini not to encode BM25 doc lengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the SPLADE tokens.
