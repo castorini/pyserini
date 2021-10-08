@@ -36,7 +36,7 @@ export ENCODER1="castorini/tct_colbert-v2-hnp-msmarco-r2"
 Dense retrieval with TCT-ColBERTv2 model trained on MS MARCO (V1), with FAISS brute-force index (i.e., zero shot):
 
 ```bash
-$ python -m pyserini.dsearch --topics collections/passv2_dev_queries.tsv \
+$ python -m pyserini.dsearch --topics msmarco-passage-v2-dev \
                              --index ${PASSAGE_INDEX0} \
                              --encoder ${ENCODER0} \
                              --batch-size 144 \
@@ -70,7 +70,7 @@ For example, if we output in MS MARCO format `--output-format msmarco` and then 
 Dense retrieval with TCT-ColBERTv2 model fine-tuned on MS MARCO (V2) passage data, with FAISS brute-force index:
 
 ```bash
-$ python -m pyserini.dsearch --topics collections/passv2_dev_queries.tsv \
+$ python -m pyserini.dsearch --topics msmarco-passage-v2-dev \
                              --index ${PASSAGE_INDEX1} \
                              --encoder ${ENCODER1} \
                              --batch-size 144 \
@@ -98,7 +98,7 @@ recall_1000           	all	0.8452
 Dense retrieval with TCT-ColBERT-V2, brute-force index:
 
 ```bash
-$ python -m pyserini.dsearch --topics collections/docv2_dev_queries.tsv \
+$ python -m pyserini.dsearch --topics msmarco-doc-v2-dev \
                              --index ${DOC_INDEX0} \
                              --encoder ${ENCODER0} \
                              --batch-size 144 \
@@ -134,7 +134,7 @@ Same comment about duplicate passages and score ties applies here as well.
 Dense retrieval with TCT-ColBERTv2 model fine-tuned on MS MARCO (V2) passage data, with FAISS brute-force index:
 
 ```bash
-$ python -m pyserini.dsearch --topics collections/docv2_dev_queries.tsv \
+$ python -m pyserini.dsearch --topics msmarco-doc-v2-dev \
                              --index ${DOC_INDEX1} \
                              --encoder ${ENCODER1} \
                              --batch-size 144 \
@@ -162,3 +162,4 @@ recall_1000           	all	0.8974
 
 ## Reproduction Log[*](reproducibility.md)
 + Results reproduced by [@crystina-z](https://github.com/crystina-z) on 2021-08-20 (commit [`45a2fb`](https://github.com/castorini/pyserini/commit/45a2fb4bacbbd92f54ff0f98463662cbc09d78bb))
++ Results reproduced by [@MXueguang](https://github.com/MXueguang) on 2021-10-07 (commit [`58d286c`](https://github.com/castorini/pyserini/commit/58d286c3f9fe845e261c271f2a0f514462844d97))
