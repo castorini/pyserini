@@ -91,4 +91,4 @@ The final evaluation metric is very close to the one reported in the paper (0.36
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-10-05 (commit [`58d286c`](https://github.com/castorini/pyserini/commit/58d286c3f9fe845e261c271f2a0f514462844d97))
-+ Results reproduced by [@MXueguang](https://github.com/MXueguang) on 2021-10-07 (commit [`5ca3ad0`](https://github.com/castorini/pyserini/commit/5ca3ad0d683e174d8d4a0595639141f732cb1705))
++ Results reproduced by [@MXueguang](https://github.com/MXueguang) on 2021-10-07 (commit [`5d05426`](https://github.com/castorini/pyserini/commit/5d05426e1b40c513c6fa739a236b9c025b1a62fd))
