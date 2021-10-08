@@ -14,7 +14,7 @@ class SpladeQueryEncoder(QueryEncoder):
         self.reverse_voc = {v: k for k, v in self.tokenizer.vocab.items()}
 
     def encode(self, text, **kwargs):
-        max_length = 128  # hardcode for now
+        max_length = 256  # hardcode for now
         inputs = self.tokenizer([text], max_length=max_length, padding='longest',
                                 truncation=True, add_special_tokens=True,
                                 return_tensors='pt').to(self.device)
