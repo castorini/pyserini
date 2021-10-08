@@ -88,6 +88,47 @@ QueriesRanked: 6980
 
 The final evaluation metric is very close to the one reported in the paper (0.368).
 
+Alternatively, we can use one-the-fly query encoding.
+
+First, download the model checkpoint from NAVER's github [repo](https://github.com/naver/splade/tree/main/weights/splade_max):
+```bash
+mkdir splade-distil-max
+cd splade-distil-max
+wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/pytorch_model.bin
+wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/config.json
+wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/special_tokens_map.json
+wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/tokenizer_config.json
+wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/vocab.txt
+cd ..
+```
+
+Then run retrieval with `--encoder splade-distil-max`
+
+```bash
+python -m pyserini.search --topics msmarco-passage-dev-subset \
+                          --index indexes/lucene-index.msmarco-passage-distill-splade-max \
+                          --encoder splade-distil-max \
+                          --output runs/run.msmarco-passage-distill-splade-max.tsv \
+                          --impact \
+                          --hits 1000 --batch 36 --threads 12 \
+                          --output-format msmarco
+```
+
+And then evaluate: 
+
+```bash
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-distill-splade-max.tsv
+```
+
+The results should be as follows:
+
+```
+#####################
+MRR @10: 0.3684321417201083
+QueriesRanked: 6980
+#####################
+```
+
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-10-05 (commit [`58d286c`](https://github.com/castorini/pyserini/commit/58d286c3f9fe845e261c271f2a0f514462844d97))
