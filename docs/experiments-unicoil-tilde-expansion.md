@@ -1,4 +1,4 @@
-# Pyserini: uniCOIL (w/ TILDE) for MS MARCO (V1) Passage Ranking
+# Pyserini: uniCOIL w/ TILDE for MS MARCO V1 Passage Ranking
 
 This page describes how to reproduce experiments using uniCOIL with TILDE document expansion on the MS MARCO passage corpus, as described in the following paper:
 
@@ -11,11 +11,13 @@ The original uniCOIL model is described here:
 
 In the original uniCOIL paper, doc2query-T5 is used to perform document expansion, which is slow and expensive.
 As an alternative, Zhuang and Zuccon proposed to use the TILDE model to expand the documents instead, resulting in a faster and cheaper process that is just as effective.
-For details of how to use TILDE to expand documents, please refer to the [TIDLE repo](https://github.com/ielab/TILDE).
+For details of how to use TILDE to expand documents, please refer to the [TILDE repo](https://github.com/ielab/TILDE).
 For additional details on the original uniCOIL design (with doc2query-T5 expansion), please refer to the [COIL repo](https://github.com/luyug/COIL/tree/main/uniCOIL).
 
 In this guide, we start with a version of the MS MARCO passage corpus that has already been processed with uniCOIL + TILDE, i.e., gone through document expansion and term re-weighting.
 Thus, no neural inference is involved.
+
+Note that Anserini provides [a comparable reproduction guide](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage-unicoil-tilde-expansion.md) based on Java.
 
 ## Data Prep
 
@@ -23,9 +25,8 @@ We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
 
 ```bash
+# Alternate mirrors of the same data, pick one:
 wget https://git.uwaterloo.ca/jimmylin/unicoil/-/raw/master/msmarco-passage-unicoil-tilde-expansion-b8.tar -P collections/
-
-# Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/6LECmLdiaBoPwrL/download -O collections/msmarco-passage-unicoil-tilde-expansion-b8.tar
 
 tar -xvf collections/msmarco-passage-unicoil-tilde-expansion-b8.tar -C collections/
@@ -40,7 +41,7 @@ We can now index these docs:
 ```
 python -m pyserini.index -collection JsonVectorCollection \
  -input collections/msmarco-passage-unicoil-tilde-expansion-b8/ \
- -index indexes/lucene-index.msmarco-passage-unicoil-tilde-expansion-b8 \
+ -index indexes/lucene-index.msmarco-passage.unicoil-tilde-expansion-b8 \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
  -threads 12
 ```
@@ -57,8 +58,8 @@ We can now run retrieval:
 ```bash
 python -m pyserini.search --topics msmarco-passage-dev-subset \
                           --encoder ielab/unicoil-tilde200-msmarco-passage \
-                          --index indexes/lucene-index.msmarco-passage-unicoil-tilde-expansion-b8 \
-                          --output runs/run.msmarco-passage-unicoil-tilde-expansion-b8.tsv \
+                          --index indexes/lucene-index.msmarco-passage.unicoil-tilde-expansion-b8 \
+                          --output runs/run.msmarco-passage.unicoil-tilde-expansion-b8.tsv \
                           --impact \
                           --hits 1000 --batch 32 --threads 12 \
                           --output-format msmarco
@@ -72,7 +73,7 @@ A complete run typically takes around 20 minutes.
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-tilde-expansion-b8.tsv
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.unicoil-tilde-expansion-b8.tsv
 ```
 
 The results should be as follows:
@@ -91,9 +92,8 @@ Alternatively, we can use pre-tokenized queries with pre-computed weights.
 First, fetch the queries:
 
 ```
+# Alternate mirrors of the same data, pick one:
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz -P collections/
-
-# Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/GZEPQkNQGoszHTx/download -O collections/topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz
 ```
 
@@ -103,8 +103,8 @@ We can now run retrieval:
 
 ```bash
 python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz \
-                          --index indexes/lucene-index.msmarco-passage-unicoil-tilde-expansion-b8 \
-                          --output runs/run.msmarco-passage-unicoil-tilde-expansion-b8.tsv \
+                          --index indexes/lucene-index.msmarco-passage.unicoil-tilde-expansion-b8 \
+                          --output runs/run.msmarco-passage.unicoil-tilde-expansion-b8.tsv \
                           --impact \
                           --hits 1000 --batch 32 --threads 12 \
                           --output-format msmarco
@@ -116,7 +116,7 @@ Since we're not applying neural inference over the queries, retrieval is faster,
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-tilde-expansion-b8.tsv
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.unicoil-tilde-expansion-b8.tsv
 ```
 
 The results should be as follows:
