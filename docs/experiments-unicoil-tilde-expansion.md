@@ -41,7 +41,7 @@ We can now index these docs:
 ```
 python -m pyserini.index -collection JsonVectorCollection \
  -input collections/msmarco-passage-unicoil-tilde-expansion-b8/ \
- -index indexes/lucene-index.msmarco-passage-unicoil.tilde-expansion-b8 \
+ -index indexes/lucene-index.msmarco-passage.unicoil-tilde-expansion-b8 \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
  -threads 12
 ```
