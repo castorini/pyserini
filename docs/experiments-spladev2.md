@@ -1,4 +1,4 @@
-# Pyserini: SPLADEv2 for MS MARCO Passage Ranking
+# Pyserini: SPLADEv2 for MS MARCO V1 Passage Ranking
 
 This page describes how to reproduce with Pyserini the DistilSPLADE-max experiments in the following paper:
 
@@ -13,16 +13,14 @@ We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO passage dataset with SPLADE processing:
 
 ```bash
+# Alternate mirrors of the same data, pick one:
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-distill-splade-max.tar -P collections/
-
-# Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/poCLbJDMm7JxwPk/download -O collections/msmarco-passage-distill-splade-max.tar
 
 tar xvf collections/msmarco-passage-distill-splade-max.tar -C collections/
 ```
 
 To confirm, `msmarco-passage-distill-splade-max.tar` should have MD5 checksum of `95b89a7dfd88f3685edcc2d1ffb120d1`.
-
 
 ## Indexing
 
@@ -48,9 +46,8 @@ To ensure that the tokenization in the index aligns exactly with the queries, we
 First, fetch the MS MARCO passage ranking dev set queries: 
 
 ```
+# Alternate mirrors of the same data, pick one:
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz -P collections/
-
-# Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/DrL4HLqgmT6orJL/download -O collections/topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz
 ```
 
@@ -91,6 +88,7 @@ The final evaluation metric is very close to the one reported in the paper (0.36
 Alternatively, we can use one-the-fly query encoding.
 
 First, download the model checkpoint from NAVER's github [repo](https://github.com/naver/splade/tree/main/weights/splade_max):
+
 ```bash
 mkdir splade-distil-max
 cd splade-distil-max

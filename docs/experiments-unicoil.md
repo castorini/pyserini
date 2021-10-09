@@ -1,4 +1,4 @@
-# Pyserini: uniCOIL (w/ doc2query-T5) for MS MARCO (V1)
+# Pyserini: uniCOIL w/ doc2query-T5 for MS MARCO V1
 
 This page describes how to reproduce the uniCOIL experiments in the following paper:
 
@@ -8,7 +8,7 @@ In this guide, we start with a version of the MS MARCO passage corpus that has a
 Thus, no neural inference is involved.
 For details on how to train uniCOIL and perform inference, please see [this guide](https://github.com/luyug/COIL/tree/main/uniCOIL).
 
-Note that Anserini provides [a comparable reproduction guide](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage-unicoil.md) based on Java.
+Note that Anserini provides [a comparable reproduction guide](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-unicoil.md) based on Java.
 
 ## Passage Ranking
 
@@ -18,12 +18,11 @@ We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
 
 ```bash
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-unicoil-b8.tar -P collections/
-
-# Alternate mirror
+# Alternate mirrors of the same data, pick one:
+wget https://git.uwaterloo.ca/jimmylin/unicoil/-/raw/master/msmarco-passage-unicoil-b8.tar -P collections/
 wget https://vault.cs.uwaterloo.ca/s/Rm6fknT432YdBts/download -O collections/msmarco-passage-unicoil-b8.tar
 
-tar -xvf collections/msmarco-passage-unicoil-b8.tar -C collections/
+tar xvf collections/msmarco-passage-unicoil-b8.tar -C collections/
 ```
 
 To confirm, `msmarco-passage-unicoil-b8.tar` should have MD5 checksum of `eb28c059fad906da2840ce77949bffd7`.
@@ -35,7 +34,7 @@ We can now index these docs:
 ```
 python -m pyserini.index -collection JsonVectorCollection \
  -input collections/msmarco-passage-unicoil-b8/ \
- -index indexes/lucene-index.msmarco-passage-unicoil-b8 \
+ -index indexes/lucene-index.msmarco-passage.unicoil-b8 \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
  -threads 12
 ```
@@ -52,7 +51,7 @@ We can now run retrieval:
 ```bash
 python -m pyserini.search --topics msmarco-passage-dev-subset \
                           --encoder castorini/unicoil-d2q-msmarco-passage \
-                          --index indexes/lucene-index.msmarco-passage-unicoil-b8 \
+                          --index indexes/lucene-index.msmarco-passage.unicoil-b8 \
                           --output runs/run.msmarco-passage-unicoil-b8.tsv \
                           --impact \
                           --hits 1000 --batch 36 --threads 12 \
@@ -86,9 +85,8 @@ Alternatively, we can use pre-tokenized queries with pre-computed weights.
 First, fetch the MS MARCO passage ranking dev set queries:
 
 ```bash
+# Alternate mirrors of the same data, pick one:
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage.dev-subset.unicoil.tsv.gz -P collections/
-
-# Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/QGoHeBm4YsAgt6H/download -O collections/topics.msmarco-passage.dev-subset.unicoil.tsv.gz
 ```
 
@@ -98,7 +96,7 @@ We can now run retrieval:
 
 ```bash
 python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset.unicoil.tsv.gz \
-                          --index indexes/lucene-index.msmarco-passage-unicoil-b8 \
+                          --index indexes/lucene-index.msmarco-passage.unicoil-b8 \
                           --output runs/run.msmarco-passage-unicoil-b8.tsv \
                           --impact \
                           --hits 1000 --batch 36 --threads 12 \
@@ -133,12 +131,11 @@ We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
 
 ```bash
+# Alternate mirrors of the same data, pick one:
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar -P collections/
-
-# Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/ZmF6SKpgMZJYXd6/download -O collections/msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar
 
-tar -xvf collections/msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar -C collections/
+tar xvf collections/msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar -C collections/
 ```
 
 To confirm, `msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar` should have MD5 checksum of `88f365b148c7702cf30c0fb95af35149`.
@@ -147,10 +144,10 @@ To confirm, `msmarco-doc-per-passage-expansion-unicoil-d2q-b8.tar` should have M
 
 We can now index these docs:
 
-```
+```bash
 python -m pyserini.index -collection JsonVectorCollection \
  -input collections/msmarco-doc-per-passage-expansion-unicoil-d2q-b8/ \
- -index indexes/lucene-index.msmarco-doc-unicoil-d2q-b8 \
+ -index indexes/lucene-index.msmarco-doc.unicoil-d2q-b8 \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
  -threads 12
 ```
@@ -166,7 +163,7 @@ We can now run retrieval:
 ```bash
 python -m pyserini.search --topics msmarco-doc-dev \
                           --encoder castorini/unicoil-d2q-msmarco-passage \
-                          --index indexes/lucene-index.msmarco-doc-unicoil-d2q-b8 \
+                          --index indexes/lucene-index.msmarco-doc.unicoil-d2q-b8 \
                           --output runs/run.msmarco-doc-unicoil-d2q-b8.tsv \
                           --impact \
                           --hits 1000 --batch 36 --threads 12 \
@@ -201,9 +198,8 @@ Alternatively, we can use pre-tokenized queries with pre-computed weights.
 First, fetch the MS MARCO passage ranking dev set queries:
 
 ```bash
+# Alternate mirrors of the same data, pick one:
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-doc.dev.unicoil.tsv.gz -P collections/
-
-# Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/6D5JtJQxYpPbByM/download -O collections/topics.msmarco-doc.dev.unicoil.tsv.gz
 ```
 
@@ -213,7 +209,7 @@ We can now run retrieval:
 
 ```bash
 python -m pyserini.search --topics collections/topics.msmarco-doc.dev.unicoil.tsv.gz \
-                          --index indexes/lucene-index.msmarco-doc-unicoil-d2q-b8 \
+                          --index indexes/lucene-index.msmarco-doc.unicoil-d2q-b8 \
                           --output runs/run.msmarco-doc-unicoil-d2q-b8.tsv \
                           --impact \
                           --hits 1000 --batch 36 --threads 12 \
