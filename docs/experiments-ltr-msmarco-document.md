@@ -64,6 +64,17 @@ python scripts/ltr_msmarco-passage/convert_queries.py \
   --output collections/msmarco-ltr-document/queries.train.json
 ```
 
+```bash
+python -m pyserini.ltr.search_msmarco_document --input collections/msmarco-doc/run.msmarco-pass-doc.bm25.txt --input-format tsv   --model runs/msmarco-passage-ltr-mrr-v1   --index indexes/lucene-index-msmarco-document-ltr/ --output runs/run.ltr.doc-pas.trec
+python scripts/ltr_msmarco-document/generate_document_score_withmaxP.py --input runs/run.ltr.doc-pas.trec --output runs/run.ltr.doc_level.tsv
+```
+
+```bash
+python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
+--run runs/run.ltr.doc_level.tsv
+
+```
+
 ## Building the Index From Scratch
 
 Equivalently, we can preprocess collection and queries with our scripts:

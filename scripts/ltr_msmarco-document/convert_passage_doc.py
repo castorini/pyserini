@@ -78,12 +78,12 @@ def batch_process(batch):
         json_line = json.loads(line)
         pid = json_line['id']
         body = json_line['contents']
-        url = json_line['url']
-        title = json_line['title']
+        #url = json_line['url']
+        #title = json_line['title']
 
         text, text_unlemm = nlp.proc_text(body)
 
-        _,title_unlemm = nlp.proc_text(title)
+        #_,title_unlemm = nlp.proc_text(title)
 
         analyzed = analyzer.analyze(body)
         for token in analyzed:
@@ -94,8 +94,8 @@ def batch_process(batch):
                "text": text,
                "text_unlemm": text_unlemm,
                'contents': contents,
-               "title_unlemm": title_unlemm,
-               "url": url,
+               #"title_unlemm": title_unlemm,
+               #"url": url,
                "raw": body}
         
         if (len(body)>512):
