@@ -16,13 +16,13 @@ First, we need to download and extract the MS MARCO passage dataset with DeepImp
 
 ```bash
 # Alternate mirrors of the same data, pick one:
-wget https://git.uwaterloo.ca/jimmylin/deep-impact/raw/master/msmarco-passage-deepimpact-b8.tar.gz -P collections/
-wget https://vault.cs.uwaterloo.ca/s/8xabiYom7nYJcB7/download -O collections/msmarco-passage-deepimpact-b8.tar.gz
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-deepimpact-b8.tar -P collections/
+wget https://vault.cs.uwaterloo.ca/s/57AE5aAjzw2ox2n/download -O collections/msmarco-passage-deepimpact-b8.tar
 
-tar xvfz collections/msmarco-passage-deepimpact-b8.tar.gz -C collections/
+tar xvf collections/msmarco-passage-deepimpact-b8.tar -C collections/
 ```
 
-To confirm, `msmarco-passage-deepimpact-b8.tar.gz` is ~3.6 GB and has MD5 checksum `8ea0ebdd707d5853a87940e5bdfd9b00`.
+To confirm, `msmarco-passage-deepimpact-b8.tar` is ~3.6 GB and has MD5 checksum `3c317cb4f9f9bcd3bbec60f05047561a`.
 
 ## Indexing
 
@@ -48,11 +48,11 @@ First, fetch the MS MARCO passage ranking dev set queries:
 
 ```
 # Alternate mirrors of the same data, pick one:
-wget https://git.uwaterloo.ca/jimmylin/deep-impact/raw/master/topics.msmarco-passage.dev-subset.deep-impact.tsv -P collections/
-wget https://vault.cs.uwaterloo.ca/s/py2CToTmaz6FoTq/download -O collections/topics.msmarco-passage.dev-subset.deep-impact.tsv
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage.dev-subset.deepimpact.tsv.gz -P collections/
+wget https://vault.cs.uwaterloo.ca/s/NYibRJ9bXs5PspH/download -O collections/topics.msmarco-passage.dev-subset.deepimpact.tsv.gz
 ```
 
-The MD5 checksum of the topics file is `eaed2e703e2aa0261917e0eeafebe3e2`.
+The MD5 checksum of the topics file is `88a2987d6a25b1be11c82e87677a262e`.
 
 We can now run retrieval:
 
