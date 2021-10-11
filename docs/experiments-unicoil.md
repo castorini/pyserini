@@ -25,7 +25,7 @@ wget https://vault.cs.uwaterloo.ca/s/Rm6fknT432YdBts/download -O collections/msm
 tar xvf collections/msmarco-passage-unicoil-b8.tar -C collections/
 ```
 
-To confirm, `msmarco-passage-unicoil-b8.tar` should have MD5 checksum of `eb28c059fad906da2840ce77949bffd7`.
+To confirm, `msmarco-passage-unicoil-b8.tar` is ~3.3 GB and has MD5 checksum `eb28c059fad906da2840ce77949bffd7`.
 
 ### Indexing
 
@@ -42,7 +42,7 @@ python -m pyserini.index -collection JsonVectorCollection \
 The important indexing options to note here are `-impact -pretokenized`: the first tells Anserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the uniCOIL tokens.
 
 Upon completion, we should have an index with 8,841,823 documents.
-The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 20 minutes.
+The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 15 minutes.
 
 ### Retrieval
 
@@ -52,7 +52,7 @@ We can now run retrieval:
 python -m pyserini.search --topics msmarco-passage-dev-subset \
                           --encoder castorini/unicoil-d2q-msmarco-passage \
                           --index indexes/lucene-index.msmarco-passage.unicoil-b8 \
-                          --output runs/run.msmarco-passage-unicoil-b8.tsv \
+                          --output runs/run.msmarco-passage.unicoil-b8.tsv \
                           --impact \
                           --hits 1000 --batch 36 --threads 12 \
                           --output-format msmarco
@@ -61,12 +61,12 @@ python -m pyserini.search --topics msmarco-passage-dev-subset \
 Here, we are using the transformer model to encode the queries on the fly using the CPU.
 Note that the important option here is `-impact`, where we specify impact scoring.
 With these impact scores, query evaluation is already slower than bag-of-words BM25; on top of that we're adding neural inference on the CPU.
-A complete run can take around 30 minutes.
+A complete run typically takes around 30 minutes.
 
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-b8.tsv
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.unicoil-b8.tsv
 ```
 
 The results should be something along these lines:
@@ -97,7 +97,7 @@ We can now run retrieval:
 ```bash
 python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset.unicoil.tsv.gz \
                           --index indexes/lucene-index.msmarco-passage.unicoil-b8 \
-                          --output runs/run.msmarco-passage-unicoil-b8.tsv \
+                          --output runs/run.msmarco-passage.unicoil-b8.tsv \
                           --impact \
                           --hits 1000 --batch 36 --threads 12 \
                           --output-format msmarco
@@ -109,7 +109,7 @@ Since we're not applying neural inference over the queries, speed is faster, typ
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-unicoil-b8.tsv
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.unicoil-b8.tsv
 ```
 
 The results should be as follows:
@@ -164,7 +164,7 @@ We can now run retrieval:
 python -m pyserini.search --topics msmarco-doc-dev \
                           --encoder castorini/unicoil-d2q-msmarco-passage \
                           --index indexes/lucene-index.msmarco-doc.unicoil-d2q-b8 \
-                          --output runs/run.msmarco-doc-unicoil-d2q-b8.tsv \
+                          --output runs/run.msmarco-doc.unicoil-d2q-b8.tsv \
                           --impact \
                           --hits 1000 --batch 36 --threads 12 \
                           --max-passage --max-passage-hits 100 \
@@ -179,7 +179,7 @@ A complete run can take around 40 minutes.
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc-unicoil-d2q-b8.tsv
+python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.unicoil-d2q-b8.tsv
 ```
 
 The results should be something along these lines:
@@ -210,7 +210,7 @@ We can now run retrieval:
 ```bash
 python -m pyserini.search --topics collections/topics.msmarco-doc.dev.unicoil.tsv.gz \
                           --index indexes/lucene-index.msmarco-doc.unicoil-d2q-b8 \
-                          --output runs/run.msmarco-doc-unicoil-d2q-b8.tsv \
+                          --output runs/run.msmarco-doc.unicoil-d2q-b8.tsv \
                           --impact \
                           --hits 1000 --batch 36 --threads 12 \
                           --max-passage --max-passage-hits 100 \
@@ -223,7 +223,7 @@ Since we're not applying neural inference over the queries, speed is faster, typ
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc-unicoil-d2q-b8.tsv
+python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.unicoil-d2q-b8.tsv
 ```
 
 The results should be as follows:
