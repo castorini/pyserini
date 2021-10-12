@@ -57,12 +57,12 @@ The MD5 checksum of the topics file is `88a2987d6a25b1be11c82e87677a262e`.
 We can now run retrieval:
 
 ```bash
-$ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset.deep-impact.tsv \
-                            --index indexes/lucene-index.msmarco-passage.deepimpact-b8 \
-                            --output runs/run.msmarco-passage.deepimpact-b8.tsv \
-                            --impact \
-                            --hits 1000 --batch 36 --threads 12 \
-                            --output-format msmarco
+python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset.deepimpact.tsv.gz \
+                          --index indexes/lucene-index.msmarco-passage.deepimpact-b8 \
+                          --output runs/run.msmarco-passage.deepimpact-b8.tsv \
+                          --impact \
+                          --hits 1000 --batch 36 --threads 12 \
+                          --output-format msmarco
 ```
 
 Note that the important option here is `-impact`, where we specify impact scoring.
@@ -71,7 +71,7 @@ A complete run should take around five minutes.
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.deepimpact-b8.tsv
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.deepimpact-b8.tsv
 ```
 
 The results should be as follows:
