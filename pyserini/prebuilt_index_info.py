@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-INDEX_INFO = {
+BM25_INDEX_INFO = {
     "cacm": {
         "description": "CACM corpus",
         "filename": "lucene-index.cacm.tar.gz",
@@ -489,7 +489,76 @@ INDEX_INFO = {
     },
 }
 
-DINDEX_INFO = {
+IMPACT_INDEX_INFO = {
+    "msmarco-passage-deepimpact": {
+        "description": "MS MARCO passage corpus encoded by DeepImpact",
+        "filename": "lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
+        ],
+        "md5": "9938f5529fee5cdb405b8587746c9e93",
+        "size compressed (bytes)": 1295216704,
+        "total_terms": 35455908214,
+        "documents": 8841823,
+        "unique_terms": 3514102,
+        "downloaded": False
+    },
+    "msmarco-passage-unicoil-d2q": {
+        "description": "MS MARCO passage corpus encoded by UniCOIL-d2q",
+        "filename": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
+        ],
+        "md5": "4a8cb3b86a0d9085a0860c7f7bb7fe99",
+        "size compressed (bytes)": 1205104390,
+        "total_terms": 44495093768,
+        "documents": 8841823,
+        "unique_terms": 27678,
+        "downloaded": False
+    },
+    "msmarco-passage-unicoil-tilde": {
+        "description": "MS MARCO passage corpus encoded by UniCOIL-tilde",
+        "filename": "lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.tar.gz",
+        ],
+        "md5": "cc19cfe241053f5a303f7f05a7ac40a5",
+        "size compressed (bytes)": 1935108302,
+        "total_terms": 73040108576,
+        "documents": 8841823,
+        "unique_terms": 27646,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-unicoil-noexp-0shot": {
+        "description": "MS MARCO V2 passage corpus encoded by UniCOIL-noexp (zeroshot)",
+        "filename": "lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+        ],
+        "md5": "8886a8d9599838bc6d8d61464da61086",
+        "size compressed (bytes)": 14801476783,
+        "total_terms": 411330032512,
+        "documents": 138364198,
+        "unique_terms": 29148,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-unicoil-tilde": {
+        "description": "MS MARCO V2 passage corpus encoded by UniCOIL-tilde",
+        "filename": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
+        ],
+        "md5": "8886a8d9599838bc6d8d61464da61086",
+        "size compressed (bytes)": 31168302160,
+        "total_terms": 1155211154985,
+        "documents": 138364198,
+        "unique_terms": 29149,
+        "downloaded": False
+    },
+
+}
+
+FAISS_INDEX_INFO = {
     "msmarco-passage-tct_colbert-hnsw": {
         "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as HNSW index",
         "filename": "dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",

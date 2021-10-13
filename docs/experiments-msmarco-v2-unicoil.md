@@ -40,16 +40,8 @@ python -m pyserini.index -collection JsonVectorCollection \
  -threads 32
 ```
 
-If you want to save time and skip the indexing step, download the prebuilt index directly:
-
-```bash
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene.unicoil-noexp.0shot.msmarco-passage-v2.tar.gz -P indexes/
-
-# Alternate mirror
-# wget https://vault.cs.uwaterloo.ca/s/bKbHmN6CjRtmoJq/download -O indexes/lucene.unicoil-noexp.0shot.msmarco-passage-v2.tar.gz
-
-tar -xvf indexes/lucene.unicoil-noexp.0shot.msmarco-passage-v2.tar.gz -C indexes/
-```
+> If you want to save time and skip the indexing step, you can use our prebuilt index by set `--index msmarco-passage-unicoil-tilde`
+in the following commands.
 
 Sparse retrieval with uniCOIL:
 

@@ -58,6 +58,9 @@ wget https://git.uwaterloo.ca/jimmylin/deep-impact/raw/master/topics.msmarco-pas
 wget https://vault.cs.uwaterloo.ca/s/py2CToTmaz6FoTq/download -O collections/topics.msmarco-passage.dev-subset.deep-impact.tsv
 ```
 
+> If you want to save time and skip the indexing step, you can use our prebuilt index by replacing `--index msmarco-passage-deepimpact`
+in the following commands.
+
 We can now run retrieval:
 
 ```bash

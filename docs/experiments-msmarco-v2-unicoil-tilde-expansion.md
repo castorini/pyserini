@@ -65,6 +65,8 @@ To confirm, `lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz` 
 This pre-built index was created with the above command, but with the addition of the `-optimize` option to merge index segments.
 
 ## Retrieval
+> If you want to save time and skip the indexing step, you can use our prebuilt index by set `--index msmarco-v2-passage-unicoil-tilde`
+in the following commands.
 
 We can now run retrieval:
 
