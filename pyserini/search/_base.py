@@ -149,14 +149,14 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV)
     elif collection_name == 'msmarco-doc-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_TEST)
-    elif collection_name == 'msmarco-doc-v2-dev':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_V2_DEV)
-    elif collection_name == 'msmarco-doc-v2-dev2':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_V2_DEV2)
-    elif collection_name == 'msmarco-passage-v2-dev':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_V2_DEV)
-    elif collection_name == 'msmarco-passage-v2-dev2':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_V2_DEV2)
+    elif collection_name == 'msmarco-v2-doc-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV)
+    elif collection_name == 'msmarco-v2-doc-dev2':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV2)
+    elif collection_name == 'msmarco-v2-passage-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV)
+    elif collection_name == 'msmarco-v2-passage-dev2':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV2)
     elif collection_name == 'msmarco-passage-dev-subset':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
     elif collection_name == 'msmarco-passage-test-subset':
@@ -322,14 +322,14 @@ def get_qrels_file(collection_name):
         qrels = JQrels.MSMARCO_DOC_DEV
     elif collection_name == 'msmarco-passage-dev-subset':
         qrels = JQrels.MSMARCO_PASSAGE_DEV_SUBSET
-    elif collection_name == 'msmarco-doc-v2-dev':
-        qrels = JQrels.MSMARCO_DOC_V2_DEV
-    elif collection_name == 'msmarco-doc-v2-dev2':
-        qrels = JQrels.MSMARCO_DOC_V2_DEV2
-    elif collection_name == 'msmarco-passage-v2-dev':
-        qrels = JQrels.MSMARCO_PASSAGE_V2_DEV
-    elif collection_name == 'msmarco-passage-v2-dev2':
-        qrels = JQrels.MSMARCO_PASSAGE_V2_DEV2
+    elif collection_name == 'msmarco-v2-doc-dev':
+        qrels = JQrels.MSMARCO_V2_DOC_DEV
+    elif collection_name == 'msmarco-v2-doc-dev2':
+        qrels = JQrels.MSMARCO_V2_DOC_DEV2
+    elif collection_name == 'msmarco-v2-passage-dev':
+        qrels = JQrels.MSMARCO_V2_PASSAGE_DEV
+    elif collection_name == 'msmarco-v2-passage-dev2':
+        qrels = JQrels.MSMARCO_V2_PASSAGE_DEV2
     elif collection_name == 'ntcir8-zh':
         qrels = JQrels.NTCIR8_ZH
     elif collection_name == 'clef2006-fr':
