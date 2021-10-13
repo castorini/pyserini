@@ -23,15 +23,15 @@ We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO V2 passage dataset with uniCOIL + TILDE processing:
 
 ```bash
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar -P collections/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar -P collections/
 
 # Alternate mirror
-wget https://vault.cs.uwaterloo.ca/s/tb3m3J45HFJNAbq/download -O collections/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar
+wget https://vault.cs.uwaterloo.ca/s/tb3m3J45HFJNAbq/download -O collections/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar
 
-tar -xvf collections/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar -C collections/
+tar -xvf collections/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar -C collections/
 ```
 
-To confirm, `msmarco-passage-v2-unicoil-tilde-expansion-b8.tar` is around 58 GB and should have an MD5 checksum of `acc4c9bc3506c3a496bf3e009fa6e50b`.
+To confirm, `msmarco-v2-passage-unicoil-tilde-expansion-b8.tar` is around 58 GB and should have an MD5 checksum of `acc4c9bc3506c3a496bf3e009fa6e50b`.
 
 ## Indexing
 
@@ -39,8 +39,8 @@ We can now index these docs:
 
 ```
 python -m pyserini.index -collection JsonVectorCollection \
- -input collections/msmarco-passage-v2-unicoil-tilde-expansion-b8/ \
- -index indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8 \
+ -input collections/msmarco-v2-passage-unicoil-tilde-expansion-b8/ \
+ -index indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8 \
  -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
  -threads 12
 ```
@@ -53,15 +53,15 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 If you want to save time and skip the indexing step, download the prebuilt index directly:
 
 ```bash
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -P indexes/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8.tar.gz -P indexes/
 
 # Alternate mirror
-wget https://vault.cs.uwaterloo.ca/s/rmFJCYEqfPrxcFE/download -O indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz
+wget https://vault.cs.uwaterloo.ca/s/rmFJCYEqfPrxcFE/download -O indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8.tar.gz
 
-tar -xzvf indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz -C indexes/
+tar -xzvf indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8.tar.gz -C indexes/
 ```
 
-To confirm, `lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8.tar.gz` is around 30 GB and should have an MD5 checksum of `0f9b1f90751d49dd3a66be54dd0b4f82`.
+To confirm, `lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8.tar.gz` is around 30 GB and should have an MD5 checksum of `0f9b1f90751d49dd3a66be54dd0b4f82`.
 This pre-built index was created with the above command, but with the addition of the `-optimize` option to merge index segments.
 
 ## Retrieval
@@ -71,10 +71,10 @@ in the following commands.
 We can now run retrieval:
 
 ```bash
-python -m pyserini.search --topics msmarco-passage-v2-dev \
+python -m pyserini.search --topics msmarco-v2-passage-dev \
                           --encoder ielab/unicoil-tilde200-msmarco-passage \
-                          --index indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8 \
-                          --output runs/run.msmarco-passage-v2-dev-unicoil-tilde-expansion-b8.txt \
+                          --index indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8 \
+                          --output runs/run.msmarco-v2-passage-dev-unicoil-tilde-expansion-b8.txt \
                           --impact \
                           --hits 1000 --batch 144 --threads 36 \
                           --min-idf 1
@@ -88,12 +88,12 @@ A complete run should take around 30 minutes.
 To evaluate, using `trec_eval`:
 
 ```bash
-$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-passage-v2-dev runs/run.msmarco-passage-v2-dev-unicoil-tilde-expansion-b8.txt
+$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev runs/run.msmarco-v2-passage-dev-unicoil-tilde-expansion-b8.txt
 Results:
 map                   	all	0.1471
 recip_rank            	all	0.1480
 
-$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-passage-v2-dev runs/run.msmarco-passage-v2-dev-unicoil-tilde-expansion-b8.txt
+$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-passage-dev runs/run.msmarco-v2-passage-dev-unicoil-tilde-expansion-b8.txt
 Results:
 recall_100            	all	0.5566
 recall_1000           	all	0.7701
@@ -106,10 +106,10 @@ Alternatively, we can use pre-tokenized queries with pre-computed weights.
 First, fetch the queries:
 
 ```
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage-v2.dev.unicoil-tilde-expansion.tsv.gz -P collections/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-v2-passage.dev.unicoil-tilde-expansion.tsv.gz -P collections/
 
 # Alternate mirror
-wget https://vault.cs.uwaterloo.ca/s/AAgRffaWQXdo8zi/download -O collections/topics.msmarco-passage-v2.dev.unicoil-tilde-expansion.tsv.gz
+wget https://vault.cs.uwaterloo.ca/s/AAgRffaWQXdo8zi/download -O collections/topics.msmarco-v2-passage.dev.unicoil-tilde-expansion.tsv.gz
 ```
 
 The MD5 checksum of the topics file should be `9c4fe0513cc8f45b44809f65c3c8bc20`.
@@ -117,9 +117,9 @@ The MD5 checksum of the topics file should be `9c4fe0513cc8f45b44809f65c3c8bc20`
 We can now run retrieval:
 
 ```bash
-python -m pyserini.search --topics collections/topics.msmarco-passage-v2.dev.unicoil-tilde-expansion.tsv.gz \
-                          --index indexes/lucene-index.msmarco-passage-v2-unicoil-tilde-expansion-b8 \
-                          --output runs/run.msmarco-passage-v2-dev-unicoil-tilde-expansion-b8.txt \
+python -m pyserini.search --topics collections/topics.msmarco-v2-passage.dev.unicoil-tilde-expansion.tsv.gz \
+                          --index indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8 \
+                          --output runs/run.msmarco-v2-passage-dev-unicoil-tilde-expansion-b8.txt \
                           --impact \
                           --hits 1000 --batch 144 --threads 36 \
                           --min-idf 1

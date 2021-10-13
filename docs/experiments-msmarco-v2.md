@@ -22,7 +22,7 @@ Indexing the passage collection, which is 20 GB compressed:
 python -m pyserini.index -collection MsMarcoPassageV2Collection \
  -generator DefaultLuceneDocumentGenerator -threads 18 \
  -input collections/msmarco_v2_passage \
- -index indexes/msmarco-passage-v2 \
+ -index indexes/msmarco-v2-passage \
  -storePositions -storeDocvectors -storeRaw
 ```
 
@@ -39,7 +39,7 @@ For reference:
 
 
 ```
- python -m pyserini.search --index indexes/msmarco-passage-v2 \
+ python -m pyserini.search --index indexes/msmarco-v2-passage \
         --topics collections/passv2_dev_queries.tsv \
         --output runs/run.msmarco-pass-v2.dev.txt \
         --bm25 --hits 1000 --batch-size 36 --threads 12
@@ -62,7 +62,7 @@ Indexing the document collection, which is 32 GB compressed:
 python -m pyserini.index -collection MsMarcoDocV2Collection \
  -generator DefaultLuceneDocumentGenerator -threads 18 \
  -input collections/msmarco_v2_doc \
- -index indexes/msmarco-doc-v2 \
+ -index indexes/msmarco-v2-doc \
  -storePositions -storeDocvectors -storeRaw
 ```
 
@@ -78,16 +78,16 @@ For reference:
 Perform a run on the dev queries:
 
 ```
- python -m pyserini.search --index indexes/msmarco-doc-v2 \
+ python -m pyserini.search --index indexes/msmarco-v2-doc \
         --topics collections/docv2_dev_queries.tsv \
-        --output runs/run.msmarco-doc-v2.dev.txt \
+        --output runs/run.msmarco-v2-doc.dev.txt \
         --bm25 --hits 100 --batch-size 36 --threads 12
 ```
 
 Evaluation:
 
 ```bash
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -m map -m recall.100 -m recip_rank collections/docv2_dev_qrels.uniq.tsv runs/run.msmarco-doc-v2.dev.txt
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -m map -m recall.100 -m recip_rank collections/docv2_dev_qrels.uniq.tsv runs/run.msmarco-v2-doc.dev.txt
 map                   	all	0.1552
 recip_rank            	all	0.1572
 recall_100            	all	0.5956

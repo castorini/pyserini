@@ -29,10 +29,10 @@ First, we need to download and extract the MS MARCO passage dataset with uniCOIL
 wget https://git.uwaterloo.ca/jimmylin/unicoil/-/raw/master/msmarco-passage-unicoil-tilde-expansion-b8.tar -P collections/
 wget https://vault.cs.uwaterloo.ca/s/6LECmLdiaBoPwrL/download -O collections/msmarco-passage-unicoil-tilde-expansion-b8.tar
 
-tar -xvf collections/msmarco-passage-unicoil-tilde-expansion-b8.tar -C collections/
+tar xvf collections/msmarco-passage-unicoil-tilde-expansion-b8.tar -C collections/
 ```
 
-To confirm, `msmarco-passage-unicoil-tilde-expansion-b8.tar` is around 4 GB and should have an MD5 checksum of `be0a786033140ebb7a984a3e155c19ae`.
+To confirm, `msmarco-passage-unicoil-tilde-expansion-b8.tar` is ~3.9 GB and has MD5 checksum `be0a786033140ebb7a984a3e155c19ae`.
 
 ## Indexing
 
@@ -49,7 +49,7 @@ python -m pyserini.index -collection JsonVectorCollection \
 The important indexing options to note here are `-impact -pretokenized`: the first tells Pyserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the uniCOIL tokens.
 
 Upon completion, we should have an index with 8,841,823 documents.
-The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around half an hour.
+The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 25 minutes.
 
 ## Retrieval
 > If you want to save time and skip the indexing step, you can use our prebuilt index by set `--index msmarco-passage-unicoil-tilde`
@@ -70,7 +70,7 @@ python -m pyserini.search --topics msmarco-passage-dev-subset \
 Here, we are using the transformer model to encode the queries on the fly using the CPU.
 Note that the important option here is `-impact`, where we specify impact scoring. 
 With these impact scores, query evaluation is already slower than bag-of-words BM25; on top of that we're adding neural inference on the CPU.
-A complete run typically takes around 20 minutes.
+A complete run typically takes around 25 minutes.
 
 The output is in MS MARCO output format, so we can directly evaluate:
 
