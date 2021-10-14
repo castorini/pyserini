@@ -15,5 +15,6 @@
 #
 
 from ._base import Generator, IndexTerm, Posting, IndexReader
+from .colbert import ColBertIndexer
 
-__all__ = ['Generator', 'IndexTerm', 'Posting', 'IndexReader']
+__all__ = ['Generator', 'IndexTerm', 'Posting', 'IndexReader', 'ColBertIndexer']

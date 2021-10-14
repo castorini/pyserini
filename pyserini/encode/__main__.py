@@ -17,16 +17,18 @@
 import argparse
 import sys
 
-from pyserini.encode import JsonlRepresentationWriter, FaissRepresentationWriter, JsonlCollectionIterator
-from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AutoDocumentEncoder
+from pyserini.encode import JsonlRepresentationWriter, FaissRepresentationWriter, JsonlCollectionIterator, ColbertRepresentationWriter
+from pyserini.encode import DprDocumentEncoder, ColBertDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AutoDocumentEncoder
 from pyserini.encode import UniCoilDocumentEncoder
 
 
-def init_encoder(encoder, device):
+def init_encoder(encoder, device, tokenizer=None):
     if 'dpr' in encoder.lower():
         return DprDocumentEncoder(encoder, device=device)
     elif 'tct_colbert' in encoder.lower():
-        return TctColBertDocumentEncoder(encoder, device=device)
+        return TctColBertDocumentEncoder(encoder, device=device, tokenizer_name=tokenizer)
+    elif 'colbert' in encoder.lower():
+        return ColBertDocumentEncoder(encoder, device=device, tokenizer_name=tokenizer)
     elif 'ance' in encoder.lower():
         return AnceDocumentEncoder(encoder, device=device)
     elif 'sentence-transformers' in encoder.lower():
@@ -76,6 +78,7 @@ if __name__ == '__main__':
 
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
+    encoder_parser.add_argument('--tokenizer', type=str, help='tokenizer name or path', required=False)
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--batch-size', type=int, help='batch size', default=64, required=False)
     encoder_parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]',
@@ -84,8 +87,11 @@ if __name__ == '__main__':
 
     args = parse_args(parser, commands)
 
-    encoder = init_encoder(args.encoder.encoder, device=args.encoder.device)
-    if args.output.to_faiss:
+    encoder = init_encoder(args.encoder.encoder, device=args.encoder.device, tokenizer=args.encoder.tokenizer)
+    if isinstance(encoder, ColBertDocumentEncoder):
+        embedding_writer = ColbertRepresentationWriter(args.output.embeddings)
+        quit(0)
+    elif args.output.to_faiss:
         embedding_writer = FaissRepresentationWriter(args.output.embeddings)
     else:
         embedding_writer = JsonlRepresentationWriter(args.output.embeddings)
@@ -93,6 +99,7 @@ if __name__ == '__main__':
 
     with embedding_writer:
         for batch_info in collection_iterator(args.encoder.batch_size, args.input.shard_id, args.input.shard_num):
+            print(batch_info)
             kwargs = {
                 'texts': batch_info['text'],
                 'titles': batch_info['title'] if 'title' in args.encoder.fields else None,
