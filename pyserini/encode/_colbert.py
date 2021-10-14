@@ -18,6 +18,7 @@ from typing import Optional
 
 import torch
 import torch.nn as nn
+import contextlib
 from transformers import BertTokenizer, BertTokenizerFast
 from transformers import BertModel, BertPreTrainedModel
 from pyserini.encode import DocumentEncoder, QueryEncoder
@@ -108,22 +109,29 @@ class ColBertEncoder(DocumentEncoder):
                 print(self.tokenizer.decode(ids))
 
         # actual encoding
-        if self.prepend_tok == '[D]':
-            return self.model.doc(enc_tokens)
+        if fp16:
+            amp_ctx = torch.cuda.amp.autocast()
         else:
-            return self.model.query(enc_tokens)
+            amp_ctx = contextlib.nullcontext()
+
+        with amp_ctx:
+            if self.prepend_tok == '[D]':
+                return self.model.doc(enc_tokens)
+            else:
+                return self.model.query(enc_tokens)
 
 
 class ColbertRepresentationWriter(RepresentationWriter):
     def __init__(self, output_path):
-        self.indexer = ColBertIndexer(output_path)
+        self.output_path = output_path
 
     def __enter__(self):
-        print('Enter')
+        self.indexer = ColBertIndexer(self.output_path)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        print('Exit')
+        self.indexer.close()
 
     def write(self, batch_info, fields=None):
-        print(batch_info['id'])
-        print(batch_info['vector'].shape) # [B, seqlen, dim]
+        vectors = batch_info['vector'] # [B, seqlen, dim]
+        doc_ids = batch_info['id']
+        self.indexer.write(vectors, doc_ids)
