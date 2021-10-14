@@ -91,7 +91,7 @@ BM25_INDEX_INFO = {
         "filename": "index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-ltr-20210519-e25e33f-readme.txt",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/8qFCaCtwabRfYQD/download" # too big for UWaterloo GitLab
+            "https://vault.cs.uwaterloo.ca/s/8qFCaCtwabRfYQD/download"  # too big for UWaterloo GitLab
         ],
         "md5": "a5de642c268ac1ed5892c069bdc29ae3",
         "size compressed (bytes)": 14073966046,
@@ -493,6 +493,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-passage-deepimpact": {
         "description": "MS MARCO passage corpus encoded by DeepImpact",
         "filename": "lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.deepimpact.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
         ],
@@ -506,6 +507,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-passage-unicoil-d2q": {
         "description": "MS MARCO passage corpus encoded by UniCOIL-d2q",
         "filename": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
         ],
@@ -519,6 +521,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-passage-unicoil-tilde": {
         "description": "MS MARCO passage corpus encoded by UniCOIL-tilde",
         "filename": "lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.tar.gz",
         ],
@@ -532,6 +535,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-v2-passage-unicoil-noexp-0shot": {
         "description": "MS MARCO V2 passage corpus encoded by UniCOIL-noexp (zeroshot)",
         "filename": "lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
         ],
@@ -545,6 +549,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-v2-passage-unicoil-tilde": {
         "description": "MS MARCO V2 passage corpus encoded by UniCOIL-tilde",
         "filename": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
         ],
@@ -721,7 +726,7 @@ FAISS_INDEX_INFO = {
                        "indexed as brute force index",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz", 
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz",
             "https://www.dropbox.com/s/89mjp90z37dvt85/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz?dl=1",
         ],
         "md5": "479591e265347ceff954ae05f6d3462b",
