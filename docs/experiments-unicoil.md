@@ -80,8 +80,8 @@ QueriesRanked: 6980
 #####################
 ```
 
-There might be small differences in score due to platform differences in neural inference.
-The above score was obtained on Linux; macOS results may be slightly different.
+There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
+The above score was obtained on Linux.
 
 Alternatively, we can use pre-tokenized queries with pre-computed weights.
 First, fetch the MS MARCO passage ranking dev set queries:
@@ -193,8 +193,8 @@ QueriesRanked: 5193
 #####################
 ```
 
-There might be small differences in score due to platform differences in neural inference.
-The above score was obtained on Linux; macOS results may be slightly different.
+There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
+The above score was obtained on Linux.
 
 Alternatively, we can use pre-tokenized queries with pre-computed weights.
 First, fetch the MS MARCO passage ranking dev set queries:
