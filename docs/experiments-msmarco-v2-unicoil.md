@@ -40,7 +40,7 @@ python -m pyserini.index -collection JsonVectorCollection \
  -threads 32
 ```
 
-> If you want to save time and skip the indexing step, you can use our prebuilt index by set `--index msmarco-passage-unicoil-tilde`
+> If you want to save time and skip the indexing step, you can use our prebuilt index by set `--index msmarco-v2-passage-unicoil-noexp-0shot`
 in the following commands.
 
 Sparse retrieval with uniCOIL:
