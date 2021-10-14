@@ -23,11 +23,16 @@ Here's how our results stack up:
 | Dataset              | Model                | Method                  | nDCG@10 | Recall@1000 |
 |:---------------------|:---------------------|:------------------------|:-------:|:-----------:|
 | TREC DL 2019 Passage | ANCE                 | Original                | 0.6452  | 0.7554      |
-| TREC DL 2019 Passage | ANCE-PRF             | PRF 3                   | 0.6776  | 0.7915      |
+| TREC DL 2019 Passage | ANCE-PRF             | PRF 3                   | 0.6807  | 0.7912      |
 | TREC DL 2020 Passage | ANCE                 | Original                | 0.6458  | 0.7764      |
-| TREC DL 2020 Passage | ANCE-PRF             | PRF 3                   | 0.6736  | 0.7942      |
-| MS MARCO V1 Passage  | ANCE                 | Original                | 0.3877  | 0.9584      | 
-| MS MARCO V1 Passage  | ANCE-PRF             | PRF 3                   | 0.3991  | 0.9596      |
+| TREC DL 2020 Passage | ANCE-PRF             | PRF 3                   | 0.6948  | 0.8148      |
+
+#### MS MARCO V1 Passage
+
+| Dataset              | Model                | Method                  | nDCG@10 | Recall@1000 | MRR@10 |
+|:---------------------|:---------------------|:------------------------|:-------:|:-----------:|:------:|
+| MS MARCO V1 Passage  | ANCE                 | Original                | 0.3877  | 0.9584      | 0.3302 |
+| MS MARCO V1 Passage  | ANCE-PRF             | PRF 3                   | 0.4017  | 0.9601      | 0.3441
 
 ## Reproducing ANCE-PRF Results
 
@@ -56,8 +61,8 @@ $ python -m pyserini.dsearch --topics dl19-passage \
 To evaluate:
 ```
 $ python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.1000 -l 2 dl19-passage runs/run.dl19-passage.ance-prf3.trec
-ndcg_cut_10         all     0.6776
-recall_1000         all     0.7915
+ndcg_cut_10         all     0.6807
+recall_1000         all     0.7912
 ```
 
 For `TREC DL 2020 Passage`:
@@ -77,8 +82,8 @@ $ python -m pyserini.dsearch --topics dl20 \
 To evaluate:
 ```
 $ python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.1000 -l 2 dl20-passage runs/run.dl20-passage.ance-prf3.trec
-ndcg_cut_10         all     0.6736
-recall_1000         all     0.7942
+ndcg_cut_10         all     0.6948
+recall_1000         all     0.8148
 ```
 
 For `MS MARCO V1 Passage`:
@@ -100,7 +105,7 @@ To evaluate:
 ```
 $ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.marco-passagev1.ance-prf3.tsv
 #####################
-MRR @10: 0.34179202483285515
+MRR @10: 0.34410424341656354
 QueriesRanked: 6980
 #####################
 ```
@@ -108,8 +113,8 @@ QueriesRanked: 6980
 ```
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.marco-passagev1.ance-prf3.tsv --output runs/run.marco-passagev1.ance-prf3.trec
 $ python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.1000 msmarco-passage-dev-subset runs/run.marco-passagev1.ance-prf3.trec
-ndcg_cut_10         all     0.3991
-recall_1000         all     0.9596
+ndcg_cut_10         all     0.4017
+recall_1000         all     0.9601
 ```
 
 
