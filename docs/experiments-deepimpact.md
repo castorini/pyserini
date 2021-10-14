@@ -51,8 +51,11 @@ First, fetch the MS MARCO passage ranking dev set queries:
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage.dev-subset.deepimpact.tsv.gz -P collections/
 wget https://vault.cs.uwaterloo.ca/s/NYibRJ9bXs5PspH/download -O collections/topics.msmarco-passage.dev-subset.deepimpact.tsv.gz
 ```
-
 The MD5 checksum of the topics file is `88a2987d6a25b1be11c82e87677a262e`.
+
+
+> If you want to save time and skip the indexing step, you can use our prebuilt index by replacing `--index msmarco-passage-deepimpact`
+in the following commands.
 
 We can now run retrieval:
 

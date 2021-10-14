@@ -52,6 +52,8 @@ Upon completion, we should have an index with 8,841,823 documents.
 The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 25 minutes.
 
 ## Retrieval
+> If you want to save time and skip the indexing step, you can use our prebuilt index by set `--index msmarco-passage-unicoil-tilde`
+in the following commands.
 
 We can now run retrieval:
 
