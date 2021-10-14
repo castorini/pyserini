@@ -18,17 +18,17 @@ import argparse
 import sys
 
 from pyserini.encode import JsonlRepresentationWriter, FaissRepresentationWriter, JsonlCollectionIterator, ColbertRepresentationWriter
-from pyserini.encode import DprDocumentEncoder, ColBertDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AutoDocumentEncoder
+from pyserini.encode import DprDocumentEncoder, ColBertEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AutoDocumentEncoder
 from pyserini.encode import UniCoilDocumentEncoder
 
 
 def init_encoder(encoder, device, tokenizer=None):
     if 'dpr' in encoder.lower():
         return DprDocumentEncoder(encoder, device=device)
-    elif 'tct_colbert' in encoder.lower():
+    elif 'tct_colbert' in encoder.lower(): # longest match first
         return TctColBertDocumentEncoder(encoder, device=device, tokenizer_name=tokenizer)
     elif 'colbert' in encoder.lower():
-        return ColBertDocumentEncoder(encoder, device=device, tokenizer_name=tokenizer)
+        return ColBertEncoder(encoder, '[D]', device=device, tokenizer=tokenizer)
     elif 'ance' in encoder.lower():
         return AnceDocumentEncoder(encoder, device=device)
     elif 'sentence-transformers' in encoder.lower():
@@ -88,9 +88,8 @@ if __name__ == '__main__':
     args = parse_args(parser, commands)
 
     encoder = init_encoder(args.encoder.encoder, device=args.encoder.device, tokenizer=args.encoder.tokenizer)
-    if isinstance(encoder, ColBertDocumentEncoder):
+    if isinstance(encoder, ColBertEncoder):
         embedding_writer = ColbertRepresentationWriter(args.output.embeddings)
-        quit(0)
     elif args.output.to_faiss:
         embedding_writer = FaissRepresentationWriter(args.output.embeddings)
     else:
@@ -99,7 +98,6 @@ if __name__ == '__main__':
 
     with embedding_writer:
         for batch_info in collection_iterator(args.encoder.batch_size, args.input.shard_id, args.input.shard_num):
-            print(batch_info)
             kwargs = {
                 'texts': batch_info['text'],
                 'titles': batch_info['title'] if 'title' in args.encoder.fields else None,

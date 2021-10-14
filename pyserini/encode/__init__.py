@@ -20,7 +20,7 @@ from ._base import DocumentEncoder, QueryEncoder, JsonlCollectionIterator,\
 from ._ance import AnceEncoder, AnceDocumentEncoder, AnceQueryEncoder
 from ._auto import AutoQueryEncoder, AutoDocumentEncoder
 from ._dpr import DprDocumentEncoder, DprQueryEncoder
-from ._colbert import ColBertDocumentEncoder, ColBertQueryEncoder, ColbertRepresentationWriter
+from ._colbert import ColBertEncoder, ColbertRepresentationWriter
 from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
 from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder
 from ._cached_data import CachedDataQueryEncoder
