@@ -101,6 +101,7 @@ class ColBertEncoder(DocumentEncoder):
         # tokenize
         enc_tokens = self.tokenizer(prepend_contents,
             padding=True, truncation=True, return_tensors="pt")
+        lengths = enc_tokens['attention_mask'].sum(1).numpy()
         enc_tokens.to(self.device)
 
         if debug:
@@ -114,11 +115,12 @@ class ColBertEncoder(DocumentEncoder):
         else:
             amp_ctx = contextlib.nullcontext()
 
-        with amp_ctx:
-            if self.prepend_tok == '[D]':
-                return self.model.doc(enc_tokens)
-            else:
-                return self.model.query(enc_tokens)
+        with torch.no_grad():
+            with amp_ctx:
+                if self.prepend_tok == '[D]':
+                    return self.model.doc(enc_tokens), lengths
+                else:
+                    return self.model.query(enc_tokens), lengths
 
 
 class ColbertRepresentationWriter(RepresentationWriter):
@@ -126,12 +128,13 @@ class ColbertRepresentationWriter(RepresentationWriter):
         self.output_path = output_path
 
     def __enter__(self):
+        os.makedirs(self.output_path, exist_ok=True)
         self.indexer = ColBertIndexer(self.output_path)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.indexer.close()
 
     def write(self, batch_info, fields=None):
-        vectors = batch_info['vector'] # [B, seqlen, dim]
+        vectors, lengths = batch_info['vector'] # [B, seqlen, dim], [length..]
         doc_ids = batch_info['id']
-        self.indexer.write(vectors, doc_ids)
+        self.indexer.write(vectors, doc_ids, lengths)
