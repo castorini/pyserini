@@ -226,6 +226,7 @@ class AnceQueryEncoder(QueryEncoder):
             self.model.to(self.device)
             self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or encoder_dir)
             self.has_model = True
+            self.tokenizer.do_lower_case = True
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
