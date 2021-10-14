@@ -548,7 +548,7 @@ IMPACT_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
         ],
-        "md5": "8886a8d9599838bc6d8d61464da61086",
+        "md5": "562f9534eefe04ab8c07beb304074d41",
         "size compressed (bytes)": 31168302160,
         "total_terms": 1155211154985,
         "documents": 138364198,
