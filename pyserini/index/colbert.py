@@ -1,3 +1,19 @@
+#
+# Pyserini: Reproducible IR research with sparse and dense representations
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 import os
 import math
 import faiss
@@ -9,7 +25,7 @@ from faiss_gpu import FaissIndexGPU
 
 class ColBertIndexer:
     def __init__(self, index_path, dim=128, verbose=True,
-        n_docs_per_part=10_000, compress=True):
+        n_docs_per_part=100_000, compress=True):
         self.index_path = index_path
         self.verbose = verbose
         self.part = 0
@@ -71,7 +87,7 @@ class ColBertIndexer:
         faiss_gpu = FaissIndexGPU()
         quantizer = faiss.IndexFlatL2(self.dim)
 
-        # GPU: only pq.nbits == 8 is supported
+        # FAISS_GPU: only pq.nbits == 8 is supported
         faiss_index = faiss.IndexIVFPQ(quantizer, self.dim, n_parts, 16, 8)
 
         # train FAISS centroids
@@ -134,3 +150,9 @@ class ColBertIndexer:
             self.create_compressed_faiss_index()
         else:
             self.create_flat_faiss_index()
+
+
+if __name__ == '__main__':
+    import fire
+    os.environ["PAGER"] = 'cat'
+    fire.Fire(ColBertIndexer)
