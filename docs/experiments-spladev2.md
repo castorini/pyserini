@@ -120,7 +120,7 @@ And then evaluate:
 python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.distill-splade-max.tsv
 ```
 
-The results should be as follows:
+The results should be something along these lines:
 
 ```
 #####################
@@ -129,7 +129,7 @@ QueriesRanked: 6980
 #####################
 ```
 
-There might be small differences in score due to platform differences in neural inference.
+There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
 
 ## Reproduction Log[*](reproducibility.md)
 
