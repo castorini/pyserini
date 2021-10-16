@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-from ._base import Generator, IndexTerm, Posting, IndexReader
+from ._base import Document, Generator, IndexTerm, Posting, IndexReader
 from ._colbert import ColBertIndexer
 
-__all__ = ['Generator', 'IndexTerm', 'Posting', 'IndexReader', 'ColBertIndexer']
+__all__ = ['Document', 'Generator', 'IndexTerm', 'Posting', 'IndexReader', 'ColBertIndexer']

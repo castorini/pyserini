@@ -32,7 +32,8 @@ from transformers.file_utils import is_faiss_available, requires_backends
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info, get_sparse_index)
-from pyserini.search import SimpleSearcher, Document
+from pyserini.search import SimpleSearcher
+from pyserini.index import Document
 
 from ._model import AnceEncoder
 import torch

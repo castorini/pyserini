@@ -22,7 +22,7 @@ import logging
 import os
 from typing import Dict, List, Optional, Union
 import numpy as np
-from ._base import Document
+from pyserini.index import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap, JString
 from pyserini.util import download_prebuilt_index
 from pyserini.encode import QueryEncoder
