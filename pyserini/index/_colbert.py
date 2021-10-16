@@ -164,8 +164,8 @@ class ColBertIndexer:
         faiss.write_index(faiss_index, faiss_index_path)
 
     def flush(self):
-        print(f'Flushing partition#{p}...')
         p = self.part
+        print(f'Flushing partition#{p}...')
 
         path = os.path.join(self.index_path, f'doc_ids.{p}.pkl')
         with open(path, 'wb') as fh:
