@@ -25,7 +25,10 @@ import numpy as np
 from ._base import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap, JString
 from pyserini.util import download_prebuilt_index
-from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder, CachedDataQueryEncoder
+from pyserini.encode import QueryEncoder
+from ..encode._tok_freq import TokFreqQueryEncoder
+from ..encode._unicoil import UniCoilQueryEncoder
+from ..encode._cached_data import CachedDataQueryEncoder
 from ..encode._splade import SpladeQueryEncoder
 
 logger = logging.getLogger(__name__)

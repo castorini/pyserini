@@ -16,8 +16,10 @@
 
 from ._dsearcher import DenseSearchResult, PRFDenseSearchResult, SimpleDenseSearcher, BinaryDenseSearcher, QueryEncoder, \
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
+from pyserini.encode import ColBertEncoder
+from ._colbert import ColbertSearcher
 from ._model import AnceEncoder
-from._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
+from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
 
 __all__ = ['DenseSearchResult', 'PRFDenseSearchResult', 'SimpleDenseSearcher', 'BinaryDenseSearcher', 'QueryEncoder',
            'DprQueryEncoder', 'BprQueryEncoder', 'DkrrDprQueryEncoder', 'TctColBertQueryEncoder', 'AnceEncoder',

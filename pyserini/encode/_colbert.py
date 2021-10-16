@@ -23,13 +23,7 @@ from transformers import BertTokenizer, BertTokenizerFast
 from transformers import BertModel, BertPreTrainedModel
 from pyserini.encode import DocumentEncoder, QueryEncoder
 from pyserini.encode import RepresentationWriter
-
-# Hacky: Import ColBertIndexer beyond top level module `pyserini.encode`
-import os
-import sys
-script_path = os.path.dirname(os.path.realpath(__file__))
-sys.path.insert(0, f'{script_path}/../index')
-from colbert import ColBertIndexer
+from pyserini.index import ColBertIndexer
 
 
 class ColBERT(BertPreTrainedModel):

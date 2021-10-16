@@ -27,7 +27,7 @@ faiss = imp.load_module('faiss', *module_info)
 import torch
 import pickle
 import numpy as np
-from faiss_gpu import FaissIndexGPU
+from .faiss_gpu import FaissIndexGPU
 
 
 class ColBertIndexer:
