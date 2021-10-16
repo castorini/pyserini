@@ -13,10 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 import os
 import math
-import faiss
+
+# since we got a local faiss.py in the same directory,
+# we need doing the following to actually import faiss
+# when this script is invoked directly using Fire.
+import imp, sys
+module_info = imp.find_module('faiss', sys.path[1:])
+faiss = imp.load_module('faiss', *module_info)
+#import faiss
+
 import torch
 import pickle
 import numpy as np
@@ -24,12 +31,12 @@ from faiss_gpu import FaissIndexGPU
 
 
 class ColBertIndexer:
-    def __init__(self, index_path, dim=128, verbose=True,
+    def __init__(self, index_path, dim=128, limit_adds=-1,
         n_docs_per_part=100_000, compress=True):
         self.index_path = index_path
-        self.verbose = verbose
         self.part = 0
         self.dim = dim
+        self.limit_adds = limit_adds
 
         self.docid_buf = []
         self.doclen_buf = []
@@ -52,80 +59,113 @@ class ColBertIndexer:
         ext = '.pt'
         files = os.listdir(self.index_path)
         files = list(filter(lambda x: x.endswith(ext), files))
-        if self.verbose:
-            print('Creating FAISS index for partitions', end=": ")
-            print(list(map(lambda x: int(x.split('.')[1]), files)))
+        print('Creating FAISS index for partitions', end=": ")
+        print(list(map(lambda x: int(x.split('.')[1]), files)))
         return sorted(files, key=lambda x: int(x.split('.')[1]))
 
-    def create_flat_faiss_index(self):
-        faiss_index = faiss.IndexFlatIP(self.dim)
-        for file in self.get_plain_embedding_files():
+    def create_flat_faiss_indices(self):
+        # for flat faiss index, we cannot load it because it is
+        # generally similar size to plain embedding files. Here
+        # we just create separate faiss indicies.
+        for i, file in enumerate(self.get_plain_embedding_files()):
+            if i == self.limit_adds:
+                break
+            faiss_index = faiss.IndexFlatIP(self.dim)
             path = os.path.join(self.index_path, file)
+            print(f'Loading partition {path}')
             embs = torch.load(path).numpy() # [N, dim]
+            # adding embeddings for this shard
             faiss_index.add(embs)
             n_words = faiss_index.ntotal
-            print(f'partition {file}: {n_words} words.')
+            print(f'Indexed: {n_words} words.')
+            # write flat faiss for this shard
+            path = os.path.join(self.index_path, f'word_emb.{i}.faiss')
+            faiss.write_index(faiss_index, path)
 
-        path = os.path.join(self.index_path, f'word_emb.faiss')
-        faiss.write_index(faiss_index, path)
-
-    def create_compressed_faiss_index(self):
+    def create_compressed_faiss_index(self, sample_div=50):
         files = self.get_plain_embedding_files()
-        n_embs = 0
-        all_embs = []
-        for file in files:
+        train_data = []
+        for i, file in enumerate(files):
+            if i == self.limit_adds:
+                break
+            # load embeddings
             path = os.path.join(self.index_path, file)
-            embs = torch.load(path).numpy() # [N, dim]
-            all_embs.append(embs)
-            n_embs += embs.shape[0]
+            print(f'Loading partition {path}')
+            embs = torch.load(path) # [N, dim]
+            N = embs.shape[0]
 
-        # following default ColBERT configuration
-        n_parts = 1 << math.ceil(math.log2(8 * math.sqrt(n_embs)))
-        n_parts = min(n_parts, n_embs)
+            # load training samples
+            sample_idx = torch.randint(0, high=N, size=(N // sample_div,))
+            samples = embs[sample_idx]
+            print('Adding training samples', samples.shape)
+            train_data.append(samples)
+
+        train_data = torch.cat(train_data)
+        train_data = train_data.numpy()
+        print('Final training samples', train_data.shape)
+        if train_data.shape[0] < 256:
+            # MOCK on toy dataset
+            train_data = np.random.rand(9984, self.dim)
+            train_data = train_data.astype('float32')
 
         # create compressed FAISS index
         faiss_gpu = FaissIndexGPU()
         quantizer = faiss.IndexFlatL2(self.dim)
 
+        # following default ColBERT configuration
+        n_parts = 1 << math.ceil(math.log2(8 * math.sqrt(N)))
+        n_parts = min(n_parts, N)
+
         # FAISS_GPU: only pq.nbits == 8 is supported
         faiss_index = faiss.IndexIVFPQ(quantizer, self.dim, n_parts, 16, 8)
 
-        # train FAISS centroids
+        # prepare training FAISS centroids
         if faiss_gpu.ngpu > 0:
             faiss_gpu.training_initialize(faiss_index, quantizer)
 
-        train_data = all_embs[0]
-        if train_data.shape[0] < 256:
-            # DEBUG on toy dataset
-            train_data = np.random.rand(9984, self.dim)
-            train_data = train_data.astype('float32')
+        print('Training ...')
         faiss_index.train(train_data)
 
         if faiss_gpu.ngpu > 0:
             faiss_gpu.training_finalize()
 
-        # add data into FAISS index
+        # actual writing FAISS index
+        path = os.path.join(self.index_path, f'word_emb.faiss')
+        faiss_index.nprobe = 10 # just a default
+        print('Writing FAISS index', path)
+        faiss.write_index(faiss_index, path)
+
+        # finally, add actual data into FAISS index shard by shard
+        self.add_all_embs_to_faiss_index(path)
+
+    def add_all_embs_to_faiss_index(self, faiss_index_path):
+        files = self.get_plain_embedding_files()
+        faiss_gpu = FaissIndexGPU()
+        faiss_index = faiss.read_index(faiss_index_path)
+
         if faiss_gpu.ngpu > 0:
             faiss_gpu.adding_initialize(faiss_index)
 
         offset = 0
-        for embs in all_embs:
+        for i, file in enumerate(files):
+            if i == self.limit_adds:
+                break
+            # load embeddings
+            path = os.path.join(self.index_path, file)
+            embs = torch.load(path) # [N, dim]
+            embs = embs.numpy()
             if faiss_gpu.ngpu > 0:
                 faiss_gpu.add(faiss_index, embs, offset)
+                offset += embs.shape[0]
             else:
                 faiss_index.add(embs)
-            offset += embs.shape[0]
-
-        # actual writing FAISS index
-        path = os.path.join(self.index_path, f'word_emb.faiss')
-        faiss_index.nprobe = 10 # just a default
-        faiss.write_index(faiss_index, path)
+            n_words = faiss_index.ntotal
+            print(f'faiss: {n_words} words.')
+        faiss.write_index(faiss_index, faiss_index_path)
 
     def flush(self):
+        print(f'Flushing partition#{p}...')
         p = self.part
-
-        if self.verbose:
-            print(f'Flushing partition#{p}...')
 
         path = os.path.join(self.index_path, f'doc_ids.{p}.pkl')
         with open(path, 'wb') as fh:
@@ -146,10 +186,13 @@ class ColBertIndexer:
 
     def close(self):
         self.flush()
+
+        # For cases when FAISS does not fit in memory:
+        # https://github.com/facebookresearch/faiss/wiki/Indexes-that-do-not-fit-in-RAM
         if self.compress:
             self.create_compressed_faiss_index()
         else:
-            self.create_flat_faiss_index()
+            self.create_flat_faiss_indices()
 
 
 if __name__ == '__main__':
