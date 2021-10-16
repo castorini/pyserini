@@ -1,3 +1,6 @@
+import os
+import torch
+import faiss
 import argparse
 from typing import List
 from pyserini.dsearch import DenseSearchResult, QueryEncoder
@@ -6,10 +9,38 @@ from pyserini.encode import ColBertEncoder
 
 class ColBertSearcher:
     def __init__(self, index_path: str, query_encoder: QueryEncoder):
-        print('ColbertSearcher', index_path, query_encoder)
+        self.index_path = index_path
+        self.encoder = query_encoder
+        self.pos2docid = None
+
+        print('Reading FAISS index...')
+        path = os.path.join(self.index_path, 'word_emb.faiss')
+        self.faiss_index = faiss.read_index(path)
+        self.dim = self.faiss_index.d
+        self.code_sz = self.faiss_index.code_size
+        self.n_embs = self.faiss_index.ntotal
+        print(f'dim={self.dim}, code_sz={self.code_sz}, n_embs={self.n_embs:,}')
+
+    def position_to_docid(self, pos):
+        if self.pos2docid is None:
+            self.pos2docid = torch.zeros(self.n_embs, dtype=torch.int)
+        return self.pos2docid[pos]
 
     def search(self, query: str, k: int = 10) -> List[DenseSearchResult]:
-        print('ColBertSearcher query:', query)
+        # encode query
+        qcode, _ = self.encoder.encode([query],
+            fp16=(self.code_sz==16), debug=False)
+        qnum, qlen, dim = qcode.shape
+        assert dim == self.dim
+
+        # retrieve candidates per keyword
+        Q = qcode.view(-1, dim).cpu().contiguous()
+        cand_depth = max(1024, k)
+        _, QD_embpos = self.faiss_index.search(Q.numpy(), cand_depth)
+        QD_embpos = torch.tensor(QD_embpos).view(qnum, -1)
+        QD_docids = self.position_to_docid(QD_embpos)
+
+        quit(0)
         raise NotImplementedError
 
 
