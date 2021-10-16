@@ -46,11 +46,14 @@ class ColBertIndexer:
 
     def write(self, embs, doc_ids, doc_lens):
         embs = embs.cpu() # [B, seqlen, dim]
+        assert len(doc_lens) == len(doc_ids)
+        assert embs.shape[0] == len(doc_ids)
+        assert embs.shape[1] == max(doc_lens)
         assert embs.shape[2] == self.dim
         for b, emb in enumerate(embs):
             self.docid_buf.append(doc_ids[b])
             self.doclen_buf.append(doc_lens[b])
-            self.wordvec_buf.append(emb)
+            self.wordvec_buf.append(emb[:doc_lens[b]])
 
         if len(self.docid_buf) > self.n_docs_per_part:
             self.flush()
