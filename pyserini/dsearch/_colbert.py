@@ -156,6 +156,7 @@ class ColBertSearcher:
 
         scores = cand_docs @ Q # [n_cands, stride, dim] @ [qnum, dim, max_qlen]
         scores = scores * mask.unsqueeze(-1) # [n_cands, stride, max_qlen]
+        scores = scores.float() # fix RuntimeError (not implemented for 'Half')
         scores = scores.max(1).values.sum(-1).cpu().tolist() # ColBert scoring
         return scores
 
