@@ -62,6 +62,14 @@ class ColBertSearcher:
         assert self.doc_offsets[-1] + self.doc_lens[-1] == self.n_embs
         print('Total documents:', self.n_docs)
 
+        print('Reading flat tensors...')
+        self.word_embs = self.get_embs(self.max_doc_len)
+        mem_usage = sys.getsizeof(self.word_embs.storage())
+        print(f'embs memory usage: {mem_usage:,} on', self.device)
+        self.word_embs = self.word_embs.to(self.device)
+        print('Creating flat-tensor view...')
+        self.view = self._create_view(self.word_embs, self.max_doc_len)
+
     def items_of_shards(self, pattern, fmt='pickle'):
         def load_pickle_items(path):
             with open(path, 'rb') as fh:
@@ -88,9 +96,9 @@ class ColBertSearcher:
         files = list(filter(lambda x: pattern.match(x), files))
         return sorted(files, key=lambda x: int(x.split('.')[1]))
 
-    def get_embs(self):
-        embs = torch.zeros(self.n_embs + self.max_doc_len, self.dim,
-            dtype=torch.float16)
+    def get_embs(self, stride):
+        embs = torch.zeros(self.n_embs + stride,
+            self.dim, dtype=torch.float16)
         embs_files = r'word_emb\.\d+\.pt'
         for i, filename in enumerate(self.get_sorted_shards_list(embs_files)):
             path = os.path.join(self.index_path, filename)
@@ -129,10 +137,6 @@ class ColBertSearcher:
         # prepare query and document tensors
         Q = qcode.permute(0, 2, 1).to(self.device) # [qnum, dim, max_qlen]
         Q = Q.to(dtype=torch.float16) # float16
-        QD_embs = self.get_embs()
-        mem_usage = sys.getsizeof(QD_embs.storage())
-        print(f'embs memory usage: {mem_usage:,} on', self.device)
-        QD_embs = QD_embs.to(self.device) # float16
 
         # tensorize things
         doc_offsets = torch.tensor(self.doc_offsets, device=self.device)
@@ -145,8 +149,7 @@ class ColBertSearcher:
 
         # creat viewed-version of document tensor
         stride = self.max_doc_len
-        view = self._create_view(QD_embs, stride)
-        cand_docs = torch.index_select(view, 0, doc_offsets)
+        cand_docs = torch.index_select(self.view, 0, doc_offsets)
         assert cand_docs.shape == (n_cands, stride, self.dim)
 
         # create mask tensor for filtering out doc padding words
