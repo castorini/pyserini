@@ -186,7 +186,10 @@ class ColBertSearcher:
         results = zip(uniq_docids[0], scores)
         results = sorted(results, key=lambda x: x[1], reverse=True)
         results = results[:k] # only extract top-K results
-        results = [(self.ext_docIDs[i], score) for i, score in results]
+        results = [
+            (self.ext_docIDs[i], rank, score, i)
+            for rank, (i, score) in enumerate(results)
+        ]
         return results
 
 
@@ -212,5 +215,5 @@ if __name__ == '__main__':
 
     print('[test query]', args.query)
     results = searcher.search(args.query, k=args.topk)
-    for docid, score in results:
-        print(docid, '\t', score)
+    for docid, rank, score, _ in results:
+        print(rank, docid, '\t', score)
