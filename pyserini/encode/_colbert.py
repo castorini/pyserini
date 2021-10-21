@@ -17,17 +17,35 @@
 from typing import Optional
 
 import os
+import string
 import torch
 import torch.nn as nn
 import contextlib
-from transformers import BertTokenizer, BertTokenizerFast
-from transformers import BertModel, BertPreTrainedModel
+from transformers import BertModel, BertPreTrainedModel, BertTokenizer
+from transformers import AutoTokenizer, PretrainedConfig
+from transformers import DistilBertModel, DistilBertConfig, DistilBertPreTrainedModel
 from pyserini.encode import DocumentEncoder, QueryEncoder
 from pyserini.encode import RepresentationWriter
 from pyserini.index import ColBertIndexer
 
 
+class ColBertConfig(PretrainedConfig):
+    model_type = "colbert"
+
+    attribute_map = {
+        "hidden_size": "dim",
+        "num_attention_heads": "n_heads",
+        "num_hidden_layers": "n_layers",
+    }
+
+    def __init__(self, code_dim=128, tokenizer='bert-base-uncased', **kwargs):
+        self.code_dim = code_dim
+        self.tokenizer = tokenizer
+        super().__init__(**kwargs)
+
+
 class ColBERT(BertPreTrainedModel):
+
     def __init__(self, config, dim=128):
         super().__init__(config)
         self.dim = dim
@@ -36,19 +54,23 @@ class ColBERT(BertPreTrainedModel):
         self.init_weights()
 
     def forward(self, Q, D):
-        return self.score(self.query(Q), self.doc(D))
+        Q_code, _ = self.query(Q)
+        D_code, _ = self.doc(D)
+        return self.score(Q_code, D_code)
 
     def query(self, inputs):
         Q = self.bert(**inputs)[0] # last-layer hidden state
         # Q: (B, Lq, H) -> (B, Lq, dim)
         Q = self.linear(Q)
         # return: (B, Lq, dim) normalized
-        return torch.nn.functional.normalize(Q, p=2, dim=2)
+        lengths = inputs['attention_mask'].sum(1).cpu().numpy()
+        return torch.nn.functional.normalize(Q, p=2, dim=2), lengths
 
     def doc(self, inputs):
         D = self.bert(**inputs)[0]
         D = self.linear(D)
-        return torch.nn.functional.normalize(D, p=2, dim=2)
+        lengths = inputs['attention_mask'].sum(1).cpu().numpy()
+        return torch.nn.functional.normalize(D, p=2, dim=2), lengths
 
     def score(self, Q, D):
         # (B, Lq, dim) x (B, dim, Ld) -> (B, Lq, Ld)
@@ -58,6 +80,62 @@ class ColBERT(BertPreTrainedModel):
         return scores
 
 
+class ColBERT_distil(DistilBertPreTrainedModel):
+    config_class = ColBertConfig
+
+    def __init__(self, config):
+        super().__init__(config)
+        self.distilbert = DistilBertModel(config)
+        self.pooler = nn.Linear(config.hidden_size, config.code_dim)
+        self.tokenizer = AutoTokenizer.from_pretrained(config.tokenizer)
+        self.init_weights()
+
+        encode = lambda x: self.tokenizer.encode(x, add_special_tokens=False)[0]
+        self.skiplist = {w: True
+                for symbol in string.punctuation
+                for w in [symbol, encode(symbol)]}
+
+    def mask(self, input_ids):
+        PAD_CODE = 0
+        mask = [
+            [(x not in self.skiplist) and (x != PAD_CODE) for x in d]
+            for d in input_ids.cpu().tolist()
+        ]
+        return mask
+
+    def score(self, query, passage):
+        q_reps, _ = self.query(query)
+        p_reps, _ = self.doc(passage)
+
+        q_ids = query['input_ids']
+        p_ids = passage['input_ids']
+        q_mask = torch.tensor(self.mask(q_ids[:, 1:]), device=q_ids.device)
+        p_mask = torch.tensor(self.mask(p_ids[:, 1:]), device=p_ids.device)
+
+        q_reps = q_reps * q_mask.unsqueeze(2).float()
+        p_reps = p_reps * p_mask.unsqueeze(2).float()
+
+        score = torch.einsum('imk,ink->imn', [q_reps, p_reps])
+        score = score.max(dim=-1).values.sum(dim=-1)
+        return score
+
+    def query(self, qry):
+        qry_out = self.distilbert(**qry, return_dict=True)
+        q_hidden = qry_out.last_hidden_state
+        q_reps = self.pooler(q_hidden[:, 1:, :]) # excluding [CLS]
+        q_reps = torch.nn.functional.normalize(q_reps, dim=2, p=2)
+        lengths = qry['attention_mask'].sum(1).cpu().numpy() - 1
+        return q_reps, lengths
+
+    def doc(self, psg):
+        psg_out = self.distilbert(**psg, return_dict=True)
+        p_hidden = psg_out.last_hidden_state
+        p_reps = self.pooler(p_hidden[:, 1:, :]) # excluding [CLS]
+        p_reps = torch.nn.functional.normalize(p_reps, dim=2, p=2)
+        lengths = psg['attention_mask'].sum(1).cpu().numpy() - 1
+        return p_reps, lengths
+
+
 class ColBertEncoder(DocumentEncoder):
     def __init__(self, model: str, prepend_tok: str,
         tokenizer: Optional[str]=None, device: Optional[str]='cuda:0'):
@@ -65,18 +143,25 @@ class ColBertEncoder(DocumentEncoder):
         prepend_tokens = ['[D]', '[Q]']
         assert prepend_tok in prepend_tokens
         self.prepend_tok = prepend_tok
+        self.dim = None
 
         # load model
-        self.model = ColBERT.from_pretrained(model,
-            tie_word_embeddings=True
-        )
-
-        # load tokenizer and add ColBERT special tokens
-        self.tokenizer = BertTokenizer.from_pretrained(tokenizer or model)
-        self.tokenizer.add_special_tokens({
-            'additional_special_tokens': prepend_tokens
-        })
-        self.model.resize_token_embeddings(len(self.tokenizer))
+        if 'distil' in model:
+            self.model = ColBERT_distil.from_pretrained(model)
+            self.dim = self.model.config.code_dim
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer or model)
+        else:
+            self.model = ColBERT.from_pretrained(model,
+                tie_word_embeddings=True
+            )
+            self.dim = 128
+            # load tokenizer and add special tokens
+            self.tokenizer = BertTokenizer.from_pretrained(tokenizer or model)
+            self.tokenizer.add_special_tokens({
+                'additional_special_tokens': prepend_tokens
+            })
+            self.model.resize_token_embeddings(len(self.tokenizer))
+            self.tokenizer = BertTokenizer.from_pretrained(tokenizer or model)
 
         # specify device
         self.device = device
@@ -89,14 +174,13 @@ class ColBertEncoder(DocumentEncoder):
         for b, text in enumerate(texts):
             title = titles[b] if titles is not None else None
             content = text if title is None else f'{title}{sep}{text}'
-            # prepend ColBERT special tokens
+            # prepend special tokens
             content = f'{self.prepend_tok} {content}'
             prepend_contents.append(content)
 
         # tokenize
         enc_tokens = self.tokenizer(prepend_contents,
             padding=True, truncation=True, return_tensors="pt")
-        lengths = enc_tokens['attention_mask'].sum(1).numpy()
         enc_tokens.to(self.device)
 
         if debug:
@@ -113,18 +197,19 @@ class ColBertEncoder(DocumentEncoder):
         with torch.no_grad():
             with amp_ctx:
                 if self.prepend_tok == '[D]':
-                    return self.model.doc(enc_tokens), lengths
+                    return self.model.doc(enc_tokens)
                 else:
-                    return self.model.query(enc_tokens), lengths
+                    return self.model.query(enc_tokens)
 
 
 class ColbertRepresentationWriter(RepresentationWriter):
-    def __init__(self, output_path):
+    def __init__(self, output_path, encoder):
         self.output_path = output_path
+        self.dim = encoder.dim
 
     def __enter__(self):
         os.makedirs(self.output_path, exist_ok=True)
-        self.indexer = ColBertIndexer(self.output_path)
+        self.indexer = ColBertIndexer(self.output_path, dim=self.dim)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.indexer.close()
