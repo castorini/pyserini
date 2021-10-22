@@ -13,11 +13,12 @@ from pyserini.encode import ColBertEncoder
 
 
 class ColBertSearcher:
-    def __init__(self, index_path: str, query_encoder: QueryEncoder):
+    def __init__(self, index_path: str, query_encoder: QueryEncoder, div=6):
         self.index_path = index_path
         self.encoder = query_encoder
         self.pos2docid = None
         self.device = query_encoder.device
+        self.div = div
 
         print('Reading FAISS index...')
         path = os.path.join(self.index_path, 'word_emb.faiss')
@@ -25,7 +26,8 @@ class ColBertSearcher:
         self.dim = self.faiss_index.d
         self.code_sz = self.faiss_index.code_size
         self.n_embs = self.faiss_index.ntotal
-        print(f'dim={self.dim}, code_sz={self.code_sz}, n_embs={self.n_embs:,}')
+        print(f'dim={self.dim}, code_sz={self.code_sz}')
+        print(f'Total embedding vectors: {self.n_embs:,}')
 
         print('Reading docIDs...')
         self.ext_docIDs = []
@@ -64,11 +66,9 @@ class ColBertSearcher:
 
         print('Reading flat tensors...')
         self.word_embs = self.get_embs(self.max_doc_len)
-        mem_usage = sys.getsizeof(self.word_embs.storage())
-        print(f'embs memory usage: {mem_usage:,} on', self.device)
-        self.word_embs = self.word_embs.to(self.device)
-        print('Creating flat-tensor view...')
-        self.view = self._create_view(self.word_embs, self.max_doc_len)
+
+        mem_usage = sys.getsizeof(self.word_embs.storage()) // (1024*1024)
+        print(f'All embs memory usage = {mem_usage:,} MiB on', self.device)
 
     def items_of_shards(self, pattern, fmt='pickle'):
         def load_pickle_items(path):
@@ -133,35 +133,72 @@ class ColBertSearcher:
             (self.dim, self.dim, 1)
         )
 
+    def get_div_offsets(self, doc_offsets):
+        n = doc_offsets.shape[0]
+        step = n // self.div
+        div_offsets = []
+        for low_k in range(0, n, step):
+            high_k = min(low_k + step, n)
+            low = doc_offsets.kthvalue(low_k + 1).values.item()
+            high = doc_offsets.kthvalue(high_k).values.item()
+            div_offsets.append((low, high))
+        return div_offsets
+
     def rank(self, qcode, uniq_docids):
         # prepare query and document tensors
         Q = qcode.permute(0, 2, 1).to(self.device) # [qnum, dim, max_qlen]
         Q = Q.to(dtype=torch.float16) # float16
 
         # tensorize things
+        all_scores = torch.zeros(len(uniq_docids), device=self.device)
         doc_offsets = torch.tensor(self.doc_offsets, device=self.device)
         doc_lens = torch.tensor(self.doc_lens, device=self.device)
+        uniq_docids = torch.tensor(uniq_docids, device=self.device)
+
+        # divide retrieval memory load
+        div_offsets = self.get_div_offsets(doc_offsets)
 
         # filter candidates for compuation efficiency
         doc_offsets = doc_offsets[uniq_docids]
         doc_lens = doc_lens[uniq_docids]
-        n_cands = len(uniq_docids)
-
-        # creat viewed-version of document tensor
         stride = self.max_doc_len
-        cand_docs = torch.index_select(self.view, 0, doc_offsets)
-        assert cand_docs.shape == (n_cands, stride, self.dim)
 
-        # create mask tensor for filtering out doc padding words
-        mask = torch.arange(stride, device=self.device) # doc word offsets
-        mask = mask.unsqueeze(0) < doc_lens.unsqueeze(-1)
-        assert mask.shape == (n_cands, stride)
+        for low, high in div_offsets:
+            #print('embs offset range:', low, high)
 
-        scores = cand_docs @ Q # [n_cands, stride, dim] @ [qnum, dim, max_qlen]
-        scores = scores * mask.unsqueeze(-1) # [n_cands, stride, max_qlen]
-        scores = scores.float() # fix RuntimeError (not implemented for 'Half')
-        scores = scores.max(1).values.sum(-1).cpu().tolist() # ColBert scoring
-        return scores
+            # selecting word embeddings in this division
+            in_range = torch.logical_and(
+                low <= doc_offsets, doc_offsets < high
+            )
+
+            div_doc_offsets = doc_offsets[in_range]
+            n_div_cands = div_doc_offsets.shape[0]
+            if n_div_cands == 0:
+                continue
+            div_doc_lens = doc_lens[in_range]
+            div_uniq_docids = uniq_docids[in_range]
+
+            # select documents in this division
+            word_embs = self.word_embs[low:high]
+            word_embs = self.word_embs.to(self.device)
+            view = self._create_view(word_embs, self.max_doc_len)
+            div_base = div_doc_offsets.min().item()
+            div_cands = torch.index_select(view, 0, div_doc_offsets - div_base)
+            assert div_cands.shape == (n_div_cands, stride, self.dim)
+
+            # create mask tensor for filtering out doc padding words
+            mask = torch.arange(stride, device=self.device) # doc word offsets
+            mask = (mask.unsqueeze(0) < div_doc_lens.unsqueeze(-1))
+            assert mask.shape == (n_div_cands, stride)
+
+            # apply ColBert scoring function
+            scores = div_cands @ Q # [cands, stride, dim] @ [qnum, dim, qlen]
+            scores = scores * mask.unsqueeze(-1) # [n_cands, stride, qlen]
+            scores = scores.float() # convert to full precision for max()
+            scores = scores.max(1).values.sum(-1) # scoring
+            all_scores[in_range] = scores
+
+        return all_scores.cpu().tolist()
 
     def search(self, query: str, k: int = 10) -> List[DenseSearchResult]:
         # encode query
