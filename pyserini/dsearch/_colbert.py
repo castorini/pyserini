@@ -13,7 +13,7 @@ from pyserini.encode import ColBertEncoder
 
 
 class ColBertSearcher:
-    def __init__(self, index_path: str, query_encoder: QueryEncoder, div=5):
+    def __init__(self, index_path: str, query_encoder: QueryEncoder, div=14):
         self.index_path = index_path
         self.encoder = query_encoder
         self.pos2docid = None
@@ -49,7 +49,6 @@ class ColBertSearcher:
             self.doc_offsets.append(pos)
             self.shard_lens[shard] += dlen
             pos += dlen
-            last_shard = shard
         self.shard_offsets = list(itertools.accumulate(self.shard_lens))
         self.shard_offsets = [0] + self.shard_offsets[0:-1]
         self.max_doc_len = max(self.doc_lens)
@@ -142,6 +141,8 @@ class ColBertSearcher:
             high_k = min(low_k + step, n)
             low = doc_offsets.kthvalue(low_k + 1).values.item()
             high = doc_offsets.kthvalue(high_k).values.item()
+            if high_k == n:
+                high += self.doc_lens[-1]
             div_offsets.append((low, high))
         return div_offsets
 
@@ -164,6 +165,7 @@ class ColBertSearcher:
         doc_lens = doc_lens[uniq_docids]
         stride = self.max_doc_len
 
+        # split search into segments
         for low, high in div_offsets:
             if self.div > 1:
                 print('embs offset range:', low, high)
@@ -181,11 +183,10 @@ class ColBertSearcher:
             div_uniq_docids = uniq_docids[in_range]
 
             # select documents in this division
-            word_embs = self.word_embs[low:high]
+            word_embs = self.word_embs[low:high + stride]
             word_embs = word_embs.to(self.device)
-            view = self._create_view(word_embs, self.max_doc_len)
-            div_base = div_doc_offsets.min().item()
-            div_cands = torch.index_select(view, 0, div_doc_offsets - div_base)
+            view = self._create_view(word_embs, stride)
+            div_cands = torch.index_select(view, 0, div_doc_offsets - low)
             assert div_cands.shape == (n_div_cands, stride, self.dim)
 
             # create mask tensor for filtering out doc padding words
