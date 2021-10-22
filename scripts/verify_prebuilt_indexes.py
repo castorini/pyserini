@@ -14,33 +14,29 @@
 # limitations under the License.
 #
 
-# Starting point for writing this script
-# https://stackoverflow.com/questions/13129618/histogram-values-of-a-pandas-series
-
-import argparse
 import os
-import re
 import sys
-import urllib.request
 
 # Use Pyserini in this repo (as opposed to pip install)
 sys.path.insert(0, './')
 
 from pyserini.util import download_url
-from pyserini.prebuilt_index_info import BM25_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
 
 
-def main():
-    for entry in BM25_INDEX_INFO:
-        print(f'Checking {entry}...')
-        md5sum = BM25_INDEX_INFO[entry]['md5']
-        for url in BM25_INDEX_INFO[entry]['urls']:
+def check(index):
+    for entry in index:
+        print(f'# Checking "{entry}"...')
+        md5sum = TF_INDEX_INFO[entry]['md5']
+        for url in TF_INDEX_INFO[entry]['urls']:
             print(url)
             destination = download_url(url, '.', md5=md5sum)
             print(f'Finished downloading to {destination}, removing...')
             os.remove(destination)
-        print('\n\n')
+        print('\n')
 
 
 if __name__ == '__main__':
-    main()
+    check(TF_INDEX_INFO)
+    check(IMPACT_INDEX_INFO)
+    check(FAISS_INDEX_INFO)

@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-BM25_INDEX_INFO = {
+TF_INDEX_INFO = {
     "cacm": {
         "description": "CACM corpus",
         "filename": "lucene-index.cacm.tar.gz",
