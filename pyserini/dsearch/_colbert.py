@@ -13,12 +13,13 @@ from pyserini.encode import ColBertEncoder
 
 
 class ColBertSearcher:
-    def __init__(self, index_path: str, query_encoder: QueryEncoder, div=6):
+    def __init__(self, index_path: str, query_encoder: QueryEncoder, div=5):
         self.index_path = index_path
         self.encoder = query_encoder
         self.pos2docid = None
         self.device = query_encoder.device
         self.div = div
+        assert div >= 1
 
         print('Reading FAISS index...')
         path = os.path.join(self.index_path, 'word_emb.faiss')
@@ -164,7 +165,8 @@ class ColBertSearcher:
         stride = self.max_doc_len
 
         for low, high in div_offsets:
-            #print('embs offset range:', low, high)
+            if self.div > 1:
+                print('embs offset range:', low, high)
 
             # selecting word embeddings in this division
             in_range = torch.logical_and(
@@ -180,7 +182,7 @@ class ColBertSearcher:
 
             # select documents in this division
             word_embs = self.word_embs[low:high]
-            word_embs = self.word_embs.to(self.device)
+            word_embs = word_embs.to(self.device)
             view = self._create_view(word_embs, self.max_doc_len)
             div_base = div_doc_offsets.min().item()
             div_cands = torch.index_select(view, 0, div_doc_offsets - div_base)
@@ -197,6 +199,10 @@ class ColBertSearcher:
             scores = scores.float() # convert to full precision for max()
             scores = scores.max(1).values.sum(-1) # scoring
             all_scores[in_range] = scores
+
+            del word_embs
+            del view
+            torch.cuda.empty_cache()
 
         return all_scores.cpu().tolist()
 
