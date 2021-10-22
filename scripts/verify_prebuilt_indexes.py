@@ -29,9 +29,8 @@ def check(index):
         print(f'# Checking "{entry}"...')
         md5sum = TF_INDEX_INFO[entry]['md5']
         for url in TF_INDEX_INFO[entry]['urls']:
-            print(url)
             destination = download_url(url, '.', md5=md5sum)
-            print(f'Finished downloading to {destination}, removing...')
+            print(f'Finished downloading to {destination}, cleaning up.')
             os.remove(destination)
         print('\n')
 
