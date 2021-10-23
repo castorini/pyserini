@@ -496,6 +496,7 @@ IMPACT_INDEX_INFO = {
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.deepimpact.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/FfwF6nB9M5sjTYk/download",
         ],
         "md5": "9938f5529fee5cdb405b8587746c9e93",
         "size compressed (bytes)": 1295216704,
@@ -510,6 +511,7 @@ IMPACT_INDEX_INFO = {
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/LGoAAXM7ZEbyQ7y/download"
         ],
         "md5": "4a8cb3b86a0d9085a0860c7f7bb7fe99",
         "size compressed (bytes)": 1205104390,
@@ -524,6 +526,7 @@ IMPACT_INDEX_INFO = {
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/KdoNXqwAtTmTeNo/download"
         ],
         "md5": "cc19cfe241053f5a303f7f05a7ac40a5",
         "size compressed (bytes)": 1935108302,
@@ -538,6 +541,7 @@ IMPACT_INDEX_INFO = {
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/eXA2BHF8WQjdY8R/download"
         ],
         "md5": "8886a8d9599838bc6d8d61464da61086",
         "size compressed (bytes)": 14801476783,
@@ -552,6 +556,7 @@ IMPACT_INDEX_INFO = {
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/oGQ8tWifozPaHLK/download"
         ],
         "md5": "562f9534eefe04ab8c07beb304074d41",
         "size compressed (bytes)": 31168302160,
