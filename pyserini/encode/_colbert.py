@@ -23,7 +23,7 @@ import torch.nn as nn
 import contextlib
 from transformers import BertModel, BertPreTrainedModel, BertTokenizer
 from transformers import AutoTokenizer, PretrainedConfig
-from transformers import DistilBertModel, DistilBertConfig, DistilBertPreTrainedModel
+from transformers import DistilBertModel, DistilBertPreTrainedModel
 from pyserini.encode import DocumentEncoder, QueryEncoder
 from pyserini.encode import RepresentationWriter
 from pyserini.index import ColBertIndexer
@@ -32,15 +32,8 @@ from pyserini.index import ColBertIndexer
 class ColBertConfig(PretrainedConfig):
     model_type = "colbert"
 
-    attribute_map = {
-        "hidden_size": "dim",
-        "num_attention_heads": "n_heads",
-        "num_hidden_layers": "n_layers",
-    }
-
-    def __init__(self, code_dim=128, tokenizer='bert-base-uncased', **kwargs):
+    def __init__(self, code_dim=128, **kwargs):
         self.code_dim = code_dim
-        self.tokenizer = tokenizer
         super().__init__(**kwargs)
 
 
@@ -83,11 +76,11 @@ class ColBERT(BertPreTrainedModel):
 class ColBERT_distil(DistilBertPreTrainedModel):
     config_class = ColBertConfig
 
-    def __init__(self, config):
+    def __init__(self, config, tokenizer):
         super().__init__(config)
         self.distilbert = DistilBertModel(config)
         self.pooler = nn.Linear(config.hidden_size, config.code_dim)
-        self.tokenizer = AutoTokenizer.from_pretrained(config.tokenizer)
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
         self.init_weights()
 
         encode = lambda x: self.tokenizer.encode(x, add_special_tokens=False)[0]
@@ -147,7 +140,8 @@ class ColBertEncoder(DocumentEncoder):
 
         # load model
         if 'distil' in model:
-            self.model = ColBERT_distil.from_pretrained(model)
+            config = ColBertConfig.from_pretrained(model)
+            self.model = ColBERT_distil(config, tokenizer or model)
             self.dim = self.model.config.code_dim
             self.tokenizer = AutoTokenizer.from_pretrained(tokenizer or model)
         else:
@@ -161,7 +155,6 @@ class ColBertEncoder(DocumentEncoder):
                 'additional_special_tokens': prepend_tokens
             })
             self.model.resize_token_embeddings(len(self.tokenizer))
-            self.tokenizer = BertTokenizer.from_pretrained(tokenizer or model)
 
         # specify device
         self.device = device

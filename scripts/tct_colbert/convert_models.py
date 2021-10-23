@@ -1,5 +1,6 @@
 import os
 import json
+import fire
 import string
 
 import torch
@@ -12,26 +13,19 @@ from transformers import DistilBertModel, DistilBertConfig, DistilBertPreTrained
 class ColBertConfig(PretrainedConfig):
     model_type = "colbert"
 
-    attribute_map = {
-        "hidden_size": "dim",
-        "num_attention_heads": "n_heads",
-        "num_hidden_layers": "n_layers",
-    }
-
-    def __init__(self, code_dim=128, tokenizer='bert-base-uncased', **kwargs):
+    def __init__(self, code_dim=128, **kwargs):
         self.code_dim = code_dim
-        self.tokenizer = tokenizer
         super().__init__(**kwargs)
 
 
 class ColBERT_distil(DistilBertPreTrainedModel):
     config_class = ColBertConfig
 
-    def __init__(self, config):
+    def __init__(self, config, tokenizer):
         super().__init__(config)
         self.distilbert = DistilBertModel(config)
         self.pooler = nn.Linear(config.hidden_size, config.code_dim)
-        self.tokenizer = AutoTokenizer.from_pretrained(config.tokenizer)
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
         self.init_weights()
 
         encode = lambda x: self.tokenizer.encode(x, add_special_tokens=False)[0]
@@ -78,9 +72,8 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         return p_hidden, p_reps
 
 
-if __name__ == '__main__':
-    path = 'distilcolbert.state.pt'
-    path = os.path.expanduser(path)
+def main(state_pt_path, code_dim=128, tokenizer='distilbert-base-uncased'):
+    path = os.path.expanduser(state_pt_path)
     state_dict = torch.load(path)
     new_state_dict = {}
     for path, value in state_dict.items():
@@ -88,16 +81,32 @@ if __name__ == '__main__':
         new_state_dict[new_path] = value
 
     config = DistilBertConfig.from_pretrained('distilbert-base-uncased')
-    config.code_dim = 768
-    config.tokenizer = 'distilbert-base-uncased'
-    
-    model = ColBERT_distil(config)
-    print('Loading pretrained state dict...')
+    config.code_dim = code_dim
+
+    model = ColBERT_distil(config, tokenizer)
+    print('Loading pretrained state dict ...')
     model.load_state_dict(new_state_dict)
 
-    model.save_pretrained('colbert_distil')
-    with open('colbert_distil/config.json', 'r') as fh:
+    output_name = f'colbert_distil_{code_dim}'
+    print(f'Saving {output_name} ...')
+    model.save_pretrained(output_name)
+    with open(f'{output_name}/config.json', 'r') as fh:
         config = json.load(fh)
         config["model_type"] = 'colbert'
-    with open('colbert_distil/config.json', 'w') as fh:
+
+    attribute_map = {
+        "hidden_size": "dim",
+        "num_attention_heads": "n_heads",
+        "num_hidden_layers": "n_layers",
+    }
+
+    for key in attribute_map:
+        config[key] = config[attribute_map[key]]
+
+    with open(f'{output_name}/config.json', 'w') as fh:
         json.dump(config, fh, indent=4, sort_keys=True)
+        fh.write('\n')
+
+if __name__ == '__main__':
+    os.environ["PAGER"] = 'cat'
+    fire.Fire(main)
