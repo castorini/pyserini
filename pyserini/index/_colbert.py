@@ -54,9 +54,8 @@ class ColBertIndexer:
             self.docid_buf.append(doc_ids[b])
             self.doclen_buf.append(doc_lens[b])
             self.wordvec_buf.append(emb[:doc_lens[b]])
-
-        if len(self.docid_buf) > self.n_docs_per_part:
-            self.flush()
+            if len(self.docid_buf) > self.n_docs_per_part:
+                self.flush()
 
     def get_plain_embedding_files(self):
         ext = '.pt'
