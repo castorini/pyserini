@@ -32,7 +32,7 @@ from .faiss_gpu import FaissIndexGPU
 
 class ColBertIndexer:
     def __init__(self, index_path, dim=128, limit_adds=-1,
-        n_docs_per_part=100_000, compress=True):
+        n_docs_per_part=100_000, compress=True, use_gpu=True):
         self.index_path = index_path
         self.part = 0
         self.dim = dim
@@ -43,6 +43,7 @@ class ColBertIndexer:
         self.wordvec_buf = []
         self.n_docs_per_part = n_docs_per_part
         self.compress = compress
+        self.use_gpu = use_gpu
 
     def write(self, embs, doc_ids, doc_lens):
         embs = embs.cpu() # [B, seqlen, dim]
@@ -61,7 +62,6 @@ class ColBertIndexer:
         ext = '.pt'
         files = os.listdir(self.index_path)
         files = list(filter(lambda x: x.endswith(ext), files))
-        print('Creating FAISS index for partitions', end=": ")
         print(list(map(lambda x: int(x.split('.')[1]), files)))
         return sorted(files, key=lambda x: int(x.split('.')[1]))
 
@@ -122,13 +122,13 @@ class ColBertIndexer:
         faiss_index = faiss.IndexIVFPQ(quantizer, self.dim, n_parts, 16, 8)
 
         # prepare training FAISS centroids
-        if faiss_gpu.ngpu > 0:
+        if faiss_gpu.ngpu > 0 and self.use_gpu:
             faiss_gpu.training_initialize(faiss_index, quantizer)
 
         print('Training ...')
         faiss_index.train(train_data)
 
-        if faiss_gpu.ngpu > 0:
+        if faiss_gpu.ngpu > 0 and self.use_gpu:
             faiss_gpu.training_finalize()
 
         # actual writing FAISS index
@@ -145,7 +145,7 @@ class ColBertIndexer:
         faiss_gpu = FaissIndexGPU()
         faiss_index = faiss.read_index(faiss_index_path)
 
-        if faiss_gpu.ngpu > 0:
+        if faiss_gpu.ngpu > 0 and self.use_gpu:
             faiss_gpu.adding_initialize(faiss_index)
 
         offset = 0
@@ -156,7 +156,7 @@ class ColBertIndexer:
             path = os.path.join(self.index_path, file)
             embs = torch.load(path) # [N, dim]
             embs = embs.numpy()
-            if faiss_gpu.ngpu > 0:
+            if faiss_gpu.ngpu > 0 and self.use_gpu:
                 faiss_gpu.add(faiss_index, embs, offset)
                 offset += embs.shape[0]
             else:

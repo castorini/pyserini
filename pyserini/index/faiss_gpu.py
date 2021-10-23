@@ -27,8 +27,6 @@ class FaissIndexGPU():
         self.gpu_resources = self._prepare_gpu_resources()
 
     def _prepare_gpu_resources(self):
-        print(f"Preparing resources for {self.ngpu} GPUs.")
-
         gpu_resources = []
 
         for _ in range(self.ngpu):

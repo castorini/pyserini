@@ -89,7 +89,7 @@ if __name__ == '__main__':
 
     encoder = init_encoder(args.encoder.encoder, device=args.encoder.device, tokenizer=args.encoder.tokenizer)
     if isinstance(encoder, ColBertEncoder):
-        embedding_writer = ColbertRepresentationWriter(args.output.embeddings)
+        embedding_writer = ColbertRepresentationWriter(args.output.embeddings, encoder)
     elif args.output.to_faiss:
         embedding_writer = FaissRepresentationWriter(args.output.embeddings)
     else:
