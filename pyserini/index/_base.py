@@ -28,7 +28,7 @@ from ..analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
 from ..pyclass import autoclass, JString
 from ..search import Document
 from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
-from pyserini.prebuilt_index_info import BM25_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO
 
 logger = logging.getLogger(__name__)
 
@@ -182,13 +182,13 @@ class IndexReader:
         reader = cls.from_prebuilt_index(prebuilt_index_name)
         stats = reader.stats()
 
-        if stats['documents'] != BM25_INDEX_INFO[prebuilt_index_name]['documents']:
+        if stats['documents'] != TF_INDEX_INFO[prebuilt_index_name]['documents']:
             raise ValueError('"documents" does not match!')
 
-        if stats['unique_terms'] != BM25_INDEX_INFO[prebuilt_index_name]['unique_terms']:
+        if stats['unique_terms'] != TF_INDEX_INFO[prebuilt_index_name]['unique_terms']:
             raise ValueError('"unique_terms" does not match!')
 
-        if stats['total_terms'] != BM25_INDEX_INFO[prebuilt_index_name]['total_terms']:
+        if stats['total_terms'] != TF_INDEX_INFO[prebuilt_index_name]['total_terms']:
             raise ValueError('"total_terms" does not match!')
 
         print(reader.stats())
