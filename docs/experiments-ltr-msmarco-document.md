@@ -21,34 +21,20 @@ We will need to generate collection of passage segments.
 python scripts/ltr_msmarco-document/convert_msmarco_passage_doc_to_anserini.py \
   --original_docs_path collections/msmarco-doc/msmarco-docs.tsv.gz \
   --doc_ids_path collections/msmarco-doc/msmarco_doc_passage_ids.txt \
-  --seperate_field True \
   --output_docs_path collections/msmarco-doc/msmarco_pass_doc.jsonl
 ```
 
 ```bash
-python scripts/ltr_msmarco-passage/convert_collection_to_jsonl.py \
-  --collection-path collections/msmarco-doc/msmarco_pass_doc.jsonl \
-  --output-folder collections/msmarco-doc/msmarco_pass_doc_jsonl
+python scripts/ltr_msmarco-passage/convert_collection_to_jsonl.py --collection-path collections/msmarco-doc/msmarco_pass_doc.jsonl --output-folder collections/msmarco-doc/msmarco_pass_doc/
 
 python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
-  -threads 9 -input collections/msmarco-doc/msmarco_pass_doc_jsonl/ \
-  -index indexes/lucene-index-msmarco-doc-passage-sepfield -storePositions -storeDocvectors -storeRaw -pretokenized
+  -threads 21 -input collections/msmarco-doc/msmarco_pass_doc \
+  -index indexes/lucene-index-msmarco-doc-passage -storePositions -storeDocvectors -storeRaw 
 
 python -m pyserini.search --topics msmarco-doc-dev \
- --index indexes/lucene-index-msmarco-doc-passage-sepfield \
+ --index indexes/lucene-index-msmarco-doc-passage \
  --output collections/msmarco-doc/run.msmarco-pass-doc.bm25.txt \
- --bm25 --output-format msmarco --hits 10000 --k1 4.46 --b 0.82
-
-wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-doctrain-queries.tsv.gz -P collections/msmarco-doc
-gzip -d collections/msmarco-doc/msmarco-doctrain-queries.tsv.gz
-
-wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-doctrain-qrels.tsv.gz -P collections/msmarco-doc
-gzip -d collections/msmarco-doc/msmarco-doctrain-qrels.tsv.gz
-
-python -m pyserini.search --topics collections/msmarco-doc/msmarco-doctrain-queries.tsv \
- --index indexes/lucene-index-msmarco-doc-passage-sepfield \
- --output collections/msmarco-doc/run.msmarco-doc.train.1000.bm25tuned.txt \
- --bm25 --output-format msmarco --hits 1000 --k1 4.46 --b 0.82
+ --bm25 --output-format trec --hits 10000 
 ```
 
 Now, we prepare queries:
@@ -66,6 +52,7 @@ python scripts/ltr_msmarco-passage/convert_queries.py \
 
 ```bash
 python -m pyserini.ltr.search_msmarco_document --input collections/msmarco-doc/run.msmarco-pass-doc.bm25.txt --input-format tsv   --model runs/msmarco-passage-ltr-mrr-v1   --index indexes/lucene-index-msmarco-document-ltr/ --output runs/run.ltr.doc-pas.trec
+
 python scripts/ltr_msmarco-document/generate_document_score_withmaxP.py --input runs/run.ltr.doc-pas.trec --output runs/run.ltr.doc_level.tsv
 ```
 
@@ -73,6 +60,12 @@ python scripts/ltr_msmarco-document/generate_document_score_withmaxP.py --input 
 python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
 --run runs/run.ltr.doc_level.tsv
 
+```
+```bash
+#####################
+MRR @100: 0.3105532197278601
+QueriesRanked: 5193
+#####################
 ```
 
 ## Building the Index From Scratch
@@ -100,7 +93,7 @@ We can now index these docs as a `JsonCollection` using Anserini with pretokeniz
 
 ```bash
 python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
- -threads 9 -input collections/msmarco-ltr-document/ltr_msmarco_pass_doc_jsonl  \
+ -threads 21 -input collections/msmarco-ltr-document/ltr_msmarco_pass_doc_jsonl  \
  -index indexes/lucene-index-msmarco-document-ltr -storePositions -storeDocvectors -storeRaw -pretokenized
 ```
 

@@ -1,18 +1,7 @@
-#
-# Pyserini: Reproducible IR research with sparse and dense representations
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+'''
+Segment the documents and append their url, title, predicted queries to them. Then, they are saved into 
+json which can be used for indexing.
+'''
 
 import argparse
 import gzip
@@ -24,10 +13,10 @@ import re
 
 def create_segments(doc_text, max_length, stride):
     doc_text = doc_text.strip()
-    
     doc = nlp(doc_text[:10000])
-    sentences = [sent.text.strip() for sent in doc.sents]
+    sentences = [str(sent).strip() for sent in doc.sents]
     segments = []
+    
     for i in range(0, len(sentences), stride):
         segment = " ".join(sentences[i:i+max_length])
         segments.append(segment)
@@ -43,7 +32,6 @@ parser.add_argument('--output_docs_path', required=True, help='Output file in th
 parser.add_argument('--predictions_path', default=None, help='File containing predicted queries.')
 parser.add_argument('--max_length', default=3)
 parser.add_argument('--stride', default=1)
-parser.add_argument('--seperate_field', default=False)
 args = parser.parse_args()
 
 os.makedirs(os.path.dirname(args.output_docs_path), exist_ok=True)
@@ -67,7 +55,7 @@ for doc_id_query in tqdm(doc_ids_queries):
         f_doc_id, doc_url, doc_title, doc_text = next(f_corpus).split('\t')
         while f_doc_id != doc_id:
             f_doc_id, doc_url, doc_title, doc_text = next(f_corpus).split('\t')
-        segments = create_segments(doc_text, int(args.max_length), int(args.stride))
+        segments = create_segments(doc_text, args.max_length, args.stride)
         seg_id = 0
     else:
         seg_id += 1
@@ -79,12 +67,10 @@ for doc_id_query in tqdm(doc_ids_queries):
         else:
             predicted_queries_partial = doc_id_query[1]
             expanded_text = f'{doc_url} {doc_title} {segment} {predicted_queries_partial}'
-        if (args.seperate_field):
-            output_dict = {'id': doc_seg, 'title': doc_title, 'url': doc_url, 'contents': segment}
-        else:
-            output_dict = {'id': doc_seg, 'contents': expanded_text}
+        output_dict = {'id': doc_seg, 'contents': expanded_text}
         f_out.write(json.dumps(output_dict) + '\n')  
     doc_id_ref = doc_id  
     
 f_corpus.close()
 f_out.close()
+print('Done!')
