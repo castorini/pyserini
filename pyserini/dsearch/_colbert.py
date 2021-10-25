@@ -231,8 +231,8 @@ class ColBertSearcher:
         results = sorted(results, key=lambda x: x[1], reverse=True)
         results = results[:k] # only extract top-K results
         results = [
-            (self.ext_docIDs[i], rank, score, i)
-            for rank, (i, score) in enumerate(results)
+            DenseSearchResult(self.ext_docIDs[i], score)
+            for i, score in results
         ]
         return results
 
