@@ -574,7 +574,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
-            "https://www.dropbox.com/s/xrsjn38lk3axfdd/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/F6MjyjmCi6yHFTa/download" # verified
         ],
         "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
         "size compressed (bytes)": 33359100887,
@@ -587,7 +587,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
-            "https://www.dropbox.com/s/sgmugleqwwirx3n/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/mHxezzSAkrWbXZC/download" # verified
         ],
         "md5": "7312e0e7acec2a686e994902ca064fc5",
         "size compressed (bytes)": 25204514289,
@@ -600,7 +600,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
-            "https://www.dropbox.com/s/jse0j82l4ouqdna/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/Ti5JxdCgjdw3noq/download" # verified
         ],
         "md5": "f0b4c3bff3bb685be5c475511004c3b0",
         "size compressed (bytes)": 58514325936,
@@ -613,7 +613,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
-            "https://www.dropbox.com/s/9g4e2ps73lf4ysl/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/xN44ZSC9tFFtp3F/download" # verified
         ],
         "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
         "size compressed (bytes)": 59836766981,
@@ -626,7 +626,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
-            "https://www.dropbox.com/s/negktsxze5sy7e2/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz?dl=1",
+            "https://vault.cs.uwaterloo.ca/s/W4k44aLZWcbcJXe/download",
         ],
         "md5": "d1ef9286ddb38633cd052171963c62cb",
         "size compressed (bytes)": 59836863670,
@@ -651,7 +651,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
-            "https://www.dropbox.com/s/ahpxwtgh56o6j2f/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/mntwDQtXc9WbZSM/download"
         ],
         "md5": "f6332edb8f06ba796850388cf975b414",
         "size compressed (bytes)": 25102344985,
