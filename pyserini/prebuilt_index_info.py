@@ -32,7 +32,7 @@ TF_INDEX_INFO = {
         "filename": "index-robust04-20191213.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-robust04-20191213-readme.txt",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-robust04-20191213.tar.gz", # verified
             "https://vault.cs.uwaterloo.ca/s/eqFacNeSGc4pLLH/download"
         ],
         "md5": "15f3d001489c97849a010b0a4734d018",
@@ -46,7 +46,7 @@ TF_INDEX_INFO = {
         "filename": "index-msmarco-passage-20201117-f87c94.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-20201117-f87c94-readme.txt",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-20201117-f87c94.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-20201117-f87c94.tar.gz", # verified
             "https://vault.cs.uwaterloo.ca/s/QQsZMFG8MpF4P8M/download"
         ],
         "md5": "1efad4f1ae6a77e235042eff4be1612d",
@@ -61,7 +61,7 @@ TF_INDEX_INFO = {
         "filename": "index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-slim-20201202-ab6e28-readme.txt",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-slim-20201202-ab6e28.tar.gz", # verified
             "https://vault.cs.uwaterloo.ca/s/Kx6K9NJFmwnaAP8/download"
         ],
         "md5": "5e11da4cebd2e8dda2e73c589ffb0b4c",
@@ -76,7 +76,7 @@ TF_INDEX_INFO = {
         "filename": "index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-expanded-20201121-e127fb-readme.txt",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-expanded-20201121-e127fb.tar.gz", # verified
             "https://vault.cs.uwaterloo.ca/s/pm7cisJtRxiAMHd/download"
         ],
         "md5": "e5762e9e065b6fe5000f9c18da778565",
@@ -91,7 +91,8 @@ TF_INDEX_INFO = {
         "filename": "index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-ltr-20210519-e25e33f-readme.txt",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/8qFCaCtwabRfYQD/download"  # too big for UWaterloo GitLab
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz", # verified
+            "https://vault.cs.uwaterloo.ca/s/8qFCaCtwabRfYQD/download"
         ],
         "md5": "a5de642c268ac1ed5892c069bdc29ae3",
         "size compressed (bytes)": 14073966046,
@@ -626,7 +627,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/W4k44aLZWcbcJXe/download",
+            "https://vault.cs.uwaterloo.ca/s/W4k44aLZWcbcJXe/download" # verified
         ],
         "md5": "d1ef9286ddb38633cd052171963c62cb",
         "size compressed (bytes)": 59836863670,
@@ -651,7 +652,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/mntwDQtXc9WbZSM/download"
+            "https://vault.cs.uwaterloo.ca/s/mntwDQtXc9WbZSM/download" # verified
         ],
         "md5": "f6332edb8f06ba796850388cf975b414",
         "size compressed (bytes)": 25102344985,
