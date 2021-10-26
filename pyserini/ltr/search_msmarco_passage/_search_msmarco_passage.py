@@ -38,6 +38,7 @@ class MsmarcoPassageLtrSearcher:
          self.fe = FeatureExtractor(index, max(multiprocessing.cpu_count()//2, 1))
     
     def add_fe(self):
+        #self.fe.add(RunList('collections/msmarco-ltr-passage/run.monot5.run_list.whole.trec','t5'))
         for qfield, ifield in [('analyzed', 'contents'),
                            ('text_unlemm', 'text_unlemm'),
                            ('text_bert_tok', 'text_bert_tok')]:
