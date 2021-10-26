@@ -183,7 +183,7 @@ class MsmarcoDocumentLtrSearcher:
                     task_infos.append((qid, t.pid, t.rel))
             tasks.append(task)
             group_lst.append((qid, len(task['docIds'])))
-            if len(tasks) == 1000:
+            if len(tasks) == 10000:
                 features = fe.batch_extract(tasks)
                 task_infos = pd.DataFrame(task_infos, columns=['qid', 'pid', 'rel'])
                 group = pd.DataFrame(group_lst, columns=['qid', 'count'])
