@@ -64,10 +64,10 @@ def batch_file(iterable, n=10000):
     return
 
 def batch_process(batch):
-    if(os.getcwd().endswith('ltr_msmarco-passage')):
+    if(os.getcwd().endswith('ltr_msmarco')):
         stopwords = read_stopwords('stopwords.txt', lower_case=True)
     else:
-        stopwords = read_stopwords('./scripts/ltr_msmarco-passage/stopwords.txt', lower_case=True)
+        stopwords = read_stopwords('./scripts/ltr_msmarco/stopwords.txt', lower_case=True)
     nlp = SpacyTextParser('en_core_web_sm', stopwords, keep_only_alpha_num=True, lower_case=True)
     analyzer = Analyzer(get_lucene_analyzer())
     #nlp_ent = spacy.load("en_core_web_sm")

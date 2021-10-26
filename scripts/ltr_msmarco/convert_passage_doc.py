@@ -67,7 +67,7 @@ def batch_file(iterable, n=10000):
 
 def batch_process(batch):
     #assume call the script from the root dir
-    stopwords = read_stopwords('./scripts/ltr_msmarco-passage/stopwords.txt', lower_case=True)
+    stopwords = read_stopwords('./scripts/ltr_msmarco/stopwords.txt', lower_case=True)
     nlp = SpacyTextParser('en_core_web_sm', stopwords, keep_only_alpha_num=True, lower_case=True)
     analyzer = Analyzer(get_lucene_analyzer())
     bert_tokenizer =AutoTokenizer.from_pretrained("bert-base-uncased")

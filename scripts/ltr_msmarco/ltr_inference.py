@@ -16,6 +16,10 @@
 
 import sys
 
+# We're going to explicitly use a local installation of Pyserini (as opposed to a pip-installed one).
+# Comment these lines out to use a pip-installed one instead.
+sys.path.insert(0, './')
+
 import argparse
 import json
 import multiprocessing
@@ -26,14 +30,13 @@ import time
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from pyserini.ltr.search_msmarco_document._search_msmarco_document import MsmarcoDocumentLtrSearcher
+from pyserini.ltr.search_msmarco._search_msmarco import MsmarcoLtrSearcher
 from pyserini.ltr import *
-from pyserini.index import IndexReader
 
 """
 Running prediction on candidates
 """
-def dev_data_loader(file, format, index, top):
+def dev_data_loader(file, format, top=100):
     if format == 'tsv':
         dev = pd.read_csv(file, sep="\t",
                           names=['qid', 'pid', 'rank'],
@@ -49,8 +52,7 @@ def dev_data_loader(file, format, index, top):
     assert dev['pid'].dtype == np.object
     assert dev['rank'].dtype == np.int32
     dev = dev[dev['rank']<=top]
-    print(dev.shape)
-    dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-doc.dev.txt', sep="\t",
+    dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt', sep=" ",
                            names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
                            dtype={'qid': 'S','pid': 'S', 'rel':'i'})
     assert dev['qid'].dtype == np.object
@@ -66,7 +68,32 @@ def dev_data_loader(file, format, index, top):
     print(dev.head(10))
     print(dev.info())
 
+    dev_rel_num = dev_qrel[dev_qrel['rel'] > 0].groupby('qid').count()['rel']
+
+    recall_point = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000]
+    recall_curve = {k: [] for k in recall_point}
+    for qid, group in tqdm(dev.groupby('qid')):
+        group = group.reset_index()
+        assert len(group['pid'].tolist()) == len(set(group['pid'].tolist()))
+        total_rel = dev_rel_num.loc[qid]
+        query_recall = [0 for k in recall_point]
+        for t in group.sort_values('rank').itertuples():
+            if t.rel > 0:
+                for i, p in enumerate(recall_point):
+                    if t.rank <= p:
+                        query_recall[i] += 1
+        for i, p in enumerate(recall_point):
+            if total_rel > 0:
+                recall_curve[p].append(query_recall[i] / total_rel)
+            else:
+                recall_curve[p].append(0.)
+
+    for k, v in recall_curve.items():
+        avg = np.mean(v)
+        print(f'recall@{k}:{avg}')
+
     return dev, dev_qrel
+
 
 def query_loader():
     queries = {}
@@ -157,7 +184,7 @@ def eval_recall(dev_qrel, dev_data):
     return res
 
 
-def output(file, dev_data,format):
+def output(file, dev_data, format):
     score_tie_counter = 0
     score_tie_query = set()
     output_file = open(file,'w')
@@ -178,7 +205,7 @@ def output(file, dev_data,format):
             if (format == 'tsv'):
                 output_file.write(f"{qid}\t{t.pid}\t{rank}\n")
             else:
-                output_file.write(f"{qid}\tq0\t{t.pid}\t{rank}\t{t.score}\tltr\n")
+                output_file.write(f"{qid}\tQ0\t{t.pid}\t{rank}\t{t.score}\tltr\n")
 
     score_tie = f'score_tie occurs {score_tie_counter} times in {len(score_tie_query)} queries'
     print(score_tie)
@@ -187,27 +214,30 @@ if __name__ == "__main__":
     os.environ["ANSERINI_CLASSPATH"] = "./pyserini/resources/jars"
     parser = argparse.ArgumentParser(description='Learning to rank reranking')
     parser.add_argument('--input', required=True)
-    parser.add_argument('--reranking-top', type=int, default=10000)
+    parser.add_argument('--reranking-top', type=int, default=1000)
     parser.add_argument('--input-format', required=True)
     parser.add_argument('--model', required=True)
     parser.add_argument('--index', required=True)
     parser.add_argument('--output', required=True)
-    parser.add_argument('--ibm-model',default='./collections/msmarco-ltr-document/ibm_model/')
-    parser.add_argument('--queries',default='./collections/msmarco-ltr-document/')
+    parser.add_argument('--ibm-model', required=True)
+    parser.add_argument('--queries', required=True)
+    parser.add_argument('--data', required=True)
     parser.add_argument('--output-format',default='trec')
 
     args = parser.parse_args()
+    searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data)
+    searcher.add_fe()
     print("load dev")
-    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.index, args.reranking_top)
+    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.reranking_top)
     print("load queries")
     queries = query_loader()
-    searcher = MsmarcoDocumentLtrSearcher(args.model, args.ibm_model, args.index)
-    searcher.add_fe()
 
     batch_info = searcher.search(dev, queries)
     del dev, queries
 
     eval_res = eval_mrr(batch_info)
     eval_recall(dev_qrel, batch_info)
-    output(args.output, batch_info, args.output_format)
+    output(args.output, batch_info,args.output_format)
     print('Done!')
+
+

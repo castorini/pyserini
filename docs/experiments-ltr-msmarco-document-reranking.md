@@ -18,7 +18,7 @@ wget https://git.uwaterloo.ca/jimmylin/doc2query-data/raw/master/T5-doc/msmarco_
 
 We will need to generate collection of passage segments. Here, we use segment size 3 and stride is 1.
 ```bash
-python scripts/ltr_msmarco-document/convert_msmarco_passage_doc_to_anserini.py \
+python scripts/ltr_msmarco/convert_msmarco_passage_doc_to_anserini.py \
   --original_docs_path collections/msmarco-doc/msmarco-docs.tsv.gz \
   --doc_ids_path collections/msmarco-doc/msmarco_doc_passage_ids.txt \
   --output_docs_path collections/msmarco-doc/msmarco_pass_doc.jsonl
@@ -26,7 +26,7 @@ python scripts/ltr_msmarco-document/convert_msmarco_passage_doc_to_anserini.py \
 
 Let's first get bag-of-words 10000 hits for segments as our LTR reranking candidates.
 ```bash
-python scripts/ltr_msmarco-passage/convert_collection_to_jsonl.py --collection-path collections/msmarco-doc/msmarco_pass_doc.jsonl --output-folder collections/msmarco-doc/msmarco_pass_doc/
+python scripts/ltr_msmarco/convert_collection_to_jsonl.py --collection-path collections/msmarco-doc/msmarco_pass_doc.jsonl --output-folder collections/msmarco-doc/msmarco_pass_doc/
 
 python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
   -threads 21 -input collections/msmarco-doc/msmarco_pass_doc \
@@ -42,7 +42,7 @@ Now, we prepare queries for LTR:
 ```bash
 mkdir collections/msmarco-ltr-document
 
-python scripts/ltr_msmarco-passage/convert_queries.py \
+python scripts/ltr_msmarco/convert_queries.py \
   --input tools/topics-and-qrels/topics.msmarco-doc.dev.txt \
   --output collections/msmarco-ltr-document/queries.dev.small.json
 
@@ -51,7 +51,7 @@ python scripts/ltr_msmarco-passage/convert_queries.py \
 Prepare the LTR index:
 
 ```bash
-python scripts/ltr_msmarco-document/convert_passage_doc.py \
+python scripts/ltr_msmarco/convert_passage_doc.py \
   --input collections/msmarco-doc/msmarco_pass_doc.jsonl \
   --output collections/msmarco-ltr-document/ltr_msmarco_pass_doc.jsonl \
   --proc_qty 10
@@ -61,7 +61,7 @@ The above script will convert the collection and queries to json files with `tex
 Next, we need to convert the MS MARCO json collection into Anserini's jsonl files (which have one json object per line):
 
 ```bash
-python scripts/ltr_msmarco-passage/convert_collection_to_jsonl.py \
+python scripts/ltr_msmarco/convert_collection_to_jsonl.py \
   --collection-path collections/msmarco-ltr-document/ltr_msmarco_pass_doc.jsonl \
   --output-folder collections/msmarco-ltr-document/ltr_msmarco_pass_doc_jsonl  
 ```
@@ -91,13 +91,16 @@ tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
 
 Now, we have all things ready and can run inference. The LTR outpus rankings on segments level. We will need to use another script to get doc level results using maxP strategy.
 ```bash
-python -m pyserini.ltr.search_msmarco_document \
+python scripts/ltr_msmarco/ltr_inference.py \
        --input collections/msmarco-doc/run.msmarco-pass-doc.bm25.txt \
        --input-format trec \
        --model runs/msmarco-passage-ltr-mrr-v1 \
-       --index indexes/lucene-index-msmarco-document-ltr --output runs/run.ltr.doc-pas.trec
+       --data document \
+       --ibm-model collections/msmarco-ltr-document/ibm_model/ \
+       --queries collections/msmarco-ltr-document \
+       --index indexes/lucene-index-msmarco-document-ltr --output runs/run.ltr.doc-pas.trec 
 
-python scripts/ltr_msmarco-document/generate_document_score_withmaxP.py \
+python scripts/ltr_msmarco/generate_document_score_withmaxP.py \
       --input runs/run.ltr.doc-pas.trec \
       --output runs/run.ltr.doc_level.tsv
 ```

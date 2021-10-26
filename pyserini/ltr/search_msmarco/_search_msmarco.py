@@ -15,7 +15,7 @@
 #
 
 """
-This module provides Pyserini's Python ltr search interface on MS MARCO document. The main entry point is the ``MsmarcoPassageLtrSearcher``
+This module provides Pyserini's Python ltr search interface on MS MARCO passage. The main entry point is the ``MsmarcoPassageLtrSearcher``
 class.
 """
 
@@ -25,21 +25,23 @@ import multiprocessing
 import time
 from tqdm import tqdm
 import pickle
+from pyserini.index import IndexReader
 
 from pyserini.ltr._base import *
-from pyserini.index import IndexReader
 
 
 logger = logging.getLogger(__name__)
 
-class MsmarcoDocumentLtrSearcher:
-    def __init__(self, model: str, ibm_model:str, index:str):
+class MsmarcoLtrSearcher:
+    def __init__(self, model: str, ibm_model:str, index:str, data: str):
          self.model = model
          self.ibm_model = ibm_model
          self.fe = FeatureExtractor(index, max(multiprocessing.cpu_count()//2, 1))
          self.index_reader = IndexReader(index)
+         self.data = data
     
     def add_fe(self):
+        #self.fe.add(RunList('collections/msmarco-ltr-passage/run.monot5.run_list.whole.trec','t5'))
         for qfield, ifield in [('analyzed', 'contents'),
                            ('text_unlemm', 'text_unlemm'),
                            ('text_bert_tok', 'text_bert_tok')]:
@@ -143,24 +145,19 @@ class MsmarcoDocumentLtrSearcher:
             self.fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
 
         start = time.time()
-        self.fe.add(
-            IbmModel1(f"{self.ibm_model}/title_unlemm", "text_unlemm", "title_unlemm",
-                    "text_unlemm"))
+        self.fe.add(IbmModel1(f"{self.ibm_model}/title_unlemm", "text_unlemm", "title_unlemm", "text_unlemm"))
         end = time.time()
         print('IBM model Load takes %.2f seconds' % (end - start))
         start = end
-        self.fe.add(IbmModel1(f"{self.ibm_model}url_unlemm", "text_unlemm", "url_unlemm",
-                        "text_unlemm"))
+        self.fe.add(IbmModel1(f"{self.ibm_model}url_unlemm", "text_unlemm", "url_unlemm", "text_unlemm"))
         end = time.time()
         print('IBM model Load takes %.2f seconds' % (end - start))
         start = end
-        self.fe.add(
-            IbmModel1(f"{self.ibm_model}body", "text_unlemm", "body", "text_unlemm"))
+        self.fe.add(IbmModel1(f"{self.ibm_model}body", "text_unlemm", "body", "text_unlemm"))
         end = time.time()
         print('IBM model Load takes %.2f seconds' % (end - start))
         start = end
-        self.fe.add(IbmModel1(f"{self.ibm_model}text_bert_tok", "text_bert_tok",
-                        "text_bert_tok", "text_bert_tok"))
+        self.fe.add(IbmModel1(f"{self.ibm_model}text_bert_tok", "text_bert_tok", "text_bert_tok", "text_bert_tok"))
         end = time.time()
         print('IBM model Load takes %.2f seconds' % (end - start))
         start = end
@@ -178,12 +175,16 @@ class MsmarcoDocumentLtrSearcher:
                 "query_dict": queries[qid]
             }
             for t in group.reset_index().itertuples():
-                if (self.index_reader.doc(t.pid) != None):
+                if (self.data == 'document'):
+                    if (self.index_reader.doc(t.pid) != None):
+                        task["docIds"].append(t.pid)
+                        task_infos.append((qid, t.pid, t.rel))
+                else:
                     task["docIds"].append(t.pid)
                     task_infos.append((qid, t.pid, t.rel))
             tasks.append(task)
             group_lst.append((qid, len(task['docIds'])))
-            if len(tasks) == 10000:
+            if len(tasks) == 1000:
                 features = fe.batch_extract(tasks)
                 task_infos = pd.DataFrame(task_infos, columns=['qid', 'pid', 'rel'])
                 group = pd.DataFrame(group_lst, columns=['qid', 'count'])
@@ -207,6 +208,7 @@ class MsmarcoDocumentLtrSearcher:
             print(features.head(10))
             print(features.info())
             yield task_infos, features, group
+
         return
 
     def batch_predict(self, models, dev_extracted, feature_name):
@@ -235,3 +237,4 @@ class MsmarcoDocumentLtrSearcher:
             start_extract = time.time()
         batch_info = pd.concat(batch_info, axis=0, ignore_index=True)
         return batch_info
+
