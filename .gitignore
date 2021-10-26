@@ -2,16 +2,20 @@
 .DS_Store
 .idea
 __pycache__
+*.pyc
 pyserini/resources/jars/*.jar
 collections/*
 indexes/*
 .vscode/
 venv/
+
 # build directories from `python3 setup.py sdist bdist_wheel`
 build/
 dist/
 pyserini.egg-info/
+
 # runs should be ignored
 runs/
+
 # logs should also be ignored
 logs/

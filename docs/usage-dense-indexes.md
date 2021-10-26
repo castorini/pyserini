@@ -7,7 +7,7 @@ Pyserini create dense index for collections with JSONL format:
 ```json
 {
   "id": "doc1",
-  "contents": "this is the contents."
+  "contents": "title\nthis is the contents."
 }
 ```
 
@@ -19,12 +19,13 @@ Then, you can invoke the indexer:
 
 Here we provide an example to index collections with DPR passage encoder
 ```bash
-python -m pyserini.dindex --corpus integrations/resources/sample_collection_jsonl \
-                          --encoder facebook/dpr-ctx_encoder-multiset-base \
-                          --index indexes/dindex-sample-dpr-multi \
-                          --batch 64 \
-                          --device cuda:0 \
-                          --title-delimiter '\n' 
+python -m pyserini.encode input   --corpus integrations/resources/sample_collection_jsonl \
+                                  --fields title text \  # fields in collection contents
+                          output  --embeddings indexes/dindex-sample-dpr-multi \
+                                  --to-faiss \
+                          encoder --encoder facebook/dpr-ctx_encoder-multiset-base \
+                                  --fields title text \  # fields to encode
+                                  --batch 32 
 ```
 
 Once this is done, you can use `SimpleDenseSearcher` to search the index:
@@ -43,17 +44,18 @@ for i in range(0, 10):
 If you want to speed up the passage embedding generation, you can run create the index in shard way.
 e.g. the command below create a sub-index for the first 1/4 of the collection.
 ```bash
-python -m pyserini.dindex --corpus integrations/resources/sample_collection_jsonl \
-                          --encoder facebook/dpr-ctx_encoder-multiset-base \
-                          --index indexes/dindex-sample-dpr-multi-0 \
-                          --batch 64 \
-                          --device cuda:0 \
-                          --title-delimiter '\n' \ 
-                          --shard-id 0 \
-                          --shard-num 4
+python -m pyserini.encode input   --corpus integrations/resources/sample_collection_jsonl \
+                                  --fields title text \  # fields in collection contents
+                                  --shard-id 0 \
+                                  --shard-num 4 \
+                          output  --embeddings indexes/dindex-sample-dpr-multi-0 \
+                                  --to-faiss \ 
+                          encoder --encoder facebook/dpr-ctx_encoder-multiset-base \
+                                  --fields title text \  # fields to encode
+                                  --batch 32 
 ```
 you can run 4 process on 4 gpu to speed up the process by 4 times.
 Once it down, you can create the full index by merge the sub-indexes by:
 ```bash
-python -m pyserini.dindex.merge_indexes --prefix indexes/dindex-sample-dpr-multi- --shard-num 4
+python -m pyserini.index.merge_faiss_indexes --prefix indexes/dindex-sample-dpr-multi- --shard-num 4
 ```

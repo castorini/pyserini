@@ -19,12 +19,15 @@ import os
 
 from tqdm import tqdm
 
-from pyserini.dsearch import SimpleDenseSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, \
-    QueryEncoder, DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
+from pyserini.dsearch import SimpleDenseSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, QueryEncoder, \
+    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AutoQueryEncoder, DenseVectorAveragePrf, \
+    DenseVectorRocchioPrf, DenseVectorAncePrf
+from pyserini.encode import PcaEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
+from pyserini.search import SimpleSearcher
 
-from ._prf import AveragePRF, RocchioPRF
+# from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -43,6 +46,8 @@ def define_dsearch_args(parser):
     parser.add_argument('--encoded-queries', type=str, metavar='path to query encoded queries dir or queries name',
                         required=False,
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
+    parser.add_argument('--pca-model', type=str, metavar='path', required=False,
+                        default=None, help="Path to a faiss pca model")
     parser.add_argument('--device', type=str, metavar='device to run query encoder', required=False, default='cpu',
                         help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...]")
     parser.add_argument('--query-prefix', type=str, metavar='str', required=False, default=None,
@@ -58,6 +63,10 @@ def define_dsearch_args(parser):
                         help="The alpha parameter to control the contribution from the query vector")
     parser.add_argument('--rocchio-beta', type=float, metavar='beta parameter for rocchio', required=False, default=0.1,
                         help="The beta parameter to control the contribution from the average vector of the PRF passages")
+    parser.add_argument('--sparse-index', type=str, metavar='sparse lucene index containing contents', required=False,
+                        help='The path to sparse index containing the passage contents')
+    parser.add_argument('--ance-prf-encoder', type=str, metavar='query encoder path for ANCE-PRF', required=False,
+                        help='The path or name to ANCE-PRF model checkpoint')
 
 
 def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device, prefix):
@@ -105,19 +114,6 @@ def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, de
     raise ValueError(f'No encoded queries for topic {topics_name}')
 
 
-def run_prf(topic_ids, query_embs, candidates, arg):
-    if arg.prf_method.lower() == 'avg':
-        average_prf = AveragePRF(topic_ids, query_embs, candidates)
-        prf_query_embs = average_prf.get_prf_q_emb()
-    elif arg.prf_method.lower() == 'rocchio':
-        rocchio_prf = RocchioPRF(topic_ids, query_embs, candidates,
-                                 rocchio_alpha=arg.rocchio_alpha, rocchio_beta=arg.rocchio_beta)
-        prf_query_embs = rocchio_prf.get_prf_q_emb()
-    else:
-        raise ValueError(f'PRF Method {arg.prf_method} Not Implemented')
-    return prf_query_embs
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Search a Faiss index.')
     parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
@@ -149,6 +145,8 @@ if __name__ == '__main__':
 
     query_encoder = init_query_encoder(args.encoder, args.tokenizer, args.topics, args.encoded_queries, args.device,
                                        args.query_prefix)
+    if args.pca_model:
+        query_encoder = PcaEncoder(query_encoder, args.pca_model)
     kwargs = {}
     if os.path.exists(args.index):
         # create searcher from index directory
@@ -164,13 +162,27 @@ if __name__ == '__main__':
             searcher = BinaryDenseSearcher.from_prebuilt_index(args.index, query_encoder)
         else:
             searcher = SimpleDenseSearcher.from_prebuilt_index(args.index, query_encoder)
-
+    
     if not searcher:
         exit()
 
     # Check PRF Flag
     if args.prf_depth > 0 and type(searcher) == SimpleDenseSearcher:
         PRF_FLAG = True
+        if args.prf_method.lower() == 'avg':
+            prfRule = DenseVectorAveragePrf()
+        elif args.prf_method.lower() == 'rocchio':
+            prfRule = DenseVectorRocchioPrf(args.rocchio_alpha, args.rocchio_beta)
+        # ANCE-PRF is using a new query encoder, so the input to DenseVectorAncePrf is different
+        elif args.prf_method.lower() == 'ance-prf' and type(query_encoder) == AnceQueryEncoder:
+            if os.path.exists(args.sparse_index):
+                sparse_searcher = SimpleSearcher(args.sparse_index)
+            else:
+                sparse_searcher = SimpleSearcher.from_prebuilt_index(args.sparse_index)
+            prf_query_encoder = AnceQueryEncoder(encoder_dir=args.ance_prf_encoder, tokenizer_name=args.tokenizer,
+                                                 device=args.device)
+            prfRule = DenseVectorAncePrf(prf_query_encoder, sparse_searcher)
+        print(f'Running SimpleDenseSearcher with {args.prf_method.upper()} PRF...')
     else:
         PRF_FLAG = False
 
@@ -192,9 +204,13 @@ if __name__ == '__main__':
         for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.batch_size <= 1 and args.threads <= 1:
                 if PRF_FLAG:
-                    emb_q, prf_candidates = searcher.get_prf_candidates(text, args.prf_depth, **kwargs)
-                    prf_emb_q = run_prf(topic_id, emb_q, prf_candidates, args)
-                    hits = searcher.search(prf_emb_q, args.hits, **kwargs)
+                    emb_q, prf_candidates = searcher.search(text, k=args.prf_depth, return_vector=True, **kwargs)
+                    # ANCE-PRF input is different, do not need query embeddings
+                    if args.prf_method.lower() == 'ance-prf':
+                        prf_emb_q = prfRule.get_prf_q_emb(text, prf_candidates)
+                    else:
+                        prf_emb_q = prfRule.get_prf_q_emb(emb_q, prf_candidates)
+                    hits = searcher.search(prf_emb_q, k=args.hits, **kwargs)
                 else:
                     hits = searcher.search(text, args.hits, **kwargs)
                 results = [(topic_id, hits)]
@@ -204,10 +220,14 @@ if __name__ == '__main__':
                 if (index + 1) % args.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
                     if PRF_FLAG:
-                        q_embs, prf_candidates = searcher.get_batch_prf_candidates(batch_topics, batch_topic_ids,
-                                                                                   args.prf_depth, **kwargs)
-                        prf_embs_q = run_prf(batch_topic_ids, q_embs, prf_candidates, args)
-                        results = searcher.batch_search(prf_embs_q, batch_topic_ids, args.hits, threads=args.threads,
+                        q_embs, prf_candidates = searcher.batch_search(batch_topics, batch_topic_ids,
+                                                                       k=args.prf_depth, return_vector=True, **kwargs)
+                        # ANCE-PRF input is different, do not need query embeddings
+                        if args.prf_method.lower() == 'ance-prf':
+                            prf_embs_q = prfRule.get_batch_prf_q_emb(batch_topics, batch_topic_ids, prf_candidates)
+                        else:
+                            prf_embs_q = prfRule.get_batch_prf_q_emb(batch_topic_ids, q_embs, prf_candidates)
+                        results = searcher.batch_search(prf_embs_q, batch_topic_ids, k=args.hits, threads=args.threads,
                                                         **kwargs)
                         results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     else:

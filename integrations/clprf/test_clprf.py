@@ -318,10 +318,10 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertAlmostEqual(score, 0.2965, delta=0.0001)
 
     def test_core18(self):
-        self.assertTrue(self.core18_checker.run('core18_bm25', '--bm25', 0.2495))
+        self.assertTrue(self.core18_checker.run('core18_bm25', '--bm25', 0.2496))
 
     def test_core18_rm3(self):
-        self.assertTrue(self.core18_checker.run('core18_bm25', '--bm25 --rm3', 0.3135))
+        self.assertTrue(self.core18_checker.run('core18_bm25', '--bm25 --rm3', 0.3139))
 
     def test_core18_lr(self):
         pyserini_topics = 'core18'
@@ -343,7 +343,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2837, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2839, delta=0.0001)
 
     def test_core18_lr_rm3(self):
         pyserini_topics = 'core18'
@@ -387,7 +387,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2840, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2841, delta=0.0001)
 
     def test_core18_svm_rm3(self):
         pyserini_topics = 'core18'
@@ -409,7 +409,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3219, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3216, delta=0.0001)
 
     def test_core18_avg(self):
         pyserini_topics = 'core18'

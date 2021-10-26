@@ -18,16 +18,16 @@ In both cases, we applied inference over the MS MARCO V2 [passage corpus](https:
 These are the indexes and the encoder for the zero-shot (V1) models:
 
 ```bash
-export PASSAGE_INDEX0="/store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp.0shot.msmarco-passage-v2-augmented"
-export DOC_INDEX0="/store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp.0shot.msmarco-doc-v2-segmented"
+export PASSAGE_INDEX0="/store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp.0shot.msmarco-v2-passage-augmented"
+export DOC_INDEX0="/store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp.0shot.msmarco-v2-doc-segmented"
 export ENCODER0="castorini/tct_colbert-v2-hnp-msmarco"
 ```
 
 These are the indexes and the encoder for the fine-tuned (V2) models:
 
 ```bash
-export PASSAGE_INDEX1="/store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp.psg_v2_ft.msmarco-passage-v2-augmented"
-export DOC_INDEX1="/store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp.psg_v2_ft.msmarco-doc-v2-segmented"
+export PASSAGE_INDEX1="/store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp.psg_v2_ft.msmarco-v2-passage-augmented"
+export DOC_INDEX1="/store/scratch/indexes/trec2021/faiss-flat.tct_colbert-v2-hnp.psg_v2_ft.msmarco-v2-doc-segmented"
 export ENCODER1="castorini/tct_colbert-v2-hnp-msmarco-r2"
 ```
 
@@ -36,24 +36,24 @@ export ENCODER1="castorini/tct_colbert-v2-hnp-msmarco-r2"
 Dense retrieval with TCT-ColBERTv2 model trained on MS MARCO (V1), with FAISS brute-force index (i.e., zero shot):
 
 ```bash
-$ python -m pyserini.dsearch --topics collections/passv2_dev_queries.tsv \
+$ python -m pyserini.dsearch --topics msmarco-v2-passage-dev \
                              --index ${PASSAGE_INDEX0} \
                              --encoder ${ENCODER0} \
                              --batch-size 144 \
                              --threads 36 \
-                             --output runs/run.msmarco-passage-v2-augmented.tct_colbert-v2-hnp.0shot.dev1.trec \
+                             --output runs/run.msmarco-v2-passage-augmented.tct_colbert-v2-hnp.0shot.dev1.trec \
                              --output-format trec
 ```
 
 To evaluate using `trec_eval`:
 
 ```bash
-$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank collections/passv2_dev_qrels.tsv runs/run.msmarco-passage-v2-augmented.tct_colbert-v2-hnp.0shot.dev1.trec
+$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank collections/passv2_dev_qrels.tsv runs/run.msmarco-v2-passage-augmented.tct_colbert-v2-hnp.0shot.dev1.trec
 Results:
 map                   	all	0.1461
 recip_rank            	all	0.1473
 
-$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 collections/passv2_dev_qrels.tsv runs/run.msmarco-passage-v2-augmented.tct_colbert-v2-hnp.0shot.dev1.trec
+$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 collections/passv2_dev_qrels.tsv runs/run.msmarco-v2-passage-augmented.tct_colbert-v2-hnp.0shot.dev1.trec
 Results:
 recall_100            	all	0.5873
 recall_1000           	all	0.8321
@@ -70,24 +70,24 @@ For example, if we output in MS MARCO format `--output-format msmarco` and then 
 Dense retrieval with TCT-ColBERTv2 model fine-tuned on MS MARCO (V2) passage data, with FAISS brute-force index:
 
 ```bash
-$ python -m pyserini.dsearch --topics collections/passv2_dev_queries.tsv \
+$ python -m pyserini.dsearch --topics msmarco-v2-passage-dev \
                              --index ${PASSAGE_INDEX1} \
                              --encoder ${ENCODER1} \
                              --batch-size 144 \
                              --threads 36 \
-                             --output runs/run.msmarco-passage-v2-augmented.tct_colbert-v2-hnp.psg_v2_ft.dev1.trec \
+                             --output runs/run.msmarco-v2-passage-augmented.tct_colbert-v2-hnp.psg_v2_ft.dev1.trec \
                              --output-format trec
 ```
 
 To evaluate using `trec_eval`:
 
 ```bash
-$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank collections/passv2_dev_qrels.tsv runs/run.msmarco-passage-v2-augmented.tct_colbert-v2-hnp.psg_v2_ft.dev1.trec
+$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank collections/passv2_dev_qrels.tsv runs/run.msmarco-v2-passage-augmented.tct_colbert-v2-hnp.psg_v2_ft.dev1.trec
 Results:
 map                   	all	0.1981
 recip_rank            	all	0.2000
 
-$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 collections/passv2_dev_qrels.tsv runs/run.msmarco-passage-v2-augmented.tct_colbert-v2-hnp.psg_v2_ft.dev1.trec
+$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 collections/passv2_dev_qrels.tsv runs/run.msmarco-v2-passage-augmented.tct_colbert-v2-hnp.psg_v2_ft.dev1.trec
 Results:
 recall_100            	all	0.6403
 recall_1000           	all	0.8452
@@ -98,7 +98,7 @@ recall_1000           	all	0.8452
 Dense retrieval with TCT-ColBERT-V2, brute-force index:
 
 ```bash
-$ python -m pyserini.dsearch --topics collections/docv2_dev_queries.tsv \
+$ python -m pyserini.dsearch --topics msmarco-v2-doc-dev \
                              --index ${DOC_INDEX0} \
                              --encoder ${ENCODER0} \
                              --batch-size 144 \
@@ -134,7 +134,7 @@ Same comment about duplicate passages and score ties applies here as well.
 Dense retrieval with TCT-ColBERTv2 model fine-tuned on MS MARCO (V2) passage data, with FAISS brute-force index:
 
 ```bash
-$ python -m pyserini.dsearch --topics collections/docv2_dev_queries.tsv \
+$ python -m pyserini.dsearch --topics msmarco-v2-doc-dev \
                              --index ${DOC_INDEX1} \
                              --encoder ${ENCODER1} \
                              --batch-size 144 \
@@ -162,3 +162,4 @@ recall_1000           	all	0.8974
 
 ## Reproduction Log[*](reproducibility.md)
 + Results reproduced by [@crystina-z](https://github.com/crystina-z) on 2021-08-20 (commit [`45a2fb`](https://github.com/castorini/pyserini/commit/45a2fb4bacbbd92f54ff0f98463662cbc09d78bb))
++ Results reproduced by [@MXueguang](https://github.com/MXueguang) on 2021-10-07 (commit [`58d286c`](https://github.com/castorini/pyserini/commit/58d286c3f9fe845e261c271f2a0f514462844d97))

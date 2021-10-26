@@ -26,6 +26,7 @@ from ._base import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap, JString
 from pyserini.util import download_prebuilt_index
 from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder, CachedDataQueryEncoder
+from ..encode._splade import SpladeQueryEncoder
 
 logger = logging.getLogger(__name__)
 
@@ -112,8 +113,8 @@ class ImpactSearcher:
         encoded_query = self.query_encoder.encode(q)
         jquery = JHashMap()
         for (token, weight) in encoded_query.items():
-            if self.idf[token] > self.min_idf:
-                jquery.put(JString(token.encode('utf8')), JFloat(weight))
+            if token in self.idf and self.idf[token] > self.min_idf:
+                jquery.put(JString(token), JFloat(weight))
 
         if not fields:
             hits = self.object.search(jquery, k)
@@ -153,8 +154,8 @@ class ImpactSearcher:
             encoded_query = self.query_encoder.encode(q)
             jquery = JHashMap()
             for (token, weight) in encoded_query.items():
-                if self.idf[token] > self.min_idf:
-                    jquery.put(JString(token.encode('utf8')), JFloat(weight))
+                if token in self.idf and self.idf[token] > self.min_idf:
+                    jquery.put(JString(token), JFloat(weight))
             query_lst.add(jquery)
 
         for qid in qids:
@@ -226,6 +227,8 @@ class ImpactSearcher:
             return CachedDataQueryEncoder(query_encoder)
         elif 'unicoil' in query_encoder.lower():
             return UniCoilQueryEncoder(query_encoder)
+        elif 'splade' in query_encoder.lower():
+            return SpladeQueryEncoder(query_encoder)
 
     @staticmethod
     def _compute_idf(index_path):

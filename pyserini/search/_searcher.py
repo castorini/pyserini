@@ -111,9 +111,9 @@ class SimpleSearcher:
         hits = None
         if query_generator:
             if not fields:
-                hits = self.object.search(query_generator, JString(q.encode('utf8')), k)
+                hits = self.object.search(query_generator, JString(q), k)
             else:
-                hits = self.object.searchFields(query_generator, JString(q.encode('utf8')), jfields, k)
+                hits = self.object.searchFields(query_generator, JString(q), jfields, k)
         elif isinstance(q, JQuery):
             # Note that RM3 requires the notion of a query (string) to estimate the appropriate models. If we're just
             # given a Lucene query, it's unclear what the "query" is for this estimation. One possibility is to extract
@@ -127,9 +127,9 @@ class SimpleSearcher:
             hits = self.object.search(q, k)
         else:
             if not fields:
-                hits = self.object.search(JString(q.encode('utf8')), k)
+                hits = self.object.search(JString(q), k)
             else:
-                hits = self.object.searchFields(JString(q.encode('utf8')), jfields, k)
+                hits = self.object.searchFields(JString(q), jfields, k)
 
         docids = set()
         filtered_hits = []
@@ -176,7 +176,7 @@ class SimpleSearcher:
         query_strings = JArrayList()
         qid_strings = JArrayList()
         for query in queries:
-            jq = JString(query.encode('utf8'))
+            jq = JString(query)
             query_strings.add(jq)
 
         for qid in qids:
