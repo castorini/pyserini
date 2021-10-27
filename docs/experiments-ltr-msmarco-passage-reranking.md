@@ -11,15 +11,15 @@ Next, we're going to use `collections/msmarco-ltr-passage/` as the working direc
 ```bash
 mkdir collections/msmarco-ltr-passage/
 
-python scripts/ltr_msmarco-passage/convert_queries.py \
+python scripts/ltr_msmarco/convert_queries.py \
   --input collections/msmarco-passage/queries.eval.small.tsv \
   --output collections/msmarco-ltr-passage/queries.eval.small.json 
 
-python scripts/ltr_msmarco-passage/convert_queries.py \
+python scripts/ltr_msmarco/convert_queries.py \
   --input collections/msmarco-passage/queries.dev.small.tsv \
   --output collections/msmarco-ltr-passage/queries.dev.small.json
 
-python scripts/ltr_msmarco-passage/convert_queries.py \
+python scripts/ltr_msmarco/convert_queries.py \
   --input collections/msmarco-passage/queries.train.tsv \
   --output collections/msmarco-ltr-passage/queries.train.json
 ```
@@ -52,7 +52,7 @@ tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
 Next we can run our inference script to get our reranking result.
 
 ```bash
-python scripts/ltr_msmarco-passage/ltr_inference.py \
+python scripts/ltr_msmarco/ltr_inference.py \
   --input runs/run.msmarco-passage.bm25tuned.txt \
   --input-format tsv \
   --model runs/msmarco-passage-ltr-mrr-v1 \
@@ -110,7 +110,7 @@ On the other hand, recall@1000 provides the upper bound effectiveness of downstr
 Equivalently, we can preprocess collection and queries with our scripts:
 
 ```bash
-python scripts/ltr_msmarco-passage/convert_passage.py \
+python scripts/ltr_msmarco/convert_passage.py \
   --input collections/msmarco-passage/collection.tsv \
   --output collections/msmarco-ltr-passage/ltr_collection.json 
 ```
@@ -119,7 +119,7 @@ The above script will convert the collection and queries to json files with `tex
 Next, we need to convert the MS MARCO json collection into Anserini's jsonl files (which have one json object per line):
 
 ```bash
-python scripts/ltr_msmarco-passage/convert_collection_to_jsonl.py \
+python scripts/ltr_msmarco/convert_collection_to_jsonl.py \
   --collection-path collections/msmarco-ltr-passage/ltr_collection.json \
   --output-folder collections/msmarco-ltr-passage/ltr_collection_jsonl 
 ```
