@@ -35,7 +35,7 @@ class TestLtrMsmarcoPassage(unittest.TestCase):
         #Download candidate
         os.system('wget https://www.dropbox.com/s/sxf16jcjtw1q9z7/run.msmarco-pass-doc.bm25.txt -P ltr_test')
         #Download prebuilt index
-        SimpleSearcher.from_prebuilt_index('msmarco-passage-ltr')
+        SimpleSearcher.from_prebuilt_index('msmarco-document-ltr')
         #Pre-trained ltr model
         model_url = 'https://www.dropbox.com/s/ffl2bfw4cd5ngyz/msmarco-passage-ltr-mrr-v1.tar.gz'
         model_tar_name = 'msmarco-passage-ltr-mrr-v1.tar.gz'
@@ -47,16 +47,16 @@ class TestLtrMsmarcoPassage(unittest.TestCase):
         os.system(f'wget {ibm_model_url} -P ltr_test/')
         #queries process
         os.system(f'tar -xzvf ltr_test/{ibm_model_tar_name} -C ltr_test')
-        os.system('python scripts/ltr_msmarco/convert_queries.py --input tools/topics-and-qrels/topics.msmarco-doc.dev.txt --output collections/msmarco-ltr-document/queries.dev.small.json')
-        os.system(f'python scripts/ltr_msmarco/ltr_inference.py  --input ltr_test/{inp} --input-format trec --data document --model ltr_test/msmarco-passage-ltr-mrr-v1 --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3 --ibm-model ltr_test/ibm_model/ --queries ltr_test --output ltr_test/{outp}')
+        os.system('python scripts/ltr_msmarco/convert_queries.py --input tools/topics-and-qrels/topics.msmarco-doc.dev.txt --output ltr_test/queries.dev.small.json')
+        os.system(f'python scripts/ltr_msmarco/ltr_inference.py  --input ltr_test/{inp} --input-format trec --data document --model ltr_test/msmarco-passage-ltr-mrr-v1 --index ~/.cache/pyserini/indexes/index-msmarco-document-ltr-20211027-3e4c283.e57dd613f16efc61e442a017a2fb83e7 --ibm-model ltr_test/ibm_model/ --queries ltr_test --output ltr_test/{outp}')
         #convert trec to tsv withmaxP
         os.system(f'python scripts/ltr_msmarco/generate_document_score_withmaxP.py --input ltr_test/{outp} --output ltr_test/{outp_tsv}')
 
 
-        result = subprocess.check_output(f'python tools/scripts/msmarco/msmarco_doc_eval.pytools/topics-and-qrels/qrels.msmarco-doc.dev.txt ltr_test/{outp_tsv}', shell=True).decode(sys.stdout.encoding)
+        result = subprocess.check_output(f'python tools/scripts/msmarco/msmarco_doc_eval.py tools/topics-and-qrels/qrels.msmarco-doc.dev.txt ltr_test/{outp_tsv}', shell=True).decode(sys.stdout.encoding)
         a,b = result.find('#####################\nMRR @10:'), result.find('\nQueriesRanked: 6980\n#####################\n')
         mrr = result[a+31:b]
-        self.assertAlmostEqual(float(mrr),0.3105532197278601 delta=0.000001)
+        self.assertAlmostEqual(float(mrr),0.3105532197278601, delta=0.000001)
         rmtree('ltr_test')
 
 if __name__ == '__main__':

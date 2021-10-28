@@ -36,7 +36,7 @@ from pyserini.ltr import *
 """
 Running prediction on candidates
 """
-def dev_data_loader(file, format, top=100):
+def dev_data_loader(file, format, data, top=100):
     if format == 'tsv':
         dev = pd.read_csv(file, sep="\t",
                           names=['qid', 'pid', 'rank'],
@@ -52,9 +52,14 @@ def dev_data_loader(file, format, top=100):
     assert dev['pid'].dtype == np.object
     assert dev['rank'].dtype == np.int32
     dev = dev[dev['rank']<=top]
-    dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt', sep=" ",
-                           names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
-                           dtype={'qid': 'S','pid': 'S', 'rel':'i'})
+    if data == 'passage':
+        dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt', sep=" ",
+                            names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
+                            dtype={'qid': 'S','pid': 'S', 'rel':'i'})
+    elif data == 'document':
+        dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-doc.dev.txt', sep="\t",
+                            names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
+                            dtype={'qid': 'S','pid': 'S', 'rel':'i'})
     assert dev['qid'].dtype == np.object
     assert dev['pid'].dtype == np.object
     assert dev['rank'].dtype == np.int32
@@ -228,7 +233,7 @@ if __name__ == "__main__":
     searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data)
     searcher.add_fe()
     print("load dev")
-    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.reranking_top)
+    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.data, args.reranking_top)
     print("load queries")
     queries = query_loader()
 
