@@ -56,6 +56,8 @@ $ conda install faiss-cpu -c pytorch
 
 ## Development Installation
 
+First follow the steps [here](#development-installation).
+
 Install Maven via conda:
 
 ```bash
