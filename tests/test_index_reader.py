@@ -48,7 +48,7 @@ class TestIndexUtils(unittest.TestCase):
         self.index_reader = index.IndexReader(self.index_path)
 
         self.temp_folders = []
-        self.emoji_corpus_path = 'integrations/resources/sample_collection_json_emoji'
+        self.emoji_corpus_path = 'tests/resources/sample_collection_json_emoji'
 
     def test_doc_vector_emoji_test(self):
         index_dir = 'temp_index'
@@ -56,9 +56,9 @@ class TestIndexUtils(unittest.TestCase):
         cmd1 = f'python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator -threads 1 -input {self.emoji_corpus_path} -index {index_dir} -storeDocvectors'
         _ = os.system(cmd1)
         tempt_index_reader = index.IndexReader(index_dir)
-        doc_vector = tempt_index_reader.get_document_vector('CACM-3807')
-        self.assertAlmostEqual(doc_vector['🙂'], 1)
-        self.assertAlmostEqual(doc_vector['😀'], 1)
+        doc_vector = tempt_index_reader.get_document_vector('doc1')
+        self.assertEqual(doc_vector['🙂'], 1)
+        self.assertEqual(doc_vector['😀'], 1)
 
 
     def test_tfidf_vectorizer_train(self):
