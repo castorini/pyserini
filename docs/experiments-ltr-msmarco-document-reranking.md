@@ -48,7 +48,56 @@ python scripts/ltr_msmarco/convert_queries.py \
 
 ```
 
-Prepare the LTR index:
+Download pretrained IBM models:
+
+```bash
+wget https://www.dropbox.com/s/vlrfcz3vmr4nt0q/ibm_model.tar.gz -P collections/msmarco-ltr-document/
+tar -xzvf collections/msmarco-ltr-document/ibm_model.tar.gz -C collections/msmarco-ltr-document/
+```
+
+Download our pretrained LTR model:
+
+```bash
+wget https://www.dropbox.com/s/ffl2bfw4cd5ngyz/msmarco-passage-ltr-mrr-v1.tar.gz -P runs/
+tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
+```
+
+Get our prebuilt LTR document index:
+```bash
+python -c "from pyserini.search import SimpleSearcher; SimpleSearcher.from_prebuilt_index('msmarco-document-ltr')"
+```
+
+Now, we have all things ready and can run inference. The LTR outpus rankings on segments level. We will need to use another script to get doc level results using maxP strategy.
+```bash
+python scripts/ltr_msmarco/ltr_inference.py \
+       --input collections/msmarco-doc/run.msmarco-pass-doc.bm25.txt \
+       --input-format trec \
+       --model runs/msmarco-passage-ltr-mrr-v1 \
+       --data document \
+       --ibm-model collections/msmarco-ltr-document/ibm_model/ \
+       --queries collections/msmarco-ltr-document \
+       --index ~/.cache/pyserini/indexes/index-msmarco-document-ltr-20211027-3e4c283 --output runs/run.ltr.doc-pas.trec 
+
+python scripts/ltr_msmarco/generate_document_score_withmaxP.py \
+      --input runs/run.ltr.doc-pas.trec \
+      --output runs/run.ltr.doc_level.tsv
+```
+
+```bash
+python tools/scripts/msmarco/msmarco_doc_eval.py \
+    --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
+    --run runs/run.ltr.doc_level.tsv
+
+```
+The above evaluation should give your results as below.
+```bash
+#####################
+MRR @100: 0.3090492928920076
+QueriesRanked: 5193
+#####################
+```
+
+## Building the Index From Scratch
 
 ```bash
 python scripts/ltr_msmarco/convert_passage_doc.py \
@@ -74,47 +123,3 @@ python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocu
 ```
 
 Note that pretokenized option let Anserini use whitespace analyzer so that do not break our preprocessed tokenization.
-
-Download pretrained IBM models:
-
-```bash
-wget https://www.dropbox.com/s/vlrfcz3vmr4nt0q/ibm_model.tar.gz -P collections/msmarco-ltr-document/
-tar -xzvf collections/msmarco-ltr-document/ibm_model.tar.gz -C collections/msmarco-ltr-document/
-```
-
-Download our pretrained LTR model:
-
-```bash
-wget https://www.dropbox.com/s/ffl2bfw4cd5ngyz/msmarco-passage-ltr-mrr-v1.tar.gz -P runs/
-tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
-```
-
-Now, we have all things ready and can run inference. The LTR outpus rankings on segments level. We will need to use another script to get doc level results using maxP strategy.
-```bash
-python scripts/ltr_msmarco/ltr_inference.py \
-       --input collections/msmarco-doc/run.msmarco-pass-doc.bm25.txt \
-       --input-format trec \
-       --model runs/msmarco-passage-ltr-mrr-v1 \
-       --data document \
-       --ibm-model collections/msmarco-ltr-document/ibm_model/ \
-       --queries collections/msmarco-ltr-document \
-       --index indexes/lucene-index-msmarco-document-ltr --output runs/run.ltr.doc-pas.trec 
-
-python scripts/ltr_msmarco/generate_document_score_withmaxP.py \
-      --input runs/run.ltr.doc-pas.trec \
-      --output runs/run.ltr.doc_level.tsv
-```
-
-```bash
-python tools/scripts/msmarco/msmarco_doc_eval.py \
-    --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-    --run runs/run.ltr.doc_level.tsv
-
-```
-The above evaluation should give your results as below.
-```bash
-#####################
-MRR @100: 0.3090492928920076
-QueriesRanked: 5193
-#####################
-```
