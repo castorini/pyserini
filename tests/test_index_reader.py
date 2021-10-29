@@ -47,6 +47,20 @@ class TestIndexUtils(unittest.TestCase):
         self.searcher = search.SimpleSearcher(self.index_path)
         self.index_reader = index.IndexReader(self.index_path)
 
+        self.temp_folders = []
+        self.emoji_corpus_path = 'tests/resources/sample_collection_json_emoji'
+
+    def test_doc_vector_emoji_test(self):
+        index_dir = 'temp_index'
+        self.temp_folders.append(index_dir)
+        cmd1 = f'python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator -threads 1 -input {self.emoji_corpus_path} -index {index_dir} -storeDocvectors'
+        _ = os.system(cmd1)
+        tempt_index_reader = index.IndexReader(index_dir)
+        doc_vector = tempt_index_reader.get_document_vector('doc1')
+        self.assertEqual(doc_vector['🙂'], 1)
+        self.assertEqual(doc_vector['😀'], 1)
+
+
     def test_tfidf_vectorizer_train(self):
         vectorizer = TfidfVectorizer(self.index_path, min_df=5)
         train_docs = ['CACM-0239', 'CACM-0440', 'CACM-3168', 'CACM-3169']
@@ -356,6 +370,8 @@ class TestIndexUtils(unittest.TestCase):
     def tearDown(self):
         os.remove(self.tarball_name)
         shutil.rmtree(self.index_dir)
+        for f in self.temp_folders:
+            shutil.rmtree(f)
 
 
 if __name__ == '__main__':
