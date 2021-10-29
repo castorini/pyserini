@@ -29,7 +29,6 @@ logger = logging.getLogger(__name__)
 
 # Wrappers around Lucene classes
 JQuery = autoclass('org.apache.lucene.search.Query')
-JDocument = autoclass('org.apache.lucene.document.Document')
 
 # Wrappers around Anserini classes
 JQrels = autoclass('io.anserini.eval.Qrels')
@@ -40,39 +39,6 @@ JQueryGenerator = autoclass('io.anserini.search.query.QueryGenerator')
 JBagOfWordsQueryGenerator = autoclass('io.anserini.search.query.BagOfWordsQueryGenerator')
 JDisjunctionMaxQueryGenerator = autoclass('io.anserini.search.query.DisjunctionMaxQueryGenerator')
 JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
-
-class Document:
-    """Wrapper class for a Lucene ``Document``.
-
-    Parameters
-    ----------
-    document : JDocument
-        Underlying Lucene ``Document``.
-    """
-
-    def __init__(self, document):
-        if document is None:
-            raise ValueError('Cannot create a Document with None.')
-        self.object = document
-
-    def docid(self: JDocument) -> str:
-        return self.object.getField('id').stringValue()
-
-    def id(self: JDocument) -> str:
-        # Convenient alias for docid()
-        return self.object.getField('id').stringValue()
-
-    def lucene_document(self: JDocument) -> JDocument:
-        return self.object
-
-    def contents(self: JDocument) -> str:
-        return self.object.get('contents')
-
-    def raw(self: JDocument) -> str:
-        return self.object.get('raw')
-
-    def get(self: JDocument, field: str) -> str:
-        return self.object.get(field)
 
 
 def get_topics(collection_name):
@@ -148,6 +114,14 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV)
     elif collection_name == 'msmarco-doc-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_TEST)
+    elif collection_name == 'msmarco-v2-doc-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV)
+    elif collection_name == 'msmarco-v2-doc-dev2':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV2)
+    elif collection_name == 'msmarco-v2-passage-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV)
+    elif collection_name == 'msmarco-v2-passage-dev2':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV2)
     elif collection_name == 'msmarco-passage-dev-subset':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
     elif collection_name == 'msmarco-passage-test-subset':
@@ -230,6 +204,9 @@ def get_topics(collection_name):
 def get_topics_with_reader(reader_class, file):
     # Yes, this is an insanely ridiculous method name.
     topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(reader_class, file)
+    if topics is None:
+        raise ValueError(f'Unable to initialize TopicReader {reader_class} with file {file}!')
+
     t = {}
     for topic in topics.keySet().toArray():
         # Try and parse the keys into integers
@@ -310,6 +287,14 @@ def get_qrels_file(collection_name):
         qrels = JQrels.MSMARCO_DOC_DEV
     elif collection_name == 'msmarco-passage-dev-subset':
         qrels = JQrels.MSMARCO_PASSAGE_DEV_SUBSET
+    elif collection_name == 'msmarco-v2-doc-dev':
+        qrels = JQrels.MSMARCO_V2_DOC_DEV
+    elif collection_name == 'msmarco-v2-doc-dev2':
+        qrels = JQrels.MSMARCO_V2_DOC_DEV2
+    elif collection_name == 'msmarco-v2-passage-dev':
+        qrels = JQrels.MSMARCO_V2_PASSAGE_DEV
+    elif collection_name == 'msmarco-v2-passage-dev2':
+        qrels = JQrels.MSMARCO_V2_PASSAGE_DEV2
     elif collection_name == 'ntcir8-zh':
         qrels = JQrels.NTCIR8_ZH
     elif collection_name == 'clef2006-fr':

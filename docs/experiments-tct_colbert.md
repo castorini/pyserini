@@ -1,4 +1,4 @@
-# Pyserini: Reproducing TCT-ColBERT Results
+# Pyserini: TCT-ColBERT for MS MARCO (V1) Collections
 
 This guide provides instructions to reproduce the TCT-ColBERT dense retrieval model described in the following paper:
 
@@ -23,7 +23,7 @@ Summary of results:
 | TCT-ColBERT (brute-force index) + BoW BM25 | 0.3529 | 0.3594 | 0.9698 |
 | TCT-ColBERT (brute-force index) + BM25 w/ doc2query-T5 | 0.3647 | 0.3711 | 0.9751 |
 
-## Dense Retrieval
+### Dense Retrieval
 
 Dense retrieval with TCT-ColBERT, brute-force index:
 
@@ -84,14 +84,14 @@ QueriesRanked: 6980
 
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.tct_colbert.hnsw.tsv --output runs/run.msmarco-passage.tct_colbert.hnsw.trec
 $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.hnsw.trec
-map                     all     0.3410
+map                     all     0.3411
 recall_1000             all     0.9618
 ```
 
 Follow the same instructions above to perform on-the-fly query encoding.
 The caveat about minor differences in score applies here as well.
 
-## Hybrid Dense-Sparse Retrieval
+### Hybrid Dense-Sparse Retrieval
 
 Hybrid retrieval with dense-sparse representations (without document expansion):
 - dense retrieval with TCT-ColBERT, brute force index.
@@ -276,8 +276,8 @@ recall_100            	all	0.9081
 
 ## Reproduction Log[*](reproducibility.md)
 
-+ Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
-+ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-25 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7f`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-25 (commit [`854c193`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
 + Results reproduced by [@isoboroff](https://github.com/isoboroff) on 2021-05-14 (PyPI [`0.12.0`](https://pypi.org/project/pyserini/0.12.0/)
 + Results reproduced by [@jingtaozhan](https://github.com/jingtaozhan) on 2021-05-15 (commit [`53d8d3c`](https://github.com/castorini/pyserini/commit/53d8d3cbb78c88a23ce132a42b0396caad7d2e0f))
 + Results reproduced by [@jmmackenzie](https://github.com/jmmackenzie) on 2021-05-17 (PyPI [`0.12.0`](https://pypi.org/project/pyserini/0.12.0/))

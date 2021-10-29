@@ -36,7 +36,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.threads = 36
             self.batch_size = 144
 
-    def test_msmarco_passage_distilbert_kd_tas_b_bf_otf(self):
+    def test_msmarco_passage_distilbert_tas_b_bf_otf(self):
         output_file = 'test_run.msmarco-passage.distilbert-dot-tas_b-b256.bf.tsv'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
@@ -51,8 +51,7 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3444, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3443, delta=0.0001)
 
     def test_msmarco_passage_distilbert_kd_tas_b_encoded_queries(self):
         encoder = QueryEncoder.load_encoded_queries('distilbert_tas_b-msmarco-passage-dev-subset')
