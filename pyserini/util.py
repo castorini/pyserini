@@ -175,7 +175,7 @@ def check_downloaded(index_name):
 
 
 def get_sparse_indexes_info():
-    df = pd.DataFrame.from_dict(TF_INDEX_INFO)
+    df = pd.DataFrame.from_dict({**TF_INDEX_INFO, **IMPACT_INDEX_INFO})
     for index in df.keys():
         df[index]['downloaded'] = check_downloaded(index)
 
