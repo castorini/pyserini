@@ -194,13 +194,8 @@ VectorizerStr = {
 
 def evaluate(qrels_path: str, run_path: str, options: str = ''):        
     curdir = os.getcwd()
-<<<<<<< HEAD
-    if curdir.endswith('integrations'):
-       anserini_root = '../../anserini'
-=======
     if curdir.endswith('clprf'):
        anserini_root = '../../../anserini'
->>>>>>> c7b37d6073cda62685f64d6d0b99dc46f0718346
     else:
        anserini_root = '../anserini'
     prefix = f"{anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -c -M1000 -m all_trec {qrels_path}"
