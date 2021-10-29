@@ -48,15 +48,15 @@ class TestLtrMsmarcoPassage(unittest.TestCase):
         #queries process
         os.system(f'tar -xzvf ltr_test/{ibm_model_tar_name} -C ltr_test')
         os.system('python scripts/ltr_msmarco/convert_queries.py --input tools/topics-and-qrels/topics.msmarco-doc.dev.txt --output ltr_test/queries.dev.small.json')
-        os.system(f'python scripts/ltr_msmarco/ltr_inference.py  --input ltr_test/{inp} --input-format trec --data document --model ltr_test/msmarco-passage-ltr-mrr-v1 --index ~/.cache/pyserini/indexes/index-msmarco-document-ltr-20211027-3e4c283.e57dd613f16efc61e442a017a2fb83e7 --ibm-model ltr_test/ibm_model/ --queries ltr_test --output ltr_test/{outp}')
+        os.system(f'python scripts/ltr_msmarco/ltr_inference.py  --input ltr_test/{inp} --input-format trec --data document --model ltr_test/msmarco-passage-ltr-mrr-v1 --index ~/.cache/pyserini/indexes/index-msmarco-document-ltr-20211027-3e4c283.2718874ab44f6d383e84ad20f3790460 --ibm-model ltr_test/ibm_model/ --queries ltr_test --output ltr_test/{outp}')
         #convert trec to tsv withmaxP
         os.system(f'python scripts/ltr_msmarco/generate_document_score_withmaxP.py --input ltr_test/{outp} --output ltr_test/{outp_tsv}')
 
 
-        result = subprocess.check_output(f'python tools/scripts/msmarco/msmarco_doc_eval.py tools/topics-and-qrels/qrels.msmarco-doc.dev.txt ltr_test/{outp_tsv}', shell=True).decode(sys.stdout.encoding)
-        a,b = result.find('#####################\nMRR @10:'), result.find('\nQueriesRanked: 6980\n#####################\n')
-        mrr = result[a+31:b]
-        self.assertAlmostEqual(float(mrr),0.3105532197278601, delta=0.000001)
+        result = subprocess.check_output(f'python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt --run ltr_test/{outp_tsv}', shell=True).decode(sys.stdout.encoding)
+        a,b = result.find('#####################\nMRR @100:'), result.find('\nQueriesRanked: 5193\n#####################\n')
+        mrr = result[a+32:b]
+        self.assertAlmostEqual(float(mrr),0.3090492928920076, delta=0.000001)
         rmtree('ltr_test')
 
 if __name__ == '__main__':

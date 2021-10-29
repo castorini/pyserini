@@ -104,9 +104,9 @@ TF_INDEX_INFO = {
         "description": "MS MARCO document corpus (4 extra preprocessed fields) used for LTR pipeline",
         "filename": "index-msmarco-document-ltr-20211027-3e4c283.tar.gz",
         "urls": [
-            "https://drive.google.com/file/d/1TFIeuYaA8N1chiCddtlqATWi02L_XxJp/view?usp=sharing"  # too big for UWaterloo GitLab
+            "https://www.dropbox.com/s/5tr2otncs9rttbp/index-msmarco-document-ltr-20211027-3e4c283.tar.gz?dl=1"  # too big for UWaterloo GitLab
         ],
-        "md5": "e57dd613f16efc61e442a017a2fb83e7",
+        "md5": "2718874ab44f6d383e84ad20f3790460",
         "size compressed (bytes)": 46052436658,
         "total_terms": 1232004740,
         "documents": 20545628,
