@@ -29,7 +29,6 @@ logger = logging.getLogger(__name__)
 
 # Wrappers around Lucene classes
 JQuery = autoclass('org.apache.lucene.search.Query')
-JDocument = autoclass('org.apache.lucene.document.Document')
 
 # Wrappers around Anserini classes
 JQrels = autoclass('io.anserini.eval.Qrels')
@@ -40,40 +39,6 @@ JQueryGenerator = autoclass('io.anserini.search.query.QueryGenerator')
 JBagOfWordsQueryGenerator = autoclass('io.anserini.search.query.BagOfWordsQueryGenerator')
 JDisjunctionMaxQueryGenerator = autoclass('io.anserini.search.query.DisjunctionMaxQueryGenerator')
 JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
-
-
-class Document:
-    """Wrapper class for a Lucene ``Document``.
-
-    Parameters
-    ----------
-    document : JDocument
-        Underlying Lucene ``Document``.
-    """
-
-    def __init__(self, document):
-        if document is None:
-            raise ValueError('Cannot create a Document with None.')
-        self.object = document
-
-    def docid(self: JDocument) -> str:
-        return self.object.getField('id').stringValue()
-
-    def id(self: JDocument) -> str:
-        # Convenient alias for docid()
-        return self.object.getField('id').stringValue()
-
-    def lucene_document(self: JDocument) -> JDocument:
-        return self.object
-
-    def contents(self: JDocument) -> str:
-        return self.object.get('contents')
-
-    def raw(self: JDocument) -> str:
-        return self.object.get('raw')
-
-    def get(self: JDocument, field: str) -> str:
-        return self.object.get(field)
 
 
 def get_topics(collection_name):
