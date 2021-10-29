@@ -26,14 +26,14 @@ from typing import Dict, Iterator, List, Optional, Tuple
 
 from ..analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
 from ..pyclass import autoclass, JString
-from ..search import Document
 from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
-from pyserini.prebuilt_index_info import TF_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO
 
 logger = logging.getLogger(__name__)
 
 
 # Wrappers around Anserini classes
+JDocument = autoclass('org.apache.lucene.document.Document')
 JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 
 
@@ -49,6 +49,40 @@ class JIndexHelpers:
         IndexCollection = autoclass('io.anserini.index.IndexCollection')
         Counters = autoclass('io.anserini.index.IndexCollection$Counters')
         return Counters(IndexCollection)
+
+
+class Document:
+    """Wrapper class for a Lucene ``Document``.
+
+    Parameters
+    ----------
+    document : JDocument
+        Underlying Lucene ``Document``.
+    """
+
+    def __init__(self, document):
+        if document is None:
+            raise ValueError('Cannot create a Document with None.')
+        self.object = document
+
+    def docid(self: JDocument) -> str:
+        return self.object.getField('id').stringValue()
+
+    def id(self: JDocument) -> str:
+        # Convenient alias for docid()
+        return self.object.getField('id').stringValue()
+
+    def lucene_document(self: JDocument) -> JDocument:
+        return self.object
+
+    def contents(self: JDocument) -> str:
+        return self.object.get('contents')
+
+    def raw(self: JDocument) -> str:
+        return self.object.get('raw')
+
+    def get(self: JDocument, field: str) -> str:
+        return self.object.get(field)
 
 
 class JGenerators(Enum):
@@ -182,14 +216,20 @@ class IndexReader:
         reader = cls.from_prebuilt_index(prebuilt_index_name)
         stats = reader.stats()
 
-        if stats['documents'] != TF_INDEX_INFO[prebuilt_index_name]['documents']:
-            raise ValueError('"documents" does not match!')
-
-        if stats['unique_terms'] != TF_INDEX_INFO[prebuilt_index_name]['unique_terms']:
-            raise ValueError('"unique_terms" does not match!')
-
-        if stats['total_terms'] != TF_INDEX_INFO[prebuilt_index_name]['total_terms']:
-            raise ValueError('"total_terms" does not match!')
+        if prebuilt_index_name in TF_INDEX_INFO:
+            if stats['documents'] != TF_INDEX_INFO[prebuilt_index_name]['documents']:
+                raise ValueError('"documents" does not match!')
+            if stats['unique_terms'] != TF_INDEX_INFO[prebuilt_index_name]['unique_terms']:
+                raise ValueError('"unique_terms" does not match!')
+            if stats['total_terms'] != TF_INDEX_INFO[prebuilt_index_name]['total_terms']:
+                raise ValueError('"total_terms" does not match!')
+        else:
+            if stats['documents'] != IMPACT_INDEX_INFO[prebuilt_index_name]['documents']:
+                raise ValueError('"documents" does not match!')
+            if stats['unique_terms'] != IMPACT_INDEX_INFO[prebuilt_index_name]['unique_terms']:
+                raise ValueError('"unique_terms" does not match!')
+            if stats['total_terms'] != IMPACT_INDEX_INFO[prebuilt_index_name]['total_terms']:
+                raise ValueError('"total_terms" does not match!')
 
         print(reader.stats())
         print('Statistics match!')
