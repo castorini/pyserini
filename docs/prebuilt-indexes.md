@@ -176,13 +176,25 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-d2q
 [<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.readme.txt">readme</a>]
 </dd>
+<dt style="font-style: normal"><code>msmarco-doc-per-passage-unicoil-d2q</code></dt>
+<dd>Lucene impact index of the MS MARCO doc corpus per passage expansion encoded by uniCOIL-d2q
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.readme.txt">readme</a>]
+</dd>
 <dt style="font-style: normal"><code>msmarco-passage-unicoil-tilde</code></dt>
 <dd>Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE
 [<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.readme.txt">readme</a>]
 </dd>
+<dt style="font-style: normal"><code>msmarco-passage-distill-splade-max</code></dt>
+<dd>Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.readme.txt">readme</a>]
+</dd>
 <dt style="font-style: normal"><code>msmarco-v2-passage-unicoil-noexp-0shot</code></dt>
 <dd>Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL (zero-shot, no expansions)
 [<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt">readme</a>]
+</dd>
+<dt style="font-style: normal"><code>msmarco-v2-doc-per-passage-unicoil-noexp-0shot</code></dt>
+<dd>Lucene impact index of the MS MARCO V2 document corpus per passage encoded by uniCOIL (zero-shot, no expansions)
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt">readme</a>]
 </dd>
 <dt style="font-style: normal"><code>msmarco-v2-passage-unicoil-tilde</code></dt>
 <dd>Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL-TILDE
