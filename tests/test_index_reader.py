@@ -48,18 +48,39 @@ class TestIndexUtils(unittest.TestCase):
         self.index_reader = index.IndexReader(self.index_path)
 
         self.temp_folders = []
-        self.emoji_corpus_path = 'tests/resources/sample_collection_json_emoji'
 
+        # The current directory depends on if you're running inside an IDE or from command line.
+        curdir = os.getcwd()
+        if curdir.endswith('tests'):
+            self.emoji_corpus_path = '../tests/resources/sample_collection_json_emoji'
+        else:
+            self.emoji_corpus_path = 'tests/resources/sample_collection_json_emoji'
+
+    # See https://github.com/castorini/pyserini/issues/770
+    # tldr -- a longstanding issue about whether we need the `encode` in `JString(my_str.encode('utf-8'))`.
     def test_doc_vector_emoji_test(self):
         index_dir = 'temp_index'
         self.temp_folders.append(index_dir)
-        cmd1 = f'python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator -threads 1 -input {self.emoji_corpus_path} -index {index_dir} -storeDocvectors'
+        cmd1 = f'python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator ' + \
+               f'-threads 1 -input {self.emoji_corpus_path} -index {index_dir} -storeDocvectors'
         _ = os.system(cmd1)
-        tempt_index_reader = index.IndexReader(index_dir)
-        doc_vector = tempt_index_reader.get_document_vector('doc1')
+        temp_index_reader = index.IndexReader(index_dir)
+
+        df, cf = temp_index_reader.get_term_counts('emoji')
+        self.assertEqual(df, 1)
+        self.assertEqual(cf, 1)
+
+        # Currently, this test case will pass if we do '🙂'.encode('utf-8')
+        df, cf = temp_index_reader.get_term_counts('🙂')
+        self.assertEqual(df, 1)
+        self.assertEqual(cf, 1)
+
+        # This currently fails no matter what because by the time we retrieve the doc vector, None has already been
+        # inserted into the dictionary.
+        doc_vector = temp_index_reader.get_document_vector('doc1')
+        self.assertEqual(doc_vector['emoji'], 1)
         self.assertEqual(doc_vector['🙂'], 1)
         self.assertEqual(doc_vector['😀'], 1)
-
 
     def test_tfidf_vectorizer_train(self):
         vectorizer = TfidfVectorizer(self.index_path, min_df=5)
@@ -156,6 +177,11 @@ class TestIndexUtils(unittest.TestCase):
         df_no_stopword, cf_no_stopword = self.index_reader.get_term_counts('on', analyzer=None)
         self.assertEqual(df_no_stopword, 326)
         self.assertEqual(cf_no_stopword, 443)
+
+        # Should gracefully handle non-existent term.
+        df, cf = self.index_reader.get_term_counts('sdgsc')
+        self.assertEqual(df, 0)
+        self.assertEqual(cf, 0)
 
     def test_postings1(self):
         term = 'retrieval'
