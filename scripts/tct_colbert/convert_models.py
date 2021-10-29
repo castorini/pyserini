@@ -21,14 +21,15 @@ class ColBertConfig(PretrainedConfig):
 class ColBERT_distil(DistilBertPreTrainedModel):
     config_class = ColBertConfig
 
-    def __init__(self, config, tokenizer):
+    def __init__(self, config):
         super().__init__(config)
         self.distilbert = DistilBertModel(config)
         self.pooler = nn.Linear(config.hidden_size, config.code_dim)
-        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
+        self.skiplist = dict()
         self.init_weights()
 
-        encode = lambda x: self.tokenizer.encode(x, add_special_tokens=False)[0]
+    def build_skiplist(self, tokenizer):
+        encode = lambda x: tokenizer.encode(x, add_special_tokens=False)[0]
         self.skiplist = {w: True
                 for symbol in string.punctuation
                 for w in [symbol, encode(symbol)]}
@@ -42,8 +43,8 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         return mask
 
     def score(self, query, passage):
-        _, q_reps = self.query(query)
-        _, p_reps = self.doc(passage)
+        q_reps, _ = self.query(query)
+        p_reps, _ = self.doc(passage)
 
         q_ids = query['input_ids']
         p_ids = passage['input_ids']
@@ -62,17 +63,19 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         q_hidden = qry_out.last_hidden_state
         q_reps = self.pooler(q_hidden[:, 1:, :]) # excluding [CLS]
         q_reps = torch.nn.functional.normalize(q_reps, dim=2, p=2)
-        return q_hidden, q_reps
+        lengths = qry['attention_mask'].sum(1).cpu().numpy() - 1
+        return q_reps, lengths
 
     def doc(self, psg):
         psg_out = self.distilbert(**psg, return_dict=True)
         p_hidden = psg_out.last_hidden_state
         p_reps = self.pooler(p_hidden[:, 1:, :]) # excluding [CLS]
         p_reps = torch.nn.functional.normalize(p_reps, dim=2, p=2)
-        return p_hidden, p_reps
+        lengths = psg['attention_mask'].sum(1).cpu().numpy() - 1
+        return p_reps, lengths
 
 
-def main(state_pt_path, code_dim=128, tokenizer='distilbert-base-uncased'):
+def convert(state_pt_path, code_dim=128):
     path = os.path.expanduser(state_pt_path)
     state_dict = torch.load(path)
     new_state_dict = {}
@@ -83,7 +86,7 @@ def main(state_pt_path, code_dim=128, tokenizer='distilbert-base-uncased'):
     config = DistilBertConfig.from_pretrained('distilbert-base-uncased')
     config.code_dim = code_dim
 
-    model = ColBERT_distil(config, tokenizer)
+    model = ColBERT_distil(config)
     print('Loading pretrained state dict ...')
     model.load_state_dict(new_state_dict)
 
@@ -107,6 +110,30 @@ def main(state_pt_path, code_dim=128, tokenizer='distilbert-base-uncased'):
         json.dump(config, fh, indent=4, sort_keys=True)
         fh.write('\n')
 
+
+def test(hfc_model_path, hfc_tokenizer_path):
+    tokenizer = AutoTokenizer.from_pretrained(hfc_tokenizer_path)
+    model = ColBERT_distil.from_pretrained(hfc_model_path)
+    model.build_skiplist(tokenizer)
+    print('Encoding dimension:', model.config.code_dim)
+    print('Model hidden size:', model.config.hidden_size)
+
+    # docID = 66361, QueryID = 1016547
+    test_text = \
+    '''
+    [D] bone marrow that actively produces blood cells is called red marrow.
+    '''
+    enc_tokens = tokenizer([test_text],
+        padding=True, truncation=True, return_tensors="pt")
+    code, length = model.doc(enc_tokens)
+    print(tokenizer.decode(enc_tokens['input_ids'][0]))
+    print(code.shape, length)
+    print(code)
+
+
 if __name__ == '__main__':
     os.environ["PAGER"] = 'cat'
-    fire.Fire(main)
+    fire.Fire({
+        'convert': convert,
+        'test': test
+    })

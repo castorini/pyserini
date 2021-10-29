@@ -13,11 +13,12 @@ from pyserini.encode import ColBertEncoder
 
 
 class ColBertSearcher:
-    def __init__(self, index_path: str, query_encoder: QueryEncoder, div=14):
+    def __init__(self, index_path: str, query_encoder: QueryEncoder,
+                 div=4, device='cuda:0'):
         self.index_path = index_path
         self.encoder = query_encoder
         self.pos2docid = None
-        self.device = query_encoder.device
+        self.device = device
         self.div = div
         assert div >= 1
 
@@ -146,10 +147,22 @@ class ColBertSearcher:
             div_offsets.append((low, high))
         return div_offsets
 
-    def rank(self, qcode, uniq_docids):
+    def rank(self, qcode, uniq_docids, debug_docid=None):
         # prepare query and document tensors
         Q = qcode.permute(0, 2, 1).to(self.device) # [qnum, dim, max_qlen]
         Q = Q.to(dtype=torch.float16) # float16
+
+        # debug only
+        if debug_docid is not None:
+            for j, ext_docid in enumerate(self.ext_docIDs):
+                if ext_docid == debug_docid:
+                    break
+            debug_len = self.doc_lens[j]
+            debug_offset = self.doc_offsets[j]
+            debug_embs = self.word_embs[debug_offset:debug_offset+debug_len]
+            print(debug_embs.shape)
+            print(debug_embs)
+            return []
 
         # tensorize things
         all_scores = torch.zeros(len(uniq_docids), device=self.device)
@@ -207,7 +220,8 @@ class ColBertSearcher:
 
         return all_scores.cpu().tolist()
 
-    def search(self, query: str, k: int = 10) -> List[DenseSearchResult]:
+    def search(self, query: str, k: int = 10, docid: str = None) \
+        -> List[DenseSearchResult]:
         # encode query
         qcode, _ = self.encoder.encode([query],
             fp16=(self.code_sz==16), debug=False)
@@ -224,7 +238,7 @@ class ColBertSearcher:
         # rank candidates
         uniq_docids = list(map(lambda x: list(set(x)), QD_docids.tolist()))
         assert qnum == 1
-        scores = self.rank(qcode, uniq_docids[0])
+        scores = self.rank(qcode, uniq_docids[0], debug_docid=docid)
 
         # sort results
         results = zip(uniq_docids[0], scores)
@@ -240,7 +254,7 @@ class ColBertSearcher:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='ColBertSearcher Test.')
     parser.add_argument('--device', type=str, required=False, default='cpu',
-        help='device to run query encoder and searcher.')
+        help='Device to run query encoder and searcher.')
     parser.add_argument('--query', type=str, required=True,
         help="Test query in string.")
     parser.add_argument('--encoder', type=str, required=True,
@@ -250,7 +264,9 @@ if __name__ == '__main__':
     parser.add_argument('--index', type=str, required=True,
         help="Path to ColBert index directory.")
     parser.add_argument('--topk', type=int, required=False, default=10,
-        help="limit the number of maximum top-k results.")
+        help="Limit the number of maximum top-k results.")
+    parser.add_argument('--docid', type=str, required=False,
+        help="Print debug information for specific document.")
     args = parser.parse_args()
 
     encoder = ColBertEncoder(args.encoder, '[Q]',
@@ -258,6 +274,6 @@ if __name__ == '__main__':
     searcher = ColBertSearcher(args.index, encoder)
 
     print('[test query]', args.query)
-    results = searcher.search(args.query, k=args.topk)
+    results = searcher.search(args.query, k=args.topk, docid=args.docid)
     for docid, rank, score, _ in results:
         print(rank, docid, '\t', score)

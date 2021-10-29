@@ -76,14 +76,15 @@ class ColBERT(BertPreTrainedModel):
 class ColBERT_distil(DistilBertPreTrainedModel):
     config_class = ColBertConfig
 
-    def __init__(self, config, tokenizer):
+    def __init__(self, config):
         super().__init__(config)
         self.distilbert = DistilBertModel(config)
         self.pooler = nn.Linear(config.hidden_size, config.code_dim)
-        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
+        self.skiplist = dict()
         self.init_weights()
 
-        encode = lambda x: self.tokenizer.encode(x, add_special_tokens=False)[0]
+    def build_skiplist(self, tokenizer):
+        encode = lambda x: tokenizer.encode(x, add_special_tokens=False)[0]
         self.skiplist = {w: True
                 for symbol in string.punctuation
                 for w in [symbol, encode(symbol)]}
@@ -140,11 +141,13 @@ class ColBertEncoder(DocumentEncoder):
 
         # load model
         if 'distil' in model:
-            config = ColBertConfig.from_pretrained(model)
-            self.model = ColBERT_distil(config, tokenizer or model)
+            print('Using distil ColBERT:', model, tokenizer)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
+            self.model = ColBERT_distil.from_pretrained(model)
+            self.model.build_skiplist(self.tokenizer)
             self.dim = self.model.config.code_dim
-            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer or model)
         else:
+            print('Using vanilla ColBERT:', model, tokenizer)
             self.model = ColBERT.from_pretrained(model,
                 tie_word_embeddings=True
             )
