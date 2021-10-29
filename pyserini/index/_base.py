@@ -26,14 +26,14 @@ from typing import Dict, Iterator, List, Optional, Tuple
 
 from ..analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
 from ..pyclass import autoclass, JString
-from ..search import Document
 from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
-from pyserini.prebuilt_index_info import INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO
 
 logger = logging.getLogger(__name__)
 
 
 # Wrappers around Anserini classes
+JDocument = autoclass('org.apache.lucene.document.Document')
 JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 
 
@@ -49,6 +49,40 @@ class JIndexHelpers:
         IndexCollection = autoclass('io.anserini.index.IndexCollection')
         Counters = autoclass('io.anserini.index.IndexCollection$Counters')
         return Counters(IndexCollection)
+
+
+class Document:
+    """Wrapper class for a Lucene ``Document``.
+
+    Parameters
+    ----------
+    document : JDocument
+        Underlying Lucene ``Document``.
+    """
+
+    def __init__(self, document):
+        if document is None:
+            raise ValueError('Cannot create a Document with None.')
+        self.object = document
+
+    def docid(self: JDocument) -> str:
+        return self.object.getField('id').stringValue()
+
+    def id(self: JDocument) -> str:
+        # Convenient alias for docid()
+        return self.object.getField('id').stringValue()
+
+    def lucene_document(self: JDocument) -> JDocument:
+        return self.object
+
+    def contents(self: JDocument) -> str:
+        return self.object.get('contents')
+
+    def raw(self: JDocument) -> str:
+        return self.object.get('raw')
+
+    def get(self: JDocument, field: str) -> str:
+        return self.object.get(field)
 
 
 class JGenerators(Enum):
@@ -182,14 +216,20 @@ class IndexReader:
         reader = cls.from_prebuilt_index(prebuilt_index_name)
         stats = reader.stats()
 
-        if stats['documents'] != INDEX_INFO[prebuilt_index_name]['documents']:
-            raise ValueError('"documents" does not match!')
-
-        if stats['unique_terms'] != INDEX_INFO[prebuilt_index_name]['unique_terms']:
-            raise ValueError('"unique_terms" does not match!')
-
-        if stats['total_terms'] != INDEX_INFO[prebuilt_index_name]['total_terms']:
-            raise ValueError('"total_terms" does not match!')
+        if prebuilt_index_name in TF_INDEX_INFO:
+            if stats['documents'] != TF_INDEX_INFO[prebuilt_index_name]['documents']:
+                raise ValueError('"documents" does not match!')
+            if stats['unique_terms'] != TF_INDEX_INFO[prebuilt_index_name]['unique_terms']:
+                raise ValueError('"unique_terms" does not match!')
+            if stats['total_terms'] != TF_INDEX_INFO[prebuilt_index_name]['total_terms']:
+                raise ValueError('"total_terms" does not match!')
+        else:
+            if stats['documents'] != IMPACT_INDEX_INFO[prebuilt_index_name]['documents']:
+                raise ValueError('"documents" does not match!')
+            if stats['unique_terms'] != IMPACT_INDEX_INFO[prebuilt_index_name]['unique_terms']:
+                raise ValueError('"unique_terms" does not match!')
+            if stats['total_terms'] != IMPACT_INDEX_INFO[prebuilt_index_name]['total_terms']:
+                raise ValueError('"total_terms" does not match!')
 
         print(reader.stats())
         print('Statistics match!')
@@ -216,9 +256,9 @@ class IndexReader:
             List of tokens corresponding to the output of the analyzer.
         """
         if analyzer is None:
-            results = JAnalyzerUtils.analyze(JString(text.encode('utf-8')))
+            results = JAnalyzerUtils.analyze(JString(text))
         else:
-            results = JAnalyzerUtils.analyze(analyzer, JString(text.encode('utf-8')))
+            results = JAnalyzerUtils.analyze(analyzer, JString(text))
         tokens = []
         for token in results.toArray():
             tokens.append(token)
@@ -256,7 +296,7 @@ class IndexReader:
         if analyzer is None:
             analyzer = get_lucene_analyzer(stemming=False, stopwords=False)
 
-        term_map = self.object.getTermCountsWithAnalyzer(self.reader, JString(term.encode('utf-8')), analyzer)
+        term_map = self.object.getTermCountsWithAnalyzer(self.reader, JString(term), analyzer)
 
         return term_map.get(JString('docFreq')), term_map.get(JString('collectionFreq'))
 
@@ -276,9 +316,9 @@ class IndexReader:
             List of :class:`Posting` objects corresponding to the postings list for the term.
         """
         if analyzer is None:
-            postings_list = self.object.getPostingsListForAnalyzedTerm(self.reader, JString(term.encode('utf-8')))
+            postings_list = self.object.getPostingsListForAnalyzedTerm(self.reader, JString(term))
         else:
-            postings_list = self.object.getPostingsListWithAnalyzer(self.reader, JString(term.encode('utf-8')),
+            postings_list = self.object.getPostingsListWithAnalyzer(self.reader, JString(term),
                                                                     analyzer)
 
         if postings_list is None:
@@ -309,7 +349,7 @@ class IndexReader:
             return None
         doc_vector_dict = {}
         for term in doc_vector_map.keySet().toArray():
-            doc_vector_dict[term] = doc_vector_map.get(JString(term.encode('utf-8')))
+            doc_vector_dict[term] = doc_vector_map.get(JString(term))
         return doc_vector_dict
 
     def get_term_positions(self, docid: str) -> Optional[Dict[str, int]]:
@@ -333,7 +373,7 @@ class IndexReader:
             return None
         term_position_map = {}
         for term in java_term_position_map.keySet().toArray():
-            term_position_map[term] = java_term_position_map.get(JString(term.encode('utf-8'))).toArray()
+            term_position_map[term] = java_term_position_map.get(JString(term)).toArray()
         return term_position_map
 
     def doc(self, docid: str) -> Optional[Document]:
@@ -430,11 +470,11 @@ class IndexReader:
         """
         if analyzer is None:
             return self.object.getBM25AnalyzedTermWeightWithParameters(self.reader, JString(docid),
-                                                                       JString(term.encode('utf-8')),
+                                                                       JString(term),
                                                                        float(k1), float(b))
         else:
             return self.object.getBM25UnanalyzedTermWeightWithParameters(self.reader, JString(docid),
-                                                                         JString(term.encode('utf-8')), analyzer,
+                                                                         JString(term), analyzer,
                                                                          float(k1), float(b))
 
     def compute_query_document_score(self, docid: str, query: str, similarity=None):
@@ -492,6 +532,6 @@ class IndexReader:
 
         index_stats_dict = {}
         for term in index_stats_map.keySet().toArray():
-            index_stats_dict[term] = index_stats_map.get(JString(term.encode('utf-8')))
+            index_stats_dict[term] = index_stats_map.get(JString(term))
 
         return index_stats_dict

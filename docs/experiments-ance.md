@@ -71,7 +71,7 @@ To evaluate:
 ```bash
 $ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.passage.ance-maxp.txt
 #####################
-MRR @100: 0.3797
+MRR @100: 0.3796
 QueriesRanked: 5193
 #####################
 ```
@@ -82,7 +82,7 @@ For that we first need to convert runs and qrels files to the TREC format:
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-doc.passage.ance-maxp.txt --output runs/run.msmarco-doc.passage.ance-maxp.trec
 $ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev runs/run.msmarco-doc.passage.ance-maxp.trec
-map                   	all	0.3797
+map                   	all	0.3796
 recall_100            	all	0.9033
 ```
 
@@ -145,3 +145,5 @@ Top100	accuracy: 0.8522
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-25 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
 + Results reproduced by [@jingtaozhan](https://github.com/jingtaozhan) on 2021-05-15 (commit [`53d8d3c`](https://github.com/castorini/pyserini/commit/53d8d3cbb78c88a23ce132a42b0396caad7d2e0f))
 + Results reproduced by [@jmmackenzie](https://github.com/jmmackenzie) on 2021-05-17 (PyPI [`0.12.0`](https://pypi.org/project/pyserini/0.12.0/))
++ Results reproduced by [@yuki617](https://github.com/yuki617) on 2021-06-7 (commit [`c7b37d6`](https://github.com/castorini/pyserini/commit/c7b37d6073cda62685f64d6d0b99dc46f0718346))
++ Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-07-06 (commit [`c9f44b2`](https://github.com/castorini/pyserini/commit/c9f44b2a24103fff4887cade831f9b7c2472b190))

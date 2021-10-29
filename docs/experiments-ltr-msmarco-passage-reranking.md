@@ -132,3 +132,4 @@ python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocu
 Note that pretokenized option let Anserini use whitespace analyzer so that do not break our preprocessed tokenization.
 
 ## Reproduction Log[*](reproducibility.md)
++ Results reproduced by [@Dahlia-Chehata](https://github.com/Dahlia-Chehata) on 2021-07-17 (commit [`a6b6545`](https://github.com/castorini/pyserini/commit/a6b6545c0133c03d50d5c33fb2fea7c527de04bb))

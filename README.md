@@ -21,7 +21,7 @@ A low-effort way to try things out is to look at our [online notebooks](https://
 Install via PyPI (requires Python 3.6+):
 
 ```
-pip install pyserini==0.12.0
+pip install pyserini
 ```
 
 Sparse retrieval depends on [Anserini](http://anserini.io/), which is itself built on Lucene, and thus Java 11.
@@ -283,6 +283,7 @@ for i in range(searcher.num_docs):
 
 To build sparse (i.e., Lucene inverted indexes) on your own document collections, following the instructions below.
 To build dense indexes (e.g., the output of transformer encoders) on your own document collections, see instructions [here](docs/usage-dense-indexes.md).
+The following covers English documents; if you want to index and search multilingual documents, check out [this answer](docs/usage-multilingual.md#how-do-i-index-and-search-my-own-non-english-documents).
  
 Pyserini (via Anserini) provides ingestors for document collections in many different formats.
 The simplest, however, is the following JSON format:
@@ -384,20 +385,33 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 
 ### Sparse Retrieval
 
-+ [Reproducing runs directly from the Python package](docs/pypi-reproduction.md)
-+ [Guide to reproducing the BM25 baseline for MS MARCO Passage Ranking](docs/experiments-msmarco-passage.md)
-+ [Guide to reproducing the BM25 baseline for MS MARCO Document Ranking](docs/experiments-msmarco-doc.md)
-+ [Guide to reproducing the multi-field BM25 baseline for MS MARCO Document Ranking from Elasticsearch](docs/experiments-elastic.md)
-+ [Guide to reproducing Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
++ Reproducing [runs directly from the Python package](docs/pypi-reproduction.md)
++ Reproducing [Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
++ Reproducing the [BM25 baseline for MS MARCO V1 Passage Ranking](docs/experiments-msmarco-passage.md)
++ Reproducing the [BM25 baseline for MS MARCO V1 Document Ranking](docs/experiments-msmarco-doc.md)
++ Reproducing the [multi-field BM25 baseline for MS MARCO V1 Document Ranking from Elasticsearch](docs/experiments-elastic.md)
++ Reproducing [BM25 baselines on the MS MARCO V2 Collections](docs/experiments-msmarco-v2.md)
++ Reproducing [DeepImpact experiments for MS MARCO V1 Passage Ranking](docs/experiments-deepimpact.md)
++ Reproducing [uniCOIL experiments with doc2query-T5 expansions for MS MARCO V1](docs/experiments-unicoil.md)
++ Reproducing [uniCOIL experiments with TILDE expansions for MS MARCO V1 Passage Ranking](docs/experiments-unicoil-tilde-expansion.md)
++ Reproducing [uniCOIL experiments with TILDE expansions for MS MARCO V2 Passage Ranking](docs/experiments-msmarco-v2-unicoil-tilde-expansion.md)
++ Reproducing [uniCOIL experiments on the MS MARCO V2 Collections](docs/experiments-msmarco-v2-unicoil.md)
++ Reproducing [SPLADEv2 experiments for MS MARCO V1 Passage Ranking](docs/experiments-spladev2.md)
 
 ### Dense Retrieval
 
-+ [Guide to reproducing TCT-ColBERT experiments](docs/experiments-tct_colbert.md)
-+ [Guide to reproducing DPR experiments](docs/experiments-dpr.md)
-+ [Guide to reproducing ANCE experiments](docs/experiments-ance.md)
-+ [Guide to reproducing DistilBERT KD experiments](docs/experiments-distilbert_kd.md)
-+ [Guide to reproducing DistilBERT Balanced Topic Aware Sampling experiments](docs/experiments-distilbert_tasb.md)
-+ [Guide to reproducing SBERT dense retrieval experiments](docs/experiments-sbert.md)
++ Reproducing [TCT-ColBERTv1 experiments on the MS MARCO V1 Collections](docs/experiments-tct_colbert.md)
++ Reproducing [TCT-ColBERTv2 experiments on the MS MARCO V1 Collections](docs/experiments-tct_colbert-v2.md)
++ Reproducing [TCT-ColBERTv2 experiments on the MS MARCO V2 Collections](docs/experiments-msmarco-v2-tct_colbert-v2.md)
++ Reproducing [DPR experiments](docs/experiments-dpr.md)
++ Reproducing [BPR experiments](docs/experiments-bpr.md)
++ Reproducing [ANCE experiments](docs/experiments-ance.md)
++ Reproducing [DistilBERT KD experiments](docs/experiments-distilbert_kd.md)
++ Reproducing [DistilBERT Balanced Topic Aware Sampling experiments](docs/experiments-distilbert_tasb.md)
++ Reproducing [SBERT dense retrieval experiments](docs/experiments-sbert.md)
++ Reproducing [ADORE dense retrieval experiments](docs/experiments-adore.md)
++ Reproducing [Vector PRF experiments](docs/experiments-vector-prf.md)
++ Reproducing [ANCE-PRF experiments](docs/experiments-ance-prf.md)
 
 ## Baselines
 
@@ -430,6 +444,7 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 ## Release History
 
++ v0.13.0: July 3, 2021 [[Release Notes](docs/release-notes/release-notes-v0.13.0.md)]
 + v0.12.0: May 5, 2021 [[Release Notes](docs/release-notes/release-notes-v0.12.0.md)]
 + v0.11.0.0: February 18, 2021 [[Release Notes](docs/release-notes/release-notes-v0.11.0.0.md)]
 + v0.10.1.0: January 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.10.1.0.md)]

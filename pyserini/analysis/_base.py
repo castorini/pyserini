@@ -33,6 +33,7 @@ JHindiAnalyzer = autoclass('org.apache.lucene.analysis.hi.HindiAnalyzer')
 JHungarianAnalyzer = autoclass('org.apache.lucene.analysis.hu.HungarianAnalyzer')
 JIndonesianAnalyzer = autoclass('org.apache.lucene.analysis.id.IndonesianAnalyzer')
 JItalianAnalyzer = autoclass('org.apache.lucene.analysis.it.ItalianAnalyzer')
+JJapaneseAnalyzer = autoclass('org.apache.lucene.analysis.ja.JapaneseAnalyzer')
 JNorwegianAnalyzer = autoclass('org.apache.lucene.analysis.no.NorwegianAnalyzer')
 JPortugueseAnalyzer = autoclass('org.apache.lucene.analysis.pt.PortugueseAnalyzer')
 JRussianAnalyzer = autoclass('org.apache.lucene.analysis.ru.RussianAnalyzer')
@@ -49,12 +50,12 @@ JDefaultEnglishAnalyzer = autoclass('io.anserini.analysis.DefaultEnglishAnalyzer
 JTweetAnalyzer = autoclass('io.anserini.analysis.TweetAnalyzer')
 
 
-def get_lucene_analyzer(name='english', stemming=True, stemmer='porter', stopwords=True) -> JAnalyzer:
+def get_lucene_analyzer(language='en', stemming=True, stemmer='porter', stopwords=True) -> JAnalyzer:
     """Create a Lucene ``Analyzer`` with specific settings.
 
     Parameters
     ----------
-    name : str
+    language : str
         Name of analyzer.
     stemming : bool
         Set to stem.
@@ -68,45 +69,47 @@ def get_lucene_analyzer(name='english', stemming=True, stemmer='porter', stopwor
     JAnalyzer
         Java ``Analyzer`` with specified settings.
     """
-    if name.lower() == 'arabic':
+    if language.lower() == 'ar':
         return JArabicAnalyzer()
-    elif name.lower() == 'bengali':
+    elif language.lower() == 'bn':
         return JBengaliAnalyzer()
-    elif name.lower() == 'cjk':
+    elif language.lower() in ['zh', 'ko']:
         return JCJKAnalyzer()
-    elif name.lower() == 'danish':
+    elif language.lower() == 'da':
         return JDanishAnalyzer()
-    elif name.lower() == 'dutch':
+    elif language.lower() == 'nl':
         return JDutchAnalyzer()
-    elif name.lower() == 'finnish':
+    elif language.lower() == 'fi':
         return JFinnishAnalyzer()
-    elif name.lower() == 'french':
+    elif language.lower() == 'fr':
         return JFrenchAnalyzer()
-    elif name.lower() == 'german':
+    elif language.lower() == 'de':
         return JGermanAnalyzer()
-    elif name.lower() == 'hindi':
+    elif language.lower() == 'hi':
         return JHindiAnalyzer()
-    elif name.lower() == 'hungarian':
+    elif language.lower() == 'hu':
         return JHungarianAnalyzer()
-    elif name.lower() == 'indonesian':
+    elif language.lower() == 'id':
         return JIndonesianAnalyzer()
-    elif name.lower() == 'italian':
+    elif language.lower() == 'it':
         return JItalianAnalyzer()
-    elif name.lower() == 'norwegian':
+    elif language.lower() == 'ja':
+        return JJapaneseAnalyzer()
+    elif language.lower() == 'no':
         return JNorwegianAnalyzer()
-    elif name.lower() == 'portuguese':
+    elif language.lower() == 'pt':
         return JPortugueseAnalyzer()
-    elif name.lower() == 'russian':
+    elif language.lower() == 'ru':
         return JRussianAnalyzer()
-    elif name.lower() == 'spanish':
+    elif language.lower() == 'es':
         return JSpanishAnalyzer()
-    elif name.lower() == 'thai':
+    elif language.lower() == 'th':
         return JThaiAnalyzer()
-    elif name.lower() == 'turkish':
+    elif language.lower() == 'tr':
         return JTurkishAnalyzer()
-    elif name.lower() == 'tweet':
+    elif language.lower() == 'tweet':
         return JTweetAnalyzer()
-    elif name.lower() == 'english':
+    elif language.lower() == 'en':
         if stemming:
             if stopwords:
                 return JDefaultEnglishAnalyzer.newStemmingInstance(JString(stemmer))
@@ -148,7 +151,7 @@ class Analyzer:
         List[str]
             List of tokens corresponding to the output of the analyzer.
         """
-        results = JAnalyzerUtils.analyze(self.analyzer, JString(text.encode('utf-8')))
+        results = JAnalyzerUtils.analyze(self.analyzer, JString(text))
         tokens = []
         for token in results.toArray():
             tokens.append(token)

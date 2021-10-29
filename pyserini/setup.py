@@ -37,4 +37,4 @@ def configure_classpath(anserini_root="."):
         raise Exception('No matching jar file found in {}'.format(os.path.abspath(anserini_root)))
 
     latest = max(paths, key=os.path.getctime)
-    jnius_config.set_classpath(latest)
+    jnius_config.add_classpath(latest)

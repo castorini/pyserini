@@ -24,7 +24,7 @@ from tqdm import tqdm
 from pyserini.dsearch import SimpleDenseSearcher
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
-from pyserini.search import SimpleSearcher
+from pyserini.search import ImpactSearcher, SimpleSearcher
 from pyserini.hsearch import HybridSearcher
 
 from pyserini.dsearch.__main__ import define_dsearch_args, init_query_encoder
@@ -38,6 +38,9 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 def define_fusion_args(parser):
     parser.add_argument('--alpha', type=float, metavar='num', required=False, default=0.1,
                         help="alpha for hybrid search")
+    parser.add_argument('--hits', type=int, required=False, default=1000, help='number of hits from dense and sparse')
+    parser.add_argument('--normalization', action='store_true', required=False, help='hybrid score with normalization')
+    parser.add_argument('--weight-on-dense', action='store_true', required=False, help='weight on dense part')
 
 
 def parse_args(parser, commands):
@@ -104,7 +107,8 @@ if __name__ == '__main__':
                                        args.dense.tokenizer,
                                        args.run.topics,
                                        args.dense.encoded_queries,
-                                       args.dense.device)
+                                       args.dense.device,
+                                       args.dense.query_prefix)
 
     if os.path.exists(args.dense.index):
         # create searcher from index directory
@@ -118,15 +122,24 @@ if __name__ == '__main__':
 
     if os.path.exists(args.sparse.index):
         # create searcher from index directory
-        ssearcher = SimpleSearcher(args.sparse.index)
+        if args.sparse.impact:
+            ssearcher = ImpactSearcher(args.sparse.index, args.sparse.encoder, args.sparse.min_idf)
+        else:
+            ssearcher = SimpleSearcher(args.sparse.index)
     else:
         # create searcher from prebuilt index name
-        ssearcher = SimpleSearcher.from_prebuilt_index(args.sparse.index)
+        if args.sparse.impact:
+            ssearcher = ImpactSearcher.from_prebuilt_index(args.sparse.index, args.sparse.encoder, args.sparse.min_idf)
+        else:
+            ssearcher = SimpleSearcher.from_prebuilt_index(args.sparse.index)
 
     if not ssearcher:
         exit()
 
     set_bm25_parameters(ssearcher, args.sparse.index, args.sparse.k1, args.sparse.b)
+
+    if args.sparse.language != 'en':
+        ssearcher.set_language(args.sparse.language)
 
     hsearcher = HybridSearcher(dsearcher, ssearcher)
     if not hsearcher:
@@ -149,7 +162,7 @@ if __name__ == '__main__':
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.run.batch_size <= 1 and args.run.threads <= 1:
-                hits = hsearcher.search(text, args.run.hits, args.fusion.alpha)
+                hits = hsearcher.search(text, args.fusion.hits, args.run.hits, args.fusion.alpha, args.fusion.normalization, args.fusion.weight_on_dense)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
@@ -157,7 +170,8 @@ if __name__ == '__main__':
                 if (index + 1) % args.run.batch_size == 0 or \
                         index == len(topics.keys()) - 1:
                     results = hsearcher.batch_search(
-                        batch_topics, batch_topic_ids, args.run.hits, args.run.threads, args.fusion.alpha)
+                        batch_topics, batch_topic_ids, args.fusion.hits, args.run.hits, args.run.threads,
+                        args.fusion.alpha, args.fusion.normalization, args.fusion.weight_on_dense)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()

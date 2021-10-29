@@ -22,7 +22,8 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import Dict, List, Optional, Union
 
-from ._base import Document, JQuery, JQueryGenerator
+from ._base import JQuery, JQueryGenerator
+from pyserini.index import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap, JString
 from pyserini.trectools import TrecRun
 from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
@@ -111,9 +112,9 @@ class SimpleSearcher:
         hits = None
         if query_generator:
             if not fields:
-                hits = self.object.search(query_generator, JString(q.encode('utf8')), k)
+                hits = self.object.search(query_generator, JString(q), k)
             else:
-                hits = self.object.searchFields(query_generator, JString(q.encode('utf8')), jfields, k)
+                hits = self.object.searchFields(query_generator, JString(q), jfields, k)
         elif isinstance(q, JQuery):
             # Note that RM3 requires the notion of a query (string) to estimate the appropriate models. If we're just
             # given a Lucene query, it's unclear what the "query" is for this estimation. One possibility is to extract
@@ -127,9 +128,9 @@ class SimpleSearcher:
             hits = self.object.search(q, k)
         else:
             if not fields:
-                hits = self.object.search(JString(q.encode('utf8')), k)
+                hits = self.object.search(JString(q), k)
             else:
-                hits = self.object.searchFields(JString(q.encode('utf8')), jfields, k)
+                hits = self.object.searchFields(JString(q), jfields, k)
 
         docids = set()
         filtered_hits = []
@@ -176,7 +177,7 @@ class SimpleSearcher:
         query_strings = JArrayList()
         qid_strings = JArrayList()
         for query in queries:
-            jq = JString(query.encode('utf8'))
+            jq = JString(query)
             query_strings.add(jq)
 
         for qid in qids:
@@ -209,7 +210,11 @@ class SimpleSearcher:
         """
         self.object.setAnalyzer(analyzer)
 
-    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False):
+    def set_language(self, language):
+        """Set language of SimpleSearcher"""
+        self.object.setLanguage(language)
+
+    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False, rm3_filter_terms=True):
         """Configure RM3 query expansion.
 
         Parameters
@@ -222,8 +227,10 @@ class SimpleSearcher:
             RM3 parameter for weight to assign to the original query.
         rm3_output_query : bool
             Print the original and expanded queries as debug output.
+        rm3_filter_terms: bool
+            Whether to remove non-English terms.
         """
-        self.object.setRM3(fb_terms, fb_docs, original_query_weight, rm3_output_query)
+        self.object.setRM3(fb_terms, fb_docs, original_query_weight, rm3_output_query, rm3_filter_terms)
 
     def unset_rm3(self):
         """Disable RM3 query expansion."""
