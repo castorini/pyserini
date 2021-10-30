@@ -3,7 +3,7 @@ This page describes how to reproduce the DPR compression experiments in the foll
 
 > Xueguang Ma, Minghan Li, Kai Sun, Ji Xin, and Jimmy Lin. 
 > [Simple and Effective Unsupervised Redundancy Elimination to Compress Dense Vectors for Passage Retrieval.](https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_EMNLP2021.pdf)
-> _Proceedings of 1st Workshop on Multilingual Representation Learning, November 2021_.
+> _EMNLP 2021_, November 2021.
 
 In this page, we focus on Natural Question as an example.
 To reproduce results for other datasets, simply reply the topics `dpr-nq-test` into other datasets. e.g. (`dpr-trivia-qa`)
@@ -27,7 +27,7 @@ tar -xvf dpr-multi-question-encoder.tar.gz
 rm dpr-multi-question-encoder.tar.gz
 ```
 
-2. Download prebuilt index and PCA model from the summary table above.
+2. Download pre-built index and PCA model from the summary table above.
 > We use the setting for `DPR-PCA128-PQ2` as example below:
 ```bash
 wget https://www.dropbox.com/s/nq62qhodd237p9t/dindex-dpr-multi-pca128.tar.gz
@@ -47,7 +47,7 @@ DIMENSION=128
 ```
 
 ## Product Quantization
-Conduct Product Quantization on prebuilt index
+Conduct Product Quantization on pre-built index
 ```bash
 python -m pyserini.index.faiss --input ${BASE_DINDEX} \
                                --output ${TARGET_DINDEX} \
