@@ -585,6 +585,7 @@ IMPACT_INDEX_INFO = {
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/BSrJmAFJywsRYXo/download"
         ],
         "md5": "1980db886d969c3393e4da20190eaa8f",
         "size compressed (bytes)": 29229949764,
