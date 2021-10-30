@@ -1,4 +1,4 @@
-# Pyserini: Baselines for MS MARCO V2 Collections
+# Pyserini: BM25 Baselines for the MS MARCO V2 Collections
 
 This guide contains instructions for running baselines on the MS MARCO V2 passage and document test collections,
 which mirrors a [similar guide in Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-v2.md) except that everything is in Python here (no Java).
