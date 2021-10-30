@@ -649,7 +649,7 @@ class TestLoadTopics(unittest.TestCase):
 
         qrels = search.get_qrels('trec2020-bl')
         self.assertIsNotNone(qrels)
-        self.assertEqual(len(qrels), 50)
+        self.assertEqual(len(qrels), 49)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
     # General test cases
