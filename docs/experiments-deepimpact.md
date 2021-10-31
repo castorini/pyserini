@@ -11,6 +11,8 @@ Note that Anserini provides [a comparable reproduction guide](https://github.com
 
 ## Data Prep
 
+> You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to the "Retrieval" section below.
+
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO passage dataset with DeepImpact processing:
 
@@ -53,9 +55,7 @@ wget https://vault.cs.uwaterloo.ca/s/NYibRJ9bXs5PspH/download -O collections/top
 ```
 The MD5 checksum of the topics file is `88a2987d6a25b1be11c82e87677a262e`.
 
-
-> If you want to save time and skip the indexing step, you can use our prebuilt index by replacing `--index msmarco-passage-deepimpact`
-in the following commands.
+> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-passage-deepimpact` in the command below.
 
 We can now run retrieval:
 

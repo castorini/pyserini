@@ -1,0 +1,12 @@
+This index was generated on 2021/10/12 at commit 58d286c3f9fe845e261c271f2a0f514462844d97 (2021/10/05)
+with the following command:
+
+python -m pyserini.index -collection JsonVectorCollection \
+ -input collections/msmarco-doc-per-passage-expansion-unicoil-d2q-b8/ \
+ -index indexes/lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286 \
+ -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
+ -threads 36 -optimize
+
+This minimal index does not store any "extras" (positions, document vectors, raw documents, etc.).
+
+lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz MD5 checksum = 44bfc848f9a77302b10a59c5b136eb95
