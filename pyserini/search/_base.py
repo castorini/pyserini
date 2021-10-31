@@ -327,6 +327,8 @@ def get_qrels_file(collection_name):
         qrels = JQrels.TREC2018_BL
     elif collection_name == 'trec2019-bl':
         qrels = JQrels.TREC2019_BL
+    elif collection_name == 'trec2020-bl':
+        qrels = JQrels.TREC2020_BL
     if qrels:
         target_path = os.path.join(get_cache_home(), qrels.path)
         if os.path.exists(target_path):
