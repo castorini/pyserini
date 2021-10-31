@@ -15,12 +15,20 @@ from pyserini.encode import ColBertEncoder
 
 class ColBertSearcher:
     def __init__(self, index_path: str, query_encoder: QueryEncoder,
-                 device='cuda:0', div=1, div_selection=slice(None)):
+                 device='cuda:0', search_range=None):
         self.index_path = index_path
         self.encoder = query_encoder
         self.pos2docid = None
         self.device = device
-        assert div >= 1
+
+        if search_range is None:
+            div, div_selection = 1, slice(None)
+        else:
+            assert isinstance(search_range, list)
+            assert len(search_range) == 3
+            div = search_range[0]
+            assert div >= 1
+            div_selection = slice(*search_range[1:])
 
         print('Reading FAISS index...')
         path = os.path.join(self.index_path, 'word_emb.faiss')

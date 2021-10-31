@@ -140,6 +140,8 @@ if __name__ == '__main__':
                         help="search batch of queries in parallel")
     parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
                         help="maximum threads to use during search")
+    parser.add_argument('--search-range', type=int, required=False, nargs="+",
+                        help="limit search range.")
     define_dsearch_args(parser)
     args = parser.parse_args()
 
@@ -157,7 +159,8 @@ if __name__ == '__main__':
             kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
             searcher = BinaryDenseSearcher(args.index, query_encoder)
         elif isinstance(query_encoder, ColBertEncoder):
-            searcher = ColBertSearcher(args.index, query_encoder)
+            searcher = ColBertSearcher(args.index, query_encoder,
+                                       search_range=args.search_range)
         else:
             searcher = SimpleDenseSearcher(args.index, query_encoder)
     else:
