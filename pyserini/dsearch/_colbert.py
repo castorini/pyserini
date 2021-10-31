@@ -7,6 +7,7 @@ import torch
 import faiss
 import argparse
 import itertools
+from tqdm import tqdm
 from typing import List
 from pyserini.dsearch import DenseSearchResult, QueryEncoder
 from pyserini.encode import ColBertEncoder
@@ -14,12 +15,11 @@ from pyserini.encode import ColBertEncoder
 
 class ColBertSearcher:
     def __init__(self, index_path: str, query_encoder: QueryEncoder,
-                 div=4, device='cuda:0'):
+                 device='cuda:0', div=1, div_selection=slice(None)):
         self.index_path = index_path
         self.encoder = query_encoder
         self.pos2docid = None
         self.device = device
-        self.div = div
         assert div >= 1
 
         print('Reading FAISS index...')
@@ -37,7 +37,7 @@ class ColBertSearcher:
             self.ext_docIDs.append(ext_docID)
         self.n_shards = shard + 1
 
-        print('Calculating index stats...')
+        print('Generating in-memory offset index...')
         self.pos2docid = torch.zeros(self.n_embs, dtype=torch.long)
         self.doc_lens = []
         self.doc_offsets = []
@@ -63,13 +63,19 @@ class ColBertSearcher:
         assert sum(self.doc_lens) == self.n_embs
         assert self.shard_offsets[-1] + self.shard_lens[-1] == self.n_embs
         assert self.doc_offsets[-1] + self.doc_lens[-1] == self.n_embs
-        print('Total documents:', self.n_docs)
+        print(f'Total documents: {self.n_docs:,}')
 
-        print('Reading flat tensors...')
-        self.word_embs = self.get_embs(self.max_doc_len)
+        # big tensor memory preloading
+        self.doc_offsets = torch.tensor(self.doc_offsets, device=device)
+        self.doc_lens = torch.tensor(self.doc_lens, device=device)
+        div_offsets = self.get_div_offsets(self.doc_offsets, self.doc_lens, div)
+        self.div_offsets = div_offsets[div_selection]
+        low, high = self.div_offsets[0][0], self.div_offsets[-1][-1]
+        print(f'Loading flat tensors ranged from [{low:,}:{high:,}]')
+        self.word_embs = self.get_partial_embds(low, high + self.max_doc_len)
 
         mem_usage = sys.getsizeof(self.word_embs.storage()) // (1024*1024)
-        print(f'All embs memory usage = {mem_usage:,} MiB on', self.device)
+        print(f'Flat tensor memory usage = {mem_usage:,} MiB')
 
     def items_of_shards(self, pattern, fmt='pickle'):
         def load_pickle_items(path):
@@ -78,9 +84,9 @@ class ColBertSearcher:
         def load_torch_items(path):
             return torch.load(path)
         cnt = 0
-        for i, filename in enumerate(self.get_sorted_shards_list(pattern)):
+        iterator = tqdm(self.get_sorted_shards_list(pattern))
+        for i, filename in enumerate(iterator):
             path = os.path.join(self.index_path, filename)
-            print(path)
             if fmt == 'pickle':
                 items = load_pickle_items(path)
             elif fmt == 'torch':
@@ -97,17 +103,30 @@ class ColBertSearcher:
         files = list(filter(lambda x: pattern.match(x), files))
         return sorted(files, key=lambda x: int(x.split('.')[1]))
 
-    def get_embs(self, stride):
-        embs = torch.zeros(self.n_embs + stride,
-            self.dim, dtype=torch.float16)
+    def get_partial_embds(self, low, high):
+        assert low < high and high <= self.n_embs + self.max_doc_len
+        embs = torch.zeros(high - low, self.dim, dtype=torch.float16)
+        fill_offset = 0
         embs_files = r'word_emb\.\d+\.pt'
-        for i, filename in enumerate(self.get_sorted_shards_list(embs_files)):
-            path = os.path.join(self.index_path, filename)
-            print('Loading', path)
-            part_embs = torch.load(path)
+        iterator = tqdm(self.get_sorted_shards_list(embs_files))
+        for i, filename in enumerate(iterator):
             offset = self.shard_offsets[i]
             length = self.shard_lens[i]
-            embs[offset : offset + length] = part_embs
+            shd_int = (offset, offset + length) # shard interval
+            sel_int = (low, high) # selection interval
+            if shd_int[1] <= sel_int[0]:
+                continue
+            elif shd_int[0] >= sel_int[1]:
+                break
+            assert shd_int[0] <= sel_int[0] + fill_offset
+            path = os.path.join(self.index_path, filename)
+            shard_embs = torch.load(path)
+            # load read shard to memory buffer (embs)
+            shard_l = sel_int[0] + fill_offset - shd_int[0]
+            shard_r = min(shd_int[1], sel_int[1]) - shd_int[0]
+            fill_end = fill_offset + (shard_r - shard_l)
+            embs[fill_offset:fill_end] = shard_embs[shard_l:shard_r]
+            fill_offset = fill_end
         return embs
 
     def _create_view(self, embs, stride):
@@ -134,16 +153,16 @@ class ColBertSearcher:
             (self.dim, self.dim, 1)
         )
 
-    def get_div_offsets(self, doc_offsets):
+    def get_div_offsets(self, doc_offsets, doc_lens, div):
         n = doc_offsets.shape[0]
-        step = n // self.div
+        step = n // div
         div_offsets = []
         for low_k in range(0, n, step):
             high_k = min(low_k + step, n)
             low = doc_offsets.kthvalue(low_k + 1).values.item()
             high = doc_offsets.kthvalue(high_k).values.item()
             if high_k == n:
-                high += self.doc_lens[-1]
+                high += doc_lens[-1].item()
             div_offsets.append((low, high))
         return div_offsets
 
@@ -152,37 +171,32 @@ class ColBertSearcher:
         Q = qcode.permute(0, 2, 1).to(self.device) # [qnum, dim, max_qlen]
         Q = Q.to(dtype=torch.float16) # float16
 
+        # shortcut variables
+        lowest = self.div_offsets[0][0] # lowest offset in self.word_embs
+        stride = self.max_doc_len
+
         # debug only
         if debug_docid is not None:
             for j, ext_docid in enumerate(self.ext_docIDs):
                 if ext_docid == debug_docid:
                     break
-            debug_len = self.doc_lens[j]
-            debug_offset = self.doc_offsets[j]
+            debug_len = self.doc_lens[j].item()
+            debug_offset = self.doc_offsets[j].item() - lowest
             debug_embs = self.word_embs[debug_offset:debug_offset+debug_len]
             print(debug_embs.shape)
             print(debug_embs)
             return []
 
-        # tensorize things
+        # tensorize candidate docIDs
         all_scores = torch.zeros(len(uniq_docids), device=self.device)
-        doc_offsets = torch.tensor(self.doc_offsets, device=self.device)
-        doc_lens = torch.tensor(self.doc_lens, device=self.device)
         uniq_docids = torch.tensor(uniq_docids, device=self.device)
 
-        # divide retrieval memory load
-        div_offsets = self.get_div_offsets(doc_offsets)
-
         # filter candidates for compuation efficiency
-        doc_offsets = doc_offsets[uniq_docids]
-        doc_lens = doc_lens[uniq_docids]
-        stride = self.max_doc_len
+        doc_offsets = self.doc_offsets[uniq_docids]
+        doc_lens = self.doc_lens[uniq_docids]
 
         # split search into segments
-        for low, high in div_offsets:
-            if self.div > 1:
-                print('embs offset range:', low, high)
-
+        for low, high in self.div_offsets:
             # selecting word embeddings in this division
             in_range = torch.logical_and(
                 low <= doc_offsets, doc_offsets < high
@@ -196,7 +210,8 @@ class ColBertSearcher:
             div_uniq_docids = uniq_docids[in_range]
 
             # select documents in this division
-            word_embs = self.word_embs[low:high + stride]
+            print(f'Loading embs offset [{low:,}:{high:,}] to {self.device}')
+            word_embs = self.word_embs[low - lowest : high + stride - lowest]
             word_embs = word_embs.to(self.device)
             view = self._create_view(word_embs, stride)
             div_cands = torch.index_select(view, 0, div_doc_offsets - low)
@@ -214,6 +229,7 @@ class ColBertSearcher:
             scores = scores.max(1).values.sum(-1) # scoring
             all_scores[in_range] = scores
 
+            # release in-loop temp memory
             del word_embs
             del view
             torch.cuda.empty_cache()
@@ -265,15 +281,27 @@ if __name__ == '__main__':
         help="Path to ColBert index directory.")
     parser.add_argument('--topk', type=int, required=False, default=10,
         help="Limit the number of maximum top-k results.")
+    parser.add_argument('--div', type=int, required=False, default=1,
+        help="Total number of divisions, each will moved to search device.")
+    parser.add_argument('--div-selection', type=int, required=False, nargs="+",
+        help="Divisions selected for search (relevant tensors will be cached).")
     parser.add_argument('--docid', type=str, required=False,
-        help="Print debug information for specific document.")
+        help="Print out document tensor for specific docID (debug purpose).")
     args = parser.parse_args()
 
     encoder = ColBertEncoder(args.encoder, '[Q]',
         device=args.device, tokenizer=args.tokenizer)
-    searcher = ColBertSearcher(args.index, encoder)
+
+    if args.div_selection is None:
+        div_selection = slice(None)
+    else:
+        div_selection = slice(*args.div_selection)
+    print('#divisions:', args.div)
+    print('selection:', div_selection)
+    searcher = ColBertSearcher(args.index, encoder,
+        div=args.div, div_selection=div_selection)
 
     print('[test query]', args.query)
     results = searcher.search(args.query, k=args.topk, docid=args.docid)
-    for docid, rank, score, _ in results:
-        print(rank, docid, '\t', score)
+    for rank, hit in enumerate(results):
+        print(rank + 1, hit.docid, '\t', hit.score)
