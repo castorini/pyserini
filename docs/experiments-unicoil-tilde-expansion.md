@@ -65,7 +65,7 @@ python -m pyserini.search --topics msmarco-passage-dev-subset \
                           --index indexes/lucene-index.msmarco-passage.unicoil-tilde-expansion-b8 \
                           --output runs/run.msmarco-passage.unicoil-tilde-expansion-b8.tsv \
                           --impact \
-                          --hits 1000 --batch 32 --threads 12 \
+                          --hits 1000 --batch 36 --threads 12 \
                           --output-format msmarco
 ```
 
@@ -110,7 +110,7 @@ python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset
                           --index indexes/lucene-index.msmarco-passage.unicoil-tilde-expansion-b8 \
                           --output runs/run.msmarco-passage.unicoil-tilde-expansion-b8.tsv \
                           --impact \
-                          --hits 1000 --batch 32 --threads 12 \
+                          --hits 1000 --batch 36 --threads 12 \
                           --output-format msmarco
 ```
 
