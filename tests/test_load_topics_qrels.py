@@ -350,6 +350,30 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 6837)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+    def test_msmarco_passage_dev_deepimpact(self):
+        topics = search.get_topics('msmarco-passage-dev-subset-deepimpact')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_msmarco_passage_dev_unicoil_d2q(self):
+        topics = search.get_topics('msmarco-passage-dev-subset-unicoil-d2q')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_msmarco_passage_dev_unicoil_tidle(self):
+        topics = search.get_topics('msmarco-passage-dev-subset-unicoil-tilde')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_msmarco_passage_dev_distill_splade_max(self):
+        topics = search.get_topics('msmarco-passage-dev-subset-distill-splade-max')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
     # MS MARCO V2
     def test_msmarco_v2_doc_dev(self):
         topics = search.get_topics('msmarco-v2-doc-dev')
