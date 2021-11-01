@@ -9,4 +9,4 @@ Note, pretokenized option is used to keep preprocessed tokenization.
 This is built with spacy 3.0.6.
 The max length is 3 and stride is 1.
 
-index-msmarco-passage-ltr-20210519-e25e33f MD5 checksum = a5de642c268ac1ed5892c069bdc29ae3
+index-msmarco-passage-ltr-20210519-e25e33f MD5 checksum = bd60e89041b4ebbabc4bf0cfac608a87
