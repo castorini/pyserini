@@ -56,10 +56,6 @@ $ conda install faiss-cpu -c pytorch
 
 ## Development Installation
 
-Install dependencies via wi 
-```bash
-$ pip install -e .
-```
 First follow the steps [here](#development-installation) but run 
 ```bash
 $ pip install -e . # use this
