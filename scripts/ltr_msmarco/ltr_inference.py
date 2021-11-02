@@ -30,13 +30,13 @@ import time
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from pyserini.ltr.search_msmarco_passage._search_msmarco_passage import MsmarcoPassageLtrSearcher
+from pyserini.ltr.search_msmarco._search_msmarco import MsmarcoLtrSearcher
 from pyserini.ltr import *
 
 """
 Running prediction on candidates
 """
-def dev_data_loader(file, format, top=100):
+def dev_data_loader(file, format, data, top=100):
     if format == 'tsv':
         dev = pd.read_csv(file, sep="\t",
                           names=['qid', 'pid', 'rank'],
@@ -52,9 +52,14 @@ def dev_data_loader(file, format, top=100):
     assert dev['pid'].dtype == np.object
     assert dev['rank'].dtype == np.int32
     dev = dev[dev['rank']<=top]
-    dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt', sep=" ",
-                           names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
-                           dtype={'qid': 'S','pid': 'S', 'rel':'i'})
+    if data == 'passage':
+        dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt', sep=" ",
+                            names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
+                            dtype={'qid': 'S','pid': 'S', 'rel':'i'})
+    elif data == 'document':
+        dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-doc.dev.txt', sep="\t",
+                            names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
+                            dtype={'qid': 'S','pid': 'S', 'rel':'i'})
     assert dev['qid'].dtype == np.object
     assert dev['pid'].dtype == np.object
     assert dev['rank'].dtype == np.int32
@@ -184,7 +189,7 @@ def eval_recall(dev_qrel, dev_data):
     return res
 
 
-def output(file, dev_data):
+def output(file, dev_data, format):
     score_tie_counter = 0
     score_tie_query = set()
     output_file = open(file,'w')
@@ -202,7 +207,10 @@ def output(file, dev_data):
                 score_tie_query.add(qid)
             prev_score = t.score
             rank += 1
-            output_file.write(f"{qid}\t{t.pid}\t{rank}\n")
+            if (format == 'tsv'):
+                output_file.write(f"{qid}\t{t.pid}\t{rank}\n")
+            else:
+                output_file.write(f"{qid}\tQ0\t{t.pid}\t{rank}\t{t.score}\tltr\n")
 
     score_tie = f'score_tie occurs {score_tie_counter} times in {len(score_tie_query)} queries'
     print(score_tie)
@@ -216,14 +224,16 @@ if __name__ == "__main__":
     parser.add_argument('--model', required=True)
     parser.add_argument('--index', required=True)
     parser.add_argument('--output', required=True)
-    parser.add_argument('--ibm-model',default='./collections/msmarco-ltr-passage/ibm_model/')
-    parser.add_argument('--queries',default='./collections/msmarco-ltr-passage/')
+    parser.add_argument('--ibm-model', required=True)
+    parser.add_argument('--queries', required=True)
+    parser.add_argument('--data', required=True)
+    parser.add_argument('--output-format',default='trec')
 
     args = parser.parse_args()
-    searcher = MsmarcoPassageLtrSearcher(args.model, args.ibm_model, args.index)
+    searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data)
     searcher.add_fe()
     print("load dev")
-    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.reranking_top)
+    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.data, args.reranking_top)
     print("load queries")
     queries = query_loader()
 
@@ -232,7 +242,7 @@ if __name__ == "__main__":
 
     eval_res = eval_mrr(batch_info)
     eval_recall(dev_qrel, batch_info)
-    output(args.output, batch_info)
+    output(args.output, batch_info,args.output_format)
     print('Done!')
 
 

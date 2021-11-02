@@ -14,5 +14,5 @@
 # limitations under the License.
 #
 
-from ._search_msmarco_passage import MsmarcoPassageLtrSearcher
-__all__ = ['MsmarcoPassageLtrSearcher']
+from ._search_msmarco import MsmarcoLtrSearcher
+__all__ = ['MsmarcoLtrSearcher']

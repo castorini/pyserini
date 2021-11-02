@@ -101,6 +101,18 @@ TF_INDEX_INFO = {
         "unique_terms": 2660824,
         "downloaded": False
     },
+    "msmarco-document-ltr": {
+        "description": "MS MARCO document corpus (4 extra preprocessed fields) used for LTR pipeline",
+        "filename": "index-msmarco-document-ltr-20211027-3e4c283.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/5tr2otncs9rttbp/index-msmarco-document-ltr-20211027-3e4c283.tar.gz?dl=1"  # too big for UWaterloo GitLab
+        ],
+        "md5": "2718874ab44f6d383e84ad20f3790460",
+        "size compressed (bytes)": 46052436658,
+        "total_terms": 1232004740,
+        "documents": 20545628,
+        "downloaded": False
+    },
     "msmarco-doc": {
         "description": "Lucene index of the MS MARCO document corpus",
         "filename": "index-msmarco-doc-20201117-f87c94.tar.gz",
@@ -521,6 +533,20 @@ IMPACT_INDEX_INFO = {
         "unique_terms": 27678,
         "downloaded": False
     },
+    "msmarco-doc-per-passage-unicoil-d2q": {
+        "description": "Lucene impact index of the MS MARCO doc corpus per passage expansion encoded by uniCOIL-d2q",
+        "filename": "lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
+        ],
+        "md5": "44bfc848f9a77302b10a59c5b136eb95",
+        "size compressed (bytes)": 5945466106,
+        "total_terms": 214505277898,
+        "documents": 20545677,
+        "unique_terms": 29142,
+        "downloaded": False
+    },
     "msmarco-passage-unicoil-tilde": {
         "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE",
         "filename": "lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.tar.gz",
@@ -534,6 +560,20 @@ IMPACT_INDEX_INFO = {
         "total_terms": 73040108576,
         "documents": 8841823,
         "unique_terms": 27646,
+        "downloaded": False
+    },
+    "msmarco-passage-distill-splade-max": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max",
+        "filename": "lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.tar.gz"
+        ],
+        "md5": "957c0dd1b78b61aeddc8685150fd8360",
+        "size compressed (bytes)": 4604547518,
+        "total_terms": 95445422483,
+        "documents": 8841823,
+        "unique_terms": 28131,
         "downloaded": False
     },
     "msmarco-v2-passage-unicoil-noexp-0shot": {
@@ -551,6 +591,21 @@ IMPACT_INDEX_INFO = {
         "unique_terms": 29148,
         "downloaded": False
     },
+    "msmarco-v2-doc-per-passage-unicoil-noexp-0shot": {
+        "description": "Lucene impact index of the MS MARCO V2 document corpus per passage encoded by uniCOIL (zero-shot, no expansions)",
+        "filename": "lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/BSrJmAFJywsRYXo/download"
+        ],
+        "md5": "1980db886d969c3393e4da20190eaa8f",
+        "size compressed (bytes)": 29229949764,
+        "total_terms": 805830282591,
+        "documents": 124131404,
+        "unique_terms": 29172,
+        "downloaded": False
+    },
     "msmarco-v2-passage-unicoil-tilde": {
         "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL-TILDE",
         "filename": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
@@ -565,7 +620,7 @@ IMPACT_INDEX_INFO = {
         "documents": 138364198,
         "unique_terms": 29149,
         "downloaded": False
-    }
+    },
 }
 
 FAISS_INDEX_INFO = {

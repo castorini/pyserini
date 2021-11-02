@@ -50,10 +50,10 @@ arg_vars = vars(args)
 inpFile = open(args.input)
 outFile = open(args.output, 'w')
 minQueryTokQty = args.min_query_token_qty
-if os.getcwd().endswith('ltr_msmarco-passage'):
+if os.getcwd().endswith('ltr_msmarco'):
     stopwords = read_stopwords('stopwords.txt', lower_case=True)
 else:
-    stopwords = read_stopwords('./scripts/ltr_msmarco-passage/stopwords.txt', lower_case=True)
+    stopwords = read_stopwords('./scripts/ltr_msmarco/stopwords.txt', lower_case=True)
 print(stopwords)
 nlp = SpacyTextParser('en_core_web_sm', stopwords, keep_only_alpha_num=True, lower_case=True)
 analyzer = Analyzer(get_lucene_analyzer())
