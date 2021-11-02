@@ -12,6 +12,8 @@ Note that Anserini provides [a comparable reproduction guide](https://github.com
 
 ## Passage Ranking
 
+> You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to the "Retrieval" section below.
+
 ### Data Prep
 
 We're going to use the repository's root directory as the working directory.
@@ -45,8 +47,8 @@ Upon completion, we should have an index with 8,841,823 documents.
 The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 15 minutes.
 
 ### Retrieval
-> If you want to save time and skip the indexing step, you can use our prebuilt index by set `--index msmarco-passage-unicoil-d2q`
-in the following commands.
+
+> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-passage-unicoil-d2q` in the command below.
 
 We can now run retrieval:
 
@@ -127,6 +129,8 @@ Note that in this case, the results should be deterministic.
 
 ## Document Ranking
 
+> You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to the "Retrieval" section below.
+
 ### Data Prep
 
 We're going to use the repository's root directory as the working directory.
@@ -159,6 +163,8 @@ The important indexing options to note here are `-impact -pretokenized`: the fir
 The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around an hour.
 
 ### Retrieval
+
+> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-doc-per-passage-unicoil-d2q` in the command below.
 
 We can now run retrieval:
 

@@ -19,13 +19,14 @@ Thus, no neural inference is involved.
 
 ## Data Prep
 
+> You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to the "Retrieval" section below.
+
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO V2 passage dataset with uniCOIL + TILDE processing:
 
 ```bash
+# Alternate mirrors of the same data, pick one:
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar -P collections/
-
-# Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/tb3m3J45HFJNAbq/download -O collections/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar
 
 tar -xvf collections/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar -C collections/
@@ -53,9 +54,8 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 If you want to save time and skip the indexing step, download the prebuilt index directly:
 
 ```bash
+# Alternate mirrors of the same data, pick one:
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8.tar.gz -P indexes/
-
-# Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/rmFJCYEqfPrxcFE/download -O indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8.tar.gz
 
 tar -xzvf indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8.tar.gz -C indexes/
@@ -65,8 +65,8 @@ To confirm, `lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8.tar.gz` 
 This pre-built index was created with the above command, but with the addition of the `-optimize` option to merge index segments.
 
 ## Retrieval
-> If you want to save time and skip the indexing step, you can use our prebuilt index by set `--index msmarco-v2-passage-unicoil-tilde`
-in the following commands.
+
+> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-v2-passage-unicoil-tilde` in the command below.
 
 We can now run retrieval:
 
@@ -106,9 +106,8 @@ Alternatively, we can use pre-tokenized queries with pre-computed weights.
 First, fetch the queries:
 
 ```
+# Alternate mirrors of the same data, pick one:
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-v2-passage.dev.unicoil-tilde-expansion.tsv.gz -P collections/
-
-# Alternate mirror
 wget https://vault.cs.uwaterloo.ca/s/AAgRffaWQXdo8zi/download -O collections/topics.msmarco-v2-passage.dev.unicoil-tilde-expansion.tsv.gz
 ```
 

@@ -490,6 +490,9 @@ if __name__ == '__main__':
 
     fe = FeatureExtractor(args.index,
                           max(multiprocessing.cpu_count() // 2, 1))
+    #fe.add(RunList('./collections/msmarco-ltr-passage/run.monot5.run_list.whole.trec','t5'))
+    #fe.add(RunList('./collections/msmarco-ltr-passage/run.monobert.run_list.whole.trec','bert'))
+    
     for qfield, ifield in [('analyzed', 'contents'),
                            ('text_unlemm', 'text_unlemm'),
                            ('text_bert_tok', 'text_bert_tok')]:
@@ -592,7 +595,7 @@ if __name__ == '__main__':
         fe.add(OrderedQueryPairs(3, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(8, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
-
+        
     start = time.time()
     fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/title_unlemm","text_unlemm","title_unlemm","text_unlemm"))
     end = time.time()
@@ -610,11 +613,14 @@ if __name__ == '__main__':
     end = time.time()
     print('IBM model Load takes %.2f seconds'%(end-start))
     start = end
+    
+
+    
 
     train_extracted = data_loader('train', sampled_train, queries, fe)
     print("train_extracted")
     dev_extracted = data_loader('dev', dev, queries, fe)
-    print("dev extracted")
+    print("dev extracted") 
     feature_name = fe.feature_names()
     del sampled_train, dev, queries, fe
     recall_at_20 = gen_dev_group_rel_num(dev_qrel, dev_extracted)

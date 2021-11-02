@@ -20,6 +20,8 @@ Specifically, we applied inference over the MS MARCO V2 [passage corpus](https:/
 
 ### Passage V2
 
+> You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to the "Retrieval" section below.
+
 We start from the corpus that has already been processed with uniCOIL, i.e., gone through document expansion and term reweighting.
 As an alternative, we also make available pre-built indexes (in which case the indexing step can be skipped).
 
@@ -40,8 +42,7 @@ python -m pyserini.index -collection JsonVectorCollection \
  -threads 32
 ```
 
-> If you want to save time and skip the indexing step, you can use our prebuilt index by set `--index msmarco-v2-passage-unicoil-noexp-0shot`
-in the following commands.
+> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-v2-passage-unicoil-noexp-0shot` in the command below.
 
 Sparse retrieval with uniCOIL:
 
@@ -76,6 +77,8 @@ However, we measure recall at both 100 and 1000 hits; the latter is a common set
 
 ### Document V2
 
+> You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to the "Retrieval" section below.
+
 We start from the corpus that has already been processed with uniCOIL, i.e., gone through document expansion and term reweighting.
 As an alternative, we also make available pre-built indexes (in which case the indexing step can be skipped).
 
@@ -96,16 +99,7 @@ python -m pyserini.index -collection JsonVectorCollection \
  -threads 32
 ```
 
-If you want to save time and skip the indexing step, download the prebuilt index directly:
-
-```bash
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene.unicoil-noexp.0shot.msmarco-v2-doc-segmented.tar.gz -P indexes/
-
-# Alternate mirror
-# wget https://vault.cs.uwaterloo.ca/s/PwHpjHrS2fcgR2Y/download -O indexes/lucene.unicoil-noexp.0shot.msmarco-v2-doc-segmented.tar.gz
-
-tar -xvf indexes/lucene.unicoil-noexp.0shot.msmarco-v2-doc-segmented.tar.gz -C indexes/
-```
+> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-v2-doc-per-passage-unicoil-noexp-0shot` in the command below.
 
 Sparse retrieval with uniCOIL:
 
