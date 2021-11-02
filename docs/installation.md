@@ -56,7 +56,19 @@ $ conda install faiss-cpu -c pytorch
 
 ## Development Installation
 
-First follow the steps [here](#development-installation).
+Install dependencies via wi 
+```bash
+$ pip install -e .
+```
+First follow the steps [here](#development-installation) but run 
+```bash
+$ pip install -e . # use this
+```
+instead of 
+```bash
+$ pip install pyserini # do NOT use this
+```
+
 
 Install Maven via conda:
 
