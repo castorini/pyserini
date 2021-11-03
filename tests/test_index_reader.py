@@ -75,8 +75,7 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(df, 1)
         self.assertEqual(cf, 1)
 
-        # This currently fails no matter what because by the time we retrieve the doc vector, None has already been
-        # inserted into the dictionary.
+        # This currently pass after we add encode('utf-8') back
         doc_vector = temp_index_reader.get_document_vector('doc1')
         self.assertEqual(doc_vector['emoji'], 1)
         self.assertEqual(doc_vector['🙂'], 1)
