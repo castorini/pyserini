@@ -11,6 +11,8 @@ Note that Anserini provides [a comparable reproduction guide](https://github.com
 
 ## Data Prep
 
+> You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to the "Retrieval" section below.
+
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO passage dataset with SPLADE processing:
 
@@ -53,6 +55,8 @@ wget https://vault.cs.uwaterloo.ca/s/DrL4HLqgmT6orJL/download -O collections/top
 ```
 
 The MD5 checksum of the topics file is `621a58df9adfbba8d1a23e96d8b21cb7`.
+
+> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-passage-distill-splade-max` in the command below.
 
 We can now run retrieval:
 
@@ -120,7 +124,7 @@ And then evaluate:
 python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.distill-splade-max.tsv
 ```
 
-The results should be as follows:
+The results should be something along these lines:
 
 ```
 #####################
@@ -129,7 +133,7 @@ QueriesRanked: 6980
 #####################
 ```
 
-There might be small differences in score due to platform differences in neural inference.
+There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
 
 ## Reproduction Log[*](reproducibility.md)
 

@@ -126,7 +126,7 @@ hits[0].raw
 hits[0].lucene_document
 ```
 
-Pre-built Anserini indexes are hosted at the University of Waterloo's [GitLab](https://git.uwaterloo.ca/jimmylin/anserini-indexes) and mirrored on Dropbox.
+Pre-built indexes are hosted on University of Waterloo servers and in some cases mirrored on Dropbox.
 The following method will list available pre-built indexes:
 
 ```

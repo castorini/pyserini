@@ -114,6 +114,18 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV)
     elif collection_name == 'msmarco-doc-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_TEST)
+    elif collection_name == 'msmarco-passage-dev-subset':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
+    elif collection_name == 'msmarco-passage-dev-subset-deepimpact':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_DEEPIMPACT)
+    elif collection_name == 'msmarco-passage-dev-subset-unicoil-d2q':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_D2Q)
+    elif collection_name == 'msmarco-passage-dev-subset-unicoil-tilde':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_TILDE)
+    elif collection_name == 'msmarco-passage-dev-subset-distill-splade-max':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_DISTILL_SPLADE_MAX)
+    elif collection_name == 'msmarco-passage-test-subset':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_TEST_SUBSET)
     elif collection_name == 'msmarco-v2-doc-dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV)
     elif collection_name == 'msmarco-v2-doc-dev2':
@@ -122,10 +134,6 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV)
     elif collection_name == 'msmarco-v2-passage-dev2':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV2)
-    elif collection_name == 'msmarco-passage-dev-subset':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
-    elif collection_name == 'msmarco-passage-test-subset':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_TEST_SUBSET)
     elif collection_name == 'ntcir8-zh':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.NTCIR8_ZH)
     elif collection_name == 'clef2006-fr':
@@ -327,6 +335,8 @@ def get_qrels_file(collection_name):
         qrels = JQrels.TREC2018_BL
     elif collection_name == 'trec2019-bl':
         qrels = JQrels.TREC2019_BL
+    elif collection_name == 'trec2020-bl':
+        qrels = JQrels.TREC2020_BL
     if qrels:
         target_path = os.path.join(get_cache_home(), qrels.path)
         if os.path.exists(target_path):
