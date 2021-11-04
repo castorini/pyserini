@@ -22,7 +22,7 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import List
 
-from ..pyclass import autoclass, JString
+from ..pyclass import autoclass
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +35,7 @@ JSimpleNearestNeighborSearcherResult = autoclass('io.anserini.search.SimpleNeare
 class SimpleNearestNeighborSearcher:
 
     def __init__(self, index_dir: str):
-        self.object = JSimpleNearestNeighborSearcher(JString(index_dir))
+        self.object = JSimpleNearestNeighborSearcher(index_dir)
 
     def search(self, q: str, k=10) -> List[JSimpleNearestNeighborSearcherResult]:
         """Searches nearest neighbor of an embedding identified by its id.
@@ -52,7 +52,7 @@ class SimpleNearestNeighborSearcher:
         List(JSimpleNearestNeighborSearcherResult]
             List of (nearest neighbor) search results.
         """
-        return self.object.search(JString(q), k)
+        return self.object.search(q, k)
 
     def multisearch(self, q: str, k=10) -> List[List[JSimpleNearestNeighborSearcherResult]]:
         """Searches nearest neighbors of all the embeddings having the specified id.
@@ -69,6 +69,6 @@ class SimpleNearestNeighborSearcher:
         List(List[JSimpleNearestNeighborSearcherResult])
             List of List of (nearest neighbor) search results (one for each matching id).
         """
-        return self.object.multisearch(JString(q), k)
+        return self.object.multisearch(q, k)
 
 

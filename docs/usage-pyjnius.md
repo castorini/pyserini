@@ -13,10 +13,9 @@ Now `autoclass` can be used to provide direct access to Java classes:
 ```python
 from jnius import autoclass
 
-JString = autoclass('java.lang.String')
 JIndexReaderUtils = autoclass('io.anserini.index.IndexReaderUtils')
-reader = JIndexReaderUtils.getReader(JString('indexes/index-robust04-20191213/'))
+reader = JIndexReaderUtils.getReader('indexes/index-robust04-20191213/')
 
 # Fetch raw document contents by id:
-rawdoc = JIndexReaderUtils.documentRaw(reader, JString('FT934-5418'))
+rawdoc = JIndexReaderUtils.documentRaw(reader, 'FT934-5418')
 ```
