@@ -75,7 +75,7 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(df, 1)
         self.assertEqual(cf, 1)
 
-        # This currently pass after we killing all JString
+        # This currently pass after we killing all JString wrapping
         doc_vector = temp_index_reader.get_document_vector('doc1')
         self.assertEqual(doc_vector['emoji'], 1)
         self.assertEqual(doc_vector['🙂'], 1)

@@ -128,9 +128,9 @@ class SimpleSearcher:
             hits = self.object.search(q, k)
         else:
             if not fields:
-                hits = self.object.search(JString(q.encode('utf8')), k)
+                hits = self.object.search(q, k)
             else:
-                hits = self.object.searchFields(JString(q.encode('utf8')), jfields, k)
+                hits = self.object.searchFields(q, jfields, k)
 
         docids = set()
         filtered_hits = []
