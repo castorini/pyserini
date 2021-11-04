@@ -15,7 +15,7 @@ from pyserini.encode import ColBertEncoder
 
 class ColBertSearcher:
     def __init__(self, index_path: str, query_encoder: QueryEncoder,
-                 device='cuda:0', search_range=None):
+                 device='cuda:0', search_range=None, debug=False):
         self.index_path = index_path
         self.encoder = query_encoder
         self.pos2docid = None
@@ -78,6 +78,11 @@ class ColBertSearcher:
         self.doc_lens = torch.tensor(self.doc_lens, device=device)
         div_offsets = self.get_div_offsets(self.doc_offsets, self.doc_lens, div)
         self.div_offsets = div_offsets[div_selection]
+        if debug:
+            div_extdocids = self.get_div_extdocids()
+            import pdb
+            pdb.set_trace()
+
         low, high = self.div_offsets[0][0], self.div_offsets[-1][-1]
         print(f'Loading flat tensors ranged from [{low:,}:{high:,}]')
         self.word_embs = self.get_partial_embds(low, high + self.max_doc_len)
@@ -173,6 +178,16 @@ class ColBertSearcher:
                 high += doc_lens[-1].item()
             div_offsets.append((low, high))
         return div_offsets
+
+    def get_div_extdocids(self):
+        ext_docIDs = [[] for _ in self.div_offsets]
+        for k, (low, high) in enumerate(self.div_offsets):
+            low_docid = (self.doc_offsets==low).nonzero().item()
+            high_docid = (self.doc_offsets==high).nonzero().item()
+            for docid in range(low_docid, high_docid + 1):
+                ext_docid = self.ext_docIDs[docid]
+                ext_docIDs[k].append(ext_docid)
+        return ext_docIDs
 
     def rank(self, qcode, uniq_docids, debug_docid=None):
         # prepare query and document tensors
@@ -277,7 +292,7 @@ class ColBertSearcher:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='ColBertSearcher Test.')
-    parser.add_argument('--device', type=str, required=False, default='cpu',
+    parser.add_argument('--device', type=str, default='cpu',
         help='Device to run query encoder and searcher.')
     parser.add_argument('--query', type=str, required=True,
         help="Test query in string.")
@@ -287,27 +302,31 @@ if __name__ == '__main__':
         help="Path or name for ColBert query tokenizer.")
     parser.add_argument('--index', type=str, required=True,
         help="Path to ColBert index directory.")
-    parser.add_argument('--topk', type=int, required=False, default=10,
+    parser.add_argument('--topk', type=int, default=10,
         help="Limit the number of maximum top-k results.")
-    parser.add_argument('--div', type=int, required=False, default=1,
+    parser.add_argument('--div', type=int, default=1,
         help="Total number of divisions, each will moved to search device.")
-    parser.add_argument('--div-selection', type=int, required=False, nargs="+",
+    parser.add_argument('--div-selection', type=int, nargs="+",
         help="Divisions selected for search (relevant tensors will be cached).")
-    parser.add_argument('--docid', type=str, required=False,
+    parser.add_argument('--docid', type=str,
         help="Print out document tensor for specific docID (debug purpose).")
+    parser.add_argument('--debug', action='store_true', default=False,
+        help="Enter interactive debug mode (for index inspection).")
     args = parser.parse_args()
+
+    print('#divisions:', args.div)
+    print('selection:', args.div_selection)
+    print('debug:', args.debug)
 
     encoder = ColBertEncoder(args.encoder, '[Q]',
         device=args.device, tokenizer=args.tokenizer)
 
     if args.div_selection is None:
-        div_selection = slice(None)
+        search_range = None
     else:
-        div_selection = slice(*args.div_selection)
-    print('#divisions:', args.div)
-    print('selection:', div_selection)
+        search_range = [args.div, *args.div_selection]
     searcher = ColBertSearcher(args.index, encoder,
-        div=args.div, div_selection=div_selection)
+        search_range=search_range, debug=args.debug)
 
     print('[test query]', args.query)
     results = searcher.search(args.query, k=args.topk, docid=args.docid)
