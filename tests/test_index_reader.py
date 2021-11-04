@@ -70,12 +70,12 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(df, 1)
         self.assertEqual(cf, 1)
 
-        # Currently, this test case will pass if we do '🙂'.encode('utf-8')
+        # Currently, this test case will pass if we remove the JString wrapping
         df, cf = temp_index_reader.get_term_counts('🙂')
         self.assertEqual(df, 1)
         self.assertEqual(cf, 1)
 
-        # This currently pass after we add encode('utf-8') back
+        # This currently pass after we killing all JString
         doc_vector = temp_index_reader.get_document_vector('doc1')
         self.assertEqual(doc_vector['emoji'], 1)
         self.assertEqual(doc_vector['🙂'], 1)
