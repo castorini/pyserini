@@ -20,7 +20,7 @@ import sys
 sys.path.insert(0, './')
 
 from pyserini.index import IndexReader
-from pyserini.dsearch import SimpleDenseSearcher, QueryEncoder
+from pyserini.dsearch import SimpleDenseSearcher, QueryEncoder, BinaryDenseSearcher 
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
 
 
@@ -38,7 +38,10 @@ def check_dense(index):
     print('\n')
     for entry in index:
         print(f'# Validating "{entry}"...')
-        SimpleDenseSearcher.from_prebuilt_index(entry, dummy_queries)
+        if "bpr" in entry:
+            BinaryDenseSearcher.from_prebuilt_index(entry, dummy_queries)
+        else:
+            SimpleDenseSearcher.from_prebuilt_index(entry, dummy_queries)
         print('\n')
 
 
