@@ -111,6 +111,7 @@ TF_INDEX_INFO = {
         "size compressed (bytes)": 45835520960,
         "total_terms": 1232004740,
         "documents": 20545628,
+        "unique_terms": 10123678,
         "downloaded": False
     },
     "msmarco-doc": {
