@@ -103,9 +103,9 @@ TF_INDEX_INFO = {
     },
     "msmarco-doc-per-passage-ltr": {
         "description": "MS MARCO document per passage corpus (4 extra preprocessed fields) used for LTR pipeline",
-        "filename": "index-msmarco-document-ltr-20211027-3e4c283.tar.gz",
+        "filename": "index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
         "urls": [
-            "https://www.dropbox.com/s/5tr2otncs9rttbp/index-msmarco-document-ltr-20211027-3e4c283.tar.gz?dl=1"  # too big for UWaterloo GitLab
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz"  # too big for UWaterloo GitLab
         ],
         "md5": "bd60e89041b4ebbabc4bf0cfac608a87",
         "size compressed (bytes)": 45835520960,
