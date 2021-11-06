@@ -22,7 +22,8 @@ from random import randint
 from typing import List, Dict
 from urllib.request import urlretrieve
 
-from pyserini.search import Document, SimpleSearcher, JSimpleSearcherResult
+from pyserini.search import SimpleSearcher, JSimpleSearcherResult
+from pyserini.index import Document
 
 
 class TestSearch(unittest.TestCase):

@@ -40,6 +40,22 @@ class QueryEncoder:
         pass
 
 
+class PcaEncoder:
+    def __init__(self, encoder, pca_model_path):
+        self.encoder = encoder
+        self.pca_mat = faiss.read_VectorTransform(pca_model_path)
+
+    def encode(self, text, **kwargs):
+        if isinstance(text, str):
+            embeddings = self.encoder.encode(text, **kwargs)
+            embeddings = self.pca_mat.apply_py(np.array([embeddings]))
+            embeddings = embeddings[0]
+        else:
+            embeddings = self.encoder.encode(text, **kwargs)
+            embeddings = self.pca_mat.apply_py(embeddings)
+        return embeddings
+
+
 class JsonlCollectionIterator:
     def __init__(self, collection_path: str, fields=None):
         if fields:
@@ -147,4 +163,4 @@ class FaissRepresentationWriter(RepresentationWriter):
     def write(self, batch_info, fields=None):
         for id_ in batch_info['id']:
             self.id_file.write(f'{id_}\n')
-        self.index.add(batch_info['vector'])
+        self.index.add(np.ascontiguousarray(batch_info['vector']))

@@ -21,14 +21,14 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 import os
 from typing import Dict, List, Optional, Union
-
-from ._base import Document
-from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap, JString
+import numpy as np
+from pyserini.index import Document
+from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
 from pyserini.util import download_prebuilt_index
 from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder, CachedDataQueryEncoder
+from ..encode._splade import SpladeQueryEncoder
 
 logger = logging.getLogger(__name__)
-
 
 # Wrappers around Anserini classes
 JImpactSearcher = autoclass('io.anserini.search.SimpleImpactSearcher')
@@ -46,9 +46,11 @@ class ImpactSearcher:
         QueryEncoder to encode query text
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str]):
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], min_idf=0):
         self.index_dir = index_dir
-        self.object = JImpactSearcher(JString(index_dir))
+        self.idf = self._compute_idf(index_dir)
+        self.min_idf = min_idf
+        self.object = JImpactSearcher(index_dir)
         self.num_docs = self.object.getTotalNumDocuments()
         if isinstance(query_encoder, str) or query_encoder is None:
             self.query_encoder = self._init_query_encoder_from_str(query_encoder)
@@ -56,7 +58,7 @@ class ImpactSearcher:
             self.query_encoder = query_encoder
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str]):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0):
         """Build a searcher from a pre-built index; download the index if necessary.
 
         Parameters
@@ -77,7 +79,7 @@ class ImpactSearcher:
             return None
 
         print(f'Initializing {prebuilt_index_name}...')
-        return cls(index_dir, query_encoder)
+        return cls(index_dir, query_encoder, min_idf)
 
     @staticmethod
     def list_prebuilt_indexes():
@@ -93,6 +95,8 @@ class ImpactSearcher:
             Query string.
         k : int
             Number of hits to return.
+        min_idf : int
+            Minimum idf for query tokens
         fields : dict
             Optional map of fields to search with associated boosts.
 
@@ -104,12 +108,13 @@ class ImpactSearcher:
 
         jfields = JHashMap()
         for (field, boost) in fields.items():
-            jfields.put(JString(field), JFloat(boost))
+            jfields.put(field, JFloat(boost))
 
         encoded_query = self.query_encoder.encode(q)
         jquery = JHashMap()
         for (token, weight) in encoded_query.items():
-            jquery.put(JString(token.encode('utf8')), JFloat(weight))
+            if token in self.idf and self.idf[token] > self.min_idf:
+                jquery.put(token, JFloat(weight))
 
         if not fields:
             hits = self.object.search(jquery, k)
@@ -119,7 +124,7 @@ class ImpactSearcher:
         return hits
 
     def batch_search(self, queries: List[str], qids: List[str],
-                     k: int = 10, threads: int = 1, fields = dict()) -> Dict[str, List[JImpactSearcherResult]]:
+                     k: int = 10, threads: int = 1, fields=dict()) -> Dict[str, List[JImpactSearcherResult]]:
         """Search the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
@@ -132,6 +137,8 @@ class ImpactSearcher:
             Number of hits to return.
         threads : int
             Maximum number of threads to use.
+        min_idf : int
+            Minimum idf for query tokens
         fields : dict
             Optional map of fields to search with associated boosts.
 
@@ -147,16 +154,17 @@ class ImpactSearcher:
             encoded_query = self.query_encoder.encode(q)
             jquery = JHashMap()
             for (token, weight) in encoded_query.items():
-                jquery.put(JString(token.encode('utf8')), JFloat(weight))
+                if token in self.idf and self.idf[token] > self.min_idf:
+                    jquery.put(token, JFloat(weight))
             query_lst.add(jquery)
 
         for qid in qids:
-            jqid = JString(qid)
+            jqid = qid
             qid_lst.add(jqid)
 
         jfields = JHashMap()
         for (field, boost) in fields.items():
-            jfields.put(JString(field), JFloat(boost))
+            jfields.put(field, JFloat(boost))
 
         if not fields:
             results = self.object.batchSearch(query_lst, qid_lst, int(k), int(threads))
@@ -202,7 +210,7 @@ class ImpactSearcher:
         Document
             :class:`Document` whose ``field`` is ``id``.
         """
-        lucene_document = self.object.documentByField(JString(field), JString(q))
+        lucene_document = self.object.documentByField(field, q)
         if lucene_document is None:
             return None
         return Document(lucene_document)
@@ -219,3 +227,17 @@ class ImpactSearcher:
             return CachedDataQueryEncoder(query_encoder)
         elif 'unicoil' in query_encoder.lower():
             return UniCoilQueryEncoder(query_encoder)
+        elif 'splade' in query_encoder.lower():
+            return SpladeQueryEncoder(query_encoder)
+
+    @staticmethod
+    def _compute_idf(index_path):
+        from pyserini.index import IndexReader
+        index_reader = IndexReader(index_path)
+        tokens = []
+        dfs = []
+        for term in index_reader.terms():
+            dfs.append(term.df)
+            tokens.append(term.term)
+        idfs = np.log((index_reader.stats()['documents'] / (np.array(dfs))))
+        return dict(zip(tokens, idfs))
