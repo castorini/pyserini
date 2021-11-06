@@ -325,7 +325,7 @@ if __name__ == '__main__':
         search_range = None
     else:
         search_range = [args.div, *args.div_selection]
-    searcher = ColBertSearcher(args.index, encoder,
+    searcher = ColBertSearcher(args.index, encoder, device=args.deivce,
         search_range=search_range, debug=args.debug)
 
     print('[test query]', args.query)

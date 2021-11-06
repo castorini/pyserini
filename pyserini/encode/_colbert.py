@@ -43,7 +43,7 @@ class ColBERT(BertPreTrainedModel):
         super().__init__(config)
         self.dim = dim
         self.bert = BertModel(config, add_pooling_layer=False)
-        self.linear = nn.Linear(config.hidden_size, dim, bias=False)
+        self.linear = nn.Linear(config.hidden_size, dim)
         self.init_weights()
 
     def forward(self, Q, D):
@@ -80,10 +80,10 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         super().__init__(config)
         self.distilbert = DistilBertModel(config)
         self.pooler = nn.Linear(config.hidden_size, config.code_dim)
-        self.skiplist = dict()
+        self.skiplist = None
         self.init_weights()
 
-    def build_skiplist(self, tokenizer):
+    def use_puct_mask(self, tokenizer):
         encode = lambda x: tokenizer.encode(x, add_special_tokens=False)[0]
         self.skiplist = {w: True
                 for symbol in string.punctuation
@@ -100,15 +100,6 @@ class ColBERT_distil(DistilBertPreTrainedModel):
     def score(self, query, passage):
         q_reps, _ = self.query(query)
         p_reps, _ = self.doc(passage)
-
-        q_ids = query['input_ids']
-        p_ids = passage['input_ids']
-        q_mask = torch.tensor(self.mask(q_ids[:, 1:]), device=q_ids.device)
-        p_mask = torch.tensor(self.mask(p_ids[:, 1:]), device=p_ids.device)
-
-        q_reps = q_reps * q_mask.unsqueeze(2).float()
-        p_reps = p_reps * p_mask.unsqueeze(2).float()
-
         score = torch.einsum('imk,ink->imn', [q_reps, p_reps])
         score = score.max(dim=-1).values.sum(dim=-1)
         return score
@@ -117,6 +108,12 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         qry_out = self.distilbert(**qry, return_dict=True)
         q_hidden = qry_out.last_hidden_state
         q_reps = self.pooler(q_hidden[:, 1:, :]) # excluding [CLS]
+        # apply mask
+        if self.skiplist:
+            q_ids = qry['input_ids']
+            q_mask = torch.tensor(self.mask(q_ids[:, 1:]), device=q_ids.device)
+            q_reps = q_reps * q_mask.unsqueeze(2).float()
+        # normalize after masking
         q_reps = torch.nn.functional.normalize(q_reps, dim=2, p=2)
         lengths = qry['attention_mask'].sum(1).cpu().numpy() - 1
         return q_reps, lengths
@@ -125,14 +122,20 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         psg_out = self.distilbert(**psg, return_dict=True)
         p_hidden = psg_out.last_hidden_state
         p_reps = self.pooler(p_hidden[:, 1:, :]) # excluding [CLS]
+        # apply mask
+        if self.skiplist:
+            p_ids = psg['input_ids']
+            p_mask = torch.tensor(self.mask(p_ids[:, 1:]), device=p_ids.device)
+            p_reps = p_reps * p_mask.unsqueeze(2).float()
+        # normalize after masking
         p_reps = torch.nn.functional.normalize(p_reps, dim=2, p=2)
         lengths = psg['attention_mask'].sum(1).cpu().numpy() - 1
         return p_reps, lengths
 
 
 class ColBertEncoder(DocumentEncoder):
-    def __init__(self, model: str, prepend_tok: str,
-        tokenizer: Optional[str]=None, device: Optional[str]='cuda:0'):
+    def __init__(self, model: str, prepend_tok: str, maxlen: Optional[int] = None,
+        tokenizer: Optional[str] = None, device: Optional[str] = 'cuda:0'):
         # determine encoder prepend token
         prepend_tokens = ['[D]', '[Q]']
         assert prepend_tok in prepend_tokens
@@ -144,14 +147,18 @@ class ColBertEncoder(DocumentEncoder):
             print('Using distil ColBERT:', model, tokenizer)
             self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
             self.model = ColBERT_distil.from_pretrained(model)
-            self.model.build_skiplist(self.tokenizer)
+            #self.model.use_puct_mask(self.tokenizer)
             self.dim = self.model.config.code_dim
+            self.maxlen = {'[Q]': 40, '[D]': 180}[prepend_tok]
+            self.prepend = False
         else:
             print('Using vanilla ColBERT:', model, tokenizer)
             self.model = ColBERT.from_pretrained(model,
                 tie_word_embeddings=True
             )
             self.dim = 128
+            self.maxlen = None
+            self.prepend = True
             # load tokenizer and add special tokens
             self.tokenizer = BertTokenizer.from_pretrained(tokenizer or model)
             self.tokenizer.add_special_tokens({
@@ -171,11 +178,11 @@ class ColBertEncoder(DocumentEncoder):
             title = titles[b] if titles is not None else None
             content = text if title is None else f'{title}{sep}{text}'
             # prepend special tokens
-            content = f'{self.prepend_tok} {content}'
+            content = f'{self.prepend_tok} {content}' if self.prepend else content
             prepend_contents.append(content)
 
         # tokenize
-        enc_tokens = self.tokenizer(prepend_contents,
+        enc_tokens = self.tokenizer(prepend_contents, max_length=self.maxlen,
             padding=True, truncation=True, return_tensors="pt")
         enc_tokens.to(self.device)
 
