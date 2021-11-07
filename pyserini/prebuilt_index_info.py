@@ -664,6 +664,19 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "msmarco-passage"
     },
+    "msmarco-doc-tct_colbert-v2-hnp-bf": {
+        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
+        "filename": "faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/XjkKAWMz2fwSeJB/download",
+        ],
+        "md5": "c6a7d295cfe711ef84dffe9ba6a702e5",
+        "size compressed (bytes)": 58586765624,
+        "documents": 20544550,
+        "downloaded": False,
+        "texts": "msmarco-passage"
+    },
     "wikipedia-dpr-multi-bf": {
         "description": "Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on multiple QA datasets",
         "filename": "dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
