@@ -669,6 +669,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/XjkKAWMz2fwSeJB/download",
         ],
         "md5": "c6a7d295cfe711ef84dffe9ba6a702e5",
         "size compressed (bytes)": 58586765624,
