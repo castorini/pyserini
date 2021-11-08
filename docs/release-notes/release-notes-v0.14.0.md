@@ -6,7 +6,7 @@
 + Added support for MS MARCO V2 collections.
 + Added support for Vector-PRF.
 + Added various pre-built indexes.
-+ Added integration tests for sparse learned retrieval models; improved testing overall.
++ Added integration tests for sparse learned retrieval models and Vector-PRF; improved testing overall.
 + Added convenience scripts for generating info about pre-built indexes and for validating pre-built indexes.
 + Fixed encoding issues by dropping `JString` wrapping and letting Pyjnius handle Python/Java string conversion directly.
 + Updated MS MARCO passage LTR code/documentation and added MS MARCO doc LTR code/documentation.
