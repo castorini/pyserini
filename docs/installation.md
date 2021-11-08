@@ -10,7 +10,7 @@ A `pip` installation will automatically pull in the first to satisfy the package
 We leave the installation of these packages to you.
 
 In general, our development team tries to keep dependent packages at the same versions and upgrade in lockstep.
-In preparation for release of Pyserini v0.12.0, our "reference" configuration is a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.6.5`,  `transformers==4.0.0`, and `torch==1.7.1`.
+As of Pyserini v0.14.0, our "reference" configuration is a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.7.0`,  `transformers==4.6.0`, and `torch==1.8.1`.
 This is the configuration used to run our many regression tests.
 In most cases results have also been reproduced on macOS with the same dependency versions.
 With other versions of the dependent packages, as they say, your mileage may vary...
@@ -45,7 +45,7 @@ $ conda install -c conda-forge pyjnius
 Install Pytorch based on environment (see [this guide](https://pytorch.org/get-started/locally/) for additional details):
 
 ```bash
-$ pip3 install torch==1.8.1+cu111 torchvision==0.9.1+cu111 torchaudio===0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
+$ pip3 install torch==1.8.1 torchvision==0.9.1 torchaudio===0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
 Install Faiss based on environment
