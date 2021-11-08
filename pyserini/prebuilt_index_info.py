@@ -833,6 +833,20 @@ FAISS_INDEX_INFO = {
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-passage"
+    },
+    "cast19-tct_colbert-v2-hnsw": {
+        "description": "Faiss hnsw index of the CAsT2019 passage corpus encoded by tct_colbert-v2 passage encoder",
+        "filename": "faiss-hnsw.cast19.tct_colbert-v2.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss-hnsw.cast19.tct_colbert-v2-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-hnsw.cast19.tct_colbert-v2.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/X4wTijQbSGBn6LY/download",
+        ],
+        "md5": "1ca444b333630e0e36f4c7c05e0c8b02",
+        "size compressed (bytes)": 112121351141,
+        "documents": 38429835,
+        "downloaded": False,
+        "texts": "cast2019"
     }
     "cast19-tct_colbert-v2-hnsw": {
         "description": "Faiss hnsw index of the CAsT2019 passage corpus encoded by tct_colbert-v2 passage encoder",
