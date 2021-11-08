@@ -20,7 +20,7 @@ import sys
 # Use Pyserini in this repo (as opposed to pip install)
 sys.path.insert(0, './')
 
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
 
 
 __boilerplate__ = '''
@@ -76,7 +76,8 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 def generate_prebuilt(index):
     print('<dl>')
     for entry in index:
-        print(f'<dt style="font-style: normal"><code>{entry}</code></dt>')
+        # No, this is not an HTML bug. This is intentional to get GitHub formatting to not add italics to the entry.
+        print(f'<dt></dt><b><code>{entry}</code></b>')
         print(f'<dd>{index[entry]["description"]}')
         if 'readme' in index[entry]:
             print(f'[<a href="{index[entry]["readme"]}">readme</a>]')
@@ -90,3 +91,5 @@ if __name__ == '__main__':
     generate_prebuilt(TF_INDEX_INFO)
     print('\n\n## Lucene Impact Indexes')
     generate_prebuilt(IMPACT_INDEX_INFO)
+    print('\n\n## Faiss Indexes')
+    generate_prebuilt(FAISS_INDEX_INFO)
