@@ -102,10 +102,11 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-doc-per-passage-ltr": {
-        "description": "MS MARCO document per passage corpus (4 extra preprocessed fields) used for LTR pipeline",
+        "description": "Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR",
         "filename": "index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz"  # too big for UWaterloo GitLab
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/kNdXMWXEsTt3fT8/download"
         ],
         "md5": "bd60e89041b4ebbabc4bf0cfac608a87",
         "size compressed (bytes)": 45835520960,
@@ -660,6 +661,19 @@ FAISS_INDEX_INFO = {
         ],
         "md5": "f0b4c3bff3bb685be5c475511004c3b0",
         "size compressed (bytes)": 58514325936,
+        "documents": 20544550,
+        "downloaded": False,
+        "texts": "msmarco-passage"
+    },
+    "msmarco-doc-tct_colbert-v2-hnp-bf": {
+        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
+        "filename": "faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/XjkKAWMz2fwSeJB/download",
+        ],
+        "md5": "c6a7d295cfe711ef84dffe9ba6a702e5",
+        "size compressed (bytes)": 58586765624,
         "documents": 20544550,
         "downloaded": False,
         "texts": "msmarco-passage"
