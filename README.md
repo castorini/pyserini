@@ -126,7 +126,7 @@ hits[0].raw
 hits[0].lucene_document
 ```
 
-Pre-built indexes are hosted on University of Waterloo servers and in some cases mirrored on Dropbox.
+Pre-built indexes are hosted on University of Waterloo servers.
 The following method will list available pre-built indexes:
 
 ```
