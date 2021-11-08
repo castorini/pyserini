@@ -837,6 +837,7 @@ FAISS_INDEX_INFO = {
     "cast19-tct_colbert-v2-hnsw": {
         "description": "Faiss hnsw index of the CAsT2019 passage corpus encoded by tct_colbert-v2 passage encoder",
         "filename": "faiss-hnsw.cast19.tct_colbert-v2.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss-hnsw.cast19.tct_colbert-v2-readme.txt"
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-hnsw.cast19.tct_colbert-v2.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/X4wTijQbSGBn6LY/download",
