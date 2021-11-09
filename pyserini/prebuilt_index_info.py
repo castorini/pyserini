@@ -822,7 +822,7 @@ FAISS_INDEX_INFO = {
         "texts": "msmarco-passage"
     },
     "msmarco-passage-tct_colbert-v2-hnp-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by tct_colbert-v2-hnp passage encoder",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
@@ -835,11 +835,12 @@ FAISS_INDEX_INFO = {
         "texts": "msmarco-passage"
     },
     "cast2019-tct_colbert-v2-hnsw": {
-        "description": "Faiss hnsw index of the CAsT2019 passage corpus encoded by tct_colbert-v2 passage encoder",
+        "description": "Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder",
         "filename": "faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss-hnsw.cast2019.tct_colbert-v2-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/ncrZdE67BCKxPwc/download"
         ],
         "md5": "fa7673509b34d978e1b931d5705369ee",
         "size compressed (bytes)": 112121366773,
