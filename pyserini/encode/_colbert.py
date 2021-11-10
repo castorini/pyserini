@@ -162,7 +162,7 @@ class ColBertEncoder(DocumentEncoder):
             self.model.pad_to_max_length = True
             #self.model.use_puct_mask(self.tokenizer)
             self.dim = self.model.config.code_dim
-            self.maxlen = {'[Q]': 40, '[D]': 180}[prepend_tok]
+            self.maxlen = {'[Q]': 32, '[D]': 128}[prepend_tok]
             self.prepend = False
         else:
             print('Using vanilla ColBERT:', model, tokenizer)

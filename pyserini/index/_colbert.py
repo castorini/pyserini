@@ -32,7 +32,7 @@ from .faiss_gpu import FaissIndexGPU
 
 class ColBertIndexer:
     def __init__(self, index_path, dim=128, limit_adds=-1,
-        n_docs_per_part=100_000, compress=True, use_gpu=True):
+        n_docs_per_part=100_000, compress=True, use_gpu=False):
         self.index_path = index_path
         self.part = 0
         self.dim = dim
