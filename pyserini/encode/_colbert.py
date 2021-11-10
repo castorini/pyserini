@@ -81,7 +81,6 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         self.distilbert = DistilBertModel(config)
         self.pooler = nn.Linear(config.hidden_size, config.code_dim)
         self.skiplist = None
-        self.pad_to_max_length = False
         self.init_weights()
 
     def use_puct_mask(self, tokenizer):
@@ -117,11 +116,6 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         # normalize after masking
         q_reps = torch.nn.functional.normalize(q_reps, dim=2, p=2)
         lengths = qry['attention_mask'].sum(1).cpu().numpy() - 1
-        if self.pad_to_max_length:
-            B, length = q_reps.shape[0:2]
-            lengths = torch.ones(B, dtype=torch.int).numpy() * length
-        else:
-            lengths = qry['attention_mask'].sum(1).cpu().numpy() - 1
         return q_reps, lengths
 
     def doc(self, psg):
@@ -135,11 +129,7 @@ class ColBERT_distil(DistilBertPreTrainedModel):
             p_reps = p_reps * p_mask.unsqueeze(2).float()
         # normalize after masking
         p_reps = torch.nn.functional.normalize(p_reps, dim=2, p=2)
-        if self.pad_to_max_length:
-            B, length = p_reps.shape[0:2]
-            lengths = torch.ones(B, dtype=torch.int).numpy() * length
-        else:
-            lengths = psg['attention_mask'].sum(1).cpu().numpy() - 1
+        lengths = psg['attention_mask'].sum(1).cpu().numpy() - 1
         return p_reps, lengths
 
 
@@ -150,7 +140,6 @@ class ColBertEncoder(DocumentEncoder):
         prepend_tokens = ['[D]', '[Q]']
         assert prepend_tok in prepend_tokens
         self.prepend_tok = prepend_tok
-        self.pad_to_max_length = False
         self.dim = None
 
         # load model
@@ -158,8 +147,6 @@ class ColBertEncoder(DocumentEncoder):
             print('Using distil ColBERT:', model, tokenizer)
             self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
             self.model = ColBERT_distil.from_pretrained(model)
-            self.pad_to_max_length = True
-            self.model.pad_to_max_length = True
             #self.model.use_puct_mask(self.tokenizer)
             self.dim = self.model.config.code_dim
             self.maxlen = {'[Q]': 32, '[D]': 128}[prepend_tok]
@@ -195,9 +182,8 @@ class ColBertEncoder(DocumentEncoder):
             prepend_contents.append(content)
 
         # tokenize
-        enc_tokens = self.tokenizer(prepend_contents,
-            padding='max_length' if self.pad_to_max_length else 'do_not_pad',
-            truncation=True, return_tensors="pt", max_length=self.maxlen)
+        enc_tokens = self.tokenizer(prepend_contents, max_length=self.maxlen,
+            padding=True, truncation=True, return_tensors="pt")
         enc_tokens.to(self.device)
 
         if debug:
