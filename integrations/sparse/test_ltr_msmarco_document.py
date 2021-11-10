@@ -48,7 +48,7 @@ class TestLtrMsmarcoDocument(unittest.TestCase):
         #queries process
         os.system(f'tar -xzvf ltr_test/{ibm_model_tar_name} -C ltr_test')
         os.system('python scripts/ltr_msmarco/convert_queries.py --input tools/topics-and-qrels/topics.msmarco-doc.dev.txt --output ltr_test/queries.dev.small.json')
-        os.system(f'python scripts/ltr_msmarco/ltr_inference.py  --input ltr_test/{inp} --input-format trec --data document --model ltr_test/msmarco-passage-ltr-mrr-v1 --index ~/.cache/pyserini/indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151 --ibm-model ltr_test/ibm_model/ --queries ltr_test --output ltr_test/{outp}')
+        os.system(f'python scripts/ltr_msmarco/ltr_inference.py  --input ltr_test/{inp} --input-format trec --data document --model ltr_test/msmarco-passage-ltr-mrr-v1 --index ~/.cache/pyserini/indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.bd60e89041b4ebbabc4bf0cfac608a87 --ibm-model ltr_test/ibm_model/ --queries ltr_test --output ltr_test/{outp}')
         #convert trec to tsv withmaxP
         os.system(f'python scripts/ltr_msmarco/generate_document_score_withmaxP.py --input ltr_test/{outp} --output ltr_test/{outp_tsv}')
 
