@@ -45,8 +45,6 @@ class TestLtrMsmarcoDocument(unittest.TestCase):
         ibm_model_url = 'https://www.dropbox.com/s/vlrfcz3vmr4nt0q/ibm_model.tar.gz'
         ibm_model_tar_name = 'ibm_model.tar.gz'
         os.system(f'wget {ibm_model_url} -P ltr_test/')
-        #pre-download index
-
         #queries process
         os.system(f'tar -xzvf ltr_test/{ibm_model_tar_name} -C ltr_test')
         os.system('python scripts/ltr_msmarco/convert_queries.py --input tools/topics-and-qrels/topics.msmarco-doc.dev.txt --output ltr_test/queries.dev.small.json')
