@@ -35,7 +35,7 @@ class TestLtrMsmarcoPassage(unittest.TestCase):
         SimpleSearcher.from_prebuilt_index('msmarco-passage-ltr')
         os.system(f'python -m pyserini.search --topics msmarco-passage-dev-subset  --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ --output ltr_test/{inp} --bm25 --output-format msmarco --hits 1000 --k1 0.82 --b 0.68')
         #Pre-trained ltr model
-        model_url = 'https://www.dropbox.com/s/ffl2bfw4cd5ngyz/msmarco-passage-ltr-mrr-v1.tar.gz'
+        model_url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msmarco-passage-mrr-v1.tar.gz'
         model_tar_name = 'model-ltr-msmarco-passage-mrr-v1.tar.gz'
         os.system(f'wget {model_url} -P ltr_test/')
         os.system(f'tar -xzvf ltr_test/{model_tar_name} -C ltr_test')
