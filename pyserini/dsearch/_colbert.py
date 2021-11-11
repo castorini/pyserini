@@ -85,7 +85,7 @@ class ColBertSearcher:
 
         low, high = self.div_offsets[0][0], self.div_offsets[-1][-1]
         print(f'Loading flat tensors ranged from [{low:,}:{high:,}]')
-        self.word_embs = self.get_partial_embds(low, high + self.max_doc_len)
+        self.word_embs = self.get_partial_embs(low, high + self.max_doc_len)
 
         mem_usage = sys.getsizeof(self.word_embs.storage()) // (1024*1024)
         print(f'Flat tensor memory usage = {mem_usage:,} MiB')
@@ -116,7 +116,7 @@ class ColBertSearcher:
         files = list(filter(lambda x: pattern.match(x), files))
         return sorted(files, key=lambda x: int(x.split('.')[1]))
 
-    def get_partial_embds(self, low, high):
+    def get_partial_embs(self, low, high):
         assert low < high and high <= self.n_embs + self.max_doc_len
         embs = torch.zeros(high - low, self.dim, dtype=torch.float16)
         fill_offset = 0
@@ -325,7 +325,7 @@ if __name__ == '__main__':
         search_range = None
     else:
         search_range = [args.div, *args.div_selection]
-    searcher = ColBertSearcher(args.index, encoder, device=args.deivce,
+    searcher = ColBertSearcher(args.index, encoder, device=args.device,
         search_range=search_range, debug=args.debug)
 
     print('[test query]', args.query)
