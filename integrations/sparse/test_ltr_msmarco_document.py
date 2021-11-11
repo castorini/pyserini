@@ -43,7 +43,7 @@ class TestLtrMsmarcoDocument(unittest.TestCase):
         os.system(f'tar -xzvf ltr_test/{model_tar_name} -C ltr_test')
         #ibm model
         ibm_model_url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-ibm.tar.gz'
-        ibm_model_tar_name = 'model-ltr-ibm..tar.gz'
+        ibm_model_tar_name = 'model-ltr-ibm.tar.gz'
         os.system(f'wget {ibm_model_url} -P ltr_test/')
         #queries process
         os.system(f'tar -xzvf ltr_test/{ibm_model_tar_name} -C ltr_test')
