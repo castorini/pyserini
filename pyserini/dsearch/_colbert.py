@@ -76,12 +76,8 @@ class ColBertSearcher:
         # big tensor memory preloading
         self.doc_offsets = torch.tensor(self.doc_offsets, device=device)
         self.doc_lens = torch.tensor(self.doc_lens, device=device)
-        div_offsets = self.get_div_offsets(self.doc_offsets, self.doc_lens, div)
-        self.div_offsets = div_offsets[div_selection]
-        if debug:
-            div_extdocids = self.get_div_extdocids()
-            import pdb
-            pdb.set_trace()
+        self.all_div_offsets = self.get_div_offsets(self.doc_offsets, div)
+        self.div_offsets = self.all_div_offsets[div_selection]
 
         low, high = self.div_offsets[0][0], self.div_offsets[-1][-1]
         print(f'Loading flat tensors ranged from [{low:,}:{high:,}]')
@@ -166,16 +162,16 @@ class ColBertSearcher:
             (self.dim, self.dim, 1)
         )
 
-    def get_div_offsets(self, doc_offsets, doc_lens, div):
+    def get_div_offsets(self, doc_offsets, div):
         n = doc_offsets.shape[0]
         step = n // div
         div_offsets = []
         for low_k in range(0, n, step):
-            high_k = min(low_k + step, n)
-            low = doc_offsets.kthvalue(low_k + 1).values.item()
-            high = doc_offsets.kthvalue(high_k).values.item()
-            if high_k == n:
-                high += doc_lens[-1].item()
+            high_k = min(low_k + step, n - 1)
+            low = doc_offsets[low_k].item()
+            high = doc_offsets[high_k].item()
+            if high_k == n - 1:
+                high_k = self.n_embs
             div_offsets.append((low, high))
         return div_offsets
 
@@ -257,6 +253,9 @@ class ColBertSearcher:
             del view
             torch.cuda.empty_cache()
 
+            #import pdb
+            #pdb.set_trace()
+
         return all_scores.cpu().tolist()
 
     def search(self, query: str, k: int = 10, docid: str = None) \
@@ -286,6 +285,7 @@ class ColBertSearcher:
         results = [
             DenseSearchResult(self.ext_docIDs[i], score)
             for i, score in results
+            if score != 0
         ]
         return results
 
