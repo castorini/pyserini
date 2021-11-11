@@ -84,12 +84,14 @@ class TrecWriter(OutputWriter):
     def write(self, topic: str, hits: List[JSimpleSearcherResult]):
         for docid, rank, score, _ in self.hits_iterator(hits):
             self._file.write(f'{topic} Q0 {docid} {rank} {score:.6f} {self.tag}\n')
+            self._file.flush()
 
 
 class MsMarcoWriter(OutputWriter):
     def write(self, topic: str, hits: List[JSimpleSearcherResult]):
         for docid, rank, score, _ in self.hits_iterator(hits):
             self._file.write(f'{topic}\t{docid}\t{rank}\n')
+            self._file.flush()
 
 
 class KiltWriter(OutputWriter):
@@ -101,6 +103,7 @@ class KiltWriter(OutputWriter):
         datapoint["output"] = [{"provenance": provenance}]
         json.dump(datapoint, self._file)
         self._file.write('\n')
+        self._file.flush()
 
 
 def get_output_writer(file_path: str, output_format: OutputFormat, *args, **kwargs) -> OutputWriter:
