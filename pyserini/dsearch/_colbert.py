@@ -268,6 +268,7 @@ class ColBertSearcher:
             # debug embedding
             if self.debug_docid:
                 ext_docID = self.ext_docIDs[self.debug_docid]
+                scores = scores.cpu()
                 torch.save(scores, f'debug-scores-{ext_docID}.pt')
                 #import pdb
                 #pdb.set_trace()
