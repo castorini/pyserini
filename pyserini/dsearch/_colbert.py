@@ -95,12 +95,13 @@ class ColBertSearcher:
             # find out which division debug docID is
             for i, (low, high) in enumerate(self.all_div_offsets):
                 low_docid = self.pos2docid[low]
-                high_docid = self.pos2docid[high]
+                high_docid = self.pos2docid[high - 1]
                 low_ext_docid = self.ext_docIDs[low_docid]
                 high_ext_docid = self.ext_docIDs[high_docid]
-                print(f'offset {low}-{high} => doc {low_docid}-{high_docid}'
+                print(f'{i} {i+1}: offset {low}-{high}'
+                    + f' => doc {low_docid}-{high_docid}'
                     + f' => ext docID {low_ext_docid}-{high_ext_docid}')
-                if self.debug_docid < high_docid:
+                if self.debug_docid <= high_docid:
                     print(f'doc# {self.debug_docid} @ {div} {i} {i+1}')
                     break
 
@@ -189,14 +190,14 @@ class ColBertSearcher:
 
     def get_div_offsets(self, doc_offsets, div):
         n = doc_offsets.shape[0]
-        step = n // div
+        step = (n // div) + 1
         div_offsets = []
         for low_k in range(0, n, step):
             high_k = min(low_k + step, n - 1)
             low = doc_offsets[low_k].item()
             high = doc_offsets[high_k].item()
             if high_k == n - 1:
-                high_k = self.n_embs
+                high = self.n_embs
             div_offsets.append((low, high))
         return div_offsets
 
