@@ -16,7 +16,7 @@
 
 from typing import List
 
-from ..pyclass import autoclass, JString
+from ..pyclass import autoclass
 
 # Wrappers around Lucene classes
 JAnalyzer = autoclass('org.apache.lucene.analysis.Analyzer')
@@ -112,9 +112,9 @@ def get_lucene_analyzer(language='en', stemming=True, stemmer='porter', stopword
     elif language.lower() == 'en':
         if stemming:
             if stopwords:
-                return JDefaultEnglishAnalyzer.newStemmingInstance(JString(stemmer))
+                return JDefaultEnglishAnalyzer.newStemmingInstance(stemmer)
             else:
-                return JDefaultEnglishAnalyzer.newStemmingInstance(JString(stemmer), JCharArraySet.EMPTY_SET)
+                return JDefaultEnglishAnalyzer.newStemmingInstance(stemmer, JCharArraySet.EMPTY_SET)
         else:
             if stopwords:
                 return JDefaultEnglishAnalyzer.newNonStemmingInstance()
@@ -151,7 +151,7 @@ class Analyzer:
         List[str]
             List of tokens corresponding to the output of the analyzer.
         """
-        results = JAnalyzerUtils.analyze(self.analyzer, JString(text))
+        results = JAnalyzerUtils.analyze(self.analyzer, text)
         tokens = []
         for token in results.toArray():
             tokens.append(token)
