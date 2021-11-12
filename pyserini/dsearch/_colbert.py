@@ -15,7 +15,7 @@ from pyserini.encode import ColBertEncoder
 
 class ColBertSearcher:
     def __init__(self, index_path: str, query_encoder: QueryEncoder,
-                 device='cuda:0', search_range=None, debug=False):
+                 device='cuda:0', search_range=None, debug_ext_docid=None):
         self.index_path = index_path
         self.encoder = query_encoder
         self.pos2docid = None
@@ -78,6 +78,31 @@ class ColBertSearcher:
         self.doc_lens = torch.tensor(self.doc_lens, device=device)
         self.all_div_offsets = self.get_div_offsets(self.doc_offsets, div)
         self.div_offsets = self.all_div_offsets[div_selection]
+
+        # setup debug docid
+        self.debug_docid = None
+        if debug_ext_docid:
+            print('*** DEBUG ***')
+            print(f'Looking for {debug_ext_docid} ...')
+            # find out debug internal docid
+            for j, ext_docid in enumerate(self.ext_docIDs):
+                if ext_docid == debug_ext_docid:
+                    self.debug_docid =j
+                    break
+            assert self.debug_docid is not None
+            print(f'internal docid = {self.debug_docid}')
+            print(f'debug doc len = {self.doc_lens[self.debug_docid]}')
+            # find out which division debug docID is
+            for i, (low, high) in enumerate(self.all_div_offsets):
+                low_docid = self.pos2docid[low]
+                high_docid = self.pos2docid[high]
+                low_ext_docid = self.ext_docIDs[low_docid]
+                high_ext_docid = self.ext_docIDs[high_docid]
+                print(f'offset {low}-{high} => doc {low_docid}-{high_docid}'
+                    + f' => ext docID {low_ext_docid}-{high_ext_docid}')
+                if self.debug_docid < high_docid:
+                    print(f'doc# {self.debug_docid} @ {div} {i} {i+1}')
+                    break
 
         low, high = self.div_offsets[0][0], self.div_offsets[-1][-1]
         print(f'Loading flat tensors ranged from [{low:,}:{high:,}]')
@@ -185,7 +210,7 @@ class ColBertSearcher:
                 ext_docIDs[k].append(ext_docid)
         return ext_docIDs
 
-    def rank(self, qcode, uniq_docids, debug_docid=None):
+    def colbert_rank(self, qcode, uniq_docids):
         # prepare query and document tensors
         Q = qcode.permute(0, 2, 1).to(self.device) # [qnum, dim, max_qlen]
         Q = Q.to(dtype=torch.float16) # float16
@@ -193,18 +218,6 @@ class ColBertSearcher:
         # shortcut variables
         lowest = self.div_offsets[0][0] # lowest offset in self.word_embs
         stride = self.max_doc_len
-
-        # debug only
-        if debug_docid is not None:
-            for j, ext_docid in enumerate(self.ext_docIDs):
-                if ext_docid == debug_docid:
-                    break
-            debug_len = self.doc_lens[j].item()
-            debug_offset = self.doc_offsets[j].item() - lowest
-            debug_embs = self.word_embs[debug_offset:debug_offset+debug_len]
-            print(debug_embs.shape)
-            print(debug_embs)
-            return []
 
         # tensorize candidate docIDs
         all_scores = torch.zeros(len(uniq_docids), device=self.device)
@@ -245,38 +258,45 @@ class ColBertSearcher:
             scores = div_cands @ Q # [cands, stride, dim] @ [qnum, dim, qlen]
             scores = scores * mask.unsqueeze(-1) # [n_cands, stride, qlen]
             scores = scores.float() # convert to full precision for max()
-            scores = scores.max(1).values.sum(-1) # scoring
-            all_scores[in_range] = scores
+            all_scores[in_range] = scores.max(1).values.sum(-1) # scoring
 
             # release in-loop temp memory
             del word_embs
             del view
             torch.cuda.empty_cache()
 
-            #import pdb
-            #pdb.set_trace()
+            # debug embedding
+            if self.debug_docid:
+                ext_docID = self.ext_docIDs[self.debug_docid]
+                torch.save(scores, f'debug-scores-{ext_docID}.pt')
+                #import pdb
+                #pdb.set_trace()
 
         return all_scores.cpu().tolist()
 
-    def search(self, query: str, k: int = 10, docid: str = None) \
+    def search(self, query: str, k: int = 10) \
         -> List[DenseSearchResult]:
         # encode query
         qcode, _ = self.encoder.encode([query],
             fp16=(self.code_sz==16), debug=False)
         qnum, max_qlen, dim = qcode.shape
         assert dim == self.dim
+        assert qnum == 1
 
         # retrieve candidates per keyword
-        Q = qcode.view(-1, dim).cpu().contiguous() # [qnum * max_qlen, dim]
-        cand_depth = max(1024, k)
-        _, QD_embpos = self.faiss_index.search(Q.numpy(), cand_depth)
-        QD_embpos = torch.tensor(QD_embpos).view(qnum, -1)
-        QD_docids = self.pos2docid[QD_embpos] # [qnum, max_qlen * cand_depth]
+        if self.debug_docid:
+            uniq_docids = [[self.debug_docid]]
+        else:
+            Q = qcode.view(-1, dim).cpu().contiguous() # [qnum * max_qlen, dim]
+            cand_depth = max(1024, k)
+            _, QD_embpos = self.faiss_index.search(Q.numpy(), cand_depth)
+            QD_embpos = torch.tensor(QD_embpos).view(qnum, -1)
+            QD_docids = self.pos2docid[QD_embpos] # [qnum, max_qlen*cand_depth]
+            # rank candidates
+            uniq_docids = list(map(lambda x: list(set(x)), QD_docids.tolist()))
 
-        # rank candidates
-        uniq_docids = list(map(lambda x: list(set(x)), QD_docids.tolist()))
-        assert qnum == 1
-        scores = self.rank(qcode, uniq_docids[0], debug_docid=docid)
+        # rank candidates with colbert scoring
+        scores = self.colbert_rank(qcode, uniq_docids[0])
 
         # sort results
         results = zip(uniq_docids[0], scores)
@@ -310,13 +330,10 @@ if __name__ == '__main__':
         help="Divisions selected for search (relevant tensors will be cached).")
     parser.add_argument('--docid', type=str,
         help="Print out document tensor for specific docID (debug purpose).")
-    parser.add_argument('--debug', action='store_true', default=False,
-        help="Enter interactive debug mode (for index inspection).")
     args = parser.parse_args()
 
     print('#divisions:', args.div)
     print('selection:', args.div_selection)
-    print('debug:', args.debug)
 
     encoder = ColBertEncoder(args.encoder, '[Q]',
         device=args.device, tokenizer=args.tokenizer)
@@ -326,9 +343,9 @@ if __name__ == '__main__':
     else:
         search_range = [args.div, *args.div_selection]
     searcher = ColBertSearcher(args.index, encoder, device=args.device,
-        search_range=search_range, debug=args.debug)
+        search_range=search_range, debug_ext_docid=args.docid)
 
     print('[test query]', args.query)
-    results = searcher.search(args.query, k=args.topk, docid=args.docid)
+    results = searcher.search(args.query, k=args.topk)
     for rank, hit in enumerate(results):
         print(rank + 1, hit.docid, '\t', hit.score)
