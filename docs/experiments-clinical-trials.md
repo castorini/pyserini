@@ -1,6 +1,6 @@
-# Pyserini: BM25 and RM3 Baseline for Clinical Trials
+# Pyserini: BM25 and RM3 Baseline for TREC 2021 Clinical Trials
 
-This guide contains instructions for running BM25 and RM3 baselines on the [TREC Clinical Trials Track](http://www.trec-cds.org/2021.html).
+This guide contains instructions for running BM25 and RM3 baselines on the [TREC 2021 Clinical Trials Track](http://www.trec-cds.org/2021.html).
 
 ## Data Prep
 
@@ -40,9 +40,9 @@ python scripts/trec-ct/convert_topic_xml_to_tsv.py --topics tools/topics-and-qre
 Build the index with the following command:
 
 ```
-python -m pyserini.index -collection JsonCollection \
- -generator DefaultLuceneDocumentGenerator -threads 9 -input collections/trec-ct-json \
- -index indexes/lucene-index-ct -storePositions -storeDocvectors -storeRaw
+python -m pyserini.index --collection JsonCollection \
+ --generator DefaultLuceneDocumentGenerator --threads 9 --input collections/trec-ct-json \
+ --index indexes/lucene-index-ct --storePositions --storeDocvectors --storeRaw
 ```
 
 On a modern desktop with an SSD, indexing takes around 5 minutes.
@@ -78,7 +78,6 @@ $ wget --user <your_username> --password <your_password> https://trec.nist.gov/a
     -P tools/topics-and-qrels
 ```
 
-### BM25
 For bm25, run this to get the RR and P@10 score:
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -q -l 2 tools/topics-and-qrels/2021-qrels.txt runs/run.msmarco-doc.bm25.txt
@@ -100,7 +99,6 @@ You should see this line in the output
 ndcg_cut_10           	all	0.2923
 ```
 
-### BM35+RM3
 For bm25+rm3, run this to get the RR and P@10 score:
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -q -l 2 tools/topics-and-qrels/2021-qrels.txt runs/run.msmarco-doc.bm25.rm3.txt
