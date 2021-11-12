@@ -1,4 +1,4 @@
-# Pyserini: BM25 and RM3 Baseline for TREC 2021 Clinical Trials
+# Pyserini: BM25 and RM3 Baselines for TREC 2021 Clinical Trials
 
 This guide contains instructions for running BM25 and RM3 baselines on the [TREC 2021 Clinical Trials Track](http://www.trec-cds.org/2021.html).
 
