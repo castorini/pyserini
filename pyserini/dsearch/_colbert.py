@@ -266,7 +266,7 @@ class ColBertSearcher:
             torch.cuda.empty_cache()
 
             # debug embedding
-            if self.debug_docid:
+            if self.debug_docid is not None:
                 ext_docID = self.ext_docIDs[self.debug_docid]
                 scores = scores.cpu()
                 torch.save(scores, f'debug-scores-{ext_docID}.pt')
@@ -285,7 +285,7 @@ class ColBertSearcher:
         assert qnum == 1
 
         # retrieve candidates per keyword
-        if self.debug_docid:
+        if self.debug_docid is not None:
             uniq_docids = [[self.debug_docid]]
         else:
             Q = qcode.view(-1, dim).cpu().contiguous() # [qnum * max_qlen, dim]
