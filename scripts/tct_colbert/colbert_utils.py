@@ -218,9 +218,13 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path):
     print('score:', score)
 
 
-def visualize_scoring(query, doc, tokenizer, scores, emphasis=False):
+def visualize_scoring(query, doc, tokenizer, scores,
+                      emphasis=False, off_by_one=False):
     qry_ids = tokenizer([query])['input_ids'][0]
     doc_ids = tokenizer([doc])['input_ids'][0]
+    if off_by_one:
+        qry_ids = qry_ids[1:]
+        doc_ids = doc_ids[1:]
     qry_tokens = [tokenizer.decode(x) for x in qry_ids]
     doc_tokens = [tokenizer.decode(x) for x in doc_ids]
     scores = scores.squeeze(0)[:len(doc_tokens), :]
@@ -230,7 +234,7 @@ def visualize_scoring(query, doc, tokenizer, scores, emphasis=False):
     print(doc_tokens)
     # emphasis on max q-d match
     if emphasis:
-        max_loc = np.argmax(scores, dim=1)
+        max_loc = np.argmax(scores, axis=1)
         for i in range(len(qry_tokens)):
             scores[i][max_loc[i]] = 1.0
 
@@ -263,7 +267,8 @@ def offline_visualize_scoring(query_file='query.txt', doc_file='doc.txt',
         doc = fh.read().rstrip()
     tokenizer = AutoTokenizer.from_pretrained(tok_ckpt)
     scores = torch.load(score_file)
-    visualize_scoring(query, doc, tokenizer, scores)
+    visualize_scoring(query, doc, tokenizer, scores,
+                      off_by_one=True, emphasis=True)
 
 
 if __name__ == '__main__':
