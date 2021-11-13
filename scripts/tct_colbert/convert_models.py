@@ -7,6 +7,7 @@ import torch
 import torch.nn as nn
 
 from transformers import AutoTokenizer, PretrainedConfig
+from transformers import BertModel, BertConfig, BertPreTrainedModel
 from transformers import DistilBertModel, DistilBertConfig, DistilBertPreTrainedModel
 
 
@@ -16,6 +17,42 @@ class ColBertConfig(PretrainedConfig):
     def __init__(self, code_dim=128, **kwargs):
         self.code_dim = code_dim
         super().__init__(**kwargs)
+
+
+class ColBERT(BertPreTrainedModel):
+
+    def __init__(self, config):
+        super().__init__(config)
+        self.dim = 128
+        self.bert = BertModel(config, add_pooling_layer=True)
+        self.linear = nn.Linear(config.hidden_size, self.dim, bias=False)
+        self.init_weights()
+
+    def forward(self, Q, D):
+        Q_code, _ = self.query(Q)
+        D_code, _ = self.doc(D)
+        return self.score(Q_code, D_code)
+
+    def query(self, inputs):
+        Q = self.bert(**inputs)[0] # last-layer hidden state
+        # Q: (B, Lq, H) -> (B, Lq, dim)
+        Q = self.linear(Q)
+        # return: (B, Lq, dim) normalized
+        lengths = inputs['attention_mask'].sum(1).cpu().numpy()
+        return torch.nn.functional.normalize(Q, p=2, dim=2), lengths
+
+    def doc(self, inputs):
+        D = self.bert(**inputs)[0]
+        D = self.linear(D)
+        lengths = inputs['attention_mask'].sum(1).cpu().numpy()
+        return torch.nn.functional.normalize(D, p=2, dim=2), lengths
+
+    def score(self, Q, D):
+        # (B, Lq, dim) x (B, dim, Ld) -> (B, Lq, Ld)
+        cmp_matrix = Q @ D.permute(0, 2, 1)
+        best_match = cmp_matrix.max(2).values # best match per query
+        scores = best_match.sum(1) # sum score over each query
+        return scores
 
 
 class ColBERT_distil(DistilBertPreTrainedModel):
@@ -75,7 +112,7 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         return p_reps, lengths
 
 
-def convert(state_pt_path, code_dim=128):
+def convert_distilbert(state_pt_path, code_dim=128):
     path = os.path.expanduser(state_pt_path)
     state_dict = torch.load(path)
     new_state_dict = {}
@@ -113,15 +150,28 @@ def convert(state_pt_path, code_dim=128):
 
 def test(hfc_model_path, hfc_tokenizer_path):
     tokenizer = AutoTokenizer.from_pretrained(hfc_tokenizer_path)
-    model = ColBERT_distil.from_pretrained(hfc_model_path)
-    model.build_skiplist(tokenizer)
-    print('Encoding dimension:', model.config.code_dim)
-    print('Model hidden size:', model.config.hidden_size)
+
+    if 'distil' in hfc_model_path:
+        model = ColBERT_distil.from_pretrained(hfc_model_path)
+        Q_prepend = ''
+        D_prepend = ''
+    else:
+        model = ColBERT.from_pretrained(hfc_model_path)
+        special_tokens_dict = {
+            'additional_special_tokens': ['[unused0]', '[unused1]']
+        }
+        tokenizer.add_special_tokens(special_tokens_dict)
+        Q_mark_id = tokenizer.convert_tokens_to_ids('[unused0]')
+        D_mark_id = tokenizer.convert_tokens_to_ids('[unused1]')
+        assert Q_mark_id == 1
+        assert D_mark_id == 2
+        Q_prepend = '[unused0]'
+        D_prepend = '[unused1]'
 
     # docID = 66361, QueryID = 1016547
-    test_text = \
+    test_text = Q_prepend + \
     '''
-    [D] bone marrow that actively produces blood cells is called red marrow.
+     bone marrow that actively produces blood cells is called red marrow.
     '''
     enc_tokens = tokenizer([test_text],
         padding=True, truncation=True, return_tensors="pt")
@@ -131,9 +181,32 @@ def test(hfc_model_path, hfc_tokenizer_path):
     print(code)
 
 
+def convert_vanilla_colbert(state_pt_path):
+    path = os.path.expanduser(state_pt_path)
+    state_dict = torch.load(path, map_location='cpu')
+    model_state_dict = state_dict['model_state_dict']
+
+    new_state_dict = {}
+    for path, value in model_state_dict.items():
+       # if path == 'bert.embeddings.position_ids':
+       #     continue
+        new_state_dict[path] = value
+        print(path)
+
+    config = BertConfig.from_pretrained('bert-base-uncased')
+    model = ColBERT(config)
+
+    print('Loading pretrained state dict ...')
+    model.load_state_dict(new_state_dict, strict=False)
+
+    output_name = f'colbert_vanilla_128'
+    print(f'Saving {output_name} ...')
+    model.save_pretrained(output_name)
+
 if __name__ == '__main__':
     os.environ["PAGER"] = 'cat'
     fire.Fire({
-        'convert': convert,
+        'convert_vanilla_colbert': convert_vanilla_colbert,
+        'convert_distilbert': convert_distilbert,
         'test': test
     })
