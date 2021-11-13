@@ -39,17 +39,18 @@ class ColBertConfig(PretrainedConfig):
 
 class ColBERT(BertPreTrainedModel):
 
-    def __init__(self, config, dim=128):
+    def __init__(self, config):
         super().__init__(config)
-        self.dim = dim
-        self.bert = BertModel(config, add_pooling_layer=False)
-        self.linear = nn.Linear(config.hidden_size, dim)
+        self.dim = 128
+        self.bert = BertModel(config, add_pooling_layer=True)
+        self.linear = nn.Linear(config.hidden_size, self.dim, bias=False)
         self.init_weights()
 
     def forward(self, Q, D):
-        Q_code, _ = self.query(Q)
-        D_code, _ = self.doc(D)
-        return self.score(Q_code, D_code)
+        q_reps, _ = self.query(Q)
+        d_reps, d_lens = self.doc(D)
+        d_mask = D['attention_mask'].unsqueeze(-1)
+        return self.score(q_reps, d_reps, d_mask)
 
     def query(self, inputs):
         Q = self.bert(**inputs)[0] # last-layer hidden state
@@ -65,12 +66,13 @@ class ColBERT(BertPreTrainedModel):
         lengths = inputs['attention_mask'].sum(1).cpu().numpy()
         return torch.nn.functional.normalize(D, p=2, dim=2), lengths
 
-    def score(self, Q, D):
-        # (B, Lq, dim) x (B, dim, Ld) -> (B, Lq, Ld)
-        cmp_matrix = Q @ D.permute(0, 2, 1)
-        best_match = cmp_matrix.max(2).values # best match per query
-        scores = best_match.sum(1) # sum score over each query
-        return scores
+    def score(self, Q, D, mask):
+        # (B, Ld, dim) x (B, dim, Lq) -> (B, Ld, Lq)
+        cmp_matrix = D @ Q.permute(0, 2, 1)
+        cmp_matrix = cmp_matrix * mask # [B, Ld, Lq]
+        best_match = cmp_matrix.max(1).values # best match per query
+        scores = best_match.sum(-1) # sum score over each query
+        return scores, cmp_matrix
 
 
 class ColBERT_distil(DistilBertPreTrainedModel):
@@ -162,7 +164,7 @@ class ColBertEncoder(DocumentEncoder):
             # load tokenizer and add special tokens
             self.tokenizer = BertTokenizer.from_pretrained(tokenizer or model)
             self.tokenizer.add_special_tokens({
-                'additional_special_tokens': actual_prepend_tokens
+                'additional_special_tokens': self.actual_prepend_tokens
             })
             self.model.resize_token_embeddings(len(self.tokenizer))
 
@@ -200,9 +202,10 @@ class ColBertEncoder(DocumentEncoder):
         with torch.no_grad():
             with amp_ctx:
                 if self.actual_prepend_tok == self.actual_prepend_tokens[0]:
-                    return self.model.query(enc_tokens)
+                    embs, lengths = self.model.query(enc_tokens)
                 else:
-                    return self.model.doc(enc_tokens)
+                    embs, lengths = self.model.doc(enc_tokens)
+                return embs, lengths
 
 
 class ColbertRepresentationWriter(RepresentationWriter):
