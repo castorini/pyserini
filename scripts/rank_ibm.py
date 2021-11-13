@@ -40,7 +40,7 @@ JQueryFieldContext = autoclass('io.anserini.ltr.QueryFieldContext')
 selfTrans = 0.05
 minProb=5e-4
 lambdaValue = 0.1
-alpha=0.5
+alpha=0
 
 def normalize(scores):
     low = min(scores)
@@ -99,20 +99,21 @@ def get_doc_to_id_from_qrun_by_topic(path: str, topic: str):
     return res
 
 
-def get_docs_from_qrun_by_topic(path: str, topic: str):
-    x, y = [], []
+def get_docs_from_qrun_by_topic(path: str):
+    result_dic={}
     with open(path, 'r') as f:
         for line in f:
             tokens = line.strip().split()
             t = tokens[0]
-            if topic != t:
-                continue
             doc_id = tokens[2]
             score = float(tokens[-2])
-            x.append(doc_id)
-            y.append(score)
+            if t in result_dic.keys():
+                result_dic[t][0].append(doc_id)
+                result_dic[t][1].append(score)
+            else:
+                result_dic[t]=[[doc_id],[score]]
 
-    return x, y
+    return result_dic
 
 
 def get_X_Y_from_qrels_by_topic(path: str, topic: str, R: List[int]):
@@ -191,6 +192,7 @@ def get_ibm_score(query_text_lst,doc_token_lst, docSize,reader, fieldName,totalT
             if totalQueryProb ==0:
                 totalQueryProb = queryWordProb
             else:
+                #totalQueryProb = totalQueryProb+queryWordProb
                 totalQueryProb = totalQueryProb*queryWordProb
 
     return totalQueryProb
@@ -272,7 +274,7 @@ def rank(new_qrels: str, base: str,dir_path:str, lucene_index_path: str,output_p
     sourceLookup,targetLookup,tran = load_tranProbsTable(dir_path)
     nlp = spacy.load('en_core_web_sm')
     totalTermFreq = reader.getSumTotalTermFreq(fieldName)
-
+    doc_dic = get_docs_from_qrun_by_topic(base)
     
 
     f = open(output_path, 'w')
@@ -282,9 +284,8 @@ def rank(new_qrels: str, base: str,dir_path:str, lucene_index_path: str,output_p
     query= query_loader()
     i = 0
     for topic in topics:
-        test_docs, base_scores = get_docs_from_qrun_by_topic(base, topic)
+        [test_docs, base_scores] = doc_dic[topic]
         rank_scores = []
-        #if (i%100==0):
         print(f"Reranking {i} query")
         j = 0
         i=i+1
@@ -296,8 +297,6 @@ def rank(new_qrels: str, base: str,dir_path:str, lucene_index_path: str,output_p
             query_text_lst = query[topic][fieldName]
             rank_score = get_ibm_score(query_text_lst,doc_token_lst, docSize,reader, fieldName,totalTermFreq,sourceLookup,targetLookup,tran)
             rank_scores.append(rank_score)      
-            #if (j%10==0):
-            #print(f"Reranking {j} topics score:{rank_score}")
             j=j+1
         ibm_scores = _normalize([p for p in rank_scores])
         base_scores = _normalize([p for p in base_scores])
@@ -334,7 +333,7 @@ if __name__ == '__main__':
                         metavar="directory path", help='directory path')
     parser.add_argument('-index', type=str, default="../ltr/index-msmarco-passage-ltr-20210519-e25e33f",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
-    parser.add_argument('-output', type=str, default="../ltr/result.txt",
+    parser.add_argument('-output', type=str, default="../ltr/result-unittest.txt",
                         metavar="path_to_reranked_run", help='the path to reranked run file')
     parser.add_argument('-score_path', type=str, default="../ltr/result.json",
                         metavar="path_to_base_run", help='the path to map and ndcg scores')
