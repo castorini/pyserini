@@ -76,29 +76,18 @@ class ColBERT_distil(DistilBertPreTrainedModel):
                 for symbol in string.punctuation
                 for w in [symbol, encode(symbol)]}
 
-    def mask(self, input_ids):
-        PAD_CODE = 0
-        mask = [
-            [(x not in self.skiplist) and (x != PAD_CODE) for x in d]
-            for d in input_ids.cpu().tolist()
-        ]
-        return mask
-
-    def score(self, query, passage):
-        q_reps, q_lens = self.query(query)
-        p_reps, p_lens = self.doc(passage)
-
-        q_ids = query['input_ids']
-        p_ids = passage['input_ids']
-        q_mask = torch.tensor(self.mask(q_ids[:, 1:]), device=q_ids.device)
-        p_mask = torch.tensor(self.mask(p_ids[:, 1:]), device=p_ids.device)
-
-        q_reps = q_reps * q_mask.unsqueeze(2).float()
-        p_reps = p_reps * p_mask.unsqueeze(2).float()
-
+    def score(self, q_reps, p_reps, p_mask):
         cmp_matrix = torch.einsum('imk,ink->imn', [q_reps, p_reps])
-        score = cmp_matrix.max(dim=-1).values.sum(dim=-1)
+        cmp_matrix = cmp_matrix.permute(0, 2, 1) # [B, Ld, Lq]
+        score = cmp_matrix * p_mask
+        score = score.max(dim=1).values.sum(dim=-1)
         return score, cmp_matrix
+
+    def forward(self, qry, psg):
+        q_reps, _ = self.query(qry)
+        d_reps, d_lens = self.doc(psg)
+        d_mask = psg['attention_mask'][:,1:].unsqueeze(-1)
+        return self.score(q_reps, d_reps, d_mask)
 
     def query(self, qry):
         qry_out = self.distilbert(**qry, return_dict=True)
@@ -176,13 +165,14 @@ def convert_vanilla_colbert(state_pt_path):
     model.save_pretrained(output_name)
 
 
-def test_scoring(hfc_model_path, hfc_tokenizer_path):
+def test_scoring(hfc_model_path, hfc_tokenizer_path, emphasis=False):
     tokenizer = AutoTokenizer.from_pretrained(hfc_tokenizer_path)
 
     if 'distil' in hfc_model_path:
         model = ColBERT_distil.from_pretrained(hfc_model_path)
         Q_prepend = ''
         D_prepend = ''
+        off_by_one = True
     else:
         model = ColBERT.from_pretrained(hfc_model_path)
         special_tokens_dict = {
@@ -195,6 +185,7 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path):
         assert D_mark_id == 2
         Q_prepend = '[unused0]'
         D_prepend = '[unused1]'
+        off_by_one = False
 
     # QueryID = 1016547, docID = 66361
     test_query = Q_prepend + \
@@ -203,7 +194,7 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path):
     '''
     enc_query = tokenizer([test_query, 'test 2nd batch'],
         padding=True, truncation=True, return_tensors="pt")
-    print(tokenizer.decode(enc_query['input_ids'][0]))
+    #print(tokenizer.decode(enc_query['input_ids'][0]))
 
     test_doc = D_prepend + \
     '''
@@ -211,10 +202,11 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path):
     '''
     enc_doc = tokenizer([test_doc, 'test 2nd batch'],
         padding=True, truncation=True, return_tensors="pt")
-    print(tokenizer.decode(enc_doc['input_ids'][0]))
+    #print(tokenizer.decode(enc_doc['input_ids'][0]))
 
     score, cmp_matrix = model(enc_query, enc_doc)
-    visualize_scoring(test_query, test_doc, tokenizer, cmp_matrix[0])
+    visualize_scoring(test_query, test_doc, tokenizer, cmp_matrix[0],
+        off_by_one=off_by_one, emphasis=emphasis)
     print('score:', score)
 
 
@@ -227,11 +219,12 @@ def visualize_scoring(query, doc, tokenizer, scores,
         doc_ids = doc_ids[1:]
     qry_tokens = [tokenizer.decode(x) for x in qry_ids]
     doc_tokens = [tokenizer.decode(x) for x in doc_ids]
+    print(qry_tokens)
+    print(doc_tokens)
+
     scores = scores.squeeze(0)[:len(doc_tokens), :]
     scores = scores.T.detach().numpy()
 
-    print(qry_tokens)
-    print(doc_tokens)
     # emphasis on max q-d match
     if emphasis:
         max_loc = np.argmax(scores, axis=1)
@@ -260,7 +253,8 @@ def visualize_scoring(query, doc, tokenizer, scores,
 
 
 def offline_visualize_scoring(query_file='query.txt', doc_file='doc.txt',
-         score_file='scores.pt', tok_ckpt='distilbert-base-uncased'):
+         score_file='scores.pt', tok_ckpt='distilbert-base-uncased',
+         off_by_one=False, emphasis=False):
     with open(query_file, 'r') as fh:
         query = fh.read().rstrip()
     with open(doc_file, 'r') as fh:
@@ -268,7 +262,7 @@ def offline_visualize_scoring(query_file='query.txt', doc_file='doc.txt',
     tokenizer = AutoTokenizer.from_pretrained(tok_ckpt)
     scores = torch.load(score_file)
     visualize_scoring(query, doc, tokenizer, scores,
-                      off_by_one=True, emphasis=True)
+                      off_by_one=off_by_one, emphasis=emphasis)
 
 
 if __name__ == '__main__':
