@@ -135,9 +135,11 @@ class ColBertEncoder(DocumentEncoder):
     def __init__(self, model: str, prepend_tok: str, maxlen: Optional[int] = None,
         tokenizer: Optional[str] = None, device: Optional[str] = 'cuda:0'):
         # determine encoder prepend token
-        prepend_tokens = ['[D]', '[Q]']
+        prepend_tokens = ['[Q]', '[D]']
         assert prepend_tok in prepend_tokens
-        self.prepend_tok = prepend_tok
+        self.actual_prepend_tokens = ['[unused0]', '[unused1]'] # for compatibility of original Colbert ckpt
+        prepend_map = dict(list(zip(prepend_tokens, self.actual_prepend_tokens)))
+        self.actual_prepend_tok = prepend_map[prepend_tok]
         self.dim = None
 
         # load model
@@ -155,12 +157,12 @@ class ColBertEncoder(DocumentEncoder):
                 tie_word_embeddings=True
             )
             self.dim = 128
-            self.maxlen = None
+            self.maxlen = {'[Q]': 32, '[D]': 128}[prepend_tok]
             self.prepend = True
             # load tokenizer and add special tokens
             self.tokenizer = BertTokenizer.from_pretrained(tokenizer or model)
             self.tokenizer.add_special_tokens({
-                'additional_special_tokens': prepend_tokens
+                'additional_special_tokens': actual_prepend_tokens
             })
             self.model.resize_token_embeddings(len(self.tokenizer))
 
@@ -176,7 +178,7 @@ class ColBertEncoder(DocumentEncoder):
             title = titles[b] if titles is not None else None
             content = text if title is None else f'{title}{sep}{text}'
             # prepend special tokens
-            content = f'{self.prepend_tok} {content}' if self.prepend else content
+            content = f'{self.actual_prepend_tok} {content}' if self.prepend else content
             prepend_contents.append(content)
 
         # tokenize
@@ -197,10 +199,10 @@ class ColBertEncoder(DocumentEncoder):
 
         with torch.no_grad():
             with amp_ctx:
-                if self.prepend_tok == '[D]':
-                    return self.model.doc(enc_tokens)
-                else:
+                if self.actual_prepend_tok == self.actual_prepend_tokens[0]:
                     return self.model.query(enc_tokens)
+                else:
+                    return self.model.doc(enc_tokens)
 
 
 class ColbertRepresentationWriter(RepresentationWriter):
