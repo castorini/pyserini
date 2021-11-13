@@ -80,29 +80,27 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         super().__init__(config)
         self.distilbert = DistilBertModel(config)
         self.pooler = nn.Linear(config.hidden_size, config.code_dim)
-        self.skiplist = None
+        self.skiplist = dict()
         self.init_weights()
 
-    def use_puct_mask(self, tokenizer):
+    def build_skiplist(self, tokenizer):
         encode = lambda x: tokenizer.encode(x, add_special_tokens=False)[0]
         self.skiplist = {w: True
                 for symbol in string.punctuation
                 for w in [symbol, encode(symbol)]}
 
-    def mask(self, input_ids):
-        PAD_CODE = 0
-        mask = [
-            [(x not in self.skiplist) and (x != PAD_CODE) for x in d]
-            for d in input_ids.cpu().tolist()
-        ]
-        return mask
+    def score(self, q_reps, p_reps, p_mask):
+        cmp_matrix = torch.einsum('imk,ink->imn', [q_reps, p_reps])
+        cmp_matrix = cmp_matrix.permute(0, 2, 1) # [B, Ld, Lq]
+        score = cmp_matrix * p_mask
+        score = score.max(dim=1).values.sum(dim=-1)
+        return score, cmp_matrix
 
-    def score(self, query, passage):
-        q_reps, _ = self.query(query)
-        p_reps, _ = self.doc(passage)
-        score = torch.einsum('imk,ink->imn', [q_reps, p_reps])
-        score = score.max(dim=-1).values.sum(dim=-1)
-        return score
+    def forward(self, qry, psg):
+        q_reps, _ = self.query(qry)
+        d_reps, d_lens = self.doc(psg)
+        d_mask = psg['attention_mask'][:,1:].unsqueeze(-1)
+        return self.score(q_reps, d_reps, d_mask)
 
     def query(self, qry):
         qry_out = self.distilbert(**qry, return_dict=True)
