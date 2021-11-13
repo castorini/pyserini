@@ -3,8 +3,11 @@ import json
 import fire
 import string
 
+import matplotlib.pyplot as plt
+
 import torch
 import torch.nn as nn
+import numpy as np
 
 from transformers import AutoTokenizer, PretrainedConfig
 from transformers import BertModel, BertConfig, BertPreTrainedModel
@@ -29,9 +32,10 @@ class ColBERT(BertPreTrainedModel):
         self.init_weights()
 
     def forward(self, Q, D):
-        Q_code, _ = self.query(Q)
-        D_code, _ = self.doc(D)
-        return self.score(Q_code, D_code)
+        q_reps, _ = self.query(Q)
+        d_reps, d_lens = self.doc(D)
+        d_mask = D['attention_mask'].unsqueeze(-1)
+        return self.score(q_reps, d_reps, d_mask)
 
     def query(self, inputs):
         Q = self.bert(**inputs)[0] # last-layer hidden state
@@ -47,12 +51,13 @@ class ColBERT(BertPreTrainedModel):
         lengths = inputs['attention_mask'].sum(1).cpu().numpy()
         return torch.nn.functional.normalize(D, p=2, dim=2), lengths
 
-    def score(self, Q, D):
-        # (B, Lq, dim) x (B, dim, Ld) -> (B, Lq, Ld)
-        cmp_matrix = Q @ D.permute(0, 2, 1)
-        best_match = cmp_matrix.max(2).values # best match per query
-        scores = best_match.sum(1) # sum score over each query
-        return scores
+    def score(self, Q, D, mask):
+        # (B, Ld, dim) x (B, dim, Lq) -> (B, Ld, Lq)
+        cmp_matrix = D @ Q.permute(0, 2, 1)
+        cmp_matrix = cmp_matrix * mask # [B, Ld, Lq]
+        best_match = cmp_matrix.max(1).values # best match per query
+        scores = best_match.sum(-1) # sum score over each query
+        return scores, cmp_matrix
 
 
 class ColBERT_distil(DistilBertPreTrainedModel):
@@ -80,8 +85,8 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         return mask
 
     def score(self, query, passage):
-        q_reps, _ = self.query(query)
-        p_reps, _ = self.doc(passage)
+        q_reps, q_lens = self.query(query)
+        p_reps, p_lens = self.doc(passage)
 
         q_ids = query['input_ids']
         p_ids = passage['input_ids']
@@ -91,9 +96,9 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         q_reps = q_reps * q_mask.unsqueeze(2).float()
         p_reps = p_reps * p_mask.unsqueeze(2).float()
 
-        score = torch.einsum('imk,ink->imn', [q_reps, p_reps])
-        score = score.max(dim=-1).values.sum(dim=-1)
-        return score
+        cmp_matrix = torch.einsum('imk,ink->imn', [q_reps, p_reps])
+        score = cmp_matrix.max(dim=-1).values.sum(dim=-1)
+        return score, cmp_matrix
 
     def query(self, qry):
         qry_out = self.distilbert(**qry, return_dict=True)
@@ -148,39 +153,6 @@ def convert_distilbert(state_pt_path, code_dim=128):
         fh.write('\n')
 
 
-def test(hfc_model_path, hfc_tokenizer_path):
-    tokenizer = AutoTokenizer.from_pretrained(hfc_tokenizer_path)
-
-    if 'distil' in hfc_model_path:
-        model = ColBERT_distil.from_pretrained(hfc_model_path)
-        Q_prepend = ''
-        D_prepend = ''
-    else:
-        model = ColBERT.from_pretrained(hfc_model_path)
-        special_tokens_dict = {
-            'additional_special_tokens': ['[unused0]', '[unused1]']
-        }
-        tokenizer.add_special_tokens(special_tokens_dict)
-        Q_mark_id = tokenizer.convert_tokens_to_ids('[unused0]')
-        D_mark_id = tokenizer.convert_tokens_to_ids('[unused1]')
-        assert Q_mark_id == 1
-        assert D_mark_id == 2
-        Q_prepend = '[unused0]'
-        D_prepend = '[unused1]'
-
-    # docID = 66361, QueryID = 1016547
-    test_text = Q_prepend + \
-    '''
-     bone marrow that actively produces blood cells is called red marrow.
-    '''
-    enc_tokens = tokenizer([test_text],
-        padding=True, truncation=True, return_tensors="pt")
-    code, length = model.doc(enc_tokens)
-    print(tokenizer.decode(enc_tokens['input_ids'][0]))
-    print(code.shape, length)
-    print(code)
-
-
 def convert_vanilla_colbert(state_pt_path):
     path = os.path.expanduser(state_pt_path)
     state_dict = torch.load(path, map_location='cpu')
@@ -203,10 +175,102 @@ def convert_vanilla_colbert(state_pt_path):
     print(f'Saving {output_name} ...')
     model.save_pretrained(output_name)
 
+
+def test_scoring(hfc_model_path, hfc_tokenizer_path):
+    tokenizer = AutoTokenizer.from_pretrained(hfc_tokenizer_path)
+
+    if 'distil' in hfc_model_path:
+        model = ColBERT_distil.from_pretrained(hfc_model_path)
+        Q_prepend = ''
+        D_prepend = ''
+    else:
+        model = ColBERT.from_pretrained(hfc_model_path)
+        special_tokens_dict = {
+            'additional_special_tokens': ['[unused0]', '[unused1]']
+        }
+        tokenizer.add_special_tokens(special_tokens_dict)
+        Q_mark_id = tokenizer.convert_tokens_to_ids('[unused0]')
+        D_mark_id = tokenizer.convert_tokens_to_ids('[unused1]')
+        assert Q_mark_id == 1
+        assert D_mark_id == 2
+        Q_prepend = '[unused0]'
+        D_prepend = '[unused1]'
+
+    # QueryID = 1016547, docID = 66361
+    test_query = Q_prepend + \
+    '''
+    which organ system makes red blood cells
+    '''
+    enc_query = tokenizer([test_query, 'test 2nd batch'],
+        padding=True, truncation=True, return_tensors="pt")
+    print(tokenizer.decode(enc_query['input_ids'][0]))
+
+    test_doc = D_prepend + \
+    '''
+    Bone marrow that actively produces blood cells is called red marrow, and bone marrow that no longer produces blood cells is called yellow marrow. The process by which the body produces blood is called hematopoiesis.Â­The cellular portion of blood contains red blood cells (RBCs), white blood cells (WBCs) and platelets. The RBCs carry oxygen from the lungs; the WBCs help to fight infection; and platelets are parts of cells that the body uses for clotting. All blood cells are produced in the bone marrow.
+    '''
+    enc_doc = tokenizer([test_doc, 'test 2nd batch'],
+        padding=True, truncation=True, return_tensors="pt")
+    print(tokenizer.decode(enc_doc['input_ids'][0]))
+
+    score, cmp_matrix = model(enc_query, enc_doc)
+    visualize_scoring(test_query, test_doc, tokenizer, cmp_matrix[0])
+    print('score:', score)
+
+
+def visualize_scoring(query, doc, tokenizer, scores, emphasis=False):
+    qry_ids = tokenizer([query])['input_ids'][0]
+    doc_ids = tokenizer([doc])['input_ids'][0]
+    qry_tokens = [tokenizer.decode(x) for x in qry_ids]
+    doc_tokens = [tokenizer.decode(x) for x in doc_ids]
+    scores = scores.squeeze(0)[:len(doc_tokens), :]
+    scores = scores.T.detach().numpy()
+
+    print(qry_tokens)
+    print(doc_tokens)
+    # emphasis on max q-d match
+    if emphasis:
+        max_loc = np.argmax(scores, dim=1)
+        for i in range(len(qry_tokens)):
+            scores[i][max_loc[i]] = 1.0
+
+    fig, ax = plt.subplots()
+    plt.imshow(scores, cmap='viridis', interpolation='nearest')
+    plt.yticks(
+        list([i for i in range(len(qry_tokens))]),
+        list([tok for tok in qry_tokens])
+    )
+    plt.xticks(
+        list([i for i in range(len(doc_tokens))]),
+        list([tok for tok in doc_tokens]),
+        rotation=90
+    )
+    wi, hi = fig.get_size_inches()
+    plt.gcf().set_size_inches(wi * 2, hi * 2)
+    #plt.colorbar()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+    print('generating visualization image...')
+    plt.savefig('scores.png')
+
+
+def offline_visualize_scoring(query_file='query.txt', doc_file='doc.txt',
+         score_file='scores.pt', tok_ckpt='distilbert-base-uncased'):
+    with open(query_file, 'r') as fh:
+        query = fh.read().rstrip()
+    with open(doc_file, 'r') as fh:
+        doc = fh.read().rstrip()
+    tokenizer = AutoTokenizer.from_pretrained(tok_ckpt)
+    scores = torch.load(score_file)
+    visualize_scoring(query, doc, tokenizer, scores)
+
+
 if __name__ == '__main__':
     os.environ["PAGER"] = 'cat'
     fire.Fire({
         'convert_vanilla_colbert': convert_vanilla_colbert,
         'convert_distilbert': convert_distilbert,
-        'test': test
+        'offline_visualize_scoring': offline_visualize_scoring,
+        'test_scoring': test_scoring
     })
