@@ -177,7 +177,8 @@ def convert_vanilla_colbert(state_pt_path):
     model.save_pretrained(output_name)
 
 
-def test_scoring(hfc_model_path, hfc_tokenizer_path, emphasis=False):
+def test_scoring(hfc_model_path, hfc_tokenizer_path,
+    emphasis=False, query_augment=False, q_maxlen=32, d_maxlen=180):
     tokenizer = AutoTokenizer.from_pretrained(hfc_tokenizer_path)
 
     if 'distil' in hfc_model_path:
@@ -204,8 +205,10 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path, emphasis=False):
     '''
     which organ system makes red blood cells
     '''
+    if query_augment: test_query += ' [MASK]' * q_maxlen
     enc_query = tokenizer([test_query, 'test 2nd batch'],
-        padding=True, truncation=True, return_tensors="pt")
+        padding='max_length' if query_augment else 'longest',
+        max_length=q_maxlen, truncation=True, return_tensors="pt")
     #print(tokenizer.decode(enc_query['input_ids'][0]))
 
     test_doc = D_prepend + \
@@ -213,7 +216,7 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path, emphasis=False):
     Bone marrow that actively produces blood cells is called red marrow, and bone marrow that no longer produces blood cells is called yellow marrow. The process by which the body produces blood is called hematopoiesis.Â­The cellular portion of blood contains red blood cells (RBCs), white blood cells (WBCs) and platelets. The RBCs carry oxygen from the lungs; the WBCs help to fight infection; and platelets are parts of cells that the body uses for clotting. All blood cells are produced in the bone marrow.
     '''
     enc_doc = tokenizer([test_doc, 'test 2nd batch'],
-        padding=True, truncation=True, return_tensors="pt")
+        padding=True, max_length=d_maxlen, truncation=True, return_tensors="pt")
     #print(tokenizer.decode(enc_doc['input_ids'][0]))
 
     score, cmp_matrix = model(enc_query, enc_doc)
@@ -229,13 +232,19 @@ def visualize_scoring(query, doc, tokenizer, scores,
     if off_by_one:
         qry_ids = qry_ids[1:]
         doc_ids = doc_ids[1:]
+
+    scores = scores.squeeze(0).T.detach().numpy()
+    h, w = scores.shape
+
     qry_tokens = [tokenizer.decode(x) for x in qry_ids]
+    qry_tokens = qry_tokens[:h]
+    qry_tokens[-1] = '[SEP]'
     doc_tokens = [tokenizer.decode(x) for x in doc_ids]
+    doc_tokens = doc_tokens[:w]
+    doc_tokens[-1] = '[SEP]'
+
     print(qry_tokens)
     print(doc_tokens)
-
-    scores = scores.squeeze(0)[:len(doc_tokens), :]
-    scores = scores.T.detach().numpy()
 
     # emphasis on max q-d match
     if emphasis:
@@ -245,12 +254,13 @@ def visualize_scoring(query, doc, tokenizer, scores,
 
     fig, ax = plt.subplots()
     plt.imshow(scores, cmap='viridis', interpolation='nearest')
+
     plt.yticks(
-        list([i for i in range(len(qry_tokens))]),
+        list([i for i in range(h)]),
         list([tok for tok in qry_tokens])
     )
     plt.xticks(
-        list([i for i in range(len(doc_tokens))]),
+        list([i for i in range(w)]),
         list([tok for tok in doc_tokens]),
         rotation=90
     )

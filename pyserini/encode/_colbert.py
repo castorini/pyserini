@@ -134,15 +134,16 @@ class ColBERT_distil(DistilBertPreTrainedModel):
 
 
 class ColBertEncoder(DocumentEncoder):
-    def __init__(self, model: str, prepend_tok: str, maxlen: Optional[int] = None,
-        tokenizer: Optional[str] = None, device: Optional[str] = 'cuda:0'):
+    def __init__(self, model: str, prepend_tok: str,
+        maxlen: Optional[int] = None, tokenizer: Optional[str] = None,
+        device: Optional[str] = 'cuda:0', query_augment: bool = False):
         # determine encoder prepend token
         prepend_tokens = ['[Q]', '[D]']
         assert prepend_tok in prepend_tokens
         self.actual_prepend_tokens = ['[unused0]', '[unused1]'] # for compatibility of original Colbert ckpt
         prepend_map = dict(list(zip(prepend_tokens, self.actual_prepend_tokens)))
         self.actual_prepend_tok = prepend_map[prepend_tok]
-        self.dim = None
+        self.query_augment = (query_augment and prepend_tok == '[Q]')
 
         # load model
         if 'distil' in model:
@@ -181,11 +182,16 @@ class ColBertEncoder(DocumentEncoder):
             content = text if title is None else f'{title}{sep}{text}'
             # prepend special tokens
             content = f'{self.actual_prepend_tok} {content}' if self.prepend else content
+            # query augmentation
+            if self.query_augment:
+                content += ' [MASK]' * self.maxlen
+
             prepend_contents.append(content)
 
         # tokenize
         enc_tokens = self.tokenizer(prepend_contents, max_length=self.maxlen,
-            padding=True, truncation=True, return_tensors="pt")
+            padding='max_length' if self.query_augment else 'longest',
+            truncation=True, return_tensors="pt")
         enc_tokens.to(self.device)
 
         if debug:

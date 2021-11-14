@@ -91,7 +91,7 @@ def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, de
         elif 'tct_colbert' in encoder:
             return TctColBertQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'colbert' in encoder:
-            return ColBertEncoder(encoder, '[Q]', device=device, tokenizer=tokenizer_name)
+            return ColBertEncoder(encoder, '[Q]', device=device, tokenizer=tokenizer_name, query_augment=True)
         elif 'ance' in encoder:
             return AnceQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'sentence' in encoder:

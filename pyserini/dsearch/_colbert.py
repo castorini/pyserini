@@ -338,7 +338,7 @@ if __name__ == '__main__':
     print('selection:', args.div_selection)
 
     encoder = ColBertEncoder(args.encoder, '[Q]',
-        device=args.device, tokenizer=args.tokenizer)
+        device=args.device, tokenizer=args.tokenizer, query_augment=True)
 
     if args.div_selection is None:
         search_range = None
