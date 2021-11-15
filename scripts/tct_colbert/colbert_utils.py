@@ -178,7 +178,8 @@ def convert_vanilla_colbert(state_pt_path):
 
 
 def test_scoring(hfc_model_path, hfc_tokenizer_path,
-    emphasis=False, query_augment=False, q_maxlen=32, d_maxlen=180):
+    emphasis=False, query_augment=False, q_maxlen=32, d_maxlen=180,
+    query_file=None, doc_file=None, visualize=False):
     tokenizer = AutoTokenizer.from_pretrained(hfc_tokenizer_path)
 
     if 'distil' in hfc_model_path:
@@ -201,29 +202,39 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path,
         D_prepend = '[unused1]'
         off_by_one = False
 
-    # QueryID = 1016547, docID = 66361
-    test_query = Q_prepend + \
-    '''
-    which organ system makes red blood cells
-    '''
+    if query_file:
+        with open(query_file, 'r') as fh:
+            test_query = fh.read()
+    else:
+        # QueryID = 1016547, docID = 66361
+        test_query = Q_prepend + \
+        '''
+        which organ system makes red blood cells
+        '''
     if query_augment: test_query += ' [MASK]' * q_maxlen
     enc_query = tokenizer([test_query, 'test 2nd batch'],
         padding='max_length' if query_augment else 'longest',
         max_length=q_maxlen, truncation=True, return_tensors="pt")
-    #print(tokenizer.decode(enc_query['input_ids'][0]))
+    print(tokenizer.decode(enc_query['input_ids'][0]))
 
-    test_doc = D_prepend + \
-    '''
-    Bone marrow that actively produces blood cells is called red marrow, and bone marrow that no longer produces blood cells is called yellow marrow. The process by which the body produces blood is called hematopoiesis.Â­The cellular portion of blood contains red blood cells (RBCs), white blood cells (WBCs) and platelets. The RBCs carry oxygen from the lungs; the WBCs help to fight infection; and platelets are parts of cells that the body uses for clotting. All blood cells are produced in the bone marrow.
-    '''
+    if doc_file:
+        with open(doc_file, 'r') as fh:
+            test_doc = fh.read()
+    else:
+        test_doc = D_prepend + \
+        '''
+        Bone marrow that actively produces blood cells is called red marrow, and bone marrow that no longer produces blood cells is called yellow marrow. The process by which the body produces blood is called hematopoiesis.Â­The cellular portion of blood contains red blood cells (RBCs), white blood cells (WBCs) and platelets. The RBCs carry oxygen from the lungs; the WBCs help to fight infection; and platelets are parts of cells that the body uses for clotting. All blood cells are produced in the bone marrow.
+        '''
     enc_doc = tokenizer([test_doc, 'test 2nd batch'],
         padding=True, max_length=d_maxlen, truncation=True, return_tensors="pt")
-    #print(tokenizer.decode(enc_doc['input_ids'][0]))
+    print(tokenizer.decode(enc_doc['input_ids'][0]))
 
     score, cmp_matrix = model(enc_query, enc_doc)
-    visualize_scoring(test_query, test_doc, tokenizer, cmp_matrix[0],
-        off_by_one=off_by_one, emphasis=emphasis)
-    print('score:', score)
+    if visualize:
+        visualize_scoring(test_query, test_doc,
+            tokenizer, cmp_matrix[0],
+            off_by_one=off_by_one, emphasis=emphasis)
+    print('score:', score[0].item())
 
 
 def visualize_scoring(query, doc, tokenizer, scores,
