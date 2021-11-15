@@ -214,10 +214,12 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path,
     enc_query = tokenizer([test_query, 'test 2nd batch'],
         padding='max_length' if query_augment else 'longest',
         max_length=q_maxlen, truncation=True, return_tensors="pt")
+
     if query_augment:
         ids, mask = enc_query['input_ids'], enc_query['attention_mask']
         ids[ids == 0]   = 103
         mask[mask == 0] = 1
+
     print(tokenizer.decode(enc_query['input_ids'][0]))
 
     if doc_file:
@@ -252,11 +254,11 @@ def visualize_scoring(query, doc, tokenizer, scores,
     h, w = scores.shape
 
     qry_tokens = [tokenizer.decode(x) for x in qry_ids]
-    qry_tokens = qry_tokens[:h]
-    qry_tokens[-1] = '[SEP]'
     doc_tokens = [tokenizer.decode(x) for x in doc_ids]
-    doc_tokens = doc_tokens[:w]
-    doc_tokens[-1] = '[SEP]'
+
+    # for query augment
+    while len(qry_tokens) < h:
+        qry_tokens.append('[MASK]')
 
     print(qry_tokens)
     print(doc_tokens)
