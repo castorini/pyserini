@@ -86,35 +86,35 @@ class ColBERT_distil(DistilBertPreTrainedModel):
     def forward(self, qry, psg):
         q_reps, _ = self.query(qry)
         d_reps, d_lens = self.doc(psg)
-        d_mask = psg['attention_mask'][:,1:].unsqueeze(-1)
+        d_mask = psg['attention_mask'].unsqueeze(-1)
         return self.score(q_reps, d_reps, d_mask)
 
     def query(self, qry):
         qry_out = self.distilbert(**qry, return_dict=True)
         q_hidden = qry_out.last_hidden_state
-        q_reps = self.pooler(q_hidden[:, 1:, :]) # excluding [CLS]
+        q_reps = self.pooler(q_hidden) # excluding [CLS]
         # apply mask
         if self.skiplist:
             q_ids = qry['input_ids']
-            q_mask = torch.tensor(self.mask(q_ids[:, 1:]), device=q_ids.device)
+            q_mask = torch.tensor(self.mask(q_ids), device=q_ids.device)
             q_reps = q_reps * q_mask.unsqueeze(2).float()
         # normalize after masking
         q_reps = torch.nn.functional.normalize(q_reps, dim=2, p=2)
-        lengths = qry['attention_mask'].sum(1).cpu().numpy() - 1
+        lengths = qry['attention_mask'].sum(1).cpu().numpy()
         return q_reps, lengths
 
     def doc(self, psg):
         psg_out = self.distilbert(**psg, return_dict=True)
         p_hidden = psg_out.last_hidden_state
-        p_reps = self.pooler(p_hidden[:, 1:, :]) # excluding [CLS]
+        p_reps = self.pooler(p_hidden) # excluding [CLS]
         # apply mask
         if self.skiplist:
             p_ids = psg['input_ids']
-            p_mask = torch.tensor(self.mask(p_ids[:, 1:]), device=p_ids.device)
+            p_mask = torch.tensor(self.mask(p_ids), device=p_ids.device)
             p_reps = p_reps * p_mask.unsqueeze(2).float()
         # normalize after masking
         p_reps = torch.nn.functional.normalize(p_reps, dim=2, p=2)
-        lengths = psg['attention_mask'].sum(1).cpu().numpy() - 1
+        lengths = psg['attention_mask'].sum(1).cpu().numpy()
         return p_reps, lengths
 
 
@@ -185,7 +185,8 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path,
         model = ColBERT_distil.from_pretrained(hfc_model_path)
         Q_prepend = ''
         D_prepend = ''
-        off_by_one = True
+        #off_by_one = True
+        off_by_one = False
     else:
         model = ColBERT.from_pretrained(hfc_model_path)
         special_tokens_dict = {
