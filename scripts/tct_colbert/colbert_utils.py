@@ -211,10 +211,13 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path,
         '''
         which organ system makes red blood cells
         '''
-    if query_augment: test_query += ' [MASK]' * q_maxlen
     enc_query = tokenizer([test_query, 'test 2nd batch'],
         padding='max_length' if query_augment else 'longest',
         max_length=q_maxlen, truncation=True, return_tensors="pt")
+    if query_augment:
+        ids, mask = enc_query['input_ids'], enc_query['attention_mask']
+        ids[ids == 0]   = 103
+        mask[mask == 0] = 1
     print(tokenizer.decode(enc_query['input_ids'][0]))
 
     if doc_file:

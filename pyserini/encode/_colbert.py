@@ -182,16 +182,19 @@ class ColBertEncoder(DocumentEncoder):
             content = text if title is None else f'{title}{sep}{text}'
             # prepend special tokens
             content = f'{self.actual_prepend_tok} {content}' if self.prepend else content
-            # query augmentation
-            if self.query_augment:
-                content += ' [MASK]' * self.maxlen
-
             prepend_contents.append(content)
 
         # tokenize
         enc_tokens = self.tokenizer(prepend_contents, max_length=self.maxlen,
             padding='max_length' if self.query_augment else 'longest',
             truncation=True, return_tensors="pt")
+
+        # query augmentation
+        if self.query_augment:
+            ids, mask = enc_tokens['input_ids'], enc_tokens['attention_mask']
+            ids[ids == 0]   = 103
+            mask[mask == 0] = 1
+
         enc_tokens.to(self.device)
 
         if debug:
