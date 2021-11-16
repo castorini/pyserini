@@ -29,7 +29,22 @@ class ColBERT(BertPreTrainedModel):
         self.dim = 128
         self.bert = BertModel(config, add_pooling_layer=True)
         self.linear = nn.Linear(config.hidden_size, self.dim, bias=False)
+        self.skiplist = dict()
         self.init_weights()
+
+    def use_puct_mask(self, tokenizer):
+        encode = lambda x: tokenizer.encode(x, add_special_tokens=False)[0]
+        self.skiplist = {w: True
+                for symbol in string.punctuation
+                for w in [symbol, encode(symbol)]}
+
+    def punct_mask(self, input_ids):
+        PAD_CODE = 0
+        mask = [
+            [(x not in self.skiplist) and (x != PAD_CODE) for x in d]
+            for d in input_ids.cpu().tolist()
+        ]
+        return mask
 
     def forward(self, Q, D):
         q_reps, _ = self.query(Q)
@@ -48,6 +63,11 @@ class ColBERT(BertPreTrainedModel):
     def doc(self, inputs):
         D = self.bert(**inputs)[0]
         D = self.linear(D)
+        # apply mask
+        if self.skiplist:
+            ids = inputs['input_ids']
+            mask = torch.tensor(self.punct_mask(ids), device=ids.device)
+            D = D * mask.unsqueeze(2).float()
         lengths = inputs['attention_mask'].sum(1).cpu().numpy()
         return torch.nn.functional.normalize(D, p=2, dim=2), lengths
 
@@ -70,11 +90,19 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         self.skiplist = dict()
         self.init_weights()
 
-    def build_skiplist(self, tokenizer):
+    def use_puct_mask(self, tokenizer):
         encode = lambda x: tokenizer.encode(x, add_special_tokens=False)[0]
         self.skiplist = {w: True
                 for symbol in string.punctuation
                 for w in [symbol, encode(symbol)]}
+
+    def punct_mask(self, input_ids):
+        PAD_CODE = 0
+        mask = [
+            [(x not in self.skiplist) and (x != PAD_CODE) for x in d]
+            for d in input_ids.cpu().tolist()
+        ]
+        return mask
 
     def score(self, q_reps, p_reps, p_mask):
         cmp_matrix = torch.einsum('imk,ink->imn', [q_reps, p_reps])
@@ -96,7 +124,7 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         # apply mask
         if self.skiplist:
             q_ids = qry['input_ids']
-            q_mask = torch.tensor(self.mask(q_ids), device=q_ids.device)
+            q_mask = torch.tensor(self.punct_mask(q_ids), device=q_ids.device)
             q_reps = q_reps * q_mask.unsqueeze(2).float()
         # normalize after masking
         q_reps = torch.nn.functional.normalize(q_reps, dim=2, p=2)
@@ -110,7 +138,7 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         # apply mask
         if self.skiplist:
             p_ids = psg['input_ids']
-            p_mask = torch.tensor(self.mask(p_ids), device=p_ids.device)
+            p_mask = torch.tensor(self.punct_mask(p_ids), device=p_ids.device)
             p_reps = p_reps * p_mask.unsqueeze(2).float()
         # normalize after masking
         p_reps = torch.nn.functional.normalize(p_reps, dim=2, p=2)
@@ -177,17 +205,15 @@ def convert_vanilla_colbert(state_pt_path):
     model.save_pretrained(output_name)
 
 
-def test_scoring(hfc_model_path, hfc_tokenizer_path,
-    emphasis=False, query_augment=False, q_maxlen=32, d_maxlen=180,
-    query_file=None, doc_file=None, visualize=False):
+def test_scoring(hfc_model_path, hfc_tokenizer_path, off_by_one=False,
+    emphasis=False, query_augment=False, q_maxlen=32, d_maxlen=180, device='cpu',
+    query_file=None, doc_file=None, visualize=False, use_puct_mask=True):
     tokenizer = AutoTokenizer.from_pretrained(hfc_tokenizer_path)
 
     if 'distil' in hfc_model_path:
         model = ColBERT_distil.from_pretrained(hfc_model_path)
         Q_prepend = ''
         D_prepend = ''
-        #off_by_one = True
-        off_by_one = False
     else:
         model = ColBERT.from_pretrained(hfc_model_path)
         special_tokens_dict = {
@@ -200,11 +226,13 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path,
         assert D_mark_id == 2
         Q_prepend = '[unused0]'
         D_prepend = '[unused1]'
-        off_by_one = False
+
+    if use_puct_mask:
+        model.use_puct_mask(tokenizer)
 
     if query_file:
         with open(query_file, 'r') as fh:
-            test_query = fh.read()
+            test_query = Q_prepend + ' ' + fh.read()
     else:
         # QueryID = 1016547, docID = 66361
         test_query = Q_prepend + \
@@ -218,13 +246,13 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path,
     if query_augment:
         ids, mask = enc_query['input_ids'], enc_query['attention_mask']
         ids[ids == 0]   = 103
-        mask[mask == 0] = 1
+        #mask[mask == 0] = 1 # following original colbert, no mask change
 
     print(tokenizer.decode(enc_query['input_ids'][0]))
 
     if doc_file:
         with open(doc_file, 'r') as fh:
-            test_doc = fh.read()
+            test_doc = D_prepend + ' ' + fh.read()
     else:
         test_doc = D_prepend + \
         '''
@@ -233,6 +261,11 @@ def test_scoring(hfc_model_path, hfc_tokenizer_path,
     enc_doc = tokenizer([test_doc, 'test 2nd batch'],
         padding=True, max_length=d_maxlen, truncation=True, return_tensors="pt")
     print(tokenizer.decode(enc_doc['input_ids'][0]))
+
+    print('Running at device:', device)
+    model.to(device)
+    enc_query.to(device)
+    enc_doc.to(device)
 
     score, cmp_matrix = model(enc_query, enc_doc)
     if visualize:

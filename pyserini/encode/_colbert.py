@@ -44,7 +44,22 @@ class ColBERT(BertPreTrainedModel):
         self.dim = 128
         self.bert = BertModel(config, add_pooling_layer=True)
         self.linear = nn.Linear(config.hidden_size, self.dim, bias=False)
+        self.skiplist = dict()
         self.init_weights()
+
+    def use_puct_mask(self, tokenizer):
+        encode = lambda x: tokenizer.encode(x, add_special_tokens=False)[0]
+        self.skiplist = {w: True
+                for symbol in string.punctuation
+                for w in [symbol, encode(symbol)]}
+
+    def punct_mask(self, input_ids):
+        PAD_CODE = 0
+        mask = [
+            [(x not in self.skiplist) and (x != PAD_CODE) for x in d]
+            for d in input_ids.cpu().tolist()
+        ]
+        return mask
 
     def forward(self, Q, D):
         q_reps, _ = self.query(Q)
@@ -63,6 +78,11 @@ class ColBERT(BertPreTrainedModel):
     def doc(self, inputs):
         D = self.bert(**inputs)[0]
         D = self.linear(D)
+        # apply mask
+        if self.skiplist:
+            ids = inputs['input_ids']
+            mask = torch.tensor(self.punct_mask(ids), device=ids.device)
+            D = D * mask.unsqueeze(2).float()
         lengths = inputs['attention_mask'].sum(1).cpu().numpy()
         return torch.nn.functional.normalize(D, p=2, dim=2), lengths
 
@@ -85,11 +105,19 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         self.skiplist = dict()
         self.init_weights()
 
-    def build_skiplist(self, tokenizer):
+    def use_puct_mask(self, tokenizer):
         encode = lambda x: tokenizer.encode(x, add_special_tokens=False)[0]
         self.skiplist = {w: True
                 for symbol in string.punctuation
                 for w in [symbol, encode(symbol)]}
+
+    def punct_mask(self, input_ids):
+        PAD_CODE = 0
+        mask = [
+            [(x not in self.skiplist) and (x != PAD_CODE) for x in d]
+            for d in input_ids.cpu().tolist()
+        ]
+        return mask
 
     def score(self, q_reps, p_reps, p_mask):
         cmp_matrix = torch.einsum('imk,ink->imn', [q_reps, p_reps])
@@ -111,7 +139,7 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         # apply mask
         if self.skiplist:
             q_ids = qry['input_ids']
-            q_mask = torch.tensor(self.mask(q_ids), device=q_ids.device)
+            q_mask = torch.tensor(self.punct_mask(q_ids), device=q_ids.device)
             q_reps = q_reps * q_mask.unsqueeze(2).float()
         # normalize after masking
         q_reps = torch.nn.functional.normalize(q_reps, dim=2, p=2)
@@ -125,7 +153,7 @@ class ColBERT_distil(DistilBertPreTrainedModel):
         # apply mask
         if self.skiplist:
             p_ids = psg['input_ids']
-            p_mask = torch.tensor(self.mask(p_ids), device=p_ids.device)
+            p_mask = torch.tensor(self.punct_mask(p_ids), device=p_ids.device)
             p_reps = p_reps * p_mask.unsqueeze(2).float()
         # normalize after masking
         p_reps = torch.nn.functional.normalize(p_reps, dim=2, p=2)
@@ -150,7 +178,6 @@ class ColBertEncoder(DocumentEncoder):
             print('Using distil ColBERT:', model, tokenizer)
             self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
             self.model = ColBERT_distil.from_pretrained(model)
-            #self.model.use_puct_mask(self.tokenizer)
             self.dim = self.model.config.code_dim
             self.maxlen = {'[Q]': 32, '[D]': 128}[prepend_tok]
             self.prepend = False
@@ -168,6 +195,8 @@ class ColBertEncoder(DocumentEncoder):
                 'additional_special_tokens': self.actual_prepend_tokens
             })
             self.model.resize_token_embeddings(len(self.tokenizer))
+            # mask punctuations
+            self.model.use_puct_mask(self.tokenizer)
 
         # specify device
         self.device = device
@@ -193,7 +222,7 @@ class ColBertEncoder(DocumentEncoder):
         if self.query_augment:
             ids, mask = enc_tokens['input_ids'], enc_tokens['attention_mask']
             ids[ids == 0]   = 103
-            mask[mask == 0] = 1
+            #mask[mask == 0] = 1 # following original colbert, no mask change
 
         enc_tokens.to(self.device)
 

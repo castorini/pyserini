@@ -1,6 +1,6 @@
 RUNFILE=./runs/head.tsv
-MODEL=../encoders/distilbert-base-uncased_colbert_rep-mask_qry-aug_cls_m-0.35_main_a49ea44_t-1
-TOKENIZER=../encoders/tokenizer-distilbert-base-uncased
+MODEL=../encoders/colbert_vanilla_128
+TOKENIZER=../encoders/tokenizer-bert-base-uncased
 CMD='python scripts/tct_colbert/colbert_utils.py test_scoring'
 
 while read line; do
@@ -12,7 +12,7 @@ while read line; do
     msmarco_utils.sh doc $pid | cut -f2- > doc.txt
     set -x
     $CMD $MODEL $TOKENIZER --visualize=False --query_augment=True \
-        --query_file ./query.txt --doc_file ./doc.txt
+        --query_file ./query.txt --doc_file ./doc.txt --device cpu
     set +x
     break
 done < $RUNFILE
