@@ -283,7 +283,7 @@ def visualize_scoring(query, doc, tokenizer, scores,
         qry_ids = qry_ids[1:]
         doc_ids = doc_ids[1:]
 
-    scores = scores.squeeze(0).T.detach().numpy()
+    scores = scores.squeeze(0).T.cpu().detach().numpy()
     h, w = scores.shape
 
     qry_tokens = [tokenizer.decode(x) for x in qry_ids]
