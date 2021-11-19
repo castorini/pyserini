@@ -21,6 +21,7 @@ import shutil
 import numpy as np
 
 import faiss
+from tqdm import tqdm
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -46,15 +47,16 @@ if __name__ == '__main__':
         vectors = bf_index.reconstruct_n(0, bf_index.ntotal)
     else:
         vectors = []
-        for filename in os.listdir(args.input):
-            path = os.path.join(args.input, filename)
-            with open(path) as f_in, open(os.path.join(args.output, 'docid'), 'w') as f_out:
-                for line in f_in:
-                    info = json.loads(line)
-                    docid = info['id']
-                    vector = info['vector']
-                    f_out.write(f'{docid}\n')
-                    vectors.append(vector)
+        with open(os.path.join(args.output, 'docid'), 'w') as f_out:
+            for filename in tqdm(os.listdir(args.input)):
+                path = os.path.join(args.input, filename)
+                with open(path) as f_in:
+                    for line in f_in:
+                        info = json.loads(line)
+                        docid = info['id']
+                        vector = info['vector']
+                        f_out.write(f'{docid}\n')
+                        vectors.append(vector)
     vectors = np.array(vectors, dtype='float32')
     print(vectors.shape)
 
@@ -75,4 +77,5 @@ if __name__ == '__main__':
         index.train(vectors)
 
     index.add(vectors)
+    print(index.ntotal)
     faiss.write_index(index, os.path.join(args.output, 'index'))
