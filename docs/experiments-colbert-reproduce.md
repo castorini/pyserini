@@ -234,7 +234,14 @@ recall_1000             all     0.9503
 map                     all     0.3672
 ```
 
-For reference, our reproduced run files are made available for download:
-https://vault.cs.uwaterloo.ca/s/EEgJxEP4MptcQqf
+**Reproduction Notice**: We have observed a slight difference in reproduced score (something like `0.36111` vs. `0.36103`).
+However, this is due to the non-deterministic process of FAISS index building (all the index file checksums should match except for that of `word_emb.faiss`).
+Because FAISS index is used to generate passage word candidate pool, the final result may be slightly different.
+For reproducing the exact numbers, you can substitute your `word_emb.faiss` with our snapshot file (in splits: [part0](https://vault.cs.uwaterloo.ca/s/DEBC4iQaLx8iqs4), [part1](https://vault.cs.uwaterloo.ca/s/QAecm3EG9BPnfne), [part2](https://vault.cs.uwaterloo.ca/s/6aDdBAnFjyHzLes)).
+
+For reference, our reproduced run files are made available for download: https://vault.cs.uwaterloo.ca/s/EEgJxEP4MptcQqf.
+And also the MD5 checksums for each of our index files: https://vault.cs.uwaterloo.ca/s/H9rncPpeLtJXbt8.
 
 ## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@t-k-](https://github.com/t-k-) on 2021-11-19 (commit [`e613e05`](https://github.com/castorini/pyserini/commit/e613e058337e75750ef87838319690a768bf6965))
