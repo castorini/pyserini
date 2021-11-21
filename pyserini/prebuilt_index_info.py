@@ -101,16 +101,18 @@ TF_INDEX_INFO = {
         "unique_terms": 2660824,
         "downloaded": False
     },
-    "msmarco-document-ltr": {
-        "description": "MS MARCO document corpus (4 extra preprocessed fields) used for LTR pipeline",
-        "filename": "index-msmarco-document-ltr-20211027-3e4c283.tar.gz",
+    "msmarco-doc-per-passage-ltr": {
+        "description": "Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR",
+        "filename": "index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
         "urls": [
-            "https://www.dropbox.com/s/5tr2otncs9rttbp/index-msmarco-document-ltr-20211027-3e4c283.tar.gz?dl=1"  # too big for UWaterloo GitLab
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/kNdXMWXEsTt3fT8/download"
         ],
-        "md5": "2718874ab44f6d383e84ad20f3790460",
-        "size compressed (bytes)": 46052436658,
+        "md5": "bd60e89041b4ebbabc4bf0cfac608a87",
+        "size compressed (bytes)": 45835520960,
         "total_terms": 1232004740,
         "documents": 20545628,
+        "unique_terms": 10123678,
         "downloaded": False
     },
     "msmarco-doc": {
@@ -629,7 +631,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/F6MjyjmCi6yHFTa/download" # verified
+            "https://vault.cs.uwaterloo.ca/s/F6MjyjmCi6yHFTa/download"
         ],
         "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
         "size compressed (bytes)": 33359100887,
@@ -642,7 +644,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/mHxezzSAkrWbXZC/download" # verified
+            "https://vault.cs.uwaterloo.ca/s/mHxezzSAkrWbXZC/download"
         ],
         "md5": "7312e0e7acec2a686e994902ca064fc5",
         "size compressed (bytes)": 25204514289,
@@ -655,10 +657,23 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Ti5JxdCgjdw3noq/download" # verified
+            "https://vault.cs.uwaterloo.ca/s/Ti5JxdCgjdw3noq/download"
         ],
         "md5": "f0b4c3bff3bb685be5c475511004c3b0",
         "size compressed (bytes)": 58514325936,
+        "documents": 20544550,
+        "downloaded": False,
+        "texts": "msmarco-passage"
+    },
+    "msmarco-doc-tct_colbert-v2-hnp-bf": {
+        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
+        "filename": "faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/XjkKAWMz2fwSeJB/download",
+        ],
+        "md5": "c6a7d295cfe711ef84dffe9ba6a702e5",
+        "size compressed (bytes)": 58586765624,
         "documents": 20544550,
         "downloaded": False,
         "texts": "msmarco-passage"
@@ -668,7 +683,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/xN44ZSC9tFFtp3F/download" # verified
+            "https://vault.cs.uwaterloo.ca/s/xN44ZSC9tFFtp3F/download"
         ],
         "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
         "size compressed (bytes)": 59836766981,
@@ -681,7 +696,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/W4k44aLZWcbcJXe/download" # verified
+            "https://vault.cs.uwaterloo.ca/s/W4k44aLZWcbcJXe/download"
         ],
         "md5": "d1ef9286ddb38633cd052171963c62cb",
         "size compressed (bytes)": 59836863670,
@@ -693,8 +708,8 @@ FAISS_INDEX_INFO = {
         "description": "Faiss binary index of Wikipedia encoded by the BPR doc encoder trained on NQ",
         "filename": "dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz", # verified
-            "https://vault.cs.uwaterloo.ca/s/qKFrptGP4pSp987/download" # verified
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/qKFrptGP4pSp987/download"
         ],
         "md5": "e60e5ed1d7fab924bfa9149ed169d082",
         "size compressed (bytes)": 1887382350,
@@ -707,7 +722,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/mntwDQtXc9WbZSM/download" # verified
+            "https://vault.cs.uwaterloo.ca/s/mntwDQtXc9WbZSM/download"
         ],
         "md5": "f6332edb8f06ba796850388cf975b414",
         "size compressed (bytes)": 25102344985,
@@ -807,7 +822,7 @@ FAISS_INDEX_INFO = {
         "texts": "msmarco-passage"
     },
     "msmarco-passage-tct_colbert-v2-hnp-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by tct_colbert-v2-hnp passage encoder",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
@@ -818,5 +833,19 @@ FAISS_INDEX_INFO = {
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-passage"
+    },
+    "cast2019-tct_colbert-v2-hnsw": {
+        "description": "Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder",
+        "filename": "faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss-hnsw.cast2019.tct_colbert-v2-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/ncrZdE67BCKxPwc/download"
+        ],
+        "md5": "fa7673509b34d978e1b931d5705369ee",
+        "size compressed (bytes)": 112121366773,
+        "documents": 38429835,
+        "downloaded": False,
+        "texts": "cast2019"
     }
 }

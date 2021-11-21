@@ -23,7 +23,6 @@ from urllib.request import urlretrieve
 
 from pyserini import analysis, index, search
 from pyserini.analysis import JAnalyzer, JAnalyzerUtils, Analyzer
-from pyserini.pyclass import JString
 
 
 class TestAnalyzers(unittest.TestCase):
@@ -53,7 +52,7 @@ class TestAnalyzers(unittest.TestCase):
     def test_analyze_with_analyzer(self):
         analyzer = analysis.get_lucene_analyzer(stemming=False)
         self.assertTrue(isinstance(analyzer, JAnalyzer))
-        query = JString('information retrieval')
+        query = 'information retrieval'
         only_tokenization = JAnalyzerUtils.analyze(analyzer, query)
         token_list = []
         for token in only_tokenization.toArray():

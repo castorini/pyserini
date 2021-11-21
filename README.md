@@ -126,7 +126,7 @@ hits[0].raw
 hits[0].lucene_document
 ```
 
-Pre-built indexes are hosted on University of Waterloo servers and in some cases mirrored on Dropbox.
+Pre-built indexes are hosted on University of Waterloo servers.
 The following method will list available pre-built indexes:
 
 ```
@@ -445,6 +445,7 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 ## Release History
 
++ v0.14.0: November 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.14.0.md)]
 + v0.13.0: July 3, 2021 [[Release Notes](docs/release-notes/release-notes-v0.13.0.md)]
 + v0.12.0: May 5, 2021 [[Release Notes](docs/release-notes/release-notes-v0.12.0.md)]
 + v0.11.0.0: February 18, 2021 [[Release Notes](docs/release-notes/release-notes-v0.11.0.0.md)]

@@ -58,6 +58,10 @@ class TestIndexUtils(unittest.TestCase):
 
     # See https://github.com/castorini/pyserini/issues/770
     # tldr -- a longstanding issue about whether we need the `encode` in `JString(my_str.encode('utf-8'))`.
+    # As it turns out, the solution is to remove the `JString` wrapping, which also has performance benefits as well.
+    # See:
+    # - https://github.com/castorini/pyserini/pull/862
+    # - https://github.com/castorini/pyserini/issues/841
     def test_doc_vector_emoji_test(self):
         index_dir = 'temp_index'
         self.temp_folders.append(index_dir)
@@ -70,13 +74,10 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(df, 1)
         self.assertEqual(cf, 1)
 
-        # Currently, this test case will pass if we do '🙂'.encode('utf-8')
         df, cf = temp_index_reader.get_term_counts('🙂')
         self.assertEqual(df, 1)
         self.assertEqual(cf, 1)
 
-        # This currently fails no matter what because by the time we retrieve the doc vector, None has already been
-        # inserted into the dictionary.
         doc_vector = temp_index_reader.get_document_vector('doc1')
         self.assertEqual(doc_vector['emoji'], 1)
         self.assertEqual(doc_vector['🙂'], 1)

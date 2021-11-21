@@ -25,3 +25,4 @@ from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
 from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder
 from ._cached_data import CachedDataQueryEncoder
 from ._tok_freq import TokFreqQueryEncoder
+from ._splade import SpladeQueryEncoder
