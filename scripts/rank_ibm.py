@@ -151,7 +151,8 @@ def get_ibm_score(arguments):
     tran = arguments['tran']
     collectProbs = arguments['collectProbs']
     #print(time.time())
-
+    if searcher.documentRaw(test_doc) ==None:
+        print(test_doc)
     document_text= json.loads(searcher.documentRaw(test_doc))[fieldName]
     #print(time.time())
     doc_token_lst  = document_text.split(" ")
@@ -178,7 +179,7 @@ def get_ibm_score(arguments):
                             tranProb = max(targetMap[docWordId],tranProb)
                             totTranProb += (tranProb/docSize)
 
-        queryWordProb=math.log((1 - lambdaValue) * totTranProb + lambdaValue * collectProb) - math.log(lambdaValue * collectProb)
+        queryWordProb=math.log((1 - lambdaValue) * totTranProb + lambdaValue * collectProb) 
         totalQueryProb += queryWordProb
     #print(time.time())
     return totalQueryProb /querySize
@@ -330,21 +331,21 @@ if __name__ == '__main__':
                         metavar="path_to_qrels", help='path to new_qrels file')
     parser.add_argument('-base', type=str, default="../ibm/run.msmarco-passage.bm25tuned.trec",
                         metavar="path_to_base_run", help='path to base run')
-    parser.add_argument('-tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
+    parser.add_argument('-tran_path', type=str, default="../ibm/ibm_model/text_bert_tok",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
     parser.add_argument('-query_path', type=str, default="../ibm/queries.dev.small.json",
                         metavar="path_to_query", help='path to dev queries file')
     parser.add_argument('-index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
-    parser.add_argument('-output', type=str, default="../ibm/runs/result-text-bert-0.5-new.txt",
+    parser.add_argument('-output', type=str, default="../ibm/runs/result-text-bert-0.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('-score_path', type=str, default="../ibm/result-ibm-0.5-new.json",
+    parser.add_argument('-score_path', type=str, default="../ibm/result-ibm-0.json",
                         metavar="path_to_base_run", help='the path to map and ndcg scores')
     parser.add_argument('-fieldName', type=str, default="text_bert_tok",
                         metavar="type of field", help='type of field used for training')
-    parser.add_argument('-alpha', type=float, default="0.5",
+    parser.add_argument('-alpha', type=float, default="0",
                         metavar="type of field", help='interpolation weight')
-    parser.add_argument('-num_threads', type=int, default="12",
+    parser.add_argument('-num_threads', type=int, default="24",
                         metavar="num_of_threads", help='number of threads to use')
     args = parser.parse_args()
 
