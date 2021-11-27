@@ -42,7 +42,7 @@ Index the sparse vectors:
 ```bash
 python -m pyserini.index --collection JsonVectorCollection \
                          --input collections/msmarco-passage-v2-unicoil-noexp-0shot-b8 \
-                         --index indexes/lucene.msmarco-v2-passage.unicoil-noexp-0shot \
+                         --index indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot \
                          --generator DefaultLuceneDocumentGenerator \
                          --threads 32 \
                          --impact \
@@ -56,7 +56,7 @@ Sparse retrieval with uniCOIL:
 ```bash
 python -m pyserini.search --topics msmarco-v2-passage-dev \
                           --encoder castorini/unicoil-noexp-msmarco-passage \
-                          --index indexes/lucene.msmarco-v2-passage.unicoil-noexp-0shot \
+                          --index indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot \
                           --output runs/run.msmarco-v2-passage.unicoil-noexp.0shot.txt \
                           --impact \
                           --hits 1000 \
@@ -106,7 +106,7 @@ Index the sparse vectors:
 ```bash
 python -m pyserini.index --collection JsonVectorCollection \
                          --input collections/msmarco-doc-v2-seg-unicoil-noexp-0shot-b8 \
-                         --index indexes/lucene.msmarco-doc-v2-segmented.unicoil-noexp.0shot \
+                         --index indexes/lucene-index.msmarco-doc-v2-segmented.unicoil-noexp.0shot \
                          --generator DefaultLuceneDocumentGenerator \
                          --threads 32 \
                          --impact \
@@ -120,7 +120,7 @@ Sparse retrieval with uniCOIL:
 ```bash
 python -m pyserini.search --topics msmarco-v2-doc-dev \
                           --encoder castorini/unicoil-noexp-msmarco-passage \
-                          --index indexes/lucene.msmarco-doc-v2-segmented.unicoil-noexp.0shot \
+                          --index indexes/lucene-index.msmarco-doc-v2-segmented.unicoil-noexp.0shot \
                           --output runs/run.msmarco-doc-v2-segmented.unicoil-noexp.0shot.txt \
                           --impact \
                           --hits 10000 \
