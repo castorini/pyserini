@@ -29,10 +29,10 @@ First, we need to download and extract the MS MARCO V2 passage dataset with uniC
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar -P collections/
 wget https://vault.cs.uwaterloo.ca/s/tb3m3J45HFJNAbq/download -O collections/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar
 
-tar -xvf collections/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar -C collections/
+tar -xvf collections/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar -C collections/
 ```
 
-To confirm, `msmarco-v2-passage-unicoil-tilde-expansion-b8.tar` is around 58 GB and should have an MD5 checksum of `acc4c9bc3506c3a496bf3e009fa6e50b`.
+To confirm, `msmarco-passage-v2-unicoil-tilde-expansion-b8.tar` is around 58 GB and should have an MD5 checksum of `acc4c9bc3506c3a496bf3e009fa6e50b`.
 
 ## Indexing
 
@@ -40,7 +40,7 @@ We can now index these docs:
 
 ```
 python -m pyserini.index --collection JsonVectorCollection \
-                         --input collections/msmarco-v2-passage-unicoil-tilde-expansion-b8/ \
+                         --input collections/msmarco-passage-v2-unicoil-tilde-expansion-b8/ \
                          --index indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8 \
                          --generator DefaultLuceneDocumentGenerator \
                          --threads 12 \
