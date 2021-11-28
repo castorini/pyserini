@@ -26,8 +26,8 @@ First, we need to download and extract the MS MARCO V2 passage dataset with uniC
 
 ```bash
 # Alternate mirrors of the same data, pick one:
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar -P collections/
-wget https://vault.cs.uwaterloo.ca/s/tb3m3J45HFJNAbq/download -O collections/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar -P collections/
+wget https://vault.cs.uwaterloo.ca/s/tb3m3J45HFJNAbq/download -O collections/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar
 
 tar -xvf collections/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar -C collections/
 ```
