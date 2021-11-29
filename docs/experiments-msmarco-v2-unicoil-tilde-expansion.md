@@ -26,30 +26,34 @@ First, we need to download and extract the MS MARCO V2 passage dataset with uniC
 
 ```bash
 # Alternate mirrors of the same data, pick one:
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar -P collections/
-wget https://vault.cs.uwaterloo.ca/s/tb3m3J45HFJNAbq/download -O collections/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar -P collections/
+wget https://vault.cs.uwaterloo.ca/s/tb3m3J45HFJNAbq/download -O collections/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar
 
-tar -xvf collections/msmarco-v2-passage-unicoil-tilde-expansion-b8.tar -C collections/
+tar -xvf collections/msmarco-passage-v2-unicoil-tilde-expansion-b8.tar -C collections/
 ```
 
-To confirm, `msmarco-v2-passage-unicoil-tilde-expansion-b8.tar` is around 58 GB and should have an MD5 checksum of `acc4c9bc3506c3a496bf3e009fa6e50b`.
+To confirm, `msmarco-passage-v2-unicoil-tilde-expansion-b8.tar` is around 58 GB and should have an MD5 checksum of `acc4c9bc3506c3a496bf3e009fa6e50b`.
 
 ## Indexing
 
 We can now index these docs:
 
 ```
-python -m pyserini.index -collection JsonVectorCollection \
- -input collections/msmarco-v2-passage-unicoil-tilde-expansion-b8/ \
- -index indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8 \
- -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
- -threads 12
+python -m pyserini.index --collection JsonVectorCollection \
+                         --input collections/msmarco-passage-v2-unicoil-tilde-expansion-b8/ \
+                         --index indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8 \
+                         --generator DefaultLuceneDocumentGenerator \
+                         --threads 12 \
+                         --impact \
+                         --pretokenized
 ```
 
 The important indexing options to note here are `-impact -pretokenized`: the first tells Pyserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the uniCOIL tokens.
 
 Upon completion, we should have an index with 138,364,198 documents.
 The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 5 hours.
+
+<!-- This is deprecated because we have pre-built indexes. Retaining for historic reasons.
 
 If you want to save time and skip the indexing step, download the prebuilt index directly:
 
@@ -63,6 +67,8 @@ tar -xzvf indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8.tar
 
 To confirm, `lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8.tar.gz` is around 30 GB and should have an MD5 checksum of `0f9b1f90751d49dd3a66be54dd0b4f82`.
 This pre-built index was created with the above command, but with the addition of the `-optimize` option to merge index segments.
+
+-->
 
 ## Retrieval
 
