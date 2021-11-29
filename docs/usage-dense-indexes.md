@@ -12,7 +12,7 @@ Pyserini create dense index for collections with JSONL format:
 ```
 
 A document is simply comprised of two fields, a `docid` and `contents`.
-Pyserini accepts collections comprised of these documents organized in folder with files, each of which contains an array of JSON documents, like [this](integrations/resources/sample_collection_json_array).
+Pyserini accepts collections comprised of these documents organized in folder with files, each of which contains an array of JSON documents, like [this](integrations/resources/sample_collection_dense/).
 
 So, the quickest way to get started is to write a script that converts your documents into the above format.
 Then, you can invoke the indexer:

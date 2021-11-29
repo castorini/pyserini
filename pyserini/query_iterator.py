@@ -56,6 +56,9 @@ class QueryIterator(ABC):
         for id_ in self.order:
             yield id_, self.get_query(id_)
 
+    def __len__(self):
+        return len(self.topics.keys())
+
     @staticmethod
     def get_predefined_order(topics_path: str):
         order = None
