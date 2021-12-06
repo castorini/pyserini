@@ -13,6 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# Example usage
+# python -m pyserini.eval.trec_eval -m ndcg_cut.10,20 -m all_trec qrels.dev.small.tsv runs/run.Colbert.txt -remove-unjudged -cutoffs.20,50
+
 
 import os
 import subprocess
@@ -31,8 +34,8 @@ args = sys.argv
 judged_only = ''
 judgeds = []
 cutoffs = [10, 20]
-if '-judged-only' in args:
-    judged_only = args.pop(args.index('-judged-only'))
+if '-remove-unjudged' in args:
+    judged_only = args.pop(args.index('-remove-unjudged'))
 if any([i.startswith('-cutoffs.') for i in args]):
     cutoffs = args.pop([i.startswith('-cutoffs.') for i in args].index(True))
     cutoffs = list(map(int, cutoffs[9:].split(',')))
