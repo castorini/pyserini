@@ -41,7 +41,7 @@ python -m pyserini.index -collection JsonVectorCollection \
 The important indexing options to note here are `-impact -pretokenized`: the first tells Anserini not to encode BM25 doclengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the DeepImpact tokens.
 
 Upon completion, we should have an index with 8,841,823 documents.
-The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 15 minutes.
+The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 15 minutes. You can refer to [this issue](https://github.com/castorini/pyserini/issues/890) for further details.
 
 ## Retrieval
 
@@ -92,3 +92,4 @@ The final evaluation metric is very close to the one reported in the paper (0.32
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-07-14 (commit [`ed88e4c`](https://github.com/castorini/pyserini/commit/ed88e4c3ea9ce3bf71c06297c1768d93154d74a8))
 + Results reproduced by [@qiaoyf96](https://github.com/qiaoyf96) on 2021-10-01 (commit [`bebe9de`](https://github.com/castorini/pyserini/commit/bebe9de01cfd6e81ef46bd2ea7a7c3ca86b001ed))
++ Results reproduced by [@namespace-Pt](https://github.com/namespace-Pt) on 2021-12-07 (commit [`7249409`](https://github.com/castorini/pyserini/commit/7249409269095cd65259eb8a7c5131d3b9323068))
