@@ -16,7 +16,7 @@ def generate_output_dicts(doc, nlp, max_length, stride):
     for ind, pos in enumerate(range(0, len(sentences), stride)):
         segment = ' '.join(sentences[pos:pos + max_length])
         doc_text = f'{doc_url}\n{doc_title}\n{segment}'
-        if pos + args.max_length >= len(sentences):
+        if pos + max_length >= len(sentences):
             break
         output_dicts.append({'id': f'{doc_id}#{ind}', 'contents': doc_text})
     return output_dicts
