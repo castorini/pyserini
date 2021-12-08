@@ -13,10 +13,10 @@ def generate_output_dicts(doc, nlp, max_length, stride):
     doc = nlp(doc_text[:10000])
     sentences = [sent.string.strip() for sent in doc.sents]
     output_dicts = []
-    for i in range(0, len(sentences), stride):
-        segment = ' '.join(sentences[i:i + max_length])
+    for ind, pos in enumerate(range(0, len(sentences), stride)):
+        segment = ' '.join(sentences[pos:pos + max_length])
         doc_text = f'{doc_url}\n{doc_title}\n{segment}'
-        output_dicts.append({'id': f'{doc_id}#{i}', 'contents': doc_text})
+        output_dicts.append({'id': f'{doc_id}#{ind}', 'contents': doc_text})
     return output_dicts
 
 
