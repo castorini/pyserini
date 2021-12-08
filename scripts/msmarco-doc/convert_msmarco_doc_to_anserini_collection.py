@@ -26,7 +26,6 @@ if __name__ == '__main__':
     f_corpus = gzip.open(args.original_docs_path, mode='rt')
     f_out = open(args.output_docs_path, 'w')
 
-    print('Appending predictions...')
     for line in tqdm(f_corpus):
         output_dict = generate_output_dict(line.split('\t'))
         f_out.write(json.dumps(output_dict) + '\n')

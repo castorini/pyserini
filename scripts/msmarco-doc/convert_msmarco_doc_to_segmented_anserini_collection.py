@@ -17,7 +17,7 @@ def generate_output_dicts(doc, nlp, max_length, stride):
         segment = ' '.join(sentences[i:i + max_length])
         doc_text = f'{doc_url}\n{doc_title}\n{segment}'
         output_dicts.append({'id': f'{doc_id}#{i}', 'contents': doc_text})
-    return output_dict
+    return output_dicts
 
 
 if __name__ == '__main__':
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     f_corpus = gzip.open(args.original_docs_path, mode='rt')
     f_out = open(args.output_docs_path, 'w')
 
-    print('Appending predictions...')
+    print('Creating collection...')
     for line in tqdm(f_corpus):
         output_dicts = generate_output_dicts(line.split('\t'), nlp, args.max_length, args.stride)
         for output_dict in output_dicts:
