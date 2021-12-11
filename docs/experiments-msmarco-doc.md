@@ -29,9 +29,9 @@ Build the index with the following command:
 python -m pyserini.index \
   --input collections/msmarco-doc \
   --collection CleanTrecCollection \
-  --generator DefaultLuceneDocumentGenerator \ 
+  --generator DefaultLuceneDocumentGenerator \
   --index indexes/lucene-index-msmarco-doc \
-  --threads 1
+  --threads 1 \
   --storePositions --storeDocvectors --storeRaw
 ```
 
