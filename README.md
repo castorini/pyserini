@@ -306,19 +306,20 @@ So, the quickest way to get started is to write a script that converts your docu
 Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
 
 ```bash
-python -m pyserini.index -collection JsonCollection \
-                         -generator DefaultLuceneDocumentGenerator \
-                         -threads 1 \
-                         -input integrations/resources/sample_collection_jsonl \
-                         -index indexes/sample_collection_jsonl \
-                         -storePositions -storeDocvectors -storeRaw
+python -m pyserini.index \
+  --input integrations/resources/sample_collection_jsonl \
+  --collection JsonCollection \
+  --generator DefaultLuceneDocumentGenerator \
+  --index indexes/sample_collection_jsonl \
+  --threads 1 \
+  --storePositions --storeDocvectors --storeRaw
 ```
 
 Three options control the type of index that is built:
 
-+ `-storePositions`: builds a standard positional index
-+ `-storeDocvectors`: stores doc vectors (required for relevance feedback)
-+ `-storeRaw`: stores raw documents
++ `--storePositions`: builds a standard positional index
++ `--storeDocvectors`: stores doc vectors (required for relevance feedback)
++ `--storeRaw`: stores raw documents
 
 If you don't specify any of the three options above, Pyserini builds an index that only stores term frequencies.
 This is sufficient for simple "bag of words" querying (and yields the smallest index size).
@@ -349,12 +350,13 @@ Note that the file extension _must_ end in `.tsv` so that Pyserini knows what fo
 Then, you can run:
 
 ```bash
-$ python -m pyserini.search --topics integrations/resources/sample_queries.tsv \
-                            --index indexes/sample_collection_jsonl \
-                            --output run.sample.txt \
-                            --bm25
+$ python -m pyserini.search \
+    --topics integrations/resources/sample_queries.tsv \
+    --index indexes/sample_collection_jsonl \
+    --output run.sample.txt \
+    --bm25
 
-$ cat run.sample.txt 
+$ cat run.sample.txt
 1 Q0 doc2 1 0.256200 Anserini
 1 Q0 doc3 2 0.231400 Anserini
 2 Q0 doc1 1 0.534600 Anserini
