@@ -41,6 +41,7 @@ $ pip install transformers==4.6.0 # https://github.com/castorini/pyserini/issues
 $ pip install onnxruntime
 $ conda install -c conda-forge pyjnius 
 ```
+$ --ignore-installed certifi $ could be used for ERROR: Cannot uninstall 'certifi'. It is a distutils installed project...
 
 Install Pytorch based on environment (see [this guide](https://pytorch.org/get-started/locally/) for additional details):
 
