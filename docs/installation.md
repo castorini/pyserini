@@ -41,7 +41,6 @@ $ pip install transformers==4.6.0 # https://github.com/castorini/pyserini/issues
 $ pip install onnxruntime
 $ conda install -c conda-forge pyjnius 
 ```
-```--ignore-installed certifi ``` could be used with pip for ERROR: Cannot uninstall 'certifi'. It is a distutils installed project...
 
 Install Pytorch based on environment (see [this guide](https://pytorch.org/get-started/locally/) for additional details):
 
@@ -52,7 +51,7 @@ $ pip3 install torch==1.8.1 torchvision==0.9.1 torchaudio===0.8.1 -f https://dow
 Install Faiss based on environment
 
 ```bash
-$ conda install faiss-cpu -c pytorch
+$ conda install faiss-cpu=1.4.0 -c pytorch
 ```
 
 ## Development Installation
