@@ -51,8 +51,9 @@ $ pip3 install torch==1.8.1 torchvision==0.9.1 torchaudio===0.8.1 -f https://dow
 Install Faiss based on environment
 
 ```bash
-$ conda install faiss-cpu=1.4.0 -c pytorch
+$ conda install faiss-cpu -c pytorch
 ```
+Note: Use ```conda install faiss-cpu=1.4.0 -c pytorch``` instead for Python3.6 if encountering bugs
 
 ## Development Installation
 
