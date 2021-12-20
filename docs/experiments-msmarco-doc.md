@@ -14,7 +14,6 @@ First, we need to download and extract the MS MARCO document dataset:
 
 ```
 mkdir collections/msmarco-doc
-
 wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-docs.trec.gz -P collections/msmarco-doc
 
 # Alternative mirror:
@@ -27,12 +26,14 @@ There's no need to uncompress the file, as Anserini can directly index gzipped f
 Build the index with the following command:
 
 ```
-python -m pyserini.index -collection CleanTrecCollection \
- -generator DefaultLuceneDocumentGenerator -threads 1 -input collections/msmarco-doc \
- -index indexes/lucene-index-msmarco-doc -storePositions -storeDocvectors -storeRaw
+python -m pyserini.index \
+  --input collections/msmarco-doc \
+  --collection CleanTrecCollection \
+  --generator DefaultLuceneDocumentGenerator \
+  --index indexes/lucene-index-msmarco-doc \
+  --threads 1 \
+  --storePositions --storeDocvectors --storeRaw
 ```
-
-Note that the indexing program simply dispatches command-line arguments to an underlying Java program, and so we use the Java single dash convention, e.g., `-index` and not `--index`.
 
 On a modern desktop with an SSD, indexing takes around 40 minutes.
 There should be a total of 3,213,835 documents indexed.
@@ -42,7 +43,7 @@ There should be a total of 3,213,835 documents indexed.
 The 5193 queries in the development set are already stored in the repo.
 Let's take a peek:
 
-```bash
+```
 $ head tools/topics-and-qrels/topics.msmarco-doc.dev.txt
 174249	does xpress bet charge to deposit money in your account
 320792	how much is a cost to run disneyland
@@ -54,6 +55,7 @@ $ head tools/topics-and-qrels/topics.msmarco-doc.dev.txt
 178627	effects of detox juice cleanse
 1101278	do prince harry and william have last names
 68095	can hives be a sign of pregnancy
+
 $ wc tools/topics-and-qrels/topics.msmarco-doc.dev.txt
     5193   35787  220304 tools/topics-and-qrels/topics.msmarco-doc.dev.txt
 ```
@@ -63,10 +65,13 @@ Conveniently, Pyserini already knows how to load and iterate through these pairs
 We can now perform retrieval using these queries:
 
 ```bash
-python -m pyserini.search --topics msmarco-doc-dev \
- --index indexes/lucene-index-msmarco-doc \
- --output runs/run.msmarco-doc.bm25tuned.txt \
- --bm25 --output-format msmarco --hits 100 --k1 4.46 --b 0.82
+python -m pyserini.search \
+  --topics msmarco-doc-dev \
+  --index indexes/lucene-index-msmarco-doc \
+  --output runs/run.msmarco-doc.bm25tuned.txt \
+  --output-format msmarco \
+  --hits 100 \
+  --bm25 --k1 4.46 --b 0.82
 ```
 
 Here, we set the BM25 parameters to `k1=4.46`, `b=0.82` (tuned by grid search).
@@ -82,8 +87,10 @@ For example, setting `--threads 16 --batch-size 64` on a CPU with sufficient cor
 After the run finishes, we can evaluate the results using the official MS MARCO evaluation script:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-   --run runs/run.msmarco-doc.bm25tuned.txt
+$ python tools/scripts/msmarco/msmarco_doc_eval.py \
+    --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
+    --run runs/run.msmarco-doc.bm25tuned.txt
+
 #####################
 MRR @100: 0.2770296928568702
 QueriesRanked: 5193
@@ -95,7 +102,8 @@ For that we first need to convert the run file into TREC format:
 
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
-   --input runs/run.msmarco-doc.bm25tuned.txt --output runs/run.msmarco-doc.bm25tuned.trec
+    --input runs/run.msmarco-doc.bm25tuned.txt \
+    --output runs/run.msmarco-doc.bm25tuned.trec
 ```
 
 And then run the `trec_eval` tool:
@@ -150,3 +158,4 @@ We can see that Anserini's (tuned) BM25 baseline is already much better than the
 + Results reproduced by [@apokali](https://github.com/apokali) on 2021-08-19 (commit[`45a2fb4`](https://github.com/castorini/pyserini/commit/45a2fb4bacbbd92f54ff0f98463662cbc09d78bb))
 + Results reproduced by [@leungjch](https://github.com/leungjch) on 2021-09-12 (commit [`c71a69e`](https://github.com/castorini/pyserini/commit/c71a69e2dfad487e492b9b2b3c21b9b9c2e7cdb5))
 + Results reproduced by [@AlexWang000](https://github.com/AlexWang000) on 2021-10-10 (commit [`8599c81`](https://github.com/castorini/pyserini/commit/8599c81a0f0b1c09c32669c26c7e62dec6e4020d))
++ Results reproduced by [@manveertamber](https://github.com/manveertamber) on 2021-12-05 (commit [`c280dad`](https://github.com/castorini/pyserini/commit/c280dad1618c1f985f84fe35bb66aaadcf98131b))
