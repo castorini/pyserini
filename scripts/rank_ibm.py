@@ -31,7 +31,7 @@ JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
 JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 JTerm = autoclass('org.apache.lucene.index.Term')
 
-SELF_TRAN = 0.35
+SELF_TRAN = 0.1
 MIN_PROB=0.0025
 LAMBDA_VALUE = 0.3
 MIN_COLLECT_PROB=1e-9
@@ -109,6 +109,7 @@ def get_ibm_score(arguments):
     target_lookup = arguments['target_lookup']
     tran = arguments['tran']
     collect_probs = arguments['collect_probs']
+    max_sim = arguments['max_sim']
 
     if searcher.documentRaw(test_doc) ==None:
         print(f'{test_doc} is not found in searcher')
@@ -121,6 +122,7 @@ def get_ibm_score(arguments):
         target_map = {}
         total_tran_prob = 0
         collect_prob = collect_probs[querytoken]
+        max_sim_score = 0
         if querytoken in target_lookup.keys():
             query_word_id = target_lookup[querytoken]
             if query_word_id in tran.keys():
@@ -133,10 +135,13 @@ def get_ibm_score(arguments):
                     if doctoken in source_lookup.keys():
                         doc_word_id = source_lookup[doctoken] 
                         if doc_word_id in target_map.keys():
-                            tran_prob = max(target_map[doc_word_id],tran_prob)
-                            total_tran_prob += (tran_prob/doc_size)
-
-        query_word_prob=math.log((1 - LAMBDA_VALUE) * total_tran_prob + LAMBDA_VALUE * collect_prob) 
+                             tran_prob = max(target_map[doc_word_id],tran_prob)
+                             max_sim_score = max(tran_prob, max_sim_score)
+                             total_tran_prob += (tran_prob/doc_size) 
+        if (max_sim):
+            query_word_prob=math.log((1 - LAMBDA_VALUE) * max_sim_score + LAMBDA_VALUE * collect_prob) 
+        else:
+            query_word_prob=math.log((1 - LAMBDA_VALUE) * total_tran_prob + LAMBDA_VALUE * collect_prob) 
 
         total_query_prob += query_word_prob
     return total_query_prob /query_size
@@ -229,7 +234,7 @@ def load_tranprobs_table(dir_path: str):
 
 
 def rank(qrels: str, base: str,tran_path:str, query_path:str, lucene_index_path: str,output_path:str, \
-        score_path:str,field_name:str, tag: str,alpha:int,num_threads:int):
+        score_path:str,field_name:str, tag: str,alpha:int,num_threads:int, max_sim:bool):
 
     pool = ThreadPool(num_threads)
     searcher = JSimpleSearcher(JString(lucene_index_path))
@@ -257,7 +262,7 @@ def rank(qrels: str, base: str,tran_path:str, query_path:str, lucene_index_path:
             collect_probs[querytoken] = max(reader.totalTermFreq(JTerm(field_name, querytoken))/total_term_freq, MIN_COLLECT_PROB)
         arguments = [{"query_text_lst":query_text_lst,"test_doc":test_doc, "searcher":searcher,\
                 "field_name":field_name,"source_lookup":source_lookup,"target_lookup":target_lookup,\
-                "tran":tran,"collect_probs":collect_probs} for test_doc in test_docs]
+                "tran":tran,"collect_probs":collect_probs, "max_sim":max_sim} for test_doc in test_docs]
         rank_scores = pool.map(get_ibm_score, arguments)   
 
         ibm_scores = normalize([p for p in rank_scores])
@@ -302,9 +307,11 @@ if __name__ == '__main__':
                         metavar="type of field", help='interpolation weight')
     parser.add_argument('-num_threads', type=int, default="12",
                         metavar="num_of_threads", help='number of threads to use')
+    parser.add_argument('-max_sim', type=bool, default=False,
+                        metavar="bool for max sim operator", help='whether we use max sim operator')
     args = parser.parse_args()
 
     print('Using base run:', args.base)
 
     rank(args.qrels, args.base, args.tran_path, args.query_path, args.index, args.output, \
-        args.score_path,args.field_name, args.tag,args.alpha,args.num_threads)
+        args.score_path,args.field_name, args.tag,args.alpha,args.num_threads, args.max_sim)
