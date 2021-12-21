@@ -1,5 +1,7 @@
 # Pyserini: Multi-field Baseline for MS MARCO Document Ranking
 
+<!-- NOTE, don't rename this page, because the URL is embedded in the WSDM demo -->
+
 This page contains instructions for reproducing the "Elasticsearch optimized
 multi_match best_fields" entry (2020/11/25) on the the [MS MARCO Document Ranking Leaderboard](https://microsoft.github.io/MSMARCO-Document-Ranking-Submissions/leaderboard/) using Pyserini.
 Details behind this run are described in this [blog post](https://www.elastic.co/blog/improving-search-relevance-with-data-driven-query-optimization);
@@ -23,6 +25,10 @@ First, we need to download and extract the MS MARCO document dataset:
 ```
 mkdir collections/msmarco-doc
 wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-docs.tsv.gz -P collections/msmarco-doc
+
+# Alternative mirror:
+# wget https://www.dropbox.com/s/zly8cbyvt18l3u0/msmarco-docs.tsv.gz -P collections/msmarco-doc
+
 gunzip collections/msmarco-doc/msmarco-docs.tsv.gz
 ```
 
@@ -40,10 +46,14 @@ python tools/scripts/msmarco/convert_doc_collection_to_jsonl.py \
 We then build the index with the following command:
 
 ```bash
-python -m pyserini.index -threads 4 -collection JsonCollection \
-  -generator DefaultLuceneDocumentGenerator -input collections/msmarco-doc-json/ \
-  -index indexes/msmarco-doc/lucene-index-msmarco -storeRaw \
-  -stopwords docs/elastic-msmarco-stopwords.txt
+python -m pyserini.index \
+  --input collections/msmarco-doc-json/ \
+  --collection JsonCollection \
+  --generator DefaultLuceneDocumentGenerator \
+  --index indexes/msmarco-doc/lucene-index-msmarco \
+  --threads 4 \
+  --storeRaw \
+  --stopwords docs/elastic-msmarco-stopwords.txt
 ```
 
 On a modern desktop with an SSD, indexing takes around 15 minutes.
@@ -57,10 +67,12 @@ attention to: the official metric is MRR@100, so we want to only return the top
 format.
 
 ```bash
-python -m pyserini.search --output-format msmarco --hits 100 \
+python -m pyserini.search \
   --topics msmarco-doc-dev \
   --index indexes/msmarco-doc/lucene-index-msmarco/ \
   --output runs/run.msmarco-doc.leaderboard-dev.elastic.txt \
+  --output-format msmarco \
+  --hits 100 \
   --bm25 --k1 1.2 --b 0.75 \
   --fields contents=10.0 title=8.63280262513067 url=0.0 \
   --dismax --dismax.tiebreaker 0.3936135232328522 \
@@ -70,7 +82,10 @@ python -m pyserini.search --output-format msmarco --hits 100 \
 After the run completes, we can evaluate the results:
 
 ```bash
-$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.leaderboard-dev.elastic.txt
+$ python -m pyserini.eval.msmarco_doc_eval \
+    --judgments msmarco-doc-dev \
+    --run runs/run.msmarco-doc.leaderboard-dev.elastic.txt
+
 #####################
 MRR @100: 0.3071421845448626
 QueriesRanked: 5193
