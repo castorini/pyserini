@@ -31,7 +31,7 @@ JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
 JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 JTerm = autoclass('org.apache.lucene.index.Term')
 
-SELF_TRAN = 0.35
+SELF_TRAN = 0.1
 MIN_PROB=0.0025
 LAMBDA_VALUE = 0.3
 MIN_COLLECT_PROB=1e-9
@@ -115,7 +115,7 @@ def get_ibm_score(arguments):
     document_text= json.loads(searcher.documentRaw(test_doc))[field_name]
     doc_token_lst  = document_text.split(" ")
     total_query_prob = 0
-    doc_size = len(doc_token_lst)
+    #doc_size = len(doc_token_lst)
     query_size = len(query_text_lst)
     for querytoken in query_text_lst:
         target_map = {}
@@ -134,7 +134,7 @@ def get_ibm_score(arguments):
                         doc_word_id = source_lookup[doctoken] 
                         if doc_word_id in target_map.keys():
                             tran_prob = max(target_map[doc_word_id],tran_prob)
-                            total_tran_prob += (tran_prob/doc_size)
+                            total_tran_prob = max(tran_prob,total_tran_prob)
 
         query_word_prob=math.log((1 - LAMBDA_VALUE) * total_tran_prob + LAMBDA_VALUE * collect_prob) 
 
