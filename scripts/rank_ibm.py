@@ -18,6 +18,8 @@ import os
 import json
 from multiprocessing.pool import ThreadPool
 import subprocess
+import sys
+sys.path.append('../pyserini')
 from pyserini.pyclass import autoclass, JString
 
 from typing import List, Set, Dict
@@ -25,13 +27,14 @@ from typing import List, Set, Dict
 
 import struct
 import math
+import numpy as np
 
 
 JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
 JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 JTerm = autoclass('org.apache.lucene.index.Term')
 
-SELF_TRAN = 0.1
+SELF_TRAN = 0.35
 MIN_PROB=0.0025
 LAMBDA_VALUE = 0.3
 MIN_COLLECT_PROB=1e-9
@@ -99,6 +102,28 @@ def sort_dual_list(pred: List[float], docs: List[str]):
     docs.reverse()
     return pred, docs
 
+def load_mu_sigma(n_kernels):
+    bin_size = SELF_TRAN // (n_kernels - 1)  # score range from [0, 1]
+    mu = []
+    sigma=[]
+    for i in range(0, n_kernels-1):
+        mu.append(i*bin_size)
+        sigma.append(bin_size * 0.5)
+    mu.append(SELF_TRAN)
+    sigma.append(0.00001)
+    return mu,sigma
+
+def score_rbf_kernel(doc_translation_lst, mu,sigma):
+    rbf_score_lst = []
+    for i in range(0,len(mu)):
+        rbf_score_k = 0
+        for j in range(0,len(doc_translation_lst)):
+            rbf_score_k += math.exp(-(doc_translation_lst[j]-mu[i])^2/(2*sigma^2))
+        rbf_score_lst.append(rbf_score_k)
+    return rbf_score_lst
+
+
+
 
 def get_ibm_score(arguments):
     query_text_lst = arguments['query_text_lst']
@@ -109,22 +134,37 @@ def get_ibm_score(arguments):
     target_lookup = arguments['target_lookup']
     tran = arguments['tran']
     collect_probs = arguments['collect_probs']
-
+    method = arguments['method']
+    n_kernels = arguments['n_kernels']
+    
+    if method not in ["ibm","colbert","knrm"]:
+        print(f'{method} is not supported')
     if searcher.documentRaw(test_doc) ==None:
         print(f'{test_doc} is not found in searcher')
     document_text= json.loads(searcher.documentRaw(test_doc))[field_name]
     doc_token_lst  = document_text.split(" ")
-    total_query_prob = 0
-    #doc_size = len(doc_token_lst)
-    query_size = len(query_text_lst)
+    total_query_prob = 1
+    doc_size = len(doc_token_lst)
+    total_query_prob_k_lst = [0]*n_kernels
+    mu,sigma = load_mu_sigma(n_kernels)
+    total_tran_prob = {}
+    doctoken_dic = {}
+    query_probs = {}
+    for querytoken in query_text_lst:
+        query_probs[querytoken] = 0
+        total_tran_prob[querytoken] = {}
+        for doctoken in doc_token_lst:
+            total_tran_prob[querytoken][doctoken] = 0
+            doctoken_dic[doctoken]=0
     for querytoken in query_text_lst:
         target_map = {}
-        total_tran_prob = 0
+        #total_tran_prob = 0
         collect_prob = collect_probs[querytoken]
         if querytoken in target_lookup.keys():
             query_word_id = target_lookup[querytoken]
             if query_word_id in tran.keys():
                 target_map = tran[query_word_id]
+                doc_score_lst = []
                 for doctoken in doc_token_lst:
                     tran_prob = 0
                     doc_word_id = 0
@@ -134,12 +174,32 @@ def get_ibm_score(arguments):
                         doc_word_id = source_lookup[doctoken] 
                         if doc_word_id in target_map.keys():
                             tran_prob = max(target_map[doc_word_id],tran_prob)
-                            total_tran_prob = max(tran_prob,total_tran_prob)
-
-        query_word_prob=math.log((1 - LAMBDA_VALUE) * total_tran_prob + LAMBDA_VALUE * collect_prob) 
-
-        total_query_prob += query_word_prob
-    return total_query_prob /query_size
+                    if method =='colbert':
+                        total_tran_prob = max(tran_prob,total_tran_prob)
+                    elif method =='knrm':
+                        doc_score_lst.append(tran_prob)
+                    else:
+                        total_tran_prob[querytoken][doctoken] = (tran_prob/doc_size)
+                        #doctoken_dic[doctoken]=max(doctoken_dic[doctoken],tran_prob/doc_size)
+                        #query_probs[querytoken]=max(query_probs[querytoken],tran_prob)
+                        query_probs[querytoken]+=tran_prob/doc_size
+        
+    if method =='knrm':
+        rbf_score_lst = score_rbf_kernel(doc_score_lst, mu,sigma)  
+        for ind in range(0,n_kernels):
+            total_tran_prob = rbf_score_lst[ind]
+            total_query_prob_k_lst[ind] += math.log((1 - LAMBDA_VALUE) * total_tran_prob + LAMBDA_VALUE * collect_prob)
+    else:  
+        # for querytoken in query_text_lst:
+        #     for doctoken in doc_token_lst:
+        #         if total_tran_prob[querytoken][doctoken] !=doctoken_dic[doctoken]:
+        #             total_tran_prob[querytoken][doctoken] = 0
+        #         else:
+        #             query_probs[querytoken]  += total_tran_prob[querytoken][doctoken]
+        
+        for querytoken in query_text_lst:
+            total_query_prob += math.log((1 - LAMBDA_VALUE) * query_probs[querytoken] + LAMBDA_VALUE * collect_probs[querytoken])
+    return total_query_prob 
 
 
 
@@ -185,7 +245,6 @@ def rescale(source_lookup: Dict[str,int],target_lookup: Dict[str,int],tran_looku
     return source_lookup,target_lookup,tran_lookup
 
 
-
 def load_tranprobs_table(dir_path: str):
     source_path = dir_path +"/source.vcb"
     source_lookup = {}
@@ -229,7 +288,7 @@ def load_tranprobs_table(dir_path: str):
 
 
 def rank(qrels: str, base: str,tran_path:str, query_path:str, lucene_index_path: str,output_path:str, \
-        score_path:str,field_name:str, tag: str,alpha:int,num_threads:int):
+        score_path:str,field_name:str, tag: str,alpha:int,num_threads:int,method:str,n_kernels:int):
 
     pool = ThreadPool(num_threads)
     searcher = JSimpleSearcher(JString(lucene_index_path))
@@ -257,19 +316,22 @@ def rank(qrels: str, base: str,tran_path:str, query_path:str, lucene_index_path:
             collect_probs[querytoken] = max(reader.totalTermFreq(JTerm(field_name, querytoken))/total_term_freq, MIN_COLLECT_PROB)
         arguments = [{"query_text_lst":query_text_lst,"test_doc":test_doc, "searcher":searcher,\
                 "field_name":field_name,"source_lookup":source_lookup,"target_lookup":target_lookup,\
-                "tran":tran,"collect_probs":collect_probs} for test_doc in test_docs]
-        rank_scores = pool.map(get_ibm_score, arguments)   
+                "tran":tran,"collect_probs":collect_probs,"method":method,"n_kernels":n_kernels} for test_doc in test_docs]
+        rank_scores = pool.map(get_ibm_score, arguments)  
 
-        ibm_scores = normalize([p for p in rank_scores])
-        base_scores = normalize([p for p in base_scores])
+        if method in ["ibm","colbert"]: 
+            ibm_scores = normalize([p for p in rank_scores])
+            base_scores = normalize([p for p in base_scores])
 
-        interpolated_scores = [a * alpha + b * (1-alpha) for a, b in zip(base_scores, ibm_scores)]
+            interpolated_scores = [a * alpha + b * (1-alpha) for a, b in zip(base_scores, ibm_scores)]
 
-        preds, docs = sort_dual_list(interpolated_scores, test_docs)
-        for index, (score, doc_id) in enumerate(zip(preds, docs)):
-            rank = index + 1
-            f.write(f'{topic} Q0 {doc_id} {rank} {score} {tag}\n')
-
+            preds, docs = sort_dual_list(interpolated_scores, test_docs)
+            for index, (score, doc_id) in enumerate(zip(preds, docs)):
+                rank = index + 1
+                f.write(f'{topic} Q0 {doc_id} {rank} {score} {tag}\n')
+        else:
+            for score_lst,base_score,doc_id in zip(rank_scores,base_scores,test_docs):
+                f.write(f'{topic} {doc_id} {base_score} {score_lst}\n')
 
     f.close()
     map_score,ndcg_score = evaluate(qrels, output_path)
@@ -292,19 +354,23 @@ if __name__ == '__main__':
                         metavar="path_to_query", help='path to dev queries file')
     parser.add_argument('-index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
-    parser.add_argument('-output', type=str, default="../ibm/runs/result-text-bert-tuned0.1.txt",
+    parser.add_argument('-output', type=str, default="../ibm/runs/result-text-bert-tok-0.35.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('-score_path', type=str, default="../ibm/result-ibm-0.1.json",
+    parser.add_argument('-score_path', type=str, default="../ibm/runs/result-ibm-0.35.json",
                         metavar="path_to_base_run", help='the path to map and ndcg scores')
     parser.add_argument('-field_name', type=str, default="text_bert_tok",
-                        metavar="type of field", help='type of field used for training')
+                        metavar="type_of_field", help='type of field used for training')
     parser.add_argument('-alpha', type=float, default="0.1",
                         metavar="type of field", help='interpolation weight')
-    parser.add_argument('-num_threads', type=int, default="12",
+    parser.add_argument('-num_threads', type=int, default="1",
                         metavar="num_of_threads", help='number of threads to use')
+    parser.add_argument('-method', type=str, default="ibm",
+                        metavar="name_of_method", help='one of the three support methods: ibm, colbert and knrm')
+    parser.add_argument('-n_kernels', type=int, default="5",
+                        metavar="num_of_kernels_pooling", help='number of rbf kernel pooling')
     args = parser.parse_args()
 
     print('Using base run:', args.base)
 
     rank(args.qrels, args.base, args.tran_path, args.query_path, args.index, args.output, \
-        args.score_path,args.field_name, args.tag,args.alpha,args.num_threads)
+        args.score_path,args.field_name, args.tag,args.alpha,args.num_threads,args.method,args.n_kernels)
