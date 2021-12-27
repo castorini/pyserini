@@ -53,7 +53,6 @@ Install Faiss based on environment
 ```bash
 $ conda install faiss-cpu -c pytorch
 ```
-Note: Use ```conda install faiss-cpu=1.4.0 -c pytorch``` instead for Python3.6 if encountering bugs
 
 ## Development Installation
 
