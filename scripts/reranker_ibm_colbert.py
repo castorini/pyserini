@@ -18,8 +18,6 @@ import os
 import json
 from multiprocessing.pool import ThreadPool
 import subprocess
-import sys
-sys.path.append('../pyserini')
 from pyserini.pyclass import autoclass, JString
 
 from typing import List, Set, Dict
@@ -306,8 +304,8 @@ if __name__ == '__main__':
                         metavar="type of field", help='interpolation weight')
     parser.add_argument('-num_threads', type=int, default="12",
                         metavar="num_of_threads", help='number of threads to use')
-    parser.add_argument('-max_sim', type=bool, default=False,
-                        metavar="bool for max sim operator", help='whether we use max sim operator')
+    parser.add_argument('-max_sim', type=bool, default=True,
+                        metavar="bool for max sim operator", help='whether we use max sim operator or avg instead')
     args = parser.parse_args()
 
     print('Using base run:', args.base)
