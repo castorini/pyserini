@@ -306,7 +306,7 @@ if __name__ == '__main__':
                         metavar="type of field", help='interpolation weight')
     parser.add_argument('-num_threads', type=int, default="12",
                         metavar="num_of_threads", help='number of threads to use')
-    parser.add_argument('-max_sim', type=bool, default=True,
+    parser.add_argument('-max_sim', type=bool, default=False,
                         metavar="bool for max sim operator", help='whether we use max sim operator')
     args = parser.parse_args()
 
@@ -314,4 +314,3 @@ if __name__ == '__main__':
 
     rank(args.qrels, args.base, args.tran_path, args.query_path, args.index, args.output, \
         args.score_path,args.field_name, args.tag,args.alpha,args.num_threads, args.max_sim)
-    
