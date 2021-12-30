@@ -27,7 +27,6 @@ from typing import List, Set, Dict
 
 import struct
 import math
-import numpy as np
 
 
 JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
@@ -102,28 +101,6 @@ def sort_dual_list(pred: List[float], docs: List[str]):
     docs.reverse()
     return pred, docs
 
-def load_mu_sigma(n_kernels):
-    bin_size = SELF_TRAN // (n_kernels - 1)  # score range from [0, 1]
-    mu = []
-    sigma=[]
-    for i in range(0, n_kernels-1):
-        mu.append(i*bin_size)
-        sigma.append(bin_size * 0.5)
-    mu.append(SELF_TRAN)
-    sigma.append(0.00001)
-    return mu,sigma
-
-def score_rbf_kernel(doc_translation_lst, mu,sigma):
-    rbf_score_lst = []
-    for i in range(0,len(mu)):
-        rbf_score_k = 0
-        for j in range(0,len(doc_translation_lst)):
-            rbf_score_k += math.exp(-(doc_translation_lst[j]-mu[i])^2/(2*sigma^2))
-        rbf_score_lst.append(rbf_score_k)
-    return rbf_score_lst
-
-
-
 
 def get_ibm_score(arguments):
     query_text_lst = arguments['query_text_lst']
@@ -134,72 +111,40 @@ def get_ibm_score(arguments):
     target_lookup = arguments['target_lookup']
     tran = arguments['tran']
     collect_probs = arguments['collect_probs']
-    method = arguments['method']
-    n_kernels = arguments['n_kernels']
-    
-    if method not in ["ibm","colbert","knrm"]:
-        print(f'{method} is not supported')
+    max_sim = arguments['max_sim']
+
     if searcher.documentRaw(test_doc) ==None:
         print(f'{test_doc} is not found in searcher')
     document_text= json.loads(searcher.documentRaw(test_doc))[field_name]
     doc_token_lst  = document_text.split(" ")
-    total_query_prob = 1
+    total_query_prob = 0
     doc_size = len(doc_token_lst)
-    total_query_prob_k_lst = [0]*n_kernels
-    mu,sigma = load_mu_sigma(n_kernels)
-    total_tran_prob = {}
-    doctoken_dic = {}
-    query_probs = {}
-    for querytoken in query_text_lst:
-        query_probs[querytoken] = 0
-        total_tran_prob[querytoken] = {}
-        for doctoken in doc_token_lst:
-            total_tran_prob[querytoken][doctoken] = 0
-            doctoken_dic[doctoken]=0
+    query_size = len(query_text_lst)
     for querytoken in query_text_lst:
         target_map = {}
-        #total_tran_prob = 0
+        total_tran_prob = 0
         collect_prob = collect_probs[querytoken]
+        max_sim_score = 0
         if querytoken in target_lookup.keys():
             query_word_id = target_lookup[querytoken]
             if query_word_id in tran.keys():
                 target_map = tran[query_word_id]
-                doc_score_lst = []
                 for doctoken in doc_token_lst:
                     tran_prob = 0
-                    doc_word_id = 0
-                    if querytoken==doctoken:
-                        tran_prob = SELF_TRAN  
+                    doc_word_id = 0 
                     if doctoken in source_lookup.keys():
                         doc_word_id = source_lookup[doctoken] 
                         if doc_word_id in target_map.keys():
-                            tran_prob = max(target_map[doc_word_id],tran_prob)
-                    if method =='colbert':
-                        total_tran_prob = max(tran_prob,total_tran_prob)
-                    elif method =='knrm':
-                        doc_score_lst.append(tran_prob)
-                    else:
-                        total_tran_prob[querytoken][doctoken] = (tran_prob/doc_size)
-                        #doctoken_dic[doctoken]=max(doctoken_dic[doctoken],tran_prob/doc_size)
-                        #query_probs[querytoken]=max(query_probs[querytoken],tran_prob)
-                        query_probs[querytoken]+=tran_prob/doc_size
-        
-    if method =='knrm':
-        rbf_score_lst = score_rbf_kernel(doc_score_lst, mu,sigma)  
-        for ind in range(0,n_kernels):
-            total_tran_prob = rbf_score_lst[ind]
-            total_query_prob_k_lst[ind] += math.log((1 - LAMBDA_VALUE) * total_tran_prob + LAMBDA_VALUE * collect_prob)
-    else:  
-        # for querytoken in query_text_lst:
-        #     for doctoken in doc_token_lst:
-        #         if total_tran_prob[querytoken][doctoken] !=doctoken_dic[doctoken]:
-        #             total_tran_prob[querytoken][doctoken] = 0
-        #         else:
-        #             query_probs[querytoken]  += total_tran_prob[querytoken][doctoken]
-        
-        for querytoken in query_text_lst:
-            total_query_prob += math.log((1 - LAMBDA_VALUE) * query_probs[querytoken] + LAMBDA_VALUE * collect_probs[querytoken])
-    return total_query_prob 
+                             tran_prob = max(target_map[doc_word_id],tran_prob)
+                             max_sim_score = max(tran_prob, max_sim_score)
+                             total_tran_prob += (tran_prob/doc_size) 
+        if (max_sim):
+            query_word_prob=math.log((1 - LAMBDA_VALUE) * max_sim_score + LAMBDA_VALUE * collect_prob) 
+        else:
+            query_word_prob=math.log((1 - LAMBDA_VALUE) * total_tran_prob + LAMBDA_VALUE * collect_prob) 
+
+        total_query_prob += query_word_prob
+    return total_query_prob /query_size
 
 
 
@@ -224,24 +169,25 @@ def intbits_to_float(b: bytes):
 def rescale(source_lookup: Dict[str,int],target_lookup: Dict[str,int],tran_lookup: Dict[str,Dict[str,float]],\
             target_voc: Dict[int,str],source_voc: Dict[int,str]):
     for target_id in tran_lookup:
-        target_probs = tran_lookup[target_id]
         if target_id > 0:
             adjust_mult = (1 - SELF_TRAN) 
         else:
             adjust_mult = 1
         #adjust the prob with adjust_mult and add SELF_TRAN prob to self-translation pair
-        for source_id in target_probs.keys():
-            tran_prob = target_probs[source_id]
+        for source_id in tran_lookup[target_id].keys():
+            tran_prob = tran_lookup[target_id][source_id]
             if source_id >0:
                 source_word = source_voc[source_id]
                 target_word = target_voc[target_id]
                 tran_prob *= adjust_mult
                 if (source_word== target_word):
                     tran_prob += SELF_TRAN
-                target_probs[source_id]= tran_prob
+                tran_lookup[target_id][source_id]= tran_prob
         # in case if self-translation pair was not included in TransTable
-        if target_id not in target_probs.keys():
-            target_probs[target_id]= SELF_TRAN
+        if target_id not in tran_lookup[target_id].keys():
+            target_word = target_voc[target_id]
+            source_id = source_lookup[target_word]
+            tran_lookup[target_id][source_id]= SELF_TRAN
     return source_lookup,target_lookup,tran_lookup
 
 
@@ -288,7 +234,7 @@ def load_tranprobs_table(dir_path: str):
 
 
 def rank(qrels: str, base: str,tran_path:str, query_path:str, lucene_index_path: str,output_path:str, \
-        score_path:str,field_name:str, tag: str,alpha:int,num_threads:int,method:str,n_kernels:int):
+        score_path:str,field_name:str, tag: str,alpha:int,num_threads:int, max_sim:bool):
 
     pool = ThreadPool(num_threads)
     searcher = JSimpleSearcher(JString(lucene_index_path))
@@ -316,22 +262,18 @@ def rank(qrels: str, base: str,tran_path:str, query_path:str, lucene_index_path:
             collect_probs[querytoken] = max(reader.totalTermFreq(JTerm(field_name, querytoken))/total_term_freq, MIN_COLLECT_PROB)
         arguments = [{"query_text_lst":query_text_lst,"test_doc":test_doc, "searcher":searcher,\
                 "field_name":field_name,"source_lookup":source_lookup,"target_lookup":target_lookup,\
-                "tran":tran,"collect_probs":collect_probs,"method":method,"n_kernels":n_kernels} for test_doc in test_docs]
-        rank_scores = pool.map(get_ibm_score, arguments)  
+                "tran":tran,"collect_probs":collect_probs, "max_sim":max_sim} for test_doc in test_docs]
+        rank_scores = pool.map(get_ibm_score, arguments)   
 
-        if method in ["ibm","colbert"]: 
-            ibm_scores = normalize([p for p in rank_scores])
-            base_scores = normalize([p for p in base_scores])
+        ibm_scores = normalize([p for p in rank_scores])
+        base_scores = normalize([p for p in base_scores])
 
-            interpolated_scores = [a * alpha + b * (1-alpha) for a, b in zip(base_scores, ibm_scores)]
+        interpolated_scores = [a * alpha + b * (1-alpha) for a, b in zip(base_scores, ibm_scores)]
 
-            preds, docs = sort_dual_list(interpolated_scores, test_docs)
-            for index, (score, doc_id) in enumerate(zip(preds, docs)):
-                rank = index + 1
-                f.write(f'{topic} Q0 {doc_id} {rank} {score} {tag}\n')
-        else:
-            for score_lst,base_score,doc_id in zip(rank_scores,base_scores,test_docs):
-                f.write(f'{topic} {doc_id} {base_score} {score_lst}\n')
+        preds, docs = sort_dual_list(interpolated_scores, test_docs)
+        for index, (score, doc_id) in enumerate(zip(preds, docs)):
+            rank = index + 1
+            f.write(f'{topic} Q0 {doc_id} {rank} {score} {tag}\n')
 
     f.close()
     map_score,ndcg_score = evaluate(qrels, output_path)
@@ -348,29 +290,28 @@ if __name__ == '__main__':
                         metavar="path_to_qrels", help='path to new_qrels file')
     parser.add_argument('-base', type=str, default="../ibm/run.msmarco-passage.bm25tuned.trec",
                         metavar="path_to_base_run", help='path to base run')
-    parser.add_argument('-tran_path', type=str, default="../ibm/ibm_model/text_bert_tok",
+    parser.add_argument('-tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
     parser.add_argument('-query_path', type=str, default="../ibm/queries.dev.small.json",
                         metavar="path_to_query", help='path to dev queries file')
     parser.add_argument('-index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
-    parser.add_argument('-output', type=str, default="../ibm/runs/result-text-bert-tok-0.35.txt",
+    parser.add_argument('-output', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('-score_path', type=str, default="../ibm/runs/result-ibm-0.35.json",
+    parser.add_argument('-score_path', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.json",
                         metavar="path_to_base_run", help='the path to map and ndcg scores')
     parser.add_argument('-field_name', type=str, default="text_bert_tok",
-                        metavar="type_of_field", help='type of field used for training')
-    parser.add_argument('-alpha', type=float, default="0.1",
+                        metavar="type of field", help='type of field used for training')
+    parser.add_argument('-alpha', type=float, default="0.3",
                         metavar="type of field", help='interpolation weight')
-    parser.add_argument('-num_threads', type=int, default="1",
+    parser.add_argument('-num_threads', type=int, default="12",
                         metavar="num_of_threads", help='number of threads to use')
-    parser.add_argument('-method', type=str, default="ibm",
-                        metavar="name_of_method", help='one of the three support methods: ibm, colbert and knrm')
-    parser.add_argument('-n_kernels', type=int, default="5",
-                        metavar="num_of_kernels_pooling", help='number of rbf kernel pooling')
+    parser.add_argument('-max_sim', type=bool, default=True,
+                        metavar="bool for max sim operator", help='whether we use max sim operator')
     args = parser.parse_args()
 
     print('Using base run:', args.base)
 
     rank(args.qrels, args.base, args.tran_path, args.query_path, args.index, args.output, \
-        args.score_path,args.field_name, args.tag,args.alpha,args.num_threads,args.method,args.n_kernels)
+        args.score_path,args.field_name, args.tag,args.alpha,args.num_threads, args.max_sim)
+    
