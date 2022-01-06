@@ -136,7 +136,7 @@ def get_ibm_score(arguments):
                              tran_prob = max(target_map[doc_word_id],tran_prob)
                              max_sim_score = max(tran_prob, max_sim_score)
                              total_tran_prob += (tran_prob/doc_size) 
-        if (max_sim):
+        if max_sim:
             query_word_prob=math.log((1 - LAMBDA_VALUE) * max_sim_score + LAMBDA_VALUE * collect_prob) 
         else:
             query_word_prob=math.log((1 - LAMBDA_VALUE) * total_tran_prob + LAMBDA_VALUE * collect_prob) 
@@ -304,11 +304,12 @@ if __name__ == '__main__':
                         metavar="type of field", help='interpolation weight')
     parser.add_argument('-num_threads', type=int, default="12",
                         metavar="num_of_threads", help='number of threads to use')
-    parser.add_argument('-max_sim', type=bool, default=True,
-                        metavar="bool for max sim operator", help='whether we use max sim operator or avg instead')
+    parser.add_argument('-max_sim', default=False, action="store_true",
+                         help='whether we use max sim operator or avg instead')
     args = parser.parse_args()
 
     print('Using base run:', args.base)
+    print('Using max sim operator or not:',args.max_sim)
 
     rank(args.qrels, args.base, args.tran_path, args.query_path, args.index, args.output, \
         args.score_path,args.field_name, args.tag,args.alpha,args.num_threads, args.max_sim)
