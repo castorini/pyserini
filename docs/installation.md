@@ -1,15 +1,15 @@
 # Pyserini: Detailed Installation Guide
 
-Pyserini has a number of important dependencies.
+We recommend Python 3.8 for Pyserini.
 At a high level, we try to keep our [`requirements.txt`](../requirements.txt) up to date.
-We recommend Python 3.8.
+Pyserini has a number of important dependencies:
 
 For sparse retrieval, Pyserini depends on [Anserini](http://anserini.io/), which is built on Lucene.
 [PyJNIus](https://github.com/kivy/pyjnius) is used to interact with the JVM.
 
 For dense retrieval (since it involves neural networks), we need the [🤗 Transformers library](https://github.com/huggingface/transformers), [PyTorch](https://pytorch.org/), and [Faiss](https://github.com/facebookresearch/faiss) (specifically `faiss-cpu`).
 A `pip` installation will automatically pull in the first to satisfy the package requirements, but since the other two may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
-We leave the installation of these packages to you.
+We leave the installation of these packages to you (but provide detailed instructions below).
 
 In general, our development team tries to keep dependent packages at the same versions and upgrade in lockstep.
 As of Pyserini v0.14.0, our "reference" configuration is a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.7.0`,  `transformers==4.6.0`, and `torch==1.8.1`.
@@ -35,12 +35,12 @@ If you do not already have JDK 11 installed, install via `conda`:
 $ conda install -c conda-forge openjdk=11
 ```
 
-If you system already has JDK 11 installed, the above step can be skipped.
+If your system already has JDK 11 installed, the above step can be skipped.
 Use `java --version` to check one way or the other.
 
 ## Pip Installation
 
-If you're just _using_ Pyserini, a pip installation with suffice; this contrasts with a _development_ installation, for those who want to work on the Pyserini codebase or want access to features that have not been packaged yet.
+If you're just _using_ Pyserini, a `pip` installation with suffice; this contrasts with a _development_ installation (details below).
 
 ```bash
 $ pip install pyserini
@@ -64,7 +64,7 @@ For the impatient, that's it!
 However, it might be worthwhile to do a bit of sanity checking, per below.
 Be warned, though, that these represent "real" retrieval experiments and may take some time to run.
 
-To confirm bag-of-words retrieval is working correctly, you can run the BM25 baseline on the MS MARCO passage ranking task:
+To confirm that bag-of-words retrieval is working correctly, you can run the BM25 baseline on the MS MARCO passage ranking task:
 
 ```bash
 $ python -m pyserini.search \
@@ -100,6 +100,8 @@ QueriesRanked: 6980
 #####################
 ```
 
+If everything is working properly, you should be able to reproduce the results above.
+
 ## Development Installation
 
 If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
@@ -119,7 +121,7 @@ If Maven isn't already installed, you can install with `conda` as follows:
 $ conda install -c conda-forge maven
 ```
 
-For this, clone our repo with the `--recurse-submodules` option to make sure the `tools/` submodule also gets cloned:
+Clone the Pyserini repo with the `--recurse-submodules` option to make sure the `tools/` submodule also gets cloned:
 
 ```bash
 $ git clone git@github.com:castorini/pyserini.git --recurse-submodules
