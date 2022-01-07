@@ -16,9 +16,9 @@ Our toolkit is self-contained as a standard Python package and comes with querie
 With Pyserini, it's easy to [reproduce](docs/pypi-reproduction.md) runs on a number of standard IR test collections!
 A low-effort way to try things out is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
 
-## Package Installation
+## Installation
 
-Install via PyPI (requires Python 3.6+):
+Install via PyPI (requires Python 3.8+):
 
 ```
 pip install pyserini
@@ -34,33 +34,9 @@ We leave the installation of these packages to you.
 The software ecosystem is rapidly evolving and a potential source of frustration is incompatibility among different versions of underlying dependencies.
 We provide additional detailed installation instructions [here](./docs/installation.md).
 
-## Development Installation
-
 If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
-For this, clone our repo with the `--recurse-submodules` option to make sure the `tools/` submodule also gets cloned.
-
-The `tools/` directory, which contains evaluation tools and scripts, is actually [this repo](https://github.com/castorini/anserini-tools), integrated as a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) (so that it can be shared across related projects).
-Build as follows (you might get warnings, but okay to ignore):
-
-```bash
-cd tools/eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make && cd ../../..
-cd tools/eval/ndeval && make && cd ../../..
-```
-
-Next, you'll need to clone and build [Anserini](http://anserini.io/).
-It makes sense to put both `pyserini/` and `anserini/` in a common folder.
-After you've successfully built Anserini, copy the fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
-As with the `pip` installation, a potential source of frustration is incompatibility among different versions of underlying dependencies.
-For these and other issues, we provide additional detailed installation instructions [here](./docs/installation.md).
-
-You can confirm everything is working by running the unit tests:
-
-```bash
-python -m unittest
-```
-
-Assuming all tests pass, you should be ready to go!
+Instructions are provided [here](./docs/installation.md#development-installation).
 
 ## Quick Links
 
