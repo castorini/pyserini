@@ -63,7 +63,7 @@ class TestLtrMsmarcoPassageIbm(unittest.TestCase):
             self.assertEqual("0.2908", data['ndcg'])
     
     def tearDown(self):
-        shutil.rmtree('ibm_test/')
+        rmtree('ibm_test/')
 
 if __name__ == '__main__':
     unittest.main()
