@@ -507,7 +507,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/7oDFnq8FmTazf2a/download"
         ],
         "md5": "0129b01cc88524e13a9ff3e398e988a5",
         "size compressed (bytes)": 1172153418,
@@ -521,7 +522,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/HaPaz2wFbRMP2LK/download"
         ],
         "md5": "756a686cc5723791eb5ab5357271be10",
         "size compressed (bytes)": 240371052,
@@ -535,7 +537,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/w4ccMwH5BLnXQ3j/download"
         ],
         "md5": "804c7626b5a36f06f75e0a04c6ec4fe1",
         "size compressed (bytes)": 16772744114,
@@ -549,7 +552,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/Pgd3mqjy77a6FR8/download"
         ],
         "md5": "65361258d1a318447f364ccae90c293a",
         "size compressed (bytes)": 908904453,
@@ -563,7 +567,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/tF8NE7pWZ2xGix7/download"
         ],
         "md5": "ca62d690401b84a493c70693ee2626c3",
         "size compressed (bytes)": 564741230,
@@ -577,7 +582,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/ema8i83zqJr7n48/download"
         ],
         "md5": "d05aefed5f79bfc151a9f4815d3693d8",
         "size compressed (bytes)": 3670762373,
@@ -591,7 +597,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/igmEHCTjTwNi3de/download"
         ],
         "md5": "4ecc408de4c749f25865859ea97278bd",
         "size compressed (bytes)": 1141503582,
@@ -605,7 +612,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/Pbi9xrD7jSYaxnX/download"
         ],
         "md5": "9e229b33f4ddea411477d2f00c25be72",
         "size compressed (bytes)": 5672456411,
@@ -619,7 +627,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/SWqajDQgq8wppf6/download"
         ],
         "md5": "ec88a5b39c2506b8cd61e6e47b8044e7",
         "size compressed (bytes)": 47689785,
@@ -633,7 +642,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/DAB6ba5ZF98awH6/download"
         ],
         "md5": "2704b725c0418905037a45b6301e8666",
         "size compressed (bytes)": 452906283,
@@ -647,7 +657,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/2Ady6AwBwNbYLpg/download"
         ],
         "md5": "9756502f1aeeee035c37975202787538",
         "size compressed (bytes)": 452244053,
