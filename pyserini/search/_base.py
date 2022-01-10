@@ -200,6 +200,66 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_AR_DEV)
     elif collection_name == 'mrtydi-v1.1-arabic-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_AR_TEST)
+    elif collection_name == 'mrtydi-v1.1-bengali-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_BN_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-bengali-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_BN_DEV)
+    elif collection_name == 'mrtydi-v1.1-bengali-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_BN_TEST)
+    elif collection_name == 'mrtydi-v1.1-english-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_EN_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-english-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_EN_DEV)
+    elif collection_name == 'mrtydi-v1.1-english-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_EN_TEST)
+    elif collection_name == 'mrtydi-v1.1-finnish-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_FI_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-finnish-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_FI_DEV)
+    elif collection_name == 'mrtydi-v1.1-finnish-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_FI_TEST)
+    elif collection_name == 'mrtydi-v1.1-indonesian-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_ID_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-indonesian-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_ID_DEV)
+    elif collection_name == 'mrtydi-v1.1-indonesian-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_ID_TEST)
+    elif collection_name == 'mrtydi-v1.1-japanese-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_JA_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-japanese-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_JA_DEV)
+    elif collection_name == 'mrtydi-v1.1-japanese-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_JA_TEST)
+    elif collection_name == 'mrtydi-v1.1-korean-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_KO_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-korean-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_KO_DEV)
+    elif collection_name == 'mrtydi-v1.1-korean-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_KO_TEST)
+    elif collection_name == 'mrtydi-v1.1-russian-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_RU_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-russian-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_RU_DEV)
+    elif collection_name == 'mrtydi-v1.1-russian-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_RU_TEST)
+    elif collection_name == 'mrtydi-v1.1-swahili-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_SW_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-swahili-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_SW_DEV)
+    elif collection_name == 'mrtydi-v1.1-swahili-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_SW_TEST)
+    elif collection_name == 'mrtydi-v1.1-telugu-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_TE_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-telugu-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_TE_DEV)
+    elif collection_name == 'mrtydi-v1.1-telugu-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_TE_TEST)
+    elif collection_name == 'mrtydi-v1.1-thai-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_TH_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-thai-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_TH_DEV)
+    elif collection_name == 'mrtydi-v1.1-thai-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_TH_TEST)
     else:
         raise ValueError(f'Topic {collection_name} Not Found')
     t = {}
@@ -349,6 +409,67 @@ def get_qrels_file(collection_name):
         qrels = JQrels.MRTYDI_V11_AR_DEV
     elif collection_name == 'mrtydi-v1.1-arabic-test':
         qrels = JQrels.MRTYDI_V11_AR_TEST
+    elif collection_name == 'mrtydi-v1.1-bengali-train':
+        qrels = JQrels.MRTYDI_V11_BN_TRAIN
+    elif collection_name == 'mrtydi-v1.1-bengali-dev':
+        qrels = JQrels.MRTYDI_V11_BN_DEV
+    elif collection_name == 'mrtydi-v1.1-bengali-test':
+        qrels = JQrels.MRTYDI_V11_BN_TEST
+    elif collection_name == 'mrtydi-v1.1-english-train':
+        qrels = JQrels.MRTYDI_V11_EN_TRAIN
+    elif collection_name == 'mrtydi-v1.1-english-dev':
+        qrels = JQrels.MRTYDI_V11_EN_DEV
+    elif collection_name == 'mrtydi-v1.1-english-test':
+        qrels = JQrels.MRTYDI_V11_EN_TEST
+    elif collection_name == 'mrtydi-v1.1-finnish-train':
+        qrels = JQrels.MRTYDI_V11_FI_TRAIN
+    elif collection_name == 'mrtydi-v1.1-finnish-dev':
+        qrels = JQrels.MRTYDI_V11_FI_DEV
+    elif collection_name == 'mrtydi-v1.1-finnish-test':
+        qrels = JQrels.MRTYDI_V11_FI_TEST
+    elif collection_name == 'mrtydi-v1.1-indonesian-train':
+        qrels = JQrels.MRTYDI_V11_ID_TRAIN
+    elif collection_name == 'mrtydi-v1.1-indonesian-dev':
+        qrels = JQrels.MRTYDI_V11_ID_DEV
+    elif collection_name == 'mrtydi-v1.1-indonesian-test':
+        qrels = JQrels.MRTYDI_V11_ID_TEST
+    elif collection_name == 'mrtydi-v1.1-japanese-train':
+        qrels = JQrels.MRTYDI_V11_JA_TRAIN
+    elif collection_name == 'mrtydi-v1.1-japanese-dev':
+        qrels = JQrels.MRTYDI_V11_JA_DEV
+    elif collection_name == 'mrtydi-v1.1-japanese-test':
+        qrels = JQrels.MRTYDI_V11_JA_TEST
+    elif collection_name == 'mrtydi-v1.1-korean-train':
+        qrels = JQrels.MRTYDI_V11_KO_TRAIN
+    elif collection_name == 'mrtydi-v1.1-korean-dev':
+        qrels = JQrels.MRTYDI_V11_KO_DEV
+    elif collection_name == 'mrtydi-v1.1-korean-test':
+        qrels = JQrels.MRTYDI_V11_KO_TEST
+    elif collection_name == 'mrtydi-v1.1-russian-train':
+        qrels = JQrels.MRTYDI_V11_RU_TRAIN
+    elif collection_name == 'mrtydi-v1.1-russian-dev':
+        qrels = JQrels.MRTYDI_V11_RU_DEV
+    elif collection_name == 'mrtydi-v1.1-russian-test':
+        qrels = JQrels.MRTYDI_V11_RU_TEST
+    elif collection_name == 'mrtydi-v1.1-swahili-train':
+        qrels = JQrels.MRTYDI_V11_SW_TRAIN
+    elif collection_name == 'mrtydi-v1.1-swahili-dev':
+        qrels = JQrels.MRTYDI_V11_SW_DEV
+    elif collection_name == 'mrtydi-v1.1-swahili-test':
+        qrels = JQrels.MRTYDI_V11_SW_TEST
+    elif collection_name == 'mrtydi-v1.1-telugu-train':
+        qrels = JQrels.MRTYDI_V11_TE_TRAIN
+    elif collection_name == 'mrtydi-v1.1-telugu-dev':
+        qrels = JQrels.MRTYDI_V11_TE_DEV
+    elif collection_name == 'mrtydi-v1.1-telugu-test':
+        qrels = JQrels.MRTYDI_V11_TE_TEST
+    elif collection_name == 'mrtydi-v1.1-thai-train':
+        qrels = JQrels.MRTYDI_V11_TH_TRAIN
+    elif collection_name == 'mrtydi-v1.1-thai-dev':
+        qrels = JQrels.MRTYDI_V11_TH_DEV
+    elif collection_name == 'mrtydi-v1.1-thai-test':
+        qrels = JQrels.MRTYDI_V11_TH_TEST
+
     if qrels:
         target_path = os.path.join(get_cache_home(), qrels.path)
         if os.path.exists(target_path):
