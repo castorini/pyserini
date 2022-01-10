@@ -501,6 +501,20 @@ TF_INDEX_INFO = {
         "documents": 5903530,
         "unique_terms": 8722502,
         "downloaded": False
+    },
+    "mrtydi-v1.1-arabic": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
+        "filename": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz"
+        ],
+        "md5": "0129b01cc88524e13a9ff3e398e988a5",
+        "size compressed (bytes)": 1172153418,
+        "total_terms": 92529014,
+        "documents": 2106586,
+        "unique_terms": 1284712,
+        "downloaded": False
     }
 }
 

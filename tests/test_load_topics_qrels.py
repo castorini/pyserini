@@ -676,6 +676,37 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(qrels), 49)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
+    def test_mrtydi_11_ar(self):
+        topics = search.get_topics('mrtydi-v1.1-arabic-train')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 12377)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-arabic-train')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 12377)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-arabic-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3115)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-arabic-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 3115)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-arabic-test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1081)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-arabic-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1081)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
     # General test cases
     def test_tsv_int_topicreader(self):
         # Running from command-line, we're in root of repo, but running in IDE, we're in tests/

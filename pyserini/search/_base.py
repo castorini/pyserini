@@ -194,6 +194,12 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.NQ_DEV)
     elif collection_name == 'nq-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.NQ_TEST)
+    elif collection_name == 'mrtydi-v1.1-arabic-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_AR_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-arabic-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_AR_DEV)
+    elif collection_name == 'mrtydi-v1.1-arabic-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_AR_TEST)
     else:
         raise ValueError(f'Topic {collection_name} Not Found')
     t = {}
@@ -337,6 +343,12 @@ def get_qrels_file(collection_name):
         qrels = JQrels.TREC2019_BL
     elif collection_name == 'trec2020-bl':
         qrels = JQrels.TREC2020_BL
+    elif collection_name == 'mrtydi-v1.1-arabic-train':
+        qrels = JQrels.MRTYDI_V11_AR_TRAIN
+    elif collection_name == 'mrtydi-v1.1-arabic-dev':
+        qrels = JQrels.MRTYDI_V11_AR_DEV
+    elif collection_name == 'mrtydi-v1.1-arabic-test':
+        qrels = JQrels.MRTYDI_V11_AR_TEST
     if qrels:
         target_path = os.path.join(get_cache_home(), qrels.path)
         if os.path.exists(target_path):
