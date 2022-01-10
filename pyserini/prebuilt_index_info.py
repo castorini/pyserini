@@ -515,6 +515,146 @@ TF_INDEX_INFO = {
         "documents": 2106586,
         "unique_terms": 1284712,
         "downloaded": False
+    },
+    "mrtydi-v1.1-bengali": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Bengali).",
+        "filename": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz"
+        ],
+        "md5": "756a686cc5723791eb5ab5357271be10",
+        "size compressed (bytes)": 240371052,
+        "total_terms": 15236598,
+        "documents": 304059,
+        "unique_terms": 520694,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-english": {
+        "description": "Lucene index for Mr.TyDi v1.1 (English).",
+        "filename": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz"
+        ],
+        "md5": "804c7626b5a36f06f75e0a04c6ec4fe1",
+        "size compressed (bytes)": 16772744114,
+        "total_terms": 1507060955,
+        "documents": 32907100,
+        "unique_terms": 6189349,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-finnish": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Finnish).",
+        "filename": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz"
+        ],
+        "md5": "65361258d1a318447f364ccae90c293a",
+        "size compressed (bytes)": 908904453,
+        "total_terms": 69431615,
+        "documents": 1908757,
+        "unique_terms": 1709590,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-indonesian": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Indonesian).",
+        "filename": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz"
+        ],
+        "md5": "ca62d690401b84a493c70693ee2626c3",
+        "size compressed (bytes)": 564741230,
+        "total_terms": 52493134,
+        "documents": 1469399,
+        "unique_terms": 942550,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-japanese": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Japanese).",
+        "filename": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz"
+        ],
+        "md5": "d05aefed5f79bfc151a9f4815d3693d8",
+        "size compressed (bytes)": 3670762373,
+        "total_terms": 303640353,
+        "documents": 7000027,
+        "unique_terms": 1708155,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-korean": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Korean).",
+        "filename": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz"
+        ],
+        "md5": "4ecc408de4c749f25865859ea97278bd",
+        "size compressed (bytes)": 1141503582,
+        "total_terms": 122217290,
+        "documents": 1496126,
+        "unique_terms": 1517175,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-russian": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Russian).",
+        "filename": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz"
+        ],
+        "md5": "9e229b33f4ddea411477d2f00c25be72",
+        "size compressed (bytes)": 5672456411,
+        "total_terms": 346329152,
+        "documents": 9597504,
+        "unique_terms": 3059773,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-swahili": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Swahili).",
+        "filename": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz"
+        ],
+        "md5": "ec88a5b39c2506b8cd61e6e47b8044e7",
+        "size compressed (bytes)": 47689785,
+        "total_terms": 4937051,
+        "documents": 136689,
+        "unique_terms": 385711,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-telugu": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Telugu).",
+        "filename": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz"
+        ],
+        "md5": "2704b725c0418905037a45b6301e8666",
+        "size compressed (bytes)": 452906283,
+        "total_terms": 27173644,
+        "documents": 548224,
+        "unique_terms": 1892900,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-thai": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Thai).",
+        "filename": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz"
+        ],
+        "md5": "9756502f1aeeee035c37975202787538",
+        "size compressed (bytes)": 452244053,
+        "total_terms": 31550936,
+        "documents": 568855,
+        "unique_terms": 663628,
+        "downloaded": False
     }
 }
 
