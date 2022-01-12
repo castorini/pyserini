@@ -205,6 +205,20 @@ TF_INDEX_INFO = {
         "unique_terms": 22037213,
         "downloaded": False
     },
+    "msmarco-v2-doc-slim": {
+        "description": "Lucene index of the MS MARCO (V2) document corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "502c4c96ecd95e4113a7a26a06065ecf",
+        "size compressed (bytes)": 7306072104,
+        "total_terms": 14165661202,
+        "documents": 11959635,
+        "unique_terms": 44855557,
+        "downloaded": False
+    },
     "enwiki-paragraphs": {
         "description": "Lucene index of English Wikipedia for BERTserini",
         "filename": "lucene-index.enwiki-20180701-paragraphs.tar.gz",
