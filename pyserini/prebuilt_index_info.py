@@ -338,6 +338,50 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
+    # MS MARCO (V2) augmented passage corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v2-passage-augmented": {
+        "description": "Lucene index of the MS MARCO (V2) augmented passage corpus.",
+        "filename": "lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "975f6be8d49238fe1d47e2895d26f99e",
+        "size compressed (bytes)": 65574361728,
+        "total_terms": 15272964956,
+        "documents": 138364198,
+        "unique_terms": 16579071,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-augmented-slim": {
+        "description": "Lucene index of the MS MARCO (V2) augmented passage corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "af893e56d050a98b6646ce2ca063d3f4",
+        "size compressed (bytes)": 117322378611,
+        "total_terms": 15272964956,
+        "documents": 138364198,
+        "unique_terms": 16579071,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-augmented-full": {
+        "description": "Lucene index of the MS MARCO (V2) augmented passage corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "e99f99503b9e030424546d59239f0cb5",
+        "size compressed (bytes)": 14819003760,
+        "total_terms": 15272964956,
+        "documents": 138364198,
+        "unique_terms": 16579071,
+        "downloaded": False
+    },
+
     "enwiki-paragraphs": {
         "description": "Lucene index of English Wikipedia for BERTserini",
         "filename": "lucene-index.enwiki-20180701-paragraphs.tar.gz",
