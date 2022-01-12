@@ -205,6 +205,20 @@ TF_INDEX_INFO = {
         "unique_terms": 22037213,
         "downloaded": False
     },
+    "msmarco-v2-doc": {
+        "description": "Lucene index of the MS MARCO (V2) document corpus.",
+        "filename": "lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "3ca8b924f00f11e51e337c5421e55d96",
+        "size compressed (bytes)": 63719115316,
+        "total_terms": 14165661202,
+        "documents": 11959635,
+        "unique_terms": 44855557,
+        "downloaded": False
+    },
     "msmarco-v2-doc-slim": {
         "description": "Lucene index of the MS MARCO (V2) document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz",
@@ -217,6 +231,34 @@ TF_INDEX_INFO = {
         "total_terms": 14165661202,
         "documents": 11959635,
         "unique_terms": 44855557,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-full": {
+        "description": "Lucene index of the MS MARCO (V2) document corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "cdb600adceccd327cb97c4277f910150",
+        "size compressed (bytes)": 119577632837,
+        "total_terms": 14165661202,
+        "documents": 11959635,
+        "unique_terms": 44855557,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented": {
+        "description": "Lucene index of the MS MARCO (V2) segmented document corpus.",
+        "filename": "lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "cb37211851bd0053227b8db1dd0a3853",
+        "size compressed (bytes)": 105646039864,
+        "total_terms": 24780915974,
+        "documents": 124131414,
+        "unique_terms": 29263590,
         "downloaded": False
     },
     "enwiki-paragraphs": {
