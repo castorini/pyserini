@@ -100,6 +100,54 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index of the MS MARCO document corpus with per-passage docTTTTTquery expansions
 [<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt">readme</a>]
 </dd>
+<dt></dt><b><code>msmarco-v2-doc</code></b>
+<dd>Lucene index of the MS MARCO (V2) document corpus.
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-doc-slim</code></b>
+<dd>Lucene index of the MS MARCO (V2) document corpus ('slim' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-doc-full</code></b>
+<dd>Lucene index of the MS MARCO (V2) document corpus ('full' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-doc-segmented</code></b>
+<dd>Lucene index of the MS MARCO (V2) segmented document corpus.
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-doc-segmented-slim</code></b>
+<dd>Lucene index of the MS MARCO (V2) segmented document corpus ('slim' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-doc-segmented-full</code></b>
+<dd>Lucene index of the MS MARCO (V2) segmented document corpus ('full' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-passage</code></b>
+<dd>Lucene index of the MS MARCO (V2) passage corpus.
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-passage-slim</code></b>
+<dd>Lucene index of the MS MARCO (V2) passage corpus ('slim' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-passage-full</code></b>
+<dd>Lucene index of the MS MARCO (V2) passage corpus ('full' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-full.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-passage-augmented</code></b>
+<dd>Lucene index of the MS MARCO (V2) augmented passage corpus.
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-passage-augmented-slim</code></b>
+<dd>Lucene index of the MS MARCO (V2) augmented passage corpus ('slim' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-passage-augmented-full</code></b>
+<dd>Lucene index of the MS MARCO (V2) augmented passage corpus ('full' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.README.md">readme</a>]
+</dd>
 <dt></dt><b><code>enwiki-paragraphs</code></b>
 <dd>Lucene index of English Wikipedia for BERTserini
 </dd>

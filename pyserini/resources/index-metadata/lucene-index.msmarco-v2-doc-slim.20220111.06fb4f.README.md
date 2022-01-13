@@ -16,6 +16,6 @@ Note that there are three variants of this index:
 
 + `msmarco-v2-doc` (73G uncompressed): the "default" version, which stores term frequencies and the raw text. This supports bag-of-words queries, but no phrase queries and no relevance feedback.
 + `msmarco-v2-doc-slim` (8.2G uncompressed): the "slim" version, which stores term frequencies only. This supports bag-of-words queries, but no phrase queries and no relevance feedback. There is no way to fetch the raw text from this index.
-+ `msmarco-v2-doc-slim` (132G uncompressed): the "full" version, which stores term frequencies, term positions, document vectors, and the raw text. This supports bag-of-words queries, phrase queries, and relevance feedback.
++ `msmarco-v2-doc-full` (132G uncompressed): the "full" version, which stores term frequencies, term positions, document vectors, and the raw text. This supports bag-of-words queries, phrase queries, and relevance feedback.
 
 This is the "slim" version.
