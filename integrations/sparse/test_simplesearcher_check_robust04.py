@@ -33,7 +33,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.checker = SimpleSercherAnseriniMatchChecker(
             anserini_root=anserini_root,
-            index=os.path.join(anserini_root, 'indexes/lucene-index.robust04.pos+docvectors+raw'),
+            index=os.path.join(anserini_root, 'indexes/lucene-index.disk45'),
             topics=os.path.join(pyserini_root, 'tools/topics-and-qrels/topics.robust04.txt'),
             pyserini_topics='robust04',
             qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.robust04.txt'),
