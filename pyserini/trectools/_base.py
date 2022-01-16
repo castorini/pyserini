@@ -110,7 +110,7 @@ class TrecRun:
         self.run_data = pd.read_csv(filepath, sep='\s+', names=TrecRun.columns, dtype={'docid': 'str'})
         if resort:
             self.run_data.sort_values(["topic", "score"], inplace=True, ascending=[True, False])
-            self.run_data["rank"] = self.run_data.groupby("topic")[["docid","score"]].rank(ascending=False,method='first')
+            self.run_data["rank"] = self.run_data.groupby("topic")["score"].rank(ascending=False,method='first')
 
     def topics(self) -> Set[str]:
         """Return a set with all topics."""
