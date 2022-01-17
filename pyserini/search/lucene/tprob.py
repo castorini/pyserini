@@ -22,6 +22,8 @@ import os
 from multiprocessing.pool import ThreadPool
 from pyserini.pyclass import autoclass, JString
 from typing import List, Set, Dict
+import sys
+sys.path.insert(0, './')
 
 
 JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
@@ -74,7 +76,7 @@ def sort_str_topics_list(topics: List[str]) -> List[str]:
     res = sorted([int(t) for t in topics])
     return [str(t) for t in res]
 
-
+#TODO:evaluate?
 def evaluate(qrels_path: str, run_path: str, options: str = ''):
     curdir = os.getcwd()
     if curdir.endswith('scripts'):
@@ -300,19 +302,19 @@ if __name__ == '__main__':
         description='use ibm model 1 feature to rerank the base run file')
     parser.add_argument('-tag', type=str, default="ibm",
                         metavar="tag_name", help='tag name for resulting Qrun')
-    parser.add_argument('-qrels', type=str, default="../tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt",
+    parser.add_argument('-qrels', type=str, default="./tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt",
                         metavar="path_to_qrels", help='path to new_qrels file')
-    parser.add_argument('-base', type=str, default="../ibm/run.msmarco-passage.bm25tuned.trec",
+    parser.add_argument('-base', type=str, default="./ibm/run.msmarco-passage.bm25tuned.trec",
                         metavar="path_to_base_run", help='path to base run')
-    parser.add_argument('-tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
+    parser.add_argument('-tran_path', type=str, default="./ibm/ibm_model/text_bert_tok_raw",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
-    parser.add_argument('-query_path', type=str, default="../ibm/queries.dev.small.json",
+    parser.add_argument('-query_path', type=str, default="./ibm/queries.dev.small.json",
                         metavar="path_to_query", help='path to dev queries file')
-    parser.add_argument('-index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
+    parser.add_argument('-index', type=str, default="./ibm/index-msmarco-passage-ltr-20210519-e25e33f",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
-    parser.add_argument('-output', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.txt",
+    parser.add_argument('-output', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('-score_path', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.json",
+    parser.add_argument('-score_path', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.json",
                         metavar="path_to_base_run", help='the path to map and ndcg scores')
     parser.add_argument('-field_name', type=str, default="text_bert_tok",
                         metavar="type of field", help='type of field used for training')

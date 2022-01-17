@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-from ..pyclass import autoclass, JArrayList
+from jnius import autoclass
 import json
 import numpy as np
 import pandas as pd

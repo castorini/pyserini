@@ -15,7 +15,7 @@
 #
 
 """
-This module provides Pyserini's Python ltr search interface on MS MARCO passage. The main entry point is the ``MsmarcoPassageLtrSearcher``
+This module provides Pyserini's Python ltr search interface on MS MARCO dataset. The main entry point is the ``MsmarcoLtrSearcher``
 class.
 """
 
@@ -27,7 +27,7 @@ from tqdm import tqdm
 import pickle
 from pyserini.index import IndexReader
 
-from pyserini.ltr._base import *
+from pyserini.search.lucene.ltr._base import *
 
 
 logger = logging.getLogger(__name__)
@@ -41,7 +41,6 @@ class MsmarcoLtrSearcher:
          self.data = data
     
     def add_fe(self):
-        #self.fe.add(RunList('collections/msmarco-ltr-passage/run.monot5.run_list.whole.trec','t5'))
         for qfield, ifield in [('analyzed', 'contents'),
                            ('text_unlemm', 'text_unlemm'),
                            ('text_bert_tok', 'text_bert_tok')]:
@@ -161,6 +160,7 @@ class MsmarcoLtrSearcher:
         end = time.time()
         print('IBM model Load takes %.2f seconds' % (end - start))
         start = end
+        
     
     def batch_extract(self, df, queries, fe):
         tasks = []
