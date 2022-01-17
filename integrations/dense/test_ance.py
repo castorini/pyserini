@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for ANCE model using on-the-fly query encoding."""
+"""Integration tests for ANCE model and ANCE PRF using on-the-fly query encoding."""
 
 import os
 import socket
@@ -30,6 +30,8 @@ class TestSearchIntegration(unittest.TestCase):
         self.temp_files = []
         self.threads = 12
         self.batch_size = 36
+        self.rocchio_alpha = 0.4
+        self.rocchio_beta = 0.6
 
         # Hard-code larger values for internal servers
         if socket.gethostname().startswith('damiano') or socket.gethostname().startswith('orca'):
@@ -58,6 +60,47 @@ class TestSearchIntegration(unittest.TestCase):
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)
+
+    def test_msmarco_passage_ance_avg_prf_otf(self):
+        output_file = 'test_run.dl2019.ance.avg-prf.otf.trec'
+        self.temp_files.append(output_file)
+        cmd1 = f'python -m pyserini.dsearch --topics dl19-passage \
+                                     --index msmarco-passage-ance-bf \
+                                     --encoder castorini/ance-msmarco-passage \
+                                     --batch-size {self.batch_size} \
+                                     --threads {self.threads} \
+                                     --output {output_file} \
+                                     --prf-depth 3 \
+                                     --prf-method avg'
+
+        cmd2 = f'python -m pyserini.eval.trec_eval -l 2 -m map dl19-passage {output_file}'
+        status = os.system(cmd1)
+        stdout, stderr = run_command(cmd2)
+        score = parse_score(stdout, "map")
+        self.assertEqual(status, 0)
+        self.assertAlmostEqual(score, 0.4247, delta=0.0001)
+
+    def test_msmarco_passage_ance_rocchio_prf_otf(self):
+        output_file = 'test_run.dl2019.ance.rocchio-prf.otf.trec'
+        self.temp_files.append(output_file)
+        cmd1 = f'python -m pyserini.dsearch --topics dl19-passage \
+                                     --index msmarco-passage-ance-bf \
+                                     --encoder castorini/ance-msmarco-passage \
+                                     --batch-size {self.batch_size} \
+                                     --threads {self.threads} \
+                                     --output {output_file} \
+                                     --prf-depth 5 \
+                                     --prf-method rocchio \
+                                     --threads {self.threads} \
+                                     --rocchio-alpha {self.rocchio_alpha} \
+                                     --rocchio-beta {self.rocchio_beta}'
+
+        cmd2 = f'python -m pyserini.eval.trec_eval -l 2 -m map dl19-passage {output_file}'
+        status = os.system(cmd1)
+        stdout, stderr = run_command(cmd2)
+        score = parse_score(stdout, "map")
+        self.assertEqual(status, 0)
+        self.assertAlmostEqual(score, 0.4211, delta=0.0001)
 
     def test_msmarco_doc_ance_bf_otf(self):
         output_file = 'test_run.msmarco-doc.passage.ance-maxp.otf.txt'

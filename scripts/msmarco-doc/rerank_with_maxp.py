@@ -134,8 +134,13 @@ def rerank(cache, qid, query, docs, reranker):
                       f'-generator DefaultLuceneDocumentGenerator -threads 1 ' +
                       f'-input {collection_dir} -index {index_path}')
         elif reranker == 'ance':
-            os.system(f'python -m pyserini.dindex --corpus {collection_dir} ' +
-                      f'--encoder castorini/ance-msmarco-doc-maxp --index {index_path} --batch 64 --device cpu')
+            os.system(f'python -m pyserini.encode input   --corpus {collection_dir} \
+                                  --fields text \
+                          output  --embeddings {index_path} \
+                                  --to-faiss \
+                          encoder --encoder castorini/ance-msmarco-doc-maxp \
+                                  --fields text \
+                                  --batch 64 --device cpu ')
 
     output = []
     # Choose which reranker to use:

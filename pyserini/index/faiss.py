@@ -21,6 +21,7 @@ import shutil
 import numpy as np
 
 import faiss
+from tqdm import tqdm
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -31,7 +32,7 @@ if __name__ == '__main__':
     parser.add_argument('--M', type=int, default=256, required=False)
     parser.add_argument('--efC', type=int, default=256, required=False)
     parser.add_argument('--pq', action="store_true", required=False)
-    parser.add_argument('--pq_m', type=int, default=192, required=False)
+    parser.add_argument('--pq-m', type=int, default=192, required=False)
     parser.add_argument('--threads', type=int, default=12, required=False)
     args = parser.parse_args()
 
@@ -46,15 +47,16 @@ if __name__ == '__main__':
         vectors = bf_index.reconstruct_n(0, bf_index.ntotal)
     else:
         vectors = []
-        for filename in os.listdir(args.input):
-            path = os.path.join(args.input, filename)
-            with open(path) as f_in, open(os.path.join(args.output, 'docid'), 'w') as f_out:
-                for line in f_in:
-                    info = json.loads(line)
-                    docid = info['id']
-                    vector = info['vector']
-                    f_out.write(f'{docid}\n')
-                    vectors.append(vector)
+        with open(os.path.join(args.output, 'docid'), 'w') as f_out:
+            for filename in tqdm(os.listdir(args.input)):
+                path = os.path.join(args.input, filename)
+                with open(path) as f_in:
+                    for line in f_in:
+                        info = json.loads(line)
+                        docid = info['id']
+                        vector = info['vector']
+                        f_out.write(f'{docid}\n')
+                        vectors.append(vector)
     vectors = np.array(vectors, dtype='float32')
     print(vectors.shape)
 
@@ -66,7 +68,7 @@ if __name__ == '__main__':
         index = faiss.IndexHNSWFlat(args.dim, args.M, faiss.METRIC_INNER_PRODUCT)
         index.hnsw.efConstruction = args.efC
     elif args.pq:
-        index = faiss.IndexPQ(args.dim, args.M, 8, faiss.METRIC_INNER_PRODUCT)
+        index = faiss.IndexPQ(args.dim, args.pq_m, 8, faiss.METRIC_INNER_PRODUCT)
     else:
         index = faiss.IndexFlatIP(args.dim)
     index.verbose = True
@@ -75,4 +77,5 @@ if __name__ == '__main__':
         index.train(vectors)
 
     index.add(vectors)
+    print(index.ntotal)
     faiss.write_index(index, os.path.join(args.output, 'index'))

@@ -38,7 +38,7 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 def define_fusion_args(parser):
     parser.add_argument('--alpha', type=float, metavar='num', required=False, default=0.1,
                         help="alpha for hybrid search")
-    parser.add_argument('--hits', type=int, required=False, default=10, help='number of hits from dense and sparse')
+    parser.add_argument('--hits', type=int, required=False, default=1000, help='number of hits from dense and sparse')
     parser.add_argument('--normalization', action='store_true', required=False, help='hybrid score with normalization')
     parser.add_argument('--weight-on-dense', action='store_true', required=False, help='weight on dense part')
 

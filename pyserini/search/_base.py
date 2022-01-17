@@ -29,7 +29,6 @@ logger = logging.getLogger(__name__)
 
 # Wrappers around Lucene classes
 JQuery = autoclass('org.apache.lucene.search.Query')
-JDocument = autoclass('org.apache.lucene.document.Document')
 
 # Wrappers around Anserini classes
 JQrels = autoclass('io.anserini.eval.Qrels')
@@ -40,40 +39,6 @@ JQueryGenerator = autoclass('io.anserini.search.query.QueryGenerator')
 JBagOfWordsQueryGenerator = autoclass('io.anserini.search.query.BagOfWordsQueryGenerator')
 JDisjunctionMaxQueryGenerator = autoclass('io.anserini.search.query.DisjunctionMaxQueryGenerator')
 JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
-
-
-class Document:
-    """Wrapper class for a Lucene ``Document``.
-
-    Parameters
-    ----------
-    document : JDocument
-        Underlying Lucene ``Document``.
-    """
-
-    def __init__(self, document):
-        if document is None:
-            raise ValueError('Cannot create a Document with None.')
-        self.object = document
-
-    def docid(self: JDocument) -> str:
-        return self.object.getField('id').stringValue()
-
-    def id(self: JDocument) -> str:
-        # Convenient alias for docid()
-        return self.object.getField('id').stringValue()
-
-    def lucene_document(self: JDocument) -> JDocument:
-        return self.object
-
-    def contents(self: JDocument) -> str:
-        return self.object.get('contents')
-
-    def raw(self: JDocument) -> str:
-        return self.object.get('raw')
-
-    def get(self: JDocument, field: str) -> str:
-        return self.object.get(field)
 
 
 def get_topics(collection_name):
@@ -149,18 +114,26 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV)
     elif collection_name == 'msmarco-doc-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_TEST)
-    elif collection_name == 'msmarco-doc-v2-dev':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_V2_DEV)
-    elif collection_name == 'msmarco-doc-v2-dev2':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_V2_DEV2)
-    elif collection_name == 'msmarco-passage-v2-dev':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_V2_DEV)
-    elif collection_name == 'msmarco-passage-v2-dev2':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_V2_DEV2)
     elif collection_name == 'msmarco-passage-dev-subset':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
+    elif collection_name == 'msmarco-passage-dev-subset-deepimpact':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_DEEPIMPACT)
+    elif collection_name == 'msmarco-passage-dev-subset-unicoil-d2q':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_D2Q)
+    elif collection_name == 'msmarco-passage-dev-subset-unicoil-tilde':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_TILDE)
+    elif collection_name == 'msmarco-passage-dev-subset-distill-splade-max':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_DISTILL_SPLADE_MAX)
     elif collection_name == 'msmarco-passage-test-subset':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_TEST_SUBSET)
+    elif collection_name == 'msmarco-v2-doc-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV)
+    elif collection_name == 'msmarco-v2-doc-dev2':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV2)
+    elif collection_name == 'msmarco-v2-passage-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV)
+    elif collection_name == 'msmarco-v2-passage-dev2':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV2)
     elif collection_name == 'ntcir8-zh':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.NTCIR8_ZH)
     elif collection_name == 'clef2006-fr':
@@ -221,6 +194,72 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.NQ_DEV)
     elif collection_name == 'nq-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.NQ_TEST)
+    elif collection_name == 'mrtydi-v1.1-arabic-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_AR_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-arabic-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_AR_DEV)
+    elif collection_name == 'mrtydi-v1.1-arabic-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_AR_TEST)
+    elif collection_name == 'mrtydi-v1.1-bengali-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_BN_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-bengali-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_BN_DEV)
+    elif collection_name == 'mrtydi-v1.1-bengali-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_BN_TEST)
+    elif collection_name == 'mrtydi-v1.1-english-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_EN_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-english-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_EN_DEV)
+    elif collection_name == 'mrtydi-v1.1-english-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_EN_TEST)
+    elif collection_name == 'mrtydi-v1.1-finnish-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_FI_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-finnish-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_FI_DEV)
+    elif collection_name == 'mrtydi-v1.1-finnish-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_FI_TEST)
+    elif collection_name == 'mrtydi-v1.1-indonesian-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_ID_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-indonesian-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_ID_DEV)
+    elif collection_name == 'mrtydi-v1.1-indonesian-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_ID_TEST)
+    elif collection_name == 'mrtydi-v1.1-japanese-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_JA_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-japanese-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_JA_DEV)
+    elif collection_name == 'mrtydi-v1.1-japanese-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_JA_TEST)
+    elif collection_name == 'mrtydi-v1.1-korean-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_KO_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-korean-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_KO_DEV)
+    elif collection_name == 'mrtydi-v1.1-korean-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_KO_TEST)
+    elif collection_name == 'mrtydi-v1.1-russian-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_RU_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-russian-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_RU_DEV)
+    elif collection_name == 'mrtydi-v1.1-russian-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_RU_TEST)
+    elif collection_name == 'mrtydi-v1.1-swahili-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_SW_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-swahili-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_SW_DEV)
+    elif collection_name == 'mrtydi-v1.1-swahili-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_SW_TEST)
+    elif collection_name == 'mrtydi-v1.1-telugu-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_TE_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-telugu-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_TE_DEV)
+    elif collection_name == 'mrtydi-v1.1-telugu-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_TE_TEST)
+    elif collection_name == 'mrtydi-v1.1-thai-train':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_TH_TRAIN)
+    elif collection_name == 'mrtydi-v1.1-thai-dev':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_TH_DEV)
+    elif collection_name == 'mrtydi-v1.1-thai-test':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MRTYDI_V11_TH_TEST)
     else:
         raise ValueError(f'Topic {collection_name} Not Found')
     t = {}
@@ -239,6 +278,9 @@ def get_topics(collection_name):
 def get_topics_with_reader(reader_class, file):
     # Yes, this is an insanely ridiculous method name.
     topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(reader_class, file)
+    if topics is None:
+        raise ValueError(f'Unable to initialize TopicReader {reader_class} with file {file}!')
+
     t = {}
     for topic in topics.keySet().toArray():
         # Try and parse the keys into integers
@@ -319,14 +361,14 @@ def get_qrels_file(collection_name):
         qrels = JQrels.MSMARCO_DOC_DEV
     elif collection_name == 'msmarco-passage-dev-subset':
         qrels = JQrels.MSMARCO_PASSAGE_DEV_SUBSET
-    elif collection_name == 'msmarco-doc-v2-dev':
-        qrels = JQrels.MSMARCO_DOC_V2_DEV
-    elif collection_name == 'msmarco-doc-v2-dev2':
-        qrels = JQrels.MSMARCO_DOC_V2_DEV2
-    elif collection_name == 'msmarco-passage-v2-dev':
-        qrels = JQrels.MSMARCO_PASSAGE_V2_DEV
-    elif collection_name == 'msmarco-passage-v2-dev2':
-        qrels = JQrels.MSMARCO_PASSAGE_V2_DEV2
+    elif collection_name == 'msmarco-v2-doc-dev':
+        qrels = JQrels.MSMARCO_V2_DOC_DEV
+    elif collection_name == 'msmarco-v2-doc-dev2':
+        qrels = JQrels.MSMARCO_V2_DOC_DEV2
+    elif collection_name == 'msmarco-v2-passage-dev':
+        qrels = JQrels.MSMARCO_V2_PASSAGE_DEV
+    elif collection_name == 'msmarco-v2-passage-dev2':
+        qrels = JQrels.MSMARCO_V2_PASSAGE_DEV2
     elif collection_name == 'ntcir8-zh':
         qrels = JQrels.NTCIR8_ZH
     elif collection_name == 'clef2006-fr':
@@ -359,6 +401,75 @@ def get_qrels_file(collection_name):
         qrels = JQrels.TREC2018_BL
     elif collection_name == 'trec2019-bl':
         qrels = JQrels.TREC2019_BL
+    elif collection_name == 'trec2020-bl':
+        qrels = JQrels.TREC2020_BL
+    elif collection_name == 'mrtydi-v1.1-arabic-train':
+        qrels = JQrels.MRTYDI_V11_AR_TRAIN
+    elif collection_name == 'mrtydi-v1.1-arabic-dev':
+        qrels = JQrels.MRTYDI_V11_AR_DEV
+    elif collection_name == 'mrtydi-v1.1-arabic-test':
+        qrels = JQrels.MRTYDI_V11_AR_TEST
+    elif collection_name == 'mrtydi-v1.1-bengali-train':
+        qrels = JQrels.MRTYDI_V11_BN_TRAIN
+    elif collection_name == 'mrtydi-v1.1-bengali-dev':
+        qrels = JQrels.MRTYDI_V11_BN_DEV
+    elif collection_name == 'mrtydi-v1.1-bengali-test':
+        qrels = JQrels.MRTYDI_V11_BN_TEST
+    elif collection_name == 'mrtydi-v1.1-english-train':
+        qrels = JQrels.MRTYDI_V11_EN_TRAIN
+    elif collection_name == 'mrtydi-v1.1-english-dev':
+        qrels = JQrels.MRTYDI_V11_EN_DEV
+    elif collection_name == 'mrtydi-v1.1-english-test':
+        qrels = JQrels.MRTYDI_V11_EN_TEST
+    elif collection_name == 'mrtydi-v1.1-finnish-train':
+        qrels = JQrels.MRTYDI_V11_FI_TRAIN
+    elif collection_name == 'mrtydi-v1.1-finnish-dev':
+        qrels = JQrels.MRTYDI_V11_FI_DEV
+    elif collection_name == 'mrtydi-v1.1-finnish-test':
+        qrels = JQrels.MRTYDI_V11_FI_TEST
+    elif collection_name == 'mrtydi-v1.1-indonesian-train':
+        qrels = JQrels.MRTYDI_V11_ID_TRAIN
+    elif collection_name == 'mrtydi-v1.1-indonesian-dev':
+        qrels = JQrels.MRTYDI_V11_ID_DEV
+    elif collection_name == 'mrtydi-v1.1-indonesian-test':
+        qrels = JQrels.MRTYDI_V11_ID_TEST
+    elif collection_name == 'mrtydi-v1.1-japanese-train':
+        qrels = JQrels.MRTYDI_V11_JA_TRAIN
+    elif collection_name == 'mrtydi-v1.1-japanese-dev':
+        qrels = JQrels.MRTYDI_V11_JA_DEV
+    elif collection_name == 'mrtydi-v1.1-japanese-test':
+        qrels = JQrels.MRTYDI_V11_JA_TEST
+    elif collection_name == 'mrtydi-v1.1-korean-train':
+        qrels = JQrels.MRTYDI_V11_KO_TRAIN
+    elif collection_name == 'mrtydi-v1.1-korean-dev':
+        qrels = JQrels.MRTYDI_V11_KO_DEV
+    elif collection_name == 'mrtydi-v1.1-korean-test':
+        qrels = JQrels.MRTYDI_V11_KO_TEST
+    elif collection_name == 'mrtydi-v1.1-russian-train':
+        qrels = JQrels.MRTYDI_V11_RU_TRAIN
+    elif collection_name == 'mrtydi-v1.1-russian-dev':
+        qrels = JQrels.MRTYDI_V11_RU_DEV
+    elif collection_name == 'mrtydi-v1.1-russian-test':
+        qrels = JQrels.MRTYDI_V11_RU_TEST
+    elif collection_name == 'mrtydi-v1.1-swahili-train':
+        qrels = JQrels.MRTYDI_V11_SW_TRAIN
+    elif collection_name == 'mrtydi-v1.1-swahili-dev':
+        qrels = JQrels.MRTYDI_V11_SW_DEV
+    elif collection_name == 'mrtydi-v1.1-swahili-test':
+        qrels = JQrels.MRTYDI_V11_SW_TEST
+    elif collection_name == 'mrtydi-v1.1-telugu-train':
+        qrels = JQrels.MRTYDI_V11_TE_TRAIN
+    elif collection_name == 'mrtydi-v1.1-telugu-dev':
+        qrels = JQrels.MRTYDI_V11_TE_DEV
+    elif collection_name == 'mrtydi-v1.1-telugu-test':
+        qrels = JQrels.MRTYDI_V11_TE_TEST
+    elif collection_name == 'mrtydi-v1.1-thai-train':
+        qrels = JQrels.MRTYDI_V11_TH_TRAIN
+    elif collection_name == 'mrtydi-v1.1-thai-dev':
+        qrels = JQrels.MRTYDI_V11_TH_DEV
+    elif collection_name == 'mrtydi-v1.1-thai-test':
+        qrels = JQrels.MRTYDI_V11_TH_TEST
+
     if qrels:
         target_path = os.path.join(get_cache_home(), qrels.path)
         if os.path.exists(target_path):
