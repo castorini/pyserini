@@ -92,7 +92,7 @@ def generate_run_file(folders, df, collection, run_file, classifier, rm3, output
                               for f in folders for topic in f if f != folder and str(topic) in df.index]
             train_df = df.loc[train_topicids, :]
             train_df.loc['Mean', :] = train_df.mean(axis=0)
-            highest_alpha = train_df.iloc[-1, :].idxmax(axis=1)
+            highest_alpha = train_df.iloc[-1, :].idxmax(axis=0)
             highest_alpha_lst.append(highest_alpha)
 
             for topic in folder:
