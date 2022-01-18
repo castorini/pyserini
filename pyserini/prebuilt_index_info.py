@@ -101,16 +101,18 @@ TF_INDEX_INFO = {
         "unique_terms": 2660824,
         "downloaded": False
     },
-    "msmarco-document-ltr": {
-        "description": "MS MARCO document corpus (4 extra preprocessed fields) used for LTR pipeline",
-        "filename": "index-msmarco-document-ltr-20211027-3e4c283.tar.gz",
+    "msmarco-doc-per-passage-ltr": {
+        "description": "Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR",
+        "filename": "index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
         "urls": [
-            "https://www.dropbox.com/s/5tr2otncs9rttbp/index-msmarco-document-ltr-20211027-3e4c283.tar.gz?dl=1"  # too big for UWaterloo GitLab
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/kNdXMWXEsTt3fT8/download"
         ],
-        "md5": "2718874ab44f6d383e84ad20f3790460",
-        "size compressed (bytes)": 46052436658,
+        "md5": "bd60e89041b4ebbabc4bf0cfac608a87",
+        "size compressed (bytes)": 45835520960,
         "total_terms": 1232004740,
         "documents": 20545628,
+        "unique_terms": 10123678,
         "downloaded": False
     },
     "msmarco-doc": {
@@ -203,6 +205,183 @@ TF_INDEX_INFO = {
         "unique_terms": 22037213,
         "downloaded": False
     },
+
+    # MS MARCO (V2) document corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v2-doc": {
+        "description": "Lucene index of the MS MARCO (V2) document corpus.",
+        "filename": "lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "3ca8b924f00f11e51e337c5421e55d96",
+        "size compressed (bytes)": 63719115316,
+        "total_terms": 14165661202,
+        "documents": 11959635,
+        "unique_terms": 44855557,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-slim": {
+        "description": "Lucene index of the MS MARCO (V2) document corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "502c4c96ecd95e4113a7a26a06065ecf",
+        "size compressed (bytes)": 7306072104,
+        "total_terms": 14165661202,
+        "documents": 11959635,
+        "unique_terms": 44855557,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-full": {
+        "description": "Lucene index of the MS MARCO (V2) document corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "cdb600adceccd327cb97c4277f910150",
+        "size compressed (bytes)": 119577632837,
+        "total_terms": 14165661202,
+        "documents": 11959635,
+        "unique_terms": 44855557,
+        "downloaded": False
+    },
+
+    # MS MARCO (V2) segmented document corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v2-doc-segmented": {
+        "description": "Lucene index of the MS MARCO (V2) segmented document corpus.",
+        "filename": "lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "cb37211851bd0053227b8db1dd0a3853",
+        "size compressed (bytes)": 105646039864,
+        "total_terms": 24780915974,
+        "documents": 124131414,
+        "unique_terms": 29263590,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented-slim": {
+        "description": "Lucene index of the MS MARCO (V2) segmented document corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "448c1e0e49c38364abbc4d880e865ee5",
+        "size compressed (bytes)": 21004046043,
+        "total_terms": 24780915974,
+        "documents": 124131414,
+        "unique_terms": 29263590,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented-full": {
+        "description": "Lucene index of the MS MARCO (V2) segmented document corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "bb597b3d03eba00653387ffab8c01998",
+        "size compressed (bytes)": 186377654091,
+        "total_terms": 24780915974,
+        "documents": 124131414,
+        "unique_terms": 29263590,
+        "downloaded": False
+    },
+
+    # MS MARCO (V2) passage corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v2-passage": {
+        "description": "Lucene index of the MS MARCO (V2) passage corpus.",
+        "filename": "lucene-index.msmarco-v2-passage.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "5990b4938dfdd092888ce9c9dfb6a90c",
+        "size compressed (bytes)": 38013278576,
+        "total_terms": 4673266762,
+        "documents": 138364198,
+        "unique_terms": 11885026,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-slim": {
+        "description": "Lucene index of the MS MARCO (V2) passage corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "b9a6fdf88775b0b546907d4cd84c4a58",
+        "size compressed (bytes)": 8174630082,
+        "total_terms": 4673266762,
+        "documents": 138364198,
+        "unique_terms": 11885026,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-full": {
+        "description": "Lucene index of the MS MARCO (V2) passage corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v2-passage-full.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-full.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-full.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "a233873bef304dd87adef35f54c7a436",
+        "size compressed (bytes)": 59658189636,
+        "total_terms": 4673266762,
+        "documents": 138364198,
+        "unique_terms": 11885026,
+        "downloaded": False
+    },
+
+    # MS MARCO (V2) augmented passage corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v2-passage-augmented": {
+        "description": "Lucene index of the MS MARCO (V2) augmented passage corpus.",
+        "filename": "lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "975f6be8d49238fe1d47e2895d26f99e",
+        "size compressed (bytes)": 65574361728,
+        "total_terms": 15272964956,
+        "documents": 138364198,
+        "unique_terms": 16579071,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-augmented-slim": {
+        "description": "Lucene index of the MS MARCO (V2) augmented passage corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "af893e56d050a98b6646ce2ca063d3f4",
+        "size compressed (bytes)": 117322378611,
+        "total_terms": 15272964956,
+        "documents": 138364198,
+        "unique_terms": 16579071,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-augmented-full": {
+        "description": "Lucene index of the MS MARCO (V2) augmented passage corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "e99f99503b9e030424546d59239f0cb5",
+        "size compressed (bytes)": 14819003760,
+        "total_terms": 15272964956,
+        "documents": 138364198,
+        "unique_terms": 16579071,
+        "downloaded": False
+    },
+
     "enwiki-paragraphs": {
         "description": "Lucene index of English Wikipedia for BERTserini",
         "filename": "lucene-index.enwiki-20180701-paragraphs.tar.gz",
@@ -499,6 +678,171 @@ TF_INDEX_INFO = {
         "documents": 5903530,
         "unique_terms": 8722502,
         "downloaded": False
+    },
+    "mrtydi-v1.1-arabic": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
+        "filename": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/7oDFnq8FmTazf2a/download"
+        ],
+        "md5": "0129b01cc88524e13a9ff3e398e988a5",
+        "size compressed (bytes)": 1172153418,
+        "total_terms": 92529014,
+        "documents": 2106586,
+        "unique_terms": 1284712,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-bengali": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Bengali).",
+        "filename": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/HaPaz2wFbRMP2LK/download"
+        ],
+        "md5": "756a686cc5723791eb5ab5357271be10",
+        "size compressed (bytes)": 240371052,
+        "total_terms": 15236598,
+        "documents": 304059,
+        "unique_terms": 520694,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-english": {
+        "description": "Lucene index for Mr.TyDi v1.1 (English).",
+        "filename": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/w4ccMwH5BLnXQ3j/download"
+        ],
+        "md5": "804c7626b5a36f06f75e0a04c6ec4fe1",
+        "size compressed (bytes)": 16772744114,
+        "total_terms": 1507060955,
+        "documents": 32907100,
+        "unique_terms": 6189349,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-finnish": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Finnish).",
+        "filename": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/Pgd3mqjy77a6FR8/download"
+        ],
+        "md5": "65361258d1a318447f364ccae90c293a",
+        "size compressed (bytes)": 908904453,
+        "total_terms": 69431615,
+        "documents": 1908757,
+        "unique_terms": 1709590,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-indonesian": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Indonesian).",
+        "filename": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/tF8NE7pWZ2xGix7/download"
+        ],
+        "md5": "ca62d690401b84a493c70693ee2626c3",
+        "size compressed (bytes)": 564741230,
+        "total_terms": 52493134,
+        "documents": 1469399,
+        "unique_terms": 942550,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-japanese": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Japanese).",
+        "filename": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/ema8i83zqJr7n48/download"
+        ],
+        "md5": "d05aefed5f79bfc151a9f4815d3693d8",
+        "size compressed (bytes)": 3670762373,
+        "total_terms": 303640353,
+        "documents": 7000027,
+        "unique_terms": 1708155,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-korean": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Korean).",
+        "filename": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/igmEHCTjTwNi3de/download"
+        ],
+        "md5": "4ecc408de4c749f25865859ea97278bd",
+        "size compressed (bytes)": 1141503582,
+        "total_terms": 122217290,
+        "documents": 1496126,
+        "unique_terms": 1517175,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-russian": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Russian).",
+        "filename": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/Pbi9xrD7jSYaxnX/download"
+        ],
+        "md5": "9e229b33f4ddea411477d2f00c25be72",
+        "size compressed (bytes)": 5672456411,
+        "total_terms": 346329152,
+        "documents": 9597504,
+        "unique_terms": 3059773,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-swahili": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Swahili).",
+        "filename": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/SWqajDQgq8wppf6/download"
+        ],
+        "md5": "ec88a5b39c2506b8cd61e6e47b8044e7",
+        "size compressed (bytes)": 47689785,
+        "total_terms": 4937051,
+        "documents": 136689,
+        "unique_terms": 385711,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-telugu": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Telugu).",
+        "filename": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/DAB6ba5ZF98awH6/download"
+        ],
+        "md5": "2704b725c0418905037a45b6301e8666",
+        "size compressed (bytes)": 452906283,
+        "total_terms": 27173644,
+        "documents": 548224,
+        "unique_terms": 1892900,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-thai": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Thai).",
+        "filename": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/2Ady6AwBwNbYLpg/download"
+        ],
+        "md5": "9756502f1aeeee035c37975202787538",
+        "size compressed (bytes)": 452244053,
+        "total_terms": 31550936,
+        "documents": 568855,
+        "unique_terms": 663628,
+        "downloaded": False
     }
 }
 
@@ -629,7 +973,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/F6MjyjmCi6yHFTa/download" # verified
+            "https://vault.cs.uwaterloo.ca/s/F6MjyjmCi6yHFTa/download"
         ],
         "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
         "size compressed (bytes)": 33359100887,
@@ -642,7 +986,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/mHxezzSAkrWbXZC/download" # verified
+            "https://vault.cs.uwaterloo.ca/s/mHxezzSAkrWbXZC/download"
         ],
         "md5": "7312e0e7acec2a686e994902ca064fc5",
         "size compressed (bytes)": 25204514289,
@@ -655,10 +999,23 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Ti5JxdCgjdw3noq/download" # verified
+            "https://vault.cs.uwaterloo.ca/s/Ti5JxdCgjdw3noq/download"
         ],
         "md5": "f0b4c3bff3bb685be5c475511004c3b0",
         "size compressed (bytes)": 58514325936,
+        "documents": 20544550,
+        "downloaded": False,
+        "texts": "msmarco-passage"
+    },
+    "msmarco-doc-tct_colbert-v2-hnp-bf": {
+        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
+        "filename": "faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/XjkKAWMz2fwSeJB/download",
+        ],
+        "md5": "c6a7d295cfe711ef84dffe9ba6a702e5",
+        "size compressed (bytes)": 58586765624,
         "documents": 20544550,
         "downloaded": False,
         "texts": "msmarco-passage"
@@ -668,7 +1025,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/xN44ZSC9tFFtp3F/download" # verified
+            "https://vault.cs.uwaterloo.ca/s/xN44ZSC9tFFtp3F/download"
         ],
         "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
         "size compressed (bytes)": 59836766981,
@@ -681,7 +1038,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/W4k44aLZWcbcJXe/download" # verified
+            "https://vault.cs.uwaterloo.ca/s/W4k44aLZWcbcJXe/download"
         ],
         "md5": "d1ef9286ddb38633cd052171963c62cb",
         "size compressed (bytes)": 59836863670,
@@ -693,8 +1050,8 @@ FAISS_INDEX_INFO = {
         "description": "Faiss binary index of Wikipedia encoded by the BPR doc encoder trained on NQ",
         "filename": "dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz", # verified
-            "https://vault.cs.uwaterloo.ca/s/qKFrptGP4pSp987/download" # verified
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/qKFrptGP4pSp987/download"
         ],
         "md5": "e60e5ed1d7fab924bfa9149ed169d082",
         "size compressed (bytes)": 1887382350,
@@ -707,7 +1064,7 @@ FAISS_INDEX_INFO = {
         "filename": "dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/mntwDQtXc9WbZSM/download" # verified
+            "https://vault.cs.uwaterloo.ca/s/mntwDQtXc9WbZSM/download"
         ],
         "md5": "f6332edb8f06ba796850388cf975b414",
         "size compressed (bytes)": 25102344985,
@@ -807,7 +1164,7 @@ FAISS_INDEX_INFO = {
         "texts": "msmarco-passage"
     },
     "msmarco-passage-tct_colbert-v2-hnp-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by tct_colbert-v2-hnp passage encoder",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
@@ -818,5 +1175,19 @@ FAISS_INDEX_INFO = {
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-passage"
+    },
+    "cast2019-tct_colbert-v2-hnsw": {
+        "description": "Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder",
+        "filename": "faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
+        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss-hnsw.cast2019.tct_colbert-v2-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/ncrZdE67BCKxPwc/download"
+        ],
+        "md5": "fa7673509b34d978e1b931d5705369ee",
+        "size compressed (bytes)": 112121366773,
+        "documents": 38429835,
+        "downloaded": False,
+        "texts": "cast2019"
     }
 }

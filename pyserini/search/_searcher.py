@@ -24,7 +24,7 @@ from typing import Dict, List, Optional, Union
 
 from ._base import JQuery, JQueryGenerator
 from pyserini.index import Document
-from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap, JString
+from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
 from pyserini.trectools import TrecRun
 from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
 from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
@@ -48,7 +48,7 @@ class SimpleSearcher:
 
     def __init__(self, index_dir: str):
         self.index_dir = index_dir
-        self.object = JSimpleSearcher(JString(index_dir))
+        self.object = JSimpleSearcher(index_dir)
         self.num_docs = self.object.getTotalNumDocuments()
 
     @classmethod
@@ -107,7 +107,7 @@ class SimpleSearcher:
 
         jfields = JHashMap()
         for (field, boost) in fields.items():
-            jfields.put(JString(field), JFloat(boost))
+            jfields.put(field, JFloat(boost))
 
         hits = None
         if query_generator:
@@ -177,16 +177,14 @@ class SimpleSearcher:
         query_strings = JArrayList()
         qid_strings = JArrayList()
         for query in queries:
-            jq = query
-            query_strings.add(jq)
+            query_strings.add(query)
 
         for qid in qids:
-            jqid = JString(qid)
-            qid_strings.add(jqid)
+            qid_strings.add(qid)
 
         jfields = JHashMap()
         for (field, boost) in fields.items():
-            jfields.put(JString(field), JFloat(boost))
+            jfields.put(field, JFloat(boost))
 
         if query_generator:
             if not fields:
@@ -304,7 +302,7 @@ class SimpleSearcher:
         Document
             :class:`Document` whose ``field`` is ``id``.
         """
-        lucene_document = self.object.documentByField(JString(field), JString(q))
+        lucene_document = self.object.documentByField(field, q)
         if lucene_document is None:
             return None
         return Document(lucene_document)

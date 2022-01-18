@@ -25,7 +25,7 @@ from enum import Enum
 from typing import Dict, Iterator, List, Optional, Tuple
 
 from ..analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
-from ..pyclass import autoclass, JString
+from ..pyclass import autoclass
 from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO
 
@@ -184,7 +184,7 @@ class IndexReader:
 
     def __init__(self, index_dir):
         self.object = JIndexReader()
-        self.reader = self.object.getReader(JString(index_dir))
+        self.reader = self.object.getReader(index_dir)
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str):
@@ -298,7 +298,7 @@ class IndexReader:
 
         term_map = self.object.getTermCountsWithAnalyzer(self.reader, term, analyzer)
 
-        return term_map.get(JString('docFreq')), term_map.get(JString('collectionFreq'))
+        return term_map.get('docFreq'), term_map.get('collectionFreq')
 
     def get_postings_list(self, term: str, analyzer=get_lucene_analyzer()) -> List[Posting]:
         """Return the postings list for a term.
@@ -344,7 +344,7 @@ class IndexReader:
         Optional[Dict[str, int]]
             A dictionary with analyzed terms as keys and their term frequencies as values.
         """
-        doc_vector_map = self.object.getDocumentVector(self.reader, JString(docid))
+        doc_vector_map = self.object.getDocumentVector(self.reader, docid)
         if doc_vector_map is None:
             return None
         doc_vector_dict = {}
@@ -368,7 +368,7 @@ class IndexReader:
         Optional[Dict[str, int]]
             A tuple contains a dictionary with analyzed terms as keys and corresponding posting list as values
         """
-        java_term_position_map = self.object.getTermPositions(self.reader, JString(docid))
+        java_term_position_map = self.object.getTermPositions(self.reader, docid)
         if java_term_position_map is None:
             return None
         term_position_map = {}
@@ -390,7 +390,7 @@ class IndexReader:
         Optional[Document]
             :class:`Document` corresponding to the ``docid``.
         """
-        lucene_document = self.object.document(self.reader, JString(docid))
+        lucene_document = self.object.document(self.reader, docid)
         if lucene_document is None:
             return None
         return Document(lucene_document)
@@ -411,7 +411,7 @@ class IndexReader:
         Optional[Document]
             :class:`Document` whose ``field`` is ``id``.
         """
-        lucene_document = self.object.documentByField(self.reader, JString(field), JString(q))
+        lucene_document = self.object.documentByField(self.reader, field, q)
         if lucene_document is None:
             return None
         return Document(lucene_document)
@@ -429,7 +429,7 @@ class IndexReader:
         Optional[str]
             Raw document contents.
         """
-        return self.object.documentRaw(self.reader, JString(docid))
+        return self.object.documentRaw(self.reader, docid)
 
     def doc_contents(self, docid: str) -> Optional[str]:
         """Return the indexed document contents for a collection ``docid``.
@@ -444,7 +444,7 @@ class IndexReader:
         Optional[str]
             Index document contents.
         """
-        return self.object.documentContents(self.reader, JString(docid))
+        return self.object.documentContents(self.reader, docid)
 
     def compute_bm25_term_weight(self, docid: str, term: str, analyzer=get_lucene_analyzer(), k1=0.9, b=0.4) -> float:
         """Compute the BM25 weight of a term in a document. Specify ``analyzer=None`` for an already analyzed term,
@@ -469,11 +469,11 @@ class IndexReader:
             BM25 weight of the term in the document, or 0 if the term does not exist in the document.
         """
         if analyzer is None:
-            return self.object.getBM25AnalyzedTermWeightWithParameters(self.reader, JString(docid),
+            return self.object.getBM25AnalyzedTermWeightWithParameters(self.reader, docid,
                                                                        term,
                                                                        float(k1), float(b))
         else:
-            return self.object.getBM25UnanalyzedTermWeightWithParameters(self.reader, JString(docid),
+            return self.object.getBM25UnanalyzedTermWeightWithParameters(self.reader, docid,
                                                                          term, analyzer,
                                                                          float(k1), float(b))
 

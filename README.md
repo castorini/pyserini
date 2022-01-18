@@ -16,9 +16,9 @@ Our toolkit is self-contained as a standard Python package and comes with querie
 With Pyserini, it's easy to [reproduce](docs/pypi-reproduction.md) runs on a number of standard IR test collections!
 A low-effort way to try things out is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
 
-## Package Installation
+## Installation
 
-Install via PyPI (requires Python 3.6+):
+Install via PyPI (requires Python 3.8+):
 
 ```
 pip install pyserini
@@ -34,33 +34,9 @@ We leave the installation of these packages to you.
 The software ecosystem is rapidly evolving and a potential source of frustration is incompatibility among different versions of underlying dependencies.
 We provide additional detailed installation instructions [here](./docs/installation.md).
 
-## Development Installation
-
 If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
-For this, clone our repo with the `--recurse-submodules` option to make sure the `tools/` submodule also gets cloned.
-
-The `tools/` directory, which contains evaluation tools and scripts, is actually [this repo](https://github.com/castorini/anserini-tools), integrated as a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) (so that it can be shared across related projects).
-Build as follows (you might get warnings, but okay to ignore):
-
-```bash
-cd tools/eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make && cd ../../..
-cd tools/eval/ndeval && make && cd ../../..
-```
-
-Next, you'll need to clone and build [Anserini](http://anserini.io/).
-It makes sense to put both `pyserini/` and `anserini/` in a common folder.
-After you've successfully built Anserini, copy the fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
-As with the `pip` installation, a potential source of frustration is incompatibility among different versions of underlying dependencies.
-For these and other issues, we provide additional detailed installation instructions [here](./docs/installation.md).
-
-You can confirm everything is working by running the unit tests:
-
-```bash
-python -m unittest
-```
-
-Assuming all tests pass, you should be ready to go!
+Instructions are provided [here](./docs/installation.md#development-installation).
 
 ## Quick Links
 
@@ -126,7 +102,7 @@ hits[0].raw
 hits[0].lucene_document
 ```
 
-Pre-built indexes are hosted on University of Waterloo servers and in some cases mirrored on Dropbox.
+Pre-built indexes are hosted on University of Waterloo servers.
 The following method will list available pre-built indexes:
 
 ```
@@ -306,19 +282,20 @@ So, the quickest way to get started is to write a script that converts your docu
 Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
 
 ```bash
-python -m pyserini.index -collection JsonCollection \
-                         -generator DefaultLuceneDocumentGenerator \
-                         -threads 1 \
-                         -input integrations/resources/sample_collection_jsonl \
-                         -index indexes/sample_collection_jsonl \
-                         -storePositions -storeDocvectors -storeRaw
+python -m pyserini.index \
+  --input integrations/resources/sample_collection_jsonl \
+  --collection JsonCollection \
+  --generator DefaultLuceneDocumentGenerator \
+  --index indexes/sample_collection_jsonl \
+  --threads 1 \
+  --storePositions --storeDocvectors --storeRaw
 ```
 
 Three options control the type of index that is built:
 
-+ `-storePositions`: builds a standard positional index
-+ `-storeDocvectors`: stores doc vectors (required for relevance feedback)
-+ `-storeRaw`: stores raw documents
++ `--storePositions`: builds a standard positional index
++ `--storeDocvectors`: stores doc vectors (required for relevance feedback)
++ `--storeRaw`: stores raw documents
 
 If you don't specify any of the three options above, Pyserini builds an index that only stores term frequencies.
 This is sufficient for simple "bag of words" querying (and yields the smallest index size).
@@ -349,12 +326,13 @@ Note that the file extension _must_ end in `.tsv` so that Pyserini knows what fo
 Then, you can run:
 
 ```bash
-$ python -m pyserini.search --topics integrations/resources/sample_queries.tsv \
-                            --index indexes/sample_collection_jsonl \
-                            --output run.sample.txt \
-                            --bm25
+$ python -m pyserini.search \
+    --topics integrations/resources/sample_queries.tsv \
+    --index indexes/sample_collection_jsonl \
+    --output run.sample.txt \
+    --bm25
 
-$ cat run.sample.txt 
+$ cat run.sample.txt
 1 Q0 doc2 1 0.256200 Anserini
 1 Q0 doc3 2 0.231400 Anserini
 2 Q0 doc1 1 0.534600 Anserini
@@ -444,6 +422,7 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 ## Release History
 
++ v0.14.0: November 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.14.0.md)]
 + v0.13.0: July 3, 2021 [[Release Notes](docs/release-notes/release-notes-v0.13.0.md)]
 + v0.12.0: May 5, 2021 [[Release Notes](docs/release-notes/release-notes-v0.12.0.md)]
 + v0.11.0.0: February 18, 2021 [[Release Notes](docs/release-notes/release-notes-v0.11.0.0.md)]

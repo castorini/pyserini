@@ -76,7 +76,7 @@ python scripts/ltr_msmarco/ltr_inference.py \
        --data document \
        --ibm-model collections/msmarco-ltr-document/ibm_model/ \
        --queries collections/msmarco-ltr-document \
-       --index ~/.cache/pyserini/indexes/index-msmarco-document-ltr-20211027-3e4c283 --output runs/run.ltr.doc-pas.trec 
+       --index ~/.cache/pyserini/indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151 --output runs/run.ltr.doc-pas.trec 
 
 python scripts/ltr_msmarco/generate_document_score_withmaxP.py \
       --input runs/run.ltr.doc-pas.trec \
@@ -119,7 +119,7 @@ We can now index these docs as a `JsonCollection` using Anserini with pretokeniz
 ```bash
 python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
  -threads 21 -input collections/msmarco-ltr-document/ltr_msmarco_pass_doc_jsonl  \
- -index indexes/lucene-index-msmarco-document-ltr -storePositions -storeDocvectors -storeRaw -pretokenized
+ -index indexes/lucene-index-msmarco-doc-per-passage-ltr -storePositions -storeDocvectors -storeRaw -pretokenized
 ```
 
 Note that pretokenized option let Anserini use whitespace analyzer so that do not break our preprocessed tokenization.

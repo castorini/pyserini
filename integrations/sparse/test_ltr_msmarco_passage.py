@@ -31,18 +31,17 @@ class TestLtrMsmarcoPassage(unittest.TestCase):
             os.mkdir('ltr_test')
         inp = 'run.msmarco-passage.bm25tuned.txt'
         outp = 'run.ltr.msmarco-passage.test.tsv'
-        #Download candidate
-        os.system('wget https://www.dropbox.com/s/bjyzf65uns2is61/run.msmarco-passage.bm25tuned.txt -P ltr_test')
         #Download prebuilt index
         SimpleSearcher.from_prebuilt_index('msmarco-passage-ltr')
+        os.system(f'python -m pyserini.search --topics msmarco-passage-dev-subset  --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ --output ltr_test/{inp} --bm25 --output-format msmarco --hits 1000 --k1 0.82 --b 0.68')
         #Pre-trained ltr model
-        model_url = 'https://www.dropbox.com/s/ffl2bfw4cd5ngyz/msmarco-passage-ltr-mrr-v1.tar.gz'
-        model_tar_name = 'msmarco-passage-ltr-mrr-v1.tar.gz'
+        model_url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msmarco-passage-mrr-v1.tar.gz'
+        model_tar_name = 'model-ltr-msmarco-passage-mrr-v1.tar.gz'
         os.system(f'wget {model_url} -P ltr_test/')
         os.system(f'tar -xzvf ltr_test/{model_tar_name} -C ltr_test')
         #ibm model
-        ibm_model_url = 'https://www.dropbox.com/s/vlrfcz3vmr4nt0q/ibm_model.tar.gz'
-        ibm_model_tar_name = 'ibm_model.tar.gz'
+        ibm_model_url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-ibm.tar.gz'
+        ibm_model_tar_name = 'model-ltr-ibm.tar.gz'
         os.system(f'wget {ibm_model_url} -P ltr_test/')
         os.system(f'tar -xzvf ltr_test/{ibm_model_tar_name} -C ltr_test')
         #queries process
@@ -51,7 +50,8 @@ class TestLtrMsmarcoPassage(unittest.TestCase):
         result = subprocess.check_output(f'python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt ltr_test/{outp}', shell=True).decode(sys.stdout.encoding)
         a,b = result.find('#####################\nMRR @10:'), result.find('\nQueriesRanked: 6980\n#####################\n')
         mrr = result[a+31:b]
-        self.assertAlmostEqual(float(mrr),0.24709612498294367, delta=0.000001)
+        # See https://github.com/castorini/pyserini/issues/951
+        self.assertAlmostEqual(float(mrr), 0.2472, delta=0.0001)
         rmtree('ltr_test')
 
 if __name__ == '__main__':
