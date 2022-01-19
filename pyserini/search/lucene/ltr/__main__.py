@@ -45,8 +45,8 @@ def dev_data_loader(file, format, data, top=100):
                     dtype={'qid': 'S','pid': 'S', 'rank':'i',})
     else:
         raise Exception('unknown parameters')
-    assert dev['qid'].dtype == np.object
-    assert dev['pid'].dtype == np.object
+    assert dev['qid'].dtype == object
+    assert dev['pid'].dtype == object
     assert dev['rank'].dtype == np.int32
     dev = dev[dev['rank']<=top]
     if data == 'passage':
@@ -58,8 +58,8 @@ def dev_data_loader(file, format, data, top=100):
         dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-doc.dev.txt', sep="\t",
                             names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
                             dtype={'qid': 'S','pid': 'S', 'rel':'i'})
-    assert dev['qid'].dtype == np.object
-    assert dev['pid'].dtype == np.object
+    assert dev['qid'].dtype == object
+    assert dev['pid'].dtype == object
     assert dev['rank'].dtype == np.int32
     dev = dev.merge(dev_qrel, left_on=['qid', 'pid'], right_on=['qid', 'pid'], how='left')
     dev['rel'] = dev['rel'].fillna(0).astype(np.int32)

@@ -152,7 +152,6 @@ Next, you'll need to clone and build [Anserini](http://anserini.io/).
 It makes sense to put both `pyserini/` and `anserini/` in a common folder.
 After you've successfully built Anserini, copy the fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
 As with the `pip` installation, a potential source of frustration is incompatibility among different versions of underlying dependencies.
-For these and other issues, we provide additional detailed installation instructions [here](./docs/installation.md).
 
 You can confirm everything is working by running the unit tests:
 
