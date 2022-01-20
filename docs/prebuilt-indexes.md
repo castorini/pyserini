@@ -100,6 +100,54 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index of the MS MARCO document corpus with per-passage docTTTTTquery expansions
 [<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt">readme</a>]
 </dd>
+<dt></dt><b><code>msmarco-v2-doc</code></b>
+<dd>Lucene index of the MS MARCO (V2) document corpus.
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-doc-slim</code></b>
+<dd>Lucene index of the MS MARCO (V2) document corpus ('slim' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-doc-full</code></b>
+<dd>Lucene index of the MS MARCO (V2) document corpus ('full' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-doc-segmented</code></b>
+<dd>Lucene index of the MS MARCO (V2) segmented document corpus.
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-doc-segmented-slim</code></b>
+<dd>Lucene index of the MS MARCO (V2) segmented document corpus ('slim' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-doc-segmented-full</code></b>
+<dd>Lucene index of the MS MARCO (V2) segmented document corpus ('full' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-passage</code></b>
+<dd>Lucene index of the MS MARCO (V2) passage corpus.
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-passage-slim</code></b>
+<dd>Lucene index of the MS MARCO (V2) passage corpus ('slim' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-passage-full</code></b>
+<dd>Lucene index of the MS MARCO (V2) passage corpus ('full' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-full.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-passage-augmented</code></b>
+<dd>Lucene index of the MS MARCO (V2) augmented passage corpus.
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-passage-augmented-slim</code></b>
+<dd>Lucene index of the MS MARCO (V2) augmented passage corpus ('slim' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v2-passage-augmented-full</code></b>
+<dd>Lucene index of the MS MARCO (V2) augmented passage corpus ('full' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.README.md">readme</a>]
+</dd>
 <dt></dt><b><code>enwiki-paragraphs</code></b>
 <dd>Lucene index of English Wikipedia for BERTserini
 </dd>
@@ -165,6 +213,50 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>wikipedia-kilt-doc</code></b>
 <dd>Lucene index of Wikipedia snapshot used as KILT's knowledge source.
 [<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-wikipedia-kilt-doc-20210421-f29307-readme.txt">readme</a>]
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-arabic</code></b>
+<dd>Lucene index for Mr.TyDi v1.1 (Arabic).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-bengali</code></b>
+<dd>Lucene index for Mr.TyDi v1.1 (Bengali).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-english</code></b>
+<dd>Lucene index for Mr.TyDi v1.1 (English).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-finnish</code></b>
+<dd>Lucene index for Mr.TyDi v1.1 (Finnish).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-indonesian</code></b>
+<dd>Lucene index for Mr.TyDi v1.1 (Indonesian).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-japanese</code></b>
+<dd>Lucene index for Mr.TyDi v1.1 (Japanese).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-korean</code></b>
+<dd>Lucene index for Mr.TyDi v1.1 (Korean).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-russian</code></b>
+<dd>Lucene index for Mr.TyDi v1.1 (Russian).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-swahili</code></b>
+<dd>Lucene index for Mr.TyDi v1.1 (Swahili).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-telugu</code></b>
+<dd>Lucene index for Mr.TyDi v1.1 (Telugu).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-thai</code></b>
+<dd>Lucene index for Mr.TyDi v1.1 (Thai).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md">readme</a>]
 </dd>
 </dl>
 
@@ -254,10 +346,10 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hn passage encoder
 </dd>
 <dt></dt><b><code>msmarco-passage-tct_colbert-v2-hnp-bf</code></b>
-<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by tct_colbert-v2-hnp passage encoder
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder
 </dd>
 <dt></dt><b><code>cast2019-tct_colbert-v2-hnsw</code></b>
-<dd>Faiss hnsw index of the CAsT2019 passage corpus encoded by tct_colbert-v2 passage encoder
+<dd>Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder
 [<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss-hnsw.cast2019.tct_colbert-v2-readme.txt">readme</a>]
 </dd>
 </dl>

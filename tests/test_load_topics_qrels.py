@@ -676,6 +676,347 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(qrels), 49)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
+    def test_mrtydi_11_ar(self):
+        topics = search.get_topics('mrtydi-v1.1-arabic-train')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 12377)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-arabic-train')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 12377)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-arabic-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3115)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-arabic-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 3115)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-arabic-test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1081)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-arabic-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1081)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    def test_mrtydi_11_bn(self):
+        topics = search.get_topics('mrtydi-v1.1-bengali-train')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1713)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-bengali-train')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1713)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-bengali-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 440)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-bengali-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 440)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-bengali-test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 111)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-bengali-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 111)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    def test_mrtydi_11_en(self):
+        topics = search.get_topics('mrtydi-v1.1-english-train')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3547)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-english-train')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 3547)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-english-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 878)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-english-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 878)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-english-test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 744)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-english-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 744)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    def test_mrtydi_11_fi(self):
+        topics = search.get_topics('mrtydi-v1.1-finnish-train')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6561)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-finnish-train')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 6561)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-finnish-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1738)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-finnish-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1738)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-finnish-test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1254)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-finnish-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1254)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    def test_mrtydi_11_id(self):
+        topics = search.get_topics('mrtydi-v1.1-indonesian-train')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 4902)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-indonesian-train')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 4902)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-indonesian-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1224)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-indonesian-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1224)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-indonesian-test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 829)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-indonesian-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 829)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    def test_mrtydi_11_ja(self):
+        topics = search.get_topics('mrtydi-v1.1-japanese-train')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3697)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-japanese-train')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 3697)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-japanese-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 928)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-japanese-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 928)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-japanese-test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 720)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-japanese-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 720)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    def test_mrtydi_11_ko(self):
+        topics = search.get_topics('mrtydi-v1.1-korean-train')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1295)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-korean-train')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1295)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-korean-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 303)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-korean-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 303)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-korean-test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 421)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-korean-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 421)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    def test_mrtydi_11_ru(self):
+        topics = search.get_topics('mrtydi-v1.1-russian-train')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 5366)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-russian-train')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 5366)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-russian-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1375)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-russian-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1375)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-russian-test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 995)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-russian-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 995)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    def test_mrtydi_11_sw(self):
+        topics = search.get_topics('mrtydi-v1.1-swahili-train')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 2072)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-swahili-train')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 2072)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-swahili-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 526)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-swahili-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 526)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-swahili-test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 670)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-swahili-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 670)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    def test_mrtydi_11_te(self):
+        topics = search.get_topics('mrtydi-v1.1-telugu-train')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3880)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-telugu-train')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 3880)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-telugu-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 983)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-telugu-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 983)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-telugu-test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 646)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-telugu-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 646)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    def test_mrtydi_11_th(self):
+        topics = search.get_topics('mrtydi-v1.1-thai-train')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3319)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-thai-train')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 3319)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-thai-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 807)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-thai-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 807)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        topics = search.get_topics('mrtydi-v1.1-thai-test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1190)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        qrels = search.get_qrels('mrtydi-v1.1-thai-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1190)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
     # General test cases
     def test_tsv_int_topicreader(self):
         # Running from command-line, we're in root of repo, but running in IDE, we're in tests/

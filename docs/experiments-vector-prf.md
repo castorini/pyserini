@@ -213,3 +213,5 @@ recall_1000         all     0.9490
 Qrels file already available, replace the `runs/run.ance.msmarco-passage.average_prf3.trec` with your own run file path to test your reproduced results.
 
 ## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@yuki617](https://github.com/yuki617) on 2022-01-10 (commit [`bd34a03`](https://github.com/castorini/pyserini/commit/bd34a03a6d355085b18e9fe3cf4b4d34ef1b7774))
