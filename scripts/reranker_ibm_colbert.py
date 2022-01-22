@@ -18,7 +18,8 @@ import json
 import math
 import struct
 import subprocess
-import os
+import sys
+sys.path.append('.')
 from multiprocessing.pool import ThreadPool
 from pyserini.pyclass import autoclass, JString
 from typing import List, Set, Dict
@@ -75,14 +76,8 @@ def sort_str_topics_list(topics: List[str]) -> List[str]:
     return [str(t) for t in res]
 
 
-def evaluate(qrels_path: str, run_path: str, options: str = ''):
-    curdir = os.getcwd()
-    if curdir.endswith('scripts'):
-        anserini_root = '../../anserini'
-    else:
-        anserini_root = '../anserini'
-    prefix = f"{anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval \
-                -c -M1000 -m all_trec {qrels_path}"
+def evaluate(run_path: str, options: str = ''):
+    prefix = "python -m pyserini.eval.trec_eval -c -M 1000 -m map -m ndcg_cut.20 msmarco-passage-dev-subset"
     cmd1 = f"{prefix} {run_path} {options} | grep 'ndcg_cut_20 '"
     cmd2 = f"{prefix} {run_path} {options} | grep 'map                   	'"
     ndcg_string = str(subprocess.check_output(cmd1, shell=True))
@@ -241,7 +236,7 @@ def load_tranprobs_table(dir_path: str):
 
 
 def rank(
-        qrels: str, base: str, tran_path: str, query_path: str,
+        base: str, tran_path: str, query_path: str,
         lucene_index_path: str, output_path: str, score_path: str,
         field_name: str, tag: str, alpha: int, num_threads: int, max_sim: bool):
 
@@ -290,7 +285,7 @@ def rank(
             f.write(f'{topic} Q0 {doc_id} {rank} {score} {tag}\n')
 
     f.close()
-    map_score, ndcg_score = evaluate(qrels, output_path)
+    map_score, ndcg_score = evaluate(output_path)
     with open(score_path, 'w') as outfile:
         json.dump({'map': map_score, 'ndcg': ndcg_score}, outfile)
 
@@ -300,8 +295,6 @@ if __name__ == '__main__':
         description='use ibm model 1 feature to rerank the base run file')
     parser.add_argument('-tag', type=str, default="ibm",
                         metavar="tag_name", help='tag name for resulting Qrun')
-    parser.add_argument('-qrels', type=str, default="../tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt",
-                        metavar="path_to_qrels", help='path to new_qrels file')
     parser.add_argument('-base', type=str, default="../ibm/run.msmarco-passage.bm25tuned.trec",
                         metavar="path_to_base_run", help='path to base run')
     parser.add_argument('-tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
@@ -328,7 +321,7 @@ if __name__ == '__main__':
     print('Using max sim operator or not:', args.max_sim)
 
     rank(
-        args.qrels, args.base, args.tran_path, args.query_path,
+        args.base, args.tran_path, args.query_path,
         args.index, args.output, args.score_path, args.field_name,
         args.tag, args.alpha, args.num_threads, args.max_sim
         )
