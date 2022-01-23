@@ -14,40 +14,40 @@
 # limitations under the License.
 #
 import argparse
-import os
 import json
-from multiprocessing.pool import ThreadPool
-import subprocess
-from pyserini.pyclass import autoclass, JString
-
-from typing import List, Set, Dict
-
-
-import struct
 import math
+import struct
+import subprocess
+import sys
+sys.path.append('.')
+from multiprocessing.pool import ThreadPool
+from pyserini.pyclass import autoclass, JString
+from typing import List, Set, Dict
 
 
 JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
 JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 JTerm = autoclass('org.apache.lucene.index.Term')
 
+
 SELF_TRAN = 0.35
-MIN_PROB=0.0025
+MIN_PROB = 0.0025
 LAMBDA_VALUE = 0.3
-MIN_COLLECT_PROB=1e-9
+MIN_COLLECT_PROB = 1e-9
+
 
 def normalize(scores: List[float]):
     low = min(scores)
     high = max(scores)
     width = high - low
-    if width!=0:
+    if width != 0:
         return [(s-low)/width for s in scores]
     else:
         return scores
 
 
 def get_docs_from_qrun_by_topic(path: str):
-    result_dic={}
+    result_dic = {}
     with open(path, 'r') as f:
         for line in f:
             tokens = line.strip().split()
@@ -58,7 +58,7 @@ def get_docs_from_qrun_by_topic(path: str):
                 result_dic[t][0].append(doc_id)
                 result_dic[t][1].append(score)
             else:
-                result_dic[t]=[[doc_id],[score]]
+                result_dic[t] = [[doc_id], [score]]
 
     return result_dic
 
@@ -70,23 +70,22 @@ def get_topics_from_qrun(path: str) -> Set[str]:
             res.add(line.split()[0])
     return sort_str_topics_list(res)
 
+
 def sort_str_topics_list(topics: List[str]) -> List[str]:
     res = sorted([int(t) for t in topics])
     return [str(t) for t in res]
 
 
-def evaluate(qrels_path: str, run_path: str, options: str = ''):        
-    curdir = os.getcwd()
-    if curdir.endswith('scripts'):
-       anserini_root = '../../anserini'
-    else:
-       anserini_root = '../anserini'
-    prefix = f"{anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -c -M1000 -m all_trec {qrels_path}"
+def evaluate(run_path: str, options: str = ''):
+    prefix = "python -m pyserini.eval.trec_eval -c -M 1000 -m map -m ndcg_cut.20 msmarco-passage-dev-subset"
     cmd1 = f"{prefix} {run_path} {options} | grep 'ndcg_cut_20 '"
     cmd2 = f"{prefix} {run_path} {options} | grep 'map                   	'"
-    ndcg_score = str(subprocess.check_output(cmd1, shell=True)).split('\\t')[-1].split('\\n')[0]
-    map_score = str(subprocess.check_output(cmd2, shell=True)).split('\\t')[-1].split('\\n')[0]
-    return str(map_score),str(ndcg_score)
+    ndcg_string = str(subprocess.check_output(cmd1, shell=True))
+    ndcg_score = ndcg_string.split('\\t')[-1].split('\\n')[0]
+    map_string = str(subprocess.check_output(cmd2, shell=True))
+    map_score = map_string.split('\\t')[-1].split('\\n')[0]
+    return str(map_score), str(ndcg_score)
+
 
 def sort_dual_list(pred: List[float], docs: List[str]):
     zipped_lists = zip(pred, docs)
@@ -111,10 +110,10 @@ def get_ibm_score(arguments):
     collect_probs = arguments['collect_probs']
     max_sim = arguments['max_sim']
 
-    if searcher.documentRaw(test_doc) ==None:
+    if searcher.documentRaw(test_doc) is None:
         print(f'{test_doc} is not found in searcher')
-    document_text= json.loads(searcher.documentRaw(test_doc))[field_name]
-    doc_token_lst  = document_text.split(" ")
+    document_text = json.loads(searcher.documentRaw(test_doc))[field_name]
+    doc_token_lst = document_text.split(" ")
     total_query_prob = 0
     doc_size = len(doc_token_lst)
     query_size = len(query_text_lst)
@@ -129,21 +128,22 @@ def get_ibm_score(arguments):
                 target_map = tran[query_word_id]
                 for doctoken in doc_token_lst:
                     tran_prob = 0
-                    doc_word_id = 0 
+                    doc_word_id = 0
                     if doctoken in source_lookup.keys():
-                        doc_word_id = source_lookup[doctoken] 
+                        doc_word_id = source_lookup[doctoken]
                         if doc_word_id in target_map.keys():
-                             tran_prob = max(target_map[doc_word_id],tran_prob)
-                             max_sim_score = max(tran_prob, max_sim_score)
-                             total_tran_prob += (tran_prob/doc_size) 
+                            tran_prob = max(target_map[doc_word_id], tran_prob)
+                            max_sim_score = max(tran_prob, max_sim_score)
+                            total_tran_prob += (tran_prob/doc_size)
         if max_sim:
-            query_word_prob=math.log((1 - LAMBDA_VALUE) * max_sim_score + LAMBDA_VALUE * collect_prob) 
+            query_word_prob = math.log(
+                (1 - LAMBDA_VALUE) * max_sim_score + LAMBDA_VALUE * collect_prob)
         else:
-            query_word_prob=math.log((1 - LAMBDA_VALUE) * total_tran_prob + LAMBDA_VALUE * collect_prob) 
+            query_word_prob = math.log(
+                (1 - LAMBDA_VALUE) * total_tran_prob + LAMBDA_VALUE * collect_prob)
 
         total_query_prob += query_word_prob
-    return total_query_prob /query_size
-
+    return total_query_prob / query_size
 
 
 def query_loader(query_path: str):
@@ -161,107 +161,118 @@ def query_loader(query_path: str):
 
 
 def intbits_to_float(b: bytes):
-   s = struct.pack('>l', b)
-   return struct.unpack('>f', s)[0]
+    s = struct.pack('>l', b)
+    return struct.unpack('>f', s)[0]
 
-def rescale(source_lookup: Dict[str,int],target_lookup: Dict[str,int],tran_lookup: Dict[str,Dict[str,float]],\
-            target_voc: Dict[int,str],source_voc: Dict[int,str]):
+
+def rescale(source_lookup: Dict[str, int], target_lookup: Dict[str, int],
+            tran_lookup: Dict[str, Dict[str, float]],
+            target_voc: Dict[int, str], source_voc: Dict[int, str]):
     for target_id in tran_lookup:
         if target_id > 0:
-            adjust_mult = (1 - SELF_TRAN) 
+            adjust_mult = (1 - SELF_TRAN)
         else:
             adjust_mult = 1
-        #adjust the prob with adjust_mult and add SELF_TRAN prob to self-translation pair
+        # adjust the prob with adjust_mult
+        # add SELF_TRAN prob to self-translation pair
         for source_id in tran_lookup[target_id].keys():
             tran_prob = tran_lookup[target_id][source_id]
-            if source_id >0:
+            if source_id > 0:
                 source_word = source_voc[source_id]
                 target_word = target_voc[target_id]
                 tran_prob *= adjust_mult
-                if (source_word== target_word):
+                if (source_word == target_word):
                     tran_prob += SELF_TRAN
-                tran_lookup[target_id][source_id]= tran_prob
+                tran_lookup[target_id][source_id] = tran_prob
         # in case if self-translation pair was not included in TransTable
         if target_id not in tran_lookup[target_id].keys():
             target_word = target_voc[target_id]
             source_id = source_lookup[target_word]
-            tran_lookup[target_id][source_id]= SELF_TRAN
-    return source_lookup,target_lookup,tran_lookup
+            tran_lookup[target_id][source_id] = SELF_TRAN
+    return source_lookup, target_lookup, tran_lookup
 
 
 def load_tranprobs_table(dir_path: str):
-    source_path = dir_path +"/source.vcb"
+    source_path = dir_path + "/source.vcb"
     source_lookup = {}
-    source_voc={}
+    source_voc = {}
     with open(source_path) as f:
         lines = f.readlines()
     for line in lines:
-        id, voc,freq = line.split(" ")
+        id, voc, freq = line.split(" ")
         source_voc[int(id)] = voc
-        source_lookup[voc]=int(id)
+        source_lookup[voc] = int(id)
 
-    target_path = dir_path +"/target.vcb"
+    target_path = dir_path + "/target.vcb"
     target_lookup = {}
     target_voc = {}
     with open(target_path) as f:
         lines = f.readlines()
     for line in lines:
-        id, voc,freq = line.split(" ")
+        id, voc, freq = line.split(" ")
         target_voc[int(id)] = voc
-        target_lookup[voc]=int(id)
-    
+        target_lookup[voc] = int(id)  
     tran_path = dir_path + "/output.t1.5.bin"
     tran_lookup = {}
     with open(tran_path, "rb") as file:
         byte = file.read(4)
         while byte:
-            source_id = int.from_bytes(byte,"big")
+            source_id = int.from_bytes(byte, "big")
             assert(source_id == 0 or source_id in source_voc.keys())
             byte = file.read(4)
-            target_id = int.from_bytes(byte,"big")
+            target_id = int.from_bytes(byte, "big")
             assert(target_id in target_voc.keys())
             byte = file.read(4)
-            tran_prob = intbits_to_float(int.from_bytes(byte,"big"))
-            if (target_id in tran_lookup.keys()) and (tran_prob>MIN_PROB):
+            tran_prob = intbits_to_float(int.from_bytes(byte, "big"))
+            if (target_id in tran_lookup.keys()) and (tran_prob > MIN_PROB):
                 tran_lookup[target_id][source_id] = tran_prob
-            elif tran_prob>MIN_PROB:
+            elif tran_prob > MIN_PROB:
                 tran_lookup[target_id] = {}
                 tran_lookup[target_id][source_id] = tran_prob
             byte = file.read(4)
-    return rescale(source_lookup,target_lookup,tran_lookup,target_voc,source_voc)
+    return rescale(
+        source_lookup, target_lookup,
+        tran_lookup, target_voc, source_voc)
 
 
-def rank(qrels: str, base: str,tran_path:str, query_path:str, lucene_index_path: str,output_path:str, \
-        score_path:str,field_name:str, tag: str,alpha:int,num_threads:int, max_sim:bool):
+def rank(
+        base: str, tran_path: str, query_path: str,
+        lucene_index_path: str, output_path: str, score_path: str,
+        field_name: str, tag: str, alpha: int, num_threads: int, max_sim: bool):
 
     pool = ThreadPool(num_threads)
     searcher = JSimpleSearcher(JString(lucene_index_path))
     reader = JIndexReader().getReader(JString(lucene_index_path))
 
-    source_lookup,target_lookup,tran = load_tranprobs_table(tran_path)
+    source_lookup, target_lookup, tran = load_tranprobs_table(tran_path)
     total_term_freq = reader.getSumTotalTermFreq(field_name)
     doc_dic = get_docs_from_qrun_by_topic(base)
-    
+
     f = open(output_path, 'w')
 
     topics = get_topics_from_qrun(base)
-    query= query_loader(query_path)
-    
+    query = query_loader(query_path)
     i = 0
+
     for topic in topics:
         [test_docs, base_scores] = doc_dic[topic]
         rank_scores = []
-        if i % 100==0:
+        if i % 100 == 0:
             print(f"Reranking {i} query")
-        i=i+1
+        i = i+1
         query_text_lst = query[topic][field_name]
-        collect_probs ={}
+        collect_probs = {}
         for querytoken in query_text_lst:
-            collect_probs[querytoken] = max(reader.totalTermFreq(JTerm(field_name, querytoken))/total_term_freq, MIN_COLLECT_PROB)
-        arguments = [{"query_text_lst":query_text_lst,"test_doc":test_doc, "searcher":searcher,\
-                "field_name":field_name,"source_lookup":source_lookup,"target_lookup":target_lookup,\
-                "tran":tran,"collect_probs":collect_probs, "max_sim":max_sim} for test_doc in test_docs]
-        rank_scores = pool.map(get_ibm_score, arguments)   
+            collect_probs[querytoken] = max(reader.totalTermFreq(
+                JTerm(field_name, querytoken)) / total_term_freq,
+                MIN_COLLECT_PROB)
+        arguments = [{
+            "query_text_lst": query_text_lst, "test_doc": test_doc,
+            "searcher": searcher, "field_name": field_name,
+            "source_lookup": source_lookup, "target_lookup": target_lookup,
+            "tran": tran, "collect_probs": collect_probs, "max_sim": max_sim}
+            for test_doc in test_docs]
+        rank_scores = pool.map(get_ibm_score, arguments)
 
         ibm_scores = normalize([p for p in rank_scores])
         base_scores = normalize([p for p in base_scores])
@@ -274,9 +285,9 @@ def rank(qrels: str, base: str,tran_path:str, query_path:str, lucene_index_path:
             f.write(f'{topic} Q0 {doc_id} {rank} {score} {tag}\n')
 
     f.close()
-    map_score,ndcg_score = evaluate(qrels, output_path)
+    map_score, ndcg_score = evaluate(output_path)
     with open(score_path, 'w') as outfile:
-    	json.dump({'map':map_score,'ndcg':ndcg_score}, outfile)
+        json.dump({'map': map_score, 'ndcg': ndcg_score}, outfile)
 
 
 if __name__ == '__main__':
@@ -284,8 +295,6 @@ if __name__ == '__main__':
         description='use ibm model 1 feature to rerank the base run file')
     parser.add_argument('-tag', type=str, default="ibm",
                         metavar="tag_name", help='tag name for resulting Qrun')
-    parser.add_argument('-qrels', type=str, default="../tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt",
-                        metavar="path_to_qrels", help='path to new_qrels file')
     parser.add_argument('-base', type=str, default="../ibm/run.msmarco-passage.bm25tuned.trec",
                         metavar="path_to_base_run", help='path to base run')
     parser.add_argument('-tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
@@ -305,11 +314,14 @@ if __name__ == '__main__':
     parser.add_argument('-num_threads', type=int, default="12",
                         metavar="num_of_threads", help='number of threads to use')
     parser.add_argument('-max_sim', default=False, action="store_true",
-                         help='whether we use max sim operator or avg instead')
+                        help='whether we use max sim operator or avg instead')
     args = parser.parse_args()
 
     print('Using base run:', args.base)
-    print('Using max sim operator or not:',args.max_sim)
+    print('Using max sim operator or not:', args.max_sim)
 
-    rank(args.qrels, args.base, args.tran_path, args.query_path, args.index, args.output, \
-        args.score_path,args.field_name, args.tag,args.alpha,args.num_threads, args.max_sim)
+    rank(
+        args.base, args.tran_path, args.query_path,
+        args.index, args.output, args.score_path, args.field_name,
+        args.tag, args.alpha, args.num_threads, args.max_sim
+        )
