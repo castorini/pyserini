@@ -50,7 +50,7 @@ class DPRDemo(cmd.Cmd):
     def do_help(self, arg):
         print(f'/help    : returns this message')
         print(f'/k [NUM] : sets k (number of hits to return) to [NUM]')
-        print(f'/mode [MODE] : sets retriver type to [MODE] (one of sparse, dense, hybrid)')
+        print(f'/mode [MODE] : sets retriever type to [MODE] (one of sparse, dense, hybrid)')
         print(f'/random [COLLECTION]: returns results for a random question from the dev subset [COLLECTION] (one of nq, trivia).')
 
     def do_k(self, arg):

@@ -50,7 +50,8 @@ class TestLtrMsmarcoPassage(unittest.TestCase):
         result = subprocess.check_output(f'python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt ltr_test/{outp}', shell=True).decode(sys.stdout.encoding)
         a,b = result.find('#####################\nMRR @10:'), result.find('\nQueriesRanked: 6980\n#####################\n')
         mrr = result[a+31:b]
-        self.assertAlmostEqual(float(mrr),0.24709612498294367, delta=0.000001)
+        # See https://github.com/castorini/pyserini/issues/951
+        self.assertAlmostEqual(float(mrr), 0.2472, delta=0.0001)
         rmtree('ltr_test')
 
 if __name__ == '__main__':
