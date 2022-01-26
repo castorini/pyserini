@@ -49,7 +49,7 @@ class TestLtrMsmarcoPassageIbm(unittest.TestCase):
         os.system(f'python -m pyserini.search.lucene.tprob -qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt -base ibm_test/{inp} -tran_path ibm_test/ibm_model_1_bert_tok_20211117/ -query_path ibm_test/queries.dev.small.json -index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ -output ibm_test/regression_test_ibm.txt -score_path ibm_test/regression_test_ibm.json -alpha 0.1 ')
         with open(f'ibm_test/regression_test_ibm.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.2295", data['map'])
+            self.assertEqual("0.2294", data['map'])
             self.assertEqual("0.2998", data['ndcg'])
     
     def test_colbert_reranking(self):
@@ -58,7 +58,7 @@ class TestLtrMsmarcoPassageIbm(unittest.TestCase):
         
         with open(f'ibm_test/regression_test_colbert.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.2236", data['map'])
+            self.assertEqual("0.2234", data['map'])
             self.assertEqual("0.2908", data['ndcg'])
     
     def tearDown(self):
