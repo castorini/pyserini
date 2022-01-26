@@ -422,6 +422,7 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 ## Release History
 
++ v0.15.0: January 21, 2022 [[Release Notes](docs/release-notes/release-notes-v0.15.0.md)]
 + v0.14.0: November 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.14.0.md)]
 + v0.13.0: July 3, 2021 [[Release Notes](docs/release-notes/release-notes-v0.13.0.md)]
 + v0.12.0: May 5, 2021 [[Release Notes](docs/release-notes/release-notes-v0.12.0.md)]
