@@ -18,8 +18,6 @@ import json
 import math
 import struct
 import subprocess
-import sys
-sys.path.append('.')
 from multiprocessing.pool import ThreadPool
 from pyserini.pyclass import autoclass, JString
 from typing import List, Set, Dict
@@ -100,15 +98,8 @@ def sort_dual_list(pred: List[float], docs: List[str]):
 
 
 def get_ibm_score(arguments):
-    query_text_lst = arguments['query_text_lst']
-    test_doc = arguments['test_doc']
-    searcher = arguments['searcher']
-    field_name = arguments['field_name']
-    source_lookup = arguments['source_lookup']
-    target_lookup = arguments['target_lookup']
-    tran = arguments['tran']
-    collect_probs = arguments['collect_probs']
-    max_sim = arguments['max_sim']
+    (query_text_lst, test_doc, searcher, field_name, source_lookup,
+        target_lookup, tran, collect_probs, max_sim) = arguments
 
     if searcher.documentRaw(test_doc) is None:
         print(f'{test_doc} is not found in searcher')
@@ -235,8 +226,7 @@ def load_tranprobs_table(dir_path: str):
         tran_lookup, target_voc, source_voc)
 
 
-def rank(
-        base: str, tran_path: str, query_path: str,
+def rank(base: str, tran_path: str, query_path: str,
         lucene_index_path: str, output_path: str, score_path: str,
         field_name: str, tag: str, alpha: int, num_threads: int, max_sim: bool):
 
@@ -266,11 +256,10 @@ def rank(
             collect_probs[querytoken] = max(reader.totalTermFreq(
                 JTerm(field_name, querytoken)) / total_term_freq,
                 MIN_COLLECT_PROB)
-        arguments = [{
-            "query_text_lst": query_text_lst, "test_doc": test_doc,
-            "searcher": searcher, "field_name": field_name,
-            "source_lookup": source_lookup, "target_lookup": target_lookup,
-            "tran": tran, "collect_probs": collect_probs, "max_sim": max_sim}
+        arguments = [(
+            query_text_lst, test_doc, searcher, field_name,
+            source_lookup, target_lookup,
+            tran, collect_probs, max_sim)
             for test_doc in test_docs]
         rank_scores = pool.map(get_ibm_score, arguments)
 

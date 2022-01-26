@@ -14,11 +14,9 @@
 # limitations under the License.
 #
 import argparse
-import subprocess
-import sys
 import json
 import os
-sys.path.insert(0, './')
+import subprocess
 from pyserini.search.lucene.tprob import TranslationProbabilitySearcher
 from typing import List
 
@@ -84,8 +82,6 @@ if __name__ == "__main__":
                         metavar="tag_name", help='tag name for resulting Qrun')
     parser.add_argument('-qrels', type=str, default="./tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt",
                         metavar="path_to_qrels", help='path to new_qrels file')
-    parser.add_argument('-base', type=str, default="./ibm/run.msmarco-passage.bm25tuned.trec",
-                        metavar="path_to_base_run", help='path to base run')
     parser.add_argument('-tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
     parser.add_argument('-query_path', type=str, default="./ibm/queries.dev.small.json",
@@ -104,11 +100,10 @@ if __name__ == "__main__":
                         metavar="num_of_threads", help='number of threads to use')
     parser.add_argument('-max_sim', default=False, action="store_true",
                         help='whether we use max sim operator or avg instead')
-    parser.add_argument('--hits', type=int, metavar='num',
+    parser.add_argument('-hits', type=int, metavar='number of hits generated in runfile',
                         required=False, default=1000, help="Number of hits.")
     args = parser.parse_args()
 
-    print('Using base run:', args.base)
     print('Using max sim operator or not:', args.max_sim)
 
     f = open(args.output, 'w')

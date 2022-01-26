@@ -19,14 +19,14 @@ This module provides Pyserini's Python translation probability search
 interface on MS MARCO dataset. The main entry point is the
 ``TranslationProbabilitySearcher`` class.
 """
+import json
+import math
+import struct
+from multiprocessing.pool import ThreadPool
+from pyserini.search import SimpleSearcher
 from pyserini.pyclass import autoclass
 from pyserini.util import download_prebuilt_index
 from typing import Dict
-import math
-import struct
-import json
-from multiprocessing.pool import ThreadPool
-from pyserini.search import SimpleSearcher
 
 # Wrappers around Anserini classes
 JQuery = autoclass('org.apache.lucene.search.Query')
@@ -34,98 +34,19 @@ JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
 JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 JTerm = autoclass('org.apache.lucene.index.Term')
 
-SELF_TRAN = 0.35
-MIN_PROB = 0.0025
-LAMBDA_VALUE = 0.3
-MIN_COLLECT_PROB = 1e-9
 
+class TranslationProbabilitySearcher(object):
+    SELF_TRAN = 0.35
+    MIN_PROB = 0.0025
+    LAMBDA_VALUE = 0.3
+    MIN_COLLECT_PROB = 1e-9
 
-def intbits_to_float(b: bytes):
-    s = struct.pack('>l', b)
-    return struct.unpack('>f', s)[0]
-
-
-def rescale(
-        source_lookup: Dict[str, int], target_lookup: Dict[str, int],
-        tran_lookup: Dict[str, Dict[str, float]],
-        target_voc: Dict[int, str], source_voc: Dict[int, str]
-        ):
-
-    for target_id in tran_lookup:
-        if target_id > 0:
-            adjust_mult = (1 - SELF_TRAN)
-        else:
-            adjust_mult = 1
-        # adjust the prob with adjust_mult
-        # add SELF_TRAN prob to self-translation pair
-        for source_id in tran_lookup[target_id].keys():
-            tran_prob = tran_lookup[target_id][source_id]
-            if source_id > 0:
-                source_word = source_voc[source_id]
-                target_word = target_voc[target_id]
-                tran_prob *= adjust_mult
-                if (source_word == target_word):
-                    tran_prob += SELF_TRAN
-                tran_lookup[target_id][source_id] = tran_prob
-        # in case if self-translation pair was not included in TransTable
-        if target_id not in tran_lookup[target_id].keys():
-            target_word = target_voc[target_id]
-            source_id = source_lookup[target_word]
-            tran_lookup[target_id][source_id] = SELF_TRAN
-    return source_lookup, target_lookup, tran_lookup
-
-
-def load_tranprobs_table(dir_path: str):
-    source_path = dir_path + "/source.vcb"
-    source_lookup = {}
-    source_voc = {}
-    with open(source_path) as f:
-        lines = f.readlines()
-    for line in lines:
-        id, voc, freq = line.split(" ")
-        source_voc[int(id)] = voc
-        source_lookup[voc] = int(id)
-
-    target_path = dir_path + "/target.vcb"
-    target_lookup = {}
-    target_voc = {}
-    with open(target_path) as f:
-        lines = f.readlines()
-    for line in lines:
-        id, voc, freq = line.split(" ")
-        target_voc[int(id)] = voc
-        target_lookup[voc] = int(id)  
-    tran_path = dir_path + "/output.t1.5.bin"
-    tran_lookup = {}
-    with open(tran_path, "rb") as file:
-        byte = file.read(4)
-        while byte:
-            source_id = int.from_bytes(byte, "big")
-            assert(source_id == 0 or source_id in source_voc.keys())
-            byte = file.read(4)
-            target_id = int.from_bytes(byte, "big")
-            assert(target_id in target_voc.keys())
-            byte = file.read(4)
-            tran_prob = intbits_to_float(int.from_bytes(byte, "big"))
-            if (target_id in tran_lookup.keys()) and (tran_prob > MIN_PROB):
-                tran_lookup[target_id][source_id] = tran_prob
-            elif tran_prob > MIN_PROB:
-                tran_lookup[target_id] = {}
-                tran_lookup[target_id][source_id] = tran_prob
-            byte = file.read(4)
-    return rescale(
-            source_lookup, target_lookup,
-            tran_lookup, target_voc, source_voc)
-
-
-class TranslationProbabilitySearcher:
-    def __init__(
-            self, ibm_model: str, index: str, field_name: str):
+    def __init__(self, ibm_model: str, index: str, field_name: str):
         self.ibm_model = ibm_model
         self.object = JSimpleSearcher(index)
         self.index_reader = JIndexReader().getReader(index)
         self.field_name = field_name
-        self.source_lookup, self.target_lookup, self.tran = load_tranprobs_table(ibm_model)
+        self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
         self.pool = ThreadPool(24)
         self.bm25search = SimpleSearcher.from_prebuilt_index("msmarco-passage")
 
@@ -155,16 +76,85 @@ class TranslationProbabilitySearcher:
         return cls(index_dir)
 
     @staticmethod
-    def get_ibm_score(arguments):
-        query_text_lst = arguments['query_text_lst']
-        test_doc = arguments['test_doc']
-        searcher = arguments['searcher']
-        field_name = arguments['field_name']
-        source_lookup = arguments['source_lookup']
-        target_lookup = arguments['target_lookup']
-        tran = arguments['tran']
-        collect_probs = arguments['collect_probs']
-        max_sim = arguments['max_sim']
+    def intbits_to_float(b: bytes):
+        s = struct.pack('>l', b)
+        return struct.unpack('>f', s)[0]
+
+    def rescale(
+            self, source_lookup: Dict[str, int], target_lookup: Dict[str, int],
+            tran_lookup: Dict[str, Dict[str, float]],
+            target_voc: Dict[int, str], source_voc: Dict[int, str]
+            ):
+
+        for target_id in tran_lookup:
+            if target_id > 0:
+                adjust_mult = (1 - self.SELF_TRAN)
+            else:
+                adjust_mult = 1
+            # adjust the prob with adjust_mult
+            # add SELF_TRAN prob to self-translation pair
+            for source_id in tran_lookup[target_id].keys():
+                tran_prob = tran_lookup[target_id][source_id]
+                if source_id > 0:
+                    source_word = source_voc[source_id]
+                    target_word = target_voc[target_id]
+                    tran_prob *= adjust_mult
+                    if (source_word == target_word):
+                        tran_prob += self.SELF_TRAN
+                    tran_lookup[target_id][source_id] = tran_prob
+            # in case if self-translation pair was not included in TransTable
+            if target_id not in tran_lookup[target_id].keys():
+                target_word = target_voc[target_id]
+                source_id = source_lookup[target_word]
+                tran_lookup[target_id][source_id] = self.SELF_TRAN
+        return source_lookup, target_lookup, tran_lookup
+
+    def load_tranprobs_table(self):
+        dir_path = self.ibm_model
+        source_path = dir_path + "/source.vcb"
+        source_lookup = {}
+        source_voc = {}
+        with open(source_path) as f:
+            lines = f.readlines()
+        for line in lines:
+            id, voc, freq = line.split(" ")
+            source_voc[int(id)] = voc
+            source_lookup[voc] = int(id)
+
+        target_path = dir_path + "/target.vcb"
+        target_lookup = {}
+        target_voc = {}
+        with open(target_path) as f:
+            lines = f.readlines()
+        for line in lines:
+            id, voc, freq = line.split(" ")
+            target_voc[int(id)] = voc
+            target_lookup[voc] = int(id)
+        tran_path = dir_path + "/output.t1.5.bin"
+        tran_lookup = {}
+        with open(tran_path, "rb") as file:
+            byte = file.read(4)
+            while byte:
+                source_id = int.from_bytes(byte, "big")
+                assert(source_id == 0 or source_id in source_voc.keys())
+                byte = file.read(4)
+                target_id = int.from_bytes(byte, "big")
+                assert(target_id in target_voc.keys())
+                byte = file.read(4)
+                tran_prob = self.intbits_to_float(int.from_bytes(byte, "big"))
+                if (target_id in tran_lookup.keys()) and (tran_prob > self.MIN_PROB):
+                    tran_lookup[target_id][source_id] = tran_prob
+                elif tran_prob > self.MIN_PROB:
+                    tran_lookup[target_id] = {}
+                    tran_lookup[target_id][source_id] = tran_prob
+                byte = file.read(4)
+        return self.rescale(
+                source_lookup, target_lookup,
+                tran_lookup, target_voc, source_voc)
+
+    def get_ibm_score(self, arguments):
+        (query_text_lst, test_doc, searcher, field_name, source_lookup,
+            target_lookup, tran, collect_probs, max_sim) = arguments
 
         if searcher.documentRaw(test_doc) is None:
             print(f'{test_doc} is not found in searcher')
@@ -193,10 +183,10 @@ class TranslationProbabilitySearcher:
                                 total_tran_prob += (tran_prob/doc_size)
             if max_sim:
                 query_word_prob = math.log(
-                    (1 - LAMBDA_VALUE) * max_sim_score + LAMBDA_VALUE * collect_prob)
+                    (1 - self.LAMBDA_VALUE) * max_sim_score + self.LAMBDA_VALUE * collect_prob)
             else:
                 query_word_prob = math.log(
-                    (1 - LAMBDA_VALUE) * total_tran_prob + LAMBDA_VALUE * collect_prob)
+                    (1 - self.LAMBDA_VALUE) * total_tran_prob + self.LAMBDA_VALUE * collect_prob)
 
             total_query_prob += query_word_prob
         return total_query_prob / query_size
@@ -216,16 +206,13 @@ class TranslationProbabilitySearcher:
         for querytoken in query_text_lst:
             collect_probs[querytoken] = max(self.index_reader.totalTermFreq(
                 JTerm(self.field_name, querytoken)) / total_term_freq,
-                MIN_COLLECT_PROB)
+                self.MIN_COLLECT_PROB)
 
-        arguments = [{
-            "query_text_lst": query_text_lst, "test_doc": test_doc,
-            "searcher": self.object, "field_name": self.field_name,
-            "source_lookup": self.source_lookup,
-            "target_lookup": self.target_lookup,
-            "tran": self.tran, "collect_probs": collect_probs,
-            "max_sim": max_sim}
+        arguments = [(
+            query_text_lst, test_doc, self.object, self.field_name,
+            self.source_lookup, self.target_lookup,
+            self.tran, collect_probs, max_sim)
             for test_doc in test_docs]
 
-        rank_scores = self.pool.map(TranslationProbabilitySearcher.get_ibm_score, arguments)
+        rank_scores = self.pool.map(self.get_ibm_score, arguments)
         return test_docs, rank_scores, origin_scores
