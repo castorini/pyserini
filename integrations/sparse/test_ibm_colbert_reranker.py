@@ -46,8 +46,7 @@ class TestLtrMsmarcoPassageIbm(unittest.TestCase):
 
     def test_ibm_reranking(self):
         inp = 'run.msmarco-passage.bm25tuned.trec'
-        os.system(f'python scripts/reranker_ibm_colbert.py -qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt -base ibm_test/{inp} -tran_path ibm_test/ibm_model_1_bert_tok_20211117/ -query_path ibm_test/queries.dev.small.json -index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ -output ibm_test/regression_test_ibm.txt -score_path ibm_test/regression_test_ibm.json -alpha 0.1 ')
-         
+        os.system(f'python -m pyserini.search.lucene.tprob -qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt -base ibm_test/{inp} -tran_path ibm_test/ibm_model_1_bert_tok_20211117/ -query_path ibm_test/queries.dev.small.json -index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ -output ibm_test/regression_test_ibm.txt -score_path ibm_test/regression_test_ibm.json -alpha 0.1 ')
         with open(f'ibm_test/regression_test_ibm.json') as json_file:
             data = json.load(json_file)
             self.assertEqual("0.2295", data['map'])
@@ -55,7 +54,7 @@ class TestLtrMsmarcoPassageIbm(unittest.TestCase):
     
     def test_colbert_reranking(self):
         inp = 'run.msmarco-passage.bm25tuned.trec'
-        os.system(f'python scripts/reranker_ibm_colbert.py -qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt -base ibm_test/{inp} -tran_path ibm_test/ibm_model_1_bert_tok_20211117/ -query_path ibm_test/queries.dev.small.json -index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ -output ibm_test/regression_test_colbert.txt -score_path ibm_test/regression_test_colbert.json -alpha 0.3 -max_sim')
+        os.system(f'python -m pyserini.search.lucene.tprob -qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt -base ibm_test/{inp} -tran_path ibm_test/ibm_model_1_bert_tok_20211117/ -query_path ibm_test/queries.dev.small.json -index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ -output ibm_test/regression_test_colbert.txt -score_path ibm_test/regression_test_colbert.json -alpha 0.3 -max_sim')
         
         with open(f'ibm_test/regression_test_colbert.json') as json_file:
             data = json.load(json_file)
