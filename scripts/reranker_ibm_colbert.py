@@ -282,27 +282,27 @@ def rank(base: str, tran_path: str, query_path: str,
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='use ibm model 1 feature to rerank the base run file')
-    parser.add_argument('-tag', type=str, default="ibm",
+    parser.add_argument('--tag', type=str, default="ibm",
                         metavar="tag_name", help='tag name for resulting Qrun')
-    parser.add_argument('-base', type=str, default="../ibm/run.msmarco-passage.bm25tuned.trec",
+    parser.add_argument('--base', type=str, default="../ibm/run.msmarco-passage.bm25tuned.trec",
                         metavar="path_to_base_run", help='path to base run')
-    parser.add_argument('-tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
+    parser.add_argument('--tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
-    parser.add_argument('-query_path', type=str, default="../ibm/queries.dev.small.json",
+    parser.add_argument('--query_path', type=str, default="../ibm/queries.dev.small.json",
                         metavar="path_to_query", help='path to dev queries file')
-    parser.add_argument('-index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
+    parser.add_argument('--index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
-    parser.add_argument('-output', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.txt",
+    parser.add_argument('--output', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('-score_path', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.json",
+    parser.add_argument('--score_path', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.json",
                         metavar="path_to_base_run", help='the path to map and ndcg scores')
-    parser.add_argument('-field_name', type=str, default="text_bert_tok",
+    parser.add_argument('--field_name', type=str, default="text_bert_tok",
                         metavar="type of field", help='type of field used for training')
-    parser.add_argument('-alpha', type=float, default="0.3",
+    parser.add_argument('--alpha', type=float, default="0.3",
                         metavar="type of field", help='interpolation weight')
-    parser.add_argument('-num_threads', type=int, default="12",
+    parser.add_argument('--num_threads', type=int, default="12",
                         metavar="num_of_threads", help='number of threads to use')
-    parser.add_argument('-max_sim', default=False, action="store_true",
+    parser.add_argument('--max_sim', default=False, action="store_true",
                         help='whether we use max sim operator or avg instead')
     args = parser.parse_args()
 
