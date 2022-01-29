@@ -30,8 +30,8 @@ import time
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from pyserini.ltr.search_msmarco._search_msmarco import MsmarcoLtrSearcher
-from pyserini.ltr import *
+from pyserini.search.lucene.ltr._search_msmarco import MsmarcoLtrSearcher
+from pyserini.search.lucene.ltr import *
 
 """
 Running prediction on candidates
@@ -216,7 +216,6 @@ def output(file, dev_data, format):
     print(score_tie)
 
 if __name__ == "__main__":
-    os.environ["ANSERINI_CLASSPATH"] = "./pyserini/resources/jars"
     parser = argparse.ArgumentParser(description='Learning to rank reranking')
     parser.add_argument('--input', required=True)
     parser.add_argument('--reranking-top', type=int, default=1000)
@@ -232,9 +231,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
     searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data)
     searcher.add_fe()
-    print("load dev")
+    print("---------------------loading dev----------------------------------------")
     dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.data, args.reranking_top)
-    print("load queries")
+    print("---------------------loading queries----------------------------------------")
     queries = query_loader()
 
     batch_info = searcher.search(dev, queries)
@@ -244,5 +243,3 @@ if __name__ == "__main__":
     eval_recall(dev_qrel, batch_info)
     output(args.output, batch_info,args.output_format)
     print('Done!')
-
-
