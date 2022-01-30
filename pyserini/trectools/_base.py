@@ -156,6 +156,7 @@ class TrecRun:
                     self.run_data.loc[self.run_data['topic'] == topic, 'score'] = 1
                 else:
                     scores = (scores - low) / (high - low)
+                    scores = [float(score) for score in scores]
                     self.run_data.loc[self.run_data['topic'] == topic, 'score'] = scores
         else:
             raise NotImplementedError()
@@ -297,8 +298,7 @@ class TrecRun:
 
         res = TrecRun() if run is None else run
         res.reset_data()
-        res.run_data = res.run_data.append([df for df in dfs], ignore_index=True)
-
+        res.run_data = pd.concat([df for df in dfs])
         return res
 
     @staticmethod
@@ -346,5 +346,5 @@ class TrecRun:
         """
 
         run = TrecRun()
-        run.run_data = run.run_data.append([run.run_data for run in runs], ignore_index=True)
+        run.run_data = pd.concat([run.run_data for run in runs])
         return run
