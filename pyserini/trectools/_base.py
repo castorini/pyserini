@@ -299,7 +299,7 @@ class TrecRun:
         res = TrecRun() if run is None else run
         res.reset_data()
         res.run_data = pd.concat([df for df in dfs])
-        
+
         return res
 
     @staticmethod
