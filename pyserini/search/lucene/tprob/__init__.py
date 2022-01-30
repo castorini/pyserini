@@ -14,5 +14,5 @@
 # limitations under the License.
 #
 
-from ._search_msmarco import MsmarcoLtrSearcher
-__all__ = ['MsmarcoLtrSearcher']
+from ._search_tprob import TranslationProbabilitySearcher
+__all__ = ['TranslationProbabilitySearcher']

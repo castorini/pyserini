@@ -452,7 +452,7 @@ $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-
 
 $ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.nq-test.single.bf.json --topk 20 100
 Top20	accuracy: 0.8006
-Top100	accuracy: 0.8610
+Top100	accuracy: 0.8609
 ```
 
 **Hybrid dense-sparse retrieval**:
@@ -488,3 +488,5 @@ Top100	accuracy: 0.8837
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-21 (commit [`2adbf1`](https://github.com/castorini/pyserini/commit/2adbf1bedcfbfbeb3a5fbad71fad95feaab2b641))
 + Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-06-09 (commit [`5e8b917`](https://github.com/castorini/pyserini/commit/5e8b917dc806486da94a9bf1eb15b24e79c13479))
 + Results reproduced by [@mayankanand007](https://github.com/mayankanand007) on 2021-07-28 (commit [`b2b3538`](https://github.com/castorini/pyserini/commit/b2b3538d8d3ec5a8b2638457c16f02a8ced068b7))
++ Results reproduced by [@vivianliu0](https://github.com/vivianliu0) on 2022-01-20 (commit [`67d0a66`](https://github.com/castorini/pyserini/commit/c38c557faaa3b9ededf1e8504dd67a5be67d0a66))
++ Results reproduced by [@manveertamber](https://github.com/manveertamber) on 2022-01-22 (commit [`ef70c63`](https://github.com/castorini/pyserini/commit/ef70c63efd773e87afd9708338827342f4960540))

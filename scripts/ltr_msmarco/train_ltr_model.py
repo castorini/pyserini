@@ -35,14 +35,14 @@ import pandas as pd
 import lightgbm as lgb
 from collections import defaultdict
 from tqdm import tqdm
-from pyserini.ltr import *
+from pyserini.search.lucene.ltr import *
 import argparse
 
 """
 train a LTR model with lambdaRank library and save to pickle for future inference
 run from python root dir
 """
-def train_data_loader(task='triple', neg_sample=10, random_seed=12345):
+def train_data_loader(task='triple', neg_sample=20, random_seed=12345):
     print(f'train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
     if os.path.exists(f'./collections/msmarco-ltr-passage/train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle'):
         sampled_train = pd.read_pickle(f'./collections/msmarco-ltr-passage/train_{task}_sampled_with_{neg_sample}_{random_seed}.pickle')
@@ -492,7 +492,6 @@ if __name__ == '__main__':
                           max(multiprocessing.cpu_count() // 2, 1))
     #fe.add(RunList('./collections/msmarco-ltr-passage/run.monot5.run_list.whole.trec','t5'))
     #fe.add(RunList('./collections/msmarco-ltr-passage/run.monobert.run_list.whole.trec','bert'))
-    
     for qfield, ifield in [('analyzed', 'contents'),
                            ('text_unlemm', 'text_unlemm'),
                            ('text_bert_tok', 'text_bert_tok')]:
@@ -595,7 +594,7 @@ if __name__ == '__main__':
         fe.add(OrderedQueryPairs(3, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(8, field=ifield, qfield=qfield))
         fe.add(OrderedQueryPairs(15, field=ifield, qfield=qfield))
-        
+    
     start = time.time()
     fe.add(IbmModel1("collections/msmarco-ltr-passage/ibm_model/title_unlemm","text_unlemm","title_unlemm","text_unlemm"))
     end = time.time()

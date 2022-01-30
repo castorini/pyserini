@@ -18,8 +18,6 @@ import json
 import math
 import struct
 import subprocess
-import sys
-sys.path.append('.')
 from multiprocessing.pool import ThreadPool
 from pyserini.pyclass import autoclass, JString
 from typing import List, Set, Dict
@@ -100,15 +98,8 @@ def sort_dual_list(pred: List[float], docs: List[str]):
 
 
 def get_ibm_score(arguments):
-    query_text_lst = arguments['query_text_lst']
-    test_doc = arguments['test_doc']
-    searcher = arguments['searcher']
-    field_name = arguments['field_name']
-    source_lookup = arguments['source_lookup']
-    target_lookup = arguments['target_lookup']
-    tran = arguments['tran']
-    collect_probs = arguments['collect_probs']
-    max_sim = arguments['max_sim']
+    (query_text_lst, test_doc, searcher, field_name, source_lookup,
+        target_lookup, tran, collect_probs, max_sim) = arguments
 
     if searcher.documentRaw(test_doc) is None:
         print(f'{test_doc} is not found in searcher')
@@ -235,8 +226,7 @@ def load_tranprobs_table(dir_path: str):
         tran_lookup, target_voc, source_voc)
 
 
-def rank(
-        base: str, tran_path: str, query_path: str,
+def rank(base: str, tran_path: str, query_path: str,
         lucene_index_path: str, output_path: str, score_path: str,
         field_name: str, tag: str, alpha: int, num_threads: int, max_sim: bool):
 
@@ -266,11 +256,10 @@ def rank(
             collect_probs[querytoken] = max(reader.totalTermFreq(
                 JTerm(field_name, querytoken)) / total_term_freq,
                 MIN_COLLECT_PROB)
-        arguments = [{
-            "query_text_lst": query_text_lst, "test_doc": test_doc,
-            "searcher": searcher, "field_name": field_name,
-            "source_lookup": source_lookup, "target_lookup": target_lookup,
-            "tran": tran, "collect_probs": collect_probs, "max_sim": max_sim}
+        arguments = [(
+            query_text_lst, test_doc, searcher, field_name,
+            source_lookup, target_lookup,
+            tran, collect_probs, max_sim)
             for test_doc in test_docs]
         rank_scores = pool.map(get_ibm_score, arguments)
 
@@ -293,27 +282,27 @@ def rank(
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='use ibm model 1 feature to rerank the base run file')
-    parser.add_argument('-tag', type=str, default="ibm",
+    parser.add_argument('--tag', type=str, default="ibm",
                         metavar="tag_name", help='tag name for resulting Qrun')
-    parser.add_argument('-base', type=str, default="../ibm/run.msmarco-passage.bm25tuned.trec",
+    parser.add_argument('--base', type=str, default="../ibm/run.msmarco-passage.bm25tuned.trec",
                         metavar="path_to_base_run", help='path to base run')
-    parser.add_argument('-tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
+    parser.add_argument('--tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
-    parser.add_argument('-query_path', type=str, default="../ibm/queries.dev.small.json",
+    parser.add_argument('--query_path', type=str, default="../ibm/queries.dev.small.json",
                         metavar="path_to_query", help='path to dev queries file')
-    parser.add_argument('-index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
+    parser.add_argument('--index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
-    parser.add_argument('-output', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.txt",
+    parser.add_argument('--output', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('-score_path', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.json",
+    parser.add_argument('--score_path', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.json",
                         metavar="path_to_base_run", help='the path to map and ndcg scores')
-    parser.add_argument('-field_name', type=str, default="text_bert_tok",
+    parser.add_argument('--field_name', type=str, default="text_bert_tok",
                         metavar="type of field", help='type of field used for training')
-    parser.add_argument('-alpha', type=float, default="0.3",
+    parser.add_argument('--alpha', type=float, default="0.3",
                         metavar="type of field", help='interpolation weight')
-    parser.add_argument('-num_threads', type=int, default="12",
+    parser.add_argument('--num_threads', type=int, default="12",
                         metavar="num_of_threads", help='number of threads to use')
-    parser.add_argument('-max_sim', default=False, action="store_true",
+    parser.add_argument('--max_sim', default=False, action="store_true",
                         help='whether we use max sim operator or avg instead')
     args = parser.parse_args()
 

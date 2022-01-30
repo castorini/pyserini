@@ -46,7 +46,7 @@ class MsMarcoDemo(cmd.Cmd):
         print(f'/help    : returns this message')
         print(f'/k [NUM] : sets k (number of hits to return) to [NUM]')
         print(f'/model [MODEL] : sets encoder to use the model [MODEL] (one of tct, ance)')
-        print(f'/mode [MODE] : sets retriver type to [MODE] (one of sparse, dense, hybrid)')
+        print(f'/mode [MODE] : sets retriever type to [MODE] (one of sparse, dense, hybrid)')
         print(f'/random : returns results for a random question from dev subset')
 
     def do_k(self, arg):

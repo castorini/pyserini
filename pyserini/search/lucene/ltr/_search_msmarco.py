@@ -27,7 +27,7 @@ from tqdm import tqdm
 import pickle
 from pyserini.index import IndexReader
 
-from pyserini.ltr._base import *
+from pyserini.search.lucene.ltr._base import *
 
 
 logger = logging.getLogger(__name__)
