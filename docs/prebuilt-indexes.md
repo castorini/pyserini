@@ -100,6 +100,42 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index of the MS MARCO document corpus with per-passage docTTTTTquery expansions
 [<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt">readme</a>]
 </dd>
+<dt></dt><b><code>msmarco-v1-doc</code></b>
+<dd>Lucene index of the MS MARCO (V1) document corpus.
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20220131.9ea315.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v1-doc-slim</code></b>
+<dd>Lucene index of the MS MARCO (V1) document corpus ('slim' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-slim.20220131.9ea315.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v1-doc-full</code></b>
+<dd>Lucene index of the MS MARCO (V1) document corpus ('full' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-full.20220131.9ea315.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v1-doc-segmented</code></b>
+<dd>Lucene index of the MS MARCO (V1) segmented document corpus.
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v1-doc-segmented-slim</code></b>
+<dd>Lucene index of the MS MARCO (V1) segmented document corpus ('slim' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v1-doc-segmented-full</code></b>
+<dd>Lucene index of the MS MARCO (V1) segmented document corpus ('full' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v1-passage</code></b>
+<dd>Lucene index of the MS MARCO (V1) passage corpus.
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage.20220131.9ea315.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v1-passage-slim</code></b>
+<dd>Lucene index of the MS MARCO (V1) passage corpus ('slim' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-v1-passage-full</code></b>
+<dd>Lucene index of the MS MARCO (V1) passage corpus ('full' version).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-full.20220131.9ea315.README.md">readme</a>]
+</dd>
 <dt></dt><b><code>msmarco-v2-doc</code></b>
 <dd>Lucene index of the MS MARCO (V2) document corpus.
 [<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc.20220111.06fb4f.README.md">readme</a>]
