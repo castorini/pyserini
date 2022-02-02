@@ -57,24 +57,12 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/index-robust04-20191213-readme.txt">readme</a>]
 <dd>Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track
 </dd>
-<dt></dt><b><code>msmarco-passage-expanded</code></b>
-[<a href="../pyserini/resources/index-metadata/index-msmarco-passage-expanded-20201121-e127fb-readme.txt">readme</a>]
-<dd>Lucene index of the MS MARCO passage corpus with docTTTTTquery expansions
-</dd>
 <dt></dt><b><code>msmarco-passage-ltr</code></b>
 [<a href="../pyserini/resources/index-metadata/index-msmarco-passage-ltr-20210519-e25e33f-readme.txt">readme</a>]
 <dd>Lucene index of the MS MARCO passage corpus with four extra preprocessed fields for LTR
 </dd>
 <dt></dt><b><code>msmarco-doc-per-passage-ltr</code></b>
 <dd>Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR
-</dd>
-<dt></dt><b><code>msmarco-doc-expanded-per-doc</code></b>
-[<a href="../pyserini/resources/index-metadata/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a-readme.txt">readme</a>]
-<dd>Lucene index of the MS MARCO document corpus with per-doc docTTTTTquery expansions
-</dd>
-<dt></dt><b><code>msmarco-doc-expanded-per-passage</code></b>
-[<a href="../pyserini/resources/index-metadata/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt">readme</a>]
-<dd>Lucene index of the MS MARCO document corpus with per-passage docTTTTTquery expansions
 </dd>
 <dt></dt><b><code>msmarco-v1-doc</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20220131.9ea315.README.md">readme</a>]
@@ -88,6 +76,10 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-full.20220131.9ea315.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO (V1) document corpus ('full' version).
 </dd>
+<dt></dt><b><code>msmarco-v1-doc-d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO (V1) document corpus, with doc2query-T5 expansions.
+</dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO (V1) segmented document corpus.
@@ -99,6 +91,10 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>msmarco-v1-doc-segmented-full</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO (V1) segmented document corpus ('full' version).
+</dd>
+<dt></dt><b><code>msmarco-v1-doc-segmented-d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO (V1) segmented document corpus, with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage.20220131.9ea315.README.md">readme</a>]
@@ -112,6 +108,10 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-full.20220131.9ea315.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO (V1) passage corpus ('full' version).
 </dd>
+<dt></dt><b><code>msmarco-v1-passage-d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO (V1) passage corpus, with doc2query-T5 expansions.
+</dd>
 <dt></dt><b><code>msmarco-v2-doc</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc.20220111.06fb4f.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO (V2) document corpus.
@@ -123,6 +123,10 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>msmarco-v2-doc-full</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO (V2) document corpus ('full' version).
+</dd>
+<dt></dt><b><code>msmarco-v2-doc-d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO (V2) document corpus, with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.README.md">readme</a>]
@@ -136,6 +140,10 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO (V2) segmented document corpus ('full' version).
 </dd>
+<dt></dt><b><code>msmarco-v2-doc-segmented-d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO (V2) segmented document corpus, with doc2query-T5 expansions.
+</dd>
 <dt></dt><b><code>msmarco-v2-passage</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.20220111.06fb4f.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO (V2) passage corpus.
@@ -148,6 +156,10 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-full.20220111.06fb4f.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO (V2) passage corpus ('full' version).
 </dd>
+<dt></dt><b><code>msmarco-v2-passage-d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO (V2) passage corpus, with doc2query-T5 expansions.
+</dd>
 <dt></dt><b><code>msmarco-v2-passage-augmented</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO (V2) augmented passage corpus.
@@ -159,6 +171,10 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>msmarco-v2-passage-augmented-full</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO (V2) augmented passage corpus ('full' version).
+</dd>
+<dt></dt><b><code>msmarco-v2-passage-augmented-d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO (V2) augmented passage corpus, with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>enwiki-paragraphs</code></b>
 <dd>Lucene index of English Wikipedia for BERTserini
@@ -293,6 +309,18 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>msmarco-doc-per-passage-slim</code></b>
 [<a href="../pyserini/resources/index-metadata/index-msmarco-doc-per-passage-slim-20201204-f50dcc-readme.txt">readme</a>]
 <dd>Lucene index of the MS MARCO document corpus segmented into passages (slim version, document text not stored) (deprecated; use msmarco-v1-doc-segmented-slim instead).
+</dd>
+<dt></dt><b><code>msmarco-passage-expanded</code></b>
+[<a href="../pyserini/resources/index-metadata/index-msmarco-passage-expanded-20201121-e127fb-readme.txt">readme</a>]
+<dd>Lucene index of the MS MARCO passage corpus with docTTTTTquery expansions (deprecated; use msmarco-v1-passage-d2q-t5 instead)
+</dd>
+<dt></dt><b><code>msmarco-doc-expanded-per-doc</code></b>
+[<a href="../pyserini/resources/index-metadata/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a-readme.txt">readme</a>]
+<dd>Lucene index of the MS MARCO document corpus with per-doc docTTTTTquery expansions (deprecated; use msmarco-v1-doc-d2q-t5 instead)
+</dd>
+<dt></dt><b><code>msmarco-doc-expanded-per-passage</code></b>
+[<a href="../pyserini/resources/index-metadata/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt">readme</a>]
+<dd>Lucene index of the MS MARCO document corpus with per-passage docTTTTTquery expansions (deprecated; use msmarco-v1-doc-segmented-d2q-t5 instead)
 </dd>
 </dl>
 
