@@ -900,7 +900,7 @@ TF_INDEX_INFO = {
 
     # These indexes are deprecated, but keeping around for archival reasons
     "msmarco-passage": {
-        "description": "Lucene index of the MS MARCO passage corpus (deprecated; use `msmarco-v1-passage` instead).",
+        "description": "Lucene index of the MS MARCO passage corpus (deprecated; use msmarco-v1-passage instead).",
         "filename": "index-msmarco-passage-20201117-f87c94.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-20201117-f87c94-readme.txt",
         "urls": [
@@ -915,7 +915,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-passage-slim": {
-        "description": "Lucene index of the MS MARCO passage corpus (slim version, document text not stored) (deprecated; use `msmarco-v1-passage-slim` instead).",
+        "description": "Lucene index of the MS MARCO passage corpus (slim version, document text not stored) (deprecated; use msmarco-v1-passage-slim instead).",
         "filename": "index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-slim-20201202-ab6e28-readme.txt",
         "urls": [
@@ -930,7 +930,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-doc": {
-        "description": "Lucene index of the MS MARCO document corpus (deprecated; use `msmarco-v1-doc` instead).",
+        "description": "Lucene index of the MS MARCO document corpus (deprecated; use msmarco-v1-doc instead).",
         "filename": "index-msmarco-doc-20201117-f87c94.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-20201117-f87c94-readme.txt",
         "urls": [
@@ -945,7 +945,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-doc-slim": {
-        "description": "Lucene index of the MS MARCO document corpus (slim version, document text not stored) (deprecated; use `msmarco-v1-doc-slim` instead).",
+        "description": "Lucene index of the MS MARCO document corpus (slim version, document text not stored) (deprecated; use msmarco-v1-doc-slim instead).",
         "filename": "index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-slim-20201202-ab6e28-readme.txt",
         "urls": [
@@ -960,7 +960,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-doc-per-passage": {
-        "description": "Lucene index of the MS MARCO document corpus segmented into passages (deprecated; use `msmarco-v1-doc-segmented` instead).",
+        "description": "Lucene index of the MS MARCO document corpus segmented into passages (deprecated; use msmarco-v1-doc-segmented instead).",
         "filename": "index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-per-passage-20201204-f50dcc-readme.txt",
         "urls": [
@@ -975,7 +975,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-doc-per-passage-slim": {
-        "description": "Lucene index of the MS MARCO document corpus segmented into passages (slim version, document text not stored) (deprecated; use `msmarco-v1-doc-segmented-slim` instead).",
+        "description": "Lucene index of the MS MARCO document corpus segmented into passages (slim version, document text not stored) (deprecated; use msmarco-v1-doc-segmented-slim instead).",
         "filename": "index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-per-passage-slim-20201204-f50dcc-readme.txt",
         "urls": [
