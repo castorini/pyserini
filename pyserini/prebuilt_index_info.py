@@ -30,7 +30,7 @@ TF_INDEX_INFO = {
     "robust04": {
         "description": "Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track",
         "filename": "index-robust04-20191213.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-robust04-20191213-readme.txt",
+        "readme": "index-robust04-20191213-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-robust04-20191213.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/eqFacNeSGc4pLLH/download"
@@ -45,7 +45,7 @@ TF_INDEX_INFO = {
     "msmarco-passage-expanded": {
         "description": "Lucene index of the MS MARCO passage corpus with docTTTTTquery expansions",
         "filename": "index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-expanded-20201121-e127fb-readme.txt",
+        "readme": "index-msmarco-passage-expanded-20201121-e127fb-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/pm7cisJtRxiAMHd/download"
@@ -60,7 +60,7 @@ TF_INDEX_INFO = {
     "msmarco-passage-ltr": {
         "description": "Lucene index of the MS MARCO passage corpus with four extra preprocessed fields for LTR",
         "filename": "index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-ltr-20210519-e25e33f-readme.txt",
+        "readme": "index-msmarco-passage-ltr-20210519-e25e33f-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/8qFCaCtwabRfYQD/download"
@@ -90,7 +90,7 @@ TF_INDEX_INFO = {
     "msmarco-doc-expanded-per-doc": {
         "description": "Lucene index of the MS MARCO document corpus with per-doc docTTTTTquery expansions",
         "filename": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a-readme.txt",
+        "readme": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/3BQz6ZAXAxtfne8/download"
@@ -105,7 +105,7 @@ TF_INDEX_INFO = {
     "msmarco-doc-expanded-per-passage": {
         "description": "Lucene index of the MS MARCO document corpus with per-passage docTTTTTquery expansions",
         "filename": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt",
+        "readme": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/eZLbPWcnB7LzKnQ/download"
@@ -122,7 +122,7 @@ TF_INDEX_INFO = {
     "msmarco-v1-doc": {
         "description": "Lucene index of the MS MARCO (V1) document corpus.",
         "filename": "lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20220131.9ea315.README.md",
+        "readme": "lucene-index.msmarco-v1-doc.20220131.9ea315.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/aDRAfyZytQsQ9T3/download"
@@ -137,7 +137,7 @@ TF_INDEX_INFO = {
     "msmarco-v1-doc-slim": {
         "description": "Lucene index of the MS MARCO (V1) document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-slim.20220131.9ea315.README.md",
+        "readme": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/iCnysqnaG9SL9pA/download"
@@ -152,7 +152,7 @@ TF_INDEX_INFO = {
     "msmarco-v1-doc-full": {
         "description": "Lucene index of the MS MARCO (V1) document corpus ('full' version).",
         "filename": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-full.20220131.9ea315.README.md",
+        "readme": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/KsqZ2AwkSrTM8yS/download"
@@ -169,7 +169,7 @@ TF_INDEX_INFO = {
     "msmarco-v1-doc-segmented": {
         "description": "Lucene index of the MS MARCO (V1) segmented document corpus.",
         "filename": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.README.md",
+        "readme": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/FKniAWGJjZHy3TF/download"
@@ -184,7 +184,7 @@ TF_INDEX_INFO = {
     "msmarco-v1-doc-segmented-slim": {
         "description": "Lucene index of the MS MARCO (V1) segmented document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.README.md",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/QNYpaAcLXERr74y/download"
@@ -199,7 +199,7 @@ TF_INDEX_INFO = {
     "msmarco-v1-doc-segmented-full": {
         "description": "Lucene index of the MS MARCO (V1) segmented document corpus ('full' version).",
         "filename": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.README.md",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/RzRBC6xkmaTsmX9/download"
@@ -216,7 +216,7 @@ TF_INDEX_INFO = {
     "msmarco-v1-passage": {
         "description": "Lucene index of the MS MARCO (V1) passage corpus.",
         "filename": "lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage.20220131.9ea315.README.md",
+        "readme": "lucene-index.msmarco-v1-passage.20220131.9ea315.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/L7yNfCXpqK5yf8e/download"
@@ -231,7 +231,7 @@ TF_INDEX_INFO = {
     "msmarco-v1-passage-slim": {
         "description": "Lucene index of the MS MARCO (V1) passage corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md",
+        "readme": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/swtPDQAGg6oHD8m/download"
@@ -246,7 +246,7 @@ TF_INDEX_INFO = {
     "msmarco-v1-passage-full": {
         "description": "Lucene index of the MS MARCO (V1) passage corpus ('full' version).",
         "filename": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-full.20220131.9ea315.README.md",
+        "readme": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/wzGLFMQyKAc2TTC/download"
@@ -263,7 +263,7 @@ TF_INDEX_INFO = {
     "msmarco-v2-doc": {
         "description": "Lucene index of the MS MARCO (V2) document corpus.",
         "filename": "lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc.20220111.06fb4f.README.md",
+        "readme": "lucene-index.msmarco-v2-doc.20220111.06fb4f.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz"
         ],
@@ -277,7 +277,7 @@ TF_INDEX_INFO = {
     "msmarco-v2-doc-slim": {
         "description": "Lucene index of the MS MARCO (V2) document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.README.md",
+        "readme": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz"
         ],
@@ -291,7 +291,7 @@ TF_INDEX_INFO = {
     "msmarco-v2-doc-full": {
         "description": "Lucene index of the MS MARCO (V2) document corpus ('full' version).",
         "filename": "lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.README.md",
+        "readme": "lucene-index.msmarco-v2-doc-full.20220111.06fb4f.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz"
         ],
@@ -307,7 +307,7 @@ TF_INDEX_INFO = {
     "msmarco-v2-doc-segmented": {
         "description": "Lucene index of the MS MARCO (V2) segmented document corpus.",
         "filename": "lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.README.md",
+        "readme": "lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz"
         ],
@@ -321,7 +321,7 @@ TF_INDEX_INFO = {
     "msmarco-v2-doc-segmented-slim": {
         "description": "Lucene index of the MS MARCO (V2) segmented document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.README.md",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.tar.gz"
         ],
@@ -335,7 +335,7 @@ TF_INDEX_INFO = {
     "msmarco-v2-doc-segmented-full": {
         "description": "Lucene index of the MS MARCO (V2) segmented document corpus ('full' version).",
         "filename": "lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.README.md",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.tar.gz"
         ],
@@ -351,7 +351,7 @@ TF_INDEX_INFO = {
     "msmarco-v2-passage": {
         "description": "Lucene index of the MS MARCO (V2) passage corpus.",
         "filename": "lucene-index.msmarco-v2-passage.20220111.06fb4f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.20220111.06fb4f.README.md",
+        "readme": "lucene-index.msmarco-v2-passage.20220111.06fb4f.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.20220111.06fb4f.tar.gz"
         ],
@@ -365,7 +365,7 @@ TF_INDEX_INFO = {
     "msmarco-v2-passage-slim": {
         "description": "Lucene index of the MS MARCO (V2) passage corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.README.md",
+        "readme": "lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.tar.gz"
         ],
@@ -379,7 +379,7 @@ TF_INDEX_INFO = {
     "msmarco-v2-passage-full": {
         "description": "Lucene index of the MS MARCO (V2) passage corpus ('full' version).",
         "filename": "lucene-index.msmarco-v2-passage-full.20220111.06fb4f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-full.20220111.06fb4f.README.md",
+        "readme": "lucene-index.msmarco-v2-passage-full.20220111.06fb4f.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-full.20220111.06fb4f.tar.gz"
         ],
@@ -395,7 +395,7 @@ TF_INDEX_INFO = {
     "msmarco-v2-passage-augmented": {
         "description": "Lucene index of the MS MARCO (V2) augmented passage corpus.",
         "filename": "lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.README.md",
+        "readme": "lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.tar.gz"
         ],
@@ -409,7 +409,7 @@ TF_INDEX_INFO = {
     "msmarco-v2-passage-augmented-slim": {
         "description": "Lucene index of the MS MARCO (V2) augmented passage corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.README.md",
+        "readme": "lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.tar.gz"
         ],
@@ -423,7 +423,7 @@ TF_INDEX_INFO = {
     "msmarco-v2-passage-augmented-full": {
         "description": "Lucene index of the MS MARCO (V2) augmented passage corpus ('full' version).",
         "filename": "lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.README.md",
+        "readme": "lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.tar.gz"
         ],
@@ -690,7 +690,7 @@ TF_INDEX_INFO = {
     "wikipedia-dpr": {
         "description": "Lucene index of Wikipedia with DPR 100-word splits",
         "filename": "index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-wikipedia-dpr-20210120-d1b9e6-readme.txt",
+        "readme": "index-wikipedia-dpr-20210120-d1b9e6-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/t6tDJmpoxPw9tH8/download"
@@ -705,7 +705,7 @@ TF_INDEX_INFO = {
     "wikipedia-dpr-slim": {
         "description": "Lucene index of Wikipedia with DPR 100-word splits (slim version, document text not stored)",
         "filename": "index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-wikipedia-dpr-slim-20210120-d1b9e6-readme.txt",
+        "readme": "index-wikipedia-dpr-slim-20210120-d1b9e6-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Gk2sfTyJCyaTrYH/download"
@@ -720,7 +720,7 @@ TF_INDEX_INFO = {
     "wikipedia-kilt-doc": {
         "description": "Lucene index of Wikipedia snapshot used as KILT's knowledge source.",
         "filename": "index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-wikipedia-kilt-doc-20210421-f29307-readme.txt",
+        "readme": "index-wikipedia-kilt-doc-20210421-f29307-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/RqtLg3CZT38k32c/download"
@@ -735,7 +735,7 @@ TF_INDEX_INFO = {
     "mrtydi-v1.1-arabic": {
         "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
         "filename": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md",
+        "readme": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/7oDFnq8FmTazf2a/download"
@@ -750,7 +750,7 @@ TF_INDEX_INFO = {
     "mrtydi-v1.1-bengali": {
         "description": "Lucene index for Mr.TyDi v1.1 (Bengali).",
         "filename": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md",
+        "readme": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/HaPaz2wFbRMP2LK/download"
@@ -765,7 +765,7 @@ TF_INDEX_INFO = {
     "mrtydi-v1.1-english": {
         "description": "Lucene index for Mr.TyDi v1.1 (English).",
         "filename": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md",
+        "readme": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/w4ccMwH5BLnXQ3j/download"
@@ -780,7 +780,7 @@ TF_INDEX_INFO = {
     "mrtydi-v1.1-finnish": {
         "description": "Lucene index for Mr.TyDi v1.1 (Finnish).",
         "filename": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md",
+        "readme": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Pgd3mqjy77a6FR8/download"
@@ -795,7 +795,7 @@ TF_INDEX_INFO = {
     "mrtydi-v1.1-indonesian": {
         "description": "Lucene index for Mr.TyDi v1.1 (Indonesian).",
         "filename": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md",
+        "readme": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/tF8NE7pWZ2xGix7/download"
@@ -810,7 +810,7 @@ TF_INDEX_INFO = {
     "mrtydi-v1.1-japanese": {
         "description": "Lucene index for Mr.TyDi v1.1 (Japanese).",
         "filename": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md",
+        "readme": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/ema8i83zqJr7n48/download"
@@ -825,7 +825,7 @@ TF_INDEX_INFO = {
     "mrtydi-v1.1-korean": {
         "description": "Lucene index for Mr.TyDi v1.1 (Korean).",
         "filename": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md",
+        "readme": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/igmEHCTjTwNi3de/download"
@@ -840,7 +840,7 @@ TF_INDEX_INFO = {
     "mrtydi-v1.1-russian": {
         "description": "Lucene index for Mr.TyDi v1.1 (Russian).",
         "filename": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md",
+        "readme": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Pbi9xrD7jSYaxnX/download"
@@ -855,7 +855,7 @@ TF_INDEX_INFO = {
     "mrtydi-v1.1-swahili": {
         "description": "Lucene index for Mr.TyDi v1.1 (Swahili).",
         "filename": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md",
+        "readme": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/SWqajDQgq8wppf6/download"
@@ -870,7 +870,7 @@ TF_INDEX_INFO = {
     "mrtydi-v1.1-telugu": {
         "description": "Lucene index for Mr.TyDi v1.1 (Telugu).",
         "filename": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md",
+        "readme": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/DAB6ba5ZF98awH6/download"
@@ -885,7 +885,7 @@ TF_INDEX_INFO = {
     "mrtydi-v1.1-thai": {
         "description": "Lucene index for Mr.TyDi v1.1 (Thai).",
         "filename": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md",
+        "readme": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/2Ady6AwBwNbYLpg/download"
@@ -902,7 +902,7 @@ TF_INDEX_INFO = {
     "msmarco-passage": {
         "description": "Lucene index of the MS MARCO passage corpus (deprecated; use msmarco-v1-passage instead).",
         "filename": "index-msmarco-passage-20201117-f87c94.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-20201117-f87c94-readme.txt",
+        "readme": "index-msmarco-passage-20201117-f87c94-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-20201117-f87c94.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/QQsZMFG8MpF4P8M/download"
@@ -917,7 +917,7 @@ TF_INDEX_INFO = {
     "msmarco-passage-slim": {
         "description": "Lucene index of the MS MARCO passage corpus (slim version, document text not stored) (deprecated; use msmarco-v1-passage-slim instead).",
         "filename": "index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-slim-20201202-ab6e28-readme.txt",
+        "readme": "index-msmarco-passage-slim-20201202-ab6e28-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Kx6K9NJFmwnaAP8/download"
@@ -932,7 +932,7 @@ TF_INDEX_INFO = {
     "msmarco-doc": {
         "description": "Lucene index of the MS MARCO document corpus (deprecated; use msmarco-v1-doc instead).",
         "filename": "index-msmarco-doc-20201117-f87c94.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-20201117-f87c94-readme.txt",
+        "readme": "index-msmarco-doc-20201117-f87c94-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-20201117-f87c94.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/5NC7A2wAL7opJKH/download"
@@ -947,7 +947,7 @@ TF_INDEX_INFO = {
     "msmarco-doc-slim": {
         "description": "Lucene index of the MS MARCO document corpus (slim version, document text not stored) (deprecated; use msmarco-v1-doc-slim instead).",
         "filename": "index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-slim-20201202-ab6e28-readme.txt",
+        "readme": "index-msmarco-doc-slim-20201202-ab6e28-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/BMZ6oYBoEPgTFqs/download"
@@ -962,7 +962,7 @@ TF_INDEX_INFO = {
     "msmarco-doc-per-passage": {
         "description": "Lucene index of the MS MARCO document corpus segmented into passages (deprecated; use msmarco-v1-doc-segmented instead).",
         "filename": "index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-per-passage-20201204-f50dcc-readme.txt",
+        "readme": "index-msmarco-doc-per-passage-20201204-f50dcc-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/q6sAxE6q57q2TBo/download"
@@ -977,7 +977,7 @@ TF_INDEX_INFO = {
     "msmarco-doc-per-passage-slim": {
         "description": "Lucene index of the MS MARCO document corpus segmented into passages (slim version, document text not stored) (deprecated; use msmarco-v1-doc-segmented-slim instead).",
         "filename": "index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-per-passage-slim-20201204-f50dcc-readme.txt",
+        "readme": "index-msmarco-doc-per-passage-slim-20201204-f50dcc-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/mKTjbTKMwWF9kY3/download"
@@ -995,7 +995,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-passage-deepimpact": {
         "description": "Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact",
         "filename": "lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.deepimpact.20211012.58d286.readme.txt",
+        "readme": "lucene-index.msmarco-passage.deepimpact.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/FfwF6nB9M5sjTYk/download",
@@ -1010,7 +1010,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-passage-unicoil-d2q": {
         "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-d2q",
         "filename": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.readme.txt",
+        "readme": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/LGoAAXM7ZEbyQ7y/download"
@@ -1025,7 +1025,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-doc-per-passage-unicoil-d2q": {
         "description": "Lucene impact index of the MS MARCO doc corpus per passage expansion encoded by uniCOIL-d2q",
         "filename": "lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.readme.txt",
+        "readme": "lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
         ],
@@ -1039,7 +1039,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-passage-unicoil-tilde": {
         "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE",
         "filename": "lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.readme.txt",
+        "readme": "lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/KdoNXqwAtTmTeNo/download"
@@ -1054,7 +1054,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-passage-distill-splade-max": {
         "description": "Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max",
         "filename": "lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.readme.txt",
+        "readme": "lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.tar.gz"
         ],
@@ -1068,7 +1068,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-v2-passage-unicoil-noexp-0shot": {
         "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL (zero-shot, no expansions)",
         "filename": "lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
+        "readme": "lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/eXA2BHF8WQjdY8R/download"
@@ -1083,7 +1083,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-v2-doc-per-passage-unicoil-noexp-0shot": {
         "description": "Lucene impact index of the MS MARCO V2 document corpus per passage encoded by uniCOIL (zero-shot, no expansions)",
         "filename": "lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
+        "readme": "lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/BSrJmAFJywsRYXo/download"
@@ -1098,7 +1098,7 @@ IMPACT_INDEX_INFO = {
     "msmarco-v2-passage-unicoil-tilde": {
         "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL-TILDE",
         "filename": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.readme.txt",
+        "readme": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/oGQ8tWifozPaHLK/download"
@@ -1324,7 +1324,7 @@ FAISS_INDEX_INFO = {
     "cast2019-tct_colbert-v2-hnsw": {
         "description": "Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder",
         "filename": "faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
-        "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/faiss-hnsw.cast2019.tct_colbert-v2-readme.txt",
+        "readme": "faiss-hnsw.cast2019.tct_colbert-v2-readme.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/ncrZdE67BCKxPwc/download"

@@ -80,7 +80,7 @@ def generate_prebuilt(index):
         print(f'<dt></dt><b><code>{entry}</code></b>')
         print(f'<dd>{index[entry]["description"]}')
         if 'readme' in index[entry]:
-            print(f'[<a href="{index[entry]["readme"]}">readme</a>]')
+            print(f'[<a href="../pyserini/resources/index-metadata/{index[entry]["readme"]}">readme</a>]')
         print(f'</dd>')
     print('</dl>')
 
