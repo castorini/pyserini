@@ -78,9 +78,9 @@ def generate_prebuilt(index):
     for entry in index:
         # No, this is not an HTML bug. This is intentional to get GitHub formatting to not add italics to the entry.
         print(f'<dt></dt><b><code>{entry}</code></b>')
-        print(f'<dd>{index[entry]["description"]}')
         if 'readme' in index[entry]:
             print(f'[<a href="../pyserini/resources/index-metadata/{index[entry]["readme"]}">readme</a>]')
+        print(f'<dd>{index[entry]["description"]}')
         print(f'</dd>')
     print('</dl>')
 
