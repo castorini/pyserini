@@ -124,7 +124,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/aDRAfyZytQsQ9T3/download"
         ],
         "md5": "43b60b3fc75324c648a02375772e7fe8",
         "size compressed (bytes)": 13757573401,
@@ -138,7 +139,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-slim.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/iCnysqnaG9SL9pA/download"
         ],
         "md5": "17a7b079e9d527492904c7697a9cae59",
         "size compressed (bytes)": 1811599007,
@@ -152,7 +154,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-full.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/KsqZ2AwkSrTM8yS/download"
         ],
         "md5": "ef60d7f8afa3919cdeedc6fea89aa3f7",
         "size compressed (bytes)": 25548064269,
@@ -168,7 +171,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/FKniAWGJjZHy3TF/download"
         ],
         "md5": "611bb83e043c0d6febe0fa3508d1d7f9",
         "size compressed (bytes)": 17091132803,
@@ -182,7 +186,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/QNYpaAcLXERr74y/download"
         ],
         "md5": "d42113cfeeea862b51765329795948ad",
         "size compressed (bytes)": 3408754542,
@@ -196,7 +201,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/RzRBC6xkmaTsmX9/download"
         ],
         "md5": "2ed7457c8804d2d6370a1a7f604eb360",
         "size compressed (bytes)": 30771630666,
@@ -212,7 +218,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/L7yNfCXpqK5yf8e/download"
         ],
         "md5": "4d8fdbdcd119c1f47a4cc5d01a45dad3",
         "size compressed (bytes)": 2178557129,
@@ -226,7 +233,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/swtPDQAGg6oHD8m/download"
         ],
         "md5": "2f1e50d60a0df32a50111a986159de51",
         "size compressed (bytes)": 498355616,
@@ -240,7 +248,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
         "readme": "https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-full.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/wzGLFMQyKAc2TTC/download"
         ],
         "md5": "3283069c6e8451659c8ea83e2140d739",
         "size compressed (bytes)": 3781721749,
