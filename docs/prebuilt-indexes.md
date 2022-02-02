@@ -57,14 +57,6 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track
 [<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-robust04-20191213-readme.txt">readme</a>]
 </dd>
-<dt></dt><b><code>msmarco-passage</code></b>
-<dd>Lucene index of the MS MARCO passage corpus
-[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-20201117-f87c94-readme.txt">readme</a>]
-</dd>
-<dt></dt><b><code>msmarco-passage-slim</code></b>
-<dd>Lucene index of the MS MARCO passage corpus (slim version, document text not stored)
-[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-slim-20201202-ab6e28-readme.txt">readme</a>]
-</dd>
 <dt></dt><b><code>msmarco-passage-expanded</code></b>
 <dd>Lucene index of the MS MARCO passage corpus with docTTTTTquery expansions
 [<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-expanded-20201121-e127fb-readme.txt">readme</a>]
@@ -75,22 +67,6 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 </dd>
 <dt></dt><b><code>msmarco-doc-per-passage-ltr</code></b>
 <dd>Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR
-</dd>
-<dt></dt><b><code>msmarco-doc</code></b>
-<dd>Lucene index of the MS MARCO document corpus
-[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-20201117-f87c94-readme.txt">readme</a>]
-</dd>
-<dt></dt><b><code>msmarco-doc-slim</code></b>
-<dd>Lucene index of the MS MARCO document corpus (slim version, document text not stored)
-[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-slim-20201202-ab6e28-readme.txt">readme</a>]
-</dd>
-<dt></dt><b><code>msmarco-doc-per-passage</code></b>
-<dd>Lucene index of the MS MARCO document corpus segmented into passages
-[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-per-passage-20201204-f50dcc-readme.txt">readme</a>]
-</dd>
-<dt></dt><b><code>msmarco-doc-per-passage-slim</code></b>
-<dd>Lucene index of the MS MARCO document corpus segmented into passages (slim version, document text not stored)
-[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-per-passage-slim-20201204-f50dcc-readme.txt">readme</a>]
 </dd>
 <dt></dt><b><code>msmarco-doc-expanded-per-doc</code></b>
 <dd>Lucene index of the MS MARCO document corpus with per-doc docTTTTTquery expansions
@@ -293,6 +269,30 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>mrtydi-v1.1-thai</code></b>
 <dd>Lucene index for Mr.TyDi v1.1 (Thai).
 [<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-passage</code></b>
+<dd>Lucene index of the MS MARCO passage corpus (deprecated; use msmarco-v1-passage instead).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-20201117-f87c94-readme.txt">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-passage-slim</code></b>
+<dd>Lucene index of the MS MARCO passage corpus (slim version, document text not stored) (deprecated; use msmarco-v1-passage-slim instead).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-passage-slim-20201202-ab6e28-readme.txt">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-doc</code></b>
+<dd>Lucene index of the MS MARCO document corpus (deprecated; use msmarco-v1-doc instead).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-20201117-f87c94-readme.txt">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-doc-slim</code></b>
+<dd>Lucene index of the MS MARCO document corpus (slim version, document text not stored) (deprecated; use msmarco-v1-doc-slim instead).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-slim-20201202-ab6e28-readme.txt">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-doc-per-passage</code></b>
+<dd>Lucene index of the MS MARCO document corpus segmented into passages (deprecated; use msmarco-v1-doc-segmented instead).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-per-passage-20201204-f50dcc-readme.txt">readme</a>]
+</dd>
+<dt></dt><b><code>msmarco-doc-per-passage-slim</code></b>
+<dd>Lucene index of the MS MARCO document corpus segmented into passages (slim version, document text not stored) (deprecated; use msmarco-v1-doc-segmented-slim instead).
+[<a href="https://github.com/castorini/pyserini/blob/master/pyserini/resources/index-metadata/index-msmarco-doc-per-passage-slim-20201204-f50dcc-readme.txt">readme</a>]
 </dd>
 </dl>
 
