@@ -42,21 +42,6 @@ TF_INDEX_INFO = {
         "unique_terms": 923436,
     },
 
-    "msmarco-passage-expanded": {
-        "description": "Lucene index of the MS MARCO passage corpus with docTTTTTquery expansions",
-        "filename": "index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
-        "readme": "index-msmarco-passage-expanded-20201121-e127fb-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/pm7cisJtRxiAMHd/download"
-        ],
-        "md5": "e5762e9e065b6fe5000f9c18da778565",
-        "size compressed (bytes)": 816438546,
-        "total_terms": 1986612263,
-        "documents": 8841823,
-        "unique_terms": 3929111,
-        "downloaded": False
-    },
     "msmarco-passage-ltr": {
         "description": "Lucene index of the MS MARCO passage corpus with four extra preprocessed fields for LTR",
         "filename": "index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
@@ -84,37 +69,6 @@ TF_INDEX_INFO = {
         "total_terms": 1232004740,
         "documents": 20545628,
         "unique_terms": 10123678,
-        "downloaded": False
-    },
-
-    "msmarco-doc-expanded-per-doc": {
-        "description": "Lucene index of the MS MARCO document corpus with per-doc docTTTTTquery expansions",
-        "filename": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
-        "readme": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/3BQz6ZAXAxtfne8/download"
-        ],
-        "md5": "f7056191842ab77a01829cff68004782",
-        "size compressed (bytes)": 1978837253,
-        "total_terms": 3748333319,
-        "documents": 3213835,
-        "unique_terms": 30627687,
-        "downloaded": False
-    },
-    "msmarco-doc-expanded-per-passage": {
-        "description": "Lucene index of the MS MARCO document corpus with per-passage docTTTTTquery expansions",
-        "filename": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
-        "readme": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/eZLbPWcnB7LzKnQ/download"
-        ],
-        "md5": "54ea30c64515edf3c3741291b785be53",
-        "size compressed (bytes)": 3069280946,
-        "total_terms": 4203956960,
-        "documents": 20544550,
-        "unique_terms": 22037213,
         "downloaded": False
     },
 
@@ -165,6 +119,22 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
+    # MS MARCO (V1) document corpus, doc2query-T5 expansions.
+    "msmarco-v1-doc-d2q-t5": {
+        "description": "Lucene index of the MS MARCO (V1) document corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz"
+        ],
+        "md5": "37c639c9c26a34d2612ea6549fb866df",
+        "size compressed (bytes)": 1904879520,
+        "total_terms": 3748333319,
+        "documents": 3213835,
+        "unique_terms": 30627687,
+        "downloaded": False
+    },
+
     # MS MARCO (V1) segmented document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v1-doc-segmented": {
         "description": "Lucene index of the MS MARCO (V1) segmented document corpus.",
@@ -209,6 +179,22 @@ TF_INDEX_INFO = {
         "total_terms": 3200515914,
         "documents": 20545677,
         "unique_terms": 21190687,
+        "downloaded": False
+    },
+
+    # MS MARCO (V1) segmented document corpus, doc2query-T5 expansions.
+    "msmarco-v1-doc-segmented-d2q-t5": {
+        "description": "Lucene index of the MS MARCO (V1) segmented document corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz"
+        ],
+        "md5": "6c1f86ee4f7175eed4d3a7acc3d567b8",
+        "size compressed (bytes)": 3638703522,
+        "total_terms": 4206639543,
+        "documents": 20545677,
+        "unique_terms": 22054207,
         "downloaded": False
     },
 
@@ -259,6 +245,22 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
+    # MS MARCO (V1) passage corpus, doc2query-T5 expansions.
+    "msmarco-v1-passage-d2q-t5": {
+        "description": "Lucene index of the MS MARCO (V1) passage corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz"
+        ],
+        "md5": "136205f35bd895077c0874eaa063376c",
+        "size compressed (bytes)": 819441969,
+        "total_terms": 1986612263,
+        "documents": 8841823,
+        "unique_terms": 3929111,
+        "downloaded": False
+    },
+
     # MS MARCO (V2) document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-doc": {
         "description": "Lucene index of the MS MARCO (V2) document corpus.",
@@ -300,6 +302,22 @@ TF_INDEX_INFO = {
         "total_terms": 14165661202,
         "documents": 11959635,
         "unique_terms": 44855557,
+        "downloaded": False
+    },
+
+    # MS MARCO (V2) document corpus, doc2query-T5 expansions.
+    "msmarco-v2-doc-d2q-t5": {
+        "description": "Lucene index of the MS MARCO (V2) document corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz"
+        ],
+        "md5": "431391554854c51f347ba38c5e07ef94",
+        "size compressed (bytes)": 8254297093,
+        "total_terms": 19760777295,
+        "documents": 11959635,
+        "unique_terms": 54143053,
         "downloaded": False
     },
 
@@ -347,6 +365,22 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
+    # MS MARCO (V2) segmented document corpus, doc2query-T5 expansions.
+    "msmarco-v2-doc-segmented-d2q-t5": {
+        "description": "Lucene index of the MS MARCO (V2) segmented document corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz"
+        ],
+        "md5": "3ce9eaca885e1e8a79466bee5e6a4084",
+        "size compressed (bytes)": 24125355549,
+        "total_terms": 30376032067,
+        "documents": 124131414,
+        "unique_terms": 38930475,
+        "downloaded": False
+    },
+
     # MS MARCO (V2) passage corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-passage": {
         "description": "Lucene index of the MS MARCO (V2) passage corpus.",
@@ -391,6 +425,22 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
+    # MS MARCO (V2) passage corpus, doc2query-T5 expansions.
+    "msmarco-v2-passage-d2q-t5": {
+        "description": "Lucene index of the MS MARCO (V2) passage corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz"
+        ],
+        "md5": "72f3f0f56b9c7a1bdff836419f2f30bd",
+        "size compressed (bytes)": 14431987438,
+        "total_terms": 16961479226,
+        "documents": 138364198,
+        "unique_terms": 36650715,
+        "downloaded": False
+    },
+
     # MS MARCO (V2) augmented passage corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-passage-augmented": {
         "description": "Lucene index of the MS MARCO (V2) augmented passage corpus.",
@@ -432,6 +482,22 @@ TF_INDEX_INFO = {
         "total_terms": 15272964956,
         "documents": 138364198,
         "unique_terms": 16579071,
+        "downloaded": False
+    },
+
+    # MS MARCO (V2) augmented passage corpus, doc2query-T5 expansions.
+    "msmarco-v2-passage-augmented-d2q-t5": {
+        "description": "Lucene index of the MS MARCO (V2) augmented passage corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz"
+        ],
+        "md5": "f248becbe3ef3fffc39680cff417791d",
+        "size compressed (bytes)": 20940452572,
+        "total_terms": 27561177420,
+        "documents": 138364198,
+        "unique_terms": 41176227,
         "downloaded": False
     },
 
@@ -898,7 +964,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # These indexes are deprecated, but keeping around for archival reasons
+    # These MS MARCO V1 indexes are deprecated, but keeping around for archival reasons
     "msmarco-passage": {
         "description": "Lucene index of the MS MARCO passage corpus (deprecated; use msmarco-v1-passage instead).",
         "filename": "index-msmarco-passage-20201117-f87c94.tar.gz",
@@ -987,6 +1053,53 @@ TF_INDEX_INFO = {
         "total_terms": 3197886407,
         "documents": 20544550,
         "unique_terms": 21173582,
+        "downloaded": False
+    },
+
+    # These MS MARCO V1 doc2query expansion indexes are deprecated, but keeping around for archival reasons
+    "msmarco-passage-expanded": {
+        "description": "Lucene index of the MS MARCO passage corpus with docTTTTTquery expansions (deprecated; use msmarco-v1-passage-d2q-t5 instead)",
+        "filename": "index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
+        "readme": "index-msmarco-passage-expanded-20201121-e127fb-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/pm7cisJtRxiAMHd/download"
+        ],
+        "md5": "e5762e9e065b6fe5000f9c18da778565",
+        "size compressed (bytes)": 816438546,
+        "total_terms": 1986612263,
+        "documents": 8841823,
+        "unique_terms": 3929111,
+        "downloaded": False
+    },
+    "msmarco-doc-expanded-per-doc": {
+        "description": "Lucene index of the MS MARCO document corpus with per-doc docTTTTTquery expansions (deprecated; use msmarco-v1-doc-d2q-t5 instead)",
+        "filename": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
+        "readme": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/3BQz6ZAXAxtfne8/download"
+        ],
+        "md5": "f7056191842ab77a01829cff68004782",
+        "size compressed (bytes)": 1978837253,
+        "total_terms": 3748333319,
+        "documents": 3213835,
+        "unique_terms": 30627687,
+        "downloaded": False
+    },
+    "msmarco-doc-expanded-per-passage": {
+        "description": "Lucene index of the MS MARCO document corpus with per-passage docTTTTTquery expansions (deprecated; use msmarco-v1-doc-segmented-d2q-t5 instead)",
+        "filename": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
+        "readme": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/eZLbPWcnB7LzKnQ/download"
+        ],
+        "md5": "54ea30c64515edf3c3741291b785be53",
+        "size compressed (bytes)": 3069280946,
+        "total_terms": 4203956960,
+        "documents": 20544550,
+        "unique_terms": 22037213,
         "downloaded": False
     }
 }
