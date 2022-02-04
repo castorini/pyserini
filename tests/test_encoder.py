@@ -43,7 +43,7 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(vectors[2][-1], 0.05549275, places=4)
 
     def test_unicoil_encoder(self):
-        encoder = UniCoilDocumentEncoder('castorini/unicoil-d2q-msmarco-passage', device='cpu')
+        encoder = UniCoilDocumentEncoder('castorini/unicoil-msmarco-passage', device='cpu')
         vectors = encoder.encode(self.texts[:3])
         self.assertAlmostEqual(vectors[0]['generation'], 2.2441017627716064, places=4)
         self.assertAlmostEqual(vectors[0]['normal'], 2.4618067741394043, places=4)
