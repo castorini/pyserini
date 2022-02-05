@@ -88,6 +88,47 @@ tar -xvf collections/msmarco_v2_passage_unicoil_0shot.tar -C collections/
 
 To confirm, `msmarco_v2_passage_unicoil_0shot.tar` is 41 GB and has an MD5 checksum of `1949a00bfd5e1f1a230a04bbc1f01539`.
 
+Index the sparse vectors:
+
+```bash
+python -m pyserini.index \
+  --collection JsonVectorCollection \
+  --input collections/msmarco_v2_passage_unicoil_0shot \
+  --index indexes/lucene-index.msmarco-v2-passage.unicoil-0shot \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 32 \
+  --impact \
+  --pretokenized
+```
+
+Sparse retrieval with uniCOIL:
+
+```bash
+python -m pyserini.search \
+  --topics msmarco-v2-passage-dev \
+  --encoder castorini/unicoil-msmarco-passage \
+  --index indexes/lucene-index.msmarco-v2-passage.unicoil-0shot \
+  --output runs/run.msmarco-v2-passage.unicoil.0shot.txt \
+  --impact \
+  --hits 1000 \
+  --batch 144 \
+  --threads 36
+```
+
+To evaluate, using `trec_eval`:
+
+```bash
+$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev runs/run.msmarco-v2-passage.unicoil.0shot.txt
+Results:
+map                     all     0.1488
+recip_rank              all     0.1501
+
+$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-passage-dev runs/run.msmarco-v2-passage.unicoil.0shot.txt
+Results:
+recall_100              all     0.5515
+recall_1000             all     0.7613
+```
+
 ## Document Ranking (No Expansion)
 
 > You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to the "Retrieval" section below.
@@ -172,6 +213,52 @@ tar -xvf collections/msmarco_v2_doc_segmented_unicoil_0shot.tar -C collections/
 ```
 
 To confirm, `msmarco_v2_doc_segmented_unicoil_0shot.tar` is 62 GB and has an MD5 checksum of `889db095113cc4fe152382ccff73304a`.
+
+Index the sparse vectors:
+
+```bash
+python -m pyserini.index \
+  --collection JsonVectorCollection \
+  --input collections/msmarco_v2_doc_segmented_unicoil_0shot \
+  --index indexes/lucene-index.msmarco-doc-v2-segmented.unicoil.0shot \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 32 \
+  --impact \
+  --pretokenized
+```
+
+Sparse retrieval with uniCOIL:
+
+```bash
+python -m pyserini.search \
+  --topics msmarco-v2-doc-dev \
+  --encoder castorini/unicoil-msmarco-passage \
+  --index indexes/lucene-index.msmarco-doc-v2-segmented.unicoil.0shot \
+  --output runs/run.msmarco-doc-v2-segmented.unicoil.0shot.txt \
+  --impact \
+  --hits 10000 \
+  --batch 144 \
+  --threads 36 \
+  --max-passage-hits 1000 \
+  --max-passage
+```
+
+For the document corpus, since we are searching the segmented version, we retrieve the top 10k _segments_ and perform MaxP to obtain the top 1000 _documents_.
+
+To evaluate, using `trec_eval`:
+
+```bash
+$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-doc-dev runs/run.msmarco-doc-v2-segmented.unicoil.0shot.txt
+Results:
+map                     all     0.2217
+recip_rank              all     0.2242
+
+$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-doc-dev runs/run.msmarco-doc-v2-segmented.unicoil.0shot.txt
+Results:
+recall_100              all     0.7556
+recall_1000             all     0.9056
+```
+
 
 ## Reproduction Log[*](reproducibility.md)
 
