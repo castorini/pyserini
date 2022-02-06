@@ -33,7 +33,6 @@ import os
 """
 add fields to query json with text(lemmatized), text_unlemm, contents(analyzer), raw, entity(NER), text_bert_tok(BERT token)
 """
-sys.path.append('.')
 
 parser = argparse.ArgumentParser(description='Convert MSMARCO-adhoc queries.')
 parser.add_argument('--input', metavar='input file', help='input file',
