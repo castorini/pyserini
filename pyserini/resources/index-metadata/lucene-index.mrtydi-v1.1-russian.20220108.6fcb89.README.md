@@ -2,7 +2,7 @@
 
 Lucene index for Mr.TyDi v1.1 (Russian).
 
-This index was generated on 2022/01/08 at Anserini commit [`6fcb896`](https://github.com/castorini/anserini/commit/6fcb896c61e2b8cf2f235def3e95dda5fe4cd2fc) on `orca` with the following command:
+This index was generated on 2022/01/08 at Anserini commit [`6fcb89`](https://github.com/castorini/anserini/commit/6fcb896c61e2b8cf2f235def3e95dda5fe4cd2fc) on `orca` with the following command:
 
 ```
 target/appassembler/bin/IndexCollection -collection MrTyDiCollection \
