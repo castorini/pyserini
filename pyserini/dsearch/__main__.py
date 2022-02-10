@@ -19,10 +19,11 @@ import os
 
 from tqdm import tqdm
 
-from pyserini.dsearch import SimpleDenseSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, QueryEncoder, \
-    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AutoQueryEncoder, DenseVectorAveragePrf, \
-    DenseVectorRocchioPrf, DenseVectorAncePrf
+from pyserini.dsearch import SimpleDenseSearcher, BinaryDenseSearcher, ColBertSearcher, \
+    TctColBertQueryEncoder, QueryEncoder, DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AutoQueryEncoder, \
+    DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
 from pyserini.encode import PcaEncoder
+from pyserini.encode import ColBertEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
 from pyserini.search import SimpleSearcher
@@ -89,6 +90,8 @@ def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, de
             return BprQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'tct_colbert' in encoder:
             return TctColBertQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
+        elif 'colbert' in encoder:
+            return ColBertEncoder(encoder, '[Q]', device=device, tokenizer=tokenizer_name, query_augment=True)
         elif 'ance' in encoder:
             return AnceQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
         elif 'sentence' in encoder:
@@ -137,6 +140,8 @@ if __name__ == '__main__':
                         help="search batch of queries in parallel")
     parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
                         help="maximum threads to use during search")
+    parser.add_argument('--search-range', type=int, required=False, nargs="+",
+                        help="limit search range.")
     define_dsearch_args(parser)
     args = parser.parse_args()
 
@@ -153,6 +158,9 @@ if __name__ == '__main__':
         if args.searcher.lower() == 'bpr':
             kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
             searcher = BinaryDenseSearcher(args.index, query_encoder)
+        elif isinstance(query_encoder, ColBertEncoder):
+            searcher = ColBertSearcher(args.index, query_encoder,
+                                       search_range=args.search_range)
         else:
             searcher = SimpleDenseSearcher(args.index, query_encoder)
     else:
