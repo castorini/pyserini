@@ -17,7 +17,7 @@
 import sys
 import os
 
-print('WARNING: directly calling pyserini.search is depreciated, please use pyserini.search.lucene instead')
+print('WARNING: directly calling pyserini.search is deprecSated, please use pyserini.search.lucene instead')
 args = " ".join(sys.argv[1:])
 os.system(f'python -m pyserini.search.lucene {args}')
 

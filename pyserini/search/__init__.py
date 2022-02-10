@@ -19,7 +19,7 @@ from .lucene import JQuery, JDisjunctionMaxQueryGenerator, get_topics,\
 from .lucene import JSimpleSearcherResult, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
 from .lucene import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearcherResult
 from .lucene import JImpactSearcherResult, LuceneImpactSearcher
-from ._depreciated import SimpleSearcher, ImpactSearcher, SimpleFusionSearcher
+from ._deprecated import SimpleSearcher, ImpactSearcher, SimpleFusionSearcher
 
 __all__ = ['JQuery', 'LuceneSimilarities', 'LuceneFusionSearcher', 'LuceneSearcher',
            'JSimpleSearcherResult', 'SimpleNearestNeighborSearcher', 'JSimpleNearestNeighborSearcherResult',
