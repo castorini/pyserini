@@ -23,7 +23,7 @@ import logging
 import os
 
 from pyserini.util import get_cache_home
-from ..pyclass import autoclass
+from pyserini.pyclass import autoclass
 
 logger = logging.getLogger(__name__)
 

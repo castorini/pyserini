@@ -15,14 +15,14 @@
 #
 
 """
-This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``SimpleSearcher``
+This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``LuceneSearcher``
 class, which wraps the Java class with the same name in Anserini.
 """
 
 import logging
 from typing import Dict, List, Optional, Union
 
-from ._base import JQuery, JQueryGenerator
+from pyserini.search.lucene._base import JQuery, JQueryGenerator
 from pyserini.index import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
 from pyserini.trectools import TrecRun
@@ -37,7 +37,7 @@ JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
 JSimpleSearcherResult = autoclass('io.anserini.search.SimpleSearcher$Result')
 
 
-class SimpleSearcher:
+class LuceneSearcher:
     """Wrapper class for ``SimpleSearcher`` in Anserini.
 
     Parameters
@@ -322,12 +322,12 @@ class LuceneSimilarities:
         return autoclass('org.apache.lucene.search.similarities.LMDirichletSimilarity')(mu)
 
 
-class SimpleFusionSearcher:
+class LuceneFusionSearcher:
     def __init__(self, index_dirs: List[str], method: FusionMethod):
         self.method = method
-        self.searchers = [SimpleSearcher(index_dir) for index_dir in index_dirs]
+        self.searchers = [LuceneSearcher(index_dir) for index_dir in index_dirs]
 
-    def get_searchers(self) -> List[SimpleSearcher]:
+    def get_searchers(self) -> List[LuceneSearcher]:
         return self.searchers
 
     def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
@@ -350,7 +350,7 @@ class SimpleFusionSearcher:
         else:
             raise NotImplementedError()
 
-        return SimpleFusionSearcher.convert_to_search_result(fused_run, docid_to_search_result)
+        return self.convert_to_search_result(fused_run, docid_to_search_result)
 
     @staticmethod
     def convert_to_search_result(run: TrecRun, docid_to_search_result: Dict[str, JSimpleSearcherResult]) -> List[JSimpleSearcherResult]:
