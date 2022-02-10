@@ -19,20 +19,20 @@ from pyserini.search.lucene import LuceneImpactSearcher, LuceneSearcher, LuceneF
 
 class SimpleSearcher(LuceneSearcher):
     def __new__(cls, *args, **kwargs):
-        print('SimpleSearcher class has been depreciated, '
+        print('SimpleSearcher class has been deprecated, '
               'please use LuceneSearcher from pyserini.search.lucene instead')
         return super().__new__(cls)
 
 
 class ImpactSearcher(LuceneImpactSearcher):
     def __new__(cls, *args, **kwargs):
-        print('ImpactSearcher class has been depreciated, '
+        print('ImpactSearcher class has been deprecated, '
               'please use LuceneImpactSearcher from pyserini.search.lucene instead')
         return super().__new__(cls)
 
 
 class SimpleFusionSearcher(LuceneFusionSearcher):
     def __new__(cls, *args, **kwargs):
-        print('SimpleFusionSearcher class has been depreciated, '
+        print('SimpleFusionSearcher class has been deprecated, '
               'please use LuceneFusionSearcher from pyserini.search.lucene instead')
         return super().__new__(cls)
