@@ -18,17 +18,19 @@ from jnius import autoclass
 import sys
 import os
 
-args = sys.argv[1:]
-for i in range(len(args)):
-    if args[i].startswith('--'):
-        args[i] = args[i][1:]
 
-# argument check
-for i in range(len(args)):
-    if args[i] == '-input':
-        collection_dir = args[i+1]
-        if os.path.isfile(collection_dir):
-            raise ValueError('Argument -input should be a directory.')
+if __name__ == '__main__':
+    args = sys.argv[1:]
+    for i in range(len(args)):
+        if args[i].startswith('--'):
+            args[i] = args[i][1:]
 
-JIndexCollection = autoclass('io.anserini.index.IndexCollection')
-JIndexCollection.main(args)
+    # argument check
+    for i in range(len(args)):
+        if args[i] == '-input':
+            collection_dir = args[i+1]
+            if os.path.isfile(collection_dir):
+                raise ValueError('Argument -input should be a directory.')
+
+    JIndexCollection = autoclass('io.anserini.index.IndexCollection')
+    JIndexCollection.main(args)
