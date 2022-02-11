@@ -20,6 +20,7 @@ class, which wraps the C++ ``JASS_anytime_api``.
 """
 
 import logging
+import pyjass
 from typing import Dict, List, Optional, Union
 
 logger = logging.getLogger(__name__)
@@ -35,13 +36,17 @@ class JASSv2Searcher:
         Path to JASS index directory.
     """
 
-    def __init__(self, index_dir: str):
+    def __init__(self, index_dir: str, version: int = 2):
         self.index_dir = index_dir
-        self.object = None #TODO
+        self.object = pyjass.anytime()
+        index = self.object.load_index(version,index_dir)
+        if index != 0:
+            raise Exception('Unable to load index - error code' + str(index))
+
 
     # XXX: TODO: This is the Lucene version for reference...
-    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None,
-               fields=dict(), strip_segment_id=False, remove_dups=False) -> List[JSimpleSearcherResult]:
+    def search(self, q: str, k: int = 10, query_generator: JQueryGenerator = None,
+               fields=dict(), strip_segment_id=False, remove_dups=False) -> List[str]:
         """Search the collection.
 
         Parameters
@@ -64,33 +69,30 @@ class JASSv2Searcher:
         List[JSimpleSearcherResult]
             List of search results.
         """
-
-        jfields = JHashMap()
-        for (field, boost) in fields.items():
-            jfields.put(field, JFloat(boost))
-
         hits = None
-        if query_generator:
-            if not fields:
-                hits = self.object.search(query_generator, q, k)
-            else:
-                hits = self.object.searchFields(query_generator, q, jfields, k)
-        elif isinstance(q, JQuery):
-            # Note that RM3 requires the notion of a query (string) to estimate the appropriate models. If we're just
-            # given a Lucene query, it's unclear what the "query" is for this estimation. One possibility is to extract
-            # all the query terms from the Lucene query, although this might yield unexpected behavior from the user's
-            # perspective. Until we think through what exactly is the "right thing to do", we'll raise an exception
-            # here explicitly.
-            if self.is_using_rm3():
-                raise NotImplementedError('RM3 incompatible with search using a Lucene query.')
-            if fields:
-                raise NotImplementedError('Cannot specify fields to search when using a Lucene query.')
-            hits = self.object.search(q, k)
-        else:
-            if not fields:
-                hits = self.object.search(q, k)
-            else:
-                hits = self.object.searchFields(q, jfields, k)
+        self.object.set_top_k(k)
+        # if query_generator:
+        #     if not fields:
+        #         hits = self.object.search(query_generator, q, k)
+        #     else:
+        #         hits = self.object.searchFields(query_generator, q, jfields, k)
+        # elif isinstance(q, JQuery):
+        #     # Note that RM3 requires the notion of a query (string) to estimate the appropriate models. If we're just
+        #     # given a Lucene query, it's unclear what the "query" is for this estimation. One possibility is to extract
+        #     # all the query terms from the Lucene query, although this might yield unexpected behavior from the user's
+        #     # perspective. Until we think through what exactly is the "right thing to do", we'll raise an exception
+        #     # here explicitly.
+        #     if self.is_using_rm3():
+        #         raise NotImplementedError('RM3 incompatible with search using a Lucene query.')
+        #     if fields:
+        #         raise NotImplementedError('Cannot specify fields to search when using a Lucene query.')
+        #     hits = self.object.search(q, k)
+        # else:
+        #     if not fields:
+        #         hits = self.object.search(q, k)
+
+        #     else:
+        #         hits = self.object.searchFields(q, jfields, k)
 
         docids = set()
         filtered_hits = []
