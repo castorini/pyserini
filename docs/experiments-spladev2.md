@@ -93,17 +93,12 @@ The final evaluation metric is very close to the one reported in the paper (0.36
 
 Alternatively, we can use one-the-fly query encoding.
 
-First, download the model checkpoint from NAVER's github [repo](https://github.com/naver/splade/tree/main/weights/splade_max):
+First, download the model checkpoint from NAVER's [website](https://europe.naverlabs.com/research/machine-learning-and-optimization/splade-models/):
 
 ```bash
-mkdir distill-splade-max
-cd distill-splade-max
-wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/pytorch_model.bin
-wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/config.json
-wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/special_tokens_map.json
-wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/tokenizer_config.json
-wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/vocab.txt
-cd ..
+wget https://download-de.europe.naverlabs.com/Splade_Release_Jan22/distilsplade_max.tar.gz
+tar -xvf distilsplade_max.tar.gz
+mv distilsplade_max distill-splade-max
 ```
 
 Then run retrieval with `--encoder distill-splade-max`:
