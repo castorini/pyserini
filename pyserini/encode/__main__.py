@@ -67,6 +67,7 @@ if __name__ == '__main__':
                               required=True)
     input_parser.add_argument('--fields', help='fields that contents in jsonl has (in order)',
                               nargs='+', default=['text'], required=False)
+    input_parser.add_argument('--delimiter', help='delimiter for the fields', default='\n', required=False)
     input_parser.add_argument('--shard-id', type=int, help='shard-id 0-based', default=0, required=False)
     input_parser.add_argument('--shard-num', type=int, help='number of shards', default=1, required=False)
 
@@ -77,20 +78,20 @@ if __name__ == '__main__':
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
-    encoder_parser.add_argument('--delimiter', help='delimiter for the fields', default='\n', required=False)
     encoder_parser.add_argument('--batch-size', type=int, help='batch size', default=64, required=False)
     encoder_parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]',
                                 default='cuda:0', required=False)
     encoder_parser.add_argument('--fp16', action='store_true', default=False)
 
     args = parse_args(parser, commands)
+    delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
 
     encoder = init_encoder(args.encoder.encoder, device=args.encoder.device)
     if args.output.to_faiss:
         embedding_writer = FaissRepresentationWriter(args.output.embeddings)
     else:
         embedding_writer = JsonlRepresentationWriter(args.output.embeddings)
-    collection_iterator = JsonlCollectionIterator(args.input.corpus, args.input.fields, args.input.delimiter)
+    collection_iterator = JsonlCollectionIterator(args.input.corpus, args.input.fields, delimiter)
 
     with embedding_writer:
         for batch_info in collection_iterator(args.encoder.batch_size, args.input.shard_id, args.input.shard_num):

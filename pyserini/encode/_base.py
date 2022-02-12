@@ -62,12 +62,12 @@ class JsonlCollectionIterator:
             self.fields = fields
         else:
             self.fields = ['text']
+        self.delimiter = delimiter
         self.all_info = self._load(collection_path)
         self.size = len(self.all_info['id'])
         self.batch_size = 1
         self.shard_id = 0
         self.shard_num = 1
-        self.delimiter = delimiter
 
     def __call__(self, batch_size=1, shard_id=0, shard_num=1):
         self.batch_size = batch_size
