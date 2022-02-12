@@ -57,7 +57,7 @@ class PcaEncoder:
 
 
 class JsonlCollectionIterator:
-    def __init__(self, collection_path: str, fields=None):
+    def __init__(self, collection_path: str, fields=None, delimiter="\n"):
         if fields:
             self.fields = fields
         else:
@@ -67,6 +67,7 @@ class JsonlCollectionIterator:
         self.batch_size = 1
         self.shard_id = 0
         self.shard_num = 1
+        self.delimiter = delimiter
 
     def __call__(self, batch_size=1, shard_id=0, shard_num=1):
         self.batch_size = batch_size
@@ -101,7 +102,7 @@ class JsonlCollectionIterator:
                 for line in tqdm(f):
                     info = json.loads(line)
                     all_info['id'].append(str(info['id']))
-                    fields_info = info['contents'].rstrip().split('\n')
+                    fields_info = info['contents'].rstrip().split(self.delimiter)
                     for i in range(len(fields_info)):
                         all_info[self.fields[i]].append(fields_info[i])
         return all_info
