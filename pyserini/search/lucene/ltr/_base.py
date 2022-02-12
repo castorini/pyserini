@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-from ..pyclass import autoclass, JArrayList
+from pyserini.pyclass import autoclass, JArrayList
 import json
 import numpy as np
 import pandas as pd

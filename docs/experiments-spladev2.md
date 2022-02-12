@@ -1,4 +1,4 @@
-# Pyserini: SPLADEv2 for MS MARCO V1 Passage Ranking
+# Pyserini: SPLADEv2 on MS MARCO V1 Passage Ranking
 
 This page describes how to reproduce with Pyserini the DistilSPLADE-max experiments in the following paper:
 
@@ -6,8 +6,6 @@ This page describes how to reproduce with Pyserini the DistilSPLADE-max experime
 
 Here, we start with a version of the MS MARCO passage corpus that has already been processed with SPLADE, i.e., gone through document expansion and term reweighting.
 Thus, no neural inference is involved. As SPLADE weights are given in fp16, they have been converted to integer by taking the round of weight*100.
-
-Note that Anserini provides [a comparable reproduction guide](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage-splade-v2.md) based on Java.
 
 ## Data Prep
 
@@ -24,21 +22,23 @@ wget https://vault.cs.uwaterloo.ca/s/poCLbJDMm7JxwPk/download -O collections/msm
 tar xvf collections/msmarco-passage-distill-splade-max.tar -C collections/
 ```
 
-To confirm, `msmarco-passage-distill-splade-max.tar` is ~9.8 GB and has MD5 checksum `95b89a7dfd88f3685edcc2d1ffb120d1`.
+To confirm, `msmarco-passage-distill-splade-max.tar` is 9.9 GB and has MD5 checksum `95b89a7dfd88f3685edcc2d1ffb120d1`.
 
 ## Indexing
 
 We can now index these documents:
 
 ```bash
-python -m pyserini.index -collection JsonVectorCollection \
- -input collections/msmarco-passage-distill-splade-max \
- -index indexes/lucene-index.msmarco-passage.distill-splade-max \
- -generator DefaultLuceneDocumentGenerator -impact -pretokenized \
- -threads 12
+python -m pyserini.index.lucene \
+  --collection JsonVectorCollection \
+  --input collections/msmarco-passage-distill-splade-max \
+  --index indexes/lucene-index.msmarco-passage-distill-splade-max \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 12 \
+  --impact --pretokenized
 ```
 
-The important indexing options to note here are `-impact -pretokenized`: the first tells Anserini not to encode BM25 doc lengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the SPLADEv2 tokens.
+The important indexing options to note here are `--impact --pretokenized`: the first tells Anserini not to encode BM25 doc lengths into Lucene's norms (which is the default) and the second option says not to apply any additional tokenization on the SPLADEv2 tokens.
 
 Upon completion, we should have an index with 8,841,823 documents.
 The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 30 minutes.
@@ -61,15 +61,17 @@ The MD5 checksum of the topics file is `621a58df9adfbba8d1a23e96d8b21cb7`.
 We can now run retrieval:
 
 ```bash
-python -m pyserini.search --topics collections/topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz \
-                          --index indexes/lucene-index.msmarco-passage.distill-splade-max \
-                          --output runs/run.msmarco-passage.distill-splade-max.tsv \
-                          --impact \
-                          --hits 1000 --batch 36 --threads 12 \
-                          --output-format msmarco
+python -m pyserini.search.lucene \
+  --index indexes/lucene-index.msmarco-passage-distill-splade-max \
+  --topics collections/topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz \
+  --output runs/run.msmarco-passage-distill-splade-max.tsv \
+  --output-format msmarco \
+  --batch 36 --threads 12 \
+  --hits 1000 \
+  --impact
 ```
 
-Note that the important option here is `-impact`, where we specify impact scoring.
+Note that the important option here is `--impact`, where we specify impact scoring.
 A complete run can take around half an hour.
 
 *Note from authors*: We are still investigating why it takes so long using Pyserini, while the same model (including distilbert query encoder forward pass in CPU) takes only **10 minutes** on similar hardware using a numba implementation for the inverted index and using sequential processing (only one query at a time).
@@ -77,7 +79,7 @@ A complete run can take around half an hour.
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.distill-splade-max.tsv
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-distill-splade-max.tsv
 ```
 
 The results should be as follows:
@@ -93,35 +95,32 @@ The final evaluation metric is very close to the one reported in the paper (0.36
 
 Alternatively, we can use one-the-fly query encoding.
 
-First, download the model checkpoint from NAVER's github [repo](https://github.com/naver/splade/tree/main/weights/splade_max):
+First, download the model checkpoint from NAVER's [website](https://europe.naverlabs.com/research/machine-learning-and-optimization/splade-models/):
 
 ```bash
-mkdir distill-splade-max
-cd distill-splade-max
-wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/pytorch_model.bin
-wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/config.json
-wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/special_tokens_map.json
-wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/tokenizer_config.json
-wget https://github.com/naver/splade/raw/main/weights/distilsplade_max/vocab.txt
-cd ..
+wget https://download-de.europe.naverlabs.com/Splade_Release_Jan22/distilsplade_max.tar.gz
+tar -xvf distilsplade_max.tar.gz
+mv distilsplade_max distill-splade-max
 ```
 
 Then run retrieval with `--encoder distill-splade-max`:
 
 ```bash
-python -m pyserini.search --topics msmarco-passage-dev-subset \
-                          --index indexes/lucene-index.msmarco-passage.distill-splade-max \
-                          --encoder distill-splade-max \
-                          --output runs/run.msmarco-passage.distill-splade-max.tsv \
-                          --impact \
-                          --hits 1000 --batch 36 --threads 12 \
-                          --output-format msmarco
+python -m pyserini.search.lucene \
+  --index indexes/lucene-index.msmarco-passage-distill-splade-max \
+  --topics msmarco-passage-dev-subset \
+  --encoder distill-splade-max \
+  --output runs/run.msmarco-passage-distill-splade-max.tsv \
+  --output-format msmarco \
+  --batch 36 --threads 12 \
+  --hits 1000 \
+  --impact
 ```
 
 And then evaluate: 
 
 ```bash
-python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.distill-splade-max.tsv
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-distill-splade-max.tsv
 ```
 
 The results should be something along these lines:

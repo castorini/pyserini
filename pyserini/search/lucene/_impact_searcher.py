@@ -15,7 +15,7 @@
 #
 
 """
-This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``ImpactSearcher``
+This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``LuceneImpactSearcher``
 class, which wraps the Java class with the same name in Anserini.
 """
 import logging
@@ -35,7 +35,7 @@ JImpactSearcher = autoclass('io.anserini.search.SimpleImpactSearcher')
 JImpactSearcherResult = autoclass('io.anserini.search.SimpleImpactSearcher$Result')
 
 
-class ImpactSearcher:
+class LuceneImpactSearcher:
     """Wrapper class for ``ImpactSearcher`` in Anserini.
 
     Parameters

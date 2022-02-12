@@ -22,7 +22,7 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import List
 
-from ..pyclass import autoclass
+from pyserini.pyclass import autoclass
 
 logger = logging.getLogger(__name__)
 

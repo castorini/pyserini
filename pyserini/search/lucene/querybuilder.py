@@ -20,8 +20,8 @@ This module provides Pyserini's Python interface query building for Anserini.
 import logging
 from enum import Enum
 
-from ..analysis import get_lucene_analyzer, Analyzer
-from ..pyclass import autoclass
+from pyserini.analysis import get_lucene_analyzer, Analyzer
+from pyserini.pyclass import autoclass
 
 logger = logging.getLogger(__name__)
 
