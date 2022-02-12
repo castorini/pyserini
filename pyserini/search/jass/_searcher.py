@@ -45,74 +45,19 @@ class JASSv2Searcher:
 
 
     # XXX: TODO: This is the Lucene version for reference...
-    def search(self, q: str, k: int = 10, query_generator: JQueryGenerator = None,
-               fields=dict(), strip_segment_id=False, remove_dups=False) -> List[str]:
-        """Search the collection.
-
-        Parameters
-        ----------
-        q : Union[str, JQuery]
-            Query string or the ``JQuery`` objected.
-        k : int
-            Number of hits to return.
-        query_generator : JQueryGenerator
-            Generator to build queries. Set to ``None`` by default to use Anserini default.
-        fields : dict
-            Optional map of fields to search with associated boosts.
-        strip_segment_id : bool
-            Remove the .XXXXX suffix used to denote different segments from an document.
-        remove_dups : bool
-            Remove duplicate docids when writing final run output.
-
-        Returns
-        -------
-        List[JSimpleSearcherResult]
-            List of search results.
-        """
+    def search(self, q: str, k: int = 10, rho: int = 10,
+               fields=dict(), strip_segment_id=False, remove_dups=False) -> List[pyjass.JASS_anytime_result]:
+        
         hits = None
         self.object.set_top_k(k)
-        # if query_generator:
-        #     if not fields:
-        #         hits = self.object.search(query_generator, q, k)
-        #     else:
-        #         hits = self.object.searchFields(query_generator, q, jfields, k)
-        # elif isinstance(q, JQuery):
-        #     # Note that RM3 requires the notion of a query (string) to estimate the appropriate models. If we're just
-        #     # given a Lucene query, it's unclear what the "query" is for this estimation. One possibility is to extract
-        #     # all the query terms from the Lucene query, although this might yield unexpected behavior from the user's
-        #     # perspective. Until we think through what exactly is the "right thing to do", we'll raise an exception
-        #     # here explicitly.
-        #     if self.is_using_rm3():
-        #         raise NotImplementedError('RM3 incompatible with search using a Lucene query.')
-        #     if fields:
-        #         raise NotImplementedError('Cannot specify fields to search when using a Lucene query.')
-        #     hits = self.object.search(q, k)
-        # else:
-        #     if not fields:
-        #         hits = self.object.search(q, k)
+        self.object.set_postings_to_process(rho)
+        results = self.object.search(q)
 
-        #     else:
-        #         hits = self.object.searchFields(q, jfields, k)
+        return results.results_list # TO-DO make it pyserini compatible 
 
-        docids = set()
-        filtered_hits = []
-
-        for hit in hits:
-            if strip_segment_id is True:
-                hit.docid = hit.docid.split('.')[0]
-
-            if hit.docid in docids:
-                continue
-
-            filtered_hits.append(hit)
-
-            if remove_dups is True:
-                docids.add(hit.docid)
-
-        return filtered_hits
 
     def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1,
-                     query_generator: JQueryGenerator = None, fields = dict()) -> Dict[str, List[JSimpleSearcherResult]]:
+                     query_generator: JQueryGenerator = None, fields = dict()) -> Dict[str, List[pyjass.JASS_anytime_result]]:
         """Search the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
