@@ -39,7 +39,7 @@ To confirm, `msmarco-passage-v2-unicoil-tilde-expansion-b8.tar` is around 58 GB 
 We can now index these docs:
 
 ```
-python -m pyserini.index --collection JsonVectorCollection \
+python -m pyserini.index.lucene --collection JsonVectorCollection \
                          --input collections/msmarco-passage-v2-unicoil-tilde-expansion-b8/ \
                          --index indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8 \
                          --generator DefaultLuceneDocumentGenerator \
@@ -77,7 +77,7 @@ This pre-built index was created with the above command, but with the addition o
 We can now run retrieval:
 
 ```bash
-python -m pyserini.search --topics msmarco-v2-passage-dev \
+python -m pyserini.search.lucene --topics msmarco-v2-passage-dev \
                           --encoder ielab/unicoil-tilde200-msmarco-passage \
                           --index indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8 \
                           --output runs/run.msmarco-v2-passage-dev-unicoil-tilde-expansion-b8.txt \
@@ -139,3 +139,4 @@ These results may be slightly different from the figures above, but they should 
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-09-19 (commit [`6b9cc5b`](https://github.com/castorini/pyserini/commit/6b9cc5b1c2fee89597c5841a9f88395cf76bf60a))
 + Results reproduced by [@MXueguang](https://github.com/MXueguang) on 2021-09-22 (commit [`a4c12d2`](https://github.com/castorini/pyserini/commit/a4c12d28979b4ed9177845733932f94a1fcdfe64))
++ Results reproduced by [@prasys](https://github.com/prasys) on 2021-02-14 (commit [`3732c8e`](https://github.com/castorini/pyserini/commit/3732c8e3f1b72113a3961444b1ac37878afcbb64))
