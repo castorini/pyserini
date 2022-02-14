@@ -45,7 +45,27 @@ class JASSv2Searcher:
             raise Exception('Unable to load index - error code' + str(index))
     
 
-   
+    def convert_to_search_result(self, result_list:str) -> List[DenseSearchResult]:
+        """Process a pyJass query and return the results in a list of DenseSearchResult.
+
+        Parameters
+        ----------
+        query : str
+            Query string fromy pyjass. Multiple queries are stored as with new line token.
+
+        Returns
+        -------
+        List[DenseSearchResult]
+            List of DenseSearchResult which contains DocID and also the score from pyJass query.
+        """
+        docid_score_pair = list()
+        queries = result_list.split('\n')
+        for query in queries:
+            qrel = query.split(' ') # split by space
+            if len(qrel) == 6:  
+                docid_score_pair.append(DenseSearchResult(qrel[2], float(qrel[4]))) # make it as a dense object so pyserini downstream tasks know how to handle - quick way
+
+
 
 
     # XXX: TODO: This is the Lucene version for reference...
@@ -133,26 +153,6 @@ class JASSv2Searcher:
 
 
 # Quick and dirty test to load index, search and also get the hits
-
- def convert_to_search_result(self, result_list:str) -> List[DenseSearchResult]:
-        """Process a pyJass query and return the results in a list of DenseSearchResult.
-
-        Parameters
-        ----------
-        query : str
-            Query string fromy pyjass. Multiple queries are stored as with new line token.
-
-        Returns
-        -------
-        List[DenseSearchResult]
-            List of DenseSearchResult which contains DocID and also the score from pyJass query.
-        """
-        docid_score_pair = list()
-        queries = result_list.split('\n')
-        for query in queries:
-            qrel = query.split(' ') # split by space
-            if len(qrel) == 6:  
-                docid_score_pair.append(DenseSearchResult(qrel[2], float(qrel[4]))) # make it as a dense object so pyserini downstream tasks know how to handle - quick way
 
 def main():
     blah = JASSv2Searcher('/home/pradeesh') # collection to Jass pre-built Index
