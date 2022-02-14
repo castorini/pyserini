@@ -75,7 +75,10 @@ class JASSv2Searcher:
 
         self.object.set_top_k(k)
         self.object.set_postings_to_process(rho)
-        results = self.object.search("0:"+q) # appending "0: to handle jass' requirements"
+        if q[0].isdigit() and q[1] == ':':
+            results = self.object.search(q)
+        else:
+            results = self.object.search("0:"+q) # appending "0: to handle jass' requirements"
         return (self.convert_to_search_result(results.results_list))
 
     
@@ -158,7 +161,7 @@ class JASSv2Searcher:
 
 def main():
     blah = JASSv2Searcher('/home/pradeesh') # collection to Jass pre-built Index
-    hits = blah.search('what is a lobster roll')
+    hits = blah.search('2:what is a lobster roll')
 
     for i in range(0, 5):
         print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
