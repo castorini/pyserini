@@ -75,7 +75,7 @@ class JASSv2Searcher:
 
         self.object.set_top_k(k)
         self.object.set_postings_to_process(rho)
-        results = self.object.search(q)
+        results = self.object.search("0:"+q) # appending "0: to handle jass' requirements"
         return (self.convert_to_search_result(results.results_list))
 
     
