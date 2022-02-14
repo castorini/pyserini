@@ -65,6 +65,8 @@ class JASSv2Searcher:
             if len(qrel) == 6:  
                 docid_score_pair.append(DenseSearchResult(qrel[2], float(qrel[4]))) # make it as a dense object so pyserini downstream tasks know how to handle - quick way
 
+        return docid_score_pair
+
 
 
 
@@ -77,27 +79,27 @@ class JASSv2Searcher:
         return (self.convert_to_search_result(results.results_list))
 
     
-    @abstractmethod
-    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1) -> Dict[str, List[DenseSearchResult]]:
-        """Perform batch search.
+    # @abstractmethod
+    # def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1) -> Dict[str, List[DenseSearchResult]]:
+    #     """Perform batch search.
 
-        Parameters
-        ----------
-        queries : List[str]
-            List of queries.
-        qids : List[str]
-            List of query ids.
-        k : int
-            Number of results to return for each query.
-        threads : int
-            Number of threads to use.
+    #     Parameters
+    #     ----------
+    #     queries : List[str]
+    #         List of queries.
+    #     qids : List[str]
+    #         List of query ids.
+    #     k : int
+    #         Number of results to return for each query.
+    #     threads : int
+    #         Number of threads to use.
 
-        Returns
-        -------
-        Dict[str, List[DenseSearchResult]]
-            Dict of query id to list of DenseSearchResult.
-        """
-        raise NotImplementedError
+    #     Returns
+    #     -------
+    #     Dict[str, List[DenseSearchResult]]
+    #         Dict of query id to list of DenseSearchResult.
+    #     """
+    #     raise NotImplementedError
 
 
 
