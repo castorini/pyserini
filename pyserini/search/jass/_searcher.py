@@ -22,7 +22,8 @@ class, which wraps the C++ ``JASS_anytime_api``.
 import logging
 import pyjass
 from typing import Dict, List, Optional, Union
-
+from pyserini.trectools import TrecRun
+from pyserini.dsearch import DenseSearchResult
 logger = logging.getLogger(__name__)
 
 # Wrappers around JASS classes
@@ -46,72 +47,92 @@ class JASSv2Searcher:
 
     # XXX: TODO: This is the Lucene version for reference...
     def search(self, q: str, k: int = 10, rho: int = 10,
-               fields=dict(), strip_segment_id=False, remove_dups=False) -> List[pyjass.JASS_anytime_result]:
+               fields=dict(), strip_segment_id=False, remove_dups=False) -> List[DenseSearchResult]:
         
-        hits = None
+        docid_score_pair = list()
         self.object.set_top_k(k)
         self.object.set_postings_to_process(rho)
         results = self.object.search(q)
-
-        return results.results_list # TO-DO make it pyserini compatible 
-
-
-    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1,
-                     query_generator: JQueryGenerator = None, fields = dict()) -> Dict[str, List[pyjass.JASS_anytime_result]]:
-        """Search the collection concurrently for multiple queries, using multiple threads.
-
-        Parameters
-        ----------
-        queries : List[str]
-            List of query strings.
-        qids : List[str]
-            List of corresponding query ids.
-        k : int
-            Number of hits to return.
-        threads : int
-            Maximum number of threads to use.
-        query_generator : JQueryGenerator
-            Generator to build queries. Set to ``None`` by default to use Anserini default.
-        fields : dict
-            Optional map of fields to search with associated boosts.
-
-        Returns
-        -------
-        Dict[str, List[JSimpleSearcherResult]]
-            Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
-            results as the values.
-        """
-        query_strings = JArrayList()
-        qid_strings = JArrayList()
+        queries = results.results_list.split('\n')
         for query in queries:
-            query_strings.add(query)
+            qrel = query.split(' ') # split by space
+            if len(qrel) == 6:  
+                docid_score_pair.append(DenseSearchResult(qrel[2], float(qrel[4]))) # make it as a dense object so pyserini downstream tasks know how to handle - quick way
 
-        for qid in qids:
-            qid_strings.add(qid)
+        
+        return docid_score_pair
 
-        jfields = JHashMap()
-        for (field, boost) in fields.items():
-            jfields.put(field, JFloat(boost))
 
-        if query_generator:
-            if not fields:
-                results = self.object.batchSearch(query_generator, query_strings, qid_strings, int(k), int(threads))
-            else:
-                results = self.object.batchSearchFields(query_generator, query_strings, qid_strings, int(k), int(threads), jfields)
-        else:
-            if not fields:
-                results = self.object.batchSearch(query_strings, qid_strings, int(k), int(threads))
-            else:
-                results = self.object.batchSearchFields(query_strings, qid_strings, int(k), int(threads), jfields)
-        return {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
 
-    # XXX: TODO: This is the Anserini version but may be useful as reference
-    def convert_to_search_result(run: TrecRun, docid_to_search_result: Dict[str, JSimpleSearcherResult]) -> List[JSimpleSearcherResult]:
-        search_results = []
+    # def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1,
+    #                  query_generator: JQueryGenerator = None, fields = dict()) -> Dict[str, List[pyjass.JASS_anytime_result]]:
+    #     """Search the collection concurrently for multiple queries, using multiple threads.
 
-        for _, _, docid, _, score, _ in run.to_numpy():
-            search_result = docid_to_search_result[docid]
-            search_result.score = score
-            search_results.append(search_result)
+    #     Parameters
+    #     ----------
+    #     queries : List[str]
+    #         List of query strings.
+    #     qids : List[str]
+    #         List of corresponding query ids.
+    #     k : int
+    #         Number of hits to return.
+    #     threads : int
+    #         Maximum number of threads to use.
+    #     query_generator : JQueryGenerator
+    #         Generator to build queries. Set to ``None`` by default to use Anserini default.
+    #     fields : dict
+    #         Optional map of fields to search with associated boosts.
 
-        return search_results
+    #     Returns
+    #     -------
+    #     Dict[str, List[JSimpleSearcherResult]]
+    #         Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
+    #         results as the values.
+    #     """
+    #     query_strings = JArrayList()
+    #     qid_strings = JArrayList()
+    #     for query in queries:
+    #         query_strings.add(query)
+
+    #     for qid in qids:
+    #         qid_strings.add(qid)
+
+    #     jfields = JHashMap()
+    #     for (field, boost) in fields.items():
+    #         jfields.put(field, JFloat(boost))
+
+    #     if query_generator:
+    #         if not fields:
+    #             results = self.object.batchSearch(query_generator, query_strings, qid_strings, int(k), int(threads))
+    #         else:
+    #             results = self.object.batchSearchFields(query_generator, query_strings, qid_strings, int(k), int(threads), jfields)
+    #     else:
+    #         if not fields:
+    #             results = self.object.batchSearch(query_strings, qid_strings, int(k), int(threads))
+    #         else:
+    #             results = self.object.batchSearchFields(query_strings, qid_strings, int(k), int(threads), jfields)
+    #     return {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
+
+    # # XXX: TODO: This is the Anserini version but may be useful as reference
+    # def convert_to_search_result(run: TrecRun, docid_to_search_result: str]) -> List[JSimpleSearcherResult]:
+    #     search_results = []
+
+    #     for _, _, docid, _, score, _ in run.to_numpy():
+    #         search_result = docid_to_search_result[docid]
+    #         search_result.score = score
+    #         search_results.append(search_result)
+
+    #     return search_results
+
+# Quick and dirty test to load index, search and also get the hits
+
+def main():
+    blah = JASSv2Searcher('/home/pradeesh') # collection to Jass pre-built Index
+    hits = blah.search('what is a lobster roll')
+
+    for i in range(0, 5):
+        print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+
+
+if __name__ == "__main__":
+    main()
