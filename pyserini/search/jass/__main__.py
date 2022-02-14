@@ -59,20 +59,10 @@ def set_bm25_parameters(searcher, index, k1=None, b=None):
 
 def define_search_args(parser):
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
-                        help="Path to Lucene index or name of prebuilt index.")
-
-    parser.add_argument('--impact', action='store_true', help="Use Impact.")
-    parser.add_argument('--encoder', type=str, default=None, help="encoder name")
-    parser.add_argument('--min-idf', type=int, default=0, help="minimum idf")
+                        help="Path to pyJass index")
 
     parser.add_argument('--bm25', action='store_true', default=True, help="Use BM25 (default).")
-    parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
-    parser.add_argument('--b', type=float, help='BM25 b parameter.')
-
-    parser.add_argument('--rm3', action='store_true', help="Use RM3")
-    parser.add_argument('--qld', action='store_true', help="Use QLD")
-
-    parser.add_argument('--language', type=str, help='language code for BM25, e.g. zh for Chinese', default='en')
+    parser.add_argument('--rho', type=float, help='rho parameter.')
 
     parser.add_argument('--prcl', type=ClassifierType, nargs='+', default=[],
                         help='Specify the classifier PseudoRelevanceClassifierReranker uses.')
@@ -85,19 +75,12 @@ def define_search_args(parser):
     parser.add_argument('--prcl.alpha', dest='alpha', type=float, default=0.5,
                         help='Alpha value for interpolation in pseudo relevance feedback.')
 
-    parser.add_argument('--fields', metavar="key=value", nargs='+',
-                        help='Fields to search with assigned float weights.')
-    parser.add_argument('--dismax', action='store_true', default=False,
-                        help='Use disjunction max queries when searching multiple fields.')
-    parser.add_argument('--dismax.tiebreaker', dest='tiebreaker', type=float, default=0.0,
-                        help='The tiebreaker weight to use in disjunction max queries.')
 
-    parser.add_argument('--stopwords', type=str, help='Path to file with customstopwords.')
 
 
 if __name__ == "__main__":
     JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
-    parser = argparse.ArgumentParser(description='Search a Lucene index.')
+    parser = argparse.ArgumentParser(description='Search a pyJass index.')
     define_search_args(parser)
     parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                         help="Name of topics. Available: robust04, robust05, core17, core18.")
@@ -119,8 +102,6 @@ if __name__ == "__main__":
                         default=1, help="Specify batch size to search the collection concurrently.")
     parser.add_argument('--threads', type=int, metavar='num', required=False,
                         default=1, help="Maximum number of threads to use.")
-    parser.add_argument('--tokenizer', type=str, help='tokenizer used to preprocess topics')
-    parser.add_argument('--remove-duplicates', action='store_true', default=False, help="Remove duplicate docs.")
 
     args = parser.parse_args()
 
