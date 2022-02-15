@@ -1,3 +1,7 @@
+# mrtydi-v1.1-bengali
+
+Faiss index for Mr.TyDi v1.1 (Bengali), using mDPR fine-tuned on NQ.
+
 This index was generated on 2022/02/07 at commit [5df364](https://github.com/castorini/pyserini/commit/5df3649b128ece125ce8a9171ed4001ce3a6ef23) on narval with the following command:
 (manually change the delimiter in encoding from \n into \n\n).
 The index is then reproduced on commit [17c7fe4](https://github.com/crystina-z/pyserini/commit/17c7fe43efecbc8029ebea948418491f7504c89a) (after supporting controlling --delimiter via arguments.)

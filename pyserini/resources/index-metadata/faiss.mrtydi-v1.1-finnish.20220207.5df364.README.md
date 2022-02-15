@@ -1,3 +1,7 @@
+# mrtydi-v1.1-finnish
+
+Faiss index for Mr.TyDi v1.1 (Finnish), using mDPR fine-tuned on NQ.
+
 This index was generated on 2022/02/07 at commit [5df364](https://github.com/castorini/pyserini/commit/5df3649b128ece125ce8a9171ed4001ce3a6ef23) on narval with the following command:
 (manually change the delimiter in encoding from \n into \n\n).
 
