@@ -69,8 +69,6 @@ class JASSv2Searcher:
 
 
 
-
-    # XXX: TODO: This is the Lucene version for reference...
     def search(self, q: str, k: int = 10, rho: int = 10) -> List[DenseSearchResult]:
 
         self.object.set_top_k(k)
@@ -137,81 +135,6 @@ class JASSv2Searcher:
         return output
 
 
-
-
-    # @abstractmethod
-    # def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1) -> Dict[str, List[DenseSearchResult]]:
-    #     """Perform batch search.
-
-    #     Parameters
-    #     ----------
-    #     queries : List[str]
-    #         List of queries.
-    #     qids : List[str]
-    #         List of query ids.
-    #     k : int
-    #         Number of results to return for each query.
-    #     threads : int
-    #         Number of threads to use.
-
-    #     Returns
-    #     -------
-    #     Dict[str, List[DenseSearchResult]]
-    #         Dict of query id to list of DenseSearchResult.
-    #     """
-    #     raise NotImplementedError
-
-
-
-
-    # def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1,
-    #                  query_generator: JQueryGenerator = None, fields = dict()) -> Dict[str, List[pyjass.JASS_anytime_result]]:
-    #     """Search the collection concurrently for multiple queries, using multiple threads.
-
-    #     Parameters
-    #     ----------
-    #     queries : List[str]
-    #         List of query strings.
-    #     qids : List[str]
-    #         List of corresponding query ids.
-    #     k : int
-    #         Number of hits to return.
-    #     threads : int
-    #         Maximum number of threads to use.
-    #     query_generator : JQueryGenerator
-    #         Generator to build queries. Set to ``None`` by default to use Anserini default.
-    #     fields : dict
-    #         Optional map of fields to search with associated boosts.
-
-    #     Returns
-    #     -------
-    #     Dict[str, List[JSimpleSearcherResult]]
-    #         Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
-    #         results as the values.
-    #     """
-    #     query_strings = JArrayList()
-    #     qid_strings = JArrayList()
-    #     for query in queries:
-    #         query_strings.add(query)
-
-    #     for qid in qids:
-    #         qid_strings.add(qid)
-
-    #     jfields = JHashMap()
-    #     for (field, boost) in fields.items():
-    #         jfields.put(field, JFloat(boost))
-
-    #     if query_generator:
-    #         if not fields:
-    #             results = self.object.batchSearch(query_generator, query_strings, qid_strings, int(k), int(threads))
-    #         else:
-    #             results = self.object.batchSearchFields(query_generator, query_strings, qid_strings, int(k), int(threads), jfields)
-    #     else:
-    #         if not fields:
-    #             results = self.object.batchSearch(query_strings, qid_strings, int(k), int(threads))
-    #         else:
-    #             results = self.object.batchSearchFields(query_strings, qid_strings, int(k), int(threads), jfields)
-    #     return {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
 
 
 # Quick and dirty test to load index, search and also get the hits
