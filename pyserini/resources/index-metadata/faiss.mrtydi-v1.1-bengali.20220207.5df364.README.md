@@ -16,7 +16,7 @@ gzip -cvf $corpus.gz > $corpus
 
 mkdir -p $index_dir
 
-python -m pyserini.encode input   --corpus $corpus \
+python -m pyserini.encode   input   --corpus $corpus \
                                     --fields title text \
                                     --delimiter "\n\n" \
                             output  --embeddings  $index_dir \
@@ -31,10 +31,10 @@ which can be dsearched using:
 ```bash
 set_name=test
 python -m pyserini.dsearch \
-    --encoder castorini/mdpr-question-nq \
-    --topics mrtydi-v1.1-${lang}-${set_name} \
-    --index ${index_dir} \
-    --output runs/run.mrtydi-v1.1-$lang.${set_name}.txt 
-    --batch-size 36 \
-    --threads 12
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-${lang}-${set_name} \
+  --index ${index_dir} \
+  --output runs/run.mrtydi-v1.1-$lang.${set_name}.txt
+  --batch-size 36 \
+  --threads 12
 ```
