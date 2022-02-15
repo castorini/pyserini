@@ -12,12 +12,13 @@ These instructions are exactly the same as in the [Anserini guide](https://githu
 
 This is the minimal indexing command:
 
-```
-python -m pyserini.index --collection MsMarcoV2PassageCollection \
-                         --generator DefaultLuceneDocumentGenerator \
-                         --input collections/msmarco_v2_passage \
-                         --index indexes/lucene-index.msmarco-v2-passage \
-                         --threads 12
+```bash
+python -m pyserini.index.lucene
+  --collection MsMarcoV2PassageCollection \
+  --input collections/msmarco_v2_passage \
+  --index indexes/lucene-index.msmarco-v2-passage \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 12
 ```
 
 Adjust `-threads` as appropriate.
@@ -26,14 +27,14 @@ The above minimal index should be ~11 GB.
 
 Perform a run on the dev queries:
 
-```
-python -m pyserini.search --index indexes/lucene-index.msmarco-v2-passage \
-                          --topics msmarco-v2-passage-dev \
-                          --output runs/run.msmarco-v2-passage.dev.txt \
-                          --bm25 \
-                          --hits 1000 \
-                          --batch-size 36 \
-                          --threads 12
+```bash
+python -m pyserini.search.lucene \
+  --index indexes/lucene-index.msmarco-v2-passage \
+  --topics msmarco-v2-passage-dev \
+  --output runs/run.msmarco-v2-passage.dev.txt \
+  --batch-size 36 --threads 12 \
+  --hits 1000 \
+  --bm25
 ```
 
 Evaluation:
@@ -58,12 +59,13 @@ To run on the `dev2` queries, just change everything from `msmarco-v2-passage-de
 Refer to the [Anserini guide](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-v2.md) on how this collection was prepared.
 This is the minimal indexing command:
 
-```
-python -m pyserini.index --collection MsMarcoV2PassageCollection \
-                         --generator DefaultLuceneDocumentGenerator \
-                         --input collections/msmarco_v2_passage_augmented \
-                         --index indexes/lucene-index.msmarco-v2-passage-augmented \
-                         --threads 12
+```bash
+python -m pyserini.index.lucene \
+  --collection MsMarcoV2PassageCollection \
+  --input collections/msmarco_v2_passage_augmented \
+  --index indexes/lucene-index.msmarco-v2-passage-augmented \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 12
 ```
 
 Adjust `-threads` as appropriate.
@@ -72,14 +74,14 @@ The above minimal index should be ~19 GB.
 
 Perform a run on the dev queries:
 
-```
-python -m pyserini.search --index indexes/lucene-index.msmarco-v2-passage-augmented \
-                          --topics msmarco-v2-passage-dev \
-                          --output runs/run.msmarco-v2-passage-augmented.dev.txt \
-                          --bm25 \
-                          --hits 1000 \
-                          --batch-size 36 \
-                          --threads 12
+```bash
+python -m pyserini.search.lucene \
+  --index indexes/lucene-index.msmarco-v2-passage-augmented \
+  --topics msmarco-v2-passage-dev \
+  --output runs/run.msmarco-v2-passage-augmented.dev.txt \
+  --batch-size 36 --threads 12 \
+  --hits 1000 \
+  --bm25
 ```
 
 Evaluation:
@@ -103,12 +105,13 @@ To run on the `dev2` queries, just change everything from `msmarco-v2-passage-de
 
 This is the minimal indexing command:
 
-```
-python -m pyserini.index --collection MsMarcoV2DocCollection \
-                         --generator DefaultLuceneDocumentGenerator \
-                         --input collections/msmarco_v2_doc \
-                         --index indexes/lucene-index.msmarco-v2-doc \
-                         --threads 12
+```bash
+python -m pyserini.index.lucene \
+  --collection MsMarcoV2DocCollection \
+  --input collections/msmarco_v2_doc \
+  --index indexes/lucene-index.msmarco-v2-doc \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 12
 ```
 
 Adjust `-threads` as appropriate.
@@ -117,14 +120,14 @@ The above minimal index should be ~9.6 GB.
 
 Perform a run on the dev queries:
 
-```
-python -m pyserini.search --index indexes/lucene-index.msmarco-v2-doc \
-                          --topics msmarco-v2-doc-dev \
-                          --output runs/run.msmarco-v2-doc.dev.txt \
-                          --bm25 \
-                          --hits 1000 \
-                          --batch-size 36 \
-                          --threads 12
+```bash
+python -m pyserini.search.lucene \
+   --index indexes/lucene-index.msmarco-v2-doc \
+   --topics msmarco-v2-doc-dev \
+   --output runs/run.msmarco-v2-doc.dev.txt \
+   --batch-size 36 --threads 12 \
+   --hits 1000 \
+   --bm25
 ```
 
 Evaluation:
@@ -149,12 +152,13 @@ To run on the `dev2` queries, just change everything from `msmarco-v2-doc-dev` t
 Refer to the [Anserini guide](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-v2.md) on how this collection was prepared.
 This is the minimal indexing command:
 
-```
-python -m pyserini.index --collection MsMarcoV2DocCollection \
-                         --generator DefaultLuceneDocumentGenerator \
-                         --input collections/msmarco_v2_doc_segmented \
-                         --index indexes/lucene-index.msmarco-v2-doc-segmented \
-                         --threads 12
+```bash
+python -m pyserini.index.lucene \
+  --collection MsMarcoV2DocCollection \
+  --input collections/msmarco_v2_doc_segmented \
+  --index indexes/lucene-index.msmarco-v2-doc-segmented \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 12
 ```
 
 Adjust `-threads` as appropriate.
@@ -164,15 +168,13 @@ The above minimal index should be ~27 GB.
 Perform a run on the dev queries:
 
 ```bash
-python -m pyserini.search --index indexes/lucene-index.msmarco-v2-doc-segmented \
-                          --topics msmarco-v2-doc-dev \
-                          --index indexes/lucene-index.msmarco-v2-doc-segmented  \
-                          --output runs/run.msmarco-v2-doc-segmented.dev.txt \
-                          --hits 10000 \
-                          --batch 36 \
-                          --threads 12 \
-                          --max-passage-hits 1000 \
-                          --max-passage
+python -m pyserini.search.lucene \
+  --index indexes/lucene-index.msmarco-v2-doc-segmented \
+  --output runs/run.msmarco-v2-doc-segmented.dev.txt \
+  --topics msmarco-v2-doc-dev \
+  --batch 36 --threads 12 \
+  --hits 10000 --max-passage-hits 1000 --max-passage \
+  --bm25
 ```
 
 Evaluation:
