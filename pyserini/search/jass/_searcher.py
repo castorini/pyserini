@@ -82,6 +82,27 @@ class JASSv2Searcher:
         return (self.convert_to_search_result(results.results_list))
 
     
+    # def list_to_cvector(s: List[str]) -> pyjass.string_vector:
+
+    #     return(pyjass.string_vector(s))
+
+    def zip_two_lists(l1: List[str], l2: List[str]) -> List[str]:
+        """Zip two lists together and return a list of tuples.
+
+        Parameters
+        ----------
+        l1 : List[str]
+            First list to zip.
+        l2 : List[str]
+            Second list to zip.
+
+        Returns
+        -------
+        List[str]
+            List of tuples of the two lists.
+        """
+        return list(zip(l1, l2))
+    
     # @abstractmethod
     # def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1) -> Dict[str, List[DenseSearchResult]]:
     #     """Perform batch search.
@@ -165,6 +186,11 @@ def main():
 
     for i in range(0, 5):
         print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+
+    list1 = ['blah','blah2']
+    list2 =  ['101','102']
+    zipped = blah.zip_two_lists(list1, list2)
+    print(zipped)
 
 
 if __name__ == "__main__":
