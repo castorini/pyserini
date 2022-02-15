@@ -82,27 +82,63 @@ class JASSv2Searcher:
         return (self.convert_to_search_result(results.results_list))
 
     
-    # def list_to_cvector(s: List[str]) -> pyjass.string_vector:
-
-    #     return(pyjass.string_vector(s))
-
-    def zip_two_lists(l1: List[str], l2: List[str]) -> List[str]:
-        """Zip two lists together and return a list of tuples.
-
+    def __list_to_strvector(self,qids: List[str],queries: List[str]) -> pyjass.string_vector:
+        """Convert a list of queries to a c++ string_vector.
+        
         Parameters
         ----------
-        l1 : List[str]
-            First list to zip.
-        l2 : List[str]
-            Second list to zip.
+        qids : List[str]
+            List of query ids.
+        queries : List[str]
+            List of queries.
 
         Returns
         -------
-        List[str]
-            List of tuples of the two lists.
-        """
-        return list(zip(l1, l2))
+        pyjass.string_vector
+            c++ string_vector to be consumed by Jass.
+
+        """ 
+        return(pyjass.string_vector([str(x[0] + ":") + x[1] for x in zip(qids, queries)]))
+
     
+
+    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, rho: int = 10, threads: int = 1) -> Dict[str, List[DenseSearchResult]]:
+
+        """Perform batch search.
+
+        Parameters
+        ----------
+        queries : List[str]
+            List of queries.
+        qids : List[str]
+            List of query ids.
+        k : int
+            Number of results to return.
+        rho : int
+            Value of rho to use.
+        threads : int
+            Number of threads to use.
+
+        Returns
+        -------
+        Dict[str, List[DenseSearchResult]]
+            Dictionary of query id to list of DenseSearchResult.
+        """
+
+        self.object.set_top_k(k)
+        output = dict()
+        self.object.set_postings_to_process(rho)
+        results = self.object.threaded_search(self.__list_to_strvector(qids, queries), threads)
+        for i in range(len(results)):
+            if len(results[i].results) > 0:
+                    for key in results[i].results.asdict().keys():
+                        output[key] = self.convert_to_search_result(results[i].results[key].results_list)
+
+        return output
+
+
+
+
     # @abstractmethod
     # def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1) -> Dict[str, List[DenseSearchResult]]:
     #     """Perform batch search.
@@ -182,15 +218,17 @@ class JASSv2Searcher:
 
 def main():
     blah = JASSv2Searcher('/home/pradeesh') # collection to Jass pre-built Index
-    hits = blah.search('2:what is a lobster roll')
+    queries = ['new york pizza','what is a lobster roll','malaysia is awesome']
+    qid =  ['101','102','103']
+    hits = blah.batch_search(queries,qid,10,2,3)
+    print(hits)
 
-    for i in range(0, 5):
-        print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
 
-    list1 = ['blah','blah2']
-    list2 =  ['101','102']
-    zipped = blah.zip_two_lists(list1, list2)
-    print(zipped)
+
+    # for i in range(0, 5):
+    #     print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+
+
 
 
 if __name__ == "__main__":
