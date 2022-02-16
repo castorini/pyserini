@@ -48,7 +48,8 @@ class JASSv2Searcher:
     def __init__(self, index_dir: str, version: int = 2):
         self.index_dir = index_dir
         self.object = pyjass.anytime()
-        index = self.object.load_index(version,'/home/pradeesh')
+        print(self.object)
+        index = self.object.load_index(version,index_dir)
         if index != 0:
             raise Exception('Unable to load index - error code' + str(index))
     
