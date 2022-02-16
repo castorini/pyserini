@@ -19,14 +19,22 @@ This module provides Pyserini's Python search interface to JASSv2. The main entr
 class, which wraps the C++ ``JASS_anytime_api``.
 """
 
+from dataclasses import dataclass
 import logging
 import pyjass
 from typing import Dict, List, Optional, Union
 from pyserini.trectools import TrecRun
-from pyserini.dsearch import DenseSearchResult
 logger = logging.getLogger(__name__)
 
 # Wrappers around JASS classes
+
+@dataclass
+class JASSv2SearcherResult:
+    docid: str # doc id
+    score: float  # score in flaot
+    # query: str #query
+    # postings_processed: int # no of posting processed
+
 
 class JASSv2Searcher:
     """Wrapper class for the ``JASS_anytime_api`` in JASSv2.
@@ -40,12 +48,12 @@ class JASSv2Searcher:
     def __init__(self, index_dir: str, version: int = 2):
         self.index_dir = index_dir
         self.object = pyjass.anytime()
-        index = self.object.load_index(version,index_dir)
+        index = self.object.load_index(version,'/home/pradeesh')
         if index != 0:
             raise Exception('Unable to load index - error code' + str(index))
     
 
-    def convert_to_search_result(self, result_list:str) -> List[DenseSearchResult]:
+    def convert_to_search_result(self, result_list:str) -> List[JASSv2SearcherResult]:
         """Process a pyJass query and return the results in a list of DenseSearchResult.
 
         Parameters
@@ -63,13 +71,30 @@ class JASSv2Searcher:
         for query in queries:
             qrel = query.split(' ') # split by space
             if len(qrel) == 6:  
-                docid_score_pair.append(DenseSearchResult(qrel[2], float(qrel[4]))) # make it as a dense object so pyserini downstream tasks know how to handle - quick way
+                docid_score_pair.append(JASSv2SearcherResult(qrel[2], float(qrel[4]))) # make it as a dense object so pyserini downstream tasks know how to handle - quick way
 
         return docid_score_pair
 
 
 
-    def search(self, q: str, k: int = 10, rho: int = 10) -> List[DenseSearchResult]:
+    def search(self, q: str, k: int = 10, rho: int = 10) -> List[JASSv2SearcherResult]:
+        """Search the collection for a single query.
+        
+        Parameters
+        ----------
+        q : str
+            Query string.
+        k : int
+            Number of results to return.
+        rho : int
+            Value of rho to use.
+
+        Returns
+        -------
+        List[JASSv2SearcherResult]
+            List of search results.
+        
+        """
 
         self.object.set_top_k(k)
         self.object.set_postings_to_process(rho)
@@ -80,7 +105,7 @@ class JASSv2Searcher:
         return (self.convert_to_search_result(results.results_list))
 
     
-    def __list_to_strvector(self,qids: List[str],queries: List[str]) -> pyjass.string_vector:
+    def __list_to_strvector(self,qids: List[str],queries: List[str]) -> pyjass.JASS_string_vector:
         """Convert a list of queries to a c++ string_vector.
         
         Parameters
@@ -96,13 +121,13 @@ class JASSv2Searcher:
             c++ string_vector to be consumed by Jass.
 
         """ 
-        return(pyjass.string_vector([str(x[0] + ":") + x[1] for x in zip(qids, queries)]))
+        return(pyjass.JASS_string_vector([str(x[0] + ":") + x[1] for x in zip(qids, queries)]))
 
     
 
-    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, rho: int = 10, threads: int = 1) -> Dict[str, List[DenseSearchResult]]:
+    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, rho: int = 10, threads: int = 1) -> Dict[str, List[JASSv2SearcherResult]]:
 
-        """Perform batch search.
+        """Search the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
         ----------
@@ -119,8 +144,9 @@ class JASSv2Searcher:
 
         Returns
         -------
-        Dict[str, List[DenseSearchResult]]
-            Dictionary of query id to list of DenseSearchResult.
+        Dict[str, List[JASSv2SearcherResult]]
+            Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
+            results as the values.
         """
 
         self.object.set_top_k(k)
@@ -141,9 +167,9 @@ class JASSv2Searcher:
 
 def main():
     blah = JASSv2Searcher('/home/pradeesh') # collection to Jass pre-built Index
-    queries = ['new york pizza','what is a lobster roll','malaysia is awesome']
-    qid =  ['101','102','103']
-    hits = blah.batch_search(queries,qid,10,2,3)
+    queries = ['new york pizza','what is a lobster roll','malaysia is awesome'] # queries to search
+    qid =  ['101','102','103'] #queries id 
+    hits = blah.batch_search(queries,qid,10,2,3) #
     print(hits)
 
 
