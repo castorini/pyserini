@@ -16,12 +16,12 @@
 
 from ._base import JQuery, JDisjunctionMaxQueryGenerator, get_topics,\
     get_topics_with_reader, get_qrels_file, get_qrels
-from ._searcher import JSimpleSearcherResult, LuceneSimilarities,\
+from ._searcher import JLuceneSearcherResult, LuceneSimilarities,\
     LuceneFusionSearcher, LuceneSearcher
 from ._nearest_neighbor import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearcherResult
 from ._impact_searcher import JImpactSearcherResult, LuceneImpactSearcher
 
 __all__ = ['JQuery', 'LuceneSimilarities', 'LuceneFusionSearcher', 'LuceneSearcher',
-           'JSimpleSearcherResult', 'SimpleNearestNeighborSearcher', 'JSimpleNearestNeighborSearcherResult',
+           'JLuceneSearcherResult', 'SimpleNearestNeighborSearcher', 'JSimpleNearestNeighborSearcherResult',
            'LuceneImpactSearcher', 'JImpactSearcherResult', 'JDisjunctionMaxQueryGenerator', 'get_topics',
            'get_topics_with_reader', 'get_qrels_file', 'get_qrels']

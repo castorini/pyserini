@@ -68,7 +68,7 @@ class LuceneImpactSearcher:
 
         Returns
         -------
-        SimpleSearcher
+        LuceneSearcher
             Searcher built from the prebuilt index.
         """
         print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')

@@ -23,14 +23,14 @@ import json
 import math
 import struct
 from multiprocessing.pool import ThreadPool
-from pyserini.search import SimpleSearcher
+from pyserini.search import LuceneSearcher
 from pyserini.pyclass import autoclass
 from pyserini.util import download_prebuilt_index
 from typing import Dict
 
 # Wrappers around Anserini classes
 JQuery = autoclass('org.apache.lucene.search.Query')
-JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
+JLuceneSearcher = autoclass('io.anserini.search.SimpleSearcher')
 JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 JTerm = autoclass('org.apache.lucene.index.Term')
 
@@ -43,12 +43,12 @@ class TranslationProbabilitySearcher(object):
 
     def __init__(self, ibm_model: str, index: str, field_name: str):
         self.ibm_model = ibm_model
-        self.object = JSimpleSearcher(index)
+        self.object = JLuceneSearcher(index)
         self.index_reader = JIndexReader().getReader(index)
         self.field_name = field_name
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
         self.pool = ThreadPool(24)
-        self.bm25search = SimpleSearcher.from_prebuilt_index("msmarco-passage")
+        self.bm25search = LuceneSearcher.from_prebuilt_index("msmarco-passage")
 
 
     @classmethod
@@ -62,7 +62,7 @@ class TranslationProbabilitySearcher(object):
 
         Returns
         -------
-        SimpleSearcher
+        LuceneSearcher
             Searcher built from the prebuilt index.
         """
         print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')

@@ -30,8 +30,8 @@ Pyserini provides a number of pre-built Lucene indexes.
 To list what's available in code:
 
 ```python
-from pyserini.search import SimpleSearcher
-SimpleSearcher.list_prebuilt_indexes()
+from pyserini.search import LuceneSearcher
+LuceneSearcher.list_prebuilt_indexes()
 
 from pyserini.index import IndexReader
 IndexReader.list_prebuilt_indexes()
@@ -40,13 +40,13 @@ IndexReader.list_prebuilt_indexes()
 It's easy initialize a searcher from a pre-built index:
 
 ```python
-searcher = SimpleSearcher.from_prebuilt_index('robust04')
+searcher = LuceneSearcher.from_prebuilt_index('robust04')
 ```
 
 You can use this simple Python one-liner to download the pre-built index:
 
 ```
-python -c "from pyserini.search import SimpleSearcher; SimpleSearcher.from_prebuilt_index('robust04')"
+python -c "from pyserini.search import LuceneSearcher; LuceneSearcher.from_prebuilt_index('robust04')"
 ```
 
 The downloaded index will be in `~/.cache/pyserini/indexes/`.

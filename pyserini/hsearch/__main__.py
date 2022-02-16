@@ -24,7 +24,7 @@ from tqdm import tqdm
 from pyserini.dsearch import SimpleDenseSearcher
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
-from pyserini.search import ImpactSearcher, SimpleSearcher
+from pyserini.search import LuceneImpactSearcher, LuceneSearcher
 from pyserini.hsearch import HybridSearcher
 
 from pyserini.dsearch.__main__ import define_dsearch_args, init_query_encoder
@@ -123,15 +123,15 @@ if __name__ == '__main__':
     if os.path.exists(args.sparse.index):
         # create searcher from index directory
         if args.sparse.impact:
-            ssearcher = ImpactSearcher(args.sparse.index, args.sparse.encoder, args.sparse.min_idf)
+            ssearcher = LuceneImpactSearcher(args.sparse.index, args.sparse.encoder, args.sparse.min_idf)
         else:
-            ssearcher = SimpleSearcher(args.sparse.index)
+            ssearcher = LuceneSearcher(args.sparse.index)
     else:
         # create searcher from prebuilt index name
         if args.sparse.impact:
-            ssearcher = ImpactSearcher.from_prebuilt_index(args.sparse.index, args.sparse.encoder, args.sparse.min_idf)
+            ssearcher = LuceneImpactSearcher.from_prebuilt_index(args.sparse.index, args.sparse.encoder, args.sparse.min_idf)
         else:
-            ssearcher = SimpleSearcher.from_prebuilt_index(args.sparse.index)
+            ssearcher = LuceneSearcher.from_prebuilt_index(args.sparse.index)
 
     if not ssearcher:
         exit()

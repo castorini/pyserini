@@ -1,7 +1,7 @@
 import numpy as np
 from typing import List, Dict
 from pyserini.dsearch import PRFDenseSearchResult, AnceQueryEncoder
-from pyserini.search import SimpleSearcher
+from pyserini.search import LuceneSearcher
 import json
 
 
@@ -137,13 +137,13 @@ class DenseVectorRocchioPrf(DenseVectorPrf):
 
 
 class DenseVectorAncePrf(DenseVectorPrf):
-    def __init__(self, encoder: AnceQueryEncoder, sparse_searcher: SimpleSearcher):
+    def __init__(self, encoder: AnceQueryEncoder, sparse_searcher: LuceneSearcher):
         """
         Parameters
         ----------
         encoder : AnceQueryEncoder
             The new ANCE query encoder for ANCE-PRF.
-        sparse_searcher : SimpleSearcher
+        sparse_searcher : LuceneSearcher
             The sparse searcher using lucene index, for retrieving doc contents.
         """
         DenseVectorPrf.__init__(self)

@@ -25,7 +25,7 @@ from pyserini.dsearch import SimpleDenseSearcher, BinaryDenseSearcher, TctColBer
 from pyserini.encode import PcaEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
-from pyserini.search import SimpleSearcher
+from pyserini.search import LuceneSearcher
 
 # from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf
 
@@ -176,9 +176,9 @@ if __name__ == '__main__':
         # ANCE-PRF is using a new query encoder, so the input to DenseVectorAncePrf is different
         elif args.prf_method.lower() == 'ance-prf' and type(query_encoder) == AnceQueryEncoder:
             if os.path.exists(args.sparse_index):
-                sparse_searcher = SimpleSearcher(args.sparse_index)
+                sparse_searcher = LuceneSearcher(args.sparse_index)
             else:
-                sparse_searcher = SimpleSearcher.from_prebuilt_index(args.sparse_index)
+                sparse_searcher = LuceneSearcher.from_prebuilt_index(args.sparse_index)
             prf_query_encoder = AnceQueryEncoder(encoder_dir=args.ance_prf_encoder, tokenizer_name=args.tokenizer,
                                                  device=args.device)
             prfRule = DenseVectorAncePrf(prf_query_encoder, sparse_searcher)
