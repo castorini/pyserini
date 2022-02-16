@@ -27,7 +27,7 @@ from tqdm import tqdm
 
 from pyserini.encoded_query_info import QUERY_INFO
 from pyserini.evaluate_script_info import EVALUATION_INFO
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, FAISS_INDEX_INFO, IMPACT_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, FAISS_INDEX_INFO, IMPACT_INDEX_INFO, JASS_INDEX_INFO
 
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5
@@ -162,8 +162,10 @@ def check_downloaded(index_name):
         target_index = TF_INDEX_INFO[index_name]
     elif index_name in IMPACT_INDEX_INFO:
         target_index = IMPACT_INDEX_INFO[index_name]
-    else:
+    elif:
         target_index = FAISS_INDEX_INFO[index_name]
+    else:
+        target_index = JASS_INDEX_INFO[index_name]
     index_url = target_index['urls'][0]
     index_md5 = target_index['md5']
     index_name = index_url.split('/')[-1]
@@ -211,8 +213,10 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
         target_index = TF_INDEX_INFO[index_name]
     elif index_name in IMPACT_INDEX_INFO:
         target_index = IMPACT_INDEX_INFO[index_name]
-    else:
+    elif:
         target_index = FAISS_INDEX_INFO[index_name]
+    else:
+        target_index = JASS_INDEX_INFO[index_name]
     index_md5 = target_index['md5']
     for url in target_index['urls']:
         local_filename = target_index['filename'] if 'filename' in target_index else None
