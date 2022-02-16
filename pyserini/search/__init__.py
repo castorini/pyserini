@@ -20,9 +20,10 @@ from .lucene import JSimpleSearcherResult, LuceneSimilarities, LuceneFusionSearc
 from .lucene import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearcherResult
 from .lucene import JImpactSearcherResult, LuceneImpactSearcher
 from ._deprecated import SimpleSearcher, ImpactSearcher, SimpleFusionSearcher
+from .jass import JASSv2Searcher
 
 __all__ = ['JQuery', 'LuceneSimilarities', 'LuceneFusionSearcher', 'LuceneSearcher',
            'JSimpleSearcherResult', 'SimpleNearestNeighborSearcher', 'JSimpleNearestNeighborSearcherResult',
            'LuceneImpactSearcher', 'JImpactSearcherResult', 'JDisjunctionMaxQueryGenerator', 'get_topics',
            'get_topics_with_reader', 'get_qrels_file', 'get_qrels',
-           'SimpleSearcher', 'ImpactSearcher', 'SimpleFusionSearcher']
+           'SimpleSearcher', 'ImpactSearcher', 'SimpleFusionSearcher','JASSv2Searcher']
