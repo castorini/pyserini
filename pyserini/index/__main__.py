@@ -18,8 +18,8 @@ from jnius import autoclass
 import sys
 import os
 
+print('pyserini.index is deprecated, please use pyserini.index.lucene.')
 args = sys.argv[1:]
-
 # argument check
 for i in range(len(args)):
     # Convert double hyphen args into single hyphen args for Java: e.g., --input becomes -input

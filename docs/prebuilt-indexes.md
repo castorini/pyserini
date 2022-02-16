@@ -416,4 +416,37 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/faiss-hnsw.cast2019.tct_colbert-v2-readme.txt">readme</a>]
 <dd>Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder
 </dd>
+<dt></dt><b><code>mrtydi-v1.1-arabic-mdpr-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-arabic.20220207.5df364.README">readme</a>]
+<dd>Faiss mDPR (trained on NQ) index for Mr.TyDi v1.1 (Arabic).
+<dt></dt><b><code>mrtydi-v1.1-bengali-mdpr-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-bengali.20220207.5df364.README">readme</a>]
+<dd>Faiss mDPR (trained on NQ) index for Mr.TyDi v1.1 (Bengali).
+<dt></dt><b><code>mrtydi-v1.1-english-mdpr-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-english.20220207.5df364.README">readme</a>]
+<dd>Faiss mDPR (trained on NQ) index for Mr.TyDi v1.1 (English).
+<dt></dt><b><code>mrtydi-v1.1-finnish-mdpr-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-finnish.20220207.5df364.README">readme</a>]
+<dd>Faiss mDPR (trained on NQ) index for Mr.TyDi v1.1 (Finnish).
+<dt></dt><b><code>mrtydi-v1.1-indonesian-mdpr-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-indonesian.20220207.5df364.README">readme</a>]
+<dd>Faiss mDPR (trained on NQ) index for Mr.TyDi v1.1 (Indonesian).
+<dt></dt><b><code>mrtydi-v1.1-japanese-mdpr-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-japanese.20220207.5df364.README">readme</a>]
+<dd>Faiss mDPR (trained on NQ) index for Mr.TyDi v1.1 (Japanese).
+<dt></dt><b><code>mrtydi-v1.1-korean-mdpr-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-korean.20220207.5df364.README">readme</a>]
+<dd>Faiss mDPR (trained on NQ) index for Mr.TyDi v1.1 (Korean).
+<dt></dt><b><code>mrtydi-v1.1-russian-mdpr-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-russian.20220207.5df364.README">readme</a>]
+<dd>Faiss mDPR (trained on NQ) index for Mr.TyDi v1.1 (Russian).
+<dt></dt><b><code>mrtydi-v1.1-swahili-mdpr-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-swahili.20220207.5df364.README">readme</a>]
+<dd>Faiss mDPR (trained on NQ) index for Mr.TyDi v1.1 (Swahili).
+<dt></dt><b><code>mrtydi-v1.1-telugu-mdpr-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-telugu.20220207.5df364.README">readme</a>]
+<dd>Faiss mDPR (trained on NQ) index for Mr.TyDi v1.1 (Telugu).
+<dt></dt><b><code>mrtydi-v1.1-thai-mdpr-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-thai.20220207.5df364.README">readme</a>]
+<dd>Faiss mDPR (trained on NQ) index for Mr.TyDi v1.1 (Thai).
 </dl>

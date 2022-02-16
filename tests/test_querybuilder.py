@@ -23,7 +23,7 @@ from urllib.request import urlretrieve
 
 from pyserini import search
 from pyserini.analysis import get_lucene_analyzer
-from pyserini.search import querybuilder
+from pyserini.search.lucene import querybuilder
 
 
 class TestQueryBuilding(unittest.TestCase):

@@ -57,11 +57,12 @@ class PcaEncoder:
 
 
 class JsonlCollectionIterator:
-    def __init__(self, collection_path: str, fields=None):
+    def __init__(self, collection_path: str, fields=None, delimiter="\n"):
         if fields:
             self.fields = fields
         else:
             self.fields = ['text']
+        self.delimiter = delimiter
         self.all_info = self._load(collection_path)
         self.size = len(self.all_info['id'])
         self.batch_size = 1
@@ -101,7 +102,7 @@ class JsonlCollectionIterator:
                 for line in tqdm(f):
                     info = json.loads(line)
                     all_info['id'].append(str(info['id']))
-                    fields_info = info['contents'].rstrip().split('\n')
+                    fields_info = info['contents'].rstrip().split(self.delimiter)
                     for i in range(len(fields_info)):
                         all_info[self.fields[i]].append(fields_info[i])
         return all_info

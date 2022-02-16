@@ -14,15 +14,14 @@
 # limitations under the License.
 #
 
-from .lucene import JQuery, JDisjunctionMaxQueryGenerator, get_topics,\
+from ._base import JQuery, JDisjunctionMaxQueryGenerator, get_topics,\
     get_topics_with_reader, get_qrels_file, get_qrels
-from .lucene import JSimpleSearcherResult, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
-from .lucene import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearcherResult
-from .lucene import JImpactSearcherResult, LuceneImpactSearcher
-from ._deprecated import SimpleSearcher, ImpactSearcher, SimpleFusionSearcher
+from ._searcher import JSimpleSearcherResult, LuceneSimilarities,\
+    LuceneFusionSearcher, LuceneSearcher
+from ._nearest_neighbor import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearcherResult
+from ._impact_searcher import JImpactSearcherResult, LuceneImpactSearcher
 
 __all__ = ['JQuery', 'LuceneSimilarities', 'LuceneFusionSearcher', 'LuceneSearcher',
            'JSimpleSearcherResult', 'SimpleNearestNeighborSearcher', 'JSimpleNearestNeighborSearcherResult',
            'LuceneImpactSearcher', 'JImpactSearcherResult', 'JDisjunctionMaxQueryGenerator', 'get_topics',
-           'get_topics_with_reader', 'get_qrels_file', 'get_qrels',
-           'SimpleSearcher', 'ImpactSearcher', 'SimpleFusionSearcher']
+           'get_topics_with_reader', 'get_qrels_file', 'get_qrels']
