@@ -24,7 +24,7 @@ from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.pyclass import autoclass
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from pyserini.search import ImpactSearcher, SimpleSearcher, JDisjunctionMaxQueryGenerator
+from pyserini.search import LuceneImpactSearcher, LuceneSearcher, JDisjunctionMaxQueryGenerator
 from pyserini.search.lucene.reranker import ClassifierType, PseudoRelevanceClassifierReranker
 
 
@@ -96,7 +96,7 @@ def define_search_args(parser):
 
 
 if __name__ == "__main__":
-    JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
+    JLuceneSearcher = autoclass('io.anserini.search.SimpleSearcher')
     parser = argparse.ArgumentParser(description='Search a Lucene index.')
     define_search_args(parser)
     parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
@@ -130,15 +130,15 @@ if __name__ == "__main__":
     if not args.impact:
         if os.path.exists(args.index):
             # create searcher from index directory
-            searcher = SimpleSearcher(args.index)
+            searcher = LuceneSearcher(args.index)
         else:
             # create searcher from prebuilt index name
-            searcher = SimpleSearcher.from_prebuilt_index(args.index)
+            searcher = LuceneSearcher.from_prebuilt_index(args.index)
     elif args.impact:
         if os.path.exists(args.index):
-            searcher = ImpactSearcher(args.index, args.encoder, args.min_idf)
+            searcher = LuceneImpactSearcher(args.index, args.encoder, args.min_idf)
         else:
-            searcher = ImpactSearcher.from_prebuilt_index(args.index, args.encoder, args.min_idf)
+            searcher = LuceneImpactSearcher.from_prebuilt_index(args.index, args.encoder, args.min_idf)
 
     if args.language != 'en':
         searcher.set_language(args.language)

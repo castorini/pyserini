@@ -19,7 +19,7 @@ import os
 from typing import List
 
 
-class SimpleSercherAnseriniMatchChecker:
+class LuceneSearcherAnseriniMatchChecker:
     def __init__(self, anserini_root: str, index: str, topics: str, pyserini_topics: str, qrels: str, eval_root: str):
         self.anserini_root = anserini_root
         self.index_path = index

@@ -373,6 +373,7 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + Reproducing uniCOIL with doc2query-T5: [MS MARCO V1](docs/experiments-unicoil.md), [MS MARCO V2](docs/experiments-msmarco-v2-unicoil.md)
 + Reproducing uniCOIL with TILDE: [MS MARCO V1 Passage](docs/experiments-unicoil-tilde-expansion.md), [MS MARCO V2 Passage](docs/experiments-msmarco-v2-unicoil-tilde-expansion.md)
 + Reproducing SPLADEv2: [MS MARCO V1 Passage](docs/experiments-spladev2.md)
++ Reproducing [Mr. TyDi experiments](https://github.com/castorini/mr.tydi/blob/main/README.md#1-bm25)
 
 ### Dense Retrieval
 
@@ -387,8 +388,9 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + Reproducing [ADORE dense retrieval experiments](docs/experiments-adore.md)
 + Reproducing [Vector PRF experiments](docs/experiments-vector-prf.md)
 + Reproducing [ANCE-PRF experiments](docs/experiments-ance-prf.md)
++ Reproducing [Mr. TyDi experiments](https://github.com/castorini/mr.tydi/blob/main/README.md#2-mdpr)
 
-### Dense Retrieval
+### Hybrid Sparse-Dense Retrieval
 
 + Reproducing [uniCOIL + TCT-ColBERTv2 experiments on the MS MARCO V2 Collections](docs/experiments-msmarco-v2-hybrid.md)
 

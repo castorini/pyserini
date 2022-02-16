@@ -20,7 +20,7 @@ import os
 import shutil
 import unittest
 from pyserini.dsearch import SimpleDenseSearcher
-from pyserini.search import ImpactSearcher
+from pyserini.search import LuceneImpactSearcher
 from urllib.request import urlretrieve
 
 
@@ -77,7 +77,7 @@ class TestSearchIntegration(unittest.TestCase):
                                           -generator DefaultLuceneDocumentGenerator \
                                           -impact -pretokenized -threads 12 -storeRaw'
         _ = os.system(cmd2)
-        searcher = ImpactSearcher(index_dir, query_encoder='castorini/unicoil-d2q-msmarco-passage')
+        searcher = LuceneImpactSearcher(index_dir, query_encoder='castorini/unicoil-d2q-msmarco-passage')
         hits = searcher.search("What is the solution of separable closed queueing networks?", k=1)
         hit = hits[0]
         self.assertEqual(hit.docid, 'CACM-2712')

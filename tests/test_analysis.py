@@ -39,7 +39,7 @@ class TestAnalyzers(unittest.TestCase):
         tarball = tarfile.open(self.tarball_name)
         tarball.extractall(self.index_dir)
         tarball.close()
-        self.searcher = search.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
+        self.searcher = search.LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
         self.index_utils = index.IndexReader(f'{self.index_dir}lucene-index.cacm')
 
     def test_different_analyzers_are_different(self):
