@@ -31,13 +31,20 @@ logger = logging.getLogger(__name__)
 @dataclass
 class JASSv2SearcherResult:
     docid: str # doc id
-    score: float  # score in flaot
-    #TODO Implement the follow attributes specially for JASSv2
+    score: float  # score in float
+    #TODO Implement the following attributes specially for JASSv2
     # query: str #query
     # postings_processed: int # no of posting processed
 
 
 class JASSv2Searcher:
+
+    # Constants
+    EXPECTED_ENTRIES = 6
+    DOCID_POS = 2
+    SCORE_POS = 4
+    ONE_BILLION = 1000000000
+
     """Wrapper class for the ``JASS_anytime_api`` in JASSv2.
 
     Parameters
@@ -64,21 +71,22 @@ class JASSv2Searcher:
 
         Returns
         -------
-        List[DenseSearchResult]
-            List of DenseSearchResult which contains DocID and also the score from pyJass query.
+        List[JASSv2SearcherResult]
+            List of JASSv2SearcherResult which contains the DocID and also the score pair.
         """
         docid_score_pair = list()
-        queries = result_list.split('\n')
-        for query in queries:
-            qrel = query.split(' ') # split by space
-            if len(qrel) == 6:  
-                docid_score_pair.append(JASSv2SearcherResult(qrel[2], float(qrel[4]))) # make it as a dense object so pyserini downstream tasks know how to handle - quick way
-
+        results = result_list.split('\n')
+        for res in results:
+            # Split by space. We expect the `trec` format, bail out if we don't get it
+            result_data = res.split(' ')
+            if len(result_data) == self.EXPECTED_ENTRIES:  
+                # All is well, append the [docid, score] tuple.
+                docid_score_pair.append(JASSv2SearcherResult(result_data[self.DOCID_POS], float(result_data[self.SCORE_POS]))) 
         return docid_score_pair
 
 
 
-    def search(self, q: str, k: int = 10, rho: int = 10) -> List[JASSv2SearcherResult]:
+    def search(self, q: str, k: int = 10, rho: int = ONE_BILLION) -> List[JASSv2SearcherResult]:
         """Search the collection for a single query.
         
         Parameters
@@ -99,14 +107,18 @@ class JASSv2Searcher:
 
         self.object.set_top_k(k)
         self.object.set_postings_to_process(rho)
-        if q[0].isdigit() and q[1] == ':':
+        # JASS expects queries to be an identifier followed by terms, delimited by either ':', '\t', or ' '
+        # We do not want to split on spaces as it may result in discarded terms.
+        split_query = q.split(":\t")
+        # Assume the first field is the identifier...
+        if len(split_query) == 2:
             results = self.object.search(q)
         else:
-            results = self.object.search("0:"+q) # appending "0: to handle jass' requirements"
+            results = self.object.search("0:"+q) # appending `0:` so JASS consumes it as the identifier
         return (self.convert_to_search_result(results.results_list))
 
     
-    def __list_to_strvector(self,qids: List[str],queries: List[str]) -> pyjass.JASS_string_vector:
+    def __list_to_strvector(self, qids: List[str] ,queries: List[str]) -> pyjass.JASS_string_vector:
         """Convert a list of queries to a c++ string_vector.
         
         Parameters
@@ -126,7 +138,7 @@ class JASSv2Searcher:
 
     
 
-    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, rho: int = 10, threads: int = 1) -> Dict[str, List[JASSv2SearcherResult]]:
+    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, rho: int = ONE_BILLION, threads: int = 1) -> Dict[str, List[JASSv2SearcherResult]]:
 
         """Search the collection concurrently for multiple queries, using multiple threads.
 
