@@ -32,6 +32,7 @@ logger = logging.getLogger(__name__)
 class JASSv2SearcherResult:
     docid: str # doc id
     score: float  # score in flaot
+    #TODO Implement the follow attributes specially for JASSv2
     # query: str #query
     # postings_processed: int # no of posting processed
 
@@ -48,10 +49,9 @@ class JASSv2Searcher:
     def __init__(self, index_dir: str, version: int = 2):
         self.index_dir = index_dir
         self.object = pyjass.anytime()
-        print(self.object)
         index = self.object.load_index(version,index_dir)
         if index != 0:
-            raise Exception('Unable to load index - error code' + str(index))
+             raise Exception('Unable to load index - error code' + str(index))
     
 
     def convert_to_search_result(self, result_list:str) -> List[JASSv2SearcherResult]:
@@ -160,26 +160,3 @@ class JASSv2Searcher:
                         output[key] = self.convert_to_search_result(results[i].results[key].results_list)
 
         return output
-
-
-
-
-# Quick and dirty test to load index, search and also get the hits
-
-def main():
-    blah = JASSv2Searcher('/home/pradeesh') # collection to Jass pre-built Index
-    queries = ['new york pizza','what is a lobster roll','malaysia is awesome'] # queries to search
-    qid =  ['101','102','103'] #queries id 
-    hits = blah.batch_search(queries,qid,10,2,3) #
-    print(hits)
-
-
-
-    # for i in range(0, 5):
-    #     print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
-
-
-
-
-if __name__ == "__main__":
-    main()

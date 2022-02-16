@@ -14,28 +14,28 @@
 # limitations under the License.
 #
 
+import pyjass
 import argparse
 import os
 import errno
-
 from tqdm import tqdm
 
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from pyserini.search.jass import JASSv2Searcher
+from pyserini.search import JASSv2Searcher
 
 
 
 
 def define_search_args(parser):
-    parser.add_argument('--index', type=str, default='/home/pradeesh', metavar='path to index or index name', required=False,
+    parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                         help="Path to pyJass index")
-    parser.add_argument('--rho', type=int, help='rho parameter.')
+    parser.add_argument('--rho', type=int, default=10, help='rho parameter.')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Search a pyJass index.')
     define_search_args(parser)
-    parser.add_argument('--topics', type=str, default='/home/pradeesh/query/sample_queries.tsv',metavar='topic_name', required=False,
+    parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                         help="Name of topics. Available: robust04, robust05, core17, core18.")
     parser.add_argument('--hits', type=int, metavar='num',
                         required=False, default=1000, help="Number of hits.")
@@ -43,7 +43,7 @@ if __name__ == "__main__":
                         help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}")
     parser.add_argument('--output-format', type=str, metavar='format', default=OutputFormat.TREC.value,
                         help=f"Format of output. Available: {[x.value for x in list(OutputFormat)]}")
-    parser.add_argument('--output', type=str, metavar='path',
+    parser.add_argument('--output', type=str, default='/home/prasys/output.txt', metavar='path',
                         help="Path to output file.")
     parser.add_argument('--batch-size', type=int, metavar='num', required=False,
                         default=1, help="Specify batch size to search the collection concurrently.")
@@ -56,8 +56,7 @@ if __name__ == "__main__":
 
     if os.path.exists(args.index):
         # create searcher from index directory
-        print(args.index)
-        searcher = JASSv2Searcher('/home/pradeesh',2)
+        searcher = JASSv2Searcher(args.index,2)
     else:
         # TODO: handle pre_build index if it's not found but we will throw file not found
         raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), args.index) 
@@ -66,15 +65,15 @@ if __name__ == "__main__":
         exit()
 
     fields = dict()
-    if args.fields:
-        fields = dict([pair.split('=') for pair in args.fields])
-        print(f'Searching over fields: {fields}')
+    # if args.fields:
+    #     fields = dict([pair.split('=') for pair in args.fields])
+    #     print(f'Searching over fields: {fields}')
 
 
     # build output path
     output_path = args.output
     if output_path is None:
-        tokens = ['run', args.topics, '+'.join(['rho',args.rho]), 'txt'] # we use the rho output
+        tokens = ['run', args.topics, '+'.join(['rho',str(args.rho)]), 'txt'] # we use the rho output
         output_path = '.'.join(tokens)
 
     print(f'Running {args.topics} topics, saving to {output_path}...')
@@ -88,7 +87,7 @@ if __name__ == "__main__":
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
             if args.batch_size <= 1 and args.threads <= 1:
-                hits = searcher.search(text, args.hits, fields=fields)
+                hits = searcher.search(text, args.hits, args.rho)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
@@ -96,8 +95,7 @@ if __name__ == "__main__":
                 if (index + 1) % args.batch_size == 0 or \
                     index == len(topics.keys()) - 1:
                     results = searcher.batch_search(
-                        batch_topics, batch_topic_ids, args.hits, args.threads, fields=fields
-                    )
+                        batch_topics, batch_topic_ids, args.hits, args.rho, args.threads)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
