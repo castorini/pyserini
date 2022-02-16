@@ -18,7 +18,7 @@ import unittest
 import subprocess
 import os
 from shutil import rmtree
-from pyserini.search import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher
 from random import randint
 from urllib.request import urlretrieve
 import tarfile

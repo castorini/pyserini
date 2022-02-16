@@ -24,8 +24,8 @@ from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.pyclass import autoclass
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from pyserini.search import LuceneImpactSearcher, LuceneSearcher, JDisjunctionMaxQueryGenerator
-from pyserini.search.lucene.reranker import ClassifierType, PseudoRelevanceClassifierReranker
+from . import LuceneImpactSearcher, LuceneSearcher, JDisjunctionMaxQueryGenerator
+from .reranker import ClassifierType, PseudoRelevanceClassifierReranker
 
 
 def set_bm25_parameters(searcher, index, k1=None, b=None):

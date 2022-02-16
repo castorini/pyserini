@@ -25,7 +25,7 @@ from pyserini.dsearch import SimpleDenseSearcher, BinaryDenseSearcher, TctColBer
 from pyserini.encode import PcaEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
-from pyserini.search import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher
 
 # from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf
 
