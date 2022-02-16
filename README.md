@@ -393,7 +393,7 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + Reproducing [ANCE-PRF experiments](docs/experiments-ance-prf.md)
 + Reproducing [Mr. TyDi experiments](https://github.com/castorini/mr.tydi/blob/main/README.md#2-mdpr)
 
-### Dense Retrieval
+### Hybrid Sparse-Dense Retrieval
 
 + Reproducing [uniCOIL + TCT-ColBERTv2 experiments on the MS MARCO V2 Collections](docs/experiments-msmarco-v2-hybrid.md)
 
