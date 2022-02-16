@@ -24,6 +24,7 @@ import logging
 import pyjass
 from typing import Dict, List, Optional, Union
 from pyserini.trectools import TrecRun
+from pyserini.util import download_prebuilt_index
 logger = logging.getLogger(__name__)
 
 # Wrappers around JASS classes
@@ -59,6 +60,31 @@ class JASSv2Searcher:
         index = self.object.load_index(version,index_dir)
         if index != 0:
              raise Exception('Unable to load index - error code' + str(index))
+
+    
+    @classmethod
+    def from_prebuilt_index(cls, prebuilt_index_name: str):
+        """Build a searcher from a pre-built index; download the index if necessary.
+
+        Parameters
+        ----------
+        prebuilt_index_name : str
+            Prebuilt index name.
+
+        Returns
+        -------
+        SimpleSearcher
+            Searcher built from the prebuilt index.
+        """
+        print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+        try:
+            index_dir = download_prebuilt_index(prebuilt_index_name)
+        except ValueError as e:
+            print(str(e))
+            return None
+
+        print(f'Initializing {prebuilt_index_name}...')
+        return cls(index_dir)
     
 
     def convert_to_search_result(self, result_list:str) -> List[JASSv2SearcherResult]:
