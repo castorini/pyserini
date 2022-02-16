@@ -25,7 +25,7 @@ import sys
 # Use Pyserini in this repo (as opposed to pip install)
 sys.path.insert(0, './')
 
-from pyserini.search import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher
 from tqdm import tqdm
 
 

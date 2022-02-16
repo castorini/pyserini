@@ -18,7 +18,7 @@ import cmd
 import json
 import random
 
-from pyserini.search import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher
 from pyserini.dsearch import SimpleDenseSearcher, DprQueryEncoder
 from pyserini.hsearch import HybridSearcher
 from pyserini import search

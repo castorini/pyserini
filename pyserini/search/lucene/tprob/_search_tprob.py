@@ -23,7 +23,7 @@ import json
 import math
 import struct
 from multiprocessing.pool import ThreadPool
-from pyserini.search import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher
 from pyserini.pyclass import autoclass
 from pyserini.util import download_prebuilt_index
 from typing import Dict

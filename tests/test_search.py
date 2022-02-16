@@ -22,7 +22,7 @@ from random import randint
 from typing import List, Dict
 from urllib.request import urlretrieve
 
-from pyserini.search import LuceneSearcher, JLuceneSearcherResult
+from pyserini.search.lucene import LuceneSearcher, JLuceneSearcherResult
 from pyserini.index import Document
 
 

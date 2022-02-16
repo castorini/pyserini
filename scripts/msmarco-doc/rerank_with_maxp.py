@@ -31,7 +31,7 @@ sys.path.insert(0, './')
 sys.path.insert(0, '../pyserini/')
 
 from pyserini.trectools import TrecRun
-from pyserini.search import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher
 from pyserini.dsearch import SimpleDenseSearcher
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
