@@ -42,7 +42,7 @@ We can now index these docs:
 python -m pyserini.index.lucene \
   --collection JsonVectorCollection \
   --input collections/msmarco-passage-v2-unicoil-tilde-expansion-b8/ \
-  --index indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion-b8 \
+  --index indexes/lucene-index.msmarco-v2-passage-unicoil-tilde-expansion/ \
   --generator DefaultLuceneDocumentGenerator \
   --threads 12 \
   --impact --pretokenized
@@ -88,7 +88,7 @@ python -m pyserini.search.lucene \
 ```
 
 Here, we are using the transformer model to encode the queries on the fly using the CPU.
-Note that the important option here is `--impact`, where we specify impact scoring. 
+Note that the important option here is `--impact`, where we specify impact scoring.
 With these impact scores, query evaluation is already slower than bag-of-words BM25; on top of that we're adding neural inference on the CPU.
 A complete run should take around 30 minutes.
 
@@ -135,7 +135,7 @@ python -m pyserini.search.lucene \
   --impact
 ```
 
-Here, we also specify `--impact` for impact scoring. 
+Here, we also specify `--impact` for impact scoring.
 Since we're not applying neural inference over the queries, retrieval is faster, typically less than 10 minutes.
 To evaluate using `trec_eval`, follow the same instructions above.
 These results may be slightly different from the figures above, but they should be the same across platforms.
