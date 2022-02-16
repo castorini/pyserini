@@ -111,7 +111,6 @@ class JASSv2Searcher:
         return docid_score_pair
 
 
-
     def search(self, q: str, k: int = 10, rho: int = ONE_BILLION) -> List[JASSv2SearcherResult]:
         """Search the collection for a single query.
         
@@ -198,3 +197,11 @@ class JASSv2Searcher:
                         output[key] = self.convert_to_search_result(results[i].results[key].results_list)
 
         return output
+
+    def set_ascii(self) -> None:
+        """Set Jass to use ascii parser."""
+        self.object.use_ascii_parser()
+
+    def set_query(self) -> None:
+        """Set Jass to use query parser."""
+        self.object.use_query_parser()

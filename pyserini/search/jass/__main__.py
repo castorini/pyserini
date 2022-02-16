@@ -14,21 +14,22 @@
 # limitations under the License.
 #
 
-import pyjass
+from pyserini.search import JASSv2Searcher
 import argparse
 import os
-import errno
 from tqdm import tqdm
 
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from pyserini.search import JASSv2Searcher
+
 
 
 def define_search_args(parser):
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                         help="Path to pyJass index")
     parser.add_argument('--rho', type=int, default=1000000000, help='rho: how many postings to process')
+    parser.add_argument('--ascii', default=True, action='store_true', help="Use ASCII parser")
+    parser.add_argument('--query', action='store_true', help="Use Query Parser")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Search a pyJass index.')
@@ -53,17 +54,23 @@ if __name__ == "__main__":
     topics = query_iterator.topics
 
     if os.path.exists(args.index):
-        # create searcher from index directory
         searcher = JASSv2Searcher(args.index, 2)
     else:
-        # TODO: handle pre_build index if it's not found but we will throw file not found
-        raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), args.index) 
+        searcher = JASSv2Searcher.from_prebuilt_index(args.index)
 
     if not searcher:
         exit()
 
     # JASS does not (yet) support field-based retrieval
     fields = None
+
+    # JASS Parser Option 
+    if args.ascii:
+        searcher.set_ascii()
+    if args.query:
+        searcher.set_query()
+
+
 
     # build output path
     output_path = args.output
@@ -72,7 +79,7 @@ if __name__ == "__main__":
         output_path = '.'.join(tokens)
 
     print(f'Running {args.topics} topics, saving to {output_path}...')
-    tag = output_path[:-4] if args.output is None else 'pyJass'
+    tag = output_path[:-4] if args.output is None else 'JaSS'
 
     output_writer = get_output_writer(output_path, OutputFormat(args.output_format), 'w',
                                       max_hits=args.hits, tag=tag, topics=topics)
