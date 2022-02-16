@@ -18,7 +18,7 @@ import unittest
 import subprocess
 import os
 from shutil import rmtree
-from pyserini.search import SimpleSearcher
+from pyserini.search import LuceneSearcher
 from random import randint
 from urllib.request import urlretrieve
 import tarfile
@@ -34,7 +34,7 @@ class TestLtrMsmarcoDocument(unittest.TestCase):
         outp_tsv = 'run.ltr.msmarco-pass-doc.test.tsv'
         #Download prebuilt index
         #retrieve candidate
-        SimpleSearcher.from_prebuilt_index('msmarco-doc-per-passage-ltr')
+        LuceneSearcher.from_prebuilt_index('msmarco-doc-per-passage-ltr')
         os.system(f'python -m pyserini.search --topics msmarco-doc-dev  --index ~/.cache/pyserini/indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.bd60e89041b4ebbabc4bf0cfac608a87/ --output ltr_test/{inp} --bm25 --output-format trec --hits 10000')
         #Pre-trained ltr model
         model_url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msmarco-passage-mrr-v1.tar.gz'

@@ -40,7 +40,7 @@ class TestQueryBuilding(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-        self.searcher = search.SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
+        self.searcher = search.LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
 
     def testBuildBoostedQuery(self):
         term_query1 = querybuilder.get_term_query('information')

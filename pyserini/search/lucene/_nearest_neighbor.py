@@ -15,7 +15,7 @@
 #
 
 """
-This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``SimpleSearcher``
+This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``LuceneSearcher``
 class, which wraps the Java class with the same name in Anserini.
 """
 
