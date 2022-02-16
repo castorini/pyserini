@@ -18,7 +18,7 @@ import multiprocessing
 from multiprocessing.pool import ThreadPool
 
 from tqdm import tqdm
-from pyserini.search import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher
 
 import kilt.kilt_utils as utils
 from kilt.retrievers.base_retriever import Retriever

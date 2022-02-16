@@ -20,7 +20,7 @@ import os
 import shutil
 import unittest
 from pyserini.dsearch import SimpleDenseSearcher
-from pyserini.search import LuceneImpactSearcher
+from pyserini.search.lucene import LuceneImpactSearcher
 from urllib.request import urlretrieve
 
 

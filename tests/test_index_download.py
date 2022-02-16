@@ -18,7 +18,7 @@ import os
 import shutil
 import unittest
 
-from pyserini.search import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher
 
 
 class TestIndexDownload(unittest.TestCase):

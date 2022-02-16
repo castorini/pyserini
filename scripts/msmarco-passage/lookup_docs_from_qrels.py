@@ -22,7 +22,7 @@ import sys
 # Comment these lines out to use a pip-installed one instead.
 sys.path.insert(0, './')
 
-from pyserini.search import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher
 
 
 if __name__ == '__main__':

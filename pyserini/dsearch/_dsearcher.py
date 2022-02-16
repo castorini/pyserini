@@ -32,7 +32,7 @@ from transformers.file_utils import is_faiss_available, requires_backends
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info, get_sparse_index)
-from pyserini.search import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher
 from pyserini.index import Document
 
 from ._model import AnceEncoder
