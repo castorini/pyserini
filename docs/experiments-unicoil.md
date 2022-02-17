@@ -178,8 +178,7 @@ python -m pyserini.search.lucene \
   --output runs/run.msmarco-doc-segmented-unicoil.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \
-  --hits 1000 \
-  --max-passage --max-passage-hits 100 \
+  --hits 1000 --max-passage --max-passage-hits 100 \
   --impact
 ```
 
@@ -226,8 +225,7 @@ python -m pyserini.search.lucene \
   --output runs/run.msmarco-doc-segmented-unicoil.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \
-  --hits 1000 \
-  --max-passage --max-passage-hits 100 \
+  --hits 1000 --max-passage --max-passage-hits 100 \
   --impact
 ```
 

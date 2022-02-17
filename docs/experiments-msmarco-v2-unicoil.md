@@ -168,8 +168,7 @@ python -m pyserini.search.lucene \
   --index indexes/lucene-index.msmarco-doc-v2-segmented.unicoil-noexp.0shot \
   --output runs/run.msmarco-doc-v2-segmented.unicoil-noexp.0shot.txt \
   --batch 144 --threads 36 \
-  --hits 10000 \
-  --max-passage --max-passage-hits 1000 \
+  --hits 10000 --max-passage --max-passage-hits 1000 \
   --impact  
 ```
 
@@ -228,8 +227,7 @@ python -m pyserini.search.lucene \
   --index indexes/lucene-index.msmarco-doc-v2-segmented.unicoil.0shot \
   --output runs/run.msmarco-doc-v2-segmented.unicoil.0shot.txt \
   --batch 144 --threads 36 \
-  --hits 10000 \
-  --max-passage --max-passage-hits 1000 \
+  --hits 10000 --max-passage --max-passage-hits 1000 \
   --impact
 ```
 
