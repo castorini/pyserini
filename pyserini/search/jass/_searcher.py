@@ -58,6 +58,7 @@ class JASSv2Searcher:
         self.index_dir = index_dir
         self.object = pyjass.anytime()
         self.set_ascii_parser()
+        self.num_docs = self.object.get_document_count()
         index = self.object.load_index(version,index_dir)
         if index != 0:
              raise Exception('Unable to load index - error code' + str(index))
