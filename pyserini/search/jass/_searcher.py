@@ -161,7 +161,7 @@ class JASSv2Searcher:
             c++ string_vector to be consumed by Jass.
 
         """ 
-        return(pyjass.JASS_string_vector([str(x[0].join([":",x[1]])) for x in zip(qids, queries)]))
+        return(pyjass.JASS_string_vector([':'.join(map(str, i)) for i in zip(qids, queries)]))
 
     
 
