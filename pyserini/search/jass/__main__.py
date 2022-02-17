@@ -28,8 +28,7 @@ def define_search_args(parser):
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                         help="Path to pyJass index")
     parser.add_argument('--rho', type=int, default=1000000000, help='rho: how many postings to process')
-    parser.add_argument('--ascii', default=True, action='store_true', help="Use ASCII parser")
-    parser.add_argument('--query', action='store_true', help="Use Query Parser")
+    parser.add_argument('--ascii', default=False, action='store_true', help="Use ASCII parser")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Search a pyJass index.')
@@ -66,11 +65,7 @@ if __name__ == "__main__":
 
     # JASS Parser Option 
     if args.ascii:
-        searcher.set_ascii()
-    if args.query:
-        searcher.set_query()
-
-
+        searcher.set_ascii_parser()
 
     # build output path
     output_path = args.output
