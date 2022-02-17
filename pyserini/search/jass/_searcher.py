@@ -103,7 +103,7 @@ class JASSv2Searcher:
             List of JASSv2SearcherResult which contains the DocID and also the score pair.
         """
         docid_score_pair = list()
-        results = result_list.splitlines()
+        results = result_list.splitlines() #using split lines to split it faster
         for res in results:
             # Split by space. We expect the `trec` format, bail out if we don't get it
             result_data = res.split(' ')
@@ -161,7 +161,7 @@ class JASSv2Searcher:
             c++ string_vector to be consumed by Jass.
 
         """ 
-        return(pyjass.JASS_string_vector([str(x[0] + ":") + x[1] for x in zip(qids, queries)]))
+        return(pyjass.JASS_string_vector([str(x[0].join([":",x[1]])) for x in zip(qids, queries)]))
 
     
 
