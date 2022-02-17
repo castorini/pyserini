@@ -1451,7 +1451,7 @@ FAISS_INDEX_INFO = {
 }
  
 JASS_INDEX_INFO = {
-    "msmarco-passage-bm25": {
+    "jass-msmarco-passage-bm25": {
         "description": "BP reordered JASS impact index of the MS MARCO passage corpus with BM25 scoring",
         "filename": "jass-index.msmarco-passage.bm25.20220217.5cbb40.tar.gz",
         "urls": [
@@ -1464,7 +1464,7 @@ JASS_INDEX_INFO = {
         "unique_terms": 0,
         "downloaded": False
     },
-    "msmarco-passage-d2q-t5": {
+    "jass-msmarco-passage-d2q-t5": {
         "description": "BP reordered JASS impact index of the MS MARCO passage corpus with BM25 scoring over a DocT5Query expanded collection",
         "filename": "jass-index.msmarco-passage.d2q-t5.20220217.5cbb40.tar.gz",
         "urls": [
@@ -1477,7 +1477,7 @@ JASS_INDEX_INFO = {
         "unique_terms": 0,
         "downloaded": False
     },
-    "msmarco-passage-deepimpact": {
+    "jass-msmarco-passage-deepimpact": {
         "description": "BP reordered JASS impact index of the MS MARCO passage corpus with DeepImpact scoring",
         "filename": "jass-index.msmarco-passage.deepimpact.20220217.5cbb40.tar.gz",
         "urls": [
@@ -1490,7 +1490,7 @@ JASS_INDEX_INFO = {
         "unique_terms": 0,
         "downloaded": False
     },
-    "msmarco-passage-unicoil-d2q": {
+    "jass-msmarco-passage-unicoil-d2q": {
         "description": "BP reordered JASS impact index of the MS MARCO passage corpus with uniCOIL scoring over a DocT5Query expanded collection",
         "filename" : "jass-index.msmarco-passage.unicoil-d2q.20220217.5cbb40.tar.gz",
         "urls": [
@@ -1503,7 +1503,7 @@ JASS_INDEX_INFO = {
         "unique_terms": 0,
         "downloaded": False
     },
-    "msmarco-unicoil-tilde": {
+    "jass-msmarco-unicoil-tilde": {
         "description": "BP reordered JASS impact index of the MS MARCO passage corpus with uniCOIL scoring over a TILDE expanded collection",
         "filename": "jass-index.msmarco-passage.unicoil-tilde.20220217.5cbb40.tar.gz",
         "urls": [
@@ -1516,7 +1516,7 @@ JASS_INDEX_INFO = {
         "unique_terms": 0,
         "downloaded": False
     },
-    "msmarco-passage-distill-splade-max": {
+    "jass-msmarco-passage-distill-splade-max": {
         "description": "BP reordered JASS impact index of the MS MARCO passage corpus with distill-splade-max scoring",
         "filename": "jass-index.msmarco-passage.distill-splade-max.20220217.5cbb40.tar.gz",
         "urls": [
