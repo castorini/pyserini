@@ -1449,36 +1449,6 @@ FAISS_INDEX_INFO = {
         "texts": "cast2019"
     }
 }
-    "msmarco-passage-deepimpact": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact",
-        "filename": "lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
-        "readme": "lucene-index.msmarco-passage.deepimpact.20211012.58d286.readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/FfwF6nB9M5sjTYk/download",
-        ],
-        "md5": "9938f5529fee5cdb405b8587746c9e93",
-        "size compressed (bytes)": 1295216704,
-        "total_terms": 35455908214,
-        "documents": 8841823,
-        "unique_terms": 3514102,
-        "downloaded": False
-    },
-    "msmarco-passage-unicoil-d2q": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-d2q",
-        "filename": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
-        "readme": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/LGoAAXM7ZEbyQ7y/download"
-        ],
-        "md5": "4a8cb3b86a0d9085a0860c7f7bb7fe99",
-        "size compressed (bytes)": 1205104390,
-        "total_terms": 44495093768,
-        "documents": 8841823,
-        "unique_terms": 27678,
-        "downloaded": False
-    },
  
 JASS_INDEX_INFO = {
     "msmarco-passage-bm25": {
@@ -1487,8 +1457,8 @@ JASS_INDEX_INFO = {
         "urls": [
 
         ],
-        "md5": "c6168b6ea661e06f60e9937eb76dd01a",
-        "size compressed (bytes)": 710697575,
+        "md5": "0241d6797567eec8c333187f8fa37aa3",
+        "size compressed (bytes)": 629101230,
         "total_terms": 0,
         "documents": 0,
         "unique_terms": 0,
@@ -1500,8 +1470,8 @@ JASS_INDEX_INFO = {
         "urls": [
 
         ],
-        "md5": "b1c60fcef315890aa0c99fb71cb6aae9",
-        "size compressed (bytes)": 929806687,
+        "md5": "7efe0e746c552b73c31869e0b0bd6837",
+        "size compressed (bytes)": 832303111,
         "total_terms": 0,
         "documents": 0,
         "unique_terms": 0,

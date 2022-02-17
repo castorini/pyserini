@@ -162,7 +162,7 @@ def check_downloaded(index_name):
         target_index = TF_INDEX_INFO[index_name]
     elif index_name in IMPACT_INDEX_INFO:
         target_index = IMPACT_INDEX_INFO[index_name]
-    elif:
+    elif index_name in FAISS_INDEX_INFO:
         target_index = FAISS_INDEX_INFO[index_name]
     else:
         target_index = JASS_INDEX_INFO[index_name]
@@ -213,7 +213,7 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
         target_index = TF_INDEX_INFO[index_name]
     elif index_name in IMPACT_INDEX_INFO:
         target_index = IMPACT_INDEX_INFO[index_name]
-    elif:
+    elif index_name in FAISS_INDEX_INFO:
         target_index = FAISS_INDEX_INFO[index_name]
     else:
         target_index = JASS_INDEX_INFO[index_name]

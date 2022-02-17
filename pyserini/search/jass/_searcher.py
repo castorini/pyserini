@@ -57,6 +57,7 @@ class JASSv2Searcher:
     def __init__(self, index_dir: str, version: int = 2):
         self.index_dir = index_dir
         self.object = pyjass.anytime()
+        self.set_default_parser()
         index = self.object.load_index(version,index_dir)
         if index != 0:
              raise Exception('Unable to load index - error code' + str(index))
@@ -198,10 +199,10 @@ class JASSv2Searcher:
 
         return output
 
-    def set_ascii(self) -> None:
+    def set_ascii_parser(self) -> None:
         """Set Jass to use ascii parser."""
         self.object.use_ascii_parser()
 
-    def set_query(self) -> None:
+    def set_default_parser(self) -> None:
         """Set Jass to use query parser."""
         self.object.use_query_parser()
