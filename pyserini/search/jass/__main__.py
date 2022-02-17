@@ -28,7 +28,7 @@ def define_search_args(parser):
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                         help="Path to pyJass index")
     parser.add_argument('--rho', type=int, default=1000000000, help='rho: how many postings to process')
-    parser.add_argument('--ascii', default=False, action='store_true', help="Use ASCII parser")
+    parser.add_argument('--basic-parser', default=False, action='store_true', help="Use the basic query parser; Default is to use the ASCII parser")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Search a pyJass index.')
@@ -47,6 +47,8 @@ if __name__ == "__main__":
                         default=1, help="Specify batch size to search the collection concurrently.")
     parser.add_argument('--threads', type=int, metavar='num', required=False,
                         default=1, help="Maximum number of threads to use.")
+    parser.add_argument('--impact', action='store_true', help="Use Impact.")
+ 
     args = parser.parse_args()
 
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
@@ -63,9 +65,12 @@ if __name__ == "__main__":
     # JASS does not (yet) support field-based retrieval
     fields = None
 
+    if not args.impact:
+        print("Enforcing --impact; JASS requires impact-based retrieval.")
+
     # JASS Parser Option 
-    if args.ascii:
-        searcher.set_ascii_parser()
+    if args.basic_parser:
+        searcher.set_basic_parser()
 
     # build output path
     output_path = args.output
