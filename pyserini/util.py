@@ -207,7 +207,7 @@ def get_dense_indexes_info():
 
 
 def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
-    if index_name not in TF_INDEX_INFO and index_name not in FAISS_INDEX_INFO and index_name not in IMPACT_INDEX_INFO:
+    if index_name not in TF_INDEX_INFO and index_name not in FAISS_INDEX_INFO and index_name not in IMPACT_INDEX_INFO and index_name not in JASS_INDEX_INFO:
         raise ValueError(f'Unrecognized index name {index_name}')
     if index_name in TF_INDEX_INFO:
         target_index = TF_INDEX_INFO[index_name]
