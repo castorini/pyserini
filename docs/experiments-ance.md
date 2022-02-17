@@ -50,7 +50,7 @@ $ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
 
 $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.ance.bf.trec
 
-map                   	all	0.3363
+map                   	all	0.3362
 recall_1000           	all	0.9584
 ```
 

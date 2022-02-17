@@ -95,18 +95,15 @@ A complete run should take around 30 minutes.
 To evaluate, using `trec_eval`:
 
 ```bash
-$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev runs/run.msmarco-v2-passage-dev-unicoil-tilde-expansion-b8.txt
-
-NEEDS TO CHANGE!
-
+$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev runs/run.msmarco-v2-passage-dev-unicoil-tilde-expansion.txt
 Results:
-map                   	all	0.1471
-recip_rank            	all	0.1480
+map                   	all	0.1476
+recip_rank            	all	0.1486
 
-$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-passage-dev runs/run.msmarco-v2-passage-dev-unicoil-tilde-expansion-b8.txt
+$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-passage-dev runs/run.msmarco-v2-passage-dev-unicoil-tilde-expansion.txt
 Results:
-recall_100            	all	0.5566
-recall_1000           	all	0.7701
+recall_100            	all	0.5630
+recall_1000           	all	0.7733
 ```
 
 There might be small differences in score due to platform differences in neural inference.
