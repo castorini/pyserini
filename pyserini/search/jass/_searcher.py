@@ -103,7 +103,7 @@ class JASSv2Searcher:
             List of JASSv2SearcherResult which contains the DocID and also the score pair.
         """
         docid_score_pair = list()
-        results = result_list.splitlines() #using split lines to split it faster
+        results = result_list.split('\n')
         for res in results:
             # Split by space. We expect the `trec` format, bail out if we don't get it
             result_data = res.split(' ')
