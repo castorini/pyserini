@@ -67,6 +67,7 @@ if __name__ == '__main__':
                               required=True)
     input_parser.add_argument('--fields', help='fields that contents in jsonl has (in order)',
                               nargs='+', default=['text'], required=False)
+    input_parser.add_argument('--delimiter', help='delimiter for the fields', default='\n', required=False)
     input_parser.add_argument('--shard-id', type=int, help='shard-id 0-based', default=0, required=False)
     input_parser.add_argument('--shard-num', type=int, help='number of shards', default=1, required=False)
 
@@ -83,13 +84,14 @@ if __name__ == '__main__':
     encoder_parser.add_argument('--fp16', action='store_true', default=False)
 
     args = parse_args(parser, commands)
+    delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
 
     encoder = init_encoder(args.encoder.encoder, device=args.encoder.device)
     if args.output.to_faiss:
         embedding_writer = FaissRepresentationWriter(args.output.embeddings)
     else:
         embedding_writer = JsonlRepresentationWriter(args.output.embeddings)
-    collection_iterator = JsonlCollectionIterator(args.input.corpus, args.input.fields)
+    collection_iterator = JsonlCollectionIterator(args.input.corpus, args.input.fields, delimiter)
 
     with embedding_writer:
         for batch_info in collection_iterator(args.encoder.batch_size, args.input.shard_id, args.input.shard_num):

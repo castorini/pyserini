@@ -32,7 +32,7 @@ from transformers.file_utils import is_faiss_available, requires_backends
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info, get_sparse_index)
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 from pyserini.index import Document
 
 from ._model import AnceEncoder
@@ -360,7 +360,7 @@ class SimpleDenseSearcher:
         assert self.docids is None or self.num_docs == len(self.docids)
         if prebuilt_index_name:
             sparse_index = get_sparse_index(prebuilt_index_name)
-            self.ssearcher = SimpleSearcher.from_prebuilt_index(sparse_index)
+            self.ssearcher = LuceneSearcher.from_prebuilt_index(sparse_index)
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: QueryEncoder):

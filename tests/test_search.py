@@ -22,7 +22,7 @@ from random import randint
 from typing import List, Dict
 from urllib.request import urlretrieve
 
-from pyserini.search import SimpleSearcher, JSimpleSearcherResult
+from pyserini.search.lucene import LuceneSearcher, JLuceneSearcherResult
 from pyserini.index import Document
 
 
@@ -40,7 +40,7 @@ class TestSearch(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-        self.searcher = SimpleSearcher(f'{self.index_dir}lucene-index.cacm')
+        self.searcher = LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
 
     def test_basic(self):
         self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
@@ -50,7 +50,7 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(hits, List))
 
-        self.assertTrue(isinstance(hits[0], JSimpleSearcherResult))
+        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
         self.assertEqual(hits[0].docid, 'CACM-3134')
         self.assertEqual(hits[0].lucene_docid, 3133)
         self.assertEqual(len(hits[0].contents), 1500)
@@ -63,17 +63,17 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(len(hits[0].lucene_document.getField('raw').stringValue()), 1532)
         self.assertEqual(len(hits[0].lucene_document.get('raw')), 1532)   # simpler call, same result as above
 
-        self.assertTrue(isinstance(hits[9], JSimpleSearcherResult))
+        self.assertTrue(isinstance(hits[9], JLuceneSearcherResult))
         self.assertEqual(hits[9].docid, 'CACM-2516')
         self.assertAlmostEqual(hits[9].score, 4.21740, places=5)
 
         hits = self.searcher.search('search')
 
-        self.assertTrue(isinstance(hits[0], JSimpleSearcherResult))
+        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
         self.assertEqual(hits[0].docid, 'CACM-3058')
         self.assertAlmostEqual(hits[0].score, 2.85760, places=5)
 
-        self.assertTrue(isinstance(hits[9], JSimpleSearcherResult))
+        self.assertTrue(isinstance(hits[9], JLuceneSearcherResult))
         self.assertEqual(hits[9].docid, 'CACM-3040')
         self.assertAlmostEqual(hits[9].score, 2.68780, places=5)
 
@@ -84,20 +84,20 @@ class TestSearch(unittest.TestCase):
         self.assertTrue(isinstance(results, Dict))
 
         self.assertTrue(isinstance(results['q1'], List))
-        self.assertTrue(isinstance(results['q1'][0], JSimpleSearcherResult))
+        self.assertTrue(isinstance(results['q1'][0], JLuceneSearcherResult))
         self.assertEqual(results['q1'][0].docid, 'CACM-3134')
         self.assertAlmostEqual(results['q1'][0].score, 4.76550, places=5)
 
-        self.assertTrue(isinstance(results['q1'][9], JSimpleSearcherResult))
+        self.assertTrue(isinstance(results['q1'][9], JLuceneSearcherResult))
         self.assertEqual(results['q1'][9].docid, 'CACM-2516')
         self.assertAlmostEqual(results['q1'][9].score, 4.21740, places=5)
 
         self.assertTrue(isinstance(results['q2'], List))
-        self.assertTrue(isinstance(results['q2'][0], JSimpleSearcherResult))
+        self.assertTrue(isinstance(results['q2'][0], JLuceneSearcherResult))
         self.assertEqual(results['q2'][0].docid, 'CACM-3058')
         self.assertAlmostEqual(results['q2'][0].score, 2.85760, places=5)
 
-        self.assertTrue(isinstance(results['q2'][9], JSimpleSearcherResult))
+        self.assertTrue(isinstance(results['q2'][9], JLuceneSearcherResult))
         self.assertEqual(results['q2'][9].docid, 'CACM-3040')
         self.assertAlmostEqual(results['q2'][9].score, 2.68780, places=5)
 
@@ -106,7 +106,7 @@ class TestSearch(unittest.TestCase):
 
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(hits, List))
-        self.assertTrue(isinstance(hits[0], JSimpleSearcherResult))
+        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
         self.assertEqual(len(hits), 100)
 
     def test_batch_k(self):
@@ -115,10 +115,10 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(results, Dict))
         self.assertTrue(isinstance(results['q1'], List))
-        self.assertTrue(isinstance(results['q1'][0], JSimpleSearcherResult))
+        self.assertTrue(isinstance(results['q1'][0], JLuceneSearcherResult))
         self.assertEqual(len(results['q1']), 100)
         self.assertTrue(isinstance(results['q2'], List))
-        self.assertTrue(isinstance(results['q2'][0], JSimpleSearcherResult))
+        self.assertTrue(isinstance(results['q2'][0], JLuceneSearcherResult))
         self.assertEqual(len(results['q2']), 100)
 
     def test_basic_fields(self):
@@ -127,7 +127,7 @@ class TestSearch(unittest.TestCase):
 
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(hits, List))
-        self.assertTrue(isinstance(hits[0], JSimpleSearcherResult))
+        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
         self.assertEqual(len(hits), 42)
 
     def test_batch_fields(self):
@@ -138,10 +138,10 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(results, Dict))
         self.assertTrue(isinstance(results['q1'], List))
-        self.assertTrue(isinstance(results['q1'][0], JSimpleSearcherResult))
+        self.assertTrue(isinstance(results['q1'][0], JLuceneSearcherResult))
         self.assertEqual(len(results['q1']), 42)
         self.assertTrue(isinstance(results['q2'], List))
-        self.assertTrue(isinstance(results['q2'][0], JSimpleSearcherResult))
+        self.assertTrue(isinstance(results['q2'][0], JLuceneSearcherResult))
         self.assertEqual(len(results['q2']), 42)
 
     def test_different_similarity(self):

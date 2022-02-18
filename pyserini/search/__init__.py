@@ -16,14 +16,14 @@
 
 from .lucene import JQuery, JDisjunctionMaxQueryGenerator, get_topics,\
     get_topics_with_reader, get_qrels_file, get_qrels
-from .lucene import JSimpleSearcherResult, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
+from .lucene import JLuceneSearcherResult, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
 from .lucene import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearcherResult
 from .lucene import JImpactSearcherResult, LuceneImpactSearcher
 from ._deprecated import SimpleSearcher, ImpactSearcher, SimpleFusionSearcher
 from .jass import JASSv2Searcher
 
 __all__ = ['JQuery', 'LuceneSimilarities', 'LuceneFusionSearcher', 'LuceneSearcher',
-           'JSimpleSearcherResult', 'SimpleNearestNeighborSearcher', 'JSimpleNearestNeighborSearcherResult',
+           'JLuceneSearcherResult', 'SimpleNearestNeighborSearcher', 'JSimpleNearestNeighborSearcherResult',
            'LuceneImpactSearcher', 'JImpactSearcherResult', 'JDisjunctionMaxQueryGenerator', 'get_topics',
            'get_topics_with_reader', 'get_qrels_file', 'get_qrels',
            'SimpleSearcher', 'ImpactSearcher', 'SimpleFusionSearcher','JASSv2Searcher']

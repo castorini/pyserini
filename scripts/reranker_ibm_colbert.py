@@ -23,7 +23,7 @@ from pyserini.pyclass import autoclass, JString
 from typing import List, Set, Dict
 
 
-JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
+JLuceneSearcher = autoclass('io.anserini.search.SimpleSearcher')
 JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 JTerm = autoclass('org.apache.lucene.index.Term')
 
@@ -231,7 +231,7 @@ def rank(base: str, tran_path: str, query_path: str,
         field_name: str, tag: str, alpha: int, num_threads: int, max_sim: bool):
 
     pool = ThreadPool(num_threads)
-    searcher = JSimpleSearcher(JString(lucene_index_path))
+    searcher = JLuceneSearcher(JString(lucene_index_path))
     reader = JIndexReader().getReader(JString(lucene_index_path))
 
     source_lookup, target_lookup, tran = load_tranprobs_table(tran_path)

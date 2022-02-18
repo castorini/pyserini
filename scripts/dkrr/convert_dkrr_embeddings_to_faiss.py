@@ -14,26 +14,22 @@
 # limitations under the License.
 #
 
+import faiss
+import pickle
 import argparse
-import json
-import sys
-
-# We're going to explicitly use a local installation of Pyserini (as opposed to a pip-installed one).
-# Comment these lines out to use a pip-installed one instead.
-sys.path.insert(0, './')
-
-from pyserini.search.lucene import LuceneSearcher
-
+import numpy as np
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--qrels', type=str, help='qrels file', required=True)
-    parser.add_argument('--index', type=str, help='index location', required=True)
+    parser.add_argument('--embeddings', type=str, required=True, help="Path to embeddings file from generate_passage_embeddings.py from dkrr repo")
+    parser.add_argument('--output', type=str, help='Path to store faiss IndexFlatIP', required=True)
     args = parser.parse_args()
 
-    searcher = LuceneSearcher(args.index)
-    with open(args.qrels, 'r') as reader:
-        for line in reader.readlines():
-            arr = line.split('\t')
-            doc = json.loads(searcher.doc(arr[2]).raw())['contents']
-            print(f'{arr[2]}\t{doc}')
+    with open(args.embeddings, 'rb') as embeddings_file:
+        ids, embeddings = pickle.load(embeddings_file)
+        embeddings = np.array(embeddings, dtype=np.float32)
+        index = faiss.IndexFlatIP(embeddings.shape[1])
+        index.add(embeddings)
+        faiss.write_index(index, args.output)
+    
+    

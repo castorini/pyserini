@@ -31,7 +31,7 @@ sys.path.insert(0, './')
 sys.path.insert(0, '../pyserini/')
 
 from pyserini.trectools import TrecRun
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 from pyserini.dsearch import SimpleDenseSearcher
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
@@ -61,7 +61,7 @@ def generate_passage_collection(docs, collection_path):
 
 
 def bm25(qid, query, docs, index_path):
-    s = SimpleSearcher(index_path)
+    s = LuceneSearcher(index_path)
     hits = s.search(query, 1000)
 
     n = 1
@@ -172,8 +172,8 @@ def main(args):
     # Load base run to rerank:
     base_run = TrecRun(args.input)
 
-    # SimpleSearcher to fetch document texts.
-    searcher = SimpleSearcher.from_prebuilt_index('msmarco-doc')
+    # LuceneSearcher to fetch document texts.
+    searcher = LuceneSearcher.from_prebuilt_index('msmarco-doc')
 
     output = []
 
