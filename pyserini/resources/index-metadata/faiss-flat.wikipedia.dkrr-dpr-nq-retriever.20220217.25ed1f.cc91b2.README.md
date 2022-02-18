@@ -6,19 +6,19 @@ This index was generated on 2022/02/17 on `orca` at commits:
 with the following command to generate the embeddings (from FiD repo):
 
 ```bash
-python3 generate_passage_embeddings.py \
-        --model_path nq_retriever \
-        --passages passages.tsv \
-        --output_path wikipedia_embeddings_nq \
-        --shard_id 0 \
-        --num_shards 1 \
-        --per_gpu_batch_size 500 \
+python3 generate_passage_embeddings.py
+        --model_path nq_retriever
+        --passages passages.tsv
+        --output_path wikipedia_embeddings_nq
+        --shard_id 0
+        --num_shards 1
+        --per_gpu_batch_size 500
 ```
 
 and the following command to convert the embeddings to faiss IndexFlatIP form
 
 ```bash
-python3 convert_dkrr_embeddings_to_faiss.py \
+python3 convert_dkrr_embeddings_to_faiss.py
 	--embeddings wikipedia_embeddings_nq
 	--output faiss-flat.wikipedia.dkrr-dpr-nq-retriever
 ```
