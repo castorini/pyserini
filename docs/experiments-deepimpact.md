@@ -43,24 +43,15 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 
 ## Retrieval
 
-To ensure that the tokenization in the index aligns exactly with the queries, we use pre-tokenized queries.
-First, fetch the MS MARCO passage ranking dev set queries: 
-
-```bash
-# Alternate mirrors of the same data, pick one:
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage.dev-subset.deepimpact.tsv.gz -P collections/
-wget https://vault.cs.uwaterloo.ca/s/NYibRJ9bXs5PspH/download -O collections/topics.msmarco-passage.dev-subset.deepimpact.tsv.gz
-```
-The MD5 checksum of the topics file is `88a2987d6a25b1be11c82e87677a262e`.
-
 > If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-passage-deepimpact` in the command below.
 
-We can now run retrieval:
+To ensure that the tokenization in the index aligns exactly with the queries, we use pre-tokenized queries, which are already included in Pyserini.
+We can run retrieval as follows:
 
 ```bash
 python -m pyserini.search.lucene \
   --index indexes/lucene-index.msmarco-passage-deepimpact/ \
-  --topics collections/topics.msmarco-passage.dev-subset.deepimpact.tsv.gz \
+  --topics msmarco-passage-dev-subset-deepimpact \
   --output runs/run.msmarco-passage-deepimpact.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \

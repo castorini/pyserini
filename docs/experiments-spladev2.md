@@ -45,25 +45,24 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 
 ## Retrieval
 
-To ensure that the tokenization in the index aligns exactly with the queries, we use pre-tokenized queries.
-First, fetch the MS MARCO passage ranking dev set queries: 
-
-```bash
-# Alternate mirrors of the same data, pick one:
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz -P collections/
-wget https://vault.cs.uwaterloo.ca/s/DrL4HLqgmT6orJL/download -O collections/topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz
-```
-
-The MD5 checksum of the topics file is `621a58df9adfbba8d1a23e96d8b21cb7`.
-
 > If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-passage-distill-splade-max` in the command below.
 
-We can now run retrieval:
+Before we run retrieval, we need to download the model for encoding the queries.
+This checkpoint is not available on Huggingface's model hub, and needs to be fetched from NAVER's [website](https://europe.naverlabs.com/research/machine-learning-and-optimization/splade-models/):
+
+```bash
+wget https://download-de.europe.naverlabs.com/Splade_Release_Jan22/distilsplade_max.tar.gz
+tar -xvf distilsplade_max.tar.gz
+mv distilsplade_max distill-splade-max
+```
+
+We can now run retrieval using the local `distill-splade-max` model to encode the queries:
 
 ```bash
 python -m pyserini.search.lucene \
   --index indexes/lucene-index.msmarco-passage-distill-splade-max \
-  --topics collections/topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz \
+  --topics msmarco-passage-dev-subset \
+  --encoder distill-splade-max \
   --output runs/run.msmarco-passage-distill-splade-max.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \
@@ -71,10 +70,47 @@ python -m pyserini.search.lucene \
   --impact
 ```
 
+Here, we are using the transformer model to encode the queries on the fly using the CPU.
 Note that the important option here is `--impact`, where we specify impact scoring.
-A complete run can take around half an hour.
+With these impact scores, query evaluation is already slower than bag-of-words BM25; on top of that we're adding neural inference on the CPU.
+A complete run can take around an hour.
 
 *Note from authors*: We are still investigating why it takes so long using Pyserini, while the same model (including distilbert query encoder forward pass in CPU) takes only **10 minutes** on similar hardware using a numba implementation for the inverted index and using sequential processing (only one query at a time).
+
+The output is in MS MARCO output format, so we can directly evaluate:
+
+```bash
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-distill-splade-max.tsv
+```
+
+The results should be as follows:
+
+```
+#####################
+MRR @10: 0.3684321417201083
+QueriesRanked: 6980
+#####################
+```
+
+The final evaluation metric is the same as the score reported in the paper (0.368).
+There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
+
+Alternatively, we can use pre-tokenized queries with pre-computed weights, which are already included in Pyserini.
+We can run retrieval as follows:
+
+```bash
+python -m pyserini.search.lucene \
+  --index indexes/lucene-index.msmarco-passage-distill-splade-max \
+  --topics msmarco-passage-dev-subset-distill-splade-max \
+  --output runs/run.msmarco-passage-distill-splade-max.tsv \
+  --output-format msmarco \
+  --batch 36 --threads 12 \
+  --hits 1000 \
+  --impact
+```
+
+Here, we also specify `--impact` for impact scoring.
+Since we're not applying neural inference over the queries, retrieval is faster.
 
 The output is in MS MARCO output format, so we can directly evaluate:
 
@@ -91,48 +127,7 @@ QueriesRanked: 6980
 #####################
 ```
 
-The final evaluation metric is very close to the one reported in the paper (0.368).
-
-Alternatively, we can use one-the-fly query encoding.
-
-First, download the model checkpoint from NAVER's [website](https://europe.naverlabs.com/research/machine-learning-and-optimization/splade-models/):
-
-```bash
-wget https://download-de.europe.naverlabs.com/Splade_Release_Jan22/distilsplade_max.tar.gz
-tar -xvf distilsplade_max.tar.gz
-mv distilsplade_max distill-splade-max
-```
-
-Then run retrieval with `--encoder distill-splade-max`:
-
-```bash
-python -m pyserini.search.lucene \
-  --index indexes/lucene-index.msmarco-passage-distill-splade-max \
-  --topics msmarco-passage-dev-subset \
-  --encoder distill-splade-max \
-  --output runs/run.msmarco-passage-distill-splade-max.tsv \
-  --output-format msmarco \
-  --batch 36 --threads 12 \
-  --hits 1000 \
-  --impact
-```
-
-And then evaluate: 
-
-```bash
-python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage-distill-splade-max.tsv
-```
-
-The results should be something along these lines:
-
-```
-#####################
-MRR @10: 0.3684321417201083
-QueriesRanked: 6980
-#####################
-```
-
-There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
+Note that in this case, the results should be deterministic.
 
 ## Reproduction Log[*](reproducibility.md)
 
