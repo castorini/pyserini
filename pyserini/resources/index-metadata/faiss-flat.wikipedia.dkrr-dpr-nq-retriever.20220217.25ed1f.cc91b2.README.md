@@ -1,3 +1,4 @@
+Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from: 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ
 This index was generated on 2022/02/17 on `orca` at commits:
 
 + pyserini commit [`cc91b2`](https://github.com/castorini/pyserini/commit/cc91b22f549702068cea1283f91b31d28d127b2f) (2022/02/17)
