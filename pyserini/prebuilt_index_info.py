@@ -1629,7 +1629,7 @@ JASS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/jass-index.msmarco-passage.bm25.20220217.5cbb40.tar.gz"
         ],
-        "md5": "0241d6797567eec8c333187f8fa37aa3",
+        "md5": "9add4b1f754c5f33d31501c65e5e92d3",
         "size compressed (bytes)": 629101230,
         "total_terms": 0,
         "documents": 0,
@@ -1642,7 +1642,7 @@ JASS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/jass-index.msmarco-passage.d2q-t5.20220217.5cbb40.tar.gz"
         ],
-        "md5": "7efe0e746c552b73c31869e0b0bd6837",
+        "md5": "9be8d8890d60410243a8c7323849ecc9",
         "size compressed (bytes)": 832303111,
         "total_terms": 0,
         "documents": 0,
@@ -1655,7 +1655,7 @@ JASS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/jass-index.msmarco-passage.deepimpact.20220217.5cbb40.tar.gz"
         ],
-        "md5": "d4cd22ef82d27956c9fcd32ebc0fd77b",
+        "md5": "d9ed05d97e1f07373d7a98a1dd9f6fac",
         "size compressed (bytes)": 1217477634,
         "total_terms": 0,
         "documents": 0,
@@ -1668,7 +1668,7 @@ JASS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/jass-index.msmarco-passage.unicoil-d2q.20220217.5cbb40.tar.gz"
         ],
-        "md5": "87d8a372dc268ad8ca259492e55d7528",
+        "md5": "24bab2ef23914ab124d4f0eba8dc866c",
         "size compressed (bytes)": 1084195359,
         "total_terms": 0,
         "documents": 0,
@@ -1681,7 +1681,7 @@ JASS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/jass-index.msmarco-passage.unicoil-tilde.20220217.5cbb40.tar.gz"
         ],
-        "md5": "78033304c7b1d781b9d015a716e33ba4",
+        "md5": "705c3e72cff189265de9b5c509be00a6",
         "size compressed (bytes)": 1724440877,
         "total_terms": 0,
         "documents": 0,
@@ -1694,7 +1694,7 @@ JASS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/jass-index.msmarco-passage.distill-splade-max.20220217.5cbb40.tar.gz"
         ],
-        "md5": "003d1fd3a02ab35dee5e5e2949e51752",
+        "md5": "f6bf3cdf983d4e1aaee8677acbcdb47f",
         "size compressed (bytes)": 3530600632,
         "total_terms": 0,
         "documents": 0,
