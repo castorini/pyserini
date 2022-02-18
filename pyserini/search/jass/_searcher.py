@@ -58,8 +58,8 @@ class JASSv2Searcher:
         self.index_dir = index_dir
         self.object = pyjass.anytime()
         self.set_ascii_parser()
-        self.num_docs = self.object.get_document_count()
         index = self.object.load_index(version,index_dir)
+        self.num_docs = self.object.get_document_count()
         if index != 0:
              raise Exception('Unable to load index - error code' + str(index))
 
@@ -200,13 +200,13 @@ class JASSv2Searcher:
 
         return output
 
-    def set_ascii_parser(self) -> None:
+    def set_ascii_parser(self) -> int:
         """Set Jass to use ascii parser."""
-        self.object.use_ascii_parser()
+        return(self.object.use_ascii_parser())
 
-    def set_basic_parser(self) -> None:
+    def set_basic_parser(self) -> int:
         """Set Jass to use query parser."""
-        self.object.use_query_parser()
+        return(self.object.use_query_parser())
 
     
     def __get_time_taken(self) -> float:
