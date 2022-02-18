@@ -25,7 +25,7 @@ import sys
 # Use Pyserini in this repo (as opposed to pip install)
 sys.path.insert(0, './')
 
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 from tqdm import tqdm
 
 
@@ -44,7 +44,7 @@ if __name__ == '__main__':
 
     plt.switch_backend('agg')
 
-    searcher = SimpleSearcher(args.index)
+    searcher = LuceneSearcher(args.index)
 
     # Determine how many documents to iterate over:
     if args.max:

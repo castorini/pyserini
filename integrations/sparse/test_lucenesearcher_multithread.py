@@ -16,7 +16,7 @@
 
 import unittest
 
-from integrations.run_simplesearcher import RunSimpleSearcher
+from integrations.run_lucenesearcher import RunLuceneSearcher
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -24,7 +24,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.test_threads = ['--threads 1 --batch-size 64',
                              '--threads 4 --batch-size 64']
 
-    def check_equal(self, runner: RunSimpleSearcher, runtag: str, extras: str) -> bool:
+    def check_equal(self, runner: RunLuceneSearcher, runtag: str, extras: str) -> bool:
         checksums = []
         for i, config in enumerate(self.test_threads):
             checksum = runner.run(runtag=f'{runtag}-{i}',
@@ -41,49 +41,49 @@ class TestSearchIntegration(unittest.TestCase):
         return equal
 
     def test_robust04(self):
-        checker = RunSimpleSearcher(
+        checker = RunLuceneSearcher(
             index='robust04',
             topics='robust04')
         self.assertTrue(self.check_equal(checker,
                                          'robust04', extras=''))
 
     def test_msmarco_passage(self):
-        checker = RunSimpleSearcher(
+        checker = RunLuceneSearcher(
             index='msmarco-passage',
             topics='msmarco-passage-dev-subset')
         self.assertTrue(self.check_equal(checker,
                                          'msmarco_passage', extras='--output-format msmarco'))
 
     def test_msmarco_passage_docTTTTTquery(self):
-        checker = RunSimpleSearcher(
+        checker = RunLuceneSearcher(
             index='msmarco-passage-expanded',
             topics='msmarco-passage-dev-subset')
         self.assertTrue(self.check_equal(checker,
                                          'msmarco_passage_docTTTTTquery', extras='--output-format msmarco'))
 
     def test_msmarco_doc(self):
-        checker = RunSimpleSearcher(
+        checker = RunLuceneSearcher(
             index='msmarco-doc',
             topics='msmarco-doc-dev')
         self.assertTrue(self.check_equal(checker, 'msmarco_doc',
                                          extras='--hits 100 --output-format msmarco'))
 
     def test_msmarco_doc_docTTTTTquery(self):
-        checker = RunSimpleSearcher(
+        checker = RunLuceneSearcher(
             index='msmarco-doc-expanded-per-doc',
             topics='msmarco-doc-dev')
         self.assertTrue(self.check_equal(checker, 'msmarco_doc_docTTTTTquery',
                                          extras='--hits 100 --output-format msmarco'))
 
     def test_msmarco_doc_per_passage(self):
-        checker = RunSimpleSearcher(
+        checker = RunLuceneSearcher(
             index='msmarco-doc-per-passage',
             topics='msmarco-doc-dev')
         self.assertTrue(self.check_equal(checker, 'msmarco_doc_per_passage',
                                          extras='--hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco'))
 
     def test_msmarco_doc_docTTTTTquery_passage(self):
-        checker = RunSimpleSearcher(
+        checker = RunLuceneSearcher(
             index='msmarco-doc-expanded-per-passage',
             topics='msmarco-doc-dev')
         self.assertTrue(self.check_equal(checker, 'msmarco_doc_docTTTTTquery_passage',
