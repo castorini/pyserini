@@ -1,8 +1,7 @@
-This index was generated on 2022/02/17 at
+This index was generated on 2022/02/17 on `orca` at commits:
 
-+ pyserini commit cc91b22f549702068cea1283f91b31d28d127b2f (2022/02/17)
-+ FiD (https://github.com/facebookresearch/FiD) commit 25ed1ff0fe0288b80fb5e9e5de8d6346b94b8d48 (2022/02/17)
-
++ pyserini commit [`cc91b2`](https://github.com/castorini/pyserini/commit/cc91b22f549702068cea1283f91b31d28d127b2f) (2022/02/17)
++ FiD (https://github.com/facebookresearch/FiD) commit [`25ed1f`](https://github.com/facebookresearch/FiD/commit/25ed1ff0fe0288b80fb5e9e5de8d6346b94b8d48) (2022/02/17)
 
 with the following command (from FiD repo):
 
@@ -16,4 +15,12 @@ python3 generate_passage_embeddings.py \
         --per_gpu_batch_size 500 \
 ```
 
+and the following command to convert the embeddings to faiss IndexFlatIP form
+
+```bash
+python3 convert_dkrr_embeddings_to_faiss.py \
+        --embeddings wikipedia_embeddings_tqa
+        --output faiss-flat.wikipedia.dkrr-dpr-tqa-retriever
+```
+		
 faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz MD5 checksum = 7c59e305533030cf6ccecc8d7229523b
