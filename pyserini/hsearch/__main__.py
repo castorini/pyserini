@@ -28,7 +28,7 @@ from pyserini.search.lucene import LuceneImpactSearcher, LuceneSearcher
 from pyserini.hsearch import HybridSearcher
 
 from pyserini.dsearch.__main__ import define_dsearch_args, init_query_encoder
-from pyserini.search.__main__ import define_search_args, set_bm25_parameters
+from pyserini.search.lucene.__main__ import define_search_args, set_bm25_parameters
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
