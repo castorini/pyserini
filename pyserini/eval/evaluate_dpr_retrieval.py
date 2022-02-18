@@ -26,11 +26,33 @@ import re
 import unicodedata
 from tqdm import tqdm
 import numpy as np
-
+import os
+import wget
 import regex
+import collections
 
 logger = logging.getLogger(__name__)
 
+
+DIRNAME = os.path.dirname(os.path.abspath(__file__))
+# download dependencies
+if not os.path.exists('data'):
+    DATA_DIR = os.path.join(DIRNAME, 'data')
+    os.mkdir(DATA_DIR)
+    ANNOTATIONS_TO_DOWNLOAD = [
+        ('https://dl.fbaipublicfiles.com/qaoverlap/data/nq-annotations.jsonl','nq-annotations.jsonl'),
+        ('https://dl.fbaipublicfiles.com/qaoverlap/data/triviaqa-annotations.jsonl', 'triviaqa-annotations.jsonl'),
+        ('https://dl.fbaipublicfiles.com/qaoverlap/data/webquestions-annotations.jsonl','webquestions-annotations.jsonl')
+    ]
+
+    for link, dest in ANNOTATIONS_TO_DOWNLOAD:
+        wget.download(link, os.path.join(DATA_DIR, dest))
+
+ANNOTATION_PATHS = {
+    'tqa': os.path.join(DIRNAME, 'data/triviaqa-annotations.jsonl'),
+    'nq': os.path.join(DIRNAME, 'data/nq-annotations.jsonl'),
+    'webquestions': os.path.join(DIRNAME, 'data/webquestions-annotations.jsonl'),
+}
 
 class Tokens(object):
     """A class to represent a list of tokenized text."""
@@ -220,6 +242,15 @@ def _normalize(text):
     return unicodedata.normalize('NFD', text)
 
 
+def read_jsonl(path):
+    with open(path) as f:
+        return [json.loads(l) for l in f]
+
+
+def read_annotations(annotations_data_path):
+    return read_jsonl(annotations_data_path)
+
+
 def has_answers(text, answers, tokenizer, regex=False):
     text = _normalize(text)
     if regex:
@@ -238,13 +269,25 @@ def has_answers(text, answers, tokenizer, regex=False):
     return False
 
 
-def evaluate_retrieval(retrieval_file, topk, regex=False):
+def evaluate_retrieval(retrieval_file, topk, annotation_file, regex=False):
     tokenizer = SimpleTokenizer()
     retrieval = json.load(open(retrieval_file))
-    accuracy = { k : [] for k in topk }
+    annotations = read_annotations(annotation_file)
+    annotation_ids = {int(a['id']): a['labels'] for a in annotations}
+    accuracy = { k : collections.defaultdict(list) for k in topk }
     max_k = max(topk)
+    annotation_labels = [
+        'total',
+        'no_overlap',
+        'question_overlap',
+        'no_question_overlap',
+        'answer_overlap',
+        'no_answer_overlap',
+        'answer_overlap_only'
+    ]
 
-    for qid in tqdm(list(retrieval.keys())):
+    
+    for qid in retrieval.keys():
         answers = retrieval[qid]['answers']
         contexts = retrieval[qid]['contexts']
         has_ans_idx = max_k  # first index in contexts that has answers
@@ -261,12 +304,16 @@ def evaluate_retrieval(retrieval_file, topk, regex=False):
                 if has_answers(text, answers, tokenizer, regex):
                     has_ans_idx = idx
                     break
-
-        for k in topk:
-            accuracy[k].append(0 if has_ans_idx >= k else 1)
+        
+        for annotation_label in annotation_labels:
+            if annotation_label in annotation_ids[int(qid)] or annotation_label == 'total' or \
+             (annotation_label == 'no_overlap' and ('no_question_overlap' in annotation_ids[int(qid)]) and ('no_answer_overlap' in annotation_ids[int(qid)])):
+                for k in topk:
+                    accuracy[k][annotation_label].append(0 if has_ans_idx >= k else 1)
 
     for k in topk:
-        print(f'Top{k}\taccuracy: {np.mean(accuracy[k])}')
+        for annotation_label in annotation_labels:
+            print(f'Top{k}\taccuracy: {np.mean(accuracy[k][annotation_label])} \t {annotation_label}')
 
 
 if __name__ == '__main__':
@@ -275,6 +322,8 @@ if __name__ == '__main__':
                         help="Path to retrieval output file.")
     parser.add_argument('--topk', type=int, nargs='+', help="topk to evaluate")
     parser.add_argument('--regex', action='store_true', default=False, help="regex match")
+    parser.add_argument('--dataset_name', choices=['nq', 'tqa', 'webquestions'], type=str,
+                        help='name of datset to evaluate on')
     args = parser.parse_args()
 
-    evaluate_retrieval(args.retrieval, args.topk, args.regex)
+    evaluate_retrieval(args.retrieval, args.topk, ANNOTATION_PATHS[args.dataset_name], args.regex)
