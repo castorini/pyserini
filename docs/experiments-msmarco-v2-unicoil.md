@@ -76,7 +76,7 @@ Note that we evaluate MAP and MRR at a cutoff of 100 hits to match the official 
 However, we measure recall at both 100 and 1000 hits; the latter is a common setting for reranking.
 
 These results differ slightly from [the regressions in Anserini](https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-v2-passage-unicoil-noexp-0shot.md) because here we are performing on-the-fly query encoding, whereas the Anserini indexes use pre-encoded queries.
-To reproduce exactly the same results in Anserini, use the pre-encoded queries by setting `--topics msmarco-v2-passage-dev-unicoil-noexp`.
+To reproduce the Anserini results, use pre-encoded queries with `--topics msmarco-v2-passage-dev-unicoil-noexp`.
 
 ## Passage Ranking (With doc2query-T5 Expansion)
 
@@ -139,7 +139,7 @@ Note that we evaluate MAP and MRR at a cutoff of 100 hits to match the official 
 However, we measure recall at both 100 and 1000 hits; the latter is a common setting for reranking.
 
 These results differ slightly from [the regressions in Anserini](https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-v2-passage-unicoil-0shot.md) because here we are performing on-the-fly query encoding, whereas the Anserini indexes use pre-encoded queries.
-To reproduce exactly the same results in Anserini, use the pre-encoded queries by setting `--topics msmarco-v2-passage-dev-unicoil`.
+To reproduce the Anserini results, use pre-encoded queries with `--topics msmarco-v2-passage-dev-unicoil`.
 
 ## Document Ranking (No Expansion)
 
@@ -212,7 +212,7 @@ We evaluate MAP and MRR at a cutoff of 100 hits to match the official evaluation
 However, we measure recall at both 100 and 1000 hits; the latter is a common setting for reranking.
 
 These results differ slightly from [the regressions in Anserini](https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-v2-doc-segmented-unicoil-noexp-0shot.md) because here we are performing on-the-fly query encoding, whereas the Anserini indexes use pre-encoded queries.
-To reproduce exactly the same results in Anserini, use the pre-encoded queries by setting `--topics msmarco-v2-doc-dev-unicoil-noexp`.
+To reproduce the Anserini results, use pre-encoded queries with `--topics msmarco-v2-doc-dev-unicoil-noexp`.
 
 ## Document Ranking (With doc2query-T5 Expansion)
 
@@ -277,7 +277,7 @@ We evaluate MAP and MRR at a cutoff of 100 hits to match the official evaluation
 However, we measure recall at both 100 and 1000 hits; the latter is a common setting for reranking.
 
 These results differ slightly from [the regressions in Anserini](https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-v2-doc-segmented-unicoil-0shot.md) because here we are performing on-the-fly query encoding, whereas the Anserini indexes use pre-encoded queries.
-To reproduce exactly the same results in Anserini, use the pre-encoded queries by setting `--topics msmarco-v2-doc-dev-unicoil`.
+To reproduce the Anserini results, use pre-encoded queries with `--topics msmarco-v2-doc-dev-unicoil`.
 
 ## Reproduction Log[*](reproducibility.md)
 
