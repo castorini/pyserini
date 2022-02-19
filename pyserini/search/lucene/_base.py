@@ -128,12 +128,28 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_TEST_SUBSET)
     elif collection_name == 'msmarco-v2-doc-dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV)
+    elif collection_name == 'msmarco-v2-doc-dev-unicoil':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV_UNICOIL)
+    elif collection_name == 'msmarco-v2-doc-dev-unicoil-noexp':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV_UNICOIL_NOEXP)
     elif collection_name == 'msmarco-v2-doc-dev2':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV2)
+    elif collection_name == 'msmarco-v2-doc-dev2-unicoil':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV2_UNICOIL)
+    elif collection_name == 'msmarco-v2-doc-dev2-unicoil-noexp':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_DOC_DEV2_UNICOIL_NOEXP)
     elif collection_name == 'msmarco-v2-passage-dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV)
+    elif collection_name == 'msmarco-v2-passage-dev-unicoil':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV_UNICOIL)
+    elif collection_name == 'msmarco-v2-passage-dev-unicoil-noexp':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV_UNICOIL_NOEXP)
     elif collection_name == 'msmarco-v2-passage-dev2':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV2)
+    elif collection_name == 'msmarco-v2-passage-dev2-unicoil':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV2_UNICOIL)
+    elif collection_name == 'msmarco-v2-passage-dev2-unicoil-noexp':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_V2_PASSAGE_DEV2_UNICOIL_NOEXP)
     elif collection_name == 'ntcir8-zh':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.NTCIR8_ZH)
     elif collection_name == 'clef2006-fr':
