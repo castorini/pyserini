@@ -195,23 +195,13 @@ QueriesRanked: 5193
 There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
 The above score was obtained on Linux.
 
-Alternatively, we can use pre-tokenized queries with pre-computed weights.
-First, fetch the MS MARCO passage ranking dev set queries:
-
-```bash
-# Alternate mirrors of the same data, pick one:
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-doc.dev.unicoil.tsv.gz -P collections/
-wget https://vault.cs.uwaterloo.ca/s/6D5JtJQxYpPbByM/download -O collections/topics.msmarco-doc.dev.unicoil.tsv.gz
-```
-
-The MD5 checksum of the topics file is `40e5f64500272ecde270e55beecd5e94`.
-
-We can now run retrieval:
+Alternatively, we can use pre-tokenized queries with pre-computed weights, which are already included in Pyserini.
+We can run retrieval as follows:
 
 ```bash
 python -m pyserini.search.lucene \
   --index indexes/lucene-index.msmarco-doc-segmented-unicoil \
-  --topics collections/topics.msmarco-doc.dev.unicoil.tsv.gz \
+  --topics msmarco-doc-dev-unicoil \
   --output runs/run.msmarco-doc-segmented-unicoil.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \

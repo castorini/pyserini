@@ -112,6 +112,8 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2020_DL)
     elif collection_name == 'msmarco-doc-dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV)
+    elif collection_name == 'msmarco-doc-dev-unicoil':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV_UNICOIL)
     elif collection_name == 'msmarco-doc-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_TEST)
     elif collection_name == 'msmarco-passage-dev-subset':
