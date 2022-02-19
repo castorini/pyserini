@@ -18,7 +18,7 @@ We cover only retrieval here; for end-to-end answer extraction, please see [this
 
 Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
 Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
-See [package installation notes](../README.md#package-installation) for more details.
+See [package installation notes](../README.md#installation) for more details.
 
 Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
@@ -28,23 +28,23 @@ Thus, while the scoring script provides results to much higher precision, we hav
 
 Here's how our results stack up against results reported in the paper using the DPR-Multi model:
 
-| Dataset     | Method        | Top-20 (orig) | Top-20 (us)| Top-100 (orig) | Top-100 (us)|
-|:------------|:--------------|--------------:|-----------:|---------------:|------------:|
-| NQ          | DPR           | 79.4          | 79.5       | 86.0           | 86.1        |
-| NQ          | BM25          | 59.1          | 62.9       | 73.7           | 78.3        |
-| NQ          | Hybrid        | 78.0          | 82.6       | 83.9           | 88.6        |
-| TriviaQA    | DPR           | 78.8          | 78.9       | 84.7           | 84.8        |
-| TriviaQA    | BM25          | 66.9          | 76.4       | 76.7           | 83.2        |
-| TriviaQA    | Hybrid        | 79.9          | 82.6       | 84.4           | 86.5        |
-| WQ          | DPR           | 75.0          | 75.0       | 82.9           | 83.0        |
-| WQ          | BM25          | 55.0          | 62.4       | 71.1           | 75.5        |
-| WQ          | Hybrid        | 74.7          | 77.1       | 82.3           | 84.4        |
-| CuratedTREC | DPR           | 89.1          | 88.8       | 93.9           | 93.4        |
-| CuratedTREC | BM25          | 70.9          | 80.7       | 84.1           | 89.9        |
-| CuratedTREC | Hybrid        | 88.5          | 90.1       | 94.1           | 95.0        |
-| SQuAD       | DPR           | 51.6          | 52.0       | 67.6           | 67.7        |
-| SQuAD       | BM25          | 68.8          | 71.1       | 80.0           | 81.8        |
-| SQuAD       | Hybrid        | 66.2          | 75.1       | 78.6           | 84.4        |
+| Dataset     | Method        | Top-20 (orig) | Top-20 (us) | Top-100 (orig) | Top-100 (us) |
+|:------------|:--------------|--------------:|------------:|---------------:|-------------:|
+| NQ          | DPR           |          79.4 |        79.5 |           86.0 |         86.1 |
+| NQ          | BM25          |          59.1 |        62.9 |           73.7 |         78.3 |
+| NQ          | Hybrid        |          78.0 |        82.6 |           83.9 |         88.6 |
+| TriviaQA    | DPR           |          78.8 |        78.9 |           84.7 |         84.8 |
+| TriviaQA    | BM25          |          66.9 |        76.4 |           76.7 |         83.2 |
+| TriviaQA    | Hybrid        |          79.9 |        82.6 |           84.4 |         86.5 |
+| WQ          | DPR           |          75.0 |        75.0 |           82.9 |         83.0 |
+| WQ          | BM25          |          55.0 |        62.4 |           71.1 |         75.5 |
+| WQ          | Hybrid        |          74.7 |        77.1 |           82.3 |         84.4 |
+| CuratedTREC | DPR           |          89.1 |        88.8 |           93.9 |         93.4 |
+| CuratedTREC | BM25          |          70.9 |        80.7 |           84.1 |         89.9 |
+| CuratedTREC | Hybrid        |          88.5 |        90.1 |           94.1 |         95.0 |
+| SQuAD       | DPR           |          51.6 |        52.0 |           67.6 |         67.7 |
+| SQuAD       | BM25          |          68.8 |        71.1 |           80.0 |         81.8 |
+| SQuAD       | Hybrid        |          66.2 |        75.1 |           78.6 |         84.4 |
 
 The hybrid results reported above for "us" capture what we call the "norm" condition (see paper for details).
 
@@ -53,11 +53,12 @@ The hybrid results reported above for "us" capture what we call the "norm" condi
 **DPR retrieval** with brute-force index:
 
 ```bash
-$ python -m pyserini.dsearch --topics dpr-nq-test \
-                             --index wikipedia-dpr-multi-bf \
-                             --encoded-queries dpr_multi-nq-test \
-                             --output runs/run.dpr.nq-test.multi.bf.trec \
-                             --batch-size 36 --threads 12
+python -m pyserini.dsearch \
+  --index wikipedia-dpr-multi-bf \
+  --topics dpr-nq-test \
+  --encoded-queries dpr_multi-nq-test \
+  --output runs/run.dpr.nq-test.multi.bf.trec \
+  --batch-size 36 --threads 12
 ```
 
 The option `--encoded-queries` specifies the use of encoded queries (i.e., queries that have already been converted into dense vectors and cached).
@@ -66,12 +67,15 @@ As an alternative, replace with `--encoder facebook/dpr-question_encoder-multise
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
-                                                                --index wikipedia-dpr \
-                                                                --input runs/run.dpr.nq-test.multi.bf.trec \
-                                                                --output runs/run.dpr.nq-test.multi.bf.json
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+    --index wikipedia-dpr \
+    --topics dpr-nq-test \
+    --input runs/run.dpr.nq-test.multi.bf.trec \
+    --output runs/run.dpr.nq-test.multi.bf.json
 
-$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.nq-test.multi.bf.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval \
+    --retrieval runs/run.dpr.nq-test.multi.bf.json --topk 20 100
+
 Top20  accuracy: 0.7947
 Top100 accuracy: 0.8609
 ```
@@ -79,20 +83,25 @@ Top100 accuracy: 0.8609
 **BM25 retrieval**:
 
 ```bash
-$ python -m pyserini.search --topics dpr-nq-test \
-                            --index wikipedia-dpr \
-                            --output runs/run.dpr.nq-test.bm25.trec
+python -m pyserini.search.lucene \
+  --index wikipedia-dpr \
+  --topics dpr-nq-test \
+  --output runs/run.dpr.nq-test.bm25.trec
 ```
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
-                                                                --index wikipedia-dpr \
-                                                                --input runs/run.dpr.nq-test.bm25.trec \
-                                                                --output runs/run.dpr.nq-test.bm25.json
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+    --index wikipedia-dpr \
+    --topics dpr-nq-test \
+    --input runs/run.dpr.nq-test.bm25.trec \
+    --output runs/run.dpr.nq-test.bm25.json
 
-$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.nq-test.bm25.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval \
+    --retrieval runs/run.dpr.nq-test.bm25.json \
+    --topk 20 100
+
 Top20  accuracy: 0.6294
 Top100 accuracy: 0.7825
 ```
@@ -100,13 +109,14 @@ Top100 accuracy: 0.7825
 **Hybrid dense-sparse retrieval** (combining above two approaches):
 
 ```bash
-$ python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
-                                    --encoded-queries dpr_multi-nq-test \
-                             sparse --index wikipedia-dpr \
-                             fusion --alpha 1.3 \
-                             run    --topics dpr-nq-test \
-                                    --batch-size 36 --threads 12 \
-                                    --output runs/run.dpr.nq-test.multi.bf.bm25.trec 
+python -m pyserini.hsearch \
+  dense  --index wikipedia-dpr-multi-bf \
+         --encoded-queries dpr_multi-nq-test \
+  sparse --index wikipedia-dpr \
+  fusion --alpha 1.3 \
+  run    --topics dpr-nq-test \
+         --output runs/run.dpr.nq-test.multi.bf.bm25.trec \
+         --batch-size 36 --threads 12
 ```
 
 Same as above, replace `--encoded-queries` with `--encoder facebook/dpr-question_encoder-multiset-base` for on-the-fly query encoding.
@@ -114,12 +124,16 @@ Same as above, replace `--encoded-queries` with `--encoder facebook/dpr-question
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
-                                                                --index wikipedia-dpr \
-                                                                --input runs/run.dpr.nq-test.multi.bf.bm25.trec \
-                                                                --output runs/run.dpr.nq-test.multi.bf.bm25.json
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+    --index wikipedia-dpr \
+    --topics dpr-nq-test \
+    --input runs/run.dpr.nq-test.multi.bf.bm25.trec \
+    --output runs/run.dpr.nq-test.multi.bf.bm25.json
 
-$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.dpr.nq-test.multi.bf.bm25.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval \
+    --retrieval runs/run.dpr.nq-test.multi.bf.bm25.json \
+    --topk 20 100
+
 Top20  accuracy: 0.8260
 Top100 accuracy: 0.8859
 ```
