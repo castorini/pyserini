@@ -48,7 +48,7 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 
 > If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-passage-unicoil-d2q` in the command below.
 
-We can now run retrieval:
+We can now run retrieval using the `castorini/unicoil-msmarco-passage` model available on Huggingface's model hub to encode the queries:
 
 ```bash
 python -m pyserini.search.lucene \
@@ -63,7 +63,7 @@ python -m pyserini.search.lucene \
 ```
 
 Here, we are using the transformer model to encode the queries on the fly using the CPU.
-Note that the important option here is `-impact`, where we specify impact scoring.
+Note that the important option here is `--impact`, where we specify impact scoring.
 With these impact scores, query evaluation is already slower than bag-of-words BM25; on top of that we're adding neural inference on the CPU.
 A complete run typically takes around 30 minutes.
 
@@ -85,23 +85,13 @@ QueriesRanked: 6980
 There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
 The above score was obtained on Linux.
 
-Alternatively, we can use pre-tokenized queries with pre-computed weights.
-First, fetch the MS MARCO passage ranking dev set queries:
-
-```bash
-# Alternate mirrors of the same data, pick one:
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage.dev-subset.unicoil.tsv.gz -P collections/
-wget https://vault.cs.uwaterloo.ca/s/QGoHeBm4YsAgt6H/download -O collections/topics.msmarco-passage.dev-subset.unicoil.tsv.gz
-```
-
-The MD5 checksum of the topics file is `1af1da05ae5fe0b9d8ddf2d143b6e7f8`.
-
-We can now run retrieval:
+Alternatively, we can use pre-tokenized queries with pre-computed weights, which are already included in Pyserini.
+We can run retrieval as follows:
 
 ```bash
 python -m pyserini.search.lucene \
   --index indexes/lucene-index.msmarco-passage-unicoil/ \
-  --topics collections/topics.msmarco-passage.dev-subset.unicoil.tsv.gz \
+  --topics msmarco-passage-dev-subset-unicoil-d2q \
   --output runs/run.msmarco-passage.unicoil.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \
@@ -178,8 +168,7 @@ python -m pyserini.search.lucene \
   --output runs/run.msmarco-doc-segmented-unicoil.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \
-  --hits 1000 \
-  --max-passage --max-passage-hits 100 \
+  --hits 1000 --max-passage --max-passage-hits 100 \
   --impact
 ```
 
@@ -206,28 +195,17 @@ QueriesRanked: 5193
 There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
 The above score was obtained on Linux.
 
-Alternatively, we can use pre-tokenized queries with pre-computed weights.
-First, fetch the MS MARCO passage ranking dev set queries:
-
-```bash
-# Alternate mirrors of the same data, pick one:
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-doc.dev.unicoil.tsv.gz -P collections/
-wget https://vault.cs.uwaterloo.ca/s/6D5JtJQxYpPbByM/download -O collections/topics.msmarco-doc.dev.unicoil.tsv.gz
-```
-
-The MD5 checksum of the topics file is `40e5f64500272ecde270e55beecd5e94`.
-
-We can now run retrieval:
+Alternatively, we can use pre-tokenized queries with pre-computed weights, which are already included in Pyserini.
+We can run retrieval as follows:
 
 ```bash
 python -m pyserini.search.lucene \
   --index indexes/lucene-index.msmarco-doc-segmented-unicoil \
-  --topics collections/topics.msmarco-doc.dev.unicoil.tsv.gz \
+  --topics msmarco-doc-dev-unicoil \
   --output runs/run.msmarco-doc-segmented-unicoil.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \
-  --hits 1000 \
-  --max-passage --max-passage-hits 100 \
+  --hits 1000 --max-passage --max-passage-hits 100 \
   --impact
 ```
 

@@ -32,8 +32,8 @@ Index the sparse vectors:
 ```bash
 python -m pyserini.index.lucene \
   --collection JsonVectorCollection \
-  --input collections/msmarco_v2_passage_unicoil_noexp_0shot \
-  --index indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot \
+  --input collections/msmarco_v2_passage_unicoil_noexp_0shot/ \
+  --index indexes/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot/ \
   --generator DefaultLuceneDocumentGenerator \
   --threads 32 \
   --impact --pretokenized
@@ -45,10 +45,10 @@ Sparse retrieval with uniCOIL:
 
 ```bash
 python -m pyserini.search.lucene \
+  --index indexes/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot/ \
   --topics msmarco-v2-passage-dev \
   --encoder castorini/unicoil-noexp-msmarco-passage \
-  --index indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot \
-  --output runs/run.msmarco-v2-passage.unicoil-noexp.0shot.txt \
+  --output runs/run.msmarco-v2-passage-unicoil-noexp-0shot.dev.txt \
   --batch 144 --threads 36 \
   --hits 1000 \
   --impact
@@ -57,12 +57,16 @@ python -m pyserini.search.lucene \
 To evaluate, using `trec_eval`:
 
 ```bash
-$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev runs/run.msmarco-v2-passage.unicoil-noexp.0shot.txt
+$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev \
+    runs/run.msmarco-v2-passage-unicoil-noexp-0shot.dev.txt
+
 Results:
 map                   	all	0.1334
 recip_rank            	all	0.1343
 
-$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-passage-dev runs/run.msmarco-v2-passage.unicoil-noexp.0shot.txt
+$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-passage-dev \
+    runs/run.msmarco-v2-passage-unicoil-noexp-0shot.dev.txt
+
 Results:
 recall_100            	all	0.4983
 recall_1000           	all	0.7010
@@ -70,7 +74,9 @@ recall_1000           	all	0.7010
 
 Note that we evaluate MAP and MRR at a cutoff of 100 hits to match the official evaluation metrics.
 However, we measure recall at both 100 and 1000 hits; the latter is a common setting for reranking.
+
 These results differ slightly from [the regressions in Anserini](https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-v2-passage-unicoil-noexp-0shot.md) because here we are performing on-the-fly query encoding, whereas the Anserini indexes use pre-encoded queries.
+To reproduce the Anserini results, use pre-encoded queries with `--topics msmarco-v2-passage-dev-unicoil-noexp`.
 
 ## Passage Ranking (With doc2query-T5 Expansion)
 
@@ -91,8 +97,8 @@ Index the sparse vectors:
 ```bash
 python -m pyserini.index.lucene \
   --collection JsonVectorCollection \
-  --input collections/msmarco_v2_passage_unicoil_0shot \
-  --index indexes/lucene-index.msmarco-v2-passage.unicoil-0shot \
+  --input collections/msmarco_v2_passage_unicoil_0shot/ \
+  --index indexes/lucene-index.msmarco-v2-passage-unicoil-0shot/ \
   --generator DefaultLuceneDocumentGenerator \
   --threads 32 \
   --impact --pretokenized
@@ -102,10 +108,10 @@ Sparse retrieval with uniCOIL:
 
 ```bash
 python -m pyserini.search.lucene \
+  --index indexes/lucene-index.msmarco-v2-passage-unicoil-0shot/ \
   --topics msmarco-v2-passage-dev \
   --encoder castorini/unicoil-msmarco-passage \
-  --index indexes/lucene-index.msmarco-v2-passage.unicoil-0shot \
-  --output runs/run.msmarco-v2-passage.unicoil.0shot.txt \
+  --output runs/run.msmarco-v2-passage-unicoil-0shot.dev.txt \
   --batch 144 --threads 36 \
   --hits 1000 \
   --impact
@@ -114,16 +120,26 @@ python -m pyserini.search.lucene \
 To evaluate, using `trec_eval`:
 
 ```bash
-$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev runs/run.msmarco-v2-passage.unicoil.0shot.txt
+$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev \
+    runs/run.msmarco-v2-passage-unicoil-0shot.dev.txt
+
 Results:
 map                     all     0.1488
 recip_rank              all     0.1501
 
-$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-passage-dev runs/run.msmarco-v2-passage.unicoil.0shot.txt
+$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-passage-dev \
+    runs/run.msmarco-v2-passage-unicoil-0shot.dev.txt
+
 Results:
 recall_100              all     0.5515
 recall_1000             all     0.7613
 ```
+
+Note that we evaluate MAP and MRR at a cutoff of 100 hits to match the official evaluation metrics.
+However, we measure recall at both 100 and 1000 hits; the latter is a common setting for reranking.
+
+These results differ slightly from [the regressions in Anserini](https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-v2-passage-unicoil-0shot.md) because here we are performing on-the-fly query encoding, whereas the Anserini indexes use pre-encoded queries.
+To reproduce the Anserini results, use pre-encoded queries with `--topics msmarco-v2-passage-dev-unicoil`.
 
 ## Document Ranking (No Expansion)
 
@@ -150,8 +166,8 @@ Index the sparse vectors:
 ```bash
 python -m pyserini.index.lucene \
   --collection JsonVectorCollection \
-  --input collections/msmarco_v2_doc_segmented_unicoil_noexp_0shot \
-  --index indexes/lucene-index.msmarco-doc-v2-segmented.unicoil-noexp.0shot \
+  --input collections/msmarco_v2_doc_segmented_unicoil_noexp_0shot/ \
+  --index indexes/lucene-index.msmarco-doc-v2-segmented-unicoil-noexp-0shot/ \
   --generator DefaultLuceneDocumentGenerator \
   --threads 32 \
   --impact --pretokenized
@@ -163,14 +179,13 @@ Sparse retrieval with uniCOIL:
 
 ```bash
 python -m pyserini.search.lucene \
+  --index indexes/lucene-index.msmarco-doc-v2-segmented-unicoil-noexp-0shot/ \
   --topics msmarco-v2-doc-dev \
   --encoder castorini/unicoil-noexp-msmarco-passage \
-  --index indexes/lucene-index.msmarco-doc-v2-segmented.unicoil-noexp.0shot \
-  --output runs/run.msmarco-doc-v2-segmented.unicoil-noexp.0shot.txt \
+  --output runs/run.msmarco-doc-v2-segmented-unicoil-noexp-0shot.dev.txt \
   --batch 144 --threads 36 \
-  --hits 10000 \
-  --max-passage --max-passage-hits 1000 \
-  --impact  
+  --hits 10000 --max-passage --max-passage-hits 1000 \
+  --impact
 ```
 
 For the document corpus, since we are searching the segmented version, we retrieve the top 10k _segments_ and perform MaxP to obtain the top 1000 _documents_.
@@ -178,12 +193,16 @@ For the document corpus, since we are searching the segmented version, we retrie
 To evaluate, using `trec_eval`:
 
 ```bash
-$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-doc-dev runs/run.msmarco-doc-v2-segmented.unicoil-noexp.0shot.txt
+$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-doc-dev \
+    runs/run.msmarco-doc-v2-segmented-unicoil-noexp-0shot.dev.txt
+
 Results:
 map                   	all	0.2047
 recip_rank            	all	0.2066
 
-$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-doc-dev runs/run.msmarco-doc-v2-segmented.unicoil-noexp.0shot.txt
+$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-doc-dev \
+    runs/run.msmarco-doc-v2-segmented-unicoil-noexp-0shot.dev.txt
+
 Results:
 recall_100            	all	0.7198
 recall_1000           	all	0.8854
@@ -191,7 +210,9 @@ recall_1000           	all	0.8854
 
 We evaluate MAP and MRR at a cutoff of 100 hits to match the official evaluation metrics.
 However, we measure recall at both 100 and 1000 hits; the latter is a common setting for reranking.
+
 These results differ slightly from [the regressions in Anserini](https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-v2-doc-segmented-unicoil-noexp-0shot.md) because here we are performing on-the-fly query encoding, whereas the Anserini indexes use pre-encoded queries.
+To reproduce the Anserini results, use pre-encoded queries with `--topics msmarco-v2-doc-dev-unicoil-noexp`.
 
 ## Document Ranking (With doc2query-T5 Expansion)
 
@@ -212,8 +233,8 @@ Index the sparse vectors:
 ```bash
 python -m pyserini.index.lucene \
   --collection JsonVectorCollection \
-  --input collections/msmarco_v2_doc_segmented_unicoil_0shot \
-  --index indexes/lucene-index.msmarco-doc-v2-segmented.unicoil.0shot \
+  --input collections/msmarco_v2_doc_segmented_unicoil_0shot/ \
+  --index indexes/lucene-index.msmarco-doc-v2-segmented-unicoil-0shot/ \
   --generator DefaultLuceneDocumentGenerator \
   --threads 32 \
   --impact --pretokenized
@@ -223,13 +244,12 @@ Sparse retrieval with uniCOIL:
 
 ```bash
 python -m pyserini.search.lucene \
+  --index indexes/lucene-index.msmarco-doc-v2-segmented-unicoil-0shot/ \
   --topics msmarco-v2-doc-dev \
   --encoder castorini/unicoil-msmarco-passage \
-  --index indexes/lucene-index.msmarco-doc-v2-segmented.unicoil.0shot \
-  --output runs/run.msmarco-doc-v2-segmented.unicoil.0shot.txt \
+  --output runs/run.msmarco-doc-v2-segmented-unicoil-0shot.dev.txt \
   --batch 144 --threads 36 \
-  --hits 10000 \
-  --max-passage --max-passage-hits 1000 \
+  --hits 10000 --max-passage --max-passage-hits 1000 \
   --impact
 ```
 
@@ -238,16 +258,26 @@ For the document corpus, since we are searching the segmented version, we retrie
 To evaluate, using `trec_eval`:
 
 ```bash
-$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-doc-dev runs/run.msmarco-doc-v2-segmented.unicoil.0shot.txt
+$ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-doc-dev \
+    runs/run.msmarco-doc-v2-segmented-unicoil-0shot.dev.txt
+
 Results:
 map                     all     0.2217
 recip_rank              all     0.2242
 
-$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-doc-dev runs/run.msmarco-doc-v2-segmented.unicoil.0shot.txt
+$ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-doc-dev \
+    runs/run.msmarco-doc-v2-segmented-unicoil-0shot.dev.txt
+
 Results:
 recall_100              all     0.7556
 recall_1000             all     0.9056
 ```
+
+We evaluate MAP and MRR at a cutoff of 100 hits to match the official evaluation metrics.
+However, we measure recall at both 100 and 1000 hits; the latter is a common setting for reranking.
+
+These results differ slightly from [the regressions in Anserini](https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-v2-doc-segmented-unicoil-0shot.md) because here we are performing on-the-fly query encoding, whereas the Anserini indexes use pre-encoded queries.
+To reproduce the Anserini results, use pre-encoded queries with `--topics msmarco-v2-doc-dev-unicoil`.
 
 ## Reproduction Log[*](reproducibility.md)
 

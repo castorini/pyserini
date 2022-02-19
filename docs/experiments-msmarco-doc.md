@@ -12,7 +12,7 @@ The guide requires the [development installation](https://github.com/castorini/p
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO document dataset:
 
-```
+```bash
 mkdir collections/msmarco-doc
 wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-docs.trec.gz -P collections/msmarco-doc
 
@@ -25,12 +25,12 @@ To confirm, `msmarco-docs.trec.gz` should have MD5 checksum of `d4863e4f342982b5
 There's no need to uncompress the file, as Anserini can directly index gzipped files.
 Build the index with the following command:
 
-```
-python -m pyserini.index \
-  --input collections/msmarco-doc \
+```bash
+python -m pyserini.index.lucene \
   --collection CleanTrecCollection \
-  --generator DefaultLuceneDocumentGenerator \
+  --input collections/msmarco-doc \
   --index indexes/lucene-index-msmarco-doc \
+  --generator DefaultLuceneDocumentGenerator \
   --threads 1 \
   --storePositions --storeDocvectors --storeRaw
 ```
@@ -43,7 +43,7 @@ There should be a total of 3,213,835 documents indexed.
 The 5193 queries in the development set are already stored in the repo.
 Let's take a peek:
 
-```
+```bash
 $ head tools/topics-and-qrels/topics.msmarco-doc.dev.txt
 174249	does xpress bet charge to deposit money in your account
 320792	how much is a cost to run disneyland
@@ -65,9 +65,9 @@ Conveniently, Pyserini already knows how to load and iterate through these pairs
 We can now perform retrieval using these queries:
 
 ```bash
-python -m pyserini.search \
-  --topics msmarco-doc-dev \
+python -m pyserini.search.lucene \
   --index indexes/lucene-index-msmarco-doc \
+  --topics msmarco-doc-dev \
   --output runs/run.msmarco-doc.bm25tuned.txt \
   --output-format msmarco \
   --hits 100 \
@@ -101,9 +101,9 @@ We can also use the official TREC evaluation tool, `trec_eval`, to compute metri
 For that we first need to convert the run file into TREC format:
 
 ```bash
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
-    --input runs/run.msmarco-doc.bm25tuned.txt \
-    --output runs/run.msmarco-doc.bm25tuned.trec
+python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+  --input runs/run.msmarco-doc.bm25tuned.txt \
+  --output runs/run.msmarco-doc.bm25tuned.trec
 ```
 
 And then run the `trec_eval` tool:
@@ -111,6 +111,7 @@ And then run the `trec_eval` tool:
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap \
    tools/topics-and-qrels/qrels.msmarco-doc.dev.txt runs/run.msmarco-doc.bm25tuned.trec
+
 map                   	all	0.2770
 recall_100            	all	0.8076
 ```
@@ -118,16 +119,17 @@ recall_100            	all	0.8076
 Let's compare to the baseline provided by Microsoft.
 First, download:
 
-```
+```bash
 wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-docdev-top100.gz -P runs
 gunzip runs/msmarco-docdev-top100.gz
 ```
 
 Then, run `trec_eval` to compare:
 
-```
+```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.100 -mmap \
    tools/topics-and-qrels/qrels.msmarco-doc.dev.txt runs/msmarco-docdev-top100
+
 map                   	all	0.2219
 recall_100            	all	0.7564
 ```

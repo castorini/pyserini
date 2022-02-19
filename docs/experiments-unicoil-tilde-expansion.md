@@ -55,10 +55,10 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 
 > If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-passage-unicoil-tilde` in the command below.
 
-We can now run retrieval:
+We can now run retrieval using the `ielab/unicoil-tilde200-msmarco-passage` model available on Huggingface's model hub to encode the queries:
 
 ```bash
-python -m pyserini.search \
+python -m pyserini.search.lucene \
   --index indexes/lucene-index.msmarco-passage-unicoil-tilde-expansion \
   --topics msmarco-passage-dev-subset \
   --encoder ielab/unicoil-tilde200-msmarco-passage \
@@ -92,23 +92,13 @@ QueriesRanked: 6980
 There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
 The above score was obtained on Linux.
 
-Alternatively, we can use pre-tokenized queries with pre-computed weights.
-First, fetch the queries:
-
-```bash
-# Alternate mirrors of the same data, pick one:
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz -P collections/
-wget https://vault.cs.uwaterloo.ca/s/GZEPQkNQGoszHTx/download -O collections/topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz
-```
-
-The MD5 checksum of the topics file should be `860267a6f6c72f22d006dd5c1c20f885`.
-
-We can now run retrieval:
+Alternatively, we can use pre-tokenized queries with pre-computed weights, which are already included in Pyserini.
+We can run retrieval as follows:
 
 ```bash
 python -m pyserini.search.lucene \
   --index indexes/lucene-index.msmarco-passage-unicoil-tilde-expansion \
-  --topics collections/topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz \
+  --topics msmarco-passage-dev-subset-unicoil-tilde \
   --output runs/run.msmarco-passage-unicoil-tilde-expansion.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \
@@ -116,7 +106,7 @@ python -m pyserini.search.lucene \
   --impact
 ```
 
-Here, we also specify `-impact` for impact scoring.
+Here, we also specify `--impact` for impact scoring.
 Since we're not applying neural inference over the queries, retrieval is faster, typically less than 10 minutes.
 
 The output is in MS MARCO output format, so we can directly evaluate:

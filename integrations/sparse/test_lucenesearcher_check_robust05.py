@@ -17,7 +17,7 @@
 import os
 import unittest
 
-from integrations.simplesearcher_anserini_checker import SimpleSercherAnseriniMatchChecker
+from integrations.lucenesearcher_anserini_checker import LuceneSearcherAnseriniMatchChecker
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -31,25 +31,25 @@ class TestSearchIntegration(unittest.TestCase):
             anserini_root = '../anserini'
             pyserini_root = '.'
 
-        self.checker = SimpleSercherAnseriniMatchChecker(
+        self.checker = LuceneSearcherAnseriniMatchChecker(
             anserini_root=anserini_root,
-            index=os.path.join(anserini_root, 'indexes/lucene-index.wapo.v2'),
-            topics=os.path.join(pyserini_root, 'tools/topics-and-qrels/topics.core18.txt'),
-            pyserini_topics='core18',
-            qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.core18.txt'),
+            index=os.path.join(anserini_root, 'indexes/lucene-index.robust05'),
+            topics=os.path.join(pyserini_root, 'tools/topics-and-qrels/topics.robust05.txt'),
+            pyserini_topics='robust05',
+            qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.robust05.txt'),
             eval_root=pyserini_root)
 
     def test_bm25(self):
-        self.assertTrue(self.checker.run('core18_bm25', '-bm25', '--bm25'))
+        self.assertTrue(self.checker.run('robust05_bm25', '-bm25', '--bm25'))
 
     def test_bm25_rm3(self):
-        self.assertTrue(self.checker.run('core18_bm25_rm3', '-bm25 -rm3', '--bm25 --rm3'))
+        self.assertTrue(self.checker.run('robust05_bm25_rm3', '-bm25 -rm3', '--bm25 --rm3'))
 
     def test_qld(self):
-        self.assertTrue(self.checker.run('core18_qld', '-qld', '--qld'))
+        self.assertTrue(self.checker.run('robust05_qld', '-qld', '--qld'))
 
     def test_qld_rm3(self):
-        self.assertTrue(self.checker.run('core18_qld_rm3', '-qld -rm3', '--qld --rm3'))
+        self.assertTrue(self.checker.run('robust05_qld_rm3', '-qld -rm3', '--qld --rm3'))
 
     def tearDown(self):
         pass

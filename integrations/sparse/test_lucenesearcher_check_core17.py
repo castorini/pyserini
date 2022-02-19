@@ -17,7 +17,7 @@
 import os
 import unittest
 
-from integrations.simplesearcher_anserini_checker import SimpleSercherAnseriniMatchChecker
+from integrations.lucenesearcher_anserini_checker import LuceneSercherAnseriniMatchChecker
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestSearchIntegration(unittest.TestCase):
             anserini_root = '../anserini'
             pyserini_root = '.'
 
-        self.checker = SimpleSercherAnseriniMatchChecker(
+        self.checker = LuceneSearcherAnseriniMatchChecker(
             anserini_root=anserini_root,
             index=os.path.join(anserini_root, 'indexes/lucene-index.nyt'),
             topics=os.path.join(pyserini_root, 'tools/topics-and-qrels/topics.core17.txt'),
