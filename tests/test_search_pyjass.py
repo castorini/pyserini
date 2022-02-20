@@ -95,24 +95,24 @@ class TestSearchPyJass(unittest.TestCase):
         self.assertEqual(results['q2'][9].score, 392.0)
 
     def test_basic_k(self):
-        hits = self.searcher.search('information retrieval', k=100)
+        hits = self.searcher.search('information retrieval', k=88)
 
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(hits, List))
         self.assertTrue(isinstance(hits[0], JASSv2SearcherResult))
-        self.assertEqual(len(hits), 100)
+        self.assertEqual(len(hits), 88)
 
     def test_batch_k(self):
-        results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], k=100, threads=2)
+        results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], k=88, threads=2)
 
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(results, Dict))
         self.assertTrue(isinstance(results['q1'], List))
         self.assertTrue(isinstance(results['q1'][0], JASSv2SearcherResult))
-        self.assertEqual(len(results['q1']), 100)
+        self.assertEqual(len(results['q1']), 88)
         self.assertTrue(isinstance(results['q2'], List))
         self.assertTrue(isinstance(results['q2'][0], JASSv2SearcherResult))
-        self.assertEqual(len(results['q2']), 99)
+        self.assertEqual(len(results['q2']), 88)
 
     def test_basic_rho(self):
         hits = self.searcher.search('information retrieval', k=42, rho=50)
