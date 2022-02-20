@@ -45,6 +45,22 @@ def query_loader(query_path: str):
             queries[qid] = query
     return queries
 
+def baseline_loader(base_path: str):
+    result_dic = {}
+    with open(base_path, 'r') as f:
+        for line in f:
+            tokens = line.strip().split()
+            t = tokens[0]
+            doc_id = tokens[2]
+            score = float(tokens[-2])
+            if t in result_dic.keys():
+                result_dic[t][0].append(doc_id)
+                result_dic[t][1].append(score)
+            else:
+                result_dic[t] = [[doc_id], [score]]
+
+    return result_dic
+
 
 def sort_dual_list(pred: List[float], docs: List[str]):
     zipped_lists = zip(pred, docs)
@@ -58,22 +74,6 @@ def sort_dual_list(pred: List[float], docs: List[str]):
     return pred, docs
 
 
-def evaluate(qrels_path: str, run_path: str, options: str = ''):
-    curdir = os.getcwd()
-    if curdir.endswith('scripts'):
-        anserini_root = '../../anserini'
-    else:
-        anserini_root = '../anserini'
-    prefix = f"{anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval \
-                -c -M1000 -m all_trec {qrels_path}"
-    cmd1 = f"{prefix} {run_path} {options} | grep 'ndcg_cut_20 '"
-    cmd2 = f"{prefix} {run_path} {options} | grep 'map                   	'"
-    ndcg_string = str(subprocess.check_output(cmd1, shell=True))
-    ndcg_score = ndcg_string.split('\\t')[-1].split('\\n')[0]
-    map_string = str(subprocess.check_output(cmd2, shell=True))
-    map_score = map_string.split('\\t')[-1].split('\\n')[0]
-    return str(map_score), str(ndcg_score)
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -82,6 +82,8 @@ if __name__ == "__main__":
                         metavar="tag_name", help='tag name for resulting Qrun')
     parser.add_argument('--qrels', type=str, default="./tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt",
                         metavar="path_to_qrels", help='path to new_qrels file')
+    parser.add_argument('--base_path', type=str, required=False,
+                        metavar="path_to_base_run", help='path to base run')
     parser.add_argument('--tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
     parser.add_argument('--query_path', type=str, default="./ibm/queries.dev.small.json",
@@ -90,8 +92,6 @@ if __name__ == "__main__":
                         metavar="path_to_lucene_index", help='path to lucene index folder')
     parser.add_argument('--output', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('--score_path', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.json",
-                        metavar="path_to_base_run", help='the path to map and ndcg scores')
     parser.add_argument('--field_name', type=str, default="text_bert_tok",
                         metavar="type of field", help='type of field used for training')
     parser.add_argument('--alpha', type=float, default="0.3",
@@ -111,14 +111,19 @@ if __name__ == "__main__":
     reranker = TranslationProbabilitySearcher(
         args.tran_path, args.index, args.field_name)
     queries = query_loader(args.query_path)
+    baseline_dic = baseline_loader(args.base_path)
     i = 0
     for topic in queries.keys():
         if i % 100 == 0:
             print(f'Reranking {i}')
         query_text_field = queries[topic][args.field_name]
         query_text = queries[topic]['raw']
-        docids, rank_scores, base_scores = reranker.search(
-            query_text, query_text_field, args.hits, args.max_sim)
+        if args.base_path:
+            docids, rank_scores, base_scores = reranker.rerank(
+                query_text, query_text_field, baseline_dic[topic], args.max_sim)
+        else:
+            docids, rank_scores, base_scores = reranker.search(
+                query_text, query_text_field, args.hits, args.max_sim)
         ibm_scores = normalize([p for p in rank_scores])
         base_scores = normalize([p for p in base_scores])
 
@@ -130,6 +135,3 @@ if __name__ == "__main__":
             rank = index + 1
             f.write(f'{topic} Q0 {doc_id} {rank} {score} {args.tag}\n')
     f.close()
-    map_score, ndcg_score = evaluate(args.qrels, args.output)
-    with open(args.score_path, 'w') as outfile:
-        json.dump({'map': map_score, 'ndcg': ndcg_score}, outfile)
