@@ -46,7 +46,7 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 
 ### Retrieval
 
-> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-passage-unicoil-d2q` in the command below.
+> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-v1-passage-unicoil` in the command below.
 
 We can now run retrieval using the `castorini/unicoil-msmarco-passage` model available on Huggingface's model hub to encode the queries:
 
@@ -156,7 +156,7 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 
 ### Retrieval
 
-> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-doc-per-passage-unicoil-d2q` in the command below.
+> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-v1-doc-segmented-unicoil` in the command below.
 
 We can now run retrieval:
 
