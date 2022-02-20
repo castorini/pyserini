@@ -1,6 +1,6 @@
 # msmarco-v1-passage-full
 
-Lucene index of the MS MARCO (V1) passage corpus.
+Lucene index of the MS MARCO V1 passage corpus.
 
 This index was generated on 2022/01/31 at Anserini commit [`9ea315`](https://github.com/castorini/anserini/commit/9ea3159adeeffd84e10e197af4c36febb5b74c7b) on `orca` with the following command:
 

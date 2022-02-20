@@ -72,9 +72,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V1) document corpus, three indexes with different amounts of information (and sizes).
+    # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v1-doc": {
-        "description": "Lucene index of the MS MARCO (V1) document corpus.",
+        "description": "Lucene index of the MS MARCO V1 document corpus.",
         "filename": "lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc.20220131.9ea315.README.md",
         "urls": [
@@ -89,7 +89,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v1-doc-slim": {
-        "description": "Lucene index of the MS MARCO (V1) document corpus ('slim' version).",
+        "description": "Lucene index of the MS MARCO V1 document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.README.md",
         "urls": [
@@ -104,7 +104,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v1-doc-full": {
-        "description": "Lucene index of the MS MARCO (V1) document corpus ('full' version).",
+        "description": "Lucene index of the MS MARCO V1 document corpus ('full' version).",
         "filename": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.README.md",
         "urls": [
@@ -119,9 +119,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V1) document corpus, doc2query-T5 expansions.
+    # MS MARCO V1 document corpus, doc2query-T5 expansions.
     "msmarco-v1-doc-d2q-t5": {
-        "description": "Lucene index of the MS MARCO (V1) document corpus, with doc2query-T5 expansions.",
+        "description": "Lucene index of the MS MARCO V1 document corpus, with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.README.md",
         "urls": [
@@ -135,9 +135,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V1) segmented document corpus, three indexes with different amounts of information (and sizes).
+    # MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v1-doc-segmented": {
-        "description": "Lucene index of the MS MARCO (V1) segmented document corpus.",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus.",
         "filename": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.README.md",
         "urls": [
@@ -152,7 +152,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v1-doc-segmented-slim": {
-        "description": "Lucene index of the MS MARCO (V1) segmented document corpus ('slim' version).",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.README.md",
         "urls": [
@@ -167,7 +167,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v1-doc-segmented-full": {
-        "description": "Lucene index of the MS MARCO (V1) segmented document corpus ('full' version).",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('full' version).",
         "filename": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.README.md",
         "urls": [
@@ -182,9 +182,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V1) segmented document corpus, doc2query-T5 expansions.
+    # MS MARCO V1 segmented document corpus, doc2query-T5 expansions.
     "msmarco-v1-doc-segmented-d2q-t5": {
-        "description": "Lucene index of the MS MARCO (V1) segmented document corpus, with doc2query-T5 expansions.",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus, with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
@@ -198,9 +198,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V1) passage corpus, three indexes with different amounts of information (and sizes).
+    # MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v1-passage": {
-        "description": "Lucene index of the MS MARCO (V1) passage corpus.",
+        "description": "Lucene index of the MS MARCO V1 passage corpus.",
         "filename": "lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage.20220131.9ea315.README.md",
         "urls": [
@@ -215,7 +215,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v1-passage-slim": {
-        "description": "Lucene index of the MS MARCO (V1) passage corpus ('slim' version).",
+        "description": "Lucene index of the MS MARCO V1 passage corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md",
         "urls": [
@@ -230,7 +230,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v1-passage-full": {
-        "description": "Lucene index of the MS MARCO (V1) passage corpus ('full' version).",
+        "description": "Lucene index of the MS MARCO V1 passage corpus ('full' version).",
         "filename": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.README.md",
         "urls": [
@@ -245,9 +245,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V1) passage corpus, doc2query-T5 expansions.
+    # MS MARCO V1 passage corpus, doc2query-T5 expansions.
     "msmarco-v1-passage-d2q-t5": {
-        "description": "Lucene index of the MS MARCO (V1) passage corpus, with doc2query-T5 expansions.",
+        "description": "Lucene index of the MS MARCO V1 passage corpus, with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.README.md",
         "urls": [
@@ -261,9 +261,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V2) document corpus, three indexes with different amounts of information (and sizes).
+    # MS MARCO V2 document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-doc": {
-        "description": "Lucene index of the MS MARCO (V2) document corpus.",
+        "description": "Lucene index of the MS MARCO V2 document corpus.",
         "filename": "lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc.20220111.06fb4f.README.md",
         "urls": [
@@ -277,7 +277,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v2-doc-slim": {
-        "description": "Lucene index of the MS MARCO (V2) document corpus ('slim' version).",
+        "description": "Lucene index of the MS MARCO V2 document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.README.md",
         "urls": [
@@ -291,7 +291,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v2-doc-full": {
-        "description": "Lucene index of the MS MARCO (V2) document corpus ('full' version).",
+        "description": "Lucene index of the MS MARCO V2 document corpus ('full' version).",
         "filename": "lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-full.20220111.06fb4f.README.md",
         "urls": [
@@ -305,9 +305,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V2) document corpus, doc2query-T5 expansions.
+    # MS MARCO V2 document corpus, doc2query-T5 expansions.
     "msmarco-v2-doc-d2q-t5": {
-        "description": "Lucene index of the MS MARCO (V2) document corpus, with doc2query-T5 expansions.",
+        "description": "Lucene index of the MS MARCO V2 document corpus, with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.README.md",
         "urls": [
@@ -321,9 +321,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V2) segmented document corpus, three indexes with different amounts of information (and sizes).
+    # MS MARCO V2 segmented document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-doc-segmented": {
-        "description": "Lucene index of the MS MARCO (V2) segmented document corpus.",
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus.",
         "filename": "lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.README.md",
         "urls": [
@@ -337,7 +337,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-slim": {
-        "description": "Lucene index of the MS MARCO (V2) segmented document corpus ('slim' version).",
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.README.md",
         "urls": [
@@ -351,7 +351,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-full": {
-        "description": "Lucene index of the MS MARCO (V2) segmented document corpus ('full' version).",
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('full' version).",
         "filename": "lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.README.md",
         "urls": [
@@ -365,9 +365,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V2) segmented document corpus, doc2query-T5 expansions.
+    # MS MARCO V2 segmented document corpus, doc2query-T5 expansions.
     "msmarco-v2-doc-segmented-d2q-t5": {
-        "description": "Lucene index of the MS MARCO (V2) segmented document corpus, with doc2query-T5 expansions.",
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus, with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
@@ -381,9 +381,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V2) passage corpus, three indexes with different amounts of information (and sizes).
+    # MS MARCO V2 passage corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-passage": {
-        "description": "Lucene index of the MS MARCO (V2) passage corpus.",
+        "description": "Lucene index of the MS MARCO V2 passage corpus.",
         "filename": "lucene-index.msmarco-v2-passage.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage.20220111.06fb4f.README.md",
         "urls": [
@@ -397,7 +397,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v2-passage-slim": {
-        "description": "Lucene index of the MS MARCO (V2) passage corpus ('slim' version).",
+        "description": "Lucene index of the MS MARCO V2 passage corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.README.md",
         "urls": [
@@ -411,7 +411,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v2-passage-full": {
-        "description": "Lucene index of the MS MARCO (V2) passage corpus ('full' version).",
+        "description": "Lucene index of the MS MARCO V2 passage corpus ('full' version).",
         "filename": "lucene-index.msmarco-v2-passage-full.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-full.20220111.06fb4f.README.md",
         "urls": [
@@ -425,9 +425,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V2) passage corpus, doc2query-T5 expansions.
+    # MS MARCO V2 passage corpus, doc2query-T5 expansions.
     "msmarco-v2-passage-d2q-t5": {
-        "description": "Lucene index of the MS MARCO (V2) passage corpus, with doc2query-T5 expansions.",
+        "description": "Lucene index of the MS MARCO V2 passage corpus, with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.README.md",
         "urls": [
@@ -441,9 +441,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V2) augmented passage corpus, three indexes with different amounts of information (and sizes).
+    # MS MARCO V2 augmented passage corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-passage-augmented": {
-        "description": "Lucene index of the MS MARCO (V2) augmented passage corpus.",
+        "description": "Lucene index of the MS MARCO V2 augmented passage corpus.",
         "filename": "lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.README.md",
         "urls": [
@@ -457,7 +457,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v2-passage-augmented-slim": {
-        "description": "Lucene index of the MS MARCO (V2) augmented passage corpus ('slim' version).",
+        "description": "Lucene index of the MS MARCO V2 augmented passage corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.README.md",
         "urls": [
@@ -471,7 +471,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v2-passage-augmented-full": {
-        "description": "Lucene index of the MS MARCO (V2) augmented passage corpus ('full' version).",
+        "description": "Lucene index of the MS MARCO V2 augmented passage corpus ('full' version).",
         "filename": "lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.README.md",
         "urls": [
@@ -485,9 +485,9 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
 
-    # MS MARCO (V2) augmented passage corpus, doc2query-T5 expansions.
+    # MS MARCO V2 augmented passage corpus, doc2query-T5 expansions.
     "msmarco-v2-passage-augmented-d2q-t5": {
-        "description": "Lucene index of the MS MARCO (V2) augmented passage corpus, with doc2query-T5 expansions.",
+        "description": "Lucene index of the MS MARCO V2 augmented passage corpus, with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
@@ -1106,7 +1106,7 @@ TF_INDEX_INFO = {
 
 IMPACT_INDEX_INFO = {
     "msmarco-v1-passage-unicoil": {
-        "description": "Lucene impact index of the MS MARCO (V1) passage corpus for uniCOIL",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL.",
         "filename": "lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.README.md",
         "urls": [
@@ -1120,7 +1120,7 @@ IMPACT_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v1-doc-segmented-unicoil": {
-        "description": "Lucene impact index of the MS MARCO (V1) segmented document corpus for uniCOIL",
+        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL.",
         "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.README.md",
         "urls": [
@@ -1134,7 +1134,7 @@ IMPACT_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v2-passage-unicoil-0shot": {
-        "description": "Lucene impact index of the MS MARCO (V2) passage corpus for uniCOIL",
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL.",
         "filename": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.README.md",
         "urls": [
@@ -1148,7 +1148,7 @@ IMPACT_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v2-passage-unicoil-noexp-0shot": {
-        "description": "Lucene impact index of the MS MARCO (V2) passage corpus for uniCOIL (noexp)",
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp).",
         "filename": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.README.md",
         "urls": [
@@ -1162,7 +1162,7 @@ IMPACT_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-unicoil-0shot": {
-        "description": "Lucene impact index of the MS MARCO (V2) segmented document corpus for uniCOIL",
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL.",
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.README.md",
         "urls": [
@@ -1176,7 +1176,7 @@ IMPACT_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-unicoil-noexp-0shot": {
-        "description": "Lucene impact index of the MS MARCO (V2) segmented document corpus for uniCOIL (noexp)",
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp).",
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.README.md",
         "urls": [
