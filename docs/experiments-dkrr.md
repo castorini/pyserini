@@ -57,15 +57,15 @@ To evaluate, convert the TREC output format to DPR's json format:
 ```bash
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
     --topics nq-test \
-	--index wikipedia-dpr \
-	--input runs/nq.dkrr.ans.test.trec \
-	--output runs/nq.dkrr.ans.test.json
+    --index wikipedia-dpr \
+    --input runs/nq.dkrr.ans.test.trec \
+    --output runs/nq.dkrr.ans.test.json
 
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
     --topics dpr-trivia-test \
-	--index wikipedia-dpr \
-	--input runs/dpr-trivia.dkrr.ans.test.trec \
-	--output runs/dpr-trivia.dkrr.ans.test.json
+    --index wikipedia-dpr \
+    --input runs/dpr-trivia.dkrr.ans.test.trec \
+    --output runs/dpr-trivia.dkrr.ans.test.json
 ```
 
 Evaluating on NQ:
