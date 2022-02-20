@@ -24,5 +24,4 @@ python3 convert_dkrr_embeddings_to_faiss.py \
 	--output faiss-flat.wikipedia.dkrr-dpr-nq-retriever
 ```
 
-
 faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz MD5 checksum = 7b471906bdb4002d1e8abbdb0ad98112

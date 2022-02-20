@@ -1707,5 +1707,29 @@ FAISS_INDEX_INFO = {
         'documents': 568855,
         'downloaded': False,
         'texts': 'mrtydi-v1.1-thai'
+    },
+    'wikipedia-dpr-dkrr-nq': {
+        'description': "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from: 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ",
+        'filename': 'faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz',
+        'urls': [
+            'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz',
+        ],
+        'md5': '7b471906bdb4002d1e8abbdb0ad98112',
+        'size compressed (bytes)': 37812138182,
+        'documents': 21015324,
+        'downloaded': False,
+        'texts': 'wikipedia-dpr'
+    },
+    'wikipedia-dpr-dkrr-tqa': {
+        'description': "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from: 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA",
+        'filename': 'faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz',
+        'urls': [
+            'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz',
+        ],
+        'md5': 'ace592b5050fe88d2f8981f3820d6a10',
+        'size compressed (bytes)': 37802647680,
+        'documents': 21015324,
+        'downloaded': False,
+        'texts': 'wikipedia-dpr'
     }
 }
