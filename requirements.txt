@@ -11,3 +11,4 @@ nmslib>=2.1.1
 onnxruntime>=1.8.1
 lightgbm>=3.3.2
 spacy>=3.2.1
+wget
