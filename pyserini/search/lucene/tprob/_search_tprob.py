@@ -216,3 +216,25 @@ class TranslationProbabilitySearcher(object):
 
         rank_scores = self.pool.map(self.get_ibm_score, arguments)
         return test_docs, rank_scores, origin_scores
+
+    def rerank(self, query_text, query_field_text, baseline, max_sim):
+        test_docs, origin_scores = baseline
+        if (test_docs == []):
+            print(query_text)
+
+        query_text_lst = query_field_text.split(' ')
+        total_term_freq = self.index_reader.getSumTotalTermFreq(self.field_name)
+        collect_probs = {}
+        for querytoken in query_text_lst:
+            collect_probs[querytoken] = max(self.index_reader.totalTermFreq(
+                JTerm(self.field_name, querytoken)) / total_term_freq,
+                self.MIN_COLLECT_PROB)
+
+        arguments = [(
+            query_text_lst, test_doc, self.object, self.field_name,
+            self.source_lookup, self.target_lookup,
+            self.tran, collect_probs, max_sim)
+            for test_doc in test_docs]
+
+        rank_scores = self.pool.map(self.get_ibm_score, arguments)
+        return test_docs, rank_scores, origin_scores
