@@ -74,17 +74,6 @@ def sort_str_topics_list(topics: List[str]) -> List[str]:
     return [str(t) for t in res]
 
 
-def evaluate(run_path: str, options: str = ''):
-    prefix = "python -m pyserini.eval.trec_eval -c -M 1000 -m map -m ndcg_cut.20 msmarco-passage-dev-subset"
-    cmd1 = f"{prefix} {run_path} {options} | grep 'ndcg_cut_20 '"
-    cmd2 = f"{prefix} {run_path} {options} | grep 'map                   	'"
-    ndcg_string = str(subprocess.check_output(cmd1, shell=True))
-    ndcg_score = ndcg_string.split('\\t')[-1].split('\\n')[0]
-    map_string = str(subprocess.check_output(cmd2, shell=True))
-    map_score = map_string.split('\\t')[-1].split('\\n')[0]
-    return str(map_score), str(ndcg_score)
-
-
 def sort_dual_list(pred: List[float], docs: List[str]):
     zipped_lists = zip(pred, docs)
     sorted_pairs = sorted(zipped_lists)
@@ -227,8 +216,8 @@ def load_tranprobs_table(dir_path: str):
 
 
 def rank(base: str, tran_path: str, query_path: str,
-        lucene_index_path: str, output_path: str, score_path: str,
-        field_name: str, tag: str, alpha: int, num_threads: int, max_sim: bool):
+        lucene_index_path: str, output_path: str, field_name: str,
+        tag: str, alpha: int, num_threads: int, max_sim: bool):
 
     pool = ThreadPool(num_threads)
     searcher = JLuceneSearcher(JString(lucene_index_path))
@@ -274,9 +263,6 @@ def rank(base: str, tran_path: str, query_path: str,
             f.write(f'{topic} Q0 {doc_id} {rank} {score} {tag}\n')
 
     f.close()
-    map_score, ndcg_score = evaluate(output_path)
-    with open(score_path, 'w') as outfile:
-        json.dump({'map': map_score, 'ndcg': ndcg_score}, outfile)
 
 
 if __name__ == '__main__':
@@ -294,8 +280,6 @@ if __name__ == '__main__':
                         metavar="path_to_lucene_index", help='path to lucene index folder')
     parser.add_argument('--output', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('--score_path', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.json",
-                        metavar="path_to_base_run", help='the path to map and ndcg scores')
     parser.add_argument('--field_name', type=str, default="text_bert_tok",
                         metavar="type of field", help='type of field used for training')
     parser.add_argument('--alpha', type=float, default="0.3",
@@ -311,6 +295,6 @@ if __name__ == '__main__':
 
     rank(
         args.base, args.tran_path, args.query_path,
-        args.index, args.output, args.score_path, args.field_name,
+        args.index, args.output, args.field_name,
         args.tag, args.alpha, args.num_threads, args.max_sim
         )
