@@ -7,21 +7,21 @@ This index was generated on 2022/02/17 on `orca` at commits:
 with the following command to generate the embeddings (from FiD repo):
 
 ```bash
-python3 generate_passage_embeddings.py
-        --model_path tqa_retriever
-        --passages passages.tsv
-        --output_path wikipedia_embeddings_tqa
-        --shard_id 0
-        --num_shards 1
+python3 generate_passage_embeddings.py \
+        --model_path tqa_retriever \
+        --passages passages.tsv \
+        --output_path wikipedia_embeddings_tqa \
+        --shard_id 0 \
+        --num_shards 1 \
         --per_gpu_batch_size 500
 ```
 
 and the following command to convert the embeddings to faiss IndexFlatIP form
 
 ```bash
-python3 convert_dkrr_embeddings_to_faiss.py
-        --embeddings wikipedia_embeddings_tqa
+python3 convert_dkrr_embeddings_to_faiss.py \
+        --embeddings wikipedia_embeddings_tqa \
         --output faiss-flat.wikipedia.dkrr-dpr-tqa-retriever
 ```
 		
-faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz MD5 checksum = 7c59e305533030cf6ccecc8d7229523b
+faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz MD5 checksum = ace592b5050fe88d2f8981f3820d6a10
