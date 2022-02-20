@@ -9,19 +9,11 @@ This page describes how to reproduce IRST experiments with the IBM model on the 
 
 For IRST, we make the corpus as well as the pre-built indexes available to download.
 
-> You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to next section below.
+> You can skip the data prep and indexing steps if you use our pre-built indexes. 
 
-Here, we start from MS MARCO [passage corpus](https://github.com/castorini/pyserini/blob/master/docs/experiments-ltr-msmarco-passage-reranking.md) that has already been processed.
+Here, we start from MS MARCO [passage corpus](https://github.com/castorini/pyserini/blob/master/docs/experiments-msmarco-passage.md) that has already been processed.
 As an alternative, we also make available pre-built indexes (in which case the indexing step can be skipped).
 
-
-We run the below commands to obtain pre-built index in cache.
-
-```bash
-python -c "from pyserini.search.lucene import LuceneSearcher; LuceneSearcher.from_prebuilt_index('msmarco-passage-ltr')"
-```
-
-To confirm, `index-msmarco-passage-ltr-20210519-e25e33f.tar.gz` has an MD5 checksum of `a5de642c268ac1ed5892c069bdc29ae3`.
 
 The below scripts convert queries to json objects with text, text_unlemm, raw, and text_bert_tok fields
 
@@ -30,12 +22,13 @@ The below scripts convert queries to json objects with text, text_unlemm, raw, a
 mkdir irst_test
 python scripts/ltr_msmarco/convert_queries.py --input path_to_topics --output irst_test/queries.irst_topics.dev.small.json
 ```
+Here the path_to_topics represents the path to topics file saved in tools/topics-and-qrels/ folder, e.g., tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
 
 We can now perform retrieval to gain the baseline:
 
 ```
 python -m pyserini.search.lucene \
-  --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ \
+  --index msmarco-passage-ltr \
   --topics topics \
   --output runs/run.topics.bm25tuned.txt \
   --output-format trec \
@@ -57,8 +50,8 @@ Next we can run our script to get our reranking results.
 
 IRST (Sum) 
 ```bash
-python -m pyserini/scripts/reranker_ibm_colbert.py 
-  --base runs/run.topics.bm25tuned.txt
+python -m pyserini.search.lucene.tprob \
+  --base_path runs/run.topics.bm25tuned.txt \                    
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
   --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ \
@@ -68,12 +61,12 @@ python -m pyserini/scripts/reranker_ibm_colbert.py
 
 IRST (Max)
 ```bash
-python -m pyserini/scripts/reranker_ibm_colbert.py 
-  --base runs/run.topics.bm25tuned.txt
+python -m pyserini.search.lucene.tprob \
+  --base_path runs/run.topics.bm25tuned.txt \                    
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
   --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ \
-  --output irst_test/regression_test_max.txt \
+  --output irst_test/regression_test_sum.txt \
   --alpha 0.3 \
   --max_sim
 ```
@@ -129,12 +122,13 @@ python scripts/ltr_msmarco/convert_queries.py --input path_to_topics --output ir
 We can now perform retrieval in anserini to generate baseline:
 
 ```
-target/appassembler/bin/SearchCollection \
-  -index indexes/lucene-index.msmarco-doc-segmented/ \
-  -topics topics \
-  -topicreader TsvInt \
-  -output runs/run.msmarco-doc-segmented.bm25-default.topics.dev.txt \
-  -bm25 -hits 10000 &
+python -m pyserini.search.lucene \
+  --index msmarco-document-segment-ltr \
+  --topics topics \
+  --output runs/run.msmarco-doc-segmented.bm25-default.topics.dev.txt \
+  --output-format trec \
+  --hits 10000 \
+  --bm25 
 ```
 
 ### Performing Reranking Using Pretrained Model
@@ -151,26 +145,27 @@ Next we can run our script to get our reranking results.
 
 IRST (Sum) 
 ```bash
-python -m pyserini/scripts/reranker_ibm_colbert.py 
-  --base runs/run.msmarco-doc-segmented.bm25-default.topics.dev.txt \
+python -m pyserini.search.lucene.tprob 
+  --base_path runs/run.msmarco-doc-segmented.bm25-default.topics.dev.txt \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
-  --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ \
+  --index ~/.cache/pyserini/indexes/index-msmarco-document-segment-ltr/ \
   --output irst_test/regression_test_sum.txt \
   --alpha 0.3
 ```
 
 IRST (Max)
 ```bash
-python -m pyserini/scripts/reranker_ibm_colbert.py 
-  --base runs/run.msmarco-doc-segmented.bm25-default.topics.dev.txt \
+python -m pyserini.search.lucene.tprob
+  --base_path runs/run.msmarco-doc-segmented.bm25-default.topics.dev.txt \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
-  --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ \
+  --index ~/.cache/pyserini/indexes/index-msmarco-document-segment-ltr/ \
   --output irst_test/regression_test_max.txt \
   --alpha 0.3 \
   --max_sim
 ```
+
 
 For different topics, the `--input`,`--topics` and `--qrel` are different, since Pyserini has all these topics available, we can pass in
 different values to run on different datasets.
