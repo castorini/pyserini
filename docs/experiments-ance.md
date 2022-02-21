@@ -6,7 +6,7 @@ This guide provides instructions to reproduce the following dense retrieval work
 
 Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
 Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
-See [package installation notes](../README.md#package-installation) for more details.
+See [package installation notes](../README.md#installation) for more details.
 
 Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.

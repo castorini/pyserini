@@ -5,7 +5,7 @@ This guide provides instructions to reproduce the DistilBERT KD TASB dense retri
 > Sebastian Hofstätter, Sheng-Chieh Lin, Jheng-Hong Yang, Jimmy Lin, Allan Hanbury. [Efficiently Teaching an Effective Dense Retriever with Balanced Topic Aware Sampling.](https://arxiv.org/abs/2104.06967) _SIGIR 2021_.
 
 Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
-See [package installation notes](../README.md#package-installation) for more details.
+See [package installation notes](../README.md#installation) for more details.
 
 Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
