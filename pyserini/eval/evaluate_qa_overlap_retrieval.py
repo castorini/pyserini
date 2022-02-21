@@ -27,7 +27,6 @@ import unicodedata
 from tqdm import tqdm
 import numpy as np
 import os
-import wget
 import regex
 import collections
 
@@ -46,7 +45,7 @@ if not os.path.exists('data'):
     ]
 
     for link, dest in ANNOTATIONS_TO_DOWNLOAD:
-        wget.download(link, os.path.join(DATA_DIR, dest))
+        os.system(f'wget {link} -P data/')
 
 ANNOTATION_PATHS = {
     'tqa': os.path.join(DIRNAME, 'data/triviaqa-annotations.jsonl'),
