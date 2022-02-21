@@ -21,7 +21,7 @@ import socket
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score
-from pyserini.dsearch import QueryEncoder
+from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
 

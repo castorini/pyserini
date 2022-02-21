@@ -19,7 +19,7 @@
 import os
 import shutil
 import unittest
-from pyserini.dsearch import FaissSearcher
+from pyserini.search import FaissSearcher
 from pyserini.search.lucene import LuceneImpactSearcher
 from urllib.request import urlretrieve
 
