@@ -20,7 +20,7 @@ import os
 import random
 
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.search.faiss import SimpleDenseSearcher, TctColBertQueryEncoder, AnceQueryEncoder
+from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder, AnceQueryEncoder
 from pyserini.hsearch import HybridSearcher
 from pyserini import search
 
@@ -84,7 +84,7 @@ class MsMarcoDemo(cmd.Cmd):
                 f'Model "{arg}" is invalid. Model should be one of [tct, ance].')
             return
 
-        self.dsearcher = SimpleDenseSearcher.from_prebuilt_index(
+        self.dsearcher = FaissSearcher.from_prebuilt_index(
             index,
             encoder
         )

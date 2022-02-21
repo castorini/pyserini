@@ -32,7 +32,7 @@ sys.path.insert(0, '../pyserini/')
 
 from pyserini.trectools import TrecRun
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.dsearch import SimpleDenseSearcher
+from pyserini.dsearch import FaissSearcher
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -91,7 +91,7 @@ def bm25(qid, query, docs, index_path):
 
 
 def ance(qid, query, docs, index_path):
-    searcher = SimpleDenseSearcher(index_path,  'castorini/ance-msmarco-doc-maxp')
+    searcher = FaissSearcher(index_path,  'castorini/ance-msmarco-doc-maxp')
     hits = searcher.search(query, 1000)
 
     output = []

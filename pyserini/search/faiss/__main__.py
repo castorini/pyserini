@@ -19,7 +19,7 @@ import os
 
 from tqdm import tqdm
 
-from pyserini.search import SimpleDenseSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, QueryEncoder, \
+from pyserini.search import FaissSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, QueryEncoder, \
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AutoQueryEncoder, DenseVectorAveragePrf, \
     DenseVectorRocchioPrf, DenseVectorAncePrf
 from pyserini.encode.faiss import PcaEncoder
@@ -154,20 +154,20 @@ if __name__ == '__main__':
             kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
             searcher = BinaryDenseSearcher(args.index, query_encoder)
         else:
-            searcher = SimpleDenseSearcher(args.index, query_encoder)
+            searcher = FaissSearcher(args.index, query_encoder)
     else:
         # create searcher from prebuilt index name
         if args.searcher.lower() == 'bpr':
             kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
             searcher = BinaryDenseSearcher.from_prebuilt_index(args.index, query_encoder)
         else:
-            searcher = SimpleDenseSearcher.from_prebuilt_index(args.index, query_encoder)
+            searcher = FaissSearcher.from_prebuilt_index(args.index, query_encoder)
     
     if not searcher:
         exit()
 
     # Check PRF Flag
-    if args.prf_depth > 0 and type(searcher) == SimpleDenseSearcher:
+    if args.prf_depth > 0 and type(searcher) == FaissSearcher:
         PRF_FLAG = True
         if args.prf_method.lower() == 'avg':
             prfRule = DenseVectorAveragePrf()
@@ -182,7 +182,7 @@ if __name__ == '__main__':
             prf_query_encoder = AnceQueryEncoder(encoder_dir=args.ance_prf_encoder, tokenizer_name=args.tokenizer,
                                                  device=args.device)
             prfRule = DenseVectorAncePrf(prf_query_encoder, sparse_searcher)
-        print(f'Running SimpleDenseSearcher with {args.prf_method.upper()} PRF...')
+        print(f'Running FaissSearcher with {args.prf_method.upper()} PRF...')
     else:
         PRF_FLAG = False
 

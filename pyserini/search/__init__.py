@@ -21,7 +21,7 @@ from .lucene import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearche
 from .lucene import JImpactSearcherResult, LuceneImpactSearcher
 from ._deprecated import SimpleSearcher, ImpactSearcher, SimpleFusionSearcher
 
-from .faiss import DenseSearchResult, PRFDenseSearchResult, SimpleDenseSearcher, BinaryDenseSearcher, QueryEncoder, \
+from .faiss import DenseSearchResult, PRFDenseSearchResult, FaissSearcher, BinaryDenseSearcher, QueryEncoder, \
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
 from .faiss import AnceEncoder
 from .faiss import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
@@ -32,7 +32,7 @@ __all__ = ['JQuery', 'LuceneSimilarities', 'LuceneFusionSearcher', 'LuceneSearch
            'LuceneImpactSearcher', 'JImpactSearcherResult', 'JDisjunctionMaxQueryGenerator', 'get_topics',
            'get_topics_with_reader', 'get_qrels_file', 'get_qrels',
            'SimpleSearcher', 'ImpactSearcher', 'SimpleFusionSearcher',
-           'DenseSearchResult', 'PRFDenseSearchResult', 'SimpleDenseSearcher', 'BinaryDenseSearcher', 'QueryEncoder',
+           'DenseSearchResult', 'PRFDenseSearchResult', 'FaissSearcher', 'BinaryDenseSearcher', 'QueryEncoder',
            'DprQueryEncoder', 'BprQueryEncoder', 'DkrrDprQueryEncoder', 'TctColBertQueryEncoder', 'AnceEncoder',
            'AnceQueryEncoder', 'AutoQueryEncoder', 'DenseVectorAveragePrf', 'DenseVectorRocchioPrf', 'DenseVectorAncePrf']
 
