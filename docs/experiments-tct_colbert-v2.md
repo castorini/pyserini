@@ -105,26 +105,33 @@ recall_1000             all     0.9708
 ### TCT_ColBERT-V2-HN+
 
 ```bash
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-                             --index msmarco-passage-tct_colbert-v2-hnp-bf \
-                             --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
-                             --batch-size 36 \
-                             --threads 12 \
-                             --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv \
-                             --output-format msmarco
+python -m pyserini.dsearch \
+  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+  --topics msmarco-passage-dev-subset \
+  --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
+  --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv \
+  --output-format msmarco \
+  --batch-size 36 --threads 12
 ```
 
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv
+
 #####################
 MRR @10: 0.3585
 QueriesRanked: 6980
 #####################
 
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.trec
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+    --input runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv \
+    --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.trec
+
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.trec
+
 map                     all     0.3645
 recall_1000             all     0.9695
 ```
@@ -140,27 +147,35 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 - sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
 
 ```bash
-$ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
-                                    --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
-                             sparse --index msmarco-passage \
-                             fusion --alpha 0.06 \
-                             run    --topics msmarco-passage-dev-subset \
-                                    --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.tsv \
-                                    --batch-size 36 --threads 12 \
-                                    --output-format msmarco
+python -m pyserini.hsearch \
+  dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+         --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
+  sparse --index msmarco-passage \
+  fusion --alpha 0.06 \
+  run    --topics msmarco-passage-dev-subset \
+         --output-format msmarco \
+         --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.tsv \
+         --batch-size 36 --threads 12
 ```
 
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.tsv
+
 #####################
 MRR @10: 0.3682
 QueriesRanked: 6980
 #####################
 
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.tsv --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.trec
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+    --input runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.tsv \
+    --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.trec
+
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.trec
+
 map                   	all	0.3737
 recall_1000           	all	0.9707
 ```
@@ -172,27 +187,35 @@ Hybrid retrieval with dense-sparse representations (with document expansion):
 - sparse retrieval with doc2query-T5 expanded index.
 
 ```bash
-$ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
-                                    --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
-                             sparse --index msmarco-passage-expanded \
-                             fusion --alpha 0.1 \
-                             run    --topics msmarco-passage-dev-subset \
-                                    --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv \
-                                    --batch-size 36 --threads 12 \
-                                    --output-format msmarco
+python -m pyserini.hsearch \
+  dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+         --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
+  sparse --index msmarco-passage-expanded \
+  fusion --alpha 0.1 \
+  run    --topics msmarco-passage-dev-subset \
+         --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv \
+         --output-format msmarco \
+         --batch-size 36 --threads 12
 ```
 
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv
+
 #####################
 MRR @10: 0.3731
 QueriesRanked: 6980
 #####################
 
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.trec
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+    --input runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv \
+    --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.trec
+
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.trec
+
 map                   	all	0.3789
 recall_1000           	all	0.9759
 ```
