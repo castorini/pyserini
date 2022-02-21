@@ -484,4 +484,12 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-thai.20220207.5df364.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
 </dd>
+<dt></dt><b><code>wikipedia-dpr-dkrr-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.README.md">readme</a>]
+<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from: 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ.
+</dd>
+<dt></dt><b><code>wikipedia-dpr-dkrr-tqa</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.README.md">readme</a>]
+<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from: 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA.
+</dd>
 </dl>
