@@ -63,14 +63,14 @@ as well hybrid retrieval that integrates both approaches.
 
 ### Sparse Retrieval
 
-The `SimpleSearcher` class provides the entry point for sparse retrieval using bag-of-words representations.
+The `LuceneSearcher` class provides the entry point for sparse retrieval using bag-of-words representations.
 Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
 Here's how to use a pre-built index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively:
 
 ```python
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 
-searcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
 hits = searcher.search('what is a lobster roll?')
 
 for i in range(0, 10):
@@ -105,8 +105,8 @@ hits[0].lucene_document
 Pre-built indexes are hosted on University of Waterloo servers.
 The following method will list available pre-built indexes:
 
-```
-SimpleSearcher.list_prebuilt_indexes()
+```python
+LuceneSearcher.list_prebuilt_indexes()
 ```
 
 A description of what's available can be found [here](docs/prebuilt-indexes.md).
@@ -114,7 +114,7 @@ Alternatively, see [this answer](docs/usage-interactive-search.md#how-do-i-manua
 
 ### Dense Retrieval
 
-The `SimpleDenseSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `SimpleSearcher`.
+The `SimpleDenseSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `LuceneSearcher`.
 The only additional thing we need to specify for dense retrieval is the query encoder.
 
 ```python
@@ -158,11 +158,11 @@ The results should be as follows:
 The `HybridSearcher` class provides the entry point to perform hybrid sparse-dense retrieval:
 
 ```python
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
 from pyserini.hsearch import HybridSearcher
 
-ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+ssearcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
 dsearcher = SimpleDenseSearcher.from_prebuilt_index(
     'msmarco-passage-tct_colbert-hnsw',
@@ -198,9 +198,9 @@ Another commonly used feature in Pyserini is to fetch a document (i.e., its text
 This is easy to do:
 
 ```python
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 
-searcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
 doc = searcher.doc('7157715')
 ```
 
@@ -215,7 +215,7 @@ Thus:
 
 ```python
 # Document contents: what's actually indexed.
-# Note, this is not stored in the pre-built msmacro-passage index.
+# Note, this is not stored in the pre-built msmacro-v1-passage index.
 doc.contents()
                                                                                                    
 # Raw document
@@ -282,11 +282,11 @@ So, the quickest way to get started is to write a script that converts your docu
 Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
 
 ```bash
-python -m pyserini.index \
-  --input integrations/resources/sample_collection_jsonl \
+python -m pyserini.index.lucene \
   --collection JsonCollection \
-  --generator DefaultLuceneDocumentGenerator \
+  --input integrations/resources/sample_collection_jsonl \
   --index indexes/sample_collection_jsonl \
+  --generator DefaultLuceneDocumentGenerator \
   --threads 1 \
   --storePositions --storeDocvectors --storeRaw
 ```
@@ -303,9 +303,9 @@ This is sufficient for simple "bag of words" querying (and yields the smallest i
 Once indexing is done, you can use `SimpleSearcher` to search the index:
 
 ```python
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 
-searcher = SimpleSearcher('indexes/sample_collection_jsonl')
+searcher = LuceneSearcher('indexes/sample_collection_jsonl')
 hits = searcher.search('document')
 
 for i in range(len(hits)):
@@ -326,12 +326,16 @@ Note that the file extension _must_ end in `.tsv` so that Pyserini knows what fo
 Then, you can run:
 
 ```bash
-$ python -m pyserini.search \
-    --topics integrations/resources/sample_queries.tsv \
-    --index indexes/sample_collection_jsonl \
-    --output run.sample.txt \
-    --bm25
+python -m pyserini.search.lucene \
+  --index indexes/sample_collection_jsonl \
+  --topics integrations/resources/sample_queries.tsv \
+  --output run.sample.txt \
+  --bm25
+```
 
+The output:
+
+```bash
 $ cat run.sample.txt
 1 Q0 doc2 1 0.256200 Anserini
 1 Q0 doc3 2 0.231400 Anserini
@@ -369,18 +373,16 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + Reproducing the [BM25 baseline for MS MARCO V1 Document Ranking](docs/experiments-msmarco-doc.md)
 + Reproducing the [multi-field BM25 baseline for MS MARCO V1 Document Ranking from Elasticsearch](docs/experiments-elastic.md)
 + Reproducing [BM25 baselines on the MS MARCO V2 Collections](docs/experiments-msmarco-v2.md)
-+ Reproducing [DeepImpact experiments for MS MARCO V1 Passage Ranking](docs/experiments-deepimpact.md)
-+ Reproducing [uniCOIL experiments with doc2query-T5 expansions for MS MARCO V1](docs/experiments-unicoil.md)
-+ Reproducing [uniCOIL experiments with TILDE expansions for MS MARCO V1 Passage Ranking](docs/experiments-unicoil-tilde-expansion.md)
-+ Reproducing [uniCOIL experiments with TILDE expansions for MS MARCO V2 Passage Ranking](docs/experiments-msmarco-v2-unicoil-tilde-expansion.md)
-+ Reproducing [uniCOIL experiments on the MS MARCO V2 Collections](docs/experiments-msmarco-v2-unicoil.md)
-+ Reproducing [SPLADEv2 experiments for MS MARCO V1 Passage Ranking](docs/experiments-spladev2.md)
++ Reproducing DeepImpact: [MS MARCO V1 Passage](docs/experiments-deepimpact.md)
++ Reproducing uniCOIL with doc2query-T5: [MS MARCO V1](docs/experiments-unicoil.md), [MS MARCO V2](docs/experiments-msmarco-v2-unicoil.md)
++ Reproducing uniCOIL with TILDE: [MS MARCO V1 Passage](docs/experiments-unicoil-tilde-expansion.md), [MS MARCO V2 Passage](docs/experiments-msmarco-v2-unicoil-tilde-expansion.md)
++ Reproducing SPLADEv2: [MS MARCO V1 Passage](docs/experiments-spladev2.md)
++ Reproducing [Mr. TyDi experiments](https://github.com/castorini/mr.tydi/blob/main/README.md#1-bm25)
 
 ### Dense Retrieval
 
-+ Reproducing [TCT-ColBERTv1 experiments on the MS MARCO V1 Collections](docs/experiments-tct_colbert.md)
-+ Reproducing [TCT-ColBERTv2 experiments on the MS MARCO V1 Collections](docs/experiments-tct_colbert-v2.md)
-+ Reproducing [TCT-ColBERTv2 experiments on the MS MARCO V2 Collections](docs/experiments-msmarco-v2-tct_colbert-v2.md)
++ Reproducing TCT-ColBERTv1 experiments: [MS MARCO V1](docs/experiments-tct_colbert.md)
++ Reproducing TCT-ColBERTv2 experiments: [MS MARCO V1](docs/experiments-tct_colbert-v2.md), [MS MARCO V2](docs/experiments-msmarco-v2-tct_colbert-v2.md)
 + Reproducing [DPR experiments](docs/experiments-dpr.md)
 + Reproducing [BPR experiments](docs/experiments-bpr.md)
 + Reproducing [ANCE experiments](docs/experiments-ance.md)
@@ -390,6 +392,12 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + Reproducing [ADORE dense retrieval experiments](docs/experiments-adore.md)
 + Reproducing [Vector PRF experiments](docs/experiments-vector-prf.md)
 + Reproducing [ANCE-PRF experiments](docs/experiments-ance-prf.md)
++ Reproducing [Mr. TyDi experiments](https://github.com/castorini/mr.tydi/blob/main/README.md#2-mdpr)
++ Reproducing [DKRR experiments](docs/experiments-dkrr.md)
+
+### Hybrid Sparse-Dense Retrieval
+
++ Reproducing [uniCOIL + TCT-ColBERTv2 experiments on the MS MARCO V2 Collections](docs/experiments-msmarco-v2-hybrid.md)
 
 ## Baselines
 

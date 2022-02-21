@@ -16,12 +16,6 @@
 
 """Convert MSMARCO queries"""
 
-import sys
-
-# We're going to explicitly use a local installation of Pyserini (as opposed to a pip-installed one).
-# Comment these lines out to use a pip-installed one instead.
-sys.path.insert(0, './')
-
 import json
 import argparse
 from transformers import AutoTokenizer, AutoModel
@@ -33,7 +27,6 @@ import os
 """
 add fields to query json with text(lemmatized), text_unlemm, contents(analyzer), raw, entity(NER), text_bert_tok(BERT token)
 """
-sys.path.append('.')
 
 parser = argparse.ArgumentParser(description='Convert MSMARCO-adhoc queries.')
 parser.add_argument('--input', metavar='input file', help='input file',

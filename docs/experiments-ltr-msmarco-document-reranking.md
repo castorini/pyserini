@@ -69,7 +69,7 @@ python -c "from pyserini.search import SimpleSearcher; SimpleSearcher.from_prebu
 
 Now, we have all things ready and can run inference. The LTR outpus rankings on segments level. We will need to use another script to get doc level results using maxP strategy.
 ```bash
-python scripts/ltr_msmarco/ltr_inference.py \
+python -m pyserini.search.lucene.ltr \
        --input collections/msmarco-doc/run.msmarco-pass-doc.bm25.txt \
        --input-format trec \
        --model runs/msmarco-passage-ltr-mrr-v1 \

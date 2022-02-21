@@ -44,7 +44,7 @@ class TestIndexUtils(unittest.TestCase):
         tarball.close()
 
         self.index_path = os.path.join(self.index_dir, 'lucene-index.cacm')
-        self.searcher = search.SimpleSearcher(self.index_path)
+        self.searcher = search.LuceneSearcher(self.index_path)
         self.index_reader = index.IndexReader(self.index_path)
 
         self.temp_folders = []
