@@ -38,7 +38,7 @@ from pyserini.index import Document
 from ._model import AnceEncoder
 import torch
 
-from ..encode import PcaEncoder
+from ...encode import PcaEncoder
 
 if is_faiss_available():
     import faiss

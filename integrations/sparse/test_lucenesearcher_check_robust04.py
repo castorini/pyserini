@@ -17,7 +17,7 @@
 import os
 import unittest
 
-from integrations.lucenesearcher_anserini_checker import LuceneSAearcherAnseriniMatchChecker
+from integrations.lucenesearcher_anserini_checker import LuceneSearcherAnseriniMatchChecker
 
 
 class TestSearchIntegration(unittest.TestCase):
