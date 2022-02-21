@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 
 DIRNAME = os.path.dirname(os.path.abspath(__file__))
 # download dependencies
-if not os.path.exists('data'):
+if not os.path.exists('data/nq-annotations.jsonl'):
     ANNOTATIONS_TO_DOWNLOAD = [
         ('https://dl.fbaipublicfiles.com/qaoverlap/data/nq-annotations.jsonl','nq-annotations.jsonl'),
         ('https://dl.fbaipublicfiles.com/qaoverlap/data/triviaqa-annotations.jsonl', 'triviaqa-annotations.jsonl'),
