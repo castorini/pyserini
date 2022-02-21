@@ -20,7 +20,7 @@ import os
 import random
 
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, AnceQueryEncoder
+from pyserini.search.faiss import SimpleDenseSearcher, TctColBertQueryEncoder, AnceQueryEncoder
 from pyserini.hsearch import HybridSearcher
 from pyserini import search
 
