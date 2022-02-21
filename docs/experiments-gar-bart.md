@@ -32,15 +32,15 @@ To evaluate the augmented queries, we need to concatenate and convert them into 
   Todo that:
 
 ```bash
-python to_tsv.py --query_path <path to the query file> --answer_path <optional>  --title_path <optional> --sentence_path <optional>
+python scripts/gar/to_tsv.py --query_path <path to the query file> --answer_path <optional>  --title_path <optional> --sentence_path <optional> --output_path <optional>
 ```
 
-without specifying the output path, the default output will be out.tsv in the current folder
+without specifying the output path, the default output will be at runs/out.tsv in the current folder
 
 once we have the tsv file, we can proceed to search and evaluation
 
 ```
-python -m pyserini.search --topics out.tsv --index wikipedia-dpr --output runs/gar-bart-run.trec --batch-size 70 --threads 70
+python -m pyserini.search --topics runs/out.tsv --index wikipedia-dpr --output runs/gar-bart-run.trec --batch-size 70 --threads 70
 
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics <topic> --index wikipedia-dpr --input runs/gar-bart-run.trec --output runs/gar-bart-run.json
 ```
