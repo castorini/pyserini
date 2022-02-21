@@ -1714,8 +1714,8 @@ FAISS_INDEX_INFO = {
         'urls': [
             'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz',
         ],
-        'md5': '7b471906bdb4002d1e8abbdb0ad98112',
-        'size compressed (bytes)': 37812138182,
+        'md5': 'e58886fd5485b84f2c44963ce644561b',
+        'size compressed (bytes)': 37812137819,
         'documents': 21015324,
         'downloaded': False,
         'texts': 'wikipedia-dpr'
@@ -1726,8 +1726,8 @@ FAISS_INDEX_INFO = {
         'urls': [
             'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz',
         ],
-        'md5': 'ace592b5050fe88d2f8981f3820d6a10',
-        'size compressed (bytes)': 37802647680,
+        'md5': 'a6b02d33c9c0376ad1bf6550212ecdcb',
+        'size compressed (bytes)': 37802648060,
         'documents': 21015324,
         'downloaded': False,
         'texts': 'wikipedia-dpr'

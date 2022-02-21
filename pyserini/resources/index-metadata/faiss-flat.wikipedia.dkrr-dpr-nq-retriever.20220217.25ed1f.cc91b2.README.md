@@ -1,3 +1,4 @@
+# wikipedia-dpr-dkrr-nq
 Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from: 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ.
 This index was generated on 2022/02/17 on `orca` at commits:
 
@@ -24,4 +25,4 @@ python3 convert_dkrr_embeddings_to_faiss.py \
 	--output faiss-flat.wikipedia.dkrr-dpr-nq-retriever
 ```
 
-faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz MD5 checksum = 7b471906bdb4002d1e8abbdb0ad98112
+faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz MD5 checksum = e58886fd5485b84f2c44963ce644561b

@@ -9,35 +9,12 @@ This guide provides instructions to reproduce our results.
 
 ## DKRR Retrieval on Natural Questions (NQ) and TriviaQA (TQA)
 
-First downloading the indexes:
-```bash
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz -P indexes/
-
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz -P indexes/
-```
-
-To confirm:  
- `faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz` should have MD5 checksum of `7b471906bdb4002d1e8abbdb0ad98112`  
- `faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz` should have MD5 checksum of `ace592b5050fe88d2f8981f3820d6a10`
-
-Extracting the indexes:
-
-```bash
-mkdir indexes/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2
-tar -xvf indexes/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz \
-    -C indexes/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2
-
-mkdir indexes/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2
-tar -xvf indexes/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz \
-    -C indexes/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2
-```
-
-Running dense retrieval (here we are performing on-the-fly query encoding):
+Running DKRR retrieval (here we are performing on-the-fly query encoding):
 
 ```bash
 nohup python -m pyserini.dsearch \
     --topics nq-test \
-    --index indexes/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2 \
+    --index wikipedia-dpr-dkrr-nq \
     --encoder castorini/dkrr-dpr-nq-retriever \
     --output runs/nq.dkrr.ans.test.trec \
     --query-prefix question: \
@@ -46,7 +23,7 @@ nohup python -m pyserini.dsearch \
 
 nohup python -m pyserini.dsearch \
     --topics dpr-trivia-test \
-    --index indexes/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2 \
+    --index wikipedia-dpr-dkrr-tqa \
     --encoder castorini/dkrr-dpr-tqa-retriever \
     --output runs/dpr-trivia.dkrr.ans.test.trec \
     --query-prefix question: \
