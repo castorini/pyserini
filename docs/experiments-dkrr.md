@@ -45,8 +45,8 @@ The expected results are as follows, shown in the "ours" column:
 
 | Metric   |  ours | orig |
 |:---------|------:|-----:|
-| Top-5    | 84.27 |
-| Top-20   | 73.80 |
+| Top-5    | 73.80 |
+| Top-20   | 84.27 |
 | Top-100  | 89.34 |
 | Top-500  | 92.24 |
 | Top-1000 | 93.43 |
