@@ -21,13 +21,13 @@ import sys
 
 from tqdm import tqdm
 
-from pyserini.dsearch import SimpleDenseSearcher
+from pyserini.search.faiss import FaissSearcher
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
 from pyserini.search.lucene import LuceneImpactSearcher, LuceneSearcher
 from pyserini.hsearch import HybridSearcher
 
-from pyserini.dsearch.__main__ import define_dsearch_args, init_query_encoder
+from pyserini.search.faiss.__main__ import define_dsearch_args, init_query_encoder
 from pyserini.search.lucene.__main__ import define_search_args, set_bm25_parameters
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
@@ -112,10 +112,10 @@ if __name__ == '__main__':
 
     if os.path.exists(args.dense.index):
         # create searcher from index directory
-        dsearcher = SimpleDenseSearcher(args.dense.index, query_encoder)
+        dsearcher = FaissSearcher(args.dense.index, query_encoder)
     else:
         # create searcher from prebuilt index name
-        dsearcher = SimpleDenseSearcher.from_prebuilt_index(args.dense.index, query_encoder)
+        dsearcher = FaissSearcher.from_prebuilt_index(args.dense.index, query_encoder)
 
     if not dsearcher:
         exit()

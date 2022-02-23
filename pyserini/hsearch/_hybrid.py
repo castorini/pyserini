@@ -20,7 +20,7 @@ This module provides Pyserini's hybrid searcher by Dense + Sparse
 
 from typing import List, Dict
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.dsearch import SimpleDenseSearcher, DenseSearchResult
+from pyserini.search.faiss import FaissSearcher, DenseSearchResult
 
 
 class HybridSearcher:
@@ -28,7 +28,7 @@ class HybridSearcher:
 
         Parameters
         ----------
-        dense_searcher : SimpleDenseSearcher
+        dense_searcher : FaissSearcher
         sparse_searcher : LuceneSearcher
     """
 

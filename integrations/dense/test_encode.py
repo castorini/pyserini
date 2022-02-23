@@ -19,7 +19,7 @@
 import os
 import shutil
 import unittest
-from pyserini.dsearch import SimpleDenseSearcher
+from pyserini.search import FaissSearcher
 from pyserini.search.lucene import LuceneImpactSearcher
 from urllib.request import urlretrieve
 
@@ -49,7 +49,7 @@ class TestSearchIntegration(unittest.TestCase):
                                   --batch 4 \
                                   --device cpu"
         _ = os.system(cmd1)
-        searcher = SimpleDenseSearcher(
+        searcher = FaissSearcher(
             index_dir,
             'facebook/dpr-question_encoder-multiset-base'
         )
