@@ -1,6 +1,6 @@
 import numpy as np
 from typing import List, Dict
-from pyserini.dsearch import PRFDenseSearchResult, AnceQueryEncoder
+from pyserini.search.faiss import PRFDenseSearchResult, AnceQueryEncoder
 from pyserini.search.lucene import LuceneSearcher
 import json
 

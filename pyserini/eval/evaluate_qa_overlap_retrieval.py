@@ -35,9 +35,7 @@ logger = logging.getLogger(__name__)
 
 DIRNAME = os.path.dirname(os.path.abspath(__file__))
 # download dependencies
-if not os.path.exists('data'):
-    DATA_DIR = os.path.join(DIRNAME, 'data')
-    os.mkdir(DATA_DIR)
+if not os.path.exists('data/nq-annotations.jsonl'):
     ANNOTATIONS_TO_DOWNLOAD = [
         ('https://dl.fbaipublicfiles.com/qaoverlap/data/nq-annotations.jsonl','nq-annotations.jsonl'),
         ('https://dl.fbaipublicfiles.com/qaoverlap/data/triviaqa-annotations.jsonl', 'triviaqa-annotations.jsonl'),
@@ -48,9 +46,9 @@ if not os.path.exists('data'):
         os.system(f'wget {link} -P data/')
 
 ANNOTATION_PATHS = {
-    'tqa': os.path.join(DIRNAME, 'data/triviaqa-annotations.jsonl'),
-    'nq': os.path.join(DIRNAME, 'data/nq-annotations.jsonl'),
-    'webquestions': os.path.join(DIRNAME, 'data/webquestions-annotations.jsonl'),
+    'tqa': os.path.join(DIRNAME, '../../data/triviaqa-annotations.jsonl'),
+    'nq': os.path.join(DIRNAME, '../../data/nq-annotations.jsonl'),
+    'webquestions': os.path.join(DIRNAME, '../../data/webquestions-annotations.jsonl'),
 }
 
 class Tokens(object):

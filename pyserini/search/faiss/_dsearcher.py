@@ -16,7 +16,7 @@
 
 """
 This module provides Pyserini's dense search interface to FAISS index.
-The main entry point is the ``SimpleDenseSearcher`` class.
+The main entry point is the ``FaissSearcher`` class.
 """
 
 import os
@@ -38,7 +38,7 @@ from pyserini.index import Document
 from ._model import AnceEncoder
 import torch
 
-from ..encode import PcaEncoder
+from ...encode import PcaEncoder
 
 if is_faiss_available():
     import faiss
@@ -337,7 +337,7 @@ class PRFDenseSearchResult:
     vectors: [float]
 
 
-class SimpleDenseSearcher:
+class FaissSearcher:
     """Simple Searcher for dense representation
 
     Parameters
@@ -375,7 +375,7 @@ class SimpleDenseSearcher:
 
         Returns
         -------
-        SimpleDenseSearcher
+        FaissSearcher
             Searcher built from the prebuilt faiss index.
         """
         print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
@@ -524,7 +524,7 @@ class SimpleDenseSearcher:
         return docids
 
 
-class BinaryDenseSearcher(SimpleDenseSearcher):
+class BinaryDenseSearcher(FaissSearcher):
     """Simple Searcher for binary-dense representation
 
     Parameters

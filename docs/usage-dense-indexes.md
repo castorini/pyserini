@@ -28,11 +28,11 @@ python -m pyserini.encode input   --corpus integrations/resources/sample_collect
                                   --batch 32 
 ```
 
-Once this is done, you can use `SimpleDenseSearcher` to search the index:
+Once this is done, you can use `FaissSearcher` to search the index:
 ```python
-from pyserini.dsearch import SimpleDenseSearcher
+from pyserini.dsearch import FaissSearcher
 
-searcher = SimpleDenseSearcher(
+searcher = FaissSearcher(
     'indexes/dindex-sample-dpr-multi', 'facebook/dpr-question_encoder-multiset-base'
 )
 hits = searcher.search('what is a lobster roll')
