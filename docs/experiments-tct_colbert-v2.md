@@ -30,7 +30,7 @@ The slight differences between the reproduced scores and those reported in the p
 Dense retrieval with TCT-ColBERT, brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index msmarco-passage-tct_colbert-v2-bf \
   --topics msmarco-passage-dev-subset \
   --encoded-queries tct_colbert-v2-msmarco-passage-dev-subset \
@@ -44,8 +44,8 @@ As an alternative, to perform "on-the-fly" query encoding, see additional instru
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval \
-    msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2.bf.tsv
 
 #####################
 MRR @10: 0.3440
@@ -71,7 +71,7 @@ recall_1000             all     0.9670
 ### TCT_ColBERT-V2-HN
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index msmarco-passage-tct_colbert-v2-hn-bf \
   --topics msmarco-passage-dev-subset \
   --encoded-queries tct_colbert-v2-hn-msmarco-passage-dev-subset \
@@ -105,7 +105,7 @@ recall_1000             all     0.9708
 ### TCT_ColBERT-V2-HN+
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index msmarco-passage-tct_colbert-v2-hnp-bf \
   --topics msmarco-passage-dev-subset \
   --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
@@ -273,7 +273,7 @@ $ python scripts/tct_colbert/merge_indexes.py \
 
 Step4: search (with on-the-fly query encoding)
 ```bash
-$ python -m pyserini.dsearch --topics msmarco-doc-dev \
+$ python -m pyserini.search.faiss --topics msmarco-doc-dev \
 	--index <path_to_index>/msmarco-tct_colbert-v2-hnp-msmarco-full-maxp \
 	--encoder castorini/tct_colbert-v2-hnp-msmarco \
 	--output runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.txt \
@@ -284,7 +284,7 @@ $ python -m pyserini.dsearch --topics msmarco-doc-dev \
 	--batch-size 144 \
 	--threads 36
 
-$ python -m pyserini.dsearch --topics dl19-doc \
+$ python -m pyserini.search.faiss --topics dl19-doc \
 	--index <path_to_index>/msmarco-tct_colbert-v2-hnp-msmarco-full-maxp \
 	--encoder castorini/tct_colbert-v2-hnp-msmarco \
 	--output runs/run.dl19-doc.passage.tct_colbert-v2-hnp-maxp.txt \

@@ -17,7 +17,7 @@ Thus, while the scoring script provides results to much higher precision, we hav
 **ANCE retrieval** with brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index msmarco-passage-ance-bf \
   --topics msmarco-passage-dev-subset \
   --encoded-queries ance-msmarco-passage-dev-subset \
@@ -32,7 +32,8 @@ As an alternative, replace with `--encoder castorini/ance-msmarco-passage` to pe
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.ance.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.ance.bf.tsv
 
 #####################
 MRR @10: 0.3302
@@ -48,7 +49,8 @@ $ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
     --input runs/run.msmarco-passage.ance.bf.tsv \
     --output runs/run.msmarco-passage.ance.bf.trec
 
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.ance.bf.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.ance.bf.trec
 
 map                   	all	0.3362
 recall_1000           	all	0.9584
@@ -59,7 +61,7 @@ recall_1000           	all	0.9584
 **ANCE retrieval** with brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index msmarco-doc-ance-maxp-bf \
   --topics msmarco-doc-dev \
   --encoded-queries ance_maxp-msmarco-doc-dev \
@@ -104,7 +106,7 @@ recall_100            	all	0.9033
 **ANCE retrieval** with brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index wikipedia-ance-multi-bf \
   --topics dpr-nq-test \
   --encoded-queries ance_multi-nq-test \
@@ -136,7 +138,7 @@ Top100	accuracy: 0.8787
 **ANCE retrieval** with brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index wikipedia-ance-multi-bf \
   --topics dpr-trivia-test \
   --encoded-queries ance_multi-trivia-test \

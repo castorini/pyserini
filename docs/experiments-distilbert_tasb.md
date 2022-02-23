@@ -14,7 +14,7 @@ Thus, while the scoring script provides results to much higher precision, we hav
 Dense retrieval, with brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
   --topics msmarco-passage-dev-subset \
   --encoded-queries distilbert_tas_b-msmarco-passage-dev-subset \

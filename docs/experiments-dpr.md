@@ -88,7 +88,7 @@ Top100 accuracy: 0.8609
 **BM25 retrieval**:
 
 ```bash
-python -m pyserini.search.lucene.lucene \
+python -m pyserini.search.lucene \
   --index wikipedia-dpr \
   --topics dpr-nq-test \
   --output runs/run.dpr.nq-test.bm25.trec
