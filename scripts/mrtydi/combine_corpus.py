@@ -11,8 +11,6 @@ def main(input_dir, output_dir):
     with open(os.path.join(output_dir, 'combined-corpus.jsonl'), 'w') as fout:
         for lang in tqdm(langs, desc="Merging corpus."):
             gz_fn = f"{input_dir}/{lang}/corpus.jsonl.gz"
-            if not os.path.exists(gz_fn):
-                continue
             with gzip.open(gz_fn, 'rb') as fin:
                 for line in fin:
                     obj = json.loads(line.decode())
