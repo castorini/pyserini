@@ -14,6 +14,6 @@
 # limitations under the License.
 #
 
-from ._hybrid import HybridSearcher
+from ._searcher import HybridSearcher
 
 __all__ = ['HybridSearcher']
