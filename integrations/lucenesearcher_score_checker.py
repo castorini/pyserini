@@ -27,7 +27,7 @@ class LuceneSearcherScoreChecker:
         self.qrels = qrels
         self.pyserini_topics = pyserini_topics
 
-        self.pyserini_base_cmd = 'python -m pyserini.search'
+        self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
 
         self.eval_base_cmd = eval
 
@@ -47,7 +47,7 @@ class LuceneSearcherScoreChecker:
         pyserini_cmd = f'{self.pyserini_base_cmd} --index {self.index_path} ' \
                        + f'--topics {self.pyserini_topics} --output {pyserini_output} {pyserini_extras}'
 
-        if tokenizer != None:
+        if tokenizer is not None:
             pyserini_cmd = pyserini_cmd + f' --tokenizer {tokenizer}'
 
         status = os.system(pyserini_cmd)
