@@ -61,12 +61,6 @@ class ColBERT(BertPreTrainedModel):
         ]
         return mask
 
-    def forward(self, Q, D):
-        q_reps, _ = self.query(Q)
-        d_reps, d_lens = self.doc(D)
-        d_mask = D['attention_mask'].unsqueeze(-1)
-        return self.score(q_reps, d_reps, d_mask)
-
     def query(self, inputs):
         Q = self.bert(**inputs)[0] # last-layer hidden state
         # Q: (B, Lq, H) -> (B, Lq, dim)
@@ -77,8 +71,8 @@ class ColBERT(BertPreTrainedModel):
 
     def doc(self, inputs):
         D = self.bert(**inputs)[0]
-        D = self.linear(D)
-        # apply mask
+        D = self.linear(D) # (B, Ld, dim)
+        # apply punctuation mask
         if self.skiplist:
             ids = inputs['input_ids']
             mask = torch.tensor(self.punct_mask(ids), device=ids.device)
@@ -89,10 +83,17 @@ class ColBERT(BertPreTrainedModel):
     def score(self, Q, D, mask):
         # (B, Ld, dim) x (B, dim, Lq) -> (B, Ld, Lq)
         cmp_matrix = D @ Q.permute(0, 2, 1)
+        # only mask doc dim, query dim will be filled with [MASK]s
         cmp_matrix = cmp_matrix * mask # [B, Ld, Lq]
         best_match = cmp_matrix.max(1).values # best match per query
         scores = best_match.sum(-1) # sum score over each query
         return scores, cmp_matrix
+
+    def forward(self, Q, D):
+        q_reps, _ = self.query(Q)
+        d_reps, _ = self.doc(D)
+        d_mask = D['attention_mask'].unsqueeze(-1)
+        return self.score(q_reps, d_reps, d_mask)
 
 
 class ColBERT_distil(DistilBertPreTrainedModel):
