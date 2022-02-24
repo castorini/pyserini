@@ -14,6 +14,6 @@
 # limitations under the License.
 #
 
-from ._vsearcher import SearchResult, NmslibSearcher
+from ._searcher import SearchResult, NmslibSearcher
 
 __all__ = ['SearchResult', 'NmslibSearcher']

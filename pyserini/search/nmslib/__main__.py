@@ -19,7 +19,7 @@ import json
 import time
 from tqdm import tqdm
 
-from pyserini.search.nmslib import NmslibSearcher
+from ._searcher import NmslibSearcher
 from pyserini.output_writer import get_output_writer, OutputFormat, tie_breaker
 
 if __name__ == '__main__':
