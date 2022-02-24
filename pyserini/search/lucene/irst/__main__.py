@@ -15,9 +15,7 @@
 #
 import argparse
 import json
-import os
-import subprocess
-from pyserini.search.lucene.irst import TranslationProbabilitySearcher
+from pyserini.search.lucene.irst import LuceneIrstSearcher
 from typing import List
 
 
@@ -109,7 +107,7 @@ if __name__ == "__main__":
 
     f = open(args.output, 'w')
 
-    reranker = TranslationProbabilitySearcher(
+    reranker = LuceneIrstSearcher(
         args.tran_path, args.index, args.field_name)
     queries = query_loader(args.query_path)
     i = 0

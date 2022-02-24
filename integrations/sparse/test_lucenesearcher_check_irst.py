@@ -19,7 +19,7 @@ from shutil import rmtree
 import unittest
 
 
-class TestLtrMsmarcoPassageIbm(unittest.TestCase):
+class TestLtrMsmarcoPassageIRST(unittest.TestCase):
     def setUp(self):
         curdir = os.getcwd()
         if curdir.endswith('sparse'):
