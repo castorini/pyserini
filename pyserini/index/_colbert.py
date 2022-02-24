@@ -105,7 +105,7 @@ class ColBertIndexer:
         train_data = torch.cat(train_data)
         train_data = train_data.numpy()
         print('Final training samples', train_data.shape)
-        if train_data.shape[0] < 256:
+        if train_data.shape[0] < 4096:
             # MOCK on toy dataset
             train_data = np.random.rand(9984, self.dim)
             train_data = train_data.astype('float32')

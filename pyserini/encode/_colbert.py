@@ -230,6 +230,7 @@ class ColBertEncoder(DocumentEncoder):
             for b, ids in enumerate(enc_tokens['input_ids']):
                 print(f'--- ColBertEncoder Batch#{b} ---')
                 print(self.tokenizer.decode(ids))
+                break
 
         # actual encoding
         if fp16:
