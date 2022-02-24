@@ -28,7 +28,7 @@ Summary of results:
 Dense retrieval with TCT-ColBERT, brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index msmarco-passage-tct_colbert-bf \
   --topics msmarco-passage-dev-subset \
   --encoded-queries tct_colbert-msmarco-passage-dev-subset \
@@ -43,8 +43,8 @@ As an alternative, to perform "on-the-fly" query encoding, see additional instru
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval \
-    msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert.bf.tsv
 
 #####################
 MRR @10: 0.3350
@@ -74,7 +74,7 @@ To perform query encoding on the GPU, use the option `--device cuda:0`.
 Dense retrieval with TCT-ColBERT, HNSW index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index msmarco-passage-tct_colbert-hnsw \
   --topics msmarco-passage-dev-subset \
   --output runs/run.msmarco-passage.tct_colbert.hnsw.tsv \
@@ -84,8 +84,8 @@ python -m pyserini.dsearch \
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval \
-    msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.hnsw.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert.hnsw.tsv
 
 #####################
 MRR @10: 0.3345
@@ -127,8 +127,8 @@ python -m pyserini.hsearch \
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval \
-    msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv
 
 #####################
 MRR @10: 0.3529
@@ -168,8 +168,8 @@ python -m pyserini.hsearch \
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval \
-    msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv
 
 #####################
 MRR @10: 0.3647
@@ -207,7 +207,7 @@ The score of a document is the maximum score of all passages in that document.
 Dense retrieval using a brute force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index msmarco-doc-tct_colbert-bf \
   --topics msmarco-doc-dev \
   --encoded-queries tct_colbert-msmarco-doc-dev \

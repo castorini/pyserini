@@ -118,7 +118,7 @@ The `FaissSearcher` class provides the entry point for dense retrieval, and its 
 The only additional thing we need to specify for dense retrieval is the query encoder.
 
 ```python
-from pyserini.dsearch import FaissSearcher, TctColBertQueryEncoder
+from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
 
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
 searcher = FaissSearcher.from_prebuilt_index(
@@ -159,7 +159,7 @@ The `HybridSearcher` class provides the entry point to perform hybrid sparse-den
 
 ```python
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.dsearch import FaissSearcher, TctColBertQueryEncoder
+from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
 from pyserini.hsearch import HybridSearcher
 
 ssearcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')

@@ -13,7 +13,7 @@ Thus, while the scoring script provides results to much higher precision, we hav
 Dense retrieval, brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index msmarco-passage-sbert-bf \
   --topics msmarco-passage-dev-subset \
   --encoded-queries sbert-msmarco-passage-dev-subset \
@@ -27,8 +27,8 @@ Replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbe
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval \
-    msmarco-passage-dev-subset runs/run.msmarco-passage.sbert.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.sbert.bf.tsv
 
 #####################
 MRR @10: 0.3314
