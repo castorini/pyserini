@@ -17,7 +17,6 @@
 from .lucene import JQuery, JDisjunctionMaxQueryGenerator, get_topics,\
     get_topics_with_reader, get_qrels_file, get_qrels
 from .lucene import JLuceneSearcherResult, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
-from .lucene import SimpleNearestNeighborSearcher, JSimpleNearestNeighborSearcherResult
 from .lucene import JImpactSearcherResult, LuceneImpactSearcher
 from ._deprecated import SimpleSearcher, ImpactSearcher, SimpleFusionSearcher
 
@@ -27,12 +26,34 @@ from .faiss import AnceEncoder
 from .faiss import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
 
 
-__all__ = ['JQuery', 'LuceneSimilarities', 'LuceneFusionSearcher', 'LuceneSearcher',
-           'JLuceneSearcherResult', 'SimpleNearestNeighborSearcher', 'JSimpleNearestNeighborSearcherResult',
-           'LuceneImpactSearcher', 'JImpactSearcherResult', 'JDisjunctionMaxQueryGenerator', 'get_topics',
-           'get_topics_with_reader', 'get_qrels_file', 'get_qrels',
-           'SimpleSearcher', 'ImpactSearcher', 'SimpleFusionSearcher',
-           'DenseSearchResult', 'PRFDenseSearchResult', 'FaissSearcher', 'BinaryDenseSearcher', 'QueryEncoder',
-           'DprQueryEncoder', 'BprQueryEncoder', 'DkrrDprQueryEncoder', 'TctColBertQueryEncoder', 'AnceEncoder',
-           'AnceQueryEncoder', 'AutoQueryEncoder', 'DenseVectorAveragePrf', 'DenseVectorRocchioPrf', 'DenseVectorAncePrf']
+__all__ = ['JQuery',
+           'LuceneSimilarities',
+           'LuceneFusionSearcher',
+           'LuceneSearcher',
+           'JLuceneSearcherResult',
+           'LuceneImpactSearcher',
+           'JImpactSearcherResult',
+           'JDisjunctionMaxQueryGenerator',
+           'get_topics',
+           'get_topics_with_reader',
+           'get_qrels_file',
+           'get_qrels',
+           'SimpleSearcher',
+           'ImpactSearcher',
+           'SimpleFusionSearcher',
+           'DenseSearchResult',
+           'PRFDenseSearchResult',
+           'FaissSearcher',
+           'BinaryDenseSearcher',
+           'QueryEncoder',
+           'DprQueryEncoder',
+           'BprQueryEncoder',
+           'DkrrDprQueryEncoder',
+           'TctColBertQueryEncoder',
+           'AnceEncoder',
+           'AnceQueryEncoder',
+           'AutoQueryEncoder',
+           'DenseVectorAveragePrf',
+           'DenseVectorRocchioPrf',
+           'DenseVectorAncePrf']
 
