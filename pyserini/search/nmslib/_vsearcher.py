@@ -29,7 +29,7 @@ class SearchResult:
     score: float
 
 
-class SimpleVectorSearcher:
+class NmslibSearcher:
     """Simple Searcher for vector representation
     """
 
