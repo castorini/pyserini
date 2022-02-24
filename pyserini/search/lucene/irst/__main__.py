@@ -17,7 +17,7 @@ import argparse
 import json
 import os
 import subprocess
-from pyserini.search.lucene.tprob import TranslationProbabilitySearcher
+from pyserini.search.lucene.irst import TranslationProbabilitySearcher
 from typing import List
 
 
@@ -44,6 +44,7 @@ def query_loader(query_path: str):
             query['text_bert_tok'] = query['text_bert_tok']
             queries[qid] = query
     return queries
+
 
 def baseline_loader(base_path: str):
     result_dic = {}
@@ -111,7 +112,6 @@ if __name__ == "__main__":
     reranker = TranslationProbabilitySearcher(
         args.tran_path, args.index, args.field_name)
     queries = query_loader(args.query_path)
-    baseline_dic = baseline_loader(args.base_path)
     i = 0
     for topic in queries.keys():
         if i % 100 == 0:
@@ -119,6 +119,7 @@ if __name__ == "__main__":
         query_text_field = queries[topic][args.field_name]
         query_text = queries[topic]['raw']
         if args.base_path:
+            baseline_dic = baseline_loader(args.base_path)
             docids, rank_scores, base_scores = reranker.rerank(
                 query_text, query_text_field, baseline_dic[topic], args.max_sim)
         else:
