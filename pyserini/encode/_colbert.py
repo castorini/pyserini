@@ -163,9 +163,10 @@ class ColBERT_distil(DistilBertPreTrainedModel):
 
 
 class ColBertEncoder(DocumentEncoder):
-    def __init__(self, model: str, prepend_tok: str,
-        maxlen: Optional[int] = None, tokenizer: Optional[str] = None,
-        device: Optional[str] = 'cuda:0', query_augment: bool = False):
+    def __init__(self, model: str, prepend_tok: str, max_ql=32, max_dl=128,
+        tokenizer: Optional[str] = None, device: Optional[str] = 'cuda:0',
+        query_augment: bool = False):
+
         # determine encoder prepend token
         prepend_tokens = ['[Q]', '[D]']
         assert prepend_tok in prepend_tokens
@@ -180,7 +181,7 @@ class ColBertEncoder(DocumentEncoder):
             self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
             self.model = ColBERT_distil.from_pretrained(model)
             self.dim = self.model.config.code_dim
-            self.maxlen = {'[Q]': 32, '[D]': 128}[prepend_tok]
+            self.maxlen = {'[Q]': max_ql, '[D]': max_dl}[prepend_tok]
             self.prepend = False
         else:
             print('Using vanilla ColBERT:', model, tokenizer)
@@ -188,7 +189,7 @@ class ColBertEncoder(DocumentEncoder):
                 tie_word_embeddings=True
             )
             self.dim = 128
-            self.maxlen = {'[Q]': 32, '[D]': 128}[prepend_tok]
+            self.maxlen = {'[Q]': max_ql, '[D]': max_dl}[prepend_tok]
             self.prepend = True
             # load tokenizer and add special tokens
             self.tokenizer = BertTokenizer.from_pretrained(tokenizer or model)
