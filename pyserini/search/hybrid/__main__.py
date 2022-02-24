@@ -25,7 +25,7 @@ from pyserini.search.faiss import FaissSearcher
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
 from pyserini.search.lucene import LuceneImpactSearcher, LuceneSearcher
-from pyserini.hsearch import HybridSearcher
+from pyserini.search.hybrid import HybridSearcher
 
 from pyserini.search.faiss.__main__ import define_dsearch_args, init_query_encoder
 from pyserini.search.lucene.__main__ import define_search_args, set_bm25_parameters
