@@ -31,7 +31,7 @@ class TestLtrMsmarcoPassage(unittest.TestCase):
 
         # Download prebuilt index
         LuceneSearcher.from_prebuilt_index('msmarco-passage-ltr')
-        os.system(f'python -m pyserini.search --topics msmarco-passage-dev-subset  \
+        os.system(f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset  \
             --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ \
             --output ltr_test/{inp} --bm25 --output-format msmarco \
             --hits 1000 --k1 0.82 --b 0.68')

@@ -32,7 +32,7 @@ class TestLtrMsmarcoDocument(unittest.TestCase):
         # Download prebuilt index
         # Retrieve candidate
         LuceneSearcher.from_prebuilt_index('msmarco-doc-per-passage-ltr')
-        os.system(f'python -m pyserini.search --topics msmarco-doc-dev \
+        os.system(f'python -m pyserini.search.lucene --topics msmarco-doc-dev \
                 --index ~/.cache/pyserini/indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.bd60e89041b4ebbabc4bf0cfac608a87/ \
                 --output ltr_test/{inp} --bm25 \
                 --output-format trec \
