@@ -13,24 +13,24 @@ This guide provides instructions to reproduce the BPR's results.
 
 Here's how our results stack up against results reported in the paper using the BPR model (index 2.3 GB + model 0.4 GB):
 
-| Dataset     | Method        | Top-20 (orig) | Top-20 (us)| Top-100 (orig) | Top-100 (us)|
-|:------------|:--------------|--------------:|-----------:|---------------:|------------:|
-| NQ          | BPR           | 77.9          |    77.9    | 85.7           | 85.7        | 
-| NQ          | BPR w/o reranking          | 76.5          |    76.0    | 84.9           | 85.0        |
+| Dataset     | Method            | Top-20 (orig) | Top-20 (us) | Top-100 (orig) | Top-100 (us) |
+|:------------|:------------------|--------------:|------------:|---------------:|-------------:|
+| NQ          | BPR               |          77.9 |        77.9 |           85.7 |         85.7 |
+| NQ          | BPR w/o reranking |          76.5 |        76.0 |           84.9 |         85.0 |
 
 ## Natural Questions (NQ) with BPR
 
 BPR with brute-force index:
 
 ```bash
-$ python -m pyserini.dsearch --topics dpr-nq-test \
-                             --index wikipedia-bpr-single-nq-hash \
-                             --encoded-queries bpr_single_nq-nq-test \
-                             --output runs/run.bpr.rerank.nq-test.nq.hash.trec \
-                             --rerank \
-                             --hits 100 --binary-hits 1000 \
-                             --batch-size 36 --threads 12 \
-                             --searcher bpr
+python -m pyserini.dsearch \
+  --index wikipedia-bpr-single-nq-hash \
+  --topics dpr-nq-test \
+  --encoded-queries bpr_single_nq-nq-test \
+  --output runs/run.bpr.rerank.nq-test.nq.hash.trec \
+  --batch-size 36 --threads 12 \
+  --hits 100 --binary-hits 1000 \
+  --searcher bpr --rerank
 ```
 
 The option `--encoded-queries` specifies the use of encoded queries (i.e., queries that have already been converted into dense vectors and cached).
@@ -38,12 +38,16 @@ The option `--encoded-queries` specifies the use of encoded queries (i.e., queri
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
-                                                                --index wikipedia-dpr \
-                                                                --input runs/run.bpr.rerank.nq-test.nq.hash.trec \
-                                                                --output runs/run.bpr.rerank.nq-test.nq.hash.json
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+    --index wikipedia-dpr \
+    --topics dpr-nq-test \
+    --input runs/run.bpr.rerank.nq-test.nq.hash.trec \
+    --output runs/run.bpr.rerank.nq-test.nq.hash.json
 
-$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.bpr.rerank.nq-test.nq.hash.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval \
+    --retrieval runs/run.bpr.rerank.nq-test.nq.hash.json \
+    --topk 20 100
+
 Top20  accuracy: 0.779
 Top100 accuracy: 0.857
 ```

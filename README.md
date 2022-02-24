@@ -114,14 +114,14 @@ Alternatively, see [this answer](docs/usage-interactive-search.md#how-do-i-manua
 
 ### Dense Retrieval
 
-The `SimpleDenseSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `LuceneSearcher`.
+The `FaissSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `LuceneSearcher`.
 The only additional thing we need to specify for dense retrieval is the query encoder.
 
 ```python
-from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
+from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
 
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-searcher = SimpleDenseSearcher.from_prebuilt_index(
+searcher = FaissSearcher.from_prebuilt_index(
     'msmarco-passage-tct_colbert-hnsw',
     encoder
 )
@@ -159,12 +159,12 @@ The `HybridSearcher` class provides the entry point to perform hybrid sparse-den
 
 ```python
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
+from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
 from pyserini.hsearch import HybridSearcher
 
 ssearcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-dsearcher = SimpleDenseSearcher.from_prebuilt_index(
+dsearcher = FaissSearcher.from_prebuilt_index(
     'msmarco-passage-tct_colbert-hnsw',
     encoder
 )
@@ -393,6 +393,7 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + Reproducing [Vector PRF experiments](docs/experiments-vector-prf.md)
 + Reproducing [ANCE-PRF experiments](docs/experiments-ance-prf.md)
 + Reproducing [Mr. TyDi experiments](https://github.com/castorini/mr.tydi/blob/main/README.md#2-mdpr)
++ Reproducing [DKRR experiments](docs/experiments-dkrr.md)
 
 ### Hybrid Sparse-Dense Retrieval
 

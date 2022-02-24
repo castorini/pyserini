@@ -1,6 +1,6 @@
 # msmarco-v2-doc-segmented
 
-Lucene index of the MS MARCO (V2) segmented document corpus.
+Lucene index of the MS MARCO V2 segmented document corpus.
 
 This index was generated on 2022/01/11 at Anserini commit [`06fb4f`](https://github.com/castorini/anserini/commit/06fb4f9947ff2167c276d8893287453af7680786) on `orca` with the following command:
 
