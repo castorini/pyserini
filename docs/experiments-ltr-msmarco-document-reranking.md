@@ -1,4 +1,4 @@
-# Pyserini: Learning-To-Rank Reranking Baseline for MS MARCO Document
+# Pyserini: LTR Filtering for MS MARCO Document
 
 This guide contains instructions for running learning-to-rank baseline on the [MS MARCO *document* reranking task](https://microsoft.github.io/msmarco/).
 Learning-to-rank serves as a second stage reranker after BM25 retrieval.
@@ -82,6 +82,8 @@ python scripts/ltr_msmarco/generate_document_score_withmaxP.py \
       --input runs/run.ltr.doc-pas.trec \
       --output runs/run.ltr.doc_level.tsv
 ```
+
+**TODO**: can we add the maxP option directly in the searcher?
 
 ```bash
 python tools/scripts/msmarco/msmarco_doc_eval.py \

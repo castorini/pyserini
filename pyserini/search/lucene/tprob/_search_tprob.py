@@ -23,14 +23,14 @@ import json
 import math
 import struct
 from multiprocessing.pool import ThreadPool
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 from pyserini.pyclass import autoclass
 from pyserini.util import download_prebuilt_index
 from typing import Dict
 
 # Wrappers around Anserini classes
 JQuery = autoclass('org.apache.lucene.search.Query')
-JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
+JLuceneSearcher = autoclass('io.anserini.search.SimpleSearcher')
 JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 JTerm = autoclass('org.apache.lucene.index.Term')
 
@@ -43,12 +43,13 @@ class TranslationProbabilitySearcher(object):
 
     def __init__(self, ibm_model: str, index: str, field_name: str):
         self.ibm_model = ibm_model
-        self.object = JSimpleSearcher(index)
+        self.object = JLuceneSearcher(index)
         self.index_reader = JIndexReader().getReader(index)
         self.field_name = field_name
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
         self.pool = ThreadPool(24)
-        self.bm25search = SimpleSearcher('indexes/index-msmarco-passage-ltr-20210519-e25e33f/')
+        self.bm25search = LuceneSearcher.from_prebuilt_index("msmarco-passage")
+
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str):
@@ -61,7 +62,7 @@ class TranslationProbabilitySearcher(object):
 
         Returns
         -------
-        SimpleSearcher
+        LuceneSearcher
             Searcher built from the prebuilt index.
         """
         print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
@@ -196,6 +197,28 @@ class TranslationProbabilitySearcher(object):
         bm25_results = self.bm25search.search(query_text, hits)
         origin_scores = [bm25_result.score for bm25_result in bm25_results]
         test_docs = [bm25_result.docid for bm25_result in bm25_results]
+        if (test_docs == []):
+            print(query_text)
+
+        query_text_lst = query_field_text.split(' ')
+        total_term_freq = self.index_reader.getSumTotalTermFreq(self.field_name)
+        collect_probs = {}
+        for querytoken in query_text_lst:
+            collect_probs[querytoken] = max(self.index_reader.totalTermFreq(
+                JTerm(self.field_name, querytoken)) / total_term_freq,
+                self.MIN_COLLECT_PROB)
+
+        arguments = [(
+            query_text_lst, test_doc, self.object, self.field_name,
+            self.source_lookup, self.target_lookup,
+            self.tran, collect_probs, max_sim)
+            for test_doc in test_docs]
+
+        rank_scores = self.pool.map(self.get_ibm_score, arguments)
+        return test_docs, rank_scores, origin_scores
+
+    def rerank(self, query_text, query_field_text, baseline, max_sim):
+        test_docs, origin_scores = baseline
         if (test_docs == []):
             print(query_text)
 

@@ -14,10 +14,12 @@
 # limitations under the License.
 #
 
-from ._dsearcher import DenseSearchResult, PRFDenseSearchResult, SimpleDenseSearcher, BinaryDenseSearcher, QueryEncoder, \
+from pyserini.search.faiss import DenseSearchResult, PRFDenseSearchResult,  QueryEncoder, \
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
-from ._model import AnceEncoder
-from._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
+from pyserini.search.faiss import AnceEncoder
+from pyserini.search.faiss import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
+from ._deprecated import SimpleDenseSearcher, BinaryDenseSearcher
+
 
 __all__ = ['DenseSearchResult', 'PRFDenseSearchResult', 'SimpleDenseSearcher', 'BinaryDenseSearcher', 'QueryEncoder',
            'DprQueryEncoder', 'BprQueryEncoder', 'DkrrDprQueryEncoder', 'TctColBertQueryEncoder', 'AnceEncoder',

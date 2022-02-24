@@ -22,7 +22,7 @@ import sys
 # Comment these lines out to use a pip-installed one instead.
 sys.path.insert(0, './')
 
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 
 
 if __name__ == '__main__':
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     parser.add_argument('--index', type=str, help='index location', required=True)
     args = parser.parse_args()
 
-    searcher = SimpleSearcher(args.index)
+    searcher = LuceneSearcher(args.index)
     with open(args.qrels, 'r') as reader:
         for line in reader.readlines():
             arr = line.split('\t')

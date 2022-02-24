@@ -1,7 +1,7 @@
 # Pyserini: Reproducing Robust04 Baselines
 
 The `SimpleSearcher` class provides the entry point for searching.
-Pyserini provides, out of the box, a pre-built index for TREC Disks 4 &amp; 5, used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md):
+Pyserini provides, out of the box, a pre-built index for TREC Disks 4 &amp; 5, used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-disk45.md):
 
 ```python
 from pyserini.search import SimpleSearcher

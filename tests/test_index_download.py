@@ -18,18 +18,18 @@ import os
 import shutil
 import unittest
 
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 
 
 class TestIndexDownload(unittest.TestCase):
 
     def test_default_cache(self):
-        SimpleSearcher.from_prebuilt_index('cacm')
+        LuceneSearcher.from_prebuilt_index('cacm')
         self.assertTrue(os.path.exists(os.path.expanduser('~/.cache/pyserini/indexes')))
 
     def test_custom_cache(self):
         os.environ['PYSERINI_CACHE'] = 'temp_dir'
-        SimpleSearcher.from_prebuilt_index('cacm')
+        LuceneSearcher.from_prebuilt_index('cacm')
         self.assertTrue(os.path.exists('temp_dir/indexes'))
 
     def tearDown(self):
