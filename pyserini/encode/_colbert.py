@@ -61,12 +61,6 @@ class ColBERT(BertPreTrainedModel):
         ]
         return mask
 
-    def forward(self, Q, D):
-        q_reps, _ = self.query(Q)
-        d_reps, d_lens = self.doc(D)
-        d_mask = D['attention_mask'].unsqueeze(-1)
-        return self.score(q_reps, d_reps, d_mask)
-
     def query(self, inputs):
         Q = self.bert(**inputs)[0] # last-layer hidden state
         # Q: (B, Lq, H) -> (B, Lq, dim)
@@ -77,8 +71,8 @@ class ColBERT(BertPreTrainedModel):
 
     def doc(self, inputs):
         D = self.bert(**inputs)[0]
-        D = self.linear(D)
-        # apply mask
+        D = self.linear(D) # (B, Ld, dim)
+        # apply punctuation mask
         if self.skiplist:
             ids = inputs['input_ids']
             mask = torch.tensor(self.punct_mask(ids), device=ids.device)
@@ -89,10 +83,17 @@ class ColBERT(BertPreTrainedModel):
     def score(self, Q, D, mask):
         # (B, Ld, dim) x (B, dim, Lq) -> (B, Ld, Lq)
         cmp_matrix = D @ Q.permute(0, 2, 1)
+        # only mask doc dim, query dim will be filled with [MASK]s
         cmp_matrix = cmp_matrix * mask # [B, Ld, Lq]
         best_match = cmp_matrix.max(1).values # best match per query
         scores = best_match.sum(-1) # sum score over each query
         return scores, cmp_matrix
+
+    def forward(self, Q, D):
+        q_reps, _ = self.query(Q)
+        d_reps, _ = self.doc(D)
+        d_mask = D['attention_mask'].unsqueeze(-1)
+        return self.score(q_reps, d_reps, d_mask)
 
 
 class ColBERT_distil(DistilBertPreTrainedModel):
@@ -162,9 +163,10 @@ class ColBERT_distil(DistilBertPreTrainedModel):
 
 
 class ColBertEncoder(DocumentEncoder):
-    def __init__(self, model: str, prepend_tok: str,
-        maxlen: Optional[int] = None, tokenizer: Optional[str] = None,
-        device: Optional[str] = 'cuda:0', query_augment: bool = False):
+    def __init__(self, model: str, prepend_tok: str, max_ql=32, max_dl=128,
+        tokenizer: Optional[str] = None, device: Optional[str] = 'cuda:0',
+        query_augment: bool = False, use_puct_mask: bool = True):
+
         # determine encoder prepend token
         prepend_tokens = ['[Q]', '[D]']
         assert prepend_tok in prepend_tokens
@@ -179,7 +181,7 @@ class ColBertEncoder(DocumentEncoder):
             self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
             self.model = ColBERT_distil.from_pretrained(model)
             self.dim = self.model.config.code_dim
-            self.maxlen = {'[Q]': 32, '[D]': 128}[prepend_tok]
+            self.maxlen = {'[Q]': max_ql, '[D]': max_dl}[prepend_tok]
             self.prepend = False
         else:
             print('Using vanilla ColBERT:', model, tokenizer)
@@ -187,7 +189,7 @@ class ColBertEncoder(DocumentEncoder):
                 tie_word_embeddings=True
             )
             self.dim = 128
-            self.maxlen = {'[Q]': 32, '[D]': 128}[prepend_tok]
+            self.maxlen = {'[Q]': max_ql, '[D]': max_dl}[prepend_tok]
             self.prepend = True
             # load tokenizer and add special tokens
             self.tokenizer = BertTokenizer.from_pretrained(tokenizer or model)
@@ -195,6 +197,8 @@ class ColBertEncoder(DocumentEncoder):
                 'additional_special_tokens': self.actual_prepend_tokens
             })
             self.model.resize_token_embeddings(len(self.tokenizer))
+
+        if use_puct_mask:
             # mask punctuations
             self.model.use_puct_mask(self.tokenizer)
 
@@ -230,6 +234,7 @@ class ColBertEncoder(DocumentEncoder):
             for b, ids in enumerate(enc_tokens['input_ids']):
                 print(f'--- ColBertEncoder Batch#{b} ---')
                 print(self.tokenizer.decode(ids))
+                break
 
         # actual encoding
         if fp16:

@@ -35,6 +35,7 @@ The resulting speed and index size for MS MARCO passage DEV set (containing 6980
 | 8 hr 30 m | 3 hr 51 m | 277 GiB    |
 
 Here queries are running slower than the original implementation because we load and spill each "division" into GPU for each query in order to support loading unlimited index shards for one process.
+For indexing, large batch size (the original paper used 4 GPU for index encoding), indexing optimization tricks, and parallelizing both FAISS and flat index building processes can be further applied to improve the speed.
 
 ## Result reproduction
 
