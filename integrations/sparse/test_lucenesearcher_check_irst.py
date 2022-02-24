@@ -41,17 +41,17 @@ class TestLtrMsmarcoPassageIRST(unittest.TestCase):
         # qrel
         self.qrels_path = f'{self.pyserini_root}/tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt'
 
-    def test_ibm_reranking(self):
+    def test_sum_aggregation(self):
         os.system('python -m pyserini.search.lucene.irst \
             --qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
             --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
             --query_path irst_test/queries.dev.small.json \
             --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ \
-            --output irst_test/regression_test_ibm.txt \
+            --output irst_test/regression_test_sum.txt \
             --alpha 0.1 ')
 
         score_cmd = f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval \
-                -c -M1000 -m map -m ndcg_cut.20 {self.qrels_path} irst_test/regression_test_ibm.txt'
+                -c -M1000 -m map -m ndcg_cut.20 {self.qrels_path} irst_test/regression_test_sum.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
@@ -63,18 +63,18 @@ class TestLtrMsmarcoPassageIRST(unittest.TestCase):
         self.assertEqual(map_score, 0.2294)
         self.assertEqual(ndcg_score, 0.2997)
 
-    def test_colbert_reranking(self):
+    def test_max_aggregation(self):
         os.system('python -m pyserini.search.lucene.irst \
             --qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
             --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
             --query_path irst_test/queries.dev.small.json \
             --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ \
-            --output irst_test/regression_test_colbert.txt \
+            --output irst_test/regression_test_max.txt \
             --alpha 0.3 \
             --max_sim')
 
         score_cmd = f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval \
-                -c -M1000 -m map -m ndcg_cut.20 {self.qrels_path} irst_test/regression_test_colbert.txt'
+                -c -M1000 -m map -m ndcg_cut.20 {self.qrels_path} irst_test/regression_test_max.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
