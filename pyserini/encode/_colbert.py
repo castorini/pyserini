@@ -165,7 +165,7 @@ class ColBERT_distil(DistilBertPreTrainedModel):
 class ColBertEncoder(DocumentEncoder):
     def __init__(self, model: str, prepend_tok: str, max_ql=32, max_dl=128,
         tokenizer: Optional[str] = None, device: Optional[str] = 'cuda:0',
-        query_augment: bool = False):
+        query_augment: bool = False, use_puct_mask: bool = True):
 
         # determine encoder prepend token
         prepend_tokens = ['[Q]', '[D]']
@@ -197,6 +197,8 @@ class ColBertEncoder(DocumentEncoder):
                 'additional_special_tokens': self.actual_prepend_tokens
             })
             self.model.resize_token_embeddings(len(self.tokenizer))
+
+        if use_puct_mask:
             # mask punctuations
             self.model.use_puct_mask(self.tokenizer)
 
