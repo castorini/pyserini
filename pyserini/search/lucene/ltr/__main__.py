@@ -218,7 +218,7 @@ def output(file, dev_data, format):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Learning to rank reranking')
     parser.add_argument('--input', required=True)
-    parser.add_argument('--reranking-top', type=int, default=1000)
+    parser.add_argument('--reranking-top', type=int, default=10000)
     parser.add_argument('--input-format', required=True)
     parser.add_argument('--model', required=True)
     parser.add_argument('--index', required=True)

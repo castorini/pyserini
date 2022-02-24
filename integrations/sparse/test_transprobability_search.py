@@ -54,8 +54,8 @@ class TestLtrMsmarcoPassageIbm(unittest.TestCase):
             self.assertEqual("0.2234", data['map'])
             self.assertEqual("0.2907", data['ndcg'])
 
-    def tearDown(self):
-        rmtree('ibm_test/')
+    #def tearDown(self):
+        #rmtree('ibm_test/')
 
 
 if __name__ == '__main__':

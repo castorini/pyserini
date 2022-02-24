@@ -25,5 +25,5 @@ if __name__ == '__main__':
             docid_score = sorted(docid_score.items(),key=lambda kv: kv[1], reverse=True)
             #docid_score.sort(key=lambda x:x[1], reverse=True)
             for docid, score in docid_score:
-                fout.write(f'{qid}\t{docid}\t{rank}\n')
+                fout.write(f'{qid}\tQ0\t{docid}\t{rank}\t{score}\tibm\n')
                 rank += 1

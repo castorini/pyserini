@@ -80,15 +80,15 @@ if __name__ == "__main__":
         description='use ibm model 1 feature to rerank the base run file')
     parser.add_argument('--tag', type=str, default="ibm",
                         metavar="tag_name", help='tag name for resulting Qrun')
-    parser.add_argument('--qrels', type=str, default="./tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt",
+    parser.add_argument('--qrels', type=str, default="./tools/topics-and-qrels/qrels.msmarco-passage.dev.txt",
                         metavar="path_to_qrels", help='path to new_qrels file')
-    parser.add_argument('--tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
+    parser.add_argument('--tran_path', type=str, default="./ibm/ibm_model/text_bert_tok",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
-    parser.add_argument('--query_path', type=str, default="./ibm/queries.dev.small.json",
+    parser.add_argument('--query_path', type=str, default="./collections/msmarco-ltr-document/queries.dev.small.json",
                         metavar="path_to_query", help='path to dev queries file')
-    parser.add_argument('--index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
+    parser.add_argument('--index', type=str, default="./ibm/lucene-index.msmarco-doc-segmented.ibm",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
-    parser.add_argument('--output', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.txt",
+    parser.add_argument('--output', type=str, default="./ibm/runs/result-ibm-full-retrieval-test-alpha0.3.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
     parser.add_argument('--score_path', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.json",
                         metavar="path_to_base_run", help='the path to map and ndcg scores')

@@ -42,6 +42,7 @@ class MsmarcoLtrSearcher:
     
     def add_fe(self):
         #self.fe.add(RunList('collections/msmarco-ltr-passage/run.monot5.run_list.whole.trec','t5'))
+        self.fe.add(RunList('../bert.whole.doc.trec','bert'))
         for qfield, ifield in [('analyzed', 'contents'),
                            ('text_unlemm', 'text_unlemm'),
                            ('text_bert_tok', 'text_bert_tok')]:

@@ -48,8 +48,7 @@ class TranslationProbabilitySearcher(object):
         self.field_name = field_name
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
         self.pool = ThreadPool(24)
-        self.bm25search = SimpleSearcher.from_prebuilt_index("msmarco-passage")
-
+        self.bm25search = SimpleSearcher('indexes/index-msmarco-passage-ltr-20210519-e25e33f/')
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str):

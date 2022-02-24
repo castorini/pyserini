@@ -75,7 +75,7 @@ def sort_str_topics_list(topics: List[str]) -> List[str]:
 
 
 def evaluate(run_path: str, options: str = ''):
-    prefix = "python -m pyserini.eval.trec_eval -c -M 1000 -m map -m ndcg_cut.20 msmarco-passage-dev-subset"
+    prefix = "python -m pyserini.eval.trec_eval -c -M 1000 -m map -m ndcg_cut.20 msmarco-document-dev"
     cmd1 = f"{prefix} {run_path} {options} | grep 'ndcg_cut_20 '"
     cmd2 = f"{prefix} {run_path} {options} | grep 'map                   	'"
     ndcg_string = str(subprocess.check_output(cmd1, shell=True))
@@ -284,17 +284,17 @@ if __name__ == '__main__':
         description='use ibm model 1 feature to rerank the base run file')
     parser.add_argument('--tag', type=str, default="ibm",
                         metavar="tag_name", help='tag name for resulting Qrun')
-    parser.add_argument('--base', type=str, default="../ibm/run.msmarco-passage.bm25tuned.trec",
+    parser.add_argument('--base', type=str, default="../anserini/runs/run.msmarco-doc-segmented.bm25-default.topics.msmarco-doc.dev.txt",
                         metavar="path_to_base_run", help='path to base run')
-    parser.add_argument('--tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
+    parser.add_argument('--tran_path', type=str, default="./ibm/ibm_model/text_bert_tok",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
-    parser.add_argument('--query_path', type=str, default="../ibm/queries.dev.small.json",
+    parser.add_argument('--query_path', type=str, default="./collections/msmarco-ltr-document/queries.dev.small.json",
                         metavar="path_to_query", help='path to dev queries file')
-    parser.add_argument('--index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
+    parser.add_argument('--index', type=str, default="./ibm/lucene-index.msmarco-doc-segmented.ibm",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
-    parser.add_argument('--output', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.txt",
+    parser.add_argument('--output', type=str, default="./ibm/runs/result-doc-seg-rerank-test-alpha0.3-colbert.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('--score_path', type=str, default="../ibm/runs/result-colbert-test-alpha0.3.json",
+    parser.add_argument('--score_path', type=str, default="./ibm/runs/result-doc-rerank-test-alpha0.3-colbert.json",
                         metavar="path_to_base_run", help='the path to map and ndcg scores')
     parser.add_argument('--field_name', type=str, default="text_bert_tok",
                         metavar="type of field", help='type of field used for training')
