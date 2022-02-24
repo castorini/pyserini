@@ -155,6 +155,7 @@ class ColBertIndexer:
             # load embeddings
             path = os.path.join(self.index_path, file)
             embs = torch.load(path) # [N, dim]
+            embs = embs.to(dtype=torch.float32)
             embs = embs.numpy()
             if faiss_gpu.ngpu > 0 and self.use_gpu:
                 faiss_gpu.add(faiss_index, embs, offset)
@@ -181,6 +182,7 @@ class ColBertIndexer:
 
         path = os.path.join(self.index_path, f'word_emb.{p}.pt')
         tensor = torch.cat(self.wordvec_buf)
+        tensor = tensor.to(dtype=torch.float16)
         torch.save(tensor, path)
         self.wordvec_buf = []
 
