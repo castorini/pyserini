@@ -73,7 +73,6 @@ class TranslationProbabilitySearcher(object):
             return None
 
         print(f'Initializing {prebuilt_index_name}...')
-        print(index_dir)
         return cls(index_dir)
 
     @staticmethod

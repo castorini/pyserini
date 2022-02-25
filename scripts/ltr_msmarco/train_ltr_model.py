@@ -490,8 +490,8 @@ if __name__ == '__main__':
 
     fe = FeatureExtractor(args.index,
                           max(multiprocessing.cpu_count() // 2, 1))
-    fe.add(RunList('./collections/msmarco-ltr-passage/run.monobert.run_list.whole.trec','bert'))
-    #fe.add(RunList('../bert.whole.doc.trec','bert'))
+    #fe.add(RunList('./collections/msmarco-ltr-passage/run.monot5.run_list.whole.trec','t5'))
+    #fe.add(RunList('./collections/msmarco-ltr-passage/run.monobert.run_list.whole.trec','bert'))
     for qfield, ifield in [('analyzed', 'contents'),
                            ('text_unlemm', 'text_unlemm'),
                            ('text_bert_tok', 'text_bert_tok')]:
