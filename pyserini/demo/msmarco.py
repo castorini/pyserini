@@ -21,7 +21,7 @@ import random
 
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder, AnceQueryEncoder
-from pyserini.hsearch import HybridSearcher
+from pyserini.search.hybrid import HybridSearcher
 from pyserini import search
 
 
