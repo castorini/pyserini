@@ -72,7 +72,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_tct_colbert_bf_bm25_hybrid_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert.bf-otf.bm25.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
+        cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-passage-tct_colbert-bf \
                                     --encoder castorini/tct_colbert-msmarco \
                              sparse --index msmarco-passage \
                              fusion --alpha 0.12 \
@@ -90,7 +90,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_tct_colbert_bf_d2q_hybrid_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert.bf-otf.doc2queryT5.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-bf \
+        cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-passage-tct_colbert-bf \
                                     --encoder castorini/tct_colbert-msmarco \
                              sparse --index msmarco-passage-expanded \
                              fusion --alpha 0.22 \
@@ -134,7 +134,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_doc_tct_colbert_bf_bm25_hybrid_otf(self):
         output_file = 'test_run.msmarco-doc.tct_colbert.bf-otf.bm25.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
+        cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-doc-tct_colbert-bf \
                                     --encoder castorini/tct_colbert-msmarco \
                              sparse --index msmarco-doc-per-passage \
                              fusion --alpha 0.25 \
@@ -153,7 +153,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_doc_tct_colbert_bf_d2q_hybrid_otf(self):
         output_file = 'test_run.msmarco-doc.tct_colbert.bf-otf.doc2queryT5.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-doc-tct_colbert-bf \
+        cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-doc-tct_colbert-bf \
                                     --encoder castorini/tct_colbert-msmarco \
                              sparse --index msmarco-doc-expanded-per-passage \
                              fusion --alpha 0.32 \

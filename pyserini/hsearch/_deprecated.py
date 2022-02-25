@@ -14,6 +14,11 @@
 # limitations under the License.
 #
 
-from pyserini.search.hybrid import HybridSearcher
+from pyserini.search.hybrid import HybridSearcher as NewHybridSearcher
 
-__all__ = ['HybridSearcher']
+
+class HybridSearcher(NewHybridSearcher):
+    def __new__(cls, *args, **kwargs):
+        print('pyserini.hsearch.HybridSearcher class has been deprecated, '
+              'please use HybridSearcher from pyserini.search.hybrid instead')
+        return super().__new__(cls)
