@@ -281,6 +281,10 @@ class ColBertSearcher:
         # encode query
         qcode, _ = self.encoder.encode([query],
             fp16=(self.code_sz==16), debug=False)
+
+        return self.search_code(qcode, k)
+
+    def search_code(self, qcode, k):
         qnum, max_qlen, dim = qcode.shape
         assert dim == self.dim
         assert qnum == 1
