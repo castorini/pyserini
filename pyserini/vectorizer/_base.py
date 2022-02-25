@@ -42,7 +42,7 @@ class Vectorizer:
         self.min_df: int = min_df
         self.verbose: bool = verbose
         self.index_reader = index.IndexReader(lucene_index_path)
-        self.searcher = search.SimpleSearcher(lucene_index_path)
+        self.searcher = search.LuceneSearcher(lucene_index_path)
         self.num_docs: int = self.searcher.num_docs
         self.stats = self.index_reader.stats()
         self.analyzer = Analyzer(get_lucene_analyzer())

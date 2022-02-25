@@ -52,14 +52,14 @@ The results should be as follows:
 10 6234461 9.92200
 ```
 
-The `SimpleDenseSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `SimpleSearcher`.
+The `FaissSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `SimpleSearcher`.
 The only additional thing we need to specify for dense retrieval is the query encoder.
 
 ```python
-from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
+from pyserini.dsearch import FaissSearcher, TctColBertQueryEncoder
 
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-searcher = SimpleDenseSearcher.from_prebuilt_index(
+searcher = FaissSearcher.from_prebuilt_index(
     'msmarco-passage-tct_colbert-hnsw',
     encoder
 )

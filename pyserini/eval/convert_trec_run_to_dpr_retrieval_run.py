@@ -19,7 +19,7 @@ import json
 import os
 from tqdm import tqdm
 
-from pyserini.search import SimpleSearcher, get_topics
+from pyserini.search.lucene import LuceneSearcher, get_topics
 from pyserini.eval.evaluate_dpr_retrieval import has_answers, SimpleTokenizer
 
 if __name__ == '__main__':
@@ -35,9 +35,9 @@ if __name__ == '__main__':
     qas = get_topics(args.topics)
 
     if os.path.exists(args.index):
-        searcher = SimpleSearcher(args.index)
+        searcher = LuceneSearcher(args.index)
     else:
-        searcher = SimpleSearcher.from_prebuilt_index(args.index)
+        searcher = LuceneSearcher.from_prebuilt_index(args.index)
     if not searcher:
         exit()
 

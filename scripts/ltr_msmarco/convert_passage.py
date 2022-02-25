@@ -16,7 +16,6 @@
 
 import multiprocessing
 from joblib import Parallel, delayed
-import sys
 import json
 import argparse
 from transformers import AutoTokenizer, AutoModel
@@ -29,7 +28,6 @@ import os
 """
 add fields to jsonl with text(lemmatized), text_unlemm, contents(analyzer), raw, text_bert_tok(BERT token)
 """
-sys.path.append('.')
 
 parser = argparse.ArgumentParser(description='Convert MSMARCO-adhoc documents.')
 parser.add_argument('--input', metavar='input file', help='input file',
