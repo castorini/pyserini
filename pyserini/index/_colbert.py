@@ -108,7 +108,7 @@ class ColBertIndexer:
         if train_data.shape[0] < 4096:
             # MOCK on toy dataset
             train_data = np.random.rand(9984, self.dim)
-            train_data = train_data.astype('float32')
+        train_data = train_data.astype('float32')
 
         # create compressed FAISS index
         faiss_gpu = FaissIndexGPU()
