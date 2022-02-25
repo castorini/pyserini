@@ -1,6 +1,7 @@
 # Pyserini: LTR Filtering for MS MARCO Passage
 
-**TODO**: Add reference to paper?
+This page describes how to reproduce the ltr experiments in the following paper
+> Yue Zhang and Chengcheng Hu and Yuqi Liu and Hui Fang and Jimmy Lin. [Learning to Rank in the Age of Muppets: Effectiveness–Efficiency Tradeoffs in Multi-Stage Ranking](https://aclanthology.org/2021.sustainlp-1.8) _2021.sustainlp-1.8_.
 
 This guide contains instructions for running learning-to-rank baseline on the [MS MARCO *passage* reranking task](https://microsoft.github.io/msmarco/).
 Learning-to-rank serves as a second stage reranker after BM25 retrieval.
@@ -29,30 +30,20 @@ python scripts/ltr_msmarco/convert_queries.py \
 The above scripts convert queries to json objects with `text`, `text_unlemm`, `raw`, and `text_bert_tok` fields.
 The first two scripts take ~1 min and the third one is a bit longer (~1.5h).
 
-```bash
-python -c "from pyserini.search import SimpleSearcher; SimpleSearcher.from_prebuilt_index('msmarco-passage-ltr')"
-```
-
-**TODO**: We shouldn't need to do this? See below.
-
-We run the above commands to obtain pre-built index in cache.
-
 ## Performing Inference Using a Trained Model
 
 Download pretrained IBM models:
 
 ```bash
-wget https://www.dropbox.com/s/vlrfcz3vmr4nt0q/ibm_model.tar.gz -P collections/msmarco-ltr-passage/
-tar -xzvf collections/msmarco-ltr-passage/ibm_model.tar.gz -C collections/msmarco-ltr-passage/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-ibm.tar.gz -P collections/msmarco-ltr-passage/
+tar -xzvf collections/msmarco-ltr-passage/model-ltr-ibm.tar.gz -C collections/msmarco-ltr-passage/
 ```
-
-**TODO**: change into a `https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/` URL?
 
 Download our trained LTR model:
 
 ```bash
-wget https://www.dropbox.com/s/ffl2bfw4cd5ngyz/msmarco-passage-ltr-mrr-v1.tar.gz -P runs/
-tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msmarco-passage-mrr-v1.tar.gz -P runs/
+tar -xzvf runs/model-ltr-msmarco-passage-mrr-v1.tar.gz -C runs
 ```
 
 The following command generates our reranking result:
@@ -62,14 +53,12 @@ python -m pyserini.search.lucene.ltr
   --input runs/run.msmarco-passage.bm25tuned.txt \
   --input-format tsv \
   --model runs/msmarco-passage-ltr-mrr-v1 \
-  --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3 \
+  --index msmarco-passage-ltr \
   --data passage \
   --ibm-model collections/msmarco-ltr-passage/ibm_model/ \
   --queries collections/msmarco-ltr-passage \
   --output runs/run.ltr.msmarco-passage.tsv 
 ```
-
-**TODO**: Why doesn't `--index msmarco-passage-ltr` work? Can we make it work?
 
 Here, our model is trained to maximize MRR@10. 
 Note that we can also train other models from scratch follow [training guide](experiments-ltr-msmarco-passage-training.md), and replace `--model` argument with your trained model dir.
