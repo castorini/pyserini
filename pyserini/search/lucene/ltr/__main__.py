@@ -15,6 +15,9 @@
 #
 
 import sys
+
+# We're going to explicitly use a local installation of Pyserini (as opposed to a pip-installed one).
+# Comment these lines out to use a pip-installed one instead.
 sys.path.insert(0, './')
 
 import argparse
@@ -50,7 +53,6 @@ def dev_data_loader(file, format, data, top=100):
     assert dev['rank'].dtype == np.int32
     dev = dev[dev['rank']<=top]
     if data == 'passage':
-        #TODO: put into PYCACHE
         dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt', sep=" ",
                             names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
                             dtype={'qid': 'S','pid': 'S', 'rel':'i'})
@@ -198,6 +200,7 @@ def output(file, dev_data, format):
         prev_score = None
         assert len(group['pid'].tolist()) == len(set(group['pid'].tolist()))
         # stable sort is also used in LightGBM
+
         for t in group.sort_values('score', ascending=False, kind='mergesort').itertuples():
             if prev_score is not None and abs(t.score - prev_score) < 1e-8:
                 score_tie_counter += 1
