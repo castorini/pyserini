@@ -13,16 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-import unittest
-import subprocess
 import os
-from shutil import rmtree
 from pyserini.search.lucene import LuceneSearcher
-from random import randint
-from urllib.request import urlretrieve
-import tarfile
+from shutil import rmtree
+import subprocess
 import sys
+import unittest
+
 
 class TestLtrMsmarcoDocument(unittest.TestCase):
     def test_reranking(self):
@@ -40,11 +37,13 @@ class TestLtrMsmarcoDocument(unittest.TestCase):
         model_tar_name = 'model-ltr-msmarco-passage-mrr-v1.tar.gz'
         os.system(f'wget {model_url} -P ltr_test/')
         os.system(f'tar -xzvf ltr_test/{model_tar_name} -C ltr_test')
-        #ibm model
+
+        # IBM model
         ibm_model_url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-ibm.tar.gz'
         ibm_model_tar_name = 'model-ltr-ibm.tar.gz'
         os.system(f'wget {ibm_model_url} -P ltr_test/')
-        #queries process
+
+        # queries process
         os.system(f'tar -xzvf ltr_test/{ibm_model_tar_name} -C ltr_test')
         os.system('python scripts/ltr_msmarco/convert_queries.py --input tools/topics-and-qrels/topics.msmarco-doc.dev.txt --output ltr_test/queries.dev.small.json')
         os.system(f'python -m pyserini.search.lucene.ltr   --input ltr_test/{inp} --input-format trec --data document --model ltr_test/msmarco-passage-ltr-mrr-v1/ --index msmarco-doc-per-passage-ltr --ibm-model ltr_test/ibm_model/ --queries ltr_test --output ltr_test/{outp} --max-passage')
@@ -55,6 +54,7 @@ class TestLtrMsmarcoDocument(unittest.TestCase):
         # See https://github.com/castorini/pyserini/issues/951
         self.assertAlmostEqual(float(mrr), 0.3091, delta=0.0001)
         rmtree('ltr_test')
+
 
 if __name__ == '__main__':
     unittest.main()
