@@ -86,7 +86,7 @@ python tools/scripts/msmarco/msmarco_doc_eval.py \
 The above evaluation should give your results as below.
 ```bash
 #####################
-MRR @100: 0.3090492928920076
+MRR @100: 0.31055962279034266
 QueriesRanked: 5193
 #####################
 ```
