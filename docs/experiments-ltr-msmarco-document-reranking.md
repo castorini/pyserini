@@ -74,7 +74,7 @@ python -m pyserini.search.lucene.ltr \
        --data document \
        --ibm-model collections/msmarco-ltr-document/ibm_model/ \
        --queries collections/msmarco-ltr-document \
-       --index msmarco-doc-per-passage-ltr --output runs/run.ltr.doc_level.tsv --maxp
+       --index msmarco-doc-per-passage-ltr --output runs/run.ltr.doc_level.tsv --max-passage
 ```
 
 ```bash

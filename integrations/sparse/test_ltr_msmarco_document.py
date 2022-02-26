@@ -34,7 +34,7 @@ class TestLtrMsmarcoDocument(unittest.TestCase):
         outp_tsv = 'run.ltr.msmarco-pass-doc.test.tsv'
         #Download prebuilt index
         #retrieve candidate
-        os.system(f'python -m pyserini.search --topics msmarco-doc-dev  --index msmarco-doc-per-passage-ltr --output ltr_test/{inp} --bm25 --output-format trec --hits 10000')
+        os.system(f'python -m pyserini.search.lucene --topics msmarco-doc-dev  --index msmarco-doc-per-passage-ltr --output ltr_test/{inp} --bm25 --output-format trec --hits 10000')
         #Pre-trained ltr model
         model_url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msmarco-passage-mrr-v1.tar.gz'
         model_tar_name = 'model-ltr-msmarco-passage-mrr-v1.tar.gz'
@@ -47,7 +47,7 @@ class TestLtrMsmarcoDocument(unittest.TestCase):
         #queries process
         os.system(f'tar -xzvf ltr_test/{ibm_model_tar_name} -C ltr_test')
         os.system('python scripts/ltr_msmarco/convert_queries.py --input tools/topics-and-qrels/topics.msmarco-doc.dev.txt --output ltr_test/queries.dev.small.json')
-        os.system(f'python -m pyserini.search.lucene.ltr   --input ltr_test/{inp} --input-format trec --data document --model ltr_test/msmarco-passage-ltr-mrr-v1/ --index msmarco-doc-per-passage-ltr --ibm-model ltr_test/ibm_model/ --queries ltr_test --output ltr_test/{outp} --max_passage')
+        os.system(f'python -m pyserini.search.lucene.ltr   --input ltr_test/{inp} --input-format trec --data document --model ltr_test/msmarco-passage-ltr-mrr-v1/ --index msmarco-doc-per-passage-ltr --ibm-model ltr_test/ibm_model/ --queries ltr_test --output ltr_test/{outp} --max-passage')
 
         result = subprocess.check_output(f'python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt --run ltr_test/{outp}', shell=True).decode(sys.stdout.encoding)
         a,b = result.find('#####################\nMRR @100:'), result.find('\nQueriesRanked: 5193\n#####################\n')
