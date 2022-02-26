@@ -42,7 +42,10 @@ class MsmarcoLtrSearcher:
         self.ibm_model = ibm_model
         self.lucene_searcher = LuceneSearcher.from_prebuilt_index(index)
         index_directory = os.path.join(get_cache_home(), 'indexes')
-        index_path = os.path.join(index_directory, 'index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3')
+        if (data == 'passage'):
+            index_path = os.path.join(index_directory, 'index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3')
+        else:
+            index_path = os.path.join(index_directory, 'index-msmarco-doc-per-passage-ltr-20211031-33e4151.bd60e89041b4ebbabc4bf0cfac608a87')
         self.fe = FeatureExtractor(index_path, max(multiprocessing.cpu_count()//2, 1))
         self.index_reader = IndexReader.from_prebuilt_index(index)
         self.data = data

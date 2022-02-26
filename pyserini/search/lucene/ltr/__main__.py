@@ -195,35 +195,36 @@ def output(file, dev_data, format, maxp):
     score_tie_query = set()
     output_file = open(file,'w')
     results = defaultdict(dict)
+    idx = 0
     for qid, group in tqdm(dev_data.groupby('qid')):
         group = group.reset_index()
         rank = 0
         prev_score = None
         assert len(group['pid'].tolist()) == len(set(group['pid'].tolist()))
         # stable sort is also used in LightGBM
-
         for t in group.sort_values('score', ascending=False, kind='mergesort').itertuples():
             if prev_score is not None and abs(t.score - prev_score) < 1e-8:
                 score_tie_counter += 1
                 score_tie_query.add(qid)
             prev_score = t.score
             if (maxp):
-                score = float(score)
                 docid = t.pid.split('#')[0]
-                if (qid not in results or docid not in results[qid] or score > results[qid][docid]):
+                if (qid not in results or docid not in results[qid] or t.score > results[qid][docid]):
                     results[qid][docid] = t.score
             else:
                 results[qid][t.pid] = t.score
+            
 
-        for qid, docid_score in tqdm(scores.items()):
-            rank = 1
-            docid_score = sorted(docid_score.items(),key=lambda kv: kv[1], reverse=True)
-            for docid, score in docid_score:
-                if (format=='trec'):
-                    output_file.write(f"{qid}\tQ0\t{docid}\t{rank}\t{score}\tltr\n")
-                else:
-                    output_file.write(f"{qid}\t{docid}\t{rank}\n")
-                rank += 1
+    for qid in tqdm(results.keys()):
+        rank = 1
+        docid_score = results[qid]
+        docid_score = sorted(docid_score.items(),key=lambda kv: kv[1], reverse=True)
+        for docid, score in docid_score:
+            if (format=='trec'):
+                output_file.write(f"{qid}\tQ0\t{docid}\t{rank}\t{score}\tltr\n")
+            else:
+                output_file.write(f"{qid}\t{docid}\t{rank}\n")
+            rank += 1
     score_tie = f'score_tie occurs {score_tie_counter} times in {len(score_tie_query)} queries'
     print(score_tie)
 
@@ -239,7 +240,7 @@ if __name__ == "__main__":
     parser.add_argument('--queries', required=True)
     parser.add_argument('--data', required=True)
     parser.add_argument('--output-format',default='tsv')
-    parser.add_argument('--maxp',action='store_true')
+    parser.add_argument('--max-passage',action='store_true')
 
     args = parser.parse_args()
     searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data)
@@ -254,5 +255,5 @@ if __name__ == "__main__":
 
     eval_res = eval_mrr(batch_info)
     eval_recall(dev_qrel, batch_info)
-    output(args.output, batch_info,args.output_format, args.maxp)
+    output(args.output, batch_info,args.output_format, args.max_passage)
     print('Done!')
