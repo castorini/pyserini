@@ -30,6 +30,7 @@ import time
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
+from collections import defaultdict
 from pyserini.search.lucene.ltr._search_msmarco import MsmarcoLtrSearcher
 from pyserini.search.lucene.ltr import *
 
@@ -189,36 +190,48 @@ def eval_recall(dev_qrel, dev_data):
     return res
 
 
-def output(file, dev_data, format):
+def output(file, dev_data, format, maxp):
     score_tie_counter = 0
     score_tie_query = set()
     output_file = open(file,'w')
-
+    results = defaultdict(dict)
+    idx = 0
     for qid, group in tqdm(dev_data.groupby('qid')):
         group = group.reset_index()
         rank = 0
         prev_score = None
         assert len(group['pid'].tolist()) == len(set(group['pid'].tolist()))
         # stable sort is also used in LightGBM
-
         for t in group.sort_values('score', ascending=False, kind='mergesort').itertuples():
             if prev_score is not None and abs(t.score - prev_score) < 1e-8:
                 score_tie_counter += 1
                 score_tie_query.add(qid)
             prev_score = t.score
-            rank += 1
-            if (format == 'tsv'):
-                output_file.write(f"{qid}\t{t.pid}\t{rank}\n")
+            if (maxp):
+                docid = t.pid.split('#')[0]
+                if (qid not in results or docid not in results[qid] or t.score > results[qid][docid]):
+                    results[qid][docid] = t.score
             else:
-                output_file.write(f"{qid}\tQ0\t{t.pid}\t{rank}\t{t.score}\tltr\n")
+                results[qid][t.pid] = t.score
+            
 
+    for qid in tqdm(results.keys()):
+        rank = 1
+        docid_score = results[qid]
+        docid_score = sorted(docid_score.items(),key=lambda kv: kv[1], reverse=True)
+        for docid, score in docid_score:
+            if (format=='trec'):
+                output_file.write(f"{qid}\tQ0\t{docid}\t{rank}\t{score}\tltr\n")
+            else:
+                output_file.write(f"{qid}\t{docid}\t{rank}\n")
+            rank += 1
     score_tie = f'score_tie occurs {score_tie_counter} times in {len(score_tie_query)} queries'
     print(score_tie)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Learning to rank reranking')
     parser.add_argument('--input', required=True)
-    parser.add_argument('--reranking-top', type=int, default=1000)
+    parser.add_argument('--reranking-top', type=int, default=10000)
     parser.add_argument('--input-format', required=True)
     parser.add_argument('--model', required=True)
     parser.add_argument('--index', required=True)
@@ -226,7 +239,8 @@ if __name__ == "__main__":
     parser.add_argument('--ibm-model', required=True)
     parser.add_argument('--queries', required=True)
     parser.add_argument('--data', required=True)
-    parser.add_argument('--output-format',default='trec')
+    parser.add_argument('--output-format',default='tsv')
+    parser.add_argument('--max-passage',action='store_true')
 
     args = parser.parse_args()
     searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data)
@@ -241,5 +255,5 @@ if __name__ == "__main__":
 
     eval_res = eval_mrr(batch_info)
     eval_recall(dev_qrel, batch_info)
-    output(args.output, batch_info,args.output_format)
+    output(args.output, batch_info,args.output_format, args.max_passage)
     print('Done!')
