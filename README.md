@@ -114,14 +114,14 @@ Alternatively, see [this answer](docs/usage-interactive-search.md#how-do-i-manua
 
 ### Dense Retrieval
 
-The `SimpleDenseSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `LuceneSearcher`.
+The `FaissSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `LuceneSearcher`.
 The only additional thing we need to specify for dense retrieval is the query encoder.
 
 ```python
-from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
+from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
 
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-searcher = SimpleDenseSearcher.from_prebuilt_index(
+searcher = FaissSearcher.from_prebuilt_index(
     'msmarco-passage-tct_colbert-hnsw',
     encoder
 )
@@ -159,12 +159,12 @@ The `HybridSearcher` class provides the entry point to perform hybrid sparse-den
 
 ```python
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
+from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
 from pyserini.hsearch import HybridSearcher
 
 ssearcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-dsearcher = SimpleDenseSearcher.from_prebuilt_index(
+dsearcher = FaissSearcher.from_prebuilt_index(
     'msmarco-passage-tct_colbert-hnsw',
     encoder
 )
@@ -373,6 +373,7 @@ With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a numbe
 + Reproducing the [BM25 baseline for MS MARCO V1 Document Ranking](docs/experiments-msmarco-doc.md)
 + Reproducing the [multi-field BM25 baseline for MS MARCO V1 Document Ranking from Elasticsearch](docs/experiments-elastic.md)
 + Reproducing [BM25 baselines on the MS MARCO V2 Collections](docs/experiments-msmarco-v2.md)
++ Reproducing LTR filtering experiments: [MS MARCO V1 Passage](docs/experiments-ltr-msmarco-passage-reranking.md), [MS MARCO V1 Document](docs/experiments-ltr-msmarco-document-reranking.md)
 + Reproducing DeepImpact: [MS MARCO V1 Passage](docs/experiments-deepimpact.md)
 + Reproducing uniCOIL with doc2query-T5: [MS MARCO V1](docs/experiments-unicoil.md), [MS MARCO V2](docs/experiments-msmarco-v2-unicoil.md)
 + Reproducing uniCOIL with TILDE: [MS MARCO V1 Passage](docs/experiments-unicoil-tilde-expansion.md), [MS MARCO V2 Passage](docs/experiments-msmarco-v2-unicoil-tilde-expansion.md)

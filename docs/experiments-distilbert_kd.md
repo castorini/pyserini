@@ -6,7 +6,7 @@ This guide provides instructions to reproduce the DistilBERT KD dense retrieval 
 
 Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
 Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
-See [package installation notes](../README.md#package-installation) for more details.
+See [package installation notes](../README.md#installation) for more details.
 
 Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
@@ -15,13 +15,13 @@ Thus, while the scoring script provides results to much higher precision, we hav
 Dense retrieval, with brute-force index:
 
 ```bash
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-                             --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
-                             --encoded-queries distilbert_kd-msmarco-passage-dev-subset \
-                             --batch-size 36 \
-                             --threads 12 \
-                             --output runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv \
-                             --output-format msmarco
+python -m pyserini.search.faiss \
+  --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
+  --topics msmarco-passage-dev-subset \
+  --encoded-queries distilbert_kd-msmarco-passage-dev-subset \
+  --output runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv \
+  --output-format msmarco \
+  --batch-size 36 --threads 12
 ```
 
 Replace `--encoded-queries` with `--encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco` for on-the-fly query encoding.
@@ -29,7 +29,9 @@ Replace `--encoded-queries` with `--encoder sebastian-hofstaetter/distilbert-dot
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv
+
 #####################
 MRR @10: 0.3250
 QueriesRanked: 6980
@@ -40,8 +42,13 @@ We can also use the official TREC evaluation tool `trec_eval` to compute other m
 For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv --output runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.trec
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+    --input runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv \
+    --output runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.trec
+
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.trec
+
 map                     all     0.3308
 recall_1000             all     0.9553
 ```

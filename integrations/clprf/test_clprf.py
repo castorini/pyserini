@@ -41,7 +41,7 @@ class TestSearchIntegration(unittest.TestCase):
         else:
             os.mkdir(self.tmp)
 
-        self.pyserini_search_cmd = 'python -m pyserini.search'
+        self.pyserini_search_cmd = 'python -m pyserini.search.lucene'
         self.pyserini_fusion_cmd = 'python -m pyserini.fusion'
         self.core17_index_path = os.path.join(self.anserini_root, 'indexes/lucene-index.nyt')
         self.core17_qrels_path = os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.core17.txt')

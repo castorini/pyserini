@@ -19,7 +19,7 @@ import json
 import time
 from tqdm import tqdm
 
-from pyserini.vsearch import SimpleVectorSearcher
+from ._searcher import NmslibSearcher
 from pyserini.output_writer import get_output_writer, OutputFormat, tie_breaker
 
 if __name__ == '__main__':
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     parser.add_argument('--is-sparse', action='store_true', required=False)
     args = parser.parse_args()
 
-    searcher = SimpleVectorSearcher(args.index, ef_search=args.ef, is_sparse=args.is_sparse)
+    searcher = NmslibSearcher(args.index, ef_search=args.ef, is_sparse=args.is_sparse)
 
     topic_ids = []
     topic_vectors = []

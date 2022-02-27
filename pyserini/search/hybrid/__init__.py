@@ -14,9 +14,6 @@
 # limitations under the License.
 #
 
-import sys
-import os
+from ._searcher import HybridSearcher
 
-print('WARNING: directly calling pyserini.dsearch is deprecated, please use pyserini.search.faiss instead')
-args = " ".join(sys.argv[1:])
-os.system(f'python -m pyserini.search.faiss {args}')
+__all__ = ['HybridSearcher']

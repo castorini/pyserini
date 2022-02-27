@@ -21,7 +21,7 @@ import socket
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score
-from pyserini.dsearch import QueryEncoder
+from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
 
@@ -40,7 +40,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.dpr.nq-test.multi.bf.otf.trec'
         retrieval_file = 'test_run.dpr.nq-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
-        cmd1 = f'python -m pyserini.dsearch --topics dpr-nq-test \
+        cmd1 = f'python -m pyserini.search.faiss --topics dpr-nq-test \
                              --index wikipedia-dpr-multi-bf \
                              --encoder facebook/dpr-question_encoder-multiset-base \
                              --output {output_file} \
@@ -62,7 +62,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.dpr.nq-test.multi.bf.otf.bm25.trec'
         retrieval_file = 'test_run.dpr.nq-test.multi.bf.otf.bm25.json'
         self.temp_files.extend([output_file, retrieval_file])
-        cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+        cmd1 = f'python -m pyserini.search.hybrid dense  --index wikipedia-dpr-multi-bf \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 1.3 \
@@ -92,7 +92,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.dpr.trivia-test.multi.bf.otf.trec'
         retrieval_file = 'test_run.dpr.trivia-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
-        cmd1 = f'python -m pyserini.dsearch --topics dpr-trivia-test \
+        cmd1 = f'python -m pyserini.search.faiss --topics dpr-trivia-test \
                              --encoder facebook/dpr-question_encoder-multiset-base \
                              --index wikipedia-dpr-multi-bf \
                              --output {output_file} \
@@ -114,7 +114,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.dpr.trivia-test.multi.bf.otf.bm25.trec'
         retrieval_file = 'test_run.dpr.trivia-test.multi.bf.otf.bm25.json'
         self.temp_files.extend([output_file, retrieval_file])
-        cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+        cmd1 = f'python -m pyserini.search.hybrid dense  --index wikipedia-dpr-multi-bf \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 0.95 \
@@ -144,7 +144,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.dpr.wq-test.multi.bf.otf.trec'
         retrieval_file = 'test_run.dpr.wq-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
-        cmd1 = f'python -m pyserini.dsearch --topics dpr-wq-test \
+        cmd1 = f'python -m pyserini.search.faiss --topics dpr-wq-test \
                              --index wikipedia-dpr-multi-bf \
                              --encoder facebook/dpr-question_encoder-multiset-base \
                              --output {output_file} \
@@ -166,7 +166,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.dpr.wq-test.multi.bf.otf.bm25.trec'
         retrieval_file = 'test_run.dpr.wq-test.multi.bf.otf.bm25.json'
         self.temp_files.extend([output_file, retrieval_file])
-        cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+        cmd1 = f'python -m pyserini.search.hybrid dense  --index wikipedia-dpr-multi-bf \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 0.95 \
@@ -196,7 +196,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.dpr.curated-test.multi.bf.otf.trec'
         retrieval_file = 'test_run.dpr.curated-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
-        cmd1 = f'python -m pyserini.dsearch --topics dpr-curated-test \
+        cmd1 = f'python -m pyserini.search.faiss --topics dpr-curated-test \
                              --index wikipedia-dpr-multi-bf \
                              --encoder facebook/dpr-question_encoder-multiset-base \
                              --output {output_file} \
@@ -219,7 +219,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.dpr.curated-test.multi.bf.otf.bm25.trec'
         retrieval_file = 'test_run.dpr.curated-test.multi.bf.otf.bm25.json'
         self.temp_files.extend([output_file, retrieval_file])
-        cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+        cmd1 = f'python -m pyserini.search.hybrid dense  --index wikipedia-dpr-multi-bf \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 1.05 \
@@ -250,7 +250,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.dpr.squad-test.multi.bf.otf.trec'
         retrieval_file = 'test_run.dpr.squad-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
-        cmd1 = f'python -m pyserini.dsearch --topics dpr-squad-test \
+        cmd1 = f'python -m pyserini.search.faiss --topics dpr-squad-test \
                              --index wikipedia-dpr-multi-bf \
                              --encoder facebook/dpr-question_encoder-multiset-base \
                              --output {output_file} \
@@ -272,7 +272,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.dpr.squad-test.multi.bf.otf.bm25.trec'
         retrieval_file = 'test_run.dpr.squad-test.multi.bf.otf.bm25.json'
         self.temp_files.extend([output_file, retrieval_file])
-        cmd1 = f'python -m pyserini.hsearch dense  --index wikipedia-dpr-multi-bf \
+        cmd1 = f'python -m pyserini.search.hybrid dense  --index wikipedia-dpr-multi-bf \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
                              sparse --index wikipedia-dpr \
                              fusion --alpha 2.0 \

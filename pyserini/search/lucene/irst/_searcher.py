@@ -35,7 +35,7 @@ JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 JTerm = autoclass('org.apache.lucene.index.Term')
 
 
-class TranslationProbabilitySearcher(object):
+class LuceneIrstSearcher(object):
     SELF_TRAN = 0.35
     MIN_PROB = 0.0025
     LAMBDA_VALUE = 0.3

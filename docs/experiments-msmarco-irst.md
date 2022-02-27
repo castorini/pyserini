@@ -107,10 +107,8 @@ Note that we evaluate MRR and NDCG at a cutoff of 10 hits to match the official 
 
 ### Data Preprocessing
 
-For MSMARCO DOC, each MS MARCO document is first segmented into passages, each passage is treated as a unit of indexing. More details about indexing could be found in this anserini documentation: https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-doc-segmented.md.
+For MSMARCO DOC, each MS MARCO document is first segmented into passages, each passage is treated as a unit of indexing. 
 We utilized the MaxP technique during the ranking, that is scoring documents based on one of its highest-scoring passage.
-
-
 
 The below scripts convert queries to json objects with text, text_unlemm, raw, and text_bert_tok fields
 
@@ -219,3 +217,15 @@ tools/eval/trec_eval.9.0.4/trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank 
 | DL20                | IRST(Max)               | -| 0.531   | 0.374      |
 | MS MARCO Dev                | IRST(Sum)               | 0.311| -   | -      |
 | MS MARCO Dev                | IRST(Max)               | 0.276| -   | -      |
+
+## Build Index from Scratch
+
+Note that we have used our pre-built index in the above steps. You can also build index by yourself following instructions below.
+
+### Passage Index
+Please follow steps in [ltr experiment documentation](https://github.com/castorini/pyserini/blob/master/docs/experiments-ltr-msmarco-passage-reranking.md#building-the-index-from-scratch). 
+
+### Document Index
+We use the [script](https://github.com/castorini/docTTTTTquery/blob/master/convert_msmarco_passages_doc_to_anserini.py) in docTTTTTquery with default stride and window length to obtain segmented documents.
+
+Then follow instructions in [ltr experiment](https://github.com/castorini/pyserini/blob/master/docs/experiments-ltr-msmarco-document-reranking.md#building-the-index-from-scratch).

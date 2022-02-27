@@ -23,7 +23,7 @@ class RunLuceneSearcher:
     def __init__(self, index: str, topics: str):
         self.index_path = index
         self.topics = topics
-        self.pyserini_base_cmd = 'python -m pyserini.search'
+        self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
 
     @staticmethod
     def _cleanup(files: List[str]):

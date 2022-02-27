@@ -1,5 +1,5 @@
 #
-# Pyserini: Reproducible IR research with sparse and dense representations
+# Pyserini: Python interface to the Anserini IR toolkit built on Lucene
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,9 +14,6 @@
 # limitations under the License.
 #
 
-import sys
-import os
+from ._searcher import SearchResult, NmslibSearcher
 
-print('WARNING: directly calling pyserini.dsearch is deprecated, please use pyserini.search.faiss instead')
-args = " ".join(sys.argv[1:])
-os.system(f'python -m pyserini.search.faiss {args}')
+__all__ = ['SearchResult', 'NmslibSearcher']

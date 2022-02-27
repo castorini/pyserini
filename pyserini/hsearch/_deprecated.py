@@ -14,5 +14,11 @@
 # limitations under the License.
 #
 
-from ._search_tprob import TranslationProbabilitySearcher
-__all__ = ['TranslationProbabilitySearcher']
+from pyserini.search.hybrid import HybridSearcher as NewHybridSearcher
+
+
+class HybridSearcher(NewHybridSearcher):
+    def __new__(cls, *args, **kwargs):
+        print('pyserini.hsearch.HybridSearcher class has been deprecated, '
+              'please use HybridSearcher from pyserini.search.hybrid instead')
+        return super().__new__(cls)

@@ -21,7 +21,7 @@ import socket
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score
-from pyserini.dsearch import QueryEncoder
+from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
 
@@ -41,7 +41,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_ance_bf_otf(self):
         output_file = 'test_run.msmarco-passage.ance.bf.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
+        cmd1 = f'python -m pyserini.search.faiss --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-ance-bf \
                              --encoder castorini/ance-msmarco-passage \
                              --batch-size {self.batch_size} \
@@ -64,7 +64,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_ance_avg_prf_otf(self):
         output_file = 'test_run.dl2019.ance.avg-prf.otf.trec'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.dsearch --topics dl19-passage \
+        cmd1 = f'python -m pyserini.search.faiss --topics dl19-passage \
                                      --index msmarco-passage-ance-bf \
                                      --encoder castorini/ance-msmarco-passage \
                                      --batch-size {self.batch_size} \
@@ -83,7 +83,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_ance_rocchio_prf_otf(self):
         output_file = 'test_run.dl2019.ance.rocchio-prf.otf.trec'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.dsearch --topics dl19-passage \
+        cmd1 = f'python -m pyserini.search.faiss --topics dl19-passage \
                                      --index msmarco-passage-ance-bf \
                                      --encoder castorini/ance-msmarco-passage \
                                      --batch-size {self.batch_size} \
@@ -96,6 +96,8 @@ class TestSearchIntegration(unittest.TestCase):
                                      --rocchio-beta {self.rocchio_beta}'
 
         cmd2 = f'python -m pyserini.eval.trec_eval -l 2 -m map dl19-passage {output_file}'
+        print(cmd1)
+        print(cmd2)
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "map")
@@ -105,7 +107,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_doc_ance_bf_otf(self):
         output_file = 'test_run.msmarco-doc.passage.ance-maxp.otf.txt'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.dsearch --topics msmarco-doc-dev \
+        cmd1 = f'python -m pyserini.search.faiss --topics msmarco-doc-dev \
                              --index msmarco-doc-ance-maxp-bf \
                              --encoder castorini/ance-msmarco-doc-maxp \
                              --output {output_file}\
@@ -133,7 +135,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.ance.nq-test.multi.bf.otf.trec'
         retrieval_file = 'test_run.ance.nq-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
-        cmd1 = f'python -m pyserini.dsearch --topics dpr-nq-test \
+        cmd1 = f'python -m pyserini.search.faiss --topics dpr-nq-test \
                              --index wikipedia-ance-multi-bf \
                              --encoder castorini/ance-dpr-question-multi \
                              --output {output_file} \
@@ -161,7 +163,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.ance.trivia-test.multi.bf.otf.trec'
         retrieval_file = 'test_run.ance.trivia-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
-        cmd1 = f'python -m pyserini.dsearch --topics dpr-trivia-test \
+        cmd1 = f'python -m pyserini.search.faiss --topics dpr-trivia-test \
                              --index wikipedia-ance-multi-bf \
                              --encoder castorini/ance-dpr-question-multi \
                              --output {output_file} \
