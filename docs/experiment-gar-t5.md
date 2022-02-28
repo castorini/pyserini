@@ -1,6 +1,6 @@
 # Pyserini: Gar-BART for NQ and TriviaQA query expansions
 
-This guide provides instructions to reproduce the GAR-T5 model described in the following paper:
+This guide provides instructions to reproduce the search results of our GAR-T5 model which takes inspiration from the following paper:
 > Mao, Y., He, P., Liu, X., Shen, Y., Gao, J., Han, J., & Chen, W. (2020). [Generation-augmented retrieval for open-domain question answering](https://arxiv.org/abs/2009.08553). arXiv preprint arXiv:2009.08553.
 
 We first need to download the test dataset for evaluation. For both NQ and TriviaQA, there are three types of query generation targets, answer, title and sentence.
