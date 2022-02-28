@@ -2,10 +2,11 @@ from email.policy import default
 import argparse
 from random import choices
 from datasets import load_dataset
+import os
 
 def def_args(parser):
-    parser.add_argument('--data_path', type=str, help="queries with answers")
-    parser.add_argument('--data_split', type=str, choices=['dev','test'], default='test')
+    # parser.add_argument('--data_path', type=str,help="queries with answers")
+    parser.add_argument('--data_split', type=str, choices=['validation','test'], default='test')
     parser.add_argument('--dataset',type=str, choices=['nq','trivia'],default='nq')
     parser.add_argument('--output_path', type=str,
                         default='./augmented_topics.tsv', help="output txt path")
@@ -15,16 +16,27 @@ def def_args(parser):
     parser.add_argument('--titles', action='store_true', default=False)
     parser.add_argument('--sentences', action='store_true', default=False)
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Query augmentations.')
     def_args(parser)
     args = parser.parse_args()
     final_list = []
     json_list = []
-
+    anserini_path = os.environ['ANSERINI']
+    data_path = ''
+    if args.dataset == 'nq':
+        if args.data_split == 'validation':
+            data_path = os.path.join(anserini_path,'src/main/resources/topics-and-qrels/topics.nq.dev.txt')
+        elif args.data_split == 'test':
+            data_path = os.path.join(anserini_path,'src/main/resources/topics-and-qrels/topics.nq.test.txt')
+    elif args.dataset == 'trivia':
+        if args.data_split == 'validation':
+            data_path = os.path.join(anserini_path,'src/main/resources/topics-and-qrels/topics.dpr.trivia.dev.txt')
+        elif args.data_split == 'test':
+            data_path = os.path.join(anserini_path,'src/main/resources/topics-and-qrels/topics.dpr.trivia.test.txt')
+    
     dataset = 'castorini/triviaqa_gar-t5_expansions' if args.dataset == 'trivia' else 'castorini/nq_gar-t5_expansions'
-    with open(args.data_path, 'r') as file:
+    with open(data_path, 'r') as file:
         file = file.readlines()
         concatenated = list(map(lambda x: x.split('\t'), file))
 
@@ -51,3 +63,4 @@ if __name__ == '__main__':
 
     with open(args.output_path, 'w') as output_file:
         output_file.writelines(final_list)
+    print("Done")
