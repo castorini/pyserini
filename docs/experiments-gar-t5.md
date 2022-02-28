@@ -10,12 +10,8 @@ Download the dataset from HuggingFace and use script to process it to a .tsv fil
 ```bash
 export ANSERINI=path to anserini
 
-python scripts/gar/query_augmentation_tsv.py --dataset <nq or trivia> --data_path <not needed if anserini is in the same folder as pyserini> --data_split <validation or test> --output_path <default is augmented_topics.tsv> --sentences <optional> --titles <optional> --answers <optional>
+python scripts/gar/query_augmentation_tsv.py --dataset <nq or trivia> --data_split <validation or test> --output_path <default is augmented_topics.tsv> --sentences <optional> --titles <optional> --answers <optional>
 ```
-
-To run fusion RRF, you will need all three (answers, titles, sentences) trec files
-```bash
-python -m $ANSERINI/src/main/python/fusion.py --runs <path to answers.trec> <path to sentences.trec> <path to titles.trec> --out <output path>
 
 ## Evaluation
 To evaluate the augmented queries, we need to concatenate and convert them into .tsv format for us to run BM25-search on Pyserini, which is then converted to .json format as required for evaluation.
@@ -28,6 +24,11 @@ Once we have the tsv file, we can proceed to run search and evaluation
 python -m pyserini.search --topics augmented_topics.tsv --index wikipedia-dpr --output runs/gar-bart-run.trec --batch-size 70 --threads 70
 
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics <nq-test or dpr-trivia-test> --index wikipedia-dpr --input runs/gar-bart-run.trec --output runs/gar-bart-run.json
+```
+
+To run fusion RRF, you will need all three (answers, titles, sentences) trec files
+```bash
+python -m $ANSERINI/src/main/python/fusion.py --runs <path to answers.trec> <path to sentences.trec> <path to titles.trec> --out <output path>
 ```
 
 To evaluate the run:

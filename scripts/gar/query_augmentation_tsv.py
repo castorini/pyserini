@@ -5,7 +5,6 @@ from datasets import load_dataset
 import os
 
 def def_args(parser):
-    # parser.add_argument('--data_path', type=str,help="queries with answers")
     parser.add_argument('--data_split', type=str, choices=['validation','test'], default='test')
     parser.add_argument('--dataset',type=str, choices=['nq','trivia'],default='nq')
     parser.add_argument('--output_path', type=str,
