@@ -22,7 +22,7 @@ To evaluate the augmented queries, we need to concatenate and convert them into 
 
 Without specifying the output path, the default output will be an `augmented_topics.tsv` file in the working directory.
 
-once we have the tsv file, we can proceed to search and evaluation
+Once we have the tsv file, we can proceed to run search and evaluation
 
 ```bash
 python -m pyserini.search --topics augmented_topics.tsv --index wikipedia-dpr --output runs/gar-bart-run.trec --batch-size 70 --threads 70
