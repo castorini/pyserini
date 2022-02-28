@@ -1,4 +1,4 @@
-# Pyserini: Gar-BART for NQ and TriviaQA query expansions
+# Pyserini: GAR-T5 enhanced retrieval for NQ and TriviaQA
 
 This guide provides instructions to reproduce the search results of our GAR-T5 model which takes inspiration from the following paper:
 > Mao, Y., He, P., Liu, X., Shen, Y., Gao, J., Han, J., & Chen, W. (2020). [Generation-augmented retrieval for open-domain question answering](https://arxiv.org/abs/2009.08553). arXiv preprint arXiv:2009.08553.
