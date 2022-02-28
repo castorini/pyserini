@@ -18,7 +18,7 @@ To run fusion RRF, you will need all three (answers, titles, sentences) trec fil
 python -m $ANSERINI/src/main/python/fusion.py --runs <path to answers.trec> <path to sentences.trec> <path to titles.trec> --out <output path>
 
 ## Evaluation
-To evaluate the augmented queries, we need to concatenate and convert them into .tsv format for Pyserini to convert to .trec and evaluate based on the generated .json file
+To evaluate the augmented queries, we need to concatenate and convert them into .tsv format for us to run BM25-search on Pyserini, which is then converted to .json format as required for evaluation.
 
 without specifying the output path, the default output will be augmented_topics.tsv in the current folder
 
