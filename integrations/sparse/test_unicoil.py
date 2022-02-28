@@ -37,7 +37,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.msmarco-passage.unicoil-d2q.otf.tsv'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search --topics msmarco-passage-dev-subset \
-                          --encoder castorini/unicoil-d2q-msmarco-passage \
+                          --encoder castorini/unicoil-msmarco-passage \
                           --index msmarco-passage-unicoil-d2q \
                           --output {output_file} \
                           --impact \
@@ -54,7 +54,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.msmarco-doc.unicoil-d2q.otf.tsv'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search --topics msmarco-doc-dev \
-                          --encoder castorini/unicoil-d2q-msmarco-passage \
+                          --encoder castorini/unicoil-msmarco-passage \
                           --index msmarco-doc-per-passage-unicoil-d2q \
                           --output {output_file} \
                           --impact \
