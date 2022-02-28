@@ -8,7 +8,7 @@ We first need to download the test dataset for evaluation. For both NQ and Trivi
 ## Get the Dataset as tsv
 Download the dataset from HuggingFace and use script to process it to a .tsv file 
 ```bash
-export ANSERINI=path to anserini
+export ANSERINI=<path to anserini>
 
 python scripts/gar/query_augmentation_tsv.py --dataset <nq or trivia> --data_split <validation or test> --output_path <default is augmented_topics.tsv> --sentences <optional> --titles <optional> --answers <optional>
 ```
