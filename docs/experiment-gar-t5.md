@@ -20,7 +20,7 @@ python -m $ANSERINI/src/main/python/fusion.py --runs <path to answers.trec> <pat
 ## Evaluation
 To evaluate the augmented queries, we need to concatenate and convert them into .tsv format for us to run BM25-search on Pyserini, which is then converted to .json format as required for evaluation.
 
-without specifying the output path, the default output will be augmented_topics.tsv in the current folder
+Without specifying the output path, the default output will be an `augmented_topics.tsv` file in the working directory.
 
 once we have the tsv file, we can proceed to search and evaluation
 
