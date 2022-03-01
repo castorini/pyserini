@@ -40,9 +40,9 @@ Here's how our results stack up against all available models and datasets in Pys
 | SBERT                | Original                | 0.4060 | 0.6930  | 0.5985   | 0.7872      |
 | SBERT                | Average PRF 3           | 0.4354 | 0.7001  | 0.6149   | 0.7937      |
 | SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.4371 | 0.6952  | 0.6149   | 0.7941      |
-| ADORE                | Original                | 0.4188 | -       | 0.5946   | 0.7759      |
-| ADORE                | Average PRF 3           | 0.4672 | -       | 0.6263   | 0.7890      |
-| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.4629 | -       | 0.6325   | 0.7950      |
+| ADORE                | Original                | 0.4188 | 0.6832  | 0.5946   | 0.7759      |
+| ADORE                | Average PRF 3           | 0.4672 | 0.6958  | 0.6263   | 0.7890      |
+| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.4629 | 0.7021  | 0.6325   | 0.7950      |
 
 
 #### TREC DL 2020 Passage
@@ -67,9 +67,9 @@ Here's how our results stack up against all available models and datasets in Pys
 | SBERT                | Original                | 0.4124 | 0.6344   | 0.5734   | 0.7937      |
 | SBERT                | Average PRF 3           | 0.4258 | 0.6412   | 0.5781   | 0.8169      |
 | SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.4342 | 0.6559   | 0.5851   | 0.8226      |
-| ADORE                | Original                | 0.4418 | -        | 0.5949   | 0.8151      |
-| ADORE                | Average PRF 3           | 0.4706 | -        | 0.6176   | 0.8323      |
-| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.4760 | -        | 0.6193   | 0.8251      |
+| ADORE                | Original                | 0.4418 | 0.6655   | 0.5949   | 0.8151      |
+| ADORE                | Average PRF 3           | 0.4706 | 0.7086   | 0.6176   | 0.8323      |
+| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.4760 | 0.7019   | 0.6193   | 0.8251      |
 
 #### MS MARCO Passage V1
 
@@ -95,9 +95,9 @@ The PRF does not perform well with sparse judgements like in MS MARCO, the resul
 | SBERT                | Original                | 0.3373 | 0.4453   | 0.9558      | 0.3314 |
 | SBERT                | Average PRF 3           | 0.3094 | 0.4183   | 0.9446      | 0.3035 |
 | SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.3034 | 0.4157   | 0.9529      | 0.2974 |
-| ADORE                | Original                | 0.3523 | 0.4637   | 0.9688      | -      |
-| ADORE                | Average PRF 3           | 0.3188 | 0.4330   | 0.9583      | -      |
-| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.3209 | 0.4376   | 0.9669      | -      |
+| ADORE                | Original                | 0.3523 | 0.4637   | 0.9688      | 0.3466 |
+| ADORE                | Average PRF 3           | 0.3188 | 0.4330   | 0.9583      | 0.3127 |
+| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.3209 | 0.4376   | 0.9669      | 0.3145 |
 
 ## Reproducing Results
 
