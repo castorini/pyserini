@@ -13,10 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from integrations.utils import run_command, parse_score
+
 import os
-from shutil import rmtree
 import unittest
+from shutil import rmtree
+
+from integrations.utils import run_command, parse_score
 
 
 class TestMsmarcoPassageIrst(unittest.TestCase):

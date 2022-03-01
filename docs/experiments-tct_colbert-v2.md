@@ -147,7 +147,7 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 - sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
 
 ```bash
-python -m pyserini.hsearch \
+python -m pyserini.search.hybrid \
   dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
          --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
   sparse --index msmarco-passage \
@@ -187,7 +187,7 @@ Hybrid retrieval with dense-sparse representations (with document expansion):
 - sparse retrieval with doc2query-T5 expanded index.
 
 ```bash
-python -m pyserini.hsearch \
+python -m pyserini.search.hybrid \
   dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
          --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
   sparse --index msmarco-passage-expanded \
