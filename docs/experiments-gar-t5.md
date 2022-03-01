@@ -62,3 +62,5 @@ This should give you the topk scores as you wanted
 | TriviaQA | sentence | 48.96 | 62.68 | 68.05 | 72.47 | 77.51 |  80.84 |  83.54 |  84.47 |  86.23 |  87.93  |
 | TriviaQA |   title  | 47.70 | 61.28 | 66.37 | 71.24 | 76.59 |  80.04 |  82.90 |  84.51 |  85.96 |  87.64  |
 | TriviaQA |  fusion  | 59.00 | 72.82 | 76.93 | 80.66 | 84.10 |  85.95 |  87.39 |  87.62 |  89.07 |  90.06  |
+
+## Reproduction Log[*](reproducibility.md)
