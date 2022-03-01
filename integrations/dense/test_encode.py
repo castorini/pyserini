@@ -64,7 +64,7 @@ class TestSearchIntegration(unittest.TestCase):
         cmd1 = f"python -m pyserini.encode input   --corpus {self.corpus_path} \
                                   --fields text \
                           output  --embeddings {embedding_dir} \
-                          encoder --encoder castorini/unicoil-d2q-msmarco-passage \
+                          encoder --encoder castorini/unicoil-msmarco-passage \
                                   --fields text \
                                   --batch 4 \
                                   --device cpu"
@@ -77,7 +77,7 @@ class TestSearchIntegration(unittest.TestCase):
                                           -generator DefaultLuceneDocumentGenerator \
                                           -impact -pretokenized -threads 12 -storeRaw'
         _ = os.system(cmd2)
-        searcher = LuceneImpactSearcher(index_dir, query_encoder='castorini/unicoil-d2q-msmarco-passage')
+        searcher = LuceneImpactSearcher(index_dir, query_encoder='castorini/unicoil-msmarco-passage')
         hits = searcher.search("What is the solution of separable closed queueing networks?", k=1)
         hit = hits[0]
         self.assertEqual(hit.docid, 'CACM-2712')
