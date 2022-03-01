@@ -20,84 +20,84 @@ Here's how our results stack up against all available models and datasets in Pys
 
 #### TREC DL 2019 Passage
 
-| Model                | Method                  | MAP    | nDCG@100 | Recall@1000 |
-|:---------------------|:------------------------|:------:|:--------:|:-----------:|
-| ANCE                 | Original                | 0.3710 | 0.5540   | 0.7554      |
-| ANCE                 | Average PRF 3           | 0.4247 | 0.5937   | 0.7739      |
-| ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.4211 | 0.5928   | 0.7825      |
-| TCT-ColBERT V1       | Original                | 0.3906 | 0.5730   | 0.7916      |
-| TCT-ColBERT V1       | Average PRF 3           | 0.4336 | 0.6119   | 0.8230      |
-| TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.4463 | 0.6143   | 0.8393      |
-| TCT-ColBERT V2 HN+   | Original                | 0.4469 | 0.6318   | 0.8261      |
-| TCT-ColBERT V2 HN+   | Average PRF 3           | 0.4879 | 0.6719   | 0.8586      |
-| TCT-ColBERT V2 HN+   | Rocchio PRF 5 A0.4 B0.6 | 0.4883 | 0.6684   | 0.8694      |
-| DistillBERT KD       | Original                | 0.4053 | 0.5765   | 0.7653      |
-| DistillBERT KD       | Average PRF 3           | 0.4575 | 0.6217   | 0.7939      |
-| DistillBERT KD       | Rocchio PRF 5 A0.4 B0.6 | 0.4548 | 0.6189   | 0.8049      |
-| DistillBERT Balanced | Original                | 0.4590 | 0.6360   | 0.8406      |
-| DistillBERT Balanced | Average PRF 3           | 0.4856 | 0.6526   | 0.8515      |
-| DistillBERT Balanced | Rocchio PRF 5 A0.4 B0.6 | 0.4974 | 0.6684   | 0.8775      |
-| SBERT                | Original                | 0.4060 | 0.5985   | 0.7872      |
-| SBERT                | Average PRF 3           | 0.4354 | 0.6149   | 0.7937      |
-| SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.4371 | 0.6149   | 0.7941      |
-| ADORE                | Original                | 0.4188 | 0.5946   | 0.7759      |
-| ADORE                | Average PRF 3           | 0.4672 | 0.6263   | 0.7890      |
-| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.4629 | 0.6325   | 0.7950      |
+| Model                | Method                  | MAP    | nDCG@10 | nDCG@100 | Recall@1000 |
+|:---------------------|:------------------------|:------:|:--------|:--------:|:-----------:|
+| ANCE                 | Original                | 0.3710 | 0.6452  | 0.5540   | 0.7554      |
+| ANCE                 | Average PRF 3           | 0.4247 | 0.6532  | 0.5937   | 0.7739      |
+| ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.4211 | 0.6539  | 0.5928   | 0.7825      |
+| TCT-ColBERT V1       | Original                | 0.3906 | 0.6700  | 0.5730   | 0.7916      |
+| TCT-ColBERT V1       | Average PRF 3           | 0.4336 | 0.6639  | 0.6119   | 0.8230      |
+| TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.4463 | 0.6875  | 0.6143   | 0.8393      |
+| TCT-ColBERT V2 HN+   | Original                | 0.4469 | 0.7204  | 0.6318   | 0.8261      |
+| TCT-ColBERT V2 HN+   | Average PRF 3           | 0.4879 | 0.7312  | 0.6719   | 0.8586      |
+| TCT-ColBERT V2 HN+   | Rocchio PRF 5 A0.4 B0.6 | 0.4883 | 0.7111  | 0.6684   | 0.8694      |
+| DistillBERT KD       | Original                | 0.4053 | 0.6994  | 0.5765   | 0.7653      |
+| DistillBERT KD       | Average PRF 3           | 0.4575 | 0.7096  | 0.6217   | 0.7939      |
+| DistillBERT KD       | Rocchio PRF 5 A0.4 B0.6 | 0.4548 | 0.7052  | 0.6189   | 0.8049      |
+| DistillBERT Balanced | Original                | 0.4590 | 0.7210  | 0.6360   | 0.8406      |
+| DistillBERT Balanced | Average PRF 3           | 0.4856 | 0.7190  | 0.6526   | 0.8515      |
+| DistillBERT Balanced | Rocchio PRF 5 A0.4 B0.6 | 0.4974 | 0.7231  | 0.6684   | 0.8775      |
+| SBERT                | Original                | 0.4060 | 0.6930  | 0.5985   | 0.7872      |
+| SBERT                | Average PRF 3           | 0.4354 | 0.7001  | 0.6149   | 0.7937      |
+| SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.4371 | 0.6952  | 0.6149   | 0.7941      |
+| ADORE                | Original                | 0.4188 | -       | 0.5946   | 0.7759      |
+| ADORE                | Average PRF 3           | 0.4672 | -       | 0.6263   | 0.7890      |
+| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.4629 | -       | 0.6325   | 0.7950      |
 
 
 #### TREC DL 2020 Passage
 
-| Model                | Method                  | MAP    | nDCG@100 | Recall@1000 |
-|:---------------------|:------------------------|:------:|:--------:|:-----------:|
-| ANCE                 | Original                | 0.4076 | 0.5679   | 0.7764      |
-| ANCE                 | Average PRF 3           | 0.4325 | 0.5793   | 0.7909      |
-| ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.4315 | 0.5800   | 0.7957      |
-| TCT-ColBERT V1       | Original                | 0.4290 | 0.5826   | 0.8181      |
-| TCT-ColBERT V1       | Average PRF 3           | 0.4725 | 0.6101   | 0.8667      |
-| TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.4625 | 0.6056   | 0.8576      |
-| TCT-ColBERT V2 HN+   | Original                | 0.4754 | 0.6206   | 0.8429      |
-| TCT-ColBERT V2 HN+   | Average PRF 3           | 0.4811 | 0.6228   | 0.8579      |
-| TCT-ColBERT V2 HN+   | Rocchio PRF 5 A0.4 B0.6 | 0.4860 | 0.6254   | 0.8518      |
-| DistillBERT KD       | Original                | 0.4159 | 0.5728   | 0.7953      |
-| DistillBERT KD       | Average PRF 3           | 0.4214 | 0.5755   | 0.8403      |
-| DistillBERT KD       | Rocchio PRF 5 A0.4 B0.6 | 0.4145 | 0.5760   | 0.8433      |
-| DistillBERT Balanced | Original                | 0.4698 | 0.6346   | 0.8727      |
-| DistillBERT Balanced | Average PRF 3           | 0.4887 | 0.6449   | 0.9030      |
-| DistillBERT Balanced | Rocchio PRF 5 A0.4 B0.6 | 0.4879 | 0.6470   | 0.8926      |
-| SBERT                | Original                | 0.4124 | 0.5734   | 0.7937      |
-| SBERT                | Average PRF 3           | 0.4258 | 0.5781   | 0.8169      |
-| SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.4342 | 0.5851   | 0.8226      |
-| ADORE                | Original                | 0.4418 | 0.5949   | 0.8151      |
-| ADORE                | Average PRF 3           | 0.4706 | 0.6176   | 0.8323      |
-| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.4760 | 0.6193   | 0.8251      |
+| Model                | Method                  | MAP    | nDCG@10  | nDCG@100 | Recall@1000 |
+|:---------------------|:------------------------|:------:|:--------:|:--------:|:-----------:|
+| ANCE                 | Original                | 0.4076 | 0.6458   | 0.5679   | 0.7764      |
+| ANCE                 | Average PRF 3           | 0.4325 | 0.6573   | 0.5793   | 0.7909      |
+| ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.4315 | 0.6471   | 0.5800   | 0.7957      |
+| TCT-ColBERT V1       | Original                | 0.4290 | 0.6678   | 0.5826   | 0.8181      |
+| TCT-ColBERT V1       | Average PRF 3           | 0.4725 | 0.6957   | 0.6101   | 0.8667      |
+| TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.4625 | 0.6945   | 0.6056   | 0.8576      |
+| TCT-ColBERT V2 HN+   | Original                | 0.4754 | 0.6882   | 0.6206   | 0.8429      |
+| TCT-ColBERT V2 HN+   | Average PRF 3           | 0.4811 | 0.6836   | 0.6228   | 0.8579      |
+| TCT-ColBERT V2 HN+   | Rocchio PRF 5 A0.4 B0.6 | 0.4860 | 0.6804   | 0.6254   | 0.8518      |
+| DistillBERT KD       | Original                | 0.4159 | 0.6447   | 0.5728   | 0.7953      |
+| DistillBERT KD       | Average PRF 3           | 0.4214 | 0.6316   | 0.5755   | 0.8403      |
+| DistillBERT KD       | Rocchio PRF 5 A0.4 B0.6 | 0.4145 | 0.6289   | 0.5760   | 0.8433      |
+| DistillBERT Balanced | Original                | 0.4698 | 0.6854   | 0.6346   | 0.8727      |
+| DistillBERT Balanced | Average PRF 3           | 0.4887 | 0.7086   | 0.6449   | 0.9030      |
+| DistillBERT Balanced | Rocchio PRF 5 A0.4 B0.6 | 0.4879 | 0.7083   | 0.6470   | 0.8926      |
+| SBERT                | Original                | 0.4124 | 0.6344   | 0.5734   | 0.7937      |
+| SBERT                | Average PRF 3           | 0.4258 | 0.6412   | 0.5781   | 0.8169      |
+| SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.4342 | 0.6559   | 0.5851   | 0.8226      |
+| ADORE                | Original                | 0.4418 | -        | 0.5949   | 0.8151      |
+| ADORE                | Average PRF 3           | 0.4706 | -        | 0.6176   | 0.8323      |
+| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.4760 | -        | 0.6193   | 0.8251      |
 
 #### MS MARCO Passage V1
 
 The PRF does not perform well with sparse judgements like in MS MARCO, the results here are just complements.
 
-| Model                | Method                  | MAP    | nDCG@100 | Recall@1000 |
-|:---------------------|:------------------------|:------:|:--------:|:-----------:|
-| ANCE                 | Original                | 0.3362 | 0.4457   | 0.9587      | 
-| ANCE                 | Average PRF 3           | 0.3133 | 0.4247   | 0.9490      | 
-| ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.3115 | 0.4250   | 0.9545      |
-| TCT-ColBERT V1       | Original                | 0.3416 | 0.4514   | 0.9640      | 
-| TCT-ColBERT V1       | Average PRF 3           | 0.2882 | 0.4014   | 0.9452      | 
-| TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.2809 | 0.3988   | 0.9543      | 
-| TCT-ColBERT V2 HN+   | Original                | 0.3644 | 0.4750   | 0.9695      | 
-| TCT-ColBERT V2 HN+   | Average PRF 3           | 0.3183 | 0.4325   | 0.9585      | 
-| TCT-ColBERT V2 HN+   | Rocchio PRF 5 A0.4 B0.6 | 0.3190 | 0.4360   | 0.9659      | 
-| DistillBERT KD       | Original                | 0.3309 | 0.4391   | 0.9553      | 
-| DistillBERT KD       | Average PRF 3           | 0.2830 | 0.3940   | 0.9325      | 
-| DistillBERT KD       | Rocchio PRF 5 A0.4 B0.6 | 0.2787 | 0.3937   | 0.9432      | 
-| DistillBERT Balanced | Original                | 0.3515 | 0.4651   | 0.9771      | 
-| DistillBERT Balanced | Average PRF 3           | 0.2979 | 0.4151   | 0.9613      | 
-| DistillBERT Balanced | Rocchio PRF 5 A0.4 B0.6 | 0.2969 | 0.4178   | 0.9702      | 
-| SBERT                | Original                | 0.3373 | 0.4453   | 0.9558      | 
-| SBERT                | Average PRF 3           | 0.3094 | 0.4183   | 0.9446      | 
-| SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.3034 | 0.4157   | 0.9529      |
-| ADORE                | Original                | 0.3523 | 0.4637   | 0.9688      |
-| ADORE                | Average PRF 3           | 0.3188 | 0.4330   | 0.9583      |
-| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.3209 | 0.4376   | 0.9669      |
+| Model                | Method                  | MAP    | nDCG@100 | Recall@1000 | MRR@10 |
+|:---------------------|:------------------------|:------:|:--------:|:-----------:|:------:|
+| ANCE                 | Original                | 0.3362 | 0.4457   | 0.9587      | 0.3302 |
+| ANCE                 | Average PRF 3           | 0.3133 | 0.4247   | 0.9490      | 0.3073 |
+| ANCE                 | Rocchio PRF 5 A0.4 B0.6 | 0.3115 | 0.4250   | 0.9545      | 0.3048 |
+| TCT-ColBERT V1       | Original                | 0.3416 | 0.4514   | 0.9640      | 0.3350 |
+| TCT-ColBERT V1       | Average PRF 3           | 0.2882 | 0.4014   | 0.9452      | 0.2816 |
+| TCT-ColBERT V1       | Rocchio PRF 5 A0.4 B0.6 | 0.2809 | 0.3988   | 0.9543      | 0.2740 |
+| TCT-ColBERT V2 HN+   | Original                | 0.3644 | 0.4750   | 0.9695      | 0.3590 |
+| TCT-ColBERT V2 HN+   | Average PRF 3           | 0.3183 | 0.4325   | 0.9585      | 0.2995 |
+| TCT-ColBERT V2 HN+   | Rocchio PRF 5 A0.4 B0.6 | 0.3190 | 0.4360   | 0.9659      | 0.2933 |
+| DistillBERT KD       | Original                | 0.3309 | 0.4391   | 0.9553      | 0.3250 |
+| DistillBERT KD       | Average PRF 3           | 0.2830 | 0.3940   | 0.9325      | 0.2470 |
+| DistillBERT KD       | Rocchio PRF 5 A0.4 B0.6 | 0.2787 | 0.3937   | 0.9432      | 0.2716 |
+| DistillBERT Balanced | Original                | 0.3515 | 0.4651   | 0.9771      | 0.3443 |
+| DistillBERT Balanced | Average PRF 3           | 0.2979 | 0.4151   | 0.9613      | 0.2630 |
+| DistillBERT Balanced | Rocchio PRF 5 A0.4 B0.6 | 0.2969 | 0.4178   | 0.9702      | 0.2897 |
+| SBERT                | Original                | 0.3373 | 0.4453   | 0.9558      | 0.3314 |
+| SBERT                | Average PRF 3           | 0.3094 | 0.4183   | 0.9446      | 0.3035 |
+| SBERT                | Rocchio PRF 5 A0.4 B0.6 | 0.3034 | 0.4157   | 0.9529      | 0.2974 |
+| ADORE                | Original                | 0.3523 | 0.4637   | 0.9688      | -      |
+| ADORE                | Average PRF 3           | 0.3188 | 0.4330   | 0.9583      | -      |
+| ADORE                | Rocchio PRF 5 A0.4 B0.6 | 0.3209 | 0.4376   | 0.9669      | -      |
 
 ## Reproducing Results
 
