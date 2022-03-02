@@ -1,4 +1,7 @@
-# Pyserini: Learning-To-Rank Reranking Baseline for MS MARCO Document
+# Pyserini: LTR Filtering for MS MARCO Document
+
+This page describes how to reproduce the ltr experiments in the following paper
+> Yue Zhang and Chengcheng Hu and Yuqi Liu and Hui Fang and Jimmy Lin. [Learning to Rank in the Age of Muppets: Effectiveness–Efficiency Tradeoffs in Multi-Stage Ranking](https://aclanthology.org/2021.sustainlp-1.8) _2021.sustainlp-1.8_.
 
 This guide contains instructions for running learning-to-rank baseline on the [MS MARCO *document* reranking task](https://microsoft.github.io/msmarco/).
 Learning-to-rank serves as a second stage reranker after BM25 retrieval.
@@ -51,36 +54,27 @@ python scripts/ltr_msmarco/convert_queries.py \
 Download pretrained IBM models:
 
 ```bash
-wget https://www.dropbox.com/s/vlrfcz3vmr4nt0q/ibm_model.tar.gz -P collections/msmarco-ltr-document/
-tar -xzvf collections/msmarco-ltr-document/ibm_model.tar.gz -C collections/msmarco-ltr-document/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-ibm.tar.gz -P collections/msmarco-ltr-passage/
+tar -xzvf collections/msmarco-ltr-passage/model-ltr-ibm.tar.gz -C collections/msmarco-ltr-passage/
 ```
 
-Download our pretrained LTR model:
+Download our trained LTR model:
 
 ```bash
-wget https://www.dropbox.com/s/ffl2bfw4cd5ngyz/msmarco-passage-ltr-mrr-v1.tar.gz -P runs/
-tar -xzvf runs/msmarco-passage-ltr-mrr-v1.tar.gz -C runs
-```
-
-Get our prebuilt LTR document index:
-```bash
-python -c "from pyserini.search import SimpleSearcher; SimpleSearcher.from_prebuilt_index('msmarco-document-ltr')"
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msmarco-passage-mrr-v1.tar.gz -P runs/
+tar -xzvf runs/model-ltr-msmarco-passage-mrr-v1.tar.gz -C runs
 ```
 
 Now, we have all things ready and can run inference. The LTR outpus rankings on segments level. We will need to use another script to get doc level results using maxP strategy.
 ```bash
-python scripts/ltr_msmarco/ltr_inference.py \
+python -m pyserini.search.lucene.ltr \
        --input collections/msmarco-doc/run.msmarco-pass-doc.bm25.txt \
        --input-format trec \
        --model runs/msmarco-passage-ltr-mrr-v1 \
        --data document \
        --ibm-model collections/msmarco-ltr-document/ibm_model/ \
        --queries collections/msmarco-ltr-document \
-       --index ~/.cache/pyserini/indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151 --output runs/run.ltr.doc-pas.trec 
-
-python scripts/ltr_msmarco/generate_document_score_withmaxP.py \
-      --input runs/run.ltr.doc-pas.trec \
-      --output runs/run.ltr.doc_level.tsv
+       --index msmarco-doc-per-passage-ltr --output runs/run.ltr.doc_level.tsv --max-passage
 ```
 
 ```bash
@@ -92,7 +86,7 @@ python tools/scripts/msmarco/msmarco_doc_eval.py \
 The above evaluation should give your results as below.
 ```bash
 #####################
-MRR @100: 0.3090492928920076
+MRR @100: 0.31055962279034266
 QueriesRanked: 5193
 #####################
 ```

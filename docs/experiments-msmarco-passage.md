@@ -38,9 +38,13 @@ The above script should generate 9 jsonl files in `collections/msmarco-passage/c
 We can now index these docs as a `JsonCollection` using Anserini:
 
 ```bash
-python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
- -threads 9 -input collections/msmarco-passage/collection_jsonl \
- -index indexes/lucene-index-msmarco-passage -storePositions -storeDocvectors -storeRaw
+python -m pyserini.index.lucene \
+  --collection JsonCollection \
+  --input collections/msmarco-passage/collection_jsonl \
+  --index indexes/lucene-index-msmarco-passage \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 9 \
+  --storePositions --storeDocvectors --storeRaw
 ```
 
 Note that the indexing program simply dispatches command-line arguments to an underlying Java program, and so we use the Java single dash convention, e.g., `-index` and not `--index`.
@@ -65,6 +69,7 @@ $ head tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
 1048917	what is operating system misconfiguration
 786786	what is priority pass
 524699	tricare service number
+
 $ wc tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
     6980   48335  290193 tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
 ```
@@ -74,10 +79,13 @@ Conveniently, Pyserini already knows how to load and iterate through these pairs
 We can now perform retrieval using these queries:
 
 ```bash
-python -m pyserini.search --topics msmarco-passage-dev-subset \
- --index indexes/lucene-index-msmarco-passage \
- --output runs/run.msmarco-passage.bm25tuned.txt \
- --bm25 --output-format msmarco --hits 1000 --k1 0.82 --b 0.68
+python -m pyserini.search.lucene \
+  --index indexes/lucene-index-msmarco-passage \
+  --topics msmarco-passage-dev-subset \
+  --output runs/run.msmarco-passage.bm25tuned.txt \
+  --output-format msmarco \
+  --hits 1000 \
+  --bm25 --k1 0.82 --b 0.68
 ```
 
 Here, we set the BM25 parameters to `k1=0.82`, `b=0.68` (tuned by grid search).
@@ -95,6 +103,7 @@ After the run finishes, we can evaluate the results using the official MS MARCO 
 ```bash
 $ python tools/scripts/msmarco/msmarco_passage_eval.py \
    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.bm25tuned.txt
+
 #####################
 MRR @10: 0.18741227770955546
 QueriesRanked: 6980
@@ -105,18 +114,21 @@ We can also use the official TREC evaluation tool, `trec_eval`, to compute metri
 For that we first need to convert the run file into TREC format:
 
 ```bash
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
-   --input runs/run.msmarco-passage.bm25tuned.txt --output runs/run.msmarco-passage.bm25tuned.trec
-$ python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
-   --input tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt --output collections/msmarco-passage/qrels.dev.small.trec
-```
+python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+   --input runs/run.msmarco-passage.bm25tuned.txt \
+   --output runs/run.msmarco-passage.bm25tuned.trec
 
+python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
+   --input tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+   --output collections/msmarco-passage/qrels.dev.small.trec
+```
 
 And then run the `trec_eval` tool:
 
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
    collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.bm25tuned.trec
+
 map                   	all	0.1957
 recall_1000           	all	0.8573
 ```
@@ -156,3 +168,4 @@ On the other hand, recall@1000 provides the upper bound effectiveness of downstr
 + Results reproduced by [@vivianliu0](https://github.com/vivianliu0) on 2021-01-06 (commit [`937ec63`](https://github.com/castorini/pyserini/commit/937ec63deead4d6743a735d78d381792067469e7))
 + Results reproduced by [@mikhail-tsir](https://github.com/mikhail-tsir) on 2022-01-10 (commit [`f1084a0`](https://github.com/castorini/pyserini/commit/f1084a05a3bf955bdd27acd33f2b95c636b2e5b6))
 + Results reproduced by [@AceZhan](https://github.com/AceZhan) on 2022-01-14 (commit [`68be809`](https://github.com/castorini/pyserini/commit/68be8090b8553fc6eaf352ac690a6de9d3dc82dd))
++ Results reproduced by [@jh8liang](https://github.com/jh8liang) on 2022-02-06 (commit [`e03e068`](https://github.com/castorini/pyserini/commit/e03e06880ad4f6d67a1666c1dd45ce4250adc95d))

@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import hashlib
+
 import os
 import re
 import shutil
@@ -22,6 +22,7 @@ import json
 import gzip
 from random import randint
 from pyserini.util import download_url, download_prebuilt_index
+
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
@@ -46,9 +47,9 @@ class TestSearchIntegration(unittest.TestCase):
                 '2181ae5b7fe8bafbd3b41700f3ccde02',
             'https://ir.nist.gov/covidSubmit/archive/round5/covidex.r5.d2q.2s.gz':
                 'e61f9b6de5ffbe1b5b82d35216968154',
-             'https://ir.nist.gov/covidSubmit/archive/round5/covidex.r5.2s.gz':
+            'https://ir.nist.gov/covidSubmit/archive/round5/covidex.r5.2s.gz':
                 '6e517a5e044d8b7ce983f7e165cf4aeb',
-             'https://ir.nist.gov/covidSubmit/archive/round5/covidex.r5.1s.gz':
+            'https://ir.nist.gov/covidSubmit/archive/round5/covidex.r5.1s.gz':
                 'dc9b4b45494294a8448cf0693f07f7fd'
         }
                 
@@ -56,13 +57,13 @@ class TestSearchIntegration(unittest.TestCase):
             print(f'Verifying stored run at {url}...')
             filename = url.split('/')[-1]
             filename = re.sub('\\?dl=1$', '', filename)  # Remove the Dropbox 'force download' parameter
-            gzip_filename  = (".").join(filename.split('.')[:-1])
+            gzip_filename = '.'.join(filename.split('.')[:-1])
 
             download_url(url, f'{self.tmp}/runs/', md5=self.round5_runs[url], force=True)
             self.assertTrue(os.path.exists(os.path.join(f'{self.tmp}/runs/', filename)))
             with gzip.open(f'{self.tmp}/runs/{filename}', 'rb') as f_in:
-            	with open(f'{self.tmp}/runs/{gzip_filename}', 'wb') as f_out:
-                	shutil.copyfileobj(f_in, f_out)
+                with open(f'{self.tmp}/runs/{gzip_filename}', 'wb') as f_out:
+                    shutil.copyfileobj(f_in, f_out)
 
     def test_round5(self):
         tmp_folder_name = self.tmp.split('/')[-1]

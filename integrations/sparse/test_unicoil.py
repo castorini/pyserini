@@ -22,6 +22,7 @@ import unittest
 
 from integrations.utils import clean_files, run_command, parse_score
 
+
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
@@ -36,8 +37,8 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_unicoil_d2q_otf(self):
         output_file = 'test_run.msmarco-passage.unicoil-d2q.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search --topics msmarco-passage-dev-subset \
-                          --encoder castorini/unicoil-d2q-msmarco-passage \
+        cmd1 = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset \
+                          --encoder castorini/unicoil-msmarco-passage \
                           --index msmarco-passage-unicoil-d2q \
                           --output {output_file} \
                           --impact \
@@ -53,8 +54,8 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_doc_unicoil_d2q_otf(self):
         output_file = 'test_run.msmarco-doc.unicoil-d2q.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search --topics msmarco-doc-dev \
-                          --encoder castorini/unicoil-d2q-msmarco-passage \
+        cmd1 = f'python -m pyserini.search.lucene --topics msmarco-doc-dev \
+                          --encoder castorini/unicoil-msmarco-passage \
                           --index msmarco-doc-per-passage-unicoil-d2q \
                           --output {output_file} \
                           --impact \
@@ -71,7 +72,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_tilde_otf(self):
         output_file = 'test_run.msmarco-passage.tilde.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search --topics msmarco-passage-dev-subset \
+        cmd1 = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset \
                           --encoder ielab/unicoil-tilde200-msmarco-passage \
                           --index msmarco-passage-unicoil-tilde \
                           --output {output_file} \
@@ -88,7 +89,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_v2_passage_unicoil_noexp_otf(self):
         output_file = 'test_run.msmarco-v2-passage.unicoil-noexp.0shot.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search --topics msmarco-v2-passage-dev \
+        cmd1 = f'python -m pyserini.search.lucene --topics msmarco-v2-passage-dev \
                           --encoder castorini/unicoil-noexp-msmarco-passage \
                           --index msmarco-v2-passage-unicoil-noexp-0shot  \
                           --output {output_file} \
@@ -107,7 +108,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_v2_doc_unicoil_noexp_otf(self):
         output_file = 'test_run.msmarco-v2-doc.unicoil-noexp.0shot.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search --topics msmarco-v2-doc-dev \
+        cmd1 = f'python -m pyserini.search.lucene --topics msmarco-v2-doc-dev \
                           --encoder castorini/unicoil-noexp-msmarco-passage \
                           --index msmarco-v2-doc-per-passage-unicoil-noexp-0shot  \
                           --output {output_file} \
@@ -128,7 +129,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_v2_passage_tilde_otf(self):
         output_file = 'test_run.msmarco-v2-passage.tilde.0shot.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search --topics msmarco-v2-passage-dev \
+        cmd1 = f'python -m pyserini.search.lucene --topics msmarco-v2-passage-dev \
                           --encoder ielab/unicoil-tilde200-msmarco-passage \
                           --index msmarco-v2-passage-unicoil-tilde \
                           --output {output_file} \
