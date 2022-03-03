@@ -125,7 +125,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/jWb3La4NYorwSCp/download"
         ],
         "md5": "37c639c9c26a34d2612ea6549fb866df",
         "size compressed (bytes)": 1904879520,
@@ -188,7 +189,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/gJmL8iiWWztnYmH/download"
         ],
         "md5": "6c1f86ee4f7175eed4d3a7acc3d567b8",
         "size compressed (bytes)": 3638703522,
@@ -251,7 +253,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/P7Lt234kyZP87nB/download"
         ],
         "md5": "136205f35bd895077c0874eaa063376c",
         "size compressed (bytes)": 819441969,
@@ -1111,6 +1114,7 @@ IMPACT_INDEX_INFO = {
         "readme": "lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/5DTJ9BYnacyFiHr/download"
         ],
         "md5": "c589978ffccaa4f116b89ad756f53b89",
         "size compressed (bytes)": 1189212017,
@@ -1125,6 +1129,7 @@ IMPACT_INDEX_INFO = {
         "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/T9KGpy3mA35jPbo/download"
         ],
         "md5": "393ad1227b9906c8776a4fbaddab4e9d",
         "size compressed (bytes)": 5891112039,
@@ -1139,6 +1144,7 @@ IMPACT_INDEX_INFO = {
         "readme": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/SCskjTJLX4CExkF/download"
         ],
         "md5": "ea024b0dd43a574deb65942e14d32630",
         "size compressed (bytes)": 22212154603,
@@ -1153,6 +1159,7 @@ IMPACT_INDEX_INFO = {
         "readme": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/FmW6N5FpMCyjMCE/download"
         ],
         "md5": "fb356e7614afc07e330b0559ae5cef18",
         "size compressed (bytes)": 14615689637,
@@ -1167,6 +1174,7 @@ IMPACT_INDEX_INFO = {
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/7PTnyEGwNGoJjXm/download"
         ],
         "md5": "94fc8af0d08682f7c79ffb16d82dcfab",
         "size compressed (bytes)": 32787358081,
@@ -1181,6 +1189,7 @@ IMPACT_INDEX_INFO = {
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/PoWYJzGJYx6nCik/download"
         ],
         "md5": "d7807b60087b630010e9c31b59d30b69",
         "size compressed (bytes)": 28640356748,
