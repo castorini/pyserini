@@ -317,7 +317,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/MeTFfBnwffS7gLd/download"
         ],
         "md5": "431391554854c51f347ba38c5e07ef94",
         "size compressed (bytes)": 8254297093,
@@ -377,7 +378,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/m4DRWpeGW9Dawd7/download"
         ],
         "md5": "3ce9eaca885e1e8a79466bee5e6a4084",
         "size compressed (bytes)": 24125355549,
@@ -437,7 +439,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/EiPESdXiikAcbFF/download"
         ],
         "md5": "72f3f0f56b9c7a1bdff836419f2f30bd",
         "size compressed (bytes)": 14431987438,
@@ -497,7 +500,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/44EDc5a9aCbHZNW/download"
         ],
         "md5": "f248becbe3ef3fffc39680cff417791d",
         "size compressed (bytes)": 20940452572,
