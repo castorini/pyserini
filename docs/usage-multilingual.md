@@ -10,22 +10,24 @@ Here's a [sample collection in Chinese](../integrations/resources/sample_collect
 To index:
 
 ```bash
-python -m pyserini.index -collection JsonCollection \
-                         -generator DefaultLuceneDocumentGenerator \
-                         -threads 1 \
-                         -language zh -input integrations/resources/sample_collection_jsonl_zh \
-                         -index indexes/sample_collection_jsonl_zh \
-                         -storePositions -storeDocvectors -storeRaw
+python -m pyserini.index.lucene \
+  --collection JsonCollection \
+  --input integrations/resources/sample_collection_jsonl_zh \
+  --language zh \
+  --index indexes/sample_collection_jsonl_zh \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 1 \
+  --storePositions --storeDocvectors --storeRaw
 ```
 
-The only difference here is that we specify `-language zh` using the ISO language code.
+The only difference here is that we specify `--language zh` using the ISO language code.
 
-Using `SimpleSearcher` to search the index:
+Using `LuceneSearcher` to search the index:
 
 ```python
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 
-searcher = SimpleSearcher('indexes/sample_collection_jsonl_zh')
+searcher = LuceneSearcher('indexes/sample_collection_jsonl_zh')
 searcher.set_language('zh')
 hits = searcher.search('滑铁卢')
 
@@ -37,15 +39,17 @@ The only difference is to use `set_language` to set the language.
 
 To perform a batch run:
 
-```
-python -m pyserini.search --topics integrations/resources/sample_queries_zh.tsv \
-                          --index indexes/sample_collection_jsonl_zh \
-                          --output run.sample_zh.txt \
-                          --bm25 --language zh
+```bash
+python -m pyserini.search.lucene \
+  --index indexes/sample_collection_jsonl_zh \
+  --topics integrations/resources/sample_queries_zh.tsv \
+  --output run.sample_zh.txt \
+  --language zh \
+  --bm25
 ```
 
 Here's what the [query file](../integrations/resources/sample_queries_zh.tsv) looks like, in tsv.
-Once again, add `-language zh`.
+Once again, add `--language zh`.
 
 And the expected output:
 
@@ -56,4 +60,3 @@ $ cat run.sample_zh.txt
 2 Q0 doc2 2 0.092600 Anserini
 2 Q0 doc1 3 0.091100 Anserini
 ```
- 
