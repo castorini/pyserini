@@ -11,95 +11,129 @@ This guide provides instructions to reproduce our results.
 
 ## Natural Questions
 
-Running DKRR retrieval (here we are performing on-the-fly query encoding):
+Running DKRR retrieval on nq-test and dpr-nq-dev of the Natural Questions dataset:
 
 ```bash
-python -m pyserini.dsearch \
+$ python -m pyserini.search.faiss \
   --index wikipedia-dpr-dkrr-nq \
   --topics nq-test \
-  --encoder castorini/dkrr-dpr-nq-retriever \
+  --encoded-queries dkrr-dpr-nq-retriever-nq-test \
   --output runs/nq.dkrr.ans.test.trec \
   --query-prefix question: \
   --batch-size 36 --threads 12
+
+$ python -m pyserini.search.faiss \
+  --index wikipedia-dpr-dkrr-nq \
+  --topics dpr-nq-dev \
+  --encoded-queries dkrr-dpr-nq-retriever-dpr-nq-dev \
+  --output runs/dpr-nq.dkrr.ans.dev.trec \
+  --query-prefix question: \
+  --batch-size 36 --threads 12  
 ```
+Alternatively, replace --encoded-queries dkrr-dpr-nq-retriever-nq-test and --encoded-queries dkrr-dpr-nq-retriever-dpr-nq-dev with --encoder castorini/dkrr-dpr-nq-retriever for on-the-fly query encoding.
 
 To evaluate, convert the TREC output format to DPR's json format:
 
 ```bash
-python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics nq-test \
   --index wikipedia-dpr \
   --input runs/nq.dkrr.ans.test.trec \
   --output runs/nq.dkrr.ans.test.json
+
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+  --topics dpr-nq-dev \
+  --index wikipedia-dpr \
+  --input runs/dpr-nq.dkrr.ans.dev.trec \
+  --output runs/dpr-nq.dkrr.ans.dev.json
 ```
 
 Evaluating:
 
 ```bash
-python -m pyserini.eval.evaluate_dpr_retrieval \
+$ python -m pyserini.eval.evaluate_dpr_retrieval \
   --retrieval runs/nq.dkrr.ans.test.json \
+  --topk 5 20 100 500 1000
+
+$ python -m pyserini.eval.evaluate_dpr_retrieval \
+  --retrieval runs/dpr-nq.dkrr.ans.dev.json \
   --topk 5 20 100 500 1000
 ```
 
 The expected results are as follows, shown in the "ours" column:
 
-| Metric   |  ours | orig |
-|:---------|------:|-----:|
-| Top-5    | 73.80 |
-| Top-20   | 84.27 |
-| Top-100  | 89.34 |
-| Top-500  | 92.24 |
-| Top-1000 | 93.43 |
+| Metric   | ours (nq-test) | ours (dpr-nq-dev) | orig (dpr-nq-dev) |
+|:---------|---------------:|------------------:|------------------:|
+| Top-5    |          73.80 |             72.40 |                   |
+| Top-20   |          84.27 |             82.36 |              82.4 |
+| Top-100  |          89.34 |             87.87 |              87.9 |
+| Top-500  |          92.24 |             90.37 |                   |
+| Top-1000 |          93.43 |             91.30 |                   |
 
-For reference, reported results from the paper are shown in the "orig" column.
-
-**TODO:** Add comparison scores from original paper.
+For reference, reported results from the paper (Table 7) are shown in the "orig" column.
 
 ## TriviaQA (TQA)
 
-Running DKRR retrieval (here we are performing on-the-fly query encoding):
+Running DKRR retrieval on dpr-trivia-test and dpr-trivia-dev of the TriviaQA dataset:
 
 ```bash
-python -m pyserini.dsearch \
+$ python -m pyserini.search.faiss \
   --index wikipedia-dpr-dkrr-tqa \
   --topics dpr-trivia-test \
-  --encoder castorini/dkrr-dpr-tqa-retriever \
+  --encoded-queries dkrr-dpr-tqa-retriever-dpr-tqa-test \
   --output runs/dpr-trivia.dkrr.ans.test.trec \
   --query-prefix question: \
   --batch-size 36 --threads 12
+
+$ python -m pyserini.search.faiss \
+  --index wikipedia-dpr-dkrr-tqa \
+  --topics dpr-trivia-dev \
+  --encoded-queries dkrr-dpr-tqa-retriever-dpr-tqa-dev \
+  --output runs/dpr-trivia.dkrr.ans.dev.trec \
+  --query-prefix question: \
+  --batch-size 36 --threads 12
 ```
+Alternatively, replace --encoded-queries dkrr-dpr-tqa-retriever-dpr-tqa-test and --encoded-queries dkrr-dpr-tqa-retriever-dpr-tqa-dev with --encoder castorini/dkrr-dpr-tqa-retriever for on-the-fly query encoding.
 
 To evaluate, convert the TREC output format to DPR's json format:
 
 ```bash
-python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics dpr-trivia-test \
   --index wikipedia-dpr \
   --input runs/dpr-trivia.dkrr.ans.test.trec \
   --output runs/dpr-trivia.dkrr.ans.test.json
+
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+  --topics dpr-trivia-dev \
+  --index wikipedia-dpr \
+  --input runs/dpr-trivia.dkrr.ans.dev.trec \
+  --output runs/dpr-trivia.dkrr.ans.dev.json
 ```
 
 Evaluating:
 
 ```bash
-python -m pyserini.eval.evaluate_dpr_retrieval \
+$ python -m pyserini.eval.evaluate_dpr_retrieval \
   --retrieval runs/dpr-trivia.dkrr.ans.test.json \
+  --topk 5 20 100 500 1000
+
+$ python -m pyserini.eval.evaluate_dpr_retrieval \
+  --retrieval runs/dpr-trivia.dkrr.ans.dev.json \
   --topk 5 20 100 500 1000
 ```
 
 The expected results are as follows, shown in the "ours" column:
 
-| Metric   |  ours | orig |
-|:---------|------:|-----:|
-| Top-5    | 77.23 |
-| Top-20   | 83.74 |
-| Top-100  | 87.78 |
-| Top-500  | 89.87 |
-| Top-1000 | 90.63 |
+| Metric   | ours (dpr-trivia-test) | ours (dpr-trivia-dev) | orig (dpr-trivia-dev) |
+|:---------|-----------------------:|----------------------:|----------------------:|
+| Top-5    |                  77.23 |                 77.31 |                       |
+| Top-20   |                  83.74 |                 83.63 |                  83.5 |
+| Top-100  |                  87.78 |                 87.39 |                  87.4 |
+| Top-500  |                  89.87 |                 89.77 |                       |
+| Top-1000 |                  90.63 |                 90.35 |                       |
 
-For reference, reported results from the paper are shown in the "orig" column.
-
-**TODO:** Add comparison scores from original paper.
+For reference, reported results from the paper (Table 7) are shown in the "orig" column.
 
 
 ## Reproduction Log[*](reproducibility.md)
