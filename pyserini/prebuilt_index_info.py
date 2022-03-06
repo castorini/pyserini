@@ -125,7 +125,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/jWb3La4NYorwSCp/download"
         ],
         "md5": "37c639c9c26a34d2612ea6549fb866df",
         "size compressed (bytes)": 1904879520,
@@ -188,7 +189,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/gJmL8iiWWztnYmH/download"
         ],
         "md5": "6c1f86ee4f7175eed4d3a7acc3d567b8",
         "size compressed (bytes)": 3638703522,
@@ -251,7 +253,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/P7Lt234kyZP87nB/download"
         ],
         "md5": "136205f35bd895077c0874eaa063376c",
         "size compressed (bytes)": 819441969,
@@ -267,7 +270,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/BC7CXiRrTfg9FbD/download"
         ],
         "md5": "3ca8b924f00f11e51e337c5421e55d96",
         "size compressed (bytes)": 63719115316,
@@ -281,7 +285,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/eAjtprNt2fwjQ7F/download"
         ],
         "md5": "502c4c96ecd95e4113a7a26a06065ecf",
         "size compressed (bytes)": 7306072104,
@@ -295,7 +300,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-full.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/ZqEx5bbznxc9ekd/download"
         ],
         "md5": "cdb600adceccd327cb97c4277f910150",
         "size compressed (bytes)": 119577632837,
@@ -311,7 +317,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/MeTFfBnwffS7gLd/download"
         ],
         "md5": "431391554854c51f347ba38c5e07ef94",
         "size compressed (bytes)": 8254297093,
@@ -371,7 +378,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/m4DRWpeGW9Dawd7/download"
         ],
         "md5": "3ce9eaca885e1e8a79466bee5e6a4084",
         "size compressed (bytes)": 24125355549,
@@ -431,7 +439,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/EiPESdXiikAcbFF/download"
         ],
         "md5": "72f3f0f56b9c7a1bdff836419f2f30bd",
         "size compressed (bytes)": 14431987438,
@@ -491,7 +500,8 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/44EDc5a9aCbHZNW/download"
         ],
         "md5": "f248becbe3ef3fffc39680cff417791d",
         "size compressed (bytes)": 20940452572,
@@ -1111,6 +1121,7 @@ IMPACT_INDEX_INFO = {
         "readme": "lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/5DTJ9BYnacyFiHr/download"
         ],
         "md5": "c589978ffccaa4f116b89ad756f53b89",
         "size compressed (bytes)": 1189212017,
@@ -1125,6 +1136,7 @@ IMPACT_INDEX_INFO = {
         "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/T9KGpy3mA35jPbo/download"
         ],
         "md5": "393ad1227b9906c8776a4fbaddab4e9d",
         "size compressed (bytes)": 5891112039,
@@ -1139,6 +1151,7 @@ IMPACT_INDEX_INFO = {
         "readme": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/SCskjTJLX4CExkF/download"
         ],
         "md5": "ea024b0dd43a574deb65942e14d32630",
         "size compressed (bytes)": 22212154603,
@@ -1153,6 +1166,7 @@ IMPACT_INDEX_INFO = {
         "readme": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/FmW6N5FpMCyjMCE/download"
         ],
         "md5": "fb356e7614afc07e330b0559ae5cef18",
         "size compressed (bytes)": 14615689637,
@@ -1167,6 +1181,7 @@ IMPACT_INDEX_INFO = {
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/7PTnyEGwNGoJjXm/download"
         ],
         "md5": "94fc8af0d08682f7c79ffb16d82dcfab",
         "size compressed (bytes)": 32787358081,
@@ -1181,6 +1196,7 @@ IMPACT_INDEX_INFO = {
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/PoWYJzGJYx6nCik/download"
         ],
         "md5": "d7807b60087b630010e9c31b59d30b69",
         "size compressed (bytes)": 28640356748,
@@ -1541,7 +1557,8 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-arabic.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-arabic.20220207.5df364.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/Jgj3rYjbyRrmJs8/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-arabic.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/Jgj3rYjbyRrmJs8/download"  # Note, this is Crystina's account.
         ],
         "md5": "de86c1ce43854bbeea4e3af5d95d6ffb",
         "size compressed (bytes)": 5997718937,
@@ -1554,7 +1571,8 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-bengali.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-bengali.20220207.5df364.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/4PpkzXAQtXFFJHR/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-bengali.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/4PpkzXAQtXFFJHR/download"  # Note, this is Crystina's account.
         ],
         "md5": "e60cb6f1f7139cf0551f0ba4e4e83bf6",
         "size compressed (bytes)": 865716848,
@@ -1567,7 +1585,8 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-english.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-english.20220207.5df364.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/A7pjbwYeoT4Krnj/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-english.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/A7pjbwYeoT4Krnj/download"  # Note, this is Crystina's account.
         ],
         "md5": "a0a8cc39e8af782ec82188a18c4c97c3",
         "size compressed (bytes)": 93585951488,
@@ -1580,7 +1599,8 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-finnish.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-finnish.20220207.5df364.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/erNYkrYzRZxpecz/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-finnish.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/erNYkrYzRZxpecz/download"  # Note, this is Crystina's account.
         ],
         "md5": "3e4e18aacf07ca551b474315f267ead6",
         "size compressed (bytes)": 5435516778,
@@ -1593,7 +1613,8 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-indonesian.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-indonesian.20220207.5df364.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/BpR3MzT7KJ6edx7/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-indonesian.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/BpR3MzT7KJ6edx7/download"  # Note, this is Crystina's account.
         ],
         "md5": "0bf693e4046d9a565ae18b9f5939d193",
         "size compressed (bytes)": 865716848,
@@ -1606,7 +1627,8 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-japanese.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-japanese.20220207.5df364.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/k7bptHT8GwMJpnF/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-japanese.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/k7bptHT8GwMJpnF/download"  # Note, this is Crystina's account.
         ],
         "md5": "4ba566e27bc0158108259b18a153e2fc",
         "size compressed (bytes)": 19920816424,
@@ -1619,7 +1641,8 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-korean.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-korean.20220207.5df364.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/TigfYMde94YWAoE/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-korean.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/TigfYMde94YWAoE/download"  # Note, this is Crystina's account.
         ],
         "md5": "44212e5722632d5bcb14f0680741638c",
         "size compressed (bytes)": 4257414237,
@@ -1632,7 +1655,8 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-russian.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-russian.20220207.5df364.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/eN7demnmnspqxjk/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-russian.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/eN7demnmnspqxjk/download"  # Note, this is Crystina's account.
         ],
         "md5": "e7634093f2a3362928e9699441ce8a3b",
         "size compressed (bytes)": 27317759143,
@@ -1645,7 +1669,8 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-swahili.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-swahili.20220207.5df364.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/JgiX8PRftnqcPwy/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-swahili.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/JgiX8PRftnqcPwy/download"  # Note, this is Crystina's account.
         ],
         "md5": "5061bdd1d81bc32490bbb3682096acdd",
         "size compressed (bytes)": 389658394,
@@ -1658,7 +1683,8 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-telugu.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-telugu.20220207.5df364.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/dkm6RGdgRbnwiX2/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-telugu.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/dkm6RGdgRbnwiX2/download"  # Note, this is Crystina's account.
         ],
         "md5": "4952dacaeae89185d3757f9f26af4e88",
         "size compressed (bytes)": 1561173721,
@@ -1671,7 +1697,8 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-thai.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-thai.20220207.5df364.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/fFrRYefd3nWFR3J/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-thai.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/fFrRYefd3nWFR3J/download"  # Note, this is Crystina's account.
         ],
         "md5": "2458f704b277fa8ffe2509b6296892a0",
         "size compressed (bytes)": 1616059846,
