@@ -21,7 +21,8 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-from pyserini import analysis, index, search
+from pyserini import analysis, search
+from pyserini.index.lucene import IndexReader
 from pyserini.analysis import JAnalyzer, JAnalyzerUtils, Analyzer
 
 
@@ -40,7 +41,7 @@ class TestAnalyzers(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
         self.searcher = search.LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
-        self.index_utils = index.IndexReader(f'{self.index_dir}lucene-index.cacm')
+        self.index_utils = IndexReader(f'{self.index_dir}lucene-index.cacm')
 
     def test_different_analyzers_are_different(self):
         self.searcher.set_analyzer(analysis.get_lucene_analyzer(stemming=False))

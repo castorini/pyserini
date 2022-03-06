@@ -24,8 +24,8 @@ import logging
 from enum import Enum
 from typing import Dict, Iterator, List, Optional, Tuple
 
-from ..analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
-from ..pyclass import autoclass
+from pyserini.analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
+from pyserini.pyclass import autoclass
 from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO
 
