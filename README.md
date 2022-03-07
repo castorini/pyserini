@@ -58,12 +58,15 @@ Instructions are provided [here](./docs/installation.md#development-installation
 
 ## How do I search?
 
-Pyserini supports sparse retrieval (e.g., BM25 ranking using bag-of-words representations), dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), 
-as well hybrid retrieval that integrates both approaches. 
+Pyserini supports sparse retrieval (e.g., BM25 ranking using bag-of-words representations), dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), as well hybrid retrieval that integrates both approaches. 
 
 ### Sparse Retrieval
 
 The `LuceneSearcher` class provides the entry point for sparse retrieval using bag-of-words representations.
+
+<details>
+<summary>Usage</summary>
+
 Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
 Here's how to use a pre-built index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively:
 
@@ -112,10 +115,16 @@ LuceneSearcher.list_prebuilt_indexes()
 A description of what's available can be found [here](docs/prebuilt-indexes.md).
 Alternatively, see [this answer](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) for how to download an index manually.
 
+</details>
+
 ### Dense Retrieval
 
 The `FaissSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `LuceneSearcher`.
-The only additional thing we need to specify for dense retrieval is the query encoder.
+
+<details>
+<summary>Usage</summary>
+
+For dense retrieval, we need to additionally specify the query encoder:
 
 ```python
 from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
@@ -152,15 +161,21 @@ The results should be as follows:
  9 6321974 69.06841
 10 2920399 69.01737
 ```
+</details>
 
 ### Hybrid Sparse-Dense Retrieval
 
-The `HybridSearcher` class provides the entry point to perform hybrid sparse-dense retrieval:
+The `HybridSearcher` class provides the entry point to perform hybrid sparse-dense retrieval.
+
+<details>
+<summary>Usage</summary>
+
+The `HybridSearcher` class is constructed from combining the output of `LuceneSearcher` and `FaissSearcher`:
 
 ```python
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
-from pyserini.hsearch import HybridSearcher
+from pyserini.search.hybrid import HybridSearcher
 
 ssearcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
@@ -192,6 +207,8 @@ The results should be as follows:
 
 In general, hybrid retrieval will be more effective than dense retrieval, which will be more effective than sparse retrieval.
 
+</details>
+
 ## How do I fetch a document?
 
 Another commonly used feature in Pyserini is to fetch a document (i.e., its text) given its `docid`.
@@ -203,6 +220,9 @@ from pyserini.search.lucene import LuceneSearcher
 searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
 doc = searcher.doc('7157715')
 ```
+
+<details>
+<summary>Additional details</summary>
 
 From `doc`, you can access its `contents` as well as its `raw` representation.
 The `contents` hold the representation of what's actually indexed; the `raw` representation is usually the original "raw document".
@@ -255,10 +275,17 @@ for i in range(searcher.num_docs):
     print(searcher.doc(i).docid())
 ```
 
+</details>
+
 ## How do I index and search my own documents?
 
+### Sparse Indexes
+
 To build sparse (i.e., Lucene inverted indexes) on your own document collections, following the instructions below.
-To build dense indexes (e.g., the output of transformer encoders) on your own document collections, see instructions [here](docs/usage-dense-indexes.md).
+
+<details>
+<summary>Additional details</summary>
+
 The following covers English documents; if you want to index and search multilingual documents, check out [this answer](docs/usage-multilingual.md#how-do-i-index-and-search-my-own-non-english-documents).
  
 Pyserini (via Anserini) provides ingestors for document collections in many different formats.
@@ -360,6 +387,12 @@ For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entiti
          }
 }
 ```
+
+</details>
+
+### Dense Indexes
+
+To build dense indexes (e.g., the output of transformer encoders) on your own document collections, see instructions [here](docs/usage-dense-indexes.md).
 
 ## Reproduction Guides
 
