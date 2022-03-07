@@ -20,7 +20,7 @@ python -m pyserini.search.faiss \
   --encoded-queries dkrr-dpr-nq-retriever-dpr-nq-dev \
   --output runs/run.dpr-dkrr-nq.dev.trec \
   --query-prefix question: \
-  --batch-size 36 --threads 12  
+  --batch-size 36 --threads 12
 
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-dkrr-nq \
