@@ -444,10 +444,132 @@ To build dense indexes (e.g., Faiss indexes) on your own document collections, f
 
 <details>
 <summary>Guide to indexing and searching English documents</summary>
+To build the dense index, Pyserini allows to either directly build Faiss Flat index via `pyserini.encode` with `output --to-faiss`, 
+or first encode collections into vectors via `pyserini.encode`, then build various types of Faiss index via `pyserini.index.faiss` based on the encoded collections. 
+ 
+<!-- ## How do I encode my own documents? -->
+<!-- In Pyserini, *encode* refers to the process that generating vectors from the text collections. -->
+<!-- These vectors can be used to perform retrieval directly, -->
+<!-- or to be further [*indexed*](usage-dense-indexes.md) into, for example, HNSW index. -->
+To use the `pyserini.encode`, the input should be in JSONL format. 
+Each line is a json dictionary containing two fields, i.e .`id` and `contents`.
+- `id` is the document id in string.
+- `contents` contains all the fields of the documents. By default, Pyserini expects the fields in contents are separated by `\n`.
+```json
+{
+  "id": "doc1",
+  "contents": "www.url.com\ntitle\nthis is the contents.\ndocument expansion"
+}
+```
+In the above example, the document has four fields in contents, `url`, `title`, `text` and `expand`.
 
-TODO: Clean up and merge document from the following pages:
-+ [Dense indexes](docs/usage-dense-indexes.md)
-+ [Encode](docs/usage-encode.md)
+The field's boundary can be controled using `--delimiter` argument under `input`, see the example below.
+
+### Encode documents with Dense encoder
+```bash
+python -m pyserini.encode input   --corpus msmarco-passage-expanded \
+                                  --fields url title text expand \  # fields in collection contents
+                                  --delimiter "\n" \
+                                  --shard-id 0 \   # The id of current shard
+                                  --shard-num 1 \  # The total number of shards
+                          output  --embeddings path/to/output/dir \
+                                  --to-faiss \
+                          encoder --encoder castorini/tct_colbert-v2-hnp-msmarco \
+                                  --fields title text \  # fields to encode
+                                  --batch 32 \
+                                  --fp16  # if inference with autocast()
+```
+> with `--to-faiss`, the generated embeddings will be stored as FaissIndexIP directly.
+> Otherwise it will be stored in `.jsonl` format.
+> If in `.jsonl` format, each line contains following info:
+```json
+{
+  "id": "doc1",
+  "contents": "www.url.com\ntitle\nthis is the contents.\ndocument expansion",
+  "vector": [0.12, 0.12, 0.13, 0.14]
+}
+```
+> The shard-id and shard-num is for speeding up the encoding, 
+> where the shard-num controls the total shard you want to segment the collection into, 
+> and the shard-id is the id of the current shard to encode. 
+> For example, if `shard-num` is 4 and `shard-id` is 0, the command would create a sub-index for the first 1/4 of the collection.
+> Then you can run 4 process on 4 gpu to speed up the process by 4 times.
+> Once it's done, you can merge the sub-indexes together by:
+```bash
+python -m pyserini.index.merge_faiss_indexes --prefix indexes/dindex-sample-dpr-multi- --shard-num 4
+```
+
+### Encode documents with Sparse encoder
+```bash
+python -m pyserini.encode input   --corpus msmarco-passage-expanded \
+                                  --fields url title text expand \
+                          output  --embeddings path/to/output/dir \
+                          encoder --encoder castorini/unicoil-d2q-msmarco-passage \
+                                  --fields title text expand \
+                                  --batch 32 \
+                                  --fp16 # if inference with autocast()
+```
+The output will be stored in jsonl format. Each line contains following info:
+```json
+{
+  "id": "doc1",
+  "contents": "www.url.com\ntitle\nthis is the contents.\ndocument expansion",
+  "vector": {"this":  0.12, "is":  0.1, "the":  0, "contents": 2.1}
+}
+```
+
+### Build Index from the encoded documentes 
+Once the collections are [encoded](usage-encode.md) into vectors,
+we can start to build the index.
+
+Pyserini supports four types of index so far:
+1. [HNSWPQ](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexHNSWPQ.html#struct-faiss-indexhnswpq)
+```bash
+python -m pyserini.index.faiss \
+    --input path/to/encoded/corpus \  # either in the Faiss or the jsonl format
+    --output path/to/output/index \
+    --hnsw \
+    --pq
+```
+
+2. [HNSW](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexHNSW.html#struct-faiss-indexhnsw)
+```bash
+python -m pyserini.index.faiss \
+    --input path/to/encoded/corpus \  # either in the Faiss or the jsonl format
+    --output path/to/output/index \
+    --hnsw
+```
+
+3. [PQ](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexPQ.html)
+```bash
+python -m pyserini.index.faiss \
+    --input path/to/encoded/corpus \  # either in the Faiss or the jsonl format
+    --output path/to/output/index \
+    --pq
+```
+4. [Flat](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexFlat.html)
+```bash
+python -m pyserini.index.faiss \
+    --input path/to/encoded/corpus \  # either in the Faiss or the jsonl format
+    --output path/to/output/index \
+```
+Note that this would generate the same files with `pyserini.encode` with `--to-faiss` specified.
+
+
+Once the index is built, you can use `FaissSearcher` to search in the collection:
+```python
+from pyserini.dsearch import FaissSearcher
+
+searcher = FaissSearcher(
+    'indexes/dindex-sample-dpr-multi',
+    'facebook/dpr-question_encoder-multiset-base'
+)
+hits = searcher.search('what is a lobster roll')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+```
+
 
 </details>
 
