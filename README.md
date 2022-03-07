@@ -476,9 +476,7 @@ python -m pyserini.encode \
           --batch 32 \
           --fp16  # if inference with autocast()
 ```
-> with `--to-faiss`, the generated embeddings will be stored as FaissIndexIP directly.
-> Otherwise it will be stored in `.jsonl` format.
-> If in `.jsonl` format, each line contains following info:
+* with `--to-faiss`, the generated embeddings will be stored as FaissIndexIP directly.  Otherwise it will be stored in `.jsonl` format.  If in `.jsonl` format, each line contains following info:
 ```json
 {
   "id": "doc1",
@@ -486,12 +484,7 @@ python -m pyserini.encode \
   "vector": [0.12, 0.12, 0.13, 0.14]
 }
 ```
-> The `shard-id` and `shard-num` arguments are for speeding up the encoding, 
-> where the `shard-num` controls the total shard you want to segment the collection into, 
-> and the `shard-id` is the id of the current shard to encode. 
-> For example, if `shard-num` is 4 and `shard-id` is 0, the command would create a sub-index for the first 1/4 of the collection.
-> Then you can run 4 process on 4 gpu to speed up the process by 4 times.
-> Once it's done, you can merge the sub-indexes together by:
+* The `shard-id` and `shard-num` arguments are for speeding up the encoding, where the `shard-num` controls the total shard you want to segment the collection into, and the `shard-id` is the id of the current shard to encode. For example, if `shard-num` is 4 and `shard-id` is 0, the command would create a sub-index for the first 1/4 of the collection. Then you can run 4 process on 4 gpu to speed up the process by 4 times.  Once it's done, you can merge the sub-indexes together by:
 ```bash
 python -m pyserini.index.merge_faiss_indexes --prefix indexes/dindex-sample-dpr-multi- --shard-num 4
 ```
