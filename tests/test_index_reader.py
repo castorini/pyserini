@@ -66,7 +66,8 @@ class TestIndexUtils(unittest.TestCase):
     def test_doc_vector_emoji_test(self):
         index_dir = 'temp_index'
         self.temp_folders.append(index_dir)
-        cmd1 = f'python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator ' + \
+        cmd1 = f'python -m pyserini.index.lucene -collection JsonCollection ' + \
+               f'-generator DefaultLuceneDocumentGenerator ' + \
                f'-threads 1 -input {self.emoji_corpus_path} -index {index_dir} -storeDocvectors'
         _ = os.system(cmd1)
         temp_index_reader = IndexReader(index_dir)
