@@ -444,17 +444,15 @@ To build dense indexes (e.g., Faiss indexes) on your own document collections, f
 
 <details>
 <summary>Guide to indexing and searching English documents</summary>
+
 To build the dense index, Pyserini allows to either directly build Faiss Flat index via `pyserini.encode` with `output --to-faiss`, 
 or first encode collections into vectors via `pyserini.encode`, then build various types of Faiss index via `pyserini.index.faiss` based on the encoded collections. 
  
-<!-- ## How do I encode my own documents? -->
-<!-- In Pyserini, *encode* refers to the process that generating vectors from the text collections. -->
-<!-- These vectors can be used to perform retrieval directly, -->
-<!-- or to be further [*indexed*](usage-dense-indexes.md) into, for example, HNSW index. -->
 To use the `pyserini.encode`, the input should be in JSONL format. 
 Each line is a json dictionary containing two fields, i.e .`id` and `contents`.
 - `id` is the document id in string.
-- `contents` contains all the fields of the documents. By default, Pyserini expects the fields in contents are separated by `\n`.
+- `contents` contains all the fields of the documents. By default, Pyserini expects the fields in contents are separated by `\n`. The field's boundary can be controled using `--delimiter` argument under `input`, see the example script below.
+
 ```json
 {
   "id": "doc1",
@@ -463,15 +461,13 @@ Each line is a json dictionary containing two fields, i.e .`id` and `contents`.
 ```
 In the above example, the document has four fields in contents, `url`, `title`, `text` and `expand`.
 
-The field's boundary can be controled using `--delimiter` argument under `input`, see the example below.
-
-### Encode documents with Dense encoder
+#### Encode documents with Dense encoder
 ```bash
 python -m pyserini.encode input   --corpus msmarco-passage-expanded \
                                   --fields url title text expand \  # fields in collection contents
                                   --delimiter "\n" \
-                                  --shard-id 0 \   # The id of current shard
-                                  --shard-num 1 \  # The total number of shards
+                                  --shard-id 0 \   # The id of current shard. Default is 0
+                                  --shard-num 1 \  # The total number of shards. Default is 1
                           output  --embeddings path/to/output/dir \
                                   --to-faiss \
                           encoder --encoder castorini/tct_colbert-v2-hnp-msmarco \
@@ -489,9 +485,9 @@ python -m pyserini.encode input   --corpus msmarco-passage-expanded \
   "vector": [0.12, 0.12, 0.13, 0.14]
 }
 ```
-> The shard-id and shard-num is for speeding up the encoding, 
-> where the shard-num controls the total shard you want to segment the collection into, 
-> and the shard-id is the id of the current shard to encode. 
+> The `shard-id` and `shard-num` arguments are for speeding up the encoding, 
+> where the `shard-num` controls the total shard you want to segment the collection into, 
+> and the `shard-id` is the id of the current shard to encode. 
 > For example, if `shard-num` is 4 and `shard-id` is 0, the command would create a sub-index for the first 1/4 of the collection.
 > Then you can run 4 process on 4 gpu to speed up the process by 4 times.
 > Once it's done, you can merge the sub-indexes together by:
@@ -499,7 +495,7 @@ python -m pyserini.encode input   --corpus msmarco-passage-expanded \
 python -m pyserini.index.merge_faiss_indexes --prefix indexes/dindex-sample-dpr-multi- --shard-num 4
 ```
 
-### Encode documents with Sparse encoder
+#### Encode documents with Sparse encoder
 ```bash
 python -m pyserini.encode input   --corpus msmarco-passage-expanded \
                                   --fields url title text expand \
@@ -518,7 +514,7 @@ The output will be stored in jsonl format. Each line contains following info:
 }
 ```
 
-### Build Index from the encoded documentes 
+#### Build Index from the encoded documentes 
 Once the collections are [encoded](usage-encode.md) into vectors,
 we can start to build the index.
 
@@ -555,7 +551,7 @@ python -m pyserini.index.faiss \
 ```
 Note that this would generate the same files with `pyserini.encode` with `--to-faiss` specified.
 
-
+#### Search
 Once the index is built, you can use `FaissSearcher` to search in the collection:
 ```python
 from pyserini.dsearch import FaissSearcher
