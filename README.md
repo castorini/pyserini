@@ -12,9 +12,10 @@ Retrieval using dense representations is provided via integration with Facebook'
 
 Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
 Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, pre-built indexes, and evaluation scripts for many commonly used IR test collections
-
 With Pyserini, it's easy to [reproduce](docs/pypi-reproduction.md) runs on a number of standard IR test collections!
 A low-effort way to try things out is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
+
+For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
 
 ## Installation
 
@@ -557,3 +558,21 @@ This issue was fixed with pyjnius 1.2.1 (released December 2019).
 The previous error was documented in [this notebook](https://github.com/castorini/anserini-notebooks/blob/master/pyjnius_demo.ipynb) and [this notebook](https://github.com/castorini/anserini-notebooks/blob/master/pyjnius_demo_jvm_issue_fix.ipynb) documents the fix.
 
 </details>
+
+## Citation
+
+If you use Pyserini, please cite the following paper: 
+
+```
+@INPROCEEDINGS{Lin_etal_SIGIR2021_Pyserini,
+   author = "Jimmy Lin and Xueguang Ma and Sheng-Chieh Lin and Jheng-Hong Yang and Ronak Pradeep and Rodrigo Nogueira",
+   title = "{Pyserini}: A {Python} Toolkit for Reproducible Information Retrieval Research with Sparse and Dense Representations",
+   booktitle = "Proceedings of the 44th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2021)",
+   year = 2021,
+   pages = "2356--2362",
+}
+```
+
+## Acknowledgments
+
+This research is supported in part by the Natural Sciences and Engineering Research Council (NSERC) of Canada.
