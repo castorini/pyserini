@@ -3,7 +3,7 @@
 ## How do I encode my own documents?
 In Pyserini, *encode* refers to the process that generating vectors from the text collections.
 These vectors can be used to perform retrieval directly,
-or to be further [*indexed*](docs/usage-dense-indexes.md) into, for example, HNSW index.
+or to be further [*indexed*](usage-dense-indexes.md) into, for example, HNSW index.
 
 ### Prepare collection
 The input should be in JSONL format. 

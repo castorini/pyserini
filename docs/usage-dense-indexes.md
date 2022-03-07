@@ -1,6 +1,6 @@
 # Pyserini: Guide to Dense Indexes
 
-Once the collections are [encoded](docs/usage-encode.md) into vectors,
+Once the collections are [encoded](usage-encode.md) into vectors,
 we can start to build the index.
 
 Pyserini supports four types of index so far:
