@@ -23,7 +23,7 @@ from typing import List, Dict
 from urllib.request import urlretrieve
 
 from pyserini.search.lucene import LuceneSearcher, JLuceneSearcherResult
-from pyserini.index import Document
+from pyserini.index.lucene import Document
 
 
 class TestSearch(unittest.TestCase):
