@@ -1,7 +1,7 @@
 import os
-from tqdm import tqdm
 import argparse
 import bibtexparser
+from tqdm import tqdm
 from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bwriter import BibTexWriter
 
@@ -28,12 +28,8 @@ def format(bibtex):
 
 def main():
     parser = argparse.ArgumentParser(description="Bibtex Parser")
-    parser.add_argument(
-        "--input_path", type=str, required=True, help="path to input bib collection"
-    )
-    parser.add_argument(
-        "--output_path", type=str, required=True, help="path to output collection"
-    )
+    parser.add_argument("--input_path", type=str, required=True, help="path to input bib collection")
+    parser.add_argument("--output_path", type=str, required=True, help="path to output collection")
     args = parser.parse_args()
 
     with open(args.input_path) as f:
@@ -46,17 +42,12 @@ def main():
         text = [bib + "\n}" for bib in text[:-1]]
 
     bib_collection = []
-    for item in tqdm(text, desc="parsing bib collection"):
+    for index, item in enumerate(tqdm(text, desc="parsing bib collection")):
         try:
-            item = bibtexparser.loads(item)
-            bib_collection.append(item.entries[0])
+            parsed = bibtexparser.loads(format(item))
+            bib_collection.append(parsed.entries[0])
         except:
-            try:
-                item = format(item)
-                item = bibtexparser.loads(item)
-                bib_collection.append(item.entries[0])
-            except Exception as e:
-                print("Unable to Parse : \n" + item)
+            print(f"Unable to Parse document {index}:\n {item}\n")
 
     db = BibDatabase()
     db.entries = bib_collection
