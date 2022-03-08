@@ -16,6 +16,7 @@
 
 from ._base import JQuery, JDisjunctionMaxQueryGenerator, get_topics, \
     get_topics_with_reader, get_qrels_file, get_qrels
+from ._geo_searcher import LuceneGeoSearcher
 from ._impact_searcher import JImpactSearcherResult, LuceneImpactSearcher
 from ._searcher import JLuceneSearcherResult, LuceneSimilarities, \
     LuceneFusionSearcher, LuceneSearcher
@@ -25,6 +26,7 @@ __all__ = ['JDisjunctionMaxQueryGenerator',
            'JLuceneSearcherResult',
            'JQuery',
            'LuceneFusionSearcher',
+           'LuceneGeoSearcher',
            'LuceneImpactSearcher',
            'LuceneSearcher',
            'LuceneSimilarities',
