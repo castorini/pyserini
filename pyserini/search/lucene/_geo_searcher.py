@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 JSort = autoclass('org.apache.lucene.search.Sort')
 JLatLonDocValuesField = autoclass('org.apache.lucene.document.LatLonDocValuesField')
 JLatLonShape = autoclass('org.apache.lucene.document.LatLonShape')
-JShapeField = autoclass('org.apache.lucene.document.ShapeField')
+JQueryRelation = autoclass('org.apache.lucene.document.ShapeField$QueryRelation')
 
 # Wrappers around Anserini classes
 JGeoSearcher = autoclass('io.anserini.search.SimpleGeoSearcher')
