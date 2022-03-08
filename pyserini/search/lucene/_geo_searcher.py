@@ -18,13 +18,16 @@
 This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``LuceneGeoSearcher``
 class, which wraps the Java class ``SimpleGeoSearcher`` in Anserini.
 """
+
 import logging
 from typing import List
+
 from pyserini.pyclass import autoclass
 from pyserini.search.lucene._base import JQuery
 
 
 logger = logging.getLogger(__name__)
+
 
 # Wrappers around Lucene classes
 JSort = autoclass('org.apache.lucene.search.Sort')
@@ -35,6 +38,7 @@ JQueryRelation = autoclass('org.apache.lucene.document.ShapeField$QueryRelation'
 # Wrappers around Anserini classes
 JGeoSearcher = autoclass('io.anserini.search.SimpleGeoSearcher')
 JGeoSearcherResult = autoclass('io.anserini.search.SimpleSearcher$Result')
+
 
 class LuceneGeoSearcher:
     """Wrapper class for ``SimpleGeoSearcher`` in Anserini.
