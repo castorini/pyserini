@@ -22,7 +22,10 @@ import unittest
 from pyserini.search.faiss import FaissSearcher
 from pyserini.search.lucene import LuceneImpactSearcher
 from urllib.request import urlretrieve
+from transformers.file_utils import is_faiss_available
 
+if is_faiss_available():
+    import faiss
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
@@ -58,6 +61,57 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertAlmostEqual(hit[0].vectors[0], -6.88267112e-01, places=4)
         self.assertEqual(searcher.num_docs, 3204)
 
+    def test_dpr_encode_as_faiss_search_with_partitions(self):
+        # Create two partitions of the CACM index, search them individually, and merge results to compute top hit
+        index_dir = f'{self.pyserini_root}/temp_index'
+        os.makedirs(os.path.join(index_dir, 'partition1'), exist_ok=True)
+        os.makedirs(os.path.join(index_dir, 'partition2'), exist_ok=True)
+        self.temp_folders.append(index_dir)
+        cmd1 = f"python -m pyserini.encode input   --corpus {self.corpus_path} \
+                                  --fields text \
+                          output  --embeddings {index_dir} --to-faiss \
+                          encoder --encoder facebook/dpr-ctx_encoder-multiset-base \
+                                  --fields text \
+                                  --batch 4 \
+                                  --device cpu"
+        _ = os.system(cmd1)
+        index = faiss.read_index(os.path.join(index_dir, 'index'))
+        new_index_partition1 = faiss.IndexFlatIP(index.d) 
+        new_index_partition2 = faiss.IndexFlatIP(index.d) 
+        vectors_partition1 = index.reconstruct_n(0, index.ntotal // 2)
+        vectors_partition2 = index.reconstruct_n(index.ntotal // 2, index.ntotal - index.ntotal // 2)
+        new_index_partition1.add(vectors_partition1)
+        new_index_partition2.add(vectors_partition2)
+        
+        faiss.write_index(new_index_partition1, os.path.join(index_dir, 'partition1/index'))
+        faiss.write_index(new_index_partition2, os.path.join(index_dir, 'partition2/index'))
+        
+        with open(os.path.join(index_dir, 'partition1/docid'), 'w') as docid1, open(os.path.join(index_dir, 'partition2/docid'), 'w') as docid2:
+            with open(os.path.join(index_dir, 'docid'), 'r') as file:
+                for i in range(index.ntotal):
+                    line = next(file)
+                    if i < (index.ntotal // 2):
+                        docid1.write(line)
+                    else:
+                        docid2.write(line)
+
+        searcher_partition1 = FaissSearcher(
+            index_dir + '/partition1',
+            'facebook/dpr-question_encoder-multiset-base'
+        )
+        searcher_partition2 = FaissSearcher(
+            index_dir + '/partition2',
+            'facebook/dpr-question_encoder-multiset-base'
+        )
+        q_emb, hit1 = searcher_partition1.search("What is the solution of separable closed queueing networks?", k=2, return_vector=True)
+        q_emb, hit2 = searcher_partition2.search("What is the solution of separable closed queueing networks?", k=2, return_vector=True)
+        mergedHits = hit1 + hit2
+        mergedHits.sort(key=lambda x: x.score, reverse=True)
+        self.assertEqual(mergedHits[0].docid, 'CACM-2445')
+        self.assertAlmostEqual(mergedHits[0].vectors[0], -6.88267112e-01, places=4)
+        self.assertEqual(searcher_partition1.num_docs, 1602)
+        self.assertEqual(searcher_partition2.num_docs, 1602)
+
     def test_unicoil_encode_as_jsonl(self):
         embedding_dir = f'{self.pyserini_root}/temp_embeddings'
         self.temp_folders.append(embedding_dir)
@@ -69,6 +123,7 @@ class TestSearchIntegration(unittest.TestCase):
                                   --batch 4 \
                                   --device cpu"
         _ = os.system(cmd1)
+
         index_dir = f'{self.pyserini_root}/temp_lucene'
         self.temp_folders.append(index_dir)
         cmd2 = f'python -m pyserini.index -collection JsonVectorCollection \
