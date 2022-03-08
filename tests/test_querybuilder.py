@@ -21,9 +21,8 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-from pyserini import search
 from pyserini.analysis import get_lucene_analyzer
-from pyserini.search.lucene import querybuilder
+from pyserini.search.lucene import LuceneSearcher, querybuilder
 
 
 class TestQueryBuilding(unittest.TestCase):
@@ -40,7 +39,7 @@ class TestQueryBuilding(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-        self.searcher = search.LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
+        self.searcher = LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
 
     def testBuildBoostedQuery(self):
         term_query1 = querybuilder.get_term_query('information')

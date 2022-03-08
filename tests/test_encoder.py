@@ -13,11 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 import json
 import unittest
 
-from pyserini.encode import TctColBertDocumentEncoder, DprDocumentEncoder, UniCoilDocumentEncoder
-from pyserini.encode import JsonlCollectionIterator
+from pyserini.encode import JsonlCollectionIterator, TctColBertDocumentEncoder, DprDocumentEncoder, \
+    UniCoilDocumentEncoder
+
 
 class TestSearch(unittest.TestCase):
     def setUp(self):
@@ -68,7 +70,7 @@ class TestJsonlCollectionIterator(unittest.TestCase):
         collection_iterator = JsonlCollectionIterator(json_fn, ["text"], delimiter="\n")
         for i, info in enumerate(collection_iterator):
             expected_info = all_expected_info[i]
-            print(info)
+
             self.assertEqual(expected_info[0], info["id"][0])
             self.assertEqual(expected_info[1], info["text"][0])
 
@@ -91,10 +93,6 @@ class TestJsonlCollectionIterator(unittest.TestCase):
         collection_iterator = JsonlCollectionIterator(json_fn, ["title", "text"], delimiter=delimiter)
         for i, info in enumerate(collection_iterator):
             expected_info = all_expected_info[i]
-            if i == 0:
-                print(expected_info[0])
-                print(expected_info[1])
-                print(expected_info[2])
 
             self.assertEqual(expected_info[0], info["id"][0])
             self.assertEqual(expected_info[1], info["title"][0])

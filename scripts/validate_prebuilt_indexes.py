@@ -14,14 +14,9 @@
 # limitations under the License.
 #
 
-import sys
-
-# Use Pyserini in this repo (as opposed to pip install)
-sys.path.insert(0, './')
-
-from pyserini.index import IndexReader
-from pyserini.dsearch import FaissSearcher, QueryEncoder, BinaryDenseSearcher 
+from pyserini.index.lucene import IndexReader
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
+from pyserini.search.faiss import FaissSearcher, QueryEncoder, BinaryDenseSearcher
 
 
 def check_sparse(index):
