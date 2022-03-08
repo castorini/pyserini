@@ -24,21 +24,8 @@ python scripts/ltr_msmarco/convert_queries.py --input path_to_topics --output ir
 ```
 Here the path_to_topics represents the path to topics file saved in tools/topics-and-qrels/ folder, e.g., tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
 
-We can now perform retrieval to gain the baseline:
 
-```
-python -m pyserini.search.lucene \
-  --index msmarco-passage-ltr \
-  --topics topics \
-  --output runs/run.topics.bm25tuned.txt \
-  --output-format trec \
-  --hits 1000 \
-  --bm25 --k1 0.82 --b 0.68
-```
-
-
-### Performing Reranking Using Pretrained Model
-
+### Performing End-to-End Retrieval Using Pretrained Model
 
 Download pretrained IBM models:
 ```bash
@@ -46,26 +33,24 @@ wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_be
 tar -xzvf irst_test/ibm_model_1_bert_tok_20211117.tar.gz -C irst_test
 ```
 
-Next we can run our script to get our reranking results.
+Next we can run our script to get our end-to-end results.
 
 IRST (Sum) 
 ```bash
-python -m pyserini.search.lucene.tprob \
-  --base_path runs/run.topics.bm25tuned.txt \                    
+python -m pyserini.search.lucene.irst        
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
-  --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ \
+  --index msmarco-passage-ltr \
   --output irst_test/regression_test_sum.txt \
   --alpha 0.1
 ```
 
 IRST (Max)
 ```bash
-python -m pyserini.search.lucene.tprob \
-  --base_path runs/run.topics.bm25tuned.txt \                    
+python -m pyserini.search.lucene.irst \              
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
-  --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ \
+  --index msmarco-passage-ltr \
   --output irst_test/regression_test_sum.txt \
   --alpha 0.3 \
   --max_sim
@@ -118,16 +103,6 @@ python scripts/ltr_msmarco/convert_queries.py --input path_to_topics --output ir
 ```
 
 We can now perform retrieval in anserini to generate baseline:
-
-```
-python -m pyserini.search.lucene \
-  --index msmarco-document-segment-ltr \
-  --topics topics \
-  --output runs/run.msmarco-doc-segmented.bm25-default.topics.dev.txt \
-  --output-format trec \
-  --hits 10000 \
-  --bm25 
-```
 
 ### Performing Reranking Using Pretrained Model
 

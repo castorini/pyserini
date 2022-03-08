@@ -21,11 +21,12 @@ interface on MS MARCO dataset. The main entry point is the
 """
 import json
 import math
+import os
 import struct
 from multiprocessing.pool import ThreadPool
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.pyclass import autoclass
-from pyserini.util import download_prebuilt_index
+from pyserini.util import download_prebuilt_index, get_cache_home
 from typing import Dict
 
 # Wrappers around Anserini classes
@@ -43,12 +44,19 @@ class LuceneIrstSearcher(object):
 
     def __init__(self, ibm_model: str, index: str, field_name: str):
         self.ibm_model = ibm_model
-        self.object = JLuceneSearcher(index)
-        self.index_reader = JIndexReader().getReader(index)
+        self.bm25search = LuceneSearcher.from_prebuilt_index(index)
+        index_directory = os.path.join(get_cache_home(), 'indexes')
+        if (index == 'msmarco-passage-ltr'):
+            index_path = os.path.join(index_directory, 'index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3')
+        else:
+            ###TODO 
+            index_path = os.path.join(index_directory, 'index-msmarco-doc-per-passage-ltr-20211031-33e4151.bd60e89041b4ebbabc4bf0cfac608a87')
+        self.object = JLuceneSearcher(index_path)
+        self.index_reader = JIndexReader().getReader(index_path)
         self.field_name = field_name
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
         self.pool = ThreadPool(24)
-        self.bm25search = LuceneSearcher.from_prebuilt_index("msmarco-passage")
+        
 
 
     @classmethod
