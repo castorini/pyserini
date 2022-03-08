@@ -23,10 +23,6 @@ import unittest
 from pyserini.search.faiss import FaissSearcher
 from pyserini.search.lucene import LuceneImpactSearcher
 from urllib.request import urlretrieve
-# from transformers.file_utils import is_faiss_available
-
-# if is_faiss_available():
-#     import faiss
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
@@ -42,25 +38,25 @@ class TestSearchIntegration(unittest.TestCase):
         self.temp_folders.append(self.corpus_path)
         urlretrieve(self.corpus_url, os.path.join(self.corpus_path, 'cacm.json'))
 
-    # def test_dpr_encode_as_faiss(self):
-    #     index_dir = f'{self.pyserini_root}/temp_index'
-    #     self.temp_folders.append(index_dir)
-    #     cmd1 = f"python -m pyserini.encode input   --corpus {self.corpus_path} \
-    #                               --fields text \
-    #                       output  --embeddings {index_dir} --to-faiss \
-    #                       encoder --encoder facebook/dpr-ctx_encoder-multiset-base \
-    #                               --fields text \
-    #                               --batch 4 \
-    #                               --device cpu"
-    #     _ = os.system(cmd1)
-    #     searcher = FaissSearcher(
-    #         index_dir,
-    #         'facebook/dpr-question_encoder-multiset-base'
-    #     )
-    #     q_emb, hit = searcher.search("What is the solution of separable closed queueing networks?", k=1, return_vector=True)
-    #     self.assertEqual(hit[0].docid, 'CACM-2445')
-    #     self.assertAlmostEqual(hit[0].vectors[0], -6.88267112e-01, places=4)
-    #     self.assertEqual(searcher.num_docs, 3204)
+    def test_dpr_encode_as_faiss(self):
+        index_dir = f'{self.pyserini_root}/temp_index'
+        self.temp_folders.append(index_dir)
+        cmd1 = f"python -m pyserini.encode input   --corpus {self.corpus_path} \
+                                  --fields text \
+                          output  --embeddings {index_dir} --to-faiss \
+                          encoder --encoder facebook/dpr-ctx_encoder-multiset-base \
+                                  --fields text \
+                                  --batch 4 \
+                                  --device cpu"
+        _ = os.system(cmd1)
+        searcher = FaissSearcher(
+            index_dir,
+            'facebook/dpr-question_encoder-multiset-base'
+        )
+        q_emb, hit = searcher.search("What is the solution of separable closed queueing networks?", k=1, return_vector=True)
+        self.assertEqual(hit[0].docid, 'CACM-2445')
+        self.assertAlmostEqual(hit[0].vectors[0], -6.88267112e-01, places=4)
+        self.assertEqual(searcher.num_docs, 3204)
 
     def test_dpr_encode_as_faiss_search_with_partitions(self):
         # Create two partitions of the CACM index, search them individually, and merge results to compute top hit
