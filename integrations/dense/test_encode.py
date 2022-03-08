@@ -33,7 +33,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.pyserini_root = '.'
         self.temp_folders = []
         self.corpus_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/corpus/jsonl/cacm.json'
-        self.corpus_path = f"{self.pyserini_root}/integrations/dense/temp_cacm/"
+        self.corpus_path = f'{self.pyserini_root}/integrations/dense/temp_cacm/'
         os.makedirs(self.corpus_path, exist_ok=True)
         self.temp_folders.append(self.corpus_path)
         urlretrieve(self.corpus_url, os.path.join(self.corpus_path, 'cacm.json'))
@@ -41,19 +41,19 @@ class TestSearchIntegration(unittest.TestCase):
     def test_dpr_encode_as_faiss(self):
         index_dir = f'{self.pyserini_root}/temp_index'
         self.temp_folders.append(index_dir)
-        cmd1 = f"python -m pyserini.encode input   --corpus {self.corpus_path} \
+        cmd1 = f'python -m pyserini.encode input   --corpus {self.corpus_path} \
                                   --fields text \
                           output  --embeddings {index_dir} --to-faiss \
                           encoder --encoder facebook/dpr-ctx_encoder-multiset-base \
                                   --fields text \
                                   --batch 4 \
-                                  --device cpu"
+                                  --device cpu'
         _ = os.system(cmd1)
         searcher = FaissSearcher(
             index_dir,
             'facebook/dpr-question_encoder-multiset-base'
         )
-        q_emb, hit = searcher.search("What is the solution of separable closed queueing networks?", k=1, return_vector=True)
+        q_emb, hit = searcher.search('What is the solution of separable closed queueing networks?', k=1, return_vector=True)
         self.assertEqual(hit[0].docid, 'CACM-2445')
         self.assertAlmostEqual(hit[0].vectors[0], -6.88267112e-01, places=4)
         self.assertEqual(searcher.num_docs, 3204)
@@ -64,13 +64,13 @@ class TestSearchIntegration(unittest.TestCase):
         os.makedirs(os.path.join(index_dir, 'partition1'), exist_ok=True)
         os.makedirs(os.path.join(index_dir, 'partition2'), exist_ok=True)
         self.temp_folders.append(index_dir)
-        cmd1 = f"python -m pyserini.encode input   --corpus {self.corpus_path} \
+        cmd1 = f'python -m pyserini.encode input   --corpus {self.corpus_path} \
                                   --fields text \
                           output  --embeddings {index_dir} --to-faiss \
                           encoder --encoder facebook/dpr-ctx_encoder-multiset-base \
                                   --fields text \
                                   --batch 4 \
-                                  --device cpu"
+                                  --device cpu'
         _ = os.system(cmd1)
         index = faiss.read_index(os.path.join(index_dir, 'index'))
         new_index_partition1 = faiss.IndexFlatIP(index.d) 
@@ -92,33 +92,28 @@ class TestSearchIntegration(unittest.TestCase):
                     else:
                         docid2.write(line)
 
-        searcher_partition1 = FaissSearcher(
-            index_dir + '/partition1',
-            'facebook/dpr-question_encoder-multiset-base'
-        )
-        searcher_partition2 = FaissSearcher(
-            index_dir + '/partition2',
-            'facebook/dpr-question_encoder-multiset-base'
-        )
-        q_emb, hit1 = searcher_partition1.search("What is the solution of separable closed queueing networks?", k=2, return_vector=True)
-        q_emb, hit2 = searcher_partition2.search("What is the solution of separable closed queueing networks?", k=2, return_vector=True)
-        mergedHits = hit1 + hit2
-        mergedHits.sort(key=lambda x: x.score, reverse=True)
-        self.assertEqual(mergedHits[0].docid, 'CACM-2445')
-        self.assertAlmostEqual(mergedHits[0].vectors[0], -6.88267112e-01, places=4)
+        searcher_partition1 = FaissSearcher(index_dir + '/partition1','facebook/dpr-question_encoder-multiset-base')
+        searcher_partition2 = FaissSearcher(index_dir + '/partition2','facebook/dpr-question_encoder-multiset-base')
+        q_emb, hit1 = searcher_partition1.search('What is the solution of separable closed queueing networks?', k=2, return_vector=True)
+        q_emb, hit2 = searcher_partition2.search('What is the solution of separable closed queueing networks?', k=2, return_vector=True)
+        merged_hits = hit1 + hit2
+        merged_hits.sort(key=lambda x: x.score, reverse=True)
+        
+        self.assertEqual(merged_hits[0].docid, 'CACM-2445')
+        self.assertAlmostEqual(merged_hits[0].vectors[0], -6.88267112e-01, places=4)
         self.assertEqual(searcher_partition1.num_docs, 1602)
         self.assertEqual(searcher_partition2.num_docs, 1602)
 
     def test_unicoil_encode_as_jsonl(self):
         embedding_dir = f'{self.pyserini_root}/temp_embeddings'
         self.temp_folders.append(embedding_dir)
-        cmd1 = f"python -m pyserini.encode input   --corpus {self.corpus_path} \
+        cmd1 = f'python -m pyserini.encode input   --corpus {self.corpus_path} \
                                   --fields text \
                           output  --embeddings {embedding_dir} \
                           encoder --encoder castorini/unicoil-msmarco-passage \
                                   --fields text \
                                   --batch 4 \
-                                  --device cpu"
+                                  --device cpu'
         _ = os.system(cmd1)
         index_dir = f'{self.pyserini_root}/temp_lucene'
         self.temp_folders.append(index_dir)
@@ -129,7 +124,7 @@ class TestSearchIntegration(unittest.TestCase):
                                           -impact -pretokenized -threads 12 -storeRaw'
         _ = os.system(cmd2)
         searcher = LuceneImpactSearcher(index_dir, query_encoder='castorini/unicoil-msmarco-passage')
-        hits = searcher.search("What is the solution of separable closed queueing networks?", k=1)
+        hits = searcher.search('What is the solution of separable closed queueing networks?', k=1)
         hit = hits[0]
         self.assertEqual(hit.docid, 'CACM-2712')
         self.assertAlmostEqual(hit.score, 18.401899337768555, places=4)
