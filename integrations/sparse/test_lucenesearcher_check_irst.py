@@ -48,7 +48,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
             --qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
             --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
             --query_path irst_test/queries.dev.small.json \
-            --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ \
+            --index msmarco-passage-ltr \
             --output irst_test/regression_test_sum.txt \
             --alpha 0.1 ')
 
@@ -70,7 +70,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
             --qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
             --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
             --query_path irst_test/queries.dev.small.json \
-            --index ~/.cache/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3/ \
+            --index msmarco-passage-ltr \
             --output irst_test/regression_test_max.txt \
             --alpha 0.3 \
             --max_sim')
