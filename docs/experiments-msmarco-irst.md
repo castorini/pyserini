@@ -118,22 +118,22 @@ Next we can run our script to get our reranking results.
 
 IRST (Sum) 
 ```bash
-python -m pyserini.search.lucene.tprob 
+python -m pyserini.search.lucene.irst 
   --base_path runs/run.msmarco-doc-segmented.bm25-default.topics.dev.txt \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
-  --index ~/.cache/pyserini/indexes/index-msmarco-document-segment-ltr/ \
+  --index msmarco-doc-per-passage-ltr \
   --output irst_test/regression_test_sum.txt \
   --alpha 0.3
 ```
 
 IRST (Max)
 ```bash
-python -m pyserini.search.lucene.tprob
+python -m pyserini.search.lucene.irst
   --base_path runs/run.msmarco-doc-segmented.bm25-default.topics.dev.txt \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
-  --index ~/.cache/pyserini/indexes/index-msmarco-document-segment-ltr/ \
+  --index msmarco-doc-per-passage-ltr \
   --output irst_test/regression_test_max.txt \
   --alpha 0.3 \
   --max_sim
