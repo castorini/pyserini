@@ -49,7 +49,7 @@ class TestLtrMsmarcoDocument(unittest.TestCase):
         a,b = result.find('#####################\nMRR @100:'), result.find('\nQueriesRanked: 5193\n#####################\n')
         mrr = result[a+32:b]
         # See https://github.com/castorini/pyserini/issues/951
-        self.assertAlmostEqual(float(mrr), 0.3105, delta=0.0001)
+        self.assertAlmostEqual(float(mrr), 0.3108, delta=0.0001)
         rmtree('ltr_test')
 
 if __name__ == '__main__':
