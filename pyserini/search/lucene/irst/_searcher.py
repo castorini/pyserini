@@ -48,9 +48,11 @@ class LuceneIrstSearcher(object):
         index_directory = os.path.join(get_cache_home(), 'indexes')
         if (index == 'msmarco-passage-ltr'):
             index_path = os.path.join(index_directory, 'index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3')
+        elif (index == 'msmarco-document-segment-ltr'):
+            index_path = os.path.join(index_directory, 'lucene-index.msmarco-doc-segmented.ibm.13064bdaf8e8a79222634d67ecd3ddb5')
         else:
-            ###TODO 
-            index_path = os.path.join(index_directory, 'index-msmarco-doc-per-passage-ltr-20211031-33e4151.bd60e89041b4ebbabc4bf0cfac608a87')
+            print("We currently only support two indexes: msmarco-passage-ltr and msmarco-document-segment-ltr, \
+            but the index you inserted is not one of those")
         self.object = JLuceneSearcher(index_path)
         self.index_reader = JIndexReader().getReader(index_path)
         self.field_name = field_name
