@@ -71,18 +71,16 @@ TF_INDEX_INFO = {
         "unique_terms": 10123678,
         "downloaded": False
     },
-    "msmarco-doc-per-passage-ltr": {
-        "description": "Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR",
-        "filename": "index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
+    "msmarco-document-segment-ltr": {
+        "description": "Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR",
+        "filename": "lucene-index.msmarco-doc-segmented.ibm.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/kNdXMWXEsTt3fT8/download"
+            "https://www.dropbox.com/s/e5mwugvcbeypfl5/lucene-index.msmarco-doc-segmented.ibm.tar.gz"
         ],
-        "md5": "bd60e89041b4ebbabc4bf0cfac608a87",
-        "size compressed (bytes)": 45835520960,
-        "total_terms": 1232004740,
-        "documents": 20545628,
-        "unique_terms": 10123678,
+        "md5": "13064bdaf8e8a79222634d67ecd3ddb5",
+        "size compressed (bytes)": 98984853515,
+        "total_terms": 3197500226,
+        "documents": 20532330,
         "downloaded": False
     },
 

@@ -104,39 +104,39 @@ python scripts/ltr_msmarco/convert_queries.py --input path_to_topics --output ir
 
 We can now perform retrieval in anserini to generate baseline:
 
-### Performing Reranking Using Pretrained Model
+### Performing End-to-End Retrieval Using Pretrained Model
 
 
 Download pretrained IBM models. Please note that we did not have time to train a new IBM model on MSMARCO DOC data, we used the trained MSMARCO Passage IBM Model1 instead.
 
 ```bash
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_bert_tok_20211117.tar.gz -P ibm_test/
-tar -xzvf ibm_test/ibm_model_1_bert_tok_20211117.tar.gz -C ibm_test
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_bert_tok_20211117.tar.gz -P irst_test/
+tar -xzvf irst_test/ibm_model_1_bert_tok_20211117.tar.gz -C irst_test
 ```
 
-Next we can run our script to get our reranking results.
+Next we can run our script to get our retrieval results.
 
 IRST (Sum) 
 ```bash
 python -m pyserini.search.lucene.irst 
-  --base_path runs/run.msmarco-doc-segmented.bm25-default.topics.dev.txt \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
-  --index msmarco-doc-per-passage-ltr \
+  --index msmarco-document-segment-ltr \
   --output irst_test/regression_test_sum.txt \
-  --alpha 0.3
+  --alpha 0.3 \
+  --hits 10000
 ```
 
 IRST (Max)
 ```bash
 python -m pyserini.search.lucene.irst
-  --base_path runs/run.msmarco-doc-segmented.bm25-default.topics.dev.txt \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
-  --index msmarco-doc-per-passage-ltr \
+  --index msmarco-document-segment-ltr \
   --output irst_test/regression_test_max.txt \
   --alpha 0.3 \
-  --max_sim
+   --hits 10000 \
+  --max_sim 
 ```
 
 
