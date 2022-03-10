@@ -106,22 +106,44 @@ def get_topics(collection_name):
         topics = JTopicReader.getTopicsWithStringIds(JTopics.CAR17V20_BENCHMARK_Y1_TEST)
     elif collection_name == 'dl19-doc':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_DL_DOC)
+    elif collection_name == 'dl19-doc-unicoil':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_DL_DOC_UNICOIL)
+    elif collection_name == 'dl19-doc-unicoil-noexp':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_DL_DOC_UNICOIL_NOEXP)
     elif collection_name == 'dl19-passage':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_DL_PASSAGE)
+    elif collection_name == 'dl19-passage-unicoil':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_DL_PASSAGE_UNICOIL)
+    elif collection_name == 'dl19-passage-unicoil-noexp':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2019_DL_PASSAGE_UNICOIL_NOEXP)
     elif collection_name == 'dl20':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2020_DL)
+    elif collection_name == 'dl20-unicoil':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2020_DL_UNICOIL)
+    elif collection_name == 'dl20-unicoil-noexp':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2020_DL_UNICOIL_NOEXP)
+    elif collection_name == 'dl21':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2021_DL)
+    elif collection_name == 'dl21-unicoil':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2021_DL_UNICOIL)
+    elif collection_name == 'dl21-unicoil-noexp':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.TREC2021_DL_UNICOIL_NOEXP)
     elif collection_name == 'msmarco-doc-dev':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV)
     elif collection_name == 'msmarco-doc-dev-unicoil':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV_UNICOIL)
+    elif collection_name == 'msmarco-doc-dev-unicoil-noexp':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_DEV_UNICOIL_NOEXP)
     elif collection_name == 'msmarco-doc-test':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_DOC_TEST)
     elif collection_name == 'msmarco-passage-dev-subset':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET)
     elif collection_name == 'msmarco-passage-dev-subset-deepimpact':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_DEEPIMPACT)
-    elif collection_name == 'msmarco-passage-dev-subset-unicoil-d2q':
-        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_D2Q)
+    elif collection_name == 'msmarco-passage-dev-subset-unicoil':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL)
+    elif collection_name == 'msmarco-passage-dev-subset-unicoil-noexp':
+        topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_NOEXP)
     elif collection_name == 'msmarco-passage-dev-subset-unicoil-tilde':
         topics = JTopicReader.getTopicsWithStringIds(JTopics.MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_TILDE)
     elif collection_name == 'msmarco-passage-dev-subset-distill-splade-max':

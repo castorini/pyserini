@@ -283,6 +283,16 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 43)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
+        topics = search.get_topics('dl19-doc-unicoil')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 43)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('dl19-doc-unicoil-noexp')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 43)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
         qrels = search.get_qrels('dl19-doc')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 43)
@@ -294,6 +304,16 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 43)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
+        topics = search.get_topics('dl19-passage-unicoil')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 43)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('dl19-passage-unicoil-noexp')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 43)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
         qrels = search.get_qrels('dl19-passage')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 43)
@@ -301,6 +321,16 @@ class TestLoadTopics(unittest.TestCase):
 
     def test_dl20(self):
         topics = search.get_topics('dl20')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 200)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('dl20-unicoil')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 200)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('dl20-unicoil-noexp')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 200)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
@@ -322,6 +352,16 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 5193)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+        topics = search.get_topics('msmarco-doc-dev-unicoil')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 5193)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-doc-dev-unicoil-noexp')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 5193)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
         qrels = search.get_qrels('msmarco-doc-dev')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 5193)
@@ -339,6 +379,16 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 6980)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+        topics = search.get_topics('msmarco-passage-dev-subset-unicoil')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev-subset-unicoil-noexp')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
         qrels = search.get_qrels('msmarco-passage-dev-subset')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 6980)
@@ -352,12 +402,6 @@ class TestLoadTopics(unittest.TestCase):
 
     def test_msmarco_passage_dev_deepimpact(self):
         topics = search.get_topics('msmarco-passage-dev-subset-deepimpact')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 6980)
-        self.assertTrue(isinstance(next(iter(topics.keys())), int))
-
-    def test_msmarco_passage_dev_unicoil_d2q(self):
-        topics = search.get_topics('msmarco-passage-dev-subset-unicoil-d2q')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 6980)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
@@ -381,6 +425,16 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 4552)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+        topics = search.get_topics('msmarco-v2-doc-dev-unicoil')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 4552)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v2-doc-dev-unicoil-noexp')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 4552)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
         qrels = search.get_qrels('msmarco-v2-doc-dev')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 4552)
@@ -388,6 +442,16 @@ class TestLoadTopics(unittest.TestCase):
 
     def test_msmarco_v2_doc_dev2(self):
         topics = search.get_topics('msmarco-v2-doc-dev2')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 5000)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v2-doc-dev2-unicoil')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 5000)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v2-doc-dev2-unicoil-noexp')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 5000)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
@@ -403,6 +467,16 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 3903)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+        topics = search.get_topics('msmarco-v2-passage-dev-unicoil')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3903)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v2-passage-dev-unicoil-noexp')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3903)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
         qrels = search.get_qrels('msmarco-v2-passage-dev')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 3903)
@@ -410,6 +484,16 @@ class TestLoadTopics(unittest.TestCase):
 
     def test_msmarco_v2_passage_dev2(self):
         topics = search.get_topics('msmarco-v2-passage-dev2')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 4281)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v2-passage-dev2-unicoil')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 4281)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v2-passage-dev2-unicoil-noexp')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 4281)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
