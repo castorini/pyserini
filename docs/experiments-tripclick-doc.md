@@ -7,7 +7,7 @@ This will prevent going back and fixing machine configuration again and again. I
 
 ## Data Preparation
 
-The guide requires the [development installation](https://github.com/castorini/pyserini/#development-installation) for additional resources that are not shipped with the Python module;
+The guide requires the [development installation](https://github.com/castorini/pyserini/blob/master/docs/installation.md#development-installation) for additional resources that are not shipped with the Python module;
 
 We're going to use the repository's root directory as the working directory.
 First, obtain the TripClick benchmark package, following instructions on the [TripClick benchmark collection web page](https://tripdatabase.github.io/tripclick/).
