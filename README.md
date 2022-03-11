@@ -547,7 +547,7 @@ Note that this would generate the same files with `pyserini.encode` with `--to-f
 
 Once the index is built, you can use `FaissSearcher` to search in the collection:
 ```python
-from pyserini.dsearch import FaissSearcher
+from pyserini.search import FaissSearcher
 
 searcher = FaissSearcher(
     'indexes/dindex-sample-dpr-multi',
