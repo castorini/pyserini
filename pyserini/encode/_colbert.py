@@ -175,6 +175,8 @@ class ColBertEncoder(DocumentEncoder):
         self.actual_prepend_tok = prepend_map[prepend_tok]
         self.query_augment = (query_augment and prepend_tok == '[Q]')
 
+        print(f'max_ql={max_ql}, max_dl={max_dl}')
+
         # load model
         if 'distil' in model:
             print('Using distil ColBERT:', model, tokenizer)
@@ -206,8 +208,8 @@ class ColBertEncoder(DocumentEncoder):
         self.device = device
         self.model.to(self.device)
 
-    def encode(self, texts, titles=None, fp16=False,
-               sep='\n', debug=False, **kwargs):
+    def encode(self, texts, titles=None, return_enc=False,
+            fp16=False, sep='\n', debug=False, **kwargs):
         # preprocess input fields
         prepend_contents = []
         for b, text in enumerate(texts):
@@ -248,7 +250,10 @@ class ColBertEncoder(DocumentEncoder):
                     embs, lengths = self.model.query(enc_tokens)
                 else:
                     embs, lengths = self.model.doc(enc_tokens)
-                return embs, lengths
+                if return_enc:
+                    return embs, lengths, enc_tokens
+                else:
+                    return embs, lengths
 
 
 class ColbertRepresentationWriter(RepresentationWriter):
