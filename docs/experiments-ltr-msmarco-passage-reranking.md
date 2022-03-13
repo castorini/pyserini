@@ -49,7 +49,7 @@ tar -xzvf runs/model-ltr-msmarco-passage-mrr-v1.tar.gz -C runs
 The following command generates our reranking result:
 
 ```bash
-python -m pyserini.search.lucene.ltr 
+python -m pyserini.search.lucene.ltr \
   --input runs/run.msmarco-passage.bm25tuned.txt \
   --input-format tsv \
   --model runs/msmarco-passage-ltr-mrr-v1 \

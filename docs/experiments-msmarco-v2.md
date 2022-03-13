@@ -13,7 +13,7 @@ These instructions are exactly the same as in the [Anserini guide](https://githu
 This is the minimal indexing command:
 
 ```bash
-python -m pyserini.index.lucene
+python -m pyserini.index.lucene \
   --collection MsMarcoV2PassageCollection \
   --input collections/msmarco_v2_passage \
   --index indexes/lucene-index.msmarco-v2-passage \
