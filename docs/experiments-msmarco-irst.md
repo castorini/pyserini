@@ -37,21 +37,21 @@ Next we can run our script to get our end-to-end results.
 
 IRST (Sum) 
 ```bash
-python -m pyserini.search.lucene.irst        
+python -m pyserini.search.lucene.irst \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
   --index msmarco-passage-ltr \
-  --output irst_test/regression_test_sum.txt \
+  --output irst_test/regression_test_sum.irst_topics.txt \
   --alpha 0.1
 ```
 
 IRST (Max)
 ```bash
-python -m pyserini.search.lucene.irst \              
+python -m pyserini.search.lucene.irst \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
   --index msmarco-passage-ltr \
-  --output irst_test/regression_test_sum.txt \
+  --output irst_test/regression_test_max.irst_topics.txt \
   --alpha 0.3 \
   --max_sim
 ```
@@ -73,8 +73,20 @@ different values to run on different datasets.
 
 After the run finishes, we can also evaluate the results using the official MS MARCO evaluation script:
 
+For TREC DL 2019, use this command to evaluate your run file:
+
 ```bash
-tools/eval/trec_eval.9.0.4/trec_eval -c -m ndcg_cut -m map -m recip_rank qrel_file irst_test/regression_test_sum.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 dl19-passage irst_test/regression_test_sum.dl19-passage.txt
+```
+
+Similarly for TREC DL 2020,
+```bash
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 dl20-passage irst_test/regression_test_sum.dl19-passage.txt
+```
+
+For MS MARCO Passage V1, no need to use -l 2 option:
+```bash
+python -m pyserini.eval.trec_eval -c -m ndcg_cut -m map -m recip_rank msmarco-passage-dev-subset irst_test/regression_test_sum.msmarco-passage-dev-subset.txt
 ```
 
 `--qrel_file`: <br />
@@ -118,24 +130,24 @@ Next we can run our script to get our retrieval results.
 
 IRST (Sum) 
 ```bash
-python -m pyserini.search.lucene.irst 
+python -m pyserini.search.lucene.irst \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
   --index msmarco-document-segment-ltr \
-  --output irst_test/regression_test_sum.txt \
+  --output irst_test/regression_test_sum.irst_topics.txt \
   --alpha 0.3 \
   --hits 10000
 ```
 
 IRST (Max)
 ```bash
-python -m pyserini.search.lucene.irst
+python -m pyserini.search.lucene.irst \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --query_path irst_test/queries.irst_topics.dev.small.json \
   --index msmarco-document-segment-ltr \
-  --output irst_test/regression_test_max.txt \
+  --output irst_test/regression_test_max.irst_topics.txt \
   --alpha 0.3 \
-   --hits 10000 \
+  --hits 10000 \
   --max_sim 
 ```
 
@@ -151,18 +163,30 @@ different values to run on different datasets.
 The reranked runfile contains top 10000 document segments, thus we need to use MaxP technique to get score for each document.
 
 ```bash
-python scripts/ltr_msmarco/generate_document_score_withmaxP.py --input irst_test/regression_test_sum.txt --output irst_test/regression_test_sum_maxP.tsv
+python scripts/ltr_msmarco/generate_document_score_withmaxP.py --input irst_test/regression_test_sum.irst_topics.txt --output irst_test/regression_test_sum_maxP.irst_topics.tsv
 ```
 
 We can use the official TREC evaluation tool, trec_eval, to compute other metrics. For that we first need to convert the runs into TREC format:
 
 ```bash
-python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input irst_test/regression_test_sum_maxP.tsv --output irst_test/regression_test_sum_maxP.trec
+python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input irst_test/regression_test_sum_maxP.irst_topics.tsv --output irst_test/regression_test_sum_maxP.irst_topics.trec
 ```
 
+
+For TREC DL 2019, use this command to evaluate your run file:
+
 ```bash
-tools/eval/trec_eval.9.0.4/trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank qrel_file irst_test/regression_test_sum.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 dl19-doc irst_test/regression_test_sum_maxP.dl19-doc.trec
 ```
+
+Similarly for TREC DL 2020,
+```bash
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 dl20-doc irst_test/regression_test_sum_maxP.dl20-doc.trec
+```
+
+For MS MARCO Passage V1, no need to use -l 2 option:
+```bash
+tools/eval/trec_eval.9.0.4/trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank tools/topics-and-qrels/qrels.msmarco-doc.dev.txt irst_test/regression_test_sum_maxP.msmarco-doc.dev.trec
 
 `--qrel_file`: <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `tools/topics-and-qrels/qrels.dl19-doc.txt` <br />
@@ -174,10 +198,10 @@ tools/eval/trec_eval.9.0.4/trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank 
 
 | Topics                | Method                        | MRR    | nDCG@10 | Map |
 |:-------------------------|:------------------------|:------:|:--------:|:-----------:|
-| DL19                | IRST(Sum)               | - | 0.542   | 0.331     |
-| DL19                 | IRST(Max)              | - | 0.538   | 0.330      |
-| DL20                | IRST(Sum)               | -| 0.551   | 0.334      |
-| DL20                | IRST(Max)               | -| 0.541   | 0.325      |
+| DL19                | IRST(Sum)               | - | 0.526   | 0.328     |
+| DL19                 | IRST(Max)              | - | 0.537   | 0.328      |
+| DL20                | IRST(Sum)               | -| 0.558   | 0.352      |
+| DL20                | IRST(Max)               | -| 0.546   | 0.337      |
 | MS MARCO Dev                | IRST(Sum)               | 0.233| -   | -      |
 | MS MARCO Dev                | IRST(Max)               | 0.227| -   | -      |
 
@@ -186,12 +210,12 @@ tools/eval/trec_eval.9.0.4/trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank 
 
 | Topics                | Method                  | MRR    | nDCG@10 | Map |
 |:-------------------------|:------------------------|:------:|:--------:|:-----------:|
-| DL19                | IRST(Sum)               | - | 0.573   | 0.354     |
-| DL19                 | IRST(Max)              | - | 0.540   | 0.332      |
-| DL20                | IRST(Sum)               | -| 0.561   | 0.397     |
-| DL20                | IRST(Max)               | -| 0.531   | 0.374      |
-| MS MARCO Dev                | IRST(Sum)               | 0.311| -   | -      |
-| MS MARCO Dev                | IRST(Max)               | 0.276| -   | -      |
+| DL19                | IRST(Sum)               | - | 0.567   | 0.352     |
+| DL19                 | IRST(Max)              | - | 0.537   | 0.324      |
+| DL20                | IRST(Sum)               | -| 0.561   | 0.363      |
+| DL20                | IRST(Max)               | -| 0.524   | 0.332      |
+| MS MARCO Dev                | IRST(Sum)               | 0.308| -   | -      |
+| MS MARCO Dev                | IRST(Max)               | 0.273| -   | -      |
 
 ## Build Index from Scratch
 
