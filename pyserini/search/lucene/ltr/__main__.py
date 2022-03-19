@@ -33,26 +33,44 @@ from tqdm import tqdm
 from collections import defaultdict
 from pyserini.search.lucene.ltr._search_msmarco import MsmarcoLtrSearcher
 from pyserini.search.lucene.ltr import *
+from pyserini.search.lucene import LuceneSearcher
 
 """
 Running prediction on candidates
 """
-def dev_data_loader(file, format, data, top=100):
-    if format == 'tsv':
-        dev = pd.read_csv(file, sep="\t",
-                          names=['qid', 'pid', 'rank'],
-                          dtype={'qid': 'S','pid': 'S', 'rank':'i',})
-    elif format == 'trec':
-        dev = pd.read_csv(file, sep="\s+",
-                    names=['qid', 'q0', 'pid', 'rank', 'score', 'tag'],
-                    usecols=['qid', 'pid', 'rank'],
-                    dtype={'qid': 'S','pid': 'S', 'rank':'i',})
+def dev_data_loader(file, format, data, rerank, top=1000):
+    if (rerank):
+        if format == 'tsv':
+            dev = pd.read_csv(file, sep="\t",
+                            names=['qid', 'pid', 'rank'],
+                            dtype={'qid': 'S','pid': 'S', 'rank':'i',})
+        elif format == 'trec':
+            dev = pd.read_csv(file, sep="\s+",
+                        names=['qid', 'q0', 'pid', 'rank', 'score', 'tag'],
+                        usecols=['qid', 'pid', 'rank'],
+                        dtype={'qid': 'S','pid': 'S', 'rank':'i',})
+        else:
+            raise Exception('unknown parameters')
+        assert dev['qid'].dtype == object
+        assert dev['pid'].dtype == object
+        assert dev['rank'].dtype == np.int32
+        dev = dev[dev['rank']<=top]
     else:
-        raise Exception('unknown parameters')
-    assert dev['qid'].dtype == object
-    assert dev['pid'].dtype == object
-    assert dev['rank'].dtype == np.int32
-    dev = dev[dev['rank']<=top]
+        bm25search = LuceneSearcher.from_prebuilt_index(args.index)
+        bm25search.set_bm25(0.82, 0.68)
+        dev_dic = {"qid":[], "pid":[], "rank":[]}
+        for topic in tqdm(queries.keys()):
+            query_text = queries[topic]['raw']
+            bm25_dev = bm25search.search(query_text, args.hits)
+            doc_ids = [bm25_result.docid for bm25_result in bm25_dev]
+            qid = [topic for _ in range(len(doc_ids))]
+            rank = [i for i in range(1, len(doc_ids)+1)]
+            dev_dic['qid'].extend(qid)
+            dev_dic['pid'].extend(doc_ids)
+            dev_dic['rank'].extend(rank)
+        dev = pd.DataFrame(dev_dic)
+        dev['rank'].astype(np.int32)
+
     if data == 'passage':
         dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt', sep=" ",
                             names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
@@ -61,9 +79,6 @@ def dev_data_loader(file, format, data, top=100):
         dev_qrel = pd.read_csv('tools/topics-and-qrels/qrels.msmarco-doc.dev.txt', sep="\t",
                             names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
                             dtype={'qid': 'S','pid': 'S', 'rel':'i'})
-    assert dev['qid'].dtype == object
-    assert dev['pid'].dtype == object
-    assert dev['rank'].dtype == np.int32
     dev = dev.merge(dev_qrel, left_on=['qid', 'pid'], right_on=['qid', 'pid'], how='left')
     dev['rel'] = dev['rel'].fillna(0).astype(np.int32)
     dev = dev.sort_values(['qid', 'pid']).set_index(['qid', 'pid'])
@@ -230,26 +245,25 @@ def output(file, dev_data, format, maxp):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Learning to rank reranking')
-    parser.add_argument('--input', required=True)
-    parser.add_argument('--reranking-top', type=int, default=10000)
-    parser.add_argument('--input-format', required=True)
+    parser.add_argument('--input', default='')
+    parser.add_argument('--hits', type=int, default=1000)
+    parser.add_argument('--input-format', default = 'trec')
     parser.add_argument('--model', required=True)
     parser.add_argument('--index', required=True)
     parser.add_argument('--output', required=True)
     parser.add_argument('--ibm-model', required=True)
     parser.add_argument('--queries', required=True)
     parser.add_argument('--data', required=True)
-    parser.add_argument('--output-format',default='tsv')
-    parser.add_argument('--max-passage',action='store_true')
+    parser.add_argument('--output-format', default='tsv')
+    parser.add_argument('--max-passage', action='store_true')
+    parser.add_argument('--rerank', action='store_true')
 
     args = parser.parse_args()
+    queries = query_loader()
+    print("---------------------loading dev----------------------------------------")
+    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.data, args.rerank, args.hits)
     searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data)
     searcher.add_fe()
-    print("---------------------loading dev----------------------------------------")
-    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.data, args.reranking_top)
-    print("---------------------loading queries----------------------------------------")
-    queries = query_loader()
-
     batch_info = searcher.search(dev, queries)
     del dev, queries
 

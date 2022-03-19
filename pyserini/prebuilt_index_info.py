@@ -71,6 +71,18 @@ TF_INDEX_INFO = {
         "unique_terms": 10123678,
         "downloaded": False
     },
+    "msmarco-document-segment-ltr": {
+        "description": "Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR",
+        "filename": "lucene-index.msmarco-doc-segmented.ibm.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/e5mwugvcbeypfl5/lucene-index.msmarco-doc-segmented.ibm.tar.gz?dl=1"
+        ],
+        "md5": "13064bdaf8e8a79222634d67ecd3ddb5",
+        "size compressed (bytes)": 98984853515,
+        "total_terms": 3197500226,
+        "documents": 20532330,
+        "downloaded": False
+    },
 
     # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v1-doc": {

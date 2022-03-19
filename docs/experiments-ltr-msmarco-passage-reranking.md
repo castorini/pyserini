@@ -8,8 +8,7 @@ Learning-to-rank serves as a second stage reranker after BM25 retrieval.
 
 ## Data Preprocessing
 
-Please first follow the [Pyserini BM25 retrieval guide](experiments-msmarco-passage.md) to obtain our reranking candidate.
-Next, we're going to use `collections/msmarco-ltr-passage/` as the working directory to download pre processed data.
+We're going to use `collections/msmarco-ltr-passage/` as the working directory to download pre processed data.
 
 ```bash
 mkdir collections/msmarco-ltr-passage/
@@ -49,9 +48,7 @@ tar -xzvf runs/model-ltr-msmarco-passage-mrr-v1.tar.gz -C runs
 The following command generates our reranking result:
 
 ```bash
-python -m pyserini.search.lucene.ltr \
-  --input runs/run.msmarco-passage.bm25tuned.txt \
-  --input-format tsv \
+python -m pyserini.search.lucene.ltr 
   --model runs/msmarco-passage-ltr-mrr-v1 \
   --index msmarco-passage-ltr \
   --data passage \
