@@ -186,7 +186,7 @@ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 dl20-doc irst_te
 
 For MS MARCO Passage V1, no need to use -l 2 option:
 ```bash
-tools/eval/trec_eval.9.0.4/trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank tools/topics-and-qrels/qrels.msmarco-doc.dev.txt irst_test/regression_test_sum_maxP.msmarco-doc.trec
+python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank msmarco-doc-dev irst_test/regression_test_sum_maxP.msmarco-doc.trec
 
 `--qrel_file`: <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `tools/topics-and-qrels/qrels.dl19-doc.txt` <br />
