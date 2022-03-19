@@ -148,6 +148,12 @@ $ pip install torch==1.8.1 torchvision==0.9.1 torchaudio===0.8.1 -f https://down
 $ conda install faiss-cpu -c pytorch
 ```
 
+You'll need to download the Spacy English model to reproduce tasks such as [LTR Filtering for MS MARCO Passage](https://github.com/castorini/pyserini/blob/master/docs/experiments-ltr-msmarco-passage-reranking.md).
+
+```bash
+python -m spacy download en_core_web_sm
+```
+
 Next, you'll need to clone and build [Anserini](http://anserini.io/).
 It makes sense to put both `pyserini/` and `anserini/` in a common folder.
 After you've successfully built Anserini, copy the fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
