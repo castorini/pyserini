@@ -40,10 +40,10 @@ class MsmarcoLtrSearcher:
         #msmarco-ltr-passage
         self.model = model
         self.ibm_model = ibm_model
-        if (prebuilt):
+        if prebuilt:
             self.lucene_searcher = LuceneSearcher.from_prebuilt_index(index)
             index_directory = os.path.join(get_cache_home(), 'indexes')
-            if (data == 'passage'):
+            if data == 'passage':
                 index_path = os.path.join(index_directory, 'index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3')
             else:
                 index_path = os.path.join(index_directory, 'index-msmarco-doc-per-passage-ltr-20211031-33e4151.bd60e89041b4ebbabc4bf0cfac608a87')
@@ -191,8 +191,8 @@ class MsmarcoLtrSearcher:
                 "query_dict": queries[qid]
             }
             for t in group.reset_index().itertuples():
-                if (self.data == 'document'):
-                    if (self.index_reader.doc(t.pid) != None):
+                if self.data == 'document':
+                    if self.index_reader.doc(t.pid) != None:
                         task["docIds"].append(t.pid)
                         task_infos.append((qid, t.pid, t.rel))
                 else:

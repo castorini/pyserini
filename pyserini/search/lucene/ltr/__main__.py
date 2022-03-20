@@ -39,7 +39,7 @@ from pyserini.search.lucene import LuceneSearcher
 Running prediction on candidates
 """
 def dev_data_loader(file, format, data, rerank, prebuilt, top=1000):
-    if (rerank):
+    if rerank:
         if format == 'tsv':
             dev = pd.read_csv(file, sep="\t",
                             names=['qid', 'pid', 'rank'],
@@ -56,7 +56,7 @@ def dev_data_loader(file, format, data, rerank, prebuilt, top=1000):
         assert dev['rank'].dtype == np.int32
         dev = dev[dev['rank']<=top]
     else:
-        if (prebuilt):
+        if prebuilt:
             bm25search = LuceneSearcher.from_prebuilt_index(args.index)
         else:
             bm25search = LuceneSearcher(args.index)
@@ -225,9 +225,9 @@ def output(file, dev_data, format, maxp):
                 score_tie_counter += 1
                 score_tie_query.add(qid)
             prev_score = t.score
-            if (maxp):
+            if maxp:
                 docid = t.pid.split('#')[0]
-                if (qid not in results or docid not in results[qid] or t.score > results[qid][docid]):
+                if qid not in results or docid not in results[qid] or t.score > results[qid][docid]:
                     results[qid][docid] = t.score
             else:
                 results[qid][t.pid] = t.score
@@ -238,7 +238,7 @@ def output(file, dev_data, format, maxp):
         docid_score = results[qid]
         docid_score = sorted(docid_score.items(),key=lambda kv: kv[1], reverse=True)
         for docid, score in docid_score:
-            if (format=='trec'):
+            if format=='trec':
                 output_file.write(f"{qid}\tQ0\t{docid}\t{rank}\t{score}\tltr\n")
             else:
                 output_file.write(f"{qid}\t{docid}\t{rank}\n")
@@ -264,9 +264,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     queries = query_loader()
     print("---------------------loading dev----------------------------------------")
-    prebuilt = False
-    if (args.index == 'msmarco-passage-ltr' or args.index == 'msmarco-doc-per-passage-ltr'):
-        prebuilt = True
+    prebuilt = args.index == 'msmarco-passage-ltr' or args.index == 'msmarco-doc-per-passage-ltr'
     dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.data, args.rerank, prebuilt, args.hits)
     searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data, prebuilt)
     searcher.add_fe()
