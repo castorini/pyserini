@@ -36,18 +36,22 @@ from pyserini.search.lucene.ltr._base import *
 logger = logging.getLogger(__name__)
 
 class MsmarcoLtrSearcher:
-    def __init__(self, model: str, ibm_model:str, index:str, data: str):
+    def __init__(self, model: str, ibm_model:str, index:str, data: str, prebuilt: bool):
         #msmarco-ltr-passage
         self.model = model
         self.ibm_model = ibm_model
-        self.lucene_searcher = LuceneSearcher.from_prebuilt_index(index)
-        index_directory = os.path.join(get_cache_home(), 'indexes')
-        if (data == 'passage'):
-            index_path = os.path.join(index_directory, 'index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3')
+        if (prebuilt):
+            self.lucene_searcher = LuceneSearcher.from_prebuilt_index(index)
+            index_directory = os.path.join(get_cache_home(), 'indexes')
+            if (data == 'passage'):
+                index_path = os.path.join(index_directory, 'index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3')
+            else:
+                index_path = os.path.join(index_directory, 'index-msmarco-doc-per-passage-ltr-20211031-33e4151.bd60e89041b4ebbabc4bf0cfac608a87')
+            self.index_reader = IndexReader.from_prebuilt_index(index)
         else:
-            index_path = os.path.join(index_directory, 'index-msmarco-doc-per-passage-ltr-20211031-33e4151.bd60e89041b4ebbabc4bf0cfac608a87')
+            index_path = index
+            self.index_reader = IndexReader(index)
         self.fe = FeatureExtractor(index_path, max(multiprocessing.cpu_count()//2, 1))
-        self.index_reader = IndexReader.from_prebuilt_index(index)
         self.data = data
 
     

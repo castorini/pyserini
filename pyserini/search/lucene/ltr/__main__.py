@@ -38,7 +38,7 @@ from pyserini.search.lucene import LuceneSearcher
 """
 Running prediction on candidates
 """
-def dev_data_loader(file, format, data, rerank, top=1000):
+def dev_data_loader(file, format, data, rerank, prebuilt, top=1000):
     if (rerank):
         if format == 'tsv':
             dev = pd.read_csv(file, sep="\t",
@@ -56,7 +56,10 @@ def dev_data_loader(file, format, data, rerank, top=1000):
         assert dev['rank'].dtype == np.int32
         dev = dev[dev['rank']<=top]
     else:
-        bm25search = LuceneSearcher.from_prebuilt_index(args.index)
+        if (prebuilt):
+            bm25search = LuceneSearcher.from_prebuilt_index(args.index)
+        else:
+            bm25search = LuceneSearcher(args.index)
         bm25search.set_bm25(0.82, 0.68)
         dev_dic = {"qid":[], "pid":[], "rank":[]}
         for topic in tqdm(queries.keys()):
@@ -261,8 +264,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
     queries = query_loader()
     print("---------------------loading dev----------------------------------------")
-    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.data, args.rerank, args.hits)
-    searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data)
+    prebuilt = False
+    if (args.index == 'msmarco-passage-ltr' or args.index == 'msmarco-doc-per-passage-ltr'):
+        prebuilt = True
+    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.data, args.rerank, prebuilt, args.hits)
+    searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data, prebuilt)
     searcher.add_fe()
     batch_info = searcher.search(dev, queries)
     del dev, queries
