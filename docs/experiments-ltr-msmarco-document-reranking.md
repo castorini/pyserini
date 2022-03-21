@@ -1,7 +1,8 @@
 # Pyserini: LTR Filtering for MS MARCO Document
 
 This page describes how to reproduce the ltr experiments in the following paper
-> Yue Zhang and Chengcheng Hu and Yuqi Liu and Hui Fang and Jimmy Lin. [Learning to Rank in the Age of Muppets: Effectiveness–Efficiency Tradeoffs in Multi-Stage Ranking](https://aclanthology.org/2021.sustainlp-1.8) _2021.sustainlp-1.8_.
+
+> Yue Zhang, Chengcheng Hu, Yuqi Liu, Hui Fang, and Jimmy Lin. [Learning to Rank in the Age of Muppets: Effectiveness–Efficiency Tradeoffs in Multi-Stage Ranking](https://aclanthology.org/2021.sustainlp-1.8) _Proceedings of the Second Workshop on Simple and Efficient Natural Language Processing_, pages 64–73, 2021.
 
 This guide contains instructions for running learning-to-rank baseline on the [MS MARCO *document* reranking task](https://microsoft.github.io/msmarco/).
 Learning-to-rank serves as a second stage reranker after BM25 retrieval, here we provide end-to-end retrieval setup.
@@ -18,7 +19,6 @@ mkdir collections/msmarco-ltr-document
 python scripts/ltr_msmarco/convert_queries.py \
   --input tools/topics-and-qrels/topics.msmarco-doc.dev.txt \
   --output collections/msmarco-ltr-document/queries.dev.small.json
-
 ```
 
 Download pretrained IBM models:
@@ -36,6 +36,7 @@ tar -xzvf runs/model-ltr-msmarco-passage-mrr-v1.tar.gz -C runs
 ```
 
 Now, we have all things ready and can run inference. The LTR outpus rankings on segments level. We will need to use another script to get doc level results using maxP strategy.
+
 ```bash
 python -m pyserini.search.lucene.ltr \
        --model runs/msmarco-passage-ltr-mrr-v1 \
@@ -60,6 +61,7 @@ QueriesRanked: 5193
 ```
 
 ## Building the Index From Scratch
+
 First, we need to download collections.
 
 ```bash
@@ -69,6 +71,7 @@ wget https://git.uwaterloo.ca/jimmylin/doc2query-data/raw/master/T5-doc/msmarco_
 ```
 
 We will need to generate collection of passage segments. Here, we use segment size 3 and stride is 1 and then append fields for ltr pipeline.
+
 ```bash
 python scripts/ltr_msmarco/convert_msmarco_passage_doc_to_anserini.py \
   --original_docs_path collections/msmarco-doc/msmarco-docs.tsv.gz \
@@ -89,6 +92,7 @@ python scripts/ltr_msmarco/convert_collection_to_jsonl.py \
   --collection-path collections/msmarco-ltr-document/ltr_msmarco_pass_doc.json \
   --output-folder collections/msmarco-ltr-document/ltr_msmarco_pass_doc_jsonl  
 ```
+
 We can now index these docs as a `JsonCollection` using Anserini with pretokenized option:
 
 ```bash
