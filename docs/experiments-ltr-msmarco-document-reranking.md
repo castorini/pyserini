@@ -8,7 +8,7 @@ This guide contains instructions for running learning-to-rank baseline on the [M
 Learning-to-rank serves as a second stage reranker after BM25 retrieval, here we provide end-to-end retrieval setup.
 Note, we use sliding window and maxP strategy here.
 
-## Data Preprocessing
+## Data Prep
 
 We're going to use the repository's root directory as the working directory. 
 
@@ -39,28 +39,29 @@ Now, we have all things ready and can run inference. The LTR outpus rankings on 
 
 ```bash
 python -m pyserini.search.lucene.ltr \
-       --model runs/msmarco-passage-ltr-mrr-v1 \
-       --data document \
-       --ibm-model collections/msmarco-ltr-document/ibm_model/ \
-       --queries collections/msmarco-ltr-document \
-       --index msmarco-doc-per-passage-ltr --output runs/run.ltr.doc_level.tsv --max-passage \
-       --hits 10000
+  --index msmarco-doc-per-passage-ltr \
+  --queries collections/msmarco-ltr-document \
+  --model runs/msmarco-passage-ltr-mrr-v1 \
+  --ibm-model collections/msmarco-ltr-document/ibm_model/ \
+  --data document \
+  --output runs/run.ltr.doc_level.tsv \
+  --max-passage --hits 10000
 ```
 
+After the run finishes, we can evaluate the results using the official MS MARCO evaluation script:
+
 ```bash
-python tools/scripts/msmarco/msmarco_doc_eval.py \
+$ python tools/scripts/msmarco/msmarco_doc_eval.py \
     --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
     --run runs/run.ltr.doc_level.tsv
-```
-The above evaluation should give your results as below.
-```bash
+
 #####################
 MRR @100: 0.31055962279034266
 QueriesRanked: 5193
 #####################
 ```
 
-## Building the Index From Scratch
+## Building the Index from Scratch
 
 First, we need to download collections.
 
@@ -102,3 +103,5 @@ python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocu
 ```
 
 Note that pretokenized option let Anserini use whitespace analyzer so that do not break our preprocessed tokenization.
+
+## Reproduction Log[*](reproducibility.md)

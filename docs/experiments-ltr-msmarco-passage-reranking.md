@@ -52,11 +52,11 @@ The following command generates our reranking result with our prebuilt index:
 
 ```bash
 python -m pyserini.search.lucene.ltr \
-  --model runs/msmarco-passage-ltr-mrr-v1 \
   --index msmarco-passage-ltr \
-  --data passage \
-  --ibm-model collections/msmarco-ltr-passage/ibm_model/ \
   --queries collections/msmarco-ltr-passage \
+  --model runs/msmarco-passage-ltr-mrr-v1 \
+  --ibm-model collections/msmarco-ltr-passage/ibm_model/ \
+  --data passage \
   --output runs/run.ltr.msmarco-passage.tsv
 ```
 
