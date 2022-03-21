@@ -48,7 +48,7 @@ wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msma
 tar -xzvf runs/model-ltr-msmarco-passage-mrr-v1.tar.gz -C runs
 ```
 
-The following command generates our reranking result:
+The following command generates our reranking result with our prebuilt index:
 
 ```bash
 python -m pyserini.search.lucene.ltr \
