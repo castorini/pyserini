@@ -14,19 +14,33 @@
 # limitations under the License.
 #
 
+import os
 import json
+import faiss
 import unittest
+import pathlib as pl
+
 
 from pyserini.encode import JsonlCollectionIterator, TctColBertDocumentEncoder, DprDocumentEncoder, \
     UniCoilDocumentEncoder
+from pyserini.util import get_cache_home
 
 
 class TestSearch(unittest.TestCase):
     def setUp(self):
+        self.docids = []
         self.texts = []
-        with open('tests/resources/simple_cacm_corpus.json') as f:
+        self.test_file = 'tests/resources/simple_cacm_corpus.json'
+
+        with open(self.test_file) as f:
             for line in f:
-                self.texts.append(json.loads(line)['contents'])
+                line = json.loads(line)
+                self.docids.append(line['id'])
+                self.texts.append(line['contents'])
+
+    def assertIsFile(self, path):
+        if not pl.Path(path).resolve().is_file():
+            raise AssertionError("File does not exist: %s" % str(path))
 
     def test_dpr_encoder(self):
         encoder = DprDocumentEncoder('facebook/dpr-ctx_encoder-multiset-base', device='cpu')
@@ -51,6 +65,75 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(vectors[0]['normal'], 2.4618067741394043, places=4)
         self.assertAlmostEqual(vectors[2]['rounding'], 3.9474332332611084, places=4)
         self.assertAlmostEqual(vectors[2]['commercial'], 3.288801670074463, places=4)
+
+    def test_tct_colbert_v2_encoder_cmd(self):
+        cache_dir = get_cache_home()
+        index_dir = f'{cache_dir}/temp_index'
+        cmd = f'python -m pyserini.encode \
+                  input   --corpus {self.test_file} \
+                          --fields text \
+                  output  --embeddings {index_dir} \
+                  encoder --encoder castorini/tct_colbert-v2-hnp-msmarco \
+                          --fields text \
+                          --batch 1 \
+                          --device cpu'
+        status = os.system(cmd)
+        self.assertEqual(status, 0)
+
+        embedding_json_fn = os.path.join(index_dir, 'embeddings.jsonl')
+        self.assertIsFile(embedding_json_fn)
+
+        embeddings = [json.loads(line) for line in open(embedding_json_fn)]
+        self.assertListEqual([entry["id"] for entry in embeddings], self.docids)
+        self.assertListEqual(
+            [entry["contents"] for entry in embeddings], 
+            [entry.strip() for entry in self.texts],
+        )
+ 
+        self.assertAlmostEqual(embeddings[0]['vector'][0], 0.12679848074913025, places=4)
+        self.assertAlmostEqual(embeddings[0]['vector'][-1], -0.0037349488120526075, places=4)
+        self.assertAlmostEqual(embeddings[2]['vector'][0], 0.03678430616855621, places=4)
+        self.assertAlmostEqual(embeddings[2]['vector'][-1], 0.13209162652492523, places=4)
+
+    def test_tct_colbert_v2_encoder_cmd_shard(self):
+        cache_dir = get_cache_home()
+ 
+        for shard_i in range(2):
+            index_dir = f'{cache_dir}/temp_index-{shard_i}'
+            cmd = f'python -m pyserini.encode \
+                    input   --corpus {self.test_file} \
+                            --fields text \
+                            --shard-id {shard_i} \
+                            --shard-num 2 \
+                    output  --embeddings {index_dir} \
+                            --to-faiss \
+                    encoder --encoder castorini/tct_colbert-v2-hnp-msmarco \
+                            --fields text \
+                            --batch 1 \
+                            --device cpu'
+            status = os.system(cmd)
+            self.assertEqual(status, 0)
+            self.assertIsFile(os.path.join(index_dir, 'docid'))
+            self.assertIsFile(os.path.join(index_dir, 'index'))
+
+        cmd = f'python -m pyserini.index.merge_faiss_indexes --prefix {cache_dir}/temp_index- --shard-num 2'
+        index_dir = f'{cache_dir}/temp_index-full'
+        docid_fn = os.path.join(index_dir, 'docid')
+        index_fn = os.path.join(index_dir, 'index')
+
+        status = os.system(cmd)
+        self.assertEqual(status, 0)
+        self.assertIsFile(docid_fn)
+        self.assertIsFile(index_fn)
+
+        index = faiss.read_index(index_fn)
+        vectors = index.reconstruct_n(0, index.ntotal)
+
+        self.assertListEqual([docid.strip() for docid in open(docid_fn, "r")], self.docids)
+        self.assertAlmostEqual(vectors[0][0], 0.12679848074913025, places=4)
+        self.assertAlmostEqual(vectors[0][-1], -0.0037349488120526075, places=4)
+        self.assertAlmostEqual(vectors[2][0], 0.03678430616855621, places=4)
+        self.assertAlmostEqual(vectors[2][-1], 0.13209162652492523, places=4)
 
 
 class TestJsonlCollectionIterator(unittest.TestCase):

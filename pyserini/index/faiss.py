@@ -33,6 +33,7 @@ if __name__ == '__main__':
     parser.add_argument('--efC', type=int, default=256, required=False)
     parser.add_argument('--pq', action="store_true", required=False)
     parser.add_argument('--pq-m', type=int, default=192, required=False)
+    parser.add_argument('--pq-nbits', type=int, default=8, required=False)
     parser.add_argument('--threads', type=int, default=12, required=False)
     args = parser.parse_args()
 
@@ -68,7 +69,7 @@ if __name__ == '__main__':
         index = faiss.IndexHNSWFlat(args.dim, args.M, faiss.METRIC_INNER_PRODUCT)
         index.hnsw.efConstruction = args.efC
     elif args.pq:
-        index = faiss.IndexPQ(args.dim, args.pq_m, 8, faiss.METRIC_INNER_PRODUCT)
+        index = faiss.IndexPQ(args.dim, args.pq_m, args.pq_nbits, faiss.METRIC_INNER_PRODUCT)
     else:
         index = faiss.IndexFlatIP(args.dim)
     index.verbose = True
