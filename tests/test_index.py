@@ -78,7 +78,9 @@ class TestSearch(unittest.TestCase):
         index = faiss.read_index(index_fn)
         vectors = index.reconstruct_n(0, index.ntotal)
 
-        self.assertListEqual([docid.strip() for docid in open(docid_fn, "r")], self.docids)
+        with open(docid_fn) as f:
+            self.assertListEqual([docid.strip() for docid in f], self.docids)
+
         self.assertAlmostEqual(vectors[0][0], 0.12679848074913025, places=4)
         self.assertAlmostEqual(vectors[0][-1], -0.0037349488120526075, places=4)
         self.assertAlmostEqual(vectors[2][0], 0.03678430616855621, places=4)
@@ -107,7 +109,9 @@ class TestSearch(unittest.TestCase):
         index = faiss.read_index(index_fn)
         vectors = index.reconstruct_n(0, index.ntotal)
     
-        self.assertListEqual([docid.strip() for docid in open(docid_fn, "r")], self.docids)
+        with open(docid_fn) as f:
+            self.assertListEqual([docid.strip() for docid in f], self.docids)
+
         self.assertAlmostEqual(vectors[0][0], 0.04343192, places=4)
         self.assertAlmostEqual(vectors[0][-1], 0.075478144, places=4)
         self.assertAlmostEqual(vectors[2][0], 0.04343192, places=4)

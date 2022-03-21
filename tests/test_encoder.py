@@ -83,7 +83,9 @@ class TestSearch(unittest.TestCase):
         embedding_json_fn = os.path.join(index_dir, 'embeddings.jsonl')
         self.assertIsFile(embedding_json_fn)
 
-        embeddings = [json.loads(line) for line in open(embedding_json_fn)]
+        with open(embedding_json_fn) as f:
+            embeddings = [json.loads(line) for line in f]
+
         self.assertListEqual([entry["id"] for entry in embeddings], self.docids)
         self.assertListEqual(
             [entry["contents"] for entry in embeddings], 
@@ -129,7 +131,9 @@ class TestSearch(unittest.TestCase):
         index = faiss.read_index(index_fn)
         vectors = index.reconstruct_n(0, index.ntotal)
 
-        self.assertListEqual([docid.strip() for docid in open(docid_fn, "r")], self.docids)
+        with open(docid_fn) as f:
+            self.assertListEqual([docid.strip() for docid in f], self.docids)
+
         self.assertAlmostEqual(vectors[0][0], 0.12679848074913025, places=4)
         self.assertAlmostEqual(vectors[0][-1], -0.0037349488120526075, places=4)
         self.assertAlmostEqual(vectors[2][0], 0.03678430616855621, places=4)
