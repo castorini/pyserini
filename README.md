@@ -538,12 +538,14 @@ python -m pyserini.index.faiss \
   --pq
 ```
 4. [Flat](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexFlat.html)
+
+This command is for converting the `.jsonl` format into Faiss flat format,
+and generates the same files with `pyserini.encode` with `--to-faiss` specified.
 ```bash
 python -m pyserini.index.faiss \
-  --input path/to/encoded/corpus \  # either in the Faiss or the jsonl format
+  --input path/to/encoded/corpus \  # in jsonl format
   --output path/to/output/index \
 ```
-Note that this would generate the same files with `pyserini.encode` with `--to-faiss` specified.
 
 Once the index is built, you can use `FaissSearcher` to search in the collection:
 ```python
