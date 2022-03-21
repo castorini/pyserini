@@ -57,22 +57,6 @@ class TestSearch(unittest.TestCase):
         self.assertIsFile(os.path.join(encoded_corpus_dir, 'index'))
         return encoded_corpus_dir
 
-    # def test_faiss_hnsw_pq(self):
-    #     cache_dir = get_cache_home()
-    #     index_dir = f'{cache_dir}/temp_hnsw_pq'
-    #     encoded_corpus_dir = self.prepare_encoded_collection()
-    #     cmd = f'python -m pyserini.index.faiss \
-    #         --input {encoded_corpus_dir} \
-    #         --output {index_dir} \
-    #         --M 3 \
-    #         --pq-m 1 \
-    #         --efC 1 \
-    #         --hnsw \
-    #         --pq'
-    #     print(cmd)
-    #     status = os.system(cmd)
-    #     self.assertEqual(status, 0) 
-   
     def test_faiss_hnsw(self):
         cache_dir = get_cache_home()
         index_dir = f'{cache_dir}/temp_hnsw'
