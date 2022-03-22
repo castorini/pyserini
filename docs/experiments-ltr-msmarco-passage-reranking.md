@@ -1,14 +1,17 @@
 # Pyserini: LTR Filtering for MS MARCO Passage
 
-This page describes how to reproduce the ltr experiments in the following paper
-> Yue Zhang and Chengcheng Hu and Yuqi Liu and Hui Fang and Jimmy Lin. [Learning to Rank in the Age of Muppets: Effectiveness–Efficiency Tradeoffs in Multi-Stage Ranking](https://aclanthology.org/2021.sustainlp-1.8) _2021.sustainlp-1.8_.
+This page describes how to reproduce the learning-to-rank (LTR) experiments in the following paper:
 
-This guide contains instructions for running learning-to-rank baseline on the [MS MARCO *passage* reranking task](https://microsoft.github.io/msmarco/).
-Learning-to-rank serves as a second stage reranker after BM25 retrieval.
+> Yue Zhang, Chengcheng Hu, Yuqi Liu, Hui Fang, and Jimmy Lin. [Learning to Rank in the Age of Muppets: Effectiveness–Efficiency Tradeoffs in Multi-Stage Ranking](https://aclanthology.org/2021.sustainlp-1.8) _Proceedings of the Second Workshop on Simple and Efficient Natural Language Processing_, pages 64–73, 2021.
 
-## Data Preprocessing
+This guide contains instructions for running the LTR baseline on the [MS MARCO *passage* reranking task](https://microsoft.github.io/msmarco/).
+LTR serves as a second-stage reranker after BM25 retrieval.
 
-We're going to use `collections/msmarco-ltr-passage/` as the working directory to download pre processed data.
+## Data Prep
+
+We're going to use `collections/msmarco-ltr-passage/` as the working directory to preprocess the data.
+First, download the MS MACRO passage dataset `collectionandqueries.tar.gz`, per instructions [here](experiments-msmarco-passage.md).
+Then:
 
 ```bash
 mkdir collections/msmarco-ltr-passage/
@@ -26,19 +29,23 @@ python scripts/ltr_msmarco/convert_queries.py \
   --output collections/msmarco-ltr-passage/queries.train.json
 ```
 
-The above scripts convert queries to json objects with `text`, `text_unlemm`, `raw`, and `text_bert_tok` fields.
-The first two scripts take ~1 min and the third one is a bit longer (~1.5h).
+**TODO**: Change to the queries already stored in `tools/topics-and-qrels/`; we don't need to process training queries, and we actually don't need to download the corpus at this point (only for building the index from scratch below).
 
-## Performing Inference Using a Trained Model
+The above scripts convert queries to JSON objects with `text`, `text_unlemm`, `raw`, and `text_bert_tok` fields.
+The first two scripts take ~1 min and the third one is a bit longer (~1.5h) since it processes _all_ the training queries (although not necessary for running the commands below).
 
-Download pretrained IBM models:
+Note that the tokenization script depends on spaCy; our implementation currently depends on v3.2.1 (this is potentially important as tokenization might change from version to version).
+
+## Performing Retrieval
+
+Download our already trained IBM model:
 
 ```bash
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-ibm.tar.gz -P collections/msmarco-ltr-passage/
 tar -xzvf collections/msmarco-ltr-passage/model-ltr-ibm.tar.gz -C collections/msmarco-ltr-passage/
 ```
 
-Download our trained LTR model:
+Download our already trained LTR model:
 
 ```bash
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msmarco-passage-mrr-v1.tar.gz -P runs/
@@ -48,27 +55,28 @@ tar -xzvf runs/model-ltr-msmarco-passage-mrr-v1.tar.gz -C runs
 The following command generates our reranking result with our prebuilt index:
 
 ```bash
-python -m pyserini.search.lucene.ltr 
-  --model runs/msmarco-passage-ltr-mrr-v1 \
+python -m pyserini.search.lucene.ltr \
   --index msmarco-passage-ltr \
-  --data passage \
-  --ibm-model collections/msmarco-ltr-passage/ibm_model/ \
   --queries collections/msmarco-ltr-passage \
-  --output runs/run.ltr.msmarco-passage.tsv 
+  --model runs/msmarco-passage-ltr-mrr-v1 \
+  --ibm-model collections/msmarco-ltr-passage/ibm_model/ \
+  --data passage \
+  --output runs/run.ltr.msmarco-passage.tsv
 ```
 
-Here, our model is trained to maximize MRR@10. 
-Note that we can also train other models from scratch follow [training guide](experiments-ltr-msmarco-passage-training.md), and replace `--model` argument with your trained model dir.
+Inference speed will vary; on our `orca` machine, it takes ~0.25s/query.
 
-Inference speed will vary, on orca, it takes ~0.25s/query.
+Here, our model was trained to maximize MRR@10.
+We can also train other models from scratch, following the [training guide](experiments-ltr-msmarco-passage-training.md), and replace the `--model` argument with the newly trained model directory.
 
 After the run finishes, we can evaluate the results using the official MS MARCO evaluation script:
 
 ```bash
 $ python tools/scripts/msmarco/msmarco_passage_eval.py \
-   tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.ltr.msmarco-passage.tsv
+    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.ltr.msmarco-passage.tsv
+
 #####################
-MRR @10: 0.24709612498294367
+MRR @10: 0.24723580979669724
 QueriesRanked: 6980
 #####################
 ```
@@ -78,53 +86,61 @@ For that we first need to convert the run file into TREC format:
 
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
-   --input runs/run.ltr.msmarco-passage.tsv --output runs/run.ltr.msmarco-passage.trec
+    --input runs/run.ltr.msmarco-passage.tsv --output runs/run.ltr.msmarco-passage.trec
+
 $ python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
-   --input tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt --output collections/msmarco-passage/qrels.dev.small.trec
+    --input tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+    --output collections/msmarco-passage/qrels.dev.small.trec
 ```
 
 And then run the `trec_eval` tool:
 
 ```bash
 $ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
-   collections/msmarco-passage/qrels.dev.small.trec runs/run.ltr.msmarco-passage.trec
-map                   	all	0.2551
-recall_1000           	all	0.8573       	
+    collections/msmarco-passage/qrels.dev.small.trec runs/run.ltr.msmarco-passage.trec
+
+map                   	all	0.2552
+recall_1000           	all	0.8573
 ```
 
 Average precision or AP (also called mean average precision, MAP) and recall@1000 (recall at rank 1000) are the two metrics we care about the most.
 AP captures aspects of both precision and recall in a single metric, and is the most common metric used by information retrieval researchers.
 On the other hand, recall@1000 provides the upper bound effectiveness of downstream reranking modules (i.e., rerankers are useless if there isn't a relevant document in the results).
 
-## Building the Index From Scratch
+## Building the Index from Scratch
 
-Equivalently, we can preprocess collection and queries with our scripts:
+To build an index from scratch, we need to first preprocess the collection:
 
 ```bash
 python scripts/ltr_msmarco/convert_passage.py \
   --input collections/msmarco-passage/collection.tsv \
-  --output collections/msmarco-ltr-passage/ltr_collection.json 
+  --output collections/msmarco-ltr-passage/ltr_collection.json
 ```
 
-The above script will convert the collection and queries to json files with `text_unlemm`, `analyzed`, `text_bert_tok` and `raw` fields.
-Next, we need to convert the MS MARCO json collection into Anserini's jsonl files (which have one json object per line):
+The above script will convert the collection to JSON files with `text_unlemm`, `analyzed`, `text_bert_tok` and `raw` fields.
+Next, we need to convert the MS MARCO JSON collection into Anserini's JSONL format:
 
 ```bash
 python scripts/ltr_msmarco/convert_collection_to_jsonl.py \
   --collection-path collections/msmarco-ltr-passage/ltr_collection.json \
-  --output-folder collections/msmarco-ltr-passage/ltr_collection_jsonl 
+  --output-folder collections/msmarco-ltr-passage/ltr_collection_jsonl
 ```
-The above script should generate 9 jsonl files in `collections/msmarco-ltr-passage/ltr_collection_jsonl`, each with 1M lines (except for the last one, which should have 841,823 lines).
 
-We can now index these docs as a `JsonCollection` using Anserini with pretokenized option:
+The above script should generate 9 JSONL files in `collections/msmarco-ltr-passage/ltr_collection_jsonl`, each with 1M lines (except for the last one, which should have 841,823 lines).
+
+We can now index these docs as a `JsonCollection`:
 
 ```bash
-python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
- -threads 9 -input collections/msmarco-ltr-passage/ltr_collection_jsonl  \
- -index indexes/lucene-index-msmarco-passage-ltr -storePositions -storeDocvectors -storeRaw -pretokenized
+python -m pyserini.index.lucene \
+  --collection JsonCollection \
+  --input collections/msmarco-ltr-passage/ltr_collection_jsonl \
+  --index indexes/lucene-index-msmarco-passage-ltr \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 9 \
+  --storePositions --storeDocvectors --storeRaw --pretokenized
 ```
 
-Note that pretokenized option let Anserini use whitespace analyzer so that do not break our preprocessed tokenization.
+Note that the `--pretokenized` option pretokenized tells Pyserini to use the whitespace analyzer so preserve the existing tokenization.
 
 ## Reproduction Log[*](reproducibility.md)
 
