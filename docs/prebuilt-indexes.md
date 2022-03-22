@@ -8,7 +8,7 @@ To list what's available in code:
 from pyserini.search.lucene import LuceneSearcher
 LuceneSearcher.list_prebuilt_indexes()
 
-from pyserini.index import IndexReader
+from pyserini.index.lucene import IndexReader
 IndexReader.list_prebuilt_indexes()
 ```
 
@@ -63,6 +63,9 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 </dd>
 <dt></dt><b><code>msmarco-doc-per-passage-ltr</code></b>
 <dd>Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR
+</dd>
+<dt></dt><b><code>msmarco-document-segment-ltr</code></b>
+<dd>Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR
 </dd>
 <dt></dt><b><code>msmarco-v1-doc</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20220131.9ea315.README.md">readme</a>]
@@ -331,9 +334,17 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL.
 </dd>
+<dt></dt><b><code>msmarco-v1-passage-unicoil-noexp</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-unicoil-noexp.20220322.2f4058.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp).
+</dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-unicoil</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL.
+</dd>
+<dt></dt><b><code>msmarco-v1-doc-segmented-unicoil-noexp</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220322.2f4058.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp).
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-unicoil-0shot</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.README.md">readme</a>]
@@ -485,11 +496,9 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
 </dd>
 <dt></dt><b><code>wikipedia-dpr-dkrr-nq</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.README.md">readme</a>]
-<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from: 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ.
+<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ
 </dd>
 <dt></dt><b><code>wikipedia-dpr-dkrr-tqa</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.README.md">readme</a>]
-<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from: 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA.
+<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA
 </dd>
 </dl>
