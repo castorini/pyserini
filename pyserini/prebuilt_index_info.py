@@ -1142,6 +1142,20 @@ IMPACT_INDEX_INFO = {
         "unique_terms": 27678,
         "downloaded": False
     },
+    "msmarco-v1-passage-unicoil-noexp": {
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp).",
+        "filename": "lucene-index.msmarco-v1-passage-unicoil-noexp.20220322.2f4058.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-unicoil-noexp.20220322.2f4058.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil-noexp.20220322.2f4058.tar.gz",
+        ],
+        "md5": "e1feea4ce3bbafc034330b2683b6503a",
+        "size compressed (bytes)": 890676484,
+        "total_terms": 26468530021,
+        "documents": 8841823,
+        "unique_terms": 27647,
+        "downloaded": False
+    },
     "msmarco-v1-doc-segmented-unicoil": {
         "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL.",
         "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.tar.gz",
@@ -1153,6 +1167,20 @@ IMPACT_INDEX_INFO = {
         "md5": "393ad1227b9906c8776a4fbaddab4e9d",
         "size compressed (bytes)": 5891112039,
         "total_terms": 214505277898,
+        "documents": 20545677,
+        "unique_terms": 29142,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-segmented-unicoil-noexp": {
+        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp).",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220322.2f4058.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220322.2f4058.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220322.2f4058.tar.gz",
+        ],
+        "md5": "df678edd015c4ad82a4be7f35fddaa47",
+        "size compressed (bytes)": 5371860391,
+        "total_terms": 152325913715,
         "documents": 20545677,
         "unique_terms": 29142,
         "downloaded": False
