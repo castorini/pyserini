@@ -287,9 +287,9 @@ The simplest, however, is the following JSON format:
 A document is simply comprised of two fields, a `docid` and `contents`.
 Pyserini accepts collections comprised of these documents organized in three different ways:
 
-+ Folder with each JSON in its own file, like [this](integrations/resources/sample_collection_json).
-+ Folder with files, each of which contains an array of JSON documents, like [this](integrations/resources/sample_collection_json_array).
-+ Folder with files, each of which contains a JSON on an individual line, like [this](integrations/resources/sample_collection_jsonl) (often called JSONL format).
++ Folder with each JSON in its own file, like [this](tests/resources/sample_collection_json).
++ Folder with files, each of which contains an array of JSON documents, like [this](tests/resources/sample_collection_json_array).
++ Folder with files, each of which contains a JSON on an individual line, like [this](tests/resources/sample_collection_jsonl) (often called JSONL format).
 
 So, the quickest way to get started is to write a script that converts your documents into the above format.
 Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
@@ -297,7 +297,7 @@ Then, you can invoke the indexer (here, we're indexing JSONL, but any of the oth
 ```bash
 python -m pyserini.index.lucene \
   --collection JsonCollection \
-  --input integrations/resources/sample_collection_jsonl \
+  --input tests/resources/sample_collection_jsonl \
   --index indexes/sample_collection_jsonl \
   --generator DefaultLuceneDocumentGenerator \
   --threads 1 \
@@ -332,7 +332,7 @@ You should get something like the following:
  2 doc3 0.23140
 ```
 
-If you want to perform a batch retrieval run (e.g., directly from the command line), organize all your queries in a tsv file, like [here](integrations/resources/sample_queries.tsv).
+If you want to perform a batch retrieval run (e.g., directly from the command line), organize all your queries in a tsv file, like [here](tests/resources/sample_queries.tsv).
 The format is simple: the first field is a query id, and the second field is the query itself.
 Note that the file extension _must_ end in `.tsv` so that Pyserini knows what format the queries are in.
 
@@ -341,7 +341,7 @@ Then, you can run:
 ```bash
 python -m pyserini.search.lucene \
   --index indexes/sample_collection_jsonl \
-  --topics integrations/resources/sample_queries.tsv \
+  --topics tests/resources/sample_queries.tsv \
   --output run.sample.txt \
   --bm25
 ```
@@ -381,13 +381,13 @@ For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entiti
 
 Instructions for indexing and searching non-English corpora is quite similar to English corpora, so check out the above guide first.
 
-Here's a [sample collection in Chinese](integrations/resources/sample_collection_jsonl_zh) in the JSONL format.
+Here's a [sample collection in Chinese](tests/resources/sample_collection_jsonl_zh) in the JSONL format.
 To index:
 
 ```bash
 python -m pyserini.index.lucene \
   --collection JsonCollection \
-  --input integrations/resources/sample_collection_jsonl_zh \
+  --input tests/resources/sample_collection_jsonl_zh \
   --language zh \
   --index indexes/sample_collection_jsonl_zh \
   --generator DefaultLuceneDocumentGenerator \
@@ -417,13 +417,13 @@ To perform a batch run:
 ```bash
 python -m pyserini.search.lucene \
   --index indexes/sample_collection_jsonl_zh \
-  --topics integrations/resources/sample_queries_zh.tsv \
+  --topics tests/resources/sample_queries_zh.tsv \
   --output run.sample_zh.txt \
   --language zh \
   --bm25
 ```
 
-Here's what the [query file](integrations/resources/sample_queries_zh.tsv) looks like, in tsv.
+Here's what the [query file](tests/resources/sample_queries_zh.tsv) looks like, in tsv.
 Once again, add `--language zh`.
 
 And the expected output:
@@ -453,35 +453,44 @@ Each line is a json dictionary containing two fields, i.e .`id` and `contents`.
 - `id` is the document id in string.
 - `contents` contains all the fields of the documents. By default, Pyserini expects the fields in contents are separated by `\n`. The field's boundary can be controled using `--delimiter` argument under `input`, see the example script below.
 
+For example, the following document has *four* fields in contents, `url`, `title`, `text` and `expand`,
+where the value of each field is `"www.url.com`, `title`, `this is the contents`, and `document expansion` respectively.
 ```json
 {
   "id": "doc1",
   "contents": "www.url.com\ntitle\nthis is the contents.\ndocument expansion"
 }
 ```
-In the above example, the document has four fields in contents, `url`, `title`, `text` and `expand`.
+The `contents` can also only have one fields, as in the `tests/resources/simple_cacm_corpus.json` sample file:
+```json
+{
+  "id": "CACM-2636",
+  "contents": "Generation of Random Correlated Normal ... \n"
+}
+```
 
 With the collection in the correct foramt, we can now encode documents with Dense encoders:
 ```bash
 python -m pyserini.encode \
-  input   --corpus msmarco-passage-expanded \
-          --fields url title text expand \  # fields in collection contents
+  input   --corpus tests/resources/simple_cacm_corpus.json \
+          --fields text \  # fields in collection contents
           --delimiter "\n" \
           --shard-id 0 \   # The id of current shard. Default is 0
           --shard-num 1 \  # The total number of shards. Default is 1
   output  --embeddings path/to/output/dir \
           --to-faiss \
   encoder --encoder castorini/tct_colbert-v2-hnp-msmarco \
-          --fields title text \  # fields to encode
+          --fields text \  # fields to encode, they must appear in the input.fields
           --batch 32 \
           --fp16  # if inference with autocast()
 ```
+* the `--corpus` can be either be a json file, or a directory that contains multiple json files
 * with `--to-faiss`, the generated embeddings will be stored as FaissIndexIP directly.  Otherwise it will be stored in `.jsonl` format.  If in `.jsonl` format, each line contains following info:
 ```json
 {
-  "id": "doc1",
-  "contents": "www.url.com\ntitle\nthis is the contents.\ndocument expansion",
-  "vector": [0.12, 0.12, 0.13, 0.14]
+  "id": "CACM-2636",
+  "contents": "Generation of Random Correlated Normal ... \n"},
+  "vector": [0.126, ..., -0.004]
 }
 ```
 * The `shard-id` and `shard-num` arguments are for speeding up the encoding, where the `shard-num` controls the total shard you want to segment the collection into, and the `shard-id` is the id of the current shard to encode. For example, if `shard-num` is 4 and `shard-id` is 0, the command would create a sub-index for the first 1/4 of the collection. Then you can run 4 process on 4 gpu to speed up the process by 4 times.  Once it's done, you can merge the sub-indexes together by:
@@ -492,20 +501,20 @@ python -m pyserini.index.merge_faiss_indexes --prefix indexes/dindex-sample-dpr-
 #### Encode documents with Sparse encoder
 ```bash
 python -m pyserini.encode \
-  input   --corpus msmarco-passage-expanded \
-          --fields url title text expand \
+  input   --corpus tests/resources/simple_cacm_corpus.json \
+          --fields text \
   output  --embeddings path/to/output/dir \
   encoder --encoder castorini/unicoil-d2q-msmarco-passage \
-          --fields title text expand \
+          --fields text \
           --batch 32 \
           --fp16 # if inference with autocast()
 ```
 The output will be stored in jsonl format. Each line contains following info:
 ```json
 {
-  "id": "doc1",
-  "contents": "www.url.com\ntitle\nthis is the contents.\ndocument expansion",
-  "vector": {"this":  0.12, "is":  0.1, "the":  0, "contents": 2.1}
+  "id": "CACM-2636",
+  "contents": "Generation of Random Correlated Normal ... \n",
+  "vector": {"generation":  0.12, "of":  0.1, "random":  0, ...}
 }
 ```
 
