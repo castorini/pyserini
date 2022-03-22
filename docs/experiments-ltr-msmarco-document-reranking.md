@@ -5,14 +5,14 @@ This page describes how to reproduce the ltr experiments in the following paper
 > Yue Zhang, Chengcheng Hu, Yuqi Liu, Hui Fang, and Jimmy Lin. [Learning to Rank in the Age of Muppets: Effectiveness–Efficiency Tradeoffs in Multi-Stage Ranking](https://aclanthology.org/2021.sustainlp-1.8) _Proceedings of the Second Workshop on Simple and Efficient Natural Language Processing_, pages 64–73, 2021.
 
 This guide contains instructions for running learning-to-rank baseline on the [MS MARCO *document* reranking task](https://microsoft.github.io/msmarco/).
-Learning-to-rank serves as a second stage reranker after BM25 retrieval, here we provide end-to-end retrieval setup.
-Note, we use sliding window and maxP strategy here.
+Learning-to-rank serves as a second stage-reranker after BM25 retrieval; we use a sliding window and MaxP strategy here.
 
-## Data Prep
+## Performing Retrieval
 
 We're going to use the repository's root directory as the working directory. 
 
-Now, we prepare queries for LTR:
+First, prepare queries:
+
 ```bash
 mkdir collections/msmarco-ltr-document
 
@@ -21,47 +21,56 @@ python scripts/ltr_msmarco/convert_queries.py \
   --output collections/msmarco-ltr-document/queries.dev.small.json
 ```
 
-Download pretrained IBM models:
+The above scripts convert queries to JSON objects with `text`, `text_unlemm`, `raw`, and `text_bert_tok` fields.
+Note that the tokenization script depends on spaCy; our implementation currently depends on v3.2.1 (this is potentially important as tokenization might change from version to version).
+
+Download our already trained IBM model:
 
 ```bash
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-ibm.tar.gz -P collections/msmarco-ltr-passage/
-tar -xzvf collections/msmarco-ltr-passage/model-ltr-ibm.tar.gz -C collections/msmarco-ltr-passage/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-ibm.tar.gz -P collections/msmarco-ltr-document/
+tar -xzvf collections/msmarco-ltr-document/model-ltr-ibm.tar.gz -C collections/msmarco-ltr-document/
 ```
 
-Download our trained LTR model:
+Download our already trained LTR model:
 
 ```bash
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msmarco-passage-mrr-v1.tar.gz -P runs/
-tar -xzvf runs/model-ltr-msmarco-passage-mrr-v1.tar.gz -C runs
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msmarco-passage-mrr-v1.tar.gz -P collections/msmarco-ltr-document/
+tar -xzvf collections/msmarco-ltr-document/model-ltr-msmarco-passage-mrr-v1.tar.gz -C collections/msmarco-ltr-document/
 ```
 
-Now, we have all things ready and can run inference. The LTR outpus rankings on segments level. We will need to use another script to get doc level results using maxP strategy.
+Now, we have all things ready and can run inference:
 
 ```bash
 python -m pyserini.search.lucene.ltr \
   --index msmarco-doc-per-passage-ltr \
   --queries collections/msmarco-ltr-document \
-  --model runs/msmarco-passage-ltr-mrr-v1 \
+  --model collections/msmarco-ltr-document/msmarco-passage-ltr-mrr-v1 \
   --ibm-model collections/msmarco-ltr-document/ibm_model/ \
   --data document \
-  --output runs/run.ltr.doc_level.tsv \
+  --output runs/run.ltr.msmarco-doc.tsv \
   --max-passage --hits 10000
 ```
+
+**TODO**: `--queries collections/msmarco-ltr-document` should refer to the file, i.e., `collections/msmarco-ltr-document/queries.dev.small.json`.
 
 After the run finishes, we can evaluate the results using the official MS MARCO evaluation script:
 
 ```bash
 $ python tools/scripts/msmarco/msmarco_doc_eval.py \
     --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-    --run runs/run.ltr.doc_level.tsv
+    --run runs/run.ltr.msmarco-doc.tsv
 
 #####################
-MRR @100: 0.31055962279034266
+MRR @100: 0.31088730804779396
 QueriesRanked: 5193
 #####################
 ```
 
+**TODO**: Add conversion to `trec_eval` format here - basically, make the passage and document pages parallel with each other.
+
 ## Building the Index from Scratch
+
+**TODO**: This needs to be changed to the standard doc corpus, not the expansion one...
 
 First, we need to download collections.
 

@@ -29,8 +29,12 @@ python scripts/ltr_msmarco/convert_queries.py \
   --output collections/msmarco-ltr-passage/queries.train.json
 ```
 
-The above scripts convert queries to json objects with `text`, `text_unlemm`, `raw`, and `text_bert_tok` fields.
+**TODO**: Change to the queries already stored in `tools/topics-and-qrels/`; we don't need to process training queries, and we actually don't need to download the corpus at this point (only for building the index from scratch below).
+
+The above scripts convert queries to JSON objects with `text`, `text_unlemm`, `raw`, and `text_bert_tok` fields.
 The first two scripts take ~1 min and the third one is a bit longer (~1.5h) since it processes _all_ the training queries (although not necessary for running the commands below).
+
+Note that the tokenization script depends on spaCy; our implementation currently depends on v3.2.1 (this is potentially important as tokenization might change from version to version).
 
 ## Performing Retrieval
 
