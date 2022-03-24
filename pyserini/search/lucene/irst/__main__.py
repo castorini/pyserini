@@ -79,9 +79,10 @@ def query_loader(data):
             query = {"raw" : query,
                 "text": query_lemmas,
                 "text_unlemm": query_unlemm,
-                "analyzed": ''.join(analyzed),
-                "text_bert_tok": ''.join(bert_tokenizer.tokenize(query.lower()))}
+                "analyzed": ' '.join(analyzed),
+                "text_bert_tok": ' '.join(bert_tokenizer.tokenize(query.lower()))}
             queries[did] = query
+        print(queries[did])
 
         if ln % 10000 == 0:
             print('Processed %d queries' % ln)
