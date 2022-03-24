@@ -19,7 +19,9 @@ from pyserini.search.lucene.irst import LuceneIrstSearcher
 from pyserini.search.lucene.ltr._base import SpacyTextParser
 from typing import List
 from transformers import AutoTokenizer, AutoModel
+import spacy
 from pyserini.analysis import Analyzer, get_lucene_analyzer
+from tqdm import tqdm
 
 """
 Helpers for preprocessing queries
@@ -75,10 +77,10 @@ def query_loader(data):
         query_toks = query_lemmas.split()
         if len(query_toks) >= 0:
             query = {"raw" : query,
-                "text": query_lemmas.split(' '),
-                "text_unlemm": query_unlemm.split(' '),
-                "analyzed": analyzed,
-                "text_bert_tok": bert_tokenizer.tokenize(query.lower())}
+                "text": query_lemmas,
+                "text_unlemm": query_unlemm,
+                "analyzed": ''.join(analyzed),
+                "text_bert_tok": ''.join(bert_tokenizer.tokenize(query.lower()))}
             queries[did] = query
 
         if ln % 10000 == 0:
