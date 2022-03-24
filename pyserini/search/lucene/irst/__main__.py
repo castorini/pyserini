@@ -82,7 +82,6 @@ def query_loader(data):
                 "analyzed": ' '.join(analyzed),
                 "text_bert_tok": ' '.join(bert_tokenizer.tokenize(query.lower()))}
             queries[did] = query
-        print(queries[did])
 
         if ln % 10000 == 0:
             print('Processed %d queries' % ln)
