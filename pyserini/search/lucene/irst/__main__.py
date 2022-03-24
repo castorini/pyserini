@@ -16,6 +16,7 @@
 import argparse
 import json
 from pyserini.search.lucene.irst import LuceneIrstSearcher
+from pyserini.search.lucene.ltr._base import SpacyTextParser
 from typing import List
 
 

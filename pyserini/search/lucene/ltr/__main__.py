@@ -26,14 +26,31 @@ import multiprocessing
 import os
 import pickle
 import time
-
+import re
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
 from collections import defaultdict
+from transformers import AutoTokenizer, AutoModel
+import spacy
 from pyserini.search.lucene.ltr._search_msmarco import MsmarcoLtrSearcher
 from pyserini.search.lucene.ltr import *
 from pyserini.search.lucene import LuceneSearcher
+from pyserini.analysis import Analyzer, get_lucene_analyzer
+
+"""
+Helpers for preprocessing queries
+"""
+def read_stopwords(fileName, lower_case=True):
+    stopwords = set()
+    with open(fileName) as f:
+        for w in f:
+            w = w.strip()
+            if w:
+                if lower_case:
+                    w = w.lower()
+                stopwords.add(w)
+    return stopwords
 
 """
 Running prediction on candidates
@@ -119,17 +136,50 @@ def dev_data_loader(file, format, data, rerank, prebuilt, top=1000):
     return dev, dev_qrel
 
 
-def query_loader():
+def query_loader(data):
     queries = {}
-    with open(f'{args.queries}/queries.dev.small.json') as f:
-        for line in f:
-            query = json.loads(line)
-            qid = query.pop('id')
-            query['analyzed'] = query['analyzed'].split(" ")
-            query['text'] = query['text_unlemm'].split(" ")
-            query['text_unlemm'] = query['text_unlemm'].split(" ")
-            query['text_bert_tok'] = query['text_bert_tok'].split(" ")
-            queries[qid] = query
+    if os.getcwd().endswith('ltr_msmarco'):
+        stopwords = read_stopwords('stopwords.txt', lower_case=True)
+    else:
+        stopwords = read_stopwords('./scripts/ltr_msmarco/stopwords.txt', lower_case=True)
+    nlp = SpacyTextParser('en_core_web_sm', stopwords, keep_only_alpha_num=True, lower_case=True)
+    analyzer = Analyzer(get_lucene_analyzer())
+    nlp_ent = spacy.load("en_core_web_sm")
+    bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+    if (data == 'passage'):
+        inp_file = open('./tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt')
+    else:
+        inp_file = open('./tools/topics-and-qrels/topics.msmarco-doc.dev.txt')
+    ln = 0
+    for line in tqdm(inp_file):
+        ln += 1
+        line = line.strip()
+        if not line:
+            continue
+        fields = line.split('\t')
+        if len(fields) != 2:
+            print('Misformated line %d ignoring:' % ln)
+            print(line.replace('\t', '<field delimiter>'))
+            continue
+        did, query = fields
+        query_lemmas, query_unlemm = nlp.proc_text(query)
+        analyzed = analyzer.analyze(query)
+        for token in analyzed:
+            if ' ' in token:
+                print(analyzed)
+        query_toks = query_lemmas.split()
+        if len(query_toks) >= 0:
+            query = {"raw" : query,
+                "text": query_lemmas.split(' '),
+                "text_unlemm": query_unlemm.split(' '),
+                "analyzed": analyzed,
+                "text_bert_tok": bert_tokenizer.tokenize(query.lower())}
+            queries[did] = query
+
+        if ln % 10000 == 0:
+            print('Processed %d queries' % ln)
+
+    print('Processed %d queries' % ln)
     return queries
 
 
@@ -255,14 +305,14 @@ if __name__ == "__main__":
     parser.add_argument('--index', required=True)
     parser.add_argument('--output', required=True)
     parser.add_argument('--ibm-model', required=True)
-    parser.add_argument('--queries', required=True)
+    #parser.add_argument('--queries', required=True)
     parser.add_argument('--data', required=True)
     parser.add_argument('--output-format', default='tsv')
     parser.add_argument('--max-passage', action='store_true')
     parser.add_argument('--rerank', action='store_true')
 
     args = parser.parse_args()
-    queries = query_loader()
+    queries = query_loader(args.data)
     print("---------------------loading dev----------------------------------------")
     prebuilt = args.index == 'msmarco-passage-ltr' or args.index == 'msmarco-doc-per-passage-ltr'
     dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.data, args.rerank, prebuilt, args.hits)

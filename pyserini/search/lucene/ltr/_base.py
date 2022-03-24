@@ -18,6 +18,9 @@ from pyserini.pyclass import autoclass, JArrayList
 import json
 import numpy as np
 import pandas as pd
+import spacy
+import re
+from transformers import AutoTokenizer, AutoModel
 
 class Feature:
    def name(self):
@@ -256,3 +259,62 @@ class FeatureExtractor:
         dt = np.dtype(np.float32)
         dt = dt.newbyteorder('>')
         return np.frombuffer(res, dt)
+
+class SpacyTextParser:
+    def __init__(self, model_name, stopwords,
+                 remove_punct=True,
+                 sent_split=False,
+                 keep_only_alpha_num=False,
+                 lower_case=True,
+                 enable_POS=True):
+
+        disable_list = ['ner', 'parser']
+        if not enable_POS:
+            disable_list.append('tagger')
+        print('Disabled Spacy components: ', disable_list)
+
+        self._nlp = spacy.load(model_name, disable=disable_list)
+        if sent_split:
+            sentencizer = self._nlp.create_pipe("sentencizer")
+            self._nlp.add_pipe(sentencizer)
+
+        self._remove_punct = remove_punct
+        self._stopwords = frozenset([w.lower() for w in stopwords])
+        self._keep_only_alpha_num = keep_only_alpha_num
+        self._lower_case = lower_case
+
+    @staticmethod
+    def _basic_clean(text):
+        return text.replace("’", "'")
+
+    def __call__(self, text):
+        return self._nlp(SpacyTextParser._basic_clean(text))
+    
+    def is_alpha_num(self, s):
+        return s and (re.match("^[a-zA-Z-_.0-9]+$", s) is not None)
+
+    def proc_text(self, text):
+        lemmas = []
+        tokens = []
+        doc = self(text)
+        for tokObj in doc:
+            if self._remove_punct and tokObj.is_punct:
+                continue
+            lemma = tokObj.lemma_
+            text = tokObj.text
+            if self._keep_only_alpha_num and not self.is_alpha_num(text):
+                continue
+            tok1 = text.lower()
+            tok2 = lemma.lower()
+            if tok1 in self._stopwords or tok2 in self._stopwords:
+                continue
+
+            if self._lower_case:
+                text = text.lower()
+                lemma = lemma.lower()
+
+            lemmas.append(lemma)
+            tokens.append(text)
+
+        return ' '.join(lemmas), ' '.join(tokens)
+        
