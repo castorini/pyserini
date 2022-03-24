@@ -9,23 +9,11 @@ LTR serves as a second-stage reranker after BM25 retrieval.
 
 ## Data Prep
 
-We're going to use `collections/msmarco-ltr-passage/` as the working directory to preprocess the data.
-
-Then:
+We're going to use root as the working directory.
 
 ```bash
-mkdir collections/msmarco-ltr-passage/
-
-python scripts/ltr_msmarco/convert_queries.py \
-  --input collections/msmarco-passage/queries.dev.small.tsv \
-  --output collections/msmarco-ltr-passage/queries.dev.small.json
-
+mkdir collections/msmarco-ltr-document
 ```
-
-The above scripts convert queries to JSON objects with `text`, `text_unlemm`, `raw`, and `text_bert_tok` fields.
-The first two scripts take ~1 min and the third one is a bit longer (~1.5h) since it processes _all_ the training queries (although not necessary for running the commands below).
-
-Note that the tokenization script depends on spaCy; our implementation currently depends on v3.2.1 (this is potentially important as tokenization might change from version to version).
 
 ## Performing Retrieval
 
@@ -110,6 +98,7 @@ python scripts/ltr_msmarco/convert_passage.py \
 ```
 
 The above script will convert the collection to JSON files with `text_unlemm`, `analyzed`, `text_bert_tok` and `raw` fields.
+Note that the tokenization script depends on spaCy; our implementation currently depends on v3.2.1 (this is potentially important as tokenization might change from version to version).
 Next, we need to convert the MS MARCO JSON collection into Anserini's JSONL format:
 
 ```bash

@@ -53,10 +53,7 @@ def query_loader(data):
     analyzer = Analyzer(get_lucene_analyzer())
     nlp_ent = spacy.load("en_core_web_sm")
     bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-    if (data == 'passage'):
-        inp_file = open('./tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt')
-    else:
-        inp_file = open('./tools/topics-and-qrels/topics.msmarco-doc.dev.txt')
+    inp_file = open(data)
     ln = 0
     for line in tqdm(inp_file):
         ln += 1
@@ -131,8 +128,6 @@ if __name__ == "__main__":
                         metavar="path_to_base_run", help='path to base run')
     parser.add_argument('--tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
-    parser.add_argument('--query_path', type=str, default="./ibm/queries.dev.small.json",
-                        metavar="path_to_query", help='path to dev queries file')
     parser.add_argument('--index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
     parser.add_argument('--output', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.txt",
@@ -147,7 +142,7 @@ if __name__ == "__main__":
                         help='whether we use max sim operator or avg instead')
     parser.add_argument('--hits', type=int, metavar='number of hits generated in runfile',
                         required=False, default=1000, help="Number of hits.")
-    parser.add_argument('--data', type=str, help='passage or document', required=True)
+    parser.add_argument('--topics', type=str, help='path to query topics', required=True)
     args = parser.parse_args()
 
     print('Using max sim operator or not:', args.max_sim)
@@ -156,7 +151,7 @@ if __name__ == "__main__":
 
     reranker = LuceneIrstSearcher(
         args.tran_path, args.index, args.field_name)
-    queries = query_loader(args.data)
+    queries = query_loader(args.topics)
     i = 0
     for topic in queries.keys():
         if i % 100 == 0:

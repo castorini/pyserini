@@ -110,6 +110,7 @@ IRST (Sum)
 ```bash
 python -m pyserini.search.lucene.irst \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
+  --topics topic \
   --index msmarco-document-segment-ltr \
   --output irst_test/regression_test_sum.irst_topics.txt \
   --alpha 0.3 \
@@ -120,6 +121,7 @@ IRST (Max)
 ```bash
 python -m pyserini.search.lucene.irst \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
+  --topics topic \
   --index msmarco-document-segment-ltr \
   --output irst_test/regression_test_max.irst_topics.txt \
   --alpha 0.3 \
@@ -131,7 +133,7 @@ python -m pyserini.search.lucene.irst \
 For different topics, the `--input`,`--topics` and `--qrel` are different, since Pyserini has all these topics available, we can pass in
 different values to run on different datasets.
 
-`--input/topics`: <br />
+`--topics`: <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `tools/topics-and-qrels/topics.dl19-doc.txt` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `tools/topics-and-qrels/topics.dl20.txt` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `tools/topics-and-qrels/topics.msmarco-doc.dev.txt` <br />

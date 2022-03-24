@@ -36,16 +36,13 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         ibm_model_tar_name = 'ibm_model_1_bert_tok_20211117.tar.gz'
         os.system(f'wget {ibm_model_url} -P irst_test/')
         os.system(f'tar -xzvf irst_test/{ibm_model_tar_name} -C irst_test')
-        # queries process
-        os.system('python scripts/ltr_msmarco/convert_queries.py \
-            --input tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
-            --output irst_test/queries.dev.small.json')
         # qrel
         self.qrels_path = f'{self.pyserini_root}/tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt'
 
     def test_sum_aggregation(self):
         os.system('python -m pyserini.search.lucene.irst \
             --qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+            --topics ./tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
             --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
             --index msmarco-passage-ltr \
             --output irst_test/regression_test_sum.txt \
@@ -68,6 +65,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
     def test_max_aggregation(self):
         os.system('python -m pyserini.search.lucene.irst \
             --qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+            --topics ./tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
             --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
             --index msmarco-passage-ltr \
             --output irst_test/regression_test_max.txt \
