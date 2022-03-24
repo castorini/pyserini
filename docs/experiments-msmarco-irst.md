@@ -14,17 +14,6 @@ For IRST, we make the corpus as well as the pre-built indexes available to downl
 Here, we start from MS MARCO [passage corpus](https://github.com/castorini/pyserini/blob/master/docs/experiments-msmarco-passage.md) that has already been processed.
 As an alternative, we also make available pre-built indexes (in which case the indexing step can be skipped).
 
-
-The below scripts convert queries to json objects with text, text_unlemm, raw, and text_bert_tok fields
-
-
-```bash
-mkdir irst_test
-python scripts/ltr_msmarco/convert_queries.py --input path_to_topics --output irst_test/queries.irst_topics.dev.small.json
-```
-Here the path_to_topics represents the path to topics file saved in tools/topics-and-qrels/ folder, e.g., tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
-
-
 ### Performing End-to-End Retrieval Using Pretrained Model
 
 Download pretrained IBM models:
@@ -39,7 +28,6 @@ IRST (Sum)
 ```bash
 python -m pyserini.search.lucene.irst \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
-  --query_path irst_test/queries.irst_topics.dev.small.json \
   --index msmarco-passage-ltr \
   --output irst_test/regression_test_sum.irst_topics.txt \
   --alpha 0.1
@@ -49,7 +37,6 @@ IRST (Max)
 ```bash
 python -m pyserini.search.lucene.irst \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
-  --query_path irst_test/queries.irst_topics.dev.small.json \
   --index msmarco-passage-ltr \
   --output irst_test/regression_test_max.irst_topics.txt \
   --alpha 0.3 \
@@ -107,15 +94,6 @@ Note that we evaluate MRR and NDCG at a cutoff of 10 hits to match the official 
 For MSMARCO DOC, each MS MARCO document is first segmented into passages, each passage is treated as a unit of indexing. 
 We utilized the MaxP technique during the ranking, that is scoring documents based on one of its highest-scoring passage.
 
-The below scripts convert queries to json objects with text, text_unlemm, raw, and text_bert_tok fields
-
-```bash
-mkdir irst_test
-python scripts/ltr_msmarco/convert_queries.py --input path_to_topics --output irst_test/queries.irst_topics.dev.small.json
-```
-
-We can now perform retrieval in anserini to generate baseline:
-
 ### Performing End-to-End Retrieval Using Pretrained Model
 
 
@@ -132,7 +110,6 @@ IRST (Sum)
 ```bash
 python -m pyserini.search.lucene.irst \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
-  --query_path irst_test/queries.irst_topics.dev.small.json \
   --index msmarco-document-segment-ltr \
   --output irst_test/regression_test_sum.irst_topics.txt \
   --alpha 0.3 \
@@ -143,7 +120,6 @@ IRST (Max)
 ```bash
 python -m pyserini.search.lucene.irst \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
-  --query_path irst_test/queries.irst_topics.dev.small.json \
   --index msmarco-document-segment-ltr \
   --output irst_test/regression_test_max.irst_topics.txt \
   --alpha 0.3 \

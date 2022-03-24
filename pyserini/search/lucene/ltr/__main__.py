@@ -305,7 +305,6 @@ if __name__ == "__main__":
     parser.add_argument('--index', required=True)
     parser.add_argument('--output', required=True)
     parser.add_argument('--ibm-model', required=True)
-    #parser.add_argument('--queries', required=True)
     parser.add_argument('--data', required=True)
     parser.add_argument('--output-format', default='tsv')
     parser.add_argument('--max-passage', action='store_true')
