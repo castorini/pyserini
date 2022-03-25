@@ -55,7 +55,7 @@ def read_stopwords(fileName, lower_case=True):
 """
 Running prediction on candidates
 """
-def dev_data_loader(file, format, topic, rerank, prebuilt, qrel, top=1000):
+def dev_data_loader(file, format, topic, rerank, prebuilt, qrel, data, top=1000):
     if rerank:
         if format == 'tsv':
             dev = pd.read_csv(file, sep="\t",
@@ -90,8 +90,11 @@ def dev_data_loader(file, format, topic, rerank, prebuilt, qrel, top=1000):
             dev_dic['rank'].extend(rank)
         dev = pd.DataFrame(dev_dic)
         dev['rank'].astype(np.int32)
-
-    dev_qrel = pd.read_csv(qrel, sep=" ",
+    if data == 'document':
+        sepration = "\t"
+    else:
+        seperation = " "
+    dev_qrel = pd.read_csv(qrel, sep=sepration,
                             names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
                             dtype={'qid': 'S','pid': 'S', 'rel':'i'})
     dev = dev.merge(dev_qrel, left_on=['qid', 'pid'], right_on=['qid', 'pid'], how='left')
@@ -308,7 +311,7 @@ if __name__ == "__main__":
     queries = query_loader(args.topic)
     print("---------------------loading dev----------------------------------------")
     prebuilt = args.index == 'msmarco-passage-ltr' or args.index == 'msmarco-doc-per-passage-ltr'
-    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.topic, args.rerank, prebuilt, args.qrel, args.hits)
+    dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.topic, args.rerank, prebuilt, args.qrel, args.data, args.hits)
     searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data, prebuilt, args.topic)
     searcher.add_fe()
     batch_info = searcher.search(dev, queries)
