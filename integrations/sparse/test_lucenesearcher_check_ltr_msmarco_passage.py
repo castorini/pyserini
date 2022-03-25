@@ -41,8 +41,7 @@ class TestLtrMsmarcoPassage(unittest.TestCase):
         os.system(f'wget {ibm_model_url} -P ltr_test/')
         os.system(f'tar -xzvf ltr_test/{ibm_model_tar_name} -C ltr_test')
         #queries process
-        os.system('python scripts/ltr_msmarco/convert_queries.py --input tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt --output ltr_test/queries.dev.small.json')
-        os.system(f'python -m pyserini.search.lucene.ltr --model ltr_test/msmarco-passage-ltr-mrr-v1 --data passage --index msmarco-passage-ltr --ibm-model ltr_test/ibm_model/ --output-format tsv --output ltr_test/{outp}')
+        os.system(f'python -m pyserini.search.lucene.ltr --model ltr_test/msmarco-passage-ltr-mrr-v1 --topic passage --index msmarco-passage-ltr --ibm-model ltr_test/ibm_model/ --output-format tsv --output ltr_test/{outp}')
         result = subprocess.check_output(f'python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt ltr_test/{outp}', shell=True).decode(sys.stdout.encoding)
         a,b = result.find('#####################\nMRR @10:'), result.find('\nQueriesRanked: 6980\n#####################\n')
         mrr = result[a+31:b]
