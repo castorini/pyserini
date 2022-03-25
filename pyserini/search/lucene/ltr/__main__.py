@@ -131,7 +131,7 @@ def dev_data_loader(file, format, topic, rerank, prebuilt, qrel, top=1000):
     return dev, dev_qrel
 
 
-def query_loader(data):
+def query_loader(topic):
     queries = {}
     if os.getcwd().endswith('ltr_msmarco'):
         stopwords = read_stopwords('stopwords.txt', lower_case=True)
@@ -141,10 +141,7 @@ def query_loader(data):
     analyzer = Analyzer(get_lucene_analyzer())
     nlp_ent = spacy.load("en_core_web_sm")
     bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-    if (data == 'passage'):
-        inp_file = open('./tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt')
-    else:
-        inp_file = open('./tools/topics-and-qrels/topics.msmarco-doc.dev.txt')
+    inp_file = open(topic)
     ln = 0
     for line in tqdm(inp_file):
         ln += 1
@@ -305,13 +302,14 @@ if __name__ == "__main__":
     parser.add_argument('--max-passage', action='store_true')
     parser.add_argument('--rerank', action='store_true')
     parser.add_argument('--qrel', required=True)
+    parser.add_argument('--data', default='passage')
 
     args = parser.parse_args()
     queries = query_loader(args.topic)
     print("---------------------loading dev----------------------------------------")
     prebuilt = args.index == 'msmarco-passage-ltr' or args.index == 'msmarco-doc-per-passage-ltr'
     dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.topic, args.rerank, prebuilt, args.qrel, args.hits)
-    searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.topic, prebuilt)
+    searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data, prebuilt, args.topic)
     searcher.add_fe()
     batch_info = searcher.search(dev, queries)
     del dev, queries
