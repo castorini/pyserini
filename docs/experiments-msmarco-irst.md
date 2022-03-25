@@ -27,6 +27,7 @@ Next we can run our script to get our end-to-end results.
 IRST (Sum) 
 ```bash
 python -m pyserini.search.lucene.irst \
+  --topics tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
   --index msmarco-passage-ltr \
   --output irst_test/regression_test_sum.irst_topics.txt \
