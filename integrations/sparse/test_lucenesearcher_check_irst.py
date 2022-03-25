@@ -46,7 +46,6 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
             --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
             --index msmarco-passage-ltr \
             --output irst_test/regression_test_sum.txt \
-            --data passage \
             --alpha 0.1 ')
 
         score_cmd = f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval \
@@ -70,7 +69,6 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
             --index msmarco-passage-ltr \
             --output irst_test/regression_test_max.txt \
             --alpha 0.3 \
-            --data passage \
             --max_sim')
 
         score_cmd = f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval \
