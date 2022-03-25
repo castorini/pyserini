@@ -36,7 +36,8 @@ python -m pyserini.search.lucene.ltr \
   --index msmarco-doc-per-passage-ltr \
   --model collections/msmarco-ltr-document/msmarco-passage-ltr-mrr-v1 \
   --ibm-model collections/msmarco-ltr-document/ibm_model/ \
-  --topic document \
+  --topic tools/topics-and-qrels/topics.msmarco-doc.dev.txt \
+  --qrel tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
   --output runs/run.ltr.msmarco-doc.tsv \
   --max-passage --hits 10000
 ```

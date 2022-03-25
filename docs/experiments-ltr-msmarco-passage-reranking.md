@@ -38,7 +38,8 @@ python -m pyserini.search.lucene.ltr \
   --index msmarco-passage-ltr \
   --model runs/msmarco-passage-ltr-mrr-v1 \
   --ibm-model collections/msmarco-ltr-passage/ibm_model/ \
-  --topic passage \
+  --topic tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
+  --qrel tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
   --output runs/run.ltr.msmarco-passage.tsv
 ```
 
