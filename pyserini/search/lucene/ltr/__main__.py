@@ -39,23 +39,9 @@ from pyserini.search.lucene import LuceneSearcher
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 
 """
-Helpers for preprocessing queries
-"""
-def read_stopwords(fileName, lower_case=True):
-    stopwords = set()
-    with open(fileName) as f:
-        for w in f:
-            w = w.strip()
-            if w:
-                if lower_case:
-                    w = w.lower()
-                stopwords.add(w)
-    return stopwords
-
-"""
 Running prediction on candidates
 """
-def dev_data_loader(file, format, topic, rerank, prebuilt, qrel, data, top=1000):
+def dev_data_loader(file, format, topic, rerank, prebuilt, qrel, granularity, top=1000):
     if rerank:
         if format == 'tsv':
             dev = pd.read_csv(file, sep="\t",
@@ -90,7 +76,7 @@ def dev_data_loader(file, format, topic, rerank, prebuilt, qrel, data, top=1000)
             dev_dic['rank'].extend(rank)
         dev = pd.DataFrame(dev_dic)
         dev['rank'].astype(np.int32)
-    if data == 'document':
+    if granularity == 'document':
         sepration = "\t"
     else:
         seperation = " "
@@ -136,11 +122,7 @@ def dev_data_loader(file, format, topic, rerank, prebuilt, qrel, data, top=1000)
 
 def query_loader(topic):
     queries = {}
-    if os.getcwd().endswith('ltr_msmarco'):
-        stopwords = read_stopwords('stopwords.txt', lower_case=True)
-    else:
-        stopwords = read_stopwords('./scripts/ltr_msmarco/stopwords.txt', lower_case=True)
-    nlp = SpacyTextParser('en_core_web_sm', stopwords, keep_only_alpha_num=True, lower_case=True)
+    nlp = SpacyTextParser('en_core_web_sm', keep_only_alpha_num=True, lower_case=True)
     analyzer = Analyzer(get_lucene_analyzer())
     nlp_ent = spacy.load("en_core_web_sm")
     bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
@@ -305,14 +287,14 @@ if __name__ == "__main__":
     parser.add_argument('--max-passage', action='store_true')
     parser.add_argument('--rerank', action='store_true')
     parser.add_argument('--qrel', required=True)
-    parser.add_argument('--data', default='passage')
+    parser.add_argument('--granularity', default='passage')
 
     args = parser.parse_args()
     queries = query_loader(args.topic)
     print("---------------------loading dev----------------------------------------")
     prebuilt = args.index == 'msmarco-passage-ltr' or args.index == 'msmarco-doc-per-passage-ltr'
     dev, dev_qrel = dev_data_loader(args.input, args.input_format, args.topic, args.rerank, prebuilt, args.qrel, args.data, args.hits)
-    searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.data, prebuilt, args.topic)
+    searcher = MsmarcoLtrSearcher(args.model, args.ibm_model, args.index, args.granularity, prebuilt, args.topic)
     searcher.add_fe()
     batch_info = searcher.search(dev, queries)
     del dev, queries

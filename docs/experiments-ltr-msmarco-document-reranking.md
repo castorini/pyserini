@@ -39,7 +39,7 @@ python -m pyserini.search.lucene.ltr \
   --topic tools/topics-and-qrels/topics.msmarco-doc.dev.txt \
   --qrel tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
   --output runs/run.ltr.msmarco-doc.tsv \
-  --data document \
+  --granularity document \
   --max-passage --hits 10000
 ```
 
