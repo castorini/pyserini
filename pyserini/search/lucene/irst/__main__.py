@@ -23,20 +23,6 @@ import spacy
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from tqdm import tqdm
 
-"""
-Helpers for preprocessing queries
-"""
-def read_stopwords(fileName, lower_case=True):
-    stopwords = set()
-    with open(fileName) as f:
-        for w in f:
-            w = w.strip()
-            if w:
-                if lower_case:
-                    w = w.lower()
-                stopwords.add(w)
-    return stopwords
-
 def normalize(scores: List[float]):
     low = min(scores)
     high = max(scores)
@@ -124,21 +110,21 @@ if __name__ == "__main__":
                         metavar="tag_name", help='tag name for resulting Qrun')
     parser.add_argument('--qrels', type=str, default="./tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt",
                         metavar="path_to_qrels", help='path to new_qrels file')
-    parser.add_argument('--base_path', type=str, required=False,
+    parser.add_argument('--base-path', type=str, required=False,
                         metavar="path_to_base_run", help='path to base run')
-    parser.add_argument('--tran_path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
+    parser.add_argument('--tran-path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
     parser.add_argument('--index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
     parser.add_argument('--output', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('--field_name', type=str, default="text_bert_tok",
+    parser.add_argument('--field-name', type=str, default="text_bert_tok",
                         metavar="type of field", help='type of field used for training')
     parser.add_argument('--alpha', type=float, default="0.3",
                         metavar="type of field", help='interpolation weight')
-    parser.add_argument('--num_threads', type=int, default="12",
+    parser.add_argument('--num-threads', type=int, default="12",
                         metavar="num_of_threads", help='number of threads to use')
-    parser.add_argument('--max_sim', default=False, action="store_true",
+    parser.add_argument('--max-sim', default=False, action="store_true",
                         help='whether we use max sim operator or avg instead')
     parser.add_argument('--hits', type=int, metavar='number of hits generated in runfile',
                         required=False, default=1000, help="Number of hits.")
