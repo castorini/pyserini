@@ -77,10 +77,10 @@ def dev_data_loader(file, format, topic, rerank, prebuilt, qrel, granularity, to
         dev = pd.DataFrame(dev_dic)
         dev['rank'].astype(np.int32)
     if granularity == 'document':
-        sepration = "\t"
+        seperation = "\t"
     else:
         seperation = " "
-    dev_qrel = pd.read_csv(qrel, sep=sepration,
+    dev_qrel = pd.read_csv(qrel, sep=seperation,
                             names=["qid", "q0", "pid", "rel"], usecols=['qid', 'pid', 'rel'],
                             dtype={'qid': 'S','pid': 'S', 'rel':'i'})
     dev = dev.merge(dev_qrel, left_on=['qid', 'pid'], right_on=['qid', 'pid'], how='left')
