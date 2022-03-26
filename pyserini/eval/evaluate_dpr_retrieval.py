@@ -266,7 +266,7 @@ def evaluate_retrieval(retrieval_file, topk, regex=False):
             accuracy[k].append(0 if has_ans_idx >= k else 1)
 
     for k in topk:
-        print(f'Top{k}\taccuracy: {np.mean(accuracy[k])}')
+        print(f'Top{k}\taccuracy: {np.around(np.mean(accuracy[k]), 4)}')
 
 
 if __name__ == '__main__':
