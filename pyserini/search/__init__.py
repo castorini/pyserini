@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-from ._base import JQuery, JDisjunctionMaxQueryGenerator, get_topics,\
+from ._base import JQuery, JQueryGenerator, JDisjunctionMaxQueryGenerator, get_topics,\
     get_topics_with_reader, get_qrels_file, get_qrels
 from .lucene import JLuceneSearcherResult, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
 from .lucene import JImpactSearcherResult, LuceneImpactSearcher
@@ -34,6 +34,7 @@ __all__ = ['JQuery',
            'LuceneImpactSearcher',
            'JImpactSearcherResult',
            'JDisjunctionMaxQueryGenerator',
+           'JQueryGenerator',
            'get_topics',
            'get_topics_with_reader',
            'get_qrels_file',
