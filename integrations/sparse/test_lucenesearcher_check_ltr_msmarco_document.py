@@ -40,9 +40,9 @@ class TestLtrMsmarcoDocument(unittest.TestCase):
         ibm_model_tar_name = 'model-ltr-ibm.tar.gz'
         os.system(f'wget {ibm_model_url} -P ltr_test/')
         os.system(f'tar -xzvf ltr_test/{ibm_model_tar_name} -C ltr_test')
-        os.system(f'python -m pyserini.search.lucene.ltr \ 
+        os.system(f'python -m pyserini.search.lucene.ltr  \
                     --topic tools/topics-and-qrels/topics.msmarco-doc.dev.txt \
-                    --model ltr_test/msmarco-passage-ltr-mrr-v1/ \ 
+                    --model ltr_test/msmarco-passage-ltr-mrr-v1/   \
                     --qrel tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
                     --index msmarco-doc-per-passage-ltr --ibm-model ltr_test/ibm_model/ \
                     --granularity document --output ltr_test/{outp} --max-passage --hits 10000')
