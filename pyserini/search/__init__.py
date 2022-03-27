@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-from .lucene import JQuery, JDisjunctionMaxQueryGenerator, get_topics,\
+from ._base import JQuery, JDisjunctionMaxQueryGenerator, get_topics,\
     get_topics_with_reader, get_qrels_file, get_qrels
 from .lucene import JLuceneSearcherResult, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
 from .lucene import JImpactSearcherResult, LuceneImpactSearcher

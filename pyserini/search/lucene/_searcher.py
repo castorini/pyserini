@@ -22,7 +22,7 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import Dict, List, Optional, Union
 
-from pyserini.search.lucene._base import JQuery, JQueryGenerator
+from pyserini.search import JQuery, JQueryGenerator
 from pyserini.index import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
 from pyserini.trectools import TrecRun
