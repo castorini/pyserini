@@ -34,8 +34,7 @@ def normalize(scores: List[float]):
 
 def query_loader(data):
     queries = {}
-    stopwords = read_stopwords('./scripts/ltr_msmarco/stopwords.txt', lower_case=True)
-    nlp = SpacyTextParser('en_core_web_sm', stopwords, keep_only_alpha_num=True, lower_case=True)
+    nlp = SpacyTextParser('en_core_web_sm', keep_only_alpha_num=True, lower_case=True)
     analyzer = Analyzer(get_lucene_analyzer())
     nlp_ent = spacy.load("en_core_web_sm")
     bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")

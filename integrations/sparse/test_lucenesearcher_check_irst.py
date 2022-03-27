@@ -43,7 +43,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         os.system('python -m pyserini.search.lucene.irst \
             --qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
             --topics ./tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
-            --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
+            --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
             --index msmarco-passage-ltr \
             --output irst_test/regression_test_sum.txt \
             --alpha 0.1 ')
@@ -65,11 +65,11 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         os.system('python -m pyserini.search.lucene.irst \
             --qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
             --topics tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
-            --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
+            --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
             --index msmarco-passage-ltr \
             --output irst_test/regression_test_max.txt \
             --alpha 0.3 \
-            --max_sim')
+            --max-sim')
 
         score_cmd = f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval \
                 -c -M1000 -m map -m ndcg_cut.20 {self.qrels_path} irst_test/regression_test_max.txt'
