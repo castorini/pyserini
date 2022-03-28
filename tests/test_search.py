@@ -42,6 +42,20 @@ class TestSearch(unittest.TestCase):
 
         self.searcher = LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
 
+        # Create index without document vectors
+        # The current directory depends on if you're running inside an IDE or from command line.
+        curdir = os.getcwd()
+        if curdir.endswith('tests'):
+            corpus_path = '../tests/resources/sample_collection_json'
+        else:
+            corpus_path = 'tests/resources/sample_collection_json'
+        self.no_vec_index_dir = 'no_vec_index'
+        cmd1 = f'python -m pyserini.index.lucene -collection JsonCollection ' + \
+               f'-generator DefaultLuceneDocumentGenerator ' + \
+               f'-threads 1 -input {corpus_path} -index {self.no_vec_index_dir}'
+        os.system(cmd1)
+        self.no_vec_searcher = LuceneSearcher(self.no_vec_index_dir)
+
     def test_basic(self):
         self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
 
@@ -220,6 +234,9 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(hits[9].docid, 'CACM-1457')
         self.assertAlmostEqual(hits[9].score, 1.43700, places=5)
 
+        with self.assertRaises(TypeError):
+            self.no_vec_searcher.set_rm3()
+
     def test_doc_int(self):
         # The doc method is overloaded: if input is int, it's assumed to be a Lucene internal docid.
         doc = self.searcher.doc(1)
@@ -283,6 +300,7 @@ class TestSearch(unittest.TestCase):
         self.searcher.close()
         os.remove(self.tarball_name)
         shutil.rmtree(self.index_dir)
+        shutil.rmtree(self.no_vec_index_dir)
 
 
 if __name__ == '__main__':
