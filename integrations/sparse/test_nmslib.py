@@ -37,9 +37,9 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_deepimpact_nmslib_hnsw(self):
         output_file = 'test_run.msmarco-passage.deepimpact.nmslib.tsv'
         self.temp_files.append(output_file)
-        cmd = 'wget https://www.dropbox.com/s/7rp56owflmfpi7s/deepimpact_msmarco_passage_dev_topic.jsonl'
+        cmd = 'wget https://raw.githubusercontent.com/castorini/pyserini-data/main/encoded-queries/deepimpact_msmarco_passage_dev_topic.jsonl'
         status = os.system(cmd)
-        cmd = 'wget https://www.dropbox.com/s/d7flii2tglf3l9m/nmslib-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz'
+        cmd = 'wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/nmslib-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz'
         status = os.system(cmd)
         cmd = 'tar -xvf nmslib-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz'
         status = os.system(cmd)
