@@ -47,7 +47,7 @@ python -m pyserini.search.lucene.irst \
   --max-sim
 ```
 
-For different topics, the `--input`,`--topics` and `--qrel` are different, since Pyserini has all these topics available, we can pass in
+For different topics, the `--topics` and `--irst_topics` are different, since Pyserini has all these topics available, we can pass in
 different values to run on different datasets.
 
 `--topics`: <br />
@@ -78,12 +78,6 @@ For MS MARCO Passage V1, no need to use -l 2 option:
 ```bash
 python -m pyserini.eval.trec_eval -c -m ndcg_cut -m map -m recip_rank msmarco-passage-dev-subset irst_test/regression_test_sum.msmarco-passage-dev-subset.txt
 ```
-
-`--qrel_file`: <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `tools/topics-and-qrels/qrels.dl19-passage.txt` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `tools/topics-and-qrels/qrels.dl20-passage.txt` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt` <br />
-
 
 
 ## Document Reranking 
@@ -130,7 +124,7 @@ python -m pyserini.search.lucene.irst \
 ```
 
 
-For different topics, the `--input`,`--topics` and `--qrel` are different, since Pyserini has all these topics available, we can pass in
+For different topics, the `--topics` and `--irst_topics` are different, since Pyserini has all these topics available, we can pass in
 different values to run on different datasets.
 
 `--topics`: <br />
@@ -155,7 +149,6 @@ We can use the official TREC evaluation tool, trec_eval, to compute other metric
 python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input irst_test/regression_test_sum_maxP.irst_topics.tsv --output irst_test/regression_test_sum_maxP.irst_topics.trec
 ```
 
-
 For TREC DL 2019, use this command to evaluate your run file:
 
 ```bash
@@ -171,11 +164,6 @@ For MS MARCO Passage V1, no need to use -l 2 option:
 ```bash
 python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank msmarco-doc-dev irst_test/regression_test_sum_maxP.msmarco-doc.trec
 ```
-
-`--qrel_file`: <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `tools/topics-and-qrels/qrels.dl19-doc.txt` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `tools/topics-and-qrels/qrels.dl20-doc.txt` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `tools/topics-and-qrels/qrels.msmarco-doc.dev.txt` <br />
 
 ## Results
 ### Passage Ranking Datasets
