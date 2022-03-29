@@ -14,12 +14,10 @@
 # limitations under the License.
 #
 import argparse
-import json
 from pyserini.search.lucene.irst import LuceneIrstSearcher
 from pyserini.search.lucene.ltr._base import SpacyTextParser
 from typing import List
-from transformers import AutoTokenizer, AutoModel
-import spacy
+from transformers import AutoTokenizer
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from tqdm import tqdm
 
@@ -36,7 +34,6 @@ def query_loader(data):
     queries = {}
     nlp = SpacyTextParser('en_core_web_sm', keep_only_alpha_num=True, lower_case=True)
     analyzer = Analyzer(get_lucene_analyzer())
-    nlp_ent = spacy.load("en_core_web_sm")
     bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
     inp_file = open(data)
     ln = 0
@@ -107,8 +104,6 @@ if __name__ == "__main__":
         description='use ibm model 1 feature to rerank the base run file')
     parser.add_argument('--tag', type=str, default="ibm",
                         metavar="tag_name", help='tag name for resulting Qrun')
-    parser.add_argument('--qrels', type=str, default="./tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt",
-                        metavar="path_to_qrels", help='path to new_qrels file')
     parser.add_argument('--base-path', type=str, required=False,
                         metavar="path_to_base_run", help='path to base run')
     parser.add_argument('--tran-path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",

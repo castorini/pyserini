@@ -18,6 +18,8 @@ As an alternative, we also make available pre-built indexes (in which case the i
 
 Download pretrained IBM models:
 ```bash
+mkdir irst_test/
+
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_bert_tok_20211117.tar.gz -P irst_test/
 tar -xzvf irst_test/ibm_model_1_bert_tok_20211117.tar.gz -C irst_test
 ```
@@ -27,7 +29,7 @@ Next we can run our script to get our end-to-end results.
 IRST (Sum) 
 ```bash
 python -m pyserini.search.lucene.irst \
-  --topics tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
+  --topics topics \
   --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
   --index msmarco-passage-ltr \
   --output irst_test/regression_test_sum.irst_topics.txt \
@@ -37,6 +39,7 @@ python -m pyserini.search.lucene.irst \
 IRST (Max)
 ```bash
 python -m pyserini.search.lucene.irst \
+  --topics topics \
   --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
   --index msmarco-passage-ltr \
   --output irst_test/regression_test_max.irst_topics.txt \
@@ -47,16 +50,15 @@ python -m pyserini.search.lucene.irst \
 For different topics, the `--input`,`--topics` and `--qrel` are different, since Pyserini has all these topics available, we can pass in
 different values to run on different datasets.
 
-`--input`: <br />
+`--topics`: <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `tools/topics-and-qrels/topics.dl19-passage.txt` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `tools/topics-and-qrels/topics.dl20.txt` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt` <br />
 
-`--topics`: <br />
+`--irst_topics`: <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `dl19-passage` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `dl20` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `msmarco-passage-dev-subset` <br />
-
 
 
 After the run finishes, we can also evaluate the results using the official MS MARCO evaluation script:
@@ -69,7 +71,7 @@ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 dl19-passage irs
 
 Similarly for TREC DL 2020,
 ```bash
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 dl20-passage irst_test/regression_test_sum.dl19-passage.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 dl20-passage irst_test/regression_test_sum.dl20.txt
 ```
 
 For MS MARCO Passage V1, no need to use -l 2 option:
@@ -81,9 +83,6 @@ python -m pyserini.eval.trec_eval -c -m ndcg_cut -m map -m recip_rank msmarco-pa
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `tools/topics-and-qrels/qrels.dl19-passage.txt` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `tools/topics-and-qrels/qrels.dl20-passage.txt` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt` <br />
-
-
-Note that we evaluate MRR and NDCG at a cutoff of 10 hits to match the official evaluation metrics.
 
 
 
@@ -111,7 +110,7 @@ IRST (Sum)
 ```bash
 python -m pyserini.search.lucene.irst \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
-  --topics topic \
+  --topics topics \
   --index msmarco-document-segment-ltr \
   --output irst_test/regression_test_sum.irst_topics.txt \
   --alpha 0.3 \
@@ -122,12 +121,12 @@ IRST (Max)
 ```bash
 python -m pyserini.search.lucene.irst \
   --tran_path irst_test/ibm_model_1_bert_tok_20211117/ \
-  --topics topic \
+  --topics topics \
   --index msmarco-document-segment-ltr \
   --output irst_test/regression_test_max.irst_topics.txt \
   --alpha 0.3 \
   --hits 10000 \
-  --max_sim 
+  --max-sim 
 ```
 
 
@@ -138,6 +137,11 @@ different values to run on different datasets.
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `tools/topics-and-qrels/topics.dl19-doc.txt` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `tools/topics-and-qrels/topics.dl20.txt` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `tools/topics-and-qrels/topics.msmarco-doc.dev.txt` <br />
+
+`--irst_topics`: <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `dl19-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `dl20-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `msmarco-doc` <br />
 
 The reranked runfile contains top 10000 document segments, thus we need to use MaxP technique to get score for each document.
 
@@ -166,6 +170,7 @@ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 dl20-doc irst_te
 For MS MARCO Passage V1, no need to use -l 2 option:
 ```bash
 python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank msmarco-doc-dev irst_test/regression_test_sum_maxP.msmarco-doc.trec
+```
 
 `--qrel_file`: <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `tools/topics-and-qrels/qrels.dl19-doc.txt` <br />
