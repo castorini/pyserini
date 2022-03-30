@@ -205,6 +205,7 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[9].score, 4.33320, places=5)
 
     def test_rm3(self):
+        self.searcher = LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
         self.searcher.set_rm3()
         self.assertTrue(self.searcher.is_using_rm3())
 
