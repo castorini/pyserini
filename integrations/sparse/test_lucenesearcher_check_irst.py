@@ -41,7 +41,6 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
 
     def test_sum_aggregation(self):
         os.system('python -m pyserini.search.lucene.irst \
-            --qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
             --topics ./tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
             --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
             --index msmarco-passage-ltr \
@@ -63,7 +62,6 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
 
     def test_max_aggregation(self):
         os.system('python -m pyserini.search.lucene.irst \
-            --qrels tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
             --topics tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
             --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
             --index msmarco-passage-ltr \
