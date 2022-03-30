@@ -21,18 +21,11 @@ import sys
 sys.path.insert(0, './')
 
 import argparse
-import json
-import multiprocessing
-import os
-import pickle
-import time
-import re
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
 from collections import defaultdict
-from transformers import AutoTokenizer, AutoModel
-import spacy
+from transformers import AutoTokenizer
 from pyserini.search.lucene.ltr._search_msmarco import MsmarcoLtrSearcher
 from pyserini.search.lucene.ltr import *
 from pyserini.search.lucene import LuceneSearcher
@@ -124,7 +117,6 @@ def query_loader(topic):
     queries = {}
     nlp = SpacyTextParser('en_core_web_sm', keep_only_alpha_num=True, lower_case=True)
     analyzer = Analyzer(get_lucene_analyzer())
-    nlp_ent = spacy.load("en_core_web_sm")
     bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
     inp_file = open(topic)
     ln = 0

@@ -14,13 +14,12 @@
 # limitations under the License.
 #
 
-from pyserini.pyclass import autoclass, JArrayList
+from pyserini.pyclass import autoclass
 import json
 import numpy as np
 import pandas as pd
 import spacy
 import re
-from transformers import AutoTokenizer, AutoModel
 
 class Feature:
    def name(self):

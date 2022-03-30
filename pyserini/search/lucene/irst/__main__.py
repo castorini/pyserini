@@ -108,6 +108,7 @@ if __name__ == "__main__":
                         metavar="path_to_base_run", help='path to base run')
     parser.add_argument('--tran-path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
+    parser.add_argument('--topics', type=str, help='path to query topics', required=True)
     parser.add_argument('--index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
     parser.add_argument('--output', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.txt",
@@ -122,7 +123,6 @@ if __name__ == "__main__":
                         help='whether we use max sim operator or avg instead')
     parser.add_argument('--hits', type=int, metavar='number of hits generated in runfile',
                         required=False, default=1000, help="Number of hits.")
-    parser.add_argument('--topics', type=str, help='path to query topics', required=True)
     args = parser.parse_args()
 
     print('Using max sim operator or not:', args.max_sim)
