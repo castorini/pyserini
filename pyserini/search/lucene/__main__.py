@@ -24,7 +24,8 @@ from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.pyclass import autoclass
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from . import LuceneImpactSearcher, LuceneSearcher, JDisjunctionMaxQueryGenerator
+from pyserini.search import JDisjunctionMaxQueryGenerator
+from . import LuceneImpactSearcher, LuceneSearcher
 from .reranker import ClassifierType, PseudoRelevanceClassifierReranker
 
 
