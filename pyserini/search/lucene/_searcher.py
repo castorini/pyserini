@@ -22,7 +22,7 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import Dict, List, Optional, Union
 
-from pyserini.search.lucene._base import JQuery, JQueryGenerator
+from pyserini.search import JQuery, JQueryGenerator
 from pyserini.index import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
 from pyserini.trectools import TrecRun
@@ -228,7 +228,10 @@ class LuceneSearcher:
         rm3_filter_terms: bool
             Whether to remove non-English terms.
         """
-        self.object.setRM3(fb_terms, fb_docs, original_query_weight, rm3_output_query, rm3_filter_terms)
+        if self.object.reader.getTermVectors(0):
+            self.object.setRM3(fb_terms, fb_docs, original_query_weight, rm3_output_query, rm3_filter_terms)
+        else:
+            raise TypeError("RM3 is not supported for indexes without document vectors.")
 
     def unset_rm3(self):
         """Disable RM3 query expansion."""
