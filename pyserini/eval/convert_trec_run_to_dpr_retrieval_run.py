@@ -19,7 +19,8 @@ import json
 import os
 from tqdm import tqdm
 
-from pyserini.search.lucene import LuceneSearcher, get_topics
+from pyserini.search import get_topics
+from pyserini.search.lucene import LuceneSearcher
 from pyserini.eval.evaluate_dpr_retrieval import has_answers, SimpleTokenizer
 
 if __name__ == '__main__':
