@@ -11,18 +11,9 @@ Learning-to-rank serves as a second stage-reranker after BM25 retrieval; we use 
 
 We're going to use the repository's root directory as the working directory. 
 
-First, prepare queries:
-
 ```bash
 mkdir collections/msmarco-ltr-document
-
-python scripts/ltr_msmarco/convert_queries.py \
-  --input tools/topics-and-qrels/topics.msmarco-doc.dev.txt \
-  --output collections/msmarco-ltr-document/queries.dev.small.json
 ```
-
-The above scripts convert queries to JSON objects with `text`, `text_unlemm`, `raw`, and `text_bert_tok` fields.
-Note that the tokenization script depends on spaCy; our implementation currently depends on v3.2.1 (this is potentially important as tokenization might change from version to version).
 
 Download our already trained IBM model:
 
@@ -43,15 +34,14 @@ Now, we have all things ready and can run inference:
 ```bash
 python -m pyserini.search.lucene.ltr \
   --index msmarco-doc-per-passage-ltr \
-  --queries collections/msmarco-ltr-document \
   --model collections/msmarco-ltr-document/msmarco-passage-ltr-mrr-v1 \
   --ibm-model collections/msmarco-ltr-document/ibm_model/ \
-  --data document \
+  --topic tools/topics-and-qrels/topics.msmarco-doc.dev.txt \
+  --qrel tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
   --output runs/run.ltr.msmarco-doc.tsv \
+  --granularity document \
   --max-passage --hits 10000
 ```
-
-**TODO**: `--queries collections/msmarco-ltr-document` should refer to the file, i.e., `collections/msmarco-ltr-document/queries.dev.small.json`.
 
 After the run finishes, we can evaluate the results using the official MS MARCO evaluation script:
 
@@ -66,12 +56,29 @@ QueriesRanked: 5193
 #####################
 ```
 
-**TODO**: Add conversion to `trec_eval` format here - basically, make the passage and document pages parallel with each other.
+We can also use the official TREC evaluation tool, `trec_eval`, to compute metrics other than MRR@10.
+For that we first need to convert the run file into TREC format:
+
+```bash
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+    --input runs/run.ltr.msmarco-doc.tsv --output runs/run.ltr.msmarco-doc.trec
+
+$ python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
+    --input tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
+    --output collections/msmarco-ltr-document/qrels.dev.small.trec
+```
+
+And then run the `trec_eval` tool:
+
+```bash
+$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
+    collections/msmarco-ltr-document/qrels.dev.small.trec runs/run.ltr.msmarco-doc.trec
+
+map                   	all	0.3109
+recall_1000           	all	0.9268
+```
 
 ## Building the Index from Scratch
-
-**TODO**: This needs to be changed to the standard doc corpus, not the expansion one...
-
 First, we need to download collections.
 
 ```bash
@@ -95,6 +102,7 @@ python scripts/ltr_msmarco/convert_passage_doc.py \
 ```
 
 The above script will convert the collection and queries to json files with `text_unlemm`, `analyzed`, `text_bert_tok` and `raw` fields.
+Note that the tokenization script depends on spaCy; our implementation currently depends on v3.2.1 (this is potentially important as tokenization might change from version to version).
 Next, we need to convert the MS MARCO json collection into Anserini's jsonl files (which have one json object per line):
 
 ```bash

@@ -19,7 +19,7 @@ from ._base import FeatureExtractor, BM25Stat, LmDirStat, DfrGl2Stat, DfrInExpB2
     UnorderedSequentialPairs, OrderedSequentialPairs, UnorderedQueryPairs, OrderedQueryPairs, \
     AvgPooler, SumPooler, MedianPooler, MinPooler, MaxPooler, VarPooler, TfStat, TfIdfStat, NormalizedTfStat, \
     IdfStat, IcTfStat, ConfidencePooler, MaxMinRatioPooler, \
-    NormalizedTfIdf, ProbalitySum, RunList, IbmModel1
+    NormalizedTfIdf, ProbalitySum, RunList, IbmModel1, SpacyTextParser
 from ._search_msmarco import MsmarcoLtrSearcher
 
 __all__ = ['FeatureExtractor', 'BM25Stat', 'LmDirStat',  'DfrGl2Stat', 'DfrInExpB2Stat', 'DphStat', 'Proximity', 'TpScore', 'TpDist',
@@ -27,4 +27,4 @@ __all__ = ['FeatureExtractor', 'BM25Stat', 'LmDirStat',  'DfrGl2Stat', 'DfrInExp
            'UnorderedSequentialPairs', 'OrderedSequentialPairs', 'UnorderedQueryPairs', 'OrderedQueryPairs',
            'AvgPooler', 'SumPooler', 'MedianPooler', 'MinPooler', 'MaxPooler', 'VarPooler', 'TfStat', 'TfIdfStat',
            'NormalizedTfStat','IdfStat', 'IcTfStat', 'ConfidencePooler', 'MaxMinRatioPooler','NormalizedTfIdf',
-            'ProbalitySum', 'RunList', 'IbmModel1', 'MsmarcoLtrSearcher']
+            'ProbalitySum', 'RunList', 'IbmModel1', 'MsmarcoLtrSearcher','SpacyTextParser']

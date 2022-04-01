@@ -20,7 +20,6 @@ class.
 """
 
 import logging
-from typing import Dict, List, Optional, Union
 import multiprocessing
 import time
 import os
@@ -36,7 +35,7 @@ from pyserini.search.lucene.ltr._base import *
 logger = logging.getLogger(__name__)
 
 class MsmarcoLtrSearcher:
-    def __init__(self, model: str, ibm_model:str, index:str, data: str, prebuilt: bool):
+    def __init__(self, model: str, ibm_model:str, index:str, data: str, prebuilt: bool, topic: str):
         #msmarco-ltr-passage
         self.model = model
         self.ibm_model = ibm_model

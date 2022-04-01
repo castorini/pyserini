@@ -9,32 +9,11 @@ LTR serves as a second-stage reranker after BM25 retrieval.
 
 ## Data Prep
 
-We're going to use `collections/msmarco-ltr-passage/` as the working directory to preprocess the data.
-First, download the MS MACRO passage dataset `collectionandqueries.tar.gz`, per instructions [here](experiments-msmarco-passage.md).
-Then:
+We're going to use root as the working directory.
 
 ```bash
-mkdir collections/msmarco-ltr-passage/
-
-python scripts/ltr_msmarco/convert_queries.py \
-  --input collections/msmarco-passage/queries.eval.small.tsv \
-  --output collections/msmarco-ltr-passage/queries.eval.small.json 
-
-python scripts/ltr_msmarco/convert_queries.py \
-  --input collections/msmarco-passage/queries.dev.small.tsv \
-  --output collections/msmarco-ltr-passage/queries.dev.small.json
-
-python scripts/ltr_msmarco/convert_queries.py \
-  --input collections/msmarco-passage/queries.train.tsv \
-  --output collections/msmarco-ltr-passage/queries.train.json
+mkdir collections/msmarco-ltr-document
 ```
-
-**TODO**: Change to the queries already stored in `tools/topics-and-qrels/`; we don't need to process training queries, and we actually don't need to download the corpus at this point (only for building the index from scratch below).
-
-The above scripts convert queries to JSON objects with `text`, `text_unlemm`, `raw`, and `text_bert_tok` fields.
-The first two scripts take ~1 min and the third one is a bit longer (~1.5h) since it processes _all_ the training queries (although not necessary for running the commands below).
-
-Note that the tokenization script depends on spaCy; our implementation currently depends on v3.2.1 (this is potentially important as tokenization might change from version to version).
 
 ## Performing Retrieval
 
@@ -57,10 +36,10 @@ The following command generates our reranking result with our prebuilt index:
 ```bash
 python -m pyserini.search.lucene.ltr \
   --index msmarco-passage-ltr \
-  --queries collections/msmarco-ltr-passage \
   --model runs/msmarco-passage-ltr-mrr-v1 \
   --ibm-model collections/msmarco-ltr-passage/ibm_model/ \
-  --data passage \
+  --topic tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
+  --qrel tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
   --output runs/run.ltr.msmarco-passage.tsv
 ```
 
@@ -109,7 +88,9 @@ On the other hand, recall@1000 provides the upper bound effectiveness of downstr
 
 ## Building the Index from Scratch
 
-To build an index from scratch, we need to first preprocess the collection:
+To build an index from scratch, we need to preprocess the collection:
+
+First, download the MS MACRO passage dataset `collectionandqueries.tar.gz`, per instructions [here](experiments-msmarco-passage.md).
 
 ```bash
 python scripts/ltr_msmarco/convert_passage.py \
@@ -118,6 +99,7 @@ python scripts/ltr_msmarco/convert_passage.py \
 ```
 
 The above script will convert the collection to JSON files with `text_unlemm`, `analyzed`, `text_bert_tok` and `raw` fields.
+Note that the tokenization script depends on spaCy; our implementation currently depends on v3.2.1 (this is potentially important as tokenization might change from version to version).
 Next, we need to convert the MS MARCO JSON collection into Anserini's JSONL format:
 
 ```bash
