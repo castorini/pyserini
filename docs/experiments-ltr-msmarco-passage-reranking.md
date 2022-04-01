@@ -12,7 +12,7 @@ LTR serves as a second-stage reranker after BM25 retrieval.
 We're going to use root as the working directory.
 
 ```bash
-mkdir collections/msmarco-ltr-document
+mkdir collections/msmarco-ltr-passage
 ```
 
 ## Performing Retrieval
@@ -27,8 +27,8 @@ tar -xzvf collections/msmarco-ltr-passage/model-ltr-ibm.tar.gz -C collections/ms
 Download our already trained LTR model:
 
 ```bash
-wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msmarco-passage-mrr-v1.tar.gz -P runs/
-tar -xzvf runs/model-ltr-msmarco-passage-mrr-v1.tar.gz -C runs
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msmarco-passage-mrr-v1.tar.gz -P collections/msmarco-ltr-passage
+tar -xzvf collections/msmarco-ltr-passage/model-ltr-msmarco-passage-mrr-v1.tar.gz -C collections/msmarco-ltr-passage/
 ```
 
 The following command generates our reranking result with our prebuilt index:
@@ -36,7 +36,7 @@ The following command generates our reranking result with our prebuilt index:
 ```bash
 python -m pyserini.search.lucene.ltr \
   --index msmarco-passage-ltr \
-  --model runs/msmarco-passage-ltr-mrr-v1 \
+  --model collections/msmarco-ltr-passage/msmarco-passage-ltr-mrr-v1 \
   --ibm-model collections/msmarco-ltr-passage/ibm_model/ \
   --topic tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
   --qrel tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
