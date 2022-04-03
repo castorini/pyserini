@@ -56,10 +56,10 @@ def query_loader(data):
         query_toks = query_lemmas.split()
         if len(query_toks) >= 0:
             query = {"raw" : query,
-                "text": query_lemmas,
-                "text_unlemm": query_unlemm,
-                "analyzed": ' '.join(analyzed),
-                "text_bert_tok": ' '.join(bert_tokenizer.tokenize(query.lower()))}
+                #"text": query_lemmas,
+                #"text_unlemm": query_unlemm,
+                #"analyzed": ' '.join(analyzed),
+                "contents": ' '.join(bert_tokenizer.tokenize(query.lower()))}
             queries[did] = query
 
         if ln % 10000 == 0:
