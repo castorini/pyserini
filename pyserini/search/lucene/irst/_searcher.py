@@ -28,6 +28,7 @@ from pyserini.search.lucene import LuceneSearcher
 from pyserini.pyclass import autoclass
 from pyserini.util import download_prebuilt_index, get_cache_home
 from typing import Dict
+from transformers import AutoTokenizer
 
 # Wrappers around Anserini classes
 JQuery = autoclass('org.apache.lucene.search.Query')
@@ -46,14 +47,15 @@ class LuceneIrstSearcher(object):
         self.ibm_model = ibm_model
         self.bm25search = LuceneSearcher.from_prebuilt_index(index)
         index_directory = os.path.join(get_cache_home(), 'indexes')
-        if (index == 'msmarco-passage-ltr'):
-            index_path = os.path.join(index_directory, 'index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3')
+        if (index == 'msmarco-v1-passage'):
+            index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-passage.20220131.9ea315.4d8fdbdcd119c1f47a4cc5d01a45dad3')
         elif (index == 'msmarco-document-segment-ltr'):
             index_path = os.path.join(index_directory, 'lucene-index.msmarco-doc-segmented.ibm.13064bdaf8e8a79222634d67ecd3ddb5')
         else:
-            print("We currently only support two indexes: msmarco-passage-ltr and msmarco-document-segment-ltr, \
+            print("We currently only support two indexes: msmarco-passage and msmarco-document-segment-ltr, \
             but the index you inserted is not one of those")
         self.object = JLuceneSearcher(index_path)
+        #self.object1 = JLuceneSearcher(os.path.join(index_directory, 'lucene-index.msmarco-v1-passage.20220131.9ea315.4d8fdbdcd119c1f47a4cc5d01a45dad3'))
         self.index_reader = JIndexReader().getReader(index_path)
         self.field_name = field_name
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
@@ -168,8 +170,9 @@ class LuceneIrstSearcher(object):
 
         if searcher.documentRaw(test_doc) is None:
             print(f'{test_doc} is not found in searcher')
-        document_text = json.loads(searcher.documentRaw(test_doc))[field_name]
-        doc_token_lst = document_text.split(" ")
+        contents = json.loads(self.object.documentRaw(test_doc))['contents']
+        bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+        doc_token_lst = bert_tokenizer.tokenize(contents.lower())
         total_query_prob = 0
         doc_size = len(doc_token_lst)
         query_size = len(query_text_lst)
