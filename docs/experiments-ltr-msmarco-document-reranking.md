@@ -43,11 +43,13 @@ python -m pyserini.search.lucene.ltr \
   --max-passage --hits 10000
 ```
 
+Note that internally, retrieval depends on tokenization with spaCy; our implementation currently depends on v3.2.1 (this is potentially important as tokenization might change from version to version).
+
 After the run finishes, we can evaluate the results using the official MS MARCO evaluation script:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_doc_eval.py \
-    --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
+$ python -m pyserini.eval.msmarco_doc_eval \
+    --judgments msmarco-doc-dev \
     --run runs/run.ltr.msmarco-doc.tsv
 
 #####################
@@ -62,24 +64,21 @@ For that we first need to convert the run file into TREC format:
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
     --input runs/run.ltr.msmarco-doc.tsv --output runs/run.ltr.msmarco-doc.trec
-
-$ python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
-    --input tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-    --output collections/msmarco-ltr-document/qrels.dev.small.trec
 ```
 
 And then run the `trec_eval` tool:
 
 ```bash
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
-    collections/msmarco-ltr-document/qrels.dev.small.trec runs/run.ltr.msmarco-doc.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
+    msmarco-doc-dev runs/run.ltr.msmarco-doc.trec
 
 map                   	all	0.3109
 recall_1000           	all	0.9268
 ```
 
 ## Building the Index from Scratch
-First, we need to download collections.
+
+First, we need to download the collection:
 
 ```bash
 mkdir collections/msmarco-doc
@@ -87,7 +86,8 @@ wget https://git.uwaterloo.ca/jimmylin/doc2query-data/raw/master/T5-doc/msmarco-
 wget https://git.uwaterloo.ca/jimmylin/doc2query-data/raw/master/T5-doc/msmarco_doc_passage_ids.txt -P collections/msmarco-doc
 ```
 
-We will need to generate collection of passage segments. Here, we use segment size 3 and stride is 1 and then append fields for ltr pipeline.
+We will need to generate the collection of passage segments.
+Here, we use segment size 3 and stride 1, and then append fields for LTR pipeline.
 
 ```bash
 python scripts/ltr_msmarco/convert_msmarco_passage_doc_to_anserini.py \
@@ -114,11 +114,17 @@ python scripts/ltr_msmarco/convert_collection_to_jsonl.py \
 We can now index these docs as a `JsonCollection` using Anserini with pretokenized option:
 
 ```bash
-python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
- -threads 21 -input collections/msmarco-ltr-document/ltr_msmarco_pass_doc_jsonl  \
- -index indexes/lucene-index-msmarco-doc-per-passage-ltr -storePositions -storeDocvectors -storeRaw -pretokenized
+python -m pyserini.index.lucene \
+  --collection JsonCollection \
+  --input collections/msmarco-ltr-document/ltr_msmarco_pass_doc_jsonl \
+  --index indexes/lucene-index-msmarco-doc-per-passage-ltr \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 21 \
+  -storePositions --storeDocvectors --storeRaw --pretokenized
 ```
 
-Note that pretokenized option let Anserini use whitespace analyzer so that do not break our preprocessed tokenization.
+Note that the `--pretokenized` option pretokenized tells Pyserini to use the whitespace analyzer so preserve the existing tokenization.
 
 ## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@lintool](https://github.com/lintool) on 2022-04-02 (commit [`88e9a74`](https://github.com/castorini/pyserini/commit/88e9a74c17013217de714e50044a51513c46c87e))
