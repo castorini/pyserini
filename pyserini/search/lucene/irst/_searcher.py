@@ -59,6 +59,7 @@ class LuceneIrstSearcher(object):
         self.index_reader = JIndexReader().getReader(index_path)
         self.field_name = field_name
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
+        self.bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
         self.pool = ThreadPool(24)
         
 
@@ -171,8 +172,7 @@ class LuceneIrstSearcher(object):
         if searcher.documentRaw(test_doc) is None:
             print(f'{test_doc} is not found in searcher')
         contents = json.loads(self.object.documentRaw(test_doc))['contents']
-        bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-        doc_token_lst = bert_tokenizer.tokenize(contents.lower())
+        doc_token_lst = self.bert_tokenizer.tokenize(contents.lower())
         total_query_prob = 0
         doc_size = len(doc_token_lst)
         query_size = len(query_text_lst)
