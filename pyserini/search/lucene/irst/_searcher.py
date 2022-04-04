@@ -43,21 +43,20 @@ class LuceneIrstSearcher(object):
     LAMBDA_VALUE = 0.3
     MIN_COLLECT_PROB = 1e-9
 
-    def __init__(self, ibm_model: str, index: str, field_name: str):
+    def __init__(self, ibm_model: str, index: str):
         self.ibm_model = ibm_model
         self.bm25search = LuceneSearcher.from_prebuilt_index(index)
         index_directory = os.path.join(get_cache_home(), 'indexes')
         if (index == 'msmarco-v1-passage'):
             index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-passage.20220131.9ea315.4d8fdbdcd119c1f47a4cc5d01a45dad3')
-        elif (index == 'msmarco-document-segment-ltr'):
-            index_path = os.path.join(index_directory, 'lucene-index.msmarco-doc-segmented.ibm.13064bdaf8e8a79222634d67ecd3ddb5')
+        elif (index == 'msmarco-v1-doc'):
+            index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-doc.20220131.9ea315.43b60b3fc75324c648a02375772e7fe8')
         else:
-            print("We currently only support two indexes: msmarco-passage and msmarco-document-segment-ltr, \
+            print("We currently only support two indexes: msmarco-passage and msmarco-v1-doc, \
             but the index you inserted is not one of those")
         self.object = JLuceneSearcher(index_path)
         #self.object1 = JLuceneSearcher(os.path.join(index_directory, 'lucene-index.msmarco-v1-passage.20220131.9ea315.4d8fdbdcd119c1f47a4cc5d01a45dad3'))
         self.index_reader = JIndexReader().getReader(index_path)
-        self.field_name = field_name
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
         self.bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
         self.pool = ThreadPool(24)
@@ -166,7 +165,7 @@ class LuceneIrstSearcher(object):
                 tran_lookup, target_voc, source_voc)
 
     def get_ibm_score(self, arguments):
-        (query_text_lst, test_doc, searcher, field_name, source_lookup,
+        (query_text_lst, test_doc, searcher, source_lookup,
             target_lookup, tran, collect_probs, max_sim) = arguments
 
         if searcher.documentRaw(test_doc) is None:
@@ -204,7 +203,7 @@ class LuceneIrstSearcher(object):
             total_query_prob += query_word_prob
         return total_query_prob / query_size
 
-    def search(self, query_text, query_field_text, hits, max_sim):
+    def search(self, query_text, query_field_text,query_conversion, hits, max_sim):
         self.bm25search.set_bm25(0.82, 0.68)
 
         bm25_results = self.bm25search.search(query_text, hits)
@@ -213,38 +212,37 @@ class LuceneIrstSearcher(object):
         if (test_docs == []):
             print(query_text)
 
-        query_text_lst = query_field_text.split(' ')
-        total_term_freq = self.index_reader.getSumTotalTermFreq(self.field_name)
+        query_text_lst = query_text.split(' ')
+        query_field_text_lst = query_field_text.split(' ')
+        total_term_freq = self.index_reader.getSumTotalTermFreq('contents')
         collect_probs = {}
-        for querytoken in query_text_lst:
+        for querytoken in query_field_text_lst:
             collect_probs[querytoken] = max(self.index_reader.totalTermFreq(
-                JTerm(self.field_name, querytoken)) / total_term_freq,
+                JTerm('contents', query_conversion[querytoken])) / total_term_freq,
                 self.MIN_COLLECT_PROB)
-
         arguments = [(
-            query_text_lst, test_doc, self.object, self.field_name,
+            query_field_text_lst, test_doc, self.object, 
             self.source_lookup, self.target_lookup,
             self.tran, collect_probs, max_sim)
             for test_doc in test_docs]
-
         rank_scores = self.pool.map(self.get_ibm_score, arguments)
         return test_docs, rank_scores, origin_scores
 
-    def rerank(self, query_text, query_field_text, baseline, max_sim):
+    def rerank(self, query_text, query_field_text,query_conversion, baseline, max_sim):
         test_docs, origin_scores = baseline
         if (test_docs == []):
             print(query_text)
 
-        query_text_lst = query_field_text.split(' ')
-        total_term_freq = self.index_reader.getSumTotalTermFreq(self.field_name)
+        query_text_lst = query_text.split(' ')
+        query_field_text_lst = query_field_text.split(' ')
+        total_term_freq = self.index_reader.getSumTotalTermFreq('contents')
         collect_probs = {}
-        for querytoken in query_text_lst:
+        for querytoken in query_field_text_lst:
             collect_probs[querytoken] = max(self.index_reader.totalTermFreq(
-                JTerm(self.field_name, querytoken)) / total_term_freq,
+                JTerm('contents', query_conversion[querytoken])) / total_term_freq,
                 self.MIN_COLLECT_PROB)
-
         arguments = [(
-            query_text_lst, test_doc, self.object, self.field_name,
+            query_field_text_lst, test_doc, self.object, 
             self.source_lookup, self.target_lookup,
             self.tran, collect_probs, max_sim)
             for test_doc in test_docs]

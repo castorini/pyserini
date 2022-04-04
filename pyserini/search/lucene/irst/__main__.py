@@ -54,17 +54,23 @@ def query_loader(data):
             if ' ' in token:
                 print(analyzed)
         query_toks = query_lemmas.split()
+        query_conversion = {}
+        for querytoken in query.lower().split():
+            tokenizes = bert_tokenizer.tokenize(querytoken)
+            for token in tokenizes:
+                query_conversion[token] = querytoken
         if len(query_toks) >= 0:
             query = {"raw" : query,
                 #"text": query_lemmas,
                 #"text_unlemm": query_unlemm,
                 #"analyzed": ' '.join(analyzed),
-                "contents": ' '.join(bert_tokenizer.tokenize(query.lower()))}
+                "contents": ' '.join(bert_tokenizer.tokenize(query.lower())),
+                "query_conversion": query_conversion}
+                #"contents": ' '.join(bert_tokenizer.tokenize(query.lower()))}
             queries[did] = query
 
         if ln % 10000 == 0:
             print('Processed %d queries' % ln)
-
     print('Processed %d queries' % ln)
     return queries
 
@@ -113,8 +119,6 @@ if __name__ == "__main__":
                         metavar="path_to_lucene_index", help='path to lucene index folder')
     parser.add_argument('--output', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('--field-name', type=str, default="text_bert_tok",
-                        metavar="type of field", help='type of field used for training')
     parser.add_argument('--alpha', type=float, default="0.3",
                         metavar="type of field", help='interpolation weight')
     parser.add_argument('--num-threads', type=int, default="12",
@@ -130,21 +134,22 @@ if __name__ == "__main__":
     f = open(args.output, 'w')
 
     reranker = LuceneIrstSearcher(
-        args.tran_path, args.index, args.field_name)
+        args.tran_path, args.index)
     queries = query_loader(args.topics)
     i = 0
     for topic in queries.keys():
         if i % 100 == 0:
             print(f'Reranking {i}')
-        query_text_field = queries[topic][args.field_name]
+        query_text_field = queries[topic]['contents']
         query_text = queries[topic]['raw']
+        query_conversion = queries[topic]['query_conversion']
         if args.base_path:
             baseline_dic = baseline_loader(args.base_path)
             docids, rank_scores, base_scores = reranker.rerank(
-                query_text, query_text_field, baseline_dic[topic], args.max_sim)
+                query_text, query_text_field, query_conversion, baseline_dic[topic], args.max_sim)
         else:
             docids, rank_scores, base_scores = reranker.search(
-                query_text, query_text_field, args.hits, args.max_sim)
+                query_text, query_text_field, query_conversion, args.hits, args.max_sim)
         ibm_scores = normalize([p for p in rank_scores])
         base_scores = normalize([p for p in base_scores])
 
