@@ -108,6 +108,7 @@ python -m pyserini.search.lucene.irst \
   --index msmarco-document-segment-ltr \
   --output irst_test/regression_test_sum.irst_topics.txt \
   --alpha 0.3 \
+  --segments \
   --hits 10000
 ```
 
@@ -120,6 +121,7 @@ python -m pyserini.search.lucene.irst \
   --output irst_test/regression_test_max.irst_topics.txt \
   --alpha 0.3 \
   --hits 10000 \
+  --segments \
   --max-sim 
 ```
 
@@ -137,27 +139,16 @@ different values to run on different datasets.
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `dl20-doc` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `msmarco-doc` <br />
 
-The reranked runfile contains top 10000 document segments, thus we need to use MaxP technique to get score for each document.
-
-```bash
-python scripts/ltr_msmarco/generate_document_score_withmaxP.py --input irst_test/regression_test_sum.irst_topics.txt --output irst_test/regression_test_sum_maxP.irst_topics.tsv
-```
-
-We can use the official TREC evaluation tool, trec_eval, to compute other metrics. For that we first need to convert the runs into TREC format:
-
-```bash
-python tools/scripts/msmarco/convert_msmarco_to_trec_run.py --input irst_test/regression_test_sum_maxP.irst_topics.tsv --output irst_test/regression_test_sum_maxP.irst_topics.trec
-```
 
 For TREC DL 2019, use this command to evaluate your run file:
 
 ```bash
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl19-doc irst_test/regression_test_sum_maxP.dl19-doc.trec
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl19-doc irst_test/regression_test_sum.irst_topics.txt
 ```
 
 Similarly for TREC DL 2020,  no need to use -l 2 option:
 ```bash
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl20-doc irst_test/regression_test_sum_maxP.dl20-doc.trec
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl20-doc irst_test/regression_test_max.irst_topics.txt
 ```
 
 For MS MARCO Doc V1, no need to use -l 2 option:

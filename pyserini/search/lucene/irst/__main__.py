@@ -30,7 +30,7 @@ def normalize(scores: List[float]):
     else:
         return scores
 
-def query_loader(data):
+def query_loader(data: str):
     queries = {}
     nlp = SpacyTextParser('en_core_web_sm', keep_only_alpha_num=True, lower_case=True)
     analyzer = Analyzer(get_lucene_analyzer())
@@ -86,6 +86,16 @@ def baseline_loader(base_path: str):
     return result_dic
 
 
+def generate_maxP(topic: int, preds: List[float], docs: List[str]):
+    scores = {}
+    for index, (score, doc_id) in enumerate(zip(preds, docs)):
+        docid = doc_id.split('#')[0]
+        if (docid not in scores or score > scores[docid]):
+            scores[docid] = score
+    docid_scores = sorted(scores.items(),key=lambda kv: kv[1], reverse=True)
+    return docid_scores
+
+
 def sort_dual_list(pred: List[float], docs: List[str]):
     zipped_lists = zip(pred, docs)
     sorted_pairs = sorted(zipped_lists)
@@ -121,6 +131,8 @@ if __name__ == "__main__":
                         metavar="num_of_threads", help='number of threads to use')
     parser.add_argument('--max-sim', default=False, action="store_true",
                         help='whether we use max sim operator or avg instead')
+    parser.add_argument('--segments', default=False, action="store_true",
+                        help='whether we use segmented index or not')
     parser.add_argument('--hits', type=int, metavar='number of hits generated in runfile',
                         required=False, default=1000, help="Number of hits.")
     args = parser.parse_args()
@@ -135,7 +147,7 @@ if __name__ == "__main__":
     i = 0
     for topic in queries.keys():
         if i % 100 == 0:
-            print(f'Reranking {i}')
+            print(f'Reranking {i} topic')
         query_text_field = queries[topic][args.field_name]
         query_text = queries[topic]['raw']
         if args.base_path:
@@ -152,7 +164,16 @@ if __name__ == "__main__":
 
         preds, docs = sort_dual_list(interpolated_scores, docids)
         i = i+1
-        for index, (score, doc_id) in enumerate(zip(preds, docs)):
-            rank = index + 1
-            f.write(f'{topic} Q0 {doc_id} {rank} {score} {args.tag}\n')
+        if args.segments:
+            docid_scores = generate_maxP(topic, preds, docs)
+            rank = 1
+            for doc_id, score in docid_scores:
+                if rank > 1000:
+                    break
+                f.write(f'{topic} Q0 {doc_id} {rank} {score} {args.tag}\n')
+                rank = rank + 1
+        else:
+            for index, (score, doc_id) in enumerate(zip(preds, docs)):
+                rank = index + 1
+                f.write(f'{topic} Q0 {doc_id} {rank} {score} {args.tag}\n')
     f.close()
