@@ -159,7 +159,7 @@ one can use `--encoded-queries ance-msmarco-passage-dev-subset`. For ADORE model
 
 With these parameters, one can easily reproduce the results above, for example, to reproduce `TREC DL 2019 Passage with ANCE Average Vector PRF 3` the command will be:
 ```
-$ python -m pyserini.dsearch --topics dl19-passage \
+$ python -m pyserini.search.faiss --topics dl19-passage \
     --index msmarco-passage-ance-bf \
     --encoder castorini/ance-msmarco-passage \
     --batch-size 64 \
@@ -171,14 +171,15 @@ $ python -m pyserini.dsearch --topics dl19-passage \
 
 To reproduce `TREC DL 2019 Passage with ANCE Rocchio Vector PRF 5 Alpha 0.4 Beta 0.6`, the command will be:
 ```
-$ python -m pyserini.dsearch --topics dl19-passage \
+$ python -m pyserini.search.faiss --topics dl19-passage \
     --index msmarco-passage-ance-bf \
     --encoder castorini/ance-msmarco-passage \
     --batch-size 64 \
     --threads 12 \
     --output runs/run.ance.dl19-passage.rocchio_prf5_a0.4_b0.6.trec \
-    --prf-depth 5 \
     --prf-method rocchio \
+    --prf-depth 5 \
+    --rocchio-topk 5 \
     --rocchio-alpha 0.4 \
     --rocchio-beta 0.6
 ```
