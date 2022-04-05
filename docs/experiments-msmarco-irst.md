@@ -55,11 +55,6 @@ different values to run on different datasets.
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `tools/topics-and-qrels/topics.dl20.txt` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt` <br />
 
-`--irst_topics`: <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `dl19-passage` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `dl20` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `msmarco-passage-dev-subset` <br />
-
 
 After the run finishes, we can also evaluate the results using the official MS MARCO evaluation script:
 
@@ -130,14 +125,9 @@ For different topics, the `--topics` and `--irst_topics` are different, since Py
 different values to run on different datasets.
 
 `--topics`: <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `tools/topics-and-qrels/topics.dl19-doc.txt` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `tools/topics-and-qrels/topics.dl20.txt` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `tools/topics-and-qrels/topics.msmarco-doc.dev.txt` <br />
-
-`--irst_topics`: <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `dl19-doc` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `dl20-doc` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `msmarco-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Document: `tools/topics-and-qrels/topics.dl19-doc.txt` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Document: `tools/topics-and-qrels/topics.dl20.txt` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `tools/topics-and-qrels/topics.msmarco-doc.dev.txt` <br />
 
 
 For TREC DL 2019, use this command to evaluate your run file:
