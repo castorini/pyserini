@@ -14,12 +14,13 @@
 # limitations under the License.
 #
 import argparse
+from typing import List
+from tqdm import tqdm
+from transformers import AutoTokenizer
 from pyserini.search.lucene.irst import LuceneIrstSearcher
 from pyserini.search.lucene.ltr._base import SpacyTextParser
-from typing import List
-from transformers import AutoTokenizer
 from pyserini.analysis import Analyzer, get_lucene_analyzer
-from tqdm import tqdm
+
 
 def normalize(scores: List[float]):
     low = min(scores)
@@ -27,24 +28,25 @@ def normalize(scores: List[float]):
     width = high - low
     if width != 0:
         return [(s-low)/width for s in scores]
-    else:
-        return scores
+    return scores
 
-def query_loader(data: str):
+
+def query_loader(topic_path: str):
     queries = {}
-    nlp = SpacyTextParser('en_core_web_sm', keep_only_alpha_num=True, lower_case=True)
+    nlp = SpacyTextParser(
+        'en_core_web_sm', keep_only_alpha_num=True, lower_case=True)
     analyzer = Analyzer(get_lucene_analyzer())
     bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-    inp_file = open(data)
-    ln = 0
+    inp_file = open(topic_path)
+    line_num = 0
     for line in tqdm(inp_file):
-        ln += 1
+        line_num += 1
         line = line.strip()
         if not line:
             continue
         fields = line.split('\t')
         if len(fields) != 2:
-            print('Misformated line %d ignoring:' % ln)
+            print('Misformated line %d ignoring:' % line_num)
             print(line.replace('\t', '<field delimiter>'))
             continue
         did, query = fields
@@ -55,17 +57,17 @@ def query_loader(data: str):
                 print(analyzed)
         query_toks = query_lemmas.split()
         if len(query_toks) >= 0:
-            query = {"raw" : query,
-                "text": query_lemmas,
-                "text_unlemm": query_unlemm,
-                "analyzed": ' '.join(analyzed),
-                "text_bert_tok": ' '.join(bert_tokenizer.tokenize(query.lower()))}
+            query = {"raw": query,
+                     "text": query_lemmas,
+                     "text_unlemm": query_unlemm,
+                     "analyzed": ' '.join(analyzed),
+                     "text_bert_tok": ' '.join(bert_tokenizer.tokenize(query.lower()))}
             queries[did] = query
 
-        if ln % 10000 == 0:
-            print('Processed %d queries' % ln)
+        if line_num % 10000 == 0:
+            print('Processed %d queries' % line_num)
 
-    print('Processed %d queries' % ln)
+    print('Processed %d queries' % line_num)
     return queries
 
 
@@ -74,25 +76,25 @@ def baseline_loader(base_path: str):
     with open(base_path, 'r') as f:
         for line in f:
             tokens = line.strip().split()
-            t = tokens[0]
+            topic = tokens[0]
             doc_id = tokens[2]
             score = float(tokens[-2])
-            if t in result_dic.keys():
-                result_dic[t][0].append(doc_id)
-                result_dic[t][1].append(score)
+            if topic in result_dic.keys():
+                result_dic[topic][0].append(doc_id)
+                result_dic[topic][1].append(score)
             else:
-                result_dic[t] = [[doc_id], [score]]
+                result_dic[topic] = [[doc_id], [score]]
 
     return result_dic
 
 
-def generate_maxP(topic: int, preds: List[float], docs: List[str]):
+def generate_maxP(preds: List[float], docs: List[str]):
     scores = {}
     for index, (score, doc_id) in enumerate(zip(preds, docs)):
         docid = doc_id.split('#')[0]
         if (docid not in scores or score > scores[docid]):
             scores[docid] = score
-    docid_scores = sorted(scores.items(),key=lambda kv: kv[1], reverse=True)
+    docid_scores = sorted(scores.items(), key=lambda kv: kv[1], reverse=True)
     return docid_scores
 
 
@@ -108,7 +110,6 @@ def sort_dual_list(pred: List[float], docs: List[str]):
     return pred, docs
 
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='use ibm model 1 feature to rerank the base run file')
@@ -118,7 +119,8 @@ if __name__ == "__main__":
                         metavar="path_to_base_run", help='path to base run')
     parser.add_argument('--tran-path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
-    parser.add_argument('--topics', type=str, help='path to query topics', required=True)
+    parser.add_argument('--topics', type=str,
+                        help='path to query topics', required=True)
     parser.add_argument('--index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
                         metavar="path_to_lucene_index", help='path to lucene index folder')
     parser.add_argument('--output', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.txt",
@@ -160,12 +162,13 @@ if __name__ == "__main__":
         ibm_scores = normalize([p for p in rank_scores])
         base_scores = normalize([p for p in base_scores])
 
-        interpolated_scores = [a * args.alpha + b * (1-args.alpha) for a, b in zip(base_scores, ibm_scores)]
+        interpolated_scores = [
+            a * args.alpha + b * (1-args.alpha) for a, b in zip(base_scores, ibm_scores)]
 
         preds, docs = sort_dual_list(interpolated_scores, docids)
         i = i+1
         if args.segments:
-            docid_scores = generate_maxP(topic, preds, docs)
+            docid_scores = generate_maxP(preds, docs)
             rank = 1
             for doc_id, score in docid_scores:
                 if rank > 1000:

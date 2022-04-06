@@ -16,7 +16,10 @@ As an alternative, we also make available pre-built indexes (in which case the i
 
 ### Performing End-to-End Retrieval Using Pretrained Model
 
-Download pretrained IBM models:
+The IBM model we used in this experiment is referenced in the Boytsov et al. [paper](https://arxiv.org/pdf/2102.06815.pdf)
+Note that there is a separate guide for training the IBM Model on [FlexNeuART](https://github.com/oaqa/FlexNeuART/tree/master/demo)
+
+Download pretrained IBM model:
 ```bash
 mkdir irst_test/
 

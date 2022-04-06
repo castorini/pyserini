@@ -23,11 +23,12 @@ import json
 import math
 import os
 import struct
+from typing import Dict
 from multiprocessing.pool import ThreadPool
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.pyclass import autoclass
 from pyserini.util import download_prebuilt_index, get_cache_home
-from typing import Dict
+
 
 # Wrappers around Anserini classes
 JQuery = autoclass('org.apache.lucene.search.Query')
@@ -57,8 +58,7 @@ class LuceneIrstSearcher(object):
         self.index_reader = JIndexReader().getReader(index_path)
         self.field_name = field_name
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
-        self.pool = ThreadPool(24)
-        
+        self.pool = ThreadPool(24)   
 
 
     @classmethod
