@@ -50,18 +50,9 @@ def query_loader(topic_path: str):
             print(line.replace('\t', '<field delimiter>'))
             continue
         did, query = fields
-        query_lemmas, query_unlemm = nlp.proc_text(query)
-        analyzed = analyzer.analyze(query)
-        for token in analyzed:
-            if ' ' in token:
-                print(analyzed)
-        query_toks = query_lemmas.split()
-        if len(query_toks) >= 0:
+        if len(query) >= 0:
             query = {"raw": query,
-                     "text": query_lemmas,
-                     "text_unlemm": query_unlemm,
-                     "analyzed": ' '.join(analyzed),
-                     "text_bert_tok": ' '.join(bert_tokenizer.tokenize(query.lower()))}
+                     "contents": ' '.join(bert_tokenizer.tokenize(query.lower()))}
             queries[did] = query
 
         if line_num % 10000 == 0:
@@ -125,7 +116,7 @@ if __name__ == "__main__":
                         metavar="path_to_lucene_index", help='path to lucene index folder')
     parser.add_argument('--output', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.txt",
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('--field-name', type=str, default="text_bert_tok",
+    parser.add_argument('--field-name', type=str, default="contents",
                         metavar="type of field", help='type of field used for training')
     parser.add_argument('--alpha', type=float, default="0.3",
                         metavar="type of field", help='interpolation weight')
