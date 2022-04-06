@@ -47,15 +47,15 @@ class LuceneIrstSearcher(object):
         self.ibm_model = ibm_model
         self.bm25search = LuceneSearcher(index)
         #self.bm25search = LuceneSearcher.from_prebuilt_index(index)
-        index_directory = index
+        index_path = index
         #index_directory = os.path.join(get_cache_home(), 'indexes')
-        if (index == 'msmarco-passage-ltr'):
-            index_path = os.path.join(index_directory, 'index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3')
-        elif (index == 'msmarco-document-segment-ltr'):
-            index_path = os.path.join(index_directory, 'lucene-index.msmarco-doc-segmented.ibm.13064bdaf8e8a79222634d67ecd3ddb5')
-        else:
-            print("We currently only support two indexes: msmarco-passage-ltr and msmarco-document-segment-ltr, \
-            but the index you inserted is not one of those")
+        # if (index == 'msmarco-passage-ltr'):
+        #     index_path = os.path.join(index_directory, 'index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3')
+        # elif (index == 'msmarco-document-segment-ltr'):
+        #     index_path = os.path.join(index_directory, 'lucene-index.msmarco-doc-segmented.ibm.13064bdaf8e8a79222634d67ecd3ddb5')
+        # else:
+        #     print("We currently only support two indexes: msmarco-passage-ltr and msmarco-document-segment-ltr, \
+        #     but the index you inserted is not one of those")
         self.object = JLuceneSearcher(index_path)
         self.index_reader = JIndexReader().getReader(index_path)
         self.field_name = field_name
