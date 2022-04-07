@@ -14,7 +14,6 @@
 # limitations under the License.
 #
 
-# this import is deprecated
-from .lucene._base import Document, Generator, IndexTerm, Posting, IndexReader
+from ._base import Document, Generator, IndexTerm, Posting, IndexReader
 
 __all__ = ['Document', 'Generator', 'IndexTerm', 'Posting', 'IndexReader']

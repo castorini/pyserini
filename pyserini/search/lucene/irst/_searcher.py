@@ -21,11 +21,12 @@ interface on MS MARCO dataset. The main entry point is the
 """
 import json
 import math
+import os
 import struct
 from multiprocessing.pool import ThreadPool
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.pyclass import autoclass
-from pyserini.util import download_prebuilt_index
+from pyserini.util import download_prebuilt_index, get_cache_home
 from typing import Dict
 
 # Wrappers around Anserini classes
@@ -35,7 +36,7 @@ JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 JTerm = autoclass('org.apache.lucene.index.Term')
 
 
-class TranslationProbabilitySearcher(object):
+class LuceneIrstSearcher(object):
     SELF_TRAN = 0.35
     MIN_PROB = 0.0025
     LAMBDA_VALUE = 0.3
@@ -43,12 +44,21 @@ class TranslationProbabilitySearcher(object):
 
     def __init__(self, ibm_model: str, index: str, field_name: str):
         self.ibm_model = ibm_model
-        self.object = JLuceneSearcher(index)
-        self.index_reader = JIndexReader().getReader(index)
+        self.bm25search = LuceneSearcher.from_prebuilt_index(index)
+        index_directory = os.path.join(get_cache_home(), 'indexes')
+        if (index == 'msmarco-passage-ltr'):
+            index_path = os.path.join(index_directory, 'index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3')
+        elif (index == 'msmarco-document-segment-ltr'):
+            index_path = os.path.join(index_directory, 'lucene-index.msmarco-doc-segmented.ibm.13064bdaf8e8a79222634d67ecd3ddb5')
+        else:
+            print("We currently only support two indexes: msmarco-passage-ltr and msmarco-document-segment-ltr, \
+            but the index you inserted is not one of those")
+        self.object = JLuceneSearcher(index_path)
+        self.index_reader = JIndexReader().getReader(index_path)
         self.field_name = field_name
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
         self.pool = ThreadPool(24)
-        self.bm25search = LuceneSearcher.from_prebuilt_index("msmarco-passage")
+        
 
 
     @classmethod

@@ -16,12 +16,16 @@
 
 import os
 import subprocess
-
+import shutil
 
 def clean_files(files):
     for file in files:
         if os.path.exists(file):
-            os.remove(file)
+            if os.path.isdir(file):
+                shutil.rmtree(file)
+            else:
+                os.remove(file)
+
 
 
 def run_command(cmd):

@@ -53,7 +53,7 @@ The hybrid results reported above for "us" capture what we call the "norm" condi
 **DPR retrieval** with brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index wikipedia-dpr-multi-bf \
   --topics dpr-nq-test \
   --encoded-queries dpr_multi-nq-test \
@@ -118,7 +118,7 @@ Top100 accuracy: 0.7825
 **Hybrid dense-sparse retrieval** (combining above two approaches):
 
 ```bash
-python -m pyserini.hsearch \
+python -m pyserini.search.hybrid \
   dense  --index wikipedia-dpr-multi-bf \
          --encoded-queries dpr_multi-nq-test \
   sparse --index wikipedia-dpr \
@@ -156,7 +156,7 @@ Top100 accuracy: 0.8859
 **DPR retrieval** with brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index wikipedia-dpr-multi-bf \
   --topics dpr-trivia-test \
   --encoded-queries dpr_multi-trivia-test \
@@ -220,7 +220,7 @@ Top100 accuracy: 0.8315
 **Hybrid dense-sparse retrieval** (combining above two approaches):
 
 ```bash
-python -m pyserini.hsearch \
+python -m pyserini.search.hybrid \
   dense  --index wikipedia-dpr-multi-bf \
          --encoded-queries dpr_multi-trivia-test \
   sparse --index wikipedia-dpr \
@@ -258,7 +258,7 @@ Top100 accuracy: 0.8655
 **DPR retrieval** with brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index wikipedia-dpr-multi-bf \
   --topics dpr-wq-test \
   --encoded-queries dpr_multi-wq-test \
@@ -322,7 +322,7 @@ Top100 accuracy: 0.7549
 **Hybrid dense-sparse retrieval** (combining above two approaches):
 
 ```bash
-python -m pyserini.hsearch \
+python -m pyserini.search.hybrid \
   dense  --index wikipedia-dpr-multi-bf \
          --encoded-queries dpr_multi-wq-test \
   sparse --index wikipedia-dpr \
@@ -360,7 +360,7 @@ Top100 accuracy: 0.8440
 **DPR retrieval** with brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index wikipedia-dpr-multi-bf \
   --topics dpr-curated-test \
   --encoded-queries dpr_multi-curated-test \
@@ -428,7 +428,7 @@ Top100 accuracy: 0.8991
 **Hybrid dense-sparse retrieval** (combining above two approaches):
 
 ```bash
-python -m pyserini.hsearch \
+python -m pyserini.search.hybrid \
   dense  --index wikipedia-dpr-multi-bf \
          --encoded-queries dpr_multi-curated-test \
   sparse --index wikipedia-dpr \
@@ -468,7 +468,7 @@ Top100 accuracy: 0.9496
 **DPR retrieval** with brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index wikipedia-dpr-multi-bf \
   --topics dpr-squad-test \
   --encoded-queries dpr_multi-squad-test \
@@ -533,7 +533,7 @@ Top100 accuracy: 0.8184
 **Hybrid dense-sparse retrieval** (combining above two approaches):
 
 ```bash
-python -m pyserini.hsearch \
+python -m pyserini.search.hybrid \
   dense  --index wikipedia-dpr-multi-bf \
          --encoded-queries dpr_multi-squad-test \
   sparse --index wikipedia-dpr \
@@ -571,7 +571,7 @@ Top100 accuracy: 0.8437
 **DPR retrieval** with brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index wikipedia-dpr-single-nq-bf \
   --topics dpr-nq-test \
   --encoded-queries dpr_single_nq-nq-test \
@@ -605,7 +605,7 @@ Top100	accuracy: 0.8609
 **Hybrid dense-sparse retrieval**:
 
 ```bash
-python -m pyserini.hsearch \
+python -m pyserini.search.hybrid \
   dense  --index wikipedia-dpr-single-nq-bf \
          --encoded-queries dpr_single_nq-nq-test \
   sparse --index wikipedia-dpr \

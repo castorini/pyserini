@@ -9,7 +9,7 @@ For example, if a method expects the unanalyzed term and is called with an analy
 Initialize the class as follows:
 
 ```python
-from pyserini.index import IndexReader
+from pyserini.index.lucene import IndexReader
 
 # Initialize from a pre-built index:
 index_reader = IndexReader.from_prebuilt_index('robust04')

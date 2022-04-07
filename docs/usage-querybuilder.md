@@ -1,11 +1,11 @@
 # Pyserini: Usage of the Query Builder API
 
 The `querybuilder` provides functionality to construct Lucene queries through Pyserini.
-These queries can be directly issued through the `SimpleSearcher`.
+These queries can be directly issued through the `LuceneSearcher`.
 Instead of issuing the query `hubble space telescope` directly, we can also construct the same exact query manually as follows:
 
 ```python
-from pyserini.search import querybuilder
+from pyserini.search.lucene import querybuilder
 
 # First, create term queries for each individual query term:
 term1 = querybuilder.get_term_query('hubble')
@@ -26,6 +26,12 @@ query = boolean_query_builder.build()
 Then issue the query:
 
 ```python
+from pyserini.search.lucene import LuceneSearcher
+
+searcher = LuceneSearcher.from_prebuilt_index('robust04')
+
+# Generate your query, per above...
+
 hits = searcher.search(query)
 
 for i in range(0, 10):

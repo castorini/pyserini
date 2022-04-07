@@ -14,5 +14,5 @@
 # limitations under the License.
 #
 
-from ._search_tprob import TranslationProbabilitySearcher
-__all__ = ['TranslationProbabilitySearcher']
+from ._searcher import LuceneIrstSearcher
+__all__ = ['LuceneIrstSearcher']
