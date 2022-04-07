@@ -206,7 +206,7 @@ class LuceneIrstSearcher(object):
     def search(self, query_text, query_field_text, hits, max_sim):
         self.bm25search.set_bm25(0.82, 0.68)
 
-        bm25_results = self.bm25search.search(query_text, hits)
+        bm25_results = self.bm25search.search(query_field_text, hits)
         origin_scores = [bm25_result.score for bm25_result in bm25_results]
         test_docs = [bm25_result.docid for bm25_result in bm25_results]
         if (test_docs == []):

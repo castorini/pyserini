@@ -33,9 +33,6 @@ def normalize(scores: List[float]):
 
 def query_loader(topic_path: str):
     queries = {}
-    nlp = SpacyTextParser(
-        'en_core_web_sm', keep_only_alpha_num=True, lower_case=True)
-    analyzer = Analyzer(get_lucene_analyzer())
     bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
     inp_file = open(topic_path)
     line_num = 0
@@ -50,9 +47,10 @@ def query_loader(topic_path: str):
             print(line.replace('\t', '<field delimiter>'))
             continue
         did, query = fields
-        if len(query) >= 0:
+        text_bert_tok = bert_tokenizer.tokenize(query.lower())
+        if len(text_bert_tok) >= 0:
             query = {"raw": query,
-                     "contents": ' '.join(bert_tokenizer.tokenize(query.lower()))}
+                     "contents": ' '.join(text_bert_tok)}
             queries[did] = query
 
         if line_num % 10000 == 0:
