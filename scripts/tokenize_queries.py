@@ -14,15 +14,12 @@
 # limitations under the License.
 #
 
-"""Convert MSMARCO queries"""
+'''Convert MSMARCO queries'''
 
 import argparse
 from transformers import AutoTokenizer
 from tqdm import tqdm
 from ltr_msmarco.convert_common import get_retokenized
-"""
-add fields to query json with contents((BERT token)                                  
-"""
 
 
 parser = argparse.ArgumentParser(description='Convert queries in tsv format with tokenization')

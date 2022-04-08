@@ -21,9 +21,7 @@ from joblib import Parallel, delayed
 from transformers import AutoTokenizer
 from ltr_msmarco.convert_common import get_retokenized
 
-"""
-Replace original contents fields with bert tokenization 
-"""
+'''Replace original contents fields with bert tokenization'''
 
 
 parser = argparse.ArgumentParser(description='Convert MSMARCO-adhoc documents.')
@@ -65,6 +63,7 @@ def batch_process(batch):
         doc = {"id": pid,
                "contents": get_retokenized(bert_tokenizer, body.lower())}
         return doc
+    
     res = []
     start = time.time()
     for line in batch:
@@ -84,7 +83,6 @@ if __name__ == '__main__':
 
     with open(args.input) as inFile:
         with open(args.output, 'w') as outFile:
-
             for batch_json in pool([delayed(batch_process)(batch) for batch in batch_file(inFile)]):
                 for doc_json in batch_json:
                     line_num = line_num + 1
