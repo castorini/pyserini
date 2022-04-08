@@ -34,7 +34,7 @@ IRST (Sum)
 python -m pyserini.search.lucene.irst \
   --topics topics \
   --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
-  --index msmarco-passage-ltr \
+  --index msmarco-v1-passage \
   --output irst_test/regression_test_sum.irst_topics.txt \
   --alpha 0.1
 ```
@@ -44,7 +44,7 @@ IRST (Max)
 python -m pyserini.search.lucene.irst \
   --topics topics \
   --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
-  --index msmarco-passage-ltr \
+  --index msmarco-v1-passage \
   --output irst_test/regression_test_max.irst_topics.txt \
   --alpha 0.3 \
   --max-sim

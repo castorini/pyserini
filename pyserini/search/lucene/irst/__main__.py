@@ -137,7 +137,7 @@ if __name__ == "__main__":
     f = open(args.output, 'w')
 
     reranker = LuceneIrstSearcher(
-        args.tran_path, args.index, args.field_name)
+        args.tran_path, args.index)
     queries = query_loader(args.topics)
     with open(args.wp_stats) as fin:
         tf_dic = json.load(fin)
