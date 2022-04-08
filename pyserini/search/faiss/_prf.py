@@ -34,8 +34,7 @@ class DenseVectorAveragePrf(DenseVectorPrf):
             return new query embeddings
         """
         all_candidate_embs = [item.vectors for item in prf_candidates]
-        new_emb_qs = np.mean(np.vstack((emb_qs[0], all_candidate_embs)), axis=0)
-        new_emb_qs = np.array([new_emb_qs]).astype('float32')
+        new_emb_qs = np.mean(np.vstack((emb_qs, all_candidate_embs)), axis=0)
         return new_emb_qs
 
     def get_batch_prf_q_emb(self, topic_ids: List[str] = None, emb_qs: np.ndarray = None,
@@ -61,26 +60,33 @@ class DenseVectorAveragePrf(DenseVectorPrf):
         new_emb_qs = list()
         for index, topic_id in enumerate(topic_ids):
             qids.append(topic_id)
-            all_candidate_embs = [item.vectors for item in prf_candidates[topic_id]]
-            new_emb_q = np.mean(np.vstack((emb_qs[index], all_candidate_embs)), axis=0)
-            new_emb_qs.append(new_emb_q)
+            new_emb_qs.append(self.get_prf_q_emb(emb_qs[index], prf_candidates[topic_id]))
         new_emb_qs = np.array(new_emb_qs).astype('float32')
         return new_emb_qs
 
 
 class DenseVectorRocchioPrf(DenseVectorPrf):
-    def __init__(self, alpha: float, beta: float):
+    def __init__(self, alpha: float, beta: float, gamma: float, topk: int, bottomk: int):
         """
         Parameters
         ----------
         alpha : float
             Rocchio parameter, controls the weight assigned to the original query embedding.
         beta : float
-            Rocchio parameter, controls the weight assigned to the document embeddings.
+            Rocchio parameter, controls the weight assigned to the positive document embeddings.
+        gamma : float
+            Rocchio parameter, controls the weight assigned to the negative document embeddings.
+        topk : int
+            Rocchio parameter, set topk documents as positive document feedbacks.
+        bottomk : int
+            Rocchio parameter, set bottomk documents as negative document feedbacks.
         """
         DenseVectorPrf.__init__(self)
         self.alpha = alpha
         self.beta = beta
+        self.gamma = gamma
+        self.topk = topk
+        self.bottomk = bottomk
 
     def get_prf_q_emb(self, emb_qs: np.ndarray = None, prf_candidates: List[PRFDenseSearchResult] = None):
         """Perform Rocchio PRF with Dense Vectors
@@ -99,10 +105,12 @@ class DenseVectorRocchioPrf(DenseVectorPrf):
         """
 
         all_candidate_embs = [item.vectors for item in prf_candidates]
-        weighted_mean_doc_embs = self.beta * np.mean(all_candidate_embs, axis=0)
-        weighted_query_embs = self.alpha * emb_qs[0]
-        new_emb_q = np.sum(np.vstack((weighted_query_embs, weighted_mean_doc_embs)), axis=0)
-        new_emb_q = np.array([new_emb_q]).astype('float32')
+        weighted_query_embs = self.alpha * emb_qs
+        weighted_mean_pos_doc_embs = self.beta * np.mean(all_candidate_embs[:self.topk], axis=0)
+        new_emb_q = weighted_query_embs + weighted_mean_pos_doc_embs
+        if self.bottomk > 0:
+            weighted_mean_neg_doc_embs = self.gamma * np.mean(all_candidate_embs[-self.bottomk:], axis=0)
+            new_emb_q -= weighted_mean_neg_doc_embs
         return new_emb_q
 
     def get_batch_prf_q_emb(self, topic_ids: List[str] = None, emb_qs: np.ndarray = None,
@@ -127,11 +135,7 @@ class DenseVectorRocchioPrf(DenseVectorPrf):
         new_emb_qs = list()
         for index, topic_id in enumerate(topic_ids):
             qids.append(topic_id)
-            all_candidate_embs = [item.vectors for item in prf_candidates[topic_id]]
-            weighted_mean_doc_embs = self.beta * np.mean(all_candidate_embs, axis=0)
-            weighted_query_embs = self.alpha * emb_qs[index]
-            new_emb_q = np.sum(np.vstack((weighted_query_embs, weighted_mean_doc_embs)), axis=0)
-            new_emb_qs.append(new_emb_q)
+            new_emb_qs.append(self.get_prf_q_emb(emb_qs[index], prf_candidates[topic_id]))
         new_emb_qs = np.array(new_emb_qs).astype('float32')
         return new_emb_qs
 

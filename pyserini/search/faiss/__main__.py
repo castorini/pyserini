@@ -62,7 +62,13 @@ def define_dsearch_args(parser):
                         default=0.9,
                         help="The alpha parameter to control the contribution from the query vector")
     parser.add_argument('--rocchio-beta', type=float, metavar='beta parameter for rocchio', required=False, default=0.1,
-                        help="The beta parameter to control the contribution from the average vector of the PRF passages")
+                        help="The beta parameter to control the contribution from the average vector of the positive PRF passages")
+    parser.add_argument('--rocchio-gamma', type=float, metavar='gamma parameter for rocchio', required=False, default=0.1,
+                        help="The gamma parameter to control the contribution from the average vector of the negative PRF passages")
+    parser.add_argument('--rocchio-topk', type=int, metavar='topk passages as positive for rocchio', required=False, default=3,
+                        help="Set topk passages as positive PRF passages for rocchio")
+    parser.add_argument('--rocchio-bottomk', type=int, metavar='bottomk passages as negative for rocchio', required=False, default=0,
+                        help="Set bottomk passages as negative PRF passages for rocchio, 0: do not use negatives prf passages.")
     parser.add_argument('--sparse-index', type=str, metavar='sparse lucene index containing contents', required=False,
                         help='The path to sparse index containing the passage contents')
     parser.add_argument('--ance-prf-encoder', type=str, metavar='query encoder path for ANCE-PRF', required=False,
@@ -172,7 +178,8 @@ if __name__ == '__main__':
         if args.prf_method.lower() == 'avg':
             prfRule = DenseVectorAveragePrf()
         elif args.prf_method.lower() == 'rocchio':
-            prfRule = DenseVectorRocchioPrf(args.rocchio_alpha, args.rocchio_beta)
+            prfRule = DenseVectorRocchioPrf(args.rocchio_alpha, args.rocchio_beta, args.rocchio_gamma,
+                                            args.rocchio_topk, args.rocchio_bottomk)
         # ANCE-PRF is using a new query encoder, so the input to DenseVectorAncePrf is different
         elif args.prf_method.lower() == 'ance-prf' and type(query_encoder) == AnceQueryEncoder:
             if os.path.exists(args.sparse_index):
@@ -209,7 +216,8 @@ if __name__ == '__main__':
                     if args.prf_method.lower() == 'ance-prf':
                         prf_emb_q = prfRule.get_prf_q_emb(text, prf_candidates)
                     else:
-                        prf_emb_q = prfRule.get_prf_q_emb(emb_q, prf_candidates)
+                        prf_emb_q = prfRule.get_prf_q_emb(emb_q[0], prf_candidates)
+                        prf_emb_q = np.expand_dims(prf_emb_q, axis=0).astype('float32')
                     hits = searcher.search(prf_emb_q, k=args.hits, **kwargs)
                 else:
                     hits = searcher.search(text, args.hits, **kwargs)
