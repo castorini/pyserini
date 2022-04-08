@@ -20,6 +20,7 @@ from transformers import AutoTokenizer
 from pyserini.search.lucene.irst import LuceneIrstSearcher
 from pyserini.search.lucene.ltr._base import SpacyTextParser
 from pyserini.analysis import Analyzer, get_lucene_analyzer
+import json
 
 
 def normalize(scores: List[float]):
@@ -135,6 +136,8 @@ if __name__ == "__main__":
     reranker = LuceneIrstSearcher(
         args.tran_path, args.index, args.field_name)
     queries = query_loader(args.topics)
+    with open('bert_wp_term_freq.json') as fin:
+        obj = json.load(fin)
     i = 0
     for topic in queries.keys():
         if i % 100 == 0:
@@ -147,7 +150,7 @@ if __name__ == "__main__":
                 query_text, query_text_field, baseline_dic[topic], args.max_sim)
         else:
             docids, rank_scores, base_scores = reranker.search(
-                query_text, query_text_field, args.hits, args.max_sim)
+                query_text, query_text_field, args.hits, args.max_sim, obj)
         ibm_scores = normalize([p for p in rank_scores])
         base_scores = normalize([p for p in base_scores])
 
