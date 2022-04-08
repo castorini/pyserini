@@ -25,7 +25,7 @@ add fields to query json with contents((BERT token)
 """
 
 
-parser = argparse.ArgumentParser(description='Convert MSMARCO-adhoc documents.')
+parser = argparse.ArgumentParser(description='Convert queries in tsv format with tokenization')
 parser.add_argument('--input', metavar='input file', help='input file',
                     type=str, required=True)
 parser.add_argument('--output', metavar='output file', help='output file',
@@ -37,11 +37,11 @@ arg_vars = vars(args)
 
 bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 
-with open(args.input) as inpFile:
+with open(args.input) as inFile:
     with open(args.output, 'w') as outFile:
         # Input file is a TSV file
         line_num = 0
-        for line in tqdm(inpFile):
+        for line in tqdm(inFile):
             line_num += 1
             line = line.strip()
             if not line:

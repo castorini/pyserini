@@ -22,7 +22,7 @@ from transformers import AutoTokenizer
 from ltr_msmarco.convert_common import get_retokenized
 
 """
-add fields to jsonl with contents((BERT token)
+Replace original contents fields with bert tokenization 
 """
 
 
@@ -31,7 +31,7 @@ parser.add_argument('--input', metavar='input file', help='input file',
                     type=str, required=True)
 parser.add_argument('--output', metavar='output file', help='output file',
                     type=str, required=True)
-parser.add_argument('--workers', metavar='# of processes', help='# of NLP processes to span',
+parser.add_argument('--workers', metavar='# of processes', help='# of workers to spawn',
                     type=int, default=multiprocessing.cpu_count() - 2)
 
 
@@ -78,14 +78,14 @@ def batch_process(batch):
 
 if __name__ == '__main__':
     workers = args.workers
-    print(f"Spanning {workers} processes")
+    print(f"Spawning {workers} processes")
     pool = Parallel(n_jobs=workers, verbose=10)
     line_num = 0
 
-    with open(args.input) as inpFile:
+    with open(args.input) as inFile:
         with open(args.output, 'w') as outFile:
 
-            for batch_json in pool([delayed(batch_process)(batch) for batch in batch_file(inpFile)]):
+            for batch_json in pool([delayed(batch_process)(batch) for batch in batch_file(inFile)]):
                 for doc_json in batch_json:
                     line_num = line_num + 1
                     if doc_json is not None:
