@@ -25,6 +25,8 @@ for file_name in os.listdir(args.input):
                 res[word] += 1
                 total += 1
 
+res['TOTAL'] = total
+
 print(total)
 with open(args.output, "w") as fout:
     json.dump(res, fout)

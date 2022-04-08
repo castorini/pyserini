@@ -127,6 +127,8 @@ if __name__ == "__main__":
                         help='whether we use segmented index or not')
     parser.add_argument('--hits', type=int, metavar='number of hits generated in runfile',
                         required=False, default=1000, help="Number of hits.")
+    parser.add_argument('--wp-stats', type=str, metavar='term statistics for tokenized collection',
+                        required=False, default=1000, help="json file which stores the frequency for each term")
     args = parser.parse_args()
 
     print('Using max sim operator or not:', args.max_sim)
@@ -136,8 +138,8 @@ if __name__ == "__main__":
     reranker = LuceneIrstSearcher(
         args.tran_path, args.index, args.field_name)
     queries = query_loader(args.topics)
-    with open('bert_wp_term_freq.json') as fin:
-        obj = json.load(fin)
+    with open(args.wp_stats) as fin:
+        tf_dic = json.load(fin)
     i = 0
     for topic in queries.keys():
         if i % 100 == 0:
@@ -150,7 +152,7 @@ if __name__ == "__main__":
                 query_text, query_text_field, baseline_dic[topic], args.max_sim)
         else:
             docids, rank_scores, base_scores = reranker.search(
-                query_text, query_text_field, args.hits, args.max_sim, obj)
+                query_text, query_text_field, args.hits, args.max_sim, tf_dic)
         ibm_scores = normalize([p for p in rank_scores])
         base_scores = normalize([p for p in base_scores])
 
