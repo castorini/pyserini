@@ -151,7 +151,7 @@ if __name__ == "__main__":
         if args.base_path:
             baseline_dic = baseline_loader(args.base_path)
             docids, rank_scores, base_scores = reranker.rerank(
-                query_text_field, query_conversion, baseline_dic[topic], args.max_sim)
+                query_text_field, query_conversion, baseline_dic[topic], args.max_sim, tf_dic)
         else:
             docids, rank_scores, base_scores = reranker.search(
                 query_text_field, query_conversion, args.hits, args.max_sim, tf_dic)

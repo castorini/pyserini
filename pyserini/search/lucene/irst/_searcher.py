@@ -55,7 +55,6 @@ class LuceneIrstSearcher(object):
             print("We currently only support two indexes: msmarco-passage and msmarco-v1-doc, \
             but the index you inserted is not one of those")
         self.object = JLuceneSearcher(index_path)
-        self.index_reader = JIndexReader().getReader(index_path)
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
         self.bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
         self.pool = ThreadPool(24)
@@ -228,18 +227,20 @@ class LuceneIrstSearcher(object):
         rank_scores = self.pool.map(self.get_ibm_score, arguments)
         return test_docs, rank_scores, origin_scores
 
-    def rerank(self, query_field_text,query_conversion, baseline, max_sim):
+    def rerank(self, query_field_text,query_conversion, baseline, max_sim, tf_table):
         test_docs, origin_scores = baseline
         if (test_docs == []):
             print(query_text)
 
         query_field_text_lst = query_field_text.split(' ')
-        total_term_freq = self.index_reader.getSumTotalTermFreq('contents')
+        total_term_freq = tf_table['TOTAL']
         collect_probs = {}
         for querytoken in query_field_text_lst:
-            collect_probs[querytoken] = max(self.index_reader.totalTermFreq(
-                JTerm('contents', query_conversion[querytoken])) / total_term_freq,
-                self.MIN_COLLECT_PROB)
+            if querytoken in tf_table:
+                collect_probs[querytoken] = max(tf_table[querytoken] / total_term_freq,
+                    self.MIN_COLLECT_PROB)
+            else:
+                collect_probs[querytoken] = self.MIN_COLLECT_PROB
         arguments = [(
             query_field_text_lst, test_doc, self.object, 
             self.source_lookup, self.target_lookup,
