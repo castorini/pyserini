@@ -202,7 +202,7 @@ class LuceneIrstSearcher(object):
             total_query_prob += query_word_prob
         return total_query_prob / query_size
 
-    def search(self, query_text, query_field_text, query_conversion, hits, max_sim, tf_table):
+    def search(self, query_field_text, query_conversion, hits, max_sim, tf_table):
         self.bm25search.set_bm25(0.82, 0.68)
 
         bm25_results = self.bm25search.search(query_field_text, hits)
@@ -211,14 +211,15 @@ class LuceneIrstSearcher(object):
         if (test_docs == []):
             print(query_text)
 
-        query_text_lst = query_text.split(' ')
         query_field_text_lst = query_field_text.split(' ')
         total_term_freq = tf_table['TOTAL']
         collect_probs = {}
-        for querytoken in query_text_lst:
-            tmp = self.index_reader.totalTermFreq(JTerm(self.field_name, querytoken))
-            collect_probs[querytoken] = max(tf_table[querytoken] / total_term_freq,
-                self.MIN_COLLECT_PROB)
+        for querytoken in query_field_text_lst:
+            if querytoken in tf_table:
+                collect_probs[querytoken] = max(tf_table[querytoken] / total_term_freq,
+                    self.MIN_COLLECT_PROB)
+            else:
+                collect_probs[querytoken] = self.MIN_COLLECT_PROB
         arguments = [(
             query_field_text_lst, test_doc, self.object, 
             self.source_lookup, self.target_lookup,
@@ -227,12 +228,11 @@ class LuceneIrstSearcher(object):
         rank_scores = self.pool.map(self.get_ibm_score, arguments)
         return test_docs, rank_scores, origin_scores
 
-    def rerank(self, query_text, query_field_text,query_conversion, baseline, max_sim):
+    def rerank(self, query_field_text,query_conversion, baseline, max_sim):
         test_docs, origin_scores = baseline
         if (test_docs == []):
             print(query_text)
 
-        query_text_lst = query_text.split(' ')
         query_field_text_lst = query_field_text.split(' ')
         total_term_freq = self.index_reader.getSumTotalTermFreq('contents')
         collect_probs = {}

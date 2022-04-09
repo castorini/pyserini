@@ -48,19 +48,20 @@ def query_loader(topic_path: str):
             print(line.replace('\t', '<field delimiter>'))
             continue
         did, query = fields
+        query_conversion = {}
         for querytoken in query.lower().split():
             tokenizes = bert_tokenizer.tokenize(querytoken)
             for token in tokenizes:
                 query_conversion[token] = querytoken
-        if len(query_toks) >= 0:
-            query = {"raw" : query,
-                "contents": ' '.join(bert_tokenizer.tokenize(query.lower())),
+    
+        if len(query.split()) >= 0:
+            query = {"contents": ' '.join(bert_tokenizer.tokenize(query.lower())),
                 "query_conversion": query_conversion}
             queries[did] = query
 
-        if ln % 10000 == 0:
+        if line_num % 10000 == 0:
             print('Processed %d queries' % ln)
-    print('Processed %d queries' % ln)
+    print('Processed %d queries' % line_num)
     return queries
 
 
@@ -146,15 +147,14 @@ if __name__ == "__main__":
         if i % 100 == 0:
             print(f'Reranking {i} topic')
         query_text_field = queries[topic]['contents']
-        query_text = queries[topic]['raw']
         query_conversion = queries[topic]['query_conversion']
         if args.base_path:
             baseline_dic = baseline_loader(args.base_path)
             docids, rank_scores, base_scores = reranker.rerank(
-                query_text, query_text_field, query_conversion, baseline_dic[topic], args.max_sim)
+                query_text_field, query_conversion, baseline_dic[topic], args.max_sim)
         else:
             docids, rank_scores, base_scores = reranker.search(
-                query_text, query_text_field, query_conversion, args.hits, args.max_sim, tf_dic)
+                query_text_field, query_conversion, args.hits, args.max_sim, tf_dic)
         ibm_scores = normalize([p for p in rank_scores])
         base_scores = normalize([p for p in base_scores])
 
