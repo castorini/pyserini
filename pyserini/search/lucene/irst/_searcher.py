@@ -201,15 +201,15 @@ class LuceneIrstSearcher(object):
             total_query_prob += query_word_prob
         return total_query_prob / query_size
 
-    def search(self, query_field_text, query_conversion, hits, max_sim, tf_table):
+    def search(self, query_text, query_field_text, hits, max_sim, tf_table):
         self.bm25search.set_bm25(0.82, 0.68)
 
-        bm25_results = self.bm25search.search(query_field_text, hits)
+        bm25_results = self.bm25search.search(query_text, hits)
         origin_scores = [bm25_result.score for bm25_result in bm25_results]
         test_docs = [bm25_result.docid for bm25_result in bm25_results]
         if (test_docs == []):
             print(query_text)
-
+        #query_text_lst = query_text.split(' ')
         query_field_text_lst = query_field_text.split(' ')
         total_term_freq = tf_table['TOTAL']
         collect_probs = {}
@@ -227,7 +227,7 @@ class LuceneIrstSearcher(object):
         rank_scores = self.pool.map(self.get_ibm_score, arguments)
         return test_docs, rank_scores, origin_scores
 
-    def rerank(self, query_field_text,query_conversion, baseline, max_sim, tf_table):
+    def rerank(self, query_text, query_field_text, baseline, max_sim, tf_table):
         test_docs, origin_scores = baseline
         if (test_docs == []):
             print(query_text)
