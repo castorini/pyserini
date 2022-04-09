@@ -51,9 +51,10 @@ class LuceneIrstSearcher(object):
             index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-passage.20220131.9ea315.4d8fdbdcd119c1f47a4cc5d01a45dad3')
         elif (index == 'msmarco-v1-doc'):
             index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-doc.20220131.9ea315.43b60b3fc75324c648a02375772e7fe8')
+        elif (index == 'msmarco-v1-doc-segmented'):
+            index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-doc-segmented.20220131.9ea315')
         else:
-            print("We currently only support two indexes: msmarco-passage and msmarco-v1-doc, \
-            but the index you inserted is not one of those")
+            print("We currently only support three indexes: msmarco-passage, msmarco-v1-doc and msmarco-v1-doc-segmented but the index you inserted is not one of those")
         self.object = JLuceneSearcher(index_path)
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
         self.bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
@@ -209,7 +210,6 @@ class LuceneIrstSearcher(object):
         test_docs = [bm25_result.docid for bm25_result in bm25_results]
         if (test_docs == []):
             print(query_text)
-        #query_text_lst = query_text.split(' ')
         query_field_text_lst = query_field_text.split(' ')
         total_term_freq = tf_table['TOTAL']
         collect_probs = {}
