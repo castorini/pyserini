@@ -3,11 +3,12 @@ import os
 from tqdm import tqdm
 import argparse
 import json
+import pickle
 
 parser = argparse.ArgumentParser(description='Extract term statistics on collection.')
 parser.add_argument('--input', metavar='input file', help='input collection',
                     type=str, required=True)
-parser.add_argument('--output', metavar='output file', help='output file',
+parser.add_argument('--output', metavar='output file', help='output pickle',
                     type=str, required=True)
 
 args = parser.parse_args()
@@ -27,6 +28,5 @@ for file_name in os.listdir(args.input):
 
 res['TOTAL'] = total
 
-print(total)
-with open(args.output, "w") as fout:
-    json.dump(res, fout)
+with open(args.output, 'wb') as handle:
+    pickle.dump(res, handle, protocol=pickle.HIGHEST_PROTOCOL)

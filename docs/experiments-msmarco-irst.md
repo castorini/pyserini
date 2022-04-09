@@ -36,7 +36,8 @@ python -m pyserini.search.lucene.irst \
   --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
   --index msmarco-v1-passage \
   --output irst_test/regression_test_sum.irst_topics.txt \
-  --alpha 0.1
+  --alpha 0.1 \
+  --wp-stat TODO
 ```
 
 IRST (Max)
@@ -47,7 +48,8 @@ python -m pyserini.search.lucene.irst \
   --index msmarco-v1-passage \
   --output irst_test/regression_test_max.irst_topics.txt \
   --alpha 0.3 \
-  --max-sim
+  --max-sim \
+  --wp-stat TODO
 ```
 
 For different topics, the `--topics` and `--irst_topics` are different, since Pyserini has all these topics available, we can pass in
@@ -193,15 +195,3 @@ python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank msm
 | DL20                | IRST(Max)               | -| 0.524   | 0.342      |
 | MS MARCO Dev                | IRST(Sum)               | 0.308| -   | -      |
 | MS MARCO Dev                | IRST(Max)               | 0.273| -   | -      |
-
-## Build Index from Scratch
-
-Note that we have used our pre-built index in the above steps. You can also build index by yourself following instructions below.
-
-### Passage Index
-Please follow steps in [ltr experiment documentation](https://github.com/castorini/pyserini/blob/master/docs/experiments-ltr-msmarco-passage-reranking.md#building-the-index-from-scratch). 
-
-### Document Index
-We use the [script](https://github.com/castorini/docTTTTTquery/blob/master/convert_msmarco_passages_doc_to_anserini.py) in docTTTTTquery with default stride and window length to obtain segmented documents.
-
-Then follow instructions in [ltr experiment](https://github.com/castorini/pyserini/blob/master/docs/experiments-ltr-msmarco-document-reranking.md#building-the-index-from-scratch).

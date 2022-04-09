@@ -21,6 +21,7 @@ from pyserini.search.lucene.irst import LuceneIrstSearcher
 from pyserini.search.lucene.ltr._base import SpacyTextParser
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 import json
+import pickle
 
 
 def normalize(scores: List[float]):
@@ -135,15 +136,14 @@ if __name__ == "__main__":
     reranker = LuceneIrstSearcher(
         args.tran_path, args.index)
     queries = query_loader(args.topics)
-    with open(args.wp_stats) as fin:
-        tf_dic = json.load(fin)
+    with open(args.wp_stats, 'rb') as fin:
+        tf_dic = pickle.load(fin)
     i = 0
     for topic in queries.keys():
         if i % 100 == 0:
             print(f'Reranking {i} topic')
         query_text_field = queries[topic]['contents']
         query_text = queries[topic]['raw']
-        #query_conversion = queries[topic]['query_conversion']
         if args.base_path:
             baseline_dic = baseline_loader(args.base_path)
             docids, rank_scores, base_scores = reranker.rerank(
