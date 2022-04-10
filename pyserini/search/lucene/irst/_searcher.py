@@ -52,7 +52,7 @@ class LuceneIrstSearcher(object):
         elif (index == 'msmarco-v1-doc'):
             index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-doc.20220131.9ea315.43b60b3fc75324c648a02375772e7fe8')
         elif (index == 'msmarco-v1-doc-segmented'):
-            index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-doc-segmented.20220131.9ea315')
+            index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.611bb83e043c0d6febe0fa3508d1d7f9')
         else:
             print("We currently only support three indexes: msmarco-passage, msmarco-v1-doc and msmarco-v1-doc-segmented but the index you inserted is not one of those")
         self.object = JLuceneSearcher(index_path)
