@@ -27,6 +27,11 @@ wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_be
 tar -xzvf irst_test/ibm_model_1_bert_tok_20211117.tar.gz -C irst_test
 ```
 
+Download term freq statistics for wp collection:
+```bash
+TODO
+```
+
 Next we can run our script to get our end-to-end results.
 
 IRST (Sum) 
@@ -37,7 +42,7 @@ python -m pyserini.search.lucene.irst \
   --index msmarco-v1-passage \
   --output irst_test/regression_test_sum.irst_topics.txt \
   --alpha 0.1 \
-  --wp-stat TODO
+  --wp-stat irst_test/bert_wp_term_freq_passage.pickle
 ```
 
 IRST (Max)
@@ -49,7 +54,7 @@ python -m pyserini.search.lucene.irst \
   --output irst_test/regression_test_max.irst_topics.txt \
   --alpha 0.3 \
   --max-sim \
-  --wp-stat TODO
+  --wp-stat irst_test/bert_wp_term_freq_passage.pickle
 ```
 
 For different topics, the `--topics` and `--irst_topics` are different, since Pyserini has all these topics available, we can pass in
@@ -131,14 +136,14 @@ For different topics, the `--topics` and `--irst_topics` are different, since Py
 different values to run on different datasets.
 
 `--topics`: <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `tools/topics-and-qrels/topics.dl19-doc.txt` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `tools/topics-and-qrels/topics.dl20.txt` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `tools/topics-and-qrels/topics.msmarco-doc.dev.txt` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Document: `tools/topics-and-qrels/topics.dl19-doc.txt` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Document: `tools/topics-and-qrels/topics.dl20.txt` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `tools/topics-and-qrels/topics.msmarco-doc.dev.txt` <br />
 
 `--irst_topics`: <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `dl19-doc` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `dl20-doc` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `msmarco-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Document: `dl19-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Document: `dl20-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `msmarco-doc` <br />
 
 We can use the official TREC evaluation tool, trec_eval, to compute other metrics. For that we first need to convert the runs into TREC format:
 
@@ -211,14 +216,14 @@ For different topics, the `--topics` and `--irst_topics` are different, since Py
 different values to run on different datasets.
 
 `--topics`: <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `tools/topics-and-qrels/topics.dl19-doc.txt` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `tools/topics-and-qrels/topics.dl20.txt` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `tools/topics-and-qrels/topics.msmarco-doc.dev.txt` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Document: `tools/topics-and-qrels/topics.dl19-doc.txt` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Document: `tools/topics-and-qrels/topics.dl20.txt` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `tools/topics-and-qrels/topics.msmarco-doc.dev.txt` <br />
 
 `--irst_topics`: <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Passage: `dl19-doc` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Passage: `dl20-doc` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Passage V1: `msmarco-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Document: `dl19-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Document: `dl20-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `msmarco-doc` <br />
 
 We can use the official TREC evaluation tool, trec_eval, to compute other metrics. For that we first need to convert the runs into TREC format:
 

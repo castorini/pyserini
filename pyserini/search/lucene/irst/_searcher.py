@@ -170,7 +170,7 @@ class LuceneIrstSearcher(object):
         if searcher.documentRaw(test_doc) is None:
             print(f'{test_doc} is not found in searcher')
         contents = json.loads(self.object.documentRaw(test_doc))['contents']
-        doc_token_lst = self.bert_tokenizer.tokenize(contents.lower())
+        doc_token_lst = self.bert_tokenizer.tokenize(contents.lower(), truncation=True)
         total_query_prob = 0
         doc_size = len(doc_token_lst)
         query_size = len(query_text_lst)
