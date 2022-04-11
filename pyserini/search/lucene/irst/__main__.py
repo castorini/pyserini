@@ -126,7 +126,7 @@ if __name__ == "__main__":
     parser.add_argument('--hits', type=int, metavar='number of hits generated in runfile',
                         required=False, default=1000, help="Number of hits.")
     parser.add_argument('--wp-stats', type=str, metavar='term statistics for tokenized collection',
-                        required=False, default=1000, help="json file which stores the frequency for each term")
+                        required=True, help="json file which stores the frequency for each term")
     args = parser.parse_args()
 
     print('Using max sim operator or not:', args.max_sim)
