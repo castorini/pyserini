@@ -14,12 +14,12 @@ For IRST, we make the corpus as well as the pre-built indexes available to downl
 Here, we start from MS MARCO [passage corpus](https://github.com/castorini/pyserini/blob/master/docs/experiments-msmarco-passage.md) that has already been processed.
 As an alternative, we also make available pre-built indexes (in which case the indexing step can be skipped).
 
-### Performing End-to-End Retrieval Using Pretrained Model
+### Performing End-to-End Retrieval Using Already Trained Model
 
 The IBM model we used in this experiment is referenced in the Boytsov et al. [paper](https://arxiv.org/pdf/2102.06815.pdf)
 Note that there is a separate guide for training the IBM Model on [FlexNeuART](https://github.com/oaqa/FlexNeuART/tree/master/demo)
 
-Download pretrained IBM model:
+Download trained IBM model:
 ```bash
 mkdir irst_test/
 
@@ -29,7 +29,7 @@ tar -xzvf irst_test/ibm_model_1_bert_tok_20211117.tar.gz -C irst_test
 
 Download term freq statistics for wp collection:
 ```bash
-TODO
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/bert_wp_term_freq.msmarco-passage.20220411.pickle -P irst_test/
 ```
 
 Next we can run our script to get our end-to-end results.
@@ -42,7 +42,7 @@ python -m pyserini.search.lucene.irst \
   --index msmarco-v1-passage \
   --output irst_test/regression_test_sum.irst_topics.txt \
   --alpha 0.1 \
-  --wp-stat irst_test/bert_wp_term_freq_passage.pickle
+  --wp-stat irst_test/bert_wp_term_freq.msmarco-passage.20220411.pickle
 ```
 
 IRST (Max)
@@ -54,7 +54,7 @@ python -m pyserini.search.lucene.irst \
   --output irst_test/regression_test_max.irst_topics.txt \
   --alpha 0.3 \
   --max-sim \
-  --wp-stat irst_test/bert_wp_term_freq_passage.pickle
+  --wp-stat irst_test/bert_wp_term_freq.msmarco-passage.20220411.pickle
 ```
 
 For different topics, the `--topics` and `--irst_topics` are different, since Pyserini has all these topics available, we can pass in
@@ -94,10 +94,10 @@ python -m pyserini.eval.trec_eval -c -M 10 -m ndcg_cut -m map -m recip_rank msma
 
 ### Data Preprocessing
 
-First, we perform experiment on full document.
-### Performing End-to-End Retrieval Using Pretrained Model
+Now, we perform experiment on full document.
+### Performing End-to-End Retrieval Using Already Trained Model
 
-Download pretrained IBM models. Please note that we did not have time to train a new IBM model on MSMARCO DOC data, we used the trained MSMARCO Passage IBM Model1 instead.
+Download trained IBM models. Please note that we did not have time to train a new IBM model on MS MARCO doc data, we used the trained MS MARCO passage IBM Model1 instead.
 
 ```bash
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_bert_tok_20211117.tar.gz -P irst_test/
@@ -169,13 +169,13 @@ python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank msm
 
 ### Data Preprocessing
 
-For MSMARCO DOC, each MS MARCO document is first segmented into passages, each passage is treated as a unit of indexing. 
+For MS MARCO doc, each document is first segmented into passages, each passage is treated as a unit of indexing. 
 We utilized the MaxP technique during the ranking, that is scoring documents based on one of its highest-scoring passage.
 
-### Performing End-to-End Retrieval Using Pretrained Model
+### Performing End-to-End Retrieval Using Already Trained Model
 
 
-Download pretrained IBM models. Please note that we did not have time to train a new IBM model on MSMARCO DOC data, we used the trained MSMARCO Passage IBM Model1 instead.
+Download trained IBM models. Please note that we did not have time to train a new IBM model on MS MARCO doc data, we used the trained MS MARCO passage IBM Model1 instead.
 
 ```bash
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_bert_tok_20211117.tar.gz -P irst_test/

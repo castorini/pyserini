@@ -107,7 +107,7 @@ if __name__ == "__main__":
                         metavar="tag_name", help='tag name for resulting Qrun')
     parser.add_argument('--base-path', type=str, required=False,
                         metavar="path_to_base_run", help='path to base run')
-    parser.add_argument('--tran-path', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
+    parser.add_argument('--translation-model', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
     parser.add_argument('--topics', type=str,
                         help='path to query topics', required=True)
@@ -134,7 +134,7 @@ if __name__ == "__main__":
     f = open(args.output, 'w')
 
     reranker = LuceneIrstSearcher(
-        args.tran_path, args.index)
+        args.translation_model, args.index)
     queries = query_loader(args.topics)
     with open(args.wp_stats, 'rb') as fin:
         tf_dic = pickle.load(fin)
