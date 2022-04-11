@@ -261,9 +261,9 @@ python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank msm
 | Topics                | Method                  | MRR@100    | nDCG@10 | Map |
 |:-------------------------|:------------------------|:------:|:--------:|:-----------:|
 | DL19                | IRST(Sum)               | - | 0.567   | 0.265     |
-| DL19                 | IRST(Max)              | - | 0.537   | 0.247      |
-| DL20                | IRST(Sum)               | -| 0.561   | 0.370      |
-| DL20                | IRST(Max)               | -| 0.524   | 0.342      |
+| DL19                 | IRST(Max)              | - | 0.537   | 0.247     |
+| DL20                | IRST(Sum)               | - | 0.561   | 0.370     |
+| DL20                | IRST(Max)               | - | 0.524   | 0.342     |
 | MS MARCO Dev                | IRST(Sum)               | 0.308| -   | -      |
 | MS MARCO Dev                | IRST(Max)               | 0.273| -   | -      |
 
@@ -271,9 +271,9 @@ python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank msm
 
 | Topics                | Method                  | MRR@100    | nDCG@10 | Map |
 |:-------------------------|:------------------------|:------:|:--------:|:-----------:|
-| DL19                | IRST(Sum)               | - | 0.560   | 0.271     |
+| DL19                | IRST(Sum)               | - | 0.560   | 0.271      |
 | DL19                 | IRST(Max)              | - | 0.520   | 0.243      |
-| DL20                | IRST(Sum)               | -|   |       |
-| DL20                | IRST(Max)               | -|    |       |
+| DL20                | IRST(Sum)               | - | 0.536   |  0.376     |
+| DL20                | IRST(Max)               | - | 0.510   |   0.350    |
 | MS MARCO Dev                | IRST(Sum)               | | -   | -      |
 | MS MARCO Dev                | IRST(Max)               | | -   | -      |
