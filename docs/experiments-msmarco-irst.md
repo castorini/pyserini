@@ -260,12 +260,12 @@ python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank msm
 
 | Topics                | Method                  | MRR@100    | nDCG@10 | Map |
 |:-------------------------|:------------------------|:------:|:--------:|:-----------:|
-| DL19                | IRST(Sum)               | - | 0.567   | 0.265     |
-| DL19                 | IRST(Max)              | - | 0.537   | 0.247     |
-| DL20                | IRST(Sum)               | - | 0.561   | 0.370     |
-| DL20                | IRST(Max)               | - | 0.524   | 0.342     |
-| MS MARCO Dev                | IRST(Sum)               | 0.308| -   | -      |
-| MS MARCO Dev                | IRST(Max)               | 0.273| -   | -      |
+| DL19                | IRST(Sum)               | - | 0.551   | 0.253     |
+| DL19                 | IRST(Max)              | - | 0.491   | 0.221     |
+| DL20                | IRST(Sum)               | - | 0.556   | 0.383     |
+| DL20                | IRST(Max)               | - | 0.502   | 0.337     |
+| MS MARCO Dev                | IRST(Sum)               | | -   | -      |
+| MS MARCO Dev                | IRST(Max)               | | -   | -      |
 
 ### Document Segment Ranking Datasets
 
