@@ -15,7 +15,7 @@ wget https://git.uwaterloo.ca/jimmylin/mr.tydi/-/raw/master/data/$tarfn
 tar –xvf $tarfn
 gzip -cvf $corpus.gz > $corpus
 
-shard_num=1
+shard_num=4
 encoder=mdpr-mrtydi-0shot-msmarco-tied-encoder-converted 
 
 for shard_id in $(seq 0 `$shard_num - 1`) ; do
@@ -34,6 +34,10 @@ for shard_id in $(seq 0 `$shard_num - 1`) ; do
                                         --fp16
 done
 ``` 
+Then combine the 4 indexes using:
+```
+python -m pyserini.index.merge_faiss_indexes --prefix mdpr-dindex/$lang- --shard-num 4
+```
 
 Note that the delimiter are only supported after [Pyserini #1000](https://github.com/castorini/pyserini/pull/1000/commits/5021e12d1d2e1bc3d4015955bcf77076c5798ce6#diff-45356c3f5e9cd223bb23d7efea3f7ed834abbcd32f604eb7fdd138e364273241L104).
 
