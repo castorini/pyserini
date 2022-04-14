@@ -38,7 +38,7 @@ IRST (Sum)
 ```bash
 python -m pyserini.search.lucene.irst \
   --topics topics \
-  --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
+  --translation-model irst_test/ibm_model_1_bert_tok_20211117/ \
   --index msmarco-v1-passage \
   --output irst_test/regression_test_sum.irst_topics.txt \
   --alpha 0.1 \
@@ -49,7 +49,7 @@ IRST (Max)
 ```bash
 python -m pyserini.search.lucene.irst \
   --topics topics \
-  --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
+  --translation-model irst_test/ibm_model_1_bert_tok_20211117/ \
   --index msmarco-v1-passage \
   --output irst_test/regression_test_max.irst_topics.txt \
   --alpha 0.3 \
@@ -86,7 +86,7 @@ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 dl20-passage irs
 
 For MS MARCO Passage V1, no need to use -l 2 option:
 ```bash
-python -m pyserini.eval.trec_eval -c -M 10 -m ndcg_cut -m map -m recip_rank msmarco-passage-dev-subset irst_test/regression_test_sum.msmarco-passage-dev-subset.txt
+python -m pyserini.eval.trec_eval -c -M 10 -m ndcg_cut.10 -m map -m recip_rank msmarco-passage-dev-subset irst_test/regression_test_sum.msmarco-passage-dev-subset.txt
 ```
 
 ## Document Reranking 
@@ -104,12 +104,17 @@ wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_be
 tar -xzvf irst_test/ibm_model_1_bert_tok_20211117.tar.gz -C irst_test
 ```
 
+Download term freq statistics for wp collection:
+```bash
+TODO
+```
+
 Next we can run our script to get our retrieval results.
 
 IRST (Sum) 
 ```bash
 python -m pyserini.search.lucene.irst \
-  --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
+  --translation-model irst_test/ibm_model_1_bert_tok_20211117/ \
   --topics topics \
   --index msmarco-v1-doc \
   --output irst_test/regression_test_sum.irst_topics.txt \
@@ -121,7 +126,7 @@ python -m pyserini.search.lucene.irst \
 IRST (Max)
 ```bash
 python -m pyserini.search.lucene.irst \
-  --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
+  --translation-model irst_test/ibm_model_1_bert_tok_20211117/ \
   --topics topics \
   --index msmarco-v1-doc \
   --output irst_test/regression_test_max.irst_topics.txt \
@@ -141,26 +146,26 @@ different values to run on different datasets.
 &nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `tools/topics-and-qrels/topics.msmarco-doc.dev.txt` <br />
 
 `--irst_topics`: <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Document: `dl19-doc` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Document: `dl20-doc` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `msmarco-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Document: `dl19-doc-full` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Document: `dl20-doc-full` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `msmarco-doc-full` <br />
 
 We can use the official TREC evaluation tool, trec_eval, to compute other metrics. For that we first need to convert the runs into TREC format:
 
 For TREC DL 2019, use this command to evaluate your run file:
 
 ```bash
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl19-doc irst_test/regression_test_sum.irst_topics.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl19-doc irst_test/regression_test_sum.dl19-doc-full.txt
 ```
 
-Similarly for TREC DL 2020,  no need to use -l 2 option:
+Similarly for TREC DL 2020
 ```bash
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl20-doc irst_test/regression_test_max.irst_topics.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl20-doc irst_test/regression_test_sum.dl20-doc-full.txt
 ```
 
-For MS MARCO Doc V1, no need to use -l 2 option:
+For MS MARCO Doc V1
 ```bash
-python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank msmarco-doc-dev irst_test/regression_test_sum.msmarco-doc.trec
+python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut.10 -m map -m recip_rank msmarco-doc-dev irst_test/regression_test_sum.msmarco-doc-full.txt
 ```
 
 
@@ -182,12 +187,17 @@ wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_be
 tar -xzvf irst_test/ibm_model_1_bert_tok_20211117.tar.gz -C irst_test
 ```
 
+Download term freq statistics for wp collection:
+```bash
+TODO
+```
+
 Next we can run our script to get our retrieval results.
 
 IRST (Sum) 
 ```bash
 python -m pyserini.search.lucene.irst \
-  --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
+  --translation-model irst_test/ibm_model_1_bert_tok_20211117/ \
   --topics topics \
   --index msmarco-v1-doc-segmented \
   --output irst_test/regression_test_sum.irst_topics.txt \
@@ -200,7 +210,7 @@ python -m pyserini.search.lucene.irst \
 IRST (Max)
 ```bash
 python -m pyserini.search.lucene.irst \
-  --tran-path irst_test/ibm_model_1_bert_tok_20211117/ \
+  --translation-model irst_test/ibm_model_1_bert_tok_20211117/ \
   --topics topics \
   --index msmarco-v1-doc-segmented \
   --output irst_test/regression_test_max.irst_topics.txt \
@@ -221,26 +231,26 @@ different values to run on different datasets.
 &nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `tools/topics-and-qrels/topics.msmarco-doc.dev.txt` <br />
 
 `--irst_topics`: <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Document: `dl19-doc` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Document: `dl20-doc` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `msmarco-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Document: `dl19-doc-seg` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Document: `dl20-doc-seg` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `msmarco-doc-seg` <br />
 
 We can use the official TREC evaluation tool, trec_eval, to compute other metrics. For that we first need to convert the runs into TREC format:
 
 For TREC DL 2019, use this command to evaluate your run file:
 
 ```bash
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl19-doc irst_test/regression_test_sum.irst_topics.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl19-doc irst_test/regression_test_sum.dl19-doc-seg.txt
 ```
 
 Similarly for TREC DL 2020,  no need to use -l 2 option:
 ```bash
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl20-doc irst_test/regression_test_max.irst_topics.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl20-doc irst_test/regression_test_max.dl20-doc-seg.txt
 ```
 
 For MS MARCO Doc V1, no need to use -l 2 option:
 ```bash
-python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut -m map -m recip_rank msmarco-doc-dev irst_test/regression_test_sum_maxP.msmarco-doc.trec
+python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut.10 -m map -m recip_rank msmarco-doc-dev irst_test/regression_test_sum.msmarco-doc-seg.txt
 ```
 
 ## Results

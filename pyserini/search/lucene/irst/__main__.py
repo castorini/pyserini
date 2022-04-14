@@ -18,9 +18,6 @@ from typing import List
 from tqdm import tqdm
 from transformers import AutoTokenizer
 from pyserini.search.lucene.irst import LuceneIrstSearcher
-from pyserini.search.lucene.ltr._base import SpacyTextParser
-from pyserini.analysis import Analyzer, get_lucene_analyzer
-import json
 import pickle
 
 
@@ -45,7 +42,7 @@ def query_loader(topic_path: str):
             continue
         fields = line.split('\t')
         if len(fields) != 2:
-            print('Misformated line %d ignoring:' % ln)
+            print(f"Misformated line {line_num} ignoring:")
             print(line.replace('\t', '<field delimiter>'))
             continue
         did, query = fields
@@ -56,8 +53,8 @@ def query_loader(topic_path: str):
             queries[did] = query
 
         if line_num % 10000 == 0:
-            print('Processed %d queries' % ln)
-    print('Processed %d queries' % line_num)
+            print(f"Processed {line_num} queries")
+    print(f"Processed {line_num} queries")
     return queries
 
 
@@ -107,13 +104,13 @@ if __name__ == "__main__":
                         metavar="tag_name", help='tag name for resulting Qrun')
     parser.add_argument('--base-path', type=str, required=False,
                         metavar="path_to_base_run", help='path to base run')
-    parser.add_argument('--translation-model', type=str, default="../ibm/ibm_model/text_bert_tok_raw",
+    parser.add_argument('--translation-model', type=str, required=True,
                         metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
-    parser.add_argument('--topics', type=str,
-                        help='path to query topics', required=True)
-    parser.add_argument('--index', type=str, default="../ibm/index-msmarco-passage-ltr-20210519-e25e33f",
+    parser.add_argument('--topics', type=str, required=True,
+                        help='path to query topics')
+    parser.add_argument('--index', type=str, required=True,
                         metavar="path_to_lucene_index", help='path to lucene index folder')
-    parser.add_argument('--output', type=str, default="./ibm/runs/result-colbert-test-alpha0.3.txt",
+    parser.add_argument('--output', type=str, required=True,
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
     parser.add_argument('--alpha', type=float, default="0.3",
                         metavar="type of field", help='interpolation weight')
@@ -123,6 +120,10 @@ if __name__ == "__main__":
                         help='whether we use max sim operator or avg instead')
     parser.add_argument('--segments', default=False, action="store_true",
                         help='whether we use segmented index or not')
+    parser.add_argument('--k1', type=int, default="0.81",
+                        metavar="bm25_k1_parameter", help='k1 parameter for bm25 search')
+    parser.add_argument('--b', type=int, default="0.68",
+                        metavar="bm25_b_parameter", help='b parameter for bm25 search')
     parser.add_argument('--hits', type=int, metavar='number of hits generated in runfile',
                         required=False, default=1000, help="Number of hits.")
     parser.add_argument('--wp-stats', type=str, metavar='term statistics for tokenized collection',
@@ -134,7 +135,7 @@ if __name__ == "__main__":
     f = open(args.output, 'w')
 
     reranker = LuceneIrstSearcher(
-        args.translation_model, args.index)
+        args.translation_model, args.index, args.k1, args.b)
     queries = query_loader(args.topics)
     with open(args.wp_stats, 'rb') as fin:
         tf_dic = pickle.load(fin)

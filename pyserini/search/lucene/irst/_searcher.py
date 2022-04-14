@@ -43,9 +43,10 @@ class LuceneIrstSearcher(object):
     LAMBDA_VALUE = 0.3
     MIN_COLLECT_PROB = 1e-9
 
-    def __init__(self, ibm_model: str, index: str):
+    def __init__(self, ibm_model: str, index: str, k1: int, b: int):
         self.ibm_model = ibm_model
         self.bm25search = LuceneSearcher.from_prebuilt_index(index)
+        self.bm25search.set_bm25(k1, b)
         index_directory = os.path.join(get_cache_home(), 'indexes')
         if (index == 'msmarco-v1-passage'):
             index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-passage.20220131.9ea315.4d8fdbdcd119c1f47a4cc5d01a45dad3')
@@ -168,7 +169,7 @@ class LuceneIrstSearcher(object):
             target_lookup, tran, collect_probs, max_sim) = arguments
 
         if searcher.documentRaw(test_doc) is None:
-            print(f'{test_doc} is not found in searcher')
+            print(f"{test_doc} is not found in searcher")
         contents = json.loads(self.object.documentRaw(test_doc))['contents']
         doc_token_lst = self.bert_tokenizer.tokenize(contents.lower(), truncation=True)
         total_query_prob = 0
@@ -203,8 +204,6 @@ class LuceneIrstSearcher(object):
         return total_query_prob / query_size
 
     def search(self, query_text, query_field_text, hits, max_sim, tf_table):
-        self.bm25search.set_bm25(0.82, 0.68)
-
         bm25_results = self.bm25search.search(query_text, hits)
         origin_scores = [bm25_result.score for bm25_result in bm25_results]
         test_docs = [bm25_result.docid for bm25_result in bm25_results]
@@ -215,8 +214,7 @@ class LuceneIrstSearcher(object):
         collect_probs = {}
         for querytoken in query_field_text_lst:
             if querytoken in tf_table:
-                collect_probs[querytoken] = max(tf_table[querytoken] / total_term_freq,
-                    self.MIN_COLLECT_PROB)
+                collect_probs[querytoken] = max(tf_table[querytoken] / total_term_freq, self.MIN_COLLECT_PROB)
             else:
                 collect_probs[querytoken] = self.MIN_COLLECT_PROB
         arguments = [(
@@ -237,8 +235,7 @@ class LuceneIrstSearcher(object):
         collect_probs = {}
         for querytoken in query_field_text_lst:
             if querytoken in tf_table:
-                collect_probs[querytoken] = max(tf_table[querytoken] / total_term_freq,
-                    self.MIN_COLLECT_PROB)
+                collect_probs[querytoken] = max(tf_table[querytoken] / total_term_freq, self.MIN_COLLECT_PROB)
             else:
                 collect_probs[querytoken] = self.MIN_COLLECT_PROB
         arguments = [(
