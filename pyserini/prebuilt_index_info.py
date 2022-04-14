@@ -1772,10 +1772,10 @@ FAISS_INDEX_INFO = {
     },
     "mrtydi-v1.1-arabic-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.mrtydi-v1.1-arabic.msmarco.20220413.5e05f6.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-arabic.20220413.5e05f6.README.md",
+        "filename": "faiss.mrtydi-v1.1-arabic.msmarco.20220413.aa1c0e9.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-arabic.20220413.aa1c0e9.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s//download"  # Note, this is Crystina's account.
+            "https://vault.cs.uwaterloo.ca/s/xzJsyc2SmMCfXaP/download"  # Note, this is Crystina's account.
         ],
         "md5": "c86d8ee0405c78bd430631e911831dee",
         "size compressed (bytes)": 5997945093,
@@ -1785,10 +1785,10 @@ FAISS_INDEX_INFO = {
     },
     "mrtydi-v1.1-bengali-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.mrtydi-v1.1-bengali.msmarco.20220413.5e05f6.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-bengali.20220413.5e05f6.README.md",
+        "filename": "faiss.mrtydi-v1.1-bengali.msmarco.20220413.aa1c0e9.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-bengali.20220413.aa1c0e9.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s//download"  # Note, this is Crystina's account.
+            "https://vault.cs.uwaterloo.ca/s/4ij2fCbHmdn86DL/download"  # Note, this is Crystina's account.
         ],
         "md5": "c1d3fb8342a8c4017917b1bc08909d05",
         "size compressed (bytes)": 865733072,
@@ -1798,10 +1798,10 @@ FAISS_INDEX_INFO = {
     },
     "mrtydi-v1.1-english-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.mrtydi-v1.1-english.msmarco.20220413.5e05f6.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-english.20220413.5e05f6.README.md",
+        "filename": "faiss.mrtydi-v1.1-english.msmarco.20220413.aa1c0e9.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-english.20220413.aa1c0e9.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s//download"  # Note, this is Crystina's account.
+            "https://vault.cs.uwaterloo.ca/s/zM2efWb7SAo7jQ9/download"  # Note, this is Crystina's account.
         ],
         "md5": "464fd00b1d15e18825cc3db146fae3af",
         "size compressed (bytes)": 93594559706,
@@ -1811,10 +1811,10 @@ FAISS_INDEX_INFO = {
     },
     "mrtydi-v1.1-finnish-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.mrtydi-v1.1-finnish.msmarco.20220413.5e05f6.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-finnish.20220413.5e05f6.README.md",
+        "filename": "faiss.mrtydi-v1.1-finnish.msmarco.20220413.aa1c0e9.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-finnish.20220413.aa1c0e9.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s//download"  # Note, this is Crystina's account.
+            "https://vault.cs.uwaterloo.ca/s/f9NoAmceHQw49Gg/download"  # Note, this is Crystina's account.
         ],
         "md5": "cda3e5fd633e65e71c5fe1c52c681a7d",
         "size compressed (bytes)": 5436417824,
@@ -1824,10 +1824,10 @@ FAISS_INDEX_INFO = {
     },
     "mrtydi-v1.1-indonesian-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.mrtydi-v1.1-indonesian.msmarco.20220413.5e05f6.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-indonesian.20220413.5e05f6.README.md",
+        "filename": "faiss.mrtydi-v1.1-indonesian.msmarco.20220413.aa1c0e9.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-indonesian.20220413.aa1c0e9.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s//download"  # Note, this is Crystina's account.
+            "https://vault.cs.uwaterloo.ca/s/6LzZQKgMExrqL4b/download"  # Note, this is Crystina's account.
         ],
         "md5": "2fda8bf9f34dc099c209c46edecd57d2",
         "size compressed (bytes)": 4000268288,
@@ -1837,10 +1837,10 @@ FAISS_INDEX_INFO = {
     },
     "mrtydi-v1.1-japanese-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.mrtydi-v1.1-japanese.msmarco.20220413.5e05f6.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-japanese.20220413.5e05f6.README.md",
+        "filename": "faiss.mrtydi-v1.1-japanese.msmarco.20220413.aa1c0e9.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-japanese.20220413.aa1c0e9.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s//download"  # Note, this is Crystina's account.
+            "https://vault.cs.uwaterloo.ca/s/tSwLm3FHJ6fiDZB/download"  # Note, this is Crystina's account.
         ],
         "md5": "e3d2df7d8917a075c5b8bed40ea0fe37",
         "size compressed (bytes)": 19918318508,
@@ -1850,10 +1850,10 @@ FAISS_INDEX_INFO = {
     },
     "mrtydi-v1.1-korean-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.mrtydi-v1.1-korean.msmarco.20220413.5e05f6.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-korean.20220413.5e05f6.README.md",
+        "filename": "faiss.mrtydi-v1.1-korean.msmarco.20220413.aa1c0e9.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-korean.20220413.aa1c0e9.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s//download"  # Note, this is Crystina's account.
+            "https://vault.cs.uwaterloo.ca/s/oiAPewgFprkCP5G/download"  # Note, this is Crystina's account.
         ],
         "md5": "babd3235410a0aa06d5d7c7190681642",
         "size compressed (bytes)": 4256863184,
@@ -1863,10 +1863,10 @@ FAISS_INDEX_INFO = {
     },
     "mrtydi-v1.1-russian-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.mrtydi-v1.1-russian.msmarco.20220413.5e05f6.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-russian.20220413.5e05f6.README.md",
+        "filename": "faiss.mrtydi-v1.1-russian.msmarco.20220413.aa1c0e9.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-russian.20220413.aa1c0e9.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s//download"  # Note, this is Crystina's account.
+            "https://vault.cs.uwaterloo.ca/s/s85PeRYL7R2JZii/download"  # Note, this is Crystina's account.
         ],
         "md5": "e5f87a5240467fb7449b83f05ee278ea",
         "size compressed (bytes)": 27318553280,
@@ -1876,10 +1876,10 @@ FAISS_INDEX_INFO = {
     },
     "mrtydi-v1.1-swahili-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.mrtydi-v1.1-swahili.msmarco.20220413.5e05f6.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-swahili.20220413.5e05f6.README.md",
+        "filename": "faiss.mrtydi-v1.1-swahili.msmarco.20220413.aa1c0e9.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-swahili.20220413.aa1c0e9.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s//download"  # Note, this is Crystina's account.
+            "https://vault.cs.uwaterloo.ca/s/MTw5By6c7XxbAEx/download"  # Note, this is Crystina's account.
         ],
         "md5": "f02111343032cd33fbad5fde82cea314",
         "size compressed (bytes)": 389600312,
@@ -1889,10 +1889,10 @@ FAISS_INDEX_INFO = {
     },
     "mrtydi-v1.1-telugu-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.mrtydi-v1.1-telugu.msmarco.20220413.5e05f6.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-telugu.20220413.5e05f6.README.md",
+        "filename": "faiss.mrtydi-v1.1-telugu.msmarco.20220413.aa1c0e9.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-telugu.20220413.aa1c0e9.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s//download"  # Note, this is Crystina's account.
+            "https://vault.cs.uwaterloo.ca/s/LWNjGdzkGR8ea6o/download"  # Note, this is Crystina's account.
         ],
         "md5": "eb029bff680573d8ba762acc35d3a070",
         "size compressed (bytes)": 1561419671,
@@ -1902,10 +1902,10 @@ FAISS_INDEX_INFO = {
     },
     "mrtydi-v1.1-thai-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.mrtydi-v1.1-thai.msmarco.20220413.5e05f6.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-thai.20220413.5e05f6.README.md",
+        "filename": "faiss.mrtydi-v1.1-thai.msmarco.20220413.aa1c0e9.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-thai.20220413.aa1c0e9.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s//download"  # Note, this is Crystina's account.
+            "https://vault.cs.uwaterloo.ca/s/S8nyNHpWW3N56TN/download"  # Note, this is Crystina's account.
         ],
         "md5": "7fd395e4f2448fc0d7dfd6c0ca860074",
         "size compressed (bytes)": 1616716079,
