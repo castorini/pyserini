@@ -120,9 +120,9 @@ if __name__ == "__main__":
                         help='whether we use max sim operator or avg instead')
     parser.add_argument('--segments', default=False, action="store_true",
                         help='whether we use segmented index or not')
-    parser.add_argument('--k1', type=int, default="0.81",
+    parser.add_argument('--k1', type=float, default="0.81",
                         metavar="bm25_k1_parameter", help='k1 parameter for bm25 search')
-    parser.add_argument('--b', type=int, default="0.68",
+    parser.add_argument('--b', type=float, default="0.68",
                         metavar="bm25_b_parameter", help='b parameter for bm25 search')
     parser.add_argument('--hits', type=int, metavar='number of hits generated in runfile',
                         required=False, default=1000, help="Number of hits.")
