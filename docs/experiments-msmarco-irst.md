@@ -106,7 +106,7 @@ tar -xzvf irst_test/ibm_model_1_bert_tok_20211117.tar.gz -C irst_test
 
 Download term freq statistics for wp collection:
 ```bash
-TODO
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/bert_wp_term_freq.msmarco-doc.20220411.pickle -P irst_test/
 ```
 
 Next we can run our script to get our retrieval results.
@@ -120,7 +120,7 @@ python -m pyserini.search.lucene.irst \
   --output irst_test/regression_test_sum.irst_topics.txt \
   --alpha 0.3 \
   --hits 1000 \
-  --wp-stat TODO
+  --wp-stat irst_test/bert_wp_term_freq.msmarco-doc.20220411.pickle
 ```
 
 IRST (Max)
@@ -133,7 +133,7 @@ python -m pyserini.search.lucene.irst \
   --alpha 0.3 \
   --hits 1000 \
   --max-sim \
-  --wp-stat TODO
+  --wp-stat irst_test/bert_wp_term_freq.msmarco-doc.20220411.pickle
 ```
 
 
@@ -189,7 +189,7 @@ tar -xzvf irst_test/ibm_model_1_bert_tok_20211117.tar.gz -C irst_test
 
 Download term freq statistics for wp collection:
 ```bash
-TODO
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/bert_wp_term_freq.msmarco-doc-segmented.20220411.pickle -P irst_test/
 ```
 
 Next we can run our script to get our retrieval results.
@@ -204,7 +204,7 @@ python -m pyserini.search.lucene.irst \
   --alpha 0.3 \
   --segments \
   --hits 10000 \
-  --wp-stat TODO
+  --wp-stat irst_test/bert_wp_term_freq.msmarco-doc-segmented.20220411.pickle
 ```
 
 IRST (Max)
@@ -218,7 +218,7 @@ python -m pyserini.search.lucene.irst \
   --hits 10000 \
   --segments \
   --max-sim \
-  --wp-stat TODO
+  --wp-stat irst_test/bert_wp_term_freq.msmarco-doc-segmented.20220411.pickle
 ```
 
 
