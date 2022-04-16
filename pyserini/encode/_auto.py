@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-import sklearn
 import numpy as np
+from sklearn.preprocessing import normalize
 from transformers import AutoModel, AutoTokenizer
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
@@ -49,7 +49,7 @@ class AutoDocumentEncoder(DocumentEncoder):
         else:
             embeddings = outputs[0][:, 0, :].detach().cpu().numpy()
         if self.l2_norm:
-            sklearn.preprocessing.normalize(embeddings, axis=1)
+            normalize(embeddings, axis=1)
         return embeddings
 
 
@@ -81,5 +81,5 @@ class AutoQueryEncoder(QueryEncoder):
         else:
             embeddings = outputs[:, 0, :]
         if self.l2_norm:
-            embeddings = sklearn.preprocessing.normalize(outputs, norm='l2')
+            embeddings = normalize(outputs, norm='l2')
         return embeddings.flatten()
