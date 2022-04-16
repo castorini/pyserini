@@ -1779,7 +1779,7 @@ FAISS_INDEX_INFO = {
         ],
         "md5": "c86d8ee0405c78bd430631e911831dee",
         "size compressed (bytes)": 5997945093,
-        "documents": ,
+        "documents": 2106586,
         "downloaded": False,
         "texts": "mrtydi-v1.1-arabic-mdpr-msmarco"
     },
@@ -1792,7 +1792,7 @@ FAISS_INDEX_INFO = {
         ],
         "md5": "c1d3fb8342a8c4017917b1bc08909d05",
         "size compressed (bytes)": 865733072,
-        "documents": ,
+        "documents": 304059,
         "downloaded": False,
         "texts": "mrtydi-v1.1-bengali-mdpr-msmarco"
     },
@@ -1805,7 +1805,7 @@ FAISS_INDEX_INFO = {
         ],
         "md5": "464fd00b1d15e18825cc3db146fae3af",
         "size compressed (bytes)": 93594559706,
-        "documents": ,
+        "documents": 32907100,
         "downloaded": False,
         "texts": "mrtydi-v1.1-english-mdpr-msmarco"
     },
@@ -1818,7 +1818,7 @@ FAISS_INDEX_INFO = {
         ],
         "md5": "cda3e5fd633e65e71c5fe1c52c681a7d",
         "size compressed (bytes)": 5436417824,
-        "documents": ,
+        "documents": 1908757,
         "downloaded": False,
         "texts": "mrtydi-v1.1-finnish-mdpr-msmarco"
     },
@@ -1831,7 +1831,7 @@ FAISS_INDEX_INFO = {
         ],
         "md5": "2fda8bf9f34dc099c209c46edecd57d2",
         "size compressed (bytes)": 4000268288,
-        "documents": ,
+        "documents": 1469399,
         "downloaded": False,
         "texts": "mrtydi-v1.1-indonesian-mdpr-msmarco"
     },
@@ -1844,7 +1844,7 @@ FAISS_INDEX_INFO = {
         ],
         "md5": "e3d2df7d8917a075c5b8bed40ea0fe37",
         "size compressed (bytes)": 19918318508,
-        "documents": ,
+        "documents": 7000027,
         "downloaded": False,
         "texts": "mrtydi-v1.1-japanese-mdpr-msmarco"
     },
@@ -1857,7 +1857,7 @@ FAISS_INDEX_INFO = {
         ],
         "md5": "babd3235410a0aa06d5d7c7190681642",
         "size compressed (bytes)": 4256863184,
-        "documents": ,
+        "documents": 1496126,
         "downloaded": False,
         "texts": "mrtydi-v1.1-korean-mdpr-msmarco"
     },
@@ -1870,7 +1870,7 @@ FAISS_INDEX_INFO = {
         ],
         "md5": "e5f87a5240467fb7449b83f05ee278ea",
         "size compressed (bytes)": 27318553280,
-        "documents": ,
+        "documents": 9597504,
         "downloaded": False,
         "texts": "mrtydi-v1.1-russian-mdpr-msmarco"
     },
@@ -1883,7 +1883,7 @@ FAISS_INDEX_INFO = {
         ],
         "md5": "f02111343032cd33fbad5fde82cea314",
         "size compressed (bytes)": 389600312,
-        "documents": ,
+        "documents": 136689,
         "downloaded": False,
         "texts": "mrtydi-v1.1-swahili-mdpr-msmarco"
     },
@@ -1896,7 +1896,7 @@ FAISS_INDEX_INFO = {
         ],
         "md5": "eb029bff680573d8ba762acc35d3a070",
         "size compressed (bytes)": 1561419671,
-        "documents": ,
+        "documents": 548224,
         "downloaded": False,
         "texts": "mrtydi-v1.1-telugu-mdpr-msmarco"
     },
@@ -1909,7 +1909,7 @@ FAISS_INDEX_INFO = {
         ],
         "md5": "7fd395e4f2448fc0d7dfd6c0ca860074",
         "size compressed (bytes)": 1616716079,
-        "documents": ,
+        "documents": 568855,
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai-mdpr-msmarco"
     }
