@@ -1781,7 +1781,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 5997945093,
         "documents": 2106586,
         "downloaded": False,
-        "texts": "mrtydi-v1.1-arabic-mdpr-msmarco"
+        "texts": "mrtydi-v1.1-arabic",
     },
     "mrtydi-v1.1-bengali-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
@@ -1794,7 +1794,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 865733072,
         "documents": 304059,
         "downloaded": False,
-        "texts": "mrtydi-v1.1-bengali-mdpr-msmarco"
+        "texts": "mrtydi-v1.1-bengali",
     },
     "mrtydi-v1.1-english-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
@@ -1807,7 +1807,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 93594559706,
         "documents": 32907100,
         "downloaded": False,
-        "texts": "mrtydi-v1.1-english-mdpr-msmarco"
+        "texts": "mrtydi-v1.1-english"
     },
     "mrtydi-v1.1-finnish-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
@@ -1820,7 +1820,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 5436417824,
         "documents": 1908757,
         "downloaded": False,
-        "texts": "mrtydi-v1.1-finnish-mdpr-msmarco"
+        "texts": "mrtydi-v1.1-finnish"
     },
     "mrtydi-v1.1-indonesian-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
@@ -1829,11 +1829,11 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://vault.cs.uwaterloo.ca/s/6LzZQKgMExrqL4b/download"  # Note, this is Crystina's account.
         ],
-        "md5": "2fda8bf9f34dc099c209c46edecd57d2",
-        "size compressed (bytes)": 4000268288,
+        "md5": "2d0a03ab6428aa9d3deb207b673f01e4",
+        "size compressed (bytes)": 4178791526,
         "documents": 1469399,
         "downloaded": False,
-        "texts": "mrtydi-v1.1-indonesian-mdpr-msmarco"
+        "texts": "mrtydi-v1.1-indonesian"
     },
     "mrtydi-v1.1-japanese-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
@@ -1846,7 +1846,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 19918318508,
         "documents": 7000027,
         "downloaded": False,
-        "texts": "mrtydi-v1.1-japanese-mdpr-msmarco"
+        "texts": "mrtydi-v1.1-japanese"
     },
     "mrtydi-v1.1-korean-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
@@ -1859,7 +1859,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 4256863184,
         "documents": 1496126,
         "downloaded": False,
-        "texts": "mrtydi-v1.1-korean-mdpr-msmarco"
+        "texts": "mrtydi-v1.1-korean"
     },
     "mrtydi-v1.1-russian-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
@@ -1872,7 +1872,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 27318553280,
         "documents": 9597504,
         "downloaded": False,
-        "texts": "mrtydi-v1.1-russian-mdpr-msmarco"
+        "texts": "mrtydi-v1.1-russian"
     },
     "mrtydi-v1.1-swahili-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
@@ -1885,7 +1885,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 389600312,
         "documents": 136689,
         "downloaded": False,
-        "texts": "mrtydi-v1.1-swahili-mdpr-msmarco"
+        "texts": "mrtydi-v1.1-swahili"
     },
     "mrtydi-v1.1-telugu-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
@@ -1898,7 +1898,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 1561419671,
         "documents": 548224,
         "downloaded": False,
-        "texts": "mrtydi-v1.1-telugu-mdpr-msmarco"
+        "texts": "mrtydi-v1.1-telugu"
     },
     "mrtydi-v1.1-thai-mdpr-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
@@ -1911,6 +1911,6 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 1616716079,
         "documents": 568855,
         "downloaded": False,
-        "texts": "mrtydi-v1.1-thai-mdpr-msmarco"
+        "texts": "mrtydi-v1.1-thai"
     }
 }
