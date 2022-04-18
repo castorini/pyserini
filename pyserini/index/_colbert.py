@@ -69,10 +69,10 @@ class ColBertIndexer:
         # for flat faiss index, we cannot load it because it is
         # generally similar size to plain embedding files. Here
         # we just create separate faiss indicies.
+        faiss_index = faiss.IndexFlatIP(self.dim)
         for i, file in enumerate(self.get_plain_embedding_files()):
             if i == self.limit_adds:
                 break
-            faiss_index = faiss.IndexFlatIP(self.dim)
             path = os.path.join(self.index_path, file)
             print(f'Loading partition {path}')
             embs = torch.load(path) # [N, dim]
@@ -81,10 +81,15 @@ class ColBertIndexer:
             # adding embeddings for this shard
             faiss_index.add(embs)
             n_words = faiss_index.ntotal
-            print(f'Indexed: {n_words} words.')
-            # write flat faiss for this shard
-            path = os.path.join(self.index_path, f'word_emb.{i}.faiss')
-            faiss.write_index(faiss_index, path)
+            print(f'Added: {n_words} words.')
+
+        print('Writing flat faiss index ...')
+        path = os.path.join(self.index_path, f'word_emb.{i}.faiss')
+        faiss.write_index(faiss_index, path)
+
+        print('Simple Checking ...')
+        faiss_index = faiss.read_index(path)
+        assert n_words == faiss_index.ntotal
 
     def create_compressed_faiss_index(self, sample_div=50):
         files = self.get_plain_embedding_files()
