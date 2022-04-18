@@ -259,9 +259,9 @@ python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut.10 -m map -m recip_rank 
 | Topics                | Method                        | MRR@10    | nDCG@10 | Map |
 |:-------------------------|:------------------------|:------:|:--------:|:-----------:|
 | DL19                | IRST(Sum)               | - | 0.526   | 0.328     |
-| DL19                 | IRST(Max)              | - | 0.537   | 0.328      |
+| DL19                 | IRST(Max)              | - | 0.537   | 0.329      |
 | DL20                | IRST(Sum)               | -| 0.558   | 0.352      |
-| DL20                | IRST(Max)               | -| 0.546   | 0.337      |
+| DL20                | IRST(Max)               | -| 0.547   | 0.336      |
 | MS MARCO Dev                | IRST(Sum)               | 0.221| -   | -      |
 | MS MARCO Dev                | IRST(Max)               | 0.215| -   | -      |
 
