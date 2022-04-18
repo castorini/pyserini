@@ -245,7 +245,7 @@ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl19-doc irst_
 
 Similarly for TREC DL 2020,  no need to use -l 2 option:
 ```bash
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl20-doc irst_test/regression_test_max.dl20-doc-seg.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl20-doc irst_test/regression_test_sum.dl20-doc-seg.txt
 ```
 
 For MS MARCO Doc V1, no need to use -l 2 option:
@@ -274,8 +274,8 @@ python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut.10 -m map -m recip_rank 
 | DL19                 | IRST(Max)              | - | 0.491   | 0.220     |
 | DL20                | IRST(Sum)               | - | 0.556   | 0.383     |
 | DL20                | IRST(Max)               | - | 0.502   | 0.337     |
-| MS MARCO Dev                | IRST(Sum)               |0.303 | -   | -      |
-| MS MARCO Dev                | IRST(Max)               |0.253 | -   | -      |
+| MS MARCO Dev                | IRST(Sum)               |0.302 | -   | -      |
+| MS MARCO Dev                | IRST(Max)               |0.252 | -   | -      |
 
 ### Document Segment Ranking Datasets
 
@@ -283,7 +283,7 @@ python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut.10 -m map -m recip_rank 
 |:-------------------------|:------------------------|:------:|:--------:|:-----------:|
 | DL19                | IRST(Sum)               | - | 0.560   | 0.271      |
 | DL19                 | IRST(Max)              | - | 0.520   | 0.243      |
-| DL20                | IRST(Sum)               | - | 0.536   |  0.376     |
-| DL20                | IRST(Max)               | - | 0.510   |   0.350    |
+| DL20                | IRST(Sum)               | - | 0.534   |  0.376     |
+| DL20                | IRST(Max)               | - | 0.509   |   0.350    |
 | MS MARCO Dev                | IRST(Sum)               |0.296 | -   | -      |
-| MS MARCO Dev                | IRST(Max)               |0.260 | -   | -      |
+| MS MARCO Dev                | IRST(Max)               |0.259 | -   | -      |
