@@ -75,7 +75,9 @@ class ColBertIndexer:
             faiss_index = faiss.IndexFlatIP(self.dim)
             path = os.path.join(self.index_path, file)
             print(f'Loading partition {path}')
-            embs = torch.load(path).numpy() # [N, dim]
+            embs = torch.load(path) # [N, dim]
+            embs = embs.to(dtype=torch.float32)
+            embs = embs.numpy()
             # adding embeddings for this shard
             faiss_index.add(embs)
             n_words = faiss_index.ntotal
