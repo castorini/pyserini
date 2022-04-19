@@ -42,7 +42,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         self.dl19_pass = 'tools/topics-and-qrels/topics.dl19-passage.txt'
         self.dl20 = 'tools/topics-and-qrels/topics.dl20.txt'
     
-    def test_sum_aggregation(self):
+    def test_sum_aggregation_dl19_passage(self):
         #dl19 passage
         topic = 'dl19-passage'
         os.system(f'python -m pyserini.search.lucene.irst \
@@ -66,6 +66,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         self.assertEqual(map_score, 0.3281)
         self.assertEqual(ndcg_score, 0.5260)
 
+    def test_sum_aggregation_dl20_passage(self):
         #dl20 passage
         topic = 'dl20-passage'
         os.system(f'python -m pyserini.search.lucene.irst \
@@ -89,7 +90,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         self.assertEqual(map_score, 0.3520)
         self.assertEqual(ndcg_score, 0.5578)
     
-    def test_max_aggregation(self):
+    def test_max_aggregation_dl19(self):
         #dl19 passage
         topic = 'dl19-passage'
         
@@ -115,6 +116,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         self.assertEqual(ndcg_score, 0.5371)
         
 
+    def test_max_aggregation_dl20_passage(self):
         #dl20 passage
         topic = 'dl20-passage'
         os.system(f'python -m pyserini.search.lucene.irst \
@@ -164,7 +166,7 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
         self.dl19_doc = 'tools/topics-and-qrels/topics.dl19-doc.txt'
         self.dl20 = 'tools/topics-and-qrels/topics.dl20.txt'
 
-    def test_sum_aggregation(self):
+    def test_sum_aggregation_dl19_doc(self):
         #dl19
         topic = 'dl19-doc'
         os.system(f'python -m pyserini.search.lucene.irst \
@@ -188,7 +190,7 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
         self.assertEqual(map_score, 0.2524)
         self.assertEqual(ndcg_score, 0.5494)
 
-        #dl20
+    def test_sum_aggregation_dl20_doc(self):
         topic = 'dl20-doc'
         os.system(f'python -m pyserini.search.lucene.irst \
             --topics {self.dl20} \
@@ -211,7 +213,7 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
         self.assertEqual(map_score, 0.3825)
         self.assertEqual(ndcg_score, 0.5559)
 
-    def test_max_aggregation(self):
+    def test_max_aggregation_dl19_doc(self):
         #dl19
         topic = 'dl19-doc'
         os.system(f'python -m pyserini.search.lucene.irst \
@@ -236,6 +238,7 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
         self.assertEqual(map_score, 0.2204)
         self.assertEqual(ndcg_score, 0.4912)
 
+    def test_max_aggregation_dl20_doc(self):
         #dl20
         topic = 'dl20-doc'
         os.system(f'python -m pyserini.search.lucene.irst \
@@ -285,7 +288,7 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
         self.dl19_doc = 'tools/topics-and-qrels/topics.dl19-doc.txt'
         self.dl20 = 'tools/topics-and-qrels/topics.dl20.txt'
 
-    def test_sum_aggregation(self):
+    def test_sum_aggregation_dl19_doc_seg(self):
         #dl19
         topic = 'dl19-doc'
         os.system(f'python -m pyserini.search.lucene.irst \
@@ -310,6 +313,7 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
         self.assertEqual(map_score, 0.2711)
         self.assertEqual(ndcg_score, 0.5596)
 
+    def test_sum_aggregation_dl20_doc_seg(self):
         #dl20
         topic = 'dl20-doc'
         os.system(f'python -m pyserini.search.lucene.irst \
@@ -334,7 +338,7 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
         self.assertEqual(map_score, 0.3759)
         self.assertEqual(ndcg_score, 0.5343)
 
-    def test_max_aggregation(self):
+    def test_max_aggregation_dl19_doc_seg(self):
         #dl19
         topic = 'dl19-doc'
         os.system(f'python -m pyserini.search.lucene.irst \
@@ -360,6 +364,7 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
         self.assertEqual(map_score, 0.2425)
         self.assertEqual(ndcg_score, 0.5195)
 
+    def test_max_aggregation_dl20_doc_seg(self):
         #dl20
         topic = 'dl20-doc'
         os.system(f'python -m pyserini.search.lucene.irst \
