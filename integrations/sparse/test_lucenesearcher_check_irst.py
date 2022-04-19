@@ -41,7 +41,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         os.system(f'wget {wp_term_url} -P irst_test/')
         self.dl19_pass = 'tools/topics-and-qrels/topics.dl19-passage.txt'
         self.dl20 = 'tools/topics-and-qrels/topics.dl20.txt'
-
+    
     def test_sum_aggregation(self):
         #dl19 passage
         topic = 'dl19-passage'
@@ -88,10 +88,11 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.3520)
         self.assertEqual(ndcg_score, 0.5578)
-
+    
     def test_max_aggregation(self):
         #dl19 passage
         topic = 'dl19-passage'
+        
         os.system(f'python -m pyserini.search.lucene.irst \
             --topics {self.dl19_pass} \
             --translation-model irst_test/ibm_model_1_bert_tok_20211117/ \
@@ -100,7 +101,6 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
             --wp-stat irst_test/bert_wp_term_freq.msmarco-passage.20220411.pickle \
             --alpha 0.3 \
             --max-sim ')
-
         score_cmd = f'python -m pyserini.eval.trec_eval \
                 -c -m map -m ndcg_cut.10 -l 2 {topic} irst_test/regression_test_max.{topic}.txt'
 
@@ -111,8 +111,9 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.32)
-        self.assertEqual(ndcg_score, 0.2746)
+        self.assertEqual(map_score, 0.3286)
+        self.assertEqual(ndcg_score, 0.5371)
+        
 
         #dl20 passage
         topic = 'dl20-passage'
@@ -135,11 +136,12 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.3520)
-        self.assertEqual(ndcg_score, 0.5578)
+        self.assertEqual(map_score, 0.3357)
+        self.assertEqual(ndcg_score, 0.5469)
 
     def tearDown(self):
         rmtree('irst_test/')
+
 
 class TestMsmarcoDocumentIrst(unittest.TestCase):
     def setUp(self):
@@ -183,8 +185,8 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.3281)
-        self.assertEqual(ndcg_score, 0.5260)
+        self.assertEqual(map_score, 0.2524)
+        self.assertEqual(ndcg_score, 0.5494)
 
         #dl20
         topic = 'dl20-doc'
@@ -206,8 +208,8 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.3520)
-        self.assertEqual(ndcg_score, 0.5578)
+        self.assertEqual(map_score, 0.3825)
+        self.assertEqual(ndcg_score, 0.5559)
 
     def test_max_aggregation(self):
         #dl19
@@ -231,8 +233,8 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.32)
-        self.assertEqual(ndcg_score, 0.2746)
+        self.assertEqual(map_score, 0.2204)
+        self.assertEqual(ndcg_score, 0.4912)
 
         #dl20
         topic = 'dl20-doc'
@@ -255,13 +257,14 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.3520)
-        self.assertEqual(ndcg_score, 0.5578)
+        self.assertEqual(map_score, 0.3373)
+        self.assertEqual(ndcg_score, 0.5015)
 
     def tearDown(self):
         rmtree('irst_test/')
-    
-class TestMsmarcoDocumentIrst(unittest.TestCase):
+
+
+class TestMsmarcoDocumentSegIrst(unittest.TestCase):
     def setUp(self):
         curdir = os.getcwd()
         if curdir.endswith('sparse'):
@@ -304,8 +307,8 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.3281)
-        self.assertEqual(ndcg_score, 0.5260)
+        self.assertEqual(map_score, 0.2711)
+        self.assertEqual(ndcg_score, 0.5596)
 
         #dl20
         topic = 'dl20-doc'
@@ -328,8 +331,8 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.3520)
-        self.assertEqual(ndcg_score, 0.5578)
+        self.assertEqual(map_score, 0.3759)
+        self.assertEqual(ndcg_score, 0.5343)
 
     def test_max_aggregation(self):
         #dl19
@@ -354,8 +357,8 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.32)
-        self.assertEqual(ndcg_score, 0.2746)
+        self.assertEqual(map_score, 0.2425)
+        self.assertEqual(ndcg_score, 0.5195)
 
         #dl20
         topic = 'dl20-doc'
@@ -379,11 +382,12 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.3520)
-        self.assertEqual(ndcg_score, 0.5578)
+        self.assertEqual(map_score, 0.3496)
+        self.assertEqual(ndcg_score, 0.5089)
 
     def tearDown(self):
         rmtree('irst_test/')
+
 
 
 if __name__ == '__main__':
