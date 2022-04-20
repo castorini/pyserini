@@ -23,7 +23,6 @@ if __name__ == '__main__':
         for qid, docid_score in tqdm(scores.items()):
             rank = 1
             docid_score = sorted(docid_score.items(),key=lambda kv: kv[1], reverse=True)
-            #docid_score.sort(key=lambda x:x[1], reverse=True)
             for docid, score in docid_score:
                 fout.write(f'{qid}\t{docid}\t{rank}\n')
                 rank += 1

@@ -21,8 +21,9 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-from pyserini import analysis, index, search
-from pyserini.analysis import JAnalyzer, JAnalyzerUtils, Analyzer
+from pyserini.analysis import JAnalyzer, JAnalyzerUtils, Analyzer, get_lucene_analyzer
+from pyserini.index.lucene import IndexReader
+from pyserini.search.lucene import LuceneSearcher
 
 
 class TestAnalyzers(unittest.TestCase):
@@ -39,18 +40,18 @@ class TestAnalyzers(unittest.TestCase):
         tarball = tarfile.open(self.tarball_name)
         tarball.extractall(self.index_dir)
         tarball.close()
-        self.searcher = search.LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
-        self.index_utils = index.IndexReader(f'{self.index_dir}lucene-index.cacm')
+        self.searcher = LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
+        self.index_utils = IndexReader(f'{self.index_dir}lucene-index.cacm')
 
     def test_different_analyzers_are_different(self):
-        self.searcher.set_analyzer(analysis.get_lucene_analyzer(stemming=False))
+        self.searcher.set_analyzer(get_lucene_analyzer(stemming=False))
         hits_first = self.searcher.search('information retrieval')
-        self.searcher.set_analyzer(analysis.get_lucene_analyzer())
+        self.searcher.set_analyzer(get_lucene_analyzer())
         hits_second = self.searcher.search('information retrieval')
         self.assertNotEqual(hits_first, hits_second)
 
     def test_analyze_with_analyzer(self):
-        analyzer = analysis.get_lucene_analyzer(stemming=False)
+        analyzer = get_lucene_analyzer(stemming=False)
         self.assertTrue(isinstance(analyzer, JAnalyzer))
         query = 'information retrieval'
         only_tokenization = JAnalyzerUtils.analyze(analyzer, query)
@@ -61,37 +62,37 @@ class TestAnalyzers(unittest.TestCase):
 
     def test_analysis(self):
         # Default is Porter stemmer
-        analyzer = analysis.Analyzer(analysis.get_lucene_analyzer())
+        analyzer = Analyzer(get_lucene_analyzer())
         self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['citi', 'buse', 'run', 'time'])
 
         # Specify Porter stemmer explicitly
-        analyzer = analysis.Analyzer(analysis.get_lucene_analyzer(stemmer='porter'))
+        analyzer = Analyzer(get_lucene_analyzer(stemmer='porter'))
         self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['citi', 'buse', 'run', 'time'])
 
         # Specify Krovetz stemmer explicitly
-        analyzer = analysis.Analyzer(analysis.get_lucene_analyzer(stemmer='krovetz'))
+        analyzer = Analyzer(get_lucene_analyzer(stemmer='krovetz'))
         self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['city', 'bus', 'running', 'time'])
 
         # No stemming
-        analyzer = analysis.Analyzer(analysis.get_lucene_analyzer(stemming=False))
+        analyzer = Analyzer(get_lucene_analyzer(stemming=False))
         self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['city', 'buses', 'running', 'time'])
 
         # No stopword filter, no stemming
-        analyzer = analysis.Analyzer(analysis.get_lucene_analyzer(stemming=False, stopwords=False))
+        analyzer = Analyzer(get_lucene_analyzer(stemming=False, stopwords=False))
         self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['city', 'buses', 'are', 'running', 'on', 'time'])
 
         # No stopword filter, with stemming
-        analyzer = analysis.Analyzer(analysis.get_lucene_analyzer(stemming=True, stopwords=False))
+        analyzer = Analyzer(get_lucene_analyzer(stemming=True, stopwords=False))
         self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['citi', 'buse', 'ar', 'run', 'on', 'time'])
@@ -99,12 +100,12 @@ class TestAnalyzers(unittest.TestCase):
     def test_invalid_analyzer_wrapper(self):
         # Invalid JAnalyzer, make sure we get an exception.
         with self.assertRaises(TypeError):
-            analysis.Analyzer('str')
+            Analyzer('str')
 
     def test_invalid_analysis(self):
         # Invalid configuration, make sure we get an exception.
         with self.assertRaises(ValueError):
-            analysis.Analyzer(analysis.get_lucene_analyzer('blah'))
+            Analyzer(get_lucene_analyzer('blah'))
 
     def tearDown(self):
         self.searcher.close()

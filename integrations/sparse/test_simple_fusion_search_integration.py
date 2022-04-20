@@ -14,15 +14,17 @@
 # limitations under the License.
 #
 
+import filecmp
 import gzip
 import os
-import filecmp
 import shutil
 import unittest
+
 from tqdm import tqdm
+
 from pyserini.fusion import FusionMethod
-from pyserini.trectools import TrecRun
 from pyserini.search import get_topics, SimpleFusionSearcher
+from pyserini.trectools import TrecRun
 from pyserini.util import download_url, download_and_unpack_index
 
 

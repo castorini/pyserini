@@ -33,7 +33,7 @@ To list what's available in code:
 from pyserini.search.lucene import LuceneSearcher
 LuceneSearcher.list_prebuilt_indexes()
 
-from pyserini.index import IndexReader
+from pyserini.index.lucene import IndexReader
 IndexReader.list_prebuilt_indexes()
 ```
 

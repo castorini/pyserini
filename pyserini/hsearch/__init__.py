@@ -14,6 +14,6 @@
 # limitations under the License.
 #
 
-from ._hybrid import HybridSearcher
+from pyserini.search.hybrid import HybridSearcher
 
 __all__ = ['HybridSearcher']

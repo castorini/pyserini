@@ -232,7 +232,7 @@ class LuceneImpactSearcher:
 
     @staticmethod
     def _compute_idf(index_path):
-        from pyserini.index import IndexReader
+        from pyserini.index.lucene import IndexReader
         index_reader = IndexReader(index_path)
         tokens = []
         dfs = []

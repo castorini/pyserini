@@ -23,24 +23,39 @@ from typing import List, Dict
 from urllib.request import urlretrieve
 
 from pyserini.search.lucene import LuceneSearcher, JLuceneSearcherResult
-from pyserini.index import Document
+from pyserini.index.lucene import Document
 
 
 class TestSearch(unittest.TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         # Download pre-built CACM index; append a random value to avoid filename clashes.
         r = randint(0, 10000000)
-        self.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.tar.gz'
-        self.tarball_name = 'lucene-index.cacm-{}.tar.gz'.format(r)
-        self.index_dir = 'index{}/'.format(r)
+        cls.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.tar.gz'
+        cls.tarball_name = 'lucene-index.cacm-{}.tar.gz'.format(r)
+        cls.index_dir = 'index{}/'.format(r)
 
-        filename, headers = urlretrieve(self.collection_url, self.tarball_name)
+        filename, headers = urlretrieve(cls.collection_url, cls.tarball_name)
 
-        tarball = tarfile.open(self.tarball_name)
-        tarball.extractall(self.index_dir)
+        tarball = tarfile.open(cls.tarball_name)
+        tarball.extractall(cls.index_dir)
         tarball.close()
 
-        self.searcher = LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
+        cls.searcher = LuceneSearcher(f'{cls.index_dir}lucene-index.cacm')
+
+        # Create index without document vectors
+        # The current directory depends on if you're running inside an IDE or from command line.
+        curdir = os.getcwd()
+        if curdir.endswith('tests'):
+            corpus_path = '../tests/resources/sample_collection_json'
+        else:
+            corpus_path = 'tests/resources/sample_collection_json'
+        cls.no_vec_index_dir = 'no_vec_index'
+        cmd1 = f'python -m pyserini.index.lucene -collection JsonCollection ' + \
+               f'-generator DefaultLuceneDocumentGenerator ' + \
+               f'-threads 1 -input {corpus_path} -index {cls.no_vec_index_dir}'
+        os.system(cmd1)
+        cls.no_vec_searcher = LuceneSearcher(cls.no_vec_index_dir)
 
     def test_basic(self):
         self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
@@ -190,6 +205,7 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[9].score, 4.33320, places=5)
 
     def test_rm3(self):
+        self.searcher = LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
         self.searcher.set_rm3()
         self.assertTrue(self.searcher.is_using_rm3())
 
@@ -219,6 +235,9 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[0].score, 2.17190, places=5)
         self.assertEqual(hits[9].docid, 'CACM-1457')
         self.assertAlmostEqual(hits[9].score, 1.43700, places=5)
+
+        with self.assertRaises(TypeError):
+            self.no_vec_searcher.set_rm3()
 
     def test_doc_int(self):
         # The doc method is overloaded: if input is int, it's assumed to be a Lucene internal docid.
@@ -279,10 +298,13 @@ class TestSearch(unittest.TestCase):
         # Should return None if we request a docid that doesn't exist
         self.assertTrue(self.searcher.doc_by_field('foo', 'bar') is None)
 
-    def tearDown(self):
-        self.searcher.close()
-        os.remove(self.tarball_name)
-        shutil.rmtree(self.index_dir)
+    @classmethod
+    def tearDownClass(cls):
+        cls.searcher.close()
+        cls.no_vec_searcher.close()
+        os.remove(cls.tarball_name)
+        shutil.rmtree(cls.index_dir)
+        shutil.rmtree(cls.no_vec_index_dir)
 
 
 if __name__ == '__main__':

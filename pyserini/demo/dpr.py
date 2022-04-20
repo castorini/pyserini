@@ -19,8 +19,8 @@ import json
 import random
 
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.dsearch import SimpleDenseSearcher, DprQueryEncoder
-from pyserini.hsearch import HybridSearcher
+from pyserini.search.faiss import FaissSearcher, DprQueryEncoder
+from pyserini.search.hybrid import HybridSearcher
 from pyserini import search
 
 
@@ -33,7 +33,7 @@ class DPRDemo(cmd.Cmd):
 
     encoder = DprQueryEncoder("facebook/dpr-question_encoder-multiset-base")
     index = 'wikipedia-dpr-multi-bf'
-    dsearcher = SimpleDenseSearcher.from_prebuilt_index(
+    dsearcher = FaissSearcher.from_prebuilt_index(
         index,
         encoder
     )

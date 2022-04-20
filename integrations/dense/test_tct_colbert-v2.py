@@ -21,7 +21,7 @@ import socket
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score
-from pyserini.dsearch import QueryEncoder
+from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
 
@@ -39,7 +39,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_tct_colbert_v2_bf_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert-v2.bf-otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
+        cmd1 = f'python -m pyserini.search.faiss --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-v2-bf \
                              --encoder castorini/tct_colbert-v2-msmarco \
                              --batch-size {self.batch_size} \
@@ -56,7 +56,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_tct_colbert_v2_hn_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert-v2-hn.bf-otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
+        cmd1 = f'python -m pyserini.search.faiss --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-v2-hn-bf \
                              --encoder castorini/tct_colbert-v2-hn-msmarco \
                              --batch-size {self.batch_size} \
@@ -73,7 +73,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_tct_colbert_v2_hnp_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert-v2-hnp.bf-otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
+        cmd1 = f'python -m pyserini.search.faiss --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-tct_colbert-v2-hnp-bf \
                              --encoder castorini/tct_colbert-v2-hnp-msmarco \
                              --batch-size {self.batch_size} \
@@ -90,7 +90,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_tct_colbert_v2_hnp_bf_bm25_hybrid_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert-v2-hnp.bf-otf.bm25.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+        cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
                                     --encoder castorini/tct_colbert-v2-hnp-msmarco \
                              sparse --index msmarco-passage \
                              fusion --alpha 0.06 \
@@ -108,7 +108,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_tct_colbert_v2_hnp_bf_d2q_hybrid_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert-v2-hnp.bf-otf.doc2queryT5.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+        cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
                                     --encoder castorini/tct_colbert-v2-hnp-msmarco \
                              sparse --index msmarco-passage-expanded \
                              fusion --alpha 0.1 \

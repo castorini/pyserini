@@ -254,5 +254,65 @@ QUERY_INFO = {
         "size (bytes)": 11094680,
         "total_queries": 3610,
         "downloaded": False
-     }
+     },
+    "dkrr-dpr-nq-retriever-dpr-nq-dev": {
+        "description": "DPR-NQ dev set questions encoded by castorini/dkrr-dpr-nq-retriever trained on NQ dataset",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dkrr-dpr-nq-retriever-dpr-nq-dev-20220304-7ffa54.tar.gz",
+        ],
+        "md5": "fe1276ae841bd5be6f3e0daac144273a",
+        "size (bytes)": 25146740,
+        "total_queries": 8757,
+        "downloaded": False
+     },
+    "dkrr-dpr-nq-retriever-dpr-nq-test": {
+        "description": "DPR-NQ test set questions encoded by castorini/dkrr-dpr-nq-retriever trained on NQ dataset",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dkrr-dpr-nq-retriever-dpr-nq-test-20220304-7ffa54.tar.gz",
+        ],
+        "md5": "6c7793a0a89e7d10309a6973c52de326",
+        "size (bytes)": 10370414,
+        "total_queries": 3610,
+        "downloaded": False
+     },
+    "dkrr-dpr-nq-retriever-nq-dev": {
+        "description": "NQ dev set questions encoded by castorini/dkrr-dpr-nq-retriever trained on NQ dataset",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dkrr-dpr-nq-retriever-nq-dev-20220304-7ffa54.tar.gz",
+        ],
+        "md5": "3c84c7fb6569d7690d5c38be61d3a5a4",
+        "size (bytes)": 25146526,
+        "total_queries": 8757,
+        "downloaded": False
+     },
+    "dkrr-dpr-nq-retriever-nq-test": {
+        "description": "NQ test set questions encoded by castorini/dkrr-dpr-nq-retriever trained on NQ dataset",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dkrr-dpr-nq-retriever-nq-test-20220304-7ffa54.tar.gz",
+        ],
+        "md5": "cd3c30fc6dfde160983167b59acb17a3",
+        "size (bytes)": 10370264,
+        "total_queries": 3610,
+        "downloaded": False
+     },
+    "dkrr-dpr-tqa-retriever-dpr-tqa-dev": {
+        "description": "TriviaQA dev set questions encoded by castorini/dkrr-dpr-tqa-retriever trained on TriviaQA dataset",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dkrr-dpr-tqa-retriever-tqa-dev-20220304-7ffa54.tar.gz",
+        ],
+        "md5": "f9ca5060cf7794b681cd4fe3d3708c4d",
+        "size (bytes)": 25540932,
+        "total_queries": 8837,
+        "downloaded": False
+     },
+    "dkrr-dpr-tqa-retriever-dpr-tqa-test": {
+        "description": "TriviaQA test set questions encoded by castorini/dkrr-dpr-tqa-retriever trained on TriviaQA dataset",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-dkrr-dpr-tqa-retriever-tqa-test-20220304-7ffa54.tar.gz",
+        ],
+        "md5": "9cbd030c3a4478b7eb8356844bacc45b",
+        "size (bytes)": 32688909,
+        "total_queries": 11313,
+        "downloaded": False
+     }   
 }
