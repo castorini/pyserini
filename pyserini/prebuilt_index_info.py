@@ -1771,3 +1771,85 @@ FAISS_INDEX_INFO = {
         "texts": "wikipedia-dpr"
     }
 }
+ 
+JASS_INDEX_INFO = {
+    "jass-msmarco-passage-bm25": {
+        "description": "BP reordered JASS impact index of the MS MARCO passage corpus with BM25 scoring",
+        "filename": "jass-index.msmarco-passage.bm25.20220217.5cbb40.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/jass-index.msmarco-passage.bm25.20220217.5cbb40.tar.gz"
+        ],
+        "md5": "9add4b1f754c5f33d31501c65e5e92d3",
+        "size compressed (bytes)": 629101230,
+        "total_terms": 0,
+        "documents": 0,
+        "unique_terms": 0,
+        "downloaded": False
+    },
+    "jass-msmarco-passage-d2q-t5": {
+        "description": "BP reordered JASS impact index of the MS MARCO passage corpus with BM25 scoring over a DocT5Query expanded collection",
+        "filename": "jass-index.msmarco-passage.d2q-t5.20220217.5cbb40.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/jass-index.msmarco-passage.d2q-t5.20220217.5cbb40.tar.gz"
+        ],
+        "md5": "9be8d8890d60410243a8c7323849ecc9",
+        "size compressed (bytes)": 832303111,
+        "total_terms": 0,
+        "documents": 0,
+        "unique_terms": 0,
+        "downloaded": False
+    },
+    "jass-msmarco-passage-deepimpact": {
+        "description": "BP reordered JASS impact index of the MS MARCO passage corpus with DeepImpact scoring",
+        "filename": "jass-index.msmarco-passage.deepimpact.20220217.5cbb40.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/jass-index.msmarco-passage.deepimpact.20220217.5cbb40.tar.gz"
+        ],
+        "md5": "d9ed05d97e1f07373d7a98a1dd9f6fac",
+        "size compressed (bytes)": 1217477634,
+        "total_terms": 0,
+        "documents": 0,
+        "unique_terms": 0,
+        "downloaded": False
+    },
+    "jass-msmarco-passage-unicoil-d2q": {
+        "description": "BP reordered JASS impact index of the MS MARCO passage corpus with uniCOIL scoring over a DocT5Query expanded collection",
+        "filename" : "jass-index.msmarco-passage.unicoil-d2q.20220217.5cbb40.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/jass-index.msmarco-passage.unicoil-d2q.20220217.5cbb40.tar.gz"
+        ],
+        "md5": "24bab2ef23914ab124d4f0eba8dc866c",
+        "size compressed (bytes)": 1084195359,
+        "total_terms": 0,
+        "documents": 0,
+        "unique_terms": 0,
+        "downloaded": False
+    },
+    "jass-msmarco-unicoil-tilde": {
+        "description": "BP reordered JASS impact index of the MS MARCO passage corpus with uniCOIL scoring over a TILDE expanded collection",
+        "filename": "jass-index.msmarco-passage.unicoil-tilde.20220217.5cbb40.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/jass-index.msmarco-passage.unicoil-tilde.20220217.5cbb40.tar.gz"
+        ],
+        "md5": "705c3e72cff189265de9b5c509be00a6",
+        "size compressed (bytes)": 1724440877,
+        "total_terms": 0,
+        "documents": 0,
+        "unique_terms": 0,
+        "downloaded": False
+    },
+    "jass-msmarco-passage-distill-splade-max": {
+        "description": "BP reordered JASS impact index of the MS MARCO passage corpus with distill-splade-max scoring",
+        "filename": "jass-index.msmarco-passage.distill-splade-max.20220217.5cbb40.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/jass-index.msmarco-passage.distill-splade-max.20220217.5cbb40.tar.gz"
+        ],
+        "md5": "f6bf3cdf983d4e1aaee8677acbcdb47f",
+        "size compressed (bytes)": 3530600632,
+        "total_terms": 0,
+        "documents": 0,
+        "unique_terms": 0,
+        "downloaded": False
+    }
+}
+

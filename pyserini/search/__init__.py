@@ -19,12 +19,11 @@ from ._base import JQuery, JQueryGenerator, JDisjunctionMaxQueryGenerator, get_t
 from .lucene import JLuceneSearcherResult, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
 from .lucene import JImpactSearcherResult, LuceneImpactSearcher
 from ._deprecated import SimpleSearcher, ImpactSearcher, SimpleFusionSearcher
-
 from .faiss import DenseSearchResult, PRFDenseSearchResult, FaissSearcher, BinaryDenseSearcher, QueryEncoder, \
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
+from .jass import JASSv2Searcher
 from .faiss import AnceEncoder
 from .faiss import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
-
 
 __all__ = ['JQuery',
            'LuceneSimilarities',
@@ -51,10 +50,10 @@ __all__ = ['JQuery',
            'BprQueryEncoder',
            'DkrrDprQueryEncoder',
            'TctColBertQueryEncoder',
+           'JASSv2Searcher',
            'AnceEncoder',
            'AnceQueryEncoder',
            'AutoQueryEncoder',
            'DenseVectorAveragePrf',
            'DenseVectorRocchioPrf',
            'DenseVectorAncePrf']
-

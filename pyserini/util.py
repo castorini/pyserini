@@ -28,7 +28,7 @@ from tqdm import tqdm
 
 from pyserini.encoded_query_info import QUERY_INFO
 from pyserini.evaluate_script_info import EVALUATION_INFO
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, FAISS_INDEX_INFO, IMPACT_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, FAISS_INDEX_INFO, IMPACT_INDEX_INFO, JASS_INDEX_INFO
 
 
 logger = logging.getLogger(__name__)
@@ -173,8 +173,10 @@ def check_downloaded(index_name):
         target_index = TF_INDEX_INFO[index_name]
     elif index_name in IMPACT_INDEX_INFO:
         target_index = IMPACT_INDEX_INFO[index_name]
-    else:
+    elif index_name in FAISS_INDEX_INFO:
         target_index = FAISS_INDEX_INFO[index_name]
+    else:
+        target_index = JASS_INDEX_INFO[index_name]
     index_url = target_index['urls'][0]
     index_md5 = target_index['md5']
     index_name = index_url.split('/')[-1]
@@ -216,14 +218,16 @@ def get_dense_indexes_info():
 
 
 def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
-    if index_name not in TF_INDEX_INFO and index_name not in FAISS_INDEX_INFO and index_name not in IMPACT_INDEX_INFO:
+    if index_name not in TF_INDEX_INFO and index_name not in FAISS_INDEX_INFO and index_name not in IMPACT_INDEX_INFO and index_name not in JASS_INDEX_INFO:
         raise ValueError(f'Unrecognized index name {index_name}')
     if index_name in TF_INDEX_INFO:
         target_index = TF_INDEX_INFO[index_name]
     elif index_name in IMPACT_INDEX_INFO:
         target_index = IMPACT_INDEX_INFO[index_name]
-    else:
+    elif index_name in FAISS_INDEX_INFO:
         target_index = FAISS_INDEX_INFO[index_name]
+    else:
+        target_index = JASS_INDEX_INFO[index_name]
     index_md5 = target_index['md5']
     for url in target_index['urls']:
         local_filename = target_index['filename'] if 'filename' in target_index else None
