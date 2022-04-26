@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+import math
 import os
 import subprocess
 import yaml
@@ -24,8 +24,20 @@ fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK] '
 
 trec_eval_metric_definitions = {
-    'MRR@10': '-c -M 10 -m recip_rank',
-    'R@1K': '-c -m recall.1000'
+    'msmarco-passage-dev-subset' : {
+        'MRR@10': '-c -M 10 -m recip_rank',
+        'R@1K': '-c -m recall.1000'
+    },
+    'dl19-passage': {
+        'MAP': '-c -l 2 -m map',
+        'nDCG@10': '-c -m ndcg_cut.10',
+        'R@1K': '-c -l 2 -m recall.1000'
+    },
+    'dl20-passage': {
+        'MAP': '-c -l 2 -m map',
+        'nDCG@10': '-c -m ndcg_cut.10',
+        'R@1K': '-c -l 2 -m recall.1000'
+    }
 }
 
 
@@ -38,8 +50,9 @@ def run_command(cmd):
     return stdout, stderr
 
 
-def run_eval_and_return_metric(metric, runfile):
-    eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} msmarco-passage-dev-subset runs/{runfile}'
+def run_eval_and_return_metric(metric, eval_key, runfile):
+    eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[eval_key][metric]} {eval_key} runs/{runfile}'
+    #print(eval_cmd)
     eval_stdout, eval_stderr = run_command(eval_cmd)
 
     # TODO: This is very brittle... fix me later.
@@ -51,19 +64,30 @@ with open('pyserini/resources/msmarco-v1-passage.yaml') as f:
     for condition in yaml_data['conditions']:
         name = condition['name']
         display = condition['display']
-        cmd = condition['command']
-        runfile = f'run.{collection}.{name}.txt'
+        cmd_template = condition['command']
 
-        print(f'# Processing "{name}": {display}\n')
-        cmd = cmd.replace('runs/run.', f'runs/{runfile}')
-        print(f'Running: {cmd}')
-        #os.system(cmd)
+        print(f'# Running condition "{name}": {display}\n')
 
-        for expected in condition['scores']:
-            for metric in expected:
-                score = run_eval_and_return_metric(metric, runfile)
-                #print(expected[metric])
-                result = ok_str if str(score) == str(expected[metric]) else fail_str
-                print(f'{metric:8}: {score} {result}')
+        #print(condition)
+        for topic_set in condition['topics']:
+            topic_key = topic_set['topic_key']
+            eval_key = topic_set['eval_key']
 
-        print('\n\n')
+            print(f'  - topic_key: {topic_key}')
+
+            runfile = f'run.{collection}.{topic_key}.{name}.txt'
+            cmd = cmd_template.replace('_R_', f'runs/{runfile}').replace('_T_', topic_key)
+
+            if not os.path.exists(f'runs/{runfile}'):
+                print(f'    Running: {cmd}')
+                os.system(cmd)
+
+            print('')
+            for expected in topic_set['scores']:
+                for metric in expected:
+                    score = float(run_eval_and_return_metric(metric, eval_key, runfile))
+                    #print(expected[metric])
+                    result = ok_str if math.isclose(score, float(expected[metric])) else fail_str + f' expected {expected[metric]:.4f}'
+                    print(f'    {metric:7}: {score:.4f} {result}')
+
+            print('')
