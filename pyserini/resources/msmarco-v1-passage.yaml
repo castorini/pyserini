@@ -27,8 +27,8 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.1875
-            R@1K: 0.8573
+          - MRR@10: 0.1668
+            R@1K: 0.8687
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
@@ -69,8 +69,8 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.1840
-            R@1K: 0.8526
+          - MRR@10: 0.1564
+            R@1K: 0.8606
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
@@ -90,8 +90,8 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.1875
-            R@1K: 0.8573
+          - MRR@10: 0.2816
+            R@1K: 0.9506
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
@@ -111,8 +111,8 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.1875
-            R@1K: 0.8573
+          - MRR@10: 0.2723
+            R@1K: 0.9470
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
@@ -132,8 +132,8 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.1875
-            R@1K: 0.8573
+          - MRR@10: 0.3509
+            R@1K: 0.9581
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
@@ -151,10 +151,10 @@ conditions:
     command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil --topics _T_ --output _R_ --batch 36 --threads 12 --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset-unicoil
-        eval_key: msmarco-passage-dev-subset-unicoil
+        eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.1875
-            R@1K: 0.8573
+          - MRR@10: 0.3516
+            R@1K: 0.9582
       - topic_key: dl19-passage-unicoil
         eval_key: dl19-passage
         scores:
