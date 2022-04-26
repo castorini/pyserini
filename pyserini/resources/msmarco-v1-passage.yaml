@@ -1,0 +1,16 @@
+conditions:
+  - name: bm25
+    display: BM25 (k1=0.82, b=0.68)
+    command: python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-slim --output runs/run. --bm25
+    scores:
+      - MRR@10: 0.1875
+        R@1K: 0.8573
+  - name: bm25-default
+    display: BM25 (k1=0.9, b=0.4)
+    command: python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-slim --output runs/run. --bm25 --k1 0.9 --b 0.4
+    scores:
+      - MRR@10: 0.1840
+        R@1K: 0.8526
+#  - name: bm25-d2q-t5
+#    display: BM25 w/ doc2query-T5
+#    command: python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-d2q-t5 --output runs/run. --bm25
