@@ -125,6 +125,7 @@ conditions:
           - MAP: 0.4074
             nDCG@10: 0.6187
             R@1K: 0.8452
+  # TODO: We can't do the RM3 variant of bm25-d2q-t5 because we don't have a pre-built index with docvectors stored.
   - name: unicoil-otf
     display: uniCOIL (w/ doc2query-T5) - otf
     command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil --topics _T_ --encoder castorini/unicoil-msmarco-passage --output _R_ --batch 36 --threads 12 --hits 1000 --impact
@@ -167,3 +168,34 @@ conditions:
           - MAP: 0.4430
             nDCG@10: 0.6745
             R@1K: 0.8430
+  - name: tct_colbert-v2-hnp-otf
+    display: TCT_ColBERT-V2-HN+ - otf
+    command: python -m pyserini.search.faiss --index msmarco-passage-tct_colbert-v2-hnp-bf --topics _T_ --encoder castorini/tct_colbert-v2-hnp-msmarco --output _R_ --batch-size 36 --threads 12
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3584
+            R@1K: 0.9695
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4469
+            nDCG@10: 0.7204
+            R@1K: 0.8261
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4754
+            nDCG@10: 0.6882
+            R@1K: 0.8429
+  - name: tct_colbert-v2-hnp
+    display: TCT_ColBERT-V2-HN+ - pre-encoded
+    command: python -m pyserini.search.faiss --index msmarco-passage-tct_colbert-v2-hnp-bf --topics _T_ --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset --output _R_ --batch-size 36 --threads 12
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3584
+            R@1K: 0.9695
+      # TODO: We don't have DL19 an DL20 queries pre-encoded

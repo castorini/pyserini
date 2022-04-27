@@ -28,7 +28,7 @@ fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK] '
 
 trec_eval_metric_definitions = {
-    'msmarco-passage-dev-subset' : {
+    'msmarco-passage-dev-subset': {
         'MRR@10': '-c -M 10 -m recip_rank',
         'R@1K': '-c -m recall.1000'
     },
@@ -44,7 +44,7 @@ trec_eval_metric_definitions = {
     }
 }
 
-table = defaultdict(lambda: defaultdict(dict))
+table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 table_keys = {}
 
 
@@ -59,7 +59,6 @@ def run_command(cmd):
 
 def run_eval_and_return_metric(metric, eval_key, runfile):
     eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[eval_key][metric]} {eval_key} runs/{runfile}'
-    #print(eval_cmd)
     eval_stdout, eval_stderr = run_command(eval_cmd)
 
     # TODO: This is very brittle... fix me later.
@@ -67,6 +66,7 @@ def run_eval_and_return_metric(metric, eval_key, runfile):
 
 
 def find_table_topic_set_key(topic_key):
+    # E.g., we want to map variants like 'dl19-passage-unicoil' and 'dl19-passage' both into 'dl19'
     key = ''
     if topic_key.startswith('dl19'):
         key = 'dl19'
@@ -86,8 +86,6 @@ with open('pyserini/resources/msmarco-v1-passage.yaml') as f:
         cmd_template = condition['command']
 
         print(f'# Running condition "{name}": {display}\n')
-
-        #print(condition)
         for topic_set in condition['topics']:
             topic_key = topic_set['topic_key']
             eval_key = topic_set['eval_key']
@@ -107,7 +105,6 @@ with open('pyserini/resources/msmarco-v1-passage.yaml') as f:
                     table_keys[name] = display
                     if do_eval:
                         score = float(run_eval_and_return_metric(metric, eval_key, runfile))
-                        #print(expected[metric])
                         result = ok_str if math.isclose(score, float(expected[metric])) else fail_str + f' expected {expected[metric]:.4f}'
                         print(f'    {metric:7}: {score:.4f} {result}')
                         table[name][find_table_topic_set_key(topic_key)][metric] = score
@@ -122,7 +119,8 @@ print(' ' * 45 + 'MAP nDCG@10    R@1K       MAP nDCG@10    R@1K    MRR@10    R@1
 print(' ' * 42 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
 for name in ['bm25', 'bm25-rm3', 'bm25-d2q-t5', '',
              'bm25-default', 'bm25-rm3-default', 'bm25-d2q-t5-default', '',
-             'unicoil', 'unicoil-otf']:
+             'unicoil', 'unicoil-otf', '',
+             'tct_colbert-v2-hnp', 'tct_colbert-v2-hnp-otf']:
     if not name:
         print('')
         continue
