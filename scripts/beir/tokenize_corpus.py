@@ -19,12 +19,11 @@ import json
 import time
 from joblib import Parallel, delayed
 from transformers import AutoTokenizer
-from ltr_msmarco.convert_common import get_retokenized
 
 '''Replace original contents fields with bert tokenization'''
 
 
-parser = argparse.ArgumentParser(description='Convert MSMARCO-adhoc documents.')
+parser = argparse.ArgumentParser(description='Convert BEIR original documents to word piece tokenized.')
 parser.add_argument('--input', metavar='input file', help='input file',
                     type=str, required=True)
 parser.add_argument('--output', metavar='output file', help='output file',
@@ -36,6 +35,17 @@ parser.add_argument('--workers', metavar='# of processes', help='# of workers to
 args = parser.parse_args()
 print(args)
 arg_vars = vars(args)
+
+def get_retokenized(tokenizer, text):
+    """
+    copy from pyserini.scripts.ltr_msmarco.convert_common.get_retokenized
+    Obtain a space separated re-tokenized text.
+    :param tokenizer:  a tokenizer that has the function
+                       tokenize that returns an array of tokens.
+    :param text:       a text to re-tokenize.
+    """
+    return ' '.join(tokenizer.tokenize(text))
+
 
 def batch_file(iterable, n=10000):
     batch = []
@@ -57,11 +67,13 @@ def batch_process(batch):
         if not line:
             return None
         json_line = json.loads(line)
-        pid = json_line['id']
-        body = json_line['contents']
+        pid = json_line['_id']
+        title = json_line['title']
+        body = json_line['text']
 
-        doc = {"id": pid,
-               "contents": get_retokenized(bert_tokenizer, body.lower())}
+        doc = {"_id": pid,
+               "title":  get_retokenized(bert_tokenizer, title.lower()),
+               "text": get_retokenized(bert_tokenizer, body.lower())}
         return doc
     
     res = []
