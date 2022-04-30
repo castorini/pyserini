@@ -23,11 +23,14 @@ import json
 import math
 import os
 import struct
+import tarfile
+from typing import Dict
 from multiprocessing.pool import ThreadPool
+import pickle5 as pickle
+from transformers import AutoTokenizer
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.pyclass import autoclass
-from pyserini.util import download_prebuilt_index, get_cache_home
-from typing import Dict
+from pyserini.util import download_prebuilt_index, get_cache_home, download_url
 
 # Wrappers around Anserini classes
 JQuery = autoclass('org.apache.lucene.search.Query')
@@ -42,23 +45,24 @@ class LuceneIrstSearcher(object):
     LAMBDA_VALUE = 0.3
     MIN_COLLECT_PROB = 1e-9
 
-    def __init__(self, ibm_model: str, index: str, field_name: str):
-        self.ibm_model = ibm_model
+    def __init__(self, index: str, k1: int, b: int, num_threads: int):
+        self.translation_model = self.download_and_unpack_translation_model()
+        self.termfreq_dic = self.download_and_load_wp_stats(index)
         self.bm25search = LuceneSearcher.from_prebuilt_index(index)
+        self.bm25search.set_bm25(k1, b)
         index_directory = os.path.join(get_cache_home(), 'indexes')
-        if (index == 'msmarco-passage-ltr'):
-            index_path = os.path.join(index_directory, 'index-msmarco-passage-ltr-20210519-e25e33f.a5de642c268ac1ed5892c069bdc29ae3')
-        elif (index == 'msmarco-document-segment-ltr'):
-            index_path = os.path.join(index_directory, 'lucene-index.msmarco-doc-segmented.ibm.13064bdaf8e8a79222634d67ecd3ddb5')
+        if (index == 'msmarco-v1-passage'):
+            index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-passage.20220131.9ea315.4d8fdbdcd119c1f47a4cc5d01a45dad3')
+        elif (index == 'msmarco-v1-doc'):
+            index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-doc.20220131.9ea315.43b60b3fc75324c648a02375772e7fe8')
+        elif (index == 'msmarco-v1-doc-segmented'):
+            index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.611bb83e043c0d6febe0fa3508d1d7f9')
         else:
-            print("We currently only support two indexes: msmarco-passage-ltr and msmarco-document-segment-ltr, \
-            but the index you inserted is not one of those")
+            print("We currently only support three indexes: msmarco-passage, msmarco-v1-doc and msmarco-v1-doc-segmented but the index you inserted is not one of those")
         self.object = JLuceneSearcher(index_path)
-        self.index_reader = JIndexReader().getReader(index_path)
-        self.field_name = field_name
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
-        self.pool = ThreadPool(24)
-        
+        self.bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+        self.pool = ThreadPool(num_threads)
 
 
     @classmethod
@@ -84,6 +88,55 @@ class LuceneIrstSearcher(object):
 
         print(f'Initializing {prebuilt_index_name}...')
         return cls(index_dir)
+
+    def download_and_unpack_translation_model(self):
+        local_filename = 'ibm_model_1_bert_tok_20211117'
+        translation_directory = os.path.join(get_cache_home(), 'translation_model')
+        translation_path = os.path.join(translation_directory, local_filename)
+
+        url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_bert_tok_20211117.tar.gz'
+        if not os.path.exists(translation_directory):
+            os.makedirs(translation_directory)
+        local_tarball = os.path.join(translation_directory, f'{local_filename}.tar.gz')
+        # If there's a local tarball, it's likely corrupted, because we remove the local tarball on success (below).
+        # So, we want to remove.
+        if os.path.exists(local_tarball):
+            os.remove(local_tarball)
+        if os.path.exists(translation_path):
+            print(f'{translation_path} already exists, skipping download.')
+        else:
+            download_url(url, translation_directory, local_tarball)
+            print(f'Extracting {local_tarball} into {translation_path}...')
+            tarball = tarfile.open(local_tarball)
+            tarball.extractall(translation_directory)
+            tarball.close()
+            os.remove(local_tarball)
+        return translation_path
+
+    def download_and_load_wp_stats(self, index: str):
+        translation_directory = os.path.join(get_cache_home(), 'translation_model')
+        if not os.path.exists(translation_directory):
+            os.makedirs(translation_directory)
+        if (index == 'msmarco-v1-passage'):
+            local_filename = 'bert_wp_term_freq.msmarco-passage.20220411.pickle'
+            wp_stats_path = os.path.join(translation_directory, local_filename)
+            url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/bert_wp_term_freq.msmarco-passage.20220411.pickle'
+        elif (index == 'msmarco-v1-doc'):
+            local_filename = 'bert_wp_term_freq.msmarco-doc.20220411.pickle'
+            wp_stats_path = os.path.join(translation_directory, local_filename)
+            url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/bert_wp_term_freq.msmarco-doc.20220411.pickle'
+        elif (index == 'msmarco-v1-doc-segmented'):
+            local_filename = 'bert_wp_term_freq.msmarco-doc-segmented.20220411.pickle'
+            wp_stats_path = os.path.join(translation_directory, local_filename)
+            url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/bert_wp_term_freq.msmarco-doc-segmented.20220411.pickle'
+
+        if os.path.exists(wp_stats_path):
+            print(f'{wp_stats_path} already exists, skipping download.')
+        else:
+            download_url(url, translation_directory, local_filename)
+        with open(wp_stats_path, 'rb') as fin:
+            termfreq_dic = pickle.load(fin)
+        return termfreq_dic
 
     @staticmethod
     def intbits_to_float(b: bytes):
@@ -120,7 +173,7 @@ class LuceneIrstSearcher(object):
         return source_lookup, target_lookup, tran_lookup
 
     def load_tranprobs_table(self):
-        dir_path = self.ibm_model
+        dir_path = self.translation_model
         source_path = dir_path + "/source.vcb"
         source_lookup = {}
         source_voc = {}
@@ -163,13 +216,13 @@ class LuceneIrstSearcher(object):
                 tran_lookup, target_voc, source_voc)
 
     def get_ibm_score(self, arguments):
-        (query_text_lst, test_doc, searcher, field_name, source_lookup,
+        (query_text_lst, test_doc, searcher, source_lookup,
             target_lookup, tran, collect_probs, max_sim) = arguments
 
         if searcher.documentRaw(test_doc) is None:
-            print(f'{test_doc} is not found in searcher')
-        document_text = json.loads(searcher.documentRaw(test_doc))[field_name]
-        doc_token_lst = document_text.split(" ")
+            print(f"{test_doc} is not found in searcher")
+        contents = json.loads(self.object.documentRaw(test_doc))['contents']
+        doc_token_lst = self.bert_tokenizer.tokenize(contents.lower(), truncation=True)
         total_query_prob = 0
         doc_size = len(doc_token_lst)
         query_size = len(query_text_lst)
@@ -201,29 +254,26 @@ class LuceneIrstSearcher(object):
             total_query_prob += query_word_prob
         return total_query_prob / query_size
 
-    def search(self, query_text, query_field_text, hits, max_sim):
-        self.bm25search.set_bm25(0.82, 0.68)
-
-        bm25_results = self.bm25search.search(query_text, hits)
+    def search(self, query_text, query_field_text, max_sim, bm25_results):
         origin_scores = [bm25_result.score for bm25_result in bm25_results]
         test_docs = [bm25_result.docid for bm25_result in bm25_results]
         if (test_docs == []):
             print(query_text)
 
-        query_text_lst = query_field_text.split(' ')
-        total_term_freq = self.index_reader.getSumTotalTermFreq(self.field_name)
+        query_field_text_lst = query_field_text.split(' ')
+        total_term_freq = self.termfreq_dic['TOTAL']
         collect_probs = {}
-        for querytoken in query_text_lst:
-            collect_probs[querytoken] = max(self.index_reader.totalTermFreq(
-                JTerm(self.field_name, querytoken)) / total_term_freq,
-                self.MIN_COLLECT_PROB)
+        for querytoken in query_field_text_lst:
+            if querytoken in self.termfreq_dic:
+                collect_probs[querytoken] = max(self.termfreq_dic[querytoken] / total_term_freq, self.MIN_COLLECT_PROB)
+            else:
+                collect_probs[querytoken] = self.MIN_COLLECT_PROB
 
         arguments = [(
-            query_text_lst, test_doc, self.object, self.field_name,
+            query_field_text_lst, test_doc, self.object,
             self.source_lookup, self.target_lookup,
             self.tran, collect_probs, max_sim)
             for test_doc in test_docs]
-
         rank_scores = self.pool.map(self.get_ibm_score, arguments)
         return test_docs, rank_scores, origin_scores
 
@@ -232,19 +282,19 @@ class LuceneIrstSearcher(object):
         if (test_docs == []):
             print(query_text)
 
-        query_text_lst = query_field_text.split(' ')
-        total_term_freq = self.index_reader.getSumTotalTermFreq(self.field_name)
+        query_field_text_lst = query_field_text.split(' ')
+        total_term_freq = self.termfreq_dic['TOTAL']
         collect_probs = {}
-        for querytoken in query_text_lst:
-            collect_probs[querytoken] = max(self.index_reader.totalTermFreq(
-                JTerm(self.field_name, querytoken)) / total_term_freq,
-                self.MIN_COLLECT_PROB)
+        for querytoken in query_field_text_lst:
+            if querytoken in self.termfreq_dic:
+                collect_probs[querytoken] = max(self.termfreq_dic[querytoken] / total_term_freq, self.MIN_COLLECT_PROB)
+            else:
+                collect_probs[querytoken] = self.MIN_COLLECT_PROB
 
         arguments = [(
-            query_text_lst, test_doc, self.object, self.field_name,
+            query_field_text_lst, test_doc, self.object, 
             self.source_lookup, self.target_lookup,
             self.tran, collect_probs, max_sim)
             for test_doc in test_docs]
-
         rank_scores = self.pool.map(self.get_ibm_score, arguments)
         return test_docs, rank_scores, origin_scores
