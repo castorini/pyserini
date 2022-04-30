@@ -268,12 +268,12 @@ class LuceneIrstSearcher(object):
                 collect_probs[querytoken] = max(self.termfreq_dic[querytoken] / total_term_freq, self.MIN_COLLECT_PROB)
             else:
                 collect_probs[querytoken] = self.MIN_COLLECT_PROB
-
         arguments = [(
             query_field_text_lst, test_doc, self.object,
             self.source_lookup, self.target_lookup,
             self.tran, collect_probs, max_sim)
             for test_doc in test_docs]
+
         rank_scores = self.pool.map(self.get_ibm_score, arguments)
         return test_docs, rank_scores, origin_scores
 
@@ -290,11 +290,11 @@ class LuceneIrstSearcher(object):
                 collect_probs[querytoken] = max(self.termfreq_dic[querytoken] / total_term_freq, self.MIN_COLLECT_PROB)
             else:
                 collect_probs[querytoken] = self.MIN_COLLECT_PROB
-
         arguments = [(
             query_field_text_lst, test_doc, self.object, 
             self.source_lookup, self.target_lookup,
             self.tran, collect_probs, max_sim)
             for test_doc in test_docs]
+
         rank_scores = self.pool.map(self.get_ibm_score, arguments)
         return test_docs, rank_scores, origin_scores

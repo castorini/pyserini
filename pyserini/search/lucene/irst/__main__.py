@@ -18,7 +18,6 @@ from typing import List
 from tqdm import tqdm
 from transformers import AutoTokenizer
 from pyserini.search.lucene.irst import LuceneIrstSearcher
-from multiprocessing.pool import ThreadPool
 
 
 def normalize(scores: List[float]):
@@ -104,13 +103,13 @@ if __name__ == "__main__":
                         metavar="tag_name", help='tag name for resulting Qrun')
     parser.add_argument('--base-path', type=str, required=False,
                         metavar="path_to_base_run", help='path to base run')
-    parser.add_argument('--topics', type=str, required=False, default="tools/topics-and-qrels/topics.dl19-passage.txt",
+    parser.add_argument('--topics', type=str, required=True,
                         help='path to query topics')
-    parser.add_argument('--index', type=str, required=False, default="msmarco-v1-passage",
+    parser.add_argument('--index', type=str, required=True,
                         metavar="path_to_lucene_index", help='path to lucene index folder')
-    parser.add_argument('--output', type=str, required=False, default= "irst_test/regression_test_sum.dl19-passage.trec",
+    parser.add_argument('--output', type=str, required=True,
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
-    parser.add_argument('--alpha', type=float, default="0.1",
+    parser.add_argument('--alpha', type=float, default="0.3",
                         metavar="type of field", help='interpolation weight')
     parser.add_argument('--num-threads', type=int, default="24",
                         metavar="num_of_threads", help='number of threads to use')
@@ -129,7 +128,6 @@ if __name__ == "__main__":
     print('Using max sim operator or not:', args.max_sim)
 
     f = open(args.output, 'w')
-    pool = ThreadPool(args.num_threads)
 
     reranker = LuceneIrstSearcher(args.index, args.k1, args.b, args.num_threads)
     queries = query_loader(args.topics)
