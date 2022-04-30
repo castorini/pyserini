@@ -18,6 +18,7 @@ import os
 import subprocess
 import shutil
 
+
 def clean_files(files):
     for file in files:
         if os.path.exists(file):
@@ -27,22 +28,22 @@ def clean_files(files):
                 os.remove(file)
 
 
-
-def run_command(cmd):
+def run_command(cmd, echo=False):
     process = subprocess.Popen(cmd.split(),
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
     stdout = stdout.decode('utf-8')
     stderr = stderr.decode('utf-8')
-    if stderr:
+    if stderr and echo:
         print(stderr)
-    print(stdout)
+    if echo:
+        print(stdout)
     return stdout, stderr
 
 
 def parse_score(output, metric, digits=4):
-    for line in output.split('\n')[::-1]:
+    for line in output.split('\n'):
         if metric in line:
             score = float(line.split()[-1])
             return round(score, digits)

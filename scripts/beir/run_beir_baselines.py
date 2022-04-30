@@ -55,40 +55,40 @@ date = '20220430'
 
 # Runs on "flat" index
 for key in beir_keys:
-    cmd = f'python -m pyserini.search.lucene ' + \
-          f'--index indexes/lucene-index.beir-v1.0.0-{key}-flat.{date}.{commitid} ' + \
-          f'--topics beir-v1.0.0-{key}-test ' + \
-          f'--output runs/run.beir-v1.0.0-{key}-flat.trec ' + \
-          f'--output-format trec ' + \
-          f'--batch 36 --threads 12 ' + \
-          f'--hits 1000'
+    cmd = f'python -m pyserini.search.lucene \
+              --index indexes/lucene-index.beir-v1.0.0-{key}-flat.{date}.{commitid} \
+              --topics beir-v1.0.0-{key}-test \
+              --output runs/run.beir-v1.0.0-{key}-flat.trec \
+              --output-format trec \
+              --batch 36 --threads 12 \
+              --remove-query --hits 1000'
     os.system(cmd)
     cmd = f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.100,1000 beir-v1.0.0-{key}-test runs/run.beir-v1.0.0-{key}-flat.trec'
     os.system(cmd)
 
 # Runs on "multifield" index
 for key in beir_keys:
-    cmd = f'python -m pyserini.search.lucene ' + \
-          f'--index indexes/lucene-index.beir-v1.0.0-{key}-multifield.{date}.{commitid} ' + \
-          f'--topics beir-v1.0.0-{key}-test ' + \
-          f'--output runs/run.beir-v1.0.0-{key}-multifield.trec ' + \
-          f'--fields contents=1.0 title=1.0 ' + \
-          f'--output-format trec ' + \
-          f'--batch 36 --threads 12 ' + \
-          f'--hits 1000'
+    cmd = f'python -m pyserini.search.lucene \
+              --index indexes/lucene-index.beir-v1.0.0-{key}-multifield.{date}.{commitid} \
+              --topics beir-v1.0.0-{key}-test \
+              --output runs/run.beir-v1.0.0-{key}-multifield.trec \
+              --output-format trec \
+              --batch 36 --threads 12 \
+              --fields contents=1.0 title=1.0 \
+              --remove-query --hits 1000'
     os.system(cmd)
     cmd = f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.100,1000 beir-v1.0.0-{key}-test runs/run.beir-v1.0.0-{key}-multifield.trec'
     os.system(cmd)
 
 # Runs on SPLADE-distill CoCodenser-medium index
 for key in beir_keys:
-    cmd = f'python -m pyserini.search.lucene ' + \
-          f'--index indexes/lucene-index.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.{date}.{commitid} ' + \
-          f'--topics beir-v1.0.0-{key}-test-splade_distil_cocodenser_medium ' + \
-          f'--output runs/run.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.trec ' + \
-          f'--output-format trec ' + \
-          f'--batch 36 --threads 12 ' + \
-          f'--impact --hits 1000'
+    cmd = f'python -m pyserini.search.lucene \
+              --index indexes/lucene-index.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.{date}.{commitid} \
+              --topics beir-v1.0.0-{key}-test-splade_distil_cocodenser_medium \
+              --output runs/run.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.trec \
+              --output-format trec \
+              --batch 36 --threads 12 \
+              --remove-query --impact --hits 1000'
     os.system(cmd)
     cmd = f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.100,1000 beir-v1.0.0-{key}-test runs/run.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.trec'
     os.system(cmd)
