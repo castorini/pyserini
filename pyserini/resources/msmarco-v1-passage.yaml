@@ -1,0 +1,201 @@
+conditions:
+  - name: bm25
+    display: BM25 (k1=0.82, b=0.68)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-passage-slim --output _R_ --bm25
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.1875
+            R@1K: 0.8573
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.2903
+            nDCG@10: 0.4973
+            R@1K: 0.7450
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.2876
+            nDCG@10: 0.4876
+            R@1K: 0.8031
+  - name: bm25-rm3
+    display: BM25+RM3 (k1=0.82, b=0.68)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-passage-full --output _R_ --bm25 --rm3
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.1668
+            R@1K: 0.8687
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.3377
+            nDCG@10: 0.5231
+            R@1K: 0.7792
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.3056
+            nDCG@10: 0.4808
+            R@1K: 0.8286
+  - name: bm25-default
+    display: BM25 (k1=0.9, b=0.4)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-passage-slim --output _R_ --bm25 --k1 0.9 --b 0.4
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.1840
+            R@1K: 0.8526
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.3013
+            nDCG@10: 0.5058
+            R@1K: 0.7501
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.2856
+            nDCG@10: 0.4796
+            R@1K: 0.7863
+  - name: bm25-rm3-default
+    display: BM25+RM3 (k1=0.9, b=0.4)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-passage-full --output _R_ --bm25 --k1 0.9 --b 0.4 --rm3
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.1564
+            R@1K: 0.8606
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.3390
+            nDCG@10: 0.5180
+            R@1K: 0.7998
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.3019
+            nDCG@10: 0.4821
+            R@1K: 0.8217
+  - name: bm25-d2q-t5
+    display: BM25 w/ doc2query-T5 (k1=2.18, b=0.86)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-passage-d2q-t5 --output _R_ --bm25
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.2816
+            R@1K: 0.9506
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4046
+            nDCG@10: 0.6336
+            R@1K: 0.8134
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4171
+            nDCG@10: 0.6265
+            R@1K: 0.8393
+  - name: bm25-d2q-t5-default
+    display: BM25 w/ doc2query-T5 (k1=0.9, b=0.4)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-passage-d2q-t5 --output _R_ --bm25 --k1 0.9 --b 0.4
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.2723
+            R@1K: 0.9470
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4034
+            nDCG@10: 0.6417
+            R@1K: 0.8310
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4074
+            nDCG@10: 0.6187
+            R@1K: 0.8452
+  # TODO: We can't do the RM3 variant of bm25-d2q-t5 because we don't have a pre-built index with docvectors stored.
+  - name: unicoil-otf
+    display: uniCOIL (w/ doc2query-T5) - otf
+    command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil --topics _T_ --encoder castorini/unicoil-msmarco-passage --output _R_ --batch 36 --threads 12 --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3509
+            R@1K: 0.9581
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4617
+            nDCG@10: 0.7027
+            R@1K: 0.8291
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4429
+            nDCG@10: 0.6745
+            R@1K: 0.8433
+  - name: unicoil
+    display: uniCOIL (w/ doc2query-T5) - pre-encoded
+    command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil --topics _T_ --output _R_ --batch 36 --threads 12 --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-passage-dev-subset-unicoil
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3516
+            R@1K: 0.9582
+      - topic_key: dl19-passage-unicoil
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4612
+            nDCG@10: 0.7024
+            R@1K: 0.8292
+      - topic_key: dl20-unicoil
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4430
+            nDCG@10: 0.6745
+            R@1K: 0.8430
+  - name: tct_colbert-v2-hnp-otf
+    display: TCT_ColBERT-V2-HN+ - otf
+    command: python -m pyserini.search.faiss --index msmarco-passage-tct_colbert-v2-hnp-bf --topics _T_ --encoder castorini/tct_colbert-v2-hnp-msmarco --output _R_ --batch-size 36 --threads 12
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3584
+            R@1K: 0.9695
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4469
+            nDCG@10: 0.7204
+            R@1K: 0.8261
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4754
+            nDCG@10: 0.6882
+            R@1K: 0.8429
+  - name: tct_colbert-v2-hnp
+    display: TCT_ColBERT-V2-HN+ - pre-encoded
+    command: python -m pyserini.search.faiss --index msmarco-passage-tct_colbert-v2-hnp-bf --topics _T_ --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset --output _R_ --batch-size 36 --threads 12
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3584
+            R@1K: 0.9695
+      # TODO: We don't have DL19 an DL20 queries pre-encoded

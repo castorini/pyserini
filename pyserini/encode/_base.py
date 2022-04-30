@@ -127,7 +127,7 @@ class JsonlRepresentationWriter(RepresentationWriter):
 
     def __enter__(self):
         if not os.path.exists(self.dir_path):
-            os.mkdir(self.dir_path)
+            os.makedirs(self.dir_path)
         self.file = open(os.path.join(self.dir_path, self.filename), 'w')
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -154,7 +154,7 @@ class FaissRepresentationWriter(RepresentationWriter):
 
     def __enter__(self):
         if not os.path.exists(self.dir_path):
-            os.mkdir(self.dir_path)
+            os.makedirs(self.dir_path)
         self.id_file = open(os.path.join(self.dir_path, self.id_file_name), 'w')
 
     def __exit__(self, exc_type, exc_val, exc_tb):

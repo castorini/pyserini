@@ -22,11 +22,11 @@ interface on MS MARCO dataset. The main entry point is the
 import json
 import math
 import os
+import pickle
 import struct
 import tarfile
 from typing import Dict
 from multiprocessing.pool import ThreadPool
-import pickle5 as pickle
 from transformers import AutoTokenizer
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.pyclass import autoclass
@@ -277,7 +277,7 @@ class LuceneIrstSearcher(object):
         rank_scores = self.pool.map(self.get_ibm_score, arguments)
         return test_docs, rank_scores, origin_scores
 
-    def rerank(self, query_text, query_field_text, baseline, max_sim):
+    def rerank(self, query_text, query_field_text, baseline, max_sim, tf_table):
         test_docs, origin_scores = baseline
         if (test_docs == []):
             print(query_text)

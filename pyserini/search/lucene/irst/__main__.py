@@ -97,41 +97,6 @@ def sort_dual_list(pred: List[float], docs: List[str]):
     return pred, docs
 
 
-def irst_function(arguments):
-    if args.base_path:
-        (topic, reranker, tf_dic) = arguments
-    else:
-        (topic, reranker, tf_dic, bm25_results) = arguments
-    query_text_field = queries[topic]['contents']
-    query_text = queries[topic]['raw']
-    if args.base_path:
-        baseline_dic = baseline_loader(args.base_path)
-        docids, rank_scores, base_scores = reranker.rerank(
-            query_text, query_text_field, baseline_dic[topic], args.max_sim, tf_dic)
-    else:
-        docids, rank_scores, base_scores = reranker.search(
-            query_text, query_text_field, args.hits, args.max_sim, tf_dic, bm25_results)
-    ibm_scores = normalize([p for p in rank_scores])
-    base_scores = normalize([p for p in base_scores])
-
-    interpolated_scores = [
-        a * args.alpha + b * (1-args.alpha) for a, b in zip(base_scores, ibm_scores)]
-
-    preds, docs = sort_dual_list(interpolated_scores, docids)
-    if args.segments:
-        docid_scores = generate_maxP(preds, docs)
-        rank = 1
-        for doc_id, score in docid_scores:
-            if rank > 1000:
-                break
-            f.write(f'{topic} Q0 {doc_id} {rank} {score} {args.tag}\n')
-            rank = rank + 1
-    else:
-        for index, (score, doc_id) in enumerate(zip(preds, docs)):
-            rank = index + 1
-            f.write(f'{topic} Q0 {doc_id} {rank} {score} {args.tag}\n')
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='use ibm model 1 feature to rerank the base run file')
@@ -181,7 +146,7 @@ if __name__ == "__main__":
         if args.base_path:
             baseline_dic = baseline_loader(args.base_path)
             docids, rank_scores, base_scores = reranker.rerank(
-                query_text, query_text_field, baseline_dic[topic], args.max_sim)
+                query_text, query_text_field, baseline_dic[topic], args.max_sim, bm25_results[topic])
         else:
             docids, rank_scores, base_scores = reranker.search(
                 query_text, query_text_field, args.max_sim, bm25_results[topic])
@@ -205,5 +170,4 @@ if __name__ == "__main__":
             for index, (score, doc_id) in enumerate(zip(preds, docs)):
                 rank = index + 1
                 f.write(f'{topic} Q0 {doc_id} {rank} {score} {args.tag}\n')
-
     f.close()
