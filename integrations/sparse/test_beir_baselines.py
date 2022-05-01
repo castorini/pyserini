@@ -98,7 +98,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.temp_files.append(output_file)
 
             cmd = f'python -m pyserini.search.lucene \
-                      --index lucene-index.beir-v1.0.0-{key}-flat \
+                      --index beir-v1.0.0-{key}-flat \
                       --topics beir-v1.0.0-{key}-test \
                       --output {output_file} \
                       --output-format trec \
@@ -119,7 +119,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.temp_files.append(output_file)
 
             cmd = f'python -m pyserini.search.lucene \
-                      --index lucene-index.beir-v1.0.0-{key}-multifield \
+                      --index beir-v1.0.0-{key}-multifield \
                       --topics beir-v1.0.0-{key}-test \
                       --output runs/run.beir-v1.0.0-{key}-multifield.trec \
                       --output-format trec \

@@ -57,8 +57,8 @@ class TestSearchIntegration(unittest.TestCase):
 
     def setUp(self):
         self.temp_files = []
-        self.commitid = 'xxxxxx'
-        self.date = '20220430'
+        self.commitid = '1842ee'
+        self.date = '20220501'
 
     def test_beir_splade(self):
         for key in self.beir_splade:
@@ -66,7 +66,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.temp_files.append(output_file)
 
             cmd = f'python -m pyserini.search.lucene \
-                      --index indexes/lucene-index.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.{self.date}.{self.commitid} \
+                      --index beir-v1.0.0-{key}-splade_distil_cocodenser_medium \
                       --topics beir-v1.0.0-{key}-test-splade_distil_cocodenser_medium \
                       --output runs/run.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.trec \
                       --output-format trec \

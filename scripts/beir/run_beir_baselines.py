@@ -56,7 +56,7 @@ date = '20220501'
 # Runs on "flat" index
 for key in beir_keys:
     cmd = f'python -m pyserini.search.lucene \
-              --index lucene-index.beir-v1.0.0-{key}-flat.{date}.{commitid} \
+              --index beir-v1.0.0-{key}-flat \
               --topics beir-v1.0.0-{key}-test \
               --output runs/run.beir-v1.0.0-{key}-flat.trec \
               --output-format trec \
@@ -69,7 +69,7 @@ for key in beir_keys:
 # Runs on "multifield" index
 for key in beir_keys:
     cmd = f'python -m pyserini.search.lucene \
-              --index lucene-index.beir-v1.0.0-{key}-multifield.{date}.{commitid} \
+              --index beir-v1.0.0-{key}-multifield \
               --topics beir-v1.0.0-{key}-test \
               --output runs/run.beir-v1.0.0-{key}-multifield.trec \
               --output-format trec \
@@ -83,7 +83,7 @@ for key in beir_keys:
 # Runs on SPLADE-distill CoCodenser-medium index
 for key in beir_keys:
     cmd = f'python -m pyserini.search.lucene \
-              --index lucene-index.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.{date}.{commitid} \
+              --index beir-v1.0.0-{key}-splade_distil_cocodenser_medium \
               --topics beir-v1.0.0-{key}-test-splade_distil_cocodenser_medium \
               --output runs/run.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.trec \
               --output-format trec \
