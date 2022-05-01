@@ -71,16 +71,16 @@ def batch_process(batch):
         title = json_line['title']
         body = json_line['text']
 
-        doc = {"_id": pid,
+        doc = {"id": pid,
                "title":  get_retokenized(bert_tokenizer, title.lower()),
-               "text": get_retokenized(bert_tokenizer, body.lower())}
+               "contents": get_retokenized(bert_tokenizer, body.lower())}
         return doc
     
     res = []
     start = time.time()
     for line in batch:
         res.append(process(line))
-        if len(res) % 1000 == 0:
+        if len(res) % 100000 == 0:
             end = time.time()
             print(f"finish {len(res)} using {end-start}")
             start = end
@@ -103,7 +103,7 @@ if __name__ == '__main__':
                     else:
                         print(f"Ignoring misformatted line {line_num}")
 
-                    if line_num % 100 == 0:
+                    if line_num % 10000 == 0:
                         print(f"Processed {line_num} passages")
 
     print(f"Processed {line_num} passages")
