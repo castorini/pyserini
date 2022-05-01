@@ -120,7 +120,7 @@ for key in beir_keys:
     stats = index_reader.stats()
     md5 = compute_md5(f'indexes/lucene-index.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.{date}.{commitid}.tar.gz')
     size = os.path.getsize(f'indexes/lucene-index.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.{date}.{commitid}.tar.gz')
-    print(f'    "beir-v1.0.0-{key}-multifield": {{')
+    print(f'    "beir-v1.0.0-{key}-splade_distil_cocodenser_medium": {{')
     print(f'        "description": "Lucene impact index of BEIR (v1.0.0): {beir_keys[key]} encoded by SPLADE-distill CoCodenser-medium",')
     print(f'        "filename": "lucene-index.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.{date}.{commitid}.tar.gz",')
     print(f'        "readme": "lucene-index.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.{date}.{commitid}.README.md",')
