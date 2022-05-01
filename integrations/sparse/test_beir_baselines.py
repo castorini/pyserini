@@ -89,8 +89,8 @@ class TestSearchIntegration(unittest.TestCase):
 
     def setUp(self):
         self.temp_files = []
-        self.commitid = 'xxxxxx'
-        self.date = '20220430'
+        self.commitid = '1842ee'
+        self.date = '20220501'
 
     def test_beir_flat(self):
         for key in self.beir_flat:
@@ -98,7 +98,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.temp_files.append(output_file)
 
             cmd = f'python -m pyserini.search.lucene \
-                      --index indexes/lucene-index.beir-v1.0.0-{key}-flat.{self.date}.{self.commitid} \
+                      --index lucene-index.beir-v1.0.0-{key}-flat \
                       --topics beir-v1.0.0-{key}-test \
                       --output {output_file} \
                       --output-format trec \
@@ -119,7 +119,7 @@ class TestSearchIntegration(unittest.TestCase):
             self.temp_files.append(output_file)
 
             cmd = f'python -m pyserini.search.lucene \
-                      --index indexes/lucene-index.beir-v1.0.0-{key}-multifield.{self.date}.{self.commitid} \
+                      --index lucene-index.beir-v1.0.0-{key}-multifield \
                       --topics beir-v1.0.0-{key}-test \
                       --output runs/run.beir-v1.0.0-{key}-multifield.trec \
                       --output-format trec \
