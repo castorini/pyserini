@@ -71,9 +71,9 @@ def batch_process(batch):
         title = json_line['title']
         body = json_line['text']
 
-        doc = {"id": pid,
+        doc = {"_id": pid,
                "title":  get_retokenized(bert_tokenizer, title.lower()),
-               "contents": get_retokenized(bert_tokenizer, body.lower())}
+               "text": get_retokenized(bert_tokenizer, body.lower())}
         return doc
     
     res = []
