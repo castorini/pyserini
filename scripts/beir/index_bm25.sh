@@ -1,10 +1,12 @@
-mkdir -p indexes
+#mkdir -p indexes
 
-for corpora in arguana bioasq climate-fever dbpedia-entity fever hotpotqa nfcorpus quora robust04 scidocs scifact signal1m trec-covid trec-news webis-touche2020
-#for corpora in fiqa
+#for corpora in arguana bioasq climate-fever dbpedia-entity fever hotpotqa nfcorpus quora robust04 scidocs scifact signal1m trec-covid trec-news webis-touche2020 fiqa nq
+#do
+
+#for corpora in android  english  gaming  gis  mathematica  physics  programmers  stats  tex  unix  webmasters  wordpress
+for corpora in fiqa
 do
-
-python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
-	-threads 20 -input /store/scratch/y247xie/00_data/wp-tokenized-anserini/${corpora}/corpus \
-	-index indexes/lucene-index-beir-${corpora} -storePositions -storeDocvectors -storeRaw
+python -m pyserini.index -collection BeirFlatCollection -generator DefaultLuceneDocumentGenerator \
+	-threads 20 -input /store/scratch/y247xie/00_data/wp-tokenized/${corpora}/corpus \
+	-index indexes/lucene-index-beir-${corpora}_ -storePositions -storeDocvectors -storeRaw -pretokenized
 done
