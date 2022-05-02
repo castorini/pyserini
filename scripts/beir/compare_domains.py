@@ -86,8 +86,8 @@ if __name__ == '__main__':
     parser.add_argument('--output_path', type=str, help='path to save the stat results', required=True)
     args = parser.parse_args()
 
-    #beir_datasets = ['arguana', 'bioasq', 'climate-fever', 'dbpedia-entity', 'fever', 'fiqa', 'hotpotqa', 'nfcorpus', 'nq', 'quora', 'robust04', 'scidocs', 'scifact', 'signal1m', 'trec-covid', 'trec-news', 'webis-touche2020']
-    beir_datasets = ['arguana', 'fiqa']
+    beir_datasets = ['trec-covid', 'bioasq', 'nfcorpus', 'nq', 'hotpotqa', 'climate-fever', 'fever', 'dbpedia-entity', 'fiqa', 'signal1m', 'trec-news',  'robust04', 'arguana', 'webis-touche2020', 'quora', 'cqadupstack', 'scidocs', 'scifact']
+    #beir_datasets = ['arguana', 'fiqa']
     cfs = dfs = stats = {}
     for d in beir_datasets:
         cf, df, stat = index2stats(args.index_path + args.index_name_format.format(d))
@@ -111,8 +111,8 @@ if __name__ == '__main__':
                     new_d2 = filter_freq_dict(cf2freq(cfs[d2]))
                     metric_d1[d2] = jaccard(new_d1, new_d2)
                 elif args.compare_metric == "tf_filter":
-                    new_d1 = filter_freq_dict(df2idf(dfs[d1], stat[d1]['documents']))
-                    new_d2 = filter_freq_dict(df2idf(dfs[d2], stat[d2]['documents']))
+                    new_d1 = filter_freq_dict(df2idf(dfs[d1], 1))
+                    new_d2 = filter_freq_dict(df2idf(dfs[d2], 1))
                     metric_d1[d2] = jaccard(new_d1, new_d2)
         results[d1] = metric_d1
 
