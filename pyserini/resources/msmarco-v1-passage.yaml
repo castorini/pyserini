@@ -168,6 +168,48 @@ conditions:
           - MAP: 0.4430
             nDCG@10: 0.6745
             R@1K: 0.8430
+  - name: unicoil-noexp-otf
+    display: uniCOIL (noexp) - otf
+    command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil-noexp --topics _T_ --encoder castorini/unicoil-noexp-msmarco-passage --output _R_ --batch 36 --threads 12 --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3153
+            R@1K: 0.9239
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4033
+            nDCG@10: 0.6434
+            R@1K: 0.7752
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4022
+            nDCG@10: 0.6524
+            R@1K: 0.7861
+  - name: unicoil-noexp
+    display: uniCOIL (noexp) - pre-encoded
+    command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil-noexp --topics _T_ --output _R_ --batch 36 --threads 12 --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-passage-dev-subset-unicoil-noexp
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3153
+            R@1K: 0.9239
+      - topic_key: dl19-passage-unicoil-noexp
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4033
+            nDCG@10: 0.6433
+            R@1K: 0.7752
+      - topic_key: dl20-unicoil-noexp
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4021
+            nDCG@10: 0.6523
+            R@1K: 0.7861
   - name: tct_colbert-v2-hnp-otf
     display: TCT_ColBERT-V2-HN+ - otf
     command: python -m pyserini.search.faiss --index msmarco-passage-tct_colbert-v2-hnp-bf --topics _T_ --encoder castorini/tct_colbert-v2-hnp-msmarco --output _R_ --batch-size 36 --threads 12

@@ -24,6 +24,24 @@ from collections import defaultdict
 
 collection = 'msmarco-v1-passage'
 
+# The models: the rows of the results table will be ordered this way.
+models = ['bm25',
+          'bm25-rm3',
+          'bm25-d2q-t5',
+          '',
+          'bm25-default',
+          'bm25-rm3-default',
+          'bm25-d2q-t5-default',
+          '',
+          'unicoil-noexp',
+          'unicoil-noexp-otf',
+          '',
+          'unicoil',
+          'unicoil-otf',
+          '',
+          'tct_colbert-v2-hnp',
+          'tct_colbert-v2-hnp-otf']
+
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK] '
 
@@ -121,10 +139,7 @@ if __name__ == '__main__':
     print(' ' * 49 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
     print(' ' * 45 + 'MAP nDCG@10    R@1K       MAP nDCG@10    R@1K    MRR@10    R@1K')
     print(' ' * 42 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
-    for name in ['bm25', 'bm25-rm3', 'bm25-d2q-t5', '',
-                 'bm25-default', 'bm25-rm3-default', 'bm25-d2q-t5-default', '',
-                 'unicoil', 'unicoil-otf', '',
-                 'tct_colbert-v2-hnp', 'tct_colbert-v2-hnp-otf']:
+    for name in models:
         if not name:
             print('')
             continue
