@@ -1172,15 +1172,15 @@ IMPACT_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-v1-doc-segmented-unicoil-noexp": {
-        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp).",
-        "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220322.2f4058.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220322.2f4058.README.md",
+        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp) with title prepended.",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220419.c47993.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220419.c47993.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220322.2f4058.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220419.c47993.tar.gz",
         ],
-        "md5": "df678edd015c4ad82a4be7f35fddaa47",
-        "size compressed (bytes)": 5371860391,
-        "total_terms": 152325913715,
+        "md5": "6ecb423bc201a5abfbcd82f3826dbdde",
+        "size compressed (bytes)": 5017911119,
+        "total_terms": 152323732876,
         "documents": 20545677,
         "unique_terms": 29142,
         "downloaded": False
@@ -1230,6 +1230,20 @@ IMPACT_INDEX_INFO = {
         "unique_terms": 29169,
         "downloaded": False
     },
+    "msmarco-v2-doc-segmented-unicoil-0shot-v2": {
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended.",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.tar.gz"
+        ],
+        "md5": "109572d65098021642b33e0feecde057",
+        "size compressed (bytes)": 33967003367,
+        "total_terms": 1204542769110,
+        "documents": 124131414,
+        "unique_terms": 29168,
+        "downloaded": False
+    },
     "msmarco-v2-doc-segmented-unicoil-noexp-0shot": {
         "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp).",
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
@@ -1241,6 +1255,20 @@ IMPACT_INDEX_INFO = {
         "md5": "d7807b60087b630010e9c31b59d30b69",
         "size compressed (bytes)": 28640356748,
         "total_terms": 805830282591,
+        "documents": 124131404,
+        "unique_terms": 29172,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2": {
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.tar.gz"
+        ],
+        "md5": "8a48373934ad45052b5267ba73cdcad0",
+        "size compressed (bytes)": 29662349942,
+        "total_terms": 820664704261,
         "documents": 124131404,
         "unique_terms": 29172,
         "downloaded": False
