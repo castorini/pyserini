@@ -88,7 +88,7 @@ class QueryEncoder:
 class TctColBertQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu'):
+                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
@@ -120,7 +120,7 @@ class TctColBertQueryEncoder(QueryEncoder):
 class DprQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu'):
+                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
@@ -144,7 +144,7 @@ class DprQueryEncoder(QueryEncoder):
 class BprQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu'):
+                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
         self.has_model = False
         self.has_encoded_query = False
         if encoded_query_dir:
@@ -187,7 +187,7 @@ class BprQueryEncoder(QueryEncoder):
 class DkrrDprQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu',
-                 prefix: str = "question:"):
+                 prefix: str = "question:", **kwargs):
         super().__init__(encoded_query_dir)
         self.device = device
         self.model = BertModel.from_pretrained(encoder_dir)
@@ -219,7 +219,7 @@ class DkrrDprQueryEncoder(QueryEncoder):
 class AnceQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu'):
+                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
@@ -281,7 +281,7 @@ class AutoQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
                  encoded_query_dir: str = None, device: str = 'cpu',
-                 pooling: str = 'cls', l2_norm: bool = False):
+                 pooling: str = 'cls', l2_norm: bool = False, **kwargs):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
