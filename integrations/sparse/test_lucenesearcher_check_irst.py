@@ -59,7 +59,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         self.assertEqual(ndcg_score, 0.5260)
 
     def test_sum_aggregation_dl20_passage(self):
-        #d l20 passage sum
+        # dl20 passage sum
         topic = 'dl20-passage'
         os.system(f'python -m pyserini.search.lucene.irst \
             --topics {self.dl20} \

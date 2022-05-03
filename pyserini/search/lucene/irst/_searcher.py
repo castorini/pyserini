@@ -24,13 +24,12 @@ import math
 import os
 import pickle
 import struct
-import tarfile
 from typing import Dict
 from multiprocessing.pool import ThreadPool
 from transformers import AutoTokenizer
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.pyclass import autoclass
-from pyserini.util import download_prebuilt_index, get_cache_home, download_url
+from pyserini.util import download_prebuilt_index, get_cache_home, download_url, download_and_unpack_index
 
 # Wrappers around Anserini classes
 JQuery = autoclass('org.apache.lucene.search.Query')
@@ -46,8 +45,11 @@ class LuceneIrstSearcher(object):
     MIN_COLLECT_PROB = 1e-9
 
     def __init__(self, index: str, k1: int, b: int, num_threads: int):
-        self.translation_model = self.download_and_unpack_translation_model()
+        translation_url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_bert_tok_20211117.tar.gz'
+        translation_directory = os.path.join(get_cache_home(), 'translation_model')
         self.termfreq_dic = self.download_and_load_wp_stats(index)
+        # This is used to download and unpack translation model instead of index, we use the function (download_and_unpack_index) for convenience.
+        self.translation_model = download_and_unpack_index(translation_url, translation_directory)
         self.bm25search = LuceneSearcher.from_prebuilt_index(index)
         self.bm25search.set_bm25(k1, b)
         index_directory = os.path.join(get_cache_home(), 'indexes')
@@ -88,30 +90,6 @@ class LuceneIrstSearcher(object):
 
         print(f'Initializing {prebuilt_index_name}...')
         return cls(index_dir)
-
-    def download_and_unpack_translation_model(self):
-        local_filename = 'ibm_model_1_bert_tok_20211117'
-        translation_directory = os.path.join(get_cache_home(), 'translation_model')
-        translation_path = os.path.join(translation_directory, local_filename)
-
-        url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_bert_tok_20211117.tar.gz'
-        if not os.path.exists(translation_directory):
-            os.makedirs(translation_directory)
-        local_tarball = os.path.join(translation_directory, f'{local_filename}.tar.gz')
-        # If there's a local tarball, it's likely corrupted, because we remove the local tarball on success (below).
-        # So, we want to remove.
-        if os.path.exists(local_tarball):
-            os.remove(local_tarball)
-        if os.path.exists(translation_path):
-            print(f'{translation_path} already exists, skipping download.')
-        else:
-            download_url(url, translation_directory, local_tarball)
-            print(f'Extracting {local_tarball} into {translation_path}...')
-            tarball = tarfile.open(local_tarball)
-            tarball.extractall(translation_directory)
-            tarball.close()
-            os.remove(local_tarball)
-        return translation_path
 
     def download_and_load_wp_stats(self, index: str):
         translation_directory = os.path.join(get_cache_home(), 'translation_model')
