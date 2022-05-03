@@ -25,9 +25,9 @@ from collections import defaultdict
 collection = 'msmarco-v1-passage'
 
 # The models: the rows of the results table will be ordered this way.
-models = ['bm25',
-          'bm25-rm3',
-          'bm25-d2q-t5',
+models = ['bm25-tuned',
+          'bm25-rm3-tuned',
+          'bm25-d2q-t5-tuned',
           '',
           'bm25-default',
           'bm25-rm3-default',
