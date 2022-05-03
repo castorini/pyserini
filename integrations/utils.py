@@ -43,7 +43,12 @@ def run_command(cmd, echo=False):
 
 
 def parse_score(output, metric, digits=4):
-    for line in output.split('\n'):
+    lines = output.split('\n')
+    # The output begins with a bunch of debug information, get rid of lines until we get to 'Results'
+    while 'Results' not in lines[0]:
+        lines.pop(0)
+
+    for line in lines:
         if metric in line:
             score = float(line.split()[-1])
             return round(score, digits)
