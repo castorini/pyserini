@@ -80,7 +80,7 @@ class TestTrecTools(unittest.TestCase):
 
     def test_judge_score(self):
         qrels_path = os.path.join(self.root, 'tools/topics-and-qrels/qrels.covid-round1.txt')
-        run_path = os.path.join(self.root, 'tests/resources/tests/resources/simple_trec_run_filter.txt')
+        run_path = os.path.join(self.root, 'tests/resources/simple_trec_run_filter.txt')
         results = subprocess.check_output(f"python -m pyserini.eval.trec_eval -m ndcg_cut.5,10 {qrels_path} {run_path}",shell=True)
         results = '\n'.join(results.decode("utf-8").split('\n')[-7:])
         with open(self.output_path,'w') as writer:
@@ -90,7 +90,7 @@ class TestTrecTools(unittest.TestCase):
 
     def test_remove_undjudged(self):
         qrels_path = os.path.join(self.root, 'tools/topics-and-qrels/qrels.covid-round1.txt')
-        run_path = os.path.join(self.root, 'tests/resources/tests/resources/simple_trec_run_filter.txt')
+        run_path = os.path.join(self.root, 'tests/resources/simple_trec_run_filter.txt')
         results = subprocess.check_output(f"python -m pyserini.eval.trec_eval -m ndcg_cut.5,10 {qrels_path} {run_path} -remove-unjudged",shell=True)
         results = '\n'.join(results.decode("utf-8").split('\n')[-7:])
         with open(self.output_path,'w') as writer:
