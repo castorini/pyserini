@@ -346,7 +346,18 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(len(qrels), 4281)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
-    # TODO: Add DL21
+    def test_dl21(self):
+        qrels = search.get_qrels('dl21-doc')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 57)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 13058)
+        self.assertFalse(isinstance(next(iter(qrels.keys())), str))
+
+        qrels = search.get_qrels('dl21-passage')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 53)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 10828)
+        self.assertFalse(isinstance(next(iter(qrels.keys())), str))
 
     # Various multi-lingual test collections
     def test_ntcir8_zh(self):

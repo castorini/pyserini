@@ -250,6 +250,8 @@ qrels_mapping = {
     'dl19-passage': JQrels.TREC2019_DL_PASSAGE,
     'dl20-doc': JQrels.TREC2020_DL_DOC,
     'dl20-passage': JQrels.TREC2020_DL_PASSAGE,
+    'dl21-doc': JQrels.TREC2021_DL_DOC,
+    'dl21-passage': JQrels.TREC2021_DL_PASSAGE,
     'msmarco-doc-dev': JQrels.MSMARCO_DOC_DEV,
     'msmarco-passage-dev-subset': JQrels.MSMARCO_PASSAGE_DEV_SUBSET,
     'msmarco-v2-doc-dev': JQrels.MSMARCO_V2_DOC_DEV,
