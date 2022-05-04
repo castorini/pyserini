@@ -144,6 +144,22 @@ class TestJsonlCollectionIterator(unittest.TestCase):
     def setUp(self):
         return
 
+    def test_missing_fields(self):
+        json_fn = 'tests/resources/simple_scifact.jsonl'
+        all_expected_info = [
+            ("e275f643c97ca1f4c7715635bb72cf02df928d06", "From Databases to Big Data", ""),
+            ("bf003bb2d52304fea114d824bc0bf7bfbc7c3106", "Dissecting social engineering", ""),
+            ("50bc77f3ec070940b1923b823503a4c2b09e9921", "PHANTOM: A Scalable BlockDAG Protocol", ""),
+        ]
+        collection_iterator = JsonlCollectionIterator(json_fn, ["title", "text"], delimiter="\n")
+        for i, info in enumerate(collection_iterator):
+            expected_info = all_expected_info[i]
+
+            self.assertEqual(expected_info[0], info["id"][0])
+            self.assertEqual(expected_info[1], info["title"][0])
+            self.assertEqual(expected_info[2], info["text"][0])
+
+
     def test_upper_lower_case(self):
         json_fn = 'tests/resources/simple_cacm_corpus.json'
         all_expected_info = [
