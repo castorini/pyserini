@@ -22,19 +22,40 @@ from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceD
 from pyserini.encode import UniCoilDocumentEncoder
 
 
-def init_encoder(encoder, device):
-    if 'dpr' in encoder.lower():
-        return DprDocumentEncoder(encoder, device=device)
-    elif 'tct_colbert' in encoder.lower():
-        return TctColBertDocumentEncoder(encoder, device=device)
-    elif 'ance' in encoder.lower():
-        return AnceDocumentEncoder(encoder, device=device)
-    elif 'sentence-transformers' in encoder.lower():
-        return AutoDocumentEncoder(encoder, device=device, pooling='mean', l2_norm=True)
-    elif 'unicoil' in encoder.lower():
-        return UniCoilDocumentEncoder(encoder, device=device)
+encoder_class_map = {
+    "dpr": DprDocumentEncoder,
+    "tct_colbert": TctColBertDocumentEncoder,
+    "ance": AnceDocumentEncoder,
+    "sentence-transformers": AutoDocumentEncoder,
+    "unicoil": UniCoilDocumentEncoder,
+    "auto": AutoDocumentEncoder,
+}
+
+def init_encoder(encoder, encoder_class, device):
+    _encoder_class = encoder_class
+
+    # determine encoder_class
+    if encoder_class is not None:
+        encoder_class = encoder_class_map[encoder_class]
     else:
-        return AutoDocumentEncoder(encoder, device=device)
+        # if any class keyword was matched in the given encoder name,
+        # use that encoder class
+        for class_keyword in encoder_class_map:
+            if class_keyword in encoder.lower():
+                encoder_class = encoder_class_map[class_keyword]
+                break
+
+        # if none of the class keyword was matched,
+        # use the AutoDocumentEncoder
+        if encoder_class is None:
+            encoder_class = AutoDocumentEncoder
+
+    # prepare arguments to encoder class
+    kwargs = dict(model_name=encoder, device=device)
+    if (_encoder_class == "sentence-transformers") or ("sentence-transformers" in encoder):
+        kwargs.update(dict(pooling='mean', l2_norm=True))
+
+    return encoder_class(**kwargs)
 
 
 def parse_args(parser, commands):
@@ -77,6 +98,9 @@ if __name__ == '__main__':
 
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
+    encoder_parser.add_argument('--encoder-class', type=str, required=False, default=None,
+                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "auto"],
+                                help='which query encoder class to use. `default` would infer from the args.encoder')
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--batch-size', type=int, help='batch size', default=64, required=False)
     encoder_parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]',
@@ -86,7 +110,7 @@ if __name__ == '__main__':
     args = parse_args(parser, commands)
     delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
 
-    encoder = init_encoder(args.encoder.encoder, device=args.encoder.device)
+    encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device)
     if args.output.to_faiss:
         embedding_writer = FaissRepresentationWriter(args.output.embeddings)
     else:

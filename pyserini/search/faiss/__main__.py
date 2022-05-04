@@ -40,7 +40,7 @@ def define_dsearch_args(parser):
                         help="Path to Faiss index or name of prebuilt index.")
     parser.add_argument('--encoder-class', type=str, metavar='which query encoder class to use. `default` would infer from the args.encoder',
                         required=False,
-                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "auto"],
+                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "auto"],
                         default=None,
                         help='which query encoder class to use. `default` would infer from the args.encoder')
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
@@ -103,23 +103,27 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
     }
 
     if encoder:
+        _encoder_class = encoder_class
+
         # determine encoder_class
         if encoder_class is not None:
             encoder_class = encoder_class_map[encoder_class]
         else:
-            # if any class keyword was matched in the given encoder name, use that encoder class
+            # if any class keyword was matched in the given encoder name,
+            # use that encoder class
             for class_keyword in encoder_class_map:
-                if class_keyword in encoder:
+                if class_keyword in encoder.lower():
                     encoder_class = encoder_class_map[class_keyword]
                     break
 
-            # if none of the class keyword was matched, use the AutoQueryEncoder
+            # if none of the class keyword was matched,
+            # use the AutoQueryEncoder
             if encoder_class is None:
                 encoder_class = AutoQueryEncoder
 
         # prepare arguments to encoder class
         kwargs = dict(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device, prefix=prefix)
-        if 'sentence' in encoder:
+        if (_encoder_class == "sentence") or ("sentence" in encoder):
             kwargs.update(dict(pooling='mean', l2_norm=True))
 
         return encoder_class(**kwargs)
