@@ -17,6 +17,7 @@
 import filecmp
 import os
 import unittest
+import subprocess
 
 from pyserini.trectools import TrecRun, Qrels, RescoreMethod
 
@@ -75,6 +76,26 @@ class TestTrecTools(unittest.TestCase):
         run = TrecRun(os.path.join(self.root, 'tests/resources/simple_trec_run_fusion_1.txt'))
         run.rescore(RescoreMethod.NORMALIZE).save_to_txt(self.output_path)
         self.assertTrue(filecmp.cmp(os.path.join(self.root, 'tests/resources/simple_trec_run_normalize_verify.txt'),
+                                    self.output_path))
+
+    def test_judge_score(self):
+        qrels_path = os.path.join(self.root, 'tools/topics-and-qrels/qrels.covid-round1.txt')
+        run_path = os.path.join(self.root, 'tests/resources/tests/resources/simple_trec_run_filter.txt')
+        results = subprocess.check_output(f"python -m pyserini.eval.trec_eval -m ndcg_cut.5,10 {qrels_path} {run_path}",shell=True)
+        results = '\n'.join(results.decode("utf-8").split('\n')[-7:])
+        with open(self.output_path,'w') as writer:
+            writer.write(results)
+        self.assertTrue(filecmp.cmp(os.path.join(self.root, 'tests/resources/simple_trec_run_get_judged.txt'),
+                                    self.output_path))
+
+    def test_remove_undjudged(self):
+        qrels_path = os.path.join(self.root, 'tools/topics-and-qrels/qrels.covid-round1.txt')
+        run_path = os.path.join(self.root, 'tests/resources/tests/resources/simple_trec_run_filter.txt')
+        results = subprocess.check_output(f"python -m pyserini.eval.trec_eval -m ndcg_cut.5,10 {qrels_path} {run_path} -remove-unjudged",shell=True)
+        results = '\n'.join(results.decode("utf-8").split('\n')[-7:])
+        with open(self.output_path,'w') as writer:
+            writer.write(results)
+        self.assertTrue(filecmp.cmp(os.path.join(self.root, 'tests/resources/simple_trec_run_remove_unjudged.txt'),
                                     self.output_path))
 
     def tearDown(self):
