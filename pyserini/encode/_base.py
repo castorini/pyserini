@@ -102,7 +102,14 @@ class JsonlCollectionIterator:
                 for line in tqdm(f):
                     info = json.loads(line)
                     all_info['id'].append(str(info['id']))
-                    fields_info = info['contents'].rstrip().split(self.delimiter)
+                    fields_info = info['contents'].split(self.delimiter)
+                    if len(fields_info) != len(self.fields):
+                        raise ValueError(
+                            f"{len(fields_info)} fields are found at Line#{line_i} in file {filename}." \
+                            f"{len(self.fields)} fields expected." \
+                            f"Line content: {info['contents']}"
+                        )
+
                     for i in range(len(fields_info)):
                         all_info[self.fields[i]].append(fields_info[i])
         return all_info
