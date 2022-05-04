@@ -5,7 +5,7 @@ This guide provides instructions to reproduce the family of TCT-ColBERT-V2 dense
 > Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [In-Batch Negatives for Knowledge Distillation with Tightly-CoupledTeachers for Dense Retrieval.](https://aclanthology.org/2021.repl4nlp-1.17/) _Proceedings of the 6th Workshop on Representation Learning for NLP (RepL4NLP-2021)_, pages 163-173, August 2021.
 
 Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
-See [package installation notes](../README.md#package-installation) for more details.
+See [package installation notes](../README.md#installation) for more details.
 
 Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
@@ -15,13 +15,13 @@ Thus, while the scoring script provides results to much higher precision, we hav
 
 Summary of results (figures from the paper are in parentheses):
 
-| Condition | MRR@10 (paper) | MAP | Recall@1000 |
-|:----------|-------:|----:|------------:|
-| TCT_ColBERT-V2 (brute-force index) |  0.3440 (0.344) | 0.3509 | 0.9670 |
-| TCT_ColBERT-V2-HN (brute-force index) |  0.3543 (0.354) | 0.3608 | 0.9708 |
-| TCT_ColBERT-V2-HN+ (brute-force index) | 0.3585 (0.359) | 0.3645 | 0.9695 |
-| TCT_ColBERT-V2-HN+ (brute-force index) + BoW BM25 | 0.3682 (0.369)  | 0.3737 | 0.9707 |
-| TCT_ColBERT-V2-HN+ (brute-force index) + BM25 w/ doc2query-T5 | 0.3731 (0.375) | 0.3789 | 0.9759 |
+| Condition                                                     | MRR@10 (paper) |    MAP | Recall@1000 |
+|:--------------------------------------------------------------|---------------:|-------:|------------:|
+| TCT_ColBERT-V2 (brute-force index)                            | 0.3440 (0.344) | 0.3509 |      0.9670 |
+| TCT_ColBERT-V2-HN (brute-force index)                         | 0.3543 (0.354) | 0.3608 |      0.9708 |
+| TCT_ColBERT-V2-HN+ (brute-force index)                        | 0.3585 (0.359) | 0.3645 |      0.9695 |
+| TCT_ColBERT-V2-HN+ (brute-force index) + BoW BM25             | 0.3682 (0.369) | 0.3737 |      0.9707 |
+| TCT_ColBERT-V2-HN+ (brute-force index) + BM25 w/ doc2query-T5 | 0.3731 (0.375) | 0.3789 |      0.9759 |
 
 The slight differences between the reproduced scores and those reported in the paper can be attributed to TensorFlow implementations in the published paper vs. PyTorch implementations here in this reproduction guide.
 
@@ -30,13 +30,13 @@ The slight differences between the reproduced scores and those reported in the p
 Dense retrieval with TCT-ColBERT, brute-force index:
 
 ```bash
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-                             --index msmarco-passage-tct_colbert-v2-bf \
-                             --encoded-queries tct_colbert-v2-msmarco-passage-dev-subset \
-                             --batch-size 36 \
-                             --threads 12 \
-                             --output runs/run.msmarco-passage.tct_colbert-v2.bf.tsv \
-                             --output-format msmarco
+python -m pyserini.search.faiss \
+  --index msmarco-passage-tct_colbert-v2-bf \
+  --topics msmarco-passage-dev-subset \
+  --encoded-queries tct_colbert-v2-msmarco-passage-dev-subset \
+  --output runs/run.msmarco-passage.tct_colbert-v2.bf.tsv \
+  --output-format msmarco \
+  --batch-size 36 --threads 12
 ```
 Note that to ensure maximum reproducibility, by default Pyserini uses pre-computed query representations that are automatically downloaded.
 As an alternative, to perform "on-the-fly" query encoding, see additional instructions below.
@@ -44,7 +44,9 @@ As an alternative, to perform "on-the-fly" query encoding, see additional instru
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2.bf.tsv
+
 #####################
 MRR @10: 0.3440
 QueriesRanked: 6980
@@ -55,8 +57,13 @@ We can also use the official TREC evaluation tool `trec_eval` to compute other m
 For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.tct_colbert-v2.bf.tsv --output runs/run.msmarco-passage.tct_colbert-v2.bf.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2.bf.trec
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+    --input runs/run.msmarco-passage.tct_colbert-v2.bf.tsv \
+    --output runs/run.msmarco-passage.tct_colbert-v2.bf.trec
+
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2.bf.trec
+
 map                     all     0.3509
 recall_1000             all     0.9670
 ```
@@ -64,26 +71,33 @@ recall_1000             all     0.9670
 ### TCT_ColBERT-V2-HN
 
 ```bash
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-                             --index msmarco-passage-tct_colbert-v2-hn-bf \
-                             --encoded-queries tct_colbert-v2-hn-msmarco-passage-dev-subset \
-                             --batch-size 36 \
-                             --threads 12 \
-                             --output runs/run.msmarco-passage.tct_colbert-v2-hn.bf.tsv \
-                             --output-format msmarco
+python -m pyserini.search.faiss \
+  --index msmarco-passage-tct_colbert-v2-hn-bf \
+  --topics msmarco-passage-dev-subset \
+  --encoded-queries tct_colbert-v2-hn-msmarco-passage-dev-subset \
+  --output runs/run.msmarco-passage.tct_colbert-v2-hn.bf.tsv \
+  --output-format msmarco \
+  --batch-size 36 --threads 12
 ```
 
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hn.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hn.bf.tsv
+
 #####################
 MRR @10: 0.3543
 QueriesRanked: 6980
 #####################
 
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.tct_colbert-v2-hn.bf.tsv --output runs/run.msmarco-passage.tct_colbert-v2-hn.bf.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hn.bf.trec
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+    --input runs/run.msmarco-passage.tct_colbert-v2-hn.bf.tsv \
+    --output runs/run.msmarco-passage.tct_colbert-v2-hn.bf.trec
+
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hn.bf.trec
+
 map                     all     0.3608
 recall_1000             all     0.9708
 ```
@@ -91,26 +105,33 @@ recall_1000             all     0.9708
 ### TCT_ColBERT-V2-HN+
 
 ```bash
-$ python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
-                             --index msmarco-passage-tct_colbert-v2-hnp-bf \
-                             --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
-                             --batch-size 36 \
-                             --threads 12 \
-                             --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv \
-                             --output-format msmarco
+python -m pyserini.search.faiss \
+  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+  --topics msmarco-passage-dev-subset \
+  --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
+  --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv \
+  --output-format msmarco \
+  --batch-size 36 --threads 12
 ```
 
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv
+
 #####################
 MRR @10: 0.3585
 QueriesRanked: 6980
 #####################
 
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.trec
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+    --input runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv \
+    --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.trec
+
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.trec
+
 map                     all     0.3645
 recall_1000             all     0.9695
 ```
@@ -126,27 +147,35 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 - sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
 
 ```bash
-$ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
-                                    --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
-                             sparse --index msmarco-passage \
-                             fusion --alpha 0.06 \
-                             run    --topics msmarco-passage-dev-subset \
-                                    --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.tsv \
-                                    --batch-size 36 --threads 12 \
-                                    --output-format msmarco
+python -m pyserini.search.hybrid \
+  dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+         --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
+  sparse --index msmarco-passage \
+  fusion --alpha 0.06 \
+  run    --topics msmarco-passage-dev-subset \
+         --output-format msmarco \
+         --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.tsv \
+         --batch-size 36 --threads 12
 ```
 
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.tsv
+
 #####################
 MRR @10: 0.3682
 QueriesRanked: 6980
 #####################
 
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.tsv --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.trec
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+    --input runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.tsv \
+    --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.trec
+
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.bm25.trec
+
 map                   	all	0.3737
 recall_1000           	all	0.9707
 ```
@@ -158,27 +187,35 @@ Hybrid retrieval with dense-sparse representations (with document expansion):
 - sparse retrieval with doc2query-T5 expanded index.
 
 ```bash
-$ python -m pyserini.hsearch dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
-                                    --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
-                             sparse --index msmarco-passage-expanded \
-                             fusion --alpha 0.1 \
-                             run    --topics msmarco-passage-dev-subset \
-                                    --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv \
-                                    --batch-size 36 --threads 12 \
-                                    --output-format msmarco
+python -m pyserini.search.hybrid \
+  dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+         --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
+  sparse --index msmarco-passage-expanded \
+  fusion --alpha 0.1 \
+  run    --topics msmarco-passage-dev-subset \
+         --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv \
+         --output-format msmarco \
+         --batch-size 36 --threads 12
 ```
 
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv
+
 #####################
 MRR @10: 0.3731
 QueriesRanked: 6980
 #####################
 
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.trec
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+    --input runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv \
+    --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.trec
+
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.trec
+
 map                   	all	0.3789
 recall_1000           	all	0.9759
 ```
@@ -236,7 +273,7 @@ $ python scripts/tct_colbert/merge_indexes.py \
 
 Step4: search (with on-the-fly query encoding)
 ```bash
-$ python -m pyserini.dsearch --topics msmarco-doc-dev \
+$ python -m pyserini.search.faiss --topics msmarco-doc-dev \
 	--index <path_to_index>/msmarco-tct_colbert-v2-hnp-msmarco-full-maxp \
 	--encoder castorini/tct_colbert-v2-hnp-msmarco \
 	--output runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.txt \
@@ -247,7 +284,7 @@ $ python -m pyserini.dsearch --topics msmarco-doc-dev \
 	--batch-size 144 \
 	--threads 36
 
-$ python -m pyserini.dsearch --topics dl19-doc \
+$ python -m pyserini.search.faiss --topics dl19-doc \
 	--index <path_to_index>/msmarco-tct_colbert-v2-hnp-msmarco-full-maxp \
 	--encoder castorini/tct_colbert-v2-hnp-msmarco \
 	--output runs/run.dl19-doc.passage.tct_colbert-v2-hnp-maxp.txt \

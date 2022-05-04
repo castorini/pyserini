@@ -19,16 +19,16 @@ import json
 import os
 import random
 
-from pyserini.search import SimpleSearcher
-from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder, AnceQueryEncoder
-from pyserini.hsearch import HybridSearcher
+from pyserini.search.lucene import LuceneSearcher
+from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder, AnceQueryEncoder
+from pyserini.search.hybrid import HybridSearcher
 from pyserini import search
 
 
 class MsMarcoDemo(cmd.Cmd):
     dev_topics = list(search.get_topics('msmarco-passage-dev-subset').values())
 
-    ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+    ssearcher = LuceneSearcher.from_prebuilt_index('msmarco-passage')
     dsearcher = None
     hsearcher = None
     searcher = ssearcher
@@ -46,7 +46,7 @@ class MsMarcoDemo(cmd.Cmd):
         print(f'/help    : returns this message')
         print(f'/k [NUM] : sets k (number of hits to return) to [NUM]')
         print(f'/model [MODEL] : sets encoder to use the model [MODEL] (one of tct, ance)')
-        print(f'/mode [MODE] : sets retriver type to [MODE] (one of sparse, dense, hybrid)')
+        print(f'/mode [MODE] : sets retriever type to [MODE] (one of sparse, dense, hybrid)')
         print(f'/random : returns results for a random question from dev subset')
 
     def do_k(self, arg):
@@ -84,7 +84,7 @@ class MsMarcoDemo(cmd.Cmd):
                 f'Model "{arg}" is invalid. Model should be one of [tct, ance].')
             return
 
-        self.dsearcher = SimpleDenseSearcher.from_prebuilt_index(
+        self.dsearcher = FaissSearcher.from_prebuilt_index(
             index,
             encoder
         )
@@ -104,7 +104,7 @@ class MsMarcoDemo(cmd.Cmd):
 
         for i in range(0, len(hits)):
             raw_doc = None
-            if isinstance(self.searcher, SimpleSearcher):
+            if isinstance(self.searcher, LuceneSearcher):
                 raw_doc = hits[i].raw
             else:
                 doc = self.searcher.doc(hits[i].docid)

@@ -19,6 +19,7 @@ import os
 import re
 import shutil
 import tarfile
+import logging
 from urllib.error import HTTPError, URLError
 from urllib.request import urlretrieve
 
@@ -28,6 +29,9 @@ from tqdm import tqdm
 from pyserini.encoded_query_info import QUERY_INFO
 from pyserini.evaluate_script_info import EVALUATION_INFO
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, FAISS_INDEX_INFO, IMPACT_INDEX_INFO
+
+
+logger = logging.getLogger(__name__)
 
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5
@@ -147,11 +151,18 @@ def download_and_unpack_index(url, index_directory='indexes', local_filename=Fal
     if verbose:
         print(f'Extracting {local_tarball} into {index_path}...')
     tarball = tarfile.open(local_tarball)
+
+    dirs_in_tarball = [member.name for member in tarball if member.isdir()]
+    assert len(dirs_in_tarball), f"Detect multiple members ({', '.join(dirs_in_tarball)}) under the tarball {local_tarball}."
     tarball.extractall(index_directory)
     tarball.close()
     os.remove(local_tarball)
 
     if prebuilt:
+        dir_in_tarball = dirs_in_tarball[0]
+        if dir_in_tarball != index_name:
+            logger.info(f"Renaming {index_directory}/{dir_in_tarball} into {index_directory}/{index_name}.")
+            index_name = dir_in_tarball
         os.rename(os.path.join(index_directory, f'{index_name}'), index_path)
 
     return index_path

@@ -110,7 +110,7 @@ class TrecRun:
         self.run_data = pd.read_csv(filepath, sep='\s+', names=TrecRun.columns, dtype={'docid': 'str'})
         if resort:
             self.run_data.sort_values(["topic", "score"], inplace=True, ascending=[True, False])
-            self.run_data["rank"] = self.run_data.groupby("topic")[["docid","score"]].rank(ascending=False,method='first')
+            self.run_data["rank"] = self.run_data.groupby("topic")["score"].rank(ascending=False,method='first')
 
     def topics(self) -> Set[str]:
         """Return a set with all topics."""
@@ -156,6 +156,7 @@ class TrecRun:
                     self.run_data.loc[self.run_data['topic'] == topic, 'score'] = 1
                 else:
                     scores = (scores - low) / (high - low)
+                    scores = [float(score) for score in scores]
                     self.run_data.loc[self.run_data['topic'] == topic, 'score'] = scores
         else:
             raise NotImplementedError()
@@ -297,7 +298,7 @@ class TrecRun:
 
         res = TrecRun() if run is None else run
         res.reset_data()
-        res.run_data = res.run_data.append([df for df in dfs], ignore_index=True)
+        res.run_data = pd.concat([df for df in dfs])
 
         return res
 
@@ -346,5 +347,5 @@ class TrecRun:
         """
 
         run = TrecRun()
-        run.run_data = run.run_data.append([run.run_data for run in runs], ignore_index=True)
+        run.run_data = pd.concat([run.run_data for run in runs])
         return run

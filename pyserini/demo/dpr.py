@@ -18,9 +18,9 @@ import cmd
 import json
 import random
 
-from pyserini.search import SimpleSearcher
-from pyserini.dsearch import SimpleDenseSearcher, DprQueryEncoder
-from pyserini.hsearch import HybridSearcher
+from pyserini.search.lucene import LuceneSearcher
+from pyserini.search.faiss import FaissSearcher, DprQueryEncoder
+from pyserini.search.hybrid import HybridSearcher
 from pyserini import search
 
 
@@ -28,12 +28,12 @@ class DPRDemo(cmd.Cmd):
     nq_dev_topics = list(search.get_topics('dpr-nq-dev').values())
     trivia_dev_topics = list(search.get_topics('dpr-trivia-dev').values())
 
-    ssearcher = SimpleSearcher.from_prebuilt_index('wikipedia-dpr')
+    ssearcher = LuceneSearcher.from_prebuilt_index('wikipedia-dpr')
     searcher = ssearcher
 
     encoder = DprQueryEncoder("facebook/dpr-question_encoder-multiset-base")
     index = 'wikipedia-dpr-multi-bf'
-    dsearcher = SimpleDenseSearcher.from_prebuilt_index(
+    dsearcher = FaissSearcher.from_prebuilt_index(
         index,
         encoder
     )
@@ -50,7 +50,7 @@ class DPRDemo(cmd.Cmd):
     def do_help(self, arg):
         print(f'/help    : returns this message')
         print(f'/k [NUM] : sets k (number of hits to return) to [NUM]')
-        print(f'/mode [MODE] : sets retriver type to [MODE] (one of sparse, dense, hybrid)')
+        print(f'/mode [MODE] : sets retriever type to [MODE] (one of sparse, dense, hybrid)')
         print(f'/random [COLLECTION]: returns results for a random question from the dev subset [COLLECTION] (one of nq, trivia).')
 
     def do_k(self, arg):
@@ -91,7 +91,7 @@ class DPRDemo(cmd.Cmd):
 
         for i in range(0, len(hits)):
             raw_doc = None
-            if isinstance(self.searcher, SimpleSearcher):
+            if isinstance(self.searcher, LuceneSearcher):
                 raw_doc = hits[i].raw
             else:
                 doc = self.searcher.doc(hits[i].docid)

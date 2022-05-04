@@ -24,7 +24,8 @@ from urllib.request import urlretrieve
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 
-from pyserini import analysis, index, search
+from pyserini import analysis, search
+from pyserini.index.lucene import IndexReader
 from pyserini.pyclass import JString
 from pyserini.vectorizer import BM25Vectorizer, TfidfVectorizer
 
@@ -44,8 +45,8 @@ class TestIndexUtils(unittest.TestCase):
         tarball.close()
 
         self.index_path = os.path.join(self.index_dir, 'lucene-index.cacm')
-        self.searcher = search.SimpleSearcher(self.index_path)
-        self.index_reader = index.IndexReader(self.index_path)
+        self.searcher = search.LuceneSearcher(self.index_path)
+        self.index_reader = IndexReader(self.index_path)
 
         self.temp_folders = []
 
@@ -65,10 +66,11 @@ class TestIndexUtils(unittest.TestCase):
     def test_doc_vector_emoji_test(self):
         index_dir = 'temp_index'
         self.temp_folders.append(index_dir)
-        cmd1 = f'python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator ' + \
+        cmd1 = f'python -m pyserini.index.lucene -collection JsonCollection ' + \
+               f'-generator DefaultLuceneDocumentGenerator ' + \
                f'-threads 1 -input {self.emoji_corpus_path} -index {index_dir} -storeDocvectors'
         _ = os.system(cmd1)
-        temp_index_reader = index.IndexReader(index_dir)
+        temp_index_reader = IndexReader(index_dir)
 
         df, cf = temp_index_reader.get_term_counts('emoji')
         self.assertEqual(df, 1)

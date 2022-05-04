@@ -18,7 +18,7 @@ import multiprocessing
 from multiprocessing.pool import ThreadPool
 
 from tqdm import tqdm
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 
 import kilt.kilt_utils as utils
 from kilt.retrievers.base_retriever import Retriever
@@ -125,7 +125,7 @@ class Anserini(Retriever):
         # initialize a ranker per thread
         self.arguments = []
         for id in tqdm(range(self.num_threads)):
-            ranker = SimpleSearcher(index_dir)
+            ranker = LuceneSearcher(index_dir)
             ranker.set_bm25(k1, b)
             self.arguments.append(
                 {

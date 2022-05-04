@@ -5,7 +5,7 @@ The following results can be reproduced with v0.10.1.0 or anything later, includ
 
 ## Robust04
 
-BM25 baseline from the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-robust04.md) on TREC Disks 4 &amp; 5: 
+BM25 baseline from the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-disk45.md) on TREC Disks 4 &amp; 5:
 
 ```bash
 $ python -m pyserini.search --topics robust04 --index robust04 --output run.robust04.txt --bm25

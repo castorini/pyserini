@@ -39,11 +39,11 @@ We run the above commands to obtain pre-built index in cache.
 
 Note you can also build index from scratch follow [this guide](./experiments-ltr-msmarco-passage-reranking.md#L104).
 
+Download pretrained IBM models
 ```bash
-wget https://www.dropbox.com/s/vlrfcz3vmr4nt0q/ibm_model.tar.gz -P collections/msmarco-ltr-passage/
-tar -xzvf collections/msmarco-ltr-passage/ibm_model.tar.gz -C collections/msmarco-ltr-passage/
+wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-ibm.tar.gz -P collections/msmarco-ltr-passage/
+tar -xzvf collections/msmarco-ltr-passage/model-ltr-ibm.tar.gz -C collections/msmarco-ltr-passage/
 ```
-Download pretrained IBM models:
 
 ## Training the Model From Scratch
 ```bash

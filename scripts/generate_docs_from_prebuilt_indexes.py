@@ -30,23 +30,23 @@ Pyserini provides a number of pre-built Lucene indexes.
 To list what's available in code:
 
 ```python
-from pyserini.search import SimpleSearcher
-SimpleSearcher.list_prebuilt_indexes()
+from pyserini.search.lucene import LuceneSearcher
+LuceneSearcher.list_prebuilt_indexes()
 
-from pyserini.index import IndexReader
+from pyserini.index.lucene import IndexReader
 IndexReader.list_prebuilt_indexes()
 ```
 
 It's easy initialize a searcher from a pre-built index:
 
 ```python
-searcher = SimpleSearcher.from_prebuilt_index('robust04')
+searcher = LuceneSearcher.from_prebuilt_index('robust04')
 ```
 
 You can use this simple Python one-liner to download the pre-built index:
 
 ```
-python -c "from pyserini.search import SimpleSearcher; SimpleSearcher.from_prebuilt_index('robust04')"
+python -c "from pyserini.search.lucene import LuceneSearcher; LuceneSearcher.from_prebuilt_index('robust04')"
 ```
 
 The downloaded index will be in `~/.cache/pyserini/indexes/`.
@@ -78,9 +78,9 @@ def generate_prebuilt(index):
     for entry in index:
         # No, this is not an HTML bug. This is intentional to get GitHub formatting to not add italics to the entry.
         print(f'<dt></dt><b><code>{entry}</code></b>')
-        print(f'<dd>{index[entry]["description"]}')
         if 'readme' in index[entry]:
-            print(f'[<a href="{index[entry]["readme"]}">readme</a>]')
+            print(f'[<a href="../pyserini/resources/index-metadata/{index[entry]["readme"]}">readme</a>]')
+        print(f'<dd>{index[entry]["description"]}')
         print(f'</dd>')
     print('</dl>')
 

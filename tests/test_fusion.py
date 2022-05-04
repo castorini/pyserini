@@ -51,10 +51,10 @@ class TestSearch(unittest.TestCase):
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
 
     def test_reciprocal_rank_fusion_complex(self):
-        os.system('wget -q -nc https://www.dropbox.com/s/duimcackueph2co/anserini.covid-r2.abstract.qq.bm25.txt.gz')
-        os.system('wget -q -nc https://www.dropbox.com/s/iswpuj9tf5pj5ei/anserini.covid-r2.full-text.qq.bm25.txt.gz')
-        os.system('wget -q -nc https://www.dropbox.com/s/da7jg1ho5ubl8jt/anserini.covid-r2.paragraph.qq.bm25.txt.gz')
-        os.system('wget -q -nc https://www.dropbox.com/s/wqb0vhxp98g7dxh/anserini.covid-r2.fusion1.txt.gz')
+        os.system('wget -q -nc https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.abstract.qq.bm25.txt.gz')
+        os.system('wget -q -nc https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.full-text.qq.bm25.txt.gz')
+        os.system('wget -q -nc https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.paragraph.qq.bm25.txt.gz')
+        os.system('wget -q -nc https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.fusion1.txt.gz')
         os.system('gunzip -f anserini.covid-r2.*.txt.gz')
 
         txt_paths = ['anserini.covid-r2.abstract.qq.bm25.txt',
