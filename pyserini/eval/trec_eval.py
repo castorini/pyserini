@@ -31,11 +31,11 @@ script_path = download_evaluation_script('trec_eval')
 cmd_prefix = ['java', '-jar', script_path]
 args = sys.argv
 # Option to discard non-judged hits in run file
-judged_only = ''
-judgeds = []
+judged_docs_only = ''
+judged_result = []
 cutoffs = [10, 20]
 if '-remove-unjudged' in args:
-    judged_only = args.pop(args.index('-remove-unjudged'))
+    judged_docs_only = args.pop(args.index('-remove-unjudged'))
 if any([i.startswith('-cutoffs.') for i in args]):
     cutoffs = args.pop([i.startswith('-cutoffs.') for i in args].index(True))
     cutoffs = list(map(int, cutoffs[9:].split(',')))
@@ -61,7 +61,7 @@ if len(args) > 1:
     run = pd.read_csv(args[-1], delim_whitespace=True, header=None)
     qrels = pd.read_csv(args[-2], delim_whitespace=True, header=None)
     # Discard non-judged hits
-    if judged_only:
+    if judged_docs_only:
         if not temp_file:
             temp_file = tempfile.NamedTemporaryFile(delete=False).name
         judged_indexes = pd.merge(run[[0,2]].reset_index(), qrels[[0,2]], on = [0,2])['index']
@@ -72,7 +72,7 @@ if len(args) > 1:
     for cutoff in cutoffs:
         run_cutoff = run.groupby(0).head(cutoff)
         judged = len(pd.merge(run_cutoff[[0,2]], qrels[[0,2]], on = [0,2])) / len(run_cutoff)
-        judgeds.append(f'J@{cutoff}: {judged}')
+        judged_result.append(f'J@{cutoff}: {judged}')
     cmd = cmd_prefix + args[1:]
 else:
     cmd = cmd_prefix
@@ -89,5 +89,5 @@ print('Results:')
 print(stdout.decode("utf-8"))
 if temp_file:
     os.remove(temp_file)
-for judged in judgeds:
+for judged in judged_result:
     print(judged)
