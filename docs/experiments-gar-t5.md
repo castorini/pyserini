@@ -64,5 +64,5 @@ This should give you the topk scores as you wanted
 | TriviaQA |  fusion  | 59.00 | 72.82 | 76.93 | 80.66 | 84.10 |  85.95 |  87.39 |  88.15 |  89.07 |  90.06  |
 
 ## Reproduction Log[*](reproducibility.md)
-+ Results reproduced by [@manveertamber](https://github.com/manveertamber) on 2022-05-04 (commit [`1facc72`](https://github.com/castorini/pyserini/commit/1facc72b3c8313149c763b76502f43352efaf974))
-+ 
+
++ Results reproduced by [@manveertamber](https://github.com/manveertamber) on 2022-05-04 (commit [`1facc72`](https://github.com/castorini/pyserini/commit/1facc72b3c8313149c763b76502f43352efaf974)) 
