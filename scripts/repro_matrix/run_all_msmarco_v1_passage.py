@@ -17,10 +17,10 @@
 import argparse
 import math
 import os
-import subprocess
 import yaml
-from collections import defaultdict
 
+from collections import defaultdict
+from scripts.repro_matrix.utils import run_eval_and_return_metric
 
 collection = 'msmarco-v1-passage'
 
@@ -64,23 +64,6 @@ trec_eval_metric_definitions = {
 
 table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 table_keys = {}
-
-
-def run_command(cmd):
-    process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = process.communicate()
-    stdout = stdout.decode('utf-8')
-    stderr = stderr.decode('utf-8')
-
-    return stdout, stderr
-
-
-def run_eval_and_return_metric(metric, eval_key, runfile):
-    eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[eval_key][metric]} {eval_key} runs/{runfile}'
-    eval_stdout, eval_stderr = run_command(eval_cmd)
-
-    # TODO: This is very brittle... fix me later.
-    return eval_stdout.split('\n')[-3].split('\t')[2]
 
 
 def find_table_topic_set_key(topic_key):
@@ -127,7 +110,7 @@ if __name__ == '__main__':
                     for metric in expected:
                         table_keys[name] = display
                         if not args.skip_eval:
-                            score = float(run_eval_and_return_metric(metric, eval_key, runfile))
+                            score = float(run_eval_and_return_metric(metric, eval_key, trec_eval_metric_definitions, runfile))
                             result = ok_str if math.isclose(score, float(expected[metric])) else fail_str + f' expected {expected[metric]:.4f}'
                             print(f'    {metric:7}: {score:.4f} {result}')
                             table[name][find_table_topic_set_key(topic_key)][metric] = score
