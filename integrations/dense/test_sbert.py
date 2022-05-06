@@ -21,7 +21,7 @@ import socket
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score
-from pyserini.dsearch import QueryEncoder
+from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
 
@@ -39,7 +39,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_sbert_bf_otf(self):
         output_file = 'test_run.msmarco-passage.sbert.bf.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.dsearch --topics msmarco-passage-dev-subset \
+        cmd1 = f'python -m pyserini.search.faiss --topics msmarco-passage-dev-subset \
                              --index msmarco-passage-sbert-bf \
                              --encoder sentence-transformers/msmarco-distilbert-base-v3 \
                              --batch-size {self.batch_size} \
@@ -51,7 +51,6 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3314, delta=0.0001)
 
     def test_msmarco_passage_sbert_encoded_queries(self):

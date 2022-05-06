@@ -23,14 +23,14 @@ Refer to documentation in [our repo](https://github.com/castorini/pyserini/) for
 
 ## Usage
 
-The `SimpleSearcher` class provides the entry point for sparse retrieval using bag-of-words representations.
+The `LuceneSearcher` class provides the entry point for sparse retrieval using bag-of-words representations.
 Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
 Here's how to use a pre-built index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively (using BM25 ranking):
 
 ```python
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 
-searcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
 hits = searcher.search('what is a lobster roll?')
 
 for i in range(0, 10):
@@ -52,14 +52,14 @@ The results should be as follows:
 10 6234461 9.92200
 ```
 
-The `SimpleDenseSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `SimpleSearcher`.
+The `FaissSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `LuceneSearcher`.
 The only additional thing we need to specify for dense retrieval is the query encoder.
 
 ```python
-from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
+from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
 
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-searcher = SimpleDenseSearcher.from_prebuilt_index(
+searcher = FaissSearcher.from_prebuilt_index(
     'msmarco-passage-tct_colbert-hnsw',
     encoder
 )

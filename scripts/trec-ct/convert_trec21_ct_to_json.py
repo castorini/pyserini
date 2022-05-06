@@ -4,12 +4,13 @@ import argparse
 import xml.etree.ElementTree as ET
 import re
 import json
+from pathlib import Path
 from tqdm import tqdm
 from ftfy import fix_text
 
 def convert_collection(args):
     print('converting collection....')
-    xml_list = glob.glob(args.input_dir+'*.xml')
+    xml_list = list(Path(args.input_dir).rglob('*.xml'))
     output_path = os.path.join(args.output_dir, 'trec21.json')
     output_json_file = open(output_path, 'w', encoding='utf-8', newline='\n')
     for i in tqdm(range(len(xml_list))):

@@ -8,9 +8,9 @@ We're illustrating with `Robust04` because RM3 requires an index that stores doc
 Here's the basic usage of `SimpleSearcher`:
 
 ```python
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 
-searcher = SimpleSearcher.from_prebuilt_index('robust04')
+searcher = LuceneSearcher.from_prebuilt_index('robust04')
 hits = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:
@@ -55,12 +55,12 @@ Pyserini comes with many pre-built indexes.
 Here's how to use the one for `Robust04`:
 
 ```python
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 
-searcher = SimpleSearcher.from_prebuilt_index('robust04')
+searcher = LuceneSearcher.from_prebuilt_index('robust04')
 ```
 
-More generally, `SimpleSearcher` can be initialized with a location to an index.
+More generally, `LuceneSearcher` can be initialized with a location to an index.
 For example, you can download the same pre-built index as above by hand:
 
 ```bash
@@ -69,19 +69,17 @@ tar xvfz index-robust04-20191213.tar.gz -C indexes
 rm index-robust04-20191213.tar.gz
 ```
 
-And initialize `SimpleSearcher` as follows:
+And initialize `LuceneSearcher` as follows:
 
 ```python
-searcher = SimpleSearcher('indexes/index-robust04-20191213/')
+searcher = LuceneSearcher('indexes/index-robust04-20191213/')
 ```
 
 The result will be exactly the same.
-
-Pre-built Anserini indexes are hosted at the University of Waterloo's [GitLab](https://git.uwaterloo.ca/jimmylin/anserini-indexes) and mirrored on Dropbox.
 The following method will list available pre-built indexes:
 
 ```
-SimpleSearcher.list_prebuilt_indexes()
+LuceneSearcher.list_prebuilt_indexes()
 ```
 
 A description of what's available can be found [here](prebuilt-indexes.md).

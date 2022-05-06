@@ -18,10 +18,13 @@ from jnius import autoclass
 import sys
 import os
 
+print('pyserini.index is deprecated, please use pyserini.index.lucene.')
 args = sys.argv[1:]
-
 # argument check
 for i in range(len(args)):
+    # Convert double hyphen args into single hyphen args for Java: e.g., --input becomes -input
+    if args[i].startswith('--'):
+        args[i] = args[i][1:]
     if args[i] == '-input':
         collection_dir = args[i+1]
         if os.path.isfile(collection_dir):

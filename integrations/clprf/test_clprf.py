@@ -19,7 +19,7 @@ import shutil
 import unittest
 from random import randint
 
-from integrations.simplesearcher_score_checker import SimpleSearcherScoreChecker
+from integrations.lucenesearcher_score_checker import LuceneSearcherScoreChecker
 from integrations.utils import run_command, parse_score
 
 
@@ -41,43 +41,43 @@ class TestSearchIntegration(unittest.TestCase):
         else:
             os.mkdir(self.tmp)
 
-        self.pyserini_search_cmd = 'python -m pyserini.search'
+        self.pyserini_search_cmd = 'python -m pyserini.search.lucene'
         self.pyserini_fusion_cmd = 'python -m pyserini.fusion'
-        self.core17_index_path = os.path.join(self.anserini_root, 'indexes/lucene-index.core17.pos+docvectors+raw')
+        self.core17_index_path = os.path.join(self.anserini_root, 'indexes/lucene-index.nyt')
         self.core17_qrels_path = os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.core17.txt')
 
-        self.core18_index_path = os.path.join(self.anserini_root, 'indexes/lucene-index.core18.pos+docvectors+raw')
+        self.core18_index_path = os.path.join(self.anserini_root, 'indexes/lucene-index.wapo.v2')
         self.core18_qrels_path = os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.core18.txt')
 
-        self.robust04_index_path = os.path.join(self.anserini_root, 'indexes/lucene-index.robust04.pos+docvectors+raw')
+        self.robust04_index_path = os.path.join(self.anserini_root, 'indexes/lucene-index.disk45')
         self.robust04_qrels_path = os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.robust04.txt')
 
-        self.robust05_index_path = os.path.join(self.anserini_root, 'indexes/lucene-index.robust05.pos+docvectors+raw')
+        self.robust05_index_path = os.path.join(self.anserini_root, 'indexes/lucene-index.robust05')
         self.robust05_qrels_path = os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.robust05.txt')
 
-        self.core17_checker = SimpleSearcherScoreChecker(
+        self.core17_checker = LuceneSearcherScoreChecker(
             index=self.core17_index_path,
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.core17.txt'),
             pyserini_topics='core17',
             qrels=self.core17_qrels_path,
             eval=f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
 
-        self.core18_checker = SimpleSearcherScoreChecker(
-            index=os.path.join(self.anserini_root, 'indexes/lucene-index.core18.pos+docvectors+raw'),
+        self.core18_checker = LuceneSearcherScoreChecker(
+            index=self.core18_index_path,
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.core18.txt'),
             pyserini_topics='core18',
             qrels=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.core18.txt'),
             eval=f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
 
-        self.robust04_checker = SimpleSearcherScoreChecker(
-            index=os.path.join(self.anserini_root, 'indexes/lucene-index.robust04.pos+docvectors+raw'),
+        self.robust04_checker = LuceneSearcherScoreChecker(
+            index=self.robust04_index_path,
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.robust04.txt'),
             pyserini_topics='robust04',
             qrels=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.robust04.txt'),
             eval=f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
 
-        self.robust05_checker = SimpleSearcherScoreChecker(
-            index=os.path.join(self.anserini_root, 'indexes/lucene-index.robust05.pos+docvectors+raw'),
+        self.robust05_checker = LuceneSearcherScoreChecker(
+            index=self.robust05_index_path,
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.robust05.txt'),
             pyserini_topics='robust05',
             qrels=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.robust05.txt'),
@@ -318,10 +318,10 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertAlmostEqual(score, 0.2965, delta=0.0001)
 
     def test_core18(self):
-        self.assertTrue(self.core18_checker.run('core18_bm25', '--bm25', 0.2495))
+        self.assertTrue(self.core18_checker.run('core18_bm25', '--bm25', 0.2496))
 
     def test_core18_rm3(self):
-        self.assertTrue(self.core18_checker.run('core18_bm25', '--bm25 --rm3', 0.3135))
+        self.assertTrue(self.core18_checker.run('core18_bm25', '--bm25 --rm3', 0.3139))
 
     def test_core18_lr(self):
         pyserini_topics = 'core18'
@@ -343,7 +343,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2837, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2839, delta=0.0001)
 
     def test_core18_lr_rm3(self):
         pyserini_topics = 'core18'
@@ -387,7 +387,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2840, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2841, delta=0.0001)
 
     def test_core18_svm_rm3(self):
         pyserini_topics = 'core18'
@@ -409,7 +409,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3219, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3216, delta=0.0001)
 
     def test_core18_avg(self):
         pyserini_topics = 'core18'

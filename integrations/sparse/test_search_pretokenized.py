@@ -19,7 +19,7 @@ import shutil
 import unittest
 
 from random import randint
-from integrations.simplesearcher_score_checker import SimpleSearcherScoreChecker
+from integrations.lucenesearcher_score_checker import LuceneSearcherScoreChecker
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -46,6 +46,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.pyserini_index_cmd = 'python -m pyserini.index'
         self.pyserini_search_cmd = 'python -m pyserini.search'
+        self.pyserini_trec_eval_cmd = 'python -m pyserini.eval.trec_eval'
 
         self.cacm_jsonl_path = os.path.join(self.tmp, 'cacm_jsonl')
         self.cacm_bert_jsonl_path = os.path.join(self.tmp, 'cacm_bert_jsonl')
@@ -59,19 +60,19 @@ class TestSearchIntegration(unittest.TestCase):
         os.system(f'{self.pyserini_index_cmd} -collection JsonCollection -generator DefaultLuceneDocumentGenerator -threads 9 -input {self.cacm_jsonl_path} -index {self.cacm_index_path} -storePositions -storeDocvectors -storeRaw' )
         os.system(f'{self.pyserini_index_cmd} -collection JsonCollection -generator DefaultLuceneDocumentGenerator -threads 9 -input {self.cacm_bert_jsonl_path} -index {self.cacm_bert_index_path} -storePositions -storeDocvectors -storeRaw -pretokenized')
         
-        self.cacm_checker = SimpleSearcherScoreChecker(
+        self.cacm_checker = LuceneSearcherScoreChecker(
             index=self.cacm_index_path,
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.cacm.txt'),
             pyserini_topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.cacm.txt'),
             qrels=self.cacm_qrels_path,
-            eval=f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
+            eval=f'{self.pyserini_trec_eval_cmd} -m map -m P.30')
 
-        self.cacm_bert_checker = SimpleSearcherScoreChecker(
+        self.cacm_bert_checker = LuceneSearcherScoreChecker(
             index=self.cacm_bert_index_path,
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.cacm.txt'),
             pyserini_topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.cacm.txt'),
             qrels=self.cacm_qrels_path,
-            eval=f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
+            eval=f'{self.pyserini_trec_eval_cmd} -m map -m P.30')
 
     def test_without_pretokenized(self):
         self.assertTrue(self.cacm_checker.run('cacm', '--bm25', 0.3114))

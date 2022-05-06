@@ -14,9 +14,9 @@
 # limitations under the License.
 #
 
-INDEX_INFO = {
+TF_INDEX_INFO = {
     "cacm": {
-        "description": "CACM corpus",
+        "description": "Lucene index of the CACM corpus",
         "filename": "lucene-index.cacm.tar.gz",
         "urls": [
             "https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.tar.gz",
@@ -28,10 +28,11 @@ INDEX_INFO = {
         "unique_terms": 14363,
     },
     "robust04": {
-        "description": "TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track",
+        "description": "Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track",
         "filename": "index-robust04-20191213.tar.gz",
+        "readme": "index-robust04-20191213-readme.txt",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-robust04-20191213.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-robust04-20191213.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/eqFacNeSGc4pLLH/download"
         ],
         "md5": "15f3d001489c97849a010b0a4734d018",
@@ -40,53 +41,14 @@ INDEX_INFO = {
         "documents": 528030,
         "unique_terms": 923436,
     },
-    "msmarco-passage": {
-        "description": "MS MARCO passage corpus",
-        "filename": "index-msmarco-passage-20201117-f87c94.tar.gz",
-        "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-20201117-f87c94.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/QQsZMFG8MpF4P8M/download"
-        ],
-        "md5": "1efad4f1ae6a77e235042eff4be1612d",
-        "size compressed (bytes)": 2218470796,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
-    "msmarco-passage-slim": {
-        "description": "MS MARCO passage corpus (slim version, no documents)",
-        "filename": "index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
-        "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Kx6K9NJFmwnaAP8/download"
-        ],
-        "md5": "5e11da4cebd2e8dda2e73c589ffb0b4c",
-        "size compressed (bytes)": 513566686,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
-    "msmarco-passage-expanded": {
-        "description": "MS MARCO passage corpus (+ docTTTTTquery expansion)",
-        "filename": "index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
-        "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/pm7cisJtRxiAMHd/download"
-        ],
-        "md5": "e5762e9e065b6fe5000f9c18da778565",
-        "size compressed (bytes)": 816438546,
-        "total_terms": 1986612263,
-        "documents": 8841823,
-        "unique_terms": 3929111,
-        "downloaded": False
-    },
+
     "msmarco-passage-ltr": {
-        "description": "MS MARCO passage corpus (4 extra preprocessed fields) used for LTR pipeline",
+        "description": "Lucene index of the MS MARCO passage corpus with four extra preprocessed fields for LTR",
         "filename": "index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
+        "readme": "index-msmarco-passage-ltr-20210519-e25e33f-readme.txt",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/8qFCaCtwabRfYQD/download" # too big for UWaterloo GitLab
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/8qFCaCtwabRfYQD/download"
         ],
         "md5": "a5de642c268ac1ed5892c069bdc29ae3",
         "size compressed (bytes)": 14073966046,
@@ -95,95 +57,477 @@ INDEX_INFO = {
         "unique_terms": 2660824,
         "downloaded": False
     },
-    "msmarco-doc": {
-        "description": "MS MARCO document corpus",
-        "filename": "index-msmarco-doc-20201117-f87c94.tar.gz",
+    "msmarco-doc-per-passage-ltr": {
+        "description": "Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR",
+        "filename": "index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-doc-20201117-f87c94.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/5NC7A2wAL7opJKH/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/kNdXMWXEsTt3fT8/download"
         ],
-        "md5": "ac747860e7a37aed37cc30ed3990f273",
-        "size compressed (bytes)": 13642330935,
-        "total_terms": 2748636047,
+        "md5": "bd60e89041b4ebbabc4bf0cfac608a87",
+        "size compressed (bytes)": 45835520960,
+        "total_terms": 1232004740,
+        "documents": 20545628,
+        "unique_terms": 10123678,
+        "downloaded": False
+    },
+    "msmarco-document-segment-ltr": {
+        "description": "Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR",
+        "filename": "lucene-index.msmarco-doc-segmented.ibm.tar.gz",
+        "urls": [
+            "https://www.dropbox.com/s/e5mwugvcbeypfl5/lucene-index.msmarco-doc-segmented.ibm.tar.gz?dl=1"
+        ],
+        "md5": "13064bdaf8e8a79222634d67ecd3ddb5",
+        "size compressed (bytes)": 98984853515,
+        "total_terms": 3197500226,
+        "documents": 20532330,
+        "downloaded": False
+    },
+
+    # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v1-doc": {
+        "description": "Lucene index of the MS MARCO V1 document corpus.",
+        "filename": "lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/aDRAfyZytQsQ9T3/download"
+        ],
+        "md5": "43b60b3fc75324c648a02375772e7fe8",
+        "size compressed (bytes)": 13757573401,
+        "total_terms": 2742209690,
         "documents": 3213835,
-        "unique_terms": 29823078,
+        "unique_terms": 29820456,
         "downloaded": False
     },
-    "msmarco-doc-slim": {
-        "description": "MS MARCO document corpus (slim version, no documents)",
-        "filename": "index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
+    "msmarco-v1-doc-slim": {
+        "description": "Lucene index of the MS MARCO V1 document corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.README.md",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/BMZ6oYBoEPgTFqs/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/iCnysqnaG9SL9pA/download"
         ],
-        "md5": "c56e752f7992bf6149761097641d515a",
-        "size compressed (bytes)": 1874471867,
-        "total_terms": 2748636047,
+        "md5": "17a7b079e9d527492904c7697a9cae59",
+        "size compressed (bytes)": 1811599007,
+        "total_terms": 2742209690,
         "documents": 3213835,
-        "unique_terms": 29823078,
+        "unique_terms": 29820456,
         "downloaded": False
     },
-    "msmarco-doc-per-passage": {
-        "description": "MS MARCO document corpus, segmented into passages",
-        "filename": "index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
+    "msmarco-v1-doc-full": {
+        "description": "Lucene index of the MS MARCO V1 document corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.README.md",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/q6sAxE6q57q2TBo/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/KsqZ2AwkSrTM8yS/download"
         ],
-        "md5": "797367406a7542b649cefa6b41cf4c33",
-        "size compressed (bytes)": 11602951258,
-        "total_terms": 3197886407,
-        "documents": 20544550,
-        "unique_terms": 21173582,
+        "md5": "ef60d7f8afa3919cdeedc6fea89aa3f7",
+        "size compressed (bytes)": 25548064269,
+        "total_terms": 2742209690,
+        "documents": 3213835,
+        "unique_terms": 29820456,
         "downloaded": False
     },
-    "msmarco-doc-per-passage-slim": {
-        "description": "MS MARCO document corpus, segmented into passages (slim version, no documents)",
-        "filename": "index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
+
+    # MS MARCO V1 document corpus, doc2query-T5 expansions.
+    "msmarco-v1-doc-d2q-t5": {
+        "description": "Lucene index of the MS MARCO V1 document corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/mKTjbTKMwWF9kY3/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/jWb3La4NYorwSCp/download"
         ],
-        "md5": "77c2409943a8c9faffabf57cb6adca69",
-        "size compressed (bytes)": 2834865200,
-        "total_terms": 3197886407,
-        "documents": 20544550,
-        "unique_terms": 21173582,
-        "downloaded": False
-    },
-    "msmarco-doc-expanded-per-doc": {
-        "description": "MS MARCO document corpus, with per-doc docTTTTTquery expansion",
-        "filename": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
-        "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/3BQz6ZAXAxtfne8/download"
-        ],
-        "md5": "f7056191842ab77a01829cff68004782",
-        "size compressed (bytes)": 1978837253,
+        "md5": "37c639c9c26a34d2612ea6549fb866df",
+        "size compressed (bytes)": 1904879520,
         "total_terms": 3748333319,
         "documents": 3213835,
         "unique_terms": 30627687,
         "downloaded": False
     },
-    "msmarco-doc-expanded-per-passage": {
-        "description": "MS MARCO document corpus, with per-passage docTTTTTquery expansion",
-        "filename": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
+
+    # MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v1-doc-segmented": {
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus.",
+        "filename": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.README.md",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/eZLbPWcnB7LzKnQ/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/FKniAWGJjZHy3TF/download"
         ],
-        "md5": "54ea30c64515edf3c3741291b785be53",
-        "size compressed (bytes)": 3069280946,
-        "total_terms": 4203956960,
-        "documents": 20544550,
-        "unique_terms": 22037213,
+        "md5": "611bb83e043c0d6febe0fa3508d1d7f9",
+        "size compressed (bytes)": 17091132803,
+        "total_terms": 3200515914,
+        "documents": 20545677,
+        "unique_terms": 21190687,
         "downloaded": False
     },
+    "msmarco-v1-doc-segmented-slim": {
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/QNYpaAcLXERr74y/download"
+        ],
+        "md5": "d42113cfeeea862b51765329795948ad",
+        "size compressed (bytes)": 3408754542,
+        "total_terms": 3200515914,
+        "documents": 20545677,
+        "unique_terms": 21190687,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-segmented-full": {
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/RzRBC6xkmaTsmX9/download"
+        ],
+        "md5": "2ed7457c8804d2d6370a1a7f604eb360",
+        "size compressed (bytes)": 30771630666,
+        "total_terms": 3200515914,
+        "documents": 20545677,
+        "unique_terms": 21190687,
+        "downloaded": False
+    },
+
+    # MS MARCO V1 segmented document corpus, doc2query-T5 expansions.
+    "msmarco-v1-doc-segmented-d2q-t5": {
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/gJmL8iiWWztnYmH/download"
+        ],
+        "md5": "6c1f86ee4f7175eed4d3a7acc3d567b8",
+        "size compressed (bytes)": 3638703522,
+        "total_terms": 4206639543,
+        "documents": 20545677,
+        "unique_terms": 22054207,
+        "downloaded": False
+    },
+
+    # MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v1-passage": {
+        "description": "Lucene index of the MS MARCO V1 passage corpus.",
+        "filename": "lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/L7yNfCXpqK5yf8e/download"
+        ],
+        "md5": "4d8fdbdcd119c1f47a4cc5d01a45dad3",
+        "size compressed (bytes)": 2178557129,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-slim": {
+        "description": "Lucene index of the MS MARCO V1 passage corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/swtPDQAGg6oHD8m/download"
+        ],
+        "md5": "2f1e50d60a0df32a50111a986159de51",
+        "size compressed (bytes)": 498355616,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-full": {
+        "description": "Lucene index of the MS MARCO V1 passage corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/wzGLFMQyKAc2TTC/download"
+        ],
+        "md5": "3283069c6e8451659c8ea83e2140d739",
+        "size compressed (bytes)": 3781721749,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+
+    # MS MARCO V1 passage corpus, doc2query-T5 expansions.
+    "msmarco-v1-passage-d2q-t5": {
+        "description": "Lucene index of the MS MARCO V1 passage corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/P7Lt234kyZP87nB/download"
+        ],
+        "md5": "136205f35bd895077c0874eaa063376c",
+        "size compressed (bytes)": 819441969,
+        "total_terms": 1986612263,
+        "documents": 8841823,
+        "unique_terms": 3929111,
+        "downloaded": False
+    },
+
+    # MS MARCO V2 document corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v2-doc": {
+        "description": "Lucene index of the MS MARCO V2 document corpus.",
+        "filename": "lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/BC7CXiRrTfg9FbD/download"
+        ],
+        "md5": "3ca8b924f00f11e51e337c5421e55d96",
+        "size compressed (bytes)": 63719115316,
+        "total_terms": 14165661202,
+        "documents": 11959635,
+        "unique_terms": 44855557,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-slim": {
+        "description": "Lucene index of the MS MARCO V2 document corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/eAjtprNt2fwjQ7F/download"
+        ],
+        "md5": "502c4c96ecd95e4113a7a26a06065ecf",
+        "size compressed (bytes)": 7306072104,
+        "total_terms": 14165661202,
+        "documents": 11959635,
+        "unique_terms": 44855557,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-full": {
+        "description": "Lucene index of the MS MARCO V2 document corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-full.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/ZqEx5bbznxc9ekd/download"
+        ],
+        "md5": "cdb600adceccd327cb97c4277f910150",
+        "size compressed (bytes)": 119577632837,
+        "total_terms": 14165661202,
+        "documents": 11959635,
+        "unique_terms": 44855557,
+        "downloaded": False
+    },
+
+    # MS MARCO V2 document corpus, doc2query-T5 expansions.
+    "msmarco-v2-doc-d2q-t5": {
+        "description": "Lucene index of the MS MARCO V2 document corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/MeTFfBnwffS7gLd/download"
+        ],
+        "md5": "431391554854c51f347ba38c5e07ef94",
+        "size compressed (bytes)": 8254297093,
+        "total_terms": 19760777295,
+        "documents": 11959635,
+        "unique_terms": 54143053,
+        "downloaded": False
+    },
+
+    # MS MARCO V2 segmented document corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v2-doc-segmented": {
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus.",
+        "filename": "lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "cb37211851bd0053227b8db1dd0a3853",
+        "size compressed (bytes)": 105646039864,
+        "total_terms": 24780915974,
+        "documents": 124131414,
+        "unique_terms": 29263590,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented-slim": {
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "448c1e0e49c38364abbc4d880e865ee5",
+        "size compressed (bytes)": 21004046043,
+        "total_terms": 24780915974,
+        "documents": 124131414,
+        "unique_terms": 29263590,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented-full": {
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "bb597b3d03eba00653387ffab8c01998",
+        "size compressed (bytes)": 186377654091,
+        "total_terms": 24780915974,
+        "documents": 124131414,
+        "unique_terms": 29263590,
+        "downloaded": False
+    },
+
+    # MS MARCO V2 segmented document corpus, doc2query-T5 expansions.
+    "msmarco-v2-doc-segmented-d2q-t5": {
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/m4DRWpeGW9Dawd7/download"
+        ],
+        "md5": "3ce9eaca885e1e8a79466bee5e6a4084",
+        "size compressed (bytes)": 24125355549,
+        "total_terms": 30376032067,
+        "documents": 124131414,
+        "unique_terms": 38930475,
+        "downloaded": False
+    },
+
+    # MS MARCO V2 passage corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v2-passage": {
+        "description": "Lucene index of the MS MARCO V2 passage corpus.",
+        "filename": "lucene-index.msmarco-v2-passage.20220111.06fb4f.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "5990b4938dfdd092888ce9c9dfb6a90c",
+        "size compressed (bytes)": 38013278576,
+        "total_terms": 4673266762,
+        "documents": 138364198,
+        "unique_terms": 11885026,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-slim": {
+        "description": "Lucene index of the MS MARCO V2 passage corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "b9a6fdf88775b0b546907d4cd84c4a58",
+        "size compressed (bytes)": 8174630082,
+        "total_terms": 4673266762,
+        "documents": 138364198,
+        "unique_terms": 11885026,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-full": {
+        "description": "Lucene index of the MS MARCO V2 passage corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v2-passage-full.20220111.06fb4f.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-full.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-full.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "a233873bef304dd87adef35f54c7a436",
+        "size compressed (bytes)": 59658189636,
+        "total_terms": 4673266762,
+        "documents": 138364198,
+        "unique_terms": 11885026,
+        "downloaded": False
+    },
+
+    # MS MARCO V2 passage corpus, doc2query-T5 expansions.
+    "msmarco-v2-passage-d2q-t5": {
+        "description": "Lucene index of the MS MARCO V2 passage corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/EiPESdXiikAcbFF/download"
+        ],
+        "md5": "72f3f0f56b9c7a1bdff836419f2f30bd",
+        "size compressed (bytes)": 14431987438,
+        "total_terms": 16961479226,
+        "documents": 138364198,
+        "unique_terms": 36650715,
+        "downloaded": False
+    },
+
+    # MS MARCO V2 augmented passage corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v2-passage-augmented": {
+        "description": "Lucene index of the MS MARCO V2 augmented passage corpus.",
+        "filename": "lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "975f6be8d49238fe1d47e2895d26f99e",
+        "size compressed (bytes)": 65574361728,
+        "total_terms": 15272964956,
+        "documents": 138364198,
+        "unique_terms": 16579071,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-augmented-slim": {
+        "description": "Lucene index of the MS MARCO V2 augmented passage corpus ('slim' version).",
+        "filename": "lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "af893e56d050a98b6646ce2ca063d3f4",
+        "size compressed (bytes)": 117322378611,
+        "total_terms": 15272964956,
+        "documents": 138364198,
+        "unique_terms": 16579071,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-augmented-full": {
+        "description": "Lucene index of the MS MARCO V2 augmented passage corpus ('full' version).",
+        "filename": "lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.tar.gz"
+        ],
+        "md5": "e99f99503b9e030424546d59239f0cb5",
+        "size compressed (bytes)": 14819003760,
+        "total_terms": 15272964956,
+        "documents": 138364198,
+        "unique_terms": 16579071,
+        "downloaded": False
+    },
+
+    # MS MARCO V2 augmented passage corpus, doc2query-T5 expansions.
+    "msmarco-v2-passage-augmented-d2q-t5": {
+        "description": "Lucene index of the MS MARCO V2 augmented passage corpus, with doc2query-T5 expansions.",
+        "filename": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/44EDc5a9aCbHZNW/download"
+        ],
+        "md5": "f248becbe3ef3fffc39680cff417791d",
+        "size compressed (bytes)": 20940452572,
+        "total_terms": 27561177420,
+        "documents": 138364198,
+        "unique_terms": 41176227,
+        "downloaded": False
+    },
+
     "enwiki-paragraphs": {
-        "description": "English Wikipedia (for BERTserini)",
+        "description": "Lucene index of English Wikipedia for BERTserini",
         "filename": "lucene-index.enwiki-20180701-paragraphs.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/lucene-index.enwiki-20180701-paragraphs.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.enwiki-20180701-paragraphs.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/WHKMSCbwQfDXyHt/download"
         ],
         "md5": "77d1cd530579905dad2ee3c2bda1b73d",
@@ -194,10 +538,10 @@ INDEX_INFO = {
         "downloaded": False
     },
     "zhwiki-paragraphs": {
-        "description": "Chinese Wikipedia (for BERTserini)",
+        "description": "Lucene index of Chinese Wikipedia for BERTserini",
         "filename": "lucene-index.zhwiki-20181201-paragraphs.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/lucene-index.zhwiki-20181201-paragraphs.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.zhwiki-20181201-paragraphs.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/6kEjQZaRYtnb8A6/download"
         ],
         "md5": "c005af4036296972831288c894918a92",
@@ -208,7 +552,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r5-abstract": {
-        "description": "TREC-COVID Round 5: abstract index",
+        "description": "Lucene index for TREC-COVID Round 5: abstract index",
         "filename": "lucene-index-cord19-abstract-2020-07-16.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-abstract-2020-07-16.tar.gz",
@@ -222,7 +566,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r5-full-text": {
-        "description": "TREC-COVID Round 5: full-text index",
+        "description": "Lucene index for TREC-COVID Round 5: full-text index",
         "filename": "lucene-index-cord19-full-text-2020-07-16.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-full-text-2020-07-16.tar.gz",
@@ -236,7 +580,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r5-paragraph": {
-        "description": "TREC-COVID Round 5: paragraph index",
+        "description": "Lucene index for TREC-COVID Round 5: paragraph index",
         "filename": "lucene-index-cord19-paragraph-2020-07-16.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-paragraph-2020-07-16.tar.gz",
@@ -250,7 +594,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r4-abstract": {
-        "description": "TREC-COVID Round 4: abstract index",
+        "description": "Lucene index for TREC-COVID Round 4: abstract index",
         "filename": "lucene-index-cord19-abstract-2020-06-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-abstract-2020-06-19.tar.gz",
@@ -264,7 +608,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r4-full-text": {
-        "description": "TREC-COVID Round 4: full-text index",
+        "description": "Lucene index for TREC-COVID Round 4: full-text index",
         "filename": "lucene-index-cord19-full-text-2020-06-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-full-text-2020-06-19.tar.gz",
@@ -278,7 +622,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r4-paragraph": {
-        "description": "TREC-COVID Round 4: paragraph index",
+        "description": "Lucene index for TREC-COVID Round 4: paragraph index",
         "filename": "lucene-index-cord19-paragraph-2020-06-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-paragraph-2020-06-19.tar.gz",
@@ -292,7 +636,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r3-abstract": {
-        "description": "TREC-COVID Round 3: abstract index",
+        "description": "Lucene index for TREC-COVID Round 3: abstract index",
         "filename": "lucene-index-cord19-abstract-2020-05-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-abstract-2020-05-19.tar.gz",
@@ -306,7 +650,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r3-full-text": {
-        "description": "TREC-COVID Round 3: full-text index",
+        "description": "Lucene index for TREC-COVID Round 3: full-text index",
         "filename": "lucene-index-cord19-full-text-2020-05-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-full-text-2020-05-19.tar.gz",
@@ -320,7 +664,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r3-paragraph": {
-        "description": "TREC-COVID Round 3: paragraph index",
+        "description": "Lucene index for TREC-COVID Round 3: paragraph index",
         "filename": "lucene-index-cord19-paragraph-2020-05-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-paragraph-2020-05-19.tar.gz",
@@ -334,7 +678,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r2-abstract": {
-        "description": "TREC-COVID Round 2: abstract index",
+        "description": "Lucene index for TREC-COVID Round 2: abstract index",
         "filename": "lucene-index-cord19-abstract-2020-05-01.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-abstract-2020-05-01.tar.gz",
@@ -348,7 +692,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r2-full-text": {
-        "description": "TREC-COVID Round 2: full-text index",
+        "description": "Lucene index for TREC-COVID Round 2: full-text index",
         "filename": "lucene-index-cord19-full-text-2020-05-01.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-full-text-2020-05-01.tar.gz",
@@ -362,7 +706,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r2-paragraph": {
-        "description": "TREC-COVID Round 2: paragraph index",
+        "description": "Lucene index for TREC-COVID Round 2: paragraph index",
         "filename": "lucene-index-cord19-paragraph-2020-05-01.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-paragraph-2020-05-01.tar.gz",
@@ -376,7 +720,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r1-abstract": {
-        "description": "TREC-COVID Round 1: abstract index",
+        "description": "Lucene index for TREC-COVID Round 1: abstract index",
         "filename": "lucene-index-covid-2020-04-10.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-2020-04-10.tar.gz",
@@ -390,7 +734,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r1-full-text": {
-        "description": "TREC-COVID Round 1: full-text index",
+        "description": "Lucene index for TREC-COVID Round 1: full-text index",
         "filename": "lucene-index-covid-full-text-2020-04-10.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-full-text-2020-04-10.tar.gz",
@@ -404,7 +748,7 @@ INDEX_INFO = {
         "downloaded": False
     },
     "trec-covid-r1-paragraph": {
-        "description": "TREC-COVID Round 1: paragraph index",
+        "description": "Lucene index for TREC-COVID Round 1: paragraph index",
         "filename": "lucene-index-covid-paragraph-2020-04-10.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-paragraph-2020-04-10.tar.gz",
@@ -418,10 +762,10 @@ INDEX_INFO = {
         "downloaded": False
     },
     "cast2019": {
-        "description": "TREC 2019 CaST",
+        "description": "Lucene index for TREC 2019 CaST",
         "filename": "index-cast2019.tar.gz",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-cast2019.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-cast2019.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/56LcDcRPopdQc4d/download"
         ],
         "md5": "36e604d7f5a4e08ade54e446be2f6345",
@@ -432,10 +776,11 @@ INDEX_INFO = {
         "downloaded": False
     },
     "wikipedia-dpr": {
-        "description": "Wikipedia (DPR 100 word splits) Anserini index",
+        "description": "Lucene index of Wikipedia with DPR 100-word splits",
         "filename": "index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
+        "readme": "index-wikipedia-dpr-20210120-d1b9e6-readme.txt",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/t6tDJmpoxPw9tH8/download"
         ],
         "md5": "c28f3a56b2dfcef25bf3bf755c264d04",
@@ -446,10 +791,11 @@ INDEX_INFO = {
         "downloaded": False
     },
     "wikipedia-dpr-slim": {
-        "description": "Wikipedia (DPR 100 word splits) Anserini index, without raw texts stored",
+        "description": "Lucene index of Wikipedia with DPR 100-word splits (slim version, document text not stored)",
         "filename": "index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
+        "readme": "index-wikipedia-dpr-slim-20210120-d1b9e6-readme.txt",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Gk2sfTyJCyaTrYH/download"
         ],
         "md5": "7d40604a824b5df37a1ae9d25ea38071",
@@ -460,10 +806,11 @@ INDEX_INFO = {
         "downloaded": False
     },
     "wikipedia-kilt-doc": {
-        "description": "Wikipedia snapshot used as KILT's knowledge source. Indexed by documents.",
+        "description": "Lucene index of Wikipedia snapshot used as KILT's knowledge source.",
         "filename": "index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+        "readme": "index-wikipedia-kilt-doc-20210421-f29307-readme.txt",
         "urls": [
-            "https://git.uwaterloo.ca/jimmylin/anserini-indexes/raw/master/index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/RqtLg3CZT38k32c/download"
         ],
         "md5": "b8ec8feb654f7aaa86f9901dc6c804a8",
@@ -473,54 +820,1866 @@ INDEX_INFO = {
         "unique_terms": 8722502,
         "downloaded": False
     },
+    "mrtydi-v1.1-arabic": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
+        "filename": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/7oDFnq8FmTazf2a/download"
+        ],
+        "md5": "0129b01cc88524e13a9ff3e398e988a5",
+        "size compressed (bytes)": 1172153418,
+        "total_terms": 92529014,
+        "documents": 2106586,
+        "unique_terms": 1284712,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-bengali": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Bengali).",
+        "filename": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/HaPaz2wFbRMP2LK/download"
+        ],
+        "md5": "756a686cc5723791eb5ab5357271be10",
+        "size compressed (bytes)": 240371052,
+        "total_terms": 15236598,
+        "documents": 304059,
+        "unique_terms": 520694,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-english": {
+        "description": "Lucene index for Mr.TyDi v1.1 (English).",
+        "filename": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/w4ccMwH5BLnXQ3j/download"
+        ],
+        "md5": "804c7626b5a36f06f75e0a04c6ec4fe1",
+        "size compressed (bytes)": 16772744114,
+        "total_terms": 1507060955,
+        "documents": 32907100,
+        "unique_terms": 6189349,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-finnish": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Finnish).",
+        "filename": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/Pgd3mqjy77a6FR8/download"
+        ],
+        "md5": "65361258d1a318447f364ccae90c293a",
+        "size compressed (bytes)": 908904453,
+        "total_terms": 69431615,
+        "documents": 1908757,
+        "unique_terms": 1709590,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-indonesian": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Indonesian).",
+        "filename": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/tF8NE7pWZ2xGix7/download"
+        ],
+        "md5": "ca62d690401b84a493c70693ee2626c3",
+        "size compressed (bytes)": 564741230,
+        "total_terms": 52493134,
+        "documents": 1469399,
+        "unique_terms": 942550,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-japanese": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Japanese).",
+        "filename": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/ema8i83zqJr7n48/download"
+        ],
+        "md5": "d05aefed5f79bfc151a9f4815d3693d8",
+        "size compressed (bytes)": 3670762373,
+        "total_terms": 303640353,
+        "documents": 7000027,
+        "unique_terms": 1708155,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-korean": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Korean).",
+        "filename": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/igmEHCTjTwNi3de/download"
+        ],
+        "md5": "4ecc408de4c749f25865859ea97278bd",
+        "size compressed (bytes)": 1141503582,
+        "total_terms": 122217290,
+        "documents": 1496126,
+        "unique_terms": 1517175,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-russian": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Russian).",
+        "filename": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/Pbi9xrD7jSYaxnX/download"
+        ],
+        "md5": "9e229b33f4ddea411477d2f00c25be72",
+        "size compressed (bytes)": 5672456411,
+        "total_terms": 346329152,
+        "documents": 9597504,
+        "unique_terms": 3059773,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-swahili": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Swahili).",
+        "filename": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/SWqajDQgq8wppf6/download"
+        ],
+        "md5": "ec88a5b39c2506b8cd61e6e47b8044e7",
+        "size compressed (bytes)": 47689785,
+        "total_terms": 4937051,
+        "documents": 136689,
+        "unique_terms": 385711,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-telugu": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Telugu).",
+        "filename": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/DAB6ba5ZF98awH6/download"
+        ],
+        "md5": "2704b725c0418905037a45b6301e8666",
+        "size compressed (bytes)": 452906283,
+        "total_terms": 27173644,
+        "documents": 548224,
+        "unique_terms": 1892900,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-thai": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Thai).",
+        "filename": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/2Ady6AwBwNbYLpg/download"
+        ],
+        "md5": "9756502f1aeeee035c37975202787538",
+        "size compressed (bytes)": 452244053,
+        "total_terms": 31550936,
+        "documents": 568855,
+        "unique_terms": 663628,
+        "downloaded": False
+    },
+
+    # These MS MARCO V1 indexes are deprecated, but keeping around for archival reasons
+    "msmarco-passage": {
+        "description": "Lucene index of the MS MARCO passage corpus (deprecated; use msmarco-v1-passage instead).",
+        "filename": "index-msmarco-passage-20201117-f87c94.tar.gz",
+        "readme": "index-msmarco-passage-20201117-f87c94-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-20201117-f87c94.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/QQsZMFG8MpF4P8M/download"
+        ],
+        "md5": "1efad4f1ae6a77e235042eff4be1612d",
+        "size compressed (bytes)": 2218470796,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+    "msmarco-passage-slim": {
+        "description": "Lucene index of the MS MARCO passage corpus (slim version, document text not stored) (deprecated; use msmarco-v1-passage-slim instead).",
+        "filename": "index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
+        "readme": "index-msmarco-passage-slim-20201202-ab6e28-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/Kx6K9NJFmwnaAP8/download"
+        ],
+        "md5": "5e11da4cebd2e8dda2e73c589ffb0b4c",
+        "size compressed (bytes)": 513566686,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+    "msmarco-doc": {
+        "description": "Lucene index of the MS MARCO document corpus (deprecated; use msmarco-v1-doc instead).",
+        "filename": "index-msmarco-doc-20201117-f87c94.tar.gz",
+        "readme": "index-msmarco-doc-20201117-f87c94-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-20201117-f87c94.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/5NC7A2wAL7opJKH/download"
+        ],
+        "md5": "ac747860e7a37aed37cc30ed3990f273",
+        "size compressed (bytes)": 13642330935,
+        "total_terms": 2748636047,
+        "documents": 3213835,
+        "unique_terms": 29823078,
+        "downloaded": False
+    },
+    "msmarco-doc-slim": {
+        "description": "Lucene index of the MS MARCO document corpus (slim version, document text not stored) (deprecated; use msmarco-v1-doc-slim instead).",
+        "filename": "index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
+        "readme": "index-msmarco-doc-slim-20201202-ab6e28-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/BMZ6oYBoEPgTFqs/download"
+        ],
+        "md5": "c56e752f7992bf6149761097641d515a",
+        "size compressed (bytes)": 1874471867,
+        "total_terms": 2748636047,
+        "documents": 3213835,
+        "unique_terms": 29823078,
+        "downloaded": False
+    },
+    "msmarco-doc-per-passage": {
+        "description": "Lucene index of the MS MARCO document corpus segmented into passages (deprecated; use msmarco-v1-doc-segmented instead).",
+        "filename": "index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
+        "readme": "index-msmarco-doc-per-passage-20201204-f50dcc-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/q6sAxE6q57q2TBo/download"
+        ],
+        "md5": "797367406a7542b649cefa6b41cf4c33",
+        "size compressed (bytes)": 11602951258,
+        "total_terms": 3197886407,
+        "documents": 20544550,
+        "unique_terms": 21173582,
+        "downloaded": False
+    },
+    "msmarco-doc-per-passage-slim": {
+        "description": "Lucene index of the MS MARCO document corpus segmented into passages (slim version, document text not stored) (deprecated; use msmarco-v1-doc-segmented-slim instead).",
+        "filename": "index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
+        "readme": "index-msmarco-doc-per-passage-slim-20201204-f50dcc-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/mKTjbTKMwWF9kY3/download"
+        ],
+        "md5": "77c2409943a8c9faffabf57cb6adca69",
+        "size compressed (bytes)": 2834865200,
+        "total_terms": 3197886407,
+        "documents": 20544550,
+        "unique_terms": 21173582,
+        "downloaded": False
+    },
+
+    # These MS MARCO V1 doc2query expansion indexes are deprecated, but keeping around for archival reasons
+    "msmarco-passage-expanded": {
+        "description": "Lucene index of the MS MARCO passage corpus with docTTTTTquery expansions (deprecated; use msmarco-v1-passage-d2q-t5 instead)",
+        "filename": "index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
+        "readme": "index-msmarco-passage-expanded-20201121-e127fb-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/pm7cisJtRxiAMHd/download"
+        ],
+        "md5": "e5762e9e065b6fe5000f9c18da778565",
+        "size compressed (bytes)": 816438546,
+        "total_terms": 1986612263,
+        "documents": 8841823,
+        "unique_terms": 3929111,
+        "downloaded": False
+    },
+    "msmarco-doc-expanded-per-doc": {
+        "description": "Lucene index of the MS MARCO document corpus with per-doc docTTTTTquery expansions (deprecated; use msmarco-v1-doc-d2q-t5 instead)",
+        "filename": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
+        "readme": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/3BQz6ZAXAxtfne8/download"
+        ],
+        "md5": "f7056191842ab77a01829cff68004782",
+        "size compressed (bytes)": 1978837253,
+        "total_terms": 3748333319,
+        "documents": 3213835,
+        "unique_terms": 30627687,
+        "downloaded": False
+    },
+    "msmarco-doc-expanded-per-passage": {
+        "description": "Lucene index of the MS MARCO document corpus with per-passage docTTTTTquery expansions (deprecated; use msmarco-v1-doc-segmented-d2q-t5 instead)",
+        "filename": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
+        "readme": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/eZLbPWcnB7LzKnQ/download"
+        ],
+        "md5": "54ea30c64515edf3c3741291b785be53",
+        "size compressed (bytes)": 3069280946,
+        "total_terms": 4203956960,
+        "documents": 20544550,
+        "unique_terms": 22037213,
+        "downloaded": False
+    },
+
+    # BEIR (v1.0.0) flat indexes
+    "beir-v1.0.0-trec-covid-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): TREC-COVID",
+        "filename": "lucene-index.beir-v1.0.0-trec-covid-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-covid-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "d8574b8263df5dc337b443c4c35d384f",
+        "size compressed (bytes)": 226745226,
+        "total_terms": 20822810,
+        "documents": 171331,
+        "unique_terms": 202643,
+        "downloaded": False
+    },
+    "beir-v1.0.0-bioasq-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): BioASQ",
+        "filename": "lucene-index.beir-v1.0.0-bioasq-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-bioasq-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "ab4823b0b59dbb59ae72c2689b73133c",
+        "size compressed (bytes)": 24861183683,
+        "total_terms": 2257541768,
+        "documents": 14914603,
+        "unique_terms": 4959999,
+        "downloaded": False
+    },
+    "beir-v1.0.0-nfcorpus-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): NFCorpus",
+        "filename": "lucene-index.beir-v1.0.0-nfcorpus-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nfcorpus-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "b52e0f918eb3a5517289980850dec55c",
+        "size compressed (bytes)": 6508815,
+        "total_terms": 637485,
+        "documents": 3633,
+        "unique_terms": 22111,
+        "downloaded": False
+    },
+    "beir-v1.0.0-nq-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): NQ",
+        "filename": "lucene-index.beir-v1.0.0-nq-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nq-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "71c35db0343ba9800c6b34510acbfb4f",
+        "size compressed (bytes)": 1650195223,
+        "total_terms": 151249287,
+        "documents": 2681468,
+        "unique_terms": 997009,
+        "downloaded": False
+    },
+    "beir-v1.0.0-hotpotqa-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): HotpotQA",
+        "filename": "lucene-index.beir-v1.0.0-hotpotqa-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-hotpotqa-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "431995b33471f183272bb84d9499d8f6",
+        "size compressed (bytes)": 2027634934,
+        "total_terms": 172477063,
+        "documents": 5233329,
+        "unique_terms": 2644887,
+        "downloaded": False
+    },
+    "beir-v1.0.0-fiqa-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): FiQA-2018",
+        "filename": "lucene-index.beir-v1.0.0-fiqa-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fiqa-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "332ec18504778b03e330847a006541d4",
+        "size compressed (bytes)": 56101137,
+        "total_terms": 5288635,
+        "documents": 57600,
+        "unique_terms": 66977,
+        "downloaded": False
+    },
+    "beir-v1.0.0-signal1m-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): Signal-1M",
+        "filename": "lucene-index.beir-v1.0.0-signal1m-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-signal1m-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "95b279bbd4533b631967540647f18476",
+        "size compressed (bytes)": 499183897,
+        "total_terms": 32240067,
+        "documents": 2866315,
+        "unique_terms": 796646,
+        "downloaded": False
+    },
+    "beir-v1.0.0-trec-news-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): TREC-NEWS",
+        "filename": "lucene-index.beir-v1.0.0-trec-news-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-news-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "9f78f049ffdcac5f6f55cd118e008bdb",
+        "size compressed (bytes)": 2630489172,
+        "total_terms": 275651967,
+        "documents": 594589,
+        "unique_terms": 729872,
+        "downloaded": False
+    },
+    "beir-v1.0.0-robust04-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): Robust04",
+        "filename": "lucene-index.beir-v1.0.0-robust04-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-robust04-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "a9340eeedb444a303afbf974ba1872d5",
+        "size compressed (bytes)": 1731243578,
+        "total_terms": 174384263,
+        "documents": 528036,
+        "unique_terms": 923466,
+        "downloaded": False
+    },
+    "beir-v1.0.0-arguana-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): ArguAna",
+        "filename": "lucene-index.beir-v1.0.0-arguana-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-arguana-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "62ba65fa619e7f1c9e48850974ab242d",
+        "size compressed (bytes)": 10563170,
+        "total_terms": 969528,
+        "documents": 8674,
+        "unique_terms": 23895,
+        "downloaded": False
+    },
+    "beir-v1.0.0-webis-touche2020-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): Webis-Touche2020",
+        "filename": "lucene-index.beir-v1.0.0-webis-touche2020-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-webis-touche2020-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "9e43abfd1de98da6671df90bba8486a1",
+        "size compressed (bytes)": 751902399,
+        "total_terms": 76082209,
+        "documents": 382545,
+        "unique_terms": 525540,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-android-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-android",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "870b2ddfd59abb96a74c00515122b9e1",
+        "size compressed (bytes)": 17466940,
+        "total_terms": 1760761,
+        "documents": 22998,
+        "unique_terms": 41455,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-english-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-english",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "bdcfe2cb5798b79405cba1185ad4ad38",
+        "size compressed (bytes)": 24992357,
+        "total_terms": 2236655,
+        "documents": 40221,
+        "unique_terms": 62517,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-gaming-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-gaming",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "92fc7435b1ee64783c4a97eea9d2c4a4",
+        "size compressed (bytes)": 29224430,
+        "total_terms": 2827717,
+        "documents": 45301,
+        "unique_terms": 60070,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-gis-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-gis",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "80c3dcc4b3fd39a1125537b587f27436",
+        "size compressed (bytes)": 43466795,
+        "total_terms": 4048584,
+        "documents": 37637,
+        "unique_terms": 184133,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-mathematica-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-mathematica",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "359c577e5a4f9a48e7b61fbd70447121",
+        "size compressed (bytes)": 21621544,
+        "total_terms": 2332642,
+        "documents": 16705,
+        "unique_terms": 111611,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-physics-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-physics",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "3f4a0c885463a50038893c5169374e56",
+        "size compressed (bytes)": 38016173,
+        "total_terms": 3785483,
+        "documents": 38316,
+        "unique_terms": 55950,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-programmers-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-programmers",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "2b0be6fc6d9623201540cbcb2f4881ab",
+        "size compressed (bytes)": 40373220,
+        "total_terms": 3905694,
+        "documents": 32176,
+        "unique_terms": 74195,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-stats-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-stats",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "ce64d853969bde0fecea2228c1258944",
+        "size compressed (bytes)": 52283784,
+        "total_terms": 5356042,
+        "documents": 42269,
+        "unique_terms": 183358,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-tex-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-tex",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "558efcfba599b0e8e7a95a41df4dc5f2",
+        "size compressed (bytes)": 91968319,
+        "total_terms": 9556422,
+        "documents": 68184,
+        "unique_terms": 288087,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-unix-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-unix",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "a3c6cbfc1e81d98abc6cc4380a8f19d2",
+        "size compressed (bytes)": 53892386,
+        "total_terms": 5767374,
+        "documents": 47382,
+        "unique_terms": 206323,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-webmasters-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-webmasters",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "fa35ece230cb4d85a5e4ad5de0fd9240",
+        "size compressed (bytes)": 15204463,
+        "total_terms": 1482585,
+        "documents": 17405,
+        "unique_terms": 40547,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-wordpress-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-wordpress",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "5a3591b6ff9ce5a97d1600f8a8cd63e8",
+        "size compressed (bytes)": 54895441,
+        "total_terms": 5463472,
+        "documents": 48605,
+        "unique_terms": 125727,
+        "downloaded": False
+    },
+    "beir-v1.0.0-quora-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): Quora",
+        "filename": "lucene-index.beir-v1.0.0-quora-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-quora-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "dde92b4610b08282d11e7a4465b29181",
+        "size compressed (bytes)": 52750359,
+        "total_terms": 4390852,
+        "documents": 522931,
+        "unique_terms": 69597,
+        "downloaded": False
+    },
+    "beir-v1.0.0-dbpedia-entity-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): DBPedia",
+        "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "0d38ea1abf89644bb7d39e74cc4dd2d9",
+        "size compressed (bytes)": 2079898414,
+        "total_terms": 164794987,
+        "documents": 4635922,
+        "unique_terms": 3351449,
+        "downloaded": False
+    },
+    "beir-v1.0.0-scidocs-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): SCIDOCS",
+        "filename": "lucene-index.beir-v1.0.0-scidocs-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scidocs-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "09a0ea1853445be14da2afb0bc47335e",
+        "size compressed (bytes)": 186605163,
+        "total_terms": 3266767,
+        "documents": 25657,
+        "unique_terms": 63604,
+        "downloaded": False
+    },
+    "beir-v1.0.0-fever-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): FEVER",
+        "filename": "lucene-index.beir-v1.0.0-fever-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fever-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "63cd5f369b5952386f138efe45571d41",
+        "size compressed (bytes)": 3878535207,
+        "total_terms": 325179170,
+        "documents": 5416568,
+        "unique_terms": 3293639,
+        "downloaded": False
+    },
+    "beir-v1.0.0-climate-fever-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): Climate-FEVER",
+        "filename": "lucene-index.beir-v1.0.0-climate-fever-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-climate-fever-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "9af959cf58139d086d52121917913a02",
+        "size compressed (bytes)": 3878606250,
+        "total_terms": 325185077,
+        "documents": 5416593,
+        "unique_terms": 3293621,
+        "downloaded": False
+    },
+    "beir-v1.0.0-scifact-flat": {
+        "description": "Lucene flat index of BEIR (v1.0.0): SciFact",
+        "filename": "lucene-index.beir-v1.0.0-scifact-flat.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scifact-flat.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-flat.20220501.1842ee.tar.gz"
+        ],
+        "md5": "8c79300afd78acb95f127c58682fc881",
+        "size compressed (bytes)": 8851845,
+        "total_terms": 838128,
+        "documents": 5183,
+        "unique_terms": 28865,
+        "downloaded": False
+    },
+
+    # BEIR (v1.0.0) multifield indexes
+    "beir-v1.0.0-trec-covid-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): TREC-COVID",
+        "filename": "lucene-index.beir-v1.0.0-trec-covid-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-covid-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "2dabcca159c157215ae59b1899c495a8",
+        "size compressed (bytes)": 223251753,
+        "total_terms": 19060111,
+        "documents": 129192,
+        "unique_terms": 193846,
+        "downloaded": False
+    },
+    "beir-v1.0.0-bioasq-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): BioASQ",
+        "filename": "lucene-index.beir-v1.0.0-bioasq-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-bioasq-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "723dcc48c961a9faef23e41cc0f372b0",
+        "size compressed (bytes)": 25390117017,
+        "total_terms": 2099554317,
+        "documents": 14914602,
+        "unique_terms": 4889048,
+        "downloaded": False
+    },
+    "beir-v1.0.0-nfcorpus-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): NFCorpus",
+        "filename": "lucene-index.beir-v1.0.0-nfcorpus-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nfcorpus-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "7c6a63153cca484bd85510d9ffc7c62e",
+        "size compressed (bytes)": 6644821,
+        "total_terms": 601950,
+        "documents": 3633,
+        "unique_terms": 21819,
+        "downloaded": False
+    },
+    "beir-v1.0.0-nq-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): NQ",
+        "filename": "lucene-index.beir-v1.0.0-nq-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nq-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "3642ab8879de1c37993347d164694885",
+        "size compressed (bytes)": 1647410313,
+        "total_terms": 144050884,
+        "documents": 2680961,
+        "unique_terms": 996635,
+        "downloaded": False
+    },
+    "beir-v1.0.0-hotpotqa-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): HotpotQA",
+        "filename": "lucene-index.beir-v1.0.0-hotpotqa-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-hotpotqa-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "fa80379866ff06ad905d70ba1d4d55e3",
+        "size compressed (bytes)": 2092477199,
+        "total_terms": 158180689,
+        "documents": 5233235,
+        "unique_terms": 2627634,
+        "downloaded": False
+    },
+    "beir-v1.0.0-fiqa-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): FiQA-2018",
+        "filename": "lucene-index.beir-v1.0.0-fiqa-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fiqa-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "2cc96d72349f5f864235a88303af5da9",
+        "size compressed (bytes)": 56101140,
+        "total_terms": 5288635,
+        "documents": 57600,
+        "unique_terms": 66977,
+        "downloaded": False
+    },
+    "beir-v1.0.0-signal1m-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): Signal-1M",
+        "filename": "lucene-index.beir-v1.0.0-signal1m-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-signal1m-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "16a8c34363c69afc820af20ec6ec0848",
+        "size compressed (bytes)": 499183933,
+        "total_terms": 32240067,
+        "documents": 2866315,
+        "unique_terms": 796646,
+        "downloaded": False
+    },
+    "beir-v1.0.0-trec-news-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): TREC-NEWS",
+        "filename": "lucene-index.beir-v1.0.0-trec-news-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-news-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "91390f9e059ba04479f3550cca166a65",
+        "size compressed (bytes)": 2640469722,
+        "total_terms": 270886723,
+        "documents": 578605,
+        "unique_terms": 727856,
+        "downloaded": False
+    },
+    "beir-v1.0.0-robust04-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): Robust04",
+        "filename": "lucene-index.beir-v1.0.0-robust04-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-robust04-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "f9821cef4dc903772dec283cc8c9e0f5",
+        "size compressed (bytes)": 1731243641,
+        "total_terms": 174384263,
+        "documents": 528036,
+        "unique_terms": 923466,
+        "downloaded": False
+    },
+    "beir-v1.0.0-arguana-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): ArguAna",
+        "filename": "lucene-index.beir-v1.0.0-arguana-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-arguana-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "d22aa6b4247535dedb78b3f876d958e7",
+        "size compressed (bytes)": 10523627,
+        "total_terms": 944123,
+        "documents": 8674,
+        "unique_terms": 23867,
+        "downloaded": False
+    },
+    "beir-v1.0.0-webis-touche2020-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): Webis-Touche2020",
+        "filename": "lucene-index.beir-v1.0.0-webis-touche2020-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-webis-touche2020-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "f9d1601b76bdbafef6bfa335bf1d1595",
+        "size compressed (bytes)": 752116420,
+        "total_terms": 74066724,
+        "documents": 382545,
+        "unique_terms": 524665,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-android-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-android",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "05801b35a25af7c16172255512b4ce36",
+        "size compressed (bytes)": 17931810,
+        "total_terms": 1591284,
+        "documents": 22998,
+        "unique_terms": 40823,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-english-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-english",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "bf9eef1c5fd10b66b6816f272e7872e1",
+        "size compressed (bytes)": 25605309,
+        "total_terms": 2006983,
+        "documents": 40221,
+        "unique_terms": 61530,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-gaming-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-gaming",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "3393426ddc796ce263ffb318a6d2bfed",
+        "size compressed (bytes)": 30065920,
+        "total_terms": 2510477,
+        "documents": 45300,
+        "unique_terms": 59113,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-gis-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-gis",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "f69c20cdd61ca7d59ba13e46d8119f5c",
+        "size compressed (bytes)": 44265052,
+        "total_terms": 3789161,
+        "documents": 37637,
+        "unique_terms": 183298,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-mathematica-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-mathematica",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "74ef57dcbca928d6ac77b79bb9e6c9ad",
+        "size compressed (bytes)": 21944398,
+        "total_terms": 2234369,
+        "documents": 16705,
+        "unique_terms": 111306,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-physics-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-physics",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "be67a3ae1f91fbe3fb26262e695871f3",
+        "size compressed (bytes)": 38801084,
+        "total_terms": 3542078,
+        "documents": 38316,
+        "unique_terms": 55229,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-programmers-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-programmers",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "8d40c0e813171a68ea27da42e1943ebe",
+        "size compressed (bytes)": 41061263,
+        "total_terms": 3682227,
+        "documents": 32176,
+        "unique_terms": 73765,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-stats-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-stats",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "d00eec70ebfba38d32e5d588be7e0d74",
+        "size compressed (bytes)": 53164818,
+        "total_terms": 5073873,
+        "documents": 42269,
+        "unique_terms": 182933,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-tex-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-tex",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "6952954b17ebe87987c08d1994bcb801",
+        "size compressed (bytes)": 93231672,
+        "total_terms": 9155404,
+        "documents": 68184,
+        "unique_terms": 287392,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-unix-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-unix",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "858632caf3b93fd0ce6f2c4cdc95503b",
+        "size compressed (bytes)": 54854147,
+        "total_terms": 5449726,
+        "documents": 47382,
+        "unique_terms": 205471,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-webmasters-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-webmasters",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "d40fbb1d750a8d4bfcb77edd3d74e758",
+        "size compressed (bytes)": 15560909,
+        "total_terms": 1358292,
+        "documents": 17405,
+        "unique_terms": 40073,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-wordpress-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-wordpress",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "938abf49a6835006e1b29b1bcd28602f",
+        "size compressed (bytes)": 55833972,
+        "total_terms": 5151575,
+        "documents": 48605,
+        "unique_terms": 125110,
+        "downloaded": False
+    },
+    "beir-v1.0.0-quora-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): Quora",
+        "filename": "lucene-index.beir-v1.0.0-quora-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-quora-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "0812beec31e051515524c746323e0ee2",
+        "size compressed (bytes)": 52750399,
+        "total_terms": 4390852,
+        "documents": 522931,
+        "unique_terms": 69597,
+        "downloaded": False
+    },
+    "beir-v1.0.0-dbpedia-entity-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): DBPedia",
+        "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "0834295cdc4e955cb9052b24a56f074b",
+        "size compressed (bytes)": 2139032416,
+        "total_terms": 152205484,
+        "documents": 4635922,
+        "unique_terms": 3338466,
+        "downloaded": False
+    },
+    "beir-v1.0.0-scidocs-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): SCIDOCS",
+        "filename": "lucene-index.beir-v1.0.0-scidocs-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scidocs-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "0944c45ccf3ab5bb3cee5f1863725114",
+        "size compressed (bytes)": 175925466,
+        "total_terms": 3065828,
+        "documents": 25313,
+        "unique_terms": 62562,
+        "downloaded": False
+    },
+    "beir-v1.0.0-fever-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): FEVER",
+        "filename": "lucene-index.beir-v1.0.0-fever-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fever-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "3ba53efbdbeed974a641c7dc5860dbc8",
+        "size compressed (bytes)": 3946159718,
+        "total_terms": 310655704,
+        "documents": 5396138,
+        "unique_terms": 3275057,
+        "downloaded": False
+    },
+    "beir-v1.0.0-climate-fever-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): Climate-FEVER",
+        "filename": "lucene-index.beir-v1.0.0-climate-fever-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-climate-fever-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "998e9e9aa3d91c8022e1f8cae3f75a5f",
+        "size compressed (bytes)": 3946246078,
+        "total_terms": 310661482,
+        "documents": 5396163,
+        "unique_terms": 3275068,
+        "downloaded": False
+    },
+    "beir-v1.0.0-scifact-multifield": {
+        "description": "Lucene multifield index of BEIR (v1.0.0): SciFact",
+        "filename": "lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.tar.gz"
+        ],
+        "md5": "a72d8c62859a2434fba2e0034268dbe4",
+        "size compressed (bytes)": 9078043,
+        "total_terms": 784591,
+        "documents": 5183,
+        "unique_terms": 28581,
+        "downloaded": False
+    },
 }
 
-DINDEX_INFO = {
+IMPACT_INDEX_INFO = {
+    "msmarco-v1-passage-unicoil": {
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL.",
+        "filename": "lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/5DTJ9BYnacyFiHr/download"
+        ],
+        "md5": "c589978ffccaa4f116b89ad756f53b89",
+        "size compressed (bytes)": 1189212017,
+        "total_terms": 44495093768,
+        "documents": 8841823,
+        "unique_terms": 27678,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-unicoil-noexp": {
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp).",
+        "filename": "lucene-index.msmarco-v1-passage-unicoil-noexp.20220322.2f4058.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-unicoil-noexp.20220322.2f4058.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil-noexp.20220322.2f4058.tar.gz",
+        ],
+        "md5": "e1feea4ce3bbafc034330b2683b6503a",
+        "size compressed (bytes)": 890676484,
+        "total_terms": 26468530021,
+        "documents": 8841823,
+        "unique_terms": 27647,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-segmented-unicoil": {
+        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL.",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/T9KGpy3mA35jPbo/download"
+        ],
+        "md5": "393ad1227b9906c8776a4fbaddab4e9d",
+        "size compressed (bytes)": 5891112039,
+        "total_terms": 214505277898,
+        "documents": 20545677,
+        "unique_terms": 29142,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-segmented-unicoil-noexp": {
+        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp) with title prepended.",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220419.c47993.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220419.c47993.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220419.c47993.tar.gz",
+        ],
+        "md5": "6ecb423bc201a5abfbcd82f3826dbdde",
+        "size compressed (bytes)": 5017911119,
+        "total_terms": 152323732876,
+        "documents": 20545677,
+        "unique_terms": 29142,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-unicoil-0shot": {
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL.",
+        "filename": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/SCskjTJLX4CExkF/download"
+        ],
+        "md5": "ea024b0dd43a574deb65942e14d32630",
+        "size compressed (bytes)": 22212154603,
+        "total_terms": 775253560148,
+        "documents": 138364198,
+        "unique_terms": 29149,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-unicoil-noexp-0shot": {
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp).",
+        "filename": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/FmW6N5FpMCyjMCE/download"
+        ],
+        "md5": "fb356e7614afc07e330b0559ae5cef18",
+        "size compressed (bytes)": 14615689637,
+        "total_terms": 411330032512,
+        "documents": 138364198,
+        "unique_terms": 29148,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented-unicoil-0shot": {
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL.",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/7PTnyEGwNGoJjXm/download"
+        ],
+        "md5": "94fc8af0d08682f7c79ffb16d82dcfab",
+        "size compressed (bytes)": 32787358081,
+        "total_terms": 1185840285417,
+        "documents": 124131414,
+        "unique_terms": 29169,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented-unicoil-0shot-v2": {
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended.",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.tar.gz"
+        ],
+        "md5": "109572d65098021642b33e0feecde057",
+        "size compressed (bytes)": 33967003367,
+        "total_terms": 1204542769110,
+        "documents": 124131414,
+        "unique_terms": 29168,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented-unicoil-noexp-0shot": {
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp).",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/PoWYJzGJYx6nCik/download"
+        ],
+        "md5": "d7807b60087b630010e9c31b59d30b69",
+        "size compressed (bytes)": 28640356748,
+        "total_terms": 805830282591,
+        "documents": 124131404,
+        "unique_terms": 29172,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2": {
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.tar.gz"
+        ],
+        "md5": "8a48373934ad45052b5267ba73cdcad0",
+        "size compressed (bytes)": 29662349942,
+        "total_terms": 820664704261,
+        "documents": 124131404,
+        "unique_terms": 29172,
+        "downloaded": False
+    },
+
+    "msmarco-passage-deepimpact": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact",
+        "filename": "lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-passage.deepimpact.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/FfwF6nB9M5sjTYk/download",
+        ],
+        "md5": "9938f5529fee5cdb405b8587746c9e93",
+        "size compressed (bytes)": 1295216704,
+        "total_terms": 35455908214,
+        "documents": 8841823,
+        "unique_terms": 3514102,
+        "downloaded": False
+    },
+
+    "msmarco-passage-unicoil-tilde": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE",
+        "filename": "lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/KdoNXqwAtTmTeNo/download"
+        ],
+        "md5": "cc19cfe241053f5a303f7f05a7ac40a5",
+        "size compressed (bytes)": 1935108302,
+        "total_terms": 73040108576,
+        "documents": 8841823,
+        "unique_terms": 27646,
+        "downloaded": False
+    },
+    "msmarco-passage-distill-splade-max": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max",
+        "filename": "lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.tar.gz"
+        ],
+        "md5": "957c0dd1b78b61aeddc8685150fd8360",
+        "size compressed (bytes)": 4604547518,
+        "total_terms": 95445422483,
+        "documents": 8841823,
+        "unique_terms": 28131,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-unicoil-tilde": {
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL-TILDE",
+        "filename": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/oGQ8tWifozPaHLK/download"
+        ],
+        "md5": "562f9534eefe04ab8c07beb304074d41",
+        "size compressed (bytes)": 31168302160,
+        "total_terms": 1155211154985,
+        "documents": 138364198,
+        "unique_terms": 29149,
+        "downloaded": False
+    },
+
+    # These MS MARCO uniCOIL models are deprecated, but keeping around for archival reasons
+    "msmarco-passage-unicoil-d2q": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-d2q (deprecated; use msmarco-v1-passage-unicoil instead).",
+        "filename": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/LGoAAXM7ZEbyQ7y/download"
+        ],
+        "md5": "4a8cb3b86a0d9085a0860c7f7bb7fe99",
+        "size compressed (bytes)": 1205104390,
+        "total_terms": 44495093768,
+        "documents": 8841823,
+        "unique_terms": 27678,
+        "downloaded": False
+    },
+    "msmarco-doc-per-passage-unicoil-d2q": {
+        "description": "Lucene impact index of the MS MARCO doc corpus per passage expansion encoded by uniCOIL-d2q (deprecated; use msmarco-v1-doc-segmented-unicoil instead).",
+        "filename": "lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
+        ],
+        "md5": "44bfc848f9a77302b10a59c5b136eb95",
+        "size compressed (bytes)": 5945466106,
+        "total_terms": 214505277898,
+        "documents": 20545677,
+        "unique_terms": 29142,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-unicoil-noexp-0shot-deprecated": {
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL (zero-shot, no expansions) (deprecated; use msmarco-v2-passage-unicoil-noexp-0shot instead).",
+        "filename": "lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/eXA2BHF8WQjdY8R/download"
+        ],
+        "md5": "8886a8d9599838bc6d8d61464da61086",
+        "size compressed (bytes)": 14801476783,
+        "total_terms": 411330032512,
+        "documents": 138364198,
+        "unique_terms": 29148,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-per-passage-unicoil-noexp-0shot": {
+        "description": "Lucene impact index of the MS MARCO V2 document corpus per passage encoded by uniCOIL (zero-shot, no expansions) (deprecated; msmarco-v2-doc-segmented-unicoil-noexp-0shot).",
+        "filename": "lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/BSrJmAFJywsRYXo/download"
+        ],
+        "md5": "1980db886d969c3393e4da20190eaa8f",
+        "size compressed (bytes)": 29229949764,
+        "total_terms": 805830282591,
+        "documents": 124131404,
+        "unique_terms": 29172,
+        "downloaded": False
+    },
+
+    # BEIR (v1.0.0) impact indexes encoded by SPLADE-distill CoCodenser-medium
+    "beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): TREC-COVID encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "b9c3837f2421667ba48adb84fcb599aa",
+        "size compressed (bytes)": 57011989,
+        "total_terms": 1697942549,
+        "documents": 171332,
+        "unique_terms": 26611,
+        "downloaded": False
+    },
+    "beir-v1.0.0-bioasq-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): BioASQ encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "96ebb0b9016d9894e9784fa71ad7595d",
+        "size compressed (bytes)": 5474720263,
+        "total_terms": 181960155708,
+        "documents": 14914603,
+        "unique_terms": 27703,
+        "downloaded": False
+    },
+    "beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): NFCorpus encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "7f5ec129305d630a18d63f188e08aa22",
+        "size compressed (bytes)": 1445273,
+        "total_terms": 41582222,
+        "documents": 3633,
+        "unique_terms": 16295,
+        "downloaded": False
+    },
+    "beir-v1.0.0-nq-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): NQ encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "026dc3c2ed7292e7549ce4ff9ae2c318",
+        "size compressed (bytes)": 859416460,
+        "total_terms": 21901570532,
+        "documents": 2681468,
+        "unique_terms": 28747,
+        "downloaded": False
+    },
+    "beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): HotpotQA encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "3edf537dfed5a9274ba56ef58ab090f6",
+        "size compressed (bytes)": 1197602761,
+        "total_terms": 32565190895,
+        "documents": 5233329,
+        "unique_terms": 28724,
+        "downloaded": False
+    },
+    "beir-v1.0.0-fiqa-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): FiQA-2018 encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "a6ff07fe2a75f30838c3faf7c133efc1",
+        "size compressed (bytes)": 19858617,
+        "total_terms": 487502241,
+        "documents": 57638,
+        "unique_terms": 26244,
+        "downloaded": False
+    },
+    "beir-v1.0.0-signal1m-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): Signal-1M encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "6d1fedefd3cb3a08820edc9552dd44b6",
+        "size compressed (bytes)": 611827346,
+        "total_terms": 13103073741,
+        "documents": 2866316,
+        "unique_terms": 28130,
+        "downloaded": False
+    },
+    "beir-v1.0.0-trec-news-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): TREC-NEWS encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "05faf28e84259629aceb4d39d52471db",
+        "size compressed (bytes)": 278203568,
+        "total_terms": 7519025445,
+        "documents": 594977,
+        "unique_terms": 27745,
+        "downloaded": False
+    },
+    "beir-v1.0.0-robust04-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): Robust04 encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "c2c7f69edf7bc0edf2ede9d88f4d0402",
+        "size compressed (bytes)": 217727819,
+        "total_terms": 6718533167,
+        "documents": 528155,
+        "unique_terms": 27623,
+        "downloaded": False
+    },
+    "beir-v1.0.0-arguana-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): ArguAna encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "2dbb3cdd8412697cc336197912783eb2",
+        "size compressed (bytes)": 3866879,
+        "total_terms": 96421121,
+        "documents": 8674,
+        "unique_terms": 22536,
+        "downloaded": False
+    },
+    "beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): Webis-Touche2020 encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "ff5cb006fac08086c575109e0ac80a1c",
+        "size compressed (bytes)": 126819142,
+        "total_terms": 3229042324,
+        "documents": 382545,
+        "unique_terms": 27742,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-android encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "1fb9462d93a21293a0c7aedd26653158",
+        "size compressed (bytes)": 6068305,
+        "total_terms": 157949889,
+        "documents": 22998,
+        "unique_terms": 18891,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-english encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "12f4581a96b775166210b462a78f72e3",
+        "size compressed (bytes)": 9955691,
+        "total_terms": 218761119,
+        "documents": 40221,
+        "unique_terms": 26613,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gaming encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "310750f0cbe930fd521d875b6df7a61f",
+        "size compressed (bytes)": 13104645,
+        "total_terms": 296073202,
+        "documents": 45301,
+        "unique_terms": 24564,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gis encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "3b42c73ccc278cc0bb823829867c6fce",
+        "size compressed (bytes)": 10380891,
+        "total_terms": 296967034,
+        "documents": 37637,
+        "unique_terms": 22034,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-mathematica encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "5b9d594270ff7417aabf1e9ca0a5bdf5",
+        "size compressed (bytes)": 4823160,
+        "total_terms": 132796971,
+        "documents": 16705,
+        "unique_terms": 19765,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-physics encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "a520cde380062b58f52c90e15d05e445",
+        "size compressed (bytes)": 11011175,
+        "total_terms": 284896455,
+        "documents": 38316,
+        "unique_terms": 22985,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-programmers encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "a90bd4f1185184881cbeaae095eb9e6f",
+        "size compressed (bytes)": 10146685,
+        "total_terms": 258856106,
+        "documents": 32176,
+        "unique_terms": 22560,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-stats encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "33f8e2025e89fd637806fe3083b61e86",
+        "size compressed (bytes)": 12016946,
+        "total_terms": 333590386,
+        "documents": 42269,
+        "unique_terms": 23322,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-tex encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "c20a0543a3ed90cf0ac8a2f4f52a8f7a",
+        "size compressed (bytes)": 19883333,
+        "total_terms": 604604076,
+        "documents": 68184,
+        "unique_terms": 24669,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-unix encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "7fdc9d04b7a3ced70bdef10e1bf92a09",
+        "size compressed (bytes)": 12857043,
+        "total_terms": 369576280,
+        "documents": 47382,
+        "unique_terms": 21712,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-webmasters encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "71a8d47e53a7befd43d4e29827699bfd",
+        "size compressed (bytes)": 5044024,
+        "total_terms": 127823828,
+        "documents": 17405,
+        "unique_terms": 20286,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-wordpress encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "370d0a704300987447a884bce28b0057",
+        "size compressed (bytes)": 12737602,
+        "total_terms": 362488001,
+        "documents": 48605,
+        "unique_terms": 21867,
+        "downloaded": False
+    },
+    "beir-v1.0.0-quora-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): Quora encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "0fc0e726e877bfcc65f00d11e62d014a",
+        "size compressed (bytes)": 52687112,
+        "total_terms": 1322737004,
+        "documents": 522931,
+        "unique_terms": 27042,
+        "downloaded": False
+    },
+    "beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): DBPedia encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "3e0979e02c97ee76ae30b1bf135ac2c8",
+        "size compressed (bytes)": 1230929506,
+        "total_terms": 30490098411,
+        "documents": 4635922,
+        "unique_terms": 28709,
+        "downloaded": False
+    },
+    "beir-v1.0.0-scidocs-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): SCIDOCS encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "ac689f1bcf15d858fdbec70e692f9642",
+        "size compressed (bytes)": 11401355,
+        "total_terms": 273175826,
+        "documents": 25657,
+        "unique_terms": 24241,
+        "downloaded": False
+    },
+    "beir-v1.0.0-fever-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): FEVER encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "99ac85688f3bee09a14334a02e0bc06c",
+        "size compressed (bytes)": 1504352314,
+        "total_terms": 38844967407,
+        "documents": 5416568,
+        "unique_terms": 28670,
+        "downloaded": False
+    },
+    "beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): Climate-FEVER encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "60956badd9028ad18adfaf0a87e2c2d7",
+        "size compressed (bytes)": 1504855696,
+        "total_terms": 38845226073,
+        "documents": 5416593,
+        "unique_terms": 28670,
+        "downloaded": False
+    },
+    "beir-v1.0.0-scifact-splade_distil_cocodenser_medium": {
+        "description": "Lucene impact index of BEIR (v1.0.0): SciFact encoded by SPLADE-distill CoCodenser-medium",
+        "filename": "lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "bb0f30dad94daa06766da55ae615091d",
+        "size compressed (bytes)": 2184301,
+        "total_terms": 65836037,
+        "documents": 5183,
+        "unique_terms": 17486,
+        "downloaded": False
+    }
+}
+
+FAISS_INDEX_INFO = {
     "msmarco-passage-tct_colbert-hnsw": {
-        "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as HNSW index",
+        "description": "Faiss HNSW index of the MS MARCO passage corpus encoded by TCT-ColBERT",
         "filename": "dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
-            "https://www.dropbox.com/s/xrsjn38lk3axfdd/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/F6MjyjmCi6yHFTa/download"
         ],
         "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
         "size compressed (bytes)": 33359100887,
         "documents": 8841823,
         "downloaded": False,
-        "texts": "msmarco-passage"
+        "texts": "msmarco-v1-passage"
     },
     "msmarco-passage-tct_colbert-bf": {
-        "description": "MS MARCO passage corpus encoded by TCT-ColBERT and indexed as brute force index",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by TCT-ColBERT",
         "filename": "dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
-            "https://www.dropbox.com/s/sgmugleqwwirx3n/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/mHxezzSAkrWbXZC/download"
         ],
         "md5": "7312e0e7acec2a686e994902ca064fc5",
         "size compressed (bytes)": 25204514289,
         "documents": 8841823,
         "downloaded": False,
-        "texts": "msmarco-passage"
+        "texts": "msmarco-v1-passage"
     },
     "msmarco-doc-tct_colbert-bf": {
-        "description": "MS MARCO document corpus encoded by TCT-ColBERT and indexed as brute force index",
+        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT",
         "filename": "dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
-            "https://www.dropbox.com/s/jse0j82l4ouqdna/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/Ti5JxdCgjdw3noq/download"
         ],
         "md5": "f0b4c3bff3bb685be5c475511004c3b0",
         "size compressed (bytes)": 58514325936,
         "documents": 20544550,
         "downloaded": False,
-        "texts": "msmarco-passage"
+        "texts": "msmarco-v1-passage"
+    },
+    "msmarco-doc-tct_colbert-v2-hnp-bf": {
+        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
+        "filename": "faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/XjkKAWMz2fwSeJB/download",
+        ],
+        "md5": "c6a7d295cfe711ef84dffe9ba6a702e5",
+        "size compressed (bytes)": 58586765624,
+        "documents": 20544550,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
     },
     "wikipedia-dpr-multi-bf": {
-        "description": "Wikipedia corpus encoded by DPR doc encoder trained on multiset, indexed as brute force index",
+        "description": "Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on multiple QA datasets",
         "filename": "dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
-            "https://www.dropbox.com/s/9g4e2ps73lf4ysl/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/xN44ZSC9tFFtp3F/download"
         ],
         "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
         "size compressed (bytes)": 59836766981,
@@ -529,11 +2688,11 @@ DINDEX_INFO = {
         "texts": "wikipedia-dpr"
     },
     "wikipedia-dpr-single-nq-bf": {
-        "description": "Wikipedia corpus encoded by DPR doc encoder trained on NQ, indexed as brute force index",
+        "description": "Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on NQ",
         "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
-            "https://www.dropbox.com/s/negktsxze5sy7e2/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz?dl=1",
+            "https://vault.cs.uwaterloo.ca/s/W4k44aLZWcbcJXe/download"
         ],
         "md5": "d1ef9286ddb38633cd052171963c62cb",
         "size compressed (bytes)": 59836863670,
@@ -541,38 +2700,51 @@ DINDEX_INFO = {
         "downloaded": False,
         "texts": "wikipedia-dpr"
     },
+    "wikipedia-bpr-single-nq-hash": {
+        "description": "Faiss binary index of Wikipedia encoded by the BPR doc encoder trained on NQ",
+        "filename": "dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/qKFrptGP4pSp987/download"
+        ],
+        "md5": "e60e5ed1d7fab924bfa9149ed169d082",
+        "size compressed (bytes)": 1887382350,
+        "documents": 21015320,
+        "downloaded": False,
+        "texts": "wikipedia-dpr"
+    },
     "msmarco-passage-ance-bf": {
-        "description": "MS MARCO passage corpus encoded by ANCE msmarco passage encoder and indexed as brute force index",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the ANCE MS MARCO passage encoder",
         "filename": "dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
-            "https://www.dropbox.com/s/ahpxwtgh56o6j2f/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/mntwDQtXc9WbZSM/download"
         ],
         "md5": "f6332edb8f06ba796850388cf975b414",
         "size compressed (bytes)": 25102344985,
         "documents": 8841823,
         "downloaded": False,
-        "texts": "msmarco-passage"
+        "texts": "msmarco-v1-passage"
     },
     "msmarco-doc-ance-maxp-bf": {
-        "description": "MS MARCO document corpus encoded by ANCE maxp encoder and indexed as brute force index",
+        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by the ANCE MaxP encoder",
         "filename": "dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz",
-            "https://www.dropbox.com/s/bddpw1nwcka7pdf/dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/ifXbHmgTz27SYCC/download"
         ],
         "md5": "a9f8d77ea0cef7c6acdba881c45b7d99",
         "size compressed (bytes)": 58312805496,
         "documents": 20544550,
         "downloaded": False,
-        "texts": "msmarco-doc"
+        "texts": "msmarco-v1-doc"
     },
     "wikipedia-ance-multi-bf": {
-        "description": "Wikipedia corpus encoded by ANCE-multi doc encoder and indexed as brute force index",
+        "description": "Faiss FlatIP index of Wikipedia encoded by the ANCE-multi encoder",
         "filename": "dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
-            "https://www.dropbox.com/s/j89z1vnhe12cva4/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/XRGYFBN6d6WZRNw/download"
         ],
         "md5": "715605b56dc393b8f939e12682dfd467",
         "size compressed (bytes)": 59890492088,
@@ -581,86 +2753,273 @@ DINDEX_INFO = {
         "texts": "wikipedia-dpr"
     },
     "msmarco-passage-sbert-bf": {
-        "description": "MS MARCO passage corpus encoded by SBERT msmarco passage encoder and indexed as brute force index",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the SBERT MS MARCO passage encoder",
         "filename": "dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz",
-            "https://www.dropbox.com/s/puj3lqxt661a3c0/dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/8xiZK5cx4ffExoz/download"
         ],
         "md5": "3f98b9564cd3a33e45bfeca4d4fec623",
         "size compressed (bytes)": 25214193901,
         "documents": 8841823,
         "downloaded": False,
-        "texts": "msmarco-passage"
+        "texts": "msmarco-v1-passage"
     },
     "msmarco-passage-distilbert-dot-margin_mse-T2-bf": {
-        "description": "MS MARCO passage corpus encoded by distilbert-dot-margin_mse-T2-msmarco passage encoder and "
-                       "indexed as brute force index",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the distilbert-dot-margin_mse-T2-msmarco passage encoder",
         "filename": "dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz",
-            "https://www.dropbox.com/s/sn06dukchscnyxf/dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz?dl=1"
+            "https://vault.cs.uwaterloo.ca/s/DSHYNJJRZLqckLA/download"
         ],
         "md5": "83a8081d6020910058164978b095615f",
         "size compressed (bytes)": 25162770962,
         "documents": 8841823,
         "downloaded": False,
-        "texts": "msmarco-passage"
+        "texts": "msmarco-v1-passage"
     },
     "msmarco-passage-distilbert-dot-tas_b-b256-bf": {
-        "description": "MS MARCO passage corpus encoded by msmarco-passage-distilbert-dot-tas_b-b256 passage encoder and "
-                       "indexed as brute force index",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by msmarco-passage-distilbert-dot-tas_b-b256 passage encoder",
         "filename": "dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
-            "https://www.dropbox.com/s/1iu2wo2da1ai7ca/dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz?dl=1",
+            "https://vault.cs.uwaterloo.ca/s/89fr56FNeGFbyrG/download",
         ],
         "md5": "cc947bf66d9552a2a7c6fe060466e490",
         "size compressed (bytes)": 25162328596,
         "documents": 8841823,
         "downloaded": False,
-        "texts": "msmarco-passage"
+        "texts": "msmarco-v1-passage"
     },
     "msmarco-passage-tct_colbert-v2-bf": {
-        "description": "MS MARCO passage corpus encoded by tct_colbert-v2 passage encoder and "
-                       "indexed as brute force index",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2 passage encoder",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz", 
-            "https://www.dropbox.com/s/89mjp90z37dvt85/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz?dl=1",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/2EZ2feACyL8cnw5/download",
         ],
         "md5": "479591e265347ceff954ae05f6d3462b",
         "size compressed (bytes)": 25211079381,
         "documents": 8841823,
         "downloaded": False,
-        "texts": "msmarco-passage"
+        "texts": "msmarco-v1-passage"
     },
     "msmarco-passage-tct_colbert-v2-hn-bf": {
-        "description": "MS MARCO passage corpus encoded by tct_colbert-v2-hn passage encoder and "
-                       "indexed as brute force index",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hn passage encoder",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz",
-            "https://www.dropbox.com/s/9ekxqhya475lkjw/dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz?dl=1",
+            "https://vault.cs.uwaterloo.ca/s/2dP6EJz7QgywM4b/download",
         ],
         "md5": "61d38e4935b3ca36c99e0cda2b27fba2",
         "size compressed (bytes)": 25205729786,
         "documents": 8841823,
         "downloaded": False,
-        "texts": "msmarco-passage"
+        "texts": "msmarco-v1-passage"
     },
     "msmarco-passage-tct_colbert-v2-hnp-bf": {
-        "description": "MS MARCO passage corpus encoded by tct_colbert-v2-hnp passage encoder and "
-                       "indexed as brute force index",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
-            "https://www.dropbox.com/s/5q0siztt9dhwbxy/dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz?dl=1",
+            "https://vault.cs.uwaterloo.ca/s/od63ZXNadCZymwj/download",
         ],
         "md5": "c3c3fc3a288bcdf61708d4bba4bc79ff",
         "size compressed (bytes)": 25225528775,
         "documents": 8841823,
         "downloaded": False,
-        "texts": "msmarco-passage"
+        "texts": "msmarco-v1-passage"
+    },
+    "cast2019-tct_colbert-v2-hnsw": {
+        "description": "Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder",
+        "filename": "faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
+        "readme": "faiss-hnsw.cast2019.tct_colbert-v2-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/ncrZdE67BCKxPwc/download"
+        ],
+        "md5": "fa7673509b34d978e1b931d5705369ee",
+        "size compressed (bytes)": 112121366773,
+        "documents": 38429835,
+        "downloaded": False,
+        "texts": "cast2019"
+    },
+    "mrtydi-v1.1-arabic-mdpr-nq": {
+        "description": "Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
+        "filename": "faiss.mrtydi-v1.1-arabic.20220207.5df364.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-arabic.20220207.5df364.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-arabic.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/Jgj3rYjbyRrmJs8/download"  # Note, this is Crystina's account.
+        ],
+        "md5": "de86c1ce43854bbeea4e3af5d95d6ffb",
+        "size compressed (bytes)": 5997718937,
+        "documents": 2106586,
+        "downloaded": False,
+        "texts": "mrtydi-v1.1-arabic"
+    },
+    "mrtydi-v1.1-bengali-mdpr-nq": {
+        "description": "Faiss index for Mr.TyDi v1.1 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
+        "filename": "faiss.mrtydi-v1.1-bengali.20220207.5df364.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-bengali.20220207.5df364.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-bengali.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/4PpkzXAQtXFFJHR/download"  # Note, this is Crystina's account.
+        ],
+        "md5": "e60cb6f1f7139cf0551f0ba4e4e83bf6",
+        "size compressed (bytes)": 865716848,
+        "documents": 304059,
+        "downloaded": False,
+        "texts": "mrtydi-v1.1-bengali"
+    },
+    "mrtydi-v1.1-english-mdpr-nq": {
+        "description": "Faiss index for Mr.TyDi v1.1 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
+        "filename": "faiss.mrtydi-v1.1-english.20220207.5df364.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-english.20220207.5df364.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-english.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/A7pjbwYeoT4Krnj/download"  # Note, this is Crystina's account.
+        ],
+        "md5": "a0a8cc39e8af782ec82188a18c4c97c3",
+        "size compressed (bytes)": 93585951488,
+        "documents": 32907100,
+        "downloaded": False,
+        "texts": "mrtydi-v1.1-english"
+    },
+    "mrtydi-v1.1-finnish-mdpr-nq": {
+        "description": "Faiss index for Mr.TyDi v1.1 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
+        "filename": "faiss.mrtydi-v1.1-finnish.20220207.5df364.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-finnish.20220207.5df364.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-finnish.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/erNYkrYzRZxpecz/download"  # Note, this is Crystina's account.
+        ],
+        "md5": "3e4e18aacf07ca551b474315f267ead6",
+        "size compressed (bytes)": 5435516778,
+        "documents": 1908757,
+        "downloaded": False,
+        "texts": "mrtydi-v1.1-finnish"
+    },
+    "mrtydi-v1.1-indonesian-mdpr-nq": {
+        "description": "Faiss index for Mr.TyDi v1.1 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
+        "filename": "faiss.mrtydi-v1.1-indonesian.20220207.5df364.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-indonesian.20220207.5df364.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-indonesian.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/BpR3MzT7KJ6edx7/download"  # Note, this is Crystina's account.
+        ],
+        "md5": "0bf693e4046d9a565ae18b9f5939d193",
+        "size compressed (bytes)": 865716848,
+        "documents": 4179177829,
+        "downloaded": False,
+        "texts": "mrtydi-v1.1-indonesian"
+    },
+    "mrtydi-v1.1-japanese-mdpr-nq": {
+        "description": "Faiss index for Mr.TyDi v1.1 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
+        "filename": "faiss.mrtydi-v1.1-japanese.20220207.5df364.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-japanese.20220207.5df364.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-japanese.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/k7bptHT8GwMJpnF/download"  # Note, this is Crystina's account.
+        ],
+        "md5": "4ba566e27bc0158108259b18a153e2fc",
+        "size compressed (bytes)": 19920816424,
+        "documents": 7000027,
+        "downloaded": False,
+        "texts": "mrtydi-v1.1-japanese"
+    },
+    "mrtydi-v1.1-korean-mdpr-nq": {
+        "description": "Faiss index for Mr.TyDi v1.1 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
+        "filename": "faiss.mrtydi-v1.1-korean.20220207.5df364.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-korean.20220207.5df364.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-korean.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/TigfYMde94YWAoE/download"  # Note, this is Crystina's account.
+        ],
+        "md5": "44212e5722632d5bcb14f0680741638c",
+        "size compressed (bytes)": 4257414237,
+        "documents": 1496126,
+        "downloaded": False,
+        "texts": "mrtydi-v1.1-korean"
+    },
+    "mrtydi-v1.1-russian-mdpr-nq": {
+        "description": "Faiss index for Mr.TyDi v1.1 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
+        "filename": "faiss.mrtydi-v1.1-russian.20220207.5df364.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-russian.20220207.5df364.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-russian.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/eN7demnmnspqxjk/download"  # Note, this is Crystina's account.
+        ],
+        "md5": "e7634093f2a3362928e9699441ce8a3b",
+        "size compressed (bytes)": 27317759143,
+        "documents": 9597504,
+        "downloaded": False,
+        "texts": "mrtydi-v1.1-russian"
+    },
+    "mrtydi-v1.1-swahili-mdpr-nq": {
+        "description": "Faiss index for Mr.TyDi v1.1 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
+        "filename": "faiss.mrtydi-v1.1-swahili.20220207.5df364.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-swahili.20220207.5df364.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-swahili.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/JgiX8PRftnqcPwy/download"  # Note, this is Crystina's account.
+        ],
+        "md5": "5061bdd1d81bc32490bbb3682096acdd",
+        "size compressed (bytes)": 389658394,
+        "documents": 136689,
+        "downloaded": False,
+        "texts": "mrtydi-v1.1-swahili"
+    },
+    "mrtydi-v1.1-telugu-mdpr-nq": {
+        "description": "Faiss index for Mr.TyDi v1.1 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
+        "filename": "faiss.mrtydi-v1.1-telugu.20220207.5df364.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-telugu.20220207.5df364.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-telugu.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/dkm6RGdgRbnwiX2/download"  # Note, this is Crystina's account.
+        ],
+        "md5": "4952dacaeae89185d3757f9f26af4e88",
+        "size compressed (bytes)": 1561173721,
+        "documents": 548224,
+        "downloaded": False,
+        "texts": "mrtydi-v1.1-telugu"
+    },
+    "mrtydi-v1.1-thai-mdpr-nq": {
+        "description": "Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
+        "filename": "faiss.mrtydi-v1.1-thai.20220207.5df364.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-thai.20220207.5df364.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-thai.20220207.5df364.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/fFrRYefd3nWFR3J/download"  # Note, this is Crystina's account.
+        ],
+        "md5": "2458f704b277fa8ffe2509b6296892a0",
+        "size compressed (bytes)": 1616059846,
+        "documents": 568855,
+        "downloaded": False,
+        "texts": "mrtydi-v1.1-thai"
+    },
+    "wikipedia-dpr-dkrr-nq": {
+        "description": "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ",
+        "filename": "faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz",
+        ],
+        "md5": "e58886fd5485b84f2c44963ce644561b",
+        "size compressed (bytes)": 37812137819,
+        "documents": 21015324,
+        "downloaded": False,
+        "texts": "wikipedia-dpr"
+    },
+    "wikipedia-dpr-dkrr-tqa": {
+        "description": "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA",
+        "filename": "faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz",
+        ],
+        "md5": "a6b02d33c9c0376ad1bf6550212ecdcb",
+        "size compressed (bytes)": 37802648060,
+        "documents": 21015324,
+        "downloaded": False,
+        "texts": "wikipedia-dpr"
     }
 }

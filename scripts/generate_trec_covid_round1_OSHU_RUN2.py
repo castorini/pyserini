@@ -64,7 +64,7 @@ if (os.path.exists(Pyserini_files) == False):
     os.mkdir(Pyserini_files)
 
 #Topics
-full_searcher = pysearch.SimpleSearcher(R1_fulltext)
+full_searcher = pysearch.LuceneSearcher(R1_fulltext)
 
 #Configure searcher parameters
 full_searcher.set_bm25_similarity(k1=1.5, b=0.4)

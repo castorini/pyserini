@@ -40,12 +40,29 @@ class QueryEncoder:
         pass
 
 
+class PcaEncoder:
+    def __init__(self, encoder, pca_model_path):
+        self.encoder = encoder
+        self.pca_mat = faiss.read_VectorTransform(pca_model_path)
+
+    def encode(self, text, **kwargs):
+        if isinstance(text, str):
+            embeddings = self.encoder.encode(text, **kwargs)
+            embeddings = self.pca_mat.apply_py(np.array([embeddings]))
+            embeddings = embeddings[0]
+        else:
+            embeddings = self.encoder.encode(text, **kwargs)
+            embeddings = self.pca_mat.apply_py(embeddings)
+        return embeddings
+
+
 class JsonlCollectionIterator:
-    def __init__(self, collection_path: str, fields=None):
+    def __init__(self, collection_path: str, fields=None, delimiter="\n"):
         if fields:
             self.fields = fields
         else:
             self.fields = ['text']
+        self.delimiter = delimiter
         self.all_info = self._load(collection_path)
         self.size = len(self.all_info['id'])
         self.batch_size = 1
@@ -85,7 +102,7 @@ class JsonlCollectionIterator:
                 for line in tqdm(f):
                     info = json.loads(line)
                     all_info['id'].append(str(info['id']))
-                    fields_info = info['contents'].rstrip().split('\n')
+                    fields_info = info['contents'].rstrip().split(self.delimiter)
                     for i in range(len(fields_info)):
                         all_info[self.fields[i]].append(fields_info[i])
         return all_info
@@ -110,7 +127,7 @@ class JsonlRepresentationWriter(RepresentationWriter):
 
     def __enter__(self):
         if not os.path.exists(self.dir_path):
-            os.mkdir(self.dir_path)
+            os.makedirs(self.dir_path)
         self.file = open(os.path.join(self.dir_path, self.filename), 'w')
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -137,7 +154,7 @@ class FaissRepresentationWriter(RepresentationWriter):
 
     def __enter__(self):
         if not os.path.exists(self.dir_path):
-            os.mkdir(self.dir_path)
+            os.makedirs(self.dir_path)
         self.id_file = open(os.path.join(self.dir_path, self.id_file_name), 'w')
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -147,4 +164,4 @@ class FaissRepresentationWriter(RepresentationWriter):
     def write(self, batch_info, fields=None):
         for id_ in batch_info['id']:
             self.id_file.write(f'{id_}\n')
-        self.index.add(batch_info['vector'])
+        self.index.add(np.ascontiguousarray(batch_info['vector']))

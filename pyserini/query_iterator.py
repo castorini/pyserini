@@ -56,6 +56,9 @@ class QueryIterator(ABC):
         for id_ in self.order:
             yield id_, self.get_query(id_)
 
+    def __len__(self):
+        return len(self.topics.keys())
+
     @staticmethod
     def get_predefined_order(topics_path: str):
         order = None
@@ -81,7 +84,9 @@ class DefaultQueryIterator(QueryIterator):
             if topics_path.endswith('.json'):
                 with open(topics_path, 'r') as f:
                     topics = json.load(f)
-            elif topics_path.endswith('.tsv'):
+            elif "beir" in topics_path:
+                topics = get_topics_with_reader('io.anserini.search.topicreader.TsvStringTopicReader', topics_path)
+            elif topics_path.endswith('.tsv') or topics_path.endswith('.tsv.gz'):
                 topics = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', topics_path)
             elif topics_path.endswith('.trec'):
                 topics = get_topics_with_reader('io.anserini.search.topicreader.TrecTopicReader', topics_path)

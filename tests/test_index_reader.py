@@ -24,7 +24,9 @@ from urllib.request import urlretrieve
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 
-from pyserini import analysis, index, search
+from pyserini import analysis, search
+from pyserini.index.lucene import IndexReader
+from pyserini.pyclass import JString
 from pyserini.vectorizer import BM25Vectorizer, TfidfVectorizer
 
 
@@ -43,8 +45,45 @@ class TestIndexUtils(unittest.TestCase):
         tarball.close()
 
         self.index_path = os.path.join(self.index_dir, 'lucene-index.cacm')
-        self.searcher = search.SimpleSearcher(self.index_path)
-        self.index_reader = index.IndexReader(self.index_path)
+        self.searcher = search.LuceneSearcher(self.index_path)
+        self.index_reader = IndexReader(self.index_path)
+
+        self.temp_folders = []
+
+        # The current directory depends on if you're running inside an IDE or from command line.
+        curdir = os.getcwd()
+        if curdir.endswith('tests'):
+            self.emoji_corpus_path = '../tests/resources/sample_collection_json_emoji'
+        else:
+            self.emoji_corpus_path = 'tests/resources/sample_collection_json_emoji'
+
+    # See https://github.com/castorini/pyserini/issues/770
+    # tldr -- a longstanding issue about whether we need the `encode` in `JString(my_str.encode('utf-8'))`.
+    # As it turns out, the solution is to remove the `JString` wrapping, which also has performance benefits as well.
+    # See:
+    # - https://github.com/castorini/pyserini/pull/862
+    # - https://github.com/castorini/pyserini/issues/841
+    def test_doc_vector_emoji_test(self):
+        index_dir = 'temp_index'
+        self.temp_folders.append(index_dir)
+        cmd1 = f'python -m pyserini.index.lucene -collection JsonCollection ' + \
+               f'-generator DefaultLuceneDocumentGenerator ' + \
+               f'-threads 1 -input {self.emoji_corpus_path} -index {index_dir} -storeDocvectors'
+        _ = os.system(cmd1)
+        temp_index_reader = IndexReader(index_dir)
+
+        df, cf = temp_index_reader.get_term_counts('emoji')
+        self.assertEqual(df, 1)
+        self.assertEqual(cf, 1)
+
+        df, cf = temp_index_reader.get_term_counts('🙂')
+        self.assertEqual(df, 1)
+        self.assertEqual(cf, 1)
+
+        doc_vector = temp_index_reader.get_document_vector('doc1')
+        self.assertEqual(doc_vector['emoji'], 1)
+        self.assertEqual(doc_vector['🙂'], 1)
+        self.assertEqual(doc_vector['😀'], 1)
 
     def test_tfidf_vectorizer_train(self):
         vectorizer = TfidfVectorizer(self.index_path, min_df=5)
@@ -141,6 +180,11 @@ class TestIndexUtils(unittest.TestCase):
         df_no_stopword, cf_no_stopword = self.index_reader.get_term_counts('on', analyzer=None)
         self.assertEqual(df_no_stopword, 326)
         self.assertEqual(cf_no_stopword, 443)
+
+        # Should gracefully handle non-existent term.
+        df, cf = self.index_reader.get_term_counts('sdgsc')
+        self.assertEqual(df, 0)
+        self.assertEqual(cf, 0)
 
     def test_postings1(self):
         term = 'retrieval'
@@ -346,9 +390,17 @@ class TestIndexUtils(unittest.TestCase):
         self.assertEqual(3204, self.index_reader.stats()['documents'])
         self.assertEqual(14363, self.index_reader.stats()['unique_terms'])
 
+    def test_jstring_encoding(self):
+        # When using pyjnius in a version prior 1.3.0, creating a JString with non-ASCII characters resulted in a
+        # failure. This test simply ensures that a compatible version of pyjnius is used. More details can be found in
+        # the discussion here: https://github.com/castorini/pyserini/issues/770
+        JString('zoölogy')
+
     def tearDown(self):
         os.remove(self.tarball_name)
         shutil.rmtree(self.index_dir)
+        for f in self.temp_folders:
+            shutil.rmtree(f)
 
 
 if __name__ == '__main__':

@@ -13,11 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# Example usage
+# python -m pyserini.eval.trec_eval -m ndcg_cut.10,20 -m all_trec qrels.dev.small.tsv runs/run.Colbert.txt -remove-unjudged -cutoffs.20,50
+
 
 import os
 import subprocess
 import sys
 import platform
+import pandas as pd
+import tempfile
 
 from pyserini.search import get_qrels_file
 from pyserini.util import download_evaluation_script
@@ -25,10 +30,50 @@ from pyserini.util import download_evaluation_script
 script_path = download_evaluation_script('trec_eval')
 cmd_prefix = ['java', '-jar', script_path]
 args = sys.argv
+# Option to discard non-judged hits in run file
+judged_docs_only = ''
+judged_result = []
+cutoffs = [10, 20]
+if '-remove-unjudged' in args:
+    judged_docs_only = args.pop(args.index('-remove-unjudged'))
+if any([i.startswith('-cutoffs.') for i in args]):
+    cutoffs = args.pop([i.startswith('-cutoffs.') for i in args].index(True))
+    cutoffs = list(map(int, cutoffs[9:].split(',')))
+temp_file = ''
+
 if len(args) > 1:
+    if not os.path.exists(args[-2]):
+        args[-2] = get_qrels_file(args[-2])
+    if os.path.exists(args[-1]):
+        # Convert run to trec if it's on msmarco
+        with open(args[-1]) as f:
+            first_line = f.readline()
+        if 'Q0' not in first_line:
+            temp_file = tempfile.NamedTemporaryFile(delete=False).name
+            print('msmarco run detected. Converting to trec...')
+            run = pd.read_csv(args[-1], delim_whitespace=True, header=None, names=['query_id', 'doc_id', 'rank'])
+            run['score'] = 1 / run['rank']
+            run.insert(1, 'Q0', 'Q0')
+            run['name'] = 'TEMPRUN'
+            run.to_csv(temp_file, sep='\t', header=None, index=None)
+            args[-1] = temp_file
+
+    run = pd.read_csv(args[-1], delim_whitespace=True, header=None)
+    qrels = pd.read_csv(args[-2], delim_whitespace=True, header=None)
+    # Discard non-judged hits
+    if judged_docs_only:
+        if not temp_file:
+            temp_file = tempfile.NamedTemporaryFile(delete=False).name
+        judged_indexes = pd.merge(run[[0,2]].reset_index(), qrels[[0,2]], on = [0,2])['index']
+        run = run.loc[judged_indexes]
+        run.to_csv(temp_file, sep='\t', header=None, index=None)
+        args[-1] = temp_file
+    # Measure judged@cutoffs
+    for cutoff in cutoffs:
+        run_cutoff = run.groupby(0).head(cutoff)
+        judged = len(pd.merge(run_cutoff[[0,2]], qrels[[0,2]], on = [0,2])) / len(run_cutoff)
+        judged_result.append(f'J@{cutoff}: {judged}')
     cmd = cmd_prefix + args[1:]
-    if not os.path.exists(cmd[-2]):
-        cmd[-2] = get_qrels_file(cmd[-2])
 else:
     cmd = cmd_prefix
 print(f'Running command: {cmd}')
@@ -42,3 +87,7 @@ if stderr:
     print(stderr.decode("utf-8"))
 print('Results:')
 print(stdout.decode("utf-8"))
+if temp_file:
+    os.remove(temp_file)
+for judged in judged_result:
+    print(judged)

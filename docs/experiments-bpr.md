@@ -1,34 +1,36 @@
 # Pyserini: Reproducing BPR Results
 
-[Binary passage retriever](https://arxiv.org/abs/2106.00882) (BPR) is a two-stage ranking approach that represents the passages in both binary codes and dense vectors for memory efficiency and effectiveness.
+Binary passage retriever (BPR) is a two-stage ranking approach that represents the passages in both binary codes and dense vectors for memory efficiency and effectiveness.
 
-We have replicated BPR's results and incorporated the technique into Pyserini.
+> Ikuya Yamada, Akari Asai, Hannaneh Hajishirzi. [Efficient Passage Retrieval with Hashing for Open-domain Question Answering.](https://aclanthology.org/2021.acl-short.123/) _Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 2: Short Papers)_, pages 979-986, 2021.
+
+We have replicated BPR's results and incorporated the model into Pyserini.
 To be clear, we started with model checkpoint and index releases in the official [BPR repo](https://github.com/studio-ousia/bpr) and did _not_ train the query and passage encoders from scratch.
 
 This guide provides instructions to reproduce the BPR's results.
-We cover only retrieval here; for end-to-end answer extraction, please see [this guide](https://github.com/castorini/pygaggle/blob/master/docs/experiments-dpr-reader.md) in our PyGaggle neural text ranking library. For more instructions, please see our [dense retrieval replication guide](https://github.com/castorini/pyserini/blob/master/docs/experiments-dpr.md).
 
 ## Summary
 
-Here's how our results stack up against results reported in the paper using the BPR model (index 2.3GB + model 0.4GB):
+Here's how our results stack up against results reported in the paper using the BPR model (index 2.3 GB + model 0.4 GB):
 
-| Dataset     | Method        | Top-20 (orig) | Top-20 (us)| Top-100 (orig) | Top-100 (us)|
-|:------------|:--------------|--------------:|-----------:|---------------:|------------:|
-| NQ          | BPR           | 77.9          |    77.9    | 85.7           | 85.7        | 
-| NQ          | BPR w/o reranking          | 76.5          |    76.0    | 84.9           | 85.0        |
+| Dataset     | Method            | Top-20 (orig) | Top-20 (us) | Top-100 (orig) | Top-100 (us) |
+|:------------|:------------------|--------------:|------------:|---------------:|-------------:|
+| NQ          | BPR               |          77.9 |        77.9 |           85.7 |         85.7 |
+| NQ          | BPR w/o reranking |          76.5 |        76.0 |           84.9 |         85.0 |
 
 ## Natural Questions (NQ) with BPR
 
-**DPR retrieval** with brute-force index:
+BPR with brute-force index:
 
 ```bash
-$ python -m pyserini.dsearch --topics dpr-nq-test \
-                             --index wikipedia-bpr-nq-hash \
-                             --encoded-queries bpr-nq-test \
-                             --output runs/run.bpr.rerank.nq-test.nq.hash.trec \
-                             --rerank \
-                             --hits 100 --binary-hits 1000 \
-                             --batch-size 36 --threads 12
+python -m pyserini.dsearch \
+  --index wikipedia-bpr-single-nq-hash \
+  --topics dpr-nq-test \
+  --encoded-queries bpr_single_nq-nq-test \
+  --output runs/run.bpr.rerank.nq-test.nq.hash.trec \
+  --batch-size 36 --threads 12 \
+  --hits 100 --binary-hits 1000 \
+  --searcher bpr --rerank
 ```
 
 The option `--encoded-queries` specifies the use of encoded queries (i.e., queries that have already been converted into dense vectors and cached).
@@ -36,14 +38,21 @@ The option `--encoded-queries` specifies the use of encoded queries (i.e., queri
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
-                                                                --index wikipedia-dpr \
-                                                                --input runs/run.bpr.rerank.nq-test.nq.hash.trec \
-                                                                --output runs/run.bpr.rerank.nq-test.nq.hash.json
+$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+    --index wikipedia-dpr \
+    --topics dpr-nq-test \
+    --input runs/run.bpr.rerank.nq-test.nq.hash.trec \
+    --output runs/run.bpr.rerank.nq-test.nq.hash.json
 
-$ python -m pyserini.eval.evaluate_dpr_retrieval --retrieval runs/run.bpr.rerank.nq-test.nq.hash.json --topk 20 100
+$ python -m pyserini.eval.evaluate_dpr_retrieval \
+    --retrieval runs/run.bpr.rerank.nq-test.nq.hash.json \
+    --topk 20 100
+
 Top20  accuracy: 0.779
 Top100 accuracy: 0.857
 ```
 
 ## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-09-08 (commit [`d7a7be`](https://github.com/castorini/pyserini/commit/d7a7bededc650dfa87eb89ba92907fd97a10310b))
++ Results reproduced by [@HAKSOAT](https://github.com/HAKSOAT) on 2022-03-11 (commit [`7796685`](https://github.com/castorini/pyserini/commit/77966851755163e36489544fb08f73171e98103f))
