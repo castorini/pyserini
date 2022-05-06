@@ -57,7 +57,7 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 
 This should give you the topk scores as below
 
-### Dev Scores from Gar-T5
+### Dev Scores from GAR-T5
 |  Dataset | Features |  Top1 |  Top5 | Top10 | Top20 | Top50 | Top100 | Top200 | Top300 | Top500 | Top1000 |
 |:--------:|:--------:|:-----:|:-----:|:-----:|:-----:|:-----:|:------:|:------:|:------:|:------:|:-------:|
 |    NQ    |  answer  | 40.33 | 57.76 | 64.26 | 70.38 | 76.96 |  81.20 |  84.33 |  85.91 |  87.83 |  89.94  |
@@ -69,7 +69,7 @@ This should give you the topk scores as below
 | TriviaQA |   title  | 47.58 | 61.31 | 66.59 | 71.57 | 76.79 |  80.15 |  82.95 |  84.18 |  85.65 |  87.30  |
 | TriviaQA |  fusion  | 59.48 | 73.43 | 77.29 | 80.43 | 83.80 |  85.60 |  87.11 |  87.81 |  88.70 |  89.68  |
 
-### Test Scores from Gar-T5
+### Test Scores from GAR-T5
 |  Dataset | Features |  Top1 |  Top5 | Top10 | Top20 | Top50 | Top100 | Top200 | Top300 | Top500 | Top1000 |
 |:--------:|:--------:|:-----:|:-----:|:-----:|:-----:|:-----:|:------:|:------:|:------:|:------:|:-------:|
 |    NQ    |  answer  | 40.30 | 57.51 | 64.24 | 70.11 | 77.23 |  81.75 |  85.10 |  86.68 |  88.39 |  90.80  |
@@ -83,7 +83,7 @@ This should give you the topk scores as below
 
 ## Hybrid sparse-dense retrieval with DKRR
 
-To run hybrid sparse-dense retrieval with gar-t5 and [DKRR](https://github.com/castorini/pyserini/blob/master/docs/experiments-dkrr.md):
+To run hybrid sparse-dense retrieval with GAR-T5 and [DKRR](https://github.com/castorini/pyserini/blob/master/docs/experiments-dkrr.md):
 ```
 python -m pyserini.fusion \
   --runs runs/gar-t5-run-fusion.trec runs/run.dpr-dkrr.trec \

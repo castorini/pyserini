@@ -138,7 +138,7 @@ For reference, reported results from the paper (Table 7) are shown in the "orig"
 
 ## Hybrid sparse-dense retrieval with GAR-T5
 
-Running hybrid sparse-dense retrieval with DKKR and [gar-t5](https://github.com/castorini/pyserini/blob/master/docs/experiments-gar-t5.md) is detailed in [experiments-gar-t5.md](https://github.com/castorini/pyserini/blob/master/docs/experiments-gar-t5.md#hybrid-sparse-dense-retrieval-with-dkrr)
+Running hybrid sparse-dense retrieval with DKKR and [GAR-T5](https://github.com/castorini/pyserini/blob/master/docs/experiments-gar-t5.md) is detailed in [experiments-gar-t5.md](https://github.com/castorini/pyserini/blob/master/docs/experiments-gar-t5.md#hybrid-sparse-dense-retrieval-with-dkrr)
 
 ## Reproduction Log[*](reproducibility.md)
 
