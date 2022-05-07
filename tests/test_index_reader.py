@@ -20,6 +20,7 @@ import tarfile
 import unittest
 from random import randint
 from urllib.request import urlretrieve
+import json
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
@@ -395,6 +396,38 @@ class TestIndexUtils(unittest.TestCase):
         # failure. This test simply ensures that a compatible version of pyjnius is used. More details can be found in
         # the discussion here: https://github.com/castorini/pyserini/issues/770
         JString('zoölogy')
+
+    def test_dump_documents_BM25(self):
+        filepath = "collections/cacm_documents_bm25_dump.json"
+        self.index_reader.dump_documents_BM25(filepath)
+        f = open(filepath, 'r')
+        dump = json.load(f)
+        f.close()
+
+        assert(len(dump) == self.index_reader.stats()["documents"])
+
+        docid = self.index_reader.convert_internal_docid_to_collection_docid(0)
+        tf = self.index_reader.get_document_vector(docid)
+        bm25_vector = {term: self.index_reader.compute_bm25_term_weight(docid, term, analyzer=None) for term in tf.keys()}
+        dump_entries = list(filter(lambda doc: doc["id"] == docid, dump))
+        assert(len(dump_entries) == 1)
+        assert(dump_entries[0]["id"] == docid)
+        #  Make sure that the vector from the dump for the chosen document is as expected
+        assert(len(bm25_vector) == len(dump_entries[0]["vector"]))
+        for k in dump_entries[0]["vector"]:
+            self.assertAlmostEqual(bm25_vector[k], dump_entries[0]["vector"][k], places=8)
+
+        docid = self.index_reader.convert_internal_docid_to_collection_docid(self.index_reader.stats()["documents"]-1)
+        tf = self.index_reader.get_document_vector(docid)
+        bm25_vector = {term: self.index_reader.compute_bm25_term_weight(docid, term, analyzer=None) for term in tf.keys()}
+        dump_entries = list(filter(lambda doc: doc["id"] == docid, dump))
+        assert(len(dump_entries) == 1)
+        assert(dump_entries[0]["id"] == docid)
+        assert(len(bm25_vector) == len(dump_entries[0]["vector"]))
+        for k in dump_entries[0]["vector"]:
+            self.assertAlmostEqual(bm25_vector[k], dump_entries[0]["vector"][k], places=8)
+        
+        os.remove(filepath)
 
     def tearDown(self):
         os.remove(self.tarball_name)
