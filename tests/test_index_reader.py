@@ -409,7 +409,7 @@ class TestIndexUtils(unittest.TestCase):
 
         def compare_searcher(query):
             """Comparing searching with LuceneSearcher to brute-force searching through documents in dump
-            The scores should be identical.
+            The scores should match.
             """
             # Search through documents BM25 dump
             query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
