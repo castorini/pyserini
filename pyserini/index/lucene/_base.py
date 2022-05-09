@@ -549,7 +549,7 @@ class IndexReader:
 
         output_list = []
 
-        assert('documents' in self.stats())
+        assert 'documents' in self.stats()
         for i in tqdm(range(self.stats()['documents'])):
             docid = self.convert_internal_docid_to_collection_docid(i)
             tf = self.get_document_vector(docid)

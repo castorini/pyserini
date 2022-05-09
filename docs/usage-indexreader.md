@@ -172,7 +172,7 @@ Here's how to dump out all the document vectors with BM25 weights in Pyserini's 
 
 ```python
 # You must specify a file path for the .json file
-index_reader.dump_documents_BM25("collections/cacm_documents_bm25_dump.json")
+index_reader.dump_documents_BM25('collections/cacm_documents_bm25_dump.json')
 ```
 
 Output in the .json file is something like this:

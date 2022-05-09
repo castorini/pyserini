@@ -401,43 +401,36 @@ class TestIndexUtils(unittest.TestCase):
     def test_dump_documents_BM25(self):
         filepath = 'collections/cacm_documents_bm25_dump.json'
         self.index_reader.dump_documents_BM25(filepath)
-        f = open(filepath, 'r')
-        dump = json.load(f)
-        f.close()
+        dumpfile = open(filepath, 'r')
+        dump = json.load(dumpfile)
+        dumpfile.close()
 
-        assert(len(dump) == self.index_reader.stats()['documents'])
+        assert len(dump) == self.index_reader.stats()['documents']
 
-        query = 'Where can I learn to fly a helicopter?'
-        # Search through documents BM25 dump with query
-        query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
-        heap = [] # heapq implements a min-heap, we can invert the values to have a max-heap
-        for doc in dump:
-            score = 0
-            for term in query_terms:
-                if term in doc['vector']:
-                    score += doc['vector'][term]
-            heapq.heappush(heap, (-1*score, doc['id'])) 
-        # Using LuceneSearcher instead
-        hits = self.searcher.search(query)
-        for i in range(0, 10):
-            top = heapq.heappop(heap)
-            self.assertEqual(hits[i].docid, top[1])
-            self.assertAlmostEqual(hits[i].score, -1*top[0],places=3)
+        def compare_searcher(query):
+            """Comparing searching with LuceneSearcher to brute-force searching through documents in dump
+            The scores should be identical.
+            """
+            # Search through documents BM25 dump
+            query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
+            heap = [] # heapq implements a min-heap, we can invert the values to have a max-heap
+            for doc in dump:
+                score = 0
+                for term in query_terms:
+                    if term in doc['vector']:
+                        score += doc['vector'][term]
+                heapq.heappush(heap, (-1*score, doc['id']))
 
-        query = 'What is the capital of Canada? In what province is it located? How can i get there from Toronto, Ontario, Canada?'
-        query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
-        heap = []
-        for doc in dump:
-            score = 0
-            for term in query_terms:
-                if term in doc['vector']:
-                    score += doc['vector'][term]
-            heapq.heappush(heap, (-1*score, doc['id']))
-        hits = self.searcher.search(query)
-        for i in range(0, 10):
-            top = heapq.heappop(heap)
-            self.assertEqual(hits[i].docid, top[1])
-            self.assertAlmostEqual(hits[i].score, -1*top[0],places=3)
+            # Using LuceneSearcher instead
+            hits = self.searcher.search(query)
+
+            for i in range(0, 10):
+                top = heapq.heappop(heap)
+                self.assertEqual(hits[i].docid, top[1])
+                self.assertAlmostEqual(hits[i].score, -1*top[0], places=3)
+
+        compare_searcher('I am interested in articles written either by Prieve or Udo Pooch')
+        compare_searcher('Performance evaluation and modelling of computer systems')
 
         os.remove(filepath)
 
