@@ -523,7 +523,6 @@ def get_qrels_file(collection_name):
         return target_path
     raise FileNotFoundError(f'no qrels file for {collection_name}')
 
-
 def get_qrels(collection_name):
     """
     Parameters
@@ -540,6 +539,8 @@ def get_qrels(collection_name):
     qrels = {}
     with open(file_path, 'r') as f:
         for line in f:
+            if line == '\n':
+                continue
             qid, _, docid, judgement = line.rstrip().split()
             try:
                 qrels_key = int(qid)
