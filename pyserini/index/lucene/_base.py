@@ -538,7 +538,7 @@ class IndexReader:
 
         return index_stats_dict
 
-    def dump_documents_BM25(self, file_path="collections/documents_bm25_dump.json"):
+    def dump_documents_BM25(self, file_path, k1=0.9, b=0.4):
         """Dumps out all the document vectors with BM25 weights in Pyserini's JSON vector format 
 
         Parameters
@@ -546,27 +546,15 @@ class IndexReader:
         file_path : str
             file path to dump JSON file
         """
-        first_iter = True
-        output_string =  "[\n"
 
-        for i in tqdm(range(self.stats()["documents"])):
+        output_list = []
+
+        assert('documents' in self.stats())
+        for i in tqdm(range(self.stats()['documents'])):
             docid = self.convert_internal_docid_to_collection_docid(i)
             tf = self.get_document_vector(docid)
-            bm25_vector = {term: self.compute_bm25_term_weight(docid, term, analyzer=None) for term in tf.keys()}
-            
-            if not first_iter:
-                output_string += "  },\n"
-            else:
-                first_iter = False
-            
-            output_string += "  {\n"
-            output_string += "    \"id\": \"" + str(docid) +"\",\n"
-            output_string += "    \"contents\": \"BM25 vector for document: " + str(docid) + "\",\n"
-            output_string += "    \"vector\": " + json.dumps(bm25_vector) +"\n"
+            bm25_vector = {term: self.compute_bm25_term_weight(docid, term, analyzer=None, k1=k1, b=b) for term in tf.keys()}
+            output_list.append({'id': docid, 'vector':bm25_vector})
 
-        if self.stats()["documents"] > 0:    
-            output_string += "  }\n"      
-        output_string += "]"
-        
-        with open(file_path, "w") as f:
-            f.write(output_string)
+        with open(file_path, 'w') as f:
+            json.dump(output_list, f, indent=2)

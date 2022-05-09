@@ -21,6 +21,7 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 import json
+import heapq
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
@@ -398,35 +399,46 @@ class TestIndexUtils(unittest.TestCase):
         JString('zoölogy')
 
     def test_dump_documents_BM25(self):
-        filepath = "collections/cacm_documents_bm25_dump.json"
+        filepath = 'collections/cacm_documents_bm25_dump.json'
         self.index_reader.dump_documents_BM25(filepath)
         f = open(filepath, 'r')
         dump = json.load(f)
         f.close()
 
-        assert(len(dump) == self.index_reader.stats()["documents"])
+        assert(len(dump) == self.index_reader.stats()['documents'])
 
-        docid = self.index_reader.convert_internal_docid_to_collection_docid(0)
-        tf = self.index_reader.get_document_vector(docid)
-        bm25_vector = {term: self.index_reader.compute_bm25_term_weight(docid, term, analyzer=None) for term in tf.keys()}
-        dump_entries = list(filter(lambda doc: doc["id"] == docid, dump))
-        assert(len(dump_entries) == 1)
-        assert(dump_entries[0]["id"] == docid)
-        #  Make sure that the vector from the dump for the chosen document is as expected
-        assert(len(bm25_vector) == len(dump_entries[0]["vector"]))
-        for k in dump_entries[0]["vector"]:
-            self.assertAlmostEqual(bm25_vector[k], dump_entries[0]["vector"][k], places=8)
+        query = 'Where can I learn to fly a helicopter?'
+        # Search through documents BM25 dump with query
+        query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
+        heap = [] # heapq implements a min-heap, we can invert the values to have a max-heap
+        for doc in dump:
+            score = 0
+            for term in query_terms:
+                if term in doc['vector']:
+                    score += doc['vector'][term]
+            heapq.heappush(heap, (-1*score, doc['id'])) 
+        # Using LuceneSearcher instead
+        hits = self.searcher.search(query)
+        for i in range(0, 10):
+            top = heapq.heappop(heap)
+            self.assertEqual(hits[i].docid, top[1])
+            self.assertAlmostEqual(hits[i].score, -1*top[0],places=3)
 
-        docid = self.index_reader.convert_internal_docid_to_collection_docid(self.index_reader.stats()["documents"]-1)
-        tf = self.index_reader.get_document_vector(docid)
-        bm25_vector = {term: self.index_reader.compute_bm25_term_weight(docid, term, analyzer=None) for term in tf.keys()}
-        dump_entries = list(filter(lambda doc: doc["id"] == docid, dump))
-        assert(len(dump_entries) == 1)
-        assert(dump_entries[0]["id"] == docid)
-        assert(len(bm25_vector) == len(dump_entries[0]["vector"]))
-        for k in dump_entries[0]["vector"]:
-            self.assertAlmostEqual(bm25_vector[k], dump_entries[0]["vector"][k], places=8)
-        
+        query = 'What is the capital of Canada? In what province is it located? How can i get there from Toronto, Ontario, Canada?'
+        query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
+        heap = []
+        for doc in dump:
+            score = 0
+            for term in query_terms:
+                if term in doc['vector']:
+                    score += doc['vector'][term]
+            heapq.heappush(heap, (-1*score, doc['id']))
+        hits = self.searcher.search(query)
+        for i in range(0, 10):
+            top = heapq.heappop(heap)
+            self.assertEqual(hits[i].docid, top[1])
+            self.assertAlmostEqual(hits[i].score, -1*top[0],places=3)
+
         os.remove(filepath)
 
     def tearDown(self):
