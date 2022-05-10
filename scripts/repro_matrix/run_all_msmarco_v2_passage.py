@@ -22,41 +22,29 @@ import yaml
 from collections import defaultdict
 from scripts.repro_matrix.utils import run_eval_and_return_metric
 
-collection = 'msmarco-v1-passage'
+
+collection = 'msmarco-v2-passage'
 
 # The models: the rows of the results table will be ordered this way.
-models = ['bm25-tuned',
-          'bm25-rm3-tuned',
-          'bm25-d2q-t5-tuned',
-          '',
-          'bm25-default',
+models = ['bm25-default',
+          'bm25-augmented-default',
           'bm25-rm3-default',
-          'bm25-d2q-t5-default',
-          '',
-          'unicoil-noexp',
-          'unicoil-noexp-otf',
-          '',
-          'unicoil',
-          'unicoil-otf',
-          '',
-          'tct_colbert-v2-hnp',
-          'tct_colbert-v2-hnp-otf']
+          'bm25-rm3-augmented-default']
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK] '
 
 trec_eval_metric_definitions = {
-    'msmarco-passage-dev-subset': {
-        'MRR@10': '-c -M 10 -m recip_rank',
+    'msmarco-v2-passage-dev': {
+        'MRR@100': '-c -M 100 -m recip_rank',
         'R@1K': '-c -m recall.1000'
     },
-    'dl19-passage': {
-        'MAP': '-c -l 2 -m map',
-        'nDCG@10': '-c -m ndcg_cut.10',
-        'R@1K': '-c -l 2 -m recall.1000'
+    'msmarco-v2-passage-dev2': {
+        'MRR@100': '-c -M 100 -m recip_rank',
+        'R@1K': '-c -m recall.1000'
     },
-    'dl20-passage': {
-        'MAP': '-c -l 2 -m map',
+    'dl21-passage': {
+        'MAP@100': '-c -l 2 -M 100 -m map',
         'nDCG@10': '-c -m ndcg_cut.10',
         'R@1K': '-c -l 2 -m recall.1000'
     }
@@ -67,24 +55,23 @@ table_keys = {}
 
 
 def find_table_topic_set_key(topic_key):
-    # E.g., we want to map variants like 'dl19-passage-unicoil' and 'dl19-passage' both into 'dl19'
     key = ''
-    if topic_key.startswith('dl19'):
-        key = 'dl19'
-    elif topic_key.startswith('dl20'):
-        key = 'dl20'
-    elif topic_key.startswith('msmarco'):
-        key = 'msmarco'
+    if topic_key.endswith('dev'):
+        key = 'dev'
+    elif topic_key.endswith('dev2'):
+        key = 'dev2'
+    elif topic_key.startswith('dl21'):
+        key = 'dl21'
 
     return key
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Generate regression matrix for MS MARCO V1 passage corpus.')
+    parser = argparse.ArgumentParser(description='Generate regression matrix for MS MARCO V2 passage corpus.')
     parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
     args = parser.parse_args()
 
-    with open('pyserini/resources/msmarco-v1-passage.yaml') as f:
+    with open('pyserini/resources/msmarco-v2-passage.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -119,14 +106,14 @@ if __name__ == '__main__':
 
                 print('')
 
-    print(' ' * 49 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
-    print(' ' * 45 + 'MAP nDCG@10    R@1K       MAP nDCG@10    R@1K    MRR@10    R@1K')
-    print(' ' * 42 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
+    print(' ' * 54 + 'TREC 2021' + ' ' * 11 + 'MS MARCO dev' + ' ' * 6 + 'MS MARCO dev2')
+    print(' ' * 47 + 'MAP@100 nDCG@10  R@1K     MRR@100   R@1K    MRR@100   R@1K')
+    print(' ' * 47 + '-' * 22 + '    ' + '-' * 14 + '    ' + '-' * 14)
     for name in models:
         if not name:
             print('')
             continue
-        print(f'{table_keys[name]:40}' +
-              f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
-              f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
-              f'{table[name]["msmarco"]["MRR@10"]:8.4f}{table[name]["msmarco"]["R@1K"]:8.4f}')
+        print(f'{table_keys[name]:45}' +
+              f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
+              f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
+              f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
