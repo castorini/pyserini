@@ -90,6 +90,7 @@ class TestSearchIntegration(unittest.TestCase):
                                      --output {output_file} \
                                      --prf-depth 5 \
                                      --prf-method rocchio \
+                                     --rocchio-topk 5 \
                                      --threads {self.threads} \
                                      --rocchio-alpha {self.rocchio_alpha} \
                                      --rocchio-beta {self.rocchio_beta}'
