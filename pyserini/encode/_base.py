@@ -88,6 +88,25 @@ class JsonlCollectionIterator:
                 to_yield[key] = self.all_info[key][idx: min(idx + self.batch_size, end_idx)]
             yield to_yield
 
+    def _parse_fields_from_contents(self, contents):
+        """
+        :params contents: str, the text containing all fields as speicifed in self.fields
+        This function will parse the input contents into each fields based the self.delimiter
+        return: List, each corresponds to the value of self.fields
+        """
+        n_fields = len(self.fields)
+
+        # whether to remove the final self.delimiter (especially \n)
+        # in CACM, a \n is always there at the end of contents, which we want to remove;
+        # but in SciFact, Fiqa, and more, there are documents that only have title but not text (e.g. "This is title\n")
+        # where the trailing \n indicates empty fields
+        if contents.count(self.delimiter) == n_fields:
+            # the user appends one more delimiter to the end, we remove it
+            if contents.endswith(self.delimiter):
+                # not using .rstrip() as there might be more than one delimiters at the end
+                contents = contents[:-len(self.delimiter)]
+        return [field.strip(" ") for field in contents.split(self.delimiter)]
+
     def _load(self, collection_path):
         filenames = []
         if os.path.isfile(collection_path):
@@ -99,10 +118,17 @@ class JsonlCollectionIterator:
         all_info['id'] = []
         for filename in filenames:
             with open(filename) as f:
-                for line in tqdm(f):
+                for line_i, line in tqdm(enumerate(f)):
                     info = json.loads(line)
                     all_info['id'].append(str(info['id']))
-                    fields_info = info['contents'].rstrip().split(self.delimiter)
+                    fields_info = self._parse_fields_from_contents(info['contents'])
+                    if len(fields_info) != len(self.fields):
+                        raise ValueError(
+                            f"{len(fields_info)} fields are found at Line#{line_i} in file {filename}." \
+                            f"{len(self.fields)} fields expected." \
+                            f"Line content: {info['contents']}"
+                        )
+
                     for i in range(len(fields_info)):
                         all_info[self.fields[i]].append(fields_info[i])
         return all_info
