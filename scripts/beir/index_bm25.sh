@@ -4,9 +4,10 @@
 #do
 
 #for corpora in android  english  gaming  gis  mathematica  physics  programmers  stats  tex  unix  webmasters  wordpress
-for corpora in fiqa
+#for corpora in fiqa # BeirFlatCollection
+for corpora in msmarco
 do
-python -m pyserini.index -collection BeirFlatCollection -generator DefaultLuceneDocumentGenerator \
-	-threads 20 -input /store/scratch/y247xie/00_data/wp-tokenized/${corpora}/corpus \
-	-index indexes/lucene-index-beir-${corpora}_ -storePositions -storeDocvectors -storeRaw -pretokenized
+python -m pyserini.index -collection JsonCollection -generator DefaultLuceneDocumentGenerator \
+	-threads 20 -input /store/scratch/y247xie/00_data/wp-tokenized/${corpora} \
+	-index indexes/lucene-index-beir-${corpora} -storePositions -storeDocvectors -storeRaw -pretokenized
 done
