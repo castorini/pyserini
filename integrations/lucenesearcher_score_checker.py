@@ -60,8 +60,7 @@ class LuceneSearcherScoreChecker:
             return False
 
         stdout, stderr = run_command(eval_cmd)
-        print(stdout)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
         self._cleanup([pyserini_output])
 
         if actualscore != score:
