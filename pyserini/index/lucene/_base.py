@@ -23,6 +23,8 @@ and methods provided are meant only to provide tools for examining an index and 
 import logging
 from enum import Enum
 from typing import Dict, Iterator, List, Optional, Tuple
+from tqdm import tqdm
+import json
 
 from pyserini.analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
 from pyserini.pyclass import autoclass
@@ -535,3 +537,24 @@ class IndexReader:
             index_stats_dict[term] = index_stats_map.get(term)
 
         return index_stats_dict
+
+    def dump_documents_BM25(self, file_path, k1=0.9, b=0.4):
+        """Dumps out all the document vectors with BM25 weights in Pyserini's JSON vector format 
+
+        Parameters
+        ----------
+        file_path : str
+            file path to dump JSON file
+        """
+
+        output_list = []
+
+        assert 'documents' in self.stats()
+        for i in tqdm(range(self.stats()['documents'])):
+            docid = self.convert_internal_docid_to_collection_docid(i)
+            tf = self.get_document_vector(docid)
+            bm25_vector = {term: self.compute_bm25_term_weight(docid, term, analyzer=None, k1=k1, b=b) for term in tf.keys()}
+            output_list.append({'id': docid, 'vector':bm25_vector})
+
+        with open(file_path, 'w') as f:
+            json.dump(output_list, f, indent=2)

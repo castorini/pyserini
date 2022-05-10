@@ -165,3 +165,45 @@ Output is something like this:
 
 Note that unless the underlying index was built with the `-optimize` option (i.e., merging all index segments into a single segment), `unique_terms` will show -1.
 Nope, that's not a bug.
+
+## How do I dump out BM25 vectors for every document?
+
+Here's how to dump out all the document vectors with BM25 weights in Pyserini's JSON vector format:
+
+```python
+# You must specify a file path for the .json file
+index_reader.dump_documents_BM25('collections/cacm_documents_bm25_dump.json')
+```
+
+Output in the .json file is something like this:
+
+```
+[
+  {
+    "id": "CACM-0001",
+    "vector": {
+      "22": 1.2635996341705322,
+      "perli": 2.813838481903076,
+      "28": 1.4853038787841797,
+      "ca581203": 3.889439582824707,
+      "languag": 1.0462608337402344,
+      "algebra": 1.9220843315124512,
+      "preliminari": 2.5628812313079834,
+      ...
+    }
+  },
+  {
+    "id": "CACM-0002",
+    "vector": {
+      "22": 1.5182371139526367,
+      "cacm": 0.0002853870391845703,
+      "sugai": 4.673230171203613,
+      "29": 2.147885799407959,
+      "subtract": 3.3808765411376953,
+      "ca581202": 4.673230171203613,
+      "i": 1.7500755786895752,
+      ...
+    }
+  },
+...
+```

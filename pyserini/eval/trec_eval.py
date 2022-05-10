@@ -33,7 +33,7 @@ args = sys.argv
 # Option to discard non-judged hits in run file
 judged_docs_only = ''
 judged_result = []
-cutoffs = [10, 20]
+cutoffs = []
 if '-remove-unjudged' in args:
     judged_docs_only = args.pop(args.index('-remove-unjudged'))
 if any([i.startswith('-cutoffs.') for i in args]):
