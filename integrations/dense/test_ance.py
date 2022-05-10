@@ -173,7 +173,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, 'Top20')
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8010, places=4)
