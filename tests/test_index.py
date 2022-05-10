@@ -17,11 +17,9 @@
 import json
 import os
 import faiss
+import shutil
 import unittest
 import pathlib as pl
-
-
-from pyserini.util import get_cache_home
 
 
 class TestSearch(unittest.TestCase):
@@ -29,6 +27,8 @@ class TestSearch(unittest.TestCase):
         self.docids = []
         self.texts = []
         self.test_file = 'tests/resources/simple_cacm_corpus.json'
+        self.tmp_dir = "temp_dir"
+
         with open(self.test_file) as f:
             for line in f:
                 line = json.loads(line)
@@ -40,8 +40,7 @@ class TestSearch(unittest.TestCase):
             raise AssertionError("File does not exist: %s" % str(path))
 
     def prepare_encoded_collection(self):
-        cache_dir = get_cache_home()
-        encoded_corpus_dir = f'{cache_dir}/temp_index'
+        encoded_corpus_dir = f'{self.tmp_dir}/temp_index'
         cmd = f'python -m pyserini.encode \
                 input   --corpus {self.test_file} \
                         --fields text \
@@ -58,8 +57,7 @@ class TestSearch(unittest.TestCase):
         return encoded_corpus_dir
 
     def test_faiss_hnsw(self):
-        cache_dir = get_cache_home()
-        index_dir = f'{cache_dir}/temp_hnsw'
+        index_dir = f'{self.tmp_dir}/temp_hnsw'
         encoded_corpus_dir = self.prepare_encoded_collection()
         cmd = f'python -m pyserini.index.faiss \
             --input {encoded_corpus_dir} \
@@ -87,8 +85,7 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(vectors[2][-1], 0.13209162652492523, places=4)
 
     def test_faiss_pq(self):
-        cache_dir = get_cache_home()
-        index_dir = f'{cache_dir}/temp_pq'
+        index_dir = f'{self.tmp_dir}/temp_pq'
         encoded_corpus_dir = self.prepare_encoded_collection()
         cmd = f'python -m pyserini.index.faiss \
             --input {encoded_corpus_dir} \
@@ -116,3 +113,6 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(vectors[0][-1], 0.075478144, places=4)
         self.assertAlmostEqual(vectors[2][0], 0.04343192, places=4)
         self.assertAlmostEqual(vectors[2][-1], 0.075478144, places=4)
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp_dir)

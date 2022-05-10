@@ -288,6 +288,32 @@ class LuceneSearcher:
             return None
         return Document(lucene_document)
 
+    def batch_doc(self, docids: List[str], threads: int) -> Dict[str, Document]:
+        """Concurrently fetching documents for multiple document ids.
+        Return dictionary that maps ``docid`` to :class:`Document`. Returned dictionary does not
+        contain ``docid`` if a corresponding :class:`Document` does not exist in the index.
+
+        Parameters
+        ----------
+        docids : List[str]
+            An external collection ``docid`` (``str``).
+        threads : int
+            Maximum number of threads to use.
+
+        Returns
+        -------
+        Dict[str, Document]
+            Dictionary mapping the ``docid`` to the corresponding :class:`Document`.
+        """
+        docid_strings = JArrayList()
+        for docid in docids:
+            docid_strings.add(docid)
+
+        results = self.object.batchGetDocument(docid_strings, threads)
+        batch_document = {r.getKey(): Document(r.getValue())
+                          for r in results.entrySet().toArray()}
+        return batch_document
+
     def doc_by_field(self, field: str, q: str) -> Optional[Document]:
         """Return the :class:`Document` based on a ``field`` with ``id``. For example, this method can be used to fetch
         document based on alternative primary keys that have been indexed, such as an article's DOI. Method returns
