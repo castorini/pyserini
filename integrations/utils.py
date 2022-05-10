@@ -42,6 +42,7 @@ def run_command(cmd, echo=False):
     return stdout, stderr
 
 
+# Function for parsing the output from pyserini.eval.trec_eval
 def parse_score(output, metric, digits=4):
     lines = output.split('\n')
     # The output begins with a bunch of debug information, get rid of lines until we get to 'Results'
@@ -49,6 +50,25 @@ def parse_score(output, metric, digits=4):
         lines.pop(0)
 
     for line in lines:
+        if metric in line:
+            score = float(line.split()[-1])
+            return round(score, digits)
+    return None
+
+
+# Function for parsing the output from pyserini.eval.evaluate_dpr_retrieval
+def parse_score_qa(output, metric, digits=4):
+    for line in output.split('\n'):
+        if metric in line:
+            score = float(line.split()[-1])
+            return round(score, digits)
+    return None
+
+
+# Function for parsing the output from MS MARCO eval scripts
+# (Currently, parses the same way as parse_score_qa above, but keeping separate in case they diverge in the future.)
+def parse_score_msmarco(output, metric, digits=4):
+    for line in output.split('\n'):
         if metric in line:
             score = float(line.split()[-1])
             return round(score, digits)
