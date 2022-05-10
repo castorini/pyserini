@@ -27,7 +27,9 @@ collection = 'msmarco-v2-doc'
 
 # The models: the rows of the results table will be ordered this way.
 models = ['bm25-doc-default',
-          'bm25-doc-segmented-default']
+          'bm25-doc-segmented-default',
+          'bm25-rm3-doc-default',
+          'bm25-rm3-doc-segmented-default']
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK] '
