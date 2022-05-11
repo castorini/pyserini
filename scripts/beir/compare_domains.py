@@ -33,6 +33,19 @@ def kl_divergence(d1, d2):
             value += d1[w] * np.log(d1[w] / d2[w])
     return value
 
+def js_divergence(d1, d2):
+    mean = {}
+    for w in d1:
+        mean[w] = d1[w] * 0.5
+    for w in d2:
+        if w in mean:
+            mean[w] += d2[w] * 0.5
+        else:
+            mean[w] = d2[w] * 0.5
+
+    jsd = 0.5 *  (kl_divergence(d1, mean) + kl_divergence(d2, mean))
+    return jsd
+
 def jaccard(d1, d2):
     ret = (float(len(set(d1).intersection(set(d2)))) / 
            float(len(set(d1).union(set(d2)))))
@@ -89,7 +102,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--index_path', type=str, help='path to indexes of all the beir dataset', required=True)
     parser.add_argument('--index_name_format', type=str, help='define your own index dir path name', default="/lucene-index-beir-{}")
-    parser.add_argument('--compare_metric', type=str, help='the metric for comparing two vocab, choose from: jaccard, weight_jaccard, df_filter, tf_filter, kl_divergence', default="weight_jaccard")
+    parser.add_argument('--compare_metric', type=str, help='the metric for comparing two vocab, choose from: jaccard, weight_jaccard, df_filter, tf_filter, kl_divergence, js_divergence', default="weight_jaccard")
     parser.add_argument('--compare_threshold', type=float, help='when choosing df_filter, or tf_filter, you can choolse the threshold', default=0.0001)
     parser.add_argument('--output_path', type=str, help='path to save the stat results', required=True)
     args = parser.parse_args()
@@ -108,12 +121,17 @@ if __name__ == '__main__':
         metric_d1 = {}
         for d2 in beir_datasets:
             if d1 == d2:
-                metric_d1[d2] = 1
+                if args.compare_metric in ["jaccard", "weight_jaccard", "df_filter", "tf_filter"]:
+                    metric_d1[d2] = 1
+                elif args.compare_metric in ["kl_divergence", "js_divergence"]:
+                    metric_d1[d2] = 0
             else:
                 if args.compare_metric == "jaccard":
                     metric_d1[d2] = jaccard(cfs[d1], cfs[d2])
                 elif args.compare_metric == "weight_jaccard":
-                    metric_d1[d2] = weighted_jaccard(cfs[d1], cfs[d2])
+                    new_d1 = filter_freq_dict(cf2freq(cfs[d1]))
+                    new_d2 = filter_freq_dict(cf2freq(cfs[d2]))
+                    metric_d1[d2] = weighted_jaccard(new_d1, new_d2)
                 elif args.compare_metric == "df_filter":
                     new_d1 = filter_freq_dict(cf2freq(cfs[d1]))
                     new_d2 = filter_freq_dict(cf2freq(cfs[d2]))
@@ -126,6 +144,12 @@ if __name__ == '__main__':
                     new_d1 = filter_freq_dict(cf2freq(cfs[d1]))
                     new_d2 = filter_freq_dict(cf2freq(cfs[d2]))
                     metric_d1[d2] = kl_divergence(new_d1, new_d2)
+                elif args.compare_metric == "js_divergence":
+                    new_d1 = filter_freq_dict(cf2freq(cfs[d1]))
+                    new_d2 = filter_freq_dict(cf2freq(cfs[d2]))
+                    metric_d1[d2] = js_divergence(new_d1, new_d2)
+                else:
+                    raise NotImplementedError
         results[d1] = metric_d1
 
     print_results(beir_datasets, results, args.output_path)
