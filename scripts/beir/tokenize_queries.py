@@ -30,6 +30,8 @@ parser.add_argument('--output', metavar='output file', help='output file',
                     type=str, required=True)
 parser.add_argument('--workers', metavar='# of processes', help='# of workers to spawn',
                     type=int, default=multiprocessing.cpu_count() - 2)
+parser.add_argument('--tokenizer', metavar='tokenizer', help='tokenizer',
+                    type=str, default='bert-base-cased')
 
 
 args = parser.parse_args()
@@ -61,7 +63,7 @@ def batch_file(iterable, n=10000):
 
 
 def batch_process(batch):
-    bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+    bert_tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
 
     def process(line):
         if not line:
