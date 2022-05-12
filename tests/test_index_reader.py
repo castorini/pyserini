@@ -20,6 +20,8 @@ import tarfile
 import unittest
 from random import randint
 from urllib.request import urlretrieve
+import json
+import heapq
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
@@ -395,6 +397,42 @@ class TestIndexUtils(unittest.TestCase):
         # failure. This test simply ensures that a compatible version of pyjnius is used. More details can be found in
         # the discussion here: https://github.com/castorini/pyserini/issues/770
         JString('zoölogy')
+
+    def test_dump_documents_BM25(self):
+        filepath = 'collections/cacm_documents_bm25_dump.json'
+        self.index_reader.dump_documents_BM25(filepath)
+        dumpfile = open(filepath, 'r')
+        dump = json.load(dumpfile)
+        dumpfile.close()
+
+        assert len(dump) == self.index_reader.stats()['documents']
+
+        def compare_searcher(query):
+            """Comparing searching with LuceneSearcher to brute-force searching through documents in dump
+            The scores should match.
+            """
+            # Search through documents BM25 dump
+            query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
+            heap = [] # heapq implements a min-heap, we can invert the values to have a max-heap
+            for doc in dump:
+                score = 0
+                for term in query_terms:
+                    if term in doc['vector']:
+                        score += doc['vector'][term]
+                heapq.heappush(heap, (-1*score, doc['id']))
+
+            # Using LuceneSearcher instead
+            hits = self.searcher.search(query)
+
+            for i in range(0, 10):
+                top = heapq.heappop(heap)
+                self.assertEqual(hits[i].docid, top[1])
+                self.assertAlmostEqual(hits[i].score, -1*top[0], places=3)
+
+        compare_searcher('I am interested in articles written either by Prieve or Udo Pooch')
+        compare_searcher('Performance evaluation and modelling of computer systems')
+
+        os.remove(filepath)
 
     def tearDown(self):
         os.remove(self.tarball_name)

@@ -1,0 +1,253 @@
+conditions:
+  - name: bm25-doc-tuned
+    display: BM25 doc (k1=4.46, b=0.82)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-slim --output _R_ --bm25
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.2768
+            R@1K: 0.9357
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2336
+            nDCG@10: 0.5233
+            R@1K: 0.6757
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3581
+            nDCG@10: 0.5061
+            R@1K: 0.7776
+  - name: bm25-doc-default
+    display: BM25 doc (k1=0.9, b=0.4)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-slim --output _R_ --bm25 --k1 0.9 --b 0.4
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.2299
+            R@1K: 0.8856
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2434
+            nDCG@10: 0.5176
+            R@1K: 0.6966
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3793
+            nDCG@10: 0.5286
+            R@1K: 0.8085
+  - name: bm25-doc-segmented-tuned
+    display: BM25 doc segmented (k1=2.16, b=0.61)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-segmented-slim --output _R_ --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.2756
+            R@1K: 0.9311
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2398
+            nDCG@10: 0.5389
+            R@1K: 0.6565
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3458
+            nDCG@10: 0.5213
+            R@1K: 0.7725
+  - name: bm25-doc-segmented-default
+    display: BM25 doc segmented (k1=0.9, b=0.4)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-segmented-slim --output _R_ --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.2684
+            R@1K: 0.9178
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2449
+            nDCG@10: 0.5302
+            R@1K: 0.6871
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3586
+            nDCG@10: 0.5281
+            R@1K: 0.7755
+  - name: bm25-rm3-doc-tuned
+    display: BM25+RM3 doc (k1=4.46, b=0.82)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-full --output _R_ --bm25 --rm3
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.2231
+            R@1K: 0.9305
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2643
+            nDCG@10: 0.5526
+            R@1K: 0.7189
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3619
+            nDCG@10: 0.5238
+            R@1K: 0.8180
+  - name: bm25-rm3-doc-default
+    display: BM25+RM3 doc (k1=0.9, b=0.4)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-full --output _R_ --bm25 --rm3 --k1 0.9 --b 0.4
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.1622
+            R@1K: 0.8791
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2774
+            nDCG@10: 0.5170
+            R@1K: 0.7503
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.4014
+            nDCG@10: 0.5225
+            R@1K: 0.8257
+  - name: bm25-rm3-doc-segmented-tuned
+    display: BM25+RM3 doc segmented (k1=2.16, b=0.61)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-segmented-full --output _R_ --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.2443
+            R@1K: 0.9363
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2658
+            nDCG@10: 0.5405
+            R@1K: 0.7030
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3472
+            nDCG@10: 0.4979
+            R@1K: 0.8049
+  - name: bm25-rm3-doc-segmented-default
+    display: BM25+RM3 doc segmented (k1=0.9, b=0.4)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-segmented-full --output _R_ --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.2412
+            R@1K: 0.9355
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2884
+            nDCG@10: 0.5764
+            R@1K: 0.7384
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3774
+            nDCG@10: 0.5179
+            R@1K: 0.8041
+  - name: unicoil-noexp-otf
+    display: "uniCOIL (noexp): otf"
+    command: python -m pyserini.search.lucene --index msmarco-v1-doc-segmented-unicoil-noexp --topics _T_ --encoder castorini/unicoil-noexp-msmarco-passage --output _R_ --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.3410
+            R@1K: 0.9420
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2661
+            nDCG@10: 0.6347
+            R@1K: 0.6385
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3698
+            nDCG@10: 0.5906
+            R@1K: 0.7621
+  - name: unicoil-noexp
+    display: "uniCOIL (noexp): pre-encoded"
+    command: python -m pyserini.search.lucene --index msmarco-v1-doc-segmented-unicoil-noexp --topics _T_ --output _R_ --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-doc-dev-unicoil-noexp
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.3409
+            R@1K: 0.9420
+      - topic_key: dl19-doc-unicoil-noexp
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2665
+            nDCG@10: 0.6349
+            R@1K: 0.6391
+      - topic_key: dl20-unicoil-noexp
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3698
+            nDCG@10: 0.5893
+            R@1K: 0.7623
+  - name: unicoil-otf
+    display: "uniCOIL (w/ doc2query-T5): otf"
+    command: python -m pyserini.search.lucene --index msmarco-v1-doc-segmented-unicoil --topics _T_ --encoder castorini/unicoil-msmarco-passage --output _R_ --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.3532
+            R@1K: 0.9546
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2789
+            nDCG@10: 0.6396
+            R@1K: 0.6654
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3881
+            nDCG@10: 0.6030
+            R@1K: 0.7866
+  - name: unicoil
+    display: "uniCOIL (w/ doc2query-T5): pre-encoded"
+    command: python -m pyserini.search.lucene --index msmarco-v1-doc-segmented-unicoil --topics _T_ --output _R_ --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-doc-dev-unicoil
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.3531
+            R@1K: 0.9546
+      - topic_key: dl19-doc-unicoil
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2789
+            nDCG@10: 0.6396
+            R@1K: 0.6652
+      - topic_key: dl20-unicoil
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3882
+            nDCG@10: 0.6033
+            R@1K: 0.7869

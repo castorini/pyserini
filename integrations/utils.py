@@ -18,6 +18,7 @@ import os
 import subprocess
 import shutil
 
+
 def clean_files(files):
     for file in files:
         if os.path.exists(file):
@@ -27,22 +28,47 @@ def clean_files(files):
                 os.remove(file)
 
 
-
-def run_command(cmd):
+def run_command(cmd, echo=False):
     process = subprocess.Popen(cmd.split(),
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
     stdout = stdout.decode('utf-8')
     stderr = stderr.decode('utf-8')
-    if stderr:
+    if stderr and echo:
         print(stderr)
-    print(stdout)
+    if echo:
+        print(stdout)
     return stdout, stderr
 
 
+# Function for parsing the output from pyserini.eval.trec_eval
 def parse_score(output, metric, digits=4):
-    for line in output.split('\n')[::-1]:
+    lines = output.split('\n')
+    # The output begins with a bunch of debug information, get rid of lines until we get to 'Results'
+    while 'Results' not in lines[0]:
+        lines.pop(0)
+
+    for line in lines:
+        if metric in line:
+            score = float(line.split()[-1])
+            return round(score, digits)
+    return None
+
+
+# Function for parsing the output from pyserini.eval.evaluate_dpr_retrieval
+def parse_score_qa(output, metric, digits=4):
+    for line in output.split('\n'):
+        if metric in line:
+            score = float(line.split()[-1])
+            return round(score, digits)
+    return None
+
+
+# Function for parsing the output from MS MARCO eval scripts
+# (Currently, parses the same way as parse_score_qa above, but keeping separate in case they diverge in the future.)
+def parse_score_msmarco(output, metric, digits=4):
+    for line in output.split('\n'):
         if metric in line:
             score = float(line.split()[-1])
             return round(score, digits)

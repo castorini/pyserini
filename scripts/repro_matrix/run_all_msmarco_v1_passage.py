@@ -17,12 +17,30 @@
 import argparse
 import math
 import os
-import subprocess
 import yaml
-from collections import defaultdict
 
+from collections import defaultdict
+from scripts.repro_matrix.utils import run_eval_and_return_metric
 
 collection = 'msmarco-v1-passage'
+
+# The models: the rows of the results table will be ordered this way.
+models = ['bm25-tuned',
+          'bm25-rm3-tuned',
+          'bm25-d2q-t5-tuned',
+          '',
+          'bm25-default',
+          'bm25-rm3-default',
+          'bm25-d2q-t5-default',
+          '',
+          'unicoil-noexp',
+          'unicoil-noexp-otf',
+          '',
+          'unicoil',
+          'unicoil-otf',
+          '',
+          'tct_colbert-v2-hnp',
+          'tct_colbert-v2-hnp-otf']
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK] '
@@ -46,23 +64,6 @@ trec_eval_metric_definitions = {
 
 table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 table_keys = {}
-
-
-def run_command(cmd):
-    process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = process.communicate()
-    stdout = stdout.decode('utf-8')
-    stderr = stderr.decode('utf-8')
-
-    return stdout, stderr
-
-
-def run_eval_and_return_metric(metric, eval_key, runfile):
-    eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[eval_key][metric]} {eval_key} runs/{runfile}'
-    eval_stdout, eval_stderr = run_command(eval_cmd)
-
-    # TODO: This is very brittle... fix me later.
-    return eval_stdout.split('\n')[-3].split('\t')[2]
 
 
 def find_table_topic_set_key(topic_key):
@@ -109,7 +110,7 @@ if __name__ == '__main__':
                     for metric in expected:
                         table_keys[name] = display
                         if not args.skip_eval:
-                            score = float(run_eval_and_return_metric(metric, eval_key, runfile))
+                            score = float(run_eval_and_return_metric(metric, eval_key, trec_eval_metric_definitions, runfile))
                             result = ok_str if math.isclose(score, float(expected[metric])) else fail_str + f' expected {expected[metric]:.4f}'
                             print(f'    {metric:7}: {score:.4f} {result}')
                             table[name][find_table_topic_set_key(topic_key)][metric] = score
@@ -121,10 +122,7 @@ if __name__ == '__main__':
     print(' ' * 49 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
     print(' ' * 45 + 'MAP nDCG@10    R@1K       MAP nDCG@10    R@1K    MRR@10    R@1K')
     print(' ' * 42 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
-    for name in ['bm25', 'bm25-rm3', 'bm25-d2q-t5', '',
-                 'bm25-default', 'bm25-rm3-default', 'bm25-d2q-t5-default', '',
-                 'unicoil', 'unicoil-otf', '',
-                 'tct_colbert-v2-hnp', 'tct_colbert-v2-hnp-otf']:
+    for name in models:
         if not name:
             print('')
             continue
