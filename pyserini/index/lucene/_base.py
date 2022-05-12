@@ -25,6 +25,7 @@ from enum import Enum
 from typing import Dict, Iterator, List, Optional, Tuple
 from tqdm import tqdm
 import json
+import math
 
 from pyserini.analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
 from pyserini.pyclass import autoclass
@@ -538,23 +539,50 @@ class IndexReader:
 
         return index_stats_dict
 
-    def dump_documents_BM25(self, file_path, k1=0.9, b=0.4):
-        """Dumps out all the document vectors with BM25 weights in Pyserini's JSON vector format 
+    def dump_documents_BM25(self, file_path, k1=0.9, b=0.4, quantize=False, bits = 8):
+        """Dumps out all the document vectors with BM25 weights in Pyserini's JSON vector format
 
         Parameters
         ----------
         file_path : str
-            file path to dump JSON file
+            File path to dump JSON file.
+        k1 : float
+            BM25 k1 parameter.
+        b : float
+            BM25 b parameter.
+        quantize : bool
+            Whether to quantize the BM25 weights. If True then the weights will be quantized.
+        bits : int
+            Number of bits to use to represent quantized scores. Is ignored if quantize is False.
         """
 
         output_list = []
 
+        if quantize:
+            min_bm25_weight = 10000
+            max_bm25_weight = 0
+
         assert 'documents' in self.stats()
         for i in tqdm(range(self.stats()['documents'])):
             docid = self.convert_internal_docid_to_collection_docid(i)
-            tf = self.get_document_vector(docid)
-            bm25_vector = {term: self.compute_bm25_term_weight(docid, term, analyzer=None, k1=k1, b=b) for term in tf.keys()}
+            bm25_vector = {}
+            for term in self.get_document_vector(docid):
+                bm25_vector[term] = self.compute_bm25_term_weight(docid, term, analyzer=None, k1=k1, b=b)
+                if quantize:
+                    if bm25_vector[term] > max_bm25_weight:
+                        max_bm25_weight = bm25_vector[term]
+                    if bm25_vector[term] < min_bm25_weight:
+                        min_bm25_weight = bm25_vector[term]
+
             output_list.append({'id': docid, 'vector':bm25_vector})
+
+        if quantize:
+            smallest_impact = 1
+            for i in range(len(output_list)):
+                bm25_vector = output_list[i]['vector']
+                for term in bm25_vector:
+                    bm25_vector[term] = math.floor((2 ** bits - smallest_impact) * (bm25_vector[term] - min_bm25_weight) / (max_bm25_weight - min_bm25_weight)) + smallest_impact
+                output_list[i]['vector'] = bm25_vector
 
         with open(file_path, 'w') as f:
             json.dump(output_list, f, indent=2)

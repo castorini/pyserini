@@ -169,14 +169,12 @@ Nope, that's not a bug.
 ## How do I dump out BM25 vectors for every document?
 
 Here's how to dump out all the document vectors with BM25 weights in Pyserini's JSON vector format:
-
 ```python
 # You must specify a file path for the .json file
 index_reader.dump_documents_BM25('collections/cacm_documents_bm25_dump.json')
 ```
 
 Output in the .json file is something like this:
-
 ```
 [
   {
@@ -202,6 +200,43 @@ Output in the .json file is something like this:
       "subtract": 3.3808765411376953,
       "ca581202": 4.673230171203613,
       "i": 1.7500755786895752,
+      ...
+    }
+  },
+...
+```
+
+Alternatively, you may specifiy that the weights be quantized:
+```python
+index_reader.dump_documents_BM25('collections/cacm_documents_bm25_dump_quantized.json', quantize=True)
+```
+
+Then, output in the .json file is something like this:
+```
+[
+  {
+    "id": "CACM-0001",
+    "vector": {
+      "22": 47,
+      "perli": 104,
+      "28": 55,
+      "ca581203": 143,
+      "languag": 39,
+      "algebra": 71,
+      "preliminari": 95,
+      ...
+    }
+  },
+  {
+    "id": "CACM-0002",
+    "vector": {
+      "22": 56,
+      "cacm": 1,
+      "sugai": 172,
+      "29": 79,
+      "subtract": 125,
+      "ca581202": 172,
+      "i": 65,
       ...
     }
   },

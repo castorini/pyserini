@@ -399,17 +399,22 @@ class TestIndexUtils(unittest.TestCase):
         JString('zoölogy')
 
     def test_dump_documents_BM25(self):
+
         filepath = 'collections/cacm_documents_bm25_dump.json'
         self.index_reader.dump_documents_BM25(filepath)
         dumpfile = open(filepath, 'r')
         dump = json.load(dumpfile)
         dumpfile.close()
-
         assert len(dump) == self.index_reader.stats()['documents']
 
         def compare_searcher(query):
             """Comparing searching with LuceneSearcher to brute-force searching through documents in dump
             The scores should match.
+
+            Parameters
+            ----------
+            query : str
+                The query for search.
             """
             # Search through documents BM25 dump
             query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
@@ -431,6 +436,53 @@ class TestIndexUtils(unittest.TestCase):
 
         compare_searcher('I am interested in articles written either by Prieve or Udo Pooch')
         compare_searcher('Performance evaluation and modelling of computer systems')
+        compare_searcher('Addressing schemes for resources in networks; resource addressing in network operating systems')
+
+        os.remove(filepath)
+
+        filepath = 'collections/cacm_documents_bm25_dump_quantized.json'
+        self.index_reader.dump_documents_BM25(filepath, quantize=True)
+        dumpfile = open(filepath, 'r')
+        dump = json.load(dumpfile)
+        dumpfile.close()
+        assert len(dump) == self.index_reader.stats()['documents']
+
+        def compare_searcher_quantized(query, tolerance=1):
+            """Comparing searching with LuceneSearcher to brute-force searching through documents in dump
+            If the weights are quantized the scores will not match but the rankings should still roughly match.
+
+            Parameters
+            ----------
+            query : str
+                The query for search.
+            tolerance : int
+                Number of places within which rankings should match i.e. if the ranking of some document with
+                searching through documents in the dump is 2, then with a tolerance of 1 the ranking of the same
+                document with Lucene searcher should be between 1-3.
+            """
+            query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
+            heap = []
+            for doc in dump:
+                score = 0
+                for term in query_terms:
+                    if term in doc['vector']:
+                        score += doc['vector'][term]
+                heapq.heappush(heap, (-1*score, doc['id']))
+
+            hits = self.searcher.search(query)
+
+            for i in range(0, 10):
+                top = heapq.heappop(heap)
+                match_within_tolerance = False
+                for j in range(tolerance+1):
+                    match_within_tolerance = (i-j >= 0 and hits[i-j].docid == top[1]) or (hits[i+j].docid == top[1])
+                    if match_within_tolerance:
+                        break
+                self.assertEqual(match_within_tolerance, True)
+
+        compare_searcher_quantized('I am interested in articles written either by Prieve or Udo Pooch')
+        compare_searcher_quantized('Performance evaluation and modelling of computer systems')
+        compare_searcher_quantized('Addressing schemes for resources in networks; resource addressing in network operating systems')
 
         os.remove(filepath)
 
