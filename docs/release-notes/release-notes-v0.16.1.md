@@ -5,7 +5,7 @@
 + Installed pre-built indexes:
   + BEIR (v1.0.0): "flat" baseline, "multfield" baseline, and SPLADE-distill CoCodenser-medium.
   + MS MARCO V1/V2 segmented doc condition (updated indexes).
-  + MS MARCO V1 doc/passage uniCOIL noexp. 
+  + MS MARCO V1 doc/passage uniCOIL noexp.
 + Created initial repro-matrix for MS MARCO V1/V2 doc/passage.
 + Improved indexing util for encoding a corpus.
 + Added util to dump out BM25 document vectors from a corpus.
