@@ -63,4 +63,11 @@ class TestSearchIntegration(unittest.TestCase):
             score = parse_score(stdout, 'recip_rank')
  
             self.assertEqual(status1, 0)
-            self.assertAlmostEqual(score, expected_score, delta=0.01)
+            self.assertAlmostEqual(score, expected_score, delta=0.0012)
+
+    def tearDown(self):
+        clean_files(self.temp_files)
+
+
+if __name__ == '__main__':
+    unittest.main()
