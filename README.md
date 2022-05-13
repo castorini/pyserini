@@ -646,6 +646,7 @@ We provide a number of [pre-built indexes](docs/prebuilt-indexes.md) that direct
 
 ## Release History
 
++ v0.16.1: May 12, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.1.md)]
 + v0.16.0: March 1, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.0.md)]
 + v0.15.0: January 21, 2022 [[Release Notes](docs/release-notes/release-notes-v0.15.0.md)]
 + v0.14.0: November 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.14.0.md)]
