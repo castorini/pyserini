@@ -37,7 +37,7 @@ Sorted by number of commits:
 + Matt Yang ([d1shs0ap](https://github.com/d1shs0ap))
 + Ji Xi Yang ([jx3yang](https://github.com/jx3yang))
 + Vivian Liu ([vivianliu0](https://github.com/vivianliu0))
-+ vjeronymo2 ([vjeronymo2](https://github.com/vjeronymo2))
++ Vitor Jeronymo ([vjeronymo2](https://github.com/vjeronymo2))
 + xiaoyu ([XY2323819551](https://github.com/XY2323819551))
 
 ## All Contributors
