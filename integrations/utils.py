@@ -73,3 +73,11 @@ def parse_score_msmarco(output, metric, digits=4):
             score = float(line.split()[-1])
             return round(score, digits)
     return None
+
+
+# Function for parsing the output from MS MARCO eval scripts, but returning result as a string
+def parse_score_msmarco_as_string(output, metric):
+    for line in output.split('\n'):
+        if metric in line:
+            return line.split()[-1]
+    return None
