@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for MS MARCO V1 passage corpora using pre-built indexes."""
+"""Integration tests for MS MARCO V1 passage corpus using pre-built indexes."""
 
 import os
 import unittest
@@ -27,7 +27,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
         self.temp_files = []
 
     def test_passage_trec_output(self):
-        output_file = 'test_run.msmarco-passage.1.txt'
+        output_file = 'runs/test_run.msmarco-passage.1.txt'
         self.temp_files.append(output_file)
         cmd = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage --output {output_file} --bm25'
         status = os.system(cmd)
@@ -44,7 +44,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
         self.assertAlmostEqual(score, 0.8573, delta=0.0001)
 
     def test_passage_msmarco_output(self):
-        output_file = 'test_run.msmarco-passage.2.txt'
+        output_file = 'runs/test_run.msmarco-passage.2.txt'
         self.temp_files.append(output_file)
         cmd = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage --output {output_file} --bm25 --output-format msmarco'
         status = os.system(cmd)
@@ -56,7 +56,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
         self.assertEqual(score, '0.18741227770955546')
 
     def test_passage_slim_trec_output(self):
-        output_file = 'test_run.msmarco-passage.3.txt'
+        output_file = 'runs/test_run.msmarco-passage.3.txt'
         self.temp_files.append(output_file)
         cmd = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-slim --output {output_file} --bm25'
         status = os.system(cmd)
@@ -73,7 +73,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
         self.assertAlmostEqual(score, 0.8573, delta=0.0001)
 
     def test_passage_slim_msmarco_output(self):
-        output_file = 'test_run.msmarco-passage.4.txt'
+        output_file = 'runs/test_run.msmarco-passage.4.txt'
         self.temp_files.append(output_file)
         cmd = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-slim --output {output_file} --bm25 --output-format msmarco'
         status = os.system(cmd)
@@ -85,7 +85,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
         self.assertEqual(score, '0.18741227770955546')
 
     def test_passage_full_trec_output(self):
-        output_file = 'test_run.msmarco-passage.5.txt'
+        output_file = 'runs/test_run.msmarco-passage.5.txt'
         self.temp_files.append(output_file)
         cmd = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-full --output {output_file} --bm25'
         status = os.system(cmd)
@@ -102,7 +102,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
         self.assertAlmostEqual(score, 0.8573, delta=0.0001)
 
     def test_passage_full_msmarco_output(self):
-        output_file = 'test_run.msmarco-passage.6.txt'
+        output_file = 'runs/test_run.msmarco-passage.6.txt'
         self.temp_files.append(output_file)
         cmd = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-full --output {output_file} --bm25 --output-format msmarco'
         status = os.system(cmd)
@@ -114,7 +114,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
         self.assertEqual(score, '0.18741227770955546')
 
     def test_passage_expanded_trec_output(self):
-        output_file = 'test_run.msmarco-passage.expanded.1.txt'
+        output_file = 'runs/test_run.msmarco-passage.expanded.1.txt'
         self.temp_files.append(output_file)
         cmd = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-d2q-t5 --output {output_file} --bm25'
         status = os.system(cmd)
@@ -131,7 +131,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
         self.assertAlmostEqual(score, 0.9506, delta=0.0001)
 
     def test_passage_expanded_msmarco_output(self):
-        output_file = 'test_run.msmarco-passage.expanded.2.txt'
+        output_file = 'runs/test_run.msmarco-passage.expanded.2.txt'
         self.temp_files.append(output_file)
         cmd = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-d2q-t5 --output {output_file} --bm25 --output-format msmarco'
         status = os.system(cmd)

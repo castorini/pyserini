@@ -27,7 +27,7 @@ class TestPrebuiltRobust04(unittest.TestCase):
         self.temp_files = []
 
     def test_robust04(self):
-        output_file = 'test_run.robust04.bm25.txt'
+        output_file = 'runs/test_run.robust04.bm25.txt'
         self.temp_files.append(output_file)
         cmd = f'python -m pyserini.search.lucene --topics robust04 --index robust04 --output {output_file} --bm25'
         status = os.system(cmd)
