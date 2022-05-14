@@ -22,9 +22,6 @@ from integrations.utils import run_retrieval_and_return_scores, clean_files
 
 
 class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
-    def setUp(self):
-        self.temp_files = []
-
     def test_passage_trec_output(self):
         """Test case for MS MARCO V1 passage, dev queries, TREC output
            on all three pre-built indexes (base, slim, full)."""
@@ -84,9 +81,6 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
 
         self.assertTrue('MRR@10' in scores)
         self.assertAlmostEqual(scores['MRR@10'], '0.281560751807885')
-
-    def tearDown(self):
-        clean_files(self.temp_files)
 
 
 if __name__ == '__main__':
