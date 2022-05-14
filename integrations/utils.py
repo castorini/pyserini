@@ -106,6 +106,14 @@ def run_retrieval_and_return_scores(output_file, retrieval_cmd, qrels, eval_type
         cmd = f'python -m pyserini.eval.msmarco_passage_eval {qrels} {output_file}'
         stdout, stderr = run_command(cmd)
         scores['MRR@10'] = parse_score_msmarco_as_string(stdout, 'MRR @10')
+    elif eval_type == 'msmarco_doc':
+        cmd = f'python -m pyserini.eval.msmarco_doc_eval --judgments {qrels} --run {output_file}'
+        stdout, stderr = run_command(cmd)
+        scores['MRR@100'] = parse_score_msmarco(stdout, 'MRR @100')
+    elif eval_type == 'msmarco_doc_string':
+        cmd = f'python -m pyserini.eval.msmarco_doc_eval --judgments {qrels} --run {output_file}'
+        stdout, stderr = run_command(cmd)
+        scores['MRR@100'] = parse_score_msmarco_as_string(stdout, 'MRR @100')
     else:
         clean_files(temp_files)
         raise ValueError('Unknown eval_type!')
