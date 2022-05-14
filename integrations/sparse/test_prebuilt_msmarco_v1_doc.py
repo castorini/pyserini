@@ -124,7 +124,7 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
     def test_doc_segmented_trec_output(self):
         output_file = 'runs/test_run.msmarco-doc-segmented.1.txt'
         self.temp_files.append(output_file)
-        cmd = f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index msmarco-v1-doc-segmented --output {output_file} --bm25 --hits 1000 --max-passage --max-passage-hits 100'
+        cmd = f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index msmarco-v1-doc-segmented --output {output_file} --bm25 --hits 10000 --max-passage --max-passage-hits 1000'
         status = os.system(cmd)
         self.assertEqual(status, 0)
 
@@ -141,7 +141,7 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
     def test_doc_segmented_msmarco_output(self):
         output_file = 'runs/test_run.msmarco-doc-segmented.2.txt'
         self.temp_files.append(output_file)
-        cmd = f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index msmarco-v1-doc-segmented --output {output_file} --output-format msmarco --bm25 --hits 10000 --max-passage --max-passage-hits 1000'
+        cmd = f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index msmarco-v1-doc-segmented --output {output_file} --output-format msmarco --bm25 --hits 1000 --max-passage --max-passage-hits 100'
         status = os.system(cmd)
         self.assertEqual(status, 0)
 
@@ -153,7 +153,7 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
     def test_doc_segmented_slim_trec_output(self):
         output_file = 'runs/test_run.msmarco-doc-segmented.3.txt'
         self.temp_files.append(output_file)
-        cmd = f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index msmarco-v1-doc-segmented-slim --output {output_file} --bm25 --hits 1000 --max-passage --max-passage-hits 100'
+        cmd = f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index msmarco-v1-doc-segmented-slim --output {output_file} --bm25 --hits 10000 --max-passage --max-passage-hits 1000'
         status = os.system(cmd)
         self.assertEqual(status, 0)
 
@@ -170,7 +170,7 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
     def test_doc_segmented_slim_msmarco_output(self):
         output_file = 'runs/test_run.msmarco-doc-segmented.4.txt'
         self.temp_files.append(output_file)
-        cmd = f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index msmarco-v1-doc-segmented-slim --output {output_file} --output-format msmarco --bm25 --hits 10000 --max-passage --max-passage-hits 1000'
+        cmd = f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index msmarco-v1-doc-segmented-slim --output {output_file} --output-format msmarco --bm25 --hits 1000 --max-passage --max-passage-hits 100'
         status = os.system(cmd)
         self.assertEqual(status, 0)
 
@@ -182,7 +182,7 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
     def test_doc_segmented_full_trec_output(self):
         output_file = 'runs/test_run.msmarco-doc-segmented.5.txt'
         self.temp_files.append(output_file)
-        cmd = f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index msmarco-v1-doc-segmented-full --output {output_file} --bm25 --hits 1000 --max-passage --max-passage-hits 100'
+        cmd = f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index msmarco-v1-doc-segmented-full --output {output_file} --bm25 --hits 10000 --max-passage --max-passage-hits 1000'
         status = os.system(cmd)
         self.assertEqual(status, 0)
 
@@ -199,7 +199,7 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
     def test_doc_segmented_full_msmarco_output(self):
         output_file = 'runs/test_run.msmarco-doc-segmented.6.txt'
         self.temp_files.append(output_file)
-        cmd = f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index msmarco-v1-doc-segmented-full --output {output_file} --output-format msmarco --bm25 --hits 10000 --max-passage --max-passage-hits 1000'
+        cmd = f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index msmarco-v1-doc-segmented-full --output {output_file} --output-format msmarco --bm25 --hits 1000 --max-passage --max-passage-hits 100'
         status = os.system(cmd)
         self.assertEqual(status, 0)
 
