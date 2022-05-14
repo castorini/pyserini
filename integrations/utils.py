@@ -42,8 +42,8 @@ def run_command(cmd, echo=False):
     return stdout, stderr
 
 
-# Function for parsing the output from pyserini.eval.trec_eval
 def parse_score(output, metric, digits=4):
+    """Function for parsing the output from `pyserini.eval.trec_eval`."""
     lines = output.split('\n')
     # The output begins with a bunch of debug information, get rid of lines until we get to 'Results'
     while 'Results' not in lines[0]:
@@ -56,8 +56,9 @@ def parse_score(output, metric, digits=4):
     return None
 
 
-# Function for parsing the output from pyserini.eval.evaluate_dpr_retrieval
 def parse_score_qa(output, metric, digits=4):
+    """Function for parsing the output from `pyserini.eval.evaluate_dpr_retrieval`. Currently, the implementation is
+       the same as `parse_score_msmacro`, but we're keeping separate in case they diverge in the future."""
     for line in output.split('\n'):
         if metric in line:
             score = float(line.split()[-1])
@@ -65,11 +66,20 @@ def parse_score_qa(output, metric, digits=4):
     return None
 
 
-# Function for parsing the output from MS MARCO eval scripts
-# (Currently, parses the same way as parse_score_qa above, but keeping separate in case they diverge in the future.)
 def parse_score_msmarco(output, metric, digits=4):
+    """Function for parsing the output from MS MARCO eval scripts. Currently, the implementation is the same as
+       `parse_score_qa`, but we're keeping separate in case they diverge in the future."""
     for line in output.split('\n'):
         if metric in line:
             score = float(line.split()[-1])
             return round(score, digits)
+    return None
+
+
+def parse_score_msmarco_as_string(output, metric):
+    """Function for parsing the output from MS MARCO eval scripts, but returning result as a string. This is used for
+       checking results to the entire degree of precision that the script generates."""
+    for line in output.split('\n'):
+        if metric in line:
+            return line.split()[-1]
     return None
