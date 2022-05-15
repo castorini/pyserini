@@ -16,35 +16,26 @@
 
 """Integration tests for Robust04 using pre-built indexes."""
 
-import os
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score
+from integrations.utils import run_retrieval_and_return_scores
 
 
 class TestPrebuiltRobust04(unittest.TestCase):
-    def setUp(self):
-        self.temp_files = []
-
     def test_robust04(self):
-        output_file = 'runs/test_run.robust04.bm25.txt'
-        self.temp_files.append(output_file)
-        cmd = f'python -m pyserini.search.lucene --topics robust04 --index robust04 --output {output_file} --bm25'
-        status = os.system(cmd)
-        self.assertEqual(status, 0)
+        """Test case for Robust04."""
 
-        cmd = f'python -m pyserini.eval.trec_eval -m map robust04 {output_file}'
-        stdout, stderr = run_command(cmd)
-        score = parse_score(stdout, 'map')
-        self.assertAlmostEqual(score, 0.2531, delta=0.0001)
+        scores = run_retrieval_and_return_scores(
+            'runs/test_run.robust04.bm25.txt',
+            'python -m pyserini.search.lucene --topics robust04 --index robust04 --bm25',
+            'robust04',
+            'trec_eval',
+            [['map', 'map'], ['P.30', 'P_30']])
 
-        cmd = f'python -m pyserini.eval.trec_eval -m P.30 robust04 {output_file}'
-        stdout, stderr = run_command(cmd)
-        score = parse_score(stdout, 'P_30')
-        self.assertAlmostEqual(score, 0.3102, delta=0.0001)
-
-    def tearDown(self):
-        clean_files(self.temp_files)
+        self.assertTrue('map' in scores)
+        self.assertTrue('P.30' in scores)
+        self.assertAlmostEqual(scores['map'], 0.2531, delta=0.0001)
+        self.assertAlmostEqual(scores['P.30'], 0.3102, delta=0.0001)
 
 
 if __name__ == '__main__':
