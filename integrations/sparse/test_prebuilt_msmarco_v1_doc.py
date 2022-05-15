@@ -45,7 +45,7 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
 
             self.assertTrue('map' in scores)
             self.assertTrue('recall.1000' in scores)
-            self.assertAlmostEqual(scores['map'],0.2774, delta=0.0001)
+            self.assertAlmostEqual(scores['map'], 0.2774, delta=0.0001)
             self.assertAlmostEqual(scores['recall.1000'], 0.9357, delta=0.0001)
 
     def test_doc_full_msmarco_output(self):
@@ -63,10 +63,43 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
             self.assertTrue('MRR@100' in scores)
             self.assertEqual(scores['MRR@100'], '0.2766351807440808')
 
-    # #
-    # # doc segmented conditions
-    # #
     #
+    # doc segmented conditions
+    #
+
+    def test_doc_segmented_trec_output(self):
+        """Test case for MS MARCO V1 doc segmented, dev queries, TREC output
+           on all three pre-built indexes (base, slim, full)."""
+
+        # Loop over all three pre-built indexes.
+        for index in ['msmarco-v1-doc-segmented', 'msmarco-v1-doc-segmented-slim', 'msmarco-v1-doc-segmented-full']:
+            scores = run_retrieval_and_return_scores(
+                'runs/test_run.msmarco-doc-segmented.trec.txt',
+                f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index {index} --bm25 --hits 10000 --max-passage --max-passage-hits 1000',
+                'msmarco-doc-dev',
+                'trec_eval',
+                [['map', 'map'], ['recall.1000', 'recall_1000']])
+
+            self.assertTrue('map' in scores)
+            self.assertTrue('recall.1000' in scores)
+            self.assertAlmostEqual(scores['map'], 0.2762, delta=0.0001)
+            self.assertAlmostEqual(scores['recall.1000'], 0.9311, delta=0.0001)
+
+    def test_doc_segmented_msmarco_output(self):
+        """Test case for MS MARCO V1 doc segmented, dev queries, MS MARCO output
+           on all three pre-built indexes (base, slim, full)."""
+
+        # Loop over all three pre-built indexes.
+        for index in ['msmarco-v1-doc-segmented', 'msmarco-v1-doc-segmented-slim', 'msmarco-v1-doc-segmented-full']:
+            scores = run_retrieval_and_return_scores(
+                'runs/test_run.msmarco-doc-segmented.msmarco.txt',
+                f'python -m pyserini.search.lucene --topics msmarco-doc-dev --index {index} --bm25 --hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco',
+                'msmarco-doc-dev',
+                'msmarco_doc_string', [])
+
+            self.assertTrue('MRR@100' in scores)
+            self.assertEqual(scores['MRR@100'], '0.2755196341768384')
+
     # def test_doc_segmented_trec_output(self):
     #     output_file = 'runs/test_run.msmarco-doc-segmented.1.txt'
     #     self.temp_files.append(output_file)
