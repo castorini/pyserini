@@ -40,7 +40,7 @@ conditions:
             nDCG@10: 0.5776
             R@1K: 0.6930
   - name: bm25-rm3-doc-default
-    display: BM25 doc (k1=0.9, b=0.4)
+    display: BM25+RM3 doc (k1=0.9, b=0.4)
     command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v2-doc-full --output _R_ --bm25 --rm3 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-v2-doc-dev
@@ -60,7 +60,7 @@ conditions:
             nDCG@10: 0.5339
             R@1K: 0.7335
   - name: bm25-rm3-doc-segmented-default
-    display: BM25 doc segmented (k1=0.9, b=0.4)
+    display: BM25+RM3 doc segmented (k1=0.9, b=0.4)
     command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v2-doc-segmented-full --output _R_ --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
