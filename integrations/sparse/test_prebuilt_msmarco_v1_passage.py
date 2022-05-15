@@ -60,7 +60,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
 
         scores = run_retrieval_and_return_scores(
             'runs/test_run.msmarco-passage.expanded.trec.txt',
-            f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-d2q-t5 --bm25',
+            'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-d2q-t5 --bm25',
             'msmarco-passage-dev-subset',
             'trec_eval',
             [['map', 'map'], ['recall.1000', 'recall_1000']])
@@ -75,7 +75,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
 
         scores = run_retrieval_and_return_scores(
             'runs/test_run.msmarco-passage.expanded.msmarco.txt',
-            f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-d2q-t5 --bm25 --output-format msmarco',
+            'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset --index msmarco-v1-passage-d2q-t5 --bm25 --output-format msmarco',
             'msmarco-passage-dev-subset',
             'msmarco_passage_string', [])
 
