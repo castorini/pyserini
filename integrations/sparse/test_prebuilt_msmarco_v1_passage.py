@@ -53,7 +53,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
                 'msmarco_passage_string', [])
 
             self.assertTrue('MRR@10' in scores)
-            self.assertAlmostEqual(scores['MRR@10'], '0.18741227770955546')
+            self.assertEqual(scores['MRR@10'], '0.18741227770955546')
 
     def test_passage_expanded_trec_output(self):
         """Test case for MS MARCO V1 passage w/ doc2query-T5 expansions, dev queries, TREC output."""
@@ -80,7 +80,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
             'msmarco_passage_string', [])
 
         self.assertTrue('MRR@10' in scores)
-        self.assertAlmostEqual(scores['MRR@10'], '0.281560751807885')
+        self.assertEqual(scores['MRR@10'], '0.281560751807885')
 
 
 if __name__ == '__main__':
