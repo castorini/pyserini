@@ -32,7 +32,10 @@ models = ['bm25-default',
           'bm25-rm3-augmented-default',
           '',
           'bm25-d2q-t5-default',
-          'bm25-d2q-t5-augmented-default']
+          'bm25-d2q-t5-augmented-default',
+          '',
+          'unicoil-noexp',
+          'unicoil']
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK] '

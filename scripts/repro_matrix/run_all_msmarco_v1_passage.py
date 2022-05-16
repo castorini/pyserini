@@ -27,16 +27,18 @@ collection = 'msmarco-v1-passage'
 # The models: the rows of the results table will be ordered this way.
 models = ['bm25-tuned',
           'bm25-rm3-tuned',
+          '',
           'bm25-d2q-t5-tuned',
           '',
           'bm25-default',
           'bm25-rm3-default',
+          '',
           'bm25-d2q-t5-default',
           '',
           'unicoil-noexp',
-          'unicoil-noexp-otf',
-          '',
           'unicoil',
+          '',
+          'unicoil-noexp-otf',
           'unicoil-otf',
           '',
           'tct_colbert-v2-hnp',
@@ -119,14 +121,14 @@ if __name__ == '__main__':
 
                 print('')
 
-    print(' ' * 49 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
-    print(' ' * 45 + 'MAP nDCG@10    R@1K       MAP nDCG@10    R@1K    MRR@10    R@1K')
-    print(' ' * 42 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
+    print(' ' * 64 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
+    print(' ' * 57 + 'MAP nDCG@10    R@1K       MAP nDCG@10    R@1K    MRR@10    R@1K')
+    print(' ' * 57 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
     for name in models:
         if not name:
             print('')
             continue
-        print(f'{table_keys[name]:40}' +
+        print(f'{table_keys[name]:55}' +
               f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
               f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
               f'{table[name]["msmarco"]["MRR@10"]:8.4f}{table[name]["msmarco"]["R@1K"]:8.4f}')
