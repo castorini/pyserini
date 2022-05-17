@@ -32,7 +32,10 @@ models = ['bm25-doc-default',
           'bm25-rm3-doc-segmented-default',
           '',
           'bm25-d2q-t5-doc-default',
-          'bm25-d2q-t5-doc-segmented-default']
+          'bm25-d2q-t5-doc-segmented-default',
+          '',
+          'unicoil-noexp',
+          'unicoil']
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK] '
@@ -59,9 +62,9 @@ table_keys = {}
 
 def find_table_topic_set_key(topic_key):
     key = ''
-    if topic_key.endswith('dev'):
+    if topic_key.endswith('dev') or topic_key.endswith('dev-unicoil') or topic_key.endswith('dev-unicoil-noexp'):
         key = 'dev'
-    elif topic_key.endswith('dev2'):
+    elif topic_key.endswith('dev2')  or topic_key.endswith('dev2-unicoil') or topic_key.endswith('dev2-unicoil-noexp'):
         key = 'dev2'
     elif topic_key.startswith('dl21'):
         key = 'dl21'

@@ -1,4 +1,44 @@
 conditions:
+  - name: unicoil-noexp
+    display: "uniCOIL (noexp): pre-encoded"
+    command: python -m pyserini.search.lucene --index msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2 --topics _T_ --output _R_ --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-v2-doc-dev-unicoil-noexp
+        eval_key: msmarco-v2-doc-dev
+        scores:
+          - MRR@100: 0.2231
+            R@1K: 0.8987
+      - topic_key: msmarco-v2-doc-dev2-unicoil-noexp
+        eval_key: msmarco-v2-doc-dev2
+        scores:
+          - MRR@100: 0.2314
+            R@1K: 0.8995
+      - topic_key: dl21-unicoil-noexp
+        eval_key: dl21-doc
+        scores:
+          - MAP@100: 0.2587
+            nDCG@10: 0.6495
+            R@1K: 0.6787
+  - name: unicoil
+    display: "uniCOIL (w/ doc2query-T5): pre-encoded"
+    command: python -m pyserini.search.lucene --index msmarco-v2-doc-segmented-unicoil-0shot-v2 --topics _T_ --output _R_ --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-v2-doc-dev-unicoil
+        eval_key: msmarco-v2-doc-dev
+        scores:
+          - MRR@100: 0.2419
+            R@1K: 0.9122
+      - topic_key: msmarco-v2-doc-dev2-unicoil
+        eval_key: msmarco-v2-doc-dev2
+        scores:
+          - MRR@100: 0.2445
+            R@1K: 0.9172
+      - topic_key: dl21-unicoil
+        eval_key: dl21-doc
+        scores:
+          - MAP@100: 0.2718
+            nDCG@10: 0.6783
+            R@1K: 0.7551
   - name: bm25-d2q-t5-doc-default
     display: BM25 w/ doc2query-T5 doc (k1=0.9, b=0.4)
     command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v2-doc-d2q-t5 --output _R_ --bm25 --k1 0.9 --b 0.4
