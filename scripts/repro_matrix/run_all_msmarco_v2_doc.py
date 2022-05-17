@@ -29,7 +29,10 @@ collection = 'msmarco-v2-doc'
 models = ['bm25-doc-default',
           'bm25-doc-segmented-default',
           'bm25-rm3-doc-default',
-          'bm25-rm3-doc-segmented-default']
+          'bm25-rm3-doc-segmented-default',
+          '',
+          'bm25-d2q-t5-doc-default',
+          'bm25-d2q-t5-doc-segmented-default']
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK] '
@@ -106,14 +109,14 @@ if __name__ == '__main__':
 
                 print('')
 
-    print(' ' * 54 + 'TREC 2021' + ' ' * 11 + 'MS MARCO dev' + ' ' * 6 + 'MS MARCO dev2')
-    print(' ' * 47 + 'MAP@100 nDCG@10  R@1K     MRR@100   R@1K    MRR@100   R@1K')
-    print(' ' * 47 + '-' * 22 + '    ' + '-' * 14 + '    ' + '-' * 14)
+    print(' ' * 64 + 'TREC 2021' + ' ' * 11 + 'MS MARCO dev' + ' ' * 6 + 'MS MARCO dev2')
+    print(' ' * 57 + 'MAP@100 nDCG@10  R@1K     MRR@100   R@1K    MRR@100   R@1K')
+    print(' ' * 57 + '-' * 22 + '    ' + '-' * 14 + '    ' + '-' * 14)
     for name in models:
         if not name:
             print('')
             continue
-        print(f'{table_keys[name]:45}' +
+        print(f'{table_keys[name]:55}' +
               f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
               f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
               f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
