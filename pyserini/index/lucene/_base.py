@@ -567,7 +567,7 @@ class IndexReader:
         f.close()
 
     def quantize_weights(self, input_file_path, output_file_path, bits = 8):
-        """Takes vectors of weights in Pyserini's JSONL vector format and quantizes them
+        """Takes vectors of weights in Pyserini's JSONL vector format and quantizes them.
 
         Parameters
         ----------
