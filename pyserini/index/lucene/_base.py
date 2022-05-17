@@ -25,6 +25,7 @@ from enum import Enum
 from typing import Dict, Iterator, List, Optional, Tuple
 from tqdm import tqdm
 import json
+import math
 
 from pyserini.analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
 from pyserini.pyclass import autoclass
@@ -539,22 +540,68 @@ class IndexReader:
         return index_stats_dict
 
     def dump_documents_BM25(self, file_path, k1=0.9, b=0.4):
-        """Dumps out all the document vectors with BM25 weights in Pyserini's JSON vector format 
+        """Dumps out all the document vectors with BM25 weights in Pyserini's JSONL vector format.
 
         Parameters
         ----------
         file_path : str
-            file path to dump JSON file
+            File path to dump JSONL file.
+        k1 : float
+            BM25 k1 parameter.
+        b : float
+            BM25 b parameter.
         """
 
-        output_list = []
+        f = open(file_path, 'w')
 
         assert 'documents' in self.stats()
         for i in tqdm(range(self.stats()['documents'])):
             docid = self.convert_internal_docid_to_collection_docid(i)
-            tf = self.get_document_vector(docid)
-            bm25_vector = {term: self.compute_bm25_term_weight(docid, term, analyzer=None, k1=k1, b=b) for term in tf.keys()}
-            output_list.append({'id': docid, 'vector':bm25_vector})
+            bm25_vector = {}
+            for term in self.get_document_vector(docid):
+                bm25_vector[term] = self.compute_bm25_term_weight(docid, term, analyzer=None, k1=k1, b=b)
 
-        with open(file_path, 'w') as f:
-            json.dump(output_list, f, indent=2)
+            # vectors are written line by line to avoid running out of memory
+            f.write(json.dumps({'id': docid, 'vector': bm25_vector}) + "\n")
+
+        f.close()
+
+    def quantize_weights(self, input_file_path, output_file_path, bits = 8):
+        """Takes vectors of weights in Pyserini's JSONL vector format and quantizes them.
+
+        Parameters
+        ----------
+        input_file_path : str
+            File path of vectors of weights in Pyserini's JSONL vector format.
+        output_file_path : str
+            File path to output JSONL file of quantized weight vectors.
+        bits : int
+            Number of bits to use to represent quantized scores.
+        """
+
+        min_weight = float('inf')
+        max_weight = float('-inf')
+
+        input_file = open(input_file_path, 'r')
+
+        # vectors are read line by line to avoid running out of memory
+        for line in input_file:
+            doc = json.loads(line)
+            for weight in doc['vector'].values():
+                if weight > max_weight:
+                    max_weight = weight
+                if weight < min_weight:
+                    min_weight = weight
+        input_file.seek(0)
+
+        output_file = open(output_file_path, 'w')
+
+        smallest_impact = 1
+        for line in input_file:
+            doc = json.loads(line)
+            for element in doc['vector']:
+                doc['vector'][element] = math.floor((2 ** bits - smallest_impact) * (doc['vector'][element] - min_weight) / (max_weight - min_weight)) + smallest_impact
+            output_file.write(json.dumps(doc) + "\n")
+
+        input_file.close()
+        output_file.close()
