@@ -540,7 +540,7 @@ class IndexReader:
         return index_stats_dict
 
     def dump_documents_BM25(self, file_path, k1=0.9, b=0.4):
-        """Dumps out all the document vectors with BM25 weights in Pyserini's JSONL vector format
+        """Dumps out all the document vectors with BM25 weights in Pyserini's JSONL vector format.
 
         Parameters
         ----------
