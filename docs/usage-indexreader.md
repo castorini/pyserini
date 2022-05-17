@@ -168,77 +168,32 @@ Nope, that's not a bug.
 
 ## How do I dump out BM25 vectors for every document?
 
-Here's how to dump out all the document vectors with BM25 weights in Pyserini's JSON vector format:
+Here's how to dump out all the document vectors with BM25 weights in Pyserini's JSONL vector format:
 ```python
-# You must specify a file path for the .json file
-index_reader.dump_documents_BM25('collections/cacm_documents_bm25_dump.json')
+# You must specify a file path for the .jsonl file
+index_reader.dump_documents_BM25('collections/cacm_documents_bm25_dump.jsonl')
 ```
 
-Output in the .json file is something like this:
+Output in the .jsonl file is something like this:
 ```
-[
-  {
-    "id": "CACM-0001",
-    "vector": {
-      "22": 1.2635996341705322,
-      "perli": 2.813838481903076,
-      "28": 1.4853038787841797,
-      "ca581203": 3.889439582824707,
-      "languag": 1.0462608337402344,
-      "algebra": 1.9220843315124512,
-      "preliminari": 2.5628812313079834,
-      ...
-    }
-  },
-  {
-    "id": "CACM-0002",
-    "vector": {
-      "22": 1.5182371139526367,
-      "cacm": 0.0002853870391845703,
-      "sugai": 4.673230171203613,
-      "29": 2.147885799407959,
-      "subtract": 3.3808765411376953,
-      "ca581202": 4.673230171203613,
-      "i": 1.7500755786895752,
-      ...
-    }
-  },
+{"id": "CACM-0001", "vector": {"22": 1.2635996341705322, "perli": 2.813838481903076, "28": 1.4853038787841797, "ca581203": 3.889439582824707, "languag": 1.0462608337402344, "algebra": 1.9220843315124512, "preliminari": 2.5628812313079834, "3184": 1.5415544509887695, "196": 2.208385944366455, "210": 1.8753266334533691, "398": 1.9435224533081055, "410": 1.9893245697021484, "214": 2.6431477069854736, "91": 2.813838481903076, "decemb": 1.0904579162597656, "1958": 2.217474937438965, "1978": 0.03820383548736572, "53": 2.0858259201049805, "intern": 2.1584203243255615, "cacm": 0.00023746490478515625, "samelson": 3.230319023132324, "1273": 2.6431477069854736, "j": 0.6906000375747681, "k": 1.413696527481079, "march": 0.3245110511779785, "164": 2.774796485900879, "165": 3.0729784965515137, "1": 1.9030036926269531, "100": 2.3613317012786865, "123": 1.7414944171905518, "642": 2.0955820083618164, "1883": 2.7047135829925537, "1982": 2.1930222511291504, "324": 2.614957094192505, "5": 0.00014519691467285156, "6": 0.8225016593933105, "205": 1.8882520198822021, "8": 1.1494452953338623, "jb": 0.033278584480285645, "report": 1.7513933181762695, "669": 1.8384160995483398, "pm": 0.18731093406677246, "43": 1.9893245697021484}}
+{"id": "CACM-0002", "vector": {"22": 1.5182371139526367, "cacm": 0.0002853870391845703, "sugai": 4.673230171203613, "29": 2.147885799407959, "subtract": 3.3808765411376953, "ca581202": 4.673230171203613, "i": 1.7500755786895752, "march": 0.3899056911468506, "comput": 0.7604131698608398, "2": 1.6285443305969238, "extract": 3.0503158569335938, "5": 0.0001285076141357422, "repeat": 3.487149238586426, "root": 2.429866313934326, "8": 1.3810787200927734, "jb": 0.039984822273254395, "decemb": 1.310204029083252, "1958": 2.664334774017334, "pm": 0.22505736351013184, "1978": 0.04590260982513428, "digit": 1.9418766498565674}}
 ...
 ```
 
-Alternatively, you may specifiy that the weights be quantized:
+## How do I quantize vectors of weights?
+
+Given vectors of weights in Pyserini's JSONL vector format, the weights can be quantized as below:
 ```python
-index_reader.dump_documents_BM25('collections/cacm_documents_bm25_dump_quantized.json', quantize=True)
+dump_file_path = 'collections/cacm_documents_bm25_dump.jsonl'
+quantized_file_path = 'collections/cacm_documents_bm25_dump_quantized.jsonl'
+index_reader.dump_documents_BM25(dump_file_path)
+index_reader.quantize_weights(dump_file_path, quantized_file_path)
 ```
 
-Then, output in the .json file is something like this:
+Output in the .jsonl file for the quantized weight vectors is something like this:
 ```
-[
-  {
-    "id": "CACM-0001",
-    "vector": {
-      "22": 47,
-      "perli": 104,
-      "28": 55,
-      "ca581203": 143,
-      "languag": 39,
-      "algebra": 71,
-      "preliminari": 95,
-      ...
-    }
-  },
-  {
-    "id": "CACM-0002",
-    "vector": {
-      "22": 56,
-      "cacm": 1,
-      "sugai": 172,
-      "29": 79,
-      "subtract": 125,
-      "ca581202": 172,
-      "i": 65,
-      ...
-    }
-  },
+{"id": "CACM-0001", "vector": {"22": 47, "perli": 104, "28": 55, "ca581203": 143, "languag": 39, "algebra": 71, "preliminari": 95, "3184": 57, "196": 82, "210": 69, "398": 72, "410": 74, "214": 98, "91": 104, "decemb": 41, "1958": 82, "1978": 2, "53": 77, "intern": 80, "cacm": 1, "samelson": 119, "1273": 98, "j": 26, "k": 52, "march": 12, "164": 102, "165": 113, "1": 70, "100": 87, "123": 64, "642": 77, "1883": 100, "1982": 81, "324": 96, "5": 1, "6": 31, "205": 70, "8": 43, "jb": 2, "report": 65, "669": 68, "pm": 7, "43": 74}}
+{"id": "CACM-0002", "vector": {"22": 56, "cacm": 1, "sugai": 172, "29": 79, "subtract": 125, "ca581202": 172, "i": 65, "march": 15, "comput": 28, "2": 60, "extract": 112, "5": 1, "repeat": 129, "root": 90, "8": 51, "jb": 2, "decemb": 49, "1958": 98, "pm": 9, "1978": 2, "digit": 72}}
 ...
 ```

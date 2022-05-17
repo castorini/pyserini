@@ -539,28 +539,20 @@ class IndexReader:
 
         return index_stats_dict
 
-    def dump_documents_BM25(self, file_path, k1=0.9, b=0.4, quantize=False, bits = 8):
-        """Dumps out all the document vectors with BM25 weights in Pyserini's JSON vector format
+    def dump_documents_BM25(self, file_path, k1=0.9, b=0.4):
+        """Dumps out all the document vectors with BM25 weights in Pyserini's JSONL vector format
 
         Parameters
         ----------
         file_path : str
-            File path to dump JSON file.
+            File path to dump JSONL file.
         k1 : float
             BM25 k1 parameter.
         b : float
             BM25 b parameter.
-        quantize : bool
-            Whether to quantize the BM25 weights. If True then the weights will be quantized.
-        bits : int
-            Number of bits to use to represent quantized scores. Is ignored if quantize is False.
         """
 
-        output_list = []
-
-        if quantize:
-            min_bm25_weight = 10000
-            max_bm25_weight = 0
+        f = open(file_path, 'w')
 
         assert 'documents' in self.stats()
         for i in tqdm(range(self.stats()['documents'])):
@@ -568,21 +560,48 @@ class IndexReader:
             bm25_vector = {}
             for term in self.get_document_vector(docid):
                 bm25_vector[term] = self.compute_bm25_term_weight(docid, term, analyzer=None, k1=k1, b=b)
-                if quantize:
-                    if bm25_vector[term] > max_bm25_weight:
-                        max_bm25_weight = bm25_vector[term]
-                    if bm25_vector[term] < min_bm25_weight:
-                        min_bm25_weight = bm25_vector[term]
 
-            output_list.append({'id': docid, 'vector':bm25_vector})
+            # vectors are written line by line to avoid running out of memory
+            f.write(json.dumps({'id': docid, 'vector': bm25_vector}) + "\n")
 
-        if quantize:
-            smallest_impact = 1
-            for i in range(len(output_list)):
-                bm25_vector = output_list[i]['vector']
-                for term in bm25_vector:
-                    bm25_vector[term] = math.floor((2 ** bits - smallest_impact) * (bm25_vector[term] - min_bm25_weight) / (max_bm25_weight - min_bm25_weight)) + smallest_impact
-                output_list[i]['vector'] = bm25_vector
+        f.close()
 
-        with open(file_path, 'w') as f:
-            json.dump(output_list, f, indent=2)
+    def quantize_weights(self, input_file_path, output_file_path, bits = 8):
+        """Takes vectors of weights in Pyserini's JSONL vector format and quantizes them
+
+        Parameters
+        ----------
+        input_file_path : str
+            File path of vectors of weights in Pyserini's JSONL vector format.
+        output_file_path : str
+            File path to output JSONL file of quantized weight vectors.
+        bits : int
+            Number of bits to use to represent quantized scores.
+        """
+
+        min_weight = float('inf')
+        max_weight = float('-inf')
+
+        input_file = open(input_file_path, 'r')
+
+        # vectors are read line by line to avoid running out of memory
+        for line in input_file:
+            doc = json.loads(line)
+            for weight in doc['vector'].values():
+                if weight > max_weight:
+                    max_weight = weight
+                if weight < min_weight:
+                    min_weight = weight
+        input_file.seek(0)
+
+        output_file = open(output_file_path, 'w')
+
+        smallest_impact = 1
+        for line in input_file:
+            doc = json.loads(line)
+            for element in doc['vector']:
+                doc['vector'][element] = math.floor((2 ** bits - smallest_impact) * (doc['vector'][element] - min_weight) / (max_weight - min_weight)) + smallest_impact
+            output_file.write(json.dumps(doc) + "\n")
+
+        input_file.close()
+        output_file.close()

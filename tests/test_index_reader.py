@@ -399,13 +399,13 @@ class TestIndexUtils(unittest.TestCase):
         JString('zoölogy')
 
     def test_dump_documents_BM25(self):
+        file_path = 'collections/cacm_documents_bm25_dump.jsonl'
+        self.index_reader.dump_documents_BM25(file_path)
+        dump_file = open(file_path, 'r')
 
-        filepath = 'collections/cacm_documents_bm25_dump.json'
-        self.index_reader.dump_documents_BM25(filepath)
-        dumpfile = open(filepath, 'r')
-        dump = json.load(dumpfile)
-        dumpfile.close()
-        assert len(dump) == self.index_reader.stats()['documents']
+        num_lines = sum(1 for line in dump_file)
+        dump_file.seek(0)
+        assert num_lines == self.index_reader.stats()['documents']
 
         def compare_searcher(query):
             """Comparing searching with LuceneSearcher to brute-force searching through documents in dump
@@ -419,12 +419,15 @@ class TestIndexUtils(unittest.TestCase):
             # Search through documents BM25 dump
             query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
             heap = [] # heapq implements a min-heap, we can invert the values to have a max-heap
-            for doc in dump:
+
+            for line in dump_file:
+                doc = json.loads(line)
                 score = 0
                 for term in query_terms:
                     if term in doc['vector']:
                         score += doc['vector'][term]
                 heapq.heappush(heap, (-1*score, doc['id']))
+            dump_file.seek(0)
 
             # Using LuceneSearcher instead
             hits = self.searcher.search(query)
@@ -438,14 +441,20 @@ class TestIndexUtils(unittest.TestCase):
         compare_searcher('Performance evaluation and modelling of computer systems')
         compare_searcher('Addressing schemes for resources in networks; resource addressing in network operating systems')
 
-        os.remove(filepath)
+        dump_file.close()
+        os.remove(file_path)
 
-        filepath = 'collections/cacm_documents_bm25_dump_quantized.json'
-        self.index_reader.dump_documents_BM25(filepath, quantize=True)
-        dumpfile = open(filepath, 'r')
-        dump = json.load(dumpfile)
-        dumpfile.close()
-        assert len(dump) == self.index_reader.stats()['documents']
+    def test_quantize_weights(self):
+        dump_file_path = 'collections/cacm_documents_bm25_dump.jsonl'
+        quantized_file_path = 'collections/cacm_documents_bm25_dump_quantized.jsonl'
+        self.index_reader.dump_documents_BM25(dump_file_path)
+        self.index_reader.quantize_weights(dump_file_path, quantized_file_path)
+
+        quantized_weights_file = open(quantized_file_path, 'r')
+
+        num_lines = sum(1 for line in quantized_weights_file)
+        quantized_weights_file.seek(0)
+        assert num_lines == self.index_reader.stats()['documents']
 
         def compare_searcher_quantized(query, tolerance=1):
             """Comparing searching with LuceneSearcher to brute-force searching through documents in dump
@@ -462,12 +471,14 @@ class TestIndexUtils(unittest.TestCase):
             """
             query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
             heap = []
-            for doc in dump:
+            for line in quantized_weights_file:
+                doc = json.loads(line)
                 score = 0
                 for term in query_terms:
                     if term in doc['vector']:
                         score += doc['vector'][term]
                 heapq.heappush(heap, (-1*score, doc['id']))
+            quantized_weights_file.seek(0)
 
             hits = self.searcher.search(query)
 
@@ -484,7 +495,8 @@ class TestIndexUtils(unittest.TestCase):
         compare_searcher_quantized('Performance evaluation and modelling of computer systems')
         compare_searcher_quantized('Addressing schemes for resources in networks; resource addressing in network operating systems')
 
-        os.remove(filepath)
+        quantized_weights_file.close()
+        os.remove(quantized_file_path)
 
     def tearDown(self):
         os.remove(self.tarball_name)
