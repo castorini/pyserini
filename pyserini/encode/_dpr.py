@@ -27,7 +27,6 @@ class DprDocumentEncoder(DocumentEncoder):
         self.tokenizer = DPRContextEncoderTokenizer.from_pretrained(tokenizer_name or model_name)
 
     def encode(self, texts, titles=None,  max_length=256, **kwargs):
-        # max_length = 256  # hardcode for now
         if titles:
             inputs = self.tokenizer(
                 titles,

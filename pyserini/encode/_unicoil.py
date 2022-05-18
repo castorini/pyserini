@@ -83,7 +83,6 @@ class UniCoilDocumentEncoder(DocumentEncoder):
     def encode(self, texts, titles=None, expands=None, fp16=False,  max_length=512, **kwargs):
         if titles:
             texts = [f'{title} {text}' for title, text in zip(titles, texts)]
-        # max_length = 512  # hardcode for now
         if expands:
             input_ids = self._tokenize_with_injects(texts, expands)
         else:

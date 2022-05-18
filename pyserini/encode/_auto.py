@@ -35,7 +35,6 @@ class AutoDocumentEncoder(DocumentEncoder):
         self.l2_norm = l2_norm
 
     def encode(self, texts, titles=None, max_length=256, add_sep=False, **kwargs):
-        # add_sep = kwargs.get("add_sep", False)
         shared_tokenizer_kwargs = dict(
             max_length=max_length,
             truncation=True,
@@ -83,8 +82,6 @@ class AutoQueryEncoder(QueryEncoder):
             query = f'{self.prefix} {query}'
         inputs = self.tokenizer(
             query,
-            # padding='longest',
-            # truncation=True,
             add_special_tokens=True,
             return_tensors='pt',
             truncation='only_first',
@@ -93,8 +90,7 @@ class AutoQueryEncoder(QueryEncoder):
             return_token_type_ids=False,
         )
         inputs.to(self.device)
-        # outputs = self.model(**inputs)[0].detach().cpu().numpy()
-        outputs = self.model(inputs["input_ids"])[0].detach().cpu().numpy()
+        outputs = self.model(**inputs)[0].detach().cpu().numpy()
         if self.pooling == "mean":
             embeddings = np.average(outputs, axis=-2)
         else:

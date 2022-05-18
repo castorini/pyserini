@@ -43,7 +43,6 @@ class TctColBertDocumentEncoder(DocumentEncoder):
             texts = [f'[CLS] [D] {title} {text}' for title, text in zip(titles, texts)]
         else:
             texts = ['[CLS] [D] ' + text for text in texts]
-        # max_length = 512  # hardcode for now
         inputs = self.tokenizer(
             texts,
             max_length=max_length,
