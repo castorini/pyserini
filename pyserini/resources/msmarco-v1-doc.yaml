@@ -1,4 +1,88 @@
 conditions:
+  - name: bm25-d2q-t5-doc-tuned
+    display: BM25 w/ doc2query-T5 doc (k1=4.68, b=0.87)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-d2q-t5 --output _R_ --bm25
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.3269
+            R@1K: 0.9553
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2620
+            nDCG@10: 0.5972
+            R@1K: 0.6867
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.4099
+            nDCG@10: 0.5852
+            R@1K: 0.8105
+  - name: bm25-d2q-t5-doc-default
+    display: BM25 w/ doc2query-T5 doc (k1=0.9, b=0.4)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-d2q-t5 --output _R_ --bm25 --k1 0.9 --b 0.4
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.2880
+            R@1K: 0.9259
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2700
+            nDCG@10: 0.5968
+            R@1K: 0.7190
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.4230
+            nDCG@10: 0.5885
+            R@1K: 0.8403
+  - name: bm25-d2q-t5-doc-segmented-tuned
+    display: BM25 w/ doc2query-T5 doc (k1=2.56, b=0.59)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-segmented-d2q-t5 --output _R_ --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.3209
+            R@1K: 0.9530
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2658
+            nDCG@10: 0.6273
+            R@1K: 0.6707
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.4047
+            nDCG@10: 0.5943
+            R@1K: 0.7968
+  - name: bm25-d2q-t5-doc-segmented-default
+    display: BM25 w/ doc2query-T5 doc (k1=0.9, b=0.4)
+    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-segmented-d2q-t5 --output _R_ --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.3179
+            R@1K: 0.9490
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2798
+            nDCG@10: 0.6119
+            R@1K: 0.7165
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.4150
+            nDCG@10: 0.5957
+            R@1K: 0.8046
   - name: bm25-doc-tuned
     display: BM25 doc (k1=4.46, b=0.82)
     command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-doc-slim --output _R_ --bm25
