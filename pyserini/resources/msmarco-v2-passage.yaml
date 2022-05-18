@@ -18,8 +18,8 @@ conditions:
         scores:
           - MAP@100: 0.1357
             nDCG@10: 0.4458
-            MRR@100: 0.8453
-            R@100: 0.3332
+            MRR@100: 0.5060
+            R@100: 0.3261
             R@1K: 0.6149
   - name: bm25-augmented-default
     display: BM25 augmented passage (k1=0.9, b=0.4)
@@ -40,8 +40,8 @@ conditions:
         scores:
           - MAP@100: 0.0977
             nDCG@10: 0.3977
-            MRR@100: 0.8036
-            R@100: 0.2704
+            MRR@100: 0.5303
+            R@100: 0.2709
             R@1K: 0.5835
   - name: bm25-rm3-default
     display: BM25+RM3 original passage (k1=0.9, b=0.4)
@@ -62,8 +62,8 @@ conditions:
         scores:
           - MAP@100: 0.1632
             nDCG@10: 0.4480
-            MRR@100: 0.8065
-            R@100: 0.3381
+            MRR@100: 0.4925
+            R@100: 0.3498
             R@1K: 0.6619
   - name: bm25-rm3-augmented-default
     display: BM25+RM3 augmented passage (k1=0.9, b=0.4)
@@ -84,8 +84,8 @@ conditions:
         scores:
           - MAP@100: 0.1050
             nDCG@10: 0.3906
-            MRR@100: 0.8027
-            R@100: 0.2737
+            MRR@100: 0.4906
+            R@100: 0.2795
             R@1K: 0.6268
   - name: bm25-d2q-t5-default
     display: BM25 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
@@ -106,8 +106,8 @@ conditions:
         scores:
           - MAP@100: 0.1874
             nDCG@10: 0.4816
-            MRR@100: 0.8288
-            R@100: 0.3502
+            MRR@100: 0.6848
+            R@100: 0.4076
             R@1K: 0.7078
   - name: bm25-d2q-t5-augmented-default
     display: BM25 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
@@ -128,8 +128,8 @@ conditions:
         scores:
           - MAP@100: 0.1649
             nDCG@10: 0.4702
-            MRR@100: 0.8687
-            R@100: 0.3450
+            MRR@100: 0.6391
+            R@100: 0.3883
             R@1K: 0.6962
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
@@ -150,8 +150,8 @@ conditions:
         scores:
           - MAP@100: 0.2538
             nDCG@10: 0.6159
-            MRR@100: 0.9168
-            R@100: 0.3964
+            MRR@100: 0.7311
+            R@100: 0.4731
             R@1K: 0.7551
   - name: unicoil-otf
     display: "uniCOIL (w/ doc2query-T5): otf"
@@ -172,8 +172,8 @@ conditions:
         scores:
           - MAP@100: 0.2539
             nDCG@10: 0.6160
-            MRR@100: 0.9168
-            R@100: 0.3968
+            MRR@100: 0.7311
+            R@100: 0.4723
             R@1K: 0.7560
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
@@ -194,8 +194,8 @@ conditions:
         scores:
           - MAP@100: 0.2193
             nDCG@10: 0.5756
-            MRR@100: 0.9159
-            R@100: 0.3657
+            MRR@100: 0.6991
+            R@100: 0.4246
             R@1K: 0.6897
   - name: unicoil-noexp-otf
     display: "uniCOIL (noexp): otf"
@@ -216,6 +216,6 @@ conditions:
         scores:
           - MAP@100: 0.2194
             nDCG@10: 0.5759
-            MRR@100: 0.9159
-            R@100: 0.3665
+            MRR@100: 0.6991
+            R@100: 0.4247
             R@1K: 0.6893
