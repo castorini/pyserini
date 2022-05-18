@@ -287,7 +287,10 @@ class AutoQueryEncoder(QueryEncoder):
             self.device = device
             self.model = AutoModel.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            try:
+                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            except:
+                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir, use_fast=False)
             self.has_model = True
             self.pooling = pooling
             self.l2_norm = l2_norm
@@ -306,11 +309,14 @@ class AutoQueryEncoder(QueryEncoder):
         if self.has_model:
             inputs = self.tokenizer(
                 query,
-                padding='longest',
-                truncation=True,
                 add_special_tokens=True,
-                return_tensors='pt'
+                return_tensors='pt',
+                truncation='only_first',
+                padding='longest',
+                return_attention_mask=False,
+                return_token_type_ids=False,
             )
+
             inputs.to(self.device)
             outputs = self.model(**inputs)
             if self.pooling == "mean":
