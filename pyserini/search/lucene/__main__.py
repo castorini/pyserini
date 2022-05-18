@@ -132,6 +132,9 @@ if __name__ == "__main__":
                         default=1, help="Maximum number of threads to use.")
     parser.add_argument('--tokenizer', type=str, help='tokenizer used to preprocess topics')
     parser.add_argument('--remove-duplicates', action='store_true', default=False, help="Remove duplicate docs.")
+    # For some test collections, a query is doc from the corpus (e.g., arguana in BEIR).
+    # We want to remove the query from the results. This is equivalent to -removeQuery in Java.
+    parser.add_argument('--remove-query', action='store_true', default=False, help="Remove query from results list.")
 
     args = parser.parse_args()
 
@@ -282,6 +285,11 @@ if __name__ == "__main__":
                         seen_docids.add(hit.docid.strip())
                         dedup_hits.append(hit)
                     hits = dedup_hits
+
+                # For some test collections, a query is doc from the corpus (e.g., arguana in BEIR).
+                # We want to remove the query from the results.
+                if args.remove_query:
+                    hits = [hit for hit in hits if hit.docid != topic]
 
                 # write results
                 output_writer.write(topic, hits)

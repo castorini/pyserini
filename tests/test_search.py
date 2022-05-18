@@ -291,6 +291,24 @@ class TestSearch(unittest.TestCase):
         # Should return None if we request a docid that doesn't exist
         self.assertTrue(self.searcher.doc('foo') is None)
 
+    def test_batch_doc(self):
+        docids = ['CACM-0002', 'CACM-3134', 'Fake Doc1', 'Fake Doc2']
+        batch_doc = self.searcher.batch_doc(docids, threads=2)
+
+        # Doc Id should have corresponding Document object in batch result
+        for docid in docids[:2]:
+            doc = batch_doc.get(docid)
+            self.assertTrue(isinstance(doc, Document))
+            self.assertEqual(doc.lucene_document().getField('id').stringValue(), docid)
+            self.assertEqual(doc.id(), docid)
+            self.assertEqual(doc.docid(), docid)
+            self.assertEqual(doc.get('id'), docid)
+
+        # None should be returned for docids that don't exist
+        for docid in docids[2:]:
+            doc = batch_doc.get(docid[-1])
+            self.assertEqual(doc, None)
+
     def test_doc_by_field(self):
         self.assertEqual(self.searcher.doc('CACM-3134').docid(),
                          self.searcher.doc_by_field('id', 'CACM-3134').docid())
