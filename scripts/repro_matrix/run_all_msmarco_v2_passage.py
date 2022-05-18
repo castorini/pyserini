@@ -55,6 +55,8 @@ trec_eval_metric_definitions = {
     'dl21-passage': {
         'MAP@100': '-c -l 2 -M 100 -m map',
         'nDCG@10': '-c -m ndcg_cut.10',
+        'MRR@100': '-c -M 100 -m recip_rank',
+        'R@100': '-c -m recall.100',
         'R@1K': '-c -l 2 -m recall.1000'
     }
 }
@@ -115,14 +117,14 @@ if __name__ == '__main__':
 
                 print('')
 
-    print(' ' * 64 + 'TREC 2021' + ' ' * 11 + 'MS MARCO dev' + ' ' * 6 + 'MS MARCO dev2')
-    print(' ' * 57 + 'MAP@100 nDCG@10  R@1K     MRR@100   R@1K    MRR@100   R@1K')
-    print(' ' * 57 + '-' * 22 + '    ' + '-' * 14 + '    ' + '-' * 14)
+    print(' ' * 72 + 'TREC 2021' + ' ' * 18 + 'MS MARCO dev' + ' ' * 6 + 'MS MARCO dev2')
+    print(' ' * 57 + 'MAP@100 nDCG@10 MRR@100 R@100   R@1K     MRR@100   R@1K    MRR@100   R@1K')
+    print(' ' * 57 + '-' * 38 + '    ' + '-' * 14 + '    ' + '-' * 14)
     for name in models:
         if not name:
             print('')
             continue
         print(f'{table_keys[name]:55}' +
-              f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
+              f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}{table[name]["dl21"]["MRR@100"]:8.4f}{table[name]["dl21"]["R@100"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
               f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
               f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
