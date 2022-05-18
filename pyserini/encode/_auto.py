@@ -34,57 +34,30 @@ class AutoDocumentEncoder(DocumentEncoder):
         self.pooling = pooling
         self.l2_norm = l2_norm
 
-    def encode(self, texts, titles=None, **kwargs):
-        add_sep = kwargs.get("add_sep", False)
-        # if titles:
-        #     texts = [f'{title} {text}' for title, text in zip(titles, texts)]
-        # tokenizer_kwargs = dict(
-        #     max_length=256,
-        #     truncation=True,
-        #     padding='longest',
-        #     return_attention_mask=True,
-        #     return_token_type_ids=False,
-        #     return_tensors='pt',
-        #     add_special_tokens=True,
-        # )
-        kwargs = {}
-        if titles is not None:
-            kwargs["text"] = titles
-            kwargs["text_pair"] = texts
-        else:
-            kwargs["text"] = texts
-
-        inputs = self.tokenizer(
-            # texts,
-            add_special_tokens=True,
-            return_tensors='pt',
-            # Origin
-            # max_length=512,
-            # padding='longest',
-            # truncation=True,
-
-            # tevatron/data.py/EncodeDataset
-            # max_length=256,
-            # truncation='only_first',
-            # padding='longest',
-            # return_attention_mask=False,
-            # return_token_type_ids=False,
-
-            # tevatron/preprocessor/..
-            max_length=256,
-            # max_length=512,
+    def encode(self, texts, titles=None, max_length=256, add_sep=False, **kwargs):
+        # add_sep = kwargs.get("add_sep", False)
+        shared_tokenizer_kwargs = dict(
+            max_length=max_length,
             truncation=True,
             padding='longest',
-            # return_attention_mask=False,
             return_attention_mask=True,
             return_token_type_ids=False,
-
-            **kwargs,
+            return_tensors='pt',
+            add_special_tokens=True,
         )
+        input_kwargs = {}
+        if not add_sep:
+            input_kwargs["text"] = [f'{title} {text}' for title, text in zip(titles, texts)] if titles is not None else texts
+        else:
+            if titles is not None:
+                input_kwargs["text"] = titles
+                input_kwargs["text_pair"] = texts
+            else:
+                input_kwargs["text"] = texts
 
+        inputs = self.tokenizer(**input_kwargs, **shared_tokenizer_kwargs)
         inputs.to(self.device)
         outputs = self.model(**inputs)
-        # outputs = self.model(inputs["input_ids"])
         if self.pooling == "mean":
             embeddings = self._mean_pooling(outputs[0], inputs['attention_mask']).detach().cpu().numpy()
         else:

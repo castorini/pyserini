@@ -103,9 +103,11 @@ if __name__ == '__main__':
                                 help='which query encoder class to use. `default` would infer from the args.encoder')
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--batch-size', type=int, help='batch size', default=64, required=False)
+    encoder_parser.add_argument('--max-length', type=int, help='max length', default=256, required=False)
     encoder_parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]',
                                 default='cuda:0', required=False)
     encoder_parser.add_argument('--fp16', action='store_true', default=False)
+    encoder_parser.add_argument('--add-sep', action='store_true', default=False)
 
     args = parse_args(parser, commands)
     delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
@@ -123,7 +125,10 @@ if __name__ == '__main__':
                 'texts': batch_info['text'],
                 'titles': batch_info['title'] if 'title' in args.encoder.fields else None,
                 'expands': batch_info['expand'] if 'expand' in args.encoder.fields else None,
-                'fp16': args.encoder.fp16}
+                'fp16': args.encoder.fp16,
+                'max_length': args.encoder.max_length,
+                'add_sep': args.encoder.add_sep,
+            }
             embeddings = encoder.encode(**kwargs)
             batch_info['vector'] = embeddings
             embedding_writer.write(batch_info, args.input.fields)

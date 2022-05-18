@@ -80,10 +80,10 @@ class UniCoilDocumentEncoder(DocumentEncoder):
         self.model.to(self.device)
         self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name)
 
-    def encode(self, texts, titles=None, expands=None, fp16=False):
+    def encode(self, texts, titles=None, expands=None, fp16=False,  max_length=512, **kwargs):
         if titles:
             texts = [f'{title} {text}' for title, text in zip(titles, texts)]
-        max_length = 512  # hardcode for now
+        # max_length = 512  # hardcode for now
         if expands:
             input_ids = self._tokenize_with_injects(texts, expands)
         else:
