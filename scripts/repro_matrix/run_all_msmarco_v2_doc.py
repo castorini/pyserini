@@ -35,7 +35,10 @@ models = ['bm25-doc-default',
           'bm25-d2q-t5-doc-segmented-default',
           '',
           'unicoil-noexp',
-          'unicoil']
+          'unicoil',
+          '',
+          'unicoil-noexp-otf',
+          'unicoil-otf']
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK] '
