@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Material Design for Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+tr.hide-table-padding td {
+  padding: 0;
+}
+
+.expand-button {
+	position: relative;
+}
+
+.accordion-toggle .expand-button:after
+{
+  position: absolute;
+  left:.75rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  content: '-';
+}
+.accordion-toggle.collapsed .expand-button:after
+{
+  content: '+';
+}
+    </style>
+</head>
+<body>
+
+    <div class="container my-4">
+
+
+       <p>
+          xxxDetailed documentation and more examples you can find in our
+          <a href="https://mdbootstrap.com/docs/standard/data/tables/" target="_blank"><strong>Tables Docs</strong></a>.
+        </p>
+
+        <hr class="mt-5">
+
+        <p>Built with <a target="_blank" href="https://mdbootstrap.com/docs/standard/">Material Design for Bootstrap</a> - free and powerful Bootstrap UI KIT</p>
+
+        <a class="btn btn-primary me-2" href="https://mdbootstrap.com/docs/standard/getting-started/installation/" target="_blank" role="button">Download MDB UI KIT<i class="fas fa-download ms-2"></i></a>
+        <a class="btn btn-danger me-2" target="_blank" href="https://mdbootstrap.com/docs/standard/" role="button">Learn more</a>
+        <a class="btn btn-success me-2" target="_blank" href="https://mdbootstrap.com/docs/standard/getting-started/" role="button">Tutorials</a>
+        <a class="btn btn-dark me-2" target="_blank" href="https://github.com/mdbootstrap/mdb-ui-kit" role="button">GitHub<i class="fab fa-github ms-2"></i></a>
+
+
+       <hr class="mt-5">
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col"></th>
+        <th scope="col"><b>TREC 2021</b><br/>MAP@100</th>
+        <th scope="col">nDCG@10</th>
+        <th scope="col">R@1K</th>
+        <th scope="col"></th>
+        <th scope="col"><b>dev</b><br/>MRR@100</th>
+        <th scope="col">R@1K</th>
+        <th scope="col"></th>
+        <th scope="col"><b>dev2</b><br/>MRR@100</th>
+        <th scope="col">R@1K</th>
+      </tr>
+    </thead>
+    <tbody>
+
+<tr class="accordion-toggle collapsed" id="accordion1" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
+<td class="expand-button"></td>
+<td>BM25 original passage (k1=0.9, b=0.4)</td>
+<td>0.1357</td>
+<td>0.4458</td>
+<td>0.6149</td>
+<td></td>
+<td>0.0719</td>
+<td>0.5733</td>
+<td></td>
+<td>0.0802</td>
+<td>0.5839</td>
+
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="9">
+<div id="collapseOne" class="collapse in p-3">
+
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a
+      class="nav-link active"
+      id="ex1-tab-1"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-1"
+      role="tab"
+      aria-controls="ex1-tabs-1"
+      aria-selected="true"
+      >TREC 2021</a
+    >
+  </li>
+  <li class="nav-item" role="presentation">
+    <a
+      class="nav-link"
+      id="ex1-tab-2"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-2"
+      role="tab"
+      aria-controls="ex1-tabs-2"
+      aria-selected="false"
+      >dev</a
+    >
+  </li>
+  <li class="nav-item" role="presentation">
+    <a
+      class="nav-link"
+      id="ex1-tab-3"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-3"
+      role="tab"
+      aria-controls="ex1-tabs-3"
+      aria-selected="false"
+      >dev2</a
+    >
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="ex1-content">
+  <div
+    class="tab-pane fade show active"
+    id="ex1-tabs-1"
+    role="tabpanel"
+    aria-labelledby="ex1-tab-1"
+  >
+Command to generate run on TREC 2021:
+  <blockquote>
+  <pre><code>
+ python -m pyserini.search.lucene \
+   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2 \
+   --topics _T_ --output _R_ \
+   --batch 36 --threads 12 \
+   --impact --hits 10000 --max-passage-hits 1000 --max-passage
+   </code></pre>
+  </blockquote>
+  </div>
+  <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+
+    Command to generate run on TREC 2021:
+  <blockquote>
+  <pre><code>
+ python -m pyserini.search.lucene \
+   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2 \
+   --topics _T_ --output _R_ \
+   --batch 36 --threads 12 \
+   --impact --hits 10000 --max-passage-hits 1000 --max-passage
+   </code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+
+    Command to generate run on TREC 2021:
+  <blockquote>
+  <pre><code>
+ python -m pyserini.search.lucene \
+   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2 \
+   --topics _T_ --output _R_ \
+   --batch 36 --threads 12 \
+   --impact --hits 10000 --max-passage-hits 1000 --max-passage
+   </code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+      <tr class="accordion-toggle collapsed" id="accordion2" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+<td class="expand-button"></td>
+<td>Cell</td>
+<td>Cell</td>
+<td>Cell</td>
+
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="4">
+<div id="collapseTwo" class="collapse in p-3">
+  <div class="row">
+    <div class="col-2">label</div>
+    <div class="col-6">value</div>
+  </div>
+  <div class="row">
+    <div class="col-2">label</div>
+    <div class="col-6">value</div>
+  </div>
+  <div class="row">
+    <div class="col-2">label</div>
+    <div class="col-6">value</div>
+  </div>
+  <div class="row">
+    <div class="col-2">label</div>
+    <div class="col-6">value</div>
+  </div>
+</div></td>
+</tr>
+    </tbody>
+  </table>
+</div>
+
+      </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+
+</body>
+</html>
