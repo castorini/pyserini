@@ -171,6 +171,7 @@ trec_eval_metric_definitions = {
 
 table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 commands = defaultdict(lambda: defaultdict(lambda: ''))
+eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
 table_keys = {}
 
@@ -200,167 +201,6 @@ def find_table_topic_set_key_v2(topic_key):
     return key
 
 
-html_template = '''
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Material Design for Bootstrap</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
-    <!-- Google Fonts Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
-    <!-- MDB -->
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
-
-    <style>
-tr.hide-table-padding td {
-  padding: 0;
-}
-
-.expand-button {
-	position: relative;
-}
-
-.accordion-toggle .expand-button:after
-{
-  position: absolute;
-  left:.75rem;
-  top: 50%;
-  transform: translate(0, -50%);
-  content: '-';
-}
-.accordion-toggle.collapsed .expand-button:after
-{
-  content: '+';
-}
-    </style>
-</head>
-<body>
-
-<div class="container my-4">
-
-<div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th></th>
-        <th></th>
-        <th colspan="6"><b>TREC 2021</b></th>
-        <th colspan="3"><b>dev</b></th>
-        <th colspan="3"><b>dev2</b></th>
-      </tr>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col"></th>
-        <th scope="col"><br/>MAP@100</th>
-        <th scope="col">nDCG@10</th>
-        <th scope="col">MRR@100</th>
-        <th scope="col">R@100</th>
-        <th scope="col">R@1K</th>
-        <th scope="col"></th>
-        <th scope="col">MRR@100</th>
-        <th scope="col">R@1K</th>
-        <th scope="col"></th>
-        <th scope="col">MRR@100</th>
-        <th scope="col">R@1K</th>
-      </tr>
-    </thead>
-    <tbody>
-
-$rows
-
-    </tbody>
-  </table>
-</div>
-
-      </div>
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
-
-</body>
-</html>
-'''
-
-row_template_v2 = '''
-<!-- Condition: ${condition_name} -->
-<tr class="accordion-toggle collapsed" id="row${row_cnt}" data-toggle="collapse" data-parent="#row${row_cnt}" href="#collapse${row_cnt}">
-<td class="expand-button"></td>
-<td>${condition_name}</td>
-<td>$s1</td>
-<td>$s2</td>
-<td>$s3</td>
-<td>$s4</td>
-<td>$s5</td>
-<td></td>
-<td>$s6</td>
-<td>$s7</td>
-<td></td>
-<td>$s8</td>
-<td>$s9</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td></td>
-<td colspan="11">
-<div id="collapse${row_cnt}" class="collapse in p-3">
-
-<!-- Tabs navs -->
-<ul class="nav nav-tabs mb-3" id="row${row_cnt}-tabs" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="row${row_cnt}-tab1-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab1" role="tab" aria-controls="row${row_cnt}-tab1" aria-selected="true">TREC 2021</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab2-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab2" role="tab" aria-controls="row${row_cnt}-tab2" aria-selected="false">dev</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab3-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab3" role="tab" aria-controls="row${row_cnt}-tab3" aria-selected="false">dev2</a>
-  </li>
-</ul>
-<!-- Tabs navs -->
-
-<!-- Tabs content -->
-<div class="tab-content" id="row${row_cnt}-content">
-  <div class="tab-pane fade show active" id="row${row_cnt}-tab1" role="tabpanel" aria-labelledby="row${row_cnt}-tab1">
-Command to generate run on TREC 2021:
-
-  <blockquote>
-<pre><code>
-$cmd1
-</code></pre>
-  </blockquote>
-  </div>
-  <div class="tab-pane fade" id="row${row_cnt}-tab2" role="tabpanel" aria-labelledby="row${row_cnt}-tab2">
-    Command to generate run on dev:
-  <blockquote>
-<pre><code>
-$cmd2
-</code></pre>
-  </blockquote>
-  </div>
-  <div class="tab-pane fade" id="row${row_cnt}-tab3" role="tabpanel" aria-labelledby="row${row_cnt}-tab3">
-    Command to generate run on dev2:
-  <blockquote>
-<pre><code>
-$cmd3
-</code></pre>
-  </blockquote>
-
-  </div>
-</div>
-<!-- Tabs content -->
-
-</div></td>
-</tr>
-'''
-
-
 def format_command(raw):
     return raw.replace('--topics', '\\\n  --topics')\
         .replace('--index', '\\\n  --index')\
@@ -388,6 +228,14 @@ if __name__ == '__main__':
     else:
         raise ValueError(f'Unknown corpus: {args.collection}')
 
+    fin = open('scripts/repro_matrix/msmarco_html_v2.template', 'r')
+    html_template_v2 = fin.read()
+    fin.close()
+
+    fin = open('scripts/repro_matrix/msmarco_html_row_v2.template', 'r')
+    row_template_v2 = fin.read()
+    fin.close()
+
     with open(yaml_file) as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
@@ -399,13 +247,17 @@ if __name__ == '__main__':
                 topic_key = topic_set['topic_key']
                 eval_key = topic_set['eval_key']
 
-                runfile = f'run.{collection}.{topic_key}.{name}.txt'
-                cmd = cmd_template.replace('_R_', f'runs/{runfile}').replace('_T_', topic_key)
+                runfile = f'run.{collection}.{name}.{topic_key}.txt'
+                cmd = cmd_template.replace('_R_', f'{runfile}').replace('_T_', topic_key)
                 commands[name][find_table_topic_set_key_v2(topic_key)] = cmd
 
                 for expected in topic_set['scores']:
                     for metric in expected:
                         table_keys[name] = display
+                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[collection][eval_key][metric]} {eval_key} {runfile}'
+                        #print(eval_cmd)
+                        eval_commands[name][find_table_topic_set_key_v2(topic_key)] += eval_cmd + '\n'
+
                         if collection == 'msmarco-v1-passage' or collection == 'msmarco-v1-doc':
                             table[name][find_table_topic_set_key_v1(topic_key)][metric] = expected[metric]
                         else:
@@ -430,16 +282,6 @@ if __name__ == '__main__':
         for name in models[collection]:
             if not name:
                 continue
-            # print(row_cnt)
-            # print(f'{table_keys[name]:55}' +
-            #       f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}' +
-            #       f'{table[name]["dl21"]["MRR@100"]:8.4f}{table[name]["dl21"]["R@100"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
-            #       f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
-            #       f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}\n\n')
-            # print(f'{commands[name]["dl21"]}')
-            # print(f'{commands[name]["dev"]}')
-            # print(f'{commands[name]["dev2"]}\n')
-
             s = Template(row_template_v2)
             s = s.substitute(row_cnt=row_cnt,
                              condition_name=table_keys[name],
@@ -454,12 +296,14 @@ if __name__ == '__main__':
                              s9=f'{table[name]["dev2"]["R@1K"]:8.4f}',
                              cmd1=format_command(commands[name]['dl21']),
                              cmd2=format_command(commands[name]['dev']),
-                             cmd3=format_command(commands[name]['dev2'])
+                             cmd3=format_command(commands[name]['dev2']),
+                             eval_cmd1=eval_commands[name]['dl21'],
+                             eval_cmd2=eval_commands[name]['dev'],
+                             eval_cmd3=eval_commands[name]['dev2']
                              )
-            #print(s)
             html_rows.append(s)
+            #print('####' + eval_commands[name]['dl21'])
             row_cnt += 1
 
         all_rows = '\n'.join(html_rows)
-        print(Template(html_template).substitute(rows=all_rows))
-        #print(all_rows)
+        print(Template(html_template_v2).substitute(rows=all_rows))

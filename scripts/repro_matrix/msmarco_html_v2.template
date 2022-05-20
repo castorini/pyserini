@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Material Design for Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+tr.hide-table-padding td {
+  padding: 0;
+}
+
+.expand-button {
+	position: relative;
+}
+
+.accordion-toggle .expand-button:after
+{
+  position: absolute;
+  left:.75rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  content: '-';
+}
+.accordion-toggle.collapsed .expand-button:after
+{
+  content: '+';
+}
+
+blockquote.mycode
+{
+border-left: 3px solid #ccc; margin-left: 25px; margin-top: 15px; padding-left: 15px;
+}
+    </style>
+</head>
+<body>
+
+<div class="container my-4">
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="6"><b>TREC 2021</b></th>
+        <th colspan="3"><b>dev</b></th>
+        <th colspan="3"><b>dev2</b></th>
+      </tr>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"><br/>MAP@100</th>
+        <th scope="col">nDCG@10</th>
+        <th scope="col">MRR@100</th>
+        <th scope="col">R@100</th>
+        <th scope="col">R@1K</th>
+        <th scope="col"></th>
+        <th scope="col">MRR@100</th>
+        <th scope="col">R@1K</th>
+        <th scope="col"></th>
+        <th scope="col">MRR@100</th>
+        <th scope="col">R@1K</th>
+      </tr>
+    </thead>
+    <tbody>
+
+$rows
+
+    </tbody>
+  </table>
+</div>
+
+      </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+
+</body>
+</html>
