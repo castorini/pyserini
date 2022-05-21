@@ -62,10 +62,16 @@ if __name__ == '__main__':
                 topic_key = topic_set['topic_key']
                 eval_key = topic_set['eval_key']
 
+                short_topic_key = ''
+                if collection == 'msmarco-v1-passage' or collection == 'msmarco-v1-doc':
+                    short_topic_key = find_table_topic_set_key_v1(topic_key)
+                else:
+                    short_topic_key = find_table_topic_set_key_v2(topic_key)
+
                 if not args.skip_eval:
                     print(f'  - topic_key: {topic_key}')
 
-                runfile = f'run.{collection}.{topic_key}.{name}.txt'
+                runfile = f'run.{collection}.{name}.{short_topic_key}.txt'
                 cmd = cmd_template.replace('_R_', f'runs/{runfile}').replace('_T_', topic_key)
 
                 if not args.skip_eval:
@@ -80,18 +86,14 @@ if __name__ == '__main__':
                     for metric in expected:
                         table_keys[name] = display
                         if not args.skip_eval:
-                            score = float(run_eval_and_return_metric(metric, eval_key, trec_eval_metric_definitions[collection], runfile))
-                            result = ok_str if math.isclose(score, float(expected[metric])) else fail_str + f' expected {expected[metric]:.4f}'
+                            score = float(run_eval_and_return_metric(metric, eval_key,
+                                                                     trec_eval_metric_definitions[collection], runfile))
+                            result = ok_str if math.isclose(score, float(expected[metric])) \
+                                else fail_str + f' expected {expected[metric]:.4f}'
                             print(f'    {metric:7}: {score:.4f} {result}')
-                            if collection == 'msmarco-v1-passage' or collection == 'msmarco-v1-doc':
-                                table[name][find_table_topic_set_key_v1(topic_key)][metric] = score
-                            else:
-                                table[name][find_table_topic_set_key_v2(topic_key)][metric] = score
+                            table[name][short_topic_key][metric] = score
                         else:
-                            if collection == 'msmarco-v1-passage' or collection == 'msmarco-v1-doc':
-                                table[name][find_table_topic_set_key_v1(topic_key)][metric] = expected[metric]
-                            else:
-                                table[name][find_table_topic_set_key_v2(topic_key)][metric] = expected[metric]
+                            table[name][short_topic_key][metric] = expected[metric]
 
                 if not args.skip_eval:
                     print('')

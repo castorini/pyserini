@@ -91,13 +91,14 @@ if __name__ == '__main__':
                     short_topic_key = find_table_topic_set_key_v2(topic_key)
 
                 runfile = f'run.{collection}.{name}.{short_topic_key}.txt'
-                cmd = cmd_template.replace('_R_', f'{runfile}').replace('_T_', topic_key)
+                cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile)
                 commands[name][short_topic_key] = cmd
 
                 for expected in topic_set['scores']:
                     for metric in expected:
                         table_keys[name] = display
-                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[collection][eval_key][metric]} {eval_key} {runfile}'
+                        eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
+                                   f'{trec_eval_metric_definitions[collection][eval_key][metric]} {eval_key} {runfile}'
                         eval_commands[name][short_topic_key] += eval_cmd + '\n'
                         table[name][short_topic_key][metric] = expected[metric]
 
