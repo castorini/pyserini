@@ -17,192 +17,22 @@
 import argparse
 import math
 import os
+from collections import defaultdict
+
 import yaml
 
-from collections import defaultdict
-from scripts.repro_matrix.utils import run_eval_and_return_metric
-
-
-# The models: the rows of the results table will be ordered this way.
-models = {
-    'msmarco-v1-passage':
-    ['bm25-tuned',
-     'bm25-rm3-tuned',
-     '',
-     'bm25-d2q-t5-tuned',
-     '',
-     'bm25-default',
-     'bm25-rm3-default',
-     '',
-     'bm25-d2q-t5-default',
-     '',
-     'unicoil-noexp',
-     'unicoil',
-     '',
-     'unicoil-noexp-otf',
-     'unicoil-otf',
-     '',
-     'tct_colbert-v2-hnp',
-     'tct_colbert-v2-hnp-otf'],
-    'msmarco-v1-doc':
-    ['bm25-doc-tuned',
-     'bm25-doc-segmented-tuned',
-     'bm25-rm3-doc-tuned',
-     'bm25-rm3-doc-segmented-tuned',
-     '',
-     'bm25-d2q-t5-doc-tuned',
-     'bm25-d2q-t5-doc-segmented-tuned',
-     '',
-     'bm25-doc-default',
-     'bm25-doc-segmented-default',
-     'bm25-rm3-doc-default',
-     'bm25-rm3-doc-segmented-default',
-     '',
-     'bm25-d2q-t5-doc-default',
-     'bm25-d2q-t5-doc-segmented-default',
-     '',
-     'unicoil-noexp',
-     'unicoil',
-     '',
-     'unicoil-noexp-otf',
-     'unicoil-otf'],
-    'msmarco-v2-passage':
-    ['bm25-default',
-     'bm25-augmented-default',
-     'bm25-rm3-default',
-     'bm25-rm3-augmented-default',
-     '',
-     'bm25-d2q-t5-default',
-     'bm25-d2q-t5-augmented-default',
-     '',
-     'unicoil-noexp',
-     'unicoil',
-     '',
-     'unicoil-noexp-otf',
-     'unicoil-otf'],
-    'msmarco-v2-doc':
-    ['bm25-doc-default',
-     'bm25-doc-segmented-default',
-     'bm25-rm3-doc-default',
-     'bm25-rm3-doc-segmented-default',
-     '',
-     'bm25-d2q-t5-doc-default',
-     'bm25-d2q-t5-doc-segmented-default',
-     '',
-     'unicoil-noexp',
-     'unicoil',
-     '',
-     'unicoil-noexp-otf',
-     'unicoil-otf'
-     ]
-}
-
-fail_str = '\033[91m[FAIL]\033[0m'
-ok_str = '[OK] '
-
-trec_eval_metric_definitions = {
-    'msmarco-v1-passage': {
-        'msmarco-passage-dev-subset': {
-            'MRR@10': '-c -M 10 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl19-passage': {
-            'MAP': '-c -l 2 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -l 2 -m recall.1000'
-        },
-        'dl20-passage': {
-            'MAP': '-c -l 2 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -l 2 -m recall.1000'
-        }
-    },
-    'msmarco-v1-doc': {
-        'msmarco-doc-dev': {
-            'MRR@10': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl19-doc': {
-            'MAP': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl20-doc': {
-            'MAP': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -m recall.1000'
-        }
-    },
-    'msmarco-v2-passage': {
-        'msmarco-v2-passage-dev': {
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'msmarco-v2-passage-dev2': {
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl21-passage': {
-            'MAP@100': '-c -l 2 -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'MRR@100': '-c -l 2 -M 100 -m recip_rank',
-            'R@100': '-c -l 2 -m recall.100',
-            'R@1K': '-c -l 2 -m recall.1000'
-        }
-    },
-    'msmarco-v2-doc': {
-        'msmarco-v2-doc-dev': {
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'msmarco-v2-doc-dev2': {
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl21-doc': {
-            'MAP@100': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@100': '-c -m recall.100',
-            'R@1K': '-c -m recall.1000'
-        }
-    }
-}
-
-table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
-table_keys = {}
-
-
-def find_table_topic_set_key_v1(topic_key):
-    # E.g., we want to map variants like 'dl19-passage-unicoil' and 'dl19-passage' both into 'dl19'
-    key = ''
-    if topic_key.startswith('dl19'):
-        key = 'dl19'
-    elif topic_key.startswith('dl20'):
-        key = 'dl20'
-    elif topic_key.startswith('msmarco'):
-        key = 'msmarco'
-
-    return key
-
-
-def find_table_topic_set_key_v2(topic_key):
-    key = ''
-    if topic_key.endswith('dev') or topic_key.endswith('dev-unicoil') or topic_key.endswith('dev-unicoil-noexp'):
-        key = 'dev'
-    elif topic_key.endswith('dev2') or topic_key.endswith('dev2-unicoil') or topic_key.endswith('dev2-unicoil-noexp'):
-        key = 'dev2'
-    elif topic_key.startswith('dl21'):
-        key = 'dl21'
-
-    return key
-
+from scripts.repro_matrix.defs import models, trec_eval_metric_definitions
+from scripts.repro_matrix.utils import run_eval_and_return_metric, ok_str, fail_str, \
+    find_table_topic_set_key_v1, find_table_topic_set_key_v2
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Generate regression matrix for MS MARCO V1 passage corpus.')
+    parser = argparse.ArgumentParser(description='Generate regression matrix for MS MARCO corpora.')
     parser.add_argument('--collection', type=str, help='Collection = {v1-passage, v1-doc, v2-passage, v2-doc}.', required=True)
     parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
     args = parser.parse_args()
+
+    table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
+    table_keys = {}
 
     if args.collection == 'v1-passage':
         collection = 'msmarco-v1-passage'
