@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Material Design for Bootstrap</title>
+    <title>Pyserini Reproductions</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -56,8 +56,6 @@ tr th.headerbottom {
 	background-color: grey;
 	color: #F1F2F3 !important;
 	cursor: pointer;
-	/* border: 1px solid #bbb;
-	border: 0; */
 	border-style: none;
 	font-family: 'HELVETICA',sans-serif;
 	font-size: 0.8em;
@@ -69,20 +67,10 @@ tr th.headerbottom {
 	font-weight: 500;
 	line-height: 1.42rem;
 	margin: 0;
-	/* padding: 6px 10px 10px;
-	padding: 0px 5px; */
 	padding: 3px 8px;
 	position: absolute !important;
 	top: 0 !important;
 	right: 0 !important;
-
-	/* right-align
-	display: block;
-	margin-left: auto;
-	margin-right: 0;
-
-	margin-bottom: -2px;
-	padding: 3px 8px; */
 }
 
 .copy-code-button > span {

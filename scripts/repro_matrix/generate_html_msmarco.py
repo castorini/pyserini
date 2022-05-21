@@ -306,4 +306,8 @@ if __name__ == '__main__':
             row_cnt += 1
 
         all_rows = '\n'.join(html_rows)
-        print(Template(html_template_v2).substitute(title='MS MARCO V2 Passage', rows=all_rows))
+        if collection == 'msmarco-v2-passage':
+            full_name = 'MS MARCO V2 Passage'
+        else:
+            full_name = 'MS MARCO V2 Document'
+        print(Template(html_template_v2).substitute(title=full_name, rows=all_rows))
