@@ -122,10 +122,10 @@ if __name__ == '__main__':
                              s8=f'{table[name]["msmarco"]["R@1K"]:8.4f}',
                              cmd1=format_command(commands[name]['dl19']),
                              cmd2=format_command(commands[name]['dl20']),
-                             cmd3=format_command(commands[name]['msmarco']),
+                             cmd3=format_command(commands[name]['dev']),
                              eval_cmd1=eval_commands[name]['dl19'],
                              eval_cmd2=eval_commands[name]['dl20'],
-                             eval_cmd3=eval_commands[name]['msmarco']
+                             eval_cmd3=eval_commands[name]['dev']
                              )
             html_rows.append(s)
             row_cnt += 1

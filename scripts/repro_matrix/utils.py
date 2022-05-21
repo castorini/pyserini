@@ -28,8 +28,7 @@ def find_table_topic_set_key_v1(topic_key):
     elif topic_key.startswith('dl20'):
         key = 'dl20'
     elif topic_key.startswith('msmarco'):
-        # This should be renamed 'dev' to be consistent.
-        key = 'msmarco'
+        key = 'dev'
 
     return key
 
@@ -56,7 +55,7 @@ def run_command(cmd):
 
 
 def run_eval_and_return_metric(metric, eval_key, defs, runfile):
-    eval_cmd = f'python -m pyserini.eval.trec_eval {defs[eval_key][metric]} {eval_key} runs/{runfile}'
+    eval_cmd = f'python -m pyserini.eval.trec_eval {defs[eval_key][metric]} {eval_key} {runfile}'
     eval_stdout, eval_stderr = run_command(eval_cmd)
 
     for line in eval_stdout.split('\n'):

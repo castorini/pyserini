@@ -72,11 +72,11 @@ if __name__ == '__main__':
                 if not args.skip_eval:
                     print(f'  - topic_key: {topic_key}')
 
-                runfile = f'run.{collection}.{name}.{short_topic_key}.txt'
+                runfile = f'runs/run.{collection}.{name}.{short_topic_key}.txt'
                 cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile)
 
                 if not args.skip_eval:
-                    if not os.path.exists(f'runs/{runfile}'):
+                    if not os.path.exists(runfile):
                         print(f'    Running: {cmd}')
                         os.system(cmd)
 
