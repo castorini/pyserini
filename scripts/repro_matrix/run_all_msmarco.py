@@ -18,6 +18,7 @@ import argparse
 import math
 import os
 from collections import defaultdict
+from string import Template
 
 import yaml
 
@@ -72,7 +73,7 @@ if __name__ == '__main__':
                     print(f'  - topic_key: {topic_key}')
 
                 runfile = f'run.{collection}.{name}.{short_topic_key}.txt'
-                cmd = cmd_template.replace('_R_', f'runs/{runfile}').replace('_T_', topic_key)
+                cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile)
 
                 if not args.skip_eval:
                     if not os.path.exists(f'runs/{runfile}'):
