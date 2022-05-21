@@ -18,29 +18,57 @@ tr.hide-table-padding td {
 }
 
 .expand-button {
-	position: relative;
+  position: relative;
 }
 
-.accordion-toggle .expand-button:after
-{
+.accordion-toggle .expand-button:after {
   position: absolute;
   left:.75rem;
   top: 50%;
   transform: translate(0, -50%);
   content: '-';
 }
-.accordion-toggle.collapsed .expand-button:after
-{
+
+.accordion-toggle.collapsed .expand-button:after {
   content: '+';
 }
 
-blockquote.mycode
-{
-border-left: 3px solid #ccc; margin-left: 25px; margin-top: 15px; padding-left: 15px;
+blockquote.mycode {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  margin-top: 15px;
+  padding-left: 15px;
+}
+
+tr th.headertop {
+  border-bottom: none;
+  padding-bottom: 0rem
+}
+
+tr th.headerbottom {
+  padding-top: 0rem
 }
     </style>
 </head>
 <body>
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image vh-100 shadow-1-strong" style="max-height: 150px">
+      <div class="mask" style="
+            background: linear-gradient(
+              45deg,
+              rgba(29, 236, 197, 0.7),
+              rgba(91, 14, 214, 0.7) 100%
+            );
+          ">
+        <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
+          <div class="text-white">
+            <h1 class="mb-3">$title</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
 
 <div class="container my-4">
 
@@ -48,26 +76,26 @@ border-left: 3px solid #ccc; margin-left: 25px; margin-top: 15px; padding-left: 
   <table class="table">
     <thead>
       <tr>
-        <th></th>
-        <th></th>
-        <th colspan="6"><b>TREC 2021</b></th>
-        <th colspan="3"><b>dev</b></th>
-        <th colspan="3"><b>dev2</b></th>
+        <th class="headertop"></th>
+        <th class="headertop"></th>
+        <th class="headertop" colspan="6"><b>TREC 2021</b></th>
+        <th class="headertop" colspan="3"><b>dev</b></th>
+        <th class="headertop" colspan="3"><b>dev2</b></th>
       </tr>
       <tr>
-        <th scope="col"></th>
-        <th scope="col"></th>
-        <th scope="col"><br/>MAP@100</th>
-        <th scope="col">nDCG@10</th>
-        <th scope="col">MRR@100</th>
-        <th scope="col">R@100</th>
-        <th scope="col">R@1K</th>
-        <th scope="col"></th>
-        <th scope="col">MRR@100</th>
-        <th scope="col">R@1K</th>
-        <th scope="col"></th>
-        <th scope="col">MRR@100</th>
-        <th scope="col">R@1K</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"><br/>MAP@100</th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">MRR@100</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col">R@1K</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">MRR@100</th>
+        <th class="headerbottom" scope="col">R@1K</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">MRR@100</th>
+        <th class="headerbottom" scope="col">R@1K</th>
       </tr>
     </thead>
     <tbody>

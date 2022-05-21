@@ -247,21 +247,22 @@ if __name__ == '__main__':
                 topic_key = topic_set['topic_key']
                 eval_key = topic_set['eval_key']
 
-                runfile = f'run.{collection}.{name}.{topic_key}.txt'
+                short_topic_key = ''
+                if collection == 'msmarco-v1-passage' or collection == 'msmarco-v1-doc':
+                    short_topic_key = find_table_topic_set_key_v1(topic_key)
+                else:
+                    short_topic_key = find_table_topic_set_key_v2(topic_key)
+
+                runfile = f'run.{collection}.{name}.{short_topic_key}.txt'
                 cmd = cmd_template.replace('_R_', f'{runfile}').replace('_T_', topic_key)
-                commands[name][find_table_topic_set_key_v2(topic_key)] = cmd
+                commands[name][short_topic_key] = cmd
 
                 for expected in topic_set['scores']:
                     for metric in expected:
                         table_keys[name] = display
                         eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[collection][eval_key][metric]} {eval_key} {runfile}'
-                        #print(eval_cmd)
                         eval_commands[name][find_table_topic_set_key_v2(topic_key)] += eval_cmd + '\n'
-
-                        if collection == 'msmarco-v1-passage' or collection == 'msmarco-v1-doc':
-                            table[name][find_table_topic_set_key_v1(topic_key)][metric] = expected[metric]
-                        else:
-                            table[name][find_table_topic_set_key_v2(topic_key)][metric] = expected[metric]
+                        table[name][short_topic_key][metric] = expected[metric]
 
     if collection == 'msmarco-v1-passage' or collection == 'msmarco-v1-doc':
         print(' ' * 64 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
@@ -302,8 +303,7 @@ if __name__ == '__main__':
                              eval_cmd3=eval_commands[name]['dev2']
                              )
             html_rows.append(s)
-            #print('####' + eval_commands[name]['dl21'])
             row_cnt += 1
 
         all_rows = '\n'.join(html_rows)
-        print(Template(html_template_v2).substitute(rows=all_rows))
+        print(Template(html_template_v2).substitute(title='MS MARCO V2 Passage', rows=all_rows))

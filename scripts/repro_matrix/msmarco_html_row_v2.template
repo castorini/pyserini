@@ -22,13 +22,13 @@
 <!-- Tabs navs -->
 <ul class="nav nav-tabs mb-3" id="row${row_cnt}-tabs" role="tablist">
   <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="row${row_cnt}-tab1-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab1" role="tab" aria-controls="row${row_cnt}-tab1" aria-selected="true">TREC 2021</a>
+    <a class="nav-link active" id="row${row_cnt}-tab1-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab1" role="tab" aria-controls="row${row_cnt}-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab2-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab2" role="tab" aria-controls="row${row_cnt}-tab2" aria-selected="false">dev</a>
+    <a class="nav-link" id="row${row_cnt}-tab2-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab2" role="tab" aria-controls="row${row_cnt}-tab2" aria-selected="false" style="text-transform:none">dev</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab3-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab3" role="tab" aria-controls="row${row_cnt}-tab3" aria-selected="false">dev2</a>
+    <a class="nav-link" id="row${row_cnt}-tab3-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab3" role="tab" aria-controls="row${row_cnt}-tab3" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
