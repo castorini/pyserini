@@ -1,7 +1,7 @@
 conditions:
   - name: bm25-default
     display: BM25 original passage (k1=0.9, b=0.4)
-    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v2-passage-slim --output _R_ --bm25
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-slim --output $output --bm25
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
@@ -23,7 +23,7 @@ conditions:
             R@1K: 0.6149
   - name: bm25-augmented-default
     display: BM25 augmented passage (k1=0.9, b=0.4)
-    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v2-passage-augmented-slim --output _R_ --bm25
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-augmented-slim --output $output --bm25
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
@@ -45,7 +45,7 @@ conditions:
             R@1K: 0.5835
   - name: bm25-rm3-default
     display: BM25+RM3 original passage (k1=0.9, b=0.4)
-    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v2-passage-full --output _R_ --bm25 --rm3
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-full --output $output --bm25 --rm3
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
@@ -67,7 +67,7 @@ conditions:
             R@1K: 0.6619
   - name: bm25-rm3-augmented-default
     display: BM25+RM3 augmented passage (k1=0.9, b=0.4)
-    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v2-passage-augmented-full --output _R_ --bm25 --rm3
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-augmented-full --output $output --bm25 --rm3
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
@@ -89,7 +89,7 @@ conditions:
             R@1K: 0.6268
   - name: bm25-d2q-t5-default
     display: BM25 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
-    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v2-passage-d2q-t5 --output _R_ --bm25 --k1 0.9 --b 0.4
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-d2q-t5 --output $output --bm25 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
@@ -111,7 +111,7 @@ conditions:
             R@1K: 0.7078
   - name: bm25-d2q-t5-augmented-default
     display: BM25 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
-    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v2-passage-augmented-d2q-t5 --output _R_ --bm25 --k1 0.9 --b 0.4
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-augmented-d2q-t5 --output $output --bm25 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
@@ -133,7 +133,7 @@ conditions:
             R@1K: 0.6962
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
-    command: python -m pyserini.search.lucene --index msmarco-v2-passage-unicoil-0shot --topics _T_ --output _R_ --batch 36 --threads 12 --hits 1000 --impact
+    command: python -m pyserini.search.lucene --index msmarco-v2-passage-unicoil-0shot --topics $topics --output $output --batch 36 --threads 12 --hits 1000 --impact
     topics:
       - topic_key: msmarco-v2-passage-dev-unicoil
         eval_key: msmarco-v2-passage-dev
@@ -155,7 +155,7 @@ conditions:
             R@1K: 0.7551
   - name: unicoil-otf
     display: "uniCOIL (w/ doc2query-T5): otf"
-    command: python -m pyserini.search.lucene --index msmarco-v2-passage-unicoil-0shot --topics _T_ --encoder castorini/unicoil-msmarco-passage --output _R_ --batch 36 --threads 12 --hits 1000 --impact
+    command: python -m pyserini.search.lucene --index msmarco-v2-passage-unicoil-0shot --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --batch 36 --threads 12 --hits 1000 --impact
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
@@ -177,7 +177,7 @@ conditions:
             R@1K: 0.7560
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
-    command: python -m pyserini.search.lucene --index msmarco-v2-passage-unicoil-noexp-0shot --topics _T_ --output _R_ --batch 36 --threads 12 --hits 1000 --impact
+    command: python -m pyserini.search.lucene --index msmarco-v2-passage-unicoil-noexp-0shot --topics $topics --output $output --batch 36 --threads 12 --hits 1000 --impact
     topics:
       - topic_key: msmarco-v2-passage-dev-unicoil-noexp
         eval_key: msmarco-v2-passage-dev
@@ -199,7 +199,7 @@ conditions:
             R@1K: 0.6897
   - name: unicoil-noexp-otf
     display: "uniCOIL (noexp): otf"
-    command: python -m pyserini.search.lucene --index msmarco-v2-passage-unicoil-noexp-0shot --topics _T_ --encoder castorini/unicoil-noexp-msmarco-passage --output _R_ --batch 36 --threads 12 --hits 1000 --impact
+    command: python -m pyserini.search.lucene --index msmarco-v2-passage-unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --batch 36 --threads 12 --hits 1000 --impact
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
