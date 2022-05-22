@@ -15,6 +15,7 @@
 #
 
 import argparse
+import re
 from collections import defaultdict
 from string import Template
 
@@ -112,14 +113,14 @@ if __name__ == '__main__':
             s = Template(row_template)
             s = s.substitute(row_cnt=row_cnt,
                              condition_name=table_keys[name],
-                             s1=f'{table[name]["dl19"]["MAP"]:8.4f}',
-                             s2=f'{table[name]["dl19"]["nDCG@10"]:8.4f}',
-                             s3=f'{table[name]["dl19"]["R@1K"]:8.4f}',
-                             s4=f'{table[name]["dl20"]["MAP"]:8.4f}',
-                             s5=f'{table[name]["dl20"]["nDCG@10"]:8.4f}',
-                             s6=f'{table[name]["dl20"]["R@1K"]:8.4f}',
-                             s7=f'{table[name]["msmarco"]["MRR@10"]:8.4f}',
-                             s8=f'{table[name]["msmarco"]["R@1K"]:8.4f}',
+                             s1=f'{table[name]["dl19"]["MAP"]:.4f}' if table[name]['dl19']['MAP'] != 0 else '-',
+                             s2=f'{table[name]["dl19"]["nDCG@10"]:.4f}' if table[name]['dl19']['nDCG@10'] != 0 else '-',
+                             s3=f'{table[name]["dl19"]["R@1K"]:.4f}' if table[name]['dl19']['R@1K'] != 0 else '-',
+                             s4=f'{table[name]["dl20"]["MAP"]:.4f}' if table[name]['dl20']['MAP'] != 0 else '-',
+                             s5=f'{table[name]["dl20"]["nDCG@10"]:.4f}' if table[name]['dl20']['nDCG@10'] != 0 else '-',
+                             s6=f'{table[name]["dl20"]["R@1K"]:.4f}' if table[name]['dl20']['R@1K'] != 0 else '-',
+                             s7=f'{table[name]["dev"]["MRR@10"]:.4f}' if table[name]['dev']['MRR@10'] != 0 else '-',
+                             s8=f'{table[name]["dev"]["R@1K"]:.4f}' if table[name]['dev']['R@1K'] != 0 else '-',
                              cmd1=format_command(commands[name]['dl19']),
                              cmd2=format_command(commands[name]['dl20']),
                              cmd3=format_command(commands[name]['dev']),
@@ -127,6 +128,15 @@ if __name__ == '__main__':
                              eval_cmd2=eval_commands[name]['dl20'],
                              eval_cmd3=eval_commands[name]['dev']
                              )
+
+            # If we don't have scores, we want to remove the commands also. Use simple regexp substitution.
+            if table[name]['dl19']['MAP'] == 0:
+                s = re.sub(re.compile('Command to generate run on TREC 2019 queries:.*?</div>', re.MULTILINE | re.DOTALL), 'Not available.</div>', s)
+            if table[name]['dl20']['MAP'] == 0:
+                s = re.sub(re.compile('Command to generate run on TREC 2020 queries:.*?</div>', re.MULTILINE | re.DOTALL), 'Not available.</div>', s)
+            if table[name]['dev']['MRR@10'] == 0:
+                s = re.sub(re.compile('Command to generate run on dev queries:.*?</div>', re.MULTILINE | re.DOTALL), 'Not available.</div>', s)
+
             html_rows.append(s)
             row_cnt += 1
 
