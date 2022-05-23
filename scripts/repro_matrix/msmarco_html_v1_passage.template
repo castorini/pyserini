@@ -151,15 +151,15 @@ pre[class*="prettyprint"] {
       <tr>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"><br/>AP@100</th>
+        <th class="headerbottom" scope="col"><br/>AP</th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@1K</th>
         <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"><br/>AP@100</th>
+        <th class="headerbottom" scope="col"><br/>AP</th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@1K</th>
         <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col">RR@100</th>
+        <th class="headerbottom" scope="col">RR@10</th>
         <th class="headerbottom" scope="col">R@1K</th>
 
       </tr>
