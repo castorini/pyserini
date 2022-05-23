@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for commands in Ma et al. (SIGIR 2022) paper."""
+"""Integration tests for commands in Ma et al. resource paper and Trotman et al. demo paper at SIGIR 2022."""
 
 import os
 import unittest
@@ -26,8 +26,8 @@ class TestSIGIR2021(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
 
-    def test_section4_1a(self):
-        """Sample code in Section 4.1."""
+    def test_Ma_etal_section4_1a(self):
+        """Sample code in Section 4.1. in Ma et al. resource paper."""
 
         output_file = 'run.msmarco-passage.expanded.txt'
         self.temp_files.append(output_file)
@@ -47,8 +47,8 @@ class TestSIGIR2021(unittest.TestCase):
         self.assertAlmostEqual(score, 0.2816, delta=0.0001)
         # Note that this is the score with (k1=2.18, b=0.86); score is 0.2723 with default (k1=0.9, b=0.4) parameters.
 
-    def test_section4_1b(self):
-        """Sample code in Section 4.1."""
+    def test_Ma_etal_section4_1b(self):
+        """Sample code in Section 4.1. in Ma et al. resource paper."""
 
         output_file = 'run.msmarco-v2-passage.unicoil.txt'
         self.temp_files.append(output_file)
@@ -68,6 +68,29 @@ class TestSIGIR2021(unittest.TestCase):
         score = parse_score(stdout, "recip_rank")
         self.assertAlmostEqual(score, 0.1501, delta=0.0001)
         # This is the score with otf; with pre-encoded, the score is 0.1499.
+
+    def test_Trotman_etal(self):
+        """Sample code in Trotman et al. demo paper."""
+
+        output_file = 'run.msmarco-passage.unicoil.tsv'
+        self.temp_files.append(output_file)
+        run_cmd = f'python -m pyserini.search.lucene \
+                      --index msmarco-passage-unicoil-d2q \
+                      --topics msmarco-passage-dev-subset-unicoil \
+                      --output {output_file} \
+                      --output-format msmarco \
+                      --batch 36 --threads 12 \
+                      --hits 1000 \
+                      --impact'
+        status = os.system(run_cmd)
+        self.assertEqual(status, 0)
+
+        eval_cmd = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
+        stdout, stderr = run_command(eval_cmd)
+        score = parse_score_msmarco(stdout, "MRR @10", digits=3)
+        self.assertAlmostEqual(score, 0.352, delta=0.0005)
+
+        # TODO: There's corresponding test code with JASS that's also in the demo paper. We should also add.
 
     def tearDown(self):
         clean_files(self.temp_files)
