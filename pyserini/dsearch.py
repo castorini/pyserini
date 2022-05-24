@@ -14,18 +14,33 @@
 # limitations under the License.
 #
 
-from pyserini.search.faiss import FaissSearcher, BinaryDenseSearcher as FaissBinaryDenseSearcher
+"""Deprecated. The package ``pyserini.dsearch` has been renamed `pyserini.search.faiss`. Stubs are retained here for
+redirection purpose to ensure that code in existing published papers remain function (with warnings)."""
+
+import os
+import sys
+
+import pyserini.search.faiss
+from pyserini.search.faiss import TctColBertQueryEncoder
+
+__all__ = ['SimpleDenseSearcher', 'BinaryDenseSearcher', 'TctColBertQueryEncoder']
 
 
-class SimpleDenseSearcher(FaissSearcher):
+class SimpleDenseSearcher(pyserini.search.faiss.FaissSearcher):
     def __new__(cls, *args, **kwargs):
         print('pyserini.dsearch.SimpleDenseSearcher class has been deprecated, '
               'please use FaissSearcher from pyserini.search.faiss instead')
         return super().__new__(cls)
 
 
-class BinaryDenseSearcher(FaissBinaryDenseSearcher):
+class BinaryDenseSearcher(pyserini.search.faiss.BinaryDenseSearcher):
     def __new__(cls, *args, **kwargs):
         print('pyserini.dsearch.BinaryDenseSearcher class has been deprecated, '
               'please use BinaryDenseSearcher from pyserini.search.faiss instead')
         return super().__new__(cls)
+
+
+if __name__ == "__main__":
+    print('WARNING: pyserini.dsearch is deprecated, please use pyserini.search.faiss instead!')
+    args = " ".join(sys.argv[1:])
+    os.system(f'python -m pyserini.search.faiss {args}')
