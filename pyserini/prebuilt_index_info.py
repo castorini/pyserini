@@ -3165,145 +3165,145 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
     },
-    "mrtydi-v1.1-arabic-mdpr-tied-nq": {
+    "mrtydi-v1.1-arabic-mdpr-tied-pft-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
-        "filename": "faiss.mrtydi-v1.1-arabic.20220504.1dec0d61.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-arabic.20220504.1dec0d61.README.md",
+        "filename": "faiss.mrtydi-v1.1-arabic.20220523.7b099d5.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-arabic.20220523.7b099d5.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/fEJJr3EktfJRFDN/download" # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-arabic.20220523.7b099d5.tar.gz",
         ],
-        "md5": "2b21aed4040e0a092fcc0e682bb09fdf",
-        "size compressed (bytes)": 5990574821,
+        "md5": "3d764e7936bb6beb5308ccfd6717b38e",
+        "size compressed (bytes)": 5988743258,
         "documents": 2106586,
         "downloaded": False,
         "texts": "mrtydi-v1.1-arabic"
     },
-    "mrtydi-v1.1-bengali-mdpr-tied-nq": {
+    "mrtydi-v1.1-bengali-mdpr-tied-pft-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
-        "filename": "faiss.mrtydi-v1.1-bengali.20220504.1dec0d61.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-bengali.20220504.1dec0d61.README.md",
+        "filename": "faiss.mrtydi-v1.1-bengali.20220523.7b099d5.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-bengali.20220523.7b099d5.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/GfSGpbQ9CDTEwtd/download" # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-bengali.20220523.7b099d5.tar.gz",
         ],
-        "md5": "8e20683eba9640805f8329a84c2780f6",
-        "size compressed (bytes)": 864916438,
+        "md5": "2ee8e550245f7eb5184c27fe3369d818",
+        "size compressed (bytes)": 864358280,
         "documents": 304059,
         "downloaded": False,
         "texts": "mrtydi-v1.1-bengali"
     },
-    "mrtydi-v1.1-english-mdpr-tied-nq": {
+    "mrtydi-v1.1-english-mdpr-tied-pft-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
-        "filename": "faiss.mrtydi-v1.1-english.20220504.1dec0d61.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-english.20220504.1dec0d61.README.md",
+        "filename": "faiss.mrtydi-v1.1-english.20220523.7b099d5.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-english.20220523.7b099d5.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/7PosFnDSZHXFpzA/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-english.20220523.7b099d5.tar.gz",
         ],
-        "md5": "e4bb148d80579ae71ac439d3ee557eab",
-        "size compressed (bytes)": 93461505075,
+        "md5": "a1be61486c209bf2545d63f950274a99",
+        "size compressed (bytes)": 93435965796,
         "documents": 32907100,
         "downloaded": False,
         "texts": "mrtydi-v1.1-english"
     },
-    "mrtydi-v1.1-finnish-mdpr-tied-nq": {
+    "mrtydi-v1.1-finnish-mdpr-tied-pft-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
-        "filename": "faiss.mrtydi-v1.1-finnish.20220504.1dec0d61.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-finnish.20220504.1dec0d61.README.md",
+        "filename": "faiss.mrtydi-v1.1-finnish.20220523.7b099d5.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-finnish.20220523.7b099d5.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/prWq6jtTxTyPkQo/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-finnish.20220523.7b099d5.tar.gz",
         ],
-        "md5": "bcc11f74e3c313b73ad651466762432d",
-        "size compressed (bytes)": 5429714317,
+        "md5": "0dbd873fa8bf8c87052940bdf4097ba2",
+        "size compressed (bytes)": 5427976705,
         "documents": 1908757,
         "downloaded": False,
         "texts": "mrtydi-v1.1-finnish"
     },
-    "mrtydi-v1.1-indonesian-mdpr-tied-nq": {
+    "mrtydi-v1.1-indonesian-mdpr-tied-pft-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
-        "filename": "faiss.mrtydi-v1.1-indonesian.20220504.1dec0d61.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-indonesian.20220504.1dec0d61.README.md",
+        "filename": "faiss.mrtydi-v1.1-indonesian.20220523.7b099d5.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-indonesian.20220523.7b099d5.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/xoaCr96NPwYLGKD/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-indonesian.20220523.7b099d5.tar.gz",
         ],
-        "md5": "ad19e9d498dc76e306d4d61bcd377993",
-        "size compressed (bytes)": 4173436459,
+        "md5": "937f7c03e2386166e34ef81b25d7959f",
+        "size compressed (bytes)": 4172976570,
         "documents": 4179177829,
         "downloaded": False,
         "texts": "mrtydi-v1.1-indonesian"
     },
-    "mrtydi-v1.1-japanese-mdpr-tied-nq": {
+    "mrtydi-v1.1-japanese-mdpr-tied-pft-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
-        "filename": "faiss.mrtydi-v1.1-japanese.20220504.1dec0d61.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-japanese.20220504.1dec0d61.README.md",
+        "filename": "faiss.mrtydi-v1.1-japanese.20220523.7b099d5.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-japanese.20220523.7b099d5.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/wj7K4gTWoWSdBHy/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-japanese.20220523.7b099d5.tar.gz",
         ],
-        "md5": "18fd9e7c4df15c1c8873a7b0d49791c9",
-        "size compressed (bytes)": 19888266732,
+        "md5": "21a64d1a012a854d4bf42fa24c8712fd",
+        "size compressed (bytes)": 19890571158,
         "documents": 7000027,
         "downloaded": False,
         "texts": "mrtydi-v1.1-japanese"
     },
-    "mrtydi-v1.1-korean-mdpr-tied-nq": {
+    "mrtydi-v1.1-korean-mdpr-tied-pft-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
-        "filename": "faiss.mrtydi-v1.1-korean.20220504.1dec0d61.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-korean.20220504.1dec0d61.README.md",
+        "filename": "faiss.mrtydi-v1.1-korean.20220523.7b099d5.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-korean.20220523.7b099d5.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/7fnDHPkr8pKdz5F/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-korean.20220523.7b099d5.tar.gz",
         ],
-        "md5": "6a13b48c687bf16ea4226a9358a738d6",
-        "size compressed (bytes)": 4249850695,
+        "md5": "ed3216fb5bc431ac52931b58cc4c4d0f",
+        "size compressed (bytes)": 4250320804,
         "documents": 1496126,
         "downloaded": False,
         "texts": "mrtydi-v1.1-korean"
     },
-    "mrtydi-v1.1-russian-mdpr-tied-nq": {
+    "mrtydi-v1.1-russian-mdpr-tied-pft-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
-        "filename": "faiss.mrtydi-v1.1-russian.20220504.1dec0d61.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-russian.20220504.1dec0d61.README.md",
+        "filename": "faiss.mrtydi-v1.1-russian.20220523.7b099d5.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-russian.20220523.7b099d5.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/XTsYKkxNgsbfFXX/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-russian.20220523.7b099d5.tar.gz",
         ],
-        "md5": "4032e241aba124480383b79dabd2bf32",
-        "size compressed (bytes)": 27285281853,
+        "md5": "c3c4db1397c7125f8e411cf637054148",
+        "size compressed (bytes)": 27278520787,
         "documents": 9597504,
         "downloaded": False,
         "texts": "mrtydi-v1.1-russian"
     },
-    "mrtydi-v1.1-swahili-mdpr-tied-nq": {
+    "mrtydi-v1.1-swahili-mdpr-tied-pft-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
-        "filename": "faiss.mrtydi-v1.1-swahili.20220504.1dec0d61.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-swahili.20220504.1dec0d61.README.md",
+        "filename": "faiss.mrtydi-v1.1-swahili.20220523.7b099d5.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-swahili.20220523.7b099d5.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/ejMDggoZxpKAm9s/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-swahili.20220523.7b099d5.tar.gz",
         ],
-        "md5": "2d13c186697dcc18e10ea397e2909887",
-        "size compressed (bytes)": 389235509,
+        "md5": "20235115c0a877e11c91cb662d5a6fdb",
+        "size compressed (bytes)": 389244265,
         "documents": 136689,
         "downloaded": False,
         "texts": "mrtydi-v1.1-swahili"
     },
-    "mrtydi-v1.1-telugu-mdpr-tied-nq": {
+    "mrtydi-v1.1-telugu-mdpr-tied-pft-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
-        "filename": "faiss.mrtydi-v1.1-telugu.20220504.1dec0d61.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-telugu.20220504.1dec0d61.README.md",
+        "filename": "faiss.mrtydi-v1.1-telugu.20220523.7b099d5.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-telugu.20220523.7b099d5.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/ro4KSxtrdxLCAoe/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-telugu.20220523.7b099d5.tar.gz",
         ],
-        "md5": "60f2ea520079f2ca36b17176597011e4",
-        "size compressed (bytes)": 1558620326,
+        "md5": "86cae6fe8f8c08489e49b6e6c28a09b0",
+        "size compressed (bytes)": 1558691592,
         "documents": 548224,
         "downloaded": False,
         "texts": "mrtydi-v1.1-telugu"
     },
-    "mrtydi-v1.1-thai-mdpr-tied-nq": {
+    "mrtydi-v1.1-thai-mdpr-tied-pft-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
-        "filename": "faiss.mrtydi-v1.1-thai.20220504.1dec0d61.tar.gz",
-        "readme": "faiss.mrtydi-v1.1-thai.20220504.1dec0d61.README.md",
+        "filename": "faiss.mrtydi-v1.1-thai.20220523.7b099d5.tar.gz",
+        "readme": "faiss.mrtydi-v1.1-thai.20220523.7b099d5.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/DdfNeMssdkpQTyq/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-thai.20220523.7b099d5.tar.gz",
         ],
-        "md5": "d9b07b715fc9aea57ced7fbd1753ab6f",
-        "size compressed (bytes)": 1613788237,
+        "md5": "3ba9c64a9f7479bd2e3a84a816ee0f6f",
+        "size compressed (bytes)": 1613563144,
         "documents": 568855,
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
