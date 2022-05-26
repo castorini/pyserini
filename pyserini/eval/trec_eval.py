@@ -18,6 +18,7 @@
 
 
 import os
+import re
 import subprocess
 import sys
 import platform
@@ -30,15 +31,23 @@ from pyserini.util import download_evaluation_script
 script_path = download_evaluation_script('trec_eval')
 cmd_prefix = ['java', '-jar', script_path]
 args = sys.argv
+
 # Option to discard non-judged hits in run file
 judged_docs_only = ''
 judged_result = []
 cutoffs = []
+
 if '-remove-unjudged' in args:
     judged_docs_only = args.pop(args.index('-remove-unjudged'))
-if any([i.startswith('-cutoffs.') for i in args]):
-    cutoffs = args.pop([i.startswith('-cutoffs.') for i in args].index(True))
-    cutoffs = list(map(int, cutoffs[9:].split(',')))
+
+if any([i.startswith('judged.') for i in args]):
+    # Find what position the arg is in.
+    idx = [i.startswith('judged.') for i in args].index(True)
+    cutoffs = args.pop(idx)
+    cutoffs = list(map(int, cutoffs[7:].split(',')))
+    # Get rid of the '-m' before the 'judged.xxx' option
+    args.pop(idx-1)
+
 temp_file = ''
 
 if len(args) > 1:
@@ -72,10 +81,11 @@ if len(args) > 1:
     for cutoff in cutoffs:
         run_cutoff = run.groupby(0).head(cutoff)
         judged = len(pd.merge(run_cutoff[[0,2]], qrels[[0,2]], on = [0,2])) / len(run_cutoff)
-        judged_result.append(f'J@{cutoff}: {judged}')
+        judged_result.append(f'judged_{cutoff}\tall\t{judged:.4f}')
     cmd = cmd_prefix + args[1:]
 else:
     cmd = cmd_prefix
+
 print(f'Running command: {cmd}')
 shell = platform.system() == "Windows"
 process = subprocess.Popen(cmd,
@@ -85,9 +95,16 @@ process = subprocess.Popen(cmd,
 stdout, stderr = process.communicate()
 if stderr:
     print(stderr.decode("utf-8"))
+
 print('Results:')
-print(stdout.decode("utf-8"))
-if temp_file:
-    os.remove(temp_file)
+results = stdout.decode("utf-8")
+# Clean up the formatting of trec_eval output.
+results = results.rstrip()
+results = re.sub(re.compile('[ \\t]+'), '\t', results)
+print(results)
+
 for judged in judged_result:
     print(judged)
+
+if temp_file:
+    os.remove(temp_file)
