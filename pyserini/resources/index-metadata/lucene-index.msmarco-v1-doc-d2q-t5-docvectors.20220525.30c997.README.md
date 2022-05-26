@@ -12,5 +12,5 @@ target/appassembler/bin/IndexCollection -collection JsonCollection \
   -storeDocvectors -optimize
 ```
 
-Note that this index stores term frequencies along with the docvectors: bag-of-words queries and relevance feedback are supported, but no phrase queries.
+Note that this index stores term frequencies along with the docvectors: bag-of-words queries and relevance feedback are supported, but not phrase queries.
 The raw text is not stored.
