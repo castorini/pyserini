@@ -166,10 +166,10 @@ pre[class*="prettyprint"] {
     </thead>
     <tbody>
 
-<!-- Condition: BM25 original passage (k1=0.9, b=0.4) -->
+<!-- Condition: BM25 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
 <td class="expand-button"></td>
-<td>BM25 original passage (k1=0.9, b=0.4)</td>
+<td style="min-width: 450px">BM25 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>  0.1357</td>
 <td>  0.4458</td>
 <td>  0.5060</td>
@@ -268,10 +268,10 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.
 
 </div></td>
 </tr>
-<!-- Condition: BM25 augmented passage (k1=0.9, b=0.4) -->
+<!-- Condition: BM25 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
 <td class="expand-button"></td>
-<td>BM25 augmented passage (k1=0.9, b=0.4)</td>
+<td style="min-width: 450px">BM25 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>  0.0977</td>
 <td>  0.3977</td>
 <td>  0.5303</td>
@@ -370,10 +370,10 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 original passage (k1=0.9, b=0.4) -->
+<!-- Condition: BM25+RM3 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
 <td class="expand-button"></td>
-<td>BM25+RM3 original passage (k1=0.9, b=0.4)</td>
+<td style="min-width: 450px">BM25+RM3 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>  0.1632</td>
 <td>  0.4480</td>
 <td>  0.4925</td>
@@ -472,10 +472,10 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 augmented passage (k1=0.9, b=0.4) -->
+<!-- Condition: BM25+RM3 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
 <td class="expand-button"></td>
-<td>BM25+RM3 augmented passage (k1=0.9, b=0.4)</td>
+<td style="min-width: 450px">BM25+RM3 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>  0.1050</td>
 <td>  0.3906</td>
 <td>  0.4906</td>
@@ -574,10 +574,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.
 
 </div></td>
 </tr>
-<!-- Condition: BM25 w/ doc2query-T5 original passage (k1=0.9, b=0.4) -->
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: BM25 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
 <td class="expand-button"></td>
-<td>BM25 w/ doc2query-T5 original passage (k1=0.9, b=0.4)</td>
+<td style="min-width: 450px">BM25 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>  0.1874</td>
 <td>  0.4816</td>
 <td>  0.6848</td>
@@ -619,7 +620,7 @@ Command to generate run on TREC 2021 queries:
   --topics dl21 \
   --index msmarco-v2-passage-d2q-t5 \
   --output run.msmarco-v2-passage.bm25-d2q-t5-default.dl21.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -641,7 +642,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarc
   --topics msmarco-v2-passage-dev \
   --index msmarco-v2-passage-d2q-t5 \
   --output run.msmarco-v2-passage.bm25-d2q-t5-default.dev.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -660,7 +661,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev run.m
   --topics msmarco-v2-passage-dev2 \
   --index msmarco-v2-passage-d2q-t5 \
   --output run.msmarco-v2-passage.bm25-d2q-t5-default.dev2.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -676,10 +677,10 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.
 
 </div></td>
 </tr>
-<!-- Condition: BM25 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4) -->
+<!-- Condition: BM25 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
 <td class="expand-button"></td>
-<td>BM25 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)</td>
+<td style="min-width: 450px">BM25 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>  0.1649</td>
 <td>  0.4702</td>
 <td>  0.6391</td>
@@ -721,7 +722,7 @@ Command to generate run on TREC 2021 queries:
   --topics dl21 \
   --index msmarco-v2-passage-augmented-d2q-t5 \
   --output run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl21.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -743,7 +744,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarc
   --topics msmarco-v2-passage-dev \
   --index msmarco-v2-passage-augmented-d2q-t5 \
   --output run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dev.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -762,7 +763,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev run.m
   --topics msmarco-v2-passage-dev2 \
   --index msmarco-v2-passage-augmented-d2q-t5 \
   --output run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dev2.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -778,10 +779,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (noexp): pre-encoded -->
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: uniCOIL (noexp): pre-encoded queries -->
 <tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
 <td class="expand-button"></td>
-<td>uniCOIL (noexp): pre-encoded</td>
+<td style="min-width: 450px">uniCOIL (noexp): pre-encoded queries</td>
 <td>  0.2193</td>
 <td>  0.5756</td>
 <td>  0.6991</td>
@@ -880,10 +882,10 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (w/ doc2query-T5): pre-encoded -->
+<!-- Condition: uniCOIL (w/ doc2query-T5): pre-encoded queries -->
 <tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
 <td class="expand-button"></td>
-<td>uniCOIL (w/ doc2query-T5): pre-encoded</td>
+<td style="min-width: 450px">uniCOIL (w/ doc2query-T5): pre-encoded queries</td>
 <td>  0.2538</td>
 <td>  0.6159</td>
 <td>  0.7311</td>
@@ -982,10 +984,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (noexp): otf -->
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: uniCOIL (noexp): on-the-fly query inference -->
 <tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
 <td class="expand-button"></td>
-<td>uniCOIL (noexp): otf</td>
+<td style="min-width: 450px">uniCOIL (noexp): on-the-fly query inference</td>
 <td>  0.2194</td>
 <td>  0.5759</td>
 <td>  0.6991</td>
@@ -1084,10 +1087,10 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (w/ doc2query-T5): otf -->
+<!-- Condition: uniCOIL (w/ doc2query-T5): on-the-fly query inference -->
 <tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
 <td class="expand-button"></td>
-<td>uniCOIL (w/ doc2query-T5): otf</td>
+<td style="min-width: 450px">uniCOIL (w/ doc2query-T5): on-the-fly query inference</td>
 <td>  0.2539</td>
 <td>  0.6160</td>
 <td>  0.7311</td>

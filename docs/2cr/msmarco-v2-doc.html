@@ -166,10 +166,10 @@ pre[class*="prettyprint"] {
     </thead>
     <tbody>
 
-<!-- Condition: BM25 doc (k1=0.9, b=0.4) -->
+<!-- Condition: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
 <td class="expand-button"></td>
-<td>BM25 doc (k1=0.9, b=0.4)</td>
+<td style="min-width: 450px">BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>  0.2126</td>
 <td>  0.5116</td>
 <td>  0.8367</td>
@@ -211,7 +211,7 @@ Command to generate run on TREC 2021 queries:
   --topics dl21 \
   --index msmarco-v2-doc-slim \
   --output run.msmarco-v2-doc.bm25-doc-default.dl21.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -233,7 +233,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   --topics msmarco-v2-doc-dev \
   --index msmarco-v2-doc-slim \
   --output run.msmarco-v2-doc.bm25-doc-default.dev.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -252,7 +252,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   --topics msmarco-v2-doc-dev2 \
   --index msmarco-v2-doc-slim \
   --output run.msmarco-v2-doc.bm25-doc-default.dev2.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -268,10 +268,10 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: BM25 doc segmented (k1=0.9, b=0.4) -->
+<!-- Condition: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
 <td class="expand-button"></td>
-<td>BM25 doc segmented (k1=0.9, b=0.4)</td>
+<td style="min-width: 450px">BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>  0.2436</td>
 <td>  0.5776</td>
 <td>  0.8937</td>
@@ -313,7 +313,7 @@ Command to generate run on TREC 2021 queries:
   --topics dl21 \
   --index msmarco-v2-doc-segmented-slim \
   --output run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt \
-  --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -335,7 +335,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   --topics msmarco-v2-doc-dev \
   --index msmarco-v2-doc-segmented-slim \
   --output run.msmarco-v2-doc.bm25-doc-segmented-default.dev.txt \
-  --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -354,7 +354,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   --topics msmarco-v2-doc-dev2 \
   --index msmarco-v2-doc-segmented-slim \
   --output run.msmarco-v2-doc.bm25-doc-segmented-default.dev2.txt \
-  --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -370,10 +370,10 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 doc (k1=0.9, b=0.4) -->
+<!-- Condition: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
 <td class="expand-button"></td>
-<td>BM25+RM3 doc (k1=0.9, b=0.4)</td>
+<td style="min-width: 450px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>  0.2453</td>
 <td>  0.5339</td>
 <td>  0.7994</td>
@@ -415,7 +415,7 @@ Command to generate run on TREC 2021 queries:
   --topics dl21 \
   --index msmarco-v2-doc-full \
   --output run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt \
-  --bm25 --rm3 --k1 0.9 --b 0.4
+  --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -437,7 +437,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   --topics msmarco-v2-doc-dev \
   --index msmarco-v2-doc-full \
   --output run.msmarco-v2-doc.bm25-rm3-doc-default.dev.txt \
-  --bm25 --rm3 --k1 0.9 --b 0.4
+  --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -456,7 +456,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   --topics msmarco-v2-doc-dev2 \
   --index msmarco-v2-doc-full \
   --output run.msmarco-v2-doc.bm25-rm3-doc-default.dev2.txt \
-  --bm25 --rm3 --k1 0.9 --b 0.4
+  --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -472,10 +472,10 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 doc segmented (k1=0.9, b=0.4) -->
+<!-- Condition: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
 <td class="expand-button"></td>
-<td>BM25+RM3 doc segmented (k1=0.9, b=0.4)</td>
+<td style="min-width: 450px">BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>  0.2933</td>
 <td>  0.6185</td>
 <td>  0.9018</td>
@@ -517,7 +517,7 @@ Command to generate run on TREC 2021 queries:
   --topics dl21 \
   --index msmarco-v2-doc-segmented-full \
   --output run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt \
-  --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -539,7 +539,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   --topics msmarco-v2-doc-dev \
   --index msmarco-v2-doc-segmented-full \
   --output run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev.txt \
-  --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -558,7 +558,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   --topics msmarco-v2-doc-dev2 \
   --index msmarco-v2-doc-segmented-full \
   --output run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev2.txt \
-  --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -574,10 +574,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: BM25 w/ doc2query-T5 doc (k1=0.9, b=0.4) -->
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
 <td class="expand-button"></td>
-<td>BM25 w/ doc2query-T5 doc (k1=0.9, b=0.4)</td>
+<td style="min-width: 450px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>  0.2387</td>
 <td>  0.5792</td>
 <td>  0.8866</td>
@@ -619,7 +620,7 @@ Command to generate run on TREC 2021 queries:
   --topics dl21 \
   --index msmarco-v2-doc-d2q-t5 \
   --output run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl21.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -641,7 +642,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   --topics msmarco-v2-doc-dev \
   --index msmarco-v2-doc-d2q-t5 \
   --output run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dev.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -660,7 +661,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   --topics msmarco-v2-doc-dev2 \
   --index msmarco-v2-doc-d2q-t5 \
   --output run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dev2.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -676,10 +677,10 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: BM25 w/ doc2query-T5 doc segmented (k1=0.9, b=0.4) -->
+<!-- Condition: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
 <td class="expand-button"></td>
-<td>BM25 w/ doc2query-T5 doc segmented (k1=0.9, b=0.4)</td>
+<td style="min-width: 450px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>  0.2683</td>
 <td>  0.6289</td>
 <td>  0.9454</td>
@@ -721,7 +722,7 @@ Command to generate run on TREC 2021 queries:
   --topics dl21 \
   --index msmarco-v2-doc-segmented-d2q-t5 \
   --output run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl21.txt \
-  --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -743,7 +744,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   --topics msmarco-v2-doc-dev \
   --index msmarco-v2-doc-segmented-d2q-t5 \
   --output run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dev.txt \
-  --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -762,7 +763,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   --topics msmarco-v2-doc-dev2 \
   --index msmarco-v2-doc-segmented-d2q-t5 \
   --output run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dev2.txt \
-  --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -778,10 +779,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (noexp): pre-encoded -->
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: uniCOIL (noexp): pre-encoded queries -->
 <tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
 <td class="expand-button"></td>
-<td>uniCOIL (noexp): pre-encoded</td>
+<td style="min-width: 450px">uniCOIL (noexp): pre-encoded queries</td>
 <td>  0.2587</td>
 <td>  0.6495</td>
 <td>  0.9282</td>
@@ -880,10 +882,10 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (w/ doc2query-T5): pre-encoded -->
+<!-- Condition: uniCOIL (w/ doc2query-T5): pre-encoded queries -->
 <tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
 <td class="expand-button"></td>
-<td>uniCOIL (w/ doc2query-T5): pre-encoded</td>
+<td style="min-width: 450px">uniCOIL (w/ doc2query-T5): pre-encoded queries</td>
 <td>  0.2718</td>
 <td>  0.6783</td>
 <td>  0.9684</td>
@@ -982,10 +984,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (noexp): otf -->
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: uniCOIL (noexp): on-the-fly query inference -->
 <tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
 <td class="expand-button"></td>
-<td>uniCOIL (noexp): otf</td>
+<td style="min-width: 450px">uniCOIL (noexp): on-the-fly query inference</td>
 <td>  0.2589</td>
 <td>  0.6501</td>
 <td>  0.9282</td>
@@ -1084,10 +1087,10 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (w/ doc2query-T5): otf -->
+<!-- Condition: uniCOIL (w/ doc2query-T5): on-the-fly query inference -->
 <tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
 <td class="expand-button"></td>
-<td>uniCOIL (w/ doc2query-T5): otf</td>
+<td style="min-width: 450px">uniCOIL (w/ doc2query-T5): on-the-fly query inference</td>
 <td>  0.2720</td>
 <td>  0.6782</td>
 <td>  0.9684</td>
