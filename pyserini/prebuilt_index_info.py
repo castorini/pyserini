@@ -3022,11 +3022,12 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "wikipedia-dpr"
     },
-    "mrtydi-v1.1-arabic-mdpr-msmarco": {
+    "mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.mrtydi-v1.1-arabic.msmarco.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1-arabic.20220413.aa1c0e9.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-arabic.msmarco.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "b77031d8aaedc55816aaf474afb3301f",
         "size compressed (bytes)": 5997943791,
@@ -3034,11 +3035,12 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-arabic",
     },
-    "mrtydi-v1.1-bengali-mdpr-msmarco": {
+    "mrtydi-v1.1-bengali-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.mrtydi-v1.1-bengali.msmarco.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1-bengali.20220413.aa1c0e9.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-bengali.msmarco.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "3838d11b3310a2dbccc7f34ae38401c2",
         "size compressed (bytes)": 865733058,
@@ -3046,11 +3048,12 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-bengali",
     },
-    "mrtydi-v1.1-english-mdpr-msmarco": {
+    "mrtydi-v1.1-english-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.mrtydi-v1.1-english.msmarco.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1-english.20220413.aa1c0e9.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-english.msmarco.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "422c8f892b6dba2a369948bb88d4b5ac",
         "size compressed (bytes)": 93594561391,
@@ -3058,11 +3061,12 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-english"
     },
-    "mrtydi-v1.1-finnish-mdpr-msmarco": {
+    "mrtydi-v1.1-finnish-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.mrtydi-v1.1-finnish.msmarco.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1-finnish.20220413.aa1c0e9.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-finnish.msmarco.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "eef5918e55b930e6f41a3a03d3917c96",
         "size compressed (bytes)": 5436419399,
@@ -3070,11 +3074,12 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-finnish"
     },
-    "mrtydi-v1.1-indonesian-mdpr-msmarco": {
+    "mrtydi-v1.1-indonesian-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.mrtydi-v1.1-indonesian.msmarco.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1-indonesian.20220413.aa1c0e9.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-indonesian.msmarco.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "952c98979904a40983d7bd077ade33cb",
         "size compressed (bytes)": 4178791300,
@@ -3082,11 +3087,12 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-indonesian"
     },
-    "mrtydi-v1.1-japanese-mdpr-msmarco": {
+    "mrtydi-v1.1-japanese-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.mrtydi-v1.1-japanese.msmarco.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1-japanese.20220413.aa1c0e9.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-japanese.msmarco.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "2508799cbdec5cf132838f4aaa198eef",
         "size compressed (bytes)": 19918319452,
@@ -3094,11 +3100,12 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-japanese"
     },
-    "mrtydi-v1.1-korean-mdpr-msmarco": {
+    "mrtydi-v1.1-korean-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.mrtydi-v1.1-korean.msmarco.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1-korean.20220413.aa1c0e9.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-korean.msmarco.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "b9e137f81f398b3f0356c161c45c2ccc",
         "size compressed (bytes)": 4256863335,
@@ -3106,11 +3113,12 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-korean"
     },
-    "mrtydi-v1.1-russian-mdpr-msmarco": {
+    "mrtydi-v1.1-russian-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.mrtydi-v1.1-russian.msmarco.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1-russian.20220413.aa1c0e9.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-russian.msmarco.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "2e1f183bf87a7bcc3dcf3b931f35d6f7",
         "size compressed (bytes)": 27318555548,
@@ -3118,11 +3126,12 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-russian"
     },
-    "mrtydi-v1.1-swahili-mdpr-msmarco": {
+    "mrtydi-v1.1-swahili-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.mrtydi-v1.1-swahili.msmarco.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1-swahili.20220413.aa1c0e9.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-swahili.msmarco.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "98bfc0d9f833ea618e065da3945262f1",
         "size compressed (bytes)": 389600527,
@@ -3130,11 +3139,12 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-swahili"
     },
-    "mrtydi-v1.1-telugu-mdpr-msmarco": {
+    "mrtydi-v1.1-telugu-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.mrtydi-v1.1-telugu.msmarco.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1-telugu.20220413.aa1c0e9.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-telugu.msmarco.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "3ef27048eaf73525ab73af6a5e8525b2",
         "size compressed (bytes)": 1561419958,
@@ -3142,11 +3152,12 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-telugu"
     },
-    "mrtydi-v1.1-thai-mdpr-msmarco": {
+    "mrtydi-v1.1-thai-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.mrtydi-v1.1-thai.msmarco.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1-thai.20220413.aa1c0e9.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-thai.msmarco.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "a02724c90164f386810d1b3037c16ac3",
         "size compressed (bytes)": 1616716166,
