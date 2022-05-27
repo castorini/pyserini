@@ -131,7 +131,50 @@ conditions:
           - MAP: 0.4074
             nDCG@10: 0.6187
             R@1K: 0.8452
-  # TODO: We can't do the RM3 variant of bm25-d2q-t5 because we don't have a pre-built index with docvectors stored.
+  - name: bm25-rm3-d2q-t5-tuned
+    display: BM25+RM3 w/ doc2query-T5 (k1=2.18, b=0.86)
+    display-html: BM25+RM3 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=2.18, <i>b</i>=0.86)
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-passage-d2q-t5-docvectors --output $output --bm25 --rm3
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.2374
+            R@1K: 0.9528
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4360
+            nDCG@10: 0.6528
+            R@1K: 0.8424
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4347
+            nDCG@10: 0.6232
+            R@1K: 0.8609
+  - name: bm25-rm3-d2q-t5-default
+    display: BM25+RM3 w/ doc2query-T5 (k1=0.9, b=0.4)
+    display-html: BM25+RM3 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-passage-d2q-t5-docvectors --output $output --bm25 --rm3 --k1 0.9 --b 0.4
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.2140
+            R@1K: 0.9463
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4485
+            nDCG@10: 0.6548
+            R@1K: 0.8861
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4295
+            nDCG@10: 0.6172
+            R@1K: 0.8699
   - name: unicoil-otf
     display: "uniCOIL (w/ doc2query-T5): otf"
     display-html: "uniCOIL (w/ doc2query-T5): on-the-fly query inference"

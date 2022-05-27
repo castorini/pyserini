@@ -137,6 +137,52 @@ conditions:
             MRR@100: 0.6391
             R@100: 0.3883
             R@1K: 0.6962
+  - name: bm25-rm3-d2q-t5-default
+    display: BM25+RM3 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
+    display-html: BM25 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-d2q-t5-docvectors --output $output --bm25 --rm3
+    topics:
+      - topic_key: msmarco-v2-passage-dev
+        eval_key: msmarco-v2-passage-dev
+        scores:
+          - MRR@100: 0.0948
+            R@1K: 0.7174
+      - topic_key: msmarco-v2-passage-dev2
+        eval_key: msmarco-v2-passage-dev2
+        scores:
+          - MRR@100: 0.0985
+            R@1K: 0.7240
+      - topic_key: dl21
+        eval_key: dl21-passage
+        scores:
+          - MAP@100: 0.2271
+            nDCG@10: 0.5099
+            MRR@100: 0.6651
+            R@100: 0.4444
+            R@1K: 0.7512
+  - name: bm25-rm3-d2q-t5-augmented-default
+    display: BM25+RM3 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
+    display-html: BM25 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-augmented-d2q-t5-docvectors --output $output --bm25 --rm3
+    topics:
+      - topic_key: msmarco-v2-passage-dev
+        eval_key: msmarco-v2-passage-dev
+        scores:
+          - MRR@100: 0.0880
+            R@1K: 0.7625
+      - topic_key: msmarco-v2-passage-dev2
+        eval_key: msmarco-v2-passage-dev2
+        scores:
+          - MRR@100: 0.0887
+            R@1K: 0.7649
+      - topic_key: dl21
+        eval_key: dl21-passage
+        scores:
+          - MAP@100: 0.1932
+            nDCG@10: 0.4834
+            MRR@100: 0.5882
+            R@100: 0.4295
+            R@1K: 0.7668
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
