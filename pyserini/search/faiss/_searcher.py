@@ -313,7 +313,6 @@ class AutoQueryEncoder(QueryEncoder):
                 return_tensors='pt',
                 truncation='only_first',
                 padding='longest',
-                return_attention_mask=False,
                 return_token_type_ids=False,
             )
 
