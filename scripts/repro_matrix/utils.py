@@ -16,6 +16,34 @@
 
 import subprocess
 
+fail_str = '\033[91m[FAIL]\033[0m'
+ok_str = '[OK] '
+
+
+def find_table_topic_set_key_v1(topic_key):
+    # E.g., we want to map variants like 'dl19-passage-unicoil' and 'dl19-passage' both into 'dl19'
+    key = ''
+    if topic_key.startswith('dl19'):
+        key = 'dl19'
+    elif topic_key.startswith('dl20'):
+        key = 'dl20'
+    elif topic_key.startswith('msmarco'):
+        key = 'dev'
+
+    return key
+
+
+def find_table_topic_set_key_v2(topic_key):
+    key = ''
+    if topic_key.endswith('dev') or topic_key.endswith('dev-unicoil') or topic_key.endswith('dev-unicoil-noexp'):
+        key = 'dev'
+    elif topic_key.endswith('dev2') or topic_key.endswith('dev2-unicoil') or topic_key.endswith('dev2-unicoil-noexp'):
+        key = 'dev2'
+    elif topic_key.startswith('dl21'):
+        key = 'dl21'
+
+    return key
+
 
 def run_command(cmd):
     process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -27,7 +55,7 @@ def run_command(cmd):
 
 
 def run_eval_and_return_metric(metric, eval_key, defs, runfile):
-    eval_cmd = f'python -m pyserini.eval.trec_eval {defs[eval_key][metric]} {eval_key} runs/{runfile}'
+    eval_cmd = f'python -m pyserini.eval.trec_eval {defs[eval_key][metric]} {eval_key} {runfile}'
     eval_stdout, eval_stderr = run_command(eval_cmd)
 
     for line in eval_stdout.split('\n'):
@@ -36,3 +64,4 @@ def run_eval_and_return_metric(metric, eval_key, defs, runfile):
             return round(float(parts[2]), 4)
 
     return 0.0
+

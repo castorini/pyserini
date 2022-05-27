@@ -1,7 +1,7 @@
 conditions:
   - name: bm25-tuned
     display: BM25 (k1=0.82, b=0.68)
-    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-passage-slim --output _R_ --bm25
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-passage-slim --output $output --bm25
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -22,7 +22,7 @@ conditions:
             R@1K: 0.8031
   - name: bm25-rm3-tuned
     display: BM25+RM3 (k1=0.82, b=0.68)
-    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-passage-full --output _R_ --bm25 --rm3
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-passage-full --output $output --bm25 --rm3
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -43,7 +43,7 @@ conditions:
             R@1K: 0.8286
   - name: bm25-default
     display: BM25 (k1=0.9, b=0.4)
-    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-passage-slim --output _R_ --bm25 --k1 0.9 --b 0.4
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-passage-slim --output $output --bm25 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -64,7 +64,7 @@ conditions:
             R@1K: 0.7863
   - name: bm25-rm3-default
     display: BM25+RM3 (k1=0.9, b=0.4)
-    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-passage-full --output _R_ --bm25 --k1 0.9 --b 0.4 --rm3
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-passage-full --output $output --bm25 --k1 0.9 --b 0.4 --rm3
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -85,7 +85,7 @@ conditions:
             R@1K: 0.8217
   - name: bm25-d2q-t5-tuned
     display: BM25 w/ doc2query-T5 (k1=2.18, b=0.86)
-    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-passage-d2q-t5 --output _R_ --bm25
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-passage-d2q-t5 --output $output --bm25
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -106,7 +106,7 @@ conditions:
             R@1K: 0.8393
   - name: bm25-d2q-t5-default
     display: BM25 w/ doc2query-T5 (k1=0.9, b=0.4)
-    command: python -m pyserini.search.lucene --topics _T_ --index msmarco-v1-passage-d2q-t5 --output _R_ --bm25 --k1 0.9 --b 0.4
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-passage-d2q-t5 --output $output --bm25 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -128,7 +128,7 @@ conditions:
   # TODO: We can't do the RM3 variant of bm25-d2q-t5 because we don't have a pre-built index with docvectors stored.
   - name: unicoil-otf
     display: "uniCOIL (w/ doc2query-T5): otf"
-    command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil --topics _T_ --encoder castorini/unicoil-msmarco-passage --output _R_ --batch 36 --threads 12 --hits 1000 --impact
+    command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --batch 36 --threads 12 --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -149,7 +149,7 @@ conditions:
             R@1K: 0.8433
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
-    command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil --topics _T_ --output _R_ --batch 36 --threads 12 --hits 1000 --impact
+    command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil --topics $topics --output $output --batch 36 --threads 12 --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset-unicoil
         eval_key: msmarco-passage-dev-subset
@@ -170,7 +170,7 @@ conditions:
             R@1K: 0.8430
   - name: unicoil-noexp-otf
     display: "uniCOIL (noexp): otf"
-    command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil-noexp --topics _T_ --encoder castorini/unicoil-noexp-msmarco-passage --output _R_ --batch 36 --threads 12 --hits 1000 --impact
+    command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil-noexp --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --batch 36 --threads 12 --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -191,7 +191,7 @@ conditions:
             R@1K: 0.7861
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
-    command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil-noexp --topics _T_ --output _R_ --batch 36 --threads 12 --hits 1000 --impact
+    command: python -m pyserini.search.lucene --index msmarco-v1-passage-unicoil-noexp --topics $topics --output $output --batch 36 --threads 12 --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset-unicoil-noexp
         eval_key: msmarco-passage-dev-subset
@@ -212,7 +212,7 @@ conditions:
             R@1K: 0.7861
   - name: tct_colbert-v2-hnp-otf
     display: "TCT_ColBERT-V2-HN+: otf"
-    command: python -m pyserini.search.faiss --index msmarco-passage-tct_colbert-v2-hnp-bf --topics _T_ --encoder castorini/tct_colbert-v2-hnp-msmarco --output _R_ --batch-size 36 --threads 12
+    command: python -m pyserini.search.faiss --index msmarco-passage-tct_colbert-v2-hnp-bf --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output --batch-size 36 --threads 12
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -233,7 +233,7 @@ conditions:
             R@1K: 0.8429
   - name: tct_colbert-v2-hnp
     display: "TCT_ColBERT-V2-HN+: pre-encoded"
-    command: python -m pyserini.search.faiss --index msmarco-passage-tct_colbert-v2-hnp-bf --topics _T_ --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset --output _R_ --batch-size 36 --threads 12
+    command: python -m pyserini.search.faiss --index msmarco-passage-tct_colbert-v2-hnp-bf --topics $topics --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset --output $output --batch-size 36 --threads 12
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset

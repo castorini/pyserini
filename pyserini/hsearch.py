@@ -14,7 +14,15 @@
 # limitations under the License.
 #
 
+"""Deprecated. The package ``pyserini.hsearch` has been renamed `pyserini.search.hybrid`. Stubs are retained here for
+redirection purpose to ensure that code in existing published papers remain function (with warnings)."""
+
+import os
+import sys
+
 from pyserini.search.hybrid import HybridSearcher as NewHybridSearcher
+
+__all__ = ['HybridSearcher']
 
 
 class HybridSearcher(NewHybridSearcher):
@@ -22,3 +30,9 @@ class HybridSearcher(NewHybridSearcher):
         print('pyserini.hsearch.HybridSearcher class has been deprecated, '
               'please use HybridSearcher from pyserini.search.hybrid instead')
         return super().__new__(cls)
+
+
+if __name__ == "__main__":
+    print('WARNING: pyserini.hsearch is deprecated, please use pyserini.search.hybrid instead')
+    args = " ".join(sys.argv[1:])
+    os.system(f'python -m pyserini.search.hybrid {args}')
