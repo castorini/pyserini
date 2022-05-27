@@ -3170,6 +3170,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-arabic.20220523.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1-arabic.20220523.7b099d5.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-arabic.20220523.7b099d5.tar.gz",
         ],
         "md5": "3d764e7936bb6beb5308ccfd6717b38e",
         "size compressed (bytes)": 5988743258,
