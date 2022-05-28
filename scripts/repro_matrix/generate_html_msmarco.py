@@ -78,7 +78,7 @@ if __name__ == '__main__':
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
-            display = condition['display']
+            display = condition['display-html']
             cmd_template = condition['command']
 
             for topic_set in condition['topics']:
@@ -109,6 +109,8 @@ if __name__ == '__main__':
         html_rows = []
         for name in models[collection]:
             if not name:
+                # Add blank row for spacing
+                html_rows.append('<tr><td style="border-bottom: 0"></td></tr>')
                 continue
             s = Template(row_template)
             s = s.substitute(row_cnt=row_cnt,
@@ -152,6 +154,8 @@ if __name__ == '__main__':
         html_rows = []
         for name in models[collection]:
             if not name:
+                # Add blank row for spacing
+                html_rows.append('<tr><td style="border-bottom: 0"></td></tr>')
                 continue
             s = Template(row_template)
             s = s.substitute(row_cnt=row_cnt,
