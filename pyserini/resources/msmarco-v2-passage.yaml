@@ -241,7 +241,7 @@ conditions:
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
-    display-row: (3b)
+    display-row: (3a)
     command: python -m pyserini.search.lucene --index msmarco-v2-passage-unicoil-noexp-0shot --topics $topics --output $output --batch 36 --threads 12 --hits 1000 --impact
     topics:
       - topic_key: msmarco-v2-passage-dev-unicoil-noexp
