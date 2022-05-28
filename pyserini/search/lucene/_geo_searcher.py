@@ -23,7 +23,7 @@ import logging
 from typing import List
 
 from pyserini.pyclass import autoclass
-from pyserini.search import JQuery
+from pyserini.search.lucene._base import JQuery
 
 
 logger = logging.getLogger(__name__)
@@ -34,6 +34,7 @@ JSort = autoclass('org.apache.lucene.search.Sort')
 JLatLonDocValuesField = autoclass('org.apache.lucene.document.LatLonDocValuesField')
 JLatLonShape = autoclass('org.apache.lucene.document.LatLonShape')
 JQueryRelation = autoclass('org.apache.lucene.document.ShapeField$QueryRelation')
+JLongPoint = autoclass('org.apache.lucene.document.LongPoint')
 
 # Wrappers around Anserini classes
 JGeoSearcher = autoclass('io.anserini.search.SimpleGeoSearcher')
