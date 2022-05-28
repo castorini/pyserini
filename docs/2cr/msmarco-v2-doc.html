@@ -49,6 +49,8 @@ tr th.headerbottom {
   padding-top: 0rem
 }
 
+.table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
 .copy-code-button {
 	border-radius: 0;
 	min-width: 55px;
@@ -102,18 +104,10 @@ tr th.headerbottom {
 	outline: 0;
 }
 
-/*
-pre {
-	color: #FFF;
-	background-color: #000;
-	border-radius: 0px !important;
-}*/
-
 pre[class*="prettyprint"] {
 	position: relative;
 	overflow: hidden;
 }
-
     </style>
 </head>
 <body>
@@ -144,11 +138,13 @@ pre[class*="prettyprint"] {
       <tr>
         <th class="headertop"></th>
         <th class="headertop"></th>
+        <th class="headertop"></th>
         <th class="headertop" colspan="6"><b>TREC 2021</b></th>
         <th class="headertop" colspan="3"><b>dev</b></th>
         <th class="headertop" colspan="3"><b>dev2</b></th>
       </tr>
       <tr>
+        <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col"><br/>AP</th>
@@ -169,18 +165,19 @@ pre[class*="prettyprint"] {
 <!-- Condition: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
 <td class="expand-button"></td>
-<td style="min-width: 450px">BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>  0.2126</td>
-<td>  0.5116</td>
-<td>  0.8367</td>
-<td>  0.3195</td>
-<td>  0.6739</td>
+<td>(1a)</td>
+<td style="min-width: 400px">BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2126</td>
+<td>0.5116</td>
+<td>0.8367</td>
+<td>0.3195</td>
+<td>0.6739</td>
 <td></td>
-<td>  0.1572</td>
-<td>  0.8054</td>
+<td>0.1572</td>
+<td>0.8054</td>
 <td></td>
-<td>  0.1659</td>
-<td>  0.8029</td>
+<td>0.1659</td>
+<td>0.8029</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -271,18 +268,19 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <!-- Condition: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
 <td class="expand-button"></td>
-<td style="min-width: 450px">BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>  0.2436</td>
-<td>  0.5776</td>
-<td>  0.8937</td>
-<td>  0.3478</td>
-<td>  0.6930</td>
+<td>(1b)</td>
+<td style="min-width: 400px">BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2436</td>
+<td>0.5776</td>
+<td>0.8937</td>
+<td>0.3478</td>
+<td>0.6930</td>
 <td></td>
-<td>  0.1896</td>
-<td>  0.8542</td>
+<td>0.1896</td>
+<td>0.8542</td>
 <td></td>
-<td>  0.1930</td>
-<td>  0.8549</td>
+<td>0.1930</td>
+<td>0.8549</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -373,18 +371,19 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <!-- Condition: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
 <td class="expand-button"></td>
-<td style="min-width: 450px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>  0.2453</td>
-<td>  0.5339</td>
-<td>  0.7994</td>
-<td>  0.3374</td>
-<td>  0.7335</td>
+<td>(1c)</td>
+<td style="min-width: 400px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2453</td>
+<td>0.5339</td>
+<td>0.7994</td>
+<td>0.3374</td>
+<td>0.7335</td>
 <td></td>
-<td>  0.0974</td>
-<td>  0.7694</td>
+<td>0.0974</td>
+<td>0.7694</td>
 <td></td>
-<td>  0.1028</td>
-<td>  0.7736</td>
+<td>0.1028</td>
+<td>0.7736</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -475,18 +474,19 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <!-- Condition: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
 <td class="expand-button"></td>
-<td style="min-width: 450px">BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>  0.2933</td>
-<td>  0.6185</td>
-<td>  0.9018</td>
-<td>  0.3892</td>
-<td>  0.7694</td>
+<td>(1d)</td>
+<td style="min-width: 400px">BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2933</td>
+<td>0.6185</td>
+<td>0.9018</td>
+<td>0.3892</td>
+<td>0.7694</td>
 <td></td>
-<td>  0.1664</td>
-<td>  0.8605</td>
+<td>0.1664</td>
+<td>0.8605</td>
 <td></td>
-<td>  0.1701</td>
-<td>  0.8633</td>
+<td>0.1701</td>
+<td>0.8633</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -578,18 +578,19 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <!-- Condition: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
 <td class="expand-button"></td>
-<td style="min-width: 450px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>  0.2387</td>
-<td>  0.5792</td>
-<td>  0.8866</td>
-<td>  0.3443</td>
-<td>  0.7066</td>
+<td>(2a)</td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2387</td>
+<td>0.5792</td>
+<td>0.8866</td>
+<td>0.3443</td>
+<td>0.7066</td>
 <td></td>
-<td>  0.2011</td>
-<td>  0.8614</td>
+<td>0.2011</td>
+<td>0.8614</td>
 <td></td>
-<td>  0.2012</td>
-<td>  0.8568</td>
+<td>0.2012</td>
+<td>0.8568</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -680,18 +681,19 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <!-- Condition: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
 <td class="expand-button"></td>
-<td style="min-width: 450px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>  0.2683</td>
-<td>  0.6289</td>
-<td>  0.9454</td>
-<td>  0.3656</td>
-<td>  0.7202</td>
+<td>(2b)</td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2683</td>
+<td>0.6289</td>
+<td>0.9454</td>
+<td>0.3656</td>
+<td>0.7202</td>
 <td></td>
-<td>  0.2226</td>
-<td>  0.8982</td>
+<td>0.2226</td>
+<td>0.8982</td>
 <td></td>
-<td>  0.2234</td>
-<td>  0.8952</td>
+<td>0.2234</td>
+<td>0.8952</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -782,18 +784,19 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <!-- Condition: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
 <td class="expand-button"></td>
-<td style="min-width: 450px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>  0.2608</td>
-<td>  0.5392</td>
-<td>  0.8342</td>
-<td>  0.3580</td>
-<td>  0.7572</td>
+<td>(2c)</td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2608</td>
+<td>0.5392</td>
+<td>0.8342</td>
+<td>0.3580</td>
+<td>0.7572</td>
 <td></td>
-<td>  0.1144</td>
-<td>  0.8189</td>
+<td>0.1144</td>
+<td>0.8189</td>
 <td></td>
-<td>  0.1169</td>
-<td>  0.8245</td>
+<td>0.1169</td>
+<td>0.8245</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -884,18 +887,19 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <!-- Condition: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
 <td class="expand-button"></td>
-<td style="min-width: 450px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>  0.3192</td>
-<td>  0.6555</td>
-<td>  0.8960</td>
-<td>  0.4119</td>
-<td>  0.7941</td>
+<td>(2d)</td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.3192</td>
+<td>0.6555</td>
+<td>0.8960</td>
+<td>0.4119</td>
+<td>0.7941</td>
 <td></td>
-<td>  0.1974</td>
-<td>  0.9000</td>
+<td>0.1974</td>
+<td>0.9000</td>
 <td></td>
-<td>  0.1966</td>
-<td>  0.8967</td>
+<td>0.1966</td>
+<td>0.8967</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -987,18 +991,19 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <!-- Condition: uniCOIL (noexp): pre-encoded queries -->
 <tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
 <td class="expand-button"></td>
-<td style="min-width: 450px">uniCOIL (noexp): pre-encoded queries</td>
-<td>  0.2587</td>
-<td>  0.6495</td>
-<td>  0.9282</td>
-<td>  0.3563</td>
-<td>  0.6787</td>
+<td>(3a)</td>
+<td style="min-width: 400px">uniCOIL (noexp): pre-encoded queries</td>
+<td>0.2587</td>
+<td>0.6495</td>
+<td>0.9282</td>
+<td>0.3563</td>
+<td>0.6787</td>
 <td></td>
-<td>  0.2231</td>
-<td>  0.8987</td>
+<td>0.2231</td>
+<td>0.8987</td>
 <td></td>
-<td>  0.2314</td>
-<td>  0.8995</td>
+<td>0.2314</td>
+<td>0.8995</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1089,18 +1094,19 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <!-- Condition: uniCOIL (w/ doc2query-T5): pre-encoded queries -->
 <tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
 <td class="expand-button"></td>
-<td style="min-width: 450px">uniCOIL (w/ doc2query-T5): pre-encoded queries</td>
-<td>  0.2718</td>
-<td>  0.6783</td>
-<td>  0.9684</td>
-<td>  0.3700</td>
-<td>  0.7069</td>
+<td>(3b)</td>
+<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): pre-encoded queries</td>
+<td>0.2718</td>
+<td>0.6783</td>
+<td>0.9684</td>
+<td>0.3700</td>
+<td>0.7069</td>
 <td></td>
-<td>  0.2419</td>
-<td>  0.9122</td>
+<td>0.2419</td>
+<td>0.9122</td>
 <td></td>
-<td>  0.2445</td>
-<td>  0.9172</td>
+<td>0.2445</td>
+<td>0.9172</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1192,18 +1198,19 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <!-- Condition: uniCOIL (noexp): on-the-fly query inference -->
 <tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">
 <td class="expand-button"></td>
-<td style="min-width: 450px">uniCOIL (noexp): on-the-fly query inference</td>
-<td>  0.2589</td>
-<td>  0.6501</td>
-<td>  0.9282</td>
-<td>  0.3574</td>
-<td>  0.6782</td>
 <td></td>
-<td>  0.2232</td>
-<td>  0.8987</td>
+<td style="min-width: 400px">uniCOIL (noexp): on-the-fly query inference</td>
+<td>0.2589</td>
+<td>0.6501</td>
+<td>0.9282</td>
+<td>0.3574</td>
+<td>0.6782</td>
 <td></td>
-<td>  0.2314</td>
-<td>  0.8993</td>
+<td>0.2232</td>
+<td>0.8987</td>
+<td></td>
+<td>0.2314</td>
+<td>0.8993</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1294,18 +1301,19 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <!-- Condition: uniCOIL (w/ doc2query-T5): on-the-fly query inference -->
 <tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
 <td class="expand-button"></td>
-<td style="min-width: 450px">uniCOIL (w/ doc2query-T5): on-the-fly query inference</td>
-<td>  0.2720</td>
-<td>  0.6782</td>
-<td>  0.9684</td>
-<td>  0.3702</td>
-<td>  0.7071</td>
 <td></td>
-<td>  0.2419</td>
-<td>  0.9120</td>
+<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): on-the-fly query inference</td>
+<td>0.2720</td>
+<td>0.6782</td>
+<td>0.9684</td>
+<td>0.3702</td>
+<td>0.7071</td>
 <td></td>
-<td>  0.2447</td>
-<td>  0.9174</td>
+<td>0.2419</td>
+<td>0.9120</td>
+<td></td>
+<td>0.2447</td>
+<td>0.9174</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>

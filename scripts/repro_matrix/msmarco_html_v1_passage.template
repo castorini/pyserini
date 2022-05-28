@@ -49,6 +49,8 @@ tr th.headerbottom {
   padding-top: 0rem
 }
 
+.table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
 .copy-code-button {
 	border-radius: 0;
 	min-width: 55px;
@@ -102,18 +104,10 @@ tr th.headerbottom {
 	outline: 0;
 }
 
-/*
-pre {
-	color: #FFF;
-	background-color: #000;
-	border-radius: 0px !important;
-}*/
-
 pre[class*="prettyprint"] {
 	position: relative;
 	overflow: hidden;
 }
-
     </style>
 </head>
 <body>
@@ -144,11 +138,13 @@ pre[class*="prettyprint"] {
       <tr>
         <th class="headertop"></th>
         <th class="headertop"></th>
+        <th class="headertop"></th>
         <th class="headertop" colspan="4"><b>TREC 2019</b></th>
         <th class="headertop" colspan="4"><b>TREC 2020</b></th>
         <th class="headertop" colspan="3"><b>dev</b></th>
       </tr>
       <tr>
+        <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col"><br/>AP</th>

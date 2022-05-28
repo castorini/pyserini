@@ -73,13 +73,18 @@ if __name__ == '__main__':
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
     table_keys = {}
+    row_ids = {}
 
     with open(yaml_file) as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
             display = condition['display-html']
+            row_id = condition['display-row'] if 'display-row' in condition else ''
             cmd_template = condition['command']
+
+            row_ids[name] =row_id
+            table_keys[name] = display
 
             for topic_set in condition['topics']:
                 topic_key = topic_set['topic_key']
@@ -97,7 +102,6 @@ if __name__ == '__main__':
 
                 for expected in topic_set['scores']:
                     for metric in expected:
-                        table_keys[name] = display
                         eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
                                    f'{trec_eval_metric_definitions[collection][eval_key][metric]} {eval_key} {runfile}'
                         eval_commands[name][short_topic_key] += eval_cmd + '\n'
@@ -115,6 +119,7 @@ if __name__ == '__main__':
             s = Template(row_template)
             s = s.substitute(row_cnt=row_cnt,
                              condition_name=table_keys[name],
+                             row=row_ids[name],
                              s1=f'{table[name]["dl19"]["MAP"]:.4f}' if table[name]['dl19']['MAP'] != 0 else '-',
                              s2=f'{table[name]["dl19"]["nDCG@10"]:.4f}' if table[name]['dl19']['nDCG@10'] != 0 else '-',
                              s3=f'{table[name]["dl19"]["R@1K"]:.4f}' if table[name]['dl19']['R@1K'] != 0 else '-',
@@ -160,15 +165,16 @@ if __name__ == '__main__':
             s = Template(row_template)
             s = s.substitute(row_cnt=row_cnt,
                              condition_name=table_keys[name],
-                             s1=f'{table[name]["dl21"]["MAP@100"]:8.4f}',
-                             s2=f'{table[name]["dl21"]["nDCG@10"]:8.4f}',
-                             s3=f'{table[name]["dl21"]["MRR@100"]:8.4f}',
-                             s4=f'{table[name]["dl21"]["R@100"]:8.4f}',
-                             s5=f'{table[name]["dl21"]["R@1K"]:8.4f}',
-                             s6=f'{table[name]["dev"]["MRR@100"]:8.4f}',
-                             s7=f'{table[name]["dev"]["R@1K"]:8.4f}',
-                             s8=f'{table[name]["dev2"]["MRR@100"]:8.4f}',
-                             s9=f'{table[name]["dev2"]["R@1K"]:8.4f}',
+                             row=row_ids[name],
+                             s1=f'{table[name]["dl21"]["MAP@100"]:.4f}',
+                             s2=f'{table[name]["dl21"]["nDCG@10"]:.4f}',
+                             s3=f'{table[name]["dl21"]["MRR@100"]:.4f}',
+                             s4=f'{table[name]["dl21"]["R@100"]:.4f}',
+                             s5=f'{table[name]["dl21"]["R@1K"]:.4f}',
+                             s6=f'{table[name]["dev"]["MRR@100"]:.4f}',
+                             s7=f'{table[name]["dev"]["R@1K"]:.4f}',
+                             s8=f'{table[name]["dev2"]["MRR@100"]:.4f}',
+                             s9=f'{table[name]["dev2"]["R@1K"]:.4f}',
                              cmd1=format_command(commands[name]['dl21']),
                              cmd2=format_command(commands[name]['dev']),
                              cmd3=format_command(commands[name]['dev2']),
