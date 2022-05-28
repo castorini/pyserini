@@ -578,10 +578,10 @@ for i in range(0, 10):
 Accompanying our [SIGIR 2022 paper](https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf), we have introduced "two-click reproductions" that allows anyone to reproduce experimental runs with only two mouse clicks.
 We provide access to full matrix experiments below:
 
-+ [MS MARCO V1 passage](https://castorini.github.io/pyserini/2cr/msmarco-v1-passage.html)
-+ [MS MARCO V1 document](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html)
-+ [MS MARCO V2 passage](https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html)
-+ [MS MARCO V2 document](https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html)
++ [MS MARCO V1 Passage](https://castorini.github.io/pyserini/2cr/msmarco-v1-passage.html)
++ [MS MARCO V1 Document](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html)
++ [MS MARCO V2 Passage](https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html)
++ [MS MARCO V2 Document](https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html)
 
 ## Reproduction Guides
 
