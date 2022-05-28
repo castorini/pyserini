@@ -48,6 +48,7 @@ class TestSearch(unittest.TestCase):
                         --to-faiss \
                 encoder --encoder castorini/tct_colbert-v2-hnp-msmarco \
                         --fields text \
+                        --max-length 512 \
                         --batch 1 \
                         --device cpu'
         status = os.system(cmd)
