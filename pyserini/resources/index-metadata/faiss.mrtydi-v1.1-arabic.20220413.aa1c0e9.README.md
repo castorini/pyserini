@@ -37,15 +37,35 @@ done
 
 Note that the delimiter are only supported after [Pyserini #1000](https://github.com/castorini/pyserini/pull/1000/commits/5021e12d1d2e1bc3d4015955bcf77076c5798ce6#diff-45356c3f5e9cd223bb23d7efea3f7ed834abbcd32f604eb7fdd138e364273241L104).
 
+The index can be later reproduced on commit [7b099d5](https://github.com/crystina-z/pyserini/commit/7b099d534901d1f0161982605cd40d039ddb701d) using
+```
+encoder=castorini/mdpr-tied-pft-msmarco
+index_dir=mdpr-dindex/$lang-$shard_id
+mkdir -p $index_dir
+python -m pyserini.encode   input   --corpus $corpus \
+                                    --fields title text \
+                                    --delimiter "\n\n" \
+                                    --shard-id $shard_id \
+                                    --shard-num $shard_num \
+                            output  --embeddings  $index_dir \
+                                    --to-faiss \
+                            encoder --encoder $encoder \
+                                    --fields title text \
+                                    --batch 128 \
+                                    --encoder-class 'auto' \
+                                    --fp16
+```
+
 Here's a sample retrieval command (on the test set):
 
 ```bash
 set_name=test
 python -m pyserini.dsearch \
-  --encoder castorini/mdpr-tied-msmarco \
+  --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-${lang}-${set_name} \
   --index ${index_dir} \
   --output runs/run.mrtydi-v1.1-$lang.${set_name}.txt
   --batch-size 36 \
-  --threads 12
+  --threads 12 \
+  --encoder-class 'auto'
 ```
