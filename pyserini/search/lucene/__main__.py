@@ -43,7 +43,9 @@ def set_bm25_parameters(searcher, index, k1=None, b=None):
             # See https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-passage.md
             print('MS MARCO passage: setting k1=0.82, b=0.68')
             searcher.set_bm25(0.82, 0.68)
-        elif index == 'msmarco-passage-expanded' or index == 'msmarco-v1-passage-d2q-t5':
+        elif index == 'msmarco-passage-expanded' or \
+                index == 'msmarco-v1-passage-d2q-t5' or \
+                index == 'msmarco-v1-passage-d2q-t5-docvectors':
             # See https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-passage-docTTTTTquery.md
             print('MS MARCO passage w/ doc2query-T5 expansion: setting k1=2.18, b=0.86')
             searcher.set_bm25(2.18, 0.86)
@@ -58,11 +60,15 @@ def set_bm25_parameters(searcher, index, k1=None, b=None):
             # See https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-doc-segmented.md
             print('MS MARCO doc, per passage: setting k1=2.16, b=0.61')
             searcher.set_bm25(2.16, 0.61)
-        elif index == 'msmarco-doc-expanded-per-doc' or index == 'msmarco-v1-doc-d2q-t5':
+        elif index == 'msmarco-doc-expanded-per-doc' or \
+                index == 'msmarco-v1-doc-d2q-t5' or \
+                index == 'msmarco-v1-doc-d2q-t5-docvectors':
             # See https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-doc-docTTTTTquery.md
             print('MS MARCO doc w/ doc2query-T5 (per doc) expansion: setting k1=4.68, b=0.87')
             searcher.set_bm25(4.68, 0.87)
-        elif index == 'msmarco-doc-expanded-per-passage' or index == 'msmarco-v1-doc-segmented-d2q-t5':
+        elif index == 'msmarco-doc-expanded-per-passage' or \
+                index == 'msmarco-v1-doc-segmented-d2q-t5' or \
+                index == 'msmarco-v1-doc-segmented-d2q-t5-docvectors':
             # See https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-doc-segmented-docTTTTTquery.md
             print('MS MARCO doc w/ doc2query-T5 (per passage) expansion: setting k1=2.56, b=0.59')
             searcher.set_bm25(2.56, 0.59)

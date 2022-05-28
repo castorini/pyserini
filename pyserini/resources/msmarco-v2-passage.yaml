@@ -2,6 +2,7 @@ conditions:
   - name: bm25-default
     display: BM25 original passage (k1=0.9, b=0.4)
     display-html: BM25 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display-row: (1a)
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-slim --output $output --bm25
     topics:
       - topic_key: msmarco-v2-passage-dev
@@ -25,6 +26,7 @@ conditions:
   - name: bm25-augmented-default
     display: BM25 augmented passage (k1=0.9, b=0.4)
     display-html: BM25 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display-row: (1b)
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-augmented-slim --output $output --bm25
     topics:
       - topic_key: msmarco-v2-passage-dev
@@ -48,6 +50,7 @@ conditions:
   - name: bm25-rm3-default
     display: BM25+RM3 original passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display-row: (1c)
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-full --output $output --bm25 --rm3
     topics:
       - topic_key: msmarco-v2-passage-dev
@@ -71,6 +74,7 @@ conditions:
   - name: bm25-rm3-augmented-default
     display: BM25+RM3 augmented passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display-row: (1d)
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-augmented-full --output $output --bm25 --rm3
     topics:
       - topic_key: msmarco-v2-passage-dev
@@ -94,6 +98,7 @@ conditions:
   - name: bm25-d2q-t5-default
     display: BM25 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display-row: (2a)
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-d2q-t5 --output $output --bm25
     topics:
       - topic_key: msmarco-v2-passage-dev
@@ -117,6 +122,7 @@ conditions:
   - name: bm25-d2q-t5-augmented-default
     display: BM25 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display-row: (2b)
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-augmented-d2q-t5 --output $output --bm25
     topics:
       - topic_key: msmarco-v2-passage-dev
@@ -137,9 +143,58 @@ conditions:
             MRR@100: 0.6391
             R@100: 0.3883
             R@1K: 0.6962
+  - name: bm25-rm3-d2q-t5-default
+    display: BM25+RM3 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
+    display-html: BM25 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display-row: (2c)
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-d2q-t5-docvectors --output $output --bm25 --rm3
+    topics:
+      - topic_key: msmarco-v2-passage-dev
+        eval_key: msmarco-v2-passage-dev
+        scores:
+          - MRR@100: 0.0948
+            R@1K: 0.7174
+      - topic_key: msmarco-v2-passage-dev2
+        eval_key: msmarco-v2-passage-dev2
+        scores:
+          - MRR@100: 0.0985
+            R@1K: 0.7240
+      - topic_key: dl21
+        eval_key: dl21-passage
+        scores:
+          - MAP@100: 0.2271
+            nDCG@10: 0.5099
+            MRR@100: 0.6651
+            R@100: 0.4444
+            R@1K: 0.7512
+  - name: bm25-rm3-d2q-t5-augmented-default
+    display: BM25+RM3 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
+    display-html: BM25 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display-row: (2d)
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-augmented-d2q-t5-docvectors --output $output --bm25 --rm3
+    topics:
+      - topic_key: msmarco-v2-passage-dev
+        eval_key: msmarco-v2-passage-dev
+        scores:
+          - MRR@100: 0.0880
+            R@1K: 0.7625
+      - topic_key: msmarco-v2-passage-dev2
+        eval_key: msmarco-v2-passage-dev2
+        scores:
+          - MRR@100: 0.0887
+            R@1K: 0.7649
+      - topic_key: dl21
+        eval_key: dl21-passage
+        scores:
+          - MAP@100: 0.1932
+            nDCG@10: 0.4834
+            MRR@100: 0.5882
+            R@100: 0.4295
+            R@1K: 0.7668
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
+    display-row: (3b)
     command: python -m pyserini.search.lucene --index msmarco-v2-passage-unicoil-0shot --topics $topics --output $output --batch 36 --threads 12 --hits 1000 --impact
     topics:
       - topic_key: msmarco-v2-passage-dev-unicoil
@@ -186,6 +241,7 @@ conditions:
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
+    display-row: (3a)
     command: python -m pyserini.search.lucene --index msmarco-v2-passage-unicoil-noexp-0shot --topics $topics --output $output --batch 36 --threads 12 --hits 1000 --impact
     topics:
       - topic_key: msmarco-v2-passage-dev-unicoil-noexp
