@@ -93,7 +93,7 @@ We can run retrieval as follows:
 ```bash
 python -m pyserini.search.lucene \
   --index indexes/lucene-index.msmarco-passage-unicoil/ \
-  --topics msmarco-passage-dev-subset-unicoil-d2q \
+  --topics msmarco-passage-dev-subset-unicoil \
   --output runs/run.msmarco-passage.unicoil.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \
