@@ -19,7 +19,7 @@ Quick Links:
 ## Passage Ranking
 
 To reproduce these runs directly from our pre-built indexes, see our [two-click reproduction matrix for MS MARCO V1 passage](https://castorini.github.io/pyserini/2cr/msmarco-v1-passage.html).
-The passage ranking experiments here correspond to row (3b).
+The passage ranking experiments here correspond to row (3b) for pre-encoded queries, and a corresponding condition for on-the-fly query inference.
 
 ### Corpus Download
 
@@ -120,7 +120,8 @@ Note that in this case, the results should be deterministic.
 ## Document Ranking
 
 To reproduce these runs directly from our pre-built indexes, see our [two-click reproduction matrix for MS MARCO V1 doc](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html).
-The passage ranking experiments here correspond to row (3b).
+The passage ranking experiments here correspond to row (3b) for pre-encoded queries, and a corresponding condition for on-the-fly query inference.
+
 
 ### Corpus Download
 
