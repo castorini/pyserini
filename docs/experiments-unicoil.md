@@ -1,6 +1,6 @@
 # Pyserini: uniCOIL w/ doc2query-T5 on MS MARCO V1
 
-This page describes how to reproduce the uniCOIL experiments in the following paper:
+This guide describes how to reproduce the uniCOIL experiments in the following paper:
 
 > Jimmy Lin and Xueguang Ma. [A Few Brief Notes on DeepImpact, COIL, and a Conceptual Framework for Information Retrieval Techniques.](https://arxiv.org/abs/2106.14807) _arXiv:2106.14807_.
 
@@ -8,7 +8,7 @@ And further detailed in:
 
 > Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin. [Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.](https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf) _Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)_, July 2022.
 
-In this guide, we start with a version of the MS MARCO V1 passage corpus that has already been processed with uniCOIL, i.e., we have applied model inference on every document and captured the output (the sparse vectors).
+Here, we start with a version of the MS MARCO V1 passage corpus that has already been processed with uniCOIL, i.e., we have applied model inference on every document and stored the output sparse vectors.
 For details on how to train uniCOIL and perform inference, please see [this guide](https://github.com/luyug/COIL/tree/main/uniCOIL).
 
 Quick Links:
@@ -23,7 +23,7 @@ The passage ranking experiments here correspond to row (3b).
 
 ### Corpus Download
 
-We're going to use the repository's root directory as the working directory.
+We're going to use the Pyserini repository's root directory as the working directory.
 First, we need to download and unpack the corpus:
 
 ```bash
@@ -124,7 +124,7 @@ The passage ranking experiments here correspond to row (3b).
 
 ### Corpus Download
 
-We're going to use the repository's root directory as the working directory.
+We're going to use the Pyserini repository's root directory as the working directory.
 First, we need to download and unpack the corpus:
 
 ```bash
