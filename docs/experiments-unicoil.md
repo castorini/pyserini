@@ -8,8 +8,7 @@ And further detailed in:
 
 > Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin. [Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.](https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf) _Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)_, July 2022.
 
-In this guide, we start with a version of the MS MARCO passage corpus that has already been processed with uniCOIL, i.e., gone through document expansion and term reweighting.
-Thus, no neural inference is involved.
+In this guide, we start with a version of the MS MARCO V1 passage corpus that has already been processed with uniCOIL, i.e., we have applied model inference on every document and captured the output (the sparse vectors).
 For details on how to train uniCOIL and perform inference, please see [this guide](https://github.com/luyug/COIL/tree/main/uniCOIL).
 
 Quick Links:
@@ -25,7 +24,7 @@ The passage ranking experiments here correspond to row (3b).
 ### Corpus Download
 
 We're going to use the repository's root directory as the working directory.
-First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
+First, we need to download and unpack the corpus:
 
 ```bash
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-unicoil.tar -P collections/
@@ -77,12 +76,8 @@ A complete run typically takes around 30 minutes.
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.unicoil.tsv
-```
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.unicoil.tsv
 
-The results should be something along these lines:
-
-```
 #####################
 MRR @10: 0.3508734138354477
 QueriesRanked: 6980
@@ -112,12 +107,8 @@ Since we're not applying neural inference over the queries, speed is faster, typ
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.unicoil.tsv
-```
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.unicoil.tsv
 
-The results should be as follows:
-
-```
 #####################
 MRR @10: 0.35155222404147896
 QueriesRanked: 6980
@@ -134,7 +125,7 @@ The passage ranking experiments here correspond to row (3b).
 ### Corpus Download
 
 We're going to use the repository's root directory as the working directory.
-First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
+First, we need to download and unpack the corpus:
 
 ```bash
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-doc-segmented-unicoil.tar -P collections/
@@ -185,12 +176,9 @@ A complete run can take around 40 minutes.
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc-segmented-unicoil.tsv
-```
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev \
+    --run runs/run.msmarco-doc-segmented-unicoil.tsv
 
-The results should be something along these lines:
-
-```
 #####################
 MRR @100: 0.3530641289682811
 QueriesRanked: 5193
@@ -220,12 +208,9 @@ Since we're not applying neural inference over the queries, speed is faster, typ
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc-segmented-unicoil.tsv
-```
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev \
+    --run runs/run.msmarco-doc-segmented-unicoil.tsv
 
-The results should be as follows:
-
-```
 #####################
 MRR @100: 0.352997702662614
 QueriesRanked: 5193

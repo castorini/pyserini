@@ -9,7 +9,7 @@ And further detailed in:
 
 > Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin. [Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.](https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf) _Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)_, July 2022.
 
-For uniCOIL, we make the corpus (sparse vectors) as well as the pre-built indexes available to download.
+In this guide, we start with versions of the MS MARCO V2 corpora that have already been processed with uniCOIL, i.e., we have applied model inference on every document and captured the output (the sparse vectors).
 
 Quick links:
 
