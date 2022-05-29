@@ -12,12 +12,17 @@ In this guide, we start with a version of the MS MARCO passage corpus that has a
 Thus, no neural inference is involved.
 For details on how to train uniCOIL and perform inference, please see [this guide](https://github.com/luyug/COIL/tree/main/uniCOIL).
 
+Quick Links:
+
++ [Passage Ranking](#passage-ranking)
++ [Document Ranking](#document-ranking)
+
 ## Passage Ranking
 
 To reproduce these runs directly from our pre-built indexes, see our [two-click reproduction matrix for MS MARCO V1 passage](https://castorini.github.io/pyserini/2cr/msmarco-v1-passage.html).
 The passage ranking experiments here correspond to row (3b).
 
-### Data Prep
+### Corpus Download
 
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
@@ -126,7 +131,7 @@ Note that in this case, the results should be deterministic.
 To reproduce these runs directly from our pre-built indexes, see our [two-click reproduction matrix for MS MARCO V1 doc](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html).
 The passage ranking experiments here correspond to row (3b).
 
-### Data Prep
+### Corpus Download
 
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
