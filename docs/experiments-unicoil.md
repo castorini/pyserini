@@ -4,13 +4,18 @@ This page describes how to reproduce the uniCOIL experiments in the following pa
 
 > Jimmy Lin and Xueguang Ma. [A Few Brief Notes on DeepImpact, COIL, and a Conceptual Framework for Information Retrieval Techniques.](https://arxiv.org/abs/2106.14807) _arXiv:2106.14807_.
 
+And further detailed in:
+
+> Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin. [Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.](https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf) _Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)_, July 2022.
+
 In this guide, we start with a version of the MS MARCO passage corpus that has already been processed with uniCOIL, i.e., gone through document expansion and term reweighting.
 Thus, no neural inference is involved.
 For details on how to train uniCOIL and perform inference, please see [this guide](https://github.com/luyug/COIL/tree/main/uniCOIL).
 
 ## Passage Ranking
 
-> You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to the "Retrieval" section below.
+To reproduce these runs directly from our pre-built indexes, see our [two-click reproduction matrix for MS MARCO V1 passage](https://castorini.github.io/pyserini/2cr/msmarco-v1-passage.html).
+The passage ranking experiments here correspond to row (3b).
 
 ### Data Prep
 
@@ -19,7 +24,6 @@ First, we need to download and extract the MS MARCO passage dataset with uniCOIL
 
 ```bash
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-unicoil.tar -P collections/
-
 tar xvf collections/msmarco-passage-unicoil.tar -C collections/
 ```
 
@@ -45,8 +49,6 @@ Upon completion, we should have an index with 8,841,823 documents.
 The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around 15 minutes.
 
 ### Retrieval
-
-> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-v1-passage-unicoil` in the command below.
 
 We can now run retrieval using the `castorini/unicoil-msmarco-passage` model available on Huggingface's model hub to encode the queries:
 
@@ -121,7 +123,8 @@ Note that in this case, the results should be deterministic.
 
 ## Document Ranking
 
-> You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to the "Retrieval" section below.
+To reproduce these runs directly from our pre-built indexes, see our [two-click reproduction matrix for MS MARCO V1 doc](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html).
+The passage ranking experiments here correspond to row (3b).
 
 ### Data Prep
 
@@ -130,7 +133,6 @@ First, we need to download and extract the MS MARCO passage dataset with uniCOIL
 
 ```bash
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-doc-segmented-unicoil.tar -P collections/
-
 tar xvf collections/msmarco-doc-segmented-unicoil.tar -C collections/
 ```
 
@@ -155,8 +157,6 @@ The important indexing options to note here are `--impact --pretokenized`: the f
 The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, per above), indexing takes around an hour.
 
 ### Retrieval
-
-> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-v1-doc-segmented-unicoil` in the command below.
 
 We can now run retrieval:
 
