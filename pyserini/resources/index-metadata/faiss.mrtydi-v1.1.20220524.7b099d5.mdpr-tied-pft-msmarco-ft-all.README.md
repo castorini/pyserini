@@ -47,7 +47,7 @@ python -m pyserini.search.faiss \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-${lang}-${set_name} \
   --index ${index_dir} \
-  --output runs/run.mrtydi-v1.1-$lang.${set_name}.txt
+  --output runs/run.mrtydi-v1.1-$lang.${set_name}.txt \
   --batch-size 36 \
   --threads 12 \
   --encoder-class 'auto'
