@@ -16,6 +16,7 @@
 
 import argparse
 import os
+from typing import OrderedDict
 
 from tqdm import tqdm
 
@@ -37,6 +38,11 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 def define_dsearch_args(parser):
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                         help="Path to Faiss index or name of prebuilt index.")
+    parser.add_argument('--encoder-class', type=str, metavar='which query encoder class to use. `default` would infer from the args.encoder',
+                        required=False,
+                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "auto"],
+                        default=None,
+                        help='which query encoder class to use. `default` would infer from the args.encoder')
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
                         required=False,
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
@@ -75,7 +81,7 @@ def define_dsearch_args(parser):
                         help='The path or name to ANCE-PRF model checkpoint')
 
 
-def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, device, prefix):
+def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, encoded_queries, device, prefix):
     encoded_queries_map = {
         'msmarco-passage-dev-subset': 'tct_colbert-msmarco-passage-dev-subset',
         'dpr-nq-dev': 'dpr_multi-nq-dev',
@@ -86,22 +92,41 @@ def init_query_encoder(encoder, tokenizer_name, topics_name, encoded_queries, de
         'dpr-squad-test': 'dpr_multi-squad-test',
         'dpr-curated-test': 'dpr_multi-curated-test'
     }
+    encoder_class_map = {
+        "dkrr": DkrrDprQueryEncoder,
+        "dpr": DprQueryEncoder,
+        "bpr": BprQueryEncoder,
+        "tct_colbert": TctColBertQueryEncoder,
+        "ance": AnceQueryEncoder,
+        "sentence": AutoQueryEncoder,
+        "auto": AutoQueryEncoder,
+    }
+
     if encoder:
-        if 'dkrr' in encoder:
-            return DkrrDprQueryEncoder(encoder_dir=encoder, device=device, prefix=prefix)
-        elif 'dpr' in encoder:
-            return DprQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
-        elif 'bpr' in encoder:
-            return BprQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
-        elif 'tct_colbert' in encoder:
-            return TctColBertQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
-        elif 'ance' in encoder:
-            return AnceQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
-        elif 'sentence' in encoder:
-            return AutoQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device,
-                                    pooling='mean', l2_norm=True)
+        _encoder_class = encoder_class
+
+        # determine encoder_class
+        if encoder_class is not None:
+            encoder_class = encoder_class_map[encoder_class]
         else:
-            return AutoQueryEncoder(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device)
+            # if any class keyword was matched in the given encoder name,
+            # use that encoder class
+            for class_keyword in encoder_class_map:
+                if class_keyword in encoder.lower():
+                    encoder_class = encoder_class_map[class_keyword]
+                    break
+
+            # if none of the class keyword was matched,
+            # use the AutoQueryEncoder
+            if encoder_class is None:
+                encoder_class = AutoQueryEncoder
+
+        # prepare arguments to encoder class
+        kwargs = dict(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device, prefix=prefix)
+        if (_encoder_class == "sentence") or ("sentence" in encoder):
+            kwargs.update(dict(pooling='mean', l2_norm=True))
+
+        return encoder_class(**kwargs)
 
     if encoded_queries:
         if os.path.exists(encoded_queries):
@@ -149,8 +174,8 @@ if __name__ == '__main__':
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
     topics = query_iterator.topics
 
-    query_encoder = init_query_encoder(args.encoder, args.tokenizer, args.topics, args.encoded_queries, args.device,
-                                       args.query_prefix)
+    query_encoder = init_query_encoder(
+        args.encoder, args.encoder_class, args.tokenizer, args.topics, args.encoded_queries, args.device, args.query_prefix)
     if args.pca_model:
         query_encoder = PcaEncoder(query_encoder, args.pca_model)
     kwargs = {}
