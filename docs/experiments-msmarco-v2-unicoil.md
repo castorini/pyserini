@@ -287,6 +287,10 @@ To reproduce the Anserini results, use pre-encoded queries with `--topics msmarc
 
 ## Document Ranking (With doc2query-T5 Expansion, Title Prepended)
 
+After the TREC 2021 Deep Learning Track submissions, we were able to complete doc2query-T5 expansions.
+Note that when performing inference on the documents using the uniCOIL model here, we prepended the document title to provide context.
+This is more effective than the condition described above (which does not have the title prepended); nevertheless, we have retained the above condition for completeness.
+
 To reproduce these runs directly from our pre-built indexes, see our [two-click reproduction matrix for MS MARCO V2 doc](https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html).
 The passage ranking experiments here correspond to row (3b) for pre-encoded queries, and a corresponding condition for on-the-fly query inference.
 
