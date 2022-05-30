@@ -624,6 +624,16 @@ The following guides provide step-by-step instructions:
 
 + Reproducing [uniCOIL + TCT-ColBERTv2 experiments on the MS MARCO V2 Collections](docs/experiments-msmarco-v2-hybrid.md)
 
+### Available Corpora
+
+| Corpora |    | Checksum |
+|:--------|:---|:---------|
+| MS MARCO V1 passage: uniCOIL (no expansion) | [[download](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_passage_unicoil_noexp_0shot.tar)] | `d9cc1ed3049746e68a2c91bf90e5212d` |
+| MS MARCO V1 passage: uniCOIL (w/ doc2query-T5 expansions) | [[download](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_passage_unicoil_0shot.tar)] | `1949a00bfd5e1f1a230a04bbc1f01539` |
+| MS MARCO V1 doc: uniCOIL (no expansion) | [[download](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_passage_unicoil_noexp_0shot.tar)] | `d9cc1ed3049746e68a2c91bf90e5212d` |
+| MS MARCO V1 doc: uniCOIL (w/ doc2query-T5 expansions)[*](docs/experiments-msmarco-v2-unicoil.md#document-ranking-with-doc2query-t5-expansion-title-prepended) | [[download](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_doc_segmented_unicoil_0shot_v2.tar)] | `c5639748c2cbad0152e10b0ebde3b804` |
+
+
 ## FAQs
 
 + [How do I configure search?](docs/usage-interactive-search.md#how-do-i-configure-search) (Guide to Interactive Search)
