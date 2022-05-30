@@ -21,7 +21,7 @@ Quick links:
 ## Passage Ranking (No Expansion)
 
 For the TREC 2021 Deep Learning Track, we did not have time to train a new uniCOIL model on V2 data and we did not have time to finish doc2query-T5 expansions.
-Thus, we applied uniCOIL without expansions in a zero-shot manner using a model trained on the MS MARCO V1 passage corpus.
+Thus, we applied uniCOIL without expansions in a zero-shot manner using the model trained on the MS MARCO V1 passage corpus.
 
 To reproduce these runs directly from our pre-built indexes, see our [two-click reproduction matrix for MS MARCO V2 passage](https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html).
 The passage ranking experiments here correspond to row (3a) for pre-encoded queries, and a corresponding condition for on-the-fly query inference.
@@ -152,7 +152,7 @@ To reproduce the Anserini results, use pre-encoded queries with `--topics msmarc
 ## Document Ranking (No Expansion)
 
 For the TREC 2021 Deep Learning Track, we did not have time to train a new uniCOIL model on V2 data and we did not have time to finish doc2query-T5 expansions.
-Thus, we applied uniCOIL without expansions in a zero-shot manner using a model trained on the MS MARCO V1 passage corpus.
+Thus, we applied uniCOIL without expansions in a zero-shot manner using the model trained on the MS MARCO V1 passage corpus.
 When performing inference on the documents using the uniCOIL model here, we prepended the document title to provide context.
 This is more effective than not prepending the title, which is also a condition that we have tried.
 
