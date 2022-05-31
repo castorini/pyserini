@@ -202,15 +202,15 @@ $ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-do
     runs/run.msmarco-doc-v2-segmented-unicoil-noexp-0shot-v2.dev.txt
 
 Results:
-map                   	all	0.2047
-recip_rank            	all	0.2066
+map                   	all	0.2206
+recip_rank            	all	0.2232
 
 $ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-doc-dev \
     runs/run.msmarco-doc-v2-segmented-unicoil-noexp-0shot-v2.dev.txt
 
 Results:
-recall_100            	all	0.7198
-recall_1000           	all	0.8854
+recall_100            	all	0.7460
+recall_1000           	all	0.8987
 ```
 
 We evaluate MAP and MRR at a cutoff of 100 hits to match the official evaluation metrics.
