@@ -81,7 +81,8 @@ if len(args) > 1:
     for cutoff in cutoffs:
         run_cutoff = run.groupby(0).head(cutoff)
         judged = len(pd.merge(run_cutoff[[0,2]], qrels[[0,2]], on = [0,2])) / len(run_cutoff)
-        judged_result.append(f'judged_{cutoff}\tall\t{judged:.4f}')
+        metric_name = f'judged_{cutoff}'
+        judged_result.append(f'{metric_name:22}\tall\t{judged:.4f}')
     cmd = cmd_prefix + args[1:]
 else:
     cmd = cmd_prefix
@@ -97,11 +98,7 @@ if stderr:
     print(stderr.decode("utf-8"))
 
 print('Results:')
-results = stdout.decode("utf-8")
-# Clean up the formatting of trec_eval output.
-results = results.rstrip()
-results = re.sub(re.compile('[ \\t]+'), '\t', results)
-print(results)
+print(stdout.decode("utf-8").rstrip())
 
 for judged in judged_result:
     print(judged)
