@@ -145,7 +145,7 @@ conditions:
             R@1K: 0.6962
   - name: bm25-rm3-d2q-t5-default
     display: BM25+RM3 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
-    display-html: BM25 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display-html: BM25+RM3 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (2c)
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-d2q-t5-docvectors --output $output --bm25 --rm3
     topics:
@@ -169,7 +169,7 @@ conditions:
             R@1K: 0.7512
   - name: bm25-rm3-d2q-t5-augmented-default
     display: BM25+RM3 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
-    display-html: BM25 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display-html: BM25+RM3 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (2d)
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v2-passage-augmented-d2q-t5-docvectors --output $output --bm25 --rm3
     topics:
