@@ -8,8 +8,7 @@ And further detailed in:
 
 > Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin. [Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.](https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf) _Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)_, July 2022.
 
-Here, we start with a version of the MS MARCO V1 passage corpus that has already been processed with uniCOIL, i.e., we have applied model inference on every document and stored the output sparse vectors.
-For details on how to train uniCOIL and perform inference, please see [this guide](https://github.com/luyug/COIL/tree/main/uniCOIL).
+Here, we start with versions of the MS MARCO V1 corpora that have already been processed with uniCOIL, i.e., we have applied model inference on every document and stored the output sparse vectors.
 
 Quick Links:
 
@@ -84,7 +83,7 @@ QueriesRanked: 6980
 #####################
 ```
 
-There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
+There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for details.
 The above score was obtained on Linux.
 
 Alternatively, we can use pre-tokenized queries with pre-computed weights, which are already included in Pyserini.
@@ -120,8 +119,7 @@ Note that in this case, the results should be deterministic.
 ## Document Ranking
 
 To reproduce these runs directly from our pre-built indexes, see our [two-click reproduction matrix for MS MARCO V1 doc](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html).
-The passage ranking experiments here correspond to row (3b) for pre-encoded queries, and a corresponding condition for on-the-fly query inference.
-
+The document ranking experiments here correspond to row (3b) for pre-encoded queries, and a corresponding condition for on-the-fly query inference (although see note below for more details).
 
 ### Corpus Download
 
@@ -186,7 +184,7 @@ QueriesRanked: 5193
 #####################
 ```
 
-There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
+There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for details.
 The above score was obtained on Linux.
 
 Alternatively, we can use pre-tokenized queries with pre-computed weights, which are already included in Pyserini.
@@ -220,6 +218,10 @@ QueriesRanked: 5193
 
 Note that in this case, the results should be deterministic.
 
+A final detail: with MaxP and the need to generate runs to different depths, we can set `--hits` and `--max-passage-hits` differently.
+Due to tie-breaking effects, we get slightly different results with different settings: see [Anserini experiments](https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-doc-segmented-unicoil.md) for additional details.
+Because of slightly different parameter settings, the results here do not exactly match the results in the [two-click reproduction matrix for MS MARCO V1 doc](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html).
+
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-07-13 (commit [`228d5c9`](https://github.com/castorini/pyserini/commit/228d5c9c4ae0810702feccf8829b71682dd4955c))
@@ -228,3 +230,4 @@ Note that in this case, the results should be deterministic.
 + Results reproduced by [@mayankanand007](https://github.com/mayankanand007) on 2021-09-18 (commit [`331dfe7`](https://github.com/castorini/pyserini/commit/331dfe7b2801cca09fbbb971b017073bf6f726ad))
 + Results reproduced by [@apokali](https://github.com/apokali) on 2021-09-23 (commit [`82f8422`](https://github.com/castorini/pyserini/commit/82f842218f8c5c7c451b2e463774d7bdf6bc0653))
 + Results reproduced by [@yuki617](https://github.com/yuki617) on 2022-02-08 (commit [`e03e068`](https://github.com/castorini/pyserini/commit/e03e06880ad4f6d67a1666c1dd45ce4250adc95d))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2022-06-01 (commit [`b7bcf51`](https://github.com/castorini/pyserini/commit/b7bcf517ecc021985ab052b20fcb6beeb63a303b))
