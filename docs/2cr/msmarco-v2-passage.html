@@ -132,6 +132,12 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
+<p>The two-click reproduction matrix below provides commands for reproducing experimental results reported in the following paper.
+Numbered rows correspond to tables in the paper; additional conditions are provided for comparison purposes.</p>
+
+<p class="note note-light">Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin. <a href="https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
+<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.</p>
+
 <div class="table-responsive">
   <table class="table">
     <thead>
@@ -781,11 +787,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.
 
 </div></td>
 </tr>
-<!-- Condition: BM25 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25+RM3 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
 <td class="expand-button"></td>
 <td>(2c)</td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2271</td>
 <td>0.5099</td>
 <td>0.6651</td>
@@ -884,11 +890,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.
 
 </div></td>
 </tr>
-<!-- Condition: BM25 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25+RM3 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
 <td class="expand-button"></td>
 <td>(2d)</td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.1932</td>
 <td>0.4834</td>
 <td>0.5882</td>

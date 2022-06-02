@@ -132,6 +132,12 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
+<p>The two-click reproduction matrix below provides commands for reproducing experimental results reported in the following paper.
+Numbered rows correspond to tables in the paper; additional conditions are provided for comparison purposes.</p>
+
+<p class="note note-light">Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin. <a href="https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
+<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.</p>
+
 <div class="table-responsive">
   <table class="table">
     <thead>
