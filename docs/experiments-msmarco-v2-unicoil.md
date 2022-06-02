@@ -174,7 +174,7 @@ To index the sparse vectors:
 python -m pyserini.index.lucene \
   --collection JsonVectorCollection \
   --input collections/msmarco_v2_doc_segmented_unicoil_noexp_0shot_v2/ \
-  --index indexes/lucene-index.msmarco-doc-v2-segmented-unicoil-noexp-0shot-v2/ \
+  --index indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2/ \
   --generator DefaultLuceneDocumentGenerator \
   --threads 32 \
   --impact --pretokenized
@@ -184,10 +184,10 @@ To perform retrieval:
 
 ```bash
 python -m pyserini.search.lucene \
-  --index indexes/lucene-index.msmarco-doc-v2-segmented-unicoil-noexp-0shot-v2/ \
+  --index indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2/ \
   --topics msmarco-v2-doc-dev \
   --encoder castorini/unicoil-noexp-msmarco-passage \
-  --output runs/run.msmarco-doc-v2-segmented-unicoil-noexp-0shot-v2.dev.txt \
+  --output runs/run.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.dev.txt \
   --batch 144 --threads 36 \
   --hits 10000 --max-passage --max-passage-hits 1000 \
   --impact
@@ -199,14 +199,14 @@ To evaluate, using `trec_eval`:
 
 ```bash
 $ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-doc-dev \
-    runs/run.msmarco-doc-v2-segmented-unicoil-noexp-0shot-v2.dev.txt
+    runs/run.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.dev.txt
 
 Results:
 map                   	all	0.2206
 recip_rank            	all	0.2232
 
 $ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-doc-dev \
-    runs/run.msmarco-doc-v2-segmented-unicoil-noexp-0shot-v2.dev.txt
+    runs/run.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.dev.txt
 
 Results:
 recall_100            	all	0.7460
@@ -243,7 +243,7 @@ To index the sparse vectors:
 python -m pyserini.index.lucene \
   --collection JsonVectorCollection \
   --input collections/msmarco_v2_doc_segmented_unicoil_0shot_v2/ \
-  --index indexes/lucene-index.msmarco-doc-v2-segmented-unicoil-0shot-v2/ \
+  --index indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2/ \
   --generator DefaultLuceneDocumentGenerator \
   --threads 32 \
   --impact --pretokenized
@@ -253,10 +253,10 @@ To perform retrieval:
 
 ```bash
 python -m pyserini.search.lucene \
-  --index indexes/lucene-index.msmarco-doc-v2-segmented-unicoil-0shot-v2/ \
+  --index indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2/ \
   --topics msmarco-v2-doc-dev \
   --encoder castorini/unicoil-msmarco-passage \
-  --output runs/run.msmarco-doc-v2-segmented-unicoil-0shot-v2.dev.txt \
+  --output runs/run.msmarco-v2-doc-segmented-unicoil-0shot-v2.dev.txt \
   --batch 144 --threads 36 \
   --hits 10000 --max-passage --max-passage-hits 1000 \
   --impact
@@ -268,14 +268,14 @@ To evaluate, using `trec_eval`:
 
 ```bash
 $ python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-doc-dev \
-    runs/run.msmarco-doc-v2-segmented-unicoil-0shot-v2.dev.txt
+    runs/run.msmarco-v2-doc-segmented-unicoil-0shot-v2.dev.txt
 
 Results:
 map                     all     0.2388
 recip_rank              all     0.2419
 
 $ python -m pyserini.eval.trec_eval -c -m recall.100,1000 msmarco-v2-doc-dev \
-    runs/run.msmarco-doc-v2-segmented-unicoil-0shot-v2.dev.txt
+    runs/run.msmarco-v2-doc-segmented-unicoil-0shot-v2.dev.txt
 
 Results:
 recall_100              all     0.7789
