@@ -14,16 +14,16 @@
 # limitations under the License.
 #
 
-import os
 import json
-import faiss
-import unittest
+import os
 import pathlib as pl
+import shutil
+import unittest
 
+import faiss
 
 from pyserini.encode import JsonlCollectionIterator, TctColBertDocumentEncoder, DprDocumentEncoder, \
     UniCoilDocumentEncoder
-from pyserini.util import get_cache_home
 
 
 class TestSearch(unittest.TestCase):
@@ -67,8 +67,7 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(vectors[2]['commercial'], 3.288801670074463, places=4)
 
     def test_tct_colbert_v2_encoder_cmd(self):
-        cache_dir = get_cache_home()
-        index_dir = f'{cache_dir}/temp_index'
+        index_dir = 'temp_index'
         cmd = f'python -m pyserini.encode \
                   input   --corpus {self.test_file} \
                           --fields text \
@@ -97,11 +96,13 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(embeddings[2]['vector'][0], 0.03678430616855621, places=4)
         self.assertAlmostEqual(embeddings[2]['vector'][-1], 0.13209162652492523, places=4)
 
+        shutil.rmtree(index_dir)
+
     def test_tct_colbert_v2_encoder_cmd_shard(self):
-        cache_dir = get_cache_home()
- 
+        cleanup_list = []
         for shard_i in range(2):
-            index_dir = f'{cache_dir}/temp_index-{shard_i}'
+            index_dir = f'temp_index-{shard_i}'
+            cleanup_list.append(index_dir)
             cmd = f'python -m pyserini.encode \
                     input   --corpus {self.test_file} \
                             --fields text \
@@ -118,8 +119,9 @@ class TestSearch(unittest.TestCase):
             self.assertIsFile(os.path.join(index_dir, 'docid'))
             self.assertIsFile(os.path.join(index_dir, 'index'))
 
-        cmd = f'python -m pyserini.index.merge_faiss_indexes --prefix {cache_dir}/temp_index- --shard-num 2'
-        index_dir = f'{cache_dir}/temp_index-full'
+        cmd = f'python -m pyserini.index.merge_faiss_indexes --prefix temp_index- --shard-num 2'
+        index_dir = 'temp_index-full'
+        cleanup_list.append(index_dir)
         docid_fn = os.path.join(index_dir, 'docid')
         index_fn = os.path.join(index_dir, 'index')
 
@@ -138,6 +140,9 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(vectors[0][-1], -0.0037349488120526075, places=4)
         self.assertAlmostEqual(vectors[2][0], 0.03678430616855621, places=4)
         self.assertAlmostEqual(vectors[2][-1], 0.13209162652492523, places=4)
+
+        for index_dir in cleanup_list:
+            shutil.rmtree(index_dir)
 
 
 class TestJsonlCollectionIterator(unittest.TestCase):
@@ -158,7 +163,6 @@ class TestJsonlCollectionIterator(unittest.TestCase):
             self.assertEqual(expected_info[0], info["id"][0])
             self.assertEqual(expected_info[1], info["title"][0])
             self.assertEqual(expected_info[2], info["text"][0])
-
 
     def test_upper_lower_case(self):
         json_fn = 'tests/resources/simple_cacm_corpus.json'
