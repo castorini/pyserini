@@ -3127,7 +3127,7 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-arabic.20220413.aa1c0e9.tar.gz",
         ],
-        "md5": "b77031d8aaedc55816aaf474afb3301f",
+        "md5": "bafb6fb2c530567dec26aa4597c6ee25",
         "size compressed (bytes)": 5997943791,
         "documents": 2106586,
         "downloaded": False,
@@ -3140,7 +3140,7 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-bengali.20220413.aa1c0e9.tar.gz",
         ],
-        "md5": "3838d11b3310a2dbccc7f34ae38401c2",
+        "md5": "d04bb6e634fb4f7df23dbff7481a8f9b",
         "size compressed (bytes)": 865733058,
         "documents": 304059,
         "downloaded": False,
@@ -3153,7 +3153,7 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-english.20220413.aa1c0e9.tar.gz",
         ],
-        "md5": "422c8f892b6dba2a369948bb88d4b5ac",
+        "md5": "4a93a2211199f7359cc99486a9f93d02",
         "size compressed (bytes)": 93594561391,
         "documents": 32907100,
         "downloaded": False,
@@ -3166,7 +3166,7 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-finnish.20220413.aa1c0e9.tar.gz",
         ],
-        "md5": "eef5918e55b930e6f41a3a03d3917c96",
+        "md5": "6cbe2d52225fb15a494857b9df593113",
         "size compressed (bytes)": 5436419399,
         "documents": 1908757,
         "downloaded": False,
@@ -3179,7 +3179,7 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-indonesian.20220413.aa1c0e9.tar.gz",
         ],
-        "md5": "952c98979904a40983d7bd077ade33cb",
+        "md5": "26108a7ee1fc5ac15e0b7fcecf4d39ad",
         "size compressed (bytes)": 4178791300,
         "documents": 1469399,
         "downloaded": False,
@@ -3192,7 +3192,7 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-japanese.20220413.aa1c0e9.tar.gz",
         ],
-        "md5": "2508799cbdec5cf132838f4aaa198eef",
+        "md5": "2ef2b5e3f5778d99e65aafc48450508a",
         "size compressed (bytes)": 19918319452,
         "documents": 7000027,
         "downloaded": False,
@@ -3205,7 +3205,7 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-korean.20220413.aa1c0e9.tar.gz",
         ],
-        "md5": "b9e137f81f398b3f0356c161c45c2ccc",
+        "md5": "26ed9be031603019304b66f985ce154c",
         "size compressed (bytes)": 4256863335,
         "documents": 1496126,
         "downloaded": False,
@@ -3218,7 +3218,7 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-russian.20220413.aa1c0e9.tar.gz",
         ],
-        "md5": "2e1f183bf87a7bcc3dcf3b931f35d6f7",
+        "md5": "b1be7a45a702be4021f38425c0001f39",
         "size compressed (bytes)": 27318555548,
         "documents": 9597504,
         "downloaded": False,
@@ -3231,7 +3231,7 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-swahili.20220413.aa1c0e9.tar.gz",
         ],
-        "md5": "98bfc0d9f833ea618e065da3945262f1",
+        "md5": "14edb5f677820b5a5a3858555e900591",
         "size compressed (bytes)": 389600527,
         "documents": 136689,
         "downloaded": False,
@@ -3244,7 +3244,7 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-telugu.20220413.aa1c0e9.tar.gz",
         ],
-        "md5": "3ef27048eaf73525ab73af6a5e8525b2",
+        "md5": "25b37f5d7a035a17b447f1732e241b85",
         "size compressed (bytes)": 1561419958,
         "documents": 548224,
         "downloaded": False,
@@ -3257,7 +3257,7 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-thai.20220413.aa1c0e9.tar.gz",
         ],
-        "md5": "a02724c90164f386810d1b3037c16ac3",
+        "md5": "0544ce677fa31b633a29a079c0cdfc82",
         "size compressed (bytes)": 1616716166,
         "documents": 568855,
         "downloaded": False,
