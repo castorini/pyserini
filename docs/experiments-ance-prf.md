@@ -44,7 +44,7 @@ Second, it takes two more parameters, one `--ance-prf-encoder` which points to t
 
 For the lucene index, it needs to have `--storeRaw` enabled when building the index.
 
-To reproduce `TREC DL 2019 Passage`, use the command below, change `--ance-prf-encoder` to the path that stores the checkpoint:
+To reproduce `TREC DL 2019 Passage`, use the command below, change `--ance-prf-encoder` to the path that stores the checkpoint (Remember to check if `merges.txt` exists in your checkpoint directory, if it doesn't, you can download this file from [roberta-base](https://huggingface.co/roberta-base/tree/main) and add it to the checkpoint directory)
 ```
 $ python -m pyserini.dsearch --topics dl19-passage \                                               
     --index msmarco-passage-ance-bf \

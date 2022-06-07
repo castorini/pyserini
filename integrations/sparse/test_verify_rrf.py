@@ -16,7 +16,6 @@
 
 import hashlib
 import os
-import re
 import shutil
 import unittest
 from random import randint
@@ -29,7 +28,8 @@ from pyserini.util import download_url
 # same output (based on MD5 checksums).
 #
 # [1] https://github.com/joaopalotti/trectools
-class TestSearchIntegration(unittest.TestCase):
+
+class TestRRF(unittest.TestCase):
     def setUp(self):
         self.runs = {
             'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round3/anserini.covid-r3.abstract.qq.bm25.txt':
@@ -68,7 +68,6 @@ class TestSearchIntegration(unittest.TestCase):
         for url in self.runs:
             print(f'Verifying stored run at {url}...')
             filename = url.split('/')[-1]
-            filename = re.sub('\\?dl=1$', '', filename)  # Remove the Dropbox 'force download' parameter
 
             download_url(url, self.tmp, md5=self.runs[url], force=True)
             self.assertTrue(os.path.exists(os.path.join(self.tmp, filename)))
@@ -97,7 +96,7 @@ class TestSearchIntegration(unittest.TestCase):
             md5 = hashlib.md5(f.read()).hexdigest()
         self.assertEqual('d7eabf3dab840104c88de925e918fdab', md5)
 
-    def test_round3_fusion_runs(self):
+    def test_round4_fusion_runs(self):
         os.system(f'python -m pyserini.fusion --method rrf --runs ' +
                   f'{self.tmp}/anserini.covid-r4.abstract.qq.bm25.txt ' +
                   f'{self.tmp}/anserini.covid-r4.full-text.qq.bm25.txt ' +

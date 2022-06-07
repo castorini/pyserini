@@ -573,10 +573,21 @@ for i in range(0, 10):
 
 </details>
 
+## Two-Click Reproductions
+
+Accompanying our [SIGIR 2022 paper](https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf), we introduced "two-click reproductions" that allow anyone to reproduce experimental runs with only two clicks (i.e., copy and paste).
+We provide access to a multitude of experimental conditions organized in the following pages:
+
++ [MS MARCO V1 Passage](https://castorini.github.io/pyserini/2cr/msmarco-v1-passage.html)
++ [MS MARCO V1 Document](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html)
++ [MS MARCO V2 Passage](https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html)
++ [MS MARCO V2 Document](https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html)
+
 ## Reproduction Guides
 
 With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a number of standard IR test collections!
 We provide a number of [pre-built indexes](docs/prebuilt-indexes.md) that directly support reproducibility "out of the box".
+The following guides provide step-by-step instructions:
 
 ### Sparse Retrieval
 
@@ -613,6 +624,20 @@ We provide a number of [pre-built indexes](docs/prebuilt-indexes.md) that direct
 
 + Reproducing [uniCOIL + TCT-ColBERTv2 experiments on the MS MARCO V2 Collections](docs/experiments-msmarco-v2-hybrid.md)
 
+### Available Corpora
+
+| Corpora | Size | Checksum |
+|:--------|-----:|:---------|
+| [MS MARCO V1 passage: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-unicoil-noexp.tar) | 2.7 GB | `f17ddd8c7c00ff121c3c3b147d2e17d8` |
+| [MS MARCO V1 passage: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-unicoil.tar) | 3.4 GB | `78eef752c78c8691f7d61600ceed306f` |
+| [MS MARCO V1 doc: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-doc-segmented-unicoil-noexp.tar) | 11 GB | `11b226e1cacd9c8ae0a660fd14cdd710` |
+| [MS MARCO V1 doc: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-doc-segmented-unicoil.tar) | 19 GB | `6a00e2c0c375cb1e52c83ae5ac377ebb` |
+| [MS MARCO V2 passage: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_passage_unicoil_noexp_0shot.tar) | 24 GB | `d9cc1ed3049746e68a2c91bf90e5212d` |
+| [MS MARCO V2 passage: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_passage_unicoil_0shot.tar) | 41 GB | `1949a00bfd5e1f1a230a04bbc1f01539` |
+| [MS MARCO V2 doc: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_doc_segmented_unicoil_noexp_0shot_v2.tar) | 55 GB | `97ba262c497164de1054f357caea0c63` |
+| [MS MARCO V2 doc: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_doc_segmented_unicoil_0shot_v2.tar) | 72 GB | `c5639748c2cbad0152e10b0ebde3b804` |
+
+
 ## FAQs
 
 + [How do I configure search?](docs/usage-interactive-search.md#how-do-i-configure-search) (Guide to Interactive Search)
@@ -646,6 +671,8 @@ We provide a number of [pre-built indexes](docs/prebuilt-indexes.md) that direct
 
 ## Release History
 
++ v0.17.0: May 28, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.0.md)]
++ v0.16.1: May 12, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.1.md)]
 + v0.16.0: March 1, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.0.md)]
 + v0.15.0: January 21, 2022 [[Release Notes](docs/release-notes/release-notes-v0.15.0.md)]
 + v0.14.0: November 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.14.0.md)]

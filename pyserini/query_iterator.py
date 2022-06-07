@@ -84,6 +84,8 @@ class DefaultQueryIterator(QueryIterator):
             if topics_path.endswith('.json'):
                 with open(topics_path, 'r') as f:
                     topics = json.load(f)
+            elif "beir" in topics_path:
+                topics = get_topics_with_reader('io.anserini.search.topicreader.TsvStringTopicReader', topics_path)
             elif topics_path.endswith('.tsv') or topics_path.endswith('.tsv.gz'):
                 topics = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', topics_path)
             elif topics_path.endswith('.trec'):

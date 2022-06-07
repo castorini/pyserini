@@ -1,25 +1,32 @@
 # Pyserini: uniCOIL w/ doc2query-T5 on MS MARCO V1
 
-This page describes how to reproduce the uniCOIL experiments in the following paper:
+This guide describes how to reproduce the uniCOIL experiments in the following paper:
 
 > Jimmy Lin and Xueguang Ma. [A Few Brief Notes on DeepImpact, COIL, and a Conceptual Framework for Information Retrieval Techniques.](https://arxiv.org/abs/2106.14807) _arXiv:2106.14807_.
 
-In this guide, we start with a version of the MS MARCO passage corpus that has already been processed with uniCOIL, i.e., gone through document expansion and term reweighting.
-Thus, no neural inference is involved.
-For details on how to train uniCOIL and perform inference, please see [this guide](https://github.com/luyug/COIL/tree/main/uniCOIL).
+And further detailed in:
+
+> Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin. [Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.](https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf) _Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)_, July 2022.
+
+Here, we start with versions of the MS MARCO V1 corpora that have already been processed with uniCOIL, i.e., we have applied model inference on every document and stored the output sparse vectors.
+
+Quick Links:
+
++ [Passage Ranking](#passage-ranking)
++ [Document Ranking](#document-ranking)
 
 ## Passage Ranking
 
-> You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to the "Retrieval" section below.
+To reproduce these runs directly from our pre-built indexes, see our [two-click reproduction matrix for MS MARCO V1 passage](https://castorini.github.io/pyserini/2cr/msmarco-v1-passage.html).
+The passage ranking experiments here correspond to row (3b) for pre-encoded queries, and a corresponding condition for on-the-fly query inference.
 
-### Data Prep
+### Corpus Download
 
-We're going to use the repository's root directory as the working directory.
-First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
+We're going to use the Pyserini repository's root directory as the working directory.
+First, we need to download and unpack the corpus:
 
 ```bash
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-unicoil.tar -P collections/
-
 tar xvf collections/msmarco-passage-unicoil.tar -C collections/
 ```
 
@@ -46,8 +53,6 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 
 ### Retrieval
 
-> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-v1-passage-unicoil` in the command below.
-
 We can now run retrieval using the `castorini/unicoil-msmarco-passage` model available on Huggingface's model hub to encode the queries:
 
 ```bash
@@ -70,19 +75,15 @@ A complete run typically takes around 30 minutes.
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.unicoil.tsv
-```
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.unicoil.tsv
 
-The results should be something along these lines:
-
-```
 #####################
 MRR @10: 0.3508734138354477
 QueriesRanked: 6980
 #####################
 ```
 
-There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
+There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for details.
 The above score was obtained on Linux.
 
 Alternatively, we can use pre-tokenized queries with pre-computed weights, which are already included in Pyserini.
@@ -91,7 +92,7 @@ We can run retrieval as follows:
 ```bash
 python -m pyserini.search.lucene \
   --index indexes/lucene-index.msmarco-passage-unicoil/ \
-  --topics msmarco-passage-dev-subset-unicoil-d2q \
+  --topics msmarco-passage-dev-subset-unicoil \
   --output runs/run.msmarco-passage.unicoil.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \
@@ -105,12 +106,8 @@ Since we're not applying neural inference over the queries, speed is faster, typ
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.unicoil.tsv
-```
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.unicoil.tsv
 
-The results should be as follows:
-
-```
 #####################
 MRR @10: 0.35155222404147896
 QueriesRanked: 6980
@@ -121,16 +118,16 @@ Note that in this case, the results should be deterministic.
 
 ## Document Ranking
 
-> You can skip the data prep and indexing steps if you use our pre-built indexes. Skip directly down to the "Retrieval" section below.
+To reproduce these runs directly from our pre-built indexes, see our [two-click reproduction matrix for MS MARCO V1 doc](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html).
+The document ranking experiments here correspond to row (3b) for pre-encoded queries, and a corresponding condition for on-the-fly query inference (although see note below for more details).
 
-### Data Prep
+### Corpus Download
 
-We're going to use the repository's root directory as the working directory.
-First, we need to download and extract the MS MARCO passage dataset with uniCOIL processing:
+We're going to use the Pyserini repository's root directory as the working directory.
+First, we need to download and unpack the corpus:
 
 ```bash
 wget https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-doc-segmented-unicoil.tar -P collections/
-
 tar xvf collections/msmarco-doc-segmented-unicoil.tar -C collections/
 ```
 
@@ -156,8 +153,6 @@ The indexing speed may vary; on a modern desktop with an SSD (using 12 threads, 
 
 ### Retrieval
 
-> If you've skipped the data prep and indexing steps and wish to directly use our pre-built indexes, use `--index msmarco-v1-doc-segmented-unicoil` in the command below.
-
 We can now run retrieval:
 
 ```bash
@@ -180,19 +175,16 @@ A complete run can take around 40 minutes.
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc-segmented-unicoil.tsv
-```
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev \
+    --run runs/run.msmarco-doc-segmented-unicoil.tsv
 
-The results should be something along these lines:
-
-```
 #####################
 MRR @100: 0.3530641289682811
 QueriesRanked: 5193
 #####################
 ```
 
-There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for detail.
+There might be small differences in score due to non-determinism in neural inference; see [these notes](reproducibility.md) for details.
 The above score was obtained on Linux.
 
 Alternatively, we can use pre-tokenized queries with pre-computed weights, which are already included in Pyserini.
@@ -215,12 +207,9 @@ Since we're not applying neural inference over the queries, speed is faster, typ
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc-segmented-unicoil.tsv
-```
+$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev \
+    --run runs/run.msmarco-doc-segmented-unicoil.tsv
 
-The results should be as follows:
-
-```
 #####################
 MRR @100: 0.352997702662614
 QueriesRanked: 5193
@@ -228,6 +217,10 @@ QueriesRanked: 5193
 ```
 
 Note that in this case, the results should be deterministic.
+
+A final detail: with MaxP and the need to generate runs to different depths, we can set `--hits` and `--max-passage-hits` differently.
+Due to tie-breaking effects, we get slightly different results with different settings: see [Anserini experiments](https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-doc-segmented-unicoil.md) for additional details.
+Because of slightly different parameter settings, the results here do not exactly match the results in the [two-click reproduction matrix for MS MARCO V1 doc](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html).
 
 ## Reproduction Log[*](reproducibility.md)
 
@@ -237,3 +230,4 @@ Note that in this case, the results should be deterministic.
 + Results reproduced by [@mayankanand007](https://github.com/mayankanand007) on 2021-09-18 (commit [`331dfe7`](https://github.com/castorini/pyserini/commit/331dfe7b2801cca09fbbb971b017073bf6f726ad))
 + Results reproduced by [@apokali](https://github.com/apokali) on 2021-09-23 (commit [`82f8422`](https://github.com/castorini/pyserini/commit/82f842218f8c5c7c451b2e463774d7bdf6bc0653))
 + Results reproduced by [@yuki617](https://github.com/yuki617) on 2022-02-08 (commit [`e03e068`](https://github.com/castorini/pyserini/commit/e03e06880ad4f6d67a1666c1dd45ce4250adc95d))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2022-06-01 (commit [`b7bcf51`](https://github.com/castorini/pyserini/commit/b7bcf517ecc021985ab052b20fcb6beeb63a303b))

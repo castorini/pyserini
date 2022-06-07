@@ -20,7 +20,7 @@ import os
 import socket
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score
+from integrations.utils import clean_files, run_command, parse_score, parse_score_qa, parse_score_msmarco
 from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
@@ -51,7 +51,7 @@ class TestSearchIntegration(unittest.TestCase):
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
+        score = parse_score_msmarco(stdout, 'MRR @10')
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.3302, delta=0.0001)
 
@@ -72,11 +72,10 @@ class TestSearchIntegration(unittest.TestCase):
                                      --output {output_file} \
                                      --prf-depth 3 \
                                      --prf-method avg'
-
         cmd2 = f'python -m pyserini.eval.trec_eval -l 2 -m map dl19-passage {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.4247, delta=0.0001)
 
@@ -91,16 +90,14 @@ class TestSearchIntegration(unittest.TestCase):
                                      --output {output_file} \
                                      --prf-depth 5 \
                                      --prf-method rocchio \
+                                     --rocchio-topk 5 \
                                      --threads {self.threads} \
                                      --rocchio-alpha {self.rocchio_alpha} \
                                      --rocchio-beta {self.rocchio_beta}'
-
         cmd2 = f'python -m pyserini.eval.trec_eval -l 2 -m map dl19-passage {output_file}'
-        print(cmd1)
-        print(cmd2)
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.4211, delta=0.0001)
 
@@ -120,7 +117,7 @@ class TestSearchIntegration(unittest.TestCase):
         cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @100")
+        score = parse_score_msmarco(stdout, 'MRR @100')
         self.assertEqual(status, 0)
         # We get a small difference, 0.3794 on macOS.
         self.assertAlmostEqual(score, 0.3796, delta=0.0002)
@@ -148,7 +145,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, "Top20")
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8224, places=4)
@@ -176,7 +173,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, "Top20")
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8010, places=4)
