@@ -68,7 +68,7 @@ attention to: the official metric is MRR@100, so we want to only return the top
 format.
 
 ```bash
-python -m pyserini.search \
+python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
   --index indexes/msmarco-doc/lucene-index-msmarco/ \
   --output runs/run.msmarco-doc.leaderboard-dev.elastic.txt \
