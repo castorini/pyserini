@@ -12,7 +12,7 @@ Retrieval using dense representations is provided via integration with Facebook'
 
 Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
 Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, pre-built indexes, and evaluation scripts for many commonly used IR test collections
-With Pyserini, it's easy to [reproduce](docs/pypi-reproduction.md) runs on a number of standard IR test collections!
+With Pyserini, it's easy to reproduce runs on a number of standard IR test collections!
 A low-effort way to try things out is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
@@ -591,13 +591,13 @@ The following guides provide step-by-step instructions:
 
 ### Sparse Retrieval
 
-+ Reproducing [runs directly from the Python package](docs/pypi-reproduction.md)
 + Reproducing [Robust04 baselines for ad hoc retrieval](docs/experiments-robust04.md)
 + Reproducing the [BM25 baseline for MS MARCO V1 Passage Ranking](docs/experiments-msmarco-passage.md)
 + Reproducing the [BM25 baseline for MS MARCO V1 Document Ranking](docs/experiments-msmarco-doc.md)
 + Reproducing the [multi-field BM25 baseline for MS MARCO V1 Document Ranking from Elasticsearch](docs/experiments-elastic.md)
 + Reproducing [BM25 baselines on the MS MARCO V2 Collections](docs/experiments-msmarco-v2.md)
 + Reproducing LTR filtering experiments: [MS MARCO V1 Passage](docs/experiments-ltr-msmarco-passage-reranking.md), [MS MARCO V1 Document](docs/experiments-ltr-msmarco-document-reranking.md)
++ Reproducing IRST experiments on [MS MARCO V1](docs/experiments-msmarco-irst.md)
 + Reproducing DeepImpact: [MS MARCO V1 Passage](docs/experiments-deepimpact.md)
 + Reproducing uniCOIL with doc2query-T5: [MS MARCO V1](docs/experiments-unicoil.md), [MS MARCO V2](docs/experiments-msmarco-v2-unicoil.md)
 + Reproducing uniCOIL with TILDE: [MS MARCO V1 Passage](docs/experiments-unicoil-tilde-expansion.md), [MS MARCO V2 Passage](docs/experiments-msmarco-v2-unicoil-tilde-expansion.md)

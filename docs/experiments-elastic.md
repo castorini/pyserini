@@ -22,7 +22,7 @@ from Lucene, plus some additional words targeted at question-style queries.
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO document dataset:
 
-```
+```bash
 mkdir collections/msmarco-doc
 wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-docs.tsv.gz -P collections/msmarco-doc
 
@@ -52,6 +52,7 @@ python -m pyserini.index \
   --generator DefaultLuceneDocumentGenerator \
   --index indexes/msmarco-doc/lucene-index-msmarco \
   --threads 4 \
+  --fields title url \
   --storeRaw \
   --stopwords docs/elastic-msmarco-stopwords.txt
 ```

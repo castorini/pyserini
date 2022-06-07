@@ -4,12 +4,12 @@ This guide contains instructions for running BM25 and RM3 baselines on the [TREC
 
 ## Data Prep
 
-The guide requires the [development installation](https://github.com/castorini/pyserini/blob/master/docs/installation.md#development-installation) for additional resource that are not shipped with the Python module; for the (more limited) runs that directly work from the Python module installed via `pip`, see [this guide](pypi-reproduction.md).
+The guide requires the [development installation](https://github.com/castorini/pyserini/blob/master/docs/installation.md#development-installation) for additional resource that are not shipped with the Python module.
 
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the Clinical Trials documents and topics.
 
-```
+```bash
 mkdir collections/trec-ct
 
 wget http://www.trec-cds.org/2021_data/ClinicalTrials.2021-04-27.part1.zip -P collections/trec-ct
