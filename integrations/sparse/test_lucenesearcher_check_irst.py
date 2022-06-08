@@ -33,8 +33,8 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         if(os.path.isdir(self.tmp)):
             rmtree(self.tmp)
         os.mkdir(self.tmp)
-        self.dl19_pass = 'tools/topics-and-qrels/topics.dl19-passage.txt'
-        self.dl20 = 'tools/topics-and-qrels/topics.dl20.txt'
+        self.dl19_pass = 'dl19-passage'
+        self.dl20 = 'dl20'
     
     def test_sum_aggregation_dl19_passage(self):
         # dl19 passage sum
@@ -142,8 +142,8 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
         if(os.path.isdir(self.tmp)):
             rmtree(self.tmp)
         os.mkdir(self.tmp)
-        self.dl19_doc = 'tools/topics-and-qrels/topics.dl19-doc.txt'
-        self.dl20 = 'tools/topics-and-qrels/topics.dl20.txt'
+        self.dl19_doc = 'dl19-doc'
+        self.dl20 = 'dl20'
 
     def test_sum_aggregation_dl19_doc(self):
         # dl19-doc-sum
@@ -250,8 +250,8 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
         if(os.path.isdir(self.tmp)):
             rmtree(self.tmp)
         os.mkdir(self.tmp)
-        self.dl19_doc = 'tools/topics-and-qrels/topics.dl19-doc.txt'
-        self.dl20 = 'tools/topics-and-qrels/topics.dl20.txt'
+        self.dl19_doc = 'dl19-doc'
+        self.dl20 = 'dl20'
 
     def test_sum_aggregation_dl19_doc_seg(self):
         # dl19-doc-seg-sum
