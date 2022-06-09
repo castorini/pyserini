@@ -29,10 +29,20 @@ def normalize(scores: List[float]):
     return scores
 
 
-def query_loader(topic_path: str):
+def query_loader(topic: str):
     queries = {}
     bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-    inp_file = open(topic_path)
+    if topic == 'dl19-passage':
+        topic = 'tools/topics-and-qrels/topics.dl19-passage.txt'
+    elif topic == 'dl20':
+        topic = 'tools/topics-and-qrels/topics.dl20.txt'
+    elif topic == 'msmarco-passage-dev-subset':
+        topic = 'tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt'
+    elif topic == 'dl19-doc':
+        topic = 'tools/topics-and-qrels/topics.dl19-doc.txt'
+    elif topic == 'msmarco-doc':
+        topic = 'tools/topics-and-qrels/topics.msmarco-doc.dev.txt'
+    inp_file = open(topic)
     line_num = 0
     for line in tqdm(inp_file):
         line_num += 1
@@ -104,7 +114,7 @@ if __name__ == "__main__":
     parser.add_argument('--base-path', type=str, required=False,
                         metavar="path_to_base_run", help='path to base run')
     parser.add_argument('--topics', type=str, required=True,
-                        help='path to query topics')
+                        help='existing topics name or path to query topics')
     parser.add_argument('--index', type=str, required=True,
                         metavar="path_to_lucene_index", help='path to lucene index folder')
     parser.add_argument('--output', type=str, required=True,

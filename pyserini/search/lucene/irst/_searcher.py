@@ -46,7 +46,7 @@ class LuceneIrstSearcher(object):
 
     def __init__(self, index: str, k1: int, b: int, num_threads: int):
         translation_url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_bert_tok_20211117.tar.gz'
-        translation_directory = os.path.join(get_cache_home(), 'translation_model')
+        translation_directory = os.path.join(get_cache_home(), 'models')
         self.termfreq_dic = self.download_and_load_wp_stats(index)
         # This is used to download and unpack translation model instead of index, we use the function (download_and_unpack_index) for convenience.
         self.translation_model = download_and_unpack_index(translation_url, translation_directory)
@@ -92,7 +92,7 @@ class LuceneIrstSearcher(object):
         return cls(index_dir)
 
     def download_and_load_wp_stats(self, index: str):
-        translation_directory = os.path.join(get_cache_home(), 'translation_model')
+        translation_directory = os.path.join(get_cache_home(), 'models')
         if not os.path.exists(translation_directory):
             os.makedirs(translation_directory)
         if (index == 'msmarco-v1-passage'):
