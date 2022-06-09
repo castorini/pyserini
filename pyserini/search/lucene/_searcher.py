@@ -240,6 +240,41 @@ class LuceneSearcher:
     def is_using_rm3(self) -> bool:
         """Check if RM3 query expansion is being performed."""
         return self.object.useRM3()
+    
+    def set_rocchio(self, top_fb_terms=10, top_fb_docs=10, bottom_fb_terms=10, bottom_fb_docs=10, rocchio_alpha=1, rocchio_beta=0.75, rocchio_gamma=0, rocchio_output_query=False):
+        """Configure Rocchio query expansion.
+
+        Parameters
+        ----------
+        top_fb_terms : int
+            Rocchio parameter for number of relevant expansion terms.
+        top_fb_docs : int
+            Rocchio parameter for number of relevant expansion documents.
+        bottom_fb_terms : int
+            Rocchio parameter for number of nonrelevant expansion terms.
+        bottom_fb_docs : int
+            Rocchio parameter for number of nonrelevant expansion documents.
+        rocchio_alpha : float
+            Rocchio parameter for weight to assign to the original query.
+        rocchio_beta: float
+            Rocchio parameter for weight to assign to the relevant document vector.
+        rocchio_gamma: float
+            Rocchio parameter for weight to assign to the nonrelevant document vector.
+        rocchio_output_query : bool
+            Print the original and expanded queries as debug output.
+        """
+        if self.object.reader.getTermVectors(0):
+            self.object.setRocchio(top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs, rocchio_alpha, rocchio_beta, rocchio_gamma, rocchio_output_query)
+        else:
+            raise TypeError("Rocchio is not supported for indexes without document vectors.")
+
+    def unset_rocchio(self):
+        """Disable Rocchio query expansion."""
+        self.object.unsetRocchio()
+
+    def is_using_Rocchio(self) -> bool:
+        """Check if Rocchio query expansion is being performed."""
+        return self.object.useRocchio()
 
     def set_qld(self, mu=float(1000)):
         """Configure query likelihood with Dirichlet smoothing as the scoring function.
