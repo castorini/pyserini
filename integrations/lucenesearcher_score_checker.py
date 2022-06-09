@@ -44,8 +44,8 @@ class LuceneSearcherScoreChecker:
 
         pyserini_output = f'verify.pyserini.{runtag}.txt'
 
-        pyserini_cmd = f'{self.pyserini_base_cmd} --index {self.index_path} ' \
-                       + f'--topics {self.pyserini_topics} --output {pyserini_output} {pyserini_extras}'
+        pyserini_cmd = f'{self.pyserini_base_cmd} --index {self.index_path} \
+                           --topics {self.pyserini_topics} --output {pyserini_output} {pyserini_extras}'
 
         if tokenizer is not None:
             pyserini_cmd = pyserini_cmd + f' --tokenizer {tokenizer}'
@@ -58,12 +58,14 @@ class LuceneSearcherScoreChecker:
         status = os.system(eval_cmd)
         if not status == 0:
             return False
+
         stdout, stderr = run_command(eval_cmd)
-        score = parse_score(stdout, "map")
-        if actualscore !=score:
-            self._cleanup([pyserini_output])
-            return False
+        score = parse_score(stdout, 'map')
         self._cleanup([pyserini_output])
+
+        if actualscore != score:
+            return False
+
         return True
 
 

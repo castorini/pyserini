@@ -20,6 +20,8 @@ import tarfile
 import unittest
 from random import randint
 from urllib.request import urlretrieve
+import json
+import heapq
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
@@ -395,6 +397,106 @@ class TestIndexUtils(unittest.TestCase):
         # failure. This test simply ensures that a compatible version of pyjnius is used. More details can be found in
         # the discussion here: https://github.com/castorini/pyserini/issues/770
         JString('zoölogy')
+
+    def test_dump_documents_BM25(self):
+        file_path = 'collections/cacm_documents_bm25_dump.jsonl'
+        self.index_reader.dump_documents_BM25(file_path)
+        dump_file = open(file_path, 'r')
+
+        num_lines = sum(1 for line in dump_file)
+        dump_file.seek(0)
+        assert num_lines == self.index_reader.stats()['documents']
+
+        def compare_searcher(query):
+            """Comparing searching with LuceneSearcher to brute-force searching through documents in dump
+            The scores should match.
+
+            Parameters
+            ----------
+            query : str
+                The query for search.
+            """
+            # Search through documents BM25 dump
+            query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
+            heap = [] # heapq implements a min-heap, we can invert the values to have a max-heap
+
+            for line in dump_file:
+                doc = json.loads(line)
+                score = 0
+                for term in query_terms:
+                    if term in doc['vector']:
+                        score += doc['vector'][term]
+                heapq.heappush(heap, (-1*score, doc['id']))
+            dump_file.seek(0)
+
+            # Using LuceneSearcher instead
+            hits = self.searcher.search(query)
+
+            for i in range(0, 10):
+                top = heapq.heappop(heap)
+                self.assertEqual(hits[i].docid, top[1])
+                self.assertAlmostEqual(hits[i].score, -1*top[0], places=3)
+
+        compare_searcher('I am interested in articles written either by Prieve or Udo Pooch')
+        compare_searcher('Performance evaluation and modelling of computer systems')
+        compare_searcher('Addressing schemes for resources in networks; resource addressing in network operating systems')
+
+        dump_file.close()
+        os.remove(file_path)
+
+    def test_quantize_weights(self):
+        dump_file_path = 'collections/cacm_documents_bm25_dump.jsonl'
+        quantized_file_path = 'collections/cacm_documents_bm25_dump_quantized.jsonl'
+        self.index_reader.dump_documents_BM25(dump_file_path)
+        self.index_reader.quantize_weights(dump_file_path, quantized_file_path)
+
+        quantized_weights_file = open(quantized_file_path, 'r')
+
+        num_lines = sum(1 for line in quantized_weights_file)
+        quantized_weights_file.seek(0)
+        assert num_lines == self.index_reader.stats()['documents']
+
+        def compare_searcher_quantized(query, tolerance=1):
+            """Comparing searching with LuceneSearcher to brute-force searching through documents in dump
+            If the weights are quantized the scores will not match but the rankings should still roughly match.
+
+            Parameters
+            ----------
+            query : str
+                The query for search.
+            tolerance : int
+                Number of places within which rankings should match i.e. if the ranking of some document with
+                searching through documents in the dump is 2, then with a tolerance of 1 the ranking of the same
+                document with Lucene searcher should be between 1-3.
+            """
+            query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
+            heap = []
+            for line in quantized_weights_file:
+                doc = json.loads(line)
+                score = 0
+                for term in query_terms:
+                    if term in doc['vector']:
+                        score += doc['vector'][term]
+                heapq.heappush(heap, (-1*score, doc['id']))
+            quantized_weights_file.seek(0)
+
+            hits = self.searcher.search(query)
+
+            for i in range(0, 10):
+                top = heapq.heappop(heap)
+                match_within_tolerance = False
+                for j in range(tolerance+1):
+                    match_within_tolerance = (i-j >= 0 and hits[i-j].docid == top[1]) or (hits[i+j].docid == top[1])
+                    if match_within_tolerance:
+                        break
+                self.assertEqual(match_within_tolerance, True)
+
+        compare_searcher_quantized('I am interested in articles written either by Prieve or Udo Pooch')
+        compare_searcher_quantized('Performance evaluation and modelling of computer systems')
+        compare_searcher_quantized('Addressing schemes for resources in networks; resource addressing in network operating systems')
+
+        quantized_weights_file.close()
+        os.remove(quantized_file_path)
 
     def tearDown(self):
         os.remove(self.tarball_name)

@@ -82,10 +82,9 @@ class AnceDocumentEncoder(DocumentEncoder):
         self.model.to(self.device)
         self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or model_name)
 
-    def encode(self, texts, titles=None, **kwargs):
+    def encode(self, texts, titles=None,  max_length=256, **kwargs):
         if titles is not None:
             texts = [f'{title} {text}' for title, text in zip(titles, texts)]
-        max_length = 512  # hardcode for now
         inputs = self.tokenizer(
             texts,
             max_length=max_length,

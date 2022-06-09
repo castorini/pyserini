@@ -18,7 +18,6 @@ from typing import List
 from tqdm import tqdm
 from transformers import AutoTokenizer
 from pyserini.search.lucene.irst import LuceneIrstSearcher
-import pickle
 
 
 def normalize(scores: List[float]):
@@ -30,10 +29,20 @@ def normalize(scores: List[float]):
     return scores
 
 
-def query_loader(topic_path: str):
+def query_loader(topic: str):
     queries = {}
     bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-    inp_file = open(topic_path)
+    if topic == 'dl19-passage':
+        topic = 'tools/topics-and-qrels/topics.dl19-passage.txt'
+    elif topic == 'dl20':
+        topic = 'tools/topics-and-qrels/topics.dl20.txt'
+    elif topic == 'msmarco-passage-dev-subset':
+        topic = 'tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt'
+    elif topic == 'dl19-doc':
+        topic = 'tools/topics-and-qrels/topics.dl19-doc.txt'
+    elif topic == 'msmarco-doc':
+        topic = 'tools/topics-and-qrels/topics.msmarco-doc.dev.txt'
+    inp_file = open(topic)
     line_num = 0
     for line in tqdm(inp_file):
         line_num += 1
@@ -104,17 +113,15 @@ if __name__ == "__main__":
                         metavar="tag_name", help='tag name for resulting Qrun')
     parser.add_argument('--base-path', type=str, required=False,
                         metavar="path_to_base_run", help='path to base run')
-    parser.add_argument('--translation-model', type=str, required=True,
-                        metavar="directory_path", help='directory path to source.vcb target.vcb and Transtable bin file')
     parser.add_argument('--topics', type=str, required=True,
-                        help='path to query topics')
+                        help='existing topics name or path to query topics')
     parser.add_argument('--index', type=str, required=True,
                         metavar="path_to_lucene_index", help='path to lucene index folder')
     parser.add_argument('--output', type=str, required=True,
                         metavar="path_to_reranked_run", help='the path to store reranked run file')
     parser.add_argument('--alpha', type=float, default="0.3",
                         metavar="type of field", help='interpolation weight')
-    parser.add_argument('--num-threads', type=int, default="12",
+    parser.add_argument('--num-threads', type=int, default="24",
                         metavar="num_of_threads", help='number of threads to use')
     parser.add_argument('--max-sim', default=False, action="store_true",
                         help='whether we use max sim operator or avg instead')
@@ -126,21 +133,20 @@ if __name__ == "__main__":
                         metavar="bm25_b_parameter", help='b parameter for bm25 search')
     parser.add_argument('--hits', type=int, metavar='number of hits generated in runfile',
                         required=False, default=1000, help="Number of hits.")
-    parser.add_argument('--wp-stats', type=str, metavar='term statistics for tokenized collection',
-                        required=True, help="json file which stores the frequency for each term")
     args = parser.parse_args()
 
     print('Using max sim operator or not:', args.max_sim)
 
     f = open(args.output, 'w')
 
-    reranker = LuceneIrstSearcher(
-        args.translation_model, args.index, args.k1, args.b)
+    reranker = LuceneIrstSearcher(args.index, args.k1, args.b, args.num_threads)
     queries = query_loader(args.topics)
-    with open(args.wp_stats, 'rb') as fin:
-        tf_dic = pickle.load(fin)
+    query_text_lst = [queries[topic]['raw'] for topic in queries.keys()]
+    qid_lst = [str(topic) for topic in queries.keys()]
+    if not args.base_path:
+        bm25_results = reranker.bm25search.batch_search(query_text_lst, qid_lst, args.hits, args.num_threads)
     i = 0
-    for topic in queries.keys():
+    for topic in queries:
         if i % 100 == 0:
             print(f'Reranking {i} topic')
         query_text_field = queries[topic]['contents']
@@ -148,10 +154,10 @@ if __name__ == "__main__":
         if args.base_path:
             baseline_dic = baseline_loader(args.base_path)
             docids, rank_scores, base_scores = reranker.rerank(
-                query_text, query_text_field, baseline_dic[topic], args.max_sim, tf_dic)
+                query_text, query_text_field, baseline_dic[topic], args.max_sim, bm25_results[topic])
         else:
             docids, rank_scores, base_scores = reranker.search(
-                query_text, query_text_field, args.hits, args.max_sim, tf_dic)
+                query_text, query_text_field, args.max_sim, bm25_results[topic])
         ibm_scores = normalize([p for p in rank_scores])
         base_scores = normalize([p for p in base_scores])
 

@@ -1,0 +1,82 @@
+<!-- Condition: ${condition_name} -->
+<tr class="accordion-toggle collapsed" id="row${row_cnt}" data-toggle="collapse" data-parent="#row${row_cnt}" href="#collapse${row_cnt}">
+<td class="expand-button"></td>
+<td>$row</td>
+<td style="min-width: 400px">${condition_name}</td>
+<td>$s1</td>
+<td>$s2</td>
+<td>$s3</td>
+<td>$s4</td>
+<td>$s5</td>
+<td></td>
+<td>$s6</td>
+<td>$s7</td>
+<td></td>
+<td>$s8</td>
+<td>$s9</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse${row_cnt}" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row${row_cnt}-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row${row_cnt}-tab1-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab1" role="tab" aria-controls="row${row_cnt}-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row${row_cnt}-tab2-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab2" role="tab" aria-controls="row${row_cnt}-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row${row_cnt}-tab3-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab3" role="tab" aria-controls="row${row_cnt}-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row${row_cnt}-content">
+  <div class="tab-pane fade show active" id="row${row_cnt}-tab1" role="tabpanel" aria-labelledby="row${row_cnt}-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>$cmd1
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd1}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row${row_cnt}-tab2" role="tabpanel" aria-labelledby="row${row_cnt}-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>$cmd2
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd2}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row${row_cnt}-tab3" role="tabpanel" aria-labelledby="row${row_cnt}-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>$cmd3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd3}</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
