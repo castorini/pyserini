@@ -597,7 +597,7 @@ The following guides provide step-by-step instructions:
 + Reproducing the [multi-field BM25 baseline for MS MARCO V1 Document Ranking from Elasticsearch](docs/experiments-elastic.md)
 + Reproducing [BM25 baselines on the MS MARCO V2 Collections](docs/experiments-msmarco-v2.md)
 + Reproducing LTR filtering experiments: [MS MARCO V1 Passage](docs/experiments-ltr-msmarco-passage-reranking.md), [MS MARCO V1 Document](docs/experiments-ltr-msmarco-document-reranking.md)
-+ Reproducing IRST experiments on [MS MARCO V1](docs/experiments-msmarco-irst.md)
++ Reproducing IRST experiments on the [MS MARCO V1 Collections](docs/experiments-msmarco-irst.md)
 + Reproducing DeepImpact: [MS MARCO V1 Passage](docs/experiments-deepimpact.md)
 + Reproducing uniCOIL with doc2query-T5: [MS MARCO V1](docs/experiments-unicoil.md), [MS MARCO V2](docs/experiments-msmarco-v2-unicoil.md)
 + Reproducing uniCOIL with TILDE: [MS MARCO V1 Passage](docs/experiments-unicoil-tilde-expansion.md), [MS MARCO V2 Passage](docs/experiments-msmarco-v2-unicoil-tilde-expansion.md)
