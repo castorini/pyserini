@@ -22,13 +22,14 @@ interface on MS MARCO dataset. The main entry point is the
 import json
 import math
 import os
+import pickle
 import struct
 from typing import Dict
 from multiprocessing.pool import ThreadPool
+from transformers import AutoTokenizer
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.pyclass import autoclass
-from pyserini.util import download_prebuilt_index, get_cache_home
-from transformers import AutoTokenizer
+from pyserini.util import download_prebuilt_index, get_cache_home, download_url, download_and_unpack_index
 
 # Wrappers around Anserini classes
 JQuery = autoclass('org.apache.lucene.search.Query')
@@ -43,8 +44,12 @@ class LuceneIrstSearcher(object):
     LAMBDA_VALUE = 0.3
     MIN_COLLECT_PROB = 1e-9
 
-    def __init__(self, ibm_model: str, index: str, k1: int, b: int):
-        self.ibm_model = ibm_model
+    def __init__(self, index: str, k1: int, b: int, num_threads: int):
+        translation_url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/ibm_model_1_bert_tok_20211117.tar.gz'
+        translation_directory = os.path.join(get_cache_home(), 'models')
+        self.termfreq_dic = self.download_and_load_wp_stats(index)
+        # This is used to download and unpack translation model instead of index, we use the function (download_and_unpack_index) for convenience.
+        self.translation_model = download_and_unpack_index(translation_url, translation_directory)
         self.bm25search = LuceneSearcher.from_prebuilt_index(index)
         self.bm25search.set_bm25(k1, b)
         index_directory = os.path.join(get_cache_home(), 'indexes')
@@ -59,8 +64,7 @@ class LuceneIrstSearcher(object):
         self.object = JLuceneSearcher(index_path)
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
         self.bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-        self.pool = ThreadPool(24)
-        
+        self.pool = ThreadPool(num_threads)
 
 
     @classmethod
@@ -86,6 +90,31 @@ class LuceneIrstSearcher(object):
 
         print(f'Initializing {prebuilt_index_name}...')
         return cls(index_dir)
+
+    def download_and_load_wp_stats(self, index: str):
+        translation_directory = os.path.join(get_cache_home(), 'models')
+        if not os.path.exists(translation_directory):
+            os.makedirs(translation_directory)
+        if (index == 'msmarco-v1-passage'):
+            local_filename = 'bert_wp_term_freq.msmarco-passage.20220411.pickle'
+            wp_stats_path = os.path.join(translation_directory, local_filename)
+            url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/bert_wp_term_freq.msmarco-passage.20220411.pickle'
+        elif (index == 'msmarco-v1-doc'):
+            local_filename = 'bert_wp_term_freq.msmarco-doc.20220411.pickle'
+            wp_stats_path = os.path.join(translation_directory, local_filename)
+            url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/bert_wp_term_freq.msmarco-doc.20220411.pickle'
+        elif (index == 'msmarco-v1-doc-segmented'):
+            local_filename = 'bert_wp_term_freq.msmarco-doc-segmented.20220411.pickle'
+            wp_stats_path = os.path.join(translation_directory, local_filename)
+            url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/bert_wp_term_freq.msmarco-doc-segmented.20220411.pickle'
+
+        if os.path.exists(wp_stats_path):
+            print(f'{wp_stats_path} already exists, skipping download.')
+        else:
+            download_url(url, translation_directory, local_filename)
+        with open(wp_stats_path, 'rb') as fin:
+            termfreq_dic = pickle.load(fin)
+        return termfreq_dic
 
     @staticmethod
     def intbits_to_float(b: bytes):
@@ -122,7 +151,7 @@ class LuceneIrstSearcher(object):
         return source_lookup, target_lookup, tran_lookup
 
     def load_tranprobs_table(self):
-        dir_path = self.ibm_model
+        dir_path = self.translation_model
         source_path = dir_path + "/source.vcb"
         source_lookup = {}
         source_voc = {}
@@ -203,25 +232,26 @@ class LuceneIrstSearcher(object):
             total_query_prob += query_word_prob
         return total_query_prob / query_size
 
-    def search(self, query_text, query_field_text, hits, max_sim, tf_table):
-        bm25_results = self.bm25search.search(query_text, hits)
+    def search(self, query_text, query_field_text, max_sim, bm25_results):
         origin_scores = [bm25_result.score for bm25_result in bm25_results]
         test_docs = [bm25_result.docid for bm25_result in bm25_results]
         if (test_docs == []):
             print(query_text)
+
         query_field_text_lst = query_field_text.split(' ')
-        total_term_freq = tf_table['TOTAL']
+        total_term_freq = self.termfreq_dic['TOTAL']
         collect_probs = {}
         for querytoken in query_field_text_lst:
-            if querytoken in tf_table:
-                collect_probs[querytoken] = max(tf_table[querytoken] / total_term_freq, self.MIN_COLLECT_PROB)
+            if querytoken in self.termfreq_dic:
+                collect_probs[querytoken] = max(self.termfreq_dic[querytoken] / total_term_freq, self.MIN_COLLECT_PROB)
             else:
                 collect_probs[querytoken] = self.MIN_COLLECT_PROB
         arguments = [(
-            query_field_text_lst, test_doc, self.object, 
+            query_field_text_lst, test_doc, self.object,
             self.source_lookup, self.target_lookup,
             self.tran, collect_probs, max_sim)
             for test_doc in test_docs]
+
         rank_scores = self.pool.map(self.get_ibm_score, arguments)
         return test_docs, rank_scores, origin_scores
 
@@ -231,11 +261,11 @@ class LuceneIrstSearcher(object):
             print(query_text)
 
         query_field_text_lst = query_field_text.split(' ')
-        total_term_freq = tf_table['TOTAL']
+        total_term_freq = self.termfreq_dic['TOTAL']
         collect_probs = {}
         for querytoken in query_field_text_lst:
-            if querytoken in tf_table:
-                collect_probs[querytoken] = max(tf_table[querytoken] / total_term_freq, self.MIN_COLLECT_PROB)
+            if querytoken in self.termfreq_dic:
+                collect_probs[querytoken] = max(self.termfreq_dic[querytoken] / total_term_freq, self.MIN_COLLECT_PROB)
             else:
                 collect_probs[querytoken] = self.MIN_COLLECT_PROB
         arguments = [(

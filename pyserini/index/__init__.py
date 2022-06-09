@@ -14,7 +14,10 @@
 # limitations under the License.
 #
 
-# this import is deprecated
+# Classes here have been moved to pyserini.index.lucene, e.g., the pyserini.index.Indexer is now
+# pyserini.index.lucene.IndexReader. We're importing symbols here and then re-exporting to preserve
+# backward compatability to code snippets published in Lin et al. (SIGIR 2021).
+
 from .lucene._base import Document, Generator, IndexTerm, Posting, IndexReader
 
 __all__ = ['Document', 'Generator', 'IndexTerm', 'Posting', 'IndexReader']

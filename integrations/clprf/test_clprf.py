@@ -43,6 +43,8 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.pyserini_search_cmd = 'python -m pyserini.search.lucene'
         self.pyserini_fusion_cmd = 'python -m pyserini.fusion'
+        self.pyserini_eval_cmd = 'python -m pyserini.eval.trec_eval'
+
         self.core17_index_path = os.path.join(self.anserini_root, 'indexes/lucene-index.nyt')
         self.core17_qrels_path = os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.core17.txt')
 
@@ -60,50 +62,50 @@ class TestSearchIntegration(unittest.TestCase):
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.core17.txt'),
             pyserini_topics='core17',
             qrels=self.core17_qrels_path,
-            eval=f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
+            eval=f'{self.pyserini_eval_cmd} -m map -m P.30')
 
         self.core18_checker = LuceneSearcherScoreChecker(
             index=self.core18_index_path,
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.core18.txt'),
             pyserini_topics='core18',
             qrels=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.core18.txt'),
-            eval=f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
+            eval=f'{self.pyserini_eval_cmd} -m map -m P.30')
 
         self.robust04_checker = LuceneSearcherScoreChecker(
             index=self.robust04_index_path,
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.robust04.txt'),
             pyserini_topics='robust04',
             qrels=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.robust04.txt'),
-            eval=f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
+            eval=f'{self.pyserini_eval_cmd} -m map -m P.30')
 
         self.robust05_checker = LuceneSearcherScoreChecker(
             index=self.robust05_index_path,
             topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.robust05.txt'),
             pyserini_topics='robust05',
             qrels=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.robust05.txt'),
-            eval=f'{self.pyserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
+            eval=f'{self.pyserini_eval_cmd} -m map -m P.30')
 
     def test_cross_validation(self):
         pyserini_topics = 'core17'
         os.mkdir(f'{self.tmp}/core17')
         for alpha in [x / 10.0 for x in range(0, 11)]:
-            run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} ' \
-                           + f'--topics {pyserini_topics} --output {self.tmp}/core17/core17_lr_A{alpha}_bm25.txt ' \
-                           + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha {alpha}'
+            run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} \
+                               --topics {pyserini_topics} --output {self.tmp}/core17/core17_lr_A{alpha}_bm25.txt \
+                               --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha {alpha}'
 
             status = os.system(run_file_cmd)
             self.assertEqual(status, 0)
         os.system(f'python {self.pyserini_root}/scripts/classifier_prf/cross_validate.py \
-                            --anserini {self.anserini_root} --run_file {self.tmp} --pyserini {self.pyserini_root} \
-                            --collection core17 --output {self.tmp}/core17_lr.txt --classifier lr ')
+                      --anserini {self.anserini_root} --run_file {self.tmp} --pyserini {self.pyserini_root} \
+                      --collection core17 --output {self.tmp}/core17_lr.txt --classifier lr ')
 
-        cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
+        cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
                 {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
                 {self.tmp}/core17_lr.txt'
 
         status = os.system(cmd)
         stdout, stderr = run_command(cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -118,20 +120,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_core17_lr(self):
         pyserini_topics = 'core17'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/core17_lr.txt ' \
-                       + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.7'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/core17_lr.txt \
+                           --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.7'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
-                {self.tmp}/core17_lr.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
+                      {self.tmp}/core17_lr.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -140,20 +142,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_core17_lr_rm3(self):
         pyserini_topics = 'core17'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/core17_lr_rm3.txt ' \
-                       + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.4 --rm3'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/core17_lr_rm3.txt \
+                           --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.4 --rm3'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
-                    {self.tmp}/core17_lr_rm3.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
+                      {self.tmp}/core17_lr_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -162,20 +164,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_core17_svm(self):
         pyserini_topics = 'core17'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/core17_svm.txt ' \
-                       + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.7'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/core17_svm.txt \
+                           --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.7'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
-                    {self.tmp}/core17_svm.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
+                      {self.tmp}/core17_svm.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -184,20 +186,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_core17_svm_rm3(self):
         pyserini_topics = 'core17'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/core17_svm_rm3.txt ' \
-                       + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.4 --rm3'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/core17_svm_rm3.txt \
+                           --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.4 --rm3'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
-                    {self.tmp}/core17_svm_rm3.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
+                      {self.tmp}/core17_svm_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -206,20 +208,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_core17_avg(self):
         pyserini_topics = 'core17'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/core17_avg.txt ' \
-                       + f'--prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/core17_avg.txt \
+                           --prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
-                    {self.tmp}/core17_avg.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
+                      {self.tmp}/core17_avg.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -228,20 +230,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_core17_avg_rm3(self):
         pyserini_topics = 'core17'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/core17_avg_rm3.txt ' \
-                       + f'--prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5 --rm3'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/core17_avg_rm3.txt \
+                           --prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5 --rm3'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
-                    {self.tmp}/core17_avg_rm3.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
+                      {self.tmp}/core17_avg_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -249,34 +251,34 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_core17_rrf(self):
         pyserini_topics = 'core17'
-        lr_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} ' \
-                 + f'--topics {pyserini_topics} --output {self.tmp}/core17_lr.txt ' \
-                 + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.7'
+        lr_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} \
+                     --topics {pyserini_topics} --output {self.tmp}/core17_lr.txt \
+                     --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.7'
 
         status = os.system(lr_cmd)
         self.assertEqual(status, 0)
 
-        svm_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} ' \
-                  + f'--topics {pyserini_topics} --output {self.tmp}/core17_svm.txt ' \
-                  + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.7'
+        svm_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} \
+                      --topics {pyserini_topics} --output {self.tmp}/core17_svm.txt \
+                      --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.7'
 
         status = os.system(svm_cmd)
         self.assertEqual(status, 0)
 
-        rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
-                  + f'--runs {self.tmp}/core17_lr.txt {self.tmp}/core17_svm.txt ' \
-                  + f'--output {self.tmp}/core17_rrf.txt --resort'
+        rrf_cmd = f'{self.pyserini_fusion_cmd} \
+                      --runs {self.tmp}/core17_lr.txt {self.tmp}/core17_svm.txt \
+                      --output {self.tmp}/core17_rrf.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
                       {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
                       {self.tmp}/core17_rrf.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -284,34 +286,34 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_core17_rrf_rm3(self):
         pyserini_topics = 'core17'
-        lr_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} ' \
-                 + f'--topics {pyserini_topics} --output {self.tmp}/core17_lr_rm3.txt ' \
-                 + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.4 --rm3'
+        lr_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} \
+                     --topics {pyserini_topics} --output {self.tmp}/core17_lr_rm3.txt \
+                     --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.4 --rm3'
 
         status = os.system(lr_cmd)
         self.assertEqual(status, 0)
 
-        svm_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} ' \
-                  + f'--topics {pyserini_topics} --output {self.tmp}/core17_svm_rm3.txt ' \
-                  + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.4 --rm3'
+        svm_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} \
+                      --topics {pyserini_topics} --output {self.tmp}/core17_svm_rm3.txt \
+                      --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.4 --rm3'
 
         status = os.system(svm_cmd)
         self.assertEqual(status, 0)
 
-        rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
-                  + f'--runs {self.tmp}/core17_lr_rm3.txt {self.tmp}/core17_svm_rm3.txt ' \
-                  + f'--output {self.tmp}/core17_rrf_rm3.txt --resort'
+        rrf_cmd = f'{self.pyserini_fusion_cmd} \
+                      --runs {self.tmp}/core17_lr_rm3.txt {self.tmp}/core17_svm_rm3.txt \
+                      --output {self.tmp}/core17_rrf_rm3.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
                       {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core17.txt \
                       {self.tmp}/core17_rrf_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -326,20 +328,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_core18_lr(self):
         pyserini_topics = 'core18'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/core18_lr.txt ' \
-                       + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/core18_lr.txt \
+                           --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
-                {self.tmp}/core18_lr.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
+                      {self.tmp}/core18_lr.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -348,20 +350,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_core18_lr_rm3(self):
         pyserini_topics = 'core18'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/core18_lr_rm3.txt ' \
-                       + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5 --rm3'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/core18_lr_rm3.txt \
+                           --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5 --rm3'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
-                    {self.tmp}/core18_lr_rm3.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
+                      {self.tmp}/core18_lr_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -370,20 +372,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_core18_svm(self):
         pyserini_topics = 'core18'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/core18_svm.txt ' \
-                       + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/core18_svm.txt \
+                           --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
-                    {self.tmp}/core18_svm.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
+                      {self.tmp}/core18_svm.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -392,20 +394,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_core18_svm_rm3(self):
         pyserini_topics = 'core18'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/core18_svm_rm3.txt ' \
-                       + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5 --rm3'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/core18_svm_rm3.txt \
+                           --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5 --rm3'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
-                    {self.tmp}/core18_svm_rm3.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
+                      {self.tmp}/core18_svm_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -414,20 +416,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_core18_avg(self):
         pyserini_topics = 'core18'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/core18_avg.txt ' \
-                       + f'--prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.4'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/core18_avg.txt \
+                           --prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.4'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
-                    {self.tmp}/core18_avg.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
+                      {self.tmp}/core18_avg.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -436,20 +438,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_core18_avg_rm3(self):
         pyserini_topics = 'core18'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/core18_avg_rm3.txt ' \
-                       + f'--prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.4 --rm3'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/core18_avg_rm3.txt \
+                           --prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.4 --rm3'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
-                    {self.tmp}/core18_avg_rm3.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
+                      {self.tmp}/core18_avg_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -457,34 +459,34 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_core18_rrf(self):
         pyserini_topics = 'core18'
-        lr_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} ' \
-                 + f'--topics {pyserini_topics} --output {self.tmp}/core18_lr.txt ' \
-                 + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6'
+        lr_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} \
+                     --topics {pyserini_topics} --output {self.tmp}/core18_lr.txt \
+                     --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6'
 
         status = os.system(lr_cmd)
         self.assertEqual(status, 0)
 
-        svm_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} ' \
-                  + f'--topics {pyserini_topics} --output {self.tmp}/core18_svm.txt ' \
-                  + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6'
+        svm_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} \
+                      --topics {pyserini_topics} --output {self.tmp}/core18_svm.txt \
+                      --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6'
 
         status = os.system(svm_cmd)
         self.assertEqual(status, 0)
 
-        rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
-                  + f'--runs {self.tmp}/core18_lr.txt {self.tmp}/core18_svm.txt ' \
-                  + f'--output {self.tmp}/core18_rrf.txt --resort'
+        rrf_cmd = f'{self.pyserini_fusion_cmd} \
+                     --runs {self.tmp}/core18_lr.txt {self.tmp}/core18_svm.txt \
+                     --output {self.tmp}/core18_rrf.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
                       {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
                       {self.tmp}/core18_rrf.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -492,34 +494,34 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_core18_rrf_rm3(self):
         pyserini_topics = 'core18'
-        lr_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} ' \
-                 + f'--topics {pyserini_topics} --output {self.tmp}/core18_lr_rm3.txt ' \
-                 + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5 --rm3'
+        lr_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} \
+                     --topics {pyserini_topics} --output {self.tmp}/core18_lr_rm3.txt \
+                     --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5 --rm3'
 
         status = os.system(lr_cmd)
         self.assertEqual(status, 0)
 
-        svm_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} ' \
-                  + f'--topics {pyserini_topics} --output {self.tmp}/core18_svm_rm3.txt ' \
-                  + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5 --rm3'
+        svm_cmd = f'{self.pyserini_search_cmd} --index {self.core18_index_path} \
+                      --topics {pyserini_topics} --output {self.tmp}/core18_svm_rm3.txt \
+                      --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5 --rm3'
 
         status = os.system(svm_cmd)
         self.assertEqual(status, 0)
 
-        rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
-                  + f'--runs {self.tmp}/core18_lr_rm3.txt {self.tmp}/core18_svm_rm3.txt ' \
-                  + f'--output {self.tmp}/core18_rrf_rm3.txt --resort'
+        rrf_cmd = f'{self.pyserini_fusion_cmd} \
+                      --runs {self.tmp}/core18_lr_rm3.txt {self.tmp}/core18_svm_rm3.txt \
+                      --output {self.tmp}/core18_rrf_rm3.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
                       {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.core18.txt \
                       {self.tmp}/core18_rrf_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -534,20 +536,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_robust04_lr(self):
         pyserini_topics = 'robust04'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/robust04_lr.txt ' \
-                       + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/robust04_lr.txt \
+                           --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                 {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
-                 {self.tmp}/robust04_lr.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
+                      {self.tmp}/robust04_lr.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -556,20 +558,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_robust04_lr_rm3(self):
         pyserini_topics = 'robust04'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/robust04_lr_rm3.txt ' \
-                       + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/robust04_lr_rm3.txt \
+                           --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                     {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
-                     {self.tmp}/robust04_lr_rm3.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
+                      {self.tmp}/robust04_lr_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -578,20 +580,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_robust04_svm(self):
         pyserini_topics = 'robust04'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/robust04_svm.txt ' \
-                       + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/robust04_svm.txt \
+                           --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
-                    {self.tmp}/robust04_svm.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
+                      {self.tmp}/robust04_svm.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -600,20 +602,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_robust04_svm_rm3(self):
         pyserini_topics = 'robust04'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/robust04_svm_rm3.txt ' \
-                       + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/robust04_svm_rm3.txt \
+                           --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
-                    {self.tmp}/robust04_svm_rm3.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
+                      {self.tmp}/robust04_svm_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -622,20 +624,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_robust04_avg(self):
         pyserini_topics = 'robust04'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/robust04_avg.txt ' \
-                       + f'--prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/robust04_avg.txt \
+                           --prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
-                    {self.tmp}/robust04_avg.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
+                      {self.tmp}/robust04_avg.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -644,20 +646,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_robust04_avg_rm3(self):
         pyserini_topics = 'robust04'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/robust04_avg_rm3.txt ' \
-                       + f'--prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/robust04_avg_rm3.txt \
+                           --prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
-                    {self.tmp}/robust04_avg_rm3.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
+                      {self.tmp}/robust04_avg_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -665,34 +667,34 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_robust04_rrf(self):
         pyserini_topics = 'robust04'
-        lr_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} ' \
-                 + f'--topics {pyserini_topics} --output {self.tmp}/robust04_lr.txt ' \
-                 + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
+        lr_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} \
+                     --topics {pyserini_topics} --output {self.tmp}/robust04_lr.txt \
+                     --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
 
         status = os.system(lr_cmd)
         self.assertEqual(status, 0)
 
-        svm_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} ' \
-                  + f'--topics {pyserini_topics} --output {self.tmp}/robust04_svm.txt ' \
-                  + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
+        svm_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} \
+                      --topics {pyserini_topics} --output {self.tmp}/robust04_svm.txt \
+                      --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
 
         status = os.system(svm_cmd)
         self.assertEqual(status, 0)
 
-        rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
-                  + f'--runs {self.tmp}/robust04_lr.txt {self.tmp}/robust04_svm.txt ' \
-                  + f'--output {self.tmp}/robust04_rrf.txt --resort'
+        rrf_cmd = f'{self.pyserini_fusion_cmd} \
+                      --runs {self.tmp}/robust04_lr.txt {self.tmp}/robust04_svm.txt \
+                      --output {self.tmp}/robust04_rrf.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
                       {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
                       {self.tmp}/robust04_rrf.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -700,34 +702,34 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_robust04_rrf_rm3(self):
         pyserini_topics = 'robust04'
-        lr_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} ' \
-                 + f'--topics {pyserini_topics} --output {self.tmp}/robust04_lr_rm3.txt ' \
-                 + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
+        lr_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} \
+                     --topics {pyserini_topics} --output {self.tmp}/robust04_lr_rm3.txt \
+                     --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
 
         status = os.system(lr_cmd)
         self.assertEqual(status, 0)
 
-        svm_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} ' \
-                  + f'--topics {pyserini_topics} --output {self.tmp}/robust04_svm_rm3.txt ' \
-                  + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
+        svm_cmd = f'{self.pyserini_search_cmd} --index {self.robust04_index_path} \
+                      --topics {pyserini_topics} --output {self.tmp}/robust04_svm_rm3.txt \
+                      --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
 
         status = os.system(svm_cmd)
         self.assertEqual(status, 0)
 
-        rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
-                  + f'--runs {self.tmp}/robust04_lr_rm3.txt {self.tmp}/robust04_svm_rm3.txt ' \
-                  + f'--output {self.tmp}/robust04_rrf_rm3.txt --resort'
+        rrf_cmd = f'{self.pyserini_fusion_cmd} \
+                      --runs {self.tmp}/robust04_lr_rm3.txt {self.tmp}/robust04_svm_rm3.txt \
+                      --output {self.tmp}/robust04_rrf_rm3.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
                       {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust04.txt \
                       {self.tmp}/robust04_rrf_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -742,20 +744,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_robust05_lr(self):
         pyserini_topics = 'robust05'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/robust05_lr.txt ' \
-                       + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.8'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/robust05_lr.txt \
+                           --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.8'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                 {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
-                 {self.tmp}/robust05_lr.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
+                      {self.tmp}/robust05_lr.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -764,20 +766,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_robust05_lr_rm3(self):
         pyserini_topics = 'robust05'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/robust05_lr_rm3.txt ' \
-                       + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6 --rm3'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/robust05_lr_rm3.txt \
+                           --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6 --rm3'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                     {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
-                     {self.tmp}/robust05_lr_rm3.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
+                      {self.tmp}/robust05_lr_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -786,20 +788,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_robust05_svm(self):
         pyserini_topics = 'robust05'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/robust05_svm.txt ' \
-                       + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.8'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/robust05_svm.txt \
+                           --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.8'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
-                    {self.tmp}/robust05_svm.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
+                      {self.tmp}/robust05_svm.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -808,20 +810,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_robust05_svm_rm3(self):
         pyserini_topics = 'robust05'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/robust05_svm_rm3.txt ' \
-                       + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6 --rm3'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/robust05_svm_rm3.txt \
+                           --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6 --rm3'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
-                    {self.tmp}/robust05_svm_rm3.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
+                      {self.tmp}/robust05_svm_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -830,20 +832,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_robust05_avg(self):
         pyserini_topics = 'robust05'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/robust05_avg.txt ' \
-                       + f'--prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.8'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/robust05_avg.txt \
+                           --prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.8'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
-                    {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
-                    {self.tmp}/robust05_avg.txt'
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
+                      {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
+                      {self.tmp}/robust05_avg.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -852,20 +854,20 @@ class TestSearchIntegration(unittest.TestCase):
     def test_robust05_avg_rm3(self):
         pyserini_topics = 'robust05'
 
-        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} ' \
-                       + f'--topics {pyserini_topics} --output {self.tmp}/robust05_avg_rm3.txt ' \
-                       + f'--prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6 --rm3'
+        run_file_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} \
+                           --topics {pyserini_topics} --output {self.tmp}/robust05_avg_rm3.txt \
+                           --prcl lr svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.6 --rm3'
 
         status = os.system(run_file_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
                       {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
                       {self.tmp}/robust05_avg_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -873,34 +875,34 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_robust05_rrf(self):
         pyserini_topics = 'robust05'
-        lr_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} ' \
-                 + f'--topics {pyserini_topics} --output {self.tmp}/robust05_lr.txt ' \
-                 + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
+        lr_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} \
+                     --topics {pyserini_topics} --output {self.tmp}/robust05_lr.txt \
+                     --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
 
         status = os.system(lr_cmd)
         self.assertEqual(status, 0)
 
-        svm_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} ' \
-                  + f'--topics {pyserini_topics} --output {self.tmp}/robust05_svm.txt ' \
-                  + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
+        svm_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} \
+                      --topics {pyserini_topics} --output {self.tmp}/robust05_svm.txt \
+                      --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.5'
 
         status = os.system(svm_cmd)
         self.assertEqual(status, 0)
 
-        rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
-                  + f'--runs {self.tmp}/robust05_lr.txt {self.tmp}/robust05_svm.txt ' \
-                  + f'--output {self.tmp}/robust05_rrf.txt --resort'
+        rrf_cmd = f'{self.pyserini_fusion_cmd} \
+                      --runs {self.tmp}/robust05_lr.txt {self.tmp}/robust05_svm.txt \
+                      --output {self.tmp}/robust05_rrf.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
                       {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
                       {self.tmp}/robust05_rrf.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
@@ -908,34 +910,34 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_robust05_rrf_rm3(self):
         pyserini_topics = 'robust05'
-        lr_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} ' \
-                 + f'--topics {pyserini_topics} --output {self.tmp}/robust05_lr_rm3.txt ' \
-                 + f'--prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
+        lr_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} \
+                     --topics {pyserini_topics} --output {self.tmp}/robust05_lr_rm3.txt \
+                     --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
 
         status = os.system(lr_cmd)
         self.assertEqual(status, 0)
 
-        svm_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} ' \
-                  + f'--topics {pyserini_topics} --output {self.tmp}/robust05_svm_rm3.txt ' \
-                  + f'--prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
+        svm_cmd = f'{self.pyserini_search_cmd} --index {self.robust05_index_path} \
+                      --topics {pyserini_topics} --output {self.tmp}/robust05_svm_rm3.txt \
+                      --prcl svm --prcl.vectorizer TfidfVectorizer --prcl.alpha 0.3 --rm3'
 
         status = os.system(svm_cmd)
         self.assertEqual(status, 0)
 
-        rrf_cmd = f'{self.pyserini_fusion_cmd} ' \
-                  + f'--runs {self.tmp}/robust05_lr_rm3.txt {self.tmp}/robust05_svm_rm3.txt ' \
-                  + f'--output {self.tmp}/robust05_rrf_rm3.txt --resort'
+        rrf_cmd = f'{self.pyserini_fusion_cmd} \
+                      --runs {self.tmp}/robust05_lr_rm3.txt {self.tmp}/robust05_svm_rm3.txt \
+                      --output {self.tmp}/robust05_rrf_rm3.txt --resort'
 
         status = os.system(rrf_cmd)
         self.assertEqual(status, 0)
 
-        score_cmd = f'{self.anserini_root}/tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30 \
+        score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
                       {self.anserini_root}/src/main/resources/topics-and-qrels/qrels.robust05.txt \
                       {self.tmp}/robust05_rrf_rm3.txt'
 
         status = os.system(score_cmd)
         stdout, stderr = run_command(score_cmd)
-        score = parse_score(stdout, "map")
+        score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')

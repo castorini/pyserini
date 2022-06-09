@@ -20,7 +20,7 @@ import os
 import socket
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score
+from integrations.utils import clean_files, run_command, parse_score, parse_score_qa
 from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
@@ -53,7 +53,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, "Top20")
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.7947, places=4)
@@ -77,7 +77,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, "Top20")
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8260, places=4)
@@ -105,7 +105,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, "Top20")
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.7887, places=4)
@@ -129,7 +129,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, "Top20")
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8264, places=4)
@@ -157,7 +157,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, "Top20")
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.7505, places=4)
@@ -181,7 +181,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, "Top20")
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.7712, places=4)
@@ -210,7 +210,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, "Top20")
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8876, places=4)
@@ -235,7 +235,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, "Top20")
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.9006, places=4)
@@ -263,7 +263,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, "Top20")
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.5199, places=4)
@@ -287,7 +287,7 @@ class TestSearchIntegration(unittest.TestCase):
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
         stdout, stderr = run_command(cmd3)
-        score = parse_score(stdout, "Top20")
+        score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.7511, places=4)

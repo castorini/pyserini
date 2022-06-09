@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Pyserini Reproductions</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+tr.hide-table-padding td {
+  padding: 0;
+}
+
+.expand-button {
+  position: relative;
+}
+
+.accordion-toggle .expand-button:after {
+  position: absolute;
+  left:.75rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  content: '-';
+}
+
+.accordion-toggle.collapsed .expand-button:after {
+  content: '+';
+}
+
+blockquote.mycode {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  margin-top: 15px;
+  padding-left: 15px;
+}
+
+tr th.headertop {
+  border-bottom: none;
+  padding-bottom: 0rem
+}
+
+tr th.headerbottom {
+  padding-top: 0rem
+}
+
+.table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
+.copy-code-button {
+	border-radius: 0;
+	min-width: 55px;
+	background: none repeat scroll 0 0 transparent;
+	background-color: grey;
+	color: #F1F2F3 !important;
+	cursor: pointer;
+	border-style: none;
+	font-family: 'HELVETICA',sans-serif;
+	font-size: 0.8em;
+	font-weight: normal;
+	text-align: center;
+	text-decoration: none;
+	text-indent: 0;
+	text-transform: uppercase;
+	font-weight: 500;
+	line-height: 1.42rem;
+	margin: 0;
+	padding: 3px 8px;
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+}
+
+.copy-code-button > span {
+	color: #F1F2F3 !important;
+}
+
+.copy-code-button, ::before, ::after {
+	box-sizing: inherit;
+}
+
+.copy-code-button::before {
+	content: '';
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 3px;
+	background-size: contain;
+	background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIxNXB4IiB2aWV3Qm94PSIwIDAgMTUgMTUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUwLjIgKDU1MDQ3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5QYWdlIDE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iRmxvdyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkJ0dG5faHRtbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTgxOS4wMDAwMDAsIC03NTMuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0xIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMTEuMDAwMDAwLCA0MDUuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTA4LjAwMDAwMCwgMzQyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMy45NzcyNzI3LDYgTDMuNDA5MDkwOTEsNiBDMi44NDQ1NDU0NSw2IDIuMzg2MzYzNjQsNi40NTgxODE4MiAyLjM4NjM2MzY0LDcuMDIyNzI3MjcgTDIuMzg2MzYzNjQsMTcuNTkwOTA5MSBDMi4zODYzNjM2NCwxOC4xNTU0NTQ1IDIuODQ0NTQ1NDUsMTguNjEzNjM2NCAzLjQwOTA5MDkxLDE4LjYxMzYzNjQgTDEzLjk3NzI3MjcsMTguNjEzNjM2NCBDMTQuNTQxODE4MiwxOC42MTM2MzY0IDE1LDE4LjE1NTQ1NDUgMTUsMTcuNTkwOTA5MSBMMTUsNy4wMjI3MjcyNyBDMTUsNi40NTgxODE4MiAxNC41NDE4MTgyLDYgMTMuOTc3MjcyNyw2IFogTTE0LjMxODE4MTgsMTcuNTkwOTA5MSBDMTQuMzE4MTgxOCwxNy43NzkwOTA5IDE0LjE2NTQ1NDUsMTcuOTMxODE4MiAxMy45NzcyNzI3LDE3LjkzMTgxODIgTDMuNDA5MDkwOTEsMTcuOTMxODE4MiBDMy4yMjA5MDkwOSwxNy45MzE4MTgyIDMuMDY4MTgxODIsMTcuNzc5MDkwOSAzLjA2ODE4MTgyLDE3LjU5MDkwOTEgTDMuMDY4MTgxODIsNy4wMjI3MjcyNyBDMy4wNjgxODE4Miw2LjgzNDU0NTQ1IDMuMjIwOTA5MDksNi42ODE4MTgxOCAzLjQwOTA5MDkxLDYuNjgxODE4MTggTDEzLjk3NzI3MjcsNi42ODE4MTgxOCBDMTQuMTY1NDU0NSw2LjY4MTgxODE4IDE0LjMxODE4MTgsNi44MzQ1NDU0NSAxNC4zMTgxODE4LDcuMDIyNzI3MjcgTDE0LjMxODE4MTgsMTcuNTkwOTA5MSBaIE0xMS45MzE4MTgyLDE5Ljk3NzI3MjcgQzExLjkzMTgxODIsMjAuMTY1NDU0NSAxMS43NzkwOTA5LDIwLjMxODE4MTggMTEuNTkwOTA5MSwyMC4zMTgxODE4IEwxLjAyMjcyNzI3LDIwLjMxODE4MTggQzAuODM0NTQ1NDU1LDIwLjMxODE4MTggMC42ODE4MTgxODIsMjAuMTY1NDU0NSAwLjY4MTgxODE4MiwxOS45NzcyNzI3IEwwLjY4MTgxODE4Miw5LjQwOTA5MDkxIEMwLjY4MTgxODE4Miw5LjIyMDkwOTA5IDAuODM0NTQ1NDU1LDkuMDY4MTgxODIgMS4wMjI3MjcyNyw5LjA2ODE4MTgyIEwxLjM2MzYzNjM2LDkuMDY4MTgxODIgTDEuMzYzNjM2MzYsOC4zODYzNjM2NCBMMS4wMjI3MjcyNyw4LjM4NjM2MzY0IEMwLjQ1ODE4MTgxOCw4LjM4NjM2MzY0IDAsOC44NDQ1NDU0NSAwLDkuNDA5MDkwOTEgTDAsMTkuOTc3MjcyNyBDMCwyMC41NDE4MTgyIDAuNDU4MTgxODE4LDIxIDEuMDIyNzI3MjcsMjEgTDExLjU5MDkwOTEsMjEgQzEyLjE1NTQ1NDUsMjEgMTIuNjEzNjM2NCwyMC41NDE4MTgyIDEyLjYxMzYzNjQsMTkuOTc3MjcyNyBMMTIuNjEzNjM2NCwxOS42MzYzNjM2IEwxMS45MzE4MTgyLDE5LjYzNjM2MzYgTDExLjkzMTgxODIsMTkuOTc3MjcyNyBaIiBpZD0iUGFnZS0xIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==");
+	background-repeat: no-repeat;
+	position: relative;
+	top: 3px;
+}
+
+.copy-code-button:focus {
+    /* Avoid an ugly focus outline on click in Chrome,
+       but darken the button for accessibility.
+       See https://stackoverflow.com/a/25298082/1481479 */
+    /* background-color: #E6E6E6; */
+	outline: 0;
+}
+
+pre[class*="prettyprint"] {
+	position: relative;
+	overflow: hidden;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image vh-100 shadow-1-strong" style="max-height: 150px">
+      <div class="mask" style="
+            background: linear-gradient(
+              45deg,
+              rgba(29, 236, 197, 0.7),
+              rgba(91, 14, 214, 0.7) 100%
+            );
+          ">
+        <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
+          <div class="text-white">
+            <h1 class="mb-3">MS MARCO V2 Document</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+
+<div class="container my-4">
+
+<p>The two-click reproduction matrix below provides commands for reproducing experimental results reported in the following paper.
+Numbered rows correspond to tables in the paper; additional conditions are provided for comparison purposes.</p>
+
+<p class="note note-light">Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin. <a href="https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
+<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.</p>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="headertop"></th>
+        <th class="headertop"></th>
+        <th class="headertop"></th>
+        <th class="headertop" colspan="6"><b>TREC 2021</b></th>
+        <th class="headertop" colspan="3"><b>dev</b></th>
+        <th class="headertop" colspan="3"><b>dev2</b></th>
+      </tr>
+      <tr>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"><br/>AP</th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">RR@100</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col">R@1K</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">RR@100</th>
+        <th class="headerbottom" scope="col">R@1K</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">RR@100</th>
+        <th class="headerbottom" scope="col">R@1K</th>
+      </tr>
+    </thead>
+    <tbody>
+
+<!-- Condition: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
+<td class="expand-button"></td>
+<td>(1a)</td>
+<td style="min-width: 400px">BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2126</td>
+<td>0.5116</td>
+<td>0.8367</td>
+<td>0.3195</td>
+<td>0.6739</td>
+<td></td>
+<td>0.1572</td>
+<td>0.8054</td>
+<td></td>
+<td>0.1659</td>
+<td>0.8029</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse1" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row1-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row1-content">
+  <div class="tab-pane fade show active" id="row1-tab1" role="tabpanel" aria-labelledby="row1-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics dl21 \
+  --index msmarco-v2-doc-slim \
+  --output run.msmarco-v2-doc.bm25-doc-default.dl21.txt \
+  --bm25
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-doc-default.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab2" role="tabpanel" aria-labelledby="row1-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev \
+  --index msmarco-v2-doc-slim \
+  --output run.msmarco-v2-doc.bm25-doc-default.dev.txt \
+  --bm25
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-doc-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-doc-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab3" role="tabpanel" aria-labelledby="row1-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev2 \
+  --index msmarco-v2-doc-slim \
+  --output run.msmarco-v2-doc.bm25-doc-default.dev2.txt \
+  --bm25
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-doc-default.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-doc-default.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
+<td class="expand-button"></td>
+<td>(1b)</td>
+<td style="min-width: 400px">BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2436</td>
+<td>0.5776</td>
+<td>0.8937</td>
+<td>0.3478</td>
+<td>0.6930</td>
+<td></td>
+<td>0.1896</td>
+<td>0.8542</td>
+<td></td>
+<td>0.1930</td>
+<td>0.8549</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse2" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row2-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row2-tab1-header" data-mdb-toggle="tab" href="#row2-tab1" role="tab" aria-controls="row2-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row2-content">
+  <div class="tab-pane fade show active" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics dl21 \
+  --index msmarco-v2-doc-segmented-slim \
+  --output run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt \
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev \
+  --index msmarco-v2-doc-segmented-slim \
+  --output run.msmarco-v2-doc.bm25-doc-segmented-default.dev.txt \
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-doc-segmented-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-doc-segmented-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab3" role="tabpanel" aria-labelledby="row2-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev2 \
+  --index msmarco-v2-doc-segmented-slim \
+  --output run.msmarco-v2-doc.bm25-doc-segmented-default.dev2.txt \
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-doc-segmented-default.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-doc-segmented-default.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
+<td class="expand-button"></td>
+<td>(1c)</td>
+<td style="min-width: 400px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2453</td>
+<td>0.5339</td>
+<td>0.7994</td>
+<td>0.3374</td>
+<td>0.7335</td>
+<td></td>
+<td>0.0974</td>
+<td>0.7694</td>
+<td></td>
+<td>0.1028</td>
+<td>0.7736</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse3" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row3-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row3-content">
+  <div class="tab-pane fade show active" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics dl21 \
+  --index msmarco-v2-doc-full \
+  --output run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt \
+  --bm25 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab2" role="tabpanel" aria-labelledby="row3-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev \
+  --index msmarco-v2-doc-full \
+  --output run.msmarco-v2-doc.bm25-rm3-doc-default.dev.txt \
+  --bm25 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-doc-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-doc-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab3" role="tabpanel" aria-labelledby="row3-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev2 \
+  --index msmarco-v2-doc-full \
+  --output run.msmarco-v2-doc.bm25-rm3-doc-default.dev2.txt \
+  --bm25 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-rm3-doc-default.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-rm3-doc-default.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
+<td class="expand-button"></td>
+<td>(1d)</td>
+<td style="min-width: 400px">BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2933</td>
+<td>0.6185</td>
+<td>0.9018</td>
+<td>0.3892</td>
+<td>0.7694</td>
+<td></td>
+<td>0.1664</td>
+<td>0.8605</td>
+<td></td>
+<td>0.1701</td>
+<td>0.8633</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse4" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row4-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row4-content">
+  <div class="tab-pane fade show active" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics dl21 \
+  --index msmarco-v2-doc-segmented-full \
+  --output run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt \
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab2" role="tabpanel" aria-labelledby="row4-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev \
+  --index msmarco-v2-doc-segmented-full \
+  --output run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev.txt \
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab3" role="tabpanel" aria-labelledby="row4-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev2 \
+  --index msmarco-v2-doc-segmented-full \
+  --output run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev2.txt \
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
+<td class="expand-button"></td>
+<td>(2a)</td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2387</td>
+<td>0.5792</td>
+<td>0.8866</td>
+<td>0.3443</td>
+<td>0.7066</td>
+<td></td>
+<td>0.2011</td>
+<td>0.8614</td>
+<td></td>
+<td>0.2012</td>
+<td>0.8568</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse5" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row5-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row5-content">
+  <div class="tab-pane fade show active" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics dl21 \
+  --index msmarco-v2-doc-d2q-t5 \
+  --output run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl21.txt \
+  --bm25
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab2" role="tabpanel" aria-labelledby="row5-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev \
+  --index msmarco-v2-doc-d2q-t5 \
+  --output run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dev.txt \
+  --bm25
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab3" role="tabpanel" aria-labelledby="row5-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev2 \
+  --index msmarco-v2-doc-d2q-t5 \
+  --output run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dev2.txt \
+  --bm25
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
+<td class="expand-button"></td>
+<td>(2b)</td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2683</td>
+<td>0.6289</td>
+<td>0.9454</td>
+<td>0.3656</td>
+<td>0.7202</td>
+<td></td>
+<td>0.2226</td>
+<td>0.8982</td>
+<td></td>
+<td>0.2234</td>
+<td>0.8952</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse6" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row6-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row6-content">
+  <div class="tab-pane fade show active" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics dl21 \
+  --index msmarco-v2-doc-segmented-d2q-t5 \
+  --output run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl21.txt \
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab2" role="tabpanel" aria-labelledby="row6-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev \
+  --index msmarco-v2-doc-segmented-d2q-t5 \
+  --output run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dev.txt \
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab3" role="tabpanel" aria-labelledby="row6-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev2 \
+  --index msmarco-v2-doc-segmented-d2q-t5 \
+  --output run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dev2.txt \
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
+<td class="expand-button"></td>
+<td>(2c)</td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2608</td>
+<td>0.5392</td>
+<td>0.8342</td>
+<td>0.3580</td>
+<td>0.7572</td>
+<td></td>
+<td>0.1144</td>
+<td>0.8189</td>
+<td></td>
+<td>0.1169</td>
+<td>0.8245</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse7" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row7-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row7-content">
+  <div class="tab-pane fade show active" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics dl21 \
+  --index msmarco-v2-doc-d2q-t5-docvectors \
+  --output run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl21.txt \
+  --bm25 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab2" role="tabpanel" aria-labelledby="row7-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev \
+  --index msmarco-v2-doc-d2q-t5-docvectors \
+  --output run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dev.txt \
+  --bm25 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab3" role="tabpanel" aria-labelledby="row7-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev2 \
+  --index msmarco-v2-doc-d2q-t5-docvectors \
+  --output run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dev2.txt \
+  --bm25 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
+<td class="expand-button"></td>
+<td>(2d)</td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.3192</td>
+<td>0.6555</td>
+<td>0.8960</td>
+<td>0.4119</td>
+<td>0.7941</td>
+<td></td>
+<td>0.1974</td>
+<td>0.9000</td>
+<td></td>
+<td>0.1966</td>
+<td>0.8967</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse8" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row8-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row8-content">
+  <div class="tab-pane fade show active" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics dl21 \
+  --index msmarco-v2-doc-segmented-d2q-t5-docvectors \
+  --output run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl21.txt \
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab2" role="tabpanel" aria-labelledby="row8-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev \
+  --index msmarco-v2-doc-segmented-d2q-t5-docvectors \
+  --output run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev.txt \
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab3" role="tabpanel" aria-labelledby="row8-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-v2-doc-dev2 \
+  --index msmarco-v2-doc-segmented-d2q-t5-docvectors \
+  --output run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev2.txt \
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: uniCOIL (noexp): pre-encoded queries -->
+<tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
+<td class="expand-button"></td>
+<td>(3a)</td>
+<td style="min-width: 400px">uniCOIL (noexp): pre-encoded queries</td>
+<td>0.2587</td>
+<td>0.6495</td>
+<td>0.9282</td>
+<td>0.3563</td>
+<td>0.6787</td>
+<td></td>
+<td>0.2231</td>
+<td>0.8987</td>
+<td></td>
+<td>0.2314</td>
+<td>0.8995</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse9" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row9-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row9-content">
+  <div class="tab-pane fade show active" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2 \
+  --topics dl21-unicoil-noexp \
+  --output run.msmarco-v2-doc.unicoil-noexp.dl21.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.unicoil-noexp.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.unicoil-noexp.dl21.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.unicoil-noexp.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.unicoil-noexp.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.unicoil-noexp.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab2" role="tabpanel" aria-labelledby="row9-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2 \
+  --topics msmarco-v2-doc-dev-unicoil-noexp \
+  --output run.msmarco-v2-doc.unicoil-noexp.dev.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil-noexp.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil-noexp.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab3" role="tabpanel" aria-labelledby="row9-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2 \
+  --topics msmarco-v2-doc-dev2-unicoil-noexp \
+  --output run.msmarco-v2-doc.unicoil-noexp.dev2.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev2 run.msmarco-v2-doc.unicoil-noexp.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msmarco-v2-doc.unicoil-noexp.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: uniCOIL (w/ doc2query-T5): pre-encoded queries -->
+<tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
+<td class="expand-button"></td>
+<td>(3b)</td>
+<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): pre-encoded queries</td>
+<td>0.2718</td>
+<td>0.6783</td>
+<td>0.9684</td>
+<td>0.3700</td>
+<td>0.7069</td>
+<td></td>
+<td>0.2419</td>
+<td>0.9122</td>
+<td></td>
+<td>0.2445</td>
+<td>0.9172</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse10" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row10-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row10-content">
+  <div class="tab-pane fade show active" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v2-doc-segmented-unicoil-0shot-v2 \
+  --topics dl21-unicoil \
+  --output run.msmarco-v2-doc.unicoil.dl21.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.unicoil.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.unicoil.dl21.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.unicoil.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.unicoil.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.unicoil.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab2" role="tabpanel" aria-labelledby="row10-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v2-doc-segmented-unicoil-0shot-v2 \
+  --topics msmarco-v2-doc-dev-unicoil \
+  --output run.msmarco-v2-doc.unicoil.dev.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab3" role="tabpanel" aria-labelledby="row10-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v2-doc-segmented-unicoil-0shot-v2 \
+  --topics msmarco-v2-doc-dev2-unicoil \
+  --output run.msmarco-v2-doc.unicoil.dev2.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev2 run.msmarco-v2-doc.unicoil.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msmarco-v2-doc.unicoil.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: uniCOIL (noexp): on-the-fly query inference -->
+<tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">
+<td class="expand-button"></td>
+<td></td>
+<td style="min-width: 400px">uniCOIL (noexp): on-the-fly query inference</td>
+<td>0.2589</td>
+<td>0.6501</td>
+<td>0.9282</td>
+<td>0.3574</td>
+<td>0.6782</td>
+<td></td>
+<td>0.2232</td>
+<td>0.8987</td>
+<td></td>
+<td>0.2314</td>
+<td>0.8993</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse11" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row11-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row11-tab1-header" data-mdb-toggle="tab" href="#row11-tab1" role="tab" aria-controls="row11-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row11-content">
+  <div class="tab-pane fade show active" id="row11-tab1" role="tabpanel" aria-labelledby="row11-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2 \
+  --topics dl21 --encoder castorini/unicoil-noexp-msmarco-passage \
+  --output run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row11-tab2" role="tabpanel" aria-labelledby="row11-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2 \
+  --topics msmarco-v2-doc-dev --encoder castorini/unicoil-noexp-msmarco-passage \
+  --output run.msmarco-v2-doc.unicoil-noexp-otf.dev.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil-noexp-otf.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil-noexp-otf.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row11-tab3" role="tabpanel" aria-labelledby="row11-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2 \
+  --topics msmarco-v2-doc-dev2 --encoder castorini/unicoil-noexp-msmarco-passage \
+  --output run.msmarco-v2-doc.unicoil-noexp-otf.dev2.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev2 run.msmarco-v2-doc.unicoil-noexp-otf.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msmarco-v2-doc.unicoil-noexp-otf.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: uniCOIL (w/ doc2query-T5): on-the-fly query inference -->
+<tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
+<td class="expand-button"></td>
+<td></td>
+<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): on-the-fly query inference</td>
+<td>0.2720</td>
+<td>0.6782</td>
+<td>0.9684</td>
+<td>0.3702</td>
+<td>0.7071</td>
+<td></td>
+<td>0.2419</td>
+<td>0.9120</td>
+<td></td>
+<td>0.2447</td>
+<td>0.9174</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse12" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row12-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row12-tab1-header" data-mdb-toggle="tab" href="#row12-tab1" role="tab" aria-controls="row12-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row12-content">
+  <div class="tab-pane fade show active" id="row12-tab1" role="tabpanel" aria-labelledby="row12-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v2-doc-segmented-unicoil-0shot-v2 \
+  --topics dl21 --encoder castorini/unicoil-msmarco-passage \
+  --output run.msmarco-v2-doc.unicoil-otf.dl21.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.unicoil-otf.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.unicoil-otf.dl21.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.unicoil-otf.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.unicoil-otf.dl21.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.unicoil-otf.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row12-tab2" role="tabpanel" aria-labelledby="row12-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v2-doc-segmented-unicoil-0shot-v2 \
+  --topics msmarco-v2-doc-dev --encoder castorini/unicoil-msmarco-passage \
+  --output run.msmarco-v2-doc.unicoil-otf.dev.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil-otf.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil-otf.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row12-tab3" role="tabpanel" aria-labelledby="row12-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v2-doc-segmented-unicoil-0shot-v2 \
+  --topics msmarco-v2-doc-dev2 --encoder castorini/unicoil-msmarco-passage \
+  --output run.msmarco-v2-doc.unicoil-otf.dev2.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev2 run.msmarco-v2-doc.unicoil-otf.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msmarco-v2-doc.unicoil-otf.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+
+      </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+
+<script>
+document.querySelectorAll('pre').forEach(function (codeBlock) {
+    var button = document.createElement('button');
+    button.className = 'copy-code-button';
+    button.type = 'button';
+    var s = codeBlock.innerText;
+    button.setAttribute('data-clipboard-text',s);
+    button.innerText = 'Copy';
+
+    // var pre = codeBlock.parentNode;
+    codeBlock.classList.add('prettyprint');
+    // pre.parentNode.insertBefore(button, pre);
+    codeBlock.appendChild(button);
+});
+
+var clipboard = new ClipboardJS('.copy-code-button');
+
+clipboard.on('success', function(e) {
+  console.info('Action:', e.action);
+  console.info('Text:', e.text);
+  console.info('Trigger:', e.trigger);
+  e.trigger.textContent = 'Copied';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+  console.error('Action:', e.action);
+  console.error('Trigger:', e.trigger);
+  e.trigger.textContent = 'Error Copying';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+</script>
+
+</body>
+</html>
+
