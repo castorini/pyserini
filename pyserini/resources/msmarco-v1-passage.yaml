@@ -1,4 +1,100 @@
 conditions:
+  - name: distilbert-kd-tasb-otf
+    display: "DistilBERT KD TASB: otf"
+    display-html: "DistilBERT KD TASB: on-the-fly query inference"
+    command: python -m pyserini.search.faiss --index msmarco-passage-distilbert-dot-tas_b-b256-bf --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output --batch-size 36 --threads 12
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3444
+            R@1K: 0.9771
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4590
+            nDCG@10: 0.7210
+            R@1K: 0.8406
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4698
+            nDCG@10: 0.6854
+            R@1K: 0.8727
+  - name: distilbert-kd-tasb
+    display: "DistilBERT KD TASB: pre-encoded"
+    display-html: "DistilBERT KD TASB: pre-encoded queries"
+    command: python -m pyserini.search.faiss --index msmarco-passage-distilbert-dot-tas_b-b256-bf --topics $topics --encoded-queries distilbert_tas_b-msmarco-passage-dev-subset --output $output --batch-size 36 --threads 12
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3444
+            R@1K: 0.9771
+  - name: distilbert-kd-otf
+    display: "DistilBERT KD: otf"
+    display-html: "DistilBERT KD: on-the-fly query inference"
+    command: python -m pyserini.search.faiss --index msmarco-passage-distilbert-dot-margin_mse-T2-bf --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco --output $output --batch-size 36 --threads 12
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3251
+            R@1K: 0.9553
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4053
+            nDCG@10: 0.6994
+            R@1K: 0.7653
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4159
+            nDCG@10: 0.6447
+            R@1K: 0.7953
+  - name: distilbert-kd
+    display: "DistilBERT KD: pre-encoded"
+    display-html: "DistilBERT KD: pre-encoded queries"
+    command: python -m pyserini.search.faiss --index msmarco-passage-distilbert-dot-margin_mse-T2-bf --topics $topics --encoded-queries distilbert_kd-msmarco-passage-dev-subset --output $output --batch-size 36 --threads 12
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3251
+            R@1K: 0.9553
+  - name: ance-otf
+    display: "ANCE: otf"
+    display-html: "ANCE: on-the-fly query inference"
+    command: python -m pyserini.search.faiss --index msmarco-passage-ance-bf --topics $topics --encoder castorini/ance-msmarco-passage --output $output --batch-size 36 --threads 12
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3302
+            R@1K: 0.9587
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.3710
+            nDCG@10: 0.6452
+            R@1K: 0.7554
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4076
+            nDCG@10: 0.6458
+            R@1K: 0.7764
+  - name: ance
+    display: "ANCE: pre-encoded"
+    display-html: "ANCE: pre-encoded queries"
+    command: python -m pyserini.search.faiss --index msmarco-passage-ance-bf --topics $topics --encoded-queries ance-msmarco-passage-dev-subset --output $output --batch-size 36 --threads 12
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3302
+            R@1K: 0.9584
   - name: bm25-rocchio-default
     display: BM25+RM3 (k1=0.9, b=0.4)
     display-html: BM25+RM3 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
