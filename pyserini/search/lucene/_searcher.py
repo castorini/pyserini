@@ -272,7 +272,7 @@ class LuceneSearcher:
         """Disable Rocchio query expansion."""
         self.object.unsetRocchio()
 
-    def is_using_Rocchio(self) -> bool:
+    def is_using_rocchio(self) -> bool:
         """Check if Rocchio query expansion is being performed."""
         return self.object.useRocchio()
 
