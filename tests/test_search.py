@@ -239,6 +239,42 @@ class TestSearch(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.no_vec_searcher.set_rm3()
 
+    def test_rocchio(self):
+        self.searcher = LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
+        self.searcher.set_rocchio()
+        self.assertTrue(self.searcher.is_using_rocchio())
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 7.18830, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-2140')
+        self.assertAlmostEqual(hits[9].score, 5.57970, places=5)
+
+        self.searcher.unset_rocchio()
+        self.assertFalse(self.searcher.is_using_rocchio())
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 4.76550, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-2516')
+        self.assertAlmostEqual(hits[9].score, 4.21740, places=5)
+
+        self.searcher.set_rocchio(top_fb_terms=10, top_fb_docs=8, bottom_fb_terms=10, 
+            bottom_fb_docs=8, rocchio_alpha=0.4, rocchio_beta=0.5, rocchio_gamma=0.1)
+        self.assertTrue(self.searcher.is_using_rocchio())
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 3.64890, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-1032')
+        self.assertAlmostEqual(hits[9].score, 2.57510, places=5)
+
+        with self.assertRaises(TypeError):
+            self.no_vec_searcher.set_rocchio()
+
     def test_doc_int(self):
         # The doc method is overloaded: if input is int, it's assumed to be a Lucene internal docid.
         doc = self.searcher.doc(1)
