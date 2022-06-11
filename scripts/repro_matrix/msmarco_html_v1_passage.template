@@ -132,7 +132,9 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
-<p>The two-click reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.</p>
+<p>The two-click<sup>*</sup> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.</p>
+
+<p><sup>*</sup> What are the two clicks, you ask? Copy and paste!</p>
 
 <div class="table-responsive">
   <table class="table">
