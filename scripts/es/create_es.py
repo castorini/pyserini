@@ -37,37 +37,5 @@ impact_index_config = {
     }
 }
 
-# client.indices.create(index='example_index', body=impact_index_config)
+client.indices.create(index='msmarco-v1-passage', body=impact_index_config)
 
-# doc = {
-#     'document': 'where is university of waterloo'
-# }
-
-# vec = {
-#     'vector': 'where is university of waterloo waterloo waterloo waterloo'
-# }
-# resp = client.update(index="example_index", id=1, doc=doc)
-# resp = client.update(index="example_index", id=2, doc=doc)
-# resp = client.update(index="example_index", id=1, doc=vec)
-#print(client.get(index="example_index", id=3))
-client.indices.refresh(index="example_index")
-
-# query = {
-#     "query": {
-#         "dis_max": {
-#             "queries": [
-#                 {"match": {"document": "waterloo's"}},
-#                 {"match": {"vector": "waterloo's"}}
-#             ]
-#         }
-#     }
-# }
-
-resp = client.search(index="example_index", query={"bool": {
-    "must_not": {
-        "exists": {
-            "field": "vector"
-        }
-    }
-}}, track_total_hits=True)
-print(resp['hits']['total'])

@@ -32,7 +32,7 @@ with open('run.es_unicoil.tsv', 'w') as f:
                 "default_field": "vector"
             }
         }
-        resp = client.search(index="example_index", query=formated_query)
+        resp = client.search(index="msmarco-v1-passage", query=formated_query)
         for i in range(len(resp["hits"]["hits"])):
             pid = resp["hits"]["hits"][i]['_id']
             record = f"{qid}\t{pid}\t{i+1}\n"

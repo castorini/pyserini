@@ -23,7 +23,7 @@ with open('run.es_bm25.tsv', 'w') as f:
                 "default_field": "document"
             }
         }
-        resp = client.search(index="example_index", query=formated_query, timeout="60s")
+        resp = client.search(index="msmarco-v1-passage", query=formated_query, timeout="60s")
         for i in range(len(resp["hits"]["hits"])):
             pid = resp["hits"]["hits"][i]['_id']
             record = f"{qid}\t{pid}\t{i+1}\n"
