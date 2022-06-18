@@ -1,5 +1,5 @@
 conditions:
-  - name: beir-flat
+  - name: flat
     command: python -m pyserini.search.lucene --index beir-v1.0.0-${dataset}-flat --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --batch 36 --threads 12 --hits 1000 --bm25 --remove-query
     datasets:
       - dataset: trec-covid
@@ -147,7 +147,7 @@ conditions:
           - nDCG@10: 0.6789
             R@100: 0.9253
             R@1000: 0.9767
-  - name: beir-multifield
+  - name: multifield
     command: python -m pyserini.search.lucene --index beir-v1.0.0-${dataset}-multifield --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --batch 36 --threads 12 --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
     datasets:
       - dataset: trec-covid
@@ -295,7 +295,7 @@ conditions:
           - nDCG@10: 0.6647
             R@100: 0.9076
             R@1000: 0.9800
-  - name: beir-splade-distil-cocodenser-medium
+  - name: splade-distil-cocodenser-medium
     command: python -m pyserini.search.lucene --index beir-v1.0.0-${dataset}-splade_distil_cocodenser_medium --topics beir-v1.0.0-${dataset}-test-splade_distil_cocodenser_medium --output $output --output-format trec --batch 36 --threads 12 --hits 1000 --impact --remove-query
     datasets:
       - dataset: trec-covid

@@ -32,6 +32,36 @@ trec_eval_metric_definitions = {
     'R@1000': '-c -m recall.1000'
 }
 
+beir_keys = ['trec-covid',
+             'bioasq',
+             'nfcorpus',
+             'nq',
+             'hotpotqa',
+             'fiqa',
+             'signal1m',
+             'trec-news',
+             'robust04',
+             'arguana',
+             'webis-touche2020',
+             'cqadupstack-android',
+             'cqadupstack-english',
+             'cqadupstack-gaming',
+             'cqadupstack-gis',
+             'cqadupstack-mathematica',
+             'cqadupstack-physics',
+             'cqadupstack-programmers',
+             'cqadupstack-stats',
+             'cqadupstack-tex',
+             'cqadupstack-unix',
+             'cqadupstack-webmasters',
+             'cqadupstack-wordpress',
+             'quora',
+             'dbpedia-entity',
+             'scidocs',
+             'fever',
+             'climate-fever',
+             'scifact'
+             ]
 
 def run_command(cmd):
     process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -55,6 +85,11 @@ def run_eval_and_return_metric(metric, eval_key, defs, runfile):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Generate regression matrix for BEIR.')
+    parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
+    args = parser.parse_args()
+
+    table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
     with open('pyserini/resources/beir.yaml') as f:
         yaml_data = yaml.safe_load(f)
@@ -69,7 +104,7 @@ if __name__ == '__main__':
 
                 print(f'  - dataset: {dataset}')
 
-                runfile = f'runs/run.{name}.{dataset}.txt'
+                runfile = f'runs/run.beir-{name}.{dataset}.txt'
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)
 
                 if not os.path.exists(runfile):
@@ -78,72 +113,54 @@ if __name__ == '__main__':
 
                 for expected in datasets['scores']:
                     for metric in expected:
+                        if not args.skip_eval:
                             score = float(run_eval_and_return_metric(metric, f'beir-v1.0.0-{dataset}-test',
                                                                      trec_eval_metric_definitions[metric], runfile))
                             result = ok_str if math.isclose(score, float(expected[metric])) \
                                 else fail_str + f' expected {expected[metric]:.4f}'
                             print(f'      {metric:7}: {score:.4f} {result}')
 
+                            table[dataset][name][metric] = score
+                        else:
+                            table[dataset][name][metric] = expected[metric]
+
             print('')
 
-    #             short_topic_key = ''
-    #             if collection == 'msmarco-v1-passage' or collection == 'msmarco-v1-doc':
-    #                 short_topic_key = find_table_topic_set_key_v1(topic_key)
-    #             else:
-    #                 short_topic_key = find_table_topic_set_key_v2(topic_key)
-    #
-    #             if not args.skip_eval:
-    #                 print(f'  - topic_key: {topic_key}')
-    #
-    #             runfile = f'runs/run.{collection}.{name}.{short_topic_key}.txt'
-    #             cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile)
-    #
-    #             if not args.skip_eval:
-    #                 if not os.path.exists(runfile):
-    #                     print(f'    Running: {cmd}')
-    #                     os.system(cmd)
-    #
-    #             if not args.skip_eval:
-    #                 print('')
-    #
-    #             for expected in topic_set['scores']:
-    #                 for metric in expected:
-    #                     table_keys[name] = display
-    #                     if not args.skip_eval:
-    #                         score = float(run_eval_and_return_metric(metric, eval_key,
-    #                                                                  trec_eval_metric_definitions[collection], runfile))
-    #                         result = ok_str if math.isclose(score, float(expected[metric])) \
-    #                             else fail_str + f' expected {expected[metric]:.4f}'
-    #                         print(f'    {metric:7}: {score:.4f} {result}')
-    #                         table[name][short_topic_key][metric] = score
-    #                     else:
-    #                         table[name][short_topic_key][metric] = expected[metric]
-    #
-    #             if not args.skip_eval:
-    #                 print('')
-    #
-    # if collection == 'msmarco-v1-passage' or collection == 'msmarco-v1-doc':
-    #     print(' ' * 69 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
-    #     print(' ' * 62 + 'MAP    nDCG@10    R@1K       MAP nDCG@10    R@1K    MRR@10    R@1K')
-    #     print(' ' * 62 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
-    #     for name in models[collection]:
-    #         if not name:
-    #             print('')
-    #             continue
-    #         print(f'{table_keys[name]:60}' +
-    #               f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
-    #               f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
-    #               f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
-    # else:
-    #     print(' ' * 77 + 'TREC 2021' + ' ' * 18 + 'MS MARCO dev' + ' ' * 6 + 'MS MARCO dev2')
-    #     print(' ' * 62 + 'MAP@100 nDCG@10 MRR@100 R@100   R@1K     MRR@100   R@1K    MRR@100   R@1K')
-    #     print(' ' * 62 + '-' * 38 + '    ' + '-' * 14 + '    ' + '-' * 14)
-    #     for name in models[collection]:
-    #         if not name:
-    #             print('')
-    #             continue
-    #         print(f'{table_keys[name]:60}' +
-    #               f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}' +
-    #               f'{table[name]["dl21"]["MRR@100"]:8.4f}{table[name]["dl21"]["R@100"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
-    #               f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
-    #               f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
+    models = ['flat', 'multifield', 'splade-distil-cocodenser-medium']
+    metrics = ['nDCG@10', 'R@100', 'R@1000']
+
+    top_level_sums = defaultdict(lambda: defaultdict(float))
+    cqadupstack_sums = defaultdict(lambda: defaultdict(float))
+    final_scores = defaultdict(lambda: defaultdict(float))
+
+    # Compute the running sums to compute the final mean scores
+    for key in beir_keys:
+        for model in models:
+            for metric in metrics:
+                if key.startswith('cqa'):
+                    # The running sum for cqa needs to be kept separately.
+                    cqadupstack_sums[model][metric] += table[key][model][metric]
+                else:
+                    top_level_sums[model][metric] += table[key][model][metric]
+
+    # Compute the final mean
+    for model in models:
+        for metric in metrics:
+            # Compute mean over cqa sub-collections first
+            cqa_score = cqadupstack_sums[model][metric] / 12
+            # Roll cqa scores into final overall mean
+            final_score = (top_level_sums[model][metric] + cqa_score) / 18
+            final_scores[model][metric] = final_score
+
+    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 11 + 'SPLADE')
+    print(' ' * 26 + 'nDCG@10   R@100   ' * 3)
+    print(' ' * 27 + '-' * 14 + '    ' + '-' * 14 + '    ' + '-' * 14)
+    for dataset in beir_keys:
+        print(f'{dataset:25}' +
+              f'{table[dataset]["flat"]["nDCG@10"]:8.4f}{table[dataset]["flat"]["R@100"]:8.4f}  ' +
+              f'{table[dataset]["multifield"]["nDCG@10"]:8.4f}{table[dataset]["multifield"]["R@100"]:8.4f}  ' +
+              f'{table[dataset]["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{table[dataset]["splade-distil-cocodenser-medium"]["R@100"]:8.4f}')
+    print(' ' * 27 + '-' * 14 + '    ' + '-' * 14 + '    ' + '-' * 14)
+    print('avg' + ' ' * 22 + f'{final_scores["flat"]["nDCG@10"]:8.4f}{final_scores["flat"]["R@100"]:8.4f}  ' +
+          f'{final_scores["multifield"]["nDCG@10"]:8.4f}{final_scores["multifield"]["R@100"]:8.4f}  ' +
+          f'{final_scores["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{final_scores["splade-distil-cocodenser-medium"]["R@100"]:8.4f} ')
