@@ -33,7 +33,7 @@
 <!-- Tabs content -->
 <div class="tab-content" id="row${row_cnt}-content">
   <div class="tab-pane fade show active" id="row${row_cnt}-tab1" role="tabpanel" aria-labelledby="row${row_cnt}-tab1">
-Command to generate run on TREC 2019 queries:
+Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>$cmd1
@@ -46,7 +46,7 @@ Evaluation commands:
 
   </div>
   <div class="tab-pane fade" id="row${row_cnt}-tab2" role="tabpanel" aria-labelledby="row${row_cnt}-tab2">
-    Command to generate run on TREC 2020 queries:
+Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>$cmd2
@@ -59,7 +59,7 @@ Evaluation commands:
 
   </div>
   <div class="tab-pane fade" id="row${row_cnt}-tab3" role="tabpanel" aria-labelledby="row${row_cnt}-tab3">
-    Command to generate run on dev queries:
+Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>$cmd3

@@ -14,55 +14,15 @@
 # limitations under the License.
 #
 
-import argparse
-import re
 from collections import defaultdict
 from string import Template
 
 import yaml
 
-from scripts.repro_matrix.defs import models, trec_eval_metric_definitions
-from scripts.repro_matrix.utils import find_table_topic_set_key_v1, find_table_topic_set_key_v2
-
-beir_keys = ['trec-covid',
-             'bioasq',
-             'nfcorpus',
-             'nq',
-             'hotpotqa',
-             'fiqa',
-             'signal1m',
-             'trec-news',
-             'robust04',
-             'arguana',
-             'webis-touche2020',
-             'cqadupstack-android',
-             'cqadupstack-english',
-             'cqadupstack-gaming',
-             'cqadupstack-gis',
-             'cqadupstack-mathematica',
-             'cqadupstack-physics',
-             'cqadupstack-programmers',
-             'cqadupstack-stats',
-             'cqadupstack-tex',
-             'cqadupstack-unix',
-             'cqadupstack-webmasters',
-             'cqadupstack-wordpress',
-             'quora',
-             'dbpedia-entity',
-             'scidocs',
-             'fever',
-             'climate-fever',
-             'scifact'
-             ]
-
-trec_eval_metric_definitions = {
-    'nDCG@10': '-c -m ndcg_cut.10',
-    'R@100': '-c -m recall.100',
-    'R@1000': '-c -m recall.1000'
-}
+from scripts.repro_matrix.defs_beir import beir_keys, trec_eval_metric_definitions
 
 
-def format_command(raw):
+def format_run_command(raw):
     return raw.replace('--topics', '\\\n  --topics')\
         .replace('--index', '\\\n  --index')\
         .replace('--output ', '\\\n  --output ')\
@@ -102,7 +62,7 @@ if __name__ == '__main__':
 
                 runfile = f'run.beir-{name}.{dataset}.txt'
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)
-                commands[dataset][name] = format_command(cmd)
+                commands[dataset][name] = format_run_command(cmd)
 
                 for expected in datasets['scores']:
                     for metric in expected:

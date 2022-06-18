@@ -19,70 +19,11 @@ import math
 import os
 from collections import defaultdict
 from string import Template
-import subprocess
 
 import yaml
 
-fail_str = '\033[91m[FAIL]\033[0m'
-ok_str = '[OK] '
-
-trec_eval_metric_definitions = {
-    'nDCG@10': '-c -m ndcg_cut.10',
-    'R@100': '-c -m recall.100',
-    'R@1000': '-c -m recall.1000'
-}
-
-beir_keys = ['trec-covid',
-             'bioasq',
-             'nfcorpus',
-             'nq',
-             'hotpotqa',
-             'fiqa',
-             'signal1m',
-             'trec-news',
-             'robust04',
-             'arguana',
-             'webis-touche2020',
-             'cqadupstack-android',
-             'cqadupstack-english',
-             'cqadupstack-gaming',
-             'cqadupstack-gis',
-             'cqadupstack-mathematica',
-             'cqadupstack-physics',
-             'cqadupstack-programmers',
-             'cqadupstack-stats',
-             'cqadupstack-tex',
-             'cqadupstack-unix',
-             'cqadupstack-webmasters',
-             'cqadupstack-wordpress',
-             'quora',
-             'dbpedia-entity',
-             'scidocs',
-             'fever',
-             'climate-fever',
-             'scifact'
-             ]
-
-def run_command(cmd):
-    process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = process.communicate()
-    stdout = stdout.decode('utf-8')
-    stderr = stderr.decode('utf-8')
-
-    return stdout, stderr
-
-
-def run_eval_and_return_metric(metric, eval_key, defs, runfile):
-    eval_cmd = f'python -m pyserini.eval.trec_eval {defs} {eval_key} {runfile}'
-    eval_stdout, eval_stderr = run_command(eval_cmd)
-
-    for line in eval_stdout.split('\n'):
-        parts = line.split('\t')
-        if len(parts) == 3 and parts[1] == 'all':
-            return round(float(parts[2]), 4)
-
-    return 0.0
-
+from scripts.repro_matrix.defs_beir import beir_keys, trec_eval_metric_definitions
+from scripts.repro_matrix.utils import run_eval_and_return_metric, ok_str, fail_str
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for BEIR.')
