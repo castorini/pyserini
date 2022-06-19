@@ -97,7 +97,7 @@ conditions:
         scores:
           - MRR@100: 0.2705
             R@100: 0.6848
-  - name: mdpr-nq.jp
+  - name: mdpr-nq.ja
     eval_key: mrtydi-v1.1-japanese
     command: python -m pyserini.search.faiss --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese-mdpr-nq --output $output --batch 36 --threads 12 --hits 100
     splits:
@@ -113,7 +113,7 @@ conditions:
         scores:
           - MRR@100: 0.2119
             R@100: 0.5840
-  - name: mdpr-nq.kr
+  - name: mdpr-nq.ko
     eval_key: mrtydi-v1.1-korean
     command: python -m pyserini.search.faiss --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean-mdpr-nq --output $output --batch 36 --threads 12 --hits 100
     splits:
