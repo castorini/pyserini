@@ -19,14 +19,17 @@ from string import Template
 
 import yaml
 
-from scripts.repro_matrix.defs_mrtydi import models, languages
+from scripts.repro_matrix.defs_mrtydi import models, languages, trec_eval_metric_definitions
+
 
 def format_run_command(raw):
-    return raw.replace('--topics', '\\\n  --topics')\
+    return raw.replace('--lang', '\\\n  --lang')\
+        .replace('--encoder', '\\\n  --encoder')\
+        .replace('--topics', '\\\n  --topics')\
         .replace('--index', '\\\n  --index')\
         .replace('--output ', '\\\n  --output ')\
-        .replace('--output-format trec', '\\\n  --output-format trec \\\n ') \
-        .replace('--hits ', '\\\n  --hits ')
+        .replace('--batch ', '\\\n  --batch ') \
+        .replace('--threads 12', '--threads 12 \\\n ')
 
 
 def format_eval_command(raw):
@@ -44,7 +47,7 @@ def read_file(f):
 
 if __name__ == '__main__':
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
-    commands = defaultdict(lambda: defaultdict(lambda: ''))
+    commands = defaultdict(lambda: '')
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
     html_template = read_file('scripts/repro_matrix/mrtydi_html.template')
@@ -60,12 +63,17 @@ if __name__ == '__main__':
             for splits in condition['splits']:
                 split = splits['split']
 
-                runfile = f'runs/run.mrtydi.{name}.{split}.txt'
+                runfile = f'run.mrtydi.{name}.{split}.txt'
                 cmd = Template(cmd_template).substitute(split=split, output=runfile)
+                commands[name] = format_run_command(cmd)
 
                 for expected in splits['scores']:
                     for metric in expected:
                         table[name][split][metric] = expected[metric]
+
+                        eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
+                                   f'{trec_eval_metric_definitions[metric]} {eval_key} {runfile}'
+                        eval_commands[name][metric] = format_eval_command(eval_cmd)
 
         row_cnt = 1
         html_rows = []
@@ -89,12 +97,28 @@ if __name__ == '__main__':
                              sw=f'{table[keys["sw"]]["test"]["MRR@100"]:.3f}',
                              te=f'{table[keys["te"]]["test"]["MRR@100"]:.3f}',
                              th=f'{table[keys["th"]]["test"]["MRR@100"]:.3f}',
-                             cmd1='',
-                             cmd2='',
-                             cmd3='',
-                             eval_cmd1='',
-                             eval_cmd2='',
-                             eval_cmd3=''
+                             cmd1=f'{commands[keys["ar"]]}',
+                             cmd2=f'{commands[keys["bn"]]}',
+                             cmd3=f'{commands[keys["en"]]}',
+                             cmd4=f'{commands[keys["fi"]]}',
+                             cmd5=f'{commands[keys["id"]]}',
+                             cmd6=f'{commands[keys["ja"]]}',
+                             cmd7=f'{commands[keys["ko"]]}',
+                             cmd8=f'{commands[keys["ru"]]}',
+                             cmd9=f'{commands[keys["sw"]]}',
+                             cmd10=f'{commands[keys["te"]]}',
+                             cmd11=f'{commands[keys["th"]]}',
+                             eval_cmd1=f'{eval_commands[keys["ar"]]["MRR@100"]}',
+                             eval_cmd2=f'{eval_commands[keys["bn"]]["MRR@100"]}',
+                             eval_cmd3=f'{eval_commands[keys["en"]]["MRR@100"]}',
+                             eval_cmd4=f'{eval_commands[keys["fi"]]["MRR@100"]}',
+                             eval_cmd5=f'{eval_commands[keys["id"]]["MRR@100"]}',
+                             eval_cmd6=f'{eval_commands[keys["ja"]]["MRR@100"]}',
+                             eval_cmd7=f'{eval_commands[keys["ko"]]["MRR@100"]}',
+                             eval_cmd8=f'{eval_commands[keys["ru"]]["MRR@100"]}',
+                             eval_cmd9=f'{eval_commands[keys["sw"]]["MRR@100"]}',
+                             eval_cmd10=f'{eval_commands[keys["te"]]["MRR@100"]}',
+                             eval_cmd11=f'{eval_commands[keys["th"]]["MRR@100"]}'
                              )
 
             html_rows.append(s)
