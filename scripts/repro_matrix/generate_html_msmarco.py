@@ -21,8 +21,8 @@ from string import Template
 
 import yaml
 
-from scripts.repro_matrix.defs import models, trec_eval_metric_definitions
-from scripts.repro_matrix.utils import find_table_topic_set_key_v1, find_table_topic_set_key_v2
+from scripts.repro_matrix.defs_msmarco import models, trec_eval_metric_definitions
+from scripts.repro_matrix.utils import find_msmarco_table_topic_set_key_v1, find_msmarco_table_topic_set_key_v2
 
 
 def format_command(raw):
@@ -92,9 +92,9 @@ if __name__ == '__main__':
 
                 short_topic_key = ''
                 if collection == 'msmarco-v1-passage' or collection == 'msmarco-v1-doc':
-                    short_topic_key = find_table_topic_set_key_v1(topic_key)
+                    short_topic_key = find_msmarco_table_topic_set_key_v1(topic_key)
                 else:
-                    short_topic_key = find_table_topic_set_key_v2(topic_key)
+                    short_topic_key = find_msmarco_table_topic_set_key_v2(topic_key)
 
                 runfile = f'run.{collection}.{name}.{short_topic_key}.txt'
                 cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile)
