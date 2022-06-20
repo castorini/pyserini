@@ -264,7 +264,7 @@ class LuceneSearcher:
             Print the original and expanded queries as debug output.
         """
         if self.object.reader.getTermVectors(0):
-            self.object.setRocchio(top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs, rocchio_alpha, rocchio_beta, rocchio_gamma, rocchio_output_query)
+            self.object.setRocchio(top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs, rocchio_alpha, rocchio_beta, rocchio_gamma, rocchio_output_query, True)
         else:
             raise TypeError("Rocchio is not supported for indexes without document vectors.")
 
