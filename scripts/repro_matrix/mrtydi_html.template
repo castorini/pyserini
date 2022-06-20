@@ -149,6 +149,8 @@ pre[class*="prettyprint"] {
         <th scope="col">sw</th>
         <th scope="col">te</th>
         <th scope="col">th</th>
+        <th scope="col"></th>
+        <th scope="col">avg</th>
       </tr>
     </thead>
     <tbody>

@@ -19,7 +19,7 @@ from string import Template
 
 import yaml
 
-from scripts.repro_matrix.defs_mrtydi import models, languages, trec_eval_metric_definitions
+from scripts.repro_matrix.defs_mrtydi import models, languages, html_display, trec_eval_metric_definitions
 
 
 def format_run_command(raw):
@@ -84,8 +84,21 @@ if __name__ == '__main__':
             for lang in languages:
                 keys[lang[0]] = f'{model}.{lang[0]}'
 
+            sum = table[keys["ar"]]["test"]["MRR@100"] + \
+                  table[keys["bn"]]["test"]["MRR@100"] + \
+                  table[keys["en"]]["test"]["MRR@100"] + \
+                  table[keys["fi"]]["test"]["MRR@100"] + \
+                  table[keys["id"]]["test"]["MRR@100"] + \
+                  table[keys["ja"]]["test"]["MRR@100"] + \
+                  table[keys["ko"]]["test"]["MRR@100"] + \
+                  table[keys["ru"]]["test"]["MRR@100"] + \
+                  table[keys["sw"]]["test"]["MRR@100"] + \
+                  table[keys["te"]]["test"]["MRR@100"] + \
+                  table[keys["th"]]["test"]["MRR@100"]
+            avg = sum/11
+
             s = s.substitute(row_cnt=row_cnt,
-                             model=model,
+                             model=html_display[model],
                              ar=f'{table[keys["ar"]]["test"]["MRR@100"]:.3f}',
                              bn=f'{table[keys["bn"]]["test"]["MRR@100"]:.3f}',
                              en=f'{table[keys["en"]]["test"]["MRR@100"]:.3f}',
@@ -97,6 +110,7 @@ if __name__ == '__main__':
                              sw=f'{table[keys["sw"]]["test"]["MRR@100"]:.3f}',
                              te=f'{table[keys["te"]]["test"]["MRR@100"]:.3f}',
                              th=f'{table[keys["th"]]["test"]["MRR@100"]:.3f}',
+                             avg=f'{avg:.3f}',
                              cmd1=f'{commands[keys["ar"]]}',
                              cmd2=f'{commands[keys["bn"]]}',
                              cmd3=f'{commands[keys["en"]]}',

@@ -13,11 +13,13 @@
 <td>$sw</td>
 <td>$te</td>
 <td>$th</td>
+<td></td>
+<td>$avg</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
 <td></td>
-<td colspan="11" style="max-width: 600px">
+<td colspan="13" style="max-width: 600px">
 <div id="collapse${row_cnt}" class="collapse in p-3">
 
 <!-- Tabs navs -->
