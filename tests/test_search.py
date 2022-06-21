@@ -262,7 +262,7 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[9].score, 4.21740, places=5)
 
         self.searcher.set_rocchio(top_fb_terms=10, top_fb_docs=8, bottom_fb_terms=10, 
-            bottom_fb_docs=8, rocchio_alpha=0.4, rocchio_beta=0.5, rocchio_gamma=0.1)
+            bottom_fb_docs=8, rocchio_alpha=0.4, rocchio_beta=0.5, rocchio_gamma=0.1, rocchio_use_negative=True, rocchio_output_query=False)
         self.assertTrue(self.searcher.is_using_rocchio())
 
         hits = self.searcher.search('information retrieval')
@@ -271,6 +271,17 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[0].score, 3.64890, places=5)
         self.assertEqual(hits[9].docid, 'CACM-1032')
         self.assertAlmostEqual(hits[9].score, 2.57510, places=5)
+
+        self.searcher.set_rocchio(top_fb_terms=10, top_fb_docs=8, bottom_fb_terms=10, 
+            bottom_fb_docs=8, rocchio_alpha=0.4, rocchio_beta=0.5, rocchio_gamma=0.1, rocchio_use_negative=False, rocchio_output_query=False)
+        self.assertTrue(self.searcher.is_using_rocchio())
+
+        hits = self.searcher.search('information retrieval')
+
+        self.assertEqual(hits[0].docid, 'CACM-3134')
+        self.assertAlmostEqual(hits[0].score, 4.03900, places=5)
+        self.assertEqual(hits[9].docid, 'CACM-1032')
+        self.assertAlmostEqual(hits[9].score, 2.91550, places=5)
 
         with self.assertRaises(TypeError):
             self.no_vec_searcher.set_rocchio()
