@@ -28,12 +28,12 @@ from scripts.repro_matrix.utils import run_eval_and_return_metric, ok_str, fail_
 
 def print_results(metric, split):
     print(f'Metric = {metric}, Split = {split}')
-    print(' ' * 22, end='')
+    print(' ' * 32, end='')
     for lang in languages:
         print(f'{lang[0]:3}    ', end='')
     print('')
     for model in models:
-        print(f'{model:20}', end='')
+        print(f'{model:30}', end='')
         for lang in languages:
             key = f'{model}.{lang[0]}'
             print(f'{table[key][split][metric]:7.3f}', end='')

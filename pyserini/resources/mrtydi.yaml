@@ -1,4 +1,182 @@
 conditions:
+  # mDPR, tied encoders, pFT w/ MS MARCO, FT all
+  - name: mdpr-tied-pft-msmarco-ft-all.ar
+    eval_key: mrtydi-v1.1-arabic
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco-ft-all --output $output --batch 36 --threads 12 --hits 100
+    splits:
+      - split: train
+        scores:
+          - MRR@100: 0.9505
+            R@100: 1.0000
+      - split: dev
+        scores:
+          - MRR@100: 0.6913
+            R@100: 0.9165
+      - split: test
+        scores:
+          - MRR@100: 0.6949
+            R@100: 0.9004
+  - name: mdpr-tied-pft-msmarco-ft-all.bn
+    eval_key: mrtydi-v1.1-bengali
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bengali-mdpr-tied-pft-msmarco-ft-all --output $output --batch 36 --threads 12 --hits 100
+    splits:
+      - split: train
+        scores:
+          - MRR@100: 0.9620
+            R@100: 1.0000
+      - split: dev
+        scores:
+          - MRR@100: 0.5897
+            R@100: 0.8977
+      - split: test
+        scores:
+          - MRR@100: 0.6228
+            R@100: 0.9550
+  - name: mdpr-tied-pft-msmarco-ft-all.en
+    eval_key: mrtydi-v1.1-english
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-tied-pft-msmarco-ft-all --output $output --batch 36 --threads 12 --hits 100
+    splits:
+      - split: train
+        scores:
+          - MRR@100: 0.8278
+            R@100: 1.0000
+      - split: dev
+        scores:
+          - MRR@100: 0.5357
+            R@100: 0.8884
+      - split: test
+        scores:
+          - MRR@100: 0.4916
+            R@100: 0.8414
+  - name: mdpr-tied-pft-msmarco-ft-all.fi
+    eval_key: mrtydi-v1.1-finnish
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-finnish-mdpr-tied-pft-msmarco-ft-all --output $output --batch 36 --threads 12 --hits 100
+    splits:
+      - split: train
+        scores:
+          - MRR@100: 0.9577
+            R@100: 0.9997
+      - split: dev
+        scores:
+          - MRR@100: 0.6626
+            R@100: 0.9171
+      - split: test
+        scores:
+          - MRR@100: 0.5595
+            R@100: 0.8563
+  - name: mdpr-tied-pft-msmarco-ft-all.id
+    eval_key: mrtydi-v1.1-indonesian
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian-mdpr-tied-pft-msmarco-ft-all --output $output --batch 36 --threads 12 --hits 100
+    splits:
+      - split: train
+        scores:
+          - MRR@100: 0.9469
+            R@100: 1.0000
+      - split: dev
+        scores:
+          - MRR@100: 0.6294
+            R@100: 0.9150
+      - split: test
+        scores:
+          - MRR@100: 0.5783
+            R@100: 0.8609
+  - name: mdpr-tied-pft-msmarco-ft-all.ja
+    eval_key: mrtydi-v1.1-japanese
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese-mdpr-tied-pft-msmarco-ft-all --output $output --batch 36 --threads 12 --hits 100
+    splits:
+      - split: train
+        scores:
+          - MRR@100: 0.8802
+            R@100: 0.9997
+      - split: dev
+        scores:
+          - MRR@100: 0.5505
+            R@100: 0.8696
+      - split: test
+        scores:
+          - MRR@100: 0.5007
+            R@100: 0.8130
+  - name: mdpr-tied-pft-msmarco-ft-all.ko
+    eval_key: mrtydi-v1.1-korean
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean-mdpr-tied-pft-msmarco-ft-all --output $output --batch 36 --threads 12 --hits 100
+    splits:
+      - split: train
+        scores:
+          - MRR@100: 0.9195
+            R@100: 1.0000
+      - split: dev
+        scores:
+          - MRR@100: 0.5645
+            R@100: 0.8663
+      - split: test
+        scores:
+          - MRR@100: 0.4861
+            R@100: 0.7854
+  - name: mdpr-tied-pft-msmarco-ft-all.ru
+    eval_key: mrtydi-v1.1-russian
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-russian-mdpr-tied-pft-msmarco-ft-all --output $output --batch 36 --threads 12 --hits 100
+    splits:
+      - split: train
+        scores:
+          - MRR@100: 0.8473
+            R@100: 0.9994
+      - split: dev
+        scores:
+          - MRR@100: 0.5104
+            R@100: 0.8720
+      - split: test
+        scores:
+          - MRR@100: 0.5161
+            R@100: 0.8432
+  - name: mdpr-tied-pft-msmarco-ft-all.sw
+    eval_key: mrtydi-v1.1-swahili
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili-mdpr-tied-pft-msmarco-ft-all --output $output --batch 36 --threads 12 --hits 100
+    splits:
+      - split: train
+        scores:
+          - MRR@100: 0.9515
+            R@100: 1.0000
+      - split: dev
+        scores:
+          - MRR@100: 0.6404
+            R@100: 0.9018
+      - split: test
+        scores:
+          - MRR@100: 0.6438
+            R@100: 0.8756
+  - name: mdpr-tied-pft-msmarco-ft-all.te
+    eval_key: mrtydi-v1.1-telugu
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-telugu-mdpr-tied-pft-msmarco-ft-all --output $output --batch 36 --threads 12 --hits 100
+    splits:
+      - split: train
+        scores:
+          - MRR@100: 0.9679
+            R@100: 1.0000
+      - split: dev
+        scores:
+          - MRR@100: 0.7962
+            R@100: 0.9593
+      - split: test
+        scores:
+          - MRR@100: 0.8908
+            R@100: 0.9659
+  - name: mdpr-tied-pft-msmarco-ft-all.th
+    eval_key: mrtydi-v1.1-thai
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai-mdpr-tied-pft-msmarco-ft-all --output $output --batch 36 --threads 12 --hits 100
+    splits:
+      - split: train
+        scores:
+          - MRR@100: 0.9504
+            R@100: 1.0000
+      - split: dev
+        scores:
+          - MRR@100: 0.6670
+            R@100: 0.9114
+      - split: test
+        scores:
+          - MRR@100: 0.6175
+            R@100: 0.8826
+
   # mDPR, tied encoders, pFT w/ MS MARCO
   - name: mdpr-tied-pft-msmarco.ar
     eval_key: mrtydi-v1.1-arabic
