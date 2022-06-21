@@ -143,21 +143,20 @@ if __name__ == "__main__":
     queries = query_loader(args.topics)
     query_text_lst = [queries[topic]['raw'] for topic in queries.keys()]
     qid_lst = [str(topic) for topic in queries.keys()]
-    if not args.base_path:
-        bm25_results = reranker.bm25search.batch_search(query_text_lst, qid_lst, args.hits, args.num_threads)
     i = 0
     for topic in queries:
         if i % 100 == 0:
             print(f'Reranking {i} topic')
         query_text_field = queries[topic]['contents']
         query_text = queries[topic]['raw']
+        bm25_results = reranker.bm25search.search(query_text, args.hits)
         if args.base_path:
             baseline_dic = baseline_loader(args.base_path)
             docids, rank_scores, base_scores = reranker.rerank(
-                query_text, query_text_field, baseline_dic[topic], args.max_sim, bm25_results[topic])
+                query_text, query_text_field, baseline_dic[topic], args.max_sim, bm25_results)
         else:
             docids, rank_scores, base_scores = reranker.search(
-                query_text, query_text_field, args.max_sim, bm25_results[topic])
+                query_text, query_text_field, args.max_sim, bm25_results)
         ibm_scores = normalize([p for p in rank_scores])
         base_scores = normalize([p for p in base_scores])
 
