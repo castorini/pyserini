@@ -1,0 +1,3878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Pyserini Reproductions</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+tr.hide-table-padding td {
+  padding: 0;
+}
+
+.expand-button {
+  position: relative;
+}
+
+.accordion-toggle .expand-button:after {
+  position: absolute;
+  left:.75rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  content: '-';
+}
+
+.accordion-toggle.collapsed .expand-button:after {
+  content: '+';
+}
+
+blockquote.mycode {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  margin-top: 15px;
+  padding-left: 15px;
+}
+
+tr th.headertop {
+  border-bottom: none;
+  padding-bottom: 0rem
+}
+
+tr th.headerbottom {
+  padding-top: 0rem
+}
+
+.table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
+.copy-code-button {
+	border-radius: 0;
+	min-width: 55px;
+	background: none repeat scroll 0 0 transparent;
+	background-color: grey;
+	color: #F1F2F3 !important;
+	cursor: pointer;
+	border-style: none;
+	font-family: 'HELVETICA',sans-serif;
+	font-size: 0.8em;
+	font-weight: normal;
+	text-align: center;
+	text-decoration: none;
+	text-indent: 0;
+	text-transform: uppercase;
+	font-weight: 500;
+	line-height: 1.42rem;
+	margin: 0;
+	padding: 3px 8px;
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+}
+
+.copy-code-button > span {
+	color: #F1F2F3 !important;
+}
+
+.copy-code-button, ::before, ::after {
+	box-sizing: inherit;
+}
+
+.copy-code-button::before {
+	content: '';
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 3px;
+	background-size: contain;
+	background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIxNXB4IiB2aWV3Qm94PSIwIDAgMTUgMTUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUwLjIgKDU1MDQ3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5QYWdlIDE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iRmxvdyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkJ0dG5faHRtbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTgxOS4wMDAwMDAsIC03NTMuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0xIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMTEuMDAwMDAwLCA0MDUuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTA4LjAwMDAwMCwgMzQyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMy45NzcyNzI3LDYgTDMuNDA5MDkwOTEsNiBDMi44NDQ1NDU0NSw2IDIuMzg2MzYzNjQsNi40NTgxODE4MiAyLjM4NjM2MzY0LDcuMDIyNzI3MjcgTDIuMzg2MzYzNjQsMTcuNTkwOTA5MSBDMi4zODYzNjM2NCwxOC4xNTU0NTQ1IDIuODQ0NTQ1NDUsMTguNjEzNjM2NCAzLjQwOTA5MDkxLDE4LjYxMzYzNjQgTDEzLjk3NzI3MjcsMTguNjEzNjM2NCBDMTQuNTQxODE4MiwxOC42MTM2MzY0IDE1LDE4LjE1NTQ1NDUgMTUsMTcuNTkwOTA5MSBMMTUsNy4wMjI3MjcyNyBDMTUsNi40NTgxODE4MiAxNC41NDE4MTgyLDYgMTMuOTc3MjcyNyw2IFogTTE0LjMxODE4MTgsMTcuNTkwOTA5MSBDMTQuMzE4MTgxOCwxNy43NzkwOTA5IDE0LjE2NTQ1NDUsMTcuOTMxODE4MiAxMy45NzcyNzI3LDE3LjkzMTgxODIgTDMuNDA5MDkwOTEsMTcuOTMxODE4MiBDMy4yMjA5MDkwOSwxNy45MzE4MTgyIDMuMDY4MTgxODIsMTcuNzc5MDkwOSAzLjA2ODE4MTgyLDE3LjU5MDkwOTEgTDMuMDY4MTgxODIsNy4wMjI3MjcyNyBDMy4wNjgxODE4Miw2LjgzNDU0NTQ1IDMuMjIwOTA5MDksNi42ODE4MTgxOCAzLjQwOTA5MDkxLDYuNjgxODE4MTggTDEzLjk3NzI3MjcsNi42ODE4MTgxOCBDMTQuMTY1NDU0NSw2LjY4MTgxODE4IDE0LjMxODE4MTgsNi44MzQ1NDU0NSAxNC4zMTgxODE4LDcuMDIyNzI3MjcgTDE0LjMxODE4MTgsMTcuNTkwOTA5MSBaIE0xMS45MzE4MTgyLDE5Ljk3NzI3MjcgQzExLjkzMTgxODIsMjAuMTY1NDU0NSAxMS43NzkwOTA5LDIwLjMxODE4MTggMTEuNTkwOTA5MSwyMC4zMTgxODE4IEwxLjAyMjcyNzI3LDIwLjMxODE4MTggQzAuODM0NTQ1NDU1LDIwLjMxODE4MTggMC42ODE4MTgxODIsMjAuMTY1NDU0NSAwLjY4MTgxODE4MiwxOS45NzcyNzI3IEwwLjY4MTgxODE4Miw5LjQwOTA5MDkxIEMwLjY4MTgxODE4Miw5LjIyMDkwOTA5IDAuODM0NTQ1NDU1LDkuMDY4MTgxODIgMS4wMjI3MjcyNyw5LjA2ODE4MTgyIEwxLjM2MzYzNjM2LDkuMDY4MTgxODIgTDEuMzYzNjM2MzYsOC4zODYzNjM2NCBMMS4wMjI3MjcyNyw4LjM4NjM2MzY0IEMwLjQ1ODE4MTgxOCw4LjM4NjM2MzY0IDAsOC44NDQ1NDU0NSAwLDkuNDA5MDkwOTEgTDAsMTkuOTc3MjcyNyBDMCwyMC41NDE4MTgyIDAuNDU4MTgxODE4LDIxIDEuMDIyNzI3MjcsMjEgTDExLjU5MDkwOTEsMjEgQzEyLjE1NTQ1NDUsMjEgMTIuNjEzNjM2NCwyMC41NDE4MTgyIDEyLjYxMzYzNjQsMTkuOTc3MjcyNyBMMTIuNjEzNjM2NCwxOS42MzYzNjM2IEwxMS45MzE4MTgyLDE5LjYzNjM2MzYgTDExLjkzMTgxODIsMTkuOTc3MjcyNyBaIiBpZD0iUGFnZS0xIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==");
+	background-repeat: no-repeat;
+	position: relative;
+	top: 3px;
+}
+
+.copy-code-button:focus {
+    /* Avoid an ugly focus outline on click in Chrome,
+       but darken the button for accessibility.
+       See https://stackoverflow.com/a/25298082/1481479 */
+    /* background-color: #E6E6E6; */
+	outline: 0;
+}
+
+pre[class*="prettyprint"] {
+	position: relative;
+	overflow: hidden;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image vh-100 shadow-1-strong" style="max-height: 150px">
+      <div class="mask" style="
+            background: linear-gradient(
+              45deg,
+              rgba(29, 236, 197, 0.7),
+              rgba(91, 14, 214, 0.7) 100%
+            );
+          ">
+        <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
+          <div class="text-white">
+            <h1 class="mb-3">BEIR</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+
+<div class="container my-4">
+
+<p>Key:</p>
+
+<ul>
+  <li>BM25 Flat: BM25 "flat" baseline</li>
+  <li>BM25 Multifield: BM25 "multifield" baseline</li>
+  <li>SPLADE: SPLADE-distill CoCodenser-medium</li>
+</ul>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="headertop"></th>
+        <th class="headertop"></th>
+        <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
+        <th class="headertop" colspan="3"><b>BM25 Multifield</b></th>
+        <th class="headertop" colspan="2"><b>SPLADE</b></th>
+      </tr>
+      <tr>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+      </tr>
+    </thead>
+    <tbody>
+
+<!-- Condition: trec-covid -->
+<tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
+<td class="expand-button"></td>
+<td>trec-covid</td>
+<td>  0.5947</td>
+<td>  0.1091</td>
+<td></td>
+<td>  0.6559</td>
+<td>  0.1141</td>
+<td></td>
+<td>  0.7109</td>
+<td>  0.1308</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse1" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row1-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row1-content">
+  <div class="tab-pane fade show active" id="row1-tab1" role="tabpanel" aria-labelledby="row1-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-trec-covid-flat \
+  --topics beir-v1.0.0-trec-covid-test \
+  --output run.beir-flat.trec-covid.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
+  run.beir-flat.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-covid-test \
+  run.beir-flat.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-covid-test \
+  run.beir-flat.trec-covid.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab2" role="tabpanel" aria-labelledby="row1-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-trec-covid-multifield \
+  --topics beir-v1.0.0-trec-covid-test \
+  --output run.beir-multifield.trec-covid.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
+  run.beir-multifield.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-covid-test \
+  run.beir-multifield.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-covid-test \
+  run.beir-multifield.trec-covid.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab3" role="tabpanel" aria-labelledby="row1-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-trec-covid-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.trec-covid.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
+  run.beir-splade-distil-cocodenser-medium.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-covid-test \
+  run.beir-splade-distil-cocodenser-medium.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-covid-test \
+  run.beir-splade-distil-cocodenser-medium.trec-covid.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: bioasq -->
+<tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
+<td class="expand-button"></td>
+<td>bioasq</td>
+<td>  0.5225</td>
+<td>  0.7687</td>
+<td></td>
+<td>  0.4646</td>
+<td>  0.7145</td>
+<td></td>
+<td>  0.5035</td>
+<td>  0.7422</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse2" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row2-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row2-tab1-header" data-mdb-toggle="tab" href="#row2-tab1" role="tab" aria-controls="row2-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row2-content">
+  <div class="tab-pane fade show active" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-bioasq-flat \
+  --topics beir-v1.0.0-bioasq-test \
+  --output run.beir-flat.bioasq.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
+  run.beir-flat.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-bioasq-test \
+  run.beir-flat.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-bioasq-test \
+  run.beir-flat.bioasq.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-bioasq-multifield \
+  --topics beir-v1.0.0-bioasq-test \
+  --output run.beir-multifield.bioasq.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
+  run.beir-multifield.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-bioasq-test \
+  run.beir-multifield.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-bioasq-test \
+  run.beir-multifield.bioasq.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab3" role="tabpanel" aria-labelledby="row2-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-bioasq-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-bioasq-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.bioasq.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
+  run.beir-splade-distil-cocodenser-medium.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-bioasq-test \
+  run.beir-splade-distil-cocodenser-medium.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-bioasq-test \
+  run.beir-splade-distil-cocodenser-medium.bioasq.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: nfcorpus -->
+<tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
+<td class="expand-button"></td>
+<td>nfcorpus</td>
+<td>  0.3218</td>
+<td>  0.2457</td>
+<td></td>
+<td>  0.3254</td>
+<td>  0.2500</td>
+<td></td>
+<td>  0.3454</td>
+<td>  0.2891</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse3" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row3-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row3-content">
+  <div class="tab-pane fade show active" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-nfcorpus-flat \
+  --topics beir-v1.0.0-nfcorpus-test \
+  --output run.beir-flat.nfcorpus.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
+  run.beir-flat.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nfcorpus-test \
+  run.beir-flat.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
+  run.beir-flat.nfcorpus.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab2" role="tabpanel" aria-labelledby="row3-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-nfcorpus-multifield \
+  --topics beir-v1.0.0-nfcorpus-test \
+  --output run.beir-multifield.nfcorpus.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
+  run.beir-multifield.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nfcorpus-test \
+  run.beir-multifield.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
+  run.beir-multifield.nfcorpus.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab3" role="tabpanel" aria-labelledby="row3-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-nfcorpus-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.nfcorpus.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
+  run.beir-splade-distil-cocodenser-medium.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nfcorpus-test \
+  run.beir-splade-distil-cocodenser-medium.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
+  run.beir-splade-distil-cocodenser-medium.nfcorpus.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: nq -->
+<tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
+<td class="expand-button"></td>
+<td>nq</td>
+<td>  0.3055</td>
+<td>  0.7513</td>
+<td></td>
+<td>  0.3285</td>
+<td>  0.7597</td>
+<td></td>
+<td>  0.5442</td>
+<td>  0.9285</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse4" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row4-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row4-content">
+  <div class="tab-pane fade show active" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-nq-flat \
+  --topics beir-v1.0.0-nq-test \
+  --output run.beir-flat.nq.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
+  run.beir-flat.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nq-test \
+  run.beir-flat.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nq-test \
+  run.beir-flat.nq.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab2" role="tabpanel" aria-labelledby="row4-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-nq-multifield \
+  --topics beir-v1.0.0-nq-test \
+  --output run.beir-multifield.nq.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
+  run.beir-multifield.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nq-test \
+  run.beir-multifield.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nq-test \
+  run.beir-multifield.nq.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab3" role="tabpanel" aria-labelledby="row4-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-nq-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-nq-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.nq.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
+  run.beir-splade-distil-cocodenser-medium.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nq-test \
+  run.beir-splade-distil-cocodenser-medium.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nq-test \
+  run.beir-splade-distil-cocodenser-medium.nq.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: hotpotqa -->
+<tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
+<td class="expand-button"></td>
+<td>hotpotqa</td>
+<td>  0.6330</td>
+<td>  0.7957</td>
+<td></td>
+<td>  0.6027</td>
+<td>  0.7400</td>
+<td></td>
+<td>  0.6860</td>
+<td>  0.8144</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse5" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row5-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row5-content">
+  <div class="tab-pane fade show active" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-hotpotqa-flat \
+  --topics beir-v1.0.0-hotpotqa-test \
+  --output run.beir-flat.hotpotqa.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
+  run.beir-flat.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-hotpotqa-test \
+  run.beir-flat.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
+  run.beir-flat.hotpotqa.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab2" role="tabpanel" aria-labelledby="row5-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-hotpotqa-multifield \
+  --topics beir-v1.0.0-hotpotqa-test \
+  --output run.beir-multifield.hotpotqa.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
+  run.beir-multifield.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-hotpotqa-test \
+  run.beir-multifield.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
+  run.beir-multifield.hotpotqa.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab3" role="tabpanel" aria-labelledby="row5-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-hotpotqa-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.hotpotqa.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
+  run.beir-splade-distil-cocodenser-medium.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-hotpotqa-test \
+  run.beir-splade-distil-cocodenser-medium.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
+  run.beir-splade-distil-cocodenser-medium.hotpotqa.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: fiqa -->
+<tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
+<td class="expand-button"></td>
+<td>fiqa</td>
+<td>  0.2361</td>
+<td>  0.5395</td>
+<td></td>
+<td>  0.2361</td>
+<td>  0.5395</td>
+<td></td>
+<td>  0.3514</td>
+<td>  0.6298</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse6" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row6-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row6-content">
+  <div class="tab-pane fade show active" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-fiqa-flat \
+  --topics beir-v1.0.0-fiqa-test \
+  --output run.beir-flat.fiqa.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
+  run.beir-flat.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fiqa-test \
+  run.beir-flat.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fiqa-test \
+  run.beir-flat.fiqa.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab2" role="tabpanel" aria-labelledby="row6-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-fiqa-multifield \
+  --topics beir-v1.0.0-fiqa-test \
+  --output run.beir-multifield.fiqa.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
+  run.beir-multifield.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fiqa-test \
+  run.beir-multifield.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fiqa-test \
+  run.beir-multifield.fiqa.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab3" role="tabpanel" aria-labelledby="row6-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-fiqa-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-fiqa-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.fiqa.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
+  run.beir-splade-distil-cocodenser-medium.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fiqa-test \
+  run.beir-splade-distil-cocodenser-medium.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fiqa-test \
+  run.beir-splade-distil-cocodenser-medium.fiqa.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: signal1m -->
+<tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
+<td class="expand-button"></td>
+<td>signal1m</td>
+<td>  0.3304</td>
+<td>  0.3703</td>
+<td></td>
+<td>  0.3304</td>
+<td>  0.3703</td>
+<td></td>
+<td>  0.2957</td>
+<td>  0.3311</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse7" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row7-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row7-content">
+  <div class="tab-pane fade show active" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-signal1m-flat \
+  --topics beir-v1.0.0-signal1m-test \
+  --output run.beir-flat.signal1m.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
+  run.beir-flat.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-signal1m-test \
+  run.beir-flat.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-signal1m-test \
+  run.beir-flat.signal1m.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab2" role="tabpanel" aria-labelledby="row7-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-signal1m-multifield \
+  --topics beir-v1.0.0-signal1m-test \
+  --output run.beir-multifield.signal1m.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
+  run.beir-multifield.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-signal1m-test \
+  run.beir-multifield.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-signal1m-test \
+  run.beir-multifield.signal1m.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab3" role="tabpanel" aria-labelledby="row7-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-signal1m-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-signal1m-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.signal1m.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
+  run.beir-splade-distil-cocodenser-medium.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-signal1m-test \
+  run.beir-splade-distil-cocodenser-medium.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-signal1m-test \
+  run.beir-splade-distil-cocodenser-medium.signal1m.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: trec-news -->
+<tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
+<td class="expand-button"></td>
+<td>trec-news</td>
+<td>  0.3952</td>
+<td>  0.4469</td>
+<td></td>
+<td>  0.3977</td>
+<td>  0.4216</td>
+<td></td>
+<td>  0.3936</td>
+<td>  0.4323</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse8" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row8-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row8-content">
+  <div class="tab-pane fade show active" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-trec-news-flat \
+  --topics beir-v1.0.0-trec-news-test \
+  --output run.beir-flat.trec-news.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
+  run.beir-flat.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-news-test \
+  run.beir-flat.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-news-test \
+  run.beir-flat.trec-news.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab2" role="tabpanel" aria-labelledby="row8-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-trec-news-multifield \
+  --topics beir-v1.0.0-trec-news-test \
+  --output run.beir-multifield.trec-news.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
+  run.beir-multifield.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-news-test \
+  run.beir-multifield.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-news-test \
+  run.beir-multifield.trec-news.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab3" role="tabpanel" aria-labelledby="row8-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-trec-news-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-trec-news-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.trec-news.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
+  run.beir-splade-distil-cocodenser-medium.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-news-test \
+  run.beir-splade-distil-cocodenser-medium.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-news-test \
+  run.beir-splade-distil-cocodenser-medium.trec-news.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: robust04 -->
+<tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
+<td class="expand-button"></td>
+<td>robust04</td>
+<td>  0.4070</td>
+<td>  0.3746</td>
+<td></td>
+<td>  0.4070</td>
+<td>  0.3746</td>
+<td></td>
+<td>  0.4581</td>
+<td>  0.3773</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse9" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row9-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row9-content">
+  <div class="tab-pane fade show active" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-robust04-flat \
+  --topics beir-v1.0.0-robust04-test \
+  --output run.beir-flat.robust04.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
+  run.beir-flat.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-robust04-test \
+  run.beir-flat.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-robust04-test \
+  run.beir-flat.robust04.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab2" role="tabpanel" aria-labelledby="row9-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-robust04-multifield \
+  --topics beir-v1.0.0-robust04-test \
+  --output run.beir-multifield.robust04.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
+  run.beir-multifield.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-robust04-test \
+  run.beir-multifield.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-robust04-test \
+  run.beir-multifield.robust04.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab3" role="tabpanel" aria-labelledby="row9-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-robust04-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-robust04-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.robust04.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
+  run.beir-splade-distil-cocodenser-medium.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-robust04-test \
+  run.beir-splade-distil-cocodenser-medium.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-robust04-test \
+  run.beir-splade-distil-cocodenser-medium.robust04.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: arguana -->
+<tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
+<td class="expand-button"></td>
+<td>arguana</td>
+<td>  0.3970</td>
+<td>  0.9324</td>
+<td></td>
+<td>  0.4142</td>
+<td>  0.9431</td>
+<td></td>
+<td>  0.5210</td>
+<td>  0.9822</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse10" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row10-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row10-content">
+  <div class="tab-pane fade show active" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-arguana-flat \
+  --topics beir-v1.0.0-arguana-test \
+  --output run.beir-flat.arguana.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
+  run.beir-flat.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-arguana-test \
+  run.beir-flat.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-arguana-test \
+  run.beir-flat.arguana.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab2" role="tabpanel" aria-labelledby="row10-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-arguana-multifield \
+  --topics beir-v1.0.0-arguana-test \
+  --output run.beir-multifield.arguana.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
+  run.beir-multifield.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-arguana-test \
+  run.beir-multifield.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-arguana-test \
+  run.beir-multifield.arguana.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab3" role="tabpanel" aria-labelledby="row10-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-arguana-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-arguana-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.arguana.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
+  run.beir-splade-distil-cocodenser-medium.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-arguana-test \
+  run.beir-splade-distil-cocodenser-medium.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-arguana-test \
+  run.beir-splade-distil-cocodenser-medium.arguana.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: webis-touche2020 -->
+<tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">
+<td class="expand-button"></td>
+<td>webis-touche2020</td>
+<td>  0.4422</td>
+<td>  0.5822</td>
+<td></td>
+<td>  0.3673</td>
+<td>  0.5376</td>
+<td></td>
+<td>  0.2435</td>
+<td>  0.4723</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse11" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row11-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row11-tab1-header" data-mdb-toggle="tab" href="#row11-tab1" role="tab" aria-controls="row11-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row11-content">
+  <div class="tab-pane fade show active" id="row11-tab1" role="tabpanel" aria-labelledby="row11-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-webis-touche2020-flat \
+  --topics beir-v1.0.0-webis-touche2020-test \
+  --output run.beir-flat.webis-touche2020.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
+  run.beir-flat.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
+  run.beir-flat.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
+  run.beir-flat.webis-touche2020.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row11-tab2" role="tabpanel" aria-labelledby="row11-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-webis-touche2020-multifield \
+  --topics beir-v1.0.0-webis-touche2020-test \
+  --output run.beir-multifield.webis-touche2020.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
+  run.beir-multifield.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
+  run.beir-multifield.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
+  run.beir-multifield.webis-touche2020.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row11-tab3" role="tabpanel" aria-labelledby="row11-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-webis-touche2020-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.webis-touche2020.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
+  run.beir-splade-distil-cocodenser-medium.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
+  run.beir-splade-distil-cocodenser-medium.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
+  run.beir-splade-distil-cocodenser-medium.webis-touche2020.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: cqadupstack-android -->
+<tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
+<td class="expand-button"></td>
+<td>cqadupstack-android</td>
+<td>  0.3801</td>
+<td>  0.6829</td>
+<td></td>
+<td>  0.3709</td>
+<td>  0.6889</td>
+<td></td>
+<td>  0.3954</td>
+<td>  0.7405</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse12" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row12-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row12-tab1-header" data-mdb-toggle="tab" href="#row12-tab1" role="tab" aria-controls="row12-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row12-content">
+  <div class="tab-pane fade show active" id="row12-tab1" role="tabpanel" aria-labelledby="row12-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-android-flat \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --output run.beir-flat.cqadupstack-android.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-flat.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-flat.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-flat.cqadupstack-android.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row12-tab2" role="tabpanel" aria-labelledby="row12-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-android-multifield \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --output run.beir-multifield.cqadupstack-android.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-multifield.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-multifield.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-multifield.cqadupstack-android.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row12-tab3" role="tabpanel" aria-labelledby="row12-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-cqadupstack-android-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.cqadupstack-android.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-android.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: cqadupstack-english -->
+<tr class="accordion-toggle collapsed" id="row13" data-toggle="collapse" data-parent="#row13" href="#collapse13">
+<td class="expand-button"></td>
+<td>cqadupstack-english</td>
+<td>  0.3453</td>
+<td>  0.5757</td>
+<td></td>
+<td>  0.3321</td>
+<td>  0.5842</td>
+<td></td>
+<td>  0.4026</td>
+<td>  0.6768</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse13" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row13-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row13-tab1-header" data-mdb-toggle="tab" href="#row13-tab1" role="tab" aria-controls="row13-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row13-tab2-header" data-mdb-toggle="tab" href="#row13-tab2" role="tab" aria-controls="row13-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row13-content">
+  <div class="tab-pane fade show active" id="row13-tab1" role="tabpanel" aria-labelledby="row13-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-english-flat \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --output run.beir-flat.cqadupstack-english.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-flat.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-flat.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-flat.cqadupstack-english.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row13-tab2" role="tabpanel" aria-labelledby="row13-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-english-multifield \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --output run.beir-multifield.cqadupstack-english.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-multifield.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-multifield.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-multifield.cqadupstack-english.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row13-tab3" role="tabpanel" aria-labelledby="row13-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-cqadupstack-english-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.cqadupstack-english.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-english.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: cqadupstack-gaming -->
+<tr class="accordion-toggle collapsed" id="row14" data-toggle="collapse" data-parent="#row14" href="#collapse14">
+<td class="expand-button"></td>
+<td>cqadupstack-gaming</td>
+<td>  0.4822</td>
+<td>  0.7651</td>
+<td></td>
+<td>  0.4418</td>
+<td>  0.7571</td>
+<td></td>
+<td>  0.5061</td>
+<td>  0.8138</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse14" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row14-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row14-tab1-header" data-mdb-toggle="tab" href="#row14-tab1" role="tab" aria-controls="row14-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row14-tab2-header" data-mdb-toggle="tab" href="#row14-tab2" role="tab" aria-controls="row14-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row14-tab3-header" data-mdb-toggle="tab" href="#row14-tab3" role="tab" aria-controls="row14-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row14-content">
+  <div class="tab-pane fade show active" id="row14-tab1" role="tabpanel" aria-labelledby="row14-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-gaming-flat \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --output run.beir-flat.cqadupstack-gaming.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-flat.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-flat.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-flat.cqadupstack-gaming.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row14-tab2" role="tabpanel" aria-labelledby="row14-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-gaming-multifield \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --output run.beir-multifield.cqadupstack-gaming.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-multifield.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-multifield.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-multifield.cqadupstack-gaming.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row14-tab3" role="tabpanel" aria-labelledby="row14-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-cqadupstack-gaming-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.cqadupstack-gaming.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-gaming.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: cqadupstack-gis -->
+<tr class="accordion-toggle collapsed" id="row15" data-toggle="collapse" data-parent="#row15" href="#collapse15">
+<td class="expand-button"></td>
+<td>cqadupstack-gis</td>
+<td>  0.2901</td>
+<td>  0.6119</td>
+<td></td>
+<td>  0.2904</td>
+<td>  0.6458</td>
+<td></td>
+<td>  0.3223</td>
+<td>  0.6419</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse15" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row15-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row15-tab1-header" data-mdb-toggle="tab" href="#row15-tab1" role="tab" aria-controls="row15-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row15-tab2-header" data-mdb-toggle="tab" href="#row15-tab2" role="tab" aria-controls="row15-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row15-tab3-header" data-mdb-toggle="tab" href="#row15-tab3" role="tab" aria-controls="row15-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row15-content">
+  <div class="tab-pane fade show active" id="row15-tab1" role="tabpanel" aria-labelledby="row15-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-gis-flat \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --output run.beir-flat.cqadupstack-gis.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-flat.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-flat.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-flat.cqadupstack-gis.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row15-tab2" role="tabpanel" aria-labelledby="row15-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-gis-multifield \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --output run.beir-multifield.cqadupstack-gis.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-multifield.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-multifield.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-multifield.cqadupstack-gis.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row15-tab3" role="tabpanel" aria-labelledby="row15-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-cqadupstack-gis-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.cqadupstack-gis.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-gis.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: cqadupstack-mathematica -->
+<tr class="accordion-toggle collapsed" id="row16" data-toggle="collapse" data-parent="#row16" href="#collapse16">
+<td class="expand-button"></td>
+<td>cqadupstack-mathematica</td>
+<td>  0.2015</td>
+<td>  0.4877</td>
+<td></td>
+<td>  0.2046</td>
+<td>  0.5215</td>
+<td></td>
+<td>  0.2423</td>
+<td>  0.5732</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse16" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row16-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row16-tab1-header" data-mdb-toggle="tab" href="#row16-tab1" role="tab" aria-controls="row16-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row16-tab2-header" data-mdb-toggle="tab" href="#row16-tab2" role="tab" aria-controls="row16-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row16-tab3-header" data-mdb-toggle="tab" href="#row16-tab3" role="tab" aria-controls="row16-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row16-content">
+  <div class="tab-pane fade show active" id="row16-tab1" role="tabpanel" aria-labelledby="row16-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-mathematica-flat \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --output run.beir-flat.cqadupstack-mathematica.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-flat.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-flat.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-flat.cqadupstack-mathematica.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row16-tab2" role="tabpanel" aria-labelledby="row16-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-mathematica-multifield \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --output run.beir-multifield.cqadupstack-mathematica.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-multifield.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-multifield.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-multifield.cqadupstack-mathematica.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row16-tab3" role="tabpanel" aria-labelledby="row16-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.cqadupstack-mathematica.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-mathematica.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: cqadupstack-physics -->
+<tr class="accordion-toggle collapsed" id="row17" data-toggle="collapse" data-parent="#row17" href="#collapse17">
+<td class="expand-button"></td>
+<td>cqadupstack-physics</td>
+<td>  0.3214</td>
+<td>  0.6326</td>
+<td></td>
+<td>  0.3248</td>
+<td>  0.6486</td>
+<td></td>
+<td>  0.3668</td>
+<td>  0.7286</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse17" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row17-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row17-tab1-header" data-mdb-toggle="tab" href="#row17-tab1" role="tab" aria-controls="row17-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row17-tab2-header" data-mdb-toggle="tab" href="#row17-tab2" role="tab" aria-controls="row17-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row17-tab3-header" data-mdb-toggle="tab" href="#row17-tab3" role="tab" aria-controls="row17-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row17-content">
+  <div class="tab-pane fade show active" id="row17-tab1" role="tabpanel" aria-labelledby="row17-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-physics-flat \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --output run.beir-flat.cqadupstack-physics.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-flat.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-flat.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-flat.cqadupstack-physics.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row17-tab2" role="tabpanel" aria-labelledby="row17-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-physics-multifield \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --output run.beir-multifield.cqadupstack-physics.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-multifield.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-multifield.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-multifield.cqadupstack-physics.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row17-tab3" role="tabpanel" aria-labelledby="row17-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-cqadupstack-physics-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.cqadupstack-physics.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-physics.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: cqadupstack-programmers -->
+<tr class="accordion-toggle collapsed" id="row18" data-toggle="collapse" data-parent="#row18" href="#collapse18">
+<td class="expand-button"></td>
+<td>cqadupstack-programmers</td>
+<td>  0.2802</td>
+<td>  0.5588</td>
+<td></td>
+<td>  0.2963</td>
+<td>  0.6194</td>
+<td></td>
+<td>  0.3412</td>
+<td>  0.6653</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse18" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row18-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row18-tab1-header" data-mdb-toggle="tab" href="#row18-tab1" role="tab" aria-controls="row18-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row18-tab2-header" data-mdb-toggle="tab" href="#row18-tab2" role="tab" aria-controls="row18-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row18-tab3-header" data-mdb-toggle="tab" href="#row18-tab3" role="tab" aria-controls="row18-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row18-content">
+  <div class="tab-pane fade show active" id="row18-tab1" role="tabpanel" aria-labelledby="row18-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-programmers-flat \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --output run.beir-flat.cqadupstack-programmers.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-flat.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-flat.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-flat.cqadupstack-programmers.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row18-tab2" role="tabpanel" aria-labelledby="row18-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-programmers-multifield \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --output run.beir-multifield.cqadupstack-programmers.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-multifield.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-multifield.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-multifield.cqadupstack-programmers.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row18-tab3" role="tabpanel" aria-labelledby="row18-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-cqadupstack-programmers-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.cqadupstack-programmers.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-programmers.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: cqadupstack-stats -->
+<tr class="accordion-toggle collapsed" id="row19" data-toggle="collapse" data-parent="#row19" href="#collapse19">
+<td class="expand-button"></td>
+<td>cqadupstack-stats</td>
+<td>  0.2711</td>
+<td>  0.5338</td>
+<td></td>
+<td>  0.2790</td>
+<td>  0.5719</td>
+<td></td>
+<td>  0.3142</td>
+<td>  0.5889</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse19" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row19-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row19-tab1-header" data-mdb-toggle="tab" href="#row19-tab1" role="tab" aria-controls="row19-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row19-tab2-header" data-mdb-toggle="tab" href="#row19-tab2" role="tab" aria-controls="row19-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row19-tab3-header" data-mdb-toggle="tab" href="#row19-tab3" role="tab" aria-controls="row19-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row19-content">
+  <div class="tab-pane fade show active" id="row19-tab1" role="tabpanel" aria-labelledby="row19-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-stats-flat \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --output run.beir-flat.cqadupstack-stats.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-flat.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-flat.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-flat.cqadupstack-stats.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row19-tab2" role="tabpanel" aria-labelledby="row19-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-stats-multifield \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --output run.beir-multifield.cqadupstack-stats.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-multifield.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-multifield.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-multifield.cqadupstack-stats.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row19-tab3" role="tabpanel" aria-labelledby="row19-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-cqadupstack-stats-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.cqadupstack-stats.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-stats.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: cqadupstack-tex -->
+<tr class="accordion-toggle collapsed" id="row20" data-toggle="collapse" data-parent="#row20" href="#collapse20">
+<td class="expand-button"></td>
+<td>cqadupstack-tex</td>
+<td>  0.2244</td>
+<td>  0.4686</td>
+<td></td>
+<td>  0.2086</td>
+<td>  0.4954</td>
+<td></td>
+<td>  0.2575</td>
+<td>  0.5231</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse20" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row20-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row20-tab1-header" data-mdb-toggle="tab" href="#row20-tab1" role="tab" aria-controls="row20-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row20-tab2-header" data-mdb-toggle="tab" href="#row20-tab2" role="tab" aria-controls="row20-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row20-tab3-header" data-mdb-toggle="tab" href="#row20-tab3" role="tab" aria-controls="row20-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row20-content">
+  <div class="tab-pane fade show active" id="row20-tab1" role="tabpanel" aria-labelledby="row20-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-tex-flat \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --output run.beir-flat.cqadupstack-tex.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-flat.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-flat.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-flat.cqadupstack-tex.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row20-tab2" role="tabpanel" aria-labelledby="row20-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-tex-multifield \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --output run.beir-multifield.cqadupstack-tex.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-multifield.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-multifield.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-multifield.cqadupstack-tex.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row20-tab3" role="tabpanel" aria-labelledby="row20-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-cqadupstack-tex-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.cqadupstack-tex.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-tex.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: cqadupstack-unix -->
+<tr class="accordion-toggle collapsed" id="row21" data-toggle="collapse" data-parent="#row21" href="#collapse21">
+<td class="expand-button"></td>
+<td>cqadupstack-unix</td>
+<td>  0.2749</td>
+<td>  0.5417</td>
+<td></td>
+<td>  0.2788</td>
+<td>  0.5721</td>
+<td></td>
+<td>  0.3292</td>
+<td>  0.6192</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse21" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row21-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row21-tab1-header" data-mdb-toggle="tab" href="#row21-tab1" role="tab" aria-controls="row21-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row21-tab2-header" data-mdb-toggle="tab" href="#row21-tab2" role="tab" aria-controls="row21-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row21-tab3-header" data-mdb-toggle="tab" href="#row21-tab3" role="tab" aria-controls="row21-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row21-content">
+  <div class="tab-pane fade show active" id="row21-tab1" role="tabpanel" aria-labelledby="row21-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-unix-flat \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --output run.beir-flat.cqadupstack-unix.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-flat.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-flat.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-flat.cqadupstack-unix.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row21-tab2" role="tabpanel" aria-labelledby="row21-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-unix-multifield \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --output run.beir-multifield.cqadupstack-unix.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-multifield.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-multifield.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-multifield.cqadupstack-unix.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row21-tab3" role="tabpanel" aria-labelledby="row21-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-cqadupstack-unix-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.cqadupstack-unix.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-unix.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: cqadupstack-webmasters -->
+<tr class="accordion-toggle collapsed" id="row22" data-toggle="collapse" data-parent="#row22" href="#collapse22">
+<td class="expand-button"></td>
+<td>cqadupstack-webmasters</td>
+<td>  0.3059</td>
+<td>  0.5820</td>
+<td></td>
+<td>  0.3008</td>
+<td>  0.6100</td>
+<td></td>
+<td>  0.3343</td>
+<td>  0.6404</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse22" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row22-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row22-tab1-header" data-mdb-toggle="tab" href="#row22-tab1" role="tab" aria-controls="row22-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row22-tab2-header" data-mdb-toggle="tab" href="#row22-tab2" role="tab" aria-controls="row22-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row22-tab3-header" data-mdb-toggle="tab" href="#row22-tab3" role="tab" aria-controls="row22-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row22-content">
+  <div class="tab-pane fade show active" id="row22-tab1" role="tabpanel" aria-labelledby="row22-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-webmasters-flat \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --output run.beir-flat.cqadupstack-webmasters.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-flat.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-flat.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-flat.cqadupstack-webmasters.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row22-tab2" role="tabpanel" aria-labelledby="row22-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-webmasters-multifield \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --output run.beir-multifield.cqadupstack-webmasters.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-multifield.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-multifield.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-multifield.cqadupstack-webmasters.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row22-tab3" role="tabpanel" aria-labelledby="row22-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.cqadupstack-webmasters.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-webmasters.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: cqadupstack-wordpress -->
+<tr class="accordion-toggle collapsed" id="row23" data-toggle="collapse" data-parent="#row23" href="#collapse23">
+<td class="expand-button"></td>
+<td>cqadupstack-wordpress</td>
+<td>  0.2483</td>
+<td>  0.5152</td>
+<td></td>
+<td>  0.2562</td>
+<td>  0.5526</td>
+<td></td>
+<td>  0.2839</td>
+<td>  0.5974</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse23" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row23-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row23-tab1-header" data-mdb-toggle="tab" href="#row23-tab1" role="tab" aria-controls="row23-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row23-tab2-header" data-mdb-toggle="tab" href="#row23-tab2" role="tab" aria-controls="row23-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row23-tab3-header" data-mdb-toggle="tab" href="#row23-tab3" role="tab" aria-controls="row23-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row23-content">
+  <div class="tab-pane fade show active" id="row23-tab1" role="tabpanel" aria-labelledby="row23-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-wordpress-flat \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --output run.beir-flat.cqadupstack-wordpress.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-flat.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-flat.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-flat.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row23-tab2" role="tabpanel" aria-labelledby="row23-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-wordpress-multifield \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --output run.beir-multifield.cqadupstack-wordpress.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-multifield.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-multifield.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-multifield.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row23-tab3" role="tabpanel" aria-labelledby="row23-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.cqadupstack-wordpress.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-splade-distil-cocodenser-medium.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: quora -->
+<tr class="accordion-toggle collapsed" id="row24" data-toggle="collapse" data-parent="#row24" href="#collapse24">
+<td class="expand-button"></td>
+<td>quora</td>
+<td>  0.7886</td>
+<td>  0.9733</td>
+<td></td>
+<td>  0.7886</td>
+<td>  0.9733</td>
+<td></td>
+<td>  0.8136</td>
+<td>  0.9817</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse24" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row24-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row24-tab1-header" data-mdb-toggle="tab" href="#row24-tab1" role="tab" aria-controls="row24-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab2-header" data-mdb-toggle="tab" href="#row24-tab2" role="tab" aria-controls="row24-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row24-content">
+  <div class="tab-pane fade show active" id="row24-tab1" role="tabpanel" aria-labelledby="row24-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-quora-flat \
+  --topics beir-v1.0.0-quora-test \
+  --output run.beir-flat.quora.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir-flat.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir-flat.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir-flat.quora.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row24-tab2" role="tabpanel" aria-labelledby="row24-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-quora-multifield \
+  --topics beir-v1.0.0-quora-test \
+  --output run.beir-multifield.quora.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir-multifield.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir-multifield.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir-multifield.quora.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row24-tab3" role="tabpanel" aria-labelledby="row24-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-quora-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-quora-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.quora.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir-splade-distil-cocodenser-medium.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir-splade-distil-cocodenser-medium.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir-splade-distil-cocodenser-medium.quora.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: dbpedia-entity -->
+<tr class="accordion-toggle collapsed" id="row25" data-toggle="collapse" data-parent="#row25" href="#collapse25">
+<td class="expand-button"></td>
+<td>dbpedia-entity</td>
+<td>  0.3180</td>
+<td>  0.4682</td>
+<td></td>
+<td>  0.3128</td>
+<td>  0.3981</td>
+<td></td>
+<td>  0.4416</td>
+<td>  0.5636</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse25" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row25-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row25-tab1-header" data-mdb-toggle="tab" href="#row25-tab1" role="tab" aria-controls="row25-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab2-header" data-mdb-toggle="tab" href="#row25-tab2" role="tab" aria-controls="row25-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row25-content">
+  <div class="tab-pane fade show active" id="row25-tab1" role="tabpanel" aria-labelledby="row25-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-dbpedia-entity-flat \
+  --topics beir-v1.0.0-dbpedia-entity-test \
+  --output run.beir-flat.dbpedia-entity.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-flat.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-flat.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-flat.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row25-tab2" role="tabpanel" aria-labelledby="row25-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-dbpedia-entity-multifield \
+  --topics beir-v1.0.0-dbpedia-entity-test \
+  --output run.beir-multifield.dbpedia-entity.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-multifield.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-multifield.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-multifield.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row25-tab3" role="tabpanel" aria-labelledby="row25-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-dbpedia-entity-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.dbpedia-entity.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-splade-distil-cocodenser-medium.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-splade-distil-cocodenser-medium.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-splade-distil-cocodenser-medium.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: scidocs -->
+<tr class="accordion-toggle collapsed" id="row26" data-toggle="collapse" data-parent="#row26" href="#collapse26">
+<td class="expand-button"></td>
+<td>scidocs</td>
+<td>  0.1490</td>
+<td>  0.3477</td>
+<td></td>
+<td>  0.1581</td>
+<td>  0.3561</td>
+<td></td>
+<td>  0.1590</td>
+<td>  0.3671</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse26" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row26-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row26-tab1-header" data-mdb-toggle="tab" href="#row26-tab1" role="tab" aria-controls="row26-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab2-header" data-mdb-toggle="tab" href="#row26-tab2" role="tab" aria-controls="row26-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row26-content">
+  <div class="tab-pane fade show active" id="row26-tab1" role="tabpanel" aria-labelledby="row26-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-scidocs-flat \
+  --topics beir-v1.0.0-scidocs-test \
+  --output run.beir-flat.scidocs.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir-flat.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir-flat.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir-flat.scidocs.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row26-tab2" role="tabpanel" aria-labelledby="row26-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-scidocs-multifield \
+  --topics beir-v1.0.0-scidocs-test \
+  --output run.beir-multifield.scidocs.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir-multifield.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir-multifield.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir-multifield.scidocs.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row26-tab3" role="tabpanel" aria-labelledby="row26-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-scidocs-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-scidocs-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.scidocs.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir-splade-distil-cocodenser-medium.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir-splade-distil-cocodenser-medium.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir-splade-distil-cocodenser-medium.scidocs.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: fever -->
+<tr class="accordion-toggle collapsed" id="row27" data-toggle="collapse" data-parent="#row27" href="#collapse27">
+<td class="expand-button"></td>
+<td>fever</td>
+<td>  0.6513</td>
+<td>  0.9185</td>
+<td></td>
+<td>  0.7530</td>
+<td>  0.9309</td>
+<td></td>
+<td>  0.7962</td>
+<td>  0.9550</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse27" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row27-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row27-tab1-header" data-mdb-toggle="tab" href="#row27-tab1" role="tab" aria-controls="row27-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row27-tab2-header" data-mdb-toggle="tab" href="#row27-tab2" role="tab" aria-controls="row27-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row27-tab3-header" data-mdb-toggle="tab" href="#row27-tab3" role="tab" aria-controls="row27-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row27-content">
+  <div class="tab-pane fade show active" id="row27-tab1" role="tabpanel" aria-labelledby="row27-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-fever-flat \
+  --topics beir-v1.0.0-fever-test \
+  --output run.beir-flat.fever.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir-flat.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir-flat.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir-flat.fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row27-tab2" role="tabpanel" aria-labelledby="row27-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-fever-multifield \
+  --topics beir-v1.0.0-fever-test \
+  --output run.beir-multifield.fever.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir-multifield.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir-multifield.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir-multifield.fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row27-tab3" role="tabpanel" aria-labelledby="row27-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-fever-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-fever-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.fever.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir-splade-distil-cocodenser-medium.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir-splade-distil-cocodenser-medium.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir-splade-distil-cocodenser-medium.fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: climate-fever -->
+<tr class="accordion-toggle collapsed" id="row28" data-toggle="collapse" data-parent="#row28" href="#collapse28">
+<td class="expand-button"></td>
+<td>climate-fever</td>
+<td>  0.1651</td>
+<td>  0.4249</td>
+<td></td>
+<td>  0.2129</td>
+<td>  0.4357</td>
+<td></td>
+<td>  0.2276</td>
+<td>  0.5140</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse28" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row28-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row28-tab1-header" data-mdb-toggle="tab" href="#row28-tab1" role="tab" aria-controls="row28-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row28-tab2-header" data-mdb-toggle="tab" href="#row28-tab2" role="tab" aria-controls="row28-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row28-tab3-header" data-mdb-toggle="tab" href="#row28-tab3" role="tab" aria-controls="row28-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row28-content">
+  <div class="tab-pane fade show active" id="row28-tab1" role="tabpanel" aria-labelledby="row28-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-climate-fever-flat \
+  --topics beir-v1.0.0-climate-fever-test \
+  --output run.beir-flat.climate-fever.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir-flat.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir-flat.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir-flat.climate-fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row28-tab2" role="tabpanel" aria-labelledby="row28-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-climate-fever-multifield \
+  --topics beir-v1.0.0-climate-fever-test \
+  --output run.beir-multifield.climate-fever.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir-multifield.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir-multifield.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir-multifield.climate-fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row28-tab3" role="tabpanel" aria-labelledby="row28-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-climate-fever-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.climate-fever.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir-splade-distil-cocodenser-medium.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir-splade-distil-cocodenser-medium.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir-splade-distil-cocodenser-medium.climate-fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: scifact -->
+<tr class="accordion-toggle collapsed" id="row29" data-toggle="collapse" data-parent="#row29" href="#collapse29">
+<td class="expand-button"></td>
+<td>scifact</td>
+<td>  0.6789</td>
+<td>  0.9253</td>
+<td></td>
+<td>  0.6647</td>
+<td>  0.9076</td>
+<td></td>
+<td>  0.6992</td>
+<td>  0.9270</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="9">
+<div id="collapse29" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row29-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row29-tab1-header" data-mdb-toggle="tab" href="#row29-tab1" role="tab" aria-controls="row29-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row29-tab2-header" data-mdb-toggle="tab" href="#row29-tab2" role="tab" aria-controls="row29-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row29-tab3-header" data-mdb-toggle="tab" href="#row29-tab3" role="tab" aria-controls="row29-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row29-content">
+  <div class="tab-pane fade show active" id="row29-tab1" role="tabpanel" aria-labelledby="row29-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-scifact-flat \
+  --topics beir-v1.0.0-scifact-test \
+  --output run.beir-flat.scifact.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir-flat.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir-flat.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir-flat.scifact.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row29-tab2" role="tabpanel" aria-labelledby="row29-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-scifact-multifield \
+  --topics beir-v1.0.0-scifact-test \
+  --output run.beir-multifield.scifact.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir-multifield.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir-multifield.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir-multifield.scifact.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row29-tab3" role="tabpanel" aria-labelledby="row29-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index beir-v1.0.0-scifact-splade_distil_cocodenser_medium \
+  --topics beir-v1.0.0-scifact-test-splade_distil_cocodenser_medium \
+  --output run.beir-splade-distil-cocodenser-medium.scifact.txt \
+  --output-format trec \
+  --batch 36 --threads 12 \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir-splade-distil-cocodenser-medium.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir-splade-distil-cocodenser-medium.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir-splade-distil-cocodenser-medium.scifact.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+
+      </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+
+<script>
+document.querySelectorAll('pre').forEach(function (codeBlock) {
+    var button = document.createElement('button');
+    button.className = 'copy-code-button';
+    button.type = 'button';
+    var s = codeBlock.innerText;
+    button.setAttribute('data-clipboard-text',s);
+    button.innerText = 'Copy';
+
+    // var pre = codeBlock.parentNode;
+    codeBlock.classList.add('prettyprint');
+    // pre.parentNode.insertBefore(button, pre);
+    codeBlock.appendChild(button);
+});
+
+var clipboard = new ClipboardJS('.copy-code-button');
+
+clipboard.on('success', function(e) {
+  console.info('Action:', e.action);
+  console.info('Text:', e.text);
+  console.info('Trigger:', e.trigger);
+  e.trigger.textContent = 'Copied';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+  console.error('Action:', e.action);
+  console.error('Trigger:', e.trigger);
+  e.trigger.textContent = 'Error Copying';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+</script>
+
+</body>
+</html>
+
