@@ -45,13 +45,83 @@ def read_file(f):
     return text
 
 
+def generate_table_rows(table_id, split, metric):
+    row_cnt = 1
+    html_rows = []
+
+    for model in models:
+        s = Template(row_template)
+
+        keys = {}
+        for lang in languages:
+            keys[lang[0]] = f'{model}.{lang[0]}'
+
+        sum = table[keys["ar"]][split][metric] + \
+              table[keys["bn"]][split][metric] + \
+              table[keys["en"]][split][metric] + \
+              table[keys["fi"]][split][metric] + \
+              table[keys["id"]][split][metric] + \
+              table[keys["ja"]][split][metric] + \
+              table[keys["ko"]][split][metric] + \
+              table[keys["ru"]][split][metric] + \
+              table[keys["sw"]][split][metric] + \
+              table[keys["te"]][split][metric] + \
+              table[keys["th"]][split][metric]
+        avg = sum / 11
+
+        s = s.substitute(table_cnt=table_id,
+                         row_cnt=row_cnt,
+                         model=html_display[model],
+                         ar=f'{table[keys["ar"]][split][metric]:.3f}',
+                         bn=f'{table[keys["bn"]][split][metric]:.3f}',
+                         en=f'{table[keys["en"]][split][metric]:.3f}',
+                         fi=f'{table[keys["fi"]][split][metric]:.3f}',
+                         id=f'{table[keys["id"]][split][metric]:.3f}',
+                         ja=f'{table[keys["ja"]][split][metric]:.3f}',
+                         ko=f'{table[keys["ko"]][split][metric]:.3f}',
+                         ru=f'{table[keys["ru"]][split][metric]:.3f}',
+                         sw=f'{table[keys["sw"]][split][metric]:.3f}',
+                         te=f'{table[keys["te"]][split][metric]:.3f}',
+                         th=f'{table[keys["th"]][split][metric]:.3f}',
+                         avg=f'{avg:.3f}',
+                         cmd1=f'{commands[keys["ar"]]}',
+                         cmd2=f'{commands[keys["bn"]]}',
+                         cmd3=f'{commands[keys["en"]]}',
+                         cmd4=f'{commands[keys["fi"]]}',
+                         cmd5=f'{commands[keys["id"]]}',
+                         cmd6=f'{commands[keys["ja"]]}',
+                         cmd7=f'{commands[keys["ko"]]}',
+                         cmd8=f'{commands[keys["ru"]]}',
+                         cmd9=f'{commands[keys["sw"]]}',
+                         cmd10=f'{commands[keys["te"]]}',
+                         cmd11=f'{commands[keys["th"]]}',
+                         eval_cmd1=f'{eval_commands[keys["ar"]][metric]}',
+                         eval_cmd2=f'{eval_commands[keys["bn"]][metric]}',
+                         eval_cmd3=f'{eval_commands[keys["en"]][metric]}',
+                         eval_cmd4=f'{eval_commands[keys["fi"]][metric]}',
+                         eval_cmd5=f'{eval_commands[keys["id"]][metric]}',
+                         eval_cmd6=f'{eval_commands[keys["ja"]][metric]}',
+                         eval_cmd7=f'{eval_commands[keys["ko"]][metric]}',
+                         eval_cmd8=f'{eval_commands[keys["ru"]][metric]}',
+                         eval_cmd9=f'{eval_commands[keys["sw"]][metric]}',
+                         eval_cmd10=f'{eval_commands[keys["te"]][metric]}',
+                         eval_cmd11=f'{eval_commands[keys["th"]][metric]}'
+                         )
+
+        html_rows.append(s)
+        row_cnt += 1
+
+    return html_rows
+
+
 if __name__ == '__main__':
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
     commands = defaultdict(lambda: '')
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
     html_template = read_file('scripts/repro_matrix/mrtydi_html.template')
-    row_template = read_file('scripts/repro_matrix/mrtydi_html_row.template')
+    table_template = read_file('scripts/repro_matrix/mrtydi_html_table.template')
+    row_template = read_file('scripts/repro_matrix/mrtydi_html_table_row.template')
 
     with open('pyserini/resources/mrtydi.yaml') as f:
         yaml_data = yaml.safe_load(f)
@@ -75,68 +145,16 @@ if __name__ == '__main__':
                                    f'{trec_eval_metric_definitions[metric]} {eval_key}-{split} {runfile}'
                         eval_commands[name][metric] = format_eval_command(eval_cmd)
 
-        row_cnt = 1
-        html_rows = []
-        for model in models:
-            s = Template(row_template)
+        tables_html = []
 
-            keys = {}
-            for lang in languages:
-                keys[lang[0]] = f'{model}.{lang[0]}'
-
-            sum = table[keys["ar"]]["test"]["MRR@100"] + \
-                  table[keys["bn"]]["test"]["MRR@100"] + \
-                  table[keys["en"]]["test"]["MRR@100"] + \
-                  table[keys["fi"]]["test"]["MRR@100"] + \
-                  table[keys["id"]]["test"]["MRR@100"] + \
-                  table[keys["ja"]]["test"]["MRR@100"] + \
-                  table[keys["ko"]]["test"]["MRR@100"] + \
-                  table[keys["ru"]]["test"]["MRR@100"] + \
-                  table[keys["sw"]]["test"]["MRR@100"] + \
-                  table[keys["te"]]["test"]["MRR@100"] + \
-                  table[keys["th"]]["test"]["MRR@100"]
-            avg = sum/11
-
-            s = s.substitute(row_cnt=row_cnt,
-                             model=html_display[model],
-                             ar=f'{table[keys["ar"]]["test"]["MRR@100"]:.3f}',
-                             bn=f'{table[keys["bn"]]["test"]["MRR@100"]:.3f}',
-                             en=f'{table[keys["en"]]["test"]["MRR@100"]:.3f}',
-                             fi=f'{table[keys["fi"]]["test"]["MRR@100"]:.3f}',
-                             id=f'{table[keys["id"]]["test"]["MRR@100"]:.3f}',
-                             ja=f'{table[keys["ja"]]["test"]["MRR@100"]:.3f}',
-                             ko=f'{table[keys["ko"]]["test"]["MRR@100"]:.3f}',
-                             ru=f'{table[keys["ru"]]["test"]["MRR@100"]:.3f}',
-                             sw=f'{table[keys["sw"]]["test"]["MRR@100"]:.3f}',
-                             te=f'{table[keys["te"]]["test"]["MRR@100"]:.3f}',
-                             th=f'{table[keys["th"]]["test"]["MRR@100"]:.3f}',
-                             avg=f'{avg:.3f}',
-                             cmd1=f'{commands[keys["ar"]]}',
-                             cmd2=f'{commands[keys["bn"]]}',
-                             cmd3=f'{commands[keys["en"]]}',
-                             cmd4=f'{commands[keys["fi"]]}',
-                             cmd5=f'{commands[keys["id"]]}',
-                             cmd6=f'{commands[keys["ja"]]}',
-                             cmd7=f'{commands[keys["ko"]]}',
-                             cmd8=f'{commands[keys["ru"]]}',
-                             cmd9=f'{commands[keys["sw"]]}',
-                             cmd10=f'{commands[keys["te"]]}',
-                             cmd11=f'{commands[keys["th"]]}',
-                             eval_cmd1=f'{eval_commands[keys["ar"]]["MRR@100"]}',
-                             eval_cmd2=f'{eval_commands[keys["bn"]]["MRR@100"]}',
-                             eval_cmd3=f'{eval_commands[keys["en"]]["MRR@100"]}',
-                             eval_cmd4=f'{eval_commands[keys["fi"]]["MRR@100"]}',
-                             eval_cmd5=f'{eval_commands[keys["id"]]["MRR@100"]}',
-                             eval_cmd6=f'{eval_commands[keys["ja"]]["MRR@100"]}',
-                             eval_cmd7=f'{eval_commands[keys["ko"]]["MRR@100"]}',
-                             eval_cmd8=f'{eval_commands[keys["ru"]]["MRR@100"]}',
-                             eval_cmd9=f'{eval_commands[keys["sw"]]["MRR@100"]}',
-                             eval_cmd10=f'{eval_commands[keys["te"]]["MRR@100"]}',
-                             eval_cmd11=f'{eval_commands[keys["th"]]["MRR@100"]}'
-                             )
-
-            html_rows.append(s)
-            row_cnt += 1
-
+        # Build the table for MRR@100, test queries
+        html_rows = generate_table_rows(1, 'test', 'MRR@100')
         all_rows = '\n'.join(html_rows)
-        print(Template(html_template).substitute(title='Mr.TyDi', rows=all_rows))
+        tables_html.append(Template(table_template).substitute(desc='MRR@100, test queries', rows=all_rows))
+
+        # Build the table for R@100, test queries
+        html_rows = generate_table_rows(2, 'test', 'R@100')
+        all_rows = '\n'.join(html_rows)
+        tables_html.append(Template(table_template).substitute(desc='Recall@100, test queries', rows=all_rows))
+
+        print(Template(html_template).substitute(title='Mr.TyDi', tables=' '.join(tables_html)))
