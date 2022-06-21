@@ -1,0 +1,3306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Pyserini Reproductions</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+tr.hide-table-padding td {
+  padding: 0;
+}
+
+.expand-button {
+  position: relative;
+}
+
+.accordion-toggle .expand-button:after {
+  position: absolute;
+  left:.75rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  content: '-';
+}
+
+.accordion-toggle.collapsed .expand-button:after {
+  content: '+';
+}
+
+blockquote.mycode {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  margin-top: 15px;
+  padding-left: 15px;
+}
+
+tr th.headertop {
+  border-bottom: none;
+  padding-bottom: 0rem
+}
+
+tr th.headerbottom {
+  padding-top: 0rem
+}
+
+.table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
+.copy-code-button {
+	border-radius: 0;
+	min-width: 55px;
+	background: none repeat scroll 0 0 transparent;
+	background-color: grey;
+	color: #F1F2F3 !important;
+	cursor: pointer;
+	border-style: none;
+	font-family: 'HELVETICA',sans-serif;
+	font-size: 0.8em;
+	font-weight: normal;
+	text-align: center;
+	text-decoration: none;
+	text-indent: 0;
+	text-transform: uppercase;
+	font-weight: 500;
+	line-height: 1.42rem;
+	margin: 0;
+	padding: 3px 8px;
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+}
+
+.copy-code-button > span {
+	color: #F1F2F3 !important;
+}
+
+.copy-code-button, ::before, ::after {
+	box-sizing: inherit;
+}
+
+.copy-code-button::before {
+	content: '';
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 3px;
+	background-size: contain;
+	background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIxNXB4IiB2aWV3Qm94PSIwIDAgMTUgMTUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUwLjIgKDU1MDQ3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5QYWdlIDE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iRmxvdyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkJ0dG5faHRtbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTgxOS4wMDAwMDAsIC03NTMuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0xIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMTEuMDAwMDAwLCA0MDUuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTA4LjAwMDAwMCwgMzQyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMy45NzcyNzI3LDYgTDMuNDA5MDkwOTEsNiBDMi44NDQ1NDU0NSw2IDIuMzg2MzYzNjQsNi40NTgxODE4MiAyLjM4NjM2MzY0LDcuMDIyNzI3MjcgTDIuMzg2MzYzNjQsMTcuNTkwOTA5MSBDMi4zODYzNjM2NCwxOC4xNTU0NTQ1IDIuODQ0NTQ1NDUsMTguNjEzNjM2NCAzLjQwOTA5MDkxLDE4LjYxMzYzNjQgTDEzLjk3NzI3MjcsMTguNjEzNjM2NCBDMTQuNTQxODE4MiwxOC42MTM2MzY0IDE1LDE4LjE1NTQ1NDUgMTUsMTcuNTkwOTA5MSBMMTUsNy4wMjI3MjcyNyBDMTUsNi40NTgxODE4MiAxNC41NDE4MTgyLDYgMTMuOTc3MjcyNyw2IFogTTE0LjMxODE4MTgsMTcuNTkwOTA5MSBDMTQuMzE4MTgxOCwxNy43NzkwOTA5IDE0LjE2NTQ1NDUsMTcuOTMxODE4MiAxMy45NzcyNzI3LDE3LjkzMTgxODIgTDMuNDA5MDkwOTEsMTcuOTMxODE4MiBDMy4yMjA5MDkwOSwxNy45MzE4MTgyIDMuMDY4MTgxODIsMTcuNzc5MDkwOSAzLjA2ODE4MTgyLDE3LjU5MDkwOTEgTDMuMDY4MTgxODIsNy4wMjI3MjcyNyBDMy4wNjgxODE4Miw2LjgzNDU0NTQ1IDMuMjIwOTA5MDksNi42ODE4MTgxOCAzLjQwOTA5MDkxLDYuNjgxODE4MTggTDEzLjk3NzI3MjcsNi42ODE4MTgxOCBDMTQuMTY1NDU0NSw2LjY4MTgxODE4IDE0LjMxODE4MTgsNi44MzQ1NDU0NSAxNC4zMTgxODE4LDcuMDIyNzI3MjcgTDE0LjMxODE4MTgsMTcuNTkwOTA5MSBaIE0xMS45MzE4MTgyLDE5Ljk3NzI3MjcgQzExLjkzMTgxODIsMjAuMTY1NDU0NSAxMS43NzkwOTA5LDIwLjMxODE4MTggMTEuNTkwOTA5MSwyMC4zMTgxODE4IEwxLjAyMjcyNzI3LDIwLjMxODE4MTggQzAuODM0NTQ1NDU1LDIwLjMxODE4MTggMC42ODE4MTgxODIsMjAuMTY1NDU0NSAwLjY4MTgxODE4MiwxOS45NzcyNzI3IEwwLjY4MTgxODE4Miw5LjQwOTA5MDkxIEMwLjY4MTgxODE4Miw5LjIyMDkwOTA5IDAuODM0NTQ1NDU1LDkuMDY4MTgxODIgMS4wMjI3MjcyNyw5LjA2ODE4MTgyIEwxLjM2MzYzNjM2LDkuMDY4MTgxODIgTDEuMzYzNjM2MzYsOC4zODYzNjM2NCBMMS4wMjI3MjcyNyw4LjM4NjM2MzY0IEMwLjQ1ODE4MTgxOCw4LjM4NjM2MzY0IDAsOC44NDQ1NDU0NSAwLDkuNDA5MDkwOTEgTDAsMTkuOTc3MjcyNyBDMCwyMC41NDE4MTgyIDAuNDU4MTgxODE4LDIxIDEuMDIyNzI3MjcsMjEgTDExLjU5MDkwOTEsMjEgQzEyLjE1NTQ1NDUsMjEgMTIuNjEzNjM2NCwyMC41NDE4MTgyIDEyLjYxMzYzNjQsMTkuOTc3MjcyNyBMMTIuNjEzNjM2NCwxOS42MzYzNjM2IEwxMS45MzE4MTgyLDE5LjYzNjM2MzYgTDExLjkzMTgxODIsMTkuOTc3MjcyNyBaIiBpZD0iUGFnZS0xIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==");
+	background-repeat: no-repeat;
+	position: relative;
+	top: 3px;
+}
+
+.copy-code-button:focus {
+    /* Avoid an ugly focus outline on click in Chrome,
+       but darken the button for accessibility.
+       See https://stackoverflow.com/a/25298082/1481479 */
+    /* background-color: #E6E6E6; */
+	outline: 0;
+}
+
+pre[class*="prettyprint"] {
+	position: relative;
+	overflow: hidden;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image vh-100 shadow-1-strong" style="max-height: 150px">
+      <div class="mask" style="
+            background: linear-gradient(
+              45deg,
+              rgba(29, 236, 197, 0.7),
+              rgba(91, 14, 214, 0.7) 100%
+            );
+          ">
+        <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
+          <div class="text-white">
+            <h1 class="mb-3">Mr.TyDi</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+
+    <div class="container my-4">
+
+    <div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">MRR@100, test queries</th>
+        <th scope="col">ar</th>
+        <th scope="col">bn</th>
+        <th scope="col">en</th>
+        <th scope="col">fi</th>
+        <th scope="col">id</th>
+        <th scope="col">ja</th>
+        <th scope="col">ko</th>
+        <th scope="col">ru</th>
+        <th scope="col">sw</th>
+        <th scope="col">te</th>
+        <th scope="col">th</th>
+        <th scope="col"></th>
+        <th scope="col">avg</th>
+      </tr>
+    </thead>
+    <tbody>
+
+<!-- Condition: BM25 -->
+<tr class="accordion-toggle collapsed" id="table1-row1" data-toggle="collapse" data-parent="#table1-row1" href="#table1-collapse1">
+<td class="expand-button"></td>
+<td>BM25</td>
+<td>0.368</td>
+<td>0.418</td>
+<td>0.140</td>
+<td>0.284</td>
+<td>0.376</td>
+<td>0.211</td>
+<td>0.285</td>
+<td>0.313</td>
+<td>0.389</td>
+<td>0.343</td>
+<td>0.401</td>
+<td></td>
+<td>0.321</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="13" style="max-width: 600px">
+<div id="table1-collapse1" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table1-row1-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table1-row1-tab1-header" data-mdb-toggle="tab" href="#table1-row1-tab1" role="tab" aria-controls="table1-row1-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab2-header" data-mdb-toggle="tab" href="#table1-row1-tab2" role="tab" aria-controls="table1-row1-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab3-header" data-mdb-toggle="tab" href="#table1-row1-tab3" role="tab" aria-controls="table1-row1-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab4-header" data-mdb-toggle="tab" href="#table1-row1-tab4" role="tab" aria-controls="table1-row1-tab3" aria-selected="false" style="text-transform:none">fi</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab5-header" data-mdb-toggle="tab" href="#table1-row1-tab5" role="tab" aria-controls="table1-row1-tab3" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab6-header" data-mdb-toggle="tab" href="#table1-row1-tab6" role="tab" aria-controls="table1-row1-tab3" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab7-header" data-mdb-toggle="tab" href="#table1-row1-tab7" role="tab" aria-controls="table1-row1-tab3" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab8-header" data-mdb-toggle="tab" href="#table1-row1-tab8" role="tab" aria-controls="table1-row1-tab3" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab9-header" data-mdb-toggle="tab" href="#table1-row1-tab9" role="tab" aria-controls="table1-row1-tab3" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab10-header" data-mdb-toggle="tab" href="#table1-row1-tab10" role="tab" aria-controls="table1-row1-tab3" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab11-header" data-mdb-toggle="tab" href="#table1-row1-tab11" role="tab" aria-controls="table1-row1-tab3" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table1-row1-content">
+  <div class="tab-pane fade show active" id="table1-row1-tab1" role="tabpanel" aria-labelledby="table1-row1-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ar \
+  --topics mrtydi-v1.1-arabic-test \
+  --index mrtydi-v1.1-arabic \
+  --output run.mrtydi.bm25.ar.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-arabic-test \
+  run.mrtydi.bm25.ar.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab2" role="tabpanel" aria-labelledby="table1-row1-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language bn \
+  --topics mrtydi-v1.1-bengali-test \
+  --index mrtydi-v1.1-bengali \
+  --output run.mrtydi.bm25.bn.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-bengali-test \
+  run.mrtydi.bm25.bn.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab3" role="tabpanel" aria-labelledby="table1-row1-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language en \
+  --topics mrtydi-v1.1-english-test \
+  --index mrtydi-v1.1-english \
+  --output run.mrtydi.bm25.en.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-english-test \
+  run.mrtydi.bm25.en.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab4" role="tabpanel" aria-labelledby="table1-row1-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language fi \
+  --topics mrtydi-v1.1-finnish-test \
+  --index mrtydi-v1.1-finnish \
+  --output run.mrtydi.bm25.fi.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-finnish-test \
+  run.mrtydi.bm25.fi.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab5" role="tabpanel" aria-labelledby="table1-row1-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language id \
+  --topics mrtydi-v1.1-indonesian-test \
+  --index mrtydi-v1.1-indonesian \
+  --output run.mrtydi.bm25.id.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-indonesian-test \
+  run.mrtydi.bm25.id.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab6" role="tabpanel" aria-labelledby="table1-row1-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ja \
+  --topics mrtydi-v1.1-japanese-test \
+  --index mrtydi-v1.1-japanese \
+  --output run.mrtydi.bm25.ja.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-japanese-test \
+  run.mrtydi.bm25.ja.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab7" role="tabpanel" aria-labelledby="table1-row1-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ko \
+  --topics mrtydi-v1.1-korean-test \
+  --index mrtydi-v1.1-korean \
+  --output run.mrtydi.bm25.ko.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-korean-test \
+  run.mrtydi.bm25.ko.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab8" role="tabpanel" aria-labelledby="table1-row1-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ru \
+  --topics mrtydi-v1.1-russian-test \
+  --index mrtydi-v1.1-russian \
+  --output run.mrtydi.bm25.ru.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-russian-test \
+  run.mrtydi.bm25.ru.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab9" role="tabpanel" aria-labelledby="table1-row1-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language sw \
+  --topics mrtydi-v1.1-swahili-test \
+  --index mrtydi-v1.1-swahili \
+  --output run.mrtydi.bm25.sw.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-swahili-test \
+  run.mrtydi.bm25.sw.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab10" role="tabpanel" aria-labelledby="table1-row1-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language te \
+  --topics mrtydi-v1.1-telugu-test \
+  --index mrtydi-v1.1-telugu \
+  --output run.mrtydi.bm25.te.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-telugu-test \
+  run.mrtydi.bm25.te.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab11" role="tabpanel" aria-labelledby="table1-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language th \
+  --topics mrtydi-v1.1-thai-test \
+  --index mrtydi-v1.1-thai \
+  --output run.mrtydi.bm25.th.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-thai-test \
+  run.mrtydi.bm25.th.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: mDPR (split encoders), pre-FT w/ NQ -->
+<tr class="accordion-toggle collapsed" id="table1-row2" data-toggle="collapse" data-parent="#table1-row2" href="#table1-collapse2">
+<td class="expand-button"></td>
+<td>mDPR (split encoders), pre-FT w/ NQ</td>
+<td>0.291</td>
+<td>0.291</td>
+<td>0.291</td>
+<td>0.205</td>
+<td>0.271</td>
+<td>0.212</td>
+<td>0.234</td>
+<td>0.282</td>
+<td>0.188</td>
+<td>0.110</td>
+<td>0.171</td>
+<td></td>
+<td>0.231</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="13" style="max-width: 600px">
+<div id="table1-collapse2" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table1-row2-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table1-row2-tab1-header" data-mdb-toggle="tab" href="#table1-row2-tab1" role="tab" aria-controls="table1-row2-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row2-tab2-header" data-mdb-toggle="tab" href="#table1-row2-tab2" role="tab" aria-controls="table1-row2-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row2-tab3-header" data-mdb-toggle="tab" href="#table1-row2-tab3" role="tab" aria-controls="table1-row2-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row2-tab4-header" data-mdb-toggle="tab" href="#table1-row2-tab4" role="tab" aria-controls="table1-row2-tab3" aria-selected="false" style="text-transform:none">fi</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row2-tab5-header" data-mdb-toggle="tab" href="#table1-row2-tab5" role="tab" aria-controls="table1-row2-tab3" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row2-tab6-header" data-mdb-toggle="tab" href="#table1-row2-tab6" role="tab" aria-controls="table1-row2-tab3" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row2-tab7-header" data-mdb-toggle="tab" href="#table1-row2-tab7" role="tab" aria-controls="table1-row2-tab3" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row2-tab8-header" data-mdb-toggle="tab" href="#table1-row2-tab8" role="tab" aria-controls="table1-row2-tab3" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row2-tab9-header" data-mdb-toggle="tab" href="#table1-row2-tab9" role="tab" aria-controls="table1-row2-tab3" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row2-tab10-header" data-mdb-toggle="tab" href="#table1-row2-tab10" role="tab" aria-controls="table1-row2-tab3" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row2-tab11-header" data-mdb-toggle="tab" href="#table1-row2-tab11" role="tab" aria-controls="table1-row2-tab3" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table1-row2-content">
+  <div class="tab-pane fade show active" id="table1-row2-tab1" role="tabpanel" aria-labelledby="table1-row2-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-arabic-test \
+  --index mrtydi-v1.1-arabic-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.ar.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-arabic-test \
+  run.mrtydi.mdpr-split-pft-nq.ar.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row2-tab2" role="tabpanel" aria-labelledby="table1-row2-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-bengali-test \
+  --index mrtydi-v1.1-bengali-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.bn.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-bengali-test \
+  run.mrtydi.mdpr-split-pft-nq.bn.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row2-tab3" role="tabpanel" aria-labelledby="table1-row2-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-english-test \
+  --index mrtydi-v1.1-english-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.en.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-english-test \
+  run.mrtydi.mdpr-split-pft-nq.en.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row2-tab4" role="tabpanel" aria-labelledby="table1-row2-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-finnish-test \
+  --index mrtydi-v1.1-finnish-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.fi.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-finnish-test \
+  run.mrtydi.mdpr-split-pft-nq.fi.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row2-tab5" role="tabpanel" aria-labelledby="table1-row2-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-indonesian-test \
+  --index mrtydi-v1.1-indonesian-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.id.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-indonesian-test \
+  run.mrtydi.mdpr-split-pft-nq.id.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row2-tab6" role="tabpanel" aria-labelledby="table1-row2-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-japanese-test \
+  --index mrtydi-v1.1-japanese-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.ja.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-japanese-test \
+  run.mrtydi.mdpr-split-pft-nq.ja.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row2-tab7" role="tabpanel" aria-labelledby="table1-row2-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-korean-test \
+  --index mrtydi-v1.1-korean-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.ko.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-korean-test \
+  run.mrtydi.mdpr-split-pft-nq.ko.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row2-tab8" role="tabpanel" aria-labelledby="table1-row2-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-russian-test \
+  --index mrtydi-v1.1-russian-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.ru.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-russian-test \
+  run.mrtydi.mdpr-split-pft-nq.ru.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row2-tab9" role="tabpanel" aria-labelledby="table1-row2-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-swahili-test \
+  --index mrtydi-v1.1-swahili-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.sw.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-swahili-test \
+  run.mrtydi.mdpr-split-pft-nq.sw.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row2-tab10" role="tabpanel" aria-labelledby="table1-row2-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-telugu-test \
+  --index mrtydi-v1.1-telugu-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.te.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-telugu-test \
+  run.mrtydi.mdpr-split-pft-nq.te.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row2-tab11" role="tabpanel" aria-labelledby="table1-row2-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-thai-test \
+  --index mrtydi-v1.1-thai-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.th.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-thai-test \
+  run.mrtydi.mdpr-split-pft-nq.th.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: mDPR (tied encoders), pre-FT w/ NQ -->
+<tr class="accordion-toggle collapsed" id="table1-row3" data-toggle="collapse" data-parent="#table1-row3" href="#table1-collapse3">
+<td class="expand-button"></td>
+<td>mDPR (tied encoders), pre-FT w/ NQ</td>
+<td>0.221</td>
+<td>0.254</td>
+<td>0.243</td>
+<td>0.244</td>
+<td>0.281</td>
+<td>0.206</td>
+<td>0.223</td>
+<td>0.250</td>
+<td>0.262</td>
+<td>0.097</td>
+<td>0.158</td>
+<td></td>
+<td>0.222</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="13" style="max-width: 600px">
+<div id="table1-collapse3" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table1-row3-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table1-row3-tab1-header" data-mdb-toggle="tab" href="#table1-row3-tab1" role="tab" aria-controls="table1-row3-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab2-header" data-mdb-toggle="tab" href="#table1-row3-tab2" role="tab" aria-controls="table1-row3-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab3-header" data-mdb-toggle="tab" href="#table1-row3-tab3" role="tab" aria-controls="table1-row3-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab4-header" data-mdb-toggle="tab" href="#table1-row3-tab4" role="tab" aria-controls="table1-row3-tab3" aria-selected="false" style="text-transform:none">fi</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab5-header" data-mdb-toggle="tab" href="#table1-row3-tab5" role="tab" aria-controls="table1-row3-tab3" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab6-header" data-mdb-toggle="tab" href="#table1-row3-tab6" role="tab" aria-controls="table1-row3-tab3" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab7-header" data-mdb-toggle="tab" href="#table1-row3-tab7" role="tab" aria-controls="table1-row3-tab3" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab8-header" data-mdb-toggle="tab" href="#table1-row3-tab8" role="tab" aria-controls="table1-row3-tab3" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab9-header" data-mdb-toggle="tab" href="#table1-row3-tab9" role="tab" aria-controls="table1-row3-tab3" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab10-header" data-mdb-toggle="tab" href="#table1-row3-tab10" role="tab" aria-controls="table1-row3-tab3" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab11-header" data-mdb-toggle="tab" href="#table1-row3-tab11" role="tab" aria-controls="table1-row3-tab3" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table1-row3-content">
+  <div class="tab-pane fade show active" id="table1-row3-tab1" role="tabpanel" aria-labelledby="table1-row3-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-arabic-test \
+  --index mrtydi-v1.1-arabic-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.ar.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-arabic-test \
+  run.mrtydi.mdpr-tied-pft-nq.ar.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab2" role="tabpanel" aria-labelledby="table1-row3-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-bengali-test \
+  --index mrtydi-v1.1-bengali-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.bn.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-bengali-test \
+  run.mrtydi.mdpr-tied-pft-nq.bn.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab3" role="tabpanel" aria-labelledby="table1-row3-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-english-test \
+  --index mrtydi-v1.1-english-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.en.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-english-test \
+  run.mrtydi.mdpr-tied-pft-nq.en.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab4" role="tabpanel" aria-labelledby="table1-row3-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-finnish-test \
+  --index mrtydi-v1.1-finnish-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.fi.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-finnish-test \
+  run.mrtydi.mdpr-tied-pft-nq.fi.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab5" role="tabpanel" aria-labelledby="table1-row3-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-indonesian-test \
+  --index mrtydi-v1.1-indonesian-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.id.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-indonesian-test \
+  run.mrtydi.mdpr-tied-pft-nq.id.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab6" role="tabpanel" aria-labelledby="table1-row3-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-japanese-test \
+  --index mrtydi-v1.1-japanese-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.ja.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-japanese-test \
+  run.mrtydi.mdpr-tied-pft-nq.ja.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab7" role="tabpanel" aria-labelledby="table1-row3-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-korean-test \
+  --index mrtydi-v1.1-korean-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.ko.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-korean-test \
+  run.mrtydi.mdpr-tied-pft-nq.ko.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab8" role="tabpanel" aria-labelledby="table1-row3-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-russian-test \
+  --index mrtydi-v1.1-russian-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.ru.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-russian-test \
+  run.mrtydi.mdpr-tied-pft-nq.ru.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab9" role="tabpanel" aria-labelledby="table1-row3-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-swahili-test \
+  --index mrtydi-v1.1-swahili-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.sw.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-swahili-test \
+  run.mrtydi.mdpr-tied-pft-nq.sw.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab10" role="tabpanel" aria-labelledby="table1-row3-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-telugu-test \
+  --index mrtydi-v1.1-telugu-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.te.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-telugu-test \
+  run.mrtydi.mdpr-tied-pft-nq.te.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab11" role="tabpanel" aria-labelledby="table1-row3-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-thai-test \
+  --index mrtydi-v1.1-thai-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.th.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-thai-test \
+  run.mrtydi.mdpr-tied-pft-nq.th.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO -->
+<tr class="accordion-toggle collapsed" id="table1-row4" data-toggle="collapse" data-parent="#table1-row4" href="#table1-collapse4">
+<td class="expand-button"></td>
+<td>mDPR (tied encoders), pre-FT w/ MS MARCO</td>
+<td>0.441</td>
+<td>0.397</td>
+<td>0.327</td>
+<td>0.275</td>
+<td>0.352</td>
+<td>0.311</td>
+<td>0.282</td>
+<td>0.356</td>
+<td>0.342</td>
+<td>0.310</td>
+<td>0.269</td>
+<td></td>
+<td>0.333</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="13" style="max-width: 600px">
+<div id="table1-collapse4" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table1-row4-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table1-row4-tab1-header" data-mdb-toggle="tab" href="#table1-row4-tab1" role="tab" aria-controls="table1-row4-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab2-header" data-mdb-toggle="tab" href="#table1-row4-tab2" role="tab" aria-controls="table1-row4-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab3-header" data-mdb-toggle="tab" href="#table1-row4-tab3" role="tab" aria-controls="table1-row4-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab4-header" data-mdb-toggle="tab" href="#table1-row4-tab4" role="tab" aria-controls="table1-row4-tab3" aria-selected="false" style="text-transform:none">fi</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab5-header" data-mdb-toggle="tab" href="#table1-row4-tab5" role="tab" aria-controls="table1-row4-tab3" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab6-header" data-mdb-toggle="tab" href="#table1-row4-tab6" role="tab" aria-controls="table1-row4-tab3" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab7-header" data-mdb-toggle="tab" href="#table1-row4-tab7" role="tab" aria-controls="table1-row4-tab3" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab8-header" data-mdb-toggle="tab" href="#table1-row4-tab8" role="tab" aria-controls="table1-row4-tab3" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab9-header" data-mdb-toggle="tab" href="#table1-row4-tab9" role="tab" aria-controls="table1-row4-tab3" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab10-header" data-mdb-toggle="tab" href="#table1-row4-tab10" role="tab" aria-controls="table1-row4-tab3" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab11-header" data-mdb-toggle="tab" href="#table1-row4-tab11" role="tab" aria-controls="table1-row4-tab3" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table1-row4-content">
+  <div class="tab-pane fade show active" id="table1-row4-tab1" role="tabpanel" aria-labelledby="table1-row4-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-arabic-test \
+  --index mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.ar.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-arabic-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.ar.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab2" role="tabpanel" aria-labelledby="table1-row4-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-bengali-test \
+  --index mrtydi-v1.1-bengali-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.bn.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-bengali-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.bn.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab3" role="tabpanel" aria-labelledby="table1-row4-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-english-test \
+  --index mrtydi-v1.1-english-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.en.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-english-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.en.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab4" role="tabpanel" aria-labelledby="table1-row4-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-finnish-test \
+  --index mrtydi-v1.1-finnish-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.fi.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-finnish-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.fi.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab5" role="tabpanel" aria-labelledby="table1-row4-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-indonesian-test \
+  --index mrtydi-v1.1-indonesian-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.id.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-indonesian-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.id.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab6" role="tabpanel" aria-labelledby="table1-row4-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-japanese-test \
+  --index mrtydi-v1.1-japanese-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.ja.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-japanese-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.ja.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab7" role="tabpanel" aria-labelledby="table1-row4-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-korean-test \
+  --index mrtydi-v1.1-korean-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.ko.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-korean-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.ko.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab8" role="tabpanel" aria-labelledby="table1-row4-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-russian-test \
+  --index mrtydi-v1.1-russian-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.ru.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-russian-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.ru.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab9" role="tabpanel" aria-labelledby="table1-row4-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-swahili-test \
+  --index mrtydi-v1.1-swahili-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.sw.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-swahili-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.sw.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab10" role="tabpanel" aria-labelledby="table1-row4-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-telugu-test \
+  --index mrtydi-v1.1-telugu-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.te.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-telugu-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.te.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab11" role="tabpanel" aria-labelledby="table1-row4-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-thai-test \
+  --index mrtydi-v1.1-thai-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.th.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-thai-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.th.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all -->
+<tr class="accordion-toggle collapsed" id="table1-row5" data-toggle="collapse" data-parent="#table1-row5" href="#table1-collapse5">
+<td class="expand-button"></td>
+<td>mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all</td>
+<td>0.695</td>
+<td>0.623</td>
+<td>0.492</td>
+<td>0.559</td>
+<td>0.578</td>
+<td>0.501</td>
+<td>0.486</td>
+<td>0.516</td>
+<td>0.644</td>
+<td>0.891</td>
+<td>0.618</td>
+<td></td>
+<td>0.600</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="13" style="max-width: 600px">
+<div id="table1-collapse5" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table1-row5-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table1-row5-tab1-header" data-mdb-toggle="tab" href="#table1-row5-tab1" role="tab" aria-controls="table1-row5-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab2-header" data-mdb-toggle="tab" href="#table1-row5-tab2" role="tab" aria-controls="table1-row5-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab3-header" data-mdb-toggle="tab" href="#table1-row5-tab3" role="tab" aria-controls="table1-row5-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab4-header" data-mdb-toggle="tab" href="#table1-row5-tab4" role="tab" aria-controls="table1-row5-tab3" aria-selected="false" style="text-transform:none">fi</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab5-header" data-mdb-toggle="tab" href="#table1-row5-tab5" role="tab" aria-controls="table1-row5-tab3" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab6-header" data-mdb-toggle="tab" href="#table1-row5-tab6" role="tab" aria-controls="table1-row5-tab3" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab7-header" data-mdb-toggle="tab" href="#table1-row5-tab7" role="tab" aria-controls="table1-row5-tab3" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab8-header" data-mdb-toggle="tab" href="#table1-row5-tab8" role="tab" aria-controls="table1-row5-tab3" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab9-header" data-mdb-toggle="tab" href="#table1-row5-tab9" role="tab" aria-controls="table1-row5-tab3" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab10-header" data-mdb-toggle="tab" href="#table1-row5-tab10" role="tab" aria-controls="table1-row5-tab3" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab11-header" data-mdb-toggle="tab" href="#table1-row5-tab11" role="tab" aria-controls="table1-row5-tab3" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table1-row5-content">
+  <div class="tab-pane fade show active" id="table1-row5-tab1" role="tabpanel" aria-labelledby="table1-row5-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-arabic-test \
+  --index mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ar.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-arabic-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ar.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab2" role="tabpanel" aria-labelledby="table1-row5-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-bengali-test \
+  --index mrtydi-v1.1-bengali-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.bn.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-bengali-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.bn.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab3" role="tabpanel" aria-labelledby="table1-row5-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-english-test \
+  --index mrtydi-v1.1-english-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.en.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-english-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.en.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab4" role="tabpanel" aria-labelledby="table1-row5-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-finnish-test \
+  --index mrtydi-v1.1-finnish-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.fi.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-finnish-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.fi.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab5" role="tabpanel" aria-labelledby="table1-row5-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-indonesian-test \
+  --index mrtydi-v1.1-indonesian-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.id.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-indonesian-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.id.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab6" role="tabpanel" aria-labelledby="table1-row5-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-japanese-test \
+  --index mrtydi-v1.1-japanese-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ja.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-japanese-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ja.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab7" role="tabpanel" aria-labelledby="table1-row5-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-korean-test \
+  --index mrtydi-v1.1-korean-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ko.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-korean-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ko.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab8" role="tabpanel" aria-labelledby="table1-row5-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-russian-test \
+  --index mrtydi-v1.1-russian-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ru.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-russian-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ru.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab9" role="tabpanel" aria-labelledby="table1-row5-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-swahili-test \
+  --index mrtydi-v1.1-swahili-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.sw.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-swahili-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.sw.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab10" role="tabpanel" aria-labelledby="table1-row5-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-telugu-test \
+  --index mrtydi-v1.1-telugu-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.te.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-telugu-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.te.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab11" role="tabpanel" aria-labelledby="table1-row5-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-thai-test \
+  --index mrtydi-v1.1-thai-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.th.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m recip_rank mrtydi-v1.1-thai-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.th.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+ <div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Recall@100, test queries</th>
+        <th scope="col">ar</th>
+        <th scope="col">bn</th>
+        <th scope="col">en</th>
+        <th scope="col">fi</th>
+        <th scope="col">id</th>
+        <th scope="col">ja</th>
+        <th scope="col">ko</th>
+        <th scope="col">ru</th>
+        <th scope="col">sw</th>
+        <th scope="col">te</th>
+        <th scope="col">th</th>
+        <th scope="col"></th>
+        <th scope="col">avg</th>
+      </tr>
+    </thead>
+    <tbody>
+
+<!-- Condition: BM25 -->
+<tr class="accordion-toggle collapsed" id="table2-row1" data-toggle="collapse" data-parent="#table2-row1" href="#table2-collapse1">
+<td class="expand-button"></td>
+<td>BM25</td>
+<td>0.793</td>
+<td>0.869</td>
+<td>0.536</td>
+<td>0.719</td>
+<td>0.843</td>
+<td>0.645</td>
+<td>0.619</td>
+<td>0.648</td>
+<td>0.764</td>
+<td>0.758</td>
+<td>0.853</td>
+<td></td>
+<td>0.732</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="13" style="max-width: 600px">
+<div id="table2-collapse1" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table2-row1-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table2-row1-tab1-header" data-mdb-toggle="tab" href="#table2-row1-tab1" role="tab" aria-controls="table2-row1-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab2-header" data-mdb-toggle="tab" href="#table2-row1-tab2" role="tab" aria-controls="table2-row1-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab3-header" data-mdb-toggle="tab" href="#table2-row1-tab3" role="tab" aria-controls="table2-row1-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab4-header" data-mdb-toggle="tab" href="#table2-row1-tab4" role="tab" aria-controls="table2-row1-tab3" aria-selected="false" style="text-transform:none">fi</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab5-header" data-mdb-toggle="tab" href="#table2-row1-tab5" role="tab" aria-controls="table2-row1-tab3" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab6-header" data-mdb-toggle="tab" href="#table2-row1-tab6" role="tab" aria-controls="table2-row1-tab3" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab7-header" data-mdb-toggle="tab" href="#table2-row1-tab7" role="tab" aria-controls="table2-row1-tab3" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab8-header" data-mdb-toggle="tab" href="#table2-row1-tab8" role="tab" aria-controls="table2-row1-tab3" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab9-header" data-mdb-toggle="tab" href="#table2-row1-tab9" role="tab" aria-controls="table2-row1-tab3" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab10-header" data-mdb-toggle="tab" href="#table2-row1-tab10" role="tab" aria-controls="table2-row1-tab3" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab11-header" data-mdb-toggle="tab" href="#table2-row1-tab11" role="tab" aria-controls="table2-row1-tab3" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table2-row1-content">
+  <div class="tab-pane fade show active" id="table2-row1-tab1" role="tabpanel" aria-labelledby="table2-row1-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ar \
+  --topics mrtydi-v1.1-arabic-test \
+  --index mrtydi-v1.1-arabic \
+  --output run.mrtydi.bm25.ar.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-arabic-test \
+  run.mrtydi.bm25.ar.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab2" role="tabpanel" aria-labelledby="table2-row1-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language bn \
+  --topics mrtydi-v1.1-bengali-test \
+  --index mrtydi-v1.1-bengali \
+  --output run.mrtydi.bm25.bn.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-bengali-test \
+  run.mrtydi.bm25.bn.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab3" role="tabpanel" aria-labelledby="table2-row1-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language en \
+  --topics mrtydi-v1.1-english-test \
+  --index mrtydi-v1.1-english \
+  --output run.mrtydi.bm25.en.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-english-test \
+  run.mrtydi.bm25.en.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab4" role="tabpanel" aria-labelledby="table2-row1-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language fi \
+  --topics mrtydi-v1.1-finnish-test \
+  --index mrtydi-v1.1-finnish \
+  --output run.mrtydi.bm25.fi.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-finnish-test \
+  run.mrtydi.bm25.fi.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab5" role="tabpanel" aria-labelledby="table2-row1-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language id \
+  --topics mrtydi-v1.1-indonesian-test \
+  --index mrtydi-v1.1-indonesian \
+  --output run.mrtydi.bm25.id.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-indonesian-test \
+  run.mrtydi.bm25.id.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab6" role="tabpanel" aria-labelledby="table2-row1-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ja \
+  --topics mrtydi-v1.1-japanese-test \
+  --index mrtydi-v1.1-japanese \
+  --output run.mrtydi.bm25.ja.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-japanese-test \
+  run.mrtydi.bm25.ja.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab7" role="tabpanel" aria-labelledby="table2-row1-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ko \
+  --topics mrtydi-v1.1-korean-test \
+  --index mrtydi-v1.1-korean \
+  --output run.mrtydi.bm25.ko.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-korean-test \
+  run.mrtydi.bm25.ko.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab8" role="tabpanel" aria-labelledby="table2-row1-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ru \
+  --topics mrtydi-v1.1-russian-test \
+  --index mrtydi-v1.1-russian \
+  --output run.mrtydi.bm25.ru.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-russian-test \
+  run.mrtydi.bm25.ru.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab9" role="tabpanel" aria-labelledby="table2-row1-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language sw \
+  --topics mrtydi-v1.1-swahili-test \
+  --index mrtydi-v1.1-swahili \
+  --output run.mrtydi.bm25.sw.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-swahili-test \
+  run.mrtydi.bm25.sw.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab10" role="tabpanel" aria-labelledby="table2-row1-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language te \
+  --topics mrtydi-v1.1-telugu-test \
+  --index mrtydi-v1.1-telugu \
+  --output run.mrtydi.bm25.te.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-telugu-test \
+  run.mrtydi.bm25.te.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab11" role="tabpanel" aria-labelledby="table2-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language th \
+  --topics mrtydi-v1.1-thai-test \
+  --index mrtydi-v1.1-thai \
+  --output run.mrtydi.bm25.th.test.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-thai-test \
+  run.mrtydi.bm25.th.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: mDPR (split encoders), pre-FT w/ NQ -->
+<tr class="accordion-toggle collapsed" id="table2-row2" data-toggle="collapse" data-parent="#table2-row2" href="#table2-collapse2">
+<td class="expand-button"></td>
+<td>mDPR (split encoders), pre-FT w/ NQ</td>
+<td>0.650</td>
+<td>0.779</td>
+<td>0.678</td>
+<td>0.568</td>
+<td>0.685</td>
+<td>0.584</td>
+<td>0.532</td>
+<td>0.647</td>
+<td>0.528</td>
+<td>0.366</td>
+<td>0.515</td>
+<td></td>
+<td>0.594</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="13" style="max-width: 600px">
+<div id="table2-collapse2" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table2-row2-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table2-row2-tab1-header" data-mdb-toggle="tab" href="#table2-row2-tab1" role="tab" aria-controls="table2-row2-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row2-tab2-header" data-mdb-toggle="tab" href="#table2-row2-tab2" role="tab" aria-controls="table2-row2-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row2-tab3-header" data-mdb-toggle="tab" href="#table2-row2-tab3" role="tab" aria-controls="table2-row2-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row2-tab4-header" data-mdb-toggle="tab" href="#table2-row2-tab4" role="tab" aria-controls="table2-row2-tab3" aria-selected="false" style="text-transform:none">fi</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row2-tab5-header" data-mdb-toggle="tab" href="#table2-row2-tab5" role="tab" aria-controls="table2-row2-tab3" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row2-tab6-header" data-mdb-toggle="tab" href="#table2-row2-tab6" role="tab" aria-controls="table2-row2-tab3" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row2-tab7-header" data-mdb-toggle="tab" href="#table2-row2-tab7" role="tab" aria-controls="table2-row2-tab3" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row2-tab8-header" data-mdb-toggle="tab" href="#table2-row2-tab8" role="tab" aria-controls="table2-row2-tab3" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row2-tab9-header" data-mdb-toggle="tab" href="#table2-row2-tab9" role="tab" aria-controls="table2-row2-tab3" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row2-tab10-header" data-mdb-toggle="tab" href="#table2-row2-tab10" role="tab" aria-controls="table2-row2-tab3" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row2-tab11-header" data-mdb-toggle="tab" href="#table2-row2-tab11" role="tab" aria-controls="table2-row2-tab3" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table2-row2-content">
+  <div class="tab-pane fade show active" id="table2-row2-tab1" role="tabpanel" aria-labelledby="table2-row2-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-arabic-test \
+  --index mrtydi-v1.1-arabic-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.ar.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-arabic-test \
+  run.mrtydi.mdpr-split-pft-nq.ar.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row2-tab2" role="tabpanel" aria-labelledby="table2-row2-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-bengali-test \
+  --index mrtydi-v1.1-bengali-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.bn.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-bengali-test \
+  run.mrtydi.mdpr-split-pft-nq.bn.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row2-tab3" role="tabpanel" aria-labelledby="table2-row2-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-english-test \
+  --index mrtydi-v1.1-english-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.en.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-english-test \
+  run.mrtydi.mdpr-split-pft-nq.en.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row2-tab4" role="tabpanel" aria-labelledby="table2-row2-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-finnish-test \
+  --index mrtydi-v1.1-finnish-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.fi.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-finnish-test \
+  run.mrtydi.mdpr-split-pft-nq.fi.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row2-tab5" role="tabpanel" aria-labelledby="table2-row2-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-indonesian-test \
+  --index mrtydi-v1.1-indonesian-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.id.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-indonesian-test \
+  run.mrtydi.mdpr-split-pft-nq.id.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row2-tab6" role="tabpanel" aria-labelledby="table2-row2-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-japanese-test \
+  --index mrtydi-v1.1-japanese-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.ja.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-japanese-test \
+  run.mrtydi.mdpr-split-pft-nq.ja.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row2-tab7" role="tabpanel" aria-labelledby="table2-row2-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-korean-test \
+  --index mrtydi-v1.1-korean-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.ko.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-korean-test \
+  run.mrtydi.mdpr-split-pft-nq.ko.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row2-tab8" role="tabpanel" aria-labelledby="table2-row2-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-russian-test \
+  --index mrtydi-v1.1-russian-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.ru.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-russian-test \
+  run.mrtydi.mdpr-split-pft-nq.ru.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row2-tab9" role="tabpanel" aria-labelledby="table2-row2-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-swahili-test \
+  --index mrtydi-v1.1-swahili-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.sw.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-swahili-test \
+  run.mrtydi.mdpr-split-pft-nq.sw.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row2-tab10" role="tabpanel" aria-labelledby="table2-row2-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-telugu-test \
+  --index mrtydi-v1.1-telugu-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.te.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-telugu-test \
+  run.mrtydi.mdpr-split-pft-nq.te.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row2-tab11" role="tabpanel" aria-labelledby="table2-row2-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder castorini/mdpr-question-nq \
+  --topics mrtydi-v1.1-thai-test \
+  --index mrtydi-v1.1-thai-mdpr-nq \
+  --output run.mrtydi.mdpr-split-pft-nq.th.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-thai-test \
+  run.mrtydi.mdpr-split-pft-nq.th.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: mDPR (tied encoders), pre-FT w/ NQ -->
+<tr class="accordion-toggle collapsed" id="table2-row3" data-toggle="collapse" data-parent="#table2-row3" href="#table2-collapse3">
+<td class="expand-button"></td>
+<td>mDPR (tied encoders), pre-FT w/ NQ</td>
+<td>0.600</td>
+<td>0.707</td>
+<td>0.689</td>
+<td>0.640</td>
+<td>0.691</td>
+<td>0.573</td>
+<td>0.550</td>
+<td>0.618</td>
+<td>0.597</td>
+<td>0.245</td>
+<td>0.455</td>
+<td></td>
+<td>0.579</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="13" style="max-width: 600px">
+<div id="table2-collapse3" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table2-row3-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table2-row3-tab1-header" data-mdb-toggle="tab" href="#table2-row3-tab1" role="tab" aria-controls="table2-row3-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row3-tab2-header" data-mdb-toggle="tab" href="#table2-row3-tab2" role="tab" aria-controls="table2-row3-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row3-tab3-header" data-mdb-toggle="tab" href="#table2-row3-tab3" role="tab" aria-controls="table2-row3-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row3-tab4-header" data-mdb-toggle="tab" href="#table2-row3-tab4" role="tab" aria-controls="table2-row3-tab3" aria-selected="false" style="text-transform:none">fi</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row3-tab5-header" data-mdb-toggle="tab" href="#table2-row3-tab5" role="tab" aria-controls="table2-row3-tab3" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row3-tab6-header" data-mdb-toggle="tab" href="#table2-row3-tab6" role="tab" aria-controls="table2-row3-tab3" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row3-tab7-header" data-mdb-toggle="tab" href="#table2-row3-tab7" role="tab" aria-controls="table2-row3-tab3" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row3-tab8-header" data-mdb-toggle="tab" href="#table2-row3-tab8" role="tab" aria-controls="table2-row3-tab3" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row3-tab9-header" data-mdb-toggle="tab" href="#table2-row3-tab9" role="tab" aria-controls="table2-row3-tab3" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row3-tab10-header" data-mdb-toggle="tab" href="#table2-row3-tab10" role="tab" aria-controls="table2-row3-tab3" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row3-tab11-header" data-mdb-toggle="tab" href="#table2-row3-tab11" role="tab" aria-controls="table2-row3-tab3" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table2-row3-content">
+  <div class="tab-pane fade show active" id="table2-row3-tab1" role="tabpanel" aria-labelledby="table2-row3-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-arabic-test \
+  --index mrtydi-v1.1-arabic-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.ar.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-arabic-test \
+  run.mrtydi.mdpr-tied-pft-nq.ar.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row3-tab2" role="tabpanel" aria-labelledby="table2-row3-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-bengali-test \
+  --index mrtydi-v1.1-bengali-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.bn.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-bengali-test \
+  run.mrtydi.mdpr-tied-pft-nq.bn.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row3-tab3" role="tabpanel" aria-labelledby="table2-row3-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-english-test \
+  --index mrtydi-v1.1-english-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.en.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-english-test \
+  run.mrtydi.mdpr-tied-pft-nq.en.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row3-tab4" role="tabpanel" aria-labelledby="table2-row3-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-finnish-test \
+  --index mrtydi-v1.1-finnish-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.fi.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-finnish-test \
+  run.mrtydi.mdpr-tied-pft-nq.fi.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row3-tab5" role="tabpanel" aria-labelledby="table2-row3-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-indonesian-test \
+  --index mrtydi-v1.1-indonesian-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.id.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-indonesian-test \
+  run.mrtydi.mdpr-tied-pft-nq.id.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row3-tab6" role="tabpanel" aria-labelledby="table2-row3-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-japanese-test \
+  --index mrtydi-v1.1-japanese-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.ja.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-japanese-test \
+  run.mrtydi.mdpr-tied-pft-nq.ja.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row3-tab7" role="tabpanel" aria-labelledby="table2-row3-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-korean-test \
+  --index mrtydi-v1.1-korean-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.ko.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-korean-test \
+  run.mrtydi.mdpr-tied-pft-nq.ko.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row3-tab8" role="tabpanel" aria-labelledby="table2-row3-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-russian-test \
+  --index mrtydi-v1.1-russian-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.ru.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-russian-test \
+  run.mrtydi.mdpr-tied-pft-nq.ru.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row3-tab9" role="tabpanel" aria-labelledby="table2-row3-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-swahili-test \
+  --index mrtydi-v1.1-swahili-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.sw.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-swahili-test \
+  run.mrtydi.mdpr-tied-pft-nq.sw.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row3-tab10" role="tabpanel" aria-labelledby="table2-row3-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-telugu-test \
+  --index mrtydi-v1.1-telugu-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.te.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-telugu-test \
+  run.mrtydi.mdpr-tied-pft-nq.te.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row3-tab11" role="tabpanel" aria-labelledby="table2-row3-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-nq \
+  --topics mrtydi-v1.1-thai-test \
+  --index mrtydi-v1.1-thai-mdpr-tied-pft-nq \
+  --output run.mrtydi.mdpr-tied-pft-nq.th.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-thai-test \
+  run.mrtydi.mdpr-tied-pft-nq.th.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO -->
+<tr class="accordion-toggle collapsed" id="table2-row4" data-toggle="collapse" data-parent="#table2-row4" href="#table2-collapse4">
+<td class="expand-button"></td>
+<td>mDPR (tied encoders), pre-FT w/ MS MARCO</td>
+<td>0.797</td>
+<td>0.784</td>
+<td>0.754</td>
+<td>0.647</td>
+<td>0.736</td>
+<td>0.732</td>
+<td>0.617</td>
+<td>0.743</td>
+<td>0.634</td>
+<td>0.782</td>
+<td>0.595</td>
+<td></td>
+<td>0.711</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="13" style="max-width: 600px">
+<div id="table2-collapse4" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table2-row4-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table2-row4-tab1-header" data-mdb-toggle="tab" href="#table2-row4-tab1" role="tab" aria-controls="table2-row4-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row4-tab2-header" data-mdb-toggle="tab" href="#table2-row4-tab2" role="tab" aria-controls="table2-row4-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row4-tab3-header" data-mdb-toggle="tab" href="#table2-row4-tab3" role="tab" aria-controls="table2-row4-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row4-tab4-header" data-mdb-toggle="tab" href="#table2-row4-tab4" role="tab" aria-controls="table2-row4-tab3" aria-selected="false" style="text-transform:none">fi</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row4-tab5-header" data-mdb-toggle="tab" href="#table2-row4-tab5" role="tab" aria-controls="table2-row4-tab3" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row4-tab6-header" data-mdb-toggle="tab" href="#table2-row4-tab6" role="tab" aria-controls="table2-row4-tab3" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row4-tab7-header" data-mdb-toggle="tab" href="#table2-row4-tab7" role="tab" aria-controls="table2-row4-tab3" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row4-tab8-header" data-mdb-toggle="tab" href="#table2-row4-tab8" role="tab" aria-controls="table2-row4-tab3" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row4-tab9-header" data-mdb-toggle="tab" href="#table2-row4-tab9" role="tab" aria-controls="table2-row4-tab3" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row4-tab10-header" data-mdb-toggle="tab" href="#table2-row4-tab10" role="tab" aria-controls="table2-row4-tab3" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row4-tab11-header" data-mdb-toggle="tab" href="#table2-row4-tab11" role="tab" aria-controls="table2-row4-tab3" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table2-row4-content">
+  <div class="tab-pane fade show active" id="table2-row4-tab1" role="tabpanel" aria-labelledby="table2-row4-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-arabic-test \
+  --index mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.ar.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-arabic-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.ar.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row4-tab2" role="tabpanel" aria-labelledby="table2-row4-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-bengali-test \
+  --index mrtydi-v1.1-bengali-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.bn.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-bengali-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.bn.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row4-tab3" role="tabpanel" aria-labelledby="table2-row4-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-english-test \
+  --index mrtydi-v1.1-english-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.en.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-english-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.en.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row4-tab4" role="tabpanel" aria-labelledby="table2-row4-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-finnish-test \
+  --index mrtydi-v1.1-finnish-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.fi.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-finnish-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.fi.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row4-tab5" role="tabpanel" aria-labelledby="table2-row4-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-indonesian-test \
+  --index mrtydi-v1.1-indonesian-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.id.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-indonesian-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.id.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row4-tab6" role="tabpanel" aria-labelledby="table2-row4-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-japanese-test \
+  --index mrtydi-v1.1-japanese-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.ja.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-japanese-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.ja.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row4-tab7" role="tabpanel" aria-labelledby="table2-row4-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-korean-test \
+  --index mrtydi-v1.1-korean-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.ko.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-korean-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.ko.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row4-tab8" role="tabpanel" aria-labelledby="table2-row4-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-russian-test \
+  --index mrtydi-v1.1-russian-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.ru.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-russian-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.ru.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row4-tab9" role="tabpanel" aria-labelledby="table2-row4-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-swahili-test \
+  --index mrtydi-v1.1-swahili-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.sw.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-swahili-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.sw.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row4-tab10" role="tabpanel" aria-labelledby="table2-row4-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-telugu-test \
+  --index mrtydi-v1.1-telugu-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.te.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-telugu-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.te.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row4-tab11" role="tabpanel" aria-labelledby="table2-row4-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics mrtydi-v1.1-thai-test \
+  --index mrtydi-v1.1-thai-mdpr-tied-pft-msmarco \
+  --output run.mrtydi.mdpr-tied-pft-msmarco.th.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-thai-test \
+  run.mrtydi.mdpr-tied-pft-msmarco.th.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all -->
+<tr class="accordion-toggle collapsed" id="table2-row5" data-toggle="collapse" data-parent="#table2-row5" href="#table2-collapse5">
+<td class="expand-button"></td>
+<td>mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all</td>
+<td>0.900</td>
+<td>0.955</td>
+<td>0.841</td>
+<td>0.856</td>
+<td>0.861</td>
+<td>0.813</td>
+<td>0.785</td>
+<td>0.843</td>
+<td>0.876</td>
+<td>0.966</td>
+<td>0.883</td>
+<td></td>
+<td>0.871</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="13" style="max-width: 600px">
+<div id="table2-collapse5" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table2-row5-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table2-row5-tab1-header" data-mdb-toggle="tab" href="#table2-row5-tab1" role="tab" aria-controls="table2-row5-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab2-header" data-mdb-toggle="tab" href="#table2-row5-tab2" role="tab" aria-controls="table2-row5-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab3-header" data-mdb-toggle="tab" href="#table2-row5-tab3" role="tab" aria-controls="table2-row5-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab4-header" data-mdb-toggle="tab" href="#table2-row5-tab4" role="tab" aria-controls="table2-row5-tab3" aria-selected="false" style="text-transform:none">fi</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab5-header" data-mdb-toggle="tab" href="#table2-row5-tab5" role="tab" aria-controls="table2-row5-tab3" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab6-header" data-mdb-toggle="tab" href="#table2-row5-tab6" role="tab" aria-controls="table2-row5-tab3" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab7-header" data-mdb-toggle="tab" href="#table2-row5-tab7" role="tab" aria-controls="table2-row5-tab3" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab8-header" data-mdb-toggle="tab" href="#table2-row5-tab8" role="tab" aria-controls="table2-row5-tab3" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab9-header" data-mdb-toggle="tab" href="#table2-row5-tab9" role="tab" aria-controls="table2-row5-tab3" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab10-header" data-mdb-toggle="tab" href="#table2-row5-tab10" role="tab" aria-controls="table2-row5-tab3" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab11-header" data-mdb-toggle="tab" href="#table2-row5-tab11" role="tab" aria-controls="table2-row5-tab3" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table2-row5-content">
+  <div class="tab-pane fade show active" id="table2-row5-tab1" role="tabpanel" aria-labelledby="table2-row5-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-arabic-test \
+  --index mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ar.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-arabic-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ar.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab2" role="tabpanel" aria-labelledby="table2-row5-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-bengali-test \
+  --index mrtydi-v1.1-bengali-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.bn.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-bengali-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.bn.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab3" role="tabpanel" aria-labelledby="table2-row5-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-english-test \
+  --index mrtydi-v1.1-english-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.en.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-english-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.en.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab4" role="tabpanel" aria-labelledby="table2-row5-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-finnish-test \
+  --index mrtydi-v1.1-finnish-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.fi.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-finnish-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.fi.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab5" role="tabpanel" aria-labelledby="table2-row5-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-indonesian-test \
+  --index mrtydi-v1.1-indonesian-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.id.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-indonesian-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.id.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab6" role="tabpanel" aria-labelledby="table2-row5-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-japanese-test \
+  --index mrtydi-v1.1-japanese-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ja.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-japanese-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ja.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab7" role="tabpanel" aria-labelledby="table2-row5-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-korean-test \
+  --index mrtydi-v1.1-korean-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ko.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-korean-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ko.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab8" role="tabpanel" aria-labelledby="table2-row5-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-russian-test \
+  --index mrtydi-v1.1-russian-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ru.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-russian-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.ru.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab9" role="tabpanel" aria-labelledby="table2-row5-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-swahili-test \
+  --index mrtydi-v1.1-swahili-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.sw.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-swahili-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.sw.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab10" role="tabpanel" aria-labelledby="table2-row5-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-telugu-test \
+  --index mrtydi-v1.1-telugu-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.te.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-telugu-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.te.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab11" role="tabpanel" aria-labelledby="table2-row5-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics mrtydi-v1.1-thai-test \
+  --index mrtydi-v1.1-thai-mdpr-tied-pft-msmarco-ft-all \
+  --output run.mrtydi.mdpr-tied-pft-msmarco-ft-all.th.test.txt \
+  --batch 36 --threads 12 \
+  --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 mrtydi-v1.1-thai-test \
+  run.mrtydi.mdpr-tied-pft-msmarco-ft-all.th.test.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+
+<script>
+document.querySelectorAll('pre').forEach(function (codeBlock) {
+    var button = document.createElement('button');
+    button.className = 'copy-code-button';
+    button.type = 'button';
+    var s = codeBlock.innerText;
+    button.setAttribute('data-clipboard-text',s);
+    button.innerText = 'Copy';
+
+    // var pre = codeBlock.parentNode;
+    codeBlock.classList.add('prettyprint');
+    // pre.parentNode.insertBefore(button, pre);
+    codeBlock.appendChild(button);
+});
+
+var clipboard = new ClipboardJS('.copy-code-button');
+
+clipboard.on('success', function(e) {
+  console.info('Action:', e.action);
+  console.info('Text:', e.text);
+  console.info('Trigger:', e.trigger);
+  e.trigger.textContent = 'Copied';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+  console.error('Action:', e.action);
+  console.error('Trigger:', e.trigger);
+  e.trigger.textContent = 'Error Copying';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+</script>
+
+</body>
+</html>
+
