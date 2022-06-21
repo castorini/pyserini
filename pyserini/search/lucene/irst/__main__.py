@@ -40,7 +40,7 @@ def query_loader(topic: str):
         topic = 'tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt'
     elif topic == 'dl19-doc':
         topic = 'tools/topics-and-qrels/topics.dl19-doc.txt'
-    elif topic == 'msmarco-doc':
+    elif topic == 'msmarco-doc-dev':
         topic = 'tools/topics-and-qrels/topics.msmarco-doc.dev.txt'
     inp_file = open(topic)
     line_num = 0

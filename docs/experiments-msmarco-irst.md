@@ -105,7 +105,7 @@ For different topics, the `--topics` are different, since Pyserini has all these
 `--topics`: <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Document: `dl19-doc` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Document: `dl20` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `msmarco-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `msmarco-doc-dev` <br />
 
 
 We can use the official TREC evaluation tool, trec_eval, to compute other metrics. For that we first need to convert the runs into TREC format:
@@ -123,7 +123,7 @@ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl20-doc irst_
 
 For MS MARCO Doc V1
 ```bash
-python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut.10 -m map -m recip_rank msmarco-doc-dev irst_test/regression_test_sum.doc_full.msmarco-doc.trec
+python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut.10 -m map -m recip_rank msmarco-doc-dev irst_test/regression_test_sum.doc_full.msmarco-doc-dev.trec
 ```
 
 
@@ -171,7 +171,7 @@ For different topics, the `--topics` are different, since Pyserini has all these
 `--topics`: <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Document: `dl19-doc` <br />
 &nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Document: `dl20` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `msmarco-doc` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `msmarco-doc-dev` <br />
 
 We can use the official TREC evaluation tool, trec_eval, to compute other metrics. For that we first need to convert the runs into TREC format:
 
@@ -188,7 +188,7 @@ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl20-doc irst_
 
 For MS MARCO Doc V1, no need to use -l 2 option:
 ```bash
-python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut.10 -m map -m recip_rank msmarco-doc-dev irst_test/regression_test_sum.doc_seg.msmarco-doc.trec
+python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut.10 -m map -m recip_rank msmarco-doc-dev irst_test/regression_test_sum.doc_seg.msmarco-doc-dev.trec
 ```
 
 ## Results
