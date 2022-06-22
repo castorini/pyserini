@@ -262,7 +262,7 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[9].score, 4.21740, places=5)
 
         self.searcher.set_rocchio(top_fb_terms=10, top_fb_docs=8, bottom_fb_terms=10, 
-            bottom_fb_docs=8, rocchio_alpha=0.4, rocchio_beta=0.5, rocchio_gamma=0.1, rocchio_use_negative=True, rocchio_output_query=False)
+            bottom_fb_docs=8, rocchio_alpha=0.4, rocchio_beta=0.5, rocchio_gamma=0.1, rocchio_output_query=False, rocchio_use_negative=True)
         self.assertTrue(self.searcher.is_using_rocchio())
 
         hits = self.searcher.search('information retrieval')
@@ -273,7 +273,7 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[9].score, 2.57510, places=5)
 
         self.searcher.set_rocchio(top_fb_terms=10, top_fb_docs=8, bottom_fb_terms=10, 
-            bottom_fb_docs=8, rocchio_alpha=0.4, rocchio_beta=0.5, rocchio_gamma=0.1, rocchio_use_negative=False, rocchio_output_query=False)
+            bottom_fb_docs=8, rocchio_alpha=0.4, rocchio_beta=0.5, rocchio_gamma=0.1, rocchio_output_query=False, rocchio_use_negative=False)
         self.assertTrue(self.searcher.is_using_rocchio())
 
         hits = self.searcher.search('information retrieval')
