@@ -66,11 +66,14 @@ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 \
 
 The results should match Table 1 from our paper, repeated below:
 
-|                        | MS MARCO Dev | TREC 2019 |       | TREC 2020 |       |
-|:-----------------------|-------------:|----------:|------:|----------:|------:|
-|                        |       MRR@10 |   nDCG@10 |   MAP |   nDCG@10 |   MAP |
-| (2a) BM25 + IRST (Sum) |        0.221 |     0.526 | 0.328 |     0.558 | 0.352 |
-| (2b) BM25 + IRST (Max) |        0.215 |     0.537 | 0.329 |     0.547 | 0.336 |
+|                              | MS MARCO Dev | TREC 2019 |       | TREC 2020 |       |
+|:-----------------------------|-------------:|----------:|------:|----------:|------:|
+|                              |       MRR@10 |   nDCG@10 |   MAP |   nDCG@10 |   MAP |
+| (1a) BM25 (k1= 0.82, b=0.68) |        0.188 |     0.497 | 0.290 |     0.488 | 0.288 |
+| (2a) BM25 + IRST (Sum)       |        0.221 |     0.526 | 0.328 |     0.558 | 0.352 |
+| (2b) BM25 + IRST (Max)       |        0.215 |     0.537 | 0.329 |     0.547 | 0.336 |
+
+The BM25 baseline is provided for reference.
 
 ## Document Ranking
 
@@ -140,100 +143,37 @@ For MS MARCO V1 doc:
 
 ```bash
 python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut.10 -m map -m recip_rank \
-  msmarco-doc-dev runs/run.irst-sum.doc.dev.txt
+  msmarco-doc-dev runs/run.irst-sum.doc-full.dev.txt
 ```
 
 For TREC DL 2019:
 
 ```bash
 python -m pyserini.eval.trec_eval -c -M 100 -m map -m ndcg_cut.10 \
-  dl19-doc runs/run.irst-sum.doc.dl19.txt
+  dl19-doc runs/run.irst-sum.doc-full.dl19.txt
 ```
 
 Similarly, for TREC DL 2020:
 
 ```bash
 python -m pyserini.eval.trec_eval -c -M 100 -m map -m ndcg_cut.10 \
-  dl20-doc runs/run.irst-sum.doc.dl20v.txt
+  dl20-doc runs/run.irst-sum.doc-full.dl20.txt
 ```
 
-For MS MARCO Doc V1
+The results should match Table 1 from our paper, repeated below:
 
+|                              | MS MARCO Dev | TREC 2019 |       | TREC 2020 |       |
+|:-----------------------------|-------------:|----------:|------:|----------:|------:|
+|                              |       MRR@10 |   nDCG@10 |   MAP |   nDCG@10 |   MAP |
+| **Document (Full)**          |              |           |       |           |       |
+| (2a) BM25 (k1= 0.82, b=0.68) |        0.249 |     0.510 | 0.241 |     0.528 | 0.378 |
+| (2b) BM25 + IRST (Sum)       |        0.302 |     0.549 | 0.252 |     0.556 | 0.383 |
+| (2c) BM25 + IRST (Max)       |        0.252 |     0.491 | 0.220 |     0.502 | 0.337 |
+| **Document (Segmented)**     |              |           |       |           |       |
+| (3a) BM25 (k1= 0.82, b=0.68) |        0.269 |     0.529 | 0.240 |     0.531 | 0.362 |
+| (3b) BM25 + IRST (Sum)       |        0.296 |     0.560 | 0.271 |     0.534 | 0.376 |
+| (3c) BM25 + IRST (Max)       |        0.259 |     0.520 | 0.243 |     0.509 | 0.350 |
 
-## Document Segment Reranking 
+The BM25 baselines are provided for reference.
 
-
-### Data Preprocessing
-
-For MS MARCO doc, each document is first segmented into passages, each passage is treated as a unit of indexing. 
-We utilized the MaxP technique during the ranking, that is scoring documents based on one of its highest-scoring passage.
-
-### Performing End-to-End Retrieval Using Already Trained Model
-
-
-Please note that we did not have time to train a new IBM model on MS MARCO doc data, we used the trained MS MARCO passage IBM Model1 instead.
-
-Next we can run our script to get our retrieval results.
-
-
-
-
-For different topics, the `--topics` are different, since Pyserini has all these topics available, we can pass in different values to run on different datasets.
-
-`--topics`: <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2019 Document: `dl19-doc` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;TREC DL 2020 Document: `dl20` <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MS MARCO Document V1: `msmarco-doc` <br />
-
-We can use the official TREC evaluation tool, trec_eval, to compute other metrics. For that we first need to convert the runs into TREC format:
-
-For TREC DL 2019, use this command to evaluate your run file:
-
-```bash
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl19-doc irst_test/regression_test_sum.doc_seg.dl19-doc.trec
-```
-
-Similarly for TREC DL 2020,  no need to use -l 2 option:
-```bash
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -M 100 dl20-doc irst_test/regression_test_sum.doc_seg.dl20.trec
-```
-
-For MS MARCO Doc V1, no need to use -l 2 option:
-```bash
-python -m pyserini.eval.trec_eval -c -M 100 -m ndcg_cut.10 -m map -m recip_rank msmarco-doc-dev irst_test/regression_test_sum.doc_seg.msmarco-doc.trec
-```
-
-## Results
-### Passage Ranking Datasets
-
-| Topics                | Method                        | MRR@10    | nDCG@10 | Map |
-|:-------------------------|:------------------------|:------:|:--------:|:-----------:|
-| DL19                | IRST(Sum)               | - | 0.526   | 0.328     |
-| DL19                 | IRST(Max)              | - | 0.537   | 0.329      |
-| DL20                | IRST(Sum)               | -| 0.558   | 0.352      |
-| DL20                | IRST(Max)               | -| 0.547   | 0.336      |
-| MS MARCO Dev                | IRST(Sum)               | 0.221| -   | -      |
-| MS MARCO Dev                | IRST(Max)               | 0.215| -   | -      |
-
-
-### Document Ranking Datasets
-
-| Topics                | Method                  | MRR@100    | nDCG@10 | Map |
-|:-------------------------|:------------------------|:------:|:--------:|:-----------:|
-| DL19                | IRST(Sum)               | - | 0.549   | 0.252     |
-| DL19                 | IRST(Max)              | - | 0.491   | 0.220     |
-| DL20                | IRST(Sum)               | - | 0.556   | 0.383     |
-| DL20                | IRST(Max)               | - | 0.502   | 0.337     |
-| MS MARCO Dev                | IRST(Sum)               |0.302 | -   | -      |
-| MS MARCO Dev                | IRST(Max)               |0.252 | -   | -      |
-
-### Document Segment Ranking Datasets
-
-| Topics                | Method                  | MRR@100    | nDCG@10 | Map |
-|:-------------------------|:------------------------|:------:|:--------:|:-----------:|
-| DL19                | IRST(Sum)               | - | 0.560   | 0.271      |
-| DL19                 | IRST(Max)              | - | 0.520   | 0.243      |
-| DL20                | IRST(Sum)               | - | 0.534   |  0.376     |
-| DL20                | IRST(Max)               | - | 0.509   |   0.350    |
-| MS MARCO Dev                | IRST(Sum)               |0.296 | -   | -      |
-| MS MARCO Dev                | IRST(Max)               |0.259 | -   | -      |
+## Reproduction Log[*](reproducibility.md)
