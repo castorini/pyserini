@@ -130,77 +130,11 @@ pre[class*="prettyprint"] {
     </div>
     <!-- Background image -->
 
-<div class="container my-4">
+    <div class="container my-4">
 
-<p>The two-click<sup>*</sup> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.</p>
+    $tables
 
-<p><sup>*</sup> What are the two clicks, you ask? Copy and paste!</p>
-
-<div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th class="headertop"></th>
-        <th class="headertop"></th>
-        <th class="headertop"></th>
-        <th class="headertop" colspan="4"><b>TREC 2019</b></th>
-        <th class="headertop" colspan="4"><b>TREC 2020</b></th>
-        <th class="headertop" colspan="3"><b>dev</b></th>
-      </tr>
-      <tr>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"><br/>AP</th>
-        <th class="headerbottom" scope="col">nDCG@10</th>
-        <th class="headerbottom" scope="col">R@1K</th>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"><br/>AP</th>
-        <th class="headerbottom" scope="col">nDCG@10</th>
-        <th class="headerbottom" scope="col">R@1K</th>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col">RR@10</th>
-        <th class="headerbottom" scope="col">R@1K</th>
-
-      </tr>
-    </thead>
-    <tbody>
-
-$rows
-
-    </tbody>
-  </table>
-</div>
-
-<ul style="list-style-type:none; padding-top: 25px">
-
-<li><p>[1] Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin.
-<a href="https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
-<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.</p>
-
-<p>&nbsp; &nbsp; &nbsp; &nbsp;Numbers in parentheses correspond to rows in Table 1 of the paper.</p></li>
-
-<li><p>[2] Lee Xiong, Chenyan Xiong, Ye Li, Kwok-Fung Tang, Jialin Liu, Paul N. Bennett, Junaid Ahmed, and Arnold Overwijk.
-<a href="https://openreview.net/forum?id=zeFrfgyZln">Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval.</a>
-<i>Proceedings of the 9th International Conference on Learning Representations (ICLR 2021), May 2021.</i></p></li>
-
-<li><p>[3] Sebastian Hofstätter, Sophia Althammer, Michael Schröder, Mete Sertkan, and Allan Hanbury.
-<a href="https://arxiv.org/abs/2010.02666">Improving Efficient Neural Ranking Models with Cross-Architecture Knowledge Distillation.</a>
-<i>arXiv:2010.02666</i>, October 2020.</p></li>
-
-<li><p>[4] Sebastian Hofstätter, Sheng-Chieh Lin, Jheng-Hong Yang, Jimmy Lin, and Allan Hanbury.
-<a href="https://dl.acm.org/doi/10.1145/3404835.3462891">Efficiently Teaching an Effective Dense Retriever with Balanced Topic Aware Sampling.</a>
-<i>Proceedings of the 44th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2021)</i>, pages 113-122, July 2021.</p></li>
-
-<li><p>[5] Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin.
-<a href="https://aclanthology.org/2021.repl4nlp-1.17/">In-Batch Negatives for Knowledge Distillation with Tightly-Coupled Teachers for Dense Retrieval.</a>
-<i>Proceedings of the 6th Workshop on Representation Learning for NLP (RepL4NLP-2021)</i>, pages 163-173, August 2021.</p></li>
-
-</ul>
-
-      </div>
-
-
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>

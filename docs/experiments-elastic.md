@@ -22,7 +22,7 @@ from Lucene, plus some additional words targeted at question-style queries.
 We're going to use the repository's root directory as the working directory.
 First, we need to download and extract the MS MARCO document dataset:
 
-```
+```bash
 mkdir collections/msmarco-doc
 wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-docs.tsv.gz -P collections/msmarco-doc
 
@@ -52,6 +52,7 @@ python -m pyserini.index \
   --generator DefaultLuceneDocumentGenerator \
   --index indexes/msmarco-doc/lucene-index-msmarco \
   --threads 4 \
+  --fields title url \
   --storeRaw \
   --stopwords docs/elastic-msmarco-stopwords.txt
 ```
@@ -67,7 +68,7 @@ attention to: the official metric is MRR@100, so we want to only return the top
 format.
 
 ```bash
-python -m pyserini.search \
+python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
   --index indexes/msmarco-doc/lucene-index-msmarco/ \
   --output runs/run.msmarco-doc.leaderboard-dev.elastic.txt \
@@ -95,3 +96,4 @@ QueriesRanked: 5193
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-03-10 (commit [`8d51d9`](https://github.com/castorini/pyserini/commit/8d51d9c2ebc0d39e37e3ccda63085de50d536fcb))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2022-06-15 (commit [`ce5cf6`](https://github.com/castorini/pyserini/commit/ce5cf6cd0531e72ffb22f4cfabf0f8342736dc2b))
