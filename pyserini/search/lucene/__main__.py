@@ -88,7 +88,7 @@ def define_search_args(parser):
 
     parser.add_argument('--rm3', action='store_true', help="Use RM3")
     parser.add_argument('--rocchio', action='store_true', help="Use Rocchio")
-    parser.add_argument('--usenegative', action='store_true', help="Use nonrelevant labels in Rocchio")
+    parser.add_argument('--rocchio-use-negative', action='store_true', help="Use nonrelevant labels in Rocchio")
     parser.add_argument('--qld', action='store_true', help="Use QLD")
 
     parser.add_argument('--language', type=str, help='language code for BM25, e.g. zh for Chinese', default='en')
@@ -183,8 +183,8 @@ if __name__ == "__main__":
     
     if args.rocchio:
         search_rankers.append('rocchio')
-        if args.usenegative:
-            searcher.set_rocchio(rocchio_gamma=0.15, rocchio_use_negative=True)
+        if args.rocchio_use_negative:
+            searcher.set_rocchio(gamma=0.15, use_negative=True)
         else:
             searcher.set_rocchio()
 

@@ -241,7 +241,7 @@ class LuceneSearcher:
         """Check if RM3 query expansion is being performed."""
         return self.object.useRM3()
     
-    def set_rocchio(self, top_fb_terms=10, top_fb_docs=10, bottom_fb_terms=10, bottom_fb_docs=10, rocchio_alpha=1, rocchio_beta=0.75, rocchio_gamma=0, rocchio_output_query=False, rocchio_use_negative=False):
+    def set_rocchio(self, top_fb_terms=10, top_fb_docs=10, bottom_fb_terms=10, bottom_fb_docs=10, alpha=1, beta=0.75, gamma=0, output_query=False, use_negative=False):
         """Configure Rocchio query expansion.
 
         Parameters
@@ -266,7 +266,7 @@ class LuceneSearcher:
             Rocchio parameter to use negative labels.
         """
         if self.object.reader.getTermVectors(0):
-            self.object.setRocchio(top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs, rocchio_alpha, rocchio_beta, rocchio_gamma, rocchio_output_query, rocchio_use_negative)
+            self.object.setRocchio(top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs, alpha, beta, gamma, output_query, use_negative)
         else:
             raise TypeError("Rocchio is not supported for indexes without document vectors.")
 
