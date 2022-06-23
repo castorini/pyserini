@@ -50,7 +50,7 @@ python -m pyserini.eval.trec_eval -c -M 10 -m ndcg_cut.10 -m map -m recip_rank \
   msmarco-passage-dev-subset runs/run.irst-sum.passage.dev.txt
 ```
 
-For TREC DL 2019, not that we need to specify `-l 2`:
+For TREC DL 2019, note that we need to specify `-l 2`:
 
 ```bash
 python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 \
@@ -135,7 +135,7 @@ The option `--topics` specifies the different topics.
 The choices are:
 
 + MS MARCO V1 doc dev queries: `msmarco-doc-dev` (per above)
-+ TREC DL 2019 passage: `dl19-passage`
++ TREC DL 2019 passage: `dl19-doc`
 + TREC DL 2020 passage: `dl20`
 
 To evaluate results, use `trec_eval`.
@@ -160,11 +160,11 @@ python -m pyserini.eval.trec_eval -c -M 100 -m map -m ndcg_cut.10 \
   dl20-doc runs/run.irst-sum.doc-full.dl20.txt
 ```
 
-The results should match Table 1 from our paper, repeated below:
+The results should match Table 2 from our paper, repeated below:
 
 |                              | MS MARCO Dev | TREC 2019 |       | TREC 2020 |       |
 |:-----------------------------|-------------:|----------:|------:|----------:|------:|
-|                              |       MRR@10 |   nDCG@10 |   MAP |   nDCG@10 |   MAP |
+|                              |      MRR@100 |   nDCG@10 |   MAP |   nDCG@10 |   MAP |
 | **Document (Full)**          |              |           |       |           |       |
 | (2a) BM25 (k1= 0.82, b=0.68) |        0.249 |     0.510 | 0.241 |     0.528 | 0.378 |
 | (2b) BM25 + IRST (Sum)       |        0.302 |     0.549 | 0.252 |     0.556 | 0.383 |
