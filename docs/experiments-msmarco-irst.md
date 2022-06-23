@@ -54,14 +54,14 @@ For TREC DL 2019, not that we need to specify `-l 2`:
 
 ```bash
 python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 \
-  dl19-passage runs/run.irst-sum.dl19.txt
+  dl19-passage runs/run.irst-sum.passage.dl19.txt
 ```
 
 Similarly, for TREC DL 2020:
 
 ```bash
 python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.10 -l 2 \
-  dl20-passage runs/run.irst-sum.dl20.txt
+  dl20-passage runs/run.irst-sum.passage.dl20.txt
 ```
 
 The results should match Table 1 from our paper, repeated below:
