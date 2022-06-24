@@ -1,0 +1,28 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">$desc</th>
+        <th scope="col">ar</th>
+        <th scope="col">bn</th>
+        <th scope="col">en</th>
+        <th scope="col">fi</th>
+        <th scope="col">id</th>
+        <th scope="col">ja</th>
+        <th scope="col">ko</th>
+        <th scope="col">ru</th>
+        <th scope="col">sw</th>
+        <th scope="col">te</th>
+        <th scope="col">th</th>
+        <th scope="col"></th>
+        <th scope="col">avg</th>
+      </tr>
+    </thead>
+    <tbody>
+
+$rows
+
+    </tbody>
+  </table>
+</div>

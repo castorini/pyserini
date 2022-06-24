@@ -22,9 +22,9 @@ from string import Template
 
 import yaml
 
-from scripts.repro_matrix.defs import models, trec_eval_metric_definitions
+from scripts.repro_matrix.defs_msmarco import models, trec_eval_metric_definitions
 from scripts.repro_matrix.utils import run_eval_and_return_metric, ok_str, fail_str, \
-    find_table_topic_set_key_v1, find_table_topic_set_key_v2
+    find_msmarco_table_topic_set_key_v1, find_msmarco_table_topic_set_key_v2
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for MS MARCO corpora.')
@@ -65,9 +65,9 @@ if __name__ == '__main__':
 
                 short_topic_key = ''
                 if collection == 'msmarco-v1-passage' or collection == 'msmarco-v1-doc':
-                    short_topic_key = find_table_topic_set_key_v1(topic_key)
+                    short_topic_key = find_msmarco_table_topic_set_key_v1(topic_key)
                 else:
-                    short_topic_key = find_table_topic_set_key_v2(topic_key)
+                    short_topic_key = find_msmarco_table_topic_set_key_v2(topic_key)
 
                 if not args.skip_eval:
                     print(f'  - topic_key: {topic_key}')
@@ -87,8 +87,11 @@ if __name__ == '__main__':
                     for metric in expected:
                         table_keys[name] = display
                         if not args.skip_eval:
-                            score = float(run_eval_and_return_metric(metric, eval_key,
-                                                                     trec_eval_metric_definitions[collection], runfile))
+                            score = float(
+                                run_eval_and_return_metric(metric,
+                                                           eval_key,
+                                                           trec_eval_metric_definitions[collection][eval_key][metric],
+                                                           runfile))
                             result = ok_str if math.isclose(score, float(expected[metric])) \
                                 else fail_str + f' expected {expected[metric]:.4f}'
                             print(f'    {metric:7}: {score:.4f} {result}')
