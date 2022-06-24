@@ -836,7 +836,7 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-arabic-mdpr-nq</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-arabic.20220207.5df364.README.md">readme</a>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-arabic.20220207.5df364.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-bengali-mdpr-nq</code></b>
@@ -885,48 +885,136 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>wikipedia-dpr-dkrr-tqa</code></b>
 <dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA
 </dd>
-</dl>
-<dt></dt><b><code>mrtydi-v1.1-arabic-mdpr-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-arabic.20220413.aa1c0e9.README.md">readme</a>
+<dt></dt><b><code>mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>mrtydi-v1.1-bengali-mdpr-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-bengali.20220413.aa1c0e9.README.md">readme</a>
+<dt></dt><b><code>mrtydi-v1.1-bengali-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>mrtydi-v1.1-english-mdpr-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-english.20220413.aa1c0e9.README.md">readme</a>
+<dt></dt><b><code>mrtydi-v1.1-english-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>mrtydi-v1.1-finnish-mdpr-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-finnish.20220413.aa1c0e9.README.md">readme</a>
+<dt></dt><b><code>mrtydi-v1.1-finnish-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>mrtydi-v1.1-indonesian-mdpr-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-indonesian.20220413.aa1c0e9.README.md">readme</a>
+<dt></dt><b><code>mrtydi-v1.1-indonesian-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>mrtydi-v1.1-japanese-mdpr-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-japanese.20220413.aa1c0e9.README.md">readme</a>
+<dt></dt><b><code>mrtydi-v1.1-japanese-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>mrtydi-v1.1-korean-mdpr-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-korean.20220413.aa1c0e9.README.md">readme</a>
+<dt></dt><b><code>mrtydi-v1.1-korean-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>mrtydi-v1.1-russian-mdpr-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-russian.20220413.aa1c0e9.README.md">readme</a>
+<dt></dt><b><code>mrtydi-v1.1-russian-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>mrtydi-v1.1-swahili-mdpr-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-swahili.20220413.aa1c0e9.README.md">readme</a>
+<dt></dt><b><code>mrtydi-v1.1-swahili-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>mrtydi-v1.1-telugu-mdpr-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-telugu.20220413.aa1c0e9.README.md">readme</a>
+<dt></dt><b><code>mrtydi-v1.1-telugu-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>mrtydi-v1.1-thai-mdpr-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-thai.20220413.aa1c0e9.README.md">readme</a>
+<dt></dt><b><code>mrtydi-v1.1-thai-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
+<dt></dt><b><code>mrtydi-v1.1-arabic-mdpr-tied-pft-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-bengali-mdpr-tied-pft-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-english-mdpr-tied-pft-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-finnish-mdpr-tied-pft-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-indonesian-mdpr-tied-pft-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-japanese-mdpr-tied-pft-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-korean-mdpr-tied-pft-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-russian-mdpr-tied-pft-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-swahili-mdpr-tied-pft-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-telugu-mdpr-tied-pft-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-thai-mdpr-tied-pft-nq</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-bengali-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-english-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-finnish-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-indonesian-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-japanese-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-korean-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-russian-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-swahili-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-telugu-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-thai-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+</dl>
