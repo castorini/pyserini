@@ -26,7 +26,7 @@ from pygaggle.rerank.base import Text
 from pygaggle.data.segmentation import SegmentProcessor
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='generate .tsv files for wiki corpuses ')
+    parser = argparse.ArgumentParser(description='generate .tsv files for wiki corpuses with tables and lists')
     parser.add_argument('-db_path', type=str, required=True, help='path to .db file containing preprocessed wiki pages from DrQA')
     parser.add_argument('-xml_path', type=str, required=True, help='path to wikipedia xml dump file')
     parser.add_argument('-output_path_6_3', type=str, default="../collections/wiki_6_3.tsv", help='path to write .tsv with segment 6, stride 3')
@@ -81,36 +81,12 @@ if __name__ == '__main__':
     for row in tqdm(pages):
         text = row[1]
         title = row[0]
-        infobox_text = ""
-        if title in infoboxes_params:
-            for infobox_params in infoboxes_params[title]:
-                for param in infobox_params:
-                    param_name = str(param.name).strip().replace("\n", " ").replace("_", " ")
-                    # no useful information
-                    if "maplink" in param_name:
-                        continue
-                    
-                    param_text = str(param.value).replace("\n", " ")
-
-                    param_text = re.sub('&lt;ref&gt;.*?&lt;/ref&gt;', '', param_text, flags=re.DOTALL) 
-                    param_text = re.sub('&lt;.*?&gt;', '', param_text, flags=re.DOTALL)
-
-                    param_text = param_text.strip()
-
-                    if param_text != "" and "&lt;" not in param_text and "&gt;" not in param_text:
-                    
-                        if ' age|' in param_text:
-                            param_text = param_text.replace('|df=yes', '').replace('|mf=yes', '')
-                        
-                        infobox_text += param_name + ": " + param_text + ". "
         
-
-        text = infobox_text + text
         if title in documents:
-            documents.append(Text(text))
+            documents[title] += " " + text
         else:
-            documents[title] = [Text(text)]  
-
+            documents[title] = text
+    
     f1 = open(args.output_path_6_3, "w")
     f2 = open(args.output_path_8_4, "w")
     f1.write("id\ttext\ttitle\n")
@@ -120,94 +96,122 @@ if __name__ == '__main__':
     id1 = 1
     id2 = 1
     for document in tqdm(documents):
+        text =  documents[document]
+
+        infobox_text = ""
+        if document in infoboxes_params:
+            for infobox_params in infoboxes_params[document]:
+                for param in infobox_params:
+                    param_name = str(param.name).strip().replace("\n", " ").replace("_", " ")
+                    # no useful information
+                    if "maplink" in param_name:
+                        continue
+                    
+                    param_text = str(param.value).replace("\n", " ")
+                    param_text = re.sub('&lt;ref&gt;.*?&lt;/ref&gt;', '', param_text, flags=re.DOTALL) 
+                    param_text = re.sub('&lt;.*?&gt;', '', param_text, flags=re.DOTALL)
+                    param_text = param_text.strip()
+
+                    if param_text != "" and "&lt;" not in param_text and "&gt;" not in param_text:
+                        if ' age|' in param_text:
+                            param_text = param_text.replace('|df=yes', '').replace('|mf=yes', '')
+                        
+                        infobox_text += param_name + ": " + param_text + ". "
+                        infobox_text = infobox_text.replace("|", " | ")
+
+        text = infobox_text + text
+
         texts = []
         table_num = -1
-        for text in documents[document]:
-            text = text.text
-            if text.strip().startswith("REDIRECT") or text.strip().startswith("redirect"):
-                continue
-            p_tables = []
-            matching_doc_name = unidecode.unidecode(document.strip())
+        text = text.strip()
+        table_found = True
+        if text.startswith("REDIRECT") or text.startswith("redirect"):
+            continue
+        if text.endswith(". References."):
+            text = text[:-len(". References.")].strip()
+        p_tables = []
+        matching_doc_name = unidecode.unidecode(document.strip())
+        if matching_doc_name in parsed_pages_tables:
+            p_tables = parsed_pages_tables[matching_doc_name]
+        else: 
+            matching_doc_name = saxutils.escape(matching_doc_name)
             if matching_doc_name in parsed_pages_tables:
                 p_tables = parsed_pages_tables[matching_doc_name]
-            else: 
-                matching_doc_name = saxutils.escape(matching_doc_name)
+            else:
+                matching_doc_name = matching_doc_name.replace("\"", "&quot;")
                 if matching_doc_name in parsed_pages_tables:
                     p_tables = parsed_pages_tables[matching_doc_name]
                 else:
-                    matching_doc_name = matching_doc_name.replace("\"", "&quot;")
-                    if matching_doc_name in parsed_pages_tables:
-                        p_tables = parsed_pages_tables[matching_doc_name]
-                    else:
-                        print("FAILED TO MATCH DOC TITLE", unidecode.unidecode(saxutils.escape(document.strip())))
-                        key_error_fails += 1
-                        break
-            while "TABLETOREPLACE" in text: # trying to put the tables back in the appropriate location in the text
-                table_num +=1
-                table_text = ""
-                if len(p_tables) < table_num+1:
-                    # failed to get table from dump
-                    #print("FAILED TO GET TABLE FROM DUMP, NOT ENOUGH TABLES PARSED", saxutils.escape(document.strip()))
-                    missing_table_fails+=1
-                    break
-                
-                # table formatting concerns. Sometimes the top row of a table doesn't consist of column names, but rather some text spanning all of the columns.
-                try:
-                    table_data = p_tables[table_num].data(span=False)
-                    if len(table_data[0]) <= 2 and len(table_data) > 1 and len(table_data[0]) + 2 < len(table_data[1]):
-                        for elem in table_data[0]:
+                    print("FAILED TO MATCH DOC TITLE", unidecode.unidecode(saxutils.escape(document.strip())))
+                    key_error_fails += 1
+                    table_found = False
+        while table_found and "TABLETOREPLACE" in text : # trying to put the tables back in the appropriate location in the text
+            table_num +=1
+            table_text = ""
+            if len(p_tables) < table_num+1:
+                # failed to get table from dump
+                #print("FAILED TO GET TABLE FROM DUMP, NOT ENOUGH TABLES PARSED", saxutils.escape(document.strip()))
+                missing_table_fails+=1
+                break
+            
+            # table formatting concerns. Sometimes the top row of a table doesn't consist of column names, but rather some text spanning all of the columns.
+            try:
+                table_data = p_tables[table_num].data(span=False)
+                if len(table_data[0]) <= 2 and len(table_data) > 1 and len(table_data[0]) + 2 < len(table_data[1]):
+                    for elem in table_data[0]:
+                        table_text += elem + ". "
+                    table_data = table_data[1:]
+                if len(table_data) == 1:
+                    for elem in table_data[0]:
+                        table_text += elem + ". "
+            except:
+                table_data_fails+=1
+                continue
+            
+            # linearize table parsed from wikitextparser in format: "column_name1: row_elem1. column_name2: row_elem2. ..." for each row
+            for row in range(1, len(table_data)):
+                for column in range(len(table_data[row])):
+                    if column < len(table_data[0]) and table_data[row][column] is not None and str(table_data[row][column]).strip() != "":
+                        if table_data[0][column] is not None:
+                            table_text += table_data[0][column] + ": " 
+                        table_text += table_data[row][column] + ' '
+                table_text += ". " 
+            
+            table_text = table_text.replace("''", "")
+            table_text = table_text.replace("|", " | ")
+            # add table in appropriate place in text
+            text = text.replace("TABLETOREPLACE", '. ' + table_text.replace("\n", " "), 1)
+            extracted_tables += 1
+        # might have parsed more tables in some article than there are occurences of TABLETOREPLACE in the article for some reason. Add these linearized tables to end of text.
+        while table_found and len(p_tables) > table_num + 1:
+            table_num +=1
+            table_text = ""
+            
+            try:
+                table_data = p_tables[table_num].data(span=False)
+                if len(table_data[0]) <= 2 and len(table_data) > 1 and len(table_data[0]) + 2 < len(table_data[1]):
+                    for elem in table_data[0]:
+                        if elem.strip() != "":
                             table_text += elem + ". "
-                        table_data = table_data[1:]
-                    if len(table_data) == 1:
-                        for elem in table_data[0]:
-                            table_text += elem + ". "
-                except:
-                    table_data_fails+=1
-                    continue
-                
-                # linearize table in format: "column_name1: row_elem1. column_name2: row_elem2. ..." for each row
-                for row in range(1, len(table_data)):
-                    for column in range(len(table_data[row])):
-                        if column < len(table_data[0]) and table_data[row][column] is not None and str(table_data[row][column]).strip() != "":
-                            if table_data[0][column] is not None:
-                                table_text += table_data[0][column] + ": " 
-                            table_text += table_data[row][column] + ' '
-                    table_text += ". " 
-                
-                table_text = table_text.replace("''", "")
-                # add table in appropriate place in text
-                text = text.replace("TABLETOREPLACE", '. ' + table_text.replace("\n", " "), 1)
-                extracted_tables += 1
-            # might have parsed more tables in some article than there are occurences of TABLETOREPLACE in the article for some reason. Add these linearized tables to end of text.
-            while len(p_tables) > table_num + 1:
-                table_num +=1
-                table_text = ""
-                
-                try:
-                    table_data = p_tables[table_num].data(span=False)
-                    if len(table_data[0]) <= 2 and len(table_data) > 1 and len(table_data[0]) + 2 < len(table_data[1]):
-                        for elem in table_data[0]:
-                            if elem.strip() != "":
-                                table_text += elem + ". "
-                        table_data = table_data[1:]
-                    if len(table_data) == 1:
-                        for elem in table_data[0]:
-                            table_text += elem + ". "
-                except:
-                    table_data_fails+=1
-                    continue
+                    table_data = table_data[1:]
+                if len(table_data) == 1:
+                    for elem in table_data[0]:
+                        table_text += elem + ". "
+            except:
+                table_data_fails+=1
+                continue
 
-                for row in range(1, len(table_data)):
-                    for column in range(len(table_data[row])):
-                        if column < len(table_data[0]) and table_data[row][column] is not None and str(table_data[row][column]).strip() != "":
-                            if table_data[0][column] is not None:
-                                table_text += table_data[0][column] + ": " 
-                            table_text += table_data[row][column] + ' '
-                    table_text += ". " 
-                
-                table_text = table_text.replace("''", "")
-                text += " " + table_text
-                extracted_tables += 1
+            for row in range(1, len(table_data)):
+                for column in range(len(table_data[row])):
+                    if column < len(table_data[0]) and table_data[row][column] is not None and str(table_data[row][column]).strip() != "":
+                        if table_data[0][column] is not None:
+                            table_text += table_data[0][column] + ": " 
+                        table_text += table_data[row][column] + ' '
+                table_text += ". " 
+            
+            table_text = table_text.replace("''", "")
+            text += " " + table_text
+            extracted_tables += 1
 
             text = re.sub('\{\{cite .*?\}\}', ' ', text, flags=re.DOTALL) 
             text = text.replace(r"TABLETOREPLACE", " ")
@@ -230,20 +234,20 @@ if __name__ == '__main__':
 
             # clean residual mess from xml dump that shouldn't have made its way here.
             # a lot of this mess was reintroduced from adding in the tables and infoboxes
-            text = re.sub('\| ?item[0-9]?_?style=.*?\|', '|', text, flags=re.DOTALL)
-            text = re.sub('\| ?col[0-9]?_?style=.*?\|', '|', text, flags=re.DOTALL)
-            text = re.sub('\| ?row[0-9]?_?style=.*?\|', '|', text, flags=re.DOTALL)    
-            text = re.sub('\| ?style=.*?\|', '|', text, flags=re.DOTALL)
-            text = re.sub('\| ?bodystyle=.*?\|', '|', text, flags=re.DOTALL)
-            text = re.sub('\| ?frame_?style=.*?\|', '|', text, flags=re.DOTALL)
-            text = re.sub('\| ?data_?style=.*?\|', '|', text, flags=re.DOTALL)
-            text = re.sub('\| ?label_?style=.*?\|', '|', text, flags=re.DOTALL)
-            text = re.sub('\| ?headerstyle=.*?\|', '|', text, flags=re.DOTALL)
-            text = re.sub('\| ?list_?style=.*?\|', '|', text, flags=re.DOTALL)
-            text = re.sub('\| ?title_?style=.*?\|', '|', text, flags=re.DOTALL)
-            text = re.sub('\| ?ul_?style=.*?\|', '|', text, flags=re.DOTALL)
-            text = re.sub('\| ?li_?style=.*?\|', '|', text, flags=re.DOTALL)
-            text = re.sub('\| ?border-style=.*?\|', '|', text, flags=re.DOTALL)
+            text = re.sub('\| ?item[0-9]?_?style= ?.*? ', ' ', text, flags=re.DOTALL)
+            text = re.sub('\| ?col[0-9]?_?style= ?.*? ', ' ', text, flags=re.DOTALL)
+            text = re.sub('\| ?row[0-9]?_?style= ?.*? ', ' ', text, flags=re.DOTALL)    
+            text = re.sub('\| ?style= ?.*? ', ' ', text, flags=re.DOTALL)
+            text = re.sub('\| ?bodystyle= ?.*? ', ' ', text, flags=re.DOTALL)
+            text = re.sub('\| ?frame_?style= ?.*? ', ' ', text, flags=re.DOTALL)
+            text = re.sub('\| ?data_?style= ?.*? ', ' ', text, flags=re.DOTALL)
+            text = re.sub('\| ?label_?style= ?.*? ', ' ', text, flags=re.DOTALL)
+            text = re.sub('\| ?headerstyle= ?.*? ', ' ', text, flags=re.DOTALL)
+            text = re.sub('\| ?list_?style= ?.*? ', ' ', text, flags=re.DOTALL)
+            text = re.sub('\| ?title_?style= ?.*? ', ' ', text, flags=re.DOTALL)
+            text = re.sub('\| ?ul_?style= ?.*? ', ' ', text, flags=re.DOTALL)
+            text = re.sub('\| ?li_?style= ?.*? ', ' ', text, flags=re.DOTALL)
+            text = re.sub('\| ?border-style= ?.*? ', ' ', text, flags=re.DOTALL)
         
             text = re.sub('\|? ?style=\".*?\"', '', text, flags=re.DOTALL) 
             text = re.sub('\|? ?rowspan=\".*?\"', '', text, flags=re.DOTALL)
@@ -278,6 +282,7 @@ if __name__ == '__main__':
             text = text.replace("display=it", "")
             text = text.replace("abbr=on", "")
             text = text.replace("disp=table", "")
+            text = text.replace("sortname|", "")
 
             text = re.sub('&lt;ref&gt;.*?&lt;/ref&gt;', ' ', text, flags=re.DOTALL) 
             text = re.sub('&lt;.*?&gt;', ' ', text, flags=re.DOTALL)
@@ -286,13 +291,12 @@ if __name__ == '__main__':
             text = re.sub('Source: \[.*?\]', '', text, flags=re.DOTALL)
             texts.append(Text(text))
             
-
+        document = document.replace("\n", " ").replace("\t", " ")
         segments = SegmentProcessor.segment(texts, seg_size=6, stride=3).segments
         for segment in segments:
             if segment.text is None:
                 continue
             text = segment.text.replace("\n", " ").replace("\t", " ")
-            document = document.replace("\n", " ").replace("\t", " ")
             f1.write(str(id1) + '\t' + text + '\t' + document + '\n')
             id1+=1
         segments = SegmentProcessor.segment(texts, seg_size=8, stride=4).segments
@@ -300,10 +304,9 @@ if __name__ == '__main__':
             if segment.text is None:
                 continue
             text = segment.text.replace("\n", " ").replace("\t", " ")
-            document = document.replace("\n", " ").replace("\t", " ")
             f2.write(str(id2) + '\t' + text + '\t' + document + '\n')
             id2+=1
-
+    
     print("key_error_fails:", key_error_fails)
     print("missing_table_fails:", missing_table_fails)
     print("table_data_fails:", table_data_fails)
