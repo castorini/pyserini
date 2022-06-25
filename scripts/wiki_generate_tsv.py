@@ -24,6 +24,7 @@ import unidecode
 from xml.sax import saxutils
 from pygaggle.rerank.base import Text
 from pygaggle.data.segmentation import SegmentProcessor
+import pickle
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='generate .tsv files for wiki corpuses with tables and lists')
@@ -70,6 +71,14 @@ if __name__ == '__main__':
                 else:
                     infoboxes_params[title].append(template.params)
 
+    try:
+        with open('parsed_pages_tables.pickle', 'wb') as handle:
+            pickle.dump(parsed_pages_tables, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        with open('infoboxes_params.pickle', 'wb') as handle:
+            pickle.dump(infoboxes_params, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    except:
+        print("OOPS")
+
     documents = {}
 
     # for matching tables from xml dump to articles in .db file
@@ -108,17 +117,15 @@ if __name__ == '__main__':
                         continue
                     
                     param_text = str(param.value).replace("\n", " ")
-                    param_text = re.sub('&lt;ref&gt;.*?&lt;/ref&gt;', '', param_text, flags=re.DOTALL) 
-                    param_text = re.sub('&lt;.*?&gt;', '', param_text, flags=re.DOTALL)
+                    param_text = re.sub('&lt;ref&gt;.*?&lt;/ref&gt;', '', param_text) 
+                    param_text = re.sub('&lt;.*?&gt;', '', param_text)
                     param_text = param_text.strip()
 
                     if param_text != "" and "&lt;" not in param_text and "&gt;" not in param_text:
-                        if ' age|' in param_text:
-                            param_text = param_text.replace('|df=yes', '').replace('|mf=yes', '')
-                        
+                        param_text = param_text.replace('|df=yes', '').replace('|mf=yes', '')
+                        param_text = param_text.replace("|", " | ")
                         infobox_text += param_name + ": " + param_text + ". "
-                        infobox_text = infobox_text.replace("|", " | ")
-
+                        
         text = infobox_text + text
 
         texts = []
@@ -213,84 +220,84 @@ if __name__ == '__main__':
             text += " " + table_text
             extracted_tables += 1
 
-            text = re.sub('\{\{cite .*?\}\}', ' ', text, flags=re.DOTALL) 
-            text = text.replace(r"TABLETOREPLACE", " ")
-            text = text.replace(r"'''", " ")
-            text = text.replace(r"[[", " ")
-            text = text.replace(r"]]", " ")
-            text = text.replace(r"{{", " ")
-            text = text.replace(r"}}", " ")
-            text = text.replace("<br>", " ")
-            text = text.replace("&quot;", "\"")
-            text = text.replace("&amp;", "&")  
-            text = text.replace("& amp;", "&")
-            text = text.replace("nbsp;", " ")
-            text = text.replace("formatnum:", "")
-            
-            #text = re.sub('<poem.*?</poem>', ' ', text, flags=re.DOTALL) # might have useful information?
-            text = re.sub('<math.*?</math>', '', text, flags=re.DOTALL) # is in latex could maybe parse into readable text?
-            text = re.sub('<chem.*?</chem>', '', text, flags=re.DOTALL) 
-            text = re.sub('<score.*?</score>', '', text, flags=re.DOTALL) 
-
-            # clean residual mess from xml dump that shouldn't have made its way here.
-            # a lot of this mess was reintroduced from adding in the tables and infoboxes
-            text = re.sub('\| ?item[0-9]?_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-            text = re.sub('\| ?col[0-9]?_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-            text = re.sub('\| ?row[0-9]?_?style= ?.*? ', ' ', text, flags=re.DOTALL)    
-            text = re.sub('\| ?style= ?.*? ', ' ', text, flags=re.DOTALL)
-            text = re.sub('\| ?bodystyle= ?.*? ', ' ', text, flags=re.DOTALL)
-            text = re.sub('\| ?frame_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-            text = re.sub('\| ?data_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-            text = re.sub('\| ?label_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-            text = re.sub('\| ?headerstyle= ?.*? ', ' ', text, flags=re.DOTALL)
-            text = re.sub('\| ?list_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-            text = re.sub('\| ?title_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-            text = re.sub('\| ?ul_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-            text = re.sub('\| ?li_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-            text = re.sub('\| ?border-style= ?.*? ', ' ', text, flags=re.DOTALL)
+        text = re.sub('\{\{cite .*?\}\}', ' ', text) 
+        text = text.replace(r"TABLETOREPLACE", " ")
+        text = text.replace(r"'''", " ")
+        text = text.replace(r"[[", " ")
+        text = text.replace(r"]]", " ")
+        text = text.replace(r"{{", " ")
+        text = text.replace(r"}}", " ")
+        text = text.replace("<br>", " ")
+        text = text.replace("&quot;", "\"")
+        text = text.replace("&amp;", "&")  
+        text = text.replace("& amp;", "&")
+        text = text.replace("nbsp;", " ")
+        text = text.replace("formatnum:", "")
         
-            text = re.sub('\|? ?style=\".*?\"', '', text, flags=re.DOTALL) 
-            text = re.sub('\|? ?rowspan=\".*?\"', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?colspan=\".*?\"', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?scope=\".*?\"', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?align=\".*?\"', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?valign=\".*?\"', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?lang=\".*?\"', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?bgcolor=\".*?\"', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?bg=\#[a-z]+', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?width=\".*?\"', '', text, flags=re.DOTALL)
+        #text = re.sub('<poem.*?</poem>', ' ', text, flags=re.DOTALL) # might have useful information?
+        text = re.sub('<math.*?</math>', '', text, flags=re.DOTALL) # is in latex could maybe parse into readable text?
+        text = re.sub('<chem.*?</chem>', '', text, flags=re.DOTALL) 
+        text = re.sub('<score.*?</score>', '', text, flags=re.DOTALL) 
 
-            text = re.sub('\|? ?height=[0-9]+', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?width=[0-9]+', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?rowspan=[0-9]+', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?colspan=[0-9]+', '', text, flags=re.DOTALL)
+        # clean residual mess from xml dump that shouldn't have made its way here.
+        # a lot of this mess was reintroduced from adding in the tables and infoboxes
+        text = re.sub('\| ?item[0-9]?_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?col[0-9]?_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?row[0-9]?_?style= ?.*? ', ' ', text)    
+        text = re.sub('\| ?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?bodystyle= ?.*? ', ' ', text)
+        text = re.sub('\| ?frame_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?data_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?label_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?headerstyle= ?.*? ', ' ', text)
+        text = re.sub('\| ?list_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?title_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?ul_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?li_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?border-style= ?.*? ', ' ', text)
+    
+        text = re.sub('\|? ?style=\".*?\"', '', text) 
+        text = re.sub('\|? ?rowspan=\".*?\"', '', text)
+        text = re.sub('\|? ?colspan=\".*?\"', '', text)
+        text = re.sub('\|? ?scope=\".*?\"', '', text)
+        text = re.sub('\|? ?align=\".*?\"', '', text)
+        text = re.sub('\|? ?valign=\".*?\"', '', text)
+        text = re.sub('\|? ?lang=\".*?\"', '', text)
+        text = re.sub('\|? ?bgcolor=\".*?\"', '', text)
+        text = re.sub('\|? ?bg=\#[a-z]+', '', text)
+        text = re.sub('\|? ?width=\".*?\"', '', text)
 
-            text = re.sub(r'[\n\t]', ' ', text)
-            text = re.sub('<.*?/>', '', text, flags=re.DOTALL)
+        text = re.sub('\|? ?height=[0-9]+', '', text)
+        text = re.sub('\|? ?width=[0-9]+', '', text)
+        text = re.sub('\|? ?rowspan=[0-9]+', '', text)
+        text = re.sub('\|? ?colspan=[0-9]+', '', text)
+
+        text = re.sub(r'[\n\t]', ' ', text)
+        text = re.sub('<.*?/>', '', text)
 
 
-            text = re.sub('\|? ?align=[a-z]+', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?valign=[a-z]+', '', text, flags=re.DOTALL)
-            text = re.sub('\|? ?scope=[a-z]+', '', text, flags=re.DOTALL)
-            
-            text = text.replace("Country flag|", "country:")
-            text = text.replace("flag|", "country:")
-            text = text.replace("flagicon|", "country:")
-            text = text.replace("flagcountry|", "country:")
-            text = text.replace("Flagu|", "country:")
-            text = text.replace("display=inline", "")
-            text = text.replace("display=it", "")
-            text = text.replace("abbr=on", "")
-            text = text.replace("disp=table", "")
-            text = text.replace("sortname|", "")
+        text = re.sub('\|? ?align=[a-z]+', '', text)
+        text = re.sub('\|? ?valign=[a-z]+', '', text)
+        text = re.sub('\|? ?scope=[a-z]+', '', text)
+        
+        text = text.replace("Country flag |", "country:")
+        text = text.replace("flag |", "country:")
+        text = text.replace("flagicon |", "country:")
+        text = text.replace("flagcountry |", "country:")
+        text = text.replace("Flagu |", "country:")
+        text = text.replace("display=inline", "")
+        text = text.replace("display=it", "")
+        text = text.replace("abbr=on", "")
+        text = text.replace("disp=table", "")
+        text = text.replace("sortname |", "")
 
-            text = re.sub('&lt;ref&gt;.*?&lt;/ref&gt;', ' ', text, flags=re.DOTALL) 
-            text = re.sub('&lt;.*?&gt;', ' ', text, flags=re.DOTALL)
-            text = re.sub('File:[A-Za-z0-9 ]+\.[a-z]{3,4}(\|[0-9]+px)?', '', text, flags=re.DOTALL)
-            
-            text = re.sub('Source: \[.*?\]', '', text, flags=re.DOTALL)
-            texts.append(Text(text))
-            
+        text = re.sub('&lt;ref&gt;.*?&lt;/ref&gt;', ' ', text) 
+        text = re.sub('&lt;.*?&gt;', ' ', text)
+        text = re.sub('File:[A-Za-z0-9 ]+\.[a-z]{3,4}(\|[0-9]+px)?', '', text)
+        
+        text = re.sub('Source: \[.*?\]', '', text)
+        texts.append(Text(text))
+        
         document = document.replace("\n", " ").replace("\t", " ")
         segments = SegmentProcessor.segment(texts, seg_size=6, stride=3).segments
         for segment in segments:

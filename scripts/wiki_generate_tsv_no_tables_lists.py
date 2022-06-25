@@ -20,7 +20,7 @@ import sqlite3
 import re
 from pygaggle.rerank.base import Text
 from pygaggle.data.segmentation import SegmentProcessor
-
+import spacy
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='generate .tsv files for wiki corpuses without tables and lists')
@@ -41,6 +41,8 @@ if __name__ == '__main__':
     print("PAGES: ", len(pages))
 
     documents = {}
+
+    nlp = spacy.load("en_core_web_sm")
 
     for row in tqdm(pages):
         text = row[1]
@@ -90,43 +92,43 @@ if __name__ == '__main__':
         text = re.sub('<score.*?</score>', '', text, flags=re.DOTALL) 
 
         # clean residual mess from xml dump that shouldn't have made its way here
-        text = re.sub('\| ?item[0-9]?_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-        text = re.sub('\| ?col[0-9]?_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-        text = re.sub('\| ?row[0-9]?_?style= ?.*? ', ' ', text, flags=re.DOTALL)    
-        text = re.sub('\| ?style= ?.*? ', ' ', text, flags=re.DOTALL)
-        text = re.sub('\| ?bodystyle= ?.*? ', ' ', text, flags=re.DOTALL)
-        text = re.sub('\| ?frame_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-        text = re.sub('\| ?data_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-        text = re.sub('\| ?label_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-        text = re.sub('\| ?headerstyle= ?.*? ', ' ', text, flags=re.DOTALL)
-        text = re.sub('\| ?list_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-        text = re.sub('\| ?title_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-        text = re.sub('\| ?ul_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-        text = re.sub('\| ?li_?style= ?.*? ', ' ', text, flags=re.DOTALL)
-        text = re.sub('\| ?border-style= ?.*? ', ' ', text, flags=re.DOTALL)
+        text = re.sub('\| ?item[0-9]?_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?col[0-9]?_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?row[0-9]?_?style= ?.*? ', ' ', text)    
+        text = re.sub('\| ?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?bodystyle= ?.*? ', ' ', text)
+        text = re.sub('\| ?frame_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?data_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?label_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?headerstyle= ?.*? ', ' ', text)
+        text = re.sub('\| ?list_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?title_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?ul_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?li_?style= ?.*? ', ' ', text)
+        text = re.sub('\| ?border-style= ?.*? ', ' ', text)
     
-        text = re.sub('\|? ?style=\".*?\"', '', text, flags=re.DOTALL) 
-        text = re.sub('\|? ?rowspan=\".*?\"', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?colspan=\".*?\"', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?scope=\".*?\"', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?align=\".*?\"', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?valign=\".*?\"', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?lang=\".*?\"', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?bgcolor=\".*?\"', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?bg=\#[a-z]+', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?width=\".*?\"', '', text, flags=re.DOTALL)
+        text = re.sub('\|? ?style=\".*?\"', '', text) 
+        text = re.sub('\|? ?rowspan=\".*?\"', '', text)
+        text = re.sub('\|? ?colspan=\".*?\"', '', text)
+        text = re.sub('\|? ?scope=\".*?\"', '', text)
+        text = re.sub('\|? ?align=\".*?\"', '', text)
+        text = re.sub('\|? ?valign=\".*?\"', '', text)
+        text = re.sub('\|? ?lang=\".*?\"', '', text)
+        text = re.sub('\|? ?bgcolor=\".*?\"', '', text)
+        text = re.sub('\|? ?bg=\#[a-z]+', '', text)
+        text = re.sub('\|? ?width=\".*?\"', '', text)
 
-        text = re.sub('\|? ?height=[0-9]+', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?width=[0-9]+', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?rowspan=[0-9]+', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?colspan=[0-9]+', '', text, flags=re.DOTALL)
+        text = re.sub('\|? ?height=[0-9]+', '', text)
+        text = re.sub('\|? ?width=[0-9]+', '', text)
+        text = re.sub('\|? ?rowspan=[0-9]+', '', text)
+        text = re.sub('\|? ?colspan=[0-9]+', '', text)
 
         text = re.sub(r'[\n\t]', ' ', text)
-        text = re.sub('<.*?/>', '', text, flags=re.DOTALL)
+        text = re.sub('<.*?/>', '', text)
 
-        text = re.sub('\|? ?align=[a-z]+', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?valign=[a-z]+', '', text, flags=re.DOTALL)
-        text = re.sub('\|? ?scope=[a-z]+', '', text, flags=re.DOTALL)
+        text = re.sub('\|? ?align=[a-z]+', '', text)
+        text = re.sub('\|? ?valign=[a-z]+', '', text)
+        text = re.sub('\|? ?scope=[a-z]+', '', text)
         
         text = text.replace("Country flag|", "country:")
         text = text.replace("flag|", "country:")
@@ -138,11 +140,11 @@ if __name__ == '__main__':
         text = text.replace("abbr=on", "")
         text = text.replace("disp=table", "")
 
-        text = re.sub('&lt;ref&gt;.*?&lt;/ref&gt;', ' ', text, flags=re.DOTALL) 
-        text = re.sub('&lt;.*?&gt;', ' ', text, flags=re.DOTALL)
-        text = re.sub('File:[A-Za-z0-9 ]+\.[a-z]{3,4}(\|[0-9]+px)?', '', text, flags=re.DOTALL)
+        text = re.sub('&lt;ref&gt;.*?&lt;/ref&gt;', ' ', text) 
+        text = re.sub('&lt;.*?&gt;', ' ', text)
+        text = re.sub('File:[A-Za-z0-9 ]+\.[a-z]{3,4}(\|[0-9]+px)?', '', text)
         
-        text = re.sub('Source: \[.*?\]', '', text, flags=re.DOTALL)
+        text = re.sub('Source: \[.*?\]', '', text)
 
 
         texts.append(Text(text))
@@ -166,20 +168,22 @@ if __name__ == '__main__':
         full_text = ""
         for text in texts:
             full_text += text.text + " "
-        words = full_text.split()
+    
+        doc = nlp.make_doc(full_text)
+
         segments = []
-        next_segment = ""
         word_count = 0
-        for word in words:
-            next_segment += word + " "
-            if any(letter.isalnum() for letter in word):
+        segment_tokens = []
+        for token in doc:
+            segment_tokens.append(token.text_with_ws)
+            if token.is_alpha:
                 word_count+=1
                 if word_count == 100:
                     word_count = 0
-                    segments.append(next_segment.strip())
-                    next_segment = ""
+                    segments.append(''.join([token for token in segment_tokens]))
+                    segment_tokens = []
         if word_count != 0:
-            segments.append(next_segment.strip())
+            segments.append(''.join([token for token in segment_tokens]))
         for segment in segments:
             text = segment.replace("\n", " ").replace("\t", " ")
             f3.write(str(id3) + '\t' + text + '\t' + document + '\n')
