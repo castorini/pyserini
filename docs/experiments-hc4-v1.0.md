@@ -50,6 +50,8 @@ python -m pyserini.index.lucene \
 
 ## Performing Retrieval on the Dev Queries
 
+We will run retrieval for Topic title and descriptions for each language provided by HC4
+
 ### Topic Title
 
 ```bash
@@ -115,17 +117,17 @@ python -m pyserini.search.lucene \
 ### Topic Title
 
 ```bash
-python -m pyserini.eval.trec_eval -c -M 100 -m map tools/topics-and-qrels/qrels.hc4-v1.0-fa.dev.txt runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.dev.title.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m map tools/topics-and-qrels/qrels.hc4-v1.0-zh.dev.txt runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.dev.title.txt 
-python -m pyserini.eval.trec_eval -c -M 100 -m map tools/topics-and-qrels/qrels.hc4-v1.0-ru.dev.txt runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.dev.title.txt 
+tools/eval/trec_eval.9.0.4/trec_eval -c -M 100 -m map tools/topics-and-qrels/qrels.hc4-v1.0-fa.dev.txt runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.dev.title.txt
+tools/eval/trec_eval.9.0.4/trec_eval -c -M 100 -m map tools/topics-and-qrels/qrels.hc4-v1.0-zh.dev.txt runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.dev.title.txt 
+tools/eval/trec_eval.9.0.4/trec_eval -c -M 100 -m map tools/topics-and-qrels/qrels.hc4-v1.0-ru.dev.txt runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.dev.title.txt 
 ```
 
 ### Topic Description
 
 ```bash
-python -m pyserini.eval.trec_eval -c -M 100 -m map tools/topics-and-qrels/qrels.hc4-v1.0-fa.dev.txt runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.dev.desc.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m map tools/topics-and-qrels/qrels.hc4-v1.0-zh.dev.txt runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.dev.desc.txt 
-python -m pyserini.eval.trec_eval -c -M 100 -m map tools/topics-and-qrels/qrels.hc4-v1.0-ru.dev.txt runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.dev.desc.txt 
+tools/eval/trec_eval.9.0.4/trec_eval -c -M 100 -m map tools/topics-and-qrels/qrels.hc4-v1.0-fa.dev.txt runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.dev.desc.txt
+tools/eval/trec_eval.9.0.4/trec_eval -c -M 100 -m map tools/topics-and-qrels/qrels.hc4-v1.0-zh.dev.txt runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.dev.desc.txt 
+tools/eval/trec_eval.9.0.4/trec_eval -c -M 100 -m map tools/topics-and-qrels/qrels.hc4-v1.0-ru.dev.txt runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.dev.desc.txt 
 ```
 
 ## Results
