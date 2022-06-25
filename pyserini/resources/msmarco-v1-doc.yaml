@@ -51,20 +51,20 @@ conditions:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.2443
-            R@1K: 0.9363
+          - MRR@10: 0.2476
+            R@1K: 0.9395
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
-          - MAP: 0.2658
-            nDCG@10: 0.5405
-            R@1K: 0.7030
+          - MAP: 0.2677
+            nDCG@10: 0.5424
+            R@1K: 0.7115
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
-          - MAP: 0.3472
-            nDCG@10: 0.4979
-            R@1K: 0.8049
+          - MAP: 0.3521
+            nDCG@10: 0.4997
+            R@1K: 0.8042
   - name: bm25-rocchio-doc-segmented-default
     display: BM25+RM3 doc segmented (k1=0.9, b=0.4)
     display-html: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -73,20 +73,20 @@ conditions:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.2412
-            R@1K: 0.9355
+          - MRR@10: 0.2449
+            R@1K: 0.9351
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
-          - MAP: 0.2884
-            nDCG@10: 0.5764
-            R@1K: 0.7384
+          - MAP: 0.2889
+            nDCG@10: 0.5570
+            R@1K: 0.7423
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
-          - MAP: 0.3774
-            nDCG@10: 0.5179
-            R@1K: 0.8041
+          - MAP: 0.3830
+            nDCG@10: 0.5226
+            R@1K: 0.8102
   - name: bm25-doc-tuned
     display: BM25 doc (k1=4.46, b=0.82)
     display-html: BM25 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)
