@@ -132,9 +132,7 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
-<p>The two-click<sup>*</sup> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.</p>
-
-<p><sup>*</sup> What are the two clicks, you ask? Copy and paste!</p>
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.</p>
 
 <div class="table-responsive">
   <table class="table">
@@ -197,6 +195,8 @@ $rows
 <i>Proceedings of the 6th Workshop on Representation Learning for NLP (RepL4NLP-2021)</i>, pages 163-173, August 2021.</p></li>
 
 </ul>
+
+<div style="padding-top: 50px"/>
 
       </div>
 
