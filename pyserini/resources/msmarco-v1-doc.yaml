@@ -12,9 +12,9 @@ conditions:
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
-          - MAP: 0.2643
-            nDCG@10: 0.5526
-            R@1K: 0.7189
+          - MAP: 0.2657
+            nDCG@10: 0.5584
+            R@1K: 0.7299
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
@@ -29,8 +29,8 @@ conditions:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.1622
-            R@1K: 0.8791
+          - MRR@10: 0.1624
+            R@1K: 0.8789
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
