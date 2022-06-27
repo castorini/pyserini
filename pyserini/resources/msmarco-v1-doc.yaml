@@ -224,8 +224,8 @@ conditions:
             nDCG@10: 0.5192
             R@1K: 0.8273
   - name: bm25-rocchio-doc-segmented-tuned
-    display: BM25+RM3 doc segmented (k1=2.16, b=0.61)
-    display-html: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)
+    display: BM25+Rocchio doc segmented (k1=2.16, b=0.61)
+    display-html: BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-segmented-full --output $output --bm25 --rocchio --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
@@ -246,8 +246,8 @@ conditions:
             nDCG@10: 0.4997
             R@1K: 0.8042
   - name: bm25-rocchio-doc-segmented-default
-    display: BM25+RM3 doc segmented (k1=0.9, b=0.4)
-    display-html: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25+Rocchio doc segmented (k1=0.9, b=0.4)
+    display-html: BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-segmented-full --output $output --bm25 --rocchio --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
