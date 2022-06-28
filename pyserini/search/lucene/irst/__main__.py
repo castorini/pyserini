@@ -17,6 +17,7 @@ import argparse
 from typing import List
 from tqdm import tqdm
 from transformers import AutoTokenizer
+from pyserini.search import get_topics
 from pyserini.search.lucene.irst import LuceneIrstSearcher
 
 
@@ -32,35 +33,16 @@ def normalize(scores: List[float]):
 def query_loader(topic: str):
     queries = {}
     bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-    if topic == 'dl19-passage':
-        topic = 'tools/topics-and-qrels/topics.dl19-passage.txt'
-    elif topic == 'dl20':
-        topic = 'tools/topics-and-qrels/topics.dl20.txt'
-    elif topic == 'msmarco-passage-dev-subset':
-        topic = 'tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt'
-    elif topic == 'dl19-doc':
-        topic = 'tools/topics-and-qrels/topics.dl19-doc.txt'
-    elif topic == 'msmarco-doc':
-        topic = 'tools/topics-and-qrels/topics.msmarco-doc.dev.txt'
-    inp_file = open(topic)
+    topics_dic = get_topics(topic)
     line_num = 0
-    for line in tqdm(inp_file):
+    for topic_id in topics_dic:
         line_num += 1
-        line = line.strip()
-        if not line:
-            continue
-        fields = line.split('\t')
-        if len(fields) != 2:
-            print(f"Misformated line {line_num} ignoring:")
-            print(line.replace('\t', '<field delimiter>'))
-            continue
-        did, query = fields
-        text_bert_tok = bert_tokenizer.tokenize(query.lower())
+        query_text = topics_dic[topic_id]['title']
+        text_bert_tok = bert_tokenizer.tokenize(query_text.lower())
         if len(text_bert_tok) >= 0:
-            query = {"raw": query,
+            query = {"raw": query_text,
                 "contents": ' '.join(text_bert_tok)}
-            queries[did] = query
-
+            queries[topic_id] = query
         if line_num % 10000 == 0:
             print(f"Processed {line_num} queries")
     print(f"Processed {line_num} queries")
@@ -143,21 +125,20 @@ if __name__ == "__main__":
     queries = query_loader(args.topics)
     query_text_lst = [queries[topic]['raw'] for topic in queries.keys()]
     qid_lst = [str(topic) for topic in queries.keys()]
-    if not args.base_path:
-        bm25_results = reranker.bm25search.batch_search(query_text_lst, qid_lst, args.hits, args.num_threads)
     i = 0
     for topic in queries:
         if i % 100 == 0:
             print(f'Reranking {i} topic')
         query_text_field = queries[topic]['contents']
         query_text = queries[topic]['raw']
+        bm25_results = reranker.bm25search.search(query_text, args.hits)
         if args.base_path:
             baseline_dic = baseline_loader(args.base_path)
             docids, rank_scores, base_scores = reranker.rerank(
-                query_text, query_text_field, baseline_dic[topic], args.max_sim, bm25_results[topic])
+                query_text, query_text_field, baseline_dic[topic], args.max_sim, bm25_results)
         else:
             docids, rank_scores, base_scores = reranker.search(
-                query_text, query_text_field, args.max_sim, bm25_results[topic])
+                query_text, query_text_field, args.max_sim, bm25_results)
         ibm_scores = normalize([p for p in rank_scores])
         base_scores = normalize([p for p in base_scores])
 
