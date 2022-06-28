@@ -274,7 +274,7 @@ $ python scripts/tct_colbert/merge_indexes.py \
 Step4: search (with on-the-fly query encoding)
 ```bash
 $ python -m pyserini.search.faiss --topics msmarco-doc-dev \
-	--index <path_to_index>/msmarco-tct_colbert-v2-hnp-msmarco-full-maxp \
+	--index msmarco-doc-tct_colbert-v2-hnp-bf \
 	--encoder castorini/tct_colbert-v2-hnp-msmarco \
 	--output runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.txt \
 	--hits 1000 \
@@ -285,9 +285,20 @@ $ python -m pyserini.search.faiss --topics msmarco-doc-dev \
 	--threads 36
 
 $ python -m pyserini.search.faiss --topics dl19-doc \
-	--index <path_to_index>/msmarco-tct_colbert-v2-hnp-msmarco-full-maxp \
+	--index msmarco-doc-tct_colbert-v2-hnp-bf \
 	--encoder castorini/tct_colbert-v2-hnp-msmarco \
 	--output runs/run.dl19-doc.passage.tct_colbert-v2-hnp-maxp.txt \
+	--hits 1000 \
+	--max-passage \
+	--max-passage-hits 100 \
+	--output-format msmarco \
+	--batch-size 144 \
+	--threads 36
+
+$ python -m pyserini.search.faiss --topics dl20-doc \
+	--index msmarco-doc-tct_colbert-v2-hnp-bf \
+	--encoder castorini/tct_colbert-v2-hnp-msmarco \
+	--output runs/run.dl20-doc.passage.tct_colbert-v2-hnp-maxp.txt \
 	--hits 1000 \
 	--max-passage \
 	--max-passage-hits 100 \
@@ -328,6 +339,18 @@ Results:
 map                     all     0.2683
 recall_100              all     0.3854
 ndcg_cut_10             all     0.6592
+```
+
+For TREC-DL20
+```bash
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.dl20-doc.passage.tct_colbert-v2-hnp-maxp.txt \
+ --output runs/run.dl20-doc.passage.tct_colbert-v2-hnp-maxp.trec
+$ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap -mndcg_cut.10 dl20-doc 
+
+Results:
+map                     all     0.3914
+recall_100              all     0.5964
+ndcg_cut_10             all     0.6094
 ```
 
 
