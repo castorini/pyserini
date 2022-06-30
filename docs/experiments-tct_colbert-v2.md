@@ -227,51 +227,8 @@ Follow the same instructions above to perform on-the-fly query encoding.
 
 Document retrieval with TCT-ColBERT, brute-force index:
 
-Step0: prepare docs.json: split docs into segments of passages
-Each line contains a json dict as follows:
-{"id": "[doc_id]#[seg_id]", "contents": "[url]\n[title]\n[seg_text]"}
 
-
-Step1: split documents for parallel encoding
-```bash
-$ split -a 2 -d -n l/50 docs.json collection.part
-```
-
-Step2-1: prepare encoder (on CC), you can download encoder using [git-lfs](https://git-lfs.github.com/)
-
-Example (after you install git-lfs):
-```bash
-git clone https://huggingface.co/castorini/tct_colbert-v2-hnp-msmarco
-```
-
-Step2-2: run encoding
-```bash
-export TASK=msmarco
-export ENCODER=tct_colbert-v2-msmarco-hnp
-export WORKING_DIR=~/scratch
-
-for i in $(seq -f "%02g" 0 49)
-do
-	srun --gres=gpu:v100:1 --mem=16G --cpus-per-task=2 --time=2:00:00 \
-	python scripts/tct_colbert/encode_corpus_msmarco_doc.py \
-		--corpus ${WORKING_DIR}/${TASK}/collection.part${i} \
-		--encoder ${WORKING_DIR}/checkpoint/${ENCODER} \
-		--index indexes/${TASK}-${ENCODER}-${i} \
-		--index indexes/${TASK}-${ENCODER}-${i} \
-		--batch 16 \
-		--device cuda:0 &
-done
-```
-
-Step3: merge / filter index, use --segment-num -1 for maxp (1 for firstp), or anyother interger you like
-```bash
-$ python scripts/tct_colbert/merge_indexes.py \
-    --prefix <path_to_index> \
-    --shard-num 50
-    --segment-num -1
-```
-
-Step4: search (with on-the-fly query encoding)
+Step0: search (with on-the-fly query encoding)
 ```bash
 $ python -m pyserini.search.faiss --topics msmarco-doc-dev \
 	--index msmarco-doc-tct_colbert-v2-hnp-bf \
@@ -307,7 +264,7 @@ $ python -m pyserini.search.faiss --topics dl20-doc \
 	--threads 36
 ```
 
-Step5: eval
+Step1: eval
 
 For MSMARCO-Doc-dev
 ```bash
@@ -348,12 +305,13 @@ $ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.dl20-
 $ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap -mndcg_cut.10 dl20-doc 
 
 Results:
-map                     all     0.3914
+map                     all     0.3915
 recall_100              all     0.5964
-ndcg_cut_10             all     0.6094
+ndcg_cut_10             all     0.6106
 ```
 
 
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-07-01 (commit [`b1576a2`](https://github.com/castorini/pyserini/commit/b1576a2c3e899349be12e897f92f3ad75ec82d6f))
++ Results reproduced by [@yuki617](https://github.com/yuki617) on 2021-06-30 (commit [`b3f3d94`](https://github.com/castorini/pyserini/commit/b3f3d94f2d2397e684094be7e997c9fe45c6fa76))
