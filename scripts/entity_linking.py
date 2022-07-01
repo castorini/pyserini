@@ -119,24 +119,27 @@ def read_docs(input_path: str) -> Dict[str, str]:
 
 
 # enrich REL entity linking results with entities' wikidata ids, and write final results as json objects
-def enrich_el_results(rel_linked_entities, docs: Dict[str, str], wikimapper_index:str) -> List[Dict]:
+# rel_linked_entities: Tuples of entities are composed by start_pos:int, mention_length:int, ent_text:str, ent_wikipedia_id:str, conf_score:float, ner_score:int, ent_type:str
+def enrich_el_results(rel_linked_entities: Dict[str, List[Tuple]], docs: Dict[str, str], wikimapper_index:str) -> List[Dict]:
     wikimapper = WikiMapper(wikimapper_index)
     linked_entities_json = []
-    for docid, ents in tqdm(rel_linked_entities.items(), desc='Enriching EL results', total=len(rel_linked_entities)):
-        linked_entities_info = []
-        for start_pos, end_pos, ent_text, ent_wikipedia_id, conf_score, ner_score, ent_type in ents:
-            # find entities' wikidata ids using their REL results (i.e. linked wikipedia ids)
-            ent_wikipedia_id = ent_wikipedia_id.replace('&amp;', '&')
-            ent_wikidata_id = wikimapper.title_to_id(ent_wikipedia_id)
+    for docid, doc_text in tqdm(docs.items(), desc='Enriching EL results', total=len(rel_linked_entities)):
+        if docid not in rel_linked_entities:
+            linked_entities_json.append({'id': docid, 'contents': doc_text, 'entities': []})
+        else:
+            linked_entities_info = []
+            ents = rel_linked_entities[docid]
+            for start_pos, mention_length, ent_text, ent_wikipedia_id, conf_score, ner_score, ent_type in ents:
+                # find entities' wikidata ids using their REL results (i.e. linked wikipedia ids)
+                ent_wikipedia_id = ent_wikipedia_id.replace('&amp;', '&')
+                ent_wikidata_id = wikimapper.title_to_id(ent_wikipedia_id)
 
-            # write results as json objects
-            linked_entities_info.append({'start_pos': start_pos, 'end_pos': end_pos, 'ent_text': ent_text,
-                                         'wikipedia_id': ent_wikipedia_id, 'wikidata_id': ent_wikidata_id,
-                                         'ent_type': ent_type})
-        linked_entities_json.append({'id': docid, 'contents': docs[docid],
-                                     'entities': linked_entities_info})
+                # write results as json objects
+                linked_entities_info.append({'start_pos': start_pos, 'end_pos': start_pos + mention_length, 'ent_text': ent_text,
+                                             'wikipedia_id': ent_wikipedia_id, 'wikidata_id': ent_wikidata_id,
+                                             'ent_type': ent_type})
+            linked_entities_json.append({'id': docid, 'contents': doc_text, 'entities': linked_entities_info})
     return linked_entities_json
-
 
 def main():
     parser = argparse.ArgumentParser()
