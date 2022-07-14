@@ -4,8 +4,8 @@ from tqdm import tqdm
 from pathlib import Path
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--input', type=str, required=True)
-parser.add_argument('--output', type=str, required=True)
+parser.add_argument('--input', type=str, required=True, help='input file containg the downloaded trec fair 2022 topics')
+parser.add_argument('--output', type=str, required=True, help='output file containg the queries in tsv form')
 args = parser.parse_args()
 
 print("converting queries...")

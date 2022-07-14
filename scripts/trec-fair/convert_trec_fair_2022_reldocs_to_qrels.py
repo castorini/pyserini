@@ -3,8 +3,8 @@ from tqdm import tqdm
 import json
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--input", type=str, required=True)
-parser.add_argument("--output", type=str, required=True)
+parser.add_argument("--input", type=str, required=True, help='input file containing the rel docs of trec fair 2022 documents')
+parser.add_argument("--output", type=str, required=True, help='output file containg the rel docs in qrels format')
 args = parser.parse_args()
 
 with open(args.input, 'r') as f, open(args.output, 'w') as outf:
