@@ -2047,9 +2047,9 @@ TF_INDEX_INFO = {
         ],
         "md5": "a5ab22aa7e2f532a5553224389d4b8c5",
         "size compressed (bytes)": 2904147388,
-        "total_terms": 1,
+        "total_terms": 1304468573,
         "documents": 646302,
-        "unique_terms": 1,
+        "unique_terms": 4380931,
         "downloaded": False
     },
     "hc4-v1.0-persian": {
@@ -2061,9 +2061,9 @@ TF_INDEX_INFO = {
         ],
         "md5": "9d10618f58acab86c4cec2b1badebe67",
         "size compressed (bytes)": 1656366266,
-        "total_terms": 1,
+        "total_terms": 112225895,
         "documents": 486486,
-        "unique_terms": 1,
+        "unique_terms": 617107,
         "downloaded": False
     },
     "hc4-v1.0-russian": {
@@ -2075,9 +2075,9 @@ TF_INDEX_INFO = {
         ],
         "md5": "d0bc43e04d5b3bdfa769c95a0bca3965",
         "size compressed (bytes)": 13323791981,
-        "total_terms": 1,
+        "total_terms": 764996697,
         "documents": 4721064,
-        "unique_terms": 1,
+        "unique_terms": 2640439,
         "downloaded": False
     }
 }
