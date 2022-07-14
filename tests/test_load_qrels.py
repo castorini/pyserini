@@ -878,6 +878,39 @@ class TestGetQrels(unittest.TestCase):
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 300)
         self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 339)
+    
+    def test_hc4_10_fa(self):
+        qrels = search.get_qrels('hc4-v1.0-persian-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 50)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('hc4-v1.0-persian-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 10)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+    
+    def test_hc4_10_ru(self):
+        qrels = search.get_qrels('hc4-v1.0-russian-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 50)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('hc4-v1.0-russian-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 4)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+    
+    def test_hc4_10_zh(self):
+        qrels = search.get_qrels('hc4-v1.0-chinese-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 50)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('hc4-v1.0-chinese-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 10)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
     def tearDown(self):
         if os.path.exists('temp_dir'):
