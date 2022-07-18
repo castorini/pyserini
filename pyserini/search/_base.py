@@ -222,6 +222,18 @@ topics_mapping = {
     'beir-v1.0.0-fever-test-splade_distil_cocodenser_medium': JTopics.BEIR_V1_0_0_FEVER_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM,
     'beir-v1.0.0-climate-fever-test-splade_distil_cocodenser_medium': JTopics.BEIR_V1_0_0_CLIMATE_FEVER_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM,
     'beir-v1.0.0-scifact-test-splade_distil_cocodenser_medium': JTopics.BEIR_V1_0_0_SCIFACT_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM,
+    'hc4-v1.0-chinese-dev-title': JTopics.HC4_V1_0_ZH_DEV_TITLE,
+    'hc4-v1.0-chinese-dev-description': JTopics.HC4_V1_0_ZH_DEV_DESCRIPTION,
+    'hc4-v1.0-chinese-test-title': JTopics.HC4_V1_0_ZH_TEST_TITLE,
+    'hc4-v1.0-chinese-test-description': JTopics.HC4_V1_0_ZH_TEST_DESCRIPTION,
+    'hc4-v1.0-persian-dev-title': JTopics.HC4_V1_0_FA_DEV_TITLE,
+    'hc4-v1.0-persian-dev-description': JTopics.HC4_V1_0_FA_DEV_DESCRIPTION,
+    'hc4-v1.0-persian-test-title': JTopics.HC4_V1_0_FA_TEST_TITLE,
+    'hc4-v1.0-persian-test-description': JTopics.HC4_V1_0_FA_TEST_DESCRIPTION,
+    'hc4-v1.0-russian-dev-title': JTopics.HC4_V1_0_RU_DEV_TITLE,
+    'hc4-v1.0-russian-dev-description': JTopics.HC4_V1_0_RU_DEV_DESCRIPTION,
+    'hc4-v1.0-russian-test-title': JTopics.HC4_V1_0_RU_TEST_TITLE,
+    'hc4-v1.0-russian-test-description': JTopics.HC4_V1_0_RU_TEST_DESCRIPTION,
 }
 
 qrels_mapping = {
@@ -337,6 +349,12 @@ qrels_mapping = {
     'beir-v1.0.0-fever-test': JQrels.BEIR_V1_0_0_FEVER_TEST,
     'beir-v1.0.0-climate-fever-test': JQrels.BEIR_V1_0_0_CLIMATE_FEVER_TEST,
     'beir-v1.0.0-scifact-test': JQrels.BEIR_V1_0_0_SCIFACT_TEST,
+    'hc4-v1.0-chinese-dev': JQrels.HC4_V1_0_ZH_DEV,
+    'hc4-v1.0-chinese-test': JQrels.HC4_V1_0_ZH_TEST,
+    'hc4-v1.0-persian-dev': JQrels.HC4_V1_0_FA_DEV,
+    'hc4-v1.0-persian-test': JQrels.HC4_V1_0_FA_TEST,
+    'hc4-v1.0-russian-dev': JQrels.HC4_V1_0_RU_DEV,
+    'hc4-v1.0-russian-test': JQrels.HC4_V1_0_RU_TEST,
 }
 
 

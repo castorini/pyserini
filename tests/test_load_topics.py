@@ -719,6 +719,7 @@ class TestLoadTopics(unittest.TestCase):
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 1190)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
+        
 
     def test_beir(self):
         topics = search.get_topics('beir-v1.0.0-trec-covid-test')
@@ -836,6 +837,69 @@ class TestLoadTopics(unittest.TestCase):
         topics = search.get_topics('beir-v1.0.0-scifact-test')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 300)
+    
+    def test_hc4_1_0_fa(self):
+        topics = search.get_topics('hc4-v1.0-persian-test-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-persian-test-description')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-persian-dev-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 10)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-persian-dev-description')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 10)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+    
+    def test_hc4_1_0_zh(self):
+        topics = search.get_topics('hc4-v1.0-chinese-test-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-chinese-test-description')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-chinese-dev-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 10)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-chinese-dev-description')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 10)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+    
+    def test_hc4_1_0_ru(self):
+        topics = search.get_topics('hc4-v1.0-russian-test-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-russian-test-description')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-russian-dev-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 4)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-russian-dev-description')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 4)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     # General test cases
     def test_tsv_int_topicreader(self):

@@ -585,7 +585,20 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): SciFact
 </dd>
+<dt></dt><b><code>HC4-v1.0-chinese</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0-chinese.20220714.cd2601.README.md">readme</a>]
+<dd>Lucene multifield index of HC4(v1.0): Chinese
+</dd>
+<dt></dt><b><code>HC4-v1.0-persian</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0-persian.20220714.cd2601.README.md">readme</a>]
+<dd>Lucene multifield index of HC4(v1.0): Persian
+</dd>
+<dt></dt><b><code>HC4-v1.0-russian</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0-russian.20220714.cd2601.README.md">readme</a>]
+<dd>Lucene multifield index of HC4(v1.0): Russian
+</dd>
 </dl>
+
 
 
 ## Lucene Impact Indexes
