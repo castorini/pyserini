@@ -2038,42 +2038,42 @@ TF_INDEX_INFO = {
         "unique_terms": 28581,
         "downloaded": False
     },
-    "hc4-v1.0-chinese": {
+    "hc4-v1.0-zh": {
         "description": "Lucene index for HC4 v1.0 (Chinese).",
-        "filename": "lucene-index.hc4-v1.0-chinese.20220714.cd2601.tar.gz",
-        "readme": "lucene-index.hc4-v1.0-chinese.20220714.cd2601.README.md",
+        "filename": "lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz",
+        "readme": "lucene-index.hc4-v1.0-zh.20220719.71c120.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-chinese.20220714.cd2601.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz"
         ],
-        "md5": "a5ab22aa7e2f532a5553224389d4b8c5",
+        "md5": "1d4c10ea8dcdd1aa3d044c4aa8e26f2e",
         "size compressed (bytes)": 2904147388,
-        "total_terms": 1304468573,
+        "total_terms": 304468573,
         "documents": 646302,
         "unique_terms": 4380931,
         "downloaded": False
     },
-    "hc4-v1.0-persian": {
+    "hc4-v1.0-fa": {
         "description": "Lucene index for HC4 v1.0 (Persian).",
-        "filename": "lucene-index.hc4-v1.0-persian.20220714.cd2601.tar.gz",
-        "readme": "lucene-index.hc4-v1.0-persian.20220714.cd2601.README.md",
+        "filename": "lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz",
+        "readme": "lucene-index.hc4-v1.0-fa.20220719.71c120.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-persian.20220714.cd2601.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz"
         ],
-        "md5": "9d10618f58acab86c4cec2b1badebe67",
+        "md5": "5dbeb53b48a1c542800bdd9483ef57b2",
         "size compressed (bytes)": 1656366266,
         "total_terms": 112225895,
         "documents": 486486,
         "unique_terms": 617107,
         "downloaded": False
     },
-    "hc4-v1.0-russian": {
+    "hc4-v1.0-ru": {
         "description": "Lucene index for HC4 v1.0 (Russian).",
-        "filename": "lucene-index.hc4-v1.0-russian.20220714.cd2601.tar.gz",
-        "readme": "lucene-index.hc4-v1.0-russian.20220714.cd2601.README.md",
+        "filename": "lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz",
+        "readme": "lucene-index.hc4-v1.0-ru.20220719.71c120.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-russian.20220714.cd2601.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz"
         ],
-        "md5": "d0bc43e04d5b3bdfa769c95a0bca3965",
+        "md5": "a842f7dbf7eb732060f7fb1f07852f5a",
         "size compressed (bytes)": 13323791981,
         "total_terms": 764996697,
         "documents": 4721064,

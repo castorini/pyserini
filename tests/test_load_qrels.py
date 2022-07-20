@@ -880,34 +880,34 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 339)
     
     def test_hc4_10_fa(self):
-        qrels = search.get_qrels('hc4-v1.0-persian-test')
+        qrels = search.get_qrels('hc4-v1.0-fa-test')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 50)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
-        qrels = search.get_qrels('hc4-v1.0-persian-dev')
+        qrels = search.get_qrels('hc4-v1.0-fa-dev')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 10)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
     
     def test_hc4_10_ru(self):
-        qrels = search.get_qrels('hc4-v1.0-russian-test')
+        qrels = search.get_qrels('hc4-v1.0-ru-test')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 50)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
-        qrels = search.get_qrels('hc4-v1.0-russian-dev')
+        qrels = search.get_qrels('hc4-v1.0-ru-dev')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 4)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
     
     def test_hc4_10_zh(self):
-        qrels = search.get_qrels('hc4-v1.0-chinese-test')
+        qrels = search.get_qrels('hc4-v1.0-zh-test')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 50)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
-        qrels = search.get_qrels('hc4-v1.0-chinese-dev')
+        qrels = search.get_qrels('hc4-v1.0-zh-dev')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 10)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))

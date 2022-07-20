@@ -26,7 +26,7 @@ We can now index these docs as a `NeuClirCollection` using Anserini
 python -m pyserini.index.lucene \
   --collection NeuClirCollection \
   --input collections/hc4-v1.0-zh \
-  --index indexes/lucene-index.hc4-v1.0-chinese/ \
+  --index indexes/lucene-index.hc4-v1.0-zh/ \
   --generator DefaultLuceneDocumentGenerator \
   --threads 8 \
   --storePositions --storeDocvectors --storeRaw -language zh \
@@ -35,7 +35,7 @@ python -m pyserini.index.lucene \
 python -m pyserini.index.lucene \
   --collection NeuClirCollection \
   --input collections/hc4-v1.0-fa \
-  --index indexes/lucene-index.hc4-v1.0-persian/ \
+  --index indexes/lucene-index.hc4-v1.0-fa/ \
   --generator DefaultLuceneDocumentGenerator \
   --threads 8 \
   --storePositions --storeDocvectors --storeRaw -language fa \
@@ -45,7 +45,7 @@ python -m pyserini.index.lucene \
 python -m pyserini.index.lucene \
   --collection NeuClirCollection \
   --input collections/hc4-v1.0-ru \
-  --index indexes/lucene-index.hc4-v1.0-russian/ \
+  --index indexes/lucene-index.hc4-v1.0-ru/ \
   --generator DefaultLuceneDocumentGenerator \
   --threads 8 \
   --storePositions --storeDocvectors --storeRaw -language ru \
@@ -66,18 +66,18 @@ python -m pyserini.index.lucene \
 #### - Topic Title
 
 ```bash
-python -m pyserini.search.lucene  --index  hc4-v1.0-chinese \
-    --topics hc4-v1.0-chinese-test-title \
+python -m pyserini.search.lucene  --index  hc4-v1.0-zh \
+    --topics hc4-v1.0-zh-test-title \
     --output runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.test.title.txt \
     --hits 100 --bm25 --language zh
 
-python -m pyserini.search.lucene  --index  hc4-v1.0-persian \
-    --topics hc4-v1.0-persian-test-title \
+python -m pyserini.search.lucene  --index  hc4-v1.0-fa \
+    --topics hc4-v1.0-fa-test-title \
     --output runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.test.title.txt \
     --hits 100 --bm25 --language fa 
 
-python -m pyserini.search.lucene  --index  hc4-v1.0-russian \
-    --topics hc4-v1.0-russian-test-title \
+python -m pyserini.search.lucene  --index  hc4-v1.0-ru \
+    --topics hc4-v1.0-ru-test-title \
     --output runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.test.title.txt \
     --hits 100 --bm25 --language ru 
 ```
@@ -86,20 +86,38 @@ python -m pyserini.search.lucene  --index  hc4-v1.0-russian \
 
 
 ```bash
-python -m pyserini.search.lucene  --index  hc4-v1.0-chinese \
-    --topics hc4-v1.0-chinese-test-description \
+python -m pyserini.search.lucene  --index  hc4-v1.0-zh \
+    --topics hc4-v1.0-zh-test-description \
     --output runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.test.description.txt \
     --hits 100 --bm25 --language zh
 
-python -m pyserini.search.lucene  --index  hc4-v1.0-persian \
-    --topics hc4-v1.0-persian-test-description \
+python -m pyserini.search.lucene  --index  hc4-v1.0-fa \
+    --topics hc4-v1.0-fa-test-description \
     --output runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.test.description.txt \
     --hits 100 --bm25 --language fa 
 
-python -m pyserini.search.lucene  --index  hc4-v1.0-russian \
-    --topics hc4-v1.0-russian-test-description \
+python -m pyserini.search.lucene  --index  hc4-v1.0-ru \
+    --topics hc4-v1.0-ru-test-description \
     --output runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.test.description.txt \
     --hits 100 --bm25 --language ru 
+```
+
+## Evaluate
+
+#### -  Topic Title
+
+```bash
+python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-zh-test runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.test.title.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-fa-test runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.test.title.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-ru-test runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.test.title.txt
+```
+
+### Topic Description
+
+```bash
+python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-zh-test runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.test.description.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-fa-test runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.test.description.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-ru-test runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.test.description.txt
 ```
 
 ### DEV SET
@@ -107,18 +125,18 @@ python -m pyserini.search.lucene  --index  hc4-v1.0-russian \
 #### - Topic Title
 
 ```bash
-python -m pyserini.search.lucene  --index  hc4-v1.0-chinese \
-    --topics hc4-v1.0-chinese-dev-title \
+python -m pyserini.search.lucene  --index  hc4-v1.0-zh \
+    --topics hc4-v1.0-zh-dev-title \
     --output runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.dev.title.txt \
     --hits 100 --bm25 --language zh
 
-python -m pyserini.search.lucene  --index  hc4-v1.0-persian \
-    --topics hc4-v1.0-persian-dev-title \
+python -m pyserini.search.lucene  --index  hc4-v1.0-fa \
+    --topics hc4-v1.0-fa-dev-title \
     --output runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.dev.title.txt \
     --hits 100 --bm25 --language fa 
 
-python -m pyserini.search.lucene  --index  hc4-v1.0-russian \
-    --topics hc4-v1.0-russian-dev-title \
+python -m pyserini.search.lucene  --index  hc4-v1.0-ru \
+    --topics hc4-v1.0-ru-dev-title \
     --output runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.dev.title.txt \
     --hits 100 --bm25 --language ru 
 ```
@@ -127,68 +145,39 @@ python -m pyserini.search.lucene  --index  hc4-v1.0-russian \
 
 
 ```bash
-python -m pyserini.search.lucene  --index  hc4-v1.0-chinese \
-    --topics hc4-v1.0-chinese-dev-description \
+python -m pyserini.search.lucene  --index  hc4-v1.0-zh \
+    --topics hc4-v1.0-zh-dev-description \
     --output runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.dev.description.txt \
     --hits 100 --bm25 --language zh
 
-python -m pyserini.search.lucene  --index  hc4-v1.0-persian \
-    --topics hc4-v1.0-persian-dev-description \
+python -m pyserini.search.lucene  --index  hc4-v1.0-fa \
+    --topics hc4-v1.0-fa-dev-description \
     --output runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.dev.description.txt \
     --hits 100 --bm25 --language fa 
 
-python -m pyserini.search.lucene  --index  hc4-v1.0-russian \
-    --topics hc4-v1.0-russian-dev-description \
+python -m pyserini.search.lucene  --index  hc4-v1.0-ru \
+    --topics hc4-v1.0-ru-dev-description \
     --output runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.dev.description.txt \
     --hits 100 --bm25 --language ru 
 ```
 
 
-
 ## Evaluate
 
-### TEST SET
-
 #### -  Topic Title
 
 ```bash
-python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-chinese-test runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.test.title.txt
-
-python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-persian-test runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.test.title.txt
-
-python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-russian-test runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.test.title.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-zh-dev runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.dev.title.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-fa-dev runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.dev.title.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-ru-dev runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.dev.title.txt
 ```
 
 ### Topic Description
 
 ```bash
-python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-chinese-test runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.test.description.txt
-
-python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-persian-test runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.test.description.txt
-
-python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-russian-test runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.test.description.txt
-```
-
-### DEV SET
-
-#### -  Topic Title
-
-```bash
-python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-chinese-dev runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.dev.title.txt
-
-python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-persian-dev runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.dev.title.txt
-
-python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-russian-dev runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.dev.title.txt
-```
-
-### Topic Description
-
-```bash
-python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-chinese-dev runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.dev.description.txt
-
-python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-persian-dev runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.dev.description.txt
-
-python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-russian-dev runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.dev.description.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-zh-dev runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.dev.description.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-fa-dev runs/run.hc4-v1.0-fa.bm25.topics.hc4-v1.0-fa.dev.description.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m map hc4-v1.0-ru-dev runs/run.hc4-v1.0-ru.bm25.topics.hc4-v1.0-ru.dev.description.txt
 ```
 
 ## Results
