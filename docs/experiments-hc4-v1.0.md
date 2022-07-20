@@ -161,7 +161,6 @@ python -m pyserini.search.lucene  --index  hc4-v1.0-ru \
     --hits 100 --bm25 --language ru 
 ```
 
-
 ## Evaluate
 
 #### -  Topic Title
