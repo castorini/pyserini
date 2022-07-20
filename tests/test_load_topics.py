@@ -839,64 +839,64 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 300)
     
     def test_hc4_1_0_fa(self):
-        topics = search.get_topics('hc4-v1.0-persian-test-title')
+        topics = search.get_topics('hc4-v1.0-fa-test-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-persian-test-description')
+        topics = search.get_topics('hc4-v1.0-fa-test-description')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-persian-dev-title')
+        topics = search.get_topics('hc4-v1.0-fa-dev-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-persian-dev-description')
+        topics = search.get_topics('hc4-v1.0-fa-dev-description')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
     
     def test_hc4_1_0_zh(self):
-        topics = search.get_topics('hc4-v1.0-chinese-test-title')
+        topics = search.get_topics('hc4-v1.0-zh-test-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-chinese-test-description')
+        topics = search.get_topics('hc4-v1.0-zh-test-description')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-chinese-dev-title')
+        topics = search.get_topics('hc4-v1.0-zh-dev-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-chinese-dev-description')
+        topics = search.get_topics('hc4-v1.0-zh-dev-description')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
     
     def test_hc4_1_0_ru(self):
-        topics = search.get_topics('hc4-v1.0-russian-test-title')
+        topics = search.get_topics('hc4-v1.0-ru-test-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-russian-test-description')
+        topics = search.get_topics('hc4-v1.0-ru-test-description')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-russian-dev-title')
+        topics = search.get_topics('hc4-v1.0-ru-dev-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 4)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-russian-dev-description')
+        topics = search.get_topics('hc4-v1.0-ru-dev-description')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 4)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
