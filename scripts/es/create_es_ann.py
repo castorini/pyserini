@@ -15,6 +15,7 @@
 #
 from elasticsearch import Elasticsearch
 
+
 # Create the client instance
 client = Elasticsearch("http://localhost:9200", timeout=1000)
 print(client.info())
