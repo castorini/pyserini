@@ -848,6 +848,14 @@ class TestLoadTopics(unittest.TestCase):
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
+        
+        """
+        Test case commented out pending the upgrade to Lucene 9.0
+        """
+        # topics = search.get_topics('hc4-v1.0-fa-test-description-title')
+        # self.assertIsNotNone(topics)
+        # self.assertEqual(len(topics), 50)
+        # self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
         topics = search.get_topics('hc4-v1.0-fa-dev-title')
         self.assertIsNotNone(topics)
@@ -858,6 +866,14 @@ class TestLoadTopics(unittest.TestCase):
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        """
+        Test case commented out pending the upgrade to Lucene 9.0
+        """
+        # topics = search.get_topics('hc4-v1.0-fa-dev-description-title')
+        # self.assertIsNotNone(topics)
+        # self.assertEqual(len(topics), 10)
+        # self.assertTrue(isinstance(next(iter(topics.keys())), int))
     
     def test_hc4_1_0_zh(self):
         topics = search.get_topics('hc4-v1.0-zh-test-title')
@@ -870,6 +886,14 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+        """
+        Test case commented out pending the upgrade to Lucene 9.0
+        """
+        # topics = search.get_topics('hc4-v1.0-zh-test-description-title')
+        # self.assertIsNotNone(topics)
+        # self.assertEqual(len(topics), 50)
+        # self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
         topics = search.get_topics('hc4-v1.0-zh-dev-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
@@ -879,6 +903,14 @@ class TestLoadTopics(unittest.TestCase):
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        """
+        Test case commented out pending the upgrade to Lucene 9.0
+        """
+        # topics = search.get_topics('hc4-v1.0-zh-dev-description-title')
+        # self.assertIsNotNone(topics)
+        # self.assertEqual(len(topics), 10)
+        # self.assertTrue(isinstance(next(iter(topics.keys())), int))
     
     def test_hc4_1_0_ru(self):
         topics = search.get_topics('hc4-v1.0-ru-test-title')
@@ -891,6 +923,14 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+        """
+        Test case commented out pending the upgrade to Lucene 9.0
+        """
+        # topics = search.get_topics('hc4-v1.0-ru-test-description-title')
+        # self.assertIsNotNone(topics)
+        # self.assertEqual(len(topics), 50)
+        # self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
         topics = search.get_topics('hc4-v1.0-ru-dev-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 4)
@@ -900,6 +940,14 @@ class TestLoadTopics(unittest.TestCase):
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 4)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        """
+        Test case commented out pending the upgrade to Lucene 9.0
+        """
+        # topics = search.get_topics('hc4-v1.0-ru-dev-description-title')
+        # self.assertIsNotNone(topics)
+        # self.assertEqual(len(topics), 4)
+        # self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     # General test cases
     def test_tsv_int_topicreader(self):
