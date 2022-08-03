@@ -153,38 +153,115 @@ python -m pyserini.search.lucene  --index  neuclir22-ru \
     --bm25 --rocchio --language ru 
 ```
 
+#### - Topic Description+Title 
+
+We can download the description+title topics for each language from [here](https://github.com/castorini/anserini-tools).
+The required files are:
+-  `topics-and-qrels/topics.hc4-v1.0-zh.test.desc.title.tsv`
+-  `topics-and-qrels/topics.hc4-v1.0-fa.test.desc.title.tsv`
+-  `topics-and-qrels/topics.hc4-v1.0-ru.test.desc.title.tsv`
+
+```bash
+python -m pyserini.search.lucene  --index  neuclir22-zh \
+    --topics topics.hc4-v1.0-zh.test.desc.title.tsv \
+    --output runs/run.neuclir22-zh.bm25.topics.hc4-v1.0-zh.test.description.title.txt \
+    --bm25 --language zh
+
+python -m pyserini.search.lucene  --index  neuclir22-fa \
+    --topics topics.hc4-v1.0-fa.test.desc.title.tsv \
+    --output runs/run.neuclir22-fa.bm25.topics.hc4-v1.0-fa.test.description.title.txt \
+    --bm25 --language fa 
+
+python -m pyserini.search.lucene  --index  neuclir22-ru \
+    --topics topics.hc4-v1.0-ru.test.desc.title.tsv \
+    --output runs/run.neuclir22-ru.bm25.topics.hc4-v1.0-ru.test.description.title.txt \
+    --bm25 --language ru 
+
+python -m pyserini.search.lucene  --index  neuclir22-zh \
+    --topics topics.hc4-v1.0-zh.test.desc.title.tsv \
+    --output runs/run.neuclir22-zh.bm25-default+rm3.topics.hc4-v1.0-zh.test.description.title.txt \
+    --bm25 --rm3 --language zh
+
+python -m pyserini.search.lucene  --index  neuclir22-fa \
+    --topics topics.hc4-v1.0-fa.test.desc.title.tsv \
+    --output runs/run.neuclir22-fa.bm25-default+rm3.topics.hc4-v1.0-fa.test.description.title.txt \
+    --bm25 --rm3 --language fa 
+
+python -m pyserini.search.lucene  --index  neuclir22-ru \
+    --topics topics.hc4-v1.0-ru.test.desc.title.tsv \
+    --output runs/run.neuclir22-ru.bm25-default+rm3.topics.hc4-v1.0-ru.test.description.title.txt \
+    --bm25 --rm3 --language ru
+
+python -m pyserini.search.lucene  --index  neuclir22-zh \
+    --topics topics.hc4-v1.0-zh.test.desc.title.tsv \
+    --output runs/run.neuclir22-zh.bm25-default+rocchio.topics.hc4-v1.0-zh.test.description.title.txt \
+    --bm25 --rocchio --language zh
+
+python -m pyserini.search.lucene  --index  neuclir22-fa \
+    --topics topics.hc4-v1.0-fa.test.desc.title.tsv \
+    --output runs/run.neuclir22-fa.bm25-default+rocchio.topics.hc4-v1.0-fa.test.description.title.txt \
+    --bm25 --rocchio --language fa 
+
+python -m pyserini.search.lucene  --index  neuclir22-ru \
+    --topics topics.hc4-v1.0-ru.test.desc.title.tsv \
+    --output runs/run.neuclir22-ru.bm25-default+rocchio.topics.hc4-v1.0-ru.test.description.title.txt \
+    --bm25 --rocchio --language ru 
+```
+
 ## Evaluate
+
+We can download the hc4-neuclir22 qrels for each language from [here](https://github.com/castorini/anserini-tools).
+The required files are:
+-  `topics-and-qrels/qrels.hc4-neuclir22-fa.test.txt`
+-  `topics-and-qrels/qrels.hc4-neuclir22-ru.test.txt`
+-  `topics-and-qrels/qrels.hc4-neuclir22-zh.test.txt`
 
 #### -  Topic Title
 
 ```bash
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-zh-test runs/run.neuclir22-zh.bm25.topics.hc4-v1.0-zh.test.title.txt
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-fa-test runs/run.neuclir22-fa.bm25.topics.hc4-v1.0-fa.test.title.txt
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-ru-test runs/run.neuclir22-ru.bm25.topics.hc4-v1.0-ru.test.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-zh-test.txt runs/run.neuclir22-zh.bm25.topics.hc4-v1.0-zh.test.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-fa-test.txt runs/run.neuclir22-fa.bm25.topics.hc4-v1.0-fa.test.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-ru-test.txt runs/run.neuclir22-ru.bm25.topics.hc4-v1.0-ru.test.title.txt
 
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-zh-test runs/run.neuclir22-zh.bm25-default+rm3.topics.hc4-v1.0-zh.test.title.txt
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-fa-test runs/run.neuclir22-fa.bm25-default+rm3.topics.hc4-v1.0-fa.test.title.txt
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-ru-test runs/run.neuclir22-ru.bm25-default+rm3.topics.hc4-v1.0-ru.test.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-zh-test.txt runs/run.neuclir22-zh.bm25-default+rm3.topics.hc4-v1.0-zh.test.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-fa-test.txt runs/run.neuclir22-fa.bm25-default+rm3.topics.hc4-v1.0-fa.test.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-ru-test.txt runs/run.neuclir22-ru.bm25-default+rm3.topics.hc4-v1.0-ru.test.title.txt
 
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-zh-test runs/run.neuclir22-zh.bm25-default+rocchio.topics.hc4-v1.0-zh.test.title.txt
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-fa-test runs/run.neuclir22-fa.bm25-default+rocchio.topics.hc4-v1.0-fa.test.title.txt
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-ru-test runs/run.neuclir22ru.bm25-default+rocchio.topics.hc4-v1.0-ru.test.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-zh-test.txt runs/run.neuclir22-zh.bm25-default+rocchio.topics.hc4-v1.0-zh.test.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-fa-test.txt runs/run.neuclir22-fa.bm25-default+rocchio.topics.hc4-v1.0-fa.test.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-ru-test.txt runs/run.neuclir22ru.bm25-default+rocchio.topics.hc4-v1.0-ru.test.title.txt
 ```
 
 ### Topic Description
 
 ```bash
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-zh-test runs/run.neuclir22-zh.bm25.topics.hc4-v1.0-zh.test.description.txt
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-fa-test runs/run.neuclir22-fa.bm25.topics.hc4-v1.0-fa.test.description.txt
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-ru-test runs/run.neuclir22-ru.bm25.topics.hc4-v1.0-ru.test.description.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-zh-test.txt runs/run.neuclir22-zh.bm25.topics.hc4-v1.0-zh.test.description.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-fa-test.txt runs/run.neuclir22-fa.bm25.topics.hc4-v1.0-fa.test.description.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-ru-test.txt runs/run.neuclir22-ru.bm25.topics.hc4-v1.0-ru.test.description.txt
 
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-zh-test runs/run.neuclir22-zh.bm25-default+rm3.topics.hc4-v1.0-zh.test.description.txt
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-fa-test runs/run.neuclir22-fa.bm25-default+rm3.topics.hc4-v1.0-fa.test.description.txt
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-ru-test runs/run.neuclir22-ru.bm25-default+rm3.topics.hc4-v1.0-ru.test.description.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-zh-test.txt runs/run.neuclir22-zh.bm25-default+rm3.topics.hc4-v1.0-zh.test.description.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-fa-test.txt runs/run.neuclir22-fa.bm25-default+rm3.topics.hc4-v1.0-fa.test.description.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-ru-test.txt runs/run.neuclir22-ru.bm25-default+rm3.topics.hc4-v1.0-ru.test.description.txt
 
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-zh-test runs/run.neuclir22-zh.bm25-default+rocchio.topics.hc4-v1.0-zh.test.description.txt
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-fa-test runs/run.neuclir22-fa.bm25-default+rocchio.topics.hc4-v1.0-fa.test.description.txt
-python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-neuclir22-ru-test runs/run.neuclir22-ru.bm25-default+rocchio.topics.hc4-v1.0-ru.test.description.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-zh-test.txt runs/run.neuclir22-zh.bm25-default+rocchio.topics.hc4-v1.0-zh.test.description.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-fa-test.txt runs/run.neuclir22-fa.bm25-default+rocchio.topics.hc4-v1.0-fa.test.description.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-ru-test.txt runs/run.neuclir22-ru.bm25-default+rocchio.topics.hc4-v1.0-ru.test.description.txt
+```
+
+### Topic Description+Title
+
+```bash
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-zh-test.txt runs/run.neuclir22-zh.bm25.topics.hc4-v1.0-zh.test.description.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-fa-test.txt runs/run.neuclir22-fa.bm25.topics.hc4-v1.0-fa.test.description.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-ru-test.txt runs/run.neuclir22-ru.bm25.topics.hc4-v1.0-ru.test.description.title.txt
+
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-zh-test.txt runs/run.neuclir22-zh.bm25-default+rm3.topics.hc4-v1.0-zh.test.description.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-fa-test.txt runs/run.neuclir22-fa.bm25-default+rm3.topics.hc4-v1.0-fa.test.description.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-ru-test.txt runs/run.neuclir22-ru.bm25-default+rm3.topics.hc4-v1.0-ru.test.description.title.txt
+
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-zh-test.txt runs/run.neuclir22-zh.bm25-default+rocchio.topics.hc4-v1.0-zh.test.description.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-fa-test.txt runs/run.neuclir22-fa.bm25-default+rocchio.topics.hc4-v1.0-fa.test.description.title.txt
+python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 qrels.hc4-neuclir22-ru-test.txt runs/run.neuclir22-ru.bm25-default+rocchio.topics.hc4-v1.0-ru.test.description.title.txt
 ```
 
 ## Effectiveness
