@@ -2045,7 +2045,7 @@ TF_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz"
         ],
-        "md5": "1d4c10ea8dcdd1aa3d044c4aa8e26f2e",
+        "md5": "7351794f4b570c387a12527cf46a7956",
         "size compressed (bytes)": 2904147388,
         "total_terms": 304468573,
         "documents": 646302,
@@ -2059,7 +2059,7 @@ TF_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz"
         ],
-        "md5": "5dbeb53b48a1c542800bdd9483ef57b2",
+        "md5": "fd838abb94864f22cb4d94cd33660b24",
         "size compressed (bytes)": 1656366266,
         "total_terms": 112225895,
         "documents": 486486,
@@ -2073,11 +2073,53 @@ TF_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz"
         ],
-        "md5": "a842f7dbf7eb732060f7fb1f07852f5a",
+        "md5": "3f15b30d1238d2d0a6f720f06c7c442c",
         "size compressed (bytes)": 13323791981,
         "total_terms": 764996697,
         "documents": 4721064,
         "unique_terms": 2640439,
+        "downloaded": False
+    },
+    "neuclir22-zh": {
+        "description": "Lucene index for NeuClir '22 (Persian).",
+        "filename": "lucene-index.neuclir22-zh.20220719.71c120.tar.gz",
+        "readme": "lucene-index.neuclir22-zh.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-zh.20220719.71c120.tar.gz"
+        ],
+        "md5": "edca109c2f39464f73cf9d12af776b73",
+        "size compressed (bytes)": 15744742868,
+        "total_terms": 1654090468 ,
+        "documents": 3179206,
+        "unique_terms": 8213049,
+        "downloaded": False
+    },
+    "neuclir22-fa": {
+        "description": "Lucene index for NeuClir '22 (Persian).",
+        "filename": "lucene-index.neuclir22-fa.20220719.71c120.tar.gz",
+        "readme": "lucene-index.neuclir22-fa.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-fa.20220719.71c120.tar.gz"
+        ],
+        "md5": "ff3a6ac9a4c428d3aa42e1ae3c007147",
+        "size compressed (bytes)": 7577718950,
+        "total_terms": 514262091,
+        "documents": 2232016 ,
+        "unique_terms": 1479422 ,
+        "downloaded": False
+    },
+    "neuclir22-ru": {
+        "description": "Lucene index for NeuClir '22 (Russian).",
+        "filename": "lucene-index.neuclir22-ru.20220719.71c120.tar.gz",
+        "readme": "lucene-index.neuclir22-ru.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-ru.20220719.71c120.tar.gz"
+        ],
+        "md5": "dd483e258fddde98cd059fd5f4f0fe1e",
+        "size compressed (bytes)": 14237631658,
+        "total_terms": 830006488,
+        "documents": 4627541,
+        "unique_terms": 3412268,
         "downloaded": False
     }
 }

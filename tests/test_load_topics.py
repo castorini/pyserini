@@ -849,12 +849,22 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+        topics = search.get_topics('hc4-v1.0-fa-test-description-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
         topics = search.get_topics('hc4-v1.0-fa-dev-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
         topics = search.get_topics('hc4-v1.0-fa-dev-description')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 10)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-fa-dev-description-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
@@ -870,12 +880,22 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+        topics = search.get_topics('hc4-v1.0-zh-test-description-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
         topics = search.get_topics('hc4-v1.0-zh-dev-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
         topics = search.get_topics('hc4-v1.0-zh-dev-description')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 10)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-zh-dev-description-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
@@ -891,12 +911,22 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+        topics = search.get_topics('hc4-v1.0-ru-test-description-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
         topics = search.get_topics('hc4-v1.0-ru-dev-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 4)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
         topics = search.get_topics('hc4-v1.0-ru-dev-description')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 4)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-ru-dev-description-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 4)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))

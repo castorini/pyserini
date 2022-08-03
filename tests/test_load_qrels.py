@@ -912,6 +912,22 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(len(qrels), 10)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
+    def test_hc4_neuclir22(self):
+        qrels = search.get_qrels('hc4-neuclir22-zh-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 50)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('hc4-neuclir22-fa-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 50)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('hc4-neuclir22-ru-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 50)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
     def tearDown(self):
         if os.path.exists('temp_dir'):
             shutil.rmtree('temp_dir')
