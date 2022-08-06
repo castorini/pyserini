@@ -603,6 +603,8 @@ The following guides provide step-by-step instructions:
 + Reproducing uniCOIL with TILDE: [MS MARCO V1 Passage](docs/experiments-unicoil-tilde-expansion.md), [MS MARCO V2 Passage](docs/experiments-msmarco-v2-unicoil-tilde-expansion.md)
 + Reproducing SPLADEv2: [MS MARCO V1 Passage](docs/experiments-spladev2.md)
 + Reproducing [Mr. TyDi experiments](https://github.com/castorini/mr.tydi/blob/main/README.md#1-bm25)
++ Reproducing [BM25 baselines for HC4](docs/experiments-hc4-v1.0.md)
++ Reproducing [BM25 baselines for HC4 on NeuCLIR22](docs/experiments-hc4-neuclir22.md)
 
 ### Dense Retrieval
 
