@@ -1,7 +1,6 @@
-# Pyserini Regressions: BM25 Baseline for HC4 (v1.0)
+# Pyserini Regressions: BM25 Baselines for HC4 (v1.0)
 
 This guide contains instructions for running BM25 baselines on [HC4 (v1.0)](https://arxiv.org/pdf/2201.09992.pdf).
-
 
 ## Corpus Download
 
@@ -22,7 +21,6 @@ mkdir collections/hc4-v1.0-fa collections/hc4-v1.0-zh collections/hc4-v1.0-ru
 We can now index these docs as a `NeuClirCollection`  using Anserini bindings from Pyserini
 
 ```bash
-
 python -m pyserini.index.lucene --collection NeuClirCollection \
   --input collections/hc4-v1.0-zh --index indexes/lucene-index.hc4-v1.0-zh \
   --generator DefaultLuceneDocumentGenerator --threads 8 \
@@ -43,17 +41,15 @@ python -m pyserini.index.lucene --collection NeuClirCollection \
 ```
 
 
-### 2.  Download Pre-built sparse indexes (for BM25)
+### 2.  Download Pre-Built Sparse Indexes (for BM25)
 
 - [Chinese](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz)
 - [Persian](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz)
 - [Russian](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz)
 
-## Retrieval Runs
+## Retrieval: Test Topics
 
-### TEST SET
-
-#### - Topic Title
+Condition: **Title**
 
 ```bash
 python -m pyserini.search.lucene  --index  hc4-v1.0-zh \
@@ -102,8 +98,7 @@ python -m pyserini.search.lucene  --index  hc4-v1.0-ru \
     --bm25 --rocchio --language ru 
 ```
 
-#### - Topic Description 
-
+Condition: **Description**
 
 ```bash
 python -m pyserini.search.lucene  --index  hc4-v1.0-zh \
@@ -152,9 +147,9 @@ python -m pyserini.search.lucene  --index  hc4-v1.0-ru \
     --bm25 --rocchio --language ru 
 ```
 
-## Evaluate
+## Evaluation: Test Topics
 
-#### -  Topic Title
+Condition: **Title**
 
 ```bash
 python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000  hc4-v1.0-zh-test runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.test.title.txt
@@ -170,7 +165,7 @@ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recal
 python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-v1.0-ru-test runs/run.hc4-v1.0-ru.bm25-default+rocchio.topics.hc4-v1.0-ru.test.title.txt
 ```
 
-### Topic Description
+Condition: **Description**
 
 ```bash
 python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-v1.0-zh-test runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.test.description.txt
@@ -186,9 +181,9 @@ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recal
 python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-v1.0-ru-test runs/run.hc4-v1.0-ru.bm25-default+rocchio.topics.hc4-v1.0-ru.test.description.txt
 ```
 
-### DEV SET
+## Retrieval: Dev Topics
 
-#### - Topic Title
+Condition: **Title**
 
 ```bash
 python -m pyserini.search.lucene  --index  hc4-v1.0-zh \
@@ -237,8 +232,7 @@ python -m pyserini.search.lucene  --index  hc4-v1.0-ru \
     --bm25 --rocchio --language ru 
 ```
 
-#### - Topic Description 
-
+Condition: **Description**
 
 ```bash
 python -m pyserini.search.lucene  --index  hc4-v1.0-zh \
@@ -287,10 +281,9 @@ python -m pyserini.search.lucene  --index  hc4-v1.0-ru \
     --bm25 --rocchio --language ru 
 ```
 
+## Evaluation: Dev Topics
 
-## Evaluate
-
-#### -  Topic Title
+Condition: **Title**
 
 ```bash
 python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-v1.0-zh-dev runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.dev.title.txt
@@ -306,7 +299,7 @@ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recal
 python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-v1.0-ru-dev runs/run.hc4-v1.0-ru.bm25-default+rocchio.topics.hc4-v1.0-ru.dev.title.txt
 ```
 
-### Topic Description
+Condition: **Description**
 
 ```bash
 python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recall.1000 hc4-v1.0-zh-dev runs/run.hc4-v1.0-zh.bm25.topics.hc4-v1.0-zh.dev.description.txt
@@ -324,7 +317,7 @@ python -m pyserini.eval.trec_eval -c -m map -m ndcg_cut.20 -m judged.20 -m recal
 
 ## Effectiveness
 
-### - Chinese
+### Chinese
 
 With the above commands, you should be able to reproduce the following results:
 
@@ -350,7 +343,7 @@ With the above commands, you should be able to reproduce the following results:
 | [HC4 (Chinese): test-topic title](https://github.com/hltcoe/HC4)                                             | 0.6963    | 0.6764    | 0.6652    |
 | [HC4 (Chinese): test-topic description](https://github.com/hltcoe/HC4)                                       | 0.6358    | 0.4933    | 0.6481    |
 
-### - Russian
+### Russian
 
 | **MAP**                                                                                                      | **BM25 (default)**| **+RM3**  | **+Rocchio**|
 |:-------------------------------------------------------------------------------------------------------------|-----------|-----------|-----------|
@@ -375,7 +368,7 @@ With the above commands, you should be able to reproduce the following results:
 | [HC4 (Russian): test-topic description](https://github.com/hltcoe/HC4)                                       | 0.7355    | 0.6475    | 0.7669    |
 
 
-### - Persian
+### Persian
 
 | **MAP**                                                                                                      | **BM25 (default)**| **+RM3**  | **+Rocchio**|
 |:-------------------------------------------------------------------------------------------------------------|-----------|-----------|-----------|
