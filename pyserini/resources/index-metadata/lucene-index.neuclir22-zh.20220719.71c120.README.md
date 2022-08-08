@@ -1,4 +1,4 @@
-# neuclir-zh
+# neuclir22-zh
 
 Lucene index for Neuclir22 (Chinese).
 

@@ -1,4 +1,4 @@
-# neuclir-fa
+# neuclir22-fa
 
 Lucene index for Neuclir22 (Persian).
 

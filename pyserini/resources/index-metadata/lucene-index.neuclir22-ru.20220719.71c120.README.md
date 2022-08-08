@@ -1,4 +1,4 @@
-# neuclir-ru
+# neuclir22-ru
 
 Lucene index for Neuclir22 (Russian).
 
