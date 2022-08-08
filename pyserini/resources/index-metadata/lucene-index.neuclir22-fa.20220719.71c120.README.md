@@ -1,4 +1,4 @@
-# neuclir-persian
+# neuclir22-fa
 
 Lucene index for Neuclir22 (Persian).
 
@@ -10,5 +10,5 @@ target/appassembler/bin/IndexCollection -collection NeuClirCollection \
   -generator DefaultLuceneDocumentGenerator -threads 8 \
   -input /store/collections/multilingual/neuclir22-fa \
   -index indexes/lucene-index.neuclir22-fa.20220719.71c120 \
-  -storePositions -storeDocvectors -storeRaw -optimize -language fa \
+  -storePositions -storeDocvectors -storeRaw -optimize -language fa
 ```
