@@ -1,4 +1,4 @@
-# hc4-v1.0-russian
+# hc4-v1.0-ru
 
 Lucene index for HC4 v1.0 (Russian).
 
@@ -9,5 +9,5 @@ target/appassembler/bin/IndexCollection -collection NeuClirCollection \
   -generator DefaultLuceneDocumentGenerator -threads 8 \
   -input /store/collections/multilingual/hc4-v1.0-ru \
   -index indexes/lucene-index.hc4-v1.0-ru.20220719.71c120 \
-  -storePositions -storeDocvectors -storeRaw -optimize -language ru \
+  -storePositions -storeDocvectors -storeRaw -optimize -language ru
 ```

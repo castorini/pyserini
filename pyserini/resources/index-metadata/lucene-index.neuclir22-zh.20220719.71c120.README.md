@@ -1,4 +1,4 @@
-# neuclir-chinese
+# neuclir-zh
 
 Lucene index for Neuclir22 (Chinese).
 
@@ -10,5 +10,5 @@ target/appassembler/bin/IndexCollection -collection NeuClirCollection \
   -generator DefaultLuceneDocumentGenerator -threads 8 \
   -input /store/collections/multilingual/neuclir22-zh \
   -index indexes/lucene-index.neuclir22-zh.20220719.71c120 \
-  -storePositions -storeDocvectors -storeRaw -optimize -language zh \
+  -storePositions -storeDocvectors -storeRaw -optimize -language zh
 ```

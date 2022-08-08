@@ -1,4 +1,4 @@
-# hc4-v1.0-chinese
+# hc4-v1.0-zh
 
 Lucene index for HC4 v1.0 (Chinese).
 
@@ -9,5 +9,5 @@ target/appassembler/bin/IndexCollection -collection NeuClirCollection \
   -generator DefaultLuceneDocumentGenerator -threads 8 \
   -input /store/collections/multilingual/hc4-v1.0-zh \
   -index indexes/lucene-index.hc4-v1.0-zh.20220719.71c120 \
-  -storePositions -storeDocvectors -storeRaw -optimize -language zh \
+  -storePositions -storeDocvectors -storeRaw -optimize -language zh
 ```

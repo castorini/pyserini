@@ -1,4 +1,4 @@
-# hc4-v1.0-persian
+# hc4-v1.0-fa
 
 Lucene index for HC4 v1.0 (Persian).
 
@@ -10,5 +10,5 @@ target/appassembler/bin/IndexCollection -collection NeuClirCollection \
   -generator DefaultLuceneDocumentGenerator -threads 8 \
   -input /store/collections/multilingual/hc4-v1.0-fa \
   -index indexes/lucene-index.hc4-v1.0-fa.20220719.71c120 \
-  -storePositions -storeDocvectors -storeRaw -optimize -language fa \
+  -storePositions -storeDocvectors -storeRaw -optimize -language fa
 ```
