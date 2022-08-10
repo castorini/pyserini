@@ -878,6 +878,58 @@ class TestGetQrels(unittest.TestCase):
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 300)
         self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 339)
+    
+    def test_hc4_10_fa(self):
+        qrels = search.get_qrels('hc4-v1.0-fa-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 50)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('hc4-v1.0-fa-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 10)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+    
+    def test_hc4_10_ru(self):
+        qrels = search.get_qrels('hc4-v1.0-ru-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 50)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('hc4-v1.0-ru-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 4)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+    
+    def test_hc4_10_zh(self):
+        qrels = search.get_qrels('hc4-v1.0-zh-test')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 50)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('hc4-v1.0-zh-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 10)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    """
+    Test case commented out pending the upgrade to Lucene 9.0
+    """
+    # def test_hc4_neuclir22(self):
+    #     qrels = search.get_qrels('hc4-neuclir22-zh-test')
+    #     self.assertIsNotNone(qrels)
+    #     self.assertEqual(len(qrels), 50)
+    #     self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    #     qrels = search.get_qrels('hc4-neuclir22-fa-test')
+    #     self.assertIsNotNone(qrels)
+    #     self.assertEqual(len(qrels), 50)
+    #     self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+    #     qrels = search.get_qrels('hc4-neuclir22-ru-test')
+    #     self.assertIsNotNone(qrels)
+    #     self.assertEqual(len(qrels), 50)
+    #     self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
     def tearDown(self):
         if os.path.exists('temp_dir'):

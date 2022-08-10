@@ -585,6 +585,30 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): SciFact
 </dd>
+<dt></dt><b><code>hc4-v1.0-zh</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0-zh.20220719.71c120.README.md">readme</a>]
+<dd>Lucene index for HC4 v1.0 (Chinese).
+</dd>
+<dt></dt><b><code>hc4-v1.0-fa</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0-fa.20220719.71c120.README.md">readme</a>]
+<dd>Lucene index for HC4 v1.0 (Persian).
+</dd>
+<dt></dt><b><code>hc4-v1.0-ru</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0-ru.20220719.71c120.README.md">readme</a>]
+<dd>Lucene index for HC4 v1.0 (Russian).
+</dd>
+<dt></dt><b><code>neuclir22-zh</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-zh.20220719.71c120.README.md">readme</a>]
+<dd>Lucene index for NeuClir '22 (Persian).
+</dd>
+<dt></dt><b><code>neuclir22-fa</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-fa.20220719.71c120.README.md">readme</a>]
+<dd>Lucene index for NeuClir '22 (Persian).
+</dd>
+<dt></dt><b><code>neuclir22-ru</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-ru.20220719.71c120.README.md">readme</a>]
+<dd>Lucene index for NeuClir '22 (Russian).
+</dd>
 </dl>
 
 
