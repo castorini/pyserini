@@ -75,7 +75,7 @@ TF_INDEX_INFO = {
         "description": "Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR",
         "filename": "lucene-index.msmarco-doc-segmented.ibm.tar.gz",
         "urls": [
-            "https://www.dropbox.com/s/e5mwugvcbeypfl5/lucene-index.msmarco-doc-segmented.ibm.tar.gz?dl=1"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-doc-segmented.ibm.tar.gz"
         ],
         "md5": "13064bdaf8e8a79222634d67ecd3ddb5",
         "size compressed (bytes)": 98984853515,
