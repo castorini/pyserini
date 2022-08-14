@@ -17,6 +17,21 @@ A low-effort way to try things out is to look at our [online notebooks](https://
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
 
+## Important Note: Lucene 8 to Lucene 9 Transition
+
+The [PyPI release 0.17.1](https://pypi.org/project/pyserini/0.17.1/) at commit [`33c87c`](https://github.com/castorini/pyserini/commit/33c87c982d543d65e0ba1b4c94ee865fd9a6040e) (2022/08/13) is the last official Pyserini release built on Lucene 8, based on [Anserini v0.14.4](https://github.com/castorini/anserini/releases/tag/anserini-0.14.4).
+Main Anserini trunk has been upgraded to Lucene 9.3.
+
+This is an important but disruptive upgrade, as indexes built with Lucene 8 are not backwards compatible with Lucene 9 code (see [Anserini #1952](https://github.com/castorini/anserini/issues/1952)).
+There is a workaround, but we have yet to implement in Pyserini.
+Furthermore, Lucene 8 code is _not_ able to read indexes built with Lucene 9.
+An upgrade to Lucene 9 is necessary to use Lucene's HNSW indexes, which will increase the capabilities of Pyserini and open up the design space of dense/sparse hybrids.
+
+Thus, we are in a transition where a development installation is partially broken, since the development installation jar will be based on Lucene 9, but the Pyserini codebase has not been updated to accommodate.
+For a self-consistent development installation (that passes all tests), grab `anserini-0.14.4-fatjar.jar` from [here](https://repo1.maven.org/maven2/io/anserini/anserini/0.14.4/) to drop into `pyserini/resources/jars`. 
+
+This note supersedes all other Pyserini documentation on this site.
+
 ## Installation
 
 Install via PyPI (requires Python 3.8+):
@@ -673,13 +688,14 @@ The following guides provide step-by-step instructions:
 
 ## Release History
 
-+ v0.17.0: May 28, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.0.md)]
-+ v0.16.1: May 12, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.1.md)]
-+ v0.16.0: March 1, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.0.md)]
-+ v0.15.0: January 21, 2022 [[Release Notes](docs/release-notes/release-notes-v0.15.0.md)]
-+ v0.14.0: November 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.14.0.md)]
-+ v0.13.0: July 3, 2021 [[Release Notes](docs/release-notes/release-notes-v0.13.0.md)]
-+ v0.12.0: May 5, 2021 [[Release Notes](docs/release-notes/release-notes-v0.12.0.md)]
++ v0.17.1 (w/ Anserini v0.14.4): August 13, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.1.md)] (Final release based on Lucene 8)
++ v0.17.0 (w/ Anserini v0.14.3): May 28, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.0.md)]
++ v0.16.1 (w/ Anserini v0.14.3): May 12, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.1.md)]
++ v0.16.0 (w/ Anserini v0.14.1): March 1, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.0.md)]
++ v0.15.0 (w/ Anserini v0.14.0): January 21, 2022 [[Release Notes](docs/release-notes/release-notes-v0.15.0.md)]
++ v0.14.0 (w/ Anserini v0.13.5): November 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.14.0.md)]
++ v0.13.0 (w/ Anserini v0.13.1): July 3, 2021 [[Release Notes](docs/release-notes/release-notes-v0.13.0.md)]
++ v0.12.0 (w/ Anserini v0.12.0): May 5, 2021 [[Release Notes](docs/release-notes/release-notes-v0.12.0.md)]
 + v0.11.0.0: February 18, 2021 [[Release Notes](docs/release-notes/release-notes-v0.11.0.0.md)]
 + v0.10.1.0: January 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.10.1.0.md)]
 + v0.10.0.1: December 2, 2020 [[Release Notes](docs/release-notes/release-notes-v0.10.0.1.md)]
