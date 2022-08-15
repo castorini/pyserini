@@ -56,14 +56,14 @@ class TestQueryBuildingForLucene8(unittest.TestCase):
         boolean_query.add(boost2, should)
 
         bq = boolean_query.build()
-        hits1 = self.searcher.search(bq, Lucene8_backwards_compatibility=True)
+        hits1 = self.searcher.search(bq)
 
         boolean_query2 = querybuilder.get_boolean_query_builder()
         boolean_query2.add(term_query1, should)
         boolean_query2.add(term_query2, should)
 
         bq2 = boolean_query2.build()
-        hits2 = self.searcher.search(bq2, Lucene8_backwards_compatibility=True)
+        hits2 = self.searcher.search(bq2)
 
         for h1, h2 in zip(hits1, hits2):
             self.assertEqual(h1.docid, h2.docid)
@@ -77,7 +77,7 @@ class TestQueryBuildingForLucene8(unittest.TestCase):
         boolean_query.add(boost4, should)
 
         bq3 = boolean_query.build()
-        hits3 = self.searcher.search(bq3, Lucene8_backwards_compatibility=True)
+        hits3 = self.searcher.search(bq3)
 
         for h1, h3 in zip(hits1, hits3):
             self.assertNotEqual(h1.score, h3.score)
@@ -89,8 +89,8 @@ class TestQueryBuildingForLucene8(unittest.TestCase):
         query_builder.add(querybuilder.get_term_query('retrieval'), should)
 
         query = query_builder.build()
-        hits1 = self.searcher.search(query, Lucene8_backwards_compatibility=True)
-        hits2 = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits1 = self.searcher.search(query)
+        hits2 = self.searcher.search('information retrieval')
 
         for h1, h2 in zip(hits1, hits2):
             self.assertEqual(h1.docid, h2.docid)
@@ -103,14 +103,14 @@ class TestQueryBuildingForLucene8(unittest.TestCase):
         query_builder.add(querybuilder.get_term_query('retrieval'), should)
 
         query = query_builder.build()
-        hits = self.searcher.search(query, Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search(query)
         self.assertEqual(10, len(hits))
 
         self.searcher.set_rm3()
         self.assertTrue(self.searcher.is_using_rm3())
 
         with self.assertRaises(NotImplementedError):
-            self.searcher.search(query, Lucene8_backwards_compatibility=True)
+            self.searcher.search(query)
 
     def testTermQuery2(self):
         term_query1 = querybuilder.get_term_query('inform', analyzer=get_lucene_analyzer(stemming=False))
@@ -123,8 +123,8 @@ class TestQueryBuildingForLucene8(unittest.TestCase):
         boolean_query1.add(term_query2, should)
 
         bq1 = boolean_query1.build()
-        hits1 = self.searcher.search(bq1, Lucene8_backwards_compatibility=True)
-        hits2 = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits1 = self.searcher.search(bq1)
+        hits2 = self.searcher.search('information retrieval')
 
         for h1, h2 in zip(hits1, hits2):
             self.assertEqual(h1.docid, h2.docid)

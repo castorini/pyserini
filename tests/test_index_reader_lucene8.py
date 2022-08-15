@@ -14,22 +14,17 @@
 # limitations under the License.
 #
 
+import heapq
+import json
 import os
 import shutil
 import tarfile
 import unittest
 from random import randint
 from urllib.request import urlretrieve
-import json
-import heapq
-
-from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import MultinomialNB
 
 from pyserini import analysis, search
 from pyserini.index.lucene import IndexReader
-from pyserini.pyclass import JString
-from pyserini.vectorizer import BM25Vectorizer, TfidfVectorizer
 
 
 class TestIndexUtilsForLucene8(unittest.TestCase):
@@ -57,7 +52,7 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
         queries = ['information retrieval', 'databases']
 
         for query in queries:
-            hits = self.searcher.search(query, Lucene8_backwards_compatibility=True)
+            hits = self.searcher.search(query)
 
             # We're going to verify that the score of each hit is about the same as the output of
             # compute_query_document_score
@@ -71,7 +66,7 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
         self.searcher.set_bm25(0.8, 0.2)
 
         for query in queries:
-            hits = self.searcher.search(query, Lucene8_backwards_compatibility=True)
+            hits = self.searcher.search(query)
 
             # We're going to verify that the score of each hit is about the same as the output of
             # compute_query_document_score
@@ -84,7 +79,7 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
         self.searcher.set_qld(500)
 
         for query in queries:
-            hits = self.searcher.search(query, Lucene8_backwards_compatibility=True)
+            hits = self.searcher.search(query)
 
             # We're going to verify that the score of each hit is about the same as the output of
             # compute_query_document_score
@@ -125,7 +120,7 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
             dump_file.seek(0)
 
             # Using LuceneSearcher instead
-            hits = self.searcher.search(query, Lucene8_backwards_compatibility=True)
+            hits = self.searcher.search(query)
 
             for i in range(0, 10):
                 top = heapq.heappop(heap)
@@ -175,7 +170,7 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
                 heapq.heappush(heap, (-1*score, doc['id']))
             quantized_weights_file.seek(0)
 
-            hits = self.searcher.search(query, Lucene8_backwards_compatibility=True)
+            hits = self.searcher.search(query)
 
             for i in range(0, 10):
                 top = heapq.heappop(heap)

@@ -21,7 +21,7 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-from pyserini.analysis import JAnalyzer, JAnalyzerUtils, Analyzer, get_lucene_analyzer
+from pyserini.analysis import get_lucene_analyzer
 from pyserini.index.lucene import IndexReader
 from pyserini.search.lucene import LuceneSearcher
 
@@ -45,9 +45,9 @@ class TestAnalyzersForLucene8(unittest.TestCase):
 
     def test_different_analyzers_are_different(self):
         self.searcher.set_analyzer(get_lucene_analyzer(stemming=False))
-        hits_first = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits_first = self.searcher.search('information retrieval')
         self.searcher.set_analyzer(get_lucene_analyzer())
-        hits_second = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits_second = self.searcher.search('information retrieval')
         self.assertNotEqual(hits_first, hits_second)
 
     def tearDown(self):

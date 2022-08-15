@@ -23,7 +23,6 @@ from typing import List, Dict
 from urllib.request import urlretrieve
 
 from pyserini.search.lucene import LuceneSearcher, JLuceneSearcherResult
-from pyserini.index.lucene import Document
 
 
 class TestSearch(unittest.TestCase):
@@ -34,8 +33,7 @@ class TestSearch(unittest.TestCase):
         cls.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.tar.gz'
         cls.tarball_name = 'lucene-index.cacm-{}.tar.gz'.format(r)
         cls.index_dir = 'index{}/'.format(r)
-
-        filename, headers = urlretrieve(cls.collection_url, cls.tarball_name)
+        urlretrieve(cls.collection_url, cls.tarball_name)
 
         tarball = tarfile.open(cls.tarball_name)
         tarball.extractall(cls.index_dir)
@@ -46,7 +44,7 @@ class TestSearch(unittest.TestCase):
     def test_basic(self):
         self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
 
-        hits = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval')
 
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(hits, List))
@@ -68,7 +66,7 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(hits[9].docid, 'CACM-2516')
         self.assertAlmostEqual(hits[9].score, 4.2174, places=4)
 
-        hits = self.searcher.search('search', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('search')
 
         self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
         self.assertEqual(hits[0].docid, 'CACM-3058')
@@ -79,8 +77,7 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[9].score, 2.6878, places=4)
 
     def test_batch(self):
-        results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'],
-                                             threads=2, Lucene8_backwards_compatibility=True)
+        results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], threads=2)
 
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(results, Dict))
@@ -104,7 +101,7 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(results['q2'][9].score, 2.6878, places=4)
 
     def test_basic_k(self):
-        hits = self.searcher.search('information retrieval', k=100, Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval', k=100)
 
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(hits, List))
@@ -112,8 +109,7 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(len(hits), 100)
 
     def test_batch_k(self):
-        results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'],
-                                             k=100, threads=2, Lucene8_backwards_compatibility=True)
+        results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], k=100, threads=2)
 
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(results, Dict))
@@ -126,8 +122,7 @@ class TestSearch(unittest.TestCase):
 
     def test_basic_fields(self):
         # This test just provides a sanity check, it's not that interesting as it only searches one field.
-        hits = self.searcher.search('information retrieval', k=42, fields={'contents': 2.0},
-                                    Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval', k=42, fields={'contents': 2.0},)
 
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(hits, List))
@@ -137,7 +132,7 @@ class TestSearch(unittest.TestCase):
     def test_batch_fields(self):
         # This test just provides a sanity check, it's not that interesting as it only searches one field.
         results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], k=42,
-                                             threads=2, fields={'contents': 2.0}, Lucene8_backwards_compatibility=True)
+                                             threads=2, fields={'contents': 2.0})
 
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(results, Dict))
@@ -153,7 +148,7 @@ class TestSearch(unittest.TestCase):
         self.searcher.set_qld()
         self.assertTrue(self.searcher.get_similarity().toString().startswith('LM Dirichlet'))
 
-        hits = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
         self.assertAlmostEqual(hits[0].score, 3.6803, places=4)
@@ -164,7 +159,7 @@ class TestSearch(unittest.TestCase):
         self.searcher.set_bm25()
         self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
 
-        hits = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
         self.assertAlmostEqual(hits[0].score, 4.7655, places=4)
@@ -175,7 +170,7 @@ class TestSearch(unittest.TestCase):
         self.searcher.set_qld(100)
         self.assertTrue(self.searcher.get_similarity().toString().startswith('LM Dirichlet'))
 
-        hits = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
         self.assertAlmostEqual(hits[0].score, 6.3558, places=4)
@@ -186,7 +181,7 @@ class TestSearch(unittest.TestCase):
         self.searcher.set_bm25(0.8, 0.3)
         self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
 
-        hits = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
         self.assertAlmostEqual(hits[0].score, 4.8688, places=4)
@@ -198,7 +193,7 @@ class TestSearch(unittest.TestCase):
         self.searcher.set_rm3()
         self.assertTrue(self.searcher.is_using_rm3())
 
-        hits = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
         self.assertAlmostEqual(hits[0].score, 2.1801, places=4)
@@ -208,7 +203,7 @@ class TestSearch(unittest.TestCase):
         self.searcher.unset_rm3()
         self.assertFalse(self.searcher.is_using_rm3())
 
-        hits = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
         self.assertAlmostEqual(hits[0].score, 4.7655, places=4)
@@ -218,7 +213,7 @@ class TestSearch(unittest.TestCase):
         self.searcher.set_rm3(fb_docs=4, fb_terms=6, original_query_weight=0.3)
         self.assertTrue(self.searcher.is_using_rm3())
 
-        hits = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
         self.assertAlmostEqual(hits[0].score, 2.1719, places=4)
@@ -230,7 +225,7 @@ class TestSearch(unittest.TestCase):
         self.searcher.set_rocchio()
         self.assertTrue(self.searcher.is_using_rocchio())
 
-        hits = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
         self.assertAlmostEqual(hits[0].score, 7.1883, places=4)
@@ -240,7 +235,7 @@ class TestSearch(unittest.TestCase):
         self.searcher.unset_rocchio()
         self.assertFalse(self.searcher.is_using_rocchio())
 
-        hits = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
         self.assertAlmostEqual(hits[0].score, 4.7655, places=4)
@@ -248,10 +243,11 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[9].score, 4.2174, places=4)
 
         self.searcher.set_rocchio(top_fb_terms=10, top_fb_docs=8, bottom_fb_terms=10,
-            bottom_fb_docs=8, alpha=0.4, beta=0.5, gamma=0.1, output_query=False, use_negative=True)
+                                  bottom_fb_docs=8, alpha=0.4, beta=0.5, gamma=0.1,
+                                  output_query=False, use_negative=True)
         self.assertTrue(self.searcher.is_using_rocchio())
 
-        hits = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
         self.assertAlmostEqual(hits[0].score, 3.6489, places=4)
@@ -259,10 +255,11 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[9].score, 2.5751, places=4)
 
         self.searcher.set_rocchio(top_fb_terms=10, top_fb_docs=8, bottom_fb_terms=10,
-            bottom_fb_docs=8, alpha=0.4, beta=0.5, gamma=0.1, output_query=False, use_negative=False)
+                                  bottom_fb_docs=8, alpha=0.4, beta=0.5, gamma=0.1,
+                                  output_query=False, use_negative=False)
         self.assertTrue(self.searcher.is_using_rocchio())
 
-        hits = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
+        hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
         self.assertAlmostEqual(hits[0].score, 4.0390, places=4)
