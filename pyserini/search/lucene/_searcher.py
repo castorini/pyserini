@@ -81,7 +81,8 @@ class LuceneSearcher:
         get_sparse_indexes_info()
 
     def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None,
-               fields=dict(), strip_segment_id=False, remove_dups=False) -> List[JLuceneSearcherResult]:
+               fields=dict(), strip_segment_id=False, remove_dups=False,
+               Lucene8_backwards_compatibility=False) -> List[JLuceneSearcherResult]:
         """Search the collection.
 
         Parameters
@@ -98,6 +99,8 @@ class LuceneSearcher:
             Remove the .XXXXX suffix used to denote different segments from an document.
         remove_dups : bool
             Remove duplicate docids when writing final run output.
+        Lucene8_backwards_compatibility : bool
+            Enable backwards compatibility for Lucene 8 indexes.
 
         Returns
         -------
@@ -125,12 +128,21 @@ class LuceneSearcher:
                 raise NotImplementedError('RM3 incompatible with search using a Lucene query.')
             if fields:
                 raise NotImplementedError('Cannot specify fields to search when using a Lucene query.')
-            hits = self.object.search(q, k)
+            if Lucene8_backwards_compatibility:
+                hits = self.object.search_Lucene8(q, k)
+            else:
+                hits = self.object.search(q, k)
         else:
             if not fields:
-                hits = self.object.search(q, k)
+                if Lucene8_backwards_compatibility:
+                    hits = self.object.search_Lucene8(q, k)
+                else:
+                    hits = self.object.search(q, k)
             else:
-                hits = self.object.searchFields(q, jfields, k)
+                if Lucene8_backwards_compatibility:
+                    hits = self.object.searchFields_Lucene8(q, jfields, k)
+                else:
+                    hits = self.object.searchFields(q, jfields, k)
 
         docids = set()
         filtered_hits = []
@@ -150,7 +162,8 @@ class LuceneSearcher:
         return filtered_hits
 
     def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1,
-                     query_generator: JQueryGenerator = None, fields = dict()) -> Dict[str, List[JLuceneSearcherResult]]:
+                     query_generator: JQueryGenerator = None, fields=dict(),
+                     Lucene8_backwards_compatibility=False) -> Dict[str, List[JLuceneSearcherResult]]:
         """Search the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
@@ -167,6 +180,8 @@ class LuceneSearcher:
             Generator to build queries. Set to ``None`` by default to use Anserini default.
         fields : dict
             Optional map of fields to search with associated boosts.
+        Lucene8_backwards_compatibility : bool
+            Enable backwards compatibility for Lucene 8 indexes.
 
         Returns
         -------
@@ -188,14 +203,32 @@ class LuceneSearcher:
 
         if query_generator:
             if not fields:
-                results = self.object.batchSearch(query_generator, query_strings, qid_strings, int(k), int(threads))
+                if Lucene8_backwards_compatibility:
+                    results = self.object.batchSearch_Lucene8(
+                        query_generator, query_strings, qid_strings, int(k), int(threads))
+                else:
+                    results = self.object.batchSearch(
+                        query_generator, query_strings, qid_strings, int(k), int(threads))
             else:
-                results = self.object.batchSearchFields(query_generator, query_strings, qid_strings, int(k), int(threads), jfields)
+                if Lucene8_backwards_compatibility:
+                    results = self.object.batchSearchFields_Lucene8(
+                        query_generator, query_strings, qid_strings, int(k), int(threads), jfields)
+                else:
+                    results = self.object.batchSearchFields(
+                        query_generator, query_strings, qid_strings, int(k), int(threads), jfields)
         else:
             if not fields:
-                results = self.object.batchSearch(query_strings, qid_strings, int(k), int(threads))
+                if Lucene8_backwards_compatibility:
+                    results = self.object.batchSearch_Lucene8(query_strings, qid_strings, int(k), int(threads))
+                else:
+                    results = self.object.batchSearch(query_strings, qid_strings, int(k), int(threads))
             else:
-                results = self.object.batchSearchFields(query_strings, qid_strings, int(k), int(threads), jfields)
+                if Lucene8_backwards_compatibility:
+                    results = self.object.batchSearchFields_Lucene8(
+                        query_strings, qid_strings, int(k), int(threads), jfields)
+                else:
+                    results = self.object.batchSearchFields(
+                        query_strings, qid_strings, int(k), int(threads), jfields)
         return {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
 
     def set_analyzer(self, analyzer):

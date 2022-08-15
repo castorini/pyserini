@@ -25,11 +25,12 @@ from pyserini.analysis import get_lucene_analyzer
 from pyserini.search.lucene import LuceneSearcher, querybuilder
 
 
-class TestQueryBuilding(unittest.TestCase):
+class TestQueryBuildingForLucene8(unittest.TestCase):
+    # This class contains the test cases from test_querybuilder that require Lucene 8 backwards compatibility.
     def setUp(self):
-        # Download pre-built CACM index built using Lucene 9; append a random value to avoid filename clashes.
+        # Download pre-built CACM index built using Lucene 8; append a random value to avoid filename clashes.
         r = randint(0, 10000000)
-        self.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene9-index.cacm.tar.gz'
+        self.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene8-index.cacm.tar.gz'
         self.tarball_name = 'lucene-index.cacm-{}.tar.gz'.format(r)
         self.index_dir = 'index{}/'.format(r)
 
@@ -39,7 +40,7 @@ class TestQueryBuilding(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-        self.searcher = LuceneSearcher(f'{self.index_dir}lucene9-index.cacm')
+        self.searcher = LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
 
     def testBuildBoostedQuery(self):
         term_query1 = querybuilder.get_term_query('information')
@@ -55,14 +56,14 @@ class TestQueryBuilding(unittest.TestCase):
         boolean_query.add(boost2, should)
 
         bq = boolean_query.build()
-        hits1 = self.searcher.search(bq)
+        hits1 = self.searcher.search(bq, Lucene8_backwards_compatibility=True)
 
         boolean_query2 = querybuilder.get_boolean_query_builder()
         boolean_query2.add(term_query1, should)
         boolean_query2.add(term_query2, should)
 
         bq2 = boolean_query2.build()
-        hits2 = self.searcher.search(bq2)
+        hits2 = self.searcher.search(bq2, Lucene8_backwards_compatibility=True)
 
         for h1, h2 in zip(hits1, hits2):
             self.assertEqual(h1.docid, h2.docid)
@@ -76,7 +77,7 @@ class TestQueryBuilding(unittest.TestCase):
         boolean_query.add(boost4, should)
 
         bq3 = boolean_query.build()
-        hits3 = self.searcher.search(bq3)
+        hits3 = self.searcher.search(bq3, Lucene8_backwards_compatibility=True)
 
         for h1, h3 in zip(hits1, hits3):
             self.assertNotEqual(h1.score, h3.score)
@@ -88,8 +89,8 @@ class TestQueryBuilding(unittest.TestCase):
         query_builder.add(querybuilder.get_term_query('retrieval'), should)
 
         query = query_builder.build()
-        hits1 = self.searcher.search(query)
-        hits2 = self.searcher.search('information retrieval')
+        hits1 = self.searcher.search(query, Lucene8_backwards_compatibility=True)
+        hits2 = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
 
         for h1, h2 in zip(hits1, hits2):
             self.assertEqual(h1.docid, h2.docid)
@@ -102,14 +103,14 @@ class TestQueryBuilding(unittest.TestCase):
         query_builder.add(querybuilder.get_term_query('retrieval'), should)
 
         query = query_builder.build()
-        hits = self.searcher.search(query)
+        hits = self.searcher.search(query, Lucene8_backwards_compatibility=True)
         self.assertEqual(10, len(hits))
 
         self.searcher.set_rm3()
         self.assertTrue(self.searcher.is_using_rm3())
 
         with self.assertRaises(NotImplementedError):
-            self.searcher.search(query)
+            self.searcher.search(query, Lucene8_backwards_compatibility=True)
 
     def testTermQuery2(self):
         term_query1 = querybuilder.get_term_query('inform', analyzer=get_lucene_analyzer(stemming=False))
@@ -122,8 +123,8 @@ class TestQueryBuilding(unittest.TestCase):
         boolean_query1.add(term_query2, should)
 
         bq1 = boolean_query1.build()
-        hits1 = self.searcher.search(bq1)
-        hits2 = self.searcher.search('information retrieval')
+        hits1 = self.searcher.search(bq1, Lucene8_backwards_compatibility=True)
+        hits2 = self.searcher.search('information retrieval', Lucene8_backwards_compatibility=True)
 
         for h1, h2 in zip(hits1, hits2):
             self.assertEqual(h1.docid, h2.docid)
