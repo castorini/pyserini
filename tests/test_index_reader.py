@@ -34,9 +34,9 @@ from pyserini.vectorizer import BM25Vectorizer, TfidfVectorizer
 
 class TestIndexUtils(unittest.TestCase):
     def setUp(self):
-        # Download pre-built CACM index; append a random value to avoid filename clashes.
+        # Download pre-built CACM index built using Lucene 9; append a random value to avoid filename clashes.
         r = randint(0, 10000000)
-        self.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.tar.gz'
+        self.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene9-index.cacm.tar.gz'
         self.tarball_name = 'lucene-index.cacm-{}.tar.gz'.format(r)
         self.index_dir = 'index{}/'.format(r)
 
@@ -46,7 +46,7 @@ class TestIndexUtils(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-        self.index_path = os.path.join(self.index_dir, 'lucene-index.cacm')
+        self.index_path = os.path.join(self.index_dir, 'lucene9-index.cacm')
         self.searcher = search.LuceneSearcher(self.index_path)
         self.index_reader = IndexReader(self.index_path)
 
@@ -269,7 +269,7 @@ class TestIndexUtils(unittest.TestCase):
             # Go through the postings and find the matching document.
             if self.index_reader.convert_internal_docid_to_collection_docid(postings_list[i].docid) == 'CACM-3134':
                 # The position list should match.
-                self.assertEqual(postings_list[i].positions, [7,24,36,46,60,112,121,159])
+                self.assertEqual(postings_list[i].positions, [7, 24, 36, 46, 60, 112, 121, 159])
 
     def test_doc_invalid(self):
         self.assertTrue(self.index_reader.doc('foo') is None)

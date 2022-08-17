@@ -25,11 +25,12 @@ from pyserini.analysis import get_lucene_analyzer
 from pyserini.search.lucene import LuceneSearcher, querybuilder
 
 
-class TestQueryBuilding(unittest.TestCase):
+class TestQueryBuildingForLucene8(unittest.TestCase):
+    # This class contains the test cases from test_querybuilder that require Lucene 8 backwards compatibility.
     def setUp(self):
-        # Download pre-built CACM index built using Lucene 9; append a random value to avoid filename clashes.
+        # Download pre-built CACM index built using Lucene 8; append a random value to avoid filename clashes.
         r = randint(0, 10000000)
-        self.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene9-index.cacm.tar.gz'
+        self.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene8-index.cacm.tar.gz'
         self.tarball_name = 'lucene-index.cacm-{}.tar.gz'.format(r)
         self.index_dir = 'index{}/'.format(r)
 
@@ -39,7 +40,7 @@ class TestQueryBuilding(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-        self.searcher = LuceneSearcher(f'{self.index_dir}lucene9-index.cacm')
+        self.searcher = LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
 
     def testBuildBoostedQuery(self):
         term_query1 = querybuilder.get_term_query('information')
