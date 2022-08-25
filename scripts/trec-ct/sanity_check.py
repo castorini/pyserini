@@ -8,7 +8,6 @@ TREC_SUBMISSION_FILE_COL_NAMES = ["TOPIC_NO", "Q0", "ID", "RANK", "SCORE", "RUN_
 
 
 def get_top_n_res_per_topic(run: pd.DataFrame, queries:pd.DataFrame, collection: pd.DataFrame, n: int):
-    ## assumed the run is already sorted
     n_ranks = [i for i in range(1, n+1)]
     top_n_res_per_query = run[run["RANK"].isin(n_ranks)]
     top_n_res_per_query = top_n_res_per_query.sort_values("RANK")
