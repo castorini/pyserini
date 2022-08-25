@@ -53,7 +53,7 @@ if __name__ == '__main__':
         for line in f:
             data.append(json.loads(line))
         
-    collection = pd.DataFrame(data)
+    collection: pd.DataFrame = pd.DataFrame(data)
     run: pd.DataFrame = pd.read_csv(args.run, sep=" ", names=TREC_SUBMISSION_FILE_COL_NAMES)
     queries: pd.DataFrame = pd.read_csv(args.queries, sep="\t", names=["TOPIC_NO", "QUERY"])
 
