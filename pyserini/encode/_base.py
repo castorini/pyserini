@@ -88,14 +88,20 @@ class JsonlCollectionIterator:
                 to_yield[key] = self.all_info[key][idx: min(idx + self.batch_size, end_idx)]
             yield to_yield
 
-    def _parse_fields_from_contents(self, contents):
+    def _parse_fields_from_info(self, info):
         """
-        :params contents: str, the text containing all fields as speicifed in self.fields
-        This function will parse the input contents into each fields based the self.delimiter
+        :params info: dict, containing all fields as speicifed in self.fields either under 
+        the key of the field name or under the key of 'contents'.  If under `contents`, this 
+        function will parse the input contents into each fields based the self.delimiter
         return: List, each corresponds to the value of self.fields
         """
         n_fields = len(self.fields)
 
+        # if all fields are under the key of info, read these rather than 'contents' 
+        if all([field in info for field in self.fields]):
+            return [info[field].strip() for field in self.fields]
+
+        assert "contents" in info, f"contents not found in info: {info}"
         # whether to remove the final self.delimiter (especially \n)
         # in CACM, a \n is always there at the end of contents, which we want to remove;
         # but in SciFact, Fiqa, and more, there are documents that only have title but not text (e.g. "This is title\n")
@@ -120,8 +126,11 @@ class JsonlCollectionIterator:
             with open(filename) as f:
                 for line_i, line in tqdm(enumerate(f)):
                     info = json.loads(line)
-                    all_info['id'].append(str(info['id']))
-                    fields_info = self._parse_fields_from_contents(info['contents'])
+                    _id = info.get('id', info.get('docid', None))
+                    if _id is None:
+                        raise ValueError(f"Cannot find 'id' or 'docid' from {filename}.")
+                    all_info['id'].append(str(_id))
+                    fields_info = self._parse_fields_from_info(info)
                     if len(fields_info) != len(self.fields):
                         raise ValueError(
                             f"{len(fields_info)} fields are found at Line#{line_i} in file {filename}." \
