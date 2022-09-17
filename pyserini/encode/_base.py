@@ -102,6 +102,7 @@ class JsonlCollectionIterator:
             return [info[field].strip() for field in self.fields]
 
         assert "contents" in info, f"contents not found in info: {info}"
+        contents = info['contents']
         # whether to remove the final self.delimiter (especially \n)
         # in CACM, a \n is always there at the end of contents, which we want to remove;
         # but in SciFact, Fiqa, and more, there are documents that only have title but not text (e.g. "This is title\n")
