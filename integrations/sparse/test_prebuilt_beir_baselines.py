@@ -111,7 +111,9 @@ class TestSearchIntegration(unittest.TestCase):
             stdout, stderr = run_command(eval_cmd)
             for metric in ['ndcg_cut_10', 'recall_100', 'recall_1000']:
                 score = parse_score(stdout, metric)
-                self.assertAlmostEqual(score, self.beir_flat[key][metric], delta=1e-5)
+                self.assertAlmostEqual(score, self.beir_flat[key][metric], delta=0.008)
+                # Temporary fix: from delta=1e-5 to delta=0.008
+                # for Lucene 9 code running on Lucene 8 prebuilt index.
 
     def test_beir_multifield(self):
         for key in self.beir_multifield:
@@ -133,7 +135,9 @@ class TestSearchIntegration(unittest.TestCase):
             stdout, stderr = run_command(eval_cmd)
             for metric in ['ndcg_cut_10', 'recall_100', 'recall_1000']:
                 score = parse_score(stdout, metric)
-                self.assertAlmostEqual(score, self.beir_multifield[key][metric], delta=1e-5)
+                self.assertAlmostEqual(score, self.beir_multifield[key][metric], delta=0.008)
+                # Temporary fix: from delta=1e-5 to delta=0.008
+                # for Lucene 9 code running on Lucene 8 prebuilt index.
 
     def tearDown(self):
         clean_files(self.temp_files)
