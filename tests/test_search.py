@@ -212,9 +212,9 @@ class TestSearch(unittest.TestCase):
         hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
-        self.assertAlmostEqual(hits[0].score, 2.18010, places=5)
+        self.assertAlmostEqual(hits[0].score, 2.17350, places=5)
         self.assertEqual(hits[9].docid, 'CACM-2516')
-        self.assertAlmostEqual(hits[9].score, 1.70330, places=5)
+        self.assertAlmostEqual(hits[9].score, 1.70180, places=5)
 
         self.searcher.unset_rm3()
         self.assertFalse(self.searcher.is_using_rm3())
@@ -232,9 +232,9 @@ class TestSearch(unittest.TestCase):
         hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
-        self.assertAlmostEqual(hits[0].score, 2.17190, places=5)
+        self.assertAlmostEqual(hits[0].score, 2.17150, places=5)
         self.assertEqual(hits[9].docid, 'CACM-1457')
-        self.assertAlmostEqual(hits[9].score, 1.43700, places=5)
+        self.assertAlmostEqual(hits[9].score, 1.45560, places=5)
 
         with self.assertRaises(TypeError):
             self.no_vec_searcher.set_rm3()
