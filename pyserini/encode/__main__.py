@@ -104,6 +104,7 @@ if __name__ == '__main__':
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--batch-size', type=int, help='batch size', default=64, required=False)
     encoder_parser.add_argument('--max-length', type=int, help='max length', default=256, required=False)
+    encoder_parser.add_argument('--dimension', type=int, help='dimension', default=768, required=False)
     encoder_parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]',
                                 default='cuda:0', required=False)
     encoder_parser.add_argument('--fp16', action='store_true', default=False)
@@ -114,7 +115,7 @@ if __name__ == '__main__':
 
     encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device)
     if args.output.to_faiss:
-        embedding_writer = FaissRepresentationWriter(args.output.embeddings)
+        embedding_writer = FaissRepresentationWriter(args.output.embeddings, dimension=args.encoder.dimension)
     else:
         embedding_writer = JsonlRepresentationWriter(args.output.embeddings)
     collection_iterator = JsonlCollectionIterator(args.input.corpus, args.input.fields, delimiter)
