@@ -159,7 +159,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2940, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2926, delta=0.0001)
 
     def test_core17_svm(self):
         pyserini_topics = 'core17'
@@ -203,7 +203,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2970, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2956, delta=0.0001)
 
     def test_core17_avg(self):
         pyserini_topics = 'core17'
@@ -247,7 +247,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2967, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2950, delta=0.0001)
 
     def test_core17_rrf(self):
         pyserini_topics = 'core17'
@@ -317,7 +317,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2965, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2957, delta=0.0001)
 
     def test_core18(self):
         self.assertTrue(self.core18_checker.run('core18_bm25', '--bm25', 0.2496))
@@ -367,7 +367,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3222, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3216, delta=0.0001)
 
     def test_core18_svm(self):
         pyserini_topics = 'core18'
@@ -411,7 +411,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3216, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3200, delta=0.0001)
 
     def test_core18_avg(self):
         pyserini_topics = 'core18'
@@ -455,7 +455,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3227, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3215, delta=0.0001)
 
     def test_core18_rrf(self):
         pyserini_topics = 'core18'
@@ -525,7 +525,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.3214, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3205, delta=0.0001)
 
     def test_robust04(self):
         self.assertTrue(self.robust04_checker.run('robust04_bm25', '--bm25', 0.2531))
@@ -575,7 +575,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2971, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2969, delta=0.0001)
 
     def test_robust04_svm(self):
         pyserini_topics = 'robust04'
@@ -619,7 +619,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2967, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2972, delta=0.0001)
 
     def test_robust04_avg(self):
         pyserini_topics = 'robust04'
@@ -733,7 +733,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2975, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2977, delta=0.0001)
 
     def test_robust05(self):
         self.assertTrue(self.robust05_checker.run('robust05_bm25', '--bm25', 0.2032))
@@ -783,7 +783,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2854, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2872, delta=0.0001)
 
     def test_robust05_svm(self):
         pyserini_topics = 'robust05'
@@ -827,7 +827,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2855, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2871, delta=0.0001)
 
     def test_robust05_avg(self):
         pyserini_topics = 'robust05'
@@ -871,7 +871,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2865, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2880, delta=0.0001)
 
     def test_robust05_rrf(self):
         pyserini_topics = 'robust05'
@@ -941,7 +941,7 @@ class TestSearchIntegration(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertAlmostEqual(score, 0.2788, delta=0.0001)
+        self.assertAlmostEqual(score, 0.2808, delta=0.0001)
 
     def tearDown(self):
         shutil.rmtree(f'{self.tmp}')
