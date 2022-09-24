@@ -115,7 +115,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertTrue(self.core17_checker.run('core17_bm25', '--bm25', 0.2087))
 
     def test_core17_rm3(self):
-        self.assertTrue(self.core17_checker.run('core17_bm25', '--bm25 --rm3', 0.2823))
+        self.assertTrue(self.core17_checker.run('core17_bm25', '--bm25 --rm3', 0.2798))
 
     def test_core17_lr(self):
         pyserini_topics = 'core17'
@@ -323,7 +323,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertTrue(self.core18_checker.run('core18_bm25', '--bm25', 0.2496))
 
     def test_core18_rm3(self):
-        self.assertTrue(self.core18_checker.run('core18_bm25', '--bm25 --rm3', 0.3139))
+        self.assertTrue(self.core18_checker.run('core18_bm25', '--bm25 --rm3', 0.3129))
 
     def test_core18_lr(self):
         pyserini_topics = 'core18'
@@ -531,7 +531,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertTrue(self.robust04_checker.run('robust04_bm25', '--bm25', 0.2531))
 
     def test_robust04_rm3(self):
-        self.assertTrue(self.robust04_checker.run('robust04_bm25_rm3', '--bm25 --rm3', 0.2903))
+        self.assertTrue(self.robust04_checker.run('robust04_bm25_rm3', '--bm25 --rm3', 0.2908))
 
     def test_robust04_lr(self):
         pyserini_topics = 'robust04'
@@ -739,7 +739,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertTrue(self.robust05_checker.run('robust05_bm25', '--bm25', 0.2032))
 
     def test_robust05_rm3(self):
-        self.assertTrue(self.robust05_checker.run('robust05_bm25_rm3', '--bm25 --rm3', 0.2602))
+        self.assertTrue(self.robust05_checker.run('robust05_bm25_rm3', '--bm25 --rm3', 0.2624))
 
     def test_robust05_lr(self):
         pyserini_topics = 'robust05'
