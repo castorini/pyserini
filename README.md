@@ -20,17 +20,15 @@ For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.34632
 ## Important Note: Lucene 8 to Lucene 9 Transition
 
 The [PyPI release 0.17.1](https://pypi.org/project/pyserini/0.17.1/) at commit [`33c87c`](https://github.com/castorini/pyserini/commit/33c87c982d543d65e0ba1b4c94ee865fd9a6040e) (2022/08/13) is the last official Pyserini release built on Lucene 8, based on [Anserini v0.14.4](https://github.com/castorini/anserini/releases/tag/anserini-0.14.4).
-Main Anserini trunk has been upgraded to Lucene 9.3.
+Main Anserini trunk has been upgraded to Lucene 9.3 and the latest release, [Anserini v0.15.0](https://github.com/castorini/anserini/releases/tag/anserini-0.15.0), is built on that version.
 
 This is an important but disruptive upgrade, as indexes built with Lucene 8 are not backwards compatible with Lucene 9 code (see [Anserini #1952](https://github.com/castorini/anserini/issues/1952)).
 There is a workaround, but we have yet to implement in Pyserini.
 Furthermore, Lucene 8 code is _not_ able to read indexes built with Lucene 9.
 An upgrade to Lucene 9 is necessary to use Lucene's HNSW indexes, which will increase the capabilities of Pyserini and open up the design space of dense/sparse hybrids.
 
-Thus, we are in a transition where a development installation is partially broken, since the development installation jar will be based on Lucene 9, but the Pyserini codebase has not been updated to accommodate.
-For a self-consistent development installation (that passes all tests), grab `anserini-0.14.4-fatjar.jar` from [here](https://repo1.maven.org/maven2/io/anserini/anserini/0.14.4/) to drop into `pyserini/resources/jars`. 
-
-This note supersedes all other Pyserini documentation on this site.
+We are working hard on a corresponding Pyserini upgrade right now.
+For a development installation, make sure you grab the `anserini-0.15.0-fatjar.jar` from [here](https://repo1.maven.org/maven2/io/anserini/anserini/0.15.0/) to drop into `pyserini/resources/jars` to make sure that you're using Lucene 9.
 
 ## Installation
 
