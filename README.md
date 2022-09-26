@@ -20,7 +20,7 @@ For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.34632
 ## Important Note: Lucene 8 to Lucene 9 Transition
 
 tl;dr &mdash; Pyserini just underwent a transition from Lucene 8 to Lucene 9.
-The code base is currently built on Lucene 9, but pre-built indexes are still based on Lucene 8.
+Main trunk is currently based on Lucene 9, but pre-built indexes are still based on Lucene 8.
 
 More details:
 
@@ -34,12 +34,11 @@ Indexes built with Lucene 8 are not fully compatible with Lucene 9 code (see [An
 The workaround, which has been implemented in Pyserini, is to disable consistent tie-breaking.
 This happens automatically if a Lucene 8 index is detected.
 However, Lucene 9 code running on Lucene 8 indexes will give slightly different results than Lucene 8 code running on Lucene 8 indexes.
-Since pre-built indexes are still based on Lucene 8, there will be small score differences.
-
+Since pre-built indexes are still based on Lucene 8, some experiments will exhibit small score differences.
 Note that Lucene 8 code is _not_ able to read indexes built with Lucene 9.
 
 **Why is this necessary?**
-Although disruptive, an upgrade to Lucene 9 is necessary to use Lucene's HNSW indexes, which will increase the capabilities of Pyserini and open up the design space of dense/sparse hybrids.
+Although disruptive, an upgrade to Lucene 9 is necessary to take advantage of Lucene's HNSW indexes, which will increase the capabilities of Pyserini and open up the design space of dense/sparse hybrids.
 
 ## Installation
 
