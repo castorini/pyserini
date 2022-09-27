@@ -69,7 +69,7 @@ To confirm that bag-of-words retrieval is working correctly, you can run the BM2
 ```bash
 $ python -m pyserini.search \
     --topics msmarco-passage-dev-subset \
-    --index msmarco-passage \
+    --index msmarco-v1-passage\
     --output run.msmarco-passage.txt \
     --output-format msmarco \
     --bm25
@@ -175,6 +175,7 @@ On a Linux system, the correct path might look something like `/usr/lib/jvm/java
 Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.
 + Windows uses GBK character encoding by default, which makes resource file reading in Anserini inconsistent with that in Linux and macOS.
 To fix, manually set environment variable `set _JAVA_OPTIONS=-Dfile.encoding=UTF-8` to use `UTF-8` encoding.
++ When installing with Windows, there are times you will encounter the error. `RuntimeError: module compiled against API version 0xe but this version of numpy is 0xd`. The solution to this is to check the version of your numpy. At the time of this writing, the latest numpy version is 1.23.2 which is incompatible with the API. We consider downgrading to `1.21.1`.This way the other dependant libraries also are compatible with the API version.
 
 
 ## Internal Notes
