@@ -244,7 +244,7 @@ class TestSearch(unittest.TestCase):
 
         self.searcher.set_rocchio(top_fb_terms=10, top_fb_docs=8, bottom_fb_terms=10,
                                   bottom_fb_docs=8, alpha=0.4, beta=0.5, gamma=0.1,
-                                  output_query=False, use_negative=True)
+                                  debug=False, use_negative=True)
         self.assertTrue(self.searcher.is_using_rocchio())
 
         hits = self.searcher.search('information retrieval')
@@ -256,7 +256,7 @@ class TestSearch(unittest.TestCase):
 
         self.searcher.set_rocchio(top_fb_terms=10, top_fb_docs=8, bottom_fb_terms=10,
                                   bottom_fb_docs=8, alpha=0.4, beta=0.5, gamma=0.1,
-                                  output_query=False, use_negative=False)
+                                  debug=False, use_negative=False)
         self.assertTrue(self.searcher.is_using_rocchio())
 
         hits = self.searcher.search('information retrieval')

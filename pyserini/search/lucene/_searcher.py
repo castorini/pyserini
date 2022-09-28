@@ -198,6 +198,26 @@ class LuceneSearcher:
                 results = self.object.batch_search_fields(query_strings, qid_strings, int(k), int(threads), jfields)
         return {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
 
+    def get_feedback_terms(self, q: str) -> Dict[str, float]:
+        """Returns feedback terms and their weights.
+
+        Parameters
+        ----------
+        q : str
+            Query string or the ``JQuery`` objected.
+
+        Returns
+        -------
+        Dict[str, float]
+            Feedback terms and their weights.
+        """
+
+        terms_map = self.object.get_feedback_terms(q)
+        if terms_map:
+            return {r.getKey(): r.getValue() for r in terms_map.entrySet().toArray()}
+        else:
+            return None
+
     def set_analyzer(self, analyzer):
         """Set the Java ``Analyzer`` to use.
 
@@ -212,8 +232,8 @@ class LuceneSearcher:
         """Set language of LuceneSearcher"""
         self.object.set_language(language)
 
-    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False, rm3_filter_terms=True):
-        """Configure RM3 query expansion.
+    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), debug=False, filter_terms=True):
+        """Configure RM3 pseudo-relevance feedback.
 
         Parameters
         ----------
@@ -223,26 +243,27 @@ class LuceneSearcher:
             RM3 parameter for number of expansion documents.
         original_query_weight : float
             RM3 parameter for weight to assign to the original query.
-        rm3_output_query : bool
+        debug : bool
             Print the original and expanded queries as debug output.
-        rm3_filter_terms: bool
+        filter_terms: bool
             Whether to remove non-English terms.
         """
         if self.object.reader.getTermVectors(0):
-            self.object.set_rm3(fb_terms, fb_docs, original_query_weight, rm3_output_query, rm3_filter_terms)
+            self.object.set_rm3(fb_terms, fb_docs, original_query_weight, debug, filter_terms)
         else:
             raise TypeError("RM3 is not supported for indexes without document vectors.")
 
     def unset_rm3(self):
-        """Disable RM3 query expansion."""
+        """Disable RM3 pseudo-relevance feedback."""
         self.object.unset_rm3()
 
     def is_using_rm3(self) -> bool:
-        """Check if RM3 query expansion is being performed."""
+        """Check if RM3 pseudo-relevance feedback is being performed."""
         return self.object.use_rm3()
     
-    def set_rocchio(self, top_fb_terms=10, top_fb_docs=10, bottom_fb_terms=10, bottom_fb_docs=10, alpha=1, beta=0.75, gamma=0, output_query=False, use_negative=False):
-        """Configure Rocchio query expansion.
+    def set_rocchio(self, top_fb_terms=10, top_fb_docs=10, bottom_fb_terms=10, bottom_fb_docs=10,
+                    alpha=1, beta=0.75, gamma=0, debug=False, use_negative=False):
+        """Configure Rocchio pseudo-relevance feedback.
 
         Parameters
         ----------
@@ -254,28 +275,29 @@ class LuceneSearcher:
             Rocchio parameter for number of nonrelevant expansion terms.
         bottom_fb_docs : int
             Rocchio parameter for number of nonrelevant expansion documents.
-        rocchio_alpha : float
+        alpha : float
             Rocchio parameter for weight to assign to the original query.
-        rocchio_beta: float
+        beta: float
             Rocchio parameter for weight to assign to the relevant document vector.
-        rocchio_gamma: float
+        gamma: float
             Rocchio parameter for weight to assign to the nonrelevant document vector.
-        rocchio_output_query : bool
+        debug : bool
             Print the original and expanded queries as debug output.
-        rocchio_use_negative : bool
+        use_negative : bool
             Rocchio parameter to use negative labels.
         """
         if self.object.reader.getTermVectors(0):
-            self.object.set_rocchio(top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs, alpha, beta, gamma, output_query, use_negative)
+            self.object.set_rocchio(top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
+                                    alpha, beta, gamma, debug, use_negative)
         else:
             raise TypeError("Rocchio is not supported for indexes without document vectors.")
 
     def unset_rocchio(self):
-        """Disable Rocchio query expansion."""
+        """Disable Rocchio pseudo-relevance feedback."""
         self.object.unset_rocchio()
 
     def is_using_rocchio(self) -> bool:
-        """Check if Rocchio query expansion is being performed."""
+        """Check if Rocchio pseudo-relevance feedback is being performed."""
         return self.object.use_rocchio()
 
     def set_qld(self, mu=float(1000)):

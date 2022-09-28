@@ -216,8 +216,13 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(hits[9].docid, 'CACM-2516')
         self.assertAlmostEqual(hits[9].score, 1.70180, places=5)
 
+        feedback_terms = self.searcher.get_feedback_terms('information retrieval')
+        self.assertEqual(len(feedback_terms), 10)
+        self.assertAlmostEqual(feedback_terms['storag'], 0.024701, places=5)
+
         self.searcher.unset_rm3()
         self.assertFalse(self.searcher.is_using_rm3())
+        self.assertIsNone(self.searcher.get_feedback_terms('information retrieval'))
 
         hits = self.searcher.search('information retrieval')
 
@@ -251,8 +256,13 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(hits[9].docid, 'CACM-2140')
         self.assertAlmostEqual(hits[9].score, 5.57970, places=5)
 
+        feedback_terms = self.searcher.get_feedback_terms('information retrieval')
+        self.assertEqual(len(feedback_terms), 10)
+        self.assertAlmostEqual(feedback_terms['storag'], 0.132200, places=5)
+
         self.searcher.unset_rocchio()
         self.assertFalse(self.searcher.is_using_rocchio())
+        self.assertIsNone(self.searcher.get_feedback_terms('information retrieval'))
 
         hits = self.searcher.search('information retrieval')
 
@@ -263,7 +273,7 @@ class TestSearch(unittest.TestCase):
 
         self.searcher.set_rocchio(top_fb_terms=10, top_fb_docs=8, bottom_fb_terms=10,
                                   bottom_fb_docs=8, alpha=0.4, beta=0.5, gamma=0.1,
-                                  output_query=False, use_negative=True)
+                                  debug=False, use_negative=True)
         self.assertTrue(self.searcher.is_using_rocchio())
 
         hits = self.searcher.search('information retrieval')
@@ -275,7 +285,7 @@ class TestSearch(unittest.TestCase):
 
         self.searcher.set_rocchio(top_fb_terms=10, top_fb_docs=8, bottom_fb_terms=10,
                                   bottom_fb_docs=8, alpha=0.4, beta=0.5, gamma=0.1,
-                                  output_query=False, use_negative=False)
+                                  debug=False, use_negative=False)
         self.assertTrue(self.searcher.is_using_rocchio())
 
         hits = self.searcher.search('information retrieval')
