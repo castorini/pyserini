@@ -921,6 +921,149 @@ TF_INDEX_INFO = {
     },
     "mrtydi-v1.1-arabic": {
         "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
+        "filename": "lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.README.md",
+        "urls": [
+        ],
+        "md5": "3be4e46d51456423688da273f8276ad6",
+        "size compressed (bytes)": 1420441600,
+        "total_terms": 92529032,
+        "documents": 2106586,
+        "unique_terms": 1284748,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-bengali": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Bengali).",
+        "filename": "lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.README.md",
+        "urls": [
+        ],
+        "md5": "1b74a43f492599ed86d3a0913a52b53b",
+        "size compressed (bytes)": 294942720,
+        "total_terms": 15236599,
+        "documents": 304059,
+        "unique_terms": 520699,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-english": {
+        "description": "Lucene index for Mr.TyDi v1.1 (English).",
+        "filename": "lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.README.md",
+        "urls": [
+        ],
+        "md5": "b5ab7b309997bdccab22b84ed1e4fa44",
+        "size compressed (bytes)": 20566118400,
+        "total_terms": 1507060932,
+        "documents": 32907100,
+        "unique_terms": -1,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-finnish": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Finnish).",
+        "filename": "lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.README.md",
+        "urls": [
+        ],
+        "md5": "6ce3c43840881125ff33a58e0e7c0131",
+        "size compressed (bytes)": 1116272640,
+        "total_terms": 69416543,
+        "documents": 1908757,
+        "unique_terms": 1715076,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-indonesian": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Indonesian).",
+        "filename": "lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.README.md",
+        "urls": [
+        ],
+        "md5": "ff10afeca970663acb3e44674c1ca33d",
+        "size compressed (bytes)": 698388480,
+        "total_terms": 52493134,
+        "documents": 1469399,
+        "unique_terms": 942552,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-japanese": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Japanese).",
+        "filename": "lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.README.md",
+        "urls": [
+        ],
+        "md5": "8da89e74d40966c56cfb7d6aa5398539",
+        "size compressed (bytes)": 4333844480,
+        "total_terms": 300761975,
+        "documents": 7000027,
+        "unique_terms": 1588879,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-korean": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Korean).",
+        "filename": "lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.README.md",
+        "urls": [
+        ],
+        "md5": "8da89e74d40966c56cfb7d6aa5398539",
+        "size compressed (bytes)": 1349109760,
+        "total_terms": 122217295,
+        "documents": 1496126,
+        "unique_terms": 1517179,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-russian": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Russian).",
+        "filename": "lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.README.md",
+        "urls": [
+        ],
+        "md5": "f916dc23423bac3c88354a81fbcc8fd6",
+        "size compressed (bytes)": 6864660480,
+        "total_terms": 346329117,
+        "documents": 9597504,
+        "unique_terms": 3034240,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-swahili": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Swahili).",
+        "filename": "lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.README.md",
+        "urls": [
+        ],
+        "md5": "707256d59738d1d5a16433bed72a278e",
+        "size compressed (bytes)": 59607040,
+        "total_terms": 4937051,
+        "documents": 136689,
+        "unique_terms": 385711,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-telugu": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Telugu).",
+        "filename": "lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.README.md",
+        "urls": [
+        ],
+        "md5": "cac17da797fa7737d0a327a97a88720a",
+        "size compressed (bytes)": 519157760,
+        "total_terms": 26812052,
+        "documents": 548224,
+        "unique_terms": 1157217,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-thai": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Thai).",
+        "filename": "lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.README.md",
+        "urls": [
+        ],
+        "md5": "5f278e81f07eeeffd171666661ae20a2",
+        "size compressed (bytes)": 546201600,
+        "total_terms": 31550936,
+        "documents": 568855,
+        "unique_terms": 663628,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-arabic-lucene8": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
         "filename": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md",
         "urls": [
@@ -934,7 +1077,7 @@ TF_INDEX_INFO = {
         "unique_terms": 1284712,
         "downloaded": False
     },
-    "mrtydi-v1.1-bengali": {
+    "mrtydi-v1.1-bengali-lucene8": {
         "description": "Lucene index for Mr.TyDi v1.1 (Bengali).",
         "filename": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md",
@@ -949,7 +1092,7 @@ TF_INDEX_INFO = {
         "unique_terms": 520694,
         "downloaded": False
     },
-    "mrtydi-v1.1-english": {
+    "mrtydi-v1.1-english-lucene8": {
         "description": "Lucene index for Mr.TyDi v1.1 (English).",
         "filename": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md",
@@ -964,7 +1107,7 @@ TF_INDEX_INFO = {
         "unique_terms": 6189349,
         "downloaded": False
     },
-    "mrtydi-v1.1-finnish": {
+    "mrtydi-v1.1-finnish-lucene8": {
         "description": "Lucene index for Mr.TyDi v1.1 (Finnish).",
         "filename": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md",
@@ -979,7 +1122,7 @@ TF_INDEX_INFO = {
         "unique_terms": 1709590,
         "downloaded": False
     },
-    "mrtydi-v1.1-indonesian": {
+    "mrtydi-v1.1-indonesian-lucene8": {
         "description": "Lucene index for Mr.TyDi v1.1 (Indonesian).",
         "filename": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md",
@@ -994,7 +1137,7 @@ TF_INDEX_INFO = {
         "unique_terms": 942550,
         "downloaded": False
     },
-    "mrtydi-v1.1-japanese": {
+    "mrtydi-v1.1-japanese-lucene8": {
         "description": "Lucene index for Mr.TyDi v1.1 (Japanese).",
         "filename": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md",
@@ -1009,7 +1152,7 @@ TF_INDEX_INFO = {
         "unique_terms": 1708155,
         "downloaded": False
     },
-    "mrtydi-v1.1-korean": {
+    "mrtydi-v1.1-korean-lucene8": {
         "description": "Lucene index for Mr.TyDi v1.1 (Korean).",
         "filename": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md",
@@ -1024,7 +1167,7 @@ TF_INDEX_INFO = {
         "unique_terms": 1517175,
         "downloaded": False
     },
-    "mrtydi-v1.1-russian": {
+    "mrtydi-v1.1-russian-lucene8": {
         "description": "Lucene index for Mr.TyDi v1.1 (Russian).",
         "filename": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md",
@@ -1039,7 +1182,7 @@ TF_INDEX_INFO = {
         "unique_terms": 3059773,
         "downloaded": False
     },
-    "mrtydi-v1.1-swahili": {
+    "mrtydi-v1.1-swahili-lucene8": {
         "description": "Lucene index for Mr.TyDi v1.1 (Swahili).",
         "filename": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md",
@@ -1054,7 +1197,7 @@ TF_INDEX_INFO = {
         "unique_terms": 385711,
         "downloaded": False
     },
-    "mrtydi-v1.1-telugu": {
+    "mrtydi-v1.1-telugu-lucene8": {
         "description": "Lucene index for Mr.TyDi v1.1 (Telugu).",
         "filename": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md",
@@ -1069,7 +1212,7 @@ TF_INDEX_INFO = {
         "unique_terms": 1892900,
         "downloaded": False
     },
-    "mrtydi-v1.1-thai": {
+    "mrtydi-v1.1-thai-lucene8": {
         "description": "Lucene index for Mr.TyDi v1.1 (Thai).",
         "filename": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md",
