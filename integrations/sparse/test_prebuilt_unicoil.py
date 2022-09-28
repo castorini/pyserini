@@ -84,7 +84,8 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3495, delta=0.0001)
+        self.assertAlmostEqual(score, 0.3496, delta=0.0001)
+        # Temporary fix: this is Lucene 9 code running on Lucene 8 prebuilt index.
     
     def test_msmarco_v2_passage_unicoil_noexp_otf(self):
         output_file = 'test_run.msmarco-v2-passage.unicoil-noexp.0shot.otf.tsv'

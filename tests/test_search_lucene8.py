@@ -196,9 +196,9 @@ class TestSearch(unittest.TestCase):
         hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
-        self.assertAlmostEqual(hits[0].score, 2.1801, places=4)
+        self.assertAlmostEqual(hits[0].score, 2.1735, places=4)
         self.assertEqual(hits[9].docid, 'CACM-2516')
-        self.assertAlmostEqual(hits[9].score, 1.7033, places=4)
+        self.assertAlmostEqual(hits[9].score, 1.7018, places=4)
 
         self.searcher.unset_rm3()
         self.assertFalse(self.searcher.is_using_rm3())
@@ -216,9 +216,9 @@ class TestSearch(unittest.TestCase):
         hits = self.searcher.search('information retrieval')
 
         self.assertEqual(hits[0].docid, 'CACM-3134')
-        self.assertAlmostEqual(hits[0].score, 2.1719, places=4)
+        self.assertAlmostEqual(hits[0].score, 2.1715, places=4)
         self.assertEqual(hits[9].docid, 'CACM-1457')
-        self.assertAlmostEqual(hits[9].score, 1.4370, places=4)
+        self.assertAlmostEqual(hits[9].score, 1.4556, places=4)
 
     def test_rocchio(self):
         self.searcher = LuceneSearcher(f'{self.index_dir}lucene-index.cacm')

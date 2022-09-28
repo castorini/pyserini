@@ -19,18 +19,26 @@ For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.34632
 
 ## Important Note: Lucene 8 to Lucene 9 Transition
 
-The [PyPI release 0.17.1](https://pypi.org/project/pyserini/0.17.1/) at commit [`33c87c`](https://github.com/castorini/pyserini/commit/33c87c982d543d65e0ba1b4c94ee865fd9a6040e) (2022/08/13) is the last official Pyserini release built on Lucene 8, based on [Anserini v0.14.4](https://github.com/castorini/anserini/releases/tag/anserini-0.14.4).
-Main Anserini trunk has been upgraded to Lucene 9.3.
+tl;dr &mdash; Pyserini just underwent a transition from Lucene 8 to Lucene 9.
+Main trunk is currently based on Lucene 9, but pre-built indexes are still based on Lucene 8.
 
-This is an important but disruptive upgrade, as indexes built with Lucene 8 are not backwards compatible with Lucene 9 code (see [Anserini #1952](https://github.com/castorini/anserini/issues/1952)).
-There is a workaround, but we have yet to implement in Pyserini.
-Furthermore, Lucene 8 code is _not_ able to read indexes built with Lucene 9.
-An upgrade to Lucene 9 is necessary to use Lucene's HNSW indexes, which will increase the capabilities of Pyserini and open up the design space of dense/sparse hybrids.
+More details:
 
-Thus, we are in a transition where a development installation is partially broken, since the development installation jar will be based on Lucene 9, but the Pyserini codebase has not been updated to accommodate.
-For a self-consistent development installation (that passes all tests), grab `anserini-0.14.4-fatjar.jar` from [here](https://repo1.maven.org/maven2/io/anserini/anserini/0.14.4/) to drop into `pyserini/resources/jars`. 
++ [PyPI v0.17.1](https://pypi.org/project/pyserini/0.17.1/) (commit [`33c87c`](https://github.com/castorini/pyserini/commit/33c87c982d543d65e0ba1b4c94ee865fd9a6040e), released 2022/08/13) is the last Pyserini release built on Lucene 8, based on [Anserini v0.14.4](https://github.com/castorini/anserini/releases/tag/anserini-0.14.4).
+Thereafter, Anserini trunk was upgraded to Lucene 9.
++ [PyPI v0.18.0](https://pypi.org/project/pyserini/0.18.0/) (commit [`5fab14`](https://github.com/castorini/pyserini/commit/5fab143f64ed067ecf619c7d83ecd846aa494fbe), released 2022/09/26) is built on [Anserini v0.15.0](https://github.com/castorini/anserini/releases/tag/anserini-0.15.0), using Lucene 9.
+Thereafter, Pyserini trunk advanced to Lucene 9.
 
-This note supersedes all other Pyserini documentation on this site.
+**What's the impact?**
+Indexes built with Lucene 8 are not fully compatible with Lucene 9 code (see [Anserini #1952](https://github.com/castorini/anserini/issues/1952)).
+The workaround, which has been implemented in Pyserini, is to disable consistent tie-breaking.
+This happens automatically if a Lucene 8 index is detected.
+However, Lucene 9 code running on Lucene 8 indexes will give slightly different results than Lucene 8 code running on Lucene 8 indexes.
+Since pre-built indexes are still based on Lucene 8, some experiments will exhibit small score differences.
+Note that Lucene 8 code is _not_ able to read indexes built with Lucene 9.
+
+**Why is this necessary?**
+Although disruptive, an upgrade to Lucene 9 is necessary to take advantage of Lucene's HNSW indexes, which will increase the capabilities of Pyserini and open up the design space of dense/sparse hybrids.
 
 ## Installation
 
@@ -688,6 +696,7 @@ The following guides provide step-by-step instructions:
 
 ## Release History
 
++ v0.18.0 (w/ Anserini v0.15.0): September 26, 2022 [[Release Notes](docs/release-notes/release-notes-v0.18.0.md)] (First release based on Lucene 9)
 + v0.17.1 (w/ Anserini v0.14.4): August 13, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.1.md)] (Final release based on Lucene 8)
 + v0.17.0 (w/ Anserini v0.14.3): May 28, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.0.md)]
 + v0.16.1 (w/ Anserini v0.14.3): May 12, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.1.md)]

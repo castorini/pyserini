@@ -55,7 +55,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.3281)
+        self.assertEqual(map_score, 0.3282)  # Difference in Lucene 9 code running on Lucene 8 index.
         self.assertEqual(ndcg_score, 0.5260)
 
     def test_sum_aggregation_dl20_passage(self):
@@ -125,7 +125,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.3357)
-        self.assertEqual(ndcg_score, 0.5469)
+        self.assertEqual(ndcg_score, 0.5476)  # Difference in Lucene 9 code running on Lucene 8 index.
 
     def tearDown(self):
         rmtree(self.tmp)
@@ -209,8 +209,8 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.2204)
-        self.assertEqual(ndcg_score, 0.4912)
+        self.assertEqual(map_score, 0.2205)  # Difference in Lucene 9 code running on Lucene 8 index.
+        self.assertEqual(ndcg_score, 0.4917) # Difference in Lucene 9 code running on Lucene 8 index.
 
     def test_max_aggregation_dl20_doc(self):
         # dl20-doc-max
@@ -232,8 +232,8 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.3373)
-        self.assertEqual(ndcg_score, 0.5015)
+        self.assertEqual(map_score, 0.3371)  # Difference in Lucene 9 code running on Lucene 8 index.
+        self.assertEqual(ndcg_score, 0.4996) # Difference in Lucene 9 code running on Lucene 8 index.
 
     def tearDown(self):
         rmtree(self.tmp)
@@ -320,8 +320,8 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.2425)
-        self.assertEqual(ndcg_score, 0.5195)
+        self.assertEqual(map_score, 0.2424)  # Difference in Lucene 9 code running on Lucene 8 index.
+        self.assertEqual(ndcg_score, 0.5193) # Difference in Lucene 9 code running on Lucene 8 index.
 
     def test_max_aggregation_dl20_doc_seg(self):
         # dl20-doc-seg-max
@@ -344,8 +344,8 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.3496)
-        self.assertEqual(ndcg_score, 0.5089)
+        self.assertEqual(map_score, 0.3498)  # Difference in Lucene 9 code running on Lucene 8 index.
+        self.assertEqual(ndcg_score, 0.5116) # Difference in Lucene 9 code running on Lucene 8 index.
 
     def tearDown(self):
         rmtree(self.tmp)
