@@ -290,7 +290,10 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertAlmostEqual(score, 0.7514, places=4)
+        # This appears to be a flaky test case; previously, we were getting a score of 0.7511, per
+        # https://github.com/castorini/pyserini/pull/1273/files#diff-799c2c339e1d7defa31fa1e82f9b16886269b37805376ef93f7c8afedcee574e
+        # Sometimes we get 0.7512. Fix is to reduce tolerance.
+        self.assertAlmostEqual(score, 0.7514, places=3)
 
     def test_dpr_squad_test_encoded_queries(self):
         encoder = QueryEncoder.load_encoded_queries('dpr_multi-squad-test')
