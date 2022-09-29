@@ -924,8 +924,9 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.tar.gz",
         ],
-        "md5": "3be4e46d51456423688da273f8276ad6",
+        "md5": "efff40a2548f759eb8b0e47e0622685b",
         "size compressed (bytes)": 1420441600,
         "total_terms": 92529032,
         "documents": 2106586,
@@ -937,8 +938,9 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "1b74a43f492599ed86d3a0913a52b53b",
+        "md5": "6ed844c8f17b2f041fba7c5676d3fb42",
         "size compressed (bytes)": 294942720,
         "total_terms": 15236599,
         "documents": 304059,
@@ -950,8 +952,9 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "b5ab7b309997bdccab22b84ed1e4fa44",
+        "md5": "e6b0a2531d958c3d1a65634dc315b0ab",
         "size compressed (bytes)": 20566118400,
         "total_terms": 1507060932,
         "documents": 32907100,
@@ -963,8 +966,9 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "6ce3c43840881125ff33a58e0e7c0131",
+        "md5": "0f464c022447eed5431157f0b2feb0b3",
         "size compressed (bytes)": 1116272640,
         "total_terms": 69416543,
         "documents": 1908757,
@@ -976,8 +980,9 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "ff10afeca970663acb3e44674c1ca33d",
+        "md5": "345d43a2443786a3394a93a6f7ef77b7",
         "size compressed (bytes)": 698388480,
         "total_terms": 52493134,
         "documents": 1469399,
@@ -989,8 +994,9 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "8da89e74d40966c56cfb7d6aa5398539",
+        "md5": "5f0802c1257c325a3e25c58523dba841",
         "size compressed (bytes)": 4333844480,
         "total_terms": 300761975,
         "documents": 7000027,
@@ -1002,8 +1008,9 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "8da89e74d40966c56cfb7d6aa5398539",
+        "md5": "4277f406b138c46edf7c17e4248f3b2e",
         "size compressed (bytes)": 1349109760,
         "total_terms": 122217295,
         "documents": 1496126,
@@ -1015,8 +1022,9 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "f916dc23423bac3c88354a81fbcc8fd6",
+        "md5": "d5837fee29c60c7a3a24cfd598056038",
         "size compressed (bytes)": 6864660480,
         "total_terms": 346329117,
         "documents": 9597504,
@@ -1028,8 +1036,9 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "707256d59738d1d5a16433bed72a278e",
+        "md5": "bebff76ec6dfe76c904604f8ed1bcd3e",
         "size compressed (bytes)": 59607040,
         "total_terms": 4937051,
         "documents": 136689,
@@ -1041,8 +1050,9 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "cac17da797fa7737d0a327a97a88720a",
+        "md5": "89f8b280cacbdc27e90bb1ea40029c21",
         "size compressed (bytes)": 519157760,
         "total_terms": 26812052,
         "documents": 548224,
@@ -1054,8 +1064,9 @@ TF_INDEX_INFO = {
         "filename": "lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "5f278e81f07eeeffd171666661ae20a2",
+        "md5": "047152fc6bc1b5c5d945f38b23de971e",
         "size compressed (bytes)": 546201600,
         "total_terms": 31550936,
         "documents": 568855,
