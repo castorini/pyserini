@@ -274,84 +274,48 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index of Wikipedia snapshot used as KILT's knowledge source.
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-arabic</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Arabic).
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-bengali</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Bengali).
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-english</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (English).
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-finnish</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Finnish).
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-indonesian</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Indonesian).
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-japanese</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Japanese).
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-korean</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Korean).
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-russian</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Russian).
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-swahili</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Swahili).
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-telugu</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Telugu).
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-thai</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Thai).
-</dd>
-<dt></dt><b><code>msmarco-passage</code></b>
-[<a href="../pyserini/resources/index-metadata/index-msmarco-passage-20201117-f87c94-readme.txt">readme</a>]
-<dd>Lucene index of the MS MARCO passage corpus (deprecated; use msmarco-v1-passage instead).
-</dd>
-<dt></dt><b><code>msmarco-passage-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/index-msmarco-passage-slim-20201202-ab6e28-readme.txt">readme</a>]
-<dd>Lucene index of the MS MARCO passage corpus (slim version, document text not stored) (deprecated; use msmarco-v1-passage-slim instead).
-</dd>
-<dt></dt><b><code>msmarco-doc</code></b>
-[<a href="../pyserini/resources/index-metadata/index-msmarco-doc-20201117-f87c94-readme.txt">readme</a>]
-<dd>Lucene index of the MS MARCO document corpus (deprecated; use msmarco-v1-doc instead).
-</dd>
-<dt></dt><b><code>msmarco-doc-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/index-msmarco-doc-slim-20201202-ab6e28-readme.txt">readme</a>]
-<dd>Lucene index of the MS MARCO document corpus (slim version, document text not stored) (deprecated; use msmarco-v1-doc-slim instead).
-</dd>
-<dt></dt><b><code>msmarco-doc-per-passage</code></b>
-[<a href="../pyserini/resources/index-metadata/index-msmarco-doc-per-passage-20201204-f50dcc-readme.txt">readme</a>]
-<dd>Lucene index of the MS MARCO document corpus segmented into passages (deprecated; use msmarco-v1-doc-segmented instead).
-</dd>
-<dt></dt><b><code>msmarco-doc-per-passage-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/index-msmarco-doc-per-passage-slim-20201204-f50dcc-readme.txt">readme</a>]
-<dd>Lucene index of the MS MARCO document corpus segmented into passages (slim version, document text not stored) (deprecated; use msmarco-v1-doc-segmented-slim instead).
-</dd>
-<dt></dt><b><code>msmarco-passage-expanded</code></b>
-[<a href="../pyserini/resources/index-metadata/index-msmarco-passage-expanded-20201121-e127fb-readme.txt">readme</a>]
-<dd>Lucene index of the MS MARCO passage corpus with docTTTTTquery expansions (deprecated; use msmarco-v1-passage-d2q-t5 instead)
-</dd>
-<dt></dt><b><code>msmarco-doc-expanded-per-doc</code></b>
-[<a href="../pyserini/resources/index-metadata/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a-readme.txt">readme</a>]
-<dd>Lucene index of the MS MARCO document corpus with per-doc docTTTTTquery expansions (deprecated; use msmarco-v1-doc-d2q-t5 instead)
-</dd>
-<dt></dt><b><code>msmarco-doc-expanded-per-passage</code></b>
-[<a href="../pyserini/resources/index-metadata/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt">readme</a>]
-<dd>Lucene index of the MS MARCO document corpus with per-passage docTTTTTquery expansions (deprecated; use msmarco-v1-doc-segmented-d2q-t5 instead)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid-flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-trec-covid-flat.20220501.1842ee.README.md">readme</a>]
