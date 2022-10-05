@@ -68,63 +68,63 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR
 </dd>
 <dt></dt><b><code>msmarco-v1-doc</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20220131.9ea315.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 document corpus.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-slim.20220131.9ea315.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 document corpus ('slim' version).
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-full.20220131.9ea315.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 document corpus ('full' version).
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20220525.30c997.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 segmented document corpus.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 segmented document corpus ('slim' version).
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 segmented document corpus ('full' version).
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20220525.30c997.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage.20220131.9ea315.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 passage corpus.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 passage corpus ('slim' version).
 </dd>
 <dt></dt><b><code>msmarco-v1-passage-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-full.20220131.9ea315.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 passage corpus ('full' version).
 </dd>
 <dt></dt><b><code>msmarco-v1-passage-d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage-d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20220525.30c997.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v2-doc</code></b>
