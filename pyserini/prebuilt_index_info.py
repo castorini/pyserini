@@ -42,52 +42,9 @@ TF_INDEX_INFO_CURRENT = {
         "unique_terms": 923436,
     },
 
-    "msmarco-passage-ltr": {
-        "description": "Lucene index of the MS MARCO passage corpus with four extra preprocessed fields for LTR",
-        "filename": "index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
-        "readme": "index-msmarco-passage-ltr-20210519-e25e33f-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/8qFCaCtwabRfYQD/download"
-        ],
-        "md5": "a5de642c268ac1ed5892c069bdc29ae3",
-        "size compressed (bytes)": 14073966046,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
-    "msmarco-doc-per-passage-ltr": {
-        "description": "Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR",
-        "filename": "index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/kNdXMWXEsTt3fT8/download"
-        ],
-        "md5": "bd60e89041b4ebbabc4bf0cfac608a87",
-        "size compressed (bytes)": 45835520960,
-        "total_terms": 1232004740,
-        "documents": 20545628,
-        "unique_terms": 10123678,
-        "downloaded": False
-    },
-    "msmarco-document-segment-ltr": {
-        "description": "Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR",
-        "filename": "lucene-index.msmarco-doc-segmented.ibm.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-doc-segmented.ibm.tar.gz"
-        ],
-        "md5": "13064bdaf8e8a79222634d67ecd3ddb5",
-        "size compressed (bytes)": 98984853515,
-        "total_terms": 3197500226,
-        "documents": 20532330,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-
     # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v1-doc": {
-        "description": "Lucene index of the MS MARCO V1 document corpus.",
+        "description": "Lucene index of the MS MARCO V1 document corpus. (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-doc.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
@@ -101,7 +58,7 @@ TF_INDEX_INFO_CURRENT = {
         "downloaded": False
     },
     "msmarco-v1-doc-slim": {
-        "description": "Lucene index of the MS MARCO V1 document corpus ('slim' version).",
+        "description": "Lucene index of the MS MARCO V1 document corpus ('slim' version). (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
@@ -116,7 +73,7 @@ TF_INDEX_INFO_CURRENT = {
         "downloaded": False
     },
     "msmarco-v1-doc-full": {
-        "description": "Lucene index of the MS MARCO V1 document corpus ('full' version).",
+        "description": "Lucene index of the MS MARCO V1 document corpus ('full' version). (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
@@ -132,7 +89,7 @@ TF_INDEX_INFO_CURRENT = {
 
     # MS MARCO V1 document corpus, doc2query-T5 expansions.
     "msmarco-v1-doc-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
+        "description": "Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions. (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md",
         "urls": [
@@ -146,7 +103,7 @@ TF_INDEX_INFO_CURRENT = {
         "downloaded": False
     },
     "msmarco-v1-doc-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
+        "description": "Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions. (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md",
         "urls": [
@@ -162,7 +119,7 @@ TF_INDEX_INFO_CURRENT = {
 
     # MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v1-doc-segmented": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus.",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus. (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
@@ -176,7 +133,7 @@ TF_INDEX_INFO_CURRENT = {
         "downloaded": False
     },
     "msmarco-v1-doc-segmented-slim": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('slim' version).",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('slim' version). (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
@@ -190,7 +147,7 @@ TF_INDEX_INFO_CURRENT = {
         "downloaded": False
     },
     "msmarco-v1-doc-segmented-full": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('full' version).",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('full' version). (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
@@ -206,7 +163,7 @@ TF_INDEX_INFO_CURRENT = {
 
     # MS MARCO V1 segmented document corpus, doc2query-T5 expansions.
     "msmarco-v1-doc-segmented-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions. (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md",
         "urls": [
@@ -220,7 +177,7 @@ TF_INDEX_INFO_CURRENT = {
         "downloaded": False
     },
     "msmarco-v1-doc-segmented-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
+        "description": "Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions. (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md",
         "urls": [
@@ -236,7 +193,7 @@ TF_INDEX_INFO_CURRENT = {
 
     # MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v1-passage": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus.",
+        "description": "Lucene index of the MS MARCO V1 passage corpus. (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-passage.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
@@ -250,7 +207,7 @@ TF_INDEX_INFO_CURRENT = {
         "downloaded": False
     },
     "msmarco-v1-passage-slim": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus ('slim' version).",
+        "description": "Lucene index of the MS MARCO V1 passage corpus ('slim' version). (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
@@ -264,7 +221,7 @@ TF_INDEX_INFO_CURRENT = {
         "downloaded": False
     },
     "msmarco-v1-passage-full": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus ('full' version).",
+        "description": "Lucene index of the MS MARCO V1 passage corpus ('full' version). (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
@@ -280,7 +237,7 @@ TF_INDEX_INFO_CURRENT = {
 
     # MS MARCO V1 passage corpus, doc2query-T5 expansions.
     "msmarco-v1-passage-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions.",
+        "description": "Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions. (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md",
         "urls": [
@@ -294,7 +251,7 @@ TF_INDEX_INFO_CURRENT = {
         "downloaded": False
     },
     "msmarco-v1-passage-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions.",
+        "description": "Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions. (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md",
         "urls": [
@@ -305,6 +262,50 @@ TF_INDEX_INFO_CURRENT = {
         "total_terms": 1986612263,
         "documents": 8841823,
         "unique_terms": 3929111,
+        "downloaded": False
+    },
+
+    # MS MARCO V1 indexes for LTR experiments.
+    "msmarco-passage-ltr": {
+        "description": "Lucene index of the MS MARCO passage corpus with four extra preprocessed fields for LTR. (Lucene 8)",
+        "filename": "index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
+        "readme": "index-msmarco-passage-ltr-20210519-e25e33f-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/8qFCaCtwabRfYQD/download"
+        ],
+        "md5": "a5de642c268ac1ed5892c069bdc29ae3",
+        "size compressed (bytes)": 14073966046,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+    "msmarco-doc-per-passage-ltr": {
+        "description": "Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR. (Lucene 8)",
+        "filename": "index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/kNdXMWXEsTt3fT8/download"
+        ],
+        "md5": "bd60e89041b4ebbabc4bf0cfac608a87",
+        "size compressed (bytes)": 45835520960,
+        "total_terms": 1232004740,
+        "documents": 20545628,
+        "unique_terms": 10123678,
+        "downloaded": False
+    },
+    "msmarco-document-segment-ltr": {
+        "description": "Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR. (Lucene 8)",
+        "filename": "lucene-index.msmarco-doc-segmented.ibm.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-doc-segmented.ibm.tar.gz"
+        ],
+        "md5": "13064bdaf8e8a79222634d67ecd3ddb5",
+        "size compressed (bytes)": 98984853515,
+        "total_terms": 3197500226,
+        "documents": 20532330,
+        "unique_terms": -1,
         "downloaded": False
     },
 
@@ -1966,7 +1967,7 @@ TF_INDEX_INFO_CURRENT = {
 
 TF_INDEX_INFO_DEPRECATED = {
     "mrtydi-v1.1-arabic-lucene8": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
+        "description": "Lucene index for Mr.TyDi v1.1 (Arabic). (Lucene 8; deprecated)",
         "filename": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md",
         "urls": [
@@ -1981,7 +1982,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "downloaded": False
     },
     "mrtydi-v1.1-bengali-lucene8": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Bengali).",
+        "description": "Lucene index for Mr.TyDi v1.1 (Bengali). (Lucene 8; deprecated)",
         "filename": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md",
         "urls": [
@@ -1996,7 +1997,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "downloaded": False
     },
     "mrtydi-v1.1-english-lucene8": {
-        "description": "Lucene index for Mr.TyDi v1.1 (English).",
+        "description": "Lucene index for Mr.TyDi v1.1 (English). (Lucene 8; deprecated)",
         "filename": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md",
         "urls": [
@@ -2011,7 +2012,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "downloaded": False
     },
     "mrtydi-v1.1-finnish-lucene8": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Finnish).",
+        "description": "Lucene index for Mr.TyDi v1.1 (Finnish). (Lucene 8; deprecated)",
         "filename": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md",
         "urls": [
@@ -2026,7 +2027,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "downloaded": False
     },
     "mrtydi-v1.1-indonesian-lucene8": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Indonesian).",
+        "description": "Lucene index for Mr.TyDi v1.1 (Indonesian). (Lucene 8; deprecated)",
         "filename": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md",
         "urls": [
@@ -2041,7 +2042,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "downloaded": False
     },
     "mrtydi-v1.1-japanese-lucene8": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Japanese).",
+        "description": "Lucene index for Mr.TyDi v1.1 (Japanese). (Lucene 8; deprecated)",
         "filename": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md",
         "urls": [
@@ -2056,7 +2057,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "downloaded": False
     },
     "mrtydi-v1.1-korean-lucene8": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Korean).",
+        "description": "Lucene index for Mr.TyDi v1.1 (Korean). (Lucene 8; deprecated)",
         "filename": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md",
         "urls": [
@@ -2071,7 +2072,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "downloaded": False
     },
     "mrtydi-v1.1-russian-lucene8": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Russian).",
+        "description": "Lucene index for Mr.TyDi v1.1 (Russian). (Lucene 8; deprecated)",
         "filename": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md",
         "urls": [
@@ -2086,7 +2087,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "downloaded": False
     },
     "mrtydi-v1.1-swahili-lucene8": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Swahili).",
+        "description": "Lucene index for Mr.TyDi v1.1 (Swahili). (Lucene 8; deprecated)",
         "filename": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md",
         "urls": [
@@ -2101,7 +2102,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "downloaded": False
     },
     "mrtydi-v1.1-telugu-lucene8": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Telugu).",
+        "description": "Lucene index for Mr.TyDi v1.1 (Telugu). (Lucene 8; deprecated)",
         "filename": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md",
         "urls": [
@@ -2116,7 +2117,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "downloaded": False
     },
     "mrtydi-v1.1-thai-lucene8": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Thai).",
+        "description": "Lucene index for Mr.TyDi v1.1 (Thai). (Lucene 8; deprecated)",
         "filename": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md",
         "urls": [
