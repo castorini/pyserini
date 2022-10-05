@@ -37,10 +37,8 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
 
             self.assertTrue('map' in scores)
             self.assertTrue('recall.1000' in scores)
-            self.assertAlmostEqual(scores['map'], 0.1953, delta=0.0001)
-            # Temporary fix: this is Lucene 9 code running on Lucene 8 prebuilt index.
-            self.assertAlmostEqual(scores['recall.1000'], 0.8573, delta=0.0004)
-            # Temporary fix: this is Lucene 9 code running on Lucene 8 prebuilt index.
+            self.assertAlmostEqual(scores['map'], 0.1958, delta=0.0001)
+            self.assertAlmostEqual(scores['recall.1000'], 0.8573, delta=0.0001)
 
     def test_passage_msmarco_output(self):
         """Test case for MS MARCO V1 passage, dev queries, MS MARCO output
@@ -55,9 +53,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
                 'msmarco_passage_string', [])
 
             self.assertTrue('MRR@10' in scores)
-            self.assertAlmostEqual(float(scores['MRR@10']), 0.1874, delta=0.0005)
-            # self.assertEqual(scores['MRR@10'], '0.18741227770955546')
-            # Temporary fix: this is Lucene 9 code running on Lucene 8 prebuilt index.
+            self.assertEqual(scores['MRR@10'], '0.18741227770955546')
 
     def test_passage_expanded_trec_output(self):
         """Test case for MS MARCO V1 passage w/ doc2query-T5 expansions, dev queries, TREC output."""
@@ -84,9 +80,7 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
             'msmarco_passage_string', [])
 
         self.assertTrue('MRR@10' in scores)
-        self.assertAlmostEqual(float(scores['MRR@10']), 0.2816, delta=0.0002)
-        # self.assertEqual(scores['MRR@10'], '0.281560751807885')
-        # Temporary fix: this is Lucene 9 code running on Lucene 8 prebuilt index.
+        self.assertEqual(scores['MRR@10'], '0.281560751807885')
 
 
 if __name__ == '__main__':
