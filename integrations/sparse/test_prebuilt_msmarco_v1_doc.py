@@ -42,8 +42,7 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
 
             self.assertTrue('map' in scores)
             self.assertTrue('recall.1000' in scores)
-            self.assertAlmostEqual(scores['map'], 0.2770, delta=0.0001)
-            # Temporary fix: this is Lucene 9 code running on Lucene 8 prebuilt index.
+            self.assertAlmostEqual(scores['map'], 0.2774, delta=0.0001)
             self.assertAlmostEqual(scores['recall.1000'], 0.9357, delta=0.0001)
 
     def test_doc_full_msmarco_output(self):
@@ -59,9 +58,7 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
                 'msmarco_doc_string', [])
 
             self.assertTrue('MRR@100' in scores)
-            self.assertAlmostEqual(float(scores['MRR@100']), 0.2770, delta=0.0006)
-            # self.assertEqual(scores['MRR@100'], '0.2766351807440808')
-            # Temporary fix: this is Lucene 9 code running on Lucene 8 prebuilt index.
+            self.assertEqual(scores['MRR@100'], '0.2766351807440808')
 
     #
     # doc segmented conditions
@@ -98,9 +95,7 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
                 'msmarco_doc_string', [])
 
             self.assertTrue('MRR@100' in scores)
-            self.assertAlmostEqual(float(scores['MRR@100']), 0.2756, delta=0.0004)
-            # self.assertEqual(scores['MRR@100'], '0.2755196341768384')
-            # Temporary fix: this is Lucene 9 code running on Lucene 8 prebuilt index.
+            self.assertEqual(scores['MRR@100'], '0.2755196341768384')
 
     #
     # doc2query conditions
@@ -129,9 +124,7 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
             'msmarco_doc_string', [])
 
         self.assertTrue('MRR@100' in scores)
-        self.assertAlmostEqual(float(scores['MRR@100']), 0.3269, delta=0.0001)
-        # self.assertEqual(scores['MRR@100'], '0.3268656233100833')
-        # Temporary fix: this is Lucene 9 code running on Lucene 8 prebuilt index.
+        self.assertEqual(scores['MRR@100'], '0.3268656233100833')
 
     def test_doc_segmented_expanded_trec_output(self):
         """Test case for MS MARCO V1 doc segmented + doc2query-T5 expansions, dev queries, TREC output."""
@@ -156,9 +149,7 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
             'msmarco_doc_string', [])
 
         self.assertTrue('MRR@100' in scores)
-        self.assertAlmostEqual(float(scores['MRR@100']), 0.3209, delta=0.0002)
-        # self.assertEqual(scores['MRR@100'], '0.320918438140918')
-        # Temporary fix: this is Lucene 9 code running on Lucene 8 prebuilt index.
+        self.assertEqual(scores['MRR@100'], '0.320918438140918')
 
 
 if __name__ == '__main__':
