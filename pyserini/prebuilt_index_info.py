@@ -148,7 +148,7 @@ TF_INDEX_INFO_CURRENT = {
     "msmarco-v1-doc-d2q-t5-docvectors": {
         "description": "Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20221004.252b5e.README.md",
+        "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         ],

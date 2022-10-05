@@ -84,7 +84,7 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20221004.252b5e.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented</code></b>
