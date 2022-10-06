@@ -2559,8 +2559,8 @@ IMPACT_INDEX_INFO_CURRENT = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.tar.gz"
         ],
-        "md5": "4d162fc5de702f805906d8f403491372",
-        "size compressed (bytes)": 2272559192,
+        "md5": "7d8b56b348685b9c3e29e306803c61eb",
+        "size compressed (bytes)": 3822892457,
         "total_terms": 95445422483,
         "documents": 8841823,
         "unique_terms": 28131,
