@@ -15,6 +15,18 @@
 #
 
 TF_INDEX_INFO_CURRENT = {
+    "cacm": {
+        "description": "Lucene index of the CACM corpus. (Lucene 9)",
+        "filename": "lucene-index.cacm.tar.gz",
+        "urls": [
+            "https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.20221005.252b5e.tar.gz",
+        ],
+        "md5": "cfe14d543c6a27f4d742fb2d0099b8e0",
+        "size compressed (bytes)": 2347197,
+        "total_terms": 320968,
+        "documents": 3204,
+        "unique_terms": 14363,
+    },
     "robust04": {
         "description": "Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track. (Lucene 9)",
         "filename": "lucene-index.robust04.20221005.252b5e.tar.gz",
