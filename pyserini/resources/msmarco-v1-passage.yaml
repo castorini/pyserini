@@ -7,7 +7,7 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.2396
+          - MRR@10: 0.2395
             R@1K: 0.9535
       - topic_key: dl19-passage
         eval_key: dl19-passage
@@ -51,7 +51,7 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.1597
+          - MRR@10: 0.1595
             R@1K: 0.8620
       - topic_key: dl19-passage
         eval_key: dl19-passage
@@ -62,8 +62,8 @@ conditions:
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.3102
-            nDCG@10: 0.4893
+          - MAP: 0.3115
+            nDCG@10: 0.4910
             R@1K: 0.8156
   - name: bm25-rocchio-tuned
     display: BM25+Rocchio (k1=0.82, b=0.68)
@@ -73,19 +73,19 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.1685
+          - MRR@10: 0.1684
             R@1K: 0.8726
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.3394
-            nDCG@10: 0.5271
-            R@1K: 0.7969
+          - MAP: 0.3396
+            nDCG@10: 0.5275
+            R@1K: 0.7948
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.3110
-            nDCG@10: 0.4901
+          - MAP: 0.3120
+            nDCG@10: 0.4908
             R@1K: 0.8327
   - name: distilbert-kd-tasb-otf
     display: "DistilBERT KD TASB: otf"

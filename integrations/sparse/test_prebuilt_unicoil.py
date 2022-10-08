@@ -148,7 +148,7 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "recip_rank")
         self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.1480, delta=0.0001)
+        self.assertAlmostEqual(score, 0.1486, delta=0.0001)
 
     def tearDown(self):
         clean_files(self.temp_files)
