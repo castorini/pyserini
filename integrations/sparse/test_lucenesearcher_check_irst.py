@@ -210,7 +210,7 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.2205)
-        self.assertEqual(ndcg_score, 0.4912)
+        self.assertEqual(ndcg_score, 0.4917)
 
     def test_max_aggregation_dl20_doc(self):
         # dl20-doc-max
