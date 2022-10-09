@@ -76,9 +76,13 @@ if __name__ == '__main__':
                                                                      trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky test: small difference on damiao
+                            # Flaky test: small difference on orca
                             elif name == 'mdpr-tied-pft-nq.te' and split == 'dev' \
                                     and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
+                                result_str = okish_str
+                            # Flaky test: small difference on orca
+                            elif name == 'mdpr-tied-pft-msmarco-ft-all.ko' and split == 'train' \
+                                    and math.isclose(score, float(expected[metric]), abs_tol=4e-4):
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
