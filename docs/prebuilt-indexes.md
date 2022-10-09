@@ -51,11 +51,11 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 ## Standard Lucene Indexes
 <dl>
 <dt></dt><b><code>cacm</code></b>
-<dd>Lucene index of the CACM corpus
+<dd>Lucene index of the CACM corpus. (Lucene 9)
 </dd>
 <dt></dt><b><code>robust04</code></b>
-[<a href="../pyserini/resources/index-metadata/index-robust04-20191213-readme.txt">readme</a>]
-<dd>Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track
+[<a href="../pyserini/resources/index-metadata/lucene-index.robust04.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track. (Lucene 9)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
@@ -579,20 +579,32 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 ## Lucene Impact Indexes
 <dl>
 <dt></dt><b><code>msmarco-v1-passage-unicoil</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL.
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL. (Lucene 9)
 </dd>
 <dt></dt><b><code>msmarco-v1-passage-unicoil-noexp</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-unicoil-noexp.20220322.2f4058.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp).
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-unicoil-noexp.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp). (Lucene 9)
+</dd>
+<dt></dt><b><code>msmarco-v1-passage-deepimpact</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact. (Lucene 9)
+</dd>
+<dt></dt><b><code>msmarco-v1-passage-unicoil-tilde</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE. (Lucene 9)
+</dd>
+<dt></dt><b><code>msmarco-v1-passage-distill-splade-max</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max. (Lucene 9)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-unicoil</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL.
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL, with title/segment encoding. (Lucene 9)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-unicoil-noexp</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220419.c47993.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp) with title prepended.
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp), with title/segment encoding. (Lucene 9)
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-unicoil-0shot</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.README.md">readme</a>]
@@ -601,6 +613,10 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>msmarco-v2-passage-unicoil-noexp-0shot</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp).
+</dd>
+<dt></dt><b><code>msmarco-v2-passage-unicoil-tilde</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.readme.txt">readme</a>]
+<dd>Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL-TILDE
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented-unicoil-0shot</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.README.md">readme</a>]
@@ -617,38 +633,6 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended
-</dd>
-<dt></dt><b><code>msmarco-passage-deepimpact</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-passage.deepimpact.20211012.58d286.readme.txt">readme</a>]
-<dd>Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact
-</dd>
-<dt></dt><b><code>msmarco-passage-unicoil-tilde</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.readme.txt">readme</a>]
-<dd>Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE
-</dd>
-<dt></dt><b><code>msmarco-passage-distill-splade-max</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.readme.txt">readme</a>]
-<dd>Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max
-</dd>
-<dt></dt><b><code>msmarco-v2-passage-unicoil-tilde</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.readme.txt">readme</a>]
-<dd>Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL-TILDE
-</dd>
-<dt></dt><b><code>msmarco-passage-unicoil-d2q</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.readme.txt">readme</a>]
-<dd>Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-d2q (deprecated; use msmarco-v1-passage-unicoil instead).
-</dd>
-<dt></dt><b><code>msmarco-doc-per-passage-unicoil-d2q</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.readme.txt">readme</a>]
-<dd>Lucene impact index of the MS MARCO doc corpus per passage expansion encoded by uniCOIL-d2q (deprecated; use msmarco-v1-doc-segmented-unicoil instead).
-</dd>
-<dt></dt><b><code>msmarco-v2-passage-unicoil-noexp-0shot-deprecated</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt">readme</a>]
-<dd>Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL (zero-shot, no expansions) (deprecated; use msmarco-v2-passage-unicoil-noexp-0shot instead).
-</dd>
-<dt></dt><b><code>msmarco-v2-doc-per-passage-unicoil-noexp-0shot</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt">readme</a>]
-<dd>Lucene impact index of the MS MARCO V2 document corpus per passage encoded by uniCOIL (zero-shot, no expansions) (deprecated; msmarco-v2-doc-segmented-unicoil-noexp-0shot).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.README.md">readme</a>]

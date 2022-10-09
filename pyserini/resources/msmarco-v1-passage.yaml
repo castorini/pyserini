@@ -7,7 +7,7 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.2396
+          - MRR@10: 0.2395
             R@1K: 0.9535
       - topic_key: dl19-passage
         eval_key: dl19-passage
@@ -51,7 +51,7 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.1597
+          - MRR@10: 0.1595
             R@1K: 0.8620
       - topic_key: dl19-passage
         eval_key: dl19-passage
@@ -62,8 +62,8 @@ conditions:
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.3102
-            nDCG@10: 0.4893
+          - MAP: 0.3115
+            nDCG@10: 0.4910
             R@1K: 0.8156
   - name: bm25-rocchio-tuned
     display: BM25+Rocchio (k1=0.82, b=0.68)
@@ -73,19 +73,19 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.1685
+          - MRR@10: 0.1684
             R@1K: 0.8726
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.3394
-            nDCG@10: 0.5271
-            R@1K: 0.7969
+          - MAP: 0.3396
+            nDCG@10: 0.5275
+            R@1K: 0.7948
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.3110
-            nDCG@10: 0.4901
+          - MAP: 0.3120
+            nDCG@10: 0.4908
             R@1K: 0.8327
   - name: distilbert-kd-tasb-otf
     display: "DistilBERT KD TASB: otf"
@@ -219,20 +219,20 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.1668
-            R@1K: 0.8687
+          - MRR@10: 0.1646
+            R@1K: 0.8704
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.3377
-            nDCG@10: 0.5231
-            R@1K: 0.7792
+          - MAP: 0.3339
+            nDCG@10: 0.5147
+            R@1K: 0.7950
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.3056
-            nDCG@10: 0.4808
-            R@1K: 0.8286
+          - MAP: 0.3017
+            nDCG@10: 0.4924
+            R@1K: 0.8292
   - name: bm25-default
     display: BM25 (k1=0.9, b=0.4)
     display-html: BM25 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -265,20 +265,20 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.1564
+          - MRR@10: 0.1566
             R@1K: 0.8606
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.3390
-            nDCG@10: 0.5180
-            R@1K: 0.7998
+          - MAP: 0.3416
+            nDCG@10: 0.5216
+            R@1K: 0.8136
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.3019
-            nDCG@10: 0.4821
-            R@1K: 0.8217
+          - MAP: 0.3006
+            nDCG@10: 0.4896
+            R@1K: 0.8236
   - name: bm25-d2q-t5-tuned
     display: BM25 w/ doc2query-T5 (k1=2.18, b=0.86)
     display-html: BM25 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=2.18, <i>b</i>=0.86)
@@ -332,20 +332,20 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.2374
+          - MRR@10: 0.2382
             R@1K: 0.9528
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.4360
-            nDCG@10: 0.6528
-            R@1K: 0.8424
+          - MAP: 0.4377
+            nDCG@10: 0.6537
+            R@1K: 0.8443
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.4347
-            nDCG@10: 0.6232
-            R@1K: 0.8609
+          - MAP: 0.4348
+            nDCG@10: 0.6235
+            R@1K: 0.8605
   - name: bm25-rm3-d2q-t5-default
     display: BM25+RM3 w/ doc2query-T5 (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -355,20 +355,20 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.2140
-            R@1K: 0.9463
+          - MRR@10: 0.2139
+            R@1K: 0.9460
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.4485
-            nDCG@10: 0.6548
-            R@1K: 0.8861
+          - MAP: 0.4483
+            nDCG@10: 0.6586
+            R@1K: 0.8863
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.4295
-            nDCG@10: 0.6172
-            R@1K: 0.8699
+          - MAP: 0.4286
+            nDCG@10: 0.6131
+            R@1K: 0.8700
   - name: unicoil-otf
     display: "uniCOIL (w/ doc2query-T5): otf"
     display-html: "uniCOIL (w/ doc2query-T5): on-the-fly query inference"
