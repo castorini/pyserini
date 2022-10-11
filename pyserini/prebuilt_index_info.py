@@ -4044,7 +4044,7 @@ FAISS_INDEX_INFO = {
         "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
-        "md5": "5f002ffde567ca081152d6d92f7191ec",
+        "md5": "ccb59223dea7cc4fbadcb1b021c2e7ac",
         "size compressed (bytes)": 29553300598,
         "documents": 10373953,
         "downloaded": False,
@@ -4080,7 +4080,7 @@ FAISS_INDEX_INFO = {
         "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
-        "md5": "a1b80e724fd901795cd310d08a6760f2",
+        "md5": "c3fa9cd5fa9ae7df99a8e2c9282967fe",
         "size compressed (bytes)": 41648462587,
         "documents": 14636953,
         "downloaded": False,
@@ -4092,7 +4092,7 @@ FAISS_INDEX_INFO = {
         "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
-        "md5": "12af8e11b8adf856110ccb2995dd5e7e",
+        "md5": "920b1abe0fcd24ae5a39ddbdc560abff",
         "size compressed (bytes)": 1440625097,
         "documents": 506264,
         "downloaded": False,
@@ -4188,7 +4188,7 @@ FAISS_INDEX_INFO = {
         "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
-        "md5": "a2b9c4fa1689b9c2d53e1f5268eabbcf",
+        "md5": "948330245b336eb2ddf8aea1b0cdcf0d",
         "size compressed (bytes)": 14046912361,
         "documents": 4934368,
         "downloaded": False,
@@ -4236,7 +4236,7 @@ FAISS_INDEX_INFO = {
         "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
-        "md5": "0855191c1fac758e8dcd91af27e6b391",
+        "md5": "2c30ef60b6025bd4f169466db7475260",
         "size compressed (bytes)": 29544412184,
         "documents": 10373953,
         "downloaded": False,
@@ -4272,7 +4272,7 @@ FAISS_INDEX_INFO = {
         "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
-        "md5": "4462a81af5136418a50c37097be3ef74",
+        "md5": "9ec349f9dc0c118be0c3061f07b2eb60",
         "size compressed (bytes)": 41635102077,
         "documents": 14636953,
         "downloaded": False,
@@ -4284,7 +4284,7 @@ FAISS_INDEX_INFO = {
         "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
-        "md5": "136959954e842c232effb6eca302bfbc",
+        "md5": "2eed8d2ce2f68cf06be668837161072a",
         "size compressed (bytes)": 1439797880,
         "documents": 506264,
         "downloaded": False,
@@ -4380,7 +4380,7 @@ FAISS_INDEX_INFO = {
         "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
-        "md5": "9640639f2be7ed5786c5e57d2dac06a8",
+        "md5": "1a986dfee1326638d6263ab274d19d1f",
         "size compressed (bytes)": 14043150134,
         "documents": 4934368,
         "downloaded": False,
