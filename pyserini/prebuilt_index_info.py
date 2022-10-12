@@ -4028,7 +4028,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 1193292491,
         "total_terms": 90223450,
         "documents": 2061414,
-        "unique_terms": -1,
+        "unique_terms": 1246254,
         "downloaded": False
     },
     "miracl-v1.0-bn": {
@@ -4054,7 +4054,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 17823436054,
         "total_terms": 1505029955,
         "documents": 32893221,
-        "unique_terms": -1,
+        "unique_terms": 6152316,
         "downloaded": False
     },
     "miracl-v1.0-es": {
@@ -4067,7 +4067,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 5474245249,
         "total_terms": 389319806,
         "documents": 10373953,
-        "unique_terms": -1,
+        "unique_terms": 2907509,
         "downloaded": False
     },
     "miracl-v1.0-fa": {
@@ -4080,7 +4080,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 1023090577,
         "total_terms": 67968038,
         "documents": 2207172,
-        "unique_terms": -1,
+        "unique_terms": 1208930,
         "downloaded": False
     },
     "miracl-v1.0-fi": {
@@ -4093,7 +4093,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 925422988,
         "total_terms": 68295087,
         "documents": 1883509,
-        "unique_terms": -1,
+        "unique_terms": 1669817,
         "downloaded": False
     },
     "miracl-v1.0-fr": {
@@ -4106,7 +4106,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 6747612709,
         "total_terms": 508723988,
         "documents": 14636953,
-        "unique_terms": -1,
+        "unique_terms": 2811342,
         "downloaded": False
     },
     "miracl-v1.0-hi": {
@@ -4119,7 +4119,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 340997734,
         "total_terms": 21080143,
         "documents": 506264,
-        "unique_terms": -1,
+        "unique_terms": 597558,
         "downloaded": False
     },
     "miracl-v1.0-id": {
@@ -4132,7 +4132,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 577263718,
         "total_terms": 51469219,
         "documents": 1446315,
-        "unique_terms": -1,
+        "unique_terms": 911944,
         "downloaded": False
     },
     "miracl-v1.0-ja": {
@@ -4145,7 +4145,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 3745158372,
         "total_terms": 296659169,
         "documents": 6953614,
-        "unique_terms": -1,
+        "unique_terms": 1558643,
         "downloaded": False
     },
     "miracl-v1.0-ko": {
@@ -4158,7 +4158,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 1150899287,
         "total_terms": 121464424,
         "documents": 1486752,
-        "unique_terms": -1,
+        "unique_terms": 1504782,
         "downloaded": False
     },
     "miracl-v1.0-ru": {
@@ -4171,7 +4171,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 6003987738,
         "total_terms": 343106870,
         "documents": 9543918,
-        "unique_terms": -1,
+        "unique_terms": 2955627,
         "downloaded": False
     },
     "miracl-v1.0-sw": {
@@ -4197,7 +4197,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 402045711,
         "total_terms": 26105595,
         "documents": 518079,
-        "unique_terms": -1,
+        "unique_terms": 1120047,
         "downloaded": False
     },
     "miracl-v1.0-th": {
@@ -4210,7 +4210,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 431498349,
         "total_terms": 29922100,
         "documents": 542166,
-        "unique_terms": -1,
+        "unique_terms": 626084,
         "downloaded": False
     },
     "miracl-v1.0-zh": {
@@ -4223,7 +4223,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 4212198217,
         "total_terms": 423635495,
         "documents": 4934368,
-        "unique_terms": -1,
+        "unique_terms": 6517412,
         "downloaded": False
     },
 }
