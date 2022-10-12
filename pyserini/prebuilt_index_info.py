@@ -384,42 +384,42 @@ TF_INDEX_INFO_CURRENT = {
 
     # MS MARCO V2 segmented document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-doc-segmented": {
-        "description": "Lucene index of the MS MARCO V2 segmented document corpus.",
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus. (Lucene 9)",
         "filename": "lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.tar.gz"
         ],
-        "md5": "cb37211851bd0053227b8db1dd0a3853",
-        "size compressed (bytes)": 105646039864,
+        "md5": "8a5f444fa5a63cc5d4ddc3e6dd15faa0",
+        "size compressed (bytes)": 109269078191,
         "total_terms": 24780915974,
         "documents": 124131414,
         "unique_terms": 29263590,
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-slim": {
-        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('slim' version).",
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('slim' version). (Lucene 9)",
         "filename": "lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-slim.20220808.4d6d2a.tar.gz"
         ],
-        "md5": "448c1e0e49c38364abbc4d880e865ee5",
-        "size compressed (bytes)": 21004046043,
+        "md5": "f50c591aa9a0a0126ebc4dc53c6306d7",
+        "size compressed (bytes)": 20852487058,
         "total_terms": 24780915974,
         "documents": 124131414,
         "unique_terms": 29263590,
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-full": {
-        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('full' version).",
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('full' version). (Lucene 9)",
         "filename": "lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-full.20220808.4d6d2a.tar.gz"
         ],
-        "md5": "bb597b3d03eba00653387ffab8c01998",
-        "size compressed (bytes)": 186377654091,
+        "md5": "259b936d3591e48770da9dde153d1617",
+        "size compressed (bytes)": 201358944352,
         "total_terms": 24780915974,
         "documents": 124131414,
         "unique_terms": 29263590,
@@ -428,29 +428,28 @@ TF_INDEX_INFO_CURRENT = {
 
     # MS MARCO V2 segmented document corpus, doc2query-T5 expansions.
     "msmarco-v2-doc-segmented-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions.",
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions. (Lucene 9)",
         "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/m4DRWpeGW9Dawd7/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220808.4d6d2a.tar.gz"
         ],
-        "md5": "3ce9eaca885e1e8a79466bee5e6a4084",
-        "size compressed (bytes)": 24125355549,
+        "md5": "1e9fa18f082aaadfef02ba9eea32fcc2",
+        "size compressed (bytes)": 24242738999,
         "total_terms": 30376032067,
         "documents": 124131414,
         "unique_terms": 38930475,
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions.",
+        "description": "Lucene index (+docvectors) of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions. (Lucene 9)",
         "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5-docvectors.20220525.30c997.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         ],
-        "md5": "d7fd3d9fbca6ca0b5ffeb8b824db0cd7",
-        "size compressed (bytes)": 114312032964,
+        "md5": "eff6fe5b61936491c8985ad7efa46b20",
+        "size compressed (bytes)": 114315186555,
         "total_terms": 30376032067,
         "documents": 124131414,
         "unique_terms": 38930475,
