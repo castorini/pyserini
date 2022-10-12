@@ -35,8 +35,8 @@ class TestPrebuiltRobust04(unittest.TestCase):
         self.assertTrue('map' in scores)
         self.assertTrue('P.30' in scores)
         self.assertAlmostEqual(scores['map'], 0.2531, delta=0.0001)
-        self.assertAlmostEqual(scores['P.30'], 0.3099, delta=0.0001)
-        # Temporary fix: this is Lucene 9 code running on Lucene 8 prebuilt index.
+        self.assertAlmostEqual(scores['P.30'], 0.3102, delta=0.0001)
+
 
 if __name__ == '__main__':
     unittest.main()
