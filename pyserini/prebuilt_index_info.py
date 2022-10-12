@@ -4018,219 +4018,10 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
     },
-    # MIRACL
-    "miracl-v1.0-ar": {
-        "description": "Lucene index for MIRACL v1.0 (Arabic).",
-        "filename": "lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-ar.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "11f7bb121b0c3a26346b5ae8ef0d186e",
-        "size compressed (bytes)": 1193292491,
-        "total_terms": 90223450,
-        "documents": 2061414,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-bn": {
-        "description": "Lucene index for MIRACL v1.0 (Bengali).",
-        "filename": "lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-bn.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "39db1deeb6a5ab57583ae2bb2b252400",
-        "size compressed (bytes)": 236113202,
-        "total_terms": 14963235,
-        "documents": 297265,
-        "unique_terms": 506812,
-        "downloaded": False
-    },
-    "miracl-v1.0-en": {
-        "description": "Lucene index for MIRACL v1.0 (English).",
-        "filename": "lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-en.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "bb1035603c47677594f9b4fd62fac723",
-        "size compressed (bytes)": 17823436054,
-        "total_terms": 1505029955,
-        "documents": 32893221,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-es": {
-        "description": "Lucene index for MIRACL v1.0 (Spanish).",
-        "filename": "lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-es.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "d60cda80e3d9d21f8767d5b026168f52",
-        "size compressed (bytes)": 5474245249,
-        "total_terms": 389319806,
-        "documents": 10373953,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-fa": {
-        "description": "Lucene index for MIRACL v1.0 (Persian).",
-        "filename": "lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-fa.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "31562d74fbdcc68d6a737ffba58fbbbc",
-        "size compressed (bytes)": 1023090577,
-        "total_terms": 67968038,
-        "documents": 2207172,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-fi": {
-        "description": "Lucene index for MIRACL v1.0 (Finnish).",
-        "filename": "lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-fi.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "e9ee6f12234c597effdf57198e3211da",
-        "size compressed (bytes)": 925422988,
-        "total_terms": 68295087,
-        "documents": 1883509,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-fr": {
-        "description": "Lucene index for MIRACL v1.0 (French).",
-        "filename": "lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-fr.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "49d678dd4aeb43a0d54331ff2aeb8e41",
-        "size compressed (bytes)": 6747612709,
-        "total_terms": 508723988,
-        "documents": 14636953,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-hi": {
-        "description": "Lucene index for MIRACL v1.0 (Hindi).",
-        "filename": "lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-hi.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "bfb57b680fb8bc0a6b5085432729a284",
-        "size compressed (bytes)": 340997734,
-        "total_terms": 21080143,
-        "documents": 506264,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-id": {
-        "description": "Lucene index for MIRACL v1.0 (Indonesian).",
-        "filename": "lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-id.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "5b2a7b94b663e042fe5c99cc7f0baafc",
-        "size compressed (bytes)": 577263718,
-        "total_terms": 51469219,
-        "documents": 1446315,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-ja": {
-        "description": "Lucene index for MIRACL v1.0 (Japanese).",
-        "filename": "lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-ja.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "d8a2ab17facddd4a5e39fb633ed78a19",
-        "size compressed (bytes)": 3745158372,
-        "total_terms": 296659169,
-        "documents": 6953614,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-ko": {
-        "description": "Lucene index for MIRACL v1.0 (Korean).",
-        "filename": "lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-ko.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "fecb003c5f5c038c606a842d05465bab",
-        "size compressed (bytes)": 1150899287,
-        "total_terms": 121464424,
-        "documents": 1486752,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-ru": {
-        "description": "Lucene index for MIRACL v1.0 (Russian).",
-        "filename": "lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-ru.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "9c8ed3904dffbe39bae2f98a594c7f8c",
-        "size compressed (bytes)": 6003987738,
-        "total_terms": 343106870,
-        "documents": 9543918,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-sw": {
-        "description": "Lucene index for MIRACL v1.0 (Swahili).",
-        "filename": "lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-sw.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "d3bec7d0eaf7963085da77f66f051c5a",
-        "size compressed (bytes)": 45410264,
-        "total_terms": 4752278,
-        "documents": 131924,
-        "unique_terms": 361306,
-        "downloaded": False
-    },
-    "miracl-v1.0-te": {
-        "description": "Lucene index for MIRACL v1.0 (Telugu).",
-        "filename": "lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-te.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "07b70182d59b2ac838f1ff06e8865c46",
-        "size compressed (bytes)": 402045711,
-        "total_terms": 26105595,
-        "documents": 518079,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-th": {
-        "description": "Lucene index for MIRACL v1.0 (Thai).",
-        "filename": "lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-th.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "151443de8c24b463a6d49992d0110ee3",
-        "size compressed (bytes)": 431498349,
-        "total_terms": 29922100,
-        "documents": 542166,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-    "miracl-v1.0-zh": {
-        "description": "Lucene index for MIRACL v1.0 (Chinese).",
-        "filename": "lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-zh.20221004.2b2856.README.md",
-        "urls": [
-        ],
-        "md5": "7007e1a7bb986719bea1279838c1140f",
-        "size compressed (bytes)": 4212198217,
-        "total_terms": 423635495,
-        "documents": 4934368,
-        "unique_terms": -1,
-        "downloaded": False
-    },
     "miracl-v1.0-ar-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-arabic.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "bafb6fb2c530567dec26aa4597c6ee25",
@@ -4242,7 +4033,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-bn-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-bn.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "7f81b43489f143e76d5331574cf32257",
@@ -4254,7 +4045,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-en-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-en.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "1e9880b4587bb0ebb2392291768ea8de",
@@ -4266,7 +4057,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-es-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-es.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "ccb59223dea7cc4fbadcb1b021c2e7ac",
@@ -4278,7 +4069,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-fa-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Persian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-fa.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "8135af57e5c6115909f91e0318dc7f7a",
@@ -4290,7 +4081,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-fi-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-fi.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "24155a91b8071536e10de9dd0cd9ca09",
@@ -4302,7 +4093,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-fr-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (French) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-fr.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "c3fa9cd5fa9ae7df99a8e2c9282967fe",
@@ -4314,7 +4105,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-hi-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-hi.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "920b1abe0fcd24ae5a39ddbdc560abff",
@@ -4326,7 +4117,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-id-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-id.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "1c4124760eb3e6a3ee33c8e67a7591ad",
@@ -4338,7 +4129,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ja-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-ja.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "83e58247f1118758f45cb9245dfda060",
@@ -4350,7 +4141,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ko-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-ko.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "5f2fd424744fe03833f70397e9bbc225",
@@ -4362,7 +4153,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ru-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-ru.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "e5b2e20b419b1769f54c37800e4055dd",
@@ -4374,7 +4165,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-sw-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-sw.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "7fed1370d1025108005c6ab9d5ced86a",
@@ -4386,7 +4177,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-te-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-te.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "b0352dcc21d3d2a868a30e0243f86f56",
@@ -4398,7 +4189,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-th-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-th.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "659c89e53e115602c8d3ce686e4e1cd0",
@@ -4410,7 +4201,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-zh-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-zh.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
         ],
         "md5": "948330245b336eb2ddf8aea1b0cdcf0d",
@@ -4422,7 +4213,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-arabic.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "84d702a230c259a41bc71a4d1523f201",
@@ -4434,7 +4225,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-bn.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "c103f32c26ac0f3cc7c8b1012a475d4e",
@@ -4446,7 +4237,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-en.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "35c72aae1186612cbfd55454d6cd47a5",
@@ -4458,7 +4249,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-es.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "2c30ef60b6025bd4f169466db7475260",
@@ -4470,7 +4261,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Persian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-fa.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "59836bf3b75edf9a5aebca0fe814aa3a",
@@ -4482,7 +4273,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-fi.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "6c661085333f0ab5e030ab7b5f2ac952",
@@ -4494,7 +4285,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (French) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-fr.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "9ec349f9dc0c118be0c3061f07b2eb60",
@@ -4506,7 +4297,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-hi.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "2eed8d2ce2f68cf06be668837161072a",
@@ -4518,7 +4309,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-id.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "175911f2d4485ae48692891e60e7ac96",
@@ -4530,7 +4321,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-ja.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "7dc9a4cd5caff181f61571da68b47fc3",
@@ -4542,7 +4333,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-ko.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "3cbc5891155a04ed5636e3ec9dc215db",
@@ -4554,7 +4345,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-ru.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "d0ba811c71640327184bd89835ea9f5b",
@@ -4566,7 +4357,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-sw.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "105c7914005a404a314c082e78af5313",
@@ -4578,7 +4369,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-te.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "45e7eb3525341c4d8f7b1febcc3ced5a",
@@ -4590,7 +4381,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-th.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "707a8d9584217114f7325c7bf337b89f",
@@ -4602,7 +4393,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-zh.20221004.2b2856.tar.gz",
-        "readme": "faiss.mrtydi-v1.1.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
         ],
         "md5": "1a986dfee1326638d6263ab274d19d1f",
