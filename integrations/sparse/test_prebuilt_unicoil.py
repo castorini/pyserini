@@ -131,24 +131,6 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
         # Matches score in https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html
         self.assertAlmostEqual(score, 0.2232, delta=0.0001)
-    
-    def test_msmarco_v2_passage_tilde_otf(self):
-        output_file = 'test_run.msmarco-v2-passage.tilde.0shot.otf.tsv'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search.lucene --topics msmarco-v2-passage-dev \
-                          --encoder ielab/unicoil-tilde200-msmarco-passage \
-                          --index msmarco-v2-passage-unicoil-tilde \
-                          --output {output_file} \
-                          --impact \
-                          --hits 1000 \
-                          --batch {self.batch_size} \
-                          --threads {self.threads}'
-        cmd2 = f'python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "recip_rank")
-        self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.1486, delta=0.0001)
 
     def tearDown(self):
         clean_files(self.temp_files)

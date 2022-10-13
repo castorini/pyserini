@@ -2905,104 +2905,57 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
 
     "msmarco-v2-passage-unicoil-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL.",
-        "filename": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
-        "readme": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.README.md",
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220808.4d6d2a.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/SCskjTJLX4CExkF/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-0shot.20220808.4d6d2a.tar.gz",
         ],
-        "md5": "ea024b0dd43a574deb65942e14d32630",
-        "size compressed (bytes)": 22212154603,
+        "md5": "9da229088995a3abfea57dd8681d16d5",
+        "size compressed (bytes)": 21736933361,
         "total_terms": 775253560148,
         "documents": 138364198,
         "unique_terms": 29149,
         "downloaded": False
     },
     "msmarco-v2-passage-unicoil-noexp-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp).",
-        "filename": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
-        "readme": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.README.md",
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp). (Lucene 9)",
+        "filename": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/FmW6N5FpMCyjMCE/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
         ],
-        "md5": "fb356e7614afc07e330b0559ae5cef18",
-        "size compressed (bytes)": 14615689637,
+        "md5": "dda9de84072d2162e8649a040153942e",
+        "size compressed (bytes)": 14347302774,
         "total_terms": 411330032512,
         "documents": 138364198,
         "unique_terms": 29148,
         "downloaded": False
     },
-    "msmarco-v2-passage-unicoil-tilde": {
-        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL-TILDE",
-        "filename": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
-        "readme": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/oGQ8tWifozPaHLK/download"
-        ],
-        "md5": "562f9534eefe04ab8c07beb304074d41",
-        "size compressed (bytes)": 31168302160,
-        "total_terms": 1155211154985,
-        "documents": 138364198,
-        "unique_terms": 29149,
-        "downloaded": False
-    },
 
     "msmarco-v2-doc-segmented-unicoil-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL.",
-        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
-        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.README.md",
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/7PTnyEGwNGoJjXm/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.tar.gz"
         ],
-        "md5": "94fc8af0d08682f7c79ffb16d82dcfab",
-        "size compressed (bytes)": 32787358081,
-        "total_terms": 1185840285417,
-        "documents": 124131414,
-        "unique_terms": 29169,
-        "downloaded": False
-    },
-    "msmarco-v2-doc-segmented-unicoil-0shot-v2": {
-        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended.",
-        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.tar.gz",
-        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.tar.gz"
-        ],
-        "md5": "109572d65098021642b33e0feecde057",
-        "size compressed (bytes)": 33967003367,
+        "md5": "cc98b13869c78ad3ef069d3a1c4ebaf4",
+        "size compressed (bytes)": 33573641204,
         "total_terms": 1204542769110,
         "documents": 124131414,
         "unique_terms": 29168,
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-unicoil-noexp-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp).",
-        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
-        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.README.md",
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/PoWYJzGJYx6nCik/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220808.4d6d2a.tar.gz"
         ],
-        "md5": "d7807b60087b630010e9c31b59d30b69",
-        "size compressed (bytes)": 28640356748,
-        "total_terms": 805830282591,
-        "documents": 124131404,
-        "unique_terms": 29172,
-        "downloaded": False
-    },
-    "msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2": {
-        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended",
-        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.tar.gz",
-        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.tar.gz"
-        ],
-        "md5": "8a48373934ad45052b5267ba73cdcad0",
-        "size compressed (bytes)": 29662349942,
+        "md5": "e70c3bf0016407bf20cfe35fb0d277e0",
+        "size compressed (bytes)": 29059155839,
         "total_terms": 820664704261,
         "documents": 124131404,
         "unique_terms": 29172,
@@ -3419,6 +3372,112 @@ IMPACT_INDEX_INFO_CURRENT = {
 }
 
 IMPACT_INDEX_INFO_DEPRECATED = {
+
+    # Deprecated: Lucene 8 indexes
+    "msmarco-v2-passage-unicoil-0shot-lucene8": {
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL. (Lucene 8)",
+        "filename": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/SCskjTJLX4CExkF/download"
+        ],
+        "md5": "ea024b0dd43a574deb65942e14d32630",
+        "size compressed (bytes)": 22212154603,
+        "total_terms": 775253560148,
+        "documents": 138364198,
+        "unique_terms": 29149,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-unicoil-noexp-0shot-lucene8": {
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp). (Lucene 8)",
+        "filename": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/FmW6N5FpMCyjMCE/download"
+        ],
+        "md5": "fb356e7614afc07e330b0559ae5cef18",
+        "size compressed (bytes)": 14615689637,
+        "total_terms": 411330032512,
+        "documents": 138364198,
+        "unique_terms": 29148,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-unicoil-tilde-lucene8": {
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL-TILDE. (Lucene 8)",
+        "filename": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/oGQ8tWifozPaHLK/download"
+        ],
+        "md5": "562f9534eefe04ab8c07beb304074d41",
+        "size compressed (bytes)": 31168302160,
+        "total_terms": 1155211154985,
+        "documents": 138364198,
+        "unique_terms": 29149,
+        "downloaded": False
+    },
+
+    "msmarco-v2-doc-segmented-unicoil-0shot-lucene8": {
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL. (Lucene 8)",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/7PTnyEGwNGoJjXm/download"
+        ],
+        "md5": "94fc8af0d08682f7c79ffb16d82dcfab",
+        "size compressed (bytes)": 32787358081,
+        "total_terms": 1185840285417,
+        "documents": 124131414,
+        "unique_terms": 29169,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented-unicoil-0shot-v2-lucene8": {
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended. (Lucene 8)",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.tar.gz"
+        ],
+        "md5": "109572d65098021642b33e0feecde057",
+        "size compressed (bytes)": 33967003367,
+        "total_terms": 1204542769110,
+        "documents": 124131414,
+        "unique_terms": 29168,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented-unicoil-noexp-0shot-lucene8": {
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp). (Lucene 8)",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/PoWYJzGJYx6nCik/download"
+        ],
+        "md5": "d7807b60087b630010e9c31b59d30b69",
+        "size compressed (bytes)": 28640356748,
+        "total_terms": 805830282591,
+        "documents": 124131404,
+        "unique_terms": 29172,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2-lucene8": {
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended. (Lucene 8)",
+        "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.tar.gz"
+        ],
+        "md5": "8a48373934ad45052b5267ba73cdcad0",
+        "size compressed (bytes)": 29662349942,
+        "total_terms": 820664704261,
+        "documents": 124131404,
+        "unique_terms": 29172,
+        "downloaded": False
+    },
 
     # These MS MARCO uniCOIL models are deprecated, but keeping around for archival reasons
     "msmarco-passage-unicoil-d2q": {
