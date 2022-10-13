@@ -4021,7 +4021,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ar": {
         "description": "Lucene index for MIRACL v1.0 (Arabic).",
         "filename": "lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-ar.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz"
         ],
@@ -4035,7 +4035,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-bn": {
         "description": "Lucene index for MIRACL v1.0 (Bengali).",
         "filename": "lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-bn.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz"
         ],
@@ -4049,7 +4049,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-en": {
         "description": "Lucene index for MIRACL v1.0 (English).",
         "filename": "lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-en.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz"
         ],
@@ -4063,7 +4063,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-es": {
         "description": "Lucene index for MIRACL v1.0 (Spanish).",
         "filename": "lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-es.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz"
         ],
@@ -4077,7 +4077,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-fa": {
         "description": "Lucene index for MIRACL v1.0 (Persian).",
         "filename": "lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-fa.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz"
         ],
@@ -4091,7 +4091,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-fi": {
         "description": "Lucene index for MIRACL v1.0 (Finnish).",
         "filename": "lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-fi.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz"
         ],
@@ -4105,7 +4105,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-fr": {
         "description": "Lucene index for MIRACL v1.0 (French).",
         "filename": "lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-fr.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz"
         ],
@@ -4119,7 +4119,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-hi": {
         "description": "Lucene index for MIRACL v1.0 (Hindi).",
         "filename": "lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-hi.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz"
         ],
@@ -4133,7 +4133,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-id": {
         "description": "Lucene index for MIRACL v1.0 (Indonesian).",
         "filename": "lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-id.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz"
         ],
@@ -4147,7 +4147,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ja": {
         "description": "Lucene index for MIRACL v1.0 (Japanese).",
         "filename": "lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-ja.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz"
         ],
@@ -4161,7 +4161,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ko": {
         "description": "Lucene index for MIRACL v1.0 (Korean).",
         "filename": "lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-ko.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz"
         ],
@@ -4175,7 +4175,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ru": {
         "description": "Lucene index for MIRACL v1.0 (Russian).",
         "filename": "lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-ru.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz"
         ],
@@ -4189,7 +4189,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-sw": {
         "description": "Lucene index for MIRACL v1.0 (Swahili).",
         "filename": "lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-sw.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz"
         ],
@@ -4203,7 +4203,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-te": {
         "description": "Lucene index for MIRACL v1.0 (Telugu).",
         "filename": "lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-te.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz"
         ],
@@ -4217,7 +4217,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-th": {
         "description": "Lucene index for MIRACL v1.0 (Thai).",
         "filename": "lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-th.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz"
         ],
@@ -4231,7 +4231,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-zh": {
         "description": "Lucene index for MIRACL v1.0 (Chinese).",
         "filename": "lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0-zh.20221004.2b2856.README.md",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz"
         ],
