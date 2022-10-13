@@ -1,4 +1,4 @@
-# miracl-v1.0-ar
+# miracl-v1.0-zh
 
 Lucene index for MIRACL v1.0 (Chinese).
 
