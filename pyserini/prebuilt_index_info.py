@@ -4023,8 +4023,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-ar.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz"
         ],
-        "md5": "11f7bb121b0c3a26346b5ae8ef0d186e",
+        "md5": "503d3b49a557222d8074ac831a2f047a",
         "size compressed (bytes)": 1193292491,
         "total_terms": 90223450,
         "documents": 2061414,
@@ -4036,8 +4037,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-bn.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz"
         ],
-        "md5": "39db1deeb6a5ab57583ae2bb2b252400",
+        "md5": "7a20210328f0b83f44e041f0c94d30e2",
         "size compressed (bytes)": 236113202,
         "total_terms": 14963235,
         "documents": 297265,
@@ -4049,8 +4051,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-en.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz"
         ],
-        "md5": "bb1035603c47677594f9b4fd62fac723",
+        "md5": "4fbd652deb76bcc05daa35392d4aa9f3",
         "size compressed (bytes)": 17823436054,
         "total_terms": 1505029955,
         "documents": 32893221,
@@ -4062,8 +4065,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-es.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz"
         ],
-        "md5": "d60cda80e3d9d21f8767d5b026168f52",
+        "md5": "b4c9993ee3a131871d4f07dd96e80531",
         "size compressed (bytes)": 5474245249,
         "total_terms": 389319806,
         "documents": 10373953,
@@ -4075,8 +4079,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-fa.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz"
         ],
-        "md5": "31562d74fbdcc68d6a737ffba58fbbbc",
+        "md5": "bfc824aa37633e3d45bcfd5c5e0e1701",
         "size compressed (bytes)": 1023090577,
         "total_terms": 67968038,
         "documents": 2207172,
@@ -4088,8 +4093,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-fi.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz"
         ],
-        "md5": "e9ee6f12234c597effdf57198e3211da",
+        "md5": "4197c90efd781c6153acaf15452c5479",
         "size compressed (bytes)": 925422988,
         "total_terms": 68295087,
         "documents": 1883509,
@@ -4101,8 +4107,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-fr.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz"
         ],
-        "md5": "49d678dd4aeb43a0d54331ff2aeb8e41",
+        "md5": "e68b10d90be71b702888a3d00a8aa39c",
         "size compressed (bytes)": 6747612709,
         "total_terms": 508723988,
         "documents": 14636953,
@@ -4114,8 +4121,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-hi.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz"
         ],
-        "md5": "bfb57b680fb8bc0a6b5085432729a284",
+        "md5": "d81f4e2b7ec5df8f9741168c23c977e2",
         "size compressed (bytes)": 340997734,
         "total_terms": 21080143,
         "documents": 506264,
@@ -4127,8 +4135,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-id.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz"
         ],
-        "md5": "5b2a7b94b663e042fe5c99cc7f0baafc",
+        "md5": "b1092e732991029fae7c542e5e129255",
         "size compressed (bytes)": 577263718,
         "total_terms": 51469219,
         "documents": 1446315,
@@ -4140,8 +4149,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-ja.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz"
         ],
-        "md5": "d8a2ab17facddd4a5e39fb633ed78a19",
+        "md5": "4db9550d0af63736a0fd2b486b3b7273",
         "size compressed (bytes)": 3745158372,
         "total_terms": 296659169,
         "documents": 6953614,
@@ -4153,8 +4163,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-ko.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz"
         ],
-        "md5": "fecb003c5f5c038c606a842d05465bab",
+        "md5": "c82f5c7641fd78b8dadfcb279a1c0340",
         "size compressed (bytes)": 1150899287,
         "total_terms": 121464424,
         "documents": 1486752,
@@ -4166,8 +4177,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-ru.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz"
         ],
-        "md5": "9c8ed3904dffbe39bae2f98a594c7f8c",
+        "md5": "c1b974e298d9e1deeccae8b84a5bcd64",
         "size compressed (bytes)": 6003987738,
         "total_terms": 343106870,
         "documents": 9543918,
@@ -4179,8 +4191,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-sw.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz"
         ],
-        "md5": "d3bec7d0eaf7963085da77f66f051c5a",
+        "md5": "64b77bcc11e04575d0723ad81ac7c135",
         "size compressed (bytes)": 45410264,
         "total_terms": 4752278,
         "documents": 131924,
@@ -4192,8 +4205,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-te.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz"
         ],
-        "md5": "07b70182d59b2ac838f1ff06e8865c46",
+        "md5": "1f78c68678f439a3143a6fb0d25bfe27",
         "size compressed (bytes)": 402045711,
         "total_terms": 26105595,
         "documents": 518079,
@@ -4205,8 +4219,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-th.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz"
         ],
-        "md5": "151443de8c24b463a6d49992d0110ee3",
+        "md5": "eeef93c23b76fdc66b9e1ee01576765e",
         "size compressed (bytes)": 431498349,
         "total_terms": 29922100,
         "documents": 542166,
@@ -4218,8 +4233,9 @@ FAISS_INDEX_INFO = {
         "filename": "lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0-zh.20221004.2b2856.README.md",
         "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz"
         ],
-        "md5": "7007e1a7bb986719bea1279838c1140f",
+        "md5": "dc7880da333b7c56d3a4ff0bf018febd",
         "size compressed (bytes)": 4212198217,
         "total_terms": 423635495,
         "documents": 4934368,
