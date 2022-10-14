@@ -252,6 +252,7 @@ Evaluation commands:
 
   </div>
   <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab14" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab14">
+
 Command to generate run:
 
   <blockquote class="mycode">
@@ -265,6 +266,7 @@ Evaluation commands:
 
   </div>
   <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab15" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab15">
+
 Command to generate run:
 
   <blockquote class="mycode">
