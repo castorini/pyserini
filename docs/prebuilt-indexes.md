@@ -607,32 +607,20 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp), with title/segment encoding. (Lucene 9)
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-unicoil-0shot</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL.
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-unicoil-0shot.20220808.4d6d2a.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL. (Lucene 9)
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-unicoil-noexp-0shot</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp).
-</dd>
-<dt></dt><b><code>msmarco-v2-passage-unicoil-tilde</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.readme.txt">readme</a>]
-<dd>Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL-TILDE
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220808.4d6d2a.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp). (Lucene 9)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented-unicoil-0shot</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL.
-</dd>
-<dt></dt><b><code>msmarco-v2-doc-segmented-unicoil-0shot-v2</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended.
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended. (Lucene 9)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented-unicoil-noexp-0shot</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp).
-</dd>
-<dt></dt><b><code>msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220808.4d6d2a.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended. (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.README.md">readme</a>]
@@ -988,5 +976,69 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>mrtydi-v1.1-thai-mdpr-tied-pft-msmarco-ft-all</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ar</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Arabic).
+</dd>
+<dt></dt><b><code>miracl-v1.0-bn</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Bengali).
+</dd>
+<dt></dt><b><code>miracl-v1.0-en</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (English).
+</dd>
+<dt></dt><b><code>miracl-v1.0-es</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Spanish).
+</dd>
+<dt></dt><b><code>miracl-v1.0-fa</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Persian).
+</dd>
+<dt></dt><b><code>miracl-v1.0-fi</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Finnish).
+</dd>
+<dt></dt><b><code>miracl-v1.0-fr</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (French).
+</dd>
+<dt></dt><b><code>miracl-v1.0-hi</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Hindi).
+</dd>
+<dt></dt><b><code>miracl-v1.0-id</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Indonesian).
+</dd>
+<dt></dt><b><code>miracl-v1.0-ja</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Japanese).
+</dd>
+<dt></dt><b><code>miracl-v1.0-ko</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Korean).
+</dd>
+<dt></dt><b><code>miracl-v1.0-ru</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Russian).
+</dd>
+<dt></dt><b><code>miracl-v1.0-sw</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Swahili).
+</dd>
+<dt></dt><b><code>miracl-v1.0-te</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Telugu).
+</dd>
+<dt></dt><b><code>miracl-v1.0-th</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Thai).
+</dd>
+<dt></dt><b><code>miracl-v1.0-zh</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Chinese).
 </dd>
 </dl>
