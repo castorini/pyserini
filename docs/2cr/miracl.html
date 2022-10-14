@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Pyserini Reproductions</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+tr.hide-table-padding td {
+  padding: 0;
+}
+
+.expand-button {
+  position: relative;
+}
+
+.accordion-toggle .expand-button:after {
+  position: absolute;
+  left:.75rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  content: '-';
+}
+
+.accordion-toggle.collapsed .expand-button:after {
+  content: '+';
+}
+
+blockquote.mycode {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  margin-top: 15px;
+  padding-left: 15px;
+}
+
+tr th.headertop {
+  border-bottom: none;
+  padding-bottom: 0rem
+}
+
+tr th.headerbottom {
+  padding-top: 0rem
+}
+
+.table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
+.copy-code-button {
+	border-radius: 0;
+	min-width: 55px;
+	background: none repeat scroll 0 0 transparent;
+	background-color: grey;
+	color: #F1F2F3 !important;
+	cursor: pointer;
+	border-style: none;
+	font-family: 'HELVETICA',sans-serif;
+	font-size: 0.8em;
+	font-weight: normal;
+	text-align: center;
+	text-decoration: none;
+	text-indent: 0;
+	text-transform: uppercase;
+	font-weight: 500;
+	line-height: 1.42rem;
+	margin: 0;
+	padding: 3px 8px;
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+}
+
+.copy-code-button > span {
+	color: #F1F2F3 !important;
+}
+
+.copy-code-button, ::before, ::after {
+	box-sizing: inherit;
+}
+
+.copy-code-button::before {
+	content: '';
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 3px;
+	background-size: contain;
+	background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIxNXB4IiB2aWV3Qm94PSIwIDAgMTUgMTUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUwLjIgKDU1MDQ3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5QYWdlIDE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iRmxvdyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkJ0dG5faHRtbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTgxOS4wMDAwMDAsIC03NTMuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0xIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMTEuMDAwMDAwLCA0MDUuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTA4LjAwMDAwMCwgMzQyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMy45NzcyNzI3LDYgTDMuNDA5MDkwOTEsNiBDMi44NDQ1NDU0NSw2IDIuMzg2MzYzNjQsNi40NTgxODE4MiAyLjM4NjM2MzY0LDcuMDIyNzI3MjcgTDIuMzg2MzYzNjQsMTcuNTkwOTA5MSBDMi4zODYzNjM2NCwxOC4xNTU0NTQ1IDIuODQ0NTQ1NDUsMTguNjEzNjM2NCAzLjQwOTA5MDkxLDE4LjYxMzYzNjQgTDEzLjk3NzI3MjcsMTguNjEzNjM2NCBDMTQuNTQxODE4MiwxOC42MTM2MzY0IDE1LDE4LjE1NTQ1NDUgMTUsMTcuNTkwOTA5MSBMMTUsNy4wMjI3MjcyNyBDMTUsNi40NTgxODE4MiAxNC41NDE4MTgyLDYgMTMuOTc3MjcyNyw2IFogTTE0LjMxODE4MTgsMTcuNTkwOTA5MSBDMTQuMzE4MTgxOCwxNy43NzkwOTA5IDE0LjE2NTQ1NDUsMTcuOTMxODE4MiAxMy45NzcyNzI3LDE3LjkzMTgxODIgTDMuNDA5MDkwOTEsMTcuOTMxODE4MiBDMy4yMjA5MDkwOSwxNy45MzE4MTgyIDMuMDY4MTgxODIsMTcuNzc5MDkwOSAzLjA2ODE4MTgyLDE3LjU5MDkwOTEgTDMuMDY4MTgxODIsNy4wMjI3MjcyNyBDMy4wNjgxODE4Miw2LjgzNDU0NTQ1IDMuMjIwOTA5MDksNi42ODE4MTgxOCAzLjQwOTA5MDkxLDYuNjgxODE4MTggTDEzLjk3NzI3MjcsNi42ODE4MTgxOCBDMTQuMTY1NDU0NSw2LjY4MTgxODE4IDE0LjMxODE4MTgsNi44MzQ1NDU0NSAxNC4zMTgxODE4LDcuMDIyNzI3MjcgTDE0LjMxODE4MTgsMTcuNTkwOTA5MSBaIE0xMS45MzE4MTgyLDE5Ljk3NzI3MjcgQzExLjkzMTgxODIsMjAuMTY1NDU0NSAxMS43NzkwOTA5LDIwLjMxODE4MTggMTEuNTkwOTA5MSwyMC4zMTgxODE4IEwxLjAyMjcyNzI3LDIwLjMxODE4MTggQzAuODM0NTQ1NDU1LDIwLjMxODE4MTggMC42ODE4MTgxODIsMjAuMTY1NDU0NSAwLjY4MTgxODE4MiwxOS45NzcyNzI3IEwwLjY4MTgxODE4Miw5LjQwOTA5MDkxIEMwLjY4MTgxODE4Miw5LjIyMDkwOTA5IDAuODM0NTQ1NDU1LDkuMDY4MTgxODIgMS4wMjI3MjcyNyw5LjA2ODE4MTgyIEwxLjM2MzYzNjM2LDkuMDY4MTgxODIgTDEuMzYzNjM2MzYsOC4zODYzNjM2NCBMMS4wMjI3MjcyNyw4LjM4NjM2MzY0IEMwLjQ1ODE4MTgxOCw4LjM4NjM2MzY0IDAsOC44NDQ1NDU0NSAwLDkuNDA5MDkwOTEgTDAsMTkuOTc3MjcyNyBDMCwyMC41NDE4MTgyIDAuNDU4MTgxODE4LDIxIDEuMDIyNzI3MjcsMjEgTDExLjU5MDkwOTEsMjEgQzEyLjE1NTQ1NDUsMjEgMTIuNjEzNjM2NCwyMC41NDE4MTgyIDEyLjYxMzYzNjQsMTkuOTc3MjcyNyBMMTIuNjEzNjM2NCwxOS42MzYzNjM2IEwxMS45MzE4MTgyLDE5LjYzNjM2MzYgTDExLjkzMTgxODIsMTkuOTc3MjcyNyBaIiBpZD0iUGFnZS0xIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==");
+	background-repeat: no-repeat;
+	position: relative;
+	top: 3px;
+}
+
+.copy-code-button:focus {
+    /* Avoid an ugly focus outline on click in Chrome,
+       but darken the button for accessibility.
+       See https://stackoverflow.com/a/25298082/1481479 */
+    /* background-color: #E6E6E6; */
+	outline: 0;
+}
+
+pre[class*="prettyprint"] {
+	position: relative;
+	overflow: hidden;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image vh-100 shadow-1-strong" style="max-height: 150px">
+      <div class="mask" style="
+            background: linear-gradient(
+              45deg,
+              rgba(29, 236, 197, 0.7),
+              rgba(91, 14, 214, 0.7) 100%
+            );
+          ">
+        <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
+          <div class="text-white">
+            <h1 class="mb-3">MIRACL</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+
+    <div class="container my-4">
+
+    <div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">nDCG, dev queries</th>
+        <th scope="col">ar</th>
+        <th scope="col">bn</th>
+        <th scope="col">en</th>
+        <th scope="col">es</th>
+        <th scope="col">fa</th>
+        <th scope="col">fi</th>
+        <th scope="col">fr</th>
+        <th scope="col">hi</th>
+        <th scope="col">id</th>
+        <th scope="col">ja</th>
+        <th scope="col">ko</th>
+        <th scope="col">ru</th>
+        <th scope="col">sw</th>
+        <th scope="col">te</th>
+        <th scope="col">th</th>
+        <th scope="col">zh</th>
+        <th scope="col"></th>
+        <th scope="col">avg</th>
+      </tr>
+    </thead>
+    <tbody>
+
+<!-- Condition: BM25 -->
+<tr class="accordion-toggle collapsed" id="table1-row1" data-toggle="collapse" data-parent="#table1-row1" href="#table1-collapse1">
+<td class="expand-button"></td>
+<td>BM25</td>
+<td>0.553</td>
+<td>0.577</td>
+<td>0.458</td>
+<td>0.434</td>
+<td>0.408</td>
+<td>0.609</td>
+<td>0.280</td>
+<td>0.533</td>
+<td>0.571</td>
+<td>0.450</td>
+<td>0.504</td>
+<td>0.410</td>
+<td>0.436</td>
+<td>0.529</td>
+<td>0.528</td>
+<td>0.260</td>
+<td></td>
+<td>0.471</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="13" style="max-width: 600px">
+<div id="table1-collapse1" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table1-row1-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table1-row1-tab1-header" data-mdb-toggle="tab" href="#table1-row1-tab1" role="tab" aria-controls="table1-row1-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab2-header" data-mdb-toggle="tab" href="#table1-row1-tab2" role="tab" aria-controls="table1-row1-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab3-header" data-mdb-toggle="tab" href="#table1-row1-tab3" role="tab" aria-controls="table1-row1-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab4-header" data-mdb-toggle="tab" href="#table1-row1-tab4" role="tab" aria-controls="table1-row1-tab4" aria-selected="false" style="text-transform:none">es</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab5-header" data-mdb-toggle="tab" href="#table1-row1-tab5" role="tab" aria-controls="table1-row1-tab5" aria-selected="false" style="text-transform:none">fa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab6-header" data-mdb-toggle="tab" href="#table1-row1-tab6" role="tab" aria-controls="table1-row1-tab6" aria-selected="false" style="text-transform:none">fi</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab7-header" data-mdb-toggle="tab" href="#table1-row1-tab7" role="tab" aria-controls="table1-row1-tab7" aria-selected="false" style="text-transform:none">fr</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab8-header" data-mdb-toggle="tab" href="#table1-row1-tab8" role="tab" aria-controls="table1-row1-tab8" aria-selected="false" style="text-transform:none">hi</a>
+  </li>  
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab9-header" data-mdb-toggle="tab" href="#table1-row1-tab9" role="tab" aria-controls="table1-row1-tab9" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab10-header" data-mdb-toggle="tab" href="#table1-row1-tab10" role="tab" aria-controls="table1-row1-tab10" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab11-header" data-mdb-toggle="tab" href="#table1-row1-tab11" role="tab" aria-controls="table1-row1-tab11" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab12-header" data-mdb-toggle="tab" href="#table1-row1-tab12" role="tab" aria-controls="table1-row1-tab12" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab13-header" data-mdb-toggle="tab" href="#table1-row1-tab13" role="tab" aria-controls="table1-row1-tab13" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab14-header" data-mdb-toggle="tab" href="#table1-row1-tab14" role="tab" aria-controls="table1-row1-tab14" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab15-header" data-mdb-toggle="tab" href="#table1-row1-tab15" role="tab" aria-controls="table1-row1-tab15" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row1-tab16-header" data-mdb-toggle="tab" href="#table1-row1-tab16" role="tab" aria-controls="table1-row1-tab16" aria-selected="false" style="text-transform:none">zh</a>
+  </li> 
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table1-row1-content">
+  <div class="tab-pane fade show active" id="table1-row1-tab1" role="tabpanel" aria-labelledby="table1-row1-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ar \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ar-dev.tsv \
+  --index miracl-v1.0-ar \
+  --output run.miracl.bm25.ar.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-ar-dev.tsv \
+  run.miracl.bm25.ar.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab2" role="tabpanel" aria-labelledby="table1-row1-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language bn \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-bn-dev.tsv \
+  --index miracl-v1.0-bn \
+  --output run.miracl.bm25.bn.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-bn-dev.tsv \
+  run.miracl.bm25.bn.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab3" role="tabpanel" aria-labelledby="table1-row1-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language en \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-en-dev.tsv \
+  --index miracl-v1.0-en \
+  --output run.miracl.bm25.en.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-en-dev.tsv \
+  run.miracl.bm25.en.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab4" role="tabpanel" aria-labelledby="table1-row1-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language es \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-es-dev.tsv \
+  --index miracl-v1.0-es \
+  --output run.miracl.bm25.es.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-es-dev.tsv \
+  run.miracl.bm25.es.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab5" role="tabpanel" aria-labelledby="table1-row1-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language fa \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-fa-dev.tsv \
+  --index miracl-v1.0-fa \
+  --output run.miracl.bm25.fa.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-fa-dev.tsv \
+  run.miracl.bm25.fa.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab6" role="tabpanel" aria-labelledby="table1-row1-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language fi \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-fi-dev.tsv \
+  --index miracl-v1.0-fi \
+  --output run.miracl.bm25.fi.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-fi-dev.tsv \
+  run.miracl.bm25.fi.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab7" role="tabpanel" aria-labelledby="table1-row1-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language fr \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-fr-dev.tsv \
+  --index miracl-v1.0-fr \
+  --output run.miracl.bm25.fr.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-fr-dev.tsv \
+  run.miracl.bm25.fr.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab8" role="tabpanel" aria-labelledby="table1-row1-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language hi \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-hi-dev.tsv \
+  --index miracl-v1.0-hi \
+  --output run.miracl.bm25.hi.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-hi-dev.tsv \
+  run.miracl.bm25.hi.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab9" role="tabpanel" aria-labelledby="table1-row1-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language id \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-id-dev.tsv \
+  --index miracl-v1.0-id \
+  --output run.miracl.bm25.id.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-id-dev.tsv \
+  run.miracl.bm25.id.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab10" role="tabpanel" aria-labelledby="table1-row1-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ja \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ja-dev.tsv \
+  --index miracl-v1.0-ja \
+  --output run.miracl.bm25.ja.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-ja-dev.tsv \
+  run.miracl.bm25.ja.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab11" role="tabpanel" aria-labelledby="table1-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ko \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --index miracl-v1.0-ko \
+  --output run.miracl.bm25.ko.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  run.miracl.bm25.ko.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab12" role="tabpanel" aria-labelledby="table1-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ko \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --index miracl-v1.0-ko \
+  --output run.miracl.bm25.ko.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  run.miracl.bm25.ko.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab13" role="tabpanel" aria-labelledby="table1-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ko \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --index miracl-v1.0-ko \
+  --output run.miracl.bm25.ko.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  run.miracl.bm25.ko.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab15" role="tabpanel" aria-labelledby="table1-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ko \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --index miracl-v1.0-ko \
+  --output run.miracl.bm25.ko.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  run.miracl.bm25.ko.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row1-tab16" role="tabpanel" aria-labelledby="table1-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ko \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --index miracl-v1.0-ko \
+  --output run.miracl.bm25.ko.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  run.miracl.bm25.ko.dev.txt</code></pre>
+  </blockquote>
+
+  </div>    
+   <div class="tab-pane fade" id="table1-row1-tab16" role="tabpanel" aria-labelledby="table1-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ru \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ru-dev.tsv \
+  --index miracl-v1.0-ru \
+  --output run.miracl.bm25.ru.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-ru-dev.tsv \
+  run.miracl.bm25.ru.dev.txt</code></pre>
+  </blockquote>
+
+  </div>    
+
+   <div class="tab-pane fade" id="table1-row1-tab16" role="tabpanel" aria-labelledby="table1-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language sw \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-sw-dev.tsv \
+  --index miracl-v1.0-sw \
+  --output run.miracl.bm25.sw.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-sw-dev.tsv \
+  run.miracl.bm25.sw.dev.txt</code></pre>
+  </blockquote>
+
+  </div>    
+
+   <div class="tab-pane fade" id="table1-row1-tab16" role="tabpanel" aria-labelledby="table1-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language te \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-te-dev.tsv \
+  --index miracl-v1.0-te \
+  --output run.miracl.bm25.te.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-te-dev.tsv \
+  run.miracl.bm25.te.dev.txt</code></pre>
+  </blockquote>
+
+  </div>       
+
+   <div class="tab-pane fade" id="table1-row1-tab16" role="tabpanel" aria-labelledby="table1-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language th \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-th-dev.tsv \
+  --index miracl-v1.0-th \
+  --output run.miracl.bm25.th.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-th-dev.tsv \
+  run.miracl.bm25.th.dev.txt</code></pre>
+  </blockquote>
+
+  </div>     
+
+   <div class="tab-pane fade" id="table1-row1-tab16" role="tabpanel" aria-labelledby="table1-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language zh \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-zh-dev.tsv \
+  --index miracl-v1.0-zh \
+  --output run.miracl.bm25.zh.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.100 tools/topics-and-qrels/qrels.miracl-v1.0-zh-dev.tsv \
+  run.miracl.bm25.zh.dev.txt</code></pre>
+  </blockquote>
+
+  </div>     
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+ <div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Recall@100, dev queries</th>
+        <th scope="col">ar</th>
+        <th scope="col">bn</th>
+        <th scope="col">en</th>
+        <th scope="col">es</th>
+        <th scope="col">fa</th>
+        <th scope="col">fi</th>
+        <th scope="col">fr</th>
+        <th scope="col">hi</th>
+        <th scope="col">id</th>
+        <th scope="col">ja</th>
+        <th scope="col">ko</th>
+        <th scope="col">ru</th>
+        <th scope="col">sw</th>
+        <th scope="col">te</th>
+        <th scope="col">th</th>
+        <th scope="col">zh</th>
+        <th scope="col"></th>
+        <th scope="col">avg</th>
+      </tr>
+    </thead>
+    <tbody>
+
+<!-- Condition: BM25 -->
+<tr class="accordion-toggle collapsed" id="table2-row1" data-toggle="collapse" data-parent="#table2-row1" href="#table2-collapse1">
+<td class="expand-button"></td>
+<td>BM25</td>
+<td>0.888</td>
+<td>0.909</td>
+<td>0.819</td>
+<td>0.702</td>
+<td>0.731</td>
+<td>0.891</td>
+<td>0.653</td>
+<td>0.868</td>
+<td>0.921</td>
+<td>0.805</td>
+<td>0.783</td>
+<td>0.661</td>
+<td>0.701</td>
+<td>0.831</td>
+<td>0.842</td>
+<td>0.555</td>
+<td></td>
+<td>0.785</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td></td>
+<td colspan="13" style="max-width: 600px">
+<div id="table2-collapse1" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table2-row1-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table2-row1-tab1-header" data-mdb-toggle="tab" href="#table2-row1-tab1" role="tab" aria-controls="table2-row1-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab2-header" data-mdb-toggle="tab" href="#table2-row1-tab2" role="tab" aria-controls="table2-row1-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab3-header" data-mdb-toggle="tab" href="#table2-row1-tab3" role="tab" aria-controls="table2-row1-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab4-header" data-mdb-toggle="tab" href="#table2-row1-tab4" role="tab" aria-controls="table2-row1-tab4" aria-selected="false" style="text-transform:none">es</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab5-header" data-mdb-toggle="tab" href="#table2-row1-tab5" role="tab" aria-controls="table2-row1-tab5" aria-selected="false" style="text-transform:none">fa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab6-header" data-mdb-toggle="tab" href="#table2-row1-tab6" role="tab" aria-controls="table2-row1-tab6" aria-selected="false" style="text-transform:none">fi</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab7-header" data-mdb-toggle="tab" href="#table2-row1-tab7" role="tab" aria-controls="table2-row1-tab7" aria-selected="false" style="text-transform:none">fr</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab8-header" data-mdb-toggle="tab" href="#table2-row1-tab8" role="tab" aria-controls="table2-row1-tab8" aria-selected="false" style="text-transform:none">hi</a>
+  </li>  
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab9-header" data-mdb-toggle="tab" href="#table2-row1-tab9" role="tab" aria-controls="table2-row1-tab9" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab10-header" data-mdb-toggle="tab" href="#table2-row1-tab10" role="tab" aria-controls="table2-row1-tab10" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab11-header" data-mdb-toggle="tab" href="#table2-row1-tab11" role="tab" aria-controls="table2-row1-tab11" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab12-header" data-mdb-toggle="tab" href="#table2-row1-tab12" role="tab" aria-controls="table2-row1-tab12" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab13-header" data-mdb-toggle="tab" href="#table2-row1-tab13" role="tab" aria-controls="table2-row1-tab13" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab14-header" data-mdb-toggle="tab" href="#table2-row1-tab14" role="tab" aria-controls="table2-row1-tab14" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab15-header" data-mdb-toggle="tab" href="#table2-row1-tab15" role="tab" aria-controls="table2-row1-tab15" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row1-tab16-header" data-mdb-toggle="tab" href="#table2-row1-tab16" role="tab" aria-controls="table2-row1-tab16" aria-selected="false" style="text-transform:none">zh</a>
+  </li> 
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table2-row1-content">
+  <div class="tab-pane fade show active" id="table2-row1-tab1" role="tabpanel" aria-labelledby="table2-row1-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ar \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ar-dev.tsv \
+  --index miracl-v1.0-ar \
+  --output run.miracl.bm25.ar.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ar-dev.tsv \
+  run.miracl.bm25.ar.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab2" role="tabpanel" aria-labelledby="table2-row1-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language bn \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-bn-dev.tsv \
+  --index miracl-v1.0-bn \
+  --output run.miracl.bm25.bn.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-bn-dev.tsv \
+  run.miracl.bm25.bn.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab3" role="tabpanel" aria-labelledby="table2-row1-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language en \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-en-dev.tsv \
+  --index miracl-v1.0-en \
+  --output run.miracl.bm25.en.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-en-dev.tsv \
+  run.miracl.bm25.en.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab4" role="tabpanel" aria-labelledby="table2-row1-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language es \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-es-dev.tsv \
+  --index miracl-v1.0-es \
+  --output run.miracl.bm25.es.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-es-dev.tsv \
+  run.miracl.bm25.es.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab5" role="tabpanel" aria-labelledby="table2-row1-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language fa \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-fa-dev.tsv \
+  --index miracl-v1.0-fa \
+  --output run.miracl.bm25.fa.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-fa-dev.tsv \
+  run.miracl.bm25.fa.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab6" role="tabpanel" aria-labelledby="table2-row1-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language fi \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-fi-dev.tsv \
+  --index miracl-v1.0-fi \
+  --output run.miracl.bm25.fi.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-fi-dev.tsv \
+  run.miracl.bm25.fi.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab7" role="tabpanel" aria-labelledby="table2-row1-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language fr \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-fr-dev.tsv \
+  --index miracl-v1.0-fr \
+  --output run.miracl.bm25.fr.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-fr-dev.tsv \
+  run.miracl.bm25.fr.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab8" role="tabpanel" aria-labelledby="table2-row1-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language hi \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-hi-dev.tsv \
+  --index miracl-v1.0-hi \
+  --output run.miracl.bm25.hi.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-hi-dev.tsv \
+  run.miracl.bm25.hi.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab9" role="tabpanel" aria-labelledby="table2-row1-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language id \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-id-dev.tsv \
+  --index miracl-v1.0-id \
+  --output run.miracl.bm25.id.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-id-dev.tsv \
+  run.miracl.bm25.id.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab10" role="tabpanel" aria-labelledby="table2-row1-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ja \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ja-dev.tsv \
+  --index miracl-v1.0-ja \
+  --output run.miracl.bm25.ja.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ja-dev.tsv \
+  run.miracl.bm25.ja.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab11" role="tabpanel" aria-labelledby="table2-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ko \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --index miracl-v1.0-ko \
+  --output run.miracl.bm25.ko.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  run.miracl.bm25.ko.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab12" role="tabpanel" aria-labelledby="table2-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ko \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --index miracl-v1.0-ko \
+  --output run.miracl.bm25.ko.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  run.miracl.bm25.ko.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab13" role="tabpanel" aria-labelledby="table2-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ko \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --index miracl-v1.0-ko \
+  --output run.miracl.bm25.ko.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  run.miracl.bm25.ko.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab15" role="tabpanel" aria-labelledby="table2-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ko \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --index miracl-v1.0-ko \
+  --output run.miracl.bm25.ko.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  run.miracl.bm25.ko.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row1-tab16" role="tabpanel" aria-labelledby="table2-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ko \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --index miracl-v1.0-ko \
+  --output run.miracl.bm25.ko.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  run.miracl.bm25.ko.dev.txt</code></pre>
+  </blockquote>
+
+  </div>    
+   <div class="tab-pane fade" id="table2-row1-tab16" role="tabpanel" aria-labelledby="table2-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language ru \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-ru-dev.tsv \
+  --index miracl-v1.0-ru \
+  --output run.miracl.bm25.ru.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ru-dev.tsv \
+  run.miracl.bm25.ru.dev.txt</code></pre>
+  </blockquote>
+
+  </div>    
+
+   <div class="tab-pane fade" id="table2-row1-tab16" role="tabpanel" aria-labelledby="table2-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language sw \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-sw-dev.tsv \
+  --index miracl-v1.0-sw \
+  --output run.miracl.bm25.sw.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-sw-dev.tsv \
+  run.miracl.bm25.sw.dev.txt</code></pre>
+  </blockquote>
+
+  </div>    
+
+   <div class="tab-pane fade" id="table2-row1-tab16" role="tabpanel" aria-labelledby="table2-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language te \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-te-dev.tsv \
+  --index miracl-v1.0-te \
+  --output run.miracl.bm25.te.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-te-dev.tsv \
+  run.miracl.bm25.te.dev.txt</code></pre>
+  </blockquote>
+
+  </div>       
+
+   <div class="tab-pane fade" id="table2-row1-tab16" role="tabpanel" aria-labelledby="table2-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language th \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-th-dev.tsv \
+  --index miracl-v1.0-th \
+  --output run.miracl.bm25.th.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-th-dev.tsv \
+  run.miracl.bm25.th.dev.txt</code></pre>
+  </blockquote>
+
+  </div>     
+
+   <div class="tab-pane fade" id="table2-row1-tab16" role="tabpanel" aria-labelledby="table2-row1-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --language zh \
+  --topics tools/topics-and-qrels/topics.miracl-v1.0-zh-dev.tsv \
+  --index miracl-v1.0-zh \
+  --output run.miracl.bm25.zh.dev.txt \
+  --batch 36 --threads 12 \
+  --bm25 --hits 100
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-zh-dev.tsv \
+  run.miracl.bm25.zh.dev.txt</code></pre>
+  </blockquote>
+
+  </div>     
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+
+<script>
+document.querySelectorAll('pre').forEach(function (codeBlock) {
+    var button = document.createElement('button');
+    button.className = 'copy-code-button';
+    button.type = 'button';
+    var s = codeBlock.innerText;
+    button.setAttribute('data-clipboard-text',s);
+    button.innerText = 'Copy';
+
+    // var pre = codeBlock.parentNode;
+    codeBlock.classList.add('prettyprint');
+    // pre.parentNode.insertBefore(button, pre);
+    codeBlock.appendChild(button);
+});
+
+var clipboard = new ClipboardJS('.copy-code-button');
+
+clipboard.on('success', function(e) {
+  console.info('Action:', e.action);
+  console.info('Text:', e.text);
+  console.info('Trigger:', e.trigger);
+  e.trigger.textContent = 'Copied';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+  console.error('Action:', e.action);
+  console.error('Trigger:', e.trigger);
+  e.trigger.textContent = 'Error Copying';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+</script>
+
+</body>
+</html>
+
