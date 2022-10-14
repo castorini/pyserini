@@ -608,6 +608,7 @@ We provide access to a multitude of experimental conditions organized in the fol
 + [MS MARCO V2 Passage](https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html)
 + [MS MARCO V2 Document](https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html)
 + [Mr.TyDi](https://castorini.github.io/pyserini/2cr/mrtydi.html)
++ [MIRACL](https://castorini.github.io/pyserini/2cr/miracl.html)
 
 ## Reproduction Guides
 
