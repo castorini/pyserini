@@ -19,7 +19,7 @@ from string import Template
 
 import yaml
 
-from scripts.repro_matrix.defs_mrtydi import models, languages, html_display, trec_eval_metric_definitions
+from scripts.repro_matrix.defs_miracl import models, languages, html_display, trec_eval_metric_definitions
 
 
 def format_run_command(raw):
@@ -97,35 +97,35 @@ def generate_table_rows(table_id, split, metric):
                          cmd1=f'{commands[keys["ar"]]}',
                          cmd2=f'{commands[keys["bn"]]}',
                          cmd3=f'{commands[keys["en"]]}',
-                         cmd3=f'{commands[keys["es"]]}',
-                         cmd4=f'{commands[keys["fa"]]}',
-                         cmd4=f'{commands[keys["fi"]]}',
-                         cmd4=f'{commands[keys["fr"]]}',
-                         cmd4=f'{commands[keys["hi"]]}',
-                         cmd5=f'{commands[keys["id"]]}',
-                         cmd6=f'{commands[keys["ja"]]}',
-                         cmd7=f'{commands[keys["ko"]]}',
-                         cmd8=f'{commands[keys["ru"]]}',
-                         cmd9=f'{commands[keys["sw"]]}',
-                         cmd10=f'{commands[keys["te"]]}',
-                         cmd11=f'{commands[keys["th"]]}',
-                         cmd11=f'{commands[keys["zh"]]}',
+                         cmd4=f'{commands[keys["es"]]}',
+                         cmd5=f'{commands[keys["fa"]]}',
+                         cmd6=f'{commands[keys["fi"]]}',
+                         cmd7=f'{commands[keys["fr"]]}',
+                         cmd8=f'{commands[keys["hi"]]}',
+                         cmd9=f'{commands[keys["id"]]}',
+                         cmd10=f'{commands[keys["ja"]]}',
+                         cmd11=f'{commands[keys["ko"]]}',
+                         cmd12=f'{commands[keys["ru"]]}',
+                         cmd13=f'{commands[keys["sw"]]}',
+                         cmd14=f'{commands[keys["te"]]}',
+                         cmd15=f'{commands[keys["th"]]}',
+                         cmd16=f'{commands[keys["zh"]]}',
                          eval_cmd1=f'{eval_commands[keys["ar"]][metric]}',
                          eval_cmd2=f'{eval_commands[keys["bn"]][metric]}',
                          eval_cmd3=f'{eval_commands[keys["en"]][metric]}',
-                         eval_cmd3=f'{eval_commands[keys["es"]][metric]}',
-                         eval_cmd4=f'{eval_commands[keys["fa"]][metric]}',
-                         eval_cmd4=f'{eval_commands[keys["fi"]][metric]}',
-                         eval_cmd4=f'{eval_commands[keys["fr"]][metric]}',
-                         eval_cmd4=f'{eval_commands[keys["hi"]][metric]}',
-                         eval_cmd5=f'{eval_commands[keys["id"]][metric]}',
-                         eval_cmd6=f'{eval_commands[keys["ja"]][metric]}',
-                         eval_cmd7=f'{eval_commands[keys["ko"]][metric]}',
-                         eval_cmd8=f'{eval_commands[keys["ru"]][metric]}',
-                         eval_cmd9=f'{eval_commands[keys["sw"]][metric]}',
-                         eval_cmd10=f'{eval_commands[keys["te"]][metric]}',
-                         eval_cmd11=f'{eval_commands[keys["th"]][metric]}',
-                         eval_cmd11=f'{eval_commands[keys["zh"]][metric]}'
+                         eval_cmd4=f'{eval_commands[keys["es"]][metric]}',
+                         eval_cmd5=f'{eval_commands[keys["fa"]][metric]}',
+                         eval_cmd6=f'{eval_commands[keys["fi"]][metric]}',
+                         eval_cmd7=f'{eval_commands[keys["fr"]][metric]}',
+                         eval_cmd8=f'{eval_commands[keys["hi"]][metric]}',
+                         eval_cmd9=f'{eval_commands[keys["id"]][metric]}',
+                         eval_cmd10=f'{eval_commands[keys["ja"]][metric]}',
+                         eval_cmd11=f'{eval_commands[keys["ko"]][metric]}',
+                         eval_cmd12=f'{eval_commands[keys["ru"]][metric]}',
+                         eval_cmd13=f'{eval_commands[keys["sw"]][metric]}',
+                         eval_cmd14=f'{eval_commands[keys["te"]][metric]}',
+                         eval_cmd15=f'{eval_commands[keys["th"]][metric]}',
+                         eval_cmd16=f'{eval_commands[keys["zh"]][metric]}'
                          )
 
         html_rows.append(s)
@@ -141,7 +141,7 @@ if __name__ == '__main__':
 
     html_template = read_file('scripts/repro_matrix/mrtydi_html.template')
     table_template = read_file('scripts/repro_matrix/miracl_html_table.template')
-    row_template = read_file('scripts/repro_matrix/mrtydi_html_table_row.template')
+    row_template = read_file('scripts/repro_matrix/miracl_html_table_row.template')
 
     with open('pyserini/resources/miracl.yaml') as f:
         yaml_data = yaml.safe_load(f)
@@ -162,19 +162,23 @@ if __name__ == '__main__':
                         table[name][split][metric] = expected[metric]
 
                         eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
-                                   f'{trec_eval_metric_definitions[metric]} {eval_key}-{split} {runfile}'
+                                   f'{trec_eval_metric_definitions[metric]} {eval_key}-{split}.tsv {runfile}'
                         eval_commands[name][metric] = format_eval_command(eval_cmd)
 
         tables_html = []
 
+        split = 'dev'
+
         # Build the table for MRR@100, test queries
-        html_rows = generate_table_rows(1, 'test', 'nDCG')
+        html_rows = generate_table_rows(1, split, 'nDCG')
         all_rows = '\n'.join(html_rows)
-        tables_html.append(Template(table_template).substitute(desc='nDCG, test queries', rows=all_rows))
+        tables_html.append(Template(table_template).substitute(desc=f'nDCG, {split} queries', rows=all_rows))
 
         # Build the table for R@100, test queries
-        html_rows = generate_table_rows(2, 'test', 'R@100')
+        html_rows = generate_table_rows(2, split, 'R@100')
         all_rows = '\n'.join(html_rows)
-        tables_html.append(Template(table_template).substitute(desc='Recall@100, test queries', rows=all_rows))
+        tables_html.append(Template(table_template).substitute(desc=f'Recall@100, {split} queries', rows=all_rows))
 
+        # import pdb
+        # pdb.set_trace()
         print(Template(html_template).substitute(title='MIRACL', tables=' '.join(tables_html)))
