@@ -72,7 +72,7 @@ if __name__ == '__main__':
                 for expected in splits['scores']:
                     for metric in expected:
                         if not args.skip_eval:
-                            score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}',
+                            score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}.tsv',
                                                                      trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
@@ -93,6 +93,6 @@ if __name__ == '__main__':
 
             print('')
 
-    for metric in ['MRR@100', 'R@100']:
-        for split in ['test', 'dev', 'train']:
+    for metric in ['nDCG', 'R@100']:
+        for split in ['dev', 'train']:
             print_results(metric, split)
