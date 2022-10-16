@@ -29,8 +29,8 @@ from pyserini.search import get_topics
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
-        self.threads = 12
-        self.batch_size = 36
+        self.threads = 16
+        self.batch_size = 256
         self.languages = ['arabic', 'bengali', 'english', 'finnish', 'indonesian', 'japanese', 'korean', 'russian', 'swahili', 'telugu', 'thai']
 
         # Hard-code larger values for internal servers

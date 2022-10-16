@@ -39,6 +39,7 @@ JPortugueseAnalyzer = autoclass('org.apache.lucene.analysis.pt.PortugueseAnalyze
 JRussianAnalyzer = autoclass('org.apache.lucene.analysis.ru.RussianAnalyzer')
 JSpanishAnalyzer = autoclass('org.apache.lucene.analysis.es.SpanishAnalyzer')
 JSwedishAnalyzer = autoclass('org.apache.lucene.analysis.sv.SwedishAnalyzer')
+JTeluguAnalyzer = autoclass('org.apache.lucene.analysis.te.TeluguAnalyzer')
 JThaiAnalyzer = autoclass('org.apache.lucene.analysis.th.ThaiAnalyzer')
 JTurkishAnalyzer = autoclass('org.apache.lucene.analysis.tr.TurkishAnalyzer')
 JWhiteSpaceAnalyzer = autoclass('org.apache.lucene.analysis.core.WhitespaceAnalyzer')
@@ -103,6 +104,8 @@ def get_lucene_analyzer(language='en', stemming=True, stemmer='porter', stopword
         return JRussianAnalyzer()
     elif language.lower() == 'es':
         return JSpanishAnalyzer()
+    elif language.lower() == 'te':
+        return JTeluguAnalyzer()
     elif language.lower() == 'th':
         return JThaiAnalyzer()
     elif language.lower() == 'tr':

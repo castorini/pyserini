@@ -7,7 +7,7 @@ conditions:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.2768
+          - MRR@10: 0.2767
             R@1K: 0.9357
       - topic_key: dl19-doc
         eval_key: dl19-doc
@@ -24,7 +24,7 @@ conditions:
   - name: bm25-doc-default
     display: BM25 doc (k1=0.9, b=0.4)
     display-html: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    display-row: (1a)
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (1a)"
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-slim --output $output --bm25 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-doc-dev
@@ -69,7 +69,7 @@ conditions:
   - name: bm25-doc-segmented-default
     display: BM25 doc segmented (k1=0.9, b=0.4)
     display-html: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    display-row: (1b)
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (1b)"
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-segmented-slim --output $output --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
@@ -97,43 +97,43 @@ conditions:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.2231
-            R@1K: 0.9305
+          - MRR@10: 0.2227
+            R@1K: 0.9303
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
-          - MAP: 0.2643
+          - MAP: 0.2638
             nDCG@10: 0.5526
-            R@1K: 0.7189
+            R@1K: 0.7188
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
-          - MAP: 0.3619
-            nDCG@10: 0.5238
+          - MAP: 0.3610
+            nDCG@10: 0.5195
             R@1K: 0.8180
   - name: bm25-rm3-doc-default
     display: BM25+RM3 doc (k1=0.9, b=0.4)
     display-html: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    display-row: (1c)
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (1c)"
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-full --output $output --bm25 --rm3 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.1622
-            R@1K: 0.8791
+          - MRR@10: 0.1618
+            R@1K: 0.8783
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
-          - MAP: 0.2774
-            nDCG@10: 0.5170
-            R@1K: 0.7503
+          - MAP: 0.2773
+            nDCG@10: 0.5174
+            R@1K: 0.7507
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
-          - MAP: 0.4014
-            nDCG@10: 0.5225
-            R@1K: 0.8257
+          - MAP: 0.4015
+            nDCG@10: 0.5254
+            R@1K: 0.8259
   - name: bm25-rm3-doc-segmented-tuned
     display: BM25+RM3 doc segmented (k1=2.16, b=0.61)
     display-html: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)
@@ -142,43 +142,131 @@ conditions:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.2443
-            R@1K: 0.9363
+          - MRR@10: 0.2448
+            R@1K: 0.9359
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
-          - MAP: 0.2658
-            nDCG@10: 0.5405
-            R@1K: 0.7030
+          - MAP: 0.2655
+            nDCG@10: 0.5392
+            R@1K: 0.7037
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
-          - MAP: 0.3472
-            nDCG@10: 0.4979
-            R@1K: 0.8049
+          - MAP: 0.3471
+            nDCG@10: 0.5030
+            R@1K: 0.8056
   - name: bm25-rm3-doc-segmented-default
     display: BM25+RM3 doc segmented (k1=0.9, b=0.4)
     display-html: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    display-row: (1d)
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (1d)"
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-segmented-full --output $output --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.2412
-            R@1K: 0.9355
+          - MRR@10: 0.2413
+            R@1K: 0.9351
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
-          - MAP: 0.2884
-            nDCG@10: 0.5764
-            R@1K: 0.7384
+          - MAP: 0.2892
+            nDCG@10: 0.5684
+            R@1K: 0.7368
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
-          - MAP: 0.3774
-            nDCG@10: 0.5179
-            R@1K: 0.8041
+          - MAP: 0.3792
+            nDCG@10: 0.5202
+            R@1K: 0.8023
+  - name: bm25-rocchio-doc-tuned
+    display: BM25+Rocchio doc (k1=4.46, b=0.82)
+    display-html: BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-full --output $output --bm25 --rocchio
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.2242
+            R@1K: 0.9314
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2657
+            nDCG@10: 0.5584
+            R@1K: 0.7299
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3628
+            nDCG@10: 0.5199
+            R@1K: 0.8217
+  - name: bm25-rocchio-doc-default
+    display: BM25+Rocchio doc (k1=0.9, b=0.4)
+    display-html: BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-full --output $output --bm25 --rocchio --k1 0.9 --b 0.4
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.1624
+            R@1K: 0.8789
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2811
+            nDCG@10: 0.5256
+            R@1K: 0.7546
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.4089
+            nDCG@10: 0.5192
+            R@1K: 0.8273
+  - name: bm25-rocchio-doc-segmented-tuned
+    display: BM25+Rocchio doc segmented (k1=2.16, b=0.61)
+    display-html: BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-segmented-full --output $output --bm25 --rocchio --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.2475
+            R@1K: 0.9395
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2672
+            nDCG@10: 0.5421
+            R@1K: 0.7115
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3521
+            nDCG@10: 0.4997
+            R@1K: 0.8042
+  - name: bm25-rocchio-doc-segmented-default
+    display: BM25+Rocchio doc segmented (k1=0.9, b=0.4)
+    display-html: BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-segmented-full --output $output --bm25 --rocchio --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-doc-dev
+        eval_key: msmarco-doc-dev
+        scores:
+          - MRR@10: 0.2447
+            R@1K: 0.9351
+      - topic_key: dl19-doc
+        eval_key: dl19-doc
+        scores:
+          - MAP: 0.2889
+            nDCG@10: 0.5570
+            R@1K: 0.7423
+      - topic_key: dl20
+        eval_key: dl20-doc
+        scores:
+          - MAP: 0.3830
+            nDCG@10: 0.5226
+            R@1K: 0.8102
   - name: bm25-d2q-t5-doc-tuned
     display: BM25 w/ doc2query-T5 doc (k1=4.68, b=0.87)
     display-html: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87)
@@ -204,7 +292,7 @@ conditions:
   - name: bm25-d2q-t5-doc-default
     display: BM25 w/ doc2query-T5 doc (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    display-row: (2a)
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (2a)"
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-d2q-t5 --output $output --bm25 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-doc-dev
@@ -249,7 +337,7 @@ conditions:
   - name: bm25-d2q-t5-doc-segmented-default
     display: BM25 w/ doc2query-T5 doc segmented (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    display-row: (2b)
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (2b)"
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-segmented-d2q-t5 --output $output --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
@@ -277,43 +365,43 @@ conditions:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.2621
-            R@1K: 0.9524
+          - MRR@10: 0.2623
+            R@1K: 0.9522
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
-          - MAP: 0.2814
-            nDCG@10: 0.6080
-            R@1K: 0.7177
+          - MAP: 0.2813
+            nDCG@10: 0.6091
+            R@1K: 0.7184
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
-          - MAP: 0.4104
-            nDCG@10: 0.5743
-            R@1K: 0.8240
+          - MAP: 0.4100
+            nDCG@10: 0.5745
+            R@1K: 0.8238
   - name: bm25-rm3-d2q-t5-doc-default
     display: BM25+RM3 w/ doc2query-T5 doc (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    display-row: (2c)
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (2c)"
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-d2q-t5-docvectors --output $output --bm25 --rm3 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.1831
-            R@1K: 0.9128
+          - MRR@10: 0.1834
+            R@1K: 0.9126
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
           - MAP: 0.3045
-            nDCG@10: 0.5897
-            R@1K: 0.7738
+            nDCG@10: 0.5904
+            R@1K: 0.7737
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
-          - MAP: 0.4229
-            nDCG@10: 0.5407
-            R@1K: 0.8596
+          - MAP: 0.4230
+            nDCG@10: 0.5427
+            R@1K: 0.8631
   - name: bm25-rm3-d2q-t5-doc-segmented-tuned
     display: BM25+RM3 w/ doc2query-T5 doc segmented (k1=2.56, b=0.59)
     display-html: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59)
@@ -322,43 +410,43 @@ conditions:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.2985
-            R@1K: 0.9567
+          - MRR@10: 0.2973
+            R@1K: 0.9563
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
-          - MAP: 0.2893
-            nDCG@10: 0.6239
-            R@1K: 0.7066
+          - MAP: 0.2892
+            nDCG@10: 0.6247
+            R@1K: 0.7069
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
-          - MAP: 0.4025
-            nDCG@10: 0.5724
-            R@1K: 0.8172
+          - MAP: 0.4016
+            nDCG@10: 0.5711
+            R@1K: 0.8156
   - name: bm25-rm3-d2q-t5-doc-segmented-default
     display: BM25+RM3 w/ doc2query-T5 doc segmented (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    display-row: (2d)
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (2d)"
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-doc-segmented-d2q-t5-docvectors --output $output --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.2818
-            R@1K: 0.9547
+          - MRR@10: 0.2803
+            R@1K: 0.9551
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
-          - MAP: 0.3021
-            nDCG@10: 0.6297
-            R@1K: 0.7481
+          - MAP: 0.3030
+            nDCG@10: 0.6290
+            R@1K: 0.7483
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
-          - MAP: 0.4268
-            nDCG@10: 0.5850
-            R@1K: 0.8270
+          - MAP: 0.4271
+            nDCG@10: 0.5851
+            R@1K: 0.8266
   - name: unicoil-noexp-otf
     display: "uniCOIL (noexp): otf"
     display-html: "uniCOIL (noexp): on-the-fly query inference"
@@ -384,7 +472,7 @@ conditions:
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
-    display-row: (3a)
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (3a)"
     command: python -m pyserini.search.lucene --index msmarco-v1-doc-segmented-unicoil-noexp --topics $topics --output $output --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev-unicoil-noexp
@@ -429,7 +517,7 @@ conditions:
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
-    display-row: (3b)
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (3b)"
     command: python -m pyserini.search.lucene --index msmarco-v1-doc-segmented-unicoil --topics $topics --output $output --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev-unicoil

@@ -14,36 +14,259 @@
 # limitations under the License.
 #
 
-TF_INDEX_INFO = {
+TF_INDEX_INFO_CURRENT = {
     "cacm": {
-        "description": "Lucene index of the CACM corpus",
+        "description": "Lucene index of the CACM corpus. (Lucene 9)",
         "filename": "lucene-index.cacm.tar.gz",
         "urls": [
-            "https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.tar.gz",
+            "https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.20221005.252b5e.tar.gz",
         ],
-        "md5": "e47164fbd18aab72cdc18aecc0744bb1",
-        "size compressed (bytes)": 2372903,
+        "md5": "cfe14d543c6a27f4d742fb2d0099b8e0",
+        "size compressed (bytes)": 2347197,
         "total_terms": 320968,
         "documents": 3204,
         "unique_terms": 14363,
     },
     "robust04": {
-        "description": "Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track",
-        "filename": "index-robust04-20191213.tar.gz",
-        "readme": "index-robust04-20191213-readme.txt",
+        "description": "Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track. (Lucene 9)",
+        "filename": "lucene-index.robust04.20221005.252b5e.tar.gz",
+        "readme": "lucene-index.robust04.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-robust04-20191213.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/eqFacNeSGc4pLLH/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.robust04.20221005.252b5e.tar.gz",
         ],
-        "md5": "15f3d001489c97849a010b0a4734d018",
-        "size compressed (bytes)": 1821814915,
+        "md5": "a1abd5437394956b7ec8bea4699b5e46",
+        "size compressed (bytes)": 1806776535,
         "total_terms": 174540872,
         "documents": 528030,
         "unique_terms": 923436,
     },
 
+    # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v1-doc": {
+        "description": "Lucene index of the MS MARCO V1 document corpus. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-doc.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc.20221004.252b5e.tar.gz",
+        ],
+        "md5": "b2b1841c93255f9902150128d5e27e41",
+        "size compressed (bytes)": 13736982438,
+        "total_terms": 2742209690,
+        "documents": 3213835,
+        "unique_terms": 29820456,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-slim": {
+        "description": "Lucene index of the MS MARCO V1 document corpus ('slim' version). (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/iCnysqnaG9SL9pA/download"
+        ],
+        "md5": "400fe94ec97a20cf775596085c5ad79d",
+        "size compressed (bytes)": 1791498133,
+        "total_terms": 2742209690,
+        "documents": 3213835,
+        "unique_terms": 29820456,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-full": {
+        "description": "Lucene index of the MS MARCO V1 document corpus ('full' version). (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
+        ],
+        "md5": "75735da0dd35e3631d22bf682ebed8a0",
+        "size compressed (bytes)": 25525615599,
+        "total_terms": 2742209690,
+        "documents": 3213835,
+        "unique_terms": 29820456,
+        "downloaded": False
+    },
+
+    # MS MARCO V1 document corpus, doc2query-T5 expansions.
+    "msmarco-v1-doc-d2q-t5": {
+        "description": "Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.tar.gz",
+        ],
+        "md5": "87530b64e55080fcfb90ec9e598be23e",
+        "size compressed (bytes)": 1885596544,
+        "total_terms": 3748333319,
+        "documents": 3213835,
+        "unique_terms": 30627687,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-d2q-t5-docvectors": {
+        "description": "Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20221004.252b5e.tar.gz",
+        ],
+        "md5": "a081b866b78e0f604ddb9e3103ee6cc5",
+        "size compressed (bytes)": 11152231182,
+        "total_terms": 3748333319,
+        "documents": 3213835,
+        "unique_terms": 30627687,
+        "downloaded": False
+    },
+
+    # MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v1-doc-segmented": {
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
+        ],
+        "md5": "59fdf88f360d0a72d1b94b9729c2198e",
+        "size compressed (bytes)": 15924438098,
+        "total_terms": 3200515914,
+        "documents": 20545677,
+        "unique_terms": 21190687,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-segmented-slim": {
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('slim' version). (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
+        ],
+        "md5": "c277161780d501ab832e16e6396f9cae",
+        "size compressed (bytes)": 3306727108,
+        "total_terms": 3200515914,
+        "documents": 20545677,
+        "unique_terms": 21190687,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-segmented-full": {
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('full' version). (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
+        ],
+        "md5": "c1af97d16c552a99a23382639c4a668c",
+        "size compressed (bytes)": 29470600011,
+        "total_terms": 3200515914,
+        "documents": 20545677,
+        "unique_terms": 21190687,
+        "downloaded": False
+    },
+
+    # MS MARCO V1 segmented document corpus, doc2query-T5 expansions.
+    "msmarco-v1-doc-segmented-d2q-t5": {
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.tar.gz",
+        ],
+        "md5": "b242fd9cb0982e87d0c667439cb6d59c",
+        "size compressed (bytes)": 3554554620,
+        "total_terms": 4206639543,
+        "documents": 20545677,
+        "unique_terms": 22054207,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-segmented-d2q-t5-docvectors": {
+        "description": "Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20221004.252b5e.tar.gz",
+        ],
+        "md5": "40341fc2cf151b8c447a8e77f5e9f100",
+        "size compressed (bytes)": 16349673687,
+        "total_terms": 4206639543,
+        "documents": 20545677,
+        "unique_terms": 22054207,
+        "downloaded": False
+    },
+
+    # MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v1-passage": {
+        "description": "Lucene index of the MS MARCO V1 passage corpus. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage.20221004.252b5e.tar.gz",
+        ],
+        "md5": "c697b18c9a0686ca760583e615dbe450",
+        "size compressed (bytes)": 2170758938,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-slim": {
+        "description": "Lucene index of the MS MARCO V1 passage corpus ('slim' version). (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
+        ],
+        "md5": "9f952db731ed7c3f2ec14010664ddcec",
+        "size compressed (bytes)": 491451085,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-full": {
+        "description": "Lucene index of the MS MARCO V1 passage corpus ('full' version). (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
+        ],
+        "md5": "0ff5ceaae32333d3580ae594d460385c",
+        "size compressed (bytes)": 3720616158,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+
+    # MS MARCO V1 passage corpus, doc2query-T5 expansions.
+    "msmarco-v1-passage-d2q-t5": {
+        "description": "Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.tar.gz",
+        ],
+        "md5": "0a62959d300634aa0eb37e910aa4f4a7",
+        "size compressed (bytes)": 807866125,
+        "total_terms": 1986612263,
+        "documents": 8841823,
+        "unique_terms": 3929111,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-d2q-t5-docvectors": {
+        "description": "Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20221004.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20221004.252b5e.tar.gz",
+        ],
+        "md5": "2530b20771c6f441073ff49a56ea9004",
+        "size compressed (bytes)": 4409861543,
+        "total_terms": 1986612263,
+        "documents": 8841823,
+        "unique_terms": 3929111,
+        "downloaded": False
+    },
+
+    # MS MARCO V1 indexes for LTR experiments.
     "msmarco-passage-ltr": {
-        "description": "Lucene index of the MS MARCO passage corpus with four extra preprocessed fields for LTR",
+        "description": "Lucene index of the MS MARCO passage corpus with four extra preprocessed fields for LTR. (Lucene 8)",
         "filename": "index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
         "readme": "index-msmarco-passage-ltr-20210519-e25e33f-readme.txt",
         "urls": [
@@ -58,7 +281,7 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-doc-per-passage-ltr": {
-        "description": "Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR",
+        "description": "Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR. (Lucene 8)",
         "filename": "index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
@@ -72,249 +295,16 @@ TF_INDEX_INFO = {
         "downloaded": False
     },
     "msmarco-document-segment-ltr": {
-        "description": "Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR",
+        "description": "Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR. (Lucene 8)",
         "filename": "lucene-index.msmarco-doc-segmented.ibm.tar.gz",
         "urls": [
-            "https://www.dropbox.com/s/e5mwugvcbeypfl5/lucene-index.msmarco-doc-segmented.ibm.tar.gz?dl=1"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-doc-segmented.ibm.tar.gz"
         ],
         "md5": "13064bdaf8e8a79222634d67ecd3ddb5",
         "size compressed (bytes)": 98984853515,
         "total_terms": 3197500226,
         "documents": 20532330,
-        "downloaded": False
-    },
-
-    # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v1-doc": {
-        "description": "Lucene index of the MS MARCO V1 document corpus.",
-        "filename": "lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc.20220131.9ea315.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/aDRAfyZytQsQ9T3/download"
-        ],
-        "md5": "43b60b3fc75324c648a02375772e7fe8",
-        "size compressed (bytes)": 13757573401,
-        "total_terms": 2742209690,
-        "documents": 3213835,
-        "unique_terms": 29820456,
-        "downloaded": False
-    },
-    "msmarco-v1-doc-slim": {
-        "description": "Lucene index of the MS MARCO V1 document corpus ('slim' version).",
-        "filename": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/iCnysqnaG9SL9pA/download"
-        ],
-        "md5": "17a7b079e9d527492904c7697a9cae59",
-        "size compressed (bytes)": 1811599007,
-        "total_terms": 2742209690,
-        "documents": 3213835,
-        "unique_terms": 29820456,
-        "downloaded": False
-    },
-    "msmarco-v1-doc-full": {
-        "description": "Lucene index of the MS MARCO V1 document corpus ('full' version).",
-        "filename": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/KsqZ2AwkSrTM8yS/download"
-        ],
-        "md5": "ef60d7f8afa3919cdeedc6fea89aa3f7",
-        "size compressed (bytes)": 25548064269,
-        "total_terms": 2742209690,
-        "documents": 3213835,
-        "unique_terms": 29820456,
-        "downloaded": False
-    },
-
-    # MS MARCO V1 document corpus, doc2query-T5 expansions.
-    "msmarco-v1-doc-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/jWb3La4NYorwSCp/download"
-        ],
-        "md5": "37c639c9c26a34d2612ea6549fb866df",
-        "size compressed (bytes)": 1904879520,
-        "total_terms": 3748333319,
-        "documents": 3213835,
-        "unique_terms": 30627687,
-        "downloaded": False
-    },
-    "msmarco-v1-doc-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20220525.30c997.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20220525.30c997.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20220525.30c997.tar.gz",
-        ],
-        "md5": "987088270d4df2d51bcdffb1588f6915",
-        "size compressed (bytes)": 11169880136,
-        "total_terms": 3748333319,
-        "documents": 3213835,
-        "unique_terms": 30627687,
-        "downloaded": False
-    },
-
-    # MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v1-doc-segmented": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus.",
-        "filename": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/FKniAWGJjZHy3TF/download"
-        ],
-        "md5": "611bb83e043c0d6febe0fa3508d1d7f9",
-        "size compressed (bytes)": 17091132803,
-        "total_terms": 3200515914,
-        "documents": 20545677,
-        "unique_terms": 21190687,
-        "downloaded": False
-    },
-    "msmarco-v1-doc-segmented-slim": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('slim' version).",
-        "filename": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/QNYpaAcLXERr74y/download"
-        ],
-        "md5": "d42113cfeeea862b51765329795948ad",
-        "size compressed (bytes)": 3408754542,
-        "total_terms": 3200515914,
-        "documents": 20545677,
-        "unique_terms": 21190687,
-        "downloaded": False
-    },
-    "msmarco-v1-doc-segmented-full": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('full' version).",
-        "filename": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/RzRBC6xkmaTsmX9/download"
-        ],
-        "md5": "2ed7457c8804d2d6370a1a7f604eb360",
-        "size compressed (bytes)": 30771630666,
-        "total_terms": 3200515914,
-        "documents": 20545677,
-        "unique_terms": 21190687,
-        "downloaded": False
-    },
-
-    # MS MARCO V1 segmented document corpus, doc2query-T5 expansions.
-    "msmarco-v1-doc-segmented-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/gJmL8iiWWztnYmH/download"
-        ],
-        "md5": "6c1f86ee4f7175eed4d3a7acc3d567b8",
-        "size compressed (bytes)": 3638703522,
-        "total_terms": 4206639543,
-        "documents": 20545677,
-        "unique_terms": 22054207,
-        "downloaded": False
-    },
-    "msmarco-v1-doc-segmented-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20220525.30c997.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
-        ],
-        "md5": "a67e6854187f084a8a3eee11dd30bc31",
-        "size compressed (bytes)": 16627681594,
-        "total_terms": 4206639543,
-        "documents": 20545677,
-        "unique_terms": 22054207,
-        "downloaded": False
-    },
-
-    # MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v1-passage": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus.",
-        "filename": "lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage.20220131.9ea315.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/L7yNfCXpqK5yf8e/download"
-        ],
-        "md5": "4d8fdbdcd119c1f47a4cc5d01a45dad3",
-        "size compressed (bytes)": 2178557129,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
-    "msmarco-v1-passage-slim": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus ('slim' version).",
-        "filename": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/swtPDQAGg6oHD8m/download"
-        ],
-        "md5": "2f1e50d60a0df32a50111a986159de51",
-        "size compressed (bytes)": 498355616,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
-    "msmarco-v1-passage-full": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus ('full' version).",
-        "filename": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/wzGLFMQyKAc2TTC/download"
-        ],
-        "md5": "3283069c6e8451659c8ea83e2140d739",
-        "size compressed (bytes)": 3781721749,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
-
-    # MS MARCO V1 passage corpus, doc2query-T5 expansions.
-    "msmarco-v1-passage-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions.",
-        "filename": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/P7Lt234kyZP87nB/download"
-        ],
-        "md5": "136205f35bd895077c0874eaa063376c",
-        "size compressed (bytes)": 819441969,
-        "total_terms": 1986612263,
-        "documents": 8841823,
-        "unique_terms": 3929111,
-        "downloaded": False
-    },
-    "msmarco-v1-passage-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions.",
-        "filename": "lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20220525.30c997.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20220525.30c997.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20220525.30c997.tar.gz",
-        ],
-        "md5": "5eb8178e48a4a9b85714be156d85b2d1",
-        "size compressed (bytes)": 4433982542,
-        "total_terms": 1986612263,
-        "documents": 8841823,
-        "unique_terms": 3929111,
+        "unique_terms": -1,
         "downloaded": False
     },
 
@@ -920,134 +910,125 @@ TF_INDEX_INFO = {
     },
     "mrtydi-v1.1-arabic": {
         "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
-        "filename": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md",
+        "filename": "lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/7oDFnq8FmTazf2a/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.tar.gz",
         ],
-        "md5": "0129b01cc88524e13a9ff3e398e988a5",
-        "size compressed (bytes)": 1172153418,
-        "total_terms": 92529014,
+        "md5": "efff40a2548f759eb8b0e47e0622685b",
+        "size compressed (bytes)": 1420441600,
+        "total_terms": 92529032,
         "documents": 2106586,
-        "unique_terms": 1284712,
+        "unique_terms": 1284748,
         "downloaded": False
     },
     "mrtydi-v1.1-bengali": {
         "description": "Lucene index for Mr.TyDi v1.1 (Bengali).",
-        "filename": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md",
+        "filename": "lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/HaPaz2wFbRMP2LK/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "756a686cc5723791eb5ab5357271be10",
-        "size compressed (bytes)": 240371052,
-        "total_terms": 15236598,
+        "md5": "6ed844c8f17b2f041fba7c5676d3fb42",
+        "size compressed (bytes)": 294942720,
+        "total_terms": 15236599,
         "documents": 304059,
-        "unique_terms": 520694,
+        "unique_terms": 520699,
         "downloaded": False
     },
     "mrtydi-v1.1-english": {
         "description": "Lucene index for Mr.TyDi v1.1 (English).",
-        "filename": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md",
+        "filename": "lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/w4ccMwH5BLnXQ3j/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "804c7626b5a36f06f75e0a04c6ec4fe1",
-        "size compressed (bytes)": 16772744114,
-        "total_terms": 1507060955,
+        "md5": "e6b0a2531d958c3d1a65634dc315b0ab",
+        "size compressed (bytes)": 20566118400,
+        "total_terms": 1507060932,
         "documents": 32907100,
-        "unique_terms": 6189349,
+        "unique_terms": -1,
         "downloaded": False
     },
     "mrtydi-v1.1-finnish": {
         "description": "Lucene index for Mr.TyDi v1.1 (Finnish).",
-        "filename": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md",
+        "filename": "lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Pgd3mqjy77a6FR8/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "65361258d1a318447f364ccae90c293a",
-        "size compressed (bytes)": 908904453,
-        "total_terms": 69431615,
+        "md5": "0f464c022447eed5431157f0b2feb0b3",
+        "size compressed (bytes)": 1116272640,
+        "total_terms": 69416543,
         "documents": 1908757,
-        "unique_terms": 1709590,
+        "unique_terms": 1715076,
         "downloaded": False
     },
     "mrtydi-v1.1-indonesian": {
         "description": "Lucene index for Mr.TyDi v1.1 (Indonesian).",
-        "filename": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md",
+        "filename": "lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/tF8NE7pWZ2xGix7/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "ca62d690401b84a493c70693ee2626c3",
-        "size compressed (bytes)": 564741230,
+        "md5": "345d43a2443786a3394a93a6f7ef77b7",
+        "size compressed (bytes)": 698388480,
         "total_terms": 52493134,
         "documents": 1469399,
-        "unique_terms": 942550,
+        "unique_terms": 942552,
         "downloaded": False
     },
     "mrtydi-v1.1-japanese": {
         "description": "Lucene index for Mr.TyDi v1.1 (Japanese).",
-        "filename": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md",
+        "filename": "lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/ema8i83zqJr7n48/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "d05aefed5f79bfc151a9f4815d3693d8",
-        "size compressed (bytes)": 3670762373,
-        "total_terms": 303640353,
+        "md5": "5f0802c1257c325a3e25c58523dba841",
+        "size compressed (bytes)": 4333844480,
+        "total_terms": 300761975,
         "documents": 7000027,
-        "unique_terms": 1708155,
+        "unique_terms": 1588879,
         "downloaded": False
     },
     "mrtydi-v1.1-korean": {
         "description": "Lucene index for Mr.TyDi v1.1 (Korean).",
-        "filename": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md",
+        "filename": "lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/igmEHCTjTwNi3de/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "4ecc408de4c749f25865859ea97278bd",
-        "size compressed (bytes)": 1141503582,
-        "total_terms": 122217290,
+        "md5": "4277f406b138c46edf7c17e4248f3b2e",
+        "size compressed (bytes)": 1349109760,
+        "total_terms": 122217295,
         "documents": 1496126,
-        "unique_terms": 1517175,
+        "unique_terms": 1517179,
         "downloaded": False
     },
     "mrtydi-v1.1-russian": {
         "description": "Lucene index for Mr.TyDi v1.1 (Russian).",
-        "filename": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md",
+        "filename": "lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Pbi9xrD7jSYaxnX/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "9e229b33f4ddea411477d2f00c25be72",
-        "size compressed (bytes)": 5672456411,
-        "total_terms": 346329152,
+        "md5": "d5837fee29c60c7a3a24cfd598056038",
+        "size compressed (bytes)": 6864660480,
+        "total_terms": 346329117,
         "documents": 9597504,
-        "unique_terms": 3059773,
+        "unique_terms": 3034240,
         "downloaded": False
     },
     "mrtydi-v1.1-swahili": {
         "description": "Lucene index for Mr.TyDi v1.1 (Swahili).",
-        "filename": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md",
+        "filename": "lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/SWqajDQgq8wppf6/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "ec88a5b39c2506b8cd61e6e47b8044e7",
-        "size compressed (bytes)": 47689785,
+        "md5": "bebff76ec6dfe76c904604f8ed1bcd3e",
+        "size compressed (bytes)": 59607040,
         "total_terms": 4937051,
         "documents": 136689,
         "unique_terms": 385711,
@@ -1055,171 +1036,30 @@ TF_INDEX_INFO = {
     },
     "mrtydi-v1.1-telugu": {
         "description": "Lucene index for Mr.TyDi v1.1 (Telugu).",
-        "filename": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md",
+        "filename": "lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/DAB6ba5ZF98awH6/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "2704b725c0418905037a45b6301e8666",
-        "size compressed (bytes)": 452906283,
-        "total_terms": 27173644,
+        "md5": "89f8b280cacbdc27e90bb1ea40029c21",
+        "size compressed (bytes)": 519157760,
+        "total_terms": 26812052,
         "documents": 548224,
-        "unique_terms": 1892900,
+        "unique_terms": 1157217,
         "downloaded": False
     },
     "mrtydi-v1.1-thai": {
         "description": "Lucene index for Mr.TyDi v1.1 (Thai).",
-        "filename": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md",
+        "filename": "lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/2Ady6AwBwNbYLpg/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.tar.gz"
         ],
-        "md5": "9756502f1aeeee035c37975202787538",
-        "size compressed (bytes)": 452244053,
+        "md5": "047152fc6bc1b5c5d945f38b23de971e",
+        "size compressed (bytes)": 546201600,
         "total_terms": 31550936,
         "documents": 568855,
         "unique_terms": 663628,
-        "downloaded": False
-    },
-
-    # These MS MARCO V1 indexes are deprecated, but keeping around for archival reasons
-    "msmarco-passage": {
-        "description": "Lucene index of the MS MARCO passage corpus (deprecated; use msmarco-v1-passage instead).",
-        "filename": "index-msmarco-passage-20201117-f87c94.tar.gz",
-        "readme": "index-msmarco-passage-20201117-f87c94-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-20201117-f87c94.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/QQsZMFG8MpF4P8M/download"
-        ],
-        "md5": "1efad4f1ae6a77e235042eff4be1612d",
-        "size compressed (bytes)": 2218470796,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
-    "msmarco-passage-slim": {
-        "description": "Lucene index of the MS MARCO passage corpus (slim version, document text not stored) (deprecated; use msmarco-v1-passage-slim instead).",
-        "filename": "index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
-        "readme": "index-msmarco-passage-slim-20201202-ab6e28-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Kx6K9NJFmwnaAP8/download"
-        ],
-        "md5": "5e11da4cebd2e8dda2e73c589ffb0b4c",
-        "size compressed (bytes)": 513566686,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
-    "msmarco-doc": {
-        "description": "Lucene index of the MS MARCO document corpus (deprecated; use msmarco-v1-doc instead).",
-        "filename": "index-msmarco-doc-20201117-f87c94.tar.gz",
-        "readme": "index-msmarco-doc-20201117-f87c94-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-20201117-f87c94.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/5NC7A2wAL7opJKH/download"
-        ],
-        "md5": "ac747860e7a37aed37cc30ed3990f273",
-        "size compressed (bytes)": 13642330935,
-        "total_terms": 2748636047,
-        "documents": 3213835,
-        "unique_terms": 29823078,
-        "downloaded": False
-    },
-    "msmarco-doc-slim": {
-        "description": "Lucene index of the MS MARCO document corpus (slim version, document text not stored) (deprecated; use msmarco-v1-doc-slim instead).",
-        "filename": "index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
-        "readme": "index-msmarco-doc-slim-20201202-ab6e28-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/BMZ6oYBoEPgTFqs/download"
-        ],
-        "md5": "c56e752f7992bf6149761097641d515a",
-        "size compressed (bytes)": 1874471867,
-        "total_terms": 2748636047,
-        "documents": 3213835,
-        "unique_terms": 29823078,
-        "downloaded": False
-    },
-    "msmarco-doc-per-passage": {
-        "description": "Lucene index of the MS MARCO document corpus segmented into passages (deprecated; use msmarco-v1-doc-segmented instead).",
-        "filename": "index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
-        "readme": "index-msmarco-doc-per-passage-20201204-f50dcc-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/q6sAxE6q57q2TBo/download"
-        ],
-        "md5": "797367406a7542b649cefa6b41cf4c33",
-        "size compressed (bytes)": 11602951258,
-        "total_terms": 3197886407,
-        "documents": 20544550,
-        "unique_terms": 21173582,
-        "downloaded": False
-    },
-    "msmarco-doc-per-passage-slim": {
-        "description": "Lucene index of the MS MARCO document corpus segmented into passages (slim version, document text not stored) (deprecated; use msmarco-v1-doc-segmented-slim instead).",
-        "filename": "index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
-        "readme": "index-msmarco-doc-per-passage-slim-20201204-f50dcc-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/mKTjbTKMwWF9kY3/download"
-        ],
-        "md5": "77c2409943a8c9faffabf57cb6adca69",
-        "size compressed (bytes)": 2834865200,
-        "total_terms": 3197886407,
-        "documents": 20544550,
-        "unique_terms": 21173582,
-        "downloaded": False
-    },
-
-    # These MS MARCO V1 doc2query expansion indexes are deprecated, but keeping around for archival reasons
-    "msmarco-passage-expanded": {
-        "description": "Lucene index of the MS MARCO passage corpus with docTTTTTquery expansions (deprecated; use msmarco-v1-passage-d2q-t5 instead)",
-        "filename": "index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
-        "readme": "index-msmarco-passage-expanded-20201121-e127fb-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/pm7cisJtRxiAMHd/download"
-        ],
-        "md5": "e5762e9e065b6fe5000f9c18da778565",
-        "size compressed (bytes)": 816438546,
-        "total_terms": 1986612263,
-        "documents": 8841823,
-        "unique_terms": 3929111,
-        "downloaded": False
-    },
-    "msmarco-doc-expanded-per-doc": {
-        "description": "Lucene index of the MS MARCO document corpus with per-doc docTTTTTquery expansions (deprecated; use msmarco-v1-doc-d2q-t5 instead)",
-        "filename": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
-        "readme": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/3BQz6ZAXAxtfne8/download"
-        ],
-        "md5": "f7056191842ab77a01829cff68004782",
-        "size compressed (bytes)": 1978837253,
-        "total_terms": 3748333319,
-        "documents": 3213835,
-        "unique_terms": 30627687,
-        "downloaded": False
-    },
-    "msmarco-doc-expanded-per-passage": {
-        "description": "Lucene index of the MS MARCO document corpus with per-passage docTTTTTquery expansions (deprecated; use msmarco-v1-doc-segmented-d2q-t5 instead)",
-        "filename": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
-        "readme": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/eZLbPWcnB7LzKnQ/download"
-        ],
-        "md5": "54ea30c64515edf3c3741291b785be53",
-        "size compressed (bytes)": 3069280946,
-        "total_terms": 4203956960,
-        "documents": 20544550,
-        "unique_terms": 22037213,
         "downloaded": False
     },
 
@@ -2038,67 +1878,736 @@ TF_INDEX_INFO = {
         "unique_terms": 28581,
         "downloaded": False
     },
+    "hc4-v1.0-zh": {
+        "description": "Lucene index for HC4 v1.0 (Chinese).",
+        "filename": "lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz",
+        "readme": "lucene-index.hc4-v1.0-zh.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz"
+        ],
+        "md5": "7351794f4b570c387a12527cf46a7956",
+        "size compressed (bytes)": 2904147388,
+        "total_terms": 304468573,
+        "documents": 646302,
+        "unique_terms": 4380931,
+        "downloaded": False
+    },
+    "hc4-v1.0-fa": {
+        "description": "Lucene index for HC4 v1.0 (Persian).",
+        "filename": "lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz",
+        "readme": "lucene-index.hc4-v1.0-fa.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz"
+        ],
+        "md5": "fd838abb94864f22cb4d94cd33660b24",
+        "size compressed (bytes)": 1656366266,
+        "total_terms": 112225895,
+        "documents": 486486,
+        "unique_terms": 617107,
+        "downloaded": False
+    },
+    "hc4-v1.0-ru": {
+        "description": "Lucene index for HC4 v1.0 (Russian).",
+        "filename": "lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz",
+        "readme": "lucene-index.hc4-v1.0-ru.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz"
+        ],
+        "md5": "3f15b30d1238d2d0a6f720f06c7c442c",
+        "size compressed (bytes)": 13323791981,
+        "total_terms": 764996697,
+        "documents": 4721064,
+        "unique_terms": 2640439,
+        "downloaded": False
+    },
+    "neuclir22-zh": {
+        "description": "Lucene index for NeuClir '22 (Persian).",
+        "filename": "lucene-index.neuclir22-zh.20220719.71c120.tar.gz",
+        "readme": "lucene-index.neuclir22-zh.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-zh.20220719.71c120.tar.gz"
+        ],
+        "md5": "edca109c2f39464f73cf9d12af776b73",
+        "size compressed (bytes)": 15744742868,
+        "total_terms": 1654090468,
+        "documents": 3179206,
+        "unique_terms": 8213049,
+        "downloaded": False
+    },
+    "neuclir22-fa": {
+        "description": "Lucene index for NeuClir '22 (Persian).",
+        "filename": "lucene-index.neuclir22-fa.20220719.71c120.tar.gz",
+        "readme": "lucene-index.neuclir22-fa.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-fa.20220719.71c120.tar.gz"
+        ],
+        "md5": "ff3a6ac9a4c428d3aa42e1ae3c007147",
+        "size compressed (bytes)": 7577718950,
+        "total_terms": 514262091,
+        "documents": 2232016,
+        "unique_terms": 1479422,
+        "downloaded": False
+    },
+    "neuclir22-ru": {
+        "description": "Lucene index for NeuClir '22 (Russian).",
+        "filename": "lucene-index.neuclir22-ru.20220719.71c120.tar.gz",
+        "readme": "lucene-index.neuclir22-ru.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-ru.20220719.71c120.tar.gz"
+        ],
+        "md5": "dd483e258fddde98cd059fd5f4f0fe1e",
+        "size compressed (bytes)": 14237631658,
+        "total_terms": 830006488,
+        "documents": 4627541,
+        "unique_terms": 3412268,
+        "downloaded": False
+    }
 }
 
-IMPACT_INDEX_INFO = {
-    "msmarco-v1-passage-unicoil": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL.",
-        "filename": "lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.README.md",
+TF_INDEX_INFO_DEPRECATED = {
+    "mrtydi-v1.1-arabic-lucene8": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Arabic). (Lucene 8; deprecated)",
+        "filename": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil.20220219.6a7080.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/5DTJ9BYnacyFiHr/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/7oDFnq8FmTazf2a/download"
         ],
-        "md5": "c589978ffccaa4f116b89ad756f53b89",
-        "size compressed (bytes)": 1189212017,
+        "md5": "0129b01cc88524e13a9ff3e398e988a5",
+        "size compressed (bytes)": 1172153418,
+        "total_terms": 92529014,
+        "documents": 2106586,
+        "unique_terms": 1284712,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-bengali-lucene8": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Bengali). (Lucene 8; deprecated)",
+        "filename": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/HaPaz2wFbRMP2LK/download"
+        ],
+        "md5": "756a686cc5723791eb5ab5357271be10",
+        "size compressed (bytes)": 240371052,
+        "total_terms": 15236598,
+        "documents": 304059,
+        "unique_terms": 520694,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-english-lucene8": {
+        "description": "Lucene index for Mr.TyDi v1.1 (English). (Lucene 8; deprecated)",
+        "filename": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/w4ccMwH5BLnXQ3j/download"
+        ],
+        "md5": "804c7626b5a36f06f75e0a04c6ec4fe1",
+        "size compressed (bytes)": 16772744114,
+        "total_terms": 1507060955,
+        "documents": 32907100,
+        "unique_terms": 6189349,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-finnish-lucene8": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Finnish). (Lucene 8; deprecated)",
+        "filename": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/Pgd3mqjy77a6FR8/download"
+        ],
+        "md5": "65361258d1a318447f364ccae90c293a",
+        "size compressed (bytes)": 908904453,
+        "total_terms": 69431615,
+        "documents": 1908757,
+        "unique_terms": 1709590,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-indonesian-lucene8": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Indonesian). (Lucene 8; deprecated)",
+        "filename": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/tF8NE7pWZ2xGix7/download"
+        ],
+        "md5": "ca62d690401b84a493c70693ee2626c3",
+        "size compressed (bytes)": 564741230,
+        "total_terms": 52493134,
+        "documents": 1469399,
+        "unique_terms": 942550,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-japanese-lucene8": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Japanese). (Lucene 8; deprecated)",
+        "filename": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/ema8i83zqJr7n48/download"
+        ],
+        "md5": "d05aefed5f79bfc151a9f4815d3693d8",
+        "size compressed (bytes)": 3670762373,
+        "total_terms": 303640353,
+        "documents": 7000027,
+        "unique_terms": 1708155,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-korean-lucene8": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Korean). (Lucene 8; deprecated)",
+        "filename": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/igmEHCTjTwNi3de/download"
+        ],
+        "md5": "4ecc408de4c749f25865859ea97278bd",
+        "size compressed (bytes)": 1141503582,
+        "total_terms": 122217290,
+        "documents": 1496126,
+        "unique_terms": 1517175,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-russian-lucene8": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Russian). (Lucene 8; deprecated)",
+        "filename": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/Pbi9xrD7jSYaxnX/download"
+        ],
+        "md5": "9e229b33f4ddea411477d2f00c25be72",
+        "size compressed (bytes)": 5672456411,
+        "total_terms": 346329152,
+        "documents": 9597504,
+        "unique_terms": 3059773,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-swahili-lucene8": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Swahili). (Lucene 8; deprecated)",
+        "filename": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/SWqajDQgq8wppf6/download"
+        ],
+        "md5": "ec88a5b39c2506b8cd61e6e47b8044e7",
+        "size compressed (bytes)": 47689785,
+        "total_terms": 4937051,
+        "documents": 136689,
+        "unique_terms": 385711,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-telugu-lucene8": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Telugu). (Lucene 8; deprecated)",
+        "filename": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/DAB6ba5ZF98awH6/download"
+        ],
+        "md5": "2704b725c0418905037a45b6301e8666",
+        "size compressed (bytes)": 452906283,
+        "total_terms": 27173644,
+        "documents": 548224,
+        "unique_terms": 1892900,
+        "downloaded": False
+    },
+    "mrtydi-v1.1-thai-lucene8": {
+        "description": "Lucene index for Mr.TyDi v1.1 (Thai). (Lucene 8; deprecated)",
+        "filename": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
+        "readme": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/2Ady6AwBwNbYLpg/download"
+        ],
+        "md5": "9756502f1aeeee035c37975202787538",
+        "size compressed (bytes)": 452244053,
+        "total_terms": 31550936,
+        "documents": 568855,
+        "unique_terms": 663628,
+        "downloaded": False
+    },
+
+    # Deprecated: MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v1-doc-lucene8": {
+        "description": "Lucene index of the MS MARCO V1 document corpus. (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/aDRAfyZytQsQ9T3/download"
+        ],
+        "md5": "43b60b3fc75324c648a02375772e7fe8",
+        "size compressed (bytes)": 13757573401,
+        "total_terms": 2742209690,
+        "documents": 3213835,
+        "unique_terms": 29820456,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-slim-lucene8": {
+        "description": "Lucene index of the MS MARCO V1 document corpus ('slim' version). (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/iCnysqnaG9SL9pA/download"
+        ],
+        "md5": "17a7b079e9d527492904c7697a9cae59",
+        "size compressed (bytes)": 1811599007,
+        "total_terms": 2742209690,
+        "documents": 3213835,
+        "unique_terms": 29820456,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-full-lucene8": {
+        "description": "Lucene index of the MS MARCO V1 document corpus ('full' version). (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/KsqZ2AwkSrTM8yS/download"
+        ],
+        "md5": "ef60d7f8afa3919cdeedc6fea89aa3f7",
+        "size compressed (bytes)": 25548064269,
+        "total_terms": 2742209690,
+        "documents": 3213835,
+        "unique_terms": 29820456,
+        "downloaded": False
+    },
+
+    # Deprecated: MS MARCO V1 document corpus, doc2query-T5 expansions.
+    "msmarco-v1-doc-d2q-t5-lucene8": {
+        "description": "Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions. (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/jWb3La4NYorwSCp/download"
+        ],
+        "md5": "37c639c9c26a34d2612ea6549fb866df",
+        "size compressed (bytes)": 1904879520,
+        "total_terms": 3748333319,
+        "documents": 3213835,
+        "unique_terms": 30627687,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-d2q-t5-docvectors-lucene8": {
+        "description": "Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions. (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20220525.30c997.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20220525.30c997.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20220525.30c997.tar.gz",
+        ],
+        "md5": "987088270d4df2d51bcdffb1588f6915",
+        "size compressed (bytes)": 11169880136,
+        "total_terms": 3748333319,
+        "documents": 3213835,
+        "unique_terms": 30627687,
+        "downloaded": False
+    },
+
+    # Deprecated: MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v1-doc-segmented-lucene8": {
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus. (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/FKniAWGJjZHy3TF/download"
+        ],
+        "md5": "611bb83e043c0d6febe0fa3508d1d7f9",
+        "size compressed (bytes)": 17091132803,
+        "total_terms": 3200515914,
+        "documents": 20545677,
+        "unique_terms": 21190687,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-segmented-slim-lucene8": {
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('slim' version). (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/QNYpaAcLXERr74y/download"
+        ],
+        "md5": "d42113cfeeea862b51765329795948ad",
+        "size compressed (bytes)": 3408754542,
+        "total_terms": 3200515914,
+        "documents": 20545677,
+        "unique_terms": 21190687,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-segmented-full-lucene8": {
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('full' version). (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/RzRBC6xkmaTsmX9/download"
+        ],
+        "md5": "2ed7457c8804d2d6370a1a7f604eb360",
+        "size compressed (bytes)": 30771630666,
+        "total_terms": 3200515914,
+        "documents": 20545677,
+        "unique_terms": 21190687,
+        "downloaded": False
+    },
+
+    # Deprecated: MS MARCO V1 segmented document corpus, doc2query-T5 expansions.
+    "msmarco-v1-doc-segmented-d2q-t5-lucene8": {
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions. (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/gJmL8iiWWztnYmH/download"
+        ],
+        "md5": "6c1f86ee4f7175eed4d3a7acc3d567b8",
+        "size compressed (bytes)": 3638703522,
+        "total_terms": 4206639543,
+        "documents": 20545677,
+        "unique_terms": 22054207,
+        "downloaded": False
+    },
+    "msmarco-v1-doc-segmented-d2q-t5-docvectors-lucene8": {
+        "description": "Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions. (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20220525.30c997.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
+        ],
+        "md5": "a67e6854187f084a8a3eee11dd30bc31",
+        "size compressed (bytes)": 16627681594,
+        "total_terms": 4206639543,
+        "documents": 20545677,
+        "unique_terms": 22054207,
+        "downloaded": False
+    },
+
+    # Deprecated: MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v1-passage-lucene8": {
+        "description": "Lucene index of the MS MARCO V1 passage corpus. (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/L7yNfCXpqK5yf8e/download"
+        ],
+        "md5": "4d8fdbdcd119c1f47a4cc5d01a45dad3",
+        "size compressed (bytes)": 2178557129,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-slim-lucene8": {
+        "description": "Lucene index of the MS MARCO V1 passage corpus ('slim' version). (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/swtPDQAGg6oHD8m/download"
+        ],
+        "md5": "2f1e50d60a0df32a50111a986159de51",
+        "size compressed (bytes)": 498355616,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-full-lucene8": {
+        "description": "Lucene index of the MS MARCO V1 passage corpus ('full' version). (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/wzGLFMQyKAc2TTC/download"
+        ],
+        "md5": "3283069c6e8451659c8ea83e2140d739",
+        "size compressed (bytes)": 3781721749,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+
+    # Deprecated: MS MARCO V1 passage corpus, doc2query-T5 expansions.
+    "msmarco-v1-passage-d2q-t5-lucene8": {
+        "description": "Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions. (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/P7Lt234kyZP87nB/download"
+        ],
+        "md5": "136205f35bd895077c0874eaa063376c",
+        "size compressed (bytes)": 819441969,
+        "total_terms": 1986612263,
+        "documents": 8841823,
+        "unique_terms": 3929111,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-d2q-t5-docvectors-lucene8": {
+        "description": "Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions. (Lucene 8; deprecated)",
+        "filename": "lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20220525.30c997.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20220525.30c997.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20220525.30c997.tar.gz",
+        ],
+        "md5": "5eb8178e48a4a9b85714be156d85b2d1",
+        "size compressed (bytes)": 4433982542,
+        "total_terms": 1986612263,
+        "documents": 8841823,
+        "unique_terms": 3929111,
+        "downloaded": False
+    },
+
+    # These MS MARCO V1 indexes are deprecated, but keeping around for archival reasons
+    "msmarco-passage": {
+        "description": "Lucene index of the MS MARCO passage corpus (deprecated; use msmarco-v1-passage instead). (Lucene 8)",
+        "filename": "index-msmarco-passage-20201117-f87c94.tar.gz",
+        "readme": "index-msmarco-passage-20201117-f87c94-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-20201117-f87c94.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/QQsZMFG8MpF4P8M/download"
+        ],
+        "md5": "1efad4f1ae6a77e235042eff4be1612d",
+        "size compressed (bytes)": 2218470796,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+    "msmarco-passage-slim": {
+        "description": "Lucene index of the MS MARCO passage corpus (slim version, document text not stored) (deprecated; use msmarco-v1-passage-slim instead). (Lucene 8)",
+        "filename": "index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
+        "readme": "index-msmarco-passage-slim-20201202-ab6e28-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/Kx6K9NJFmwnaAP8/download"
+        ],
+        "md5": "5e11da4cebd2e8dda2e73c589ffb0b4c",
+        "size compressed (bytes)": 513566686,
+        "total_terms": 352316036,
+        "documents": 8841823,
+        "unique_terms": 2660824,
+        "downloaded": False
+    },
+    "msmarco-doc": {
+        "description": "Lucene index of the MS MARCO document corpus (deprecated; use msmarco-v1-doc instead). (Lucene 8)",
+        "filename": "index-msmarco-doc-20201117-f87c94.tar.gz",
+        "readme": "index-msmarco-doc-20201117-f87c94-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-20201117-f87c94.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/5NC7A2wAL7opJKH/download"
+        ],
+        "md5": "ac747860e7a37aed37cc30ed3990f273",
+        "size compressed (bytes)": 13642330935,
+        "total_terms": 2748636047,
+        "documents": 3213835,
+        "unique_terms": 29823078,
+        "downloaded": False
+    },
+    "msmarco-doc-slim": {
+        "description": "Lucene index of the MS MARCO document corpus (slim version, document text not stored) (deprecated; use msmarco-v1-doc-slim instead). (Lucene 8)",
+        "filename": "index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
+        "readme": "index-msmarco-doc-slim-20201202-ab6e28-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/BMZ6oYBoEPgTFqs/download"
+        ],
+        "md5": "c56e752f7992bf6149761097641d515a",
+        "size compressed (bytes)": 1874471867,
+        "total_terms": 2748636047,
+        "documents": 3213835,
+        "unique_terms": 29823078,
+        "downloaded": False
+    },
+    "msmarco-doc-per-passage": {
+        "description": "Lucene index of the MS MARCO document corpus segmented into passages (deprecated; use msmarco-v1-doc-segmented instead). (Lucene 8)",
+        "filename": "index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
+        "readme": "index-msmarco-doc-per-passage-20201204-f50dcc-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/q6sAxE6q57q2TBo/download"
+        ],
+        "md5": "797367406a7542b649cefa6b41cf4c33",
+        "size compressed (bytes)": 11602951258,
+        "total_terms": 3197886407,
+        "documents": 20544550,
+        "unique_terms": 21173582,
+        "downloaded": False
+    },
+    "msmarco-doc-per-passage-slim": {
+        "description": "Lucene index of the MS MARCO document corpus segmented into passages (slim version, document text not stored) (deprecated; use msmarco-v1-doc-segmented-slim instead). (Lucene 8)",
+        "filename": "index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
+        "readme": "index-msmarco-doc-per-passage-slim-20201204-f50dcc-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/mKTjbTKMwWF9kY3/download"
+        ],
+        "md5": "77c2409943a8c9faffabf57cb6adca69",
+        "size compressed (bytes)": 2834865200,
+        "total_terms": 3197886407,
+        "documents": 20544550,
+        "unique_terms": 21173582,
+        "downloaded": False
+    },
+
+    # These MS MARCO V1 doc2query expansion indexes are deprecated, but keeping around for archival reasons
+    "msmarco-passage-expanded": {
+        "description": "Lucene index of the MS MARCO passage corpus with docTTTTTquery expansions (deprecated; use msmarco-v1-passage-d2q-t5 instead). (Lucene 8)",
+        "filename": "index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
+        "readme": "index-msmarco-passage-expanded-20201121-e127fb-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/pm7cisJtRxiAMHd/download"
+        ],
+        "md5": "e5762e9e065b6fe5000f9c18da778565",
+        "size compressed (bytes)": 816438546,
+        "total_terms": 1986612263,
+        "documents": 8841823,
+        "unique_terms": 3929111,
+        "downloaded": False
+    },
+    "msmarco-doc-expanded-per-doc": {
+        "description": "Lucene index of the MS MARCO document corpus with per-doc docTTTTTquery expansions (deprecated; use msmarco-v1-doc-d2q-t5 instead). (Lucene 8)",
+        "filename": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
+        "readme": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/3BQz6ZAXAxtfne8/download"
+        ],
+        "md5": "f7056191842ab77a01829cff68004782",
+        "size compressed (bytes)": 1978837253,
+        "total_terms": 3748333319,
+        "documents": 3213835,
+        "unique_terms": 30627687,
+        "downloaded": False
+    },
+    "msmarco-doc-expanded-per-passage": {
+        "description": "Lucene index of the MS MARCO document corpus with per-passage docTTTTTquery expansions (deprecated; use msmarco-v1-doc-segmented-d2q-t5 instead). (Lucene 8)",
+        "filename": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
+        "readme": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/eZLbPWcnB7LzKnQ/download"
+        ],
+        "md5": "54ea30c64515edf3c3741291b785be53",
+        "size compressed (bytes)": 3069280946,
+        "total_terms": 4203956960,
+        "documents": 20544550,
+        "unique_terms": 22037213,
+        "downloaded": False
+    },
+}
+
+TF_INDEX_INFO = {**TF_INDEX_INFO_CURRENT, **TF_INDEX_INFO_DEPRECATED}
+
+IMPACT_INDEX_INFO_CURRENT = {
+    "msmarco-v1-passage-unicoil": {
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.tar.gz",
+        ],
+        "md5": "29521fa94165e87caaaddcb5b0d37b13",
+        "size compressed (bytes)": 1161034003,
         "total_terms": 44495093768,
         "documents": 8841823,
         "unique_terms": 27678,
         "downloaded": False
     },
     "msmarco-v1-passage-unicoil-noexp": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp).",
-        "filename": "lucene-index.msmarco-v1-passage-unicoil-noexp.20220322.2f4058.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-unicoil-noexp.20220322.2f4058.README.md",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp). (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-unicoil-noexp.20221005.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-unicoil-noexp.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil-noexp.20220322.2f4058.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil-noexp.20221005.252b5e.tar.gz",
         ],
-        "md5": "e1feea4ce3bbafc034330b2683b6503a",
-        "size compressed (bytes)": 890676484,
+        "md5": "dcb6506e0b8bb1d41863ea9cbaa057cf",
+        "size compressed (bytes)": 873512626,
         "total_terms": 26468530021,
         "documents": 8841823,
         "unique_terms": 27647,
         "downloaded": False
     },
-    "msmarco-v1-doc-segmented-unicoil": {
-        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL.",
-        "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.README.md",
+    "msmarco-v1-passage-deepimpact": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil.20220219.6a7080.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/T9KGpy3mA35jPbo/download"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.tar.gz",
         ],
-        "md5": "393ad1227b9906c8776a4fbaddab4e9d",
-        "size compressed (bytes)": 5891112039,
+        "md5": "e1cd5bd86ae5b35912991a6c8c448bb0",
+        "size compressed (bytes)": 1242661484,
+        "total_terms": 35455908214,
+        "documents": 8841823,
+        "unique_terms": 3514102,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-unicoil-tilde": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.tar.gz",
+        ],
+        "md5": "b732c58113ec39b197083dee3e702932",
+        "size compressed (bytes)": 1871922326,
+        "total_terms": 73040108576,
+        "documents": 8841823,
+        "unique_terms": 27646,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-distill-splade-max": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.tar.gz"
+        ],
+        "md5": "7d8b56b348685b9c3e29e306803c61eb",
+        "size compressed (bytes)": 3822892457,
+        "total_terms": 95445422483,
+        "documents": 8841823,
+        "unique_terms": 28131,
+        "downloaded": False
+    },
+
+    "msmarco-v1-doc-segmented-unicoil": {
+        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL, with title/segment encoding. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.tar.gz",
+        ],
+        "md5": "06e087b8575f3d49177abfcfaf4bba1c",
+        "size compressed (bytes)": 5765257637,
         "total_terms": 214505277898,
         "documents": 20545677,
         "unique_terms": 29142,
         "downloaded": False
     },
     "msmarco-v1-doc-segmented-unicoil-noexp": {
-        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp) with title prepended.",
-        "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220419.c47993.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220419.c47993.README.md",
+        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp), with title/segment encoding. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.tar.gz",
+        "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20220419.c47993.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.tar.gz",
         ],
-        "md5": "6ecb423bc201a5abfbcd82f3826dbdde",
-        "size compressed (bytes)": 5017911119,
+        "md5": "f2bb0e6e9e0ea4baa6072f6f842623d8",
+        "size compressed (bytes)": 5323380960,
         "total_terms": 152323732876,
         "documents": 20545677,
         "unique_terms": 29142,
         "downloaded": False
     },
+
     "msmarco-v2-passage-unicoil-0shot": {
         "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL.",
         "filename": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
@@ -2129,6 +2638,22 @@ IMPACT_INDEX_INFO = {
         "unique_terms": 29148,
         "downloaded": False
     },
+    "msmarco-v2-passage-unicoil-tilde": {
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL-TILDE",
+        "filename": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/oGQ8tWifozPaHLK/download"
+        ],
+        "md5": "562f9534eefe04ab8c07beb304074d41",
+        "size compressed (bytes)": 31168302160,
+        "total_terms": 1155211154985,
+        "documents": 138364198,
+        "unique_terms": 29149,
+        "downloaded": False
+    },
+
     "msmarco-v2-doc-segmented-unicoil-0shot": {
         "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL.",
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
@@ -2183,128 +2708,6 @@ IMPACT_INDEX_INFO = {
         "md5": "8a48373934ad45052b5267ba73cdcad0",
         "size compressed (bytes)": 29662349942,
         "total_terms": 820664704261,
-        "documents": 124131404,
-        "unique_terms": 29172,
-        "downloaded": False
-    },
-
-    "msmarco-passage-deepimpact": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact",
-        "filename": "lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
-        "readme": "lucene-index.msmarco-passage.deepimpact.20211012.58d286.readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.deepimpact.20211012.58d286.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/FfwF6nB9M5sjTYk/download",
-        ],
-        "md5": "9938f5529fee5cdb405b8587746c9e93",
-        "size compressed (bytes)": 1295216704,
-        "total_terms": 35455908214,
-        "documents": 8841823,
-        "unique_terms": 3514102,
-        "downloaded": False
-    },
-
-    "msmarco-passage-unicoil-tilde": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE",
-        "filename": "lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.tar.gz",
-        "readme": "lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-tilde.20211012.58d286.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/KdoNXqwAtTmTeNo/download"
-        ],
-        "md5": "cc19cfe241053f5a303f7f05a7ac40a5",
-        "size compressed (bytes)": 1935108302,
-        "total_terms": 73040108576,
-        "documents": 8841823,
-        "unique_terms": 27646,
-        "downloaded": False
-    },
-    "msmarco-passage-distill-splade-max": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max",
-        "filename": "lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.tar.gz",
-        "readme": "lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.distill-splade-max.20211012.58d286.tar.gz"
-        ],
-        "md5": "957c0dd1b78b61aeddc8685150fd8360",
-        "size compressed (bytes)": 4604547518,
-        "total_terms": 95445422483,
-        "documents": 8841823,
-        "unique_terms": 28131,
-        "downloaded": False
-    },
-    "msmarco-v2-passage-unicoil-tilde": {
-        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL-TILDE",
-        "filename": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
-        "readme": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/oGQ8tWifozPaHLK/download"
-        ],
-        "md5": "562f9534eefe04ab8c07beb304074d41",
-        "size compressed (bytes)": 31168302160,
-        "total_terms": 1155211154985,
-        "documents": 138364198,
-        "unique_terms": 29149,
-        "downloaded": False
-    },
-
-    # These MS MARCO uniCOIL models are deprecated, but keeping around for archival reasons
-    "msmarco-passage-unicoil-d2q": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-d2q (deprecated; use msmarco-v1-passage-unicoil instead).",
-        "filename": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
-        "readme": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/LGoAAXM7ZEbyQ7y/download"
-        ],
-        "md5": "4a8cb3b86a0d9085a0860c7f7bb7fe99",
-        "size compressed (bytes)": 1205104390,
-        "total_terms": 44495093768,
-        "documents": 8841823,
-        "unique_terms": 27678,
-        "downloaded": False
-    },
-    "msmarco-doc-per-passage-unicoil-d2q": {
-        "description": "Lucene impact index of the MS MARCO doc corpus per passage expansion encoded by uniCOIL-d2q (deprecated; use msmarco-v1-doc-segmented-unicoil instead).",
-        "filename": "lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
-        "readme": "lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
-        ],
-        "md5": "44bfc848f9a77302b10a59c5b136eb95",
-        "size compressed (bytes)": 5945466106,
-        "total_terms": 214505277898,
-        "documents": 20545677,
-        "unique_terms": 29142,
-        "downloaded": False
-    },
-    "msmarco-v2-passage-unicoil-noexp-0shot-deprecated": {
-        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL (zero-shot, no expansions) (deprecated; use msmarco-v2-passage-unicoil-noexp-0shot instead).",
-        "filename": "lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
-        "readme": "lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/eXA2BHF8WQjdY8R/download"
-        ],
-        "md5": "8886a8d9599838bc6d8d61464da61086",
-        "size compressed (bytes)": 14801476783,
-        "total_terms": 411330032512,
-        "documents": 138364198,
-        "unique_terms": 29148,
-        "downloaded": False
-    },
-    "msmarco-v2-doc-per-passage-unicoil-noexp-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 document corpus per passage encoded by uniCOIL (zero-shot, no expansions) (deprecated; msmarco-v2-doc-segmented-unicoil-noexp-0shot).",
-        "filename": "lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
-        "readme": "lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/BSrJmAFJywsRYXo/download"
-        ],
-        "md5": "1980db886d969c3393e4da20190eaa8f",
-        "size compressed (bytes)": 29229949764,
-        "total_terms": 805830282591,
         "documents": 124131404,
         "unique_terms": 29172,
         "downloaded": False
@@ -2718,6 +3121,72 @@ IMPACT_INDEX_INFO = {
         "downloaded": False
     }
 }
+
+IMPACT_INDEX_INFO_DEPRECATED = {
+
+    # These MS MARCO uniCOIL models are deprecated, but keeping around for archival reasons
+    "msmarco-passage-unicoil-d2q": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-d2q (deprecated; use msmarco-v1-passage-unicoil instead).",
+        "filename": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/LGoAAXM7ZEbyQ7y/download"
+        ],
+        "md5": "4a8cb3b86a0d9085a0860c7f7bb7fe99",
+        "size compressed (bytes)": 1205104390,
+        "total_terms": 44495093768,
+        "documents": 8841823,
+        "unique_terms": 27678,
+        "downloaded": False
+    },
+    "msmarco-doc-per-passage-unicoil-d2q": {
+        "description": "Lucene impact index of the MS MARCO doc corpus per passage expansion encoded by uniCOIL-d2q (deprecated; use msmarco-v1-doc-segmented-unicoil instead).",
+        "filename": "lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
+        ],
+        "md5": "44bfc848f9a77302b10a59c5b136eb95",
+        "size compressed (bytes)": 5945466106,
+        "total_terms": 214505277898,
+        "documents": 20545677,
+        "unique_terms": 29142,
+        "downloaded": False
+    },
+    "msmarco-v2-passage-unicoil-noexp-0shot-deprecated": {
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by uniCOIL (zero-shot, no expansions) (deprecated; use msmarco-v2-passage-unicoil-noexp-0shot instead).",
+        "filename": "lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/eXA2BHF8WQjdY8R/download"
+        ],
+        "md5": "8886a8d9599838bc6d8d61464da61086",
+        "size compressed (bytes)": 14801476783,
+        "total_terms": 411330032512,
+        "documents": 138364198,
+        "unique_terms": 29148,
+        "downloaded": False
+    },
+    "msmarco-v2-doc-per-passage-unicoil-noexp-0shot": {
+        "description": "Lucene impact index of the MS MARCO V2 document corpus per passage encoded by uniCOIL (zero-shot, no expansions) (deprecated; msmarco-v2-doc-segmented-unicoil-noexp-0shot).",
+        "filename": "lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+        "readme": "lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+            "https://vault.cs.uwaterloo.ca/s/BSrJmAFJywsRYXo/download"
+        ],
+        "md5": "1980db886d969c3393e4da20190eaa8f",
+        "size compressed (bytes)": 29229949764,
+        "total_terms": 805830282591,
+        "documents": 124131404,
+        "unique_terms": 29172,
+        "downloaded": False
+    },
+}
+
+IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_CURRENT, **IMPACT_INDEX_INFO_DEPRECATED}
 
 FAISS_INDEX_INFO = {
     "msmarco-passage-tct_colbert-hnsw": {
@@ -3548,5 +4017,229 @@ FAISS_INDEX_INFO = {
         "documents": 568855,
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
+    },
+    "miracl-v1.0-ar": {
+        "description": "Lucene index for MIRACL v1.0 (Arabic).",
+        "filename": "lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz"
+        ],
+        "md5": "503d3b49a557222d8074ac831a2f047a",
+        "size compressed (bytes)": 1193292491,
+        "total_terms": 90223450,
+        "documents": 2061414,
+        "unique_terms": 1246254,
+        "downloaded": False
+    },
+    "miracl-v1.0-bn": {
+        "description": "Lucene index for MIRACL v1.0 (Bengali).",
+        "filename": "lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz"
+        ],
+        "md5": "7a20210328f0b83f44e041f0c94d30e2",
+        "size compressed (bytes)": 236113202,
+        "total_terms": 14963235,
+        "documents": 297265,
+        "unique_terms": 506812,
+        "downloaded": False
+    },
+    "miracl-v1.0-en": {
+        "description": "Lucene index for MIRACL v1.0 (English).",
+        "filename": "lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz"
+        ],
+        "md5": "4fbd652deb76bcc05daa35392d4aa9f3",
+        "size compressed (bytes)": 17823436054,
+        "total_terms": 1505029955,
+        "documents": 32893221,
+        "unique_terms": 6152316,
+        "downloaded": False
+    },
+    "miracl-v1.0-es": {
+        "description": "Lucene index for MIRACL v1.0 (Spanish).",
+        "filename": "lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz"
+        ],
+        "md5": "b4c9993ee3a131871d4f07dd96e80531",
+        "size compressed (bytes)": 5474245249,
+        "total_terms": 389319806,
+        "documents": 10373953,
+        "unique_terms": 2907509,
+        "downloaded": False
+    },
+    "miracl-v1.0-fa": {
+        "description": "Lucene index for MIRACL v1.0 (Persian).",
+        "filename": "lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz"
+        ],
+        "md5": "bfc824aa37633e3d45bcfd5c5e0e1701",
+        "size compressed (bytes)": 1023090577,
+        "total_terms": 67968038,
+        "documents": 2207172,
+        "unique_terms": 1208930,
+        "downloaded": False
+    },
+    "miracl-v1.0-fi": {
+        "description": "Lucene index for MIRACL v1.0 (Finnish).",
+        "filename": "lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz"
+        ],
+        "md5": "4197c90efd781c6153acaf15452c5479",
+        "size compressed (bytes)": 925422988,
+        "total_terms": 68295087,
+        "documents": 1883509,
+        "unique_terms": 1669817,
+        "downloaded": False
+    },
+    "miracl-v1.0-fr": {
+        "description": "Lucene index for MIRACL v1.0 (French).",
+        "filename": "lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz"
+        ],
+        "md5": "e68b10d90be71b702888a3d00a8aa39c",
+        "size compressed (bytes)": 6747612709,
+        "total_terms": 508723988,
+        "documents": 14636953,
+        "unique_terms": 2811342,
+        "downloaded": False
+    },
+    "miracl-v1.0-hi": {
+        "description": "Lucene index for MIRACL v1.0 (Hindi).",
+        "filename": "lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz"
+        ],
+        "md5": "d81f4e2b7ec5df8f9741168c23c977e2",
+        "size compressed (bytes)": 340997734,
+        "total_terms": 21080143,
+        "documents": 506264,
+        "unique_terms": 597558,
+        "downloaded": False
+    },
+    "miracl-v1.0-id": {
+        "description": "Lucene index for MIRACL v1.0 (Indonesian).",
+        "filename": "lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz"
+        ],
+        "md5": "b1092e732991029fae7c542e5e129255",
+        "size compressed (bytes)": 577263718,
+        "total_terms": 51469219,
+        "documents": 1446315,
+        "unique_terms": 911944,
+        "downloaded": False
+    },
+    "miracl-v1.0-ja": {
+        "description": "Lucene index for MIRACL v1.0 (Japanese).",
+        "filename": "lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz"
+        ],
+        "md5": "4db9550d0af63736a0fd2b486b3b7273",
+        "size compressed (bytes)": 3745158372,
+        "total_terms": 296659169,
+        "documents": 6953614,
+        "unique_terms": 1558643,
+        "downloaded": False
+    },
+    "miracl-v1.0-ko": {
+        "description": "Lucene index for MIRACL v1.0 (Korean).",
+        "filename": "lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz"
+        ],
+        "md5": "c82f5c7641fd78b8dadfcb279a1c0340",
+        "size compressed (bytes)": 1150899287,
+        "total_terms": 121464424,
+        "documents": 1486752,
+        "unique_terms": 1504782,
+        "downloaded": False
+    },
+    "miracl-v1.0-ru": {
+        "description": "Lucene index for MIRACL v1.0 (Russian).",
+        "filename": "lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz"
+        ],
+        "md5": "c1b974e298d9e1deeccae8b84a5bcd64",
+        "size compressed (bytes)": 6003987738,
+        "total_terms": 343106870,
+        "documents": 9543918,
+        "unique_terms": 2955627,
+        "downloaded": False
+    },
+    "miracl-v1.0-sw": {
+        "description": "Lucene index for MIRACL v1.0 (Swahili).",
+        "filename": "lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz"
+        ],
+        "md5": "64b77bcc11e04575d0723ad81ac7c135",
+        "size compressed (bytes)": 45410264,
+        "total_terms": 4752278,
+        "documents": 131924,
+        "unique_terms": 361306,
+        "downloaded": False
+    },
+    "miracl-v1.0-te": {
+        "description": "Lucene index for MIRACL v1.0 (Telugu).",
+        "filename": "lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz"
+        ],
+        "md5": "1f78c68678f439a3143a6fb0d25bfe27",
+        "size compressed (bytes)": 402045711,
+        "total_terms": 26105595,
+        "documents": 518079,
+        "unique_terms": 1120047,
+        "downloaded": False
+    },
+    "miracl-v1.0-th": {
+        "description": "Lucene index for MIRACL v1.0 (Thai).",
+        "filename": "lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz"
+        ],
+        "md5": "eeef93c23b76fdc66b9e1ee01576765e",
+        "size compressed (bytes)": 431498349,
+        "total_terms": 29922100,
+        "documents": 542166,
+        "unique_terms": 626084,
+        "downloaded": False
+    },
+    "miracl-v1.0-zh": {
+        "description": "Lucene index for MIRACL v1.0 (Chinese).",
+        "filename": "lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz",
+        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz"
+        ],
+        "md5": "dc7880da333b7c56d3a4ff0bf018febd",
+        "size compressed (bytes)": 4212198217,
+        "total_terms": 423635495,
+        "documents": 4934368,
+        "unique_terms": 6517412,
+        "downloaded": False
     },
 }

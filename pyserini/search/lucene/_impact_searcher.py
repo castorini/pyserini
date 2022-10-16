@@ -18,15 +18,18 @@
 This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``LuceneImpactSearcher``
 class, which wraps the Java class with the same name in Anserini.
 """
+
 import logging
 import os
 from typing import Dict, List, Optional, Union
+
 import numpy as np
+
+from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder, \
+    CachedDataQueryEncoder, SpladeQueryEncoder
 from pyserini.index import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
 from pyserini.util import download_prebuilt_index
-from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder, \
-    CachedDataQueryEncoder, SpladeQueryEncoder
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +54,7 @@ class LuceneImpactSearcher:
         self.idf = self._compute_idf(index_dir)
         self.min_idf = min_idf
         self.object = JImpactSearcher(index_dir)
-        self.num_docs = self.object.getTotalNumDocuments()
+        self.num_docs = self.object.get_total_num_docs()
         if isinstance(query_encoder, str) or query_encoder is None:
             self.query_encoder = self._init_query_encoder_from_str(query_encoder)
         else:
@@ -167,9 +170,9 @@ class LuceneImpactSearcher:
             jfields.put(field, JFloat(boost))
 
         if not fields:
-            results = self.object.batchSearch(query_lst, qid_lst, int(k), int(threads))
+            results = self.object.batch_search(query_lst, qid_lst, int(k), int(threads))
         else:
-            results = self.object.batchSearchFields(query_lst, qid_lst, int(k), int(threads), jfields)
+            results = self.object.batch_search_fields(query_lst, qid_lst, int(k), int(threads), jfields)
         return {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
 
     def doc(self, docid: Union[str, int]) -> Optional[Document]:

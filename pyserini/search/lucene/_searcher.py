@@ -22,11 +22,11 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 from typing import Dict, List, Optional, Union
 
-from pyserini.search import JQuery, JQueryGenerator
+from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
 from pyserini.index import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
+from pyserini.search import JQuery, JQueryGenerator
 from pyserini.trectools import TrecRun
-from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
 from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
 
 logger = logging.getLogger(__name__)
@@ -49,7 +49,7 @@ class LuceneSearcher:
     def __init__(self, index_dir: str):
         self.index_dir = index_dir
         self.object = JLuceneSearcher(index_dir)
-        self.num_docs = self.object.getTotalNumDocuments()
+        self.num_docs = self.object.get_total_num_docs()
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str):
@@ -130,7 +130,7 @@ class LuceneSearcher:
             if not fields:
                 hits = self.object.search(q, k)
             else:
-                hits = self.object.searchFields(q, jfields, k)
+                hits = self.object.search_fields(q, jfields, k)
 
         docids = set()
         filtered_hits = []
@@ -188,15 +188,35 @@ class LuceneSearcher:
 
         if query_generator:
             if not fields:
-                results = self.object.batchSearch(query_generator, query_strings, qid_strings, int(k), int(threads))
+                results = self.object.batch_search(query_generator, query_strings, qid_strings, int(k), int(threads))
             else:
-                results = self.object.batchSearchFields(query_generator, query_strings, qid_strings, int(k), int(threads), jfields)
+                results = self.object.batch_search_fields(query_generator, query_strings, qid_strings, int(k), int(threads), jfields)
         else:
             if not fields:
-                results = self.object.batchSearch(query_strings, qid_strings, int(k), int(threads))
+                results = self.object.batch_search(query_strings, qid_strings, int(k), int(threads))
             else:
-                results = self.object.batchSearchFields(query_strings, qid_strings, int(k), int(threads), jfields)
+                results = self.object.batch_search_fields(query_strings, qid_strings, int(k), int(threads), jfields)
         return {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
+
+    def get_feedback_terms(self, q: str) -> Dict[str, float]:
+        """Returns feedback terms and their weights.
+
+        Parameters
+        ----------
+        q : str
+            Query string or the ``JQuery`` objected.
+
+        Returns
+        -------
+        Dict[str, float]
+            Feedback terms and their weights.
+        """
+
+        terms_map = self.object.get_feedback_terms(q)
+        if terms_map:
+            return {r.getKey(): r.getValue() for r in terms_map.entrySet().toArray()}
+        else:
+            return None
 
     def set_analyzer(self, analyzer):
         """Set the Java ``Analyzer`` to use.
@@ -206,14 +226,14 @@ class LuceneSearcher:
         analyzer : JAnalyzer
             Java ``Analyzer`` object.
         """
-        self.object.setAnalyzer(analyzer)
+        self.object.set_analyzer(analyzer)
 
     def set_language(self, language):
         """Set language of LuceneSearcher"""
-        self.object.setLanguage(language)
+        self.object.set_language(language)
 
-    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), rm3_output_query=False, rm3_filter_terms=True):
-        """Configure RM3 query expansion.
+    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), debug=False, filter_terms=True):
+        """Configure RM3 pseudo-relevance feedback.
 
         Parameters
         ----------
@@ -223,26 +243,27 @@ class LuceneSearcher:
             RM3 parameter for number of expansion documents.
         original_query_weight : float
             RM3 parameter for weight to assign to the original query.
-        rm3_output_query : bool
+        debug : bool
             Print the original and expanded queries as debug output.
-        rm3_filter_terms: bool
+        filter_terms: bool
             Whether to remove non-English terms.
         """
         if self.object.reader.getTermVectors(0):
-            self.object.setRM3(fb_terms, fb_docs, original_query_weight, rm3_output_query, rm3_filter_terms)
+            self.object.set_rm3(fb_terms, fb_docs, original_query_weight, debug, filter_terms)
         else:
             raise TypeError("RM3 is not supported for indexes without document vectors.")
 
     def unset_rm3(self):
-        """Disable RM3 query expansion."""
-        self.object.unsetRM3()
+        """Disable RM3 pseudo-relevance feedback."""
+        self.object.unset_rm3()
 
     def is_using_rm3(self) -> bool:
-        """Check if RM3 query expansion is being performed."""
-        return self.object.useRM3()
+        """Check if RM3 pseudo-relevance feedback is being performed."""
+        return self.object.use_rm3()
     
-    def set_rocchio(self, top_fb_terms=10, top_fb_docs=10, bottom_fb_terms=10, bottom_fb_docs=10, alpha=1, beta=0.75, gamma=0, output_query=False, use_negative=False):
-        """Configure Rocchio query expansion.
+    def set_rocchio(self, top_fb_terms=10, top_fb_docs=10, bottom_fb_terms=10, bottom_fb_docs=10,
+                    alpha=1, beta=0.75, gamma=0, debug=False, use_negative=False):
+        """Configure Rocchio pseudo-relevance feedback.
 
         Parameters
         ----------
@@ -254,29 +275,30 @@ class LuceneSearcher:
             Rocchio parameter for number of nonrelevant expansion terms.
         bottom_fb_docs : int
             Rocchio parameter for number of nonrelevant expansion documents.
-        rocchio_alpha : float
+        alpha : float
             Rocchio parameter for weight to assign to the original query.
-        rocchio_beta: float
+        beta: float
             Rocchio parameter for weight to assign to the relevant document vector.
-        rocchio_gamma: float
+        gamma: float
             Rocchio parameter for weight to assign to the nonrelevant document vector.
-        rocchio_output_query : bool
+        debug : bool
             Print the original and expanded queries as debug output.
-        rocchio_use_negative : bool
+        use_negative : bool
             Rocchio parameter to use negative labels.
         """
         if self.object.reader.getTermVectors(0):
-            self.object.setRocchio(top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs, alpha, beta, gamma, output_query, use_negative)
+            self.object.set_rocchio(top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
+                                    alpha, beta, gamma, debug, use_negative)
         else:
             raise TypeError("Rocchio is not supported for indexes without document vectors.")
 
     def unset_rocchio(self):
-        """Disable Rocchio query expansion."""
-        self.object.unsetRocchio()
+        """Disable Rocchio pseudo-relevance feedback."""
+        self.object.unset_rocchio()
 
     def is_using_rocchio(self) -> bool:
-        """Check if Rocchio query expansion is being performed."""
-        return self.object.useRocchio()
+        """Check if Rocchio pseudo-relevance feedback is being performed."""
+        return self.object.use_rocchio()
 
     def set_qld(self, mu=float(1000)):
         """Configure query likelihood with Dirichlet smoothing as the scoring function.
@@ -286,7 +308,7 @@ class LuceneSearcher:
         mu : float
             Dirichlet smoothing parameter mu.
         """
-        self.object.setQLD(float(mu))
+        self.object.set_qld(float(mu))
 
     def set_bm25(self, k1=float(0.9), b=float(0.4)):
         """Configure BM25 as the scoring function.
@@ -298,11 +320,11 @@ class LuceneSearcher:
         b : float
             BM25 b parameter.
         """
-        self.object.setBM25(float(k1), float(b))
+        self.object.set_bm25(float(k1), float(b))
 
     def get_similarity(self):
         """Return the Lucene ``Similarity`` used as the scoring function."""
-        return self.object.getSimilarity()
+        return self.object.get_similarity()
 
     def doc(self, docid: Union[str, int]) -> Optional[Document]:
         """Return the :class:`Document` corresponding to ``docid``. The ``docid`` is overloaded: if it is of type
@@ -320,7 +342,7 @@ class LuceneSearcher:
         Document
             :class:`Document` corresponding to the ``docid``.
         """
-        lucene_document = self.object.document(docid)
+        lucene_document = self.object.doc(docid)
         if lucene_document is None:
             return None
         return Document(lucene_document)
@@ -346,7 +368,7 @@ class LuceneSearcher:
         for docid in docids:
             docid_strings.add(docid)
 
-        results = self.object.batchGetDocument(docid_strings, threads)
+        results = self.object.batch_get_docs(docid_strings, threads)
         batch_document = {r.getKey(): Document(r.getValue())
                           for r in results.entrySet().toArray()}
         return batch_document
@@ -368,7 +390,7 @@ class LuceneSearcher:
         Document
             :class:`Document` whose ``field`` is ``id``.
         """
-        lucene_document = self.object.documentByField(field, q)
+        lucene_document = self.object.doc_by_field(field, q)
         if lucene_document is None:
             return None
         return Document(lucene_document)

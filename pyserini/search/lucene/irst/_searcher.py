@@ -19,17 +19,21 @@ This module provides Pyserini's Python translation probability search
 interface on MS MARCO dataset. The main entry point is the
 ``TranslationProbabilitySearcher`` class.
 """
+
 import json
 import math
 import os
 import pickle
 import struct
-from typing import Dict
 from multiprocessing.pool import ThreadPool
+from typing import Dict
+
 from transformers import AutoTokenizer
-from pyserini.search.lucene import LuceneSearcher
+
 from pyserini.pyclass import autoclass
+from pyserini.search.lucene import LuceneSearcher
 from pyserini.util import download_prebuilt_index, get_cache_home, download_url, download_and_unpack_index
+from pyserini.prebuilt_index_info import TF_INDEX_INFO_CURRENT
 
 # Wrappers around Anserini classes
 JQuery = autoclass('org.apache.lucene.search.Query')
@@ -53,12 +57,18 @@ class LuceneIrstSearcher(object):
         self.bm25search = LuceneSearcher.from_prebuilt_index(index)
         self.bm25search.set_bm25(k1, b)
         index_directory = os.path.join(get_cache_home(), 'indexes')
-        if (index == 'msmarco-v1-passage'):
-            index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-passage.20220131.9ea315.4d8fdbdcd119c1f47a4cc5d01a45dad3')
-        elif (index == 'msmarco-v1-doc'):
-            index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-doc.20220131.9ea315.43b60b3fc75324c648a02375772e7fe8')
-        elif (index == 'msmarco-v1-doc-segmented'):
-            index_path = os.path.join(index_directory, 'lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.611bb83e043c0d6febe0fa3508d1d7f9')
+        if index == 'msmarco-v1-passage':
+            index_path = os.path.join(index_directory,
+                                      TF_INDEX_INFO_CURRENT['msmarco-v1-passage']['filename'][:-6] +
+                                      TF_INDEX_INFO_CURRENT['msmarco-v1-passage']['md5'])
+        elif index == 'msmarco-v1-doc':
+            index_path = os.path.join(index_directory,
+                                      TF_INDEX_INFO_CURRENT['msmarco-v1-doc']['filename'][:-6] +
+                                      TF_INDEX_INFO_CURRENT['msmarco-v1-doc']['md5'])
+        elif index == 'msmarco-v1-doc-segmented':
+            index_path = os.path.join(index_directory,
+                                      TF_INDEX_INFO_CURRENT['msmarco-v1-doc-segmented']['filename'][:-6] +
+                                      TF_INDEX_INFO_CURRENT['msmarco-v1-doc-segmented']['md5'])
         else:
             print("We currently only support three indexes: msmarco-passage, msmarco-v1-doc and msmarco-v1-doc-segmented but the index you inserted is not one of those")
         self.object = JLuceneSearcher(index_path)
@@ -197,9 +207,9 @@ class LuceneIrstSearcher(object):
         (query_text_lst, test_doc, searcher, source_lookup,
             target_lookup, tran, collect_probs, max_sim) = arguments
 
-        if searcher.documentRaw(test_doc) is None:
+        if searcher.doc_raw(test_doc) is None:
             print(f"{test_doc} is not found in searcher")
-        contents = json.loads(self.object.documentRaw(test_doc))['contents']
+        contents = json.loads(self.object.doc_raw(test_doc))['contents']
         doc_token_lst = self.bert_tokenizer.tokenize(contents.lower(), truncation=True)
         total_query_prob = 0
         doc_size = len(doc_token_lst)

@@ -69,6 +69,11 @@ if len(args) > 1:
 
     run = pd.read_csv(args[-1], delim_whitespace=True, header=None)
     qrels = pd.read_csv(args[-2], delim_whitespace=True, header=None)
+    
+    # cast doc_id column as string
+    run[0] = run[0].astype(str)
+    qrels[0] = qrels[0].astype(str)
+
     # Discard non-judged hits
     if judged_docs_only:
         if not temp_file:

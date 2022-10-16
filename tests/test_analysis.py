@@ -27,11 +27,10 @@ from pyserini.search.lucene import LuceneSearcher
 
 
 class TestAnalyzers(unittest.TestCase):
-
     def setUp(self):
-        # Download pre-built CACM index; append a random value to avoid filename clashes.
+        # Download pre-built CACM index built using Lucene 9; append a random value to avoid filename clashes.
         r = randint(0, 10000000)
-        self.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.tar.gz'
+        self.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene9-index.cacm.tar.gz'
         self.tarball_name = 'lucene-index.cacm-{}.tar.gz'.format(r)
         self.index_dir = 'index{}/'.format(r)
 
@@ -40,8 +39,8 @@ class TestAnalyzers(unittest.TestCase):
         tarball = tarfile.open(self.tarball_name)
         tarball.extractall(self.index_dir)
         tarball.close()
-        self.searcher = LuceneSearcher(f'{self.index_dir}lucene-index.cacm')
-        self.index_utils = IndexReader(f'{self.index_dir}lucene-index.cacm')
+        self.searcher = LuceneSearcher(f'{self.index_dir}lucene9-index.cacm')
+        self.index_utils = IndexReader(f'{self.index_dir}lucene9-index.cacm')
 
     def test_different_analyzers_are_different(self):
         self.searcher.set_analyzer(get_lucene_analyzer(stemming=False))
