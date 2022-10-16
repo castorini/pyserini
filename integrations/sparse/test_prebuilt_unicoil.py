@@ -26,15 +26,8 @@ from integrations.utils import clean_files, run_command, parse_score
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
-        self.threads = 12
-        self.batch_size = 36
-
-        # Hard-code larger values for internal servers
-        if socket.gethostname().startswith('damiano') \
-                or socket.gethostname().startswith('orca') \
-                or socket.gethostname().startswith('tuna'):
-            self.threads = 36
-            self.batch_size = 144
+        self.threads = 16
+        self.batch_size = 128
 
     def test_msmarco_passage_unicoil_d2q_otf(self):
         output_file = 'test_run.msmarco-passage.unicoil-d2q.otf.tsv'
@@ -44,7 +37,7 @@ class TestSearchIntegration(unittest.TestCase):
                           --index msmarco-v1-passage-unicoil \
                           --output {output_file} \
                           --impact \
-                          --hits 1000 --batch {self.batch_size} --threads {self.threads} \
+                          --hits 1000  --threads {self.threads} --batch-size {self.batch_size} \
                           --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
@@ -62,7 +55,7 @@ class TestSearchIntegration(unittest.TestCase):
                           --index msmarco-v1-doc-segmented-unicoil \
                           --output {output_file} \
                           --impact \
-                          --hits 1000 --batch {self.batch_size} --threads {self.threads} \
+                          --hits 1000  --threads {self.threads} --batch-size {self.batch_size} \
                           --max-passage --max-passage-hits 100 \
                           --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
@@ -82,7 +75,7 @@ class TestSearchIntegration(unittest.TestCase):
                           --index msmarco-v1-passage-unicoil-tilde \
                           --output {output_file} \
                           --impact \
-                          --hits 1000 --batch {self.batch_size} --threads {self.threads} \
+                          --hits 1000  --threads {self.threads} --batch-size {self.batch_size} \
                           --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
@@ -101,8 +94,7 @@ class TestSearchIntegration(unittest.TestCase):
                           --output {output_file} \
                           --impact \
                           --hits 1000 \
-                          --batch {self.batch_size} \
-                          --threads {self.threads}'
+                          --threads {self.threads} --batch-size {self.batch_size}'
         cmd2 = f'python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev {output_file}'
         status = os.system(cmd1)
         stdout, stderr = run_command(cmd2)
@@ -120,8 +112,7 @@ class TestSearchIntegration(unittest.TestCase):
                           --output {output_file} \
                           --impact \
                           --hits 10000 \
-                          --batch {self.batch_size} \
-                          --threads {self.threads} \
+                          --threads {self.threads} --batch-size {self.batch_size} \
                           --max-passage-hits 1000 \
                           --max-passage'
         cmd2 = f'python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-doc-dev {output_file}'
