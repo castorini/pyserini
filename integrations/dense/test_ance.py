@@ -28,8 +28,8 @@ from pyserini.search import get_topics
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
-        self.threads = 12
-        self.batch_size = 36
+        self.threads = 16
+        self.batch_size = 256
         self.rocchio_alpha = 0.4
         self.rocchio_beta = 0.6
 
