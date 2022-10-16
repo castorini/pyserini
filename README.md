@@ -1,9 +1,9 @@
 # Pyserini
 
-[![Generic badge](https://img.shields.io/badge/Lucene-v8.11.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/8.11.0/)
-[![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
 [![PyPI](https://img.shields.io/pypi/v/pyserini?color=brightgreen)](https://pypi.org/project/pyserini/)
 [![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
+[![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
+[![Generic badge](https://img.shields.io/badge/Lucene-v9.3.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/9.3.0/)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 Pyserini is a Python toolkit for reproducible information retrieval research with sparse and dense representations.
@@ -13,9 +13,34 @@ Retrieval using dense representations is provided via integration with Facebook'
 Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
 Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, pre-built indexes, and evaluation scripts for many commonly used IR test collections
 With Pyserini, it's easy to reproduce runs on a number of standard IR test collections!
+<!--
 A low-effort way to try things out is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
+-->
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
+
+## Important Note: Lucene 8 to Lucene 9 Transition
+
+tl;dr &mdash; Pyserini just underwent a transition from Lucene 8 to Lucene 9.
+Main trunk is currently based on Lucene 9, but pre-built indexes are still based on Lucene 8.
+
+More details:
+
++ [PyPI v0.17.1](https://pypi.org/project/pyserini/0.17.1/) (commit [`33c87c`](https://github.com/castorini/pyserini/commit/33c87c982d543d65e0ba1b4c94ee865fd9a6040e), released 2022/08/13) is the last Pyserini release built on Lucene 8, based on [Anserini v0.14.4](https://github.com/castorini/anserini/releases/tag/anserini-0.14.4).
+Thereafter, Anserini trunk was upgraded to Lucene 9.
++ [PyPI v0.18.0](https://pypi.org/project/pyserini/0.18.0/) (commit [`5fab14`](https://github.com/castorini/pyserini/commit/5fab143f64ed067ecf619c7d83ecd846aa494fbe), released 2022/09/26) is built on [Anserini v0.15.0](https://github.com/castorini/anserini/releases/tag/anserini-0.15.0), using Lucene 9.
+Thereafter, Pyserini trunk advanced to Lucene 9.
+
+**What's the impact?**
+Indexes built with Lucene 8 are not fully compatible with Lucene 9 code (see [Anserini #1952](https://github.com/castorini/anserini/issues/1952)).
+The workaround, which has been implemented in Pyserini, is to disable consistent tie-breaking.
+This happens automatically if a Lucene 8 index is detected.
+However, Lucene 9 code running on Lucene 8 indexes will give slightly different results than Lucene 8 code running on Lucene 8 indexes.
+Since pre-built indexes are still based on Lucene 8, some experiments will exhibit small score differences.
+Note that Lucene 8 code is _not_ able to read indexes built with Lucene 9.
+
+**Why is this necessary?**
+Although disruptive, an upgrade to Lucene 9 is necessary to take advantage of Lucene's HNSW indexes, which will increase the capabilities of Pyserini and open up the design space of dense/sparse hybrids.
 
 ## Installation
 
@@ -582,6 +607,8 @@ We provide access to a multitude of experimental conditions organized in the fol
 + [MS MARCO V1 Document](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html)
 + [MS MARCO V2 Passage](https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html)
 + [MS MARCO V2 Document](https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html)
++ [Mr.TyDi](https://castorini.github.io/pyserini/2cr/mrtydi.html)
++ [MIRACL](https://castorini.github.io/pyserini/2cr/miracl.html)
 
 ## Reproduction Guides
 
@@ -603,6 +630,8 @@ The following guides provide step-by-step instructions:
 + Reproducing uniCOIL with TILDE: [MS MARCO V1 Passage](docs/experiments-unicoil-tilde-expansion.md), [MS MARCO V2 Passage](docs/experiments-msmarco-v2-unicoil-tilde-expansion.md)
 + Reproducing SPLADEv2: [MS MARCO V1 Passage](docs/experiments-spladev2.md)
 + Reproducing [Mr. TyDi experiments](https://github.com/castorini/mr.tydi/blob/main/README.md#1-bm25)
++ Reproducing [BM25 baselines for HC4](docs/experiments-hc4-v1.0.md)
++ Reproducing [BM25 baselines for HC4 on NeuCLIR22](docs/experiments-hc4-neuclir22.md)
 
 ### Dense Retrieval
 
@@ -671,13 +700,15 @@ The following guides provide step-by-step instructions:
 
 ## Release History
 
-+ v0.17.0: May 28, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.0.md)]
-+ v0.16.1: May 12, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.1.md)]
-+ v0.16.0: March 1, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.0.md)]
-+ v0.15.0: January 21, 2022 [[Release Notes](docs/release-notes/release-notes-v0.15.0.md)]
-+ v0.14.0: November 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.14.0.md)]
-+ v0.13.0: July 3, 2021 [[Release Notes](docs/release-notes/release-notes-v0.13.0.md)]
-+ v0.12.0: May 5, 2021 [[Release Notes](docs/release-notes/release-notes-v0.12.0.md)]
++ v0.18.0 (w/ Anserini v0.15.0): September 26, 2022 [[Release Notes](docs/release-notes/release-notes-v0.18.0.md)] (First release based on Lucene 9)
++ v0.17.1 (w/ Anserini v0.14.4): August 13, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.1.md)] (Final release based on Lucene 8)
++ v0.17.0 (w/ Anserini v0.14.3): May 28, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.0.md)]
++ v0.16.1 (w/ Anserini v0.14.3): May 12, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.1.md)]
++ v0.16.0 (w/ Anserini v0.14.1): March 1, 2022 [[Release Notes](docs/release-notes/release-notes-v0.16.0.md)]
++ v0.15.0 (w/ Anserini v0.14.0): January 21, 2022 [[Release Notes](docs/release-notes/release-notes-v0.15.0.md)]
++ v0.14.0 (w/ Anserini v0.13.5): November 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.14.0.md)]
++ v0.13.0 (w/ Anserini v0.13.1): July 3, 2021 [[Release Notes](docs/release-notes/release-notes-v0.13.0.md)]
++ v0.12.0 (w/ Anserini v0.12.0): May 5, 2021 [[Release Notes](docs/release-notes/release-notes-v0.12.0.md)]
 + v0.11.0.0: February 18, 2021 [[Release Notes](docs/release-notes/release-notes-v0.11.0.0.md)]
 + v0.10.1.0: January 8, 2021 [[Release Notes](docs/release-notes/release-notes-v0.10.1.0.md)]
 + v0.10.0.1: December 2, 2020 [[Release Notes](docs/release-notes/release-notes-v0.10.0.1.md)]

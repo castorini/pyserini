@@ -11,10 +11,8 @@ For dense retrieval (since it involves neural networks), we need the [🤗 Trans
 A `pip` installation will automatically pull in the first to satisfy the package requirements, but since the other two may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
 We leave the installation of these packages to you (but provide detailed instructions below).
 
-In general, our development team tries to keep dependent packages at the same versions and upgrade in lockstep.
-As of Pyserini v0.14.0, our "reference" configuration is a Linux machine running Ubuntu 18.04 with `faiss-cpu==1.7.0`,  `transformers==4.6.0`, and `torch==1.8.1`.
-This is the configuration used to run our many regression tests.
-In most cases results have also been reproduced on macOS with the same dependency versions.
+In general, our development team tries to keep dependent packages (roughly) in sync.
+As of Pyserini v0.18.0 (circa September 2022), we're at `faiss-cpu==1.7.2`,  `transformers==4.21.3`, and `torch==1.12.1`.
 With other versions of the dependent packages, as they say, your mileage may vary...
 
 ## Preliminaries
@@ -46,13 +44,16 @@ If you're just _using_ Pyserini, a `pip` installation with suffice; this contras
 $ pip install pyserini
 ```
 
-As discussed above, installation of PyTorch can be a bit tricky, so we ask you to do it separately:
+As discussed above, installation of PyTorch can be a bit tricky:
 
 ```bash
-$ pip install torch==1.8.1 torchvision==0.9.1 torchaudio===0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
+$ pip install torch
 ```
 
-And installing Faiss:
+Installing PyTorch might be substantially more complicated, so the above invocation is provided only as a reference.
+Adapt to your platform and hardware configuration.
+
+Installing Faiss:
 
 ```bash
 $ conda install faiss-cpu -c pytorch
@@ -69,7 +70,7 @@ To confirm that bag-of-words retrieval is working correctly, you can run the BM2
 ```bash
 $ python -m pyserini.search \
     --topics msmarco-passage-dev-subset \
-    --index msmarco-passage \
+    --index msmarco-v1-passage \
     --output run.msmarco-passage.txt \
     --output-format msmarco \
     --bm25
@@ -144,7 +145,7 @@ $ pip install -e .
 You'll still need to install the other packages separately:
 
 ```bash
-$ pip install torch==1.8.1 torchvision==0.9.1 torchaudio===0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
+$ pip install torch
 $ conda install faiss-cpu -c pytorch
 ```
 
@@ -167,15 +168,21 @@ python -m unittest
 
 Assuming all tests pass, you should be ready to go!
 
-## Troubleshooting tips
+## Troubleshooting Tips
 
 + The above guide handle JVM installation via conda. If you are using your own Java environment and get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
 In `bash`, use `echo $JAVA_HOME` to find out what the environmental variable is currently set to, and use `export JAVA_HOME=/path/to/java/home` to change it to the correct path.
 On a Linux system, the correct path might look something like `/usr/lib/jvm/java-11`.
 Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.
+
+Unfortunately, our development team does not use Windows, but the following tips have been submitted by our users (and have not been verified by us):
+
 + Windows uses GBK character encoding by default, which makes resource file reading in Anserini inconsistent with that in Linux and macOS.
 To fix, manually set environment variable `set _JAVA_OPTIONS=-Dfile.encoding=UTF-8` to use `UTF-8` encoding.
-
++ On Windows, you may encounter the error: `RuntimeError: module compiled against API version 0xe but this version of numpy is 0xd`.
+The solution to this is to check the version of your `numpy`. At the time of this writing, the latest numpy version is `1.23.2`, which is incompatible with the API.
+Fix by downgrading to `1.21.1` so that the other dependent libraries are compatible with the API version.
+(See [#1259](https://github.com/castorini/pyserini/pull/1259)).
 
 ## Internal Notes
 

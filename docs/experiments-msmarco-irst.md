@@ -176,4 +176,20 @@ The results should match Table 2 from our paper, repeated below:
 
 The BM25 baselines are provided for reference.
 
+For the segmented documents collection, the above commands specify `--hits 10000`, which was the setting used in the SIGIR paper.
+Obviously, reducing the number of hits considered, e.g., `--hits 1000`, will speed up running times dramatically, but at the cost of a tiny degradation in effectiveness (in some cases).
+Many of the differences aren't even noticeable to three digits, so for reference, to contrast these two settings, we report scores to four digits:
+
+|                                   | MS MARCO Dev | TREC 2019 |        | TREC 2020 |        |
+|:----------------------------------|-------------:|----------:|-------:|----------:|-------:|
+|                                   |      MRR@100 |   nDCG@10 |    MAP |   nDCG@10 |    MAP |
+| **Document (Segmented)**          |              |           |        |           |        |
+| BM25 + IRST (Sum): `--hits 10000` |       0.2961 |    0.5596 | 0.2711 |    0.5343 | 0.3759 |
+| BM25 + IRST (Max): `--hits 10000` |       0.2589 |    0.5195 | 0.2425 |    0.5089 | 0.3496 |
+| BM25 + IRST (Sum): `--hits 1000`  |       0.2936 |    0.5549 | 0.2705 |    0.5343 | 0.3753 |
+| BM25 + IRST (Max): `--hits 1000`  |       0.2587 |    0.5187 | 0.2432 |    0.5064 | 0.3482 |
+
+
 ## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@lintool](https://github.com/lintool) on 2022-06-25 (commit [`b198f88`](https://github.com/castorini/pyserini/commit/b198f884c0d5ff9deaf18297248b4f0a96992671))

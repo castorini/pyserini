@@ -132,11 +132,7 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
-<p>The two-click reproduction matrix below provides commands for reproducing experimental results reported in the following paper.
-Numbered rows correspond to tables in the paper; additional conditions are provided for comparison purposes.</p>
-
-<p class="note note-light">Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin. <a href="https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
-<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.</p>
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.</p>
 
 <div class="table-responsive">
   <table class="table">
@@ -170,7 +166,7 @@ Numbered rows correspond to tables in the paper; additional conditions are provi
 <!-- Condition: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
 <td class="expand-button"></td>
-<td>(1a)</td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (1a)</td>
 <td style="min-width: 400px">BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2434</td>
 <td>0.5176</td>
@@ -271,7 +267,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 <!-- Condition: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
 <td class="expand-button"></td>
-<td>(1b)</td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (1b)</td>
 <td style="min-width: 400px">BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2449</td>
 <td>0.5302</td>
@@ -372,18 +368,18 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 <!-- Condition: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
 <td class="expand-button"></td>
-<td>(1c)</td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (1c)</td>
 <td style="min-width: 400px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>0.2774</td>
-<td>0.5170</td>
-<td>0.7503</td>
+<td>0.2773</td>
+<td>0.5174</td>
+<td>0.7507</td>
 <td></td>
-<td>0.4014</td>
-<td>0.5225</td>
-<td>0.8257</td>
+<td>0.4015</td>
+<td>0.5254</td>
+<td>0.8259</td>
 <td></td>
-<td>0.1622</td>
-<td>0.8791</td>
+<td>0.1618</td>
+<td>0.8783</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -473,18 +469,18 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 <!-- Condition: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
 <td class="expand-button"></td>
-<td>(1d)</td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (1d)</td>
 <td style="min-width: 400px">BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>0.2884</td>
-<td>0.5764</td>
-<td>0.7384</td>
+<td>0.2892</td>
+<td>0.5684</td>
+<td>0.7368</td>
 <td></td>
-<td>0.3774</td>
-<td>0.5179</td>
-<td>0.8041</td>
+<td>0.3792</td>
+<td>0.5202</td>
+<td>0.8023</td>
 <td></td>
-<td>0.2412</td>
-<td>0.9355</td>
+<td>0.2413</td>
+<td>0.9351</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -571,22 +567,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<tr><td style="border-bottom: 0"></td></tr>
-<!-- Condition: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
 <td class="expand-button"></td>
-<td>(2a)</td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>0.2700</td>
-<td>0.5968</td>
-<td>0.7190</td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2811</td>
+<td>0.5256</td>
+<td>0.7546</td>
 <td></td>
-<td>0.4230</td>
-<td>0.5885</td>
-<td>0.8403</td>
+<td>0.4089</td>
+<td>0.5192</td>
+<td>0.8273</td>
 <td></td>
-<td>0.2880</td>
-<td>0.9259</td>
+<td>0.1624</td>
+<td>0.8789</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -615,16 +610,16 @@ Command to generate run on TREC 2019 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl19-doc \
-  --index msmarco-v1-doc-d2q-t5 \
-  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl19.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --index msmarco-v1-doc-full \
+  --output run.msmarco-v1-doc.bm25-rocchio-doc-default.dl19.txt \
+  --bm25 --rocchio --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rocchio-doc-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rocchio-doc-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rocchio-doc-default.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -635,16 +630,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl20 \
-  --index msmarco-v1-doc-d2q-t5 \
-  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl20.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --index msmarco-v1-doc-full \
+  --output run.msmarco-v1-doc.bm25-rocchio-doc-default.dl20.txt \
+  --bm25 --rocchio --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rocchio-doc-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rocchio-doc-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rocchio-doc-default.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -655,15 +650,15 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
-  --index msmarco-v1-doc-d2q-t5 \
-  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dev.txt \
-  --bm25 --k1 0.9 --b 0.4
+  --index msmarco-v1-doc-full \
+  --output run.msmarco-v1-doc.bm25-rocchio-doc-default.dev.txt \
+  --bm25 --rocchio --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rocchio-doc-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rocchio-doc-default.dev.txt
 </code></pre>
   </blockquote>
 
@@ -673,21 +668,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<!-- Condition: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
 <td class="expand-button"></td>
-<td>(2b)</td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>0.2798</td>
-<td>0.6119</td>
-<td>0.7165</td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2889</td>
+<td>0.5570</td>
+<td>0.7423</td>
 <td></td>
-<td>0.4150</td>
-<td>0.5957</td>
-<td>0.8046</td>
+<td>0.3830</td>
+<td>0.5226</td>
+<td>0.8102</td>
 <td></td>
-<td>0.3179</td>
-<td>0.9490</td>
+<td>0.2447</td>
+<td>0.9351</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -716,16 +711,16 @@ Command to generate run on TREC 2019 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl19-doc \
-  --index msmarco-v1-doc-segmented-d2q-t5 \
-  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl19.txt \
-  --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-full \
+  --output run.msmarco-v1-doc.bm25-rocchio-doc-segmented-default.dl19.txt \
+  --bm25 --rocchio --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rocchio-doc-segmented-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rocchio-doc-segmented-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rocchio-doc-segmented-default.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -736,16 +731,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl20 \
-  --index msmarco-v1-doc-segmented-d2q-t5 \
-  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl20.txt \
-  --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-full \
+  --output run.msmarco-v1-doc.bm25-rocchio-doc-segmented-default.dl20.txt \
+  --bm25 --rocchio --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rocchio-doc-segmented-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rocchio-doc-segmented-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rocchio-doc-segmented-default.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -756,15 +751,15 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
-  --index msmarco-v1-doc-segmented-d2q-t5 \
-  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dev.txt \
-  --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-full \
+  --output run.msmarco-v1-doc.bm25-rocchio-doc-segmented-default.dev.txt \
+  --bm25 --rocchio --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rocchio-doc-segmented-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rocchio-doc-segmented-default.dev.txt
 </code></pre>
   </blockquote>
 
@@ -774,21 +769,22 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: BM25 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82) -->
 <tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
 <td class="expand-button"></td>
-<td>(2c)</td>
-<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>0.3045</td>
-<td>0.5897</td>
-<td>0.7738</td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)</td>
+<td>0.2336</td>
+<td>0.5233</td>
+<td>0.6757</td>
 <td></td>
-<td>0.4229</td>
-<td>0.5407</td>
-<td>0.8596</td>
+<td>0.3581</td>
+<td>0.5061</td>
+<td>0.7776</td>
 <td></td>
-<td>0.1831</td>
-<td>0.9128</td>
+<td>0.2767</td>
+<td>0.9357</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -817,16 +813,16 @@ Command to generate run on TREC 2019 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl19-doc \
-  --index msmarco-v1-doc-d2q-t5-docvectors \
-  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl19.txt \
-  --bm25 --rm3 --k1 0.9 --b 0.4
+  --index msmarco-v1-doc-slim \
+  --output run.msmarco-v1-doc.bm25-doc-tuned.dl19.txt \
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-doc-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-doc-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-doc-tuned.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -837,16 +833,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl20 \
-  --index msmarco-v1-doc-d2q-t5-docvectors \
-  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl20.txt \
-  --bm25 --rm3 --k1 0.9 --b 0.4
+  --index msmarco-v1-doc-slim \
+  --output run.msmarco-v1-doc.bm25-doc-tuned.dl20.txt \
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-doc-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-doc-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-doc-tuned.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -857,15 +853,15 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
-  --index msmarco-v1-doc-d2q-t5-docvectors \
-  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dev.txt \
-  --bm25 --rm3 --k1 0.9 --b 0.4
+  --index msmarco-v1-doc-slim \
+  --output run.msmarco-v1-doc.bm25-doc-tuned.dev.txt \
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-doc-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-doc-tuned.dev.txt
 </code></pre>
   </blockquote>
 
@@ -875,21 +871,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61) -->
 <tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
 <td class="expand-button"></td>
-<td>(2d)</td>
-<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
-<td>0.3021</td>
-<td>0.6297</td>
-<td>0.7481</td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)</td>
+<td>0.2398</td>
+<td>0.5389</td>
+<td>0.6565</td>
 <td></td>
-<td>0.4268</td>
-<td>0.5850</td>
-<td>0.8270</td>
+<td>0.3458</td>
+<td>0.5213</td>
+<td>0.7725</td>
 <td></td>
-<td>0.2818</td>
-<td>0.9547</td>
+<td>0.2756</td>
+<td>0.9311</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -918,16 +914,16 @@ Command to generate run on TREC 2019 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl19-doc \
-  --index msmarco-v1-doc-segmented-d2q-t5-docvectors \
-  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl19.txt \
-  --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-slim \
+  --output run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl19.txt \
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -938,16 +934,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl20 \
-  --index msmarco-v1-doc-segmented-d2q-t5-docvectors \
-  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl20.txt \
-  --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-slim \
+  --output run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl20.txt \
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -958,15 +954,15 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
-  --index msmarco-v1-doc-segmented-d2q-t5-docvectors \
-  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev.txt \
-  --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-slim \
+  --output run.msmarco-v1-doc.bm25-doc-segmented-tuned.dev.txt \
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-doc-segmented-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-doc-segmented-tuned.dev.txt
 </code></pre>
   </blockquote>
 
@@ -976,22 +972,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<tr><td style="border-bottom: 0"></td></tr>
-<!-- Condition: uniCOIL (noexp): pre-encoded queries -->
+<!-- Condition: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82) -->
 <tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
 <td class="expand-button"></td>
-<td>(3a)</td>
-<td style="min-width: 400px">uniCOIL (noexp): pre-encoded queries</td>
-<td>0.2665</td>
-<td>0.6349</td>
-<td>0.6391</td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)</td>
+<td>0.2638</td>
+<td>0.5526</td>
+<td>0.7188</td>
 <td></td>
-<td>0.3698</td>
-<td>0.5893</td>
-<td>0.7623</td>
+<td>0.3610</td>
+<td>0.5195</td>
+<td>0.8180</td>
 <td></td>
-<td>0.3409</td>
-<td>0.9420</td>
+<td>0.2227</td>
+<td>0.9303</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1019,17 +1014,17 @@ Command to generate run on TREC 2019 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index msmarco-v1-doc-segmented-unicoil-noexp \
-  --topics dl19-doc-unicoil-noexp \
-  --output run.msmarco-v1-doc.unicoil-noexp.dl19.txt \
-  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --topics dl19-doc \
+  --index msmarco-v1-doc-full \
+  --output run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl19.txt \
+  --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.unicoil-noexp.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.unicoil-noexp.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.unicoil-noexp.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -1039,17 +1034,17 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index msmarco-v1-doc-segmented-unicoil-noexp \
-  --topics dl20-unicoil-noexp \
-  --output run.msmarco-v1-doc.unicoil-noexp.dl20.txt \
-  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --topics dl20 \
+  --index msmarco-v1-doc-full \
+  --output run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl20.txt \
+  --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.unicoil-noexp.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.unicoil-noexp.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.unicoil-noexp.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -1059,16 +1054,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index msmarco-v1-doc-segmented-unicoil-noexp \
-  --topics msmarco-doc-dev-unicoil-noexp \
-  --output run.msmarco-v1-doc.unicoil-noexp.dev.txt \
-  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --topics msmarco-doc-dev \
+  --index msmarco-v1-doc-full \
+  --output run.msmarco-v1-doc.bm25-rm3-doc-tuned.dev.txt \
+  --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.unicoil-noexp.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.unicoil-noexp.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-doc-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-doc-tuned.dev.txt
 </code></pre>
   </blockquote>
 
@@ -1078,21 +1073,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (w/ doc2query-T5): pre-encoded queries -->
+<!-- Condition: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61) -->
 <tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
 <td class="expand-button"></td>
-<td>(3b)</td>
-<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): pre-encoded queries</td>
-<td>0.2789</td>
-<td>0.6396</td>
-<td>0.6652</td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)</td>
+<td>0.2655</td>
+<td>0.5392</td>
+<td>0.7037</td>
 <td></td>
-<td>0.3882</td>
-<td>0.6033</td>
-<td>0.7869</td>
+<td>0.3471</td>
+<td>0.5030</td>
+<td>0.8056</td>
 <td></td>
-<td>0.3531</td>
-<td>0.9546</td>
+<td>0.2448</td>
+<td>0.9359</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1120,17 +1115,17 @@ Command to generate run on TREC 2019 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index msmarco-v1-doc-segmented-unicoil \
-  --topics dl19-doc-unicoil \
-  --output run.msmarco-v1-doc.unicoil.dl19.txt \
-  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --topics dl19-doc \
+  --index msmarco-v1-doc-segmented-full \
+  --output run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl19.txt \
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.unicoil.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.unicoil.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.unicoil.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -1140,17 +1135,17 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index msmarco-v1-doc-segmented-unicoil \
-  --topics dl20-unicoil \
-  --output run.msmarco-v1-doc.unicoil.dl20.txt \
-  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --topics dl20 \
+  --index msmarco-v1-doc-segmented-full \
+  --output run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl20.txt \
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.unicoil.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.unicoil.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.unicoil.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -1160,16 +1155,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index msmarco-v1-doc-segmented-unicoil \
-  --topics msmarco-doc-dev-unicoil \
-  --output run.msmarco-v1-doc.unicoil.dev.txt \
-  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --topics msmarco-doc-dev \
+  --index msmarco-v1-doc-segmented-full \
+  --output run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dev.txt \
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.unicoil.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.unicoil.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dev.txt
 </code></pre>
   </blockquote>
 
@@ -1179,22 +1174,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<tr><td style="border-bottom: 0"></td></tr>
-<!-- Condition: BM25 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82) -->
+<!-- Condition: BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82) -->
 <tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">
 <td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)</td>
+<td>0.2657</td>
+<td>0.5584</td>
+<td>0.7299</td>
 <td></td>
-<td style="min-width: 400px">BM25 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)</td>
-<td>0.2336</td>
-<td>0.5233</td>
-<td>0.6757</td>
+<td>0.3628</td>
+<td>0.5199</td>
+<td>0.8217</td>
 <td></td>
-<td>0.3581</td>
-<td>0.5061</td>
-<td>0.7776</td>
-<td></td>
-<td>0.2768</td>
-<td>0.9357</td>
+<td>0.2242</td>
+<td>0.9314</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1223,16 +1217,16 @@ Command to generate run on TREC 2019 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl19-doc \
-  --index msmarco-v1-doc-slim \
-  --output run.msmarco-v1-doc.bm25-doc-tuned.dl19.txt \
-  --bm25
+  --index msmarco-v1-doc-full \
+  --output run.msmarco-v1-doc.bm25-rocchio-doc-tuned.dl19.txt \
+  --bm25 --rocchio
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-doc-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-doc-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-doc-tuned.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rocchio-doc-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rocchio-doc-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rocchio-doc-tuned.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -1243,16 +1237,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl20 \
-  --index msmarco-v1-doc-slim \
-  --output run.msmarco-v1-doc.bm25-doc-tuned.dl20.txt \
-  --bm25
+  --index msmarco-v1-doc-full \
+  --output run.msmarco-v1-doc.bm25-rocchio-doc-tuned.dl20.txt \
+  --bm25 --rocchio
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-doc-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-doc-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-doc-tuned.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rocchio-doc-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rocchio-doc-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rocchio-doc-tuned.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -1263,15 +1257,15 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
-  --index msmarco-v1-doc-slim \
-  --output run.msmarco-v1-doc.bm25-doc-tuned.dev.txt \
-  --bm25
+  --index msmarco-v1-doc-full \
+  --output run.msmarco-v1-doc.bm25-rocchio-doc-tuned.dev.txt \
+  --bm25 --rocchio
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-doc-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-doc-tuned.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rocchio-doc-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rocchio-doc-tuned.dev.txt
 </code></pre>
   </blockquote>
 
@@ -1281,21 +1275,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<!-- Condition: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61) -->
+<!-- Condition: BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61) -->
 <tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
 <td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)</td>
+<td>0.2672</td>
+<td>0.5421</td>
+<td>0.7115</td>
 <td></td>
-<td style="min-width: 400px">BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)</td>
-<td>0.2398</td>
-<td>0.5389</td>
-<td>0.6565</td>
+<td>0.3521</td>
+<td>0.4997</td>
+<td>0.8042</td>
 <td></td>
-<td>0.3458</td>
-<td>0.5213</td>
-<td>0.7725</td>
-<td></td>
-<td>0.2756</td>
-<td>0.9311</td>
+<td>0.2475</td>
+<td>0.9395</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1324,16 +1318,16 @@ Command to generate run on TREC 2019 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl19-doc \
-  --index msmarco-v1-doc-segmented-slim \
-  --output run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl19.txt \
-  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-full \
+  --output run.msmarco-v1-doc.bm25-rocchio-doc-segmented-tuned.dl19.txt \
+  --bm25 --rocchio --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rocchio-doc-segmented-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rocchio-doc-segmented-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rocchio-doc-segmented-tuned.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -1344,16 +1338,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl20 \
-  --index msmarco-v1-doc-segmented-slim \
-  --output run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl20.txt \
-  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-full \
+  --output run.msmarco-v1-doc.bm25-rocchio-doc-segmented-tuned.dl20.txt \
+  --bm25 --rocchio --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-doc-segmented-tuned.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rocchio-doc-segmented-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rocchio-doc-segmented-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rocchio-doc-segmented-tuned.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -1364,15 +1358,15 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
-  --index msmarco-v1-doc-segmented-slim \
-  --output run.msmarco-v1-doc.bm25-doc-segmented-tuned.dev.txt \
-  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-full \
+  --output run.msmarco-v1-doc.bm25-rocchio-doc-segmented-tuned.dev.txt \
+  --bm25 --rocchio --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-doc-segmented-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-doc-segmented-tuned.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rocchio-doc-segmented-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rocchio-doc-segmented-tuned.dev.txt
 </code></pre>
   </blockquote>
 
@@ -1382,21 +1376,22 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82) -->
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row13" data-toggle="collapse" data-parent="#row13" href="#collapse13">
 <td class="expand-button"></td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (2a)</td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2700</td>
+<td>0.5968</td>
+<td>0.7190</td>
 <td></td>
-<td style="min-width: 400px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)</td>
-<td>0.2643</td>
-<td>0.5526</td>
-<td>0.7189</td>
+<td>0.4230</td>
+<td>0.5885</td>
+<td>0.8403</td>
 <td></td>
-<td>0.3619</td>
-<td>0.5238</td>
-<td>0.8180</td>
-<td></td>
-<td>0.2231</td>
-<td>0.9305</td>
+<td>0.2880</td>
+<td>0.9259</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1425,16 +1420,16 @@ Command to generate run on TREC 2019 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl19-doc \
-  --index msmarco-v1-doc-full \
-  --output run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl19.txt \
-  --bm25 --rm3
+  --index msmarco-v1-doc-d2q-t5 \
+  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl19.txt \
+  --bm25 --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -1445,16 +1440,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl20 \
-  --index msmarco-v1-doc-full \
-  --output run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl20.txt \
-  --bm25 --rm3
+  --index msmarco-v1-doc-d2q-t5 \
+  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl20.txt \
+  --bm25 --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rm3-doc-tuned.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -1465,15 +1460,15 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
-  --index msmarco-v1-doc-full \
-  --output run.msmarco-v1-doc.bm25-rm3-doc-tuned.dev.txt \
-  --bm25 --rm3
+  --index msmarco-v1-doc-d2q-t5 \
+  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dev.txt \
+  --bm25 --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-doc-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-doc-tuned.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-default.dev.txt
 </code></pre>
   </blockquote>
 
@@ -1483,21 +1478,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61) -->
+<!-- Condition: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row14" data-toggle="collapse" data-parent="#row14" href="#collapse14">
 <td class="expand-button"></td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (2b)</td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.2798</td>
+<td>0.6119</td>
+<td>0.7165</td>
 <td></td>
-<td style="min-width: 400px">BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)</td>
-<td>0.2658</td>
-<td>0.5405</td>
-<td>0.7030</td>
+<td>0.4150</td>
+<td>0.5957</td>
+<td>0.8046</td>
 <td></td>
-<td>0.3472</td>
-<td>0.4979</td>
-<td>0.8049</td>
-<td></td>
-<td>0.2443</td>
-<td>0.9363</td>
+<td>0.3179</td>
+<td>0.9490</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1526,16 +1521,16 @@ Command to generate run on TREC 2019 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl19-doc \
-  --index msmarco-v1-doc-segmented-full \
-  --output run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl19.txt \
-  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-d2q-t5 \
+  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl19.txt \
+  --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -1546,16 +1541,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl20 \
-  --index msmarco-v1-doc-segmented-full \
-  --output run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl20.txt \
-  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-d2q-t5 \
+  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl20.txt \
+  --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -1566,15 +1561,15 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
-  --index msmarco-v1-doc-segmented-full \
-  --output run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dev.txt \
-  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-d2q-t5 \
+  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dev.txt \
+  --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-doc-segmented-tuned.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-default.dev.txt
 </code></pre>
   </blockquote>
 
@@ -1584,22 +1579,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<tr><td style="border-bottom: 0"></td></tr>
-<!-- Condition: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87) -->
+<!-- Condition: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row15" data-toggle="collapse" data-parent="#row15" href="#collapse15">
 <td class="expand-button"></td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (2c)</td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.3045</td>
+<td>0.5904</td>
+<td>0.7737</td>
 <td></td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87)</td>
-<td>0.2620</td>
-<td>0.5972</td>
-<td>0.6867</td>
+<td>0.4230</td>
+<td>0.5427</td>
+<td>0.8631</td>
 <td></td>
-<td>0.4099</td>
-<td>0.5852</td>
-<td>0.8105</td>
-<td></td>
-<td>0.3269</td>
-<td>0.9553</td>
+<td>0.1834</td>
+<td>0.9126</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1628,16 +1622,16 @@ Command to generate run on TREC 2019 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl19-doc \
-  --index msmarco-v1-doc-d2q-t5 \
-  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl19.txt \
-  --bm25
+  --index msmarco-v1-doc-d2q-t5-docvectors \
+  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl19.txt \
+  --bm25 --rm3 --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -1648,16 +1642,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl20 \
-  --index msmarco-v1-doc-d2q-t5 \
-  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl20.txt \
-  --bm25
+  --index msmarco-v1-doc-d2q-t5-docvectors \
+  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl20.txt \
+  --bm25 --rm3 --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -1668,15 +1662,15 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
-  --index msmarco-v1-doc-d2q-t5 \
-  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dev.txt \
-  --bm25
+  --index msmarco-v1-doc-d2q-t5-docvectors \
+  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dev.txt \
+  --bm25 --rm3 --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-default.dev.txt
 </code></pre>
   </blockquote>
 
@@ -1686,21 +1680,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<!-- Condition: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59) -->
+<!-- Condition: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row16" data-toggle="collapse" data-parent="#row16" href="#collapse16">
 <td class="expand-button"></td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (2d)</td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.3030</td>
+<td>0.6290</td>
+<td>0.7483</td>
 <td></td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59)</td>
-<td>0.2658</td>
-<td>0.6273</td>
-<td>0.6707</td>
+<td>0.4271</td>
+<td>0.5851</td>
+<td>0.8266</td>
 <td></td>
-<td>0.4047</td>
-<td>0.5943</td>
-<td>0.7968</td>
-<td></td>
-<td>0.3209</td>
-<td>0.9530</td>
+<td>0.2803</td>
+<td>0.9551</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1729,16 +1723,16 @@ Command to generate run on TREC 2019 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl19-doc \
-  --index msmarco-v1-doc-segmented-d2q-t5 \
-  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl19.txt \
-  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-d2q-t5-docvectors \
+  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl19.txt \
+  --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -1749,16 +1743,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl20 \
-  --index msmarco-v1-doc-segmented-d2q-t5 \
-  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl20.txt \
-  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-d2q-t5-docvectors \
+  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl20.txt \
+  --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -1769,15 +1763,15 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
-  --index msmarco-v1-doc-segmented-d2q-t5 \
-  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dev.txt \
-  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-d2q-t5-docvectors \
+  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev.txt \
+  --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev.txt
 </code></pre>
   </blockquote>
 
@@ -1787,21 +1781,22 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87) -->
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87) -->
 <tr class="accordion-toggle collapsed" id="row17" data-toggle="collapse" data-parent="#row17" href="#collapse17">
 <td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87)</td>
+<td>0.2620</td>
+<td>0.5972</td>
+<td>0.6867</td>
 <td></td>
-<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87)</td>
-<td>0.2814</td>
-<td>0.6080</td>
-<td>0.7177</td>
+<td>0.4099</td>
+<td>0.5852</td>
+<td>0.8105</td>
 <td></td>
-<td>0.4104</td>
-<td>0.5743</td>
-<td>0.8240</td>
-<td></td>
-<td>0.2621</td>
-<td>0.9524</td>
+<td>0.3269</td>
+<td>0.9553</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1830,16 +1825,16 @@ Command to generate run on TREC 2019 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl19-doc \
-  --index msmarco-v1-doc-d2q-t5-docvectors \
-  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl19.txt \
-  --bm25 --rm3
+  --index msmarco-v1-doc-d2q-t5 \
+  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl19.txt \
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -1850,16 +1845,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl20 \
-  --index msmarco-v1-doc-d2q-t5-docvectors \
-  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl20.txt \
-  --bm25 --rm3
+  --index msmarco-v1-doc-d2q-t5 \
+  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl20.txt \
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -1870,15 +1865,15 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
-  --index msmarco-v1-doc-d2q-t5-docvectors \
-  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dev.txt \
-  --bm25 --rm3
+  --index msmarco-v1-doc-d2q-t5 \
+  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dev.txt \
+  --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-tuned.dev.txt
 </code></pre>
   </blockquote>
 
@@ -1888,21 +1883,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59) -->
+<!-- Condition: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59) -->
 <tr class="accordion-toggle collapsed" id="row18" data-toggle="collapse" data-parent="#row18" href="#collapse18">
 <td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59)</td>
+<td>0.2658</td>
+<td>0.6273</td>
+<td>0.6707</td>
 <td></td>
-<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59)</td>
-<td>0.2893</td>
-<td>0.6239</td>
-<td>0.7066</td>
+<td>0.4047</td>
+<td>0.5943</td>
+<td>0.7968</td>
 <td></td>
-<td>0.4025</td>
-<td>0.5724</td>
-<td>0.8172</td>
-<td></td>
-<td>0.2985</td>
-<td>0.9567</td>
+<td>0.3209</td>
+<td>0.9530</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1931,16 +1926,16 @@ Command to generate run on TREC 2019 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl19-doc \
-  --index msmarco-v1-doc-segmented-d2q-t5-docvectors \
-  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl19.txt \
-  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-d2q-t5 \
+  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl19.txt \
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -1951,16 +1946,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics dl20 \
-  --index msmarco-v1-doc-segmented-d2q-t5-docvectors \
-  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl20.txt \
-  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-d2q-t5 \
+  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl20.txt \
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -1971,15 +1966,15 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --topics msmarco-doc-dev \
-  --index msmarco-v1-doc-segmented-d2q-t5-docvectors \
-  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dev.txt \
-  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+  --index msmarco-v1-doc-segmented-d2q-t5 \
+  --output run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dev.txt \
+  --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-d2q-t5-doc-segmented-tuned.dev.txt
 </code></pre>
   </blockquote>
 
@@ -1989,22 +1984,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<tr><td style="border-bottom: 0"></td></tr>
-<!-- Condition: uniCOIL (noexp): on-the-fly query inference -->
+<!-- Condition: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87) -->
 <tr class="accordion-toggle collapsed" id="row19" data-toggle="collapse" data-parent="#row19" href="#collapse19">
 <td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87)</td>
+<td>0.2813</td>
+<td>0.6091</td>
+<td>0.7184</td>
 <td></td>
-<td style="min-width: 400px">uniCOIL (noexp): on-the-fly query inference</td>
-<td>0.2661</td>
-<td>0.6347</td>
-<td>0.6385</td>
+<td>0.4100</td>
+<td>0.5745</td>
+<td>0.8238</td>
 <td></td>
-<td>0.3698</td>
-<td>0.5906</td>
-<td>0.7621</td>
-<td></td>
-<td>0.3410</td>
-<td>0.9420</td>
+<td>0.2623</td>
+<td>0.9522</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2032,17 +2026,17 @@ Command to generate run on TREC 2019 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index msmarco-v1-doc-segmented-unicoil-noexp \
-  --topics dl19-doc --encoder castorini/unicoil-noexp-msmarco-passage \
-  --output run.msmarco-v1-doc.unicoil-noexp-otf.dl19.txt \
-  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --topics dl19-doc \
+  --index msmarco-v1-doc-d2q-t5-docvectors \
+  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl19.txt \
+  --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.unicoil-noexp-otf.dl19.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.unicoil-noexp-otf.dl19.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.unicoil-noexp-otf.dl19.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl19.txt
 </code></pre>
   </blockquote>
 
@@ -2052,17 +2046,17 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index msmarco-v1-doc-segmented-unicoil-noexp \
-  --topics dl20 --encoder castorini/unicoil-noexp-msmarco-passage \
-  --output run.msmarco-v1-doc.unicoil-noexp-otf.dl20.txt \
-  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --topics dl20 \
+  --index msmarco-v1-doc-d2q-t5-docvectors \
+  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl20.txt \
+  --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.unicoil-noexp-otf.dl20.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.unicoil-noexp-otf.dl20.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.unicoil-noexp-otf.dl20.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dl20.txt
 </code></pre>
   </blockquote>
 
@@ -2072,16 +2066,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index msmarco-v1-doc-segmented-unicoil-noexp \
-  --topics msmarco-doc-dev --encoder castorini/unicoil-noexp-msmarco-passage \
-  --output run.msmarco-v1-doc.unicoil-noexp-otf.dev.txt \
-  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --topics msmarco-doc-dev \
+  --index msmarco-v1-doc-d2q-t5-docvectors \
+  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dev.txt \
+  --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.unicoil-noexp-otf.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.unicoil-noexp-otf.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-tuned.dev.txt
 </code></pre>
   </blockquote>
 
@@ -2091,21 +2085,21 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (w/ doc2query-T5): on-the-fly query inference -->
+<!-- Condition: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59) -->
 <tr class="accordion-toggle collapsed" id="row20" data-toggle="collapse" data-parent="#row20" href="#collapse20">
 <td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59)</td>
+<td>0.2892</td>
+<td>0.6247</td>
+<td>0.7069</td>
 <td></td>
-<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): on-the-fly query inference</td>
-<td>0.2789</td>
-<td>0.6396</td>
-<td>0.6654</td>
+<td>0.4016</td>
+<td>0.5711</td>
+<td>0.8156</td>
 <td></td>
-<td>0.3881</td>
-<td>0.6030</td>
-<td>0.7866</td>
-<td></td>
-<td>0.3532</td>
-<td>0.9546</td>
+<td>0.2973</td>
+<td>0.9563</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2133,6 +2127,412 @@ Command to generate run on TREC 2019 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --topics dl19-doc \
+  --index msmarco-v1-doc-segmented-d2q-t5-docvectors \
+  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl19.txt \
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row20-tab2" role="tabpanel" aria-labelledby="row20-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics dl20 \
+  --index msmarco-v1-doc-segmented-d2q-t5-docvectors \
+  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl20.txt \
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row20-tab3" role="tabpanel" aria-labelledby="row20-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-doc-dev \
+  --index msmarco-v1-doc-segmented-d2q-t5-docvectors \
+  --output run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dev.txt \
+  --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.bm25-rm3-d2q-t5-doc-segmented-tuned.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: uniCOIL (noexp): pre-encoded queries -->
+<tr class="accordion-toggle collapsed" id="row21" data-toggle="collapse" data-parent="#row21" href="#collapse21">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (3a)</td>
+<td style="min-width: 400px">uniCOIL (noexp): pre-encoded queries</td>
+<td>0.2665</td>
+<td>0.6349</td>
+<td>0.6391</td>
+<td></td>
+<td>0.3698</td>
+<td>0.5893</td>
+<td>0.7623</td>
+<td></td>
+<td>0.3409</td>
+<td>0.9420</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse21" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row21-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row21-tab1-header" data-mdb-toggle="tab" href="#row21-tab1" role="tab" aria-controls="row21-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row21-tab2-header" data-mdb-toggle="tab" href="#row21-tab2" role="tab" aria-controls="row21-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row21-tab3-header" data-mdb-toggle="tab" href="#row21-tab3" role="tab" aria-controls="row21-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row21-content">
+  <div class="tab-pane fade show active" id="row21-tab1" role="tabpanel" aria-labelledby="row21-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v1-doc-segmented-unicoil-noexp \
+  --topics dl19-doc-unicoil-noexp \
+  --output run.msmarco-v1-doc.unicoil-noexp.dl19.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.unicoil-noexp.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.unicoil-noexp.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.unicoil-noexp.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row21-tab2" role="tabpanel" aria-labelledby="row21-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v1-doc-segmented-unicoil-noexp \
+  --topics dl20-unicoil-noexp \
+  --output run.msmarco-v1-doc.unicoil-noexp.dl20.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.unicoil-noexp.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.unicoil-noexp.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.unicoil-noexp.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row21-tab3" role="tabpanel" aria-labelledby="row21-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v1-doc-segmented-unicoil-noexp \
+  --topics msmarco-doc-dev-unicoil-noexp \
+  --output run.msmarco-v1-doc.unicoil-noexp.dev.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.unicoil-noexp.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.unicoil-noexp.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: uniCOIL (w/ doc2query-T5): pre-encoded queries -->
+<tr class="accordion-toggle collapsed" id="row22" data-toggle="collapse" data-parent="#row22" href="#collapse22">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (3b)</td>
+<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): pre-encoded queries</td>
+<td>0.2789</td>
+<td>0.6396</td>
+<td>0.6652</td>
+<td></td>
+<td>0.3882</td>
+<td>0.6033</td>
+<td>0.7869</td>
+<td></td>
+<td>0.3531</td>
+<td>0.9546</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse22" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row22-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row22-tab1-header" data-mdb-toggle="tab" href="#row22-tab1" role="tab" aria-controls="row22-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row22-tab2-header" data-mdb-toggle="tab" href="#row22-tab2" role="tab" aria-controls="row22-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row22-tab3-header" data-mdb-toggle="tab" href="#row22-tab3" role="tab" aria-controls="row22-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row22-content">
+  <div class="tab-pane fade show active" id="row22-tab1" role="tabpanel" aria-labelledby="row22-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v1-doc-segmented-unicoil \
+  --topics dl19-doc-unicoil \
+  --output run.msmarco-v1-doc.unicoil.dl19.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.unicoil.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.unicoil.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.unicoil.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row22-tab2" role="tabpanel" aria-labelledby="row22-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v1-doc-segmented-unicoil \
+  --topics dl20-unicoil \
+  --output run.msmarco-v1-doc.unicoil.dl20.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.unicoil.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.unicoil.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.unicoil.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row22-tab3" role="tabpanel" aria-labelledby="row22-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v1-doc-segmented-unicoil \
+  --topics msmarco-doc-dev-unicoil \
+  --output run.msmarco-v1-doc.unicoil.dev.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.unicoil.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.unicoil.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: uniCOIL (noexp): on-the-fly query inference -->
+<tr class="accordion-toggle collapsed" id="row23" data-toggle="collapse" data-parent="#row23" href="#collapse23">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">uniCOIL (noexp): on-the-fly query inference</td>
+<td>0.2661</td>
+<td>0.6347</td>
+<td>0.6385</td>
+<td></td>
+<td>0.3698</td>
+<td>0.5906</td>
+<td>0.7621</td>
+<td></td>
+<td>0.3410</td>
+<td>0.9420</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse23" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row23-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row23-tab1-header" data-mdb-toggle="tab" href="#row23-tab1" role="tab" aria-controls="row23-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row23-tab2-header" data-mdb-toggle="tab" href="#row23-tab2" role="tab" aria-controls="row23-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row23-tab3-header" data-mdb-toggle="tab" href="#row23-tab3" role="tab" aria-controls="row23-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row23-content">
+  <div class="tab-pane fade show active" id="row23-tab1" role="tabpanel" aria-labelledby="row23-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v1-doc-segmented-unicoil-noexp \
+  --topics dl19-doc --encoder castorini/unicoil-noexp-msmarco-passage \
+  --output run.msmarco-v1-doc.unicoil-noexp-otf.dl19.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl19-doc run.msmarco-v1-doc.unicoil-noexp-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-doc run.msmarco-v1-doc.unicoil-noexp-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.unicoil-noexp-otf.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row23-tab2" role="tabpanel" aria-labelledby="row23-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v1-doc-segmented-unicoil-noexp \
+  --topics dl20 --encoder castorini/unicoil-noexp-msmarco-passage \
+  --output run.msmarco-v1-doc.unicoil-noexp-otf.dl20.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl20-doc run.msmarco-v1-doc.unicoil-noexp-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-doc run.msmarco-v1-doc.unicoil-noexp-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.unicoil-noexp-otf.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row23-tab3" role="tabpanel" aria-labelledby="row23-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index msmarco-v1-doc-segmented-unicoil-noexp \
+  --topics msmarco-doc-dev --encoder castorini/unicoil-noexp-msmarco-passage \
+  --output run.msmarco-v1-doc.unicoil-noexp-otf.dev.txt \
+  --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-doc-dev run.msmarco-v1-doc.unicoil-noexp-otf.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-v1-doc.unicoil-noexp-otf.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: uniCOIL (w/ doc2query-T5): on-the-fly query inference -->
+<tr class="accordion-toggle collapsed" id="row24" data-toggle="collapse" data-parent="#row24" href="#collapse24">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): on-the-fly query inference</td>
+<td>0.2789</td>
+<td>0.6396</td>
+<td>0.6654</td>
+<td></td>
+<td>0.3881</td>
+<td>0.6030</td>
+<td>0.7866</td>
+<td></td>
+<td>0.3532</td>
+<td>0.9546</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse24" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row24-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row24-tab1-header" data-mdb-toggle="tab" href="#row24-tab1" role="tab" aria-controls="row24-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab2-header" data-mdb-toggle="tab" href="#row24-tab2" role="tab" aria-controls="row24-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row24-content">
+  <div class="tab-pane fade show active" id="row24-tab1" role="tabpanel" aria-labelledby="row24-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
   --index msmarco-v1-doc-segmented-unicoil \
   --topics dl19-doc --encoder castorini/unicoil-msmarco-passage \
   --output run.msmarco-v1-doc.unicoil-otf.dl19.txt \
@@ -2148,7 +2548,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc run.msmarco-v1-doc.
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row20-tab2" role="tabpanel" aria-labelledby="row20-tab2">
+  <div class="tab-pane fade" id="row24-tab2" role="tabpanel" aria-labelledby="row24-tab2">
     Command to generate run on TREC 2020 queries:
 
   <blockquote class="mycode">
@@ -2168,7 +2568,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc run.msmarco-v1-doc.
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row20-tab3" role="tabpanel" aria-labelledby="row20-tab3">
+  <div class="tab-pane fade" id="row24-tab3" role="tabpanel" aria-labelledby="row24-tab3">
     Command to generate run on dev queries:
 
   <blockquote class="mycode">
@@ -2196,6 +2596,18 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev run.msmarco-
     </tbody>
   </table>
 </div>
+
+<ul style="list-style-type:none; padding-top: 25px">
+
+<li><p>[1] Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin.
+<a href="https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
+<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp;Numbers in parentheses correspond to rows in Table 2 of the paper.</p></li>
+
+</ul>
+
+<div style="padding-top: 50px"/>
 
       </div>
 

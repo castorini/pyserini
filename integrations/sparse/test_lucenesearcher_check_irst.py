@@ -30,7 +30,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         else:
             self.pyserini_root = '.'
         self.tmp = f'tmp{randint(0, 10000)}'
-        if(os.path.isdir(self.tmp)):
+        if os.path.isdir(self.tmp):
             rmtree(self.tmp)
         os.mkdir(self.tmp)
         self.dl19_pass = 'dl19-passage'
@@ -139,7 +139,7 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
         else:
             self.pyserini_root = '.'
         self.tmp = f'tmp{randint(0, 10000)}'
-        if(os.path.isdir(self.tmp)):
+        if os.path.isdir(self.tmp):
             rmtree(self.tmp)
         os.mkdir(self.tmp)
         self.dl19_doc = 'dl19-doc'
@@ -209,8 +209,8 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
-        self.assertEqual(map_score, 0.2204)
-        self.assertEqual(ndcg_score, 0.4912)
+        self.assertEqual(map_score, 0.2205)
+        self.assertEqual(ndcg_score, 0.4917)
 
     def test_max_aggregation_dl20_doc(self):
         # dl20-doc-max
@@ -247,7 +247,7 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
         else:
             self.pyserini_root = '.'
         self.tmp = f'tmp{randint(0, 10000)}'
-        if(os.path.isdir(self.tmp)):
+        if os.path.isdir(self.tmp):
             rmtree(self.tmp)
         os.mkdir(self.tmp)
         self.dl19_doc = 'dl19-doc'
@@ -321,7 +321,7 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
         self.assertEqual(status, 0)
         self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.2425)
-        self.assertEqual(ndcg_score, 0.5195)
+        self.assertEqual(ndcg_score, 0.5193)
 
     def test_max_aggregation_dl20_doc_seg(self):
         # dl20-doc-seg-max

@@ -770,12 +770,12 @@ conditions:
           - R@100: 0.8198
       - split: dev
         scores:
-          - MRR@100: 0.4133
+          - MRR@100: 0.4136
           - R@100: 0.8285
       - split: test
         scores:
           - MRR@100: 0.2836
-          - R@100: 0.7193
+          - R@100: 0.7196
   - name: bm25.id
     eval_key: mrtydi-v1.1-indonesian
     command: python -m pyserini.search.lucene --language id --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian --output $output --batch 36 --threads 12 --bm25 --hits 100
@@ -798,16 +798,16 @@ conditions:
     splits:
       - split: train
         scores:
-          - MRR@100: 0.2236
-          - R@100: 0.7282
+          - MRR@100: 0.2262
+          - R@100: 0.7290
       - split: dev
         scores:
-          - MRR@100: 0.2241
-          - R@100: 0.7274
+          - MRR@100: 0.2250
+          - R@100: 0.7252
       - split: test
         scores:
-          - MRR@100: 0.2112
-          - R@100: 0.6451
+          - MRR@100: 0.2125
+          - R@100: 0.6431
   - name: bm25.ko
     eval_key: mrtydi-v1.1-korean
     command: python -m pyserini.search.lucene --language ko --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean --output $output --batch 36 --threads 12 --bm25 --hits 100
@@ -830,16 +830,16 @@ conditions:
     splits:
       - split: train
         scores:
-          - MRR@100: 0.2205
-          - R@100: 0.5706
+          - MRR@100: 0.2229
+          - R@100: 0.5779
       - split: dev
         scores:
-          - MRR@100: 0.2152
-          - R@100: 0.5673
+          - MRR@100: 0.2202
+          - R@100: 0.5760
       - split: test
         scores:
-          - MRR@100: 0.3129
-          - R@100: 0.6482
+          - MRR@100: 0.3163
+          - R@100: 0.6541
   - name: bm25.sw
     eval_key: mrtydi-v1.1-swahili
     command: python -m pyserini.search.lucene --language sw --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili --output $output --batch 36 --threads 12 --bm25 --hits 100
@@ -862,16 +862,16 @@ conditions:
     splits:
       - split: train
         scores:
-          - MRR@100: 0.2847
-          - R@100: 0.7049
+          - MRR@100: 0.4204
+          - R@100: 0.8229
       - split: dev
         scores:
-          - MRR@100: 0.2737
-          - R@100: 0.7040
+          - MRR@100: 0.4269
+          - R@100: 0.8362
       - split: test
         scores:
-          - MRR@100: 0.3434
-          - R@100: 0.7577
+          - MRR@100: 0.5283
+          - R@100: 0.8971
   - name: bm25.th
     eval_key: mrtydi-v1.1-thai
     command: python -m pyserini.search.lucene --language th --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai --output $output --batch 36 --threads 12 --bm25 --hits 100

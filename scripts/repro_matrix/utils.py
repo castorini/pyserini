@@ -17,7 +17,8 @@
 import subprocess
 
 fail_str = '\033[91m[FAIL]\033[0m'
-ok_str = '[OK] '
+ok_str = '[OK]'
+okish_str = '\033[94m[OKish]\033[0m'
 
 
 def find_msmarco_table_topic_set_key_v1(topic_key):

@@ -64,5 +64,22 @@ python entity_linking.py --input_path [input_jsonl_file] --rel_base_url [base_ur
 --spacy_model [en_core_web_sm, en_core_web_lg, etc.] --output_path [output_jsonl_file]
 ```
 
+An extended example assuming you're running the script from the scripts dir:
+```bash
+REL_DATA_PATH=/home/$USER/REL/data
+INPUT_JSONL_FILE=../collections/msmarco-passage/collection_jsonl/docs00.json
+mkdir ../collections/msmarco-passage/collection_jsonl_with_entities/
+OUTPUT_JSONL_FILE=../collections/msmarco-passage/msmarco-passage/collection_jsonl_with_entities/docs00.json
+BASE_URL=$REL_DATA_PATH
+ED_MODEL=$REL_DATA_PATH/ed-wiki-2019/model
+WIKI_VERSION=wiki_2019
+WIKIMAPPER_INDEX=$REL_DATA_PATH/index_enwiki-20190420.db
+
+python entity_linking.py --input_path $INPUT_JSONL_FILE \
+--rel_base_url $BASE_URL --rel_ed_model_path $ED_MODEL \
+--rel_wiki_version $WIKI_VERSION --wikimapper_index $WIKIMAPPER_INDEX \
+--spacy_model en_core_web_sm --output_path $OUTPUT_JSONL_FILE
+```
+
 It should take about 5 to 10 minutes to run entity linking on 5,000 MS MARCO passages on Compute Canada.
 See [this](https://github.com/castorini/onboarding/blob/master/docs/cc-guide.md#compute-canada) for instructions about running scripts on Compute Canada.
