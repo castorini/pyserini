@@ -7,7 +7,7 @@ Note that there are two variants:
 + `msmarco-v2-doc-d2q-t5` (9.0G uncompressed): stores term frequencies only, which supports bag-of-words queries, but no phrase queries and no relevance feedback. There is no way to fetch the raw text.
 + `msmarco-v2-doc-d2q-t5-docvectors` (59G uncompressed): stores term frequencies and the docvectors, which enables pseudo-relevance feedabck.
 
-These indexes were generated on 2022/08/08 at Anserini commit [`fbe35e`](https://github.com/castorini/anserini/commit/4d6d2a5a367424131331df2a8e9e00e6a9c68856) on `damiano` with the following command.
+These indexes were generated on 2022/08/08 at Anserini commit [`fbe35e`](https://github.com/castorini/anserini/commit/4d6d2a5a367424131331df2a8e9e00e6a9c68856) on `damiano` with the following commands:
 
 ```bash
 nohup target/appassembler/bin/IndexCollection -collection MsMarcoV2DocCollection \
