@@ -56,21 +56,21 @@ conditions:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
         scores:
-          - MRR@100: 0.0619
-            R@1K: 0.5933
+          - MRR@100: 0.0630
+            R@1K: 0.5947
       - topic_key: msmarco-v2-passage-dev2
         eval_key: msmarco-v2-passage-dev2
         scores:
-          - MRR@100: 0.0654
-            R@1K: 0.6049
+          - MRR@100: 0.0659
+            R@1K: 0.6062
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
-          - MAP@100: 0.1632
-            nDCG@10: 0.4480
-            MRR@100: 0.4925
-            R@100: 0.3498
-            R@1K: 0.6619
+          - MAP@100: 0.1666
+            nDCG@10: 0.4455
+            MRR@100: 0.5202
+            R@100: 0.3499
+            R@1K: 0.6616
   - name: bm25-rm3-augmented-default
     display: BM25+RM3 augmented passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -80,21 +80,21 @@ conditions:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
         scores:
-          - MRR@100: 0.0674
-            R@1K: 0.6859
+          - MRR@100: 0.0667
+            R@1K: 0.6857
       - topic_key: msmarco-v2-passage-dev2
         eval_key: msmarco-v2-passage-dev2
         scores:
-          - MRR@100: 0.0701
-            R@1K: 0.6838
+          - MRR@100: 0.0700
+            R@1K: 0.6826
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
           - MAP@100: 0.1050
-            nDCG@10: 0.3906
-            MRR@100: 0.4906
-            R@100: 0.2795
-            R@1K: 0.6268
+            nDCG@10: 0.3869
+            MRR@100: 0.4915
+            R@100: 0.2807
+            R@1K: 0.6298
   - name: bm25-d2q-t5-default
     display: BM25 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -152,21 +152,21 @@ conditions:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
         scores:
-          - MRR@100: 0.0948
-            R@1K: 0.7174
+          - MRR@100: 0.0947
+            R@1K: 0.7181
       - topic_key: msmarco-v2-passage-dev2
         eval_key: msmarco-v2-passage-dev2
         scores:
-          - MRR@100: 0.0985
-            R@1K: 0.7240
+          - MRR@100: 0.0984
+            R@1K: 0.7222
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
-          - MAP@100: 0.2271
-            nDCG@10: 0.5099
-            MRR@100: 0.6651
-            R@100: 0.4444
-            R@1K: 0.7512
+          - MAP@100: 0.2285
+            nDCG@10: 0.5098
+            MRR@100: 0.6548
+            R@100: 0.4499
+            R@1K: 0.7537
   - name: bm25-rm3-d2q-t5-augmented-default
     display: BM25+RM3 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -176,21 +176,21 @@ conditions:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
         scores:
-          - MRR@100: 0.0880
-            R@1K: 0.7625
+          - MRR@100: 0.0883
+            R@1K: 0.7607
       - topic_key: msmarco-v2-passage-dev2
         eval_key: msmarco-v2-passage-dev2
         scores:
-          - MRR@100: 0.0887
+          - MRR@100: 0.0904
             R@1K: 0.7649
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
-          - MAP@100: 0.1932
-            nDCG@10: 0.4834
-            MRR@100: 0.5882
-            R@100: 0.4295
-            R@1K: 0.7668
+          - MAP@100: 0.1930
+            nDCG@10: 0.4812
+            MRR@100: 0.5958
+            R@100: 0.4321
+            R@1K: 0.7672
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
