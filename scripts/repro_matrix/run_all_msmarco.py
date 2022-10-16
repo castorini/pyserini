@@ -17,6 +17,7 @@
 import argparse
 import math
 import os
+import time
 from collections import defaultdict
 from string import Template
 
@@ -31,6 +32,8 @@ if __name__ == '__main__':
     parser.add_argument('--collection', type=str, help='Collection = {v1-passage, v1-doc, v2-passage, v2-doc}.', required=True)
     parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
     args = parser.parse_args()
+
+    start = time.time()
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
     table_keys = {}
@@ -133,3 +136,6 @@ if __name__ == '__main__':
                   f'{table[name]["dl21"]["MRR@100"]:8.4f}{table[name]["dl21"]["R@100"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
                   f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
                   f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
+
+    end = time.time()
+    print(f'Total elapsed time: {end - start:.0f}s')

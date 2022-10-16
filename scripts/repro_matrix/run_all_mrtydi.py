@@ -17,6 +17,7 @@
 import argparse
 import math
 import os
+import time
 from collections import defaultdict
 from string import Template
 
@@ -45,6 +46,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for Mr.TyDi.')
     parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
     args = parser.parse_args()
+
+    start = time.time()
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
@@ -96,3 +99,6 @@ if __name__ == '__main__':
     for metric in ['MRR@100', 'R@100']:
         for split in ['test', 'dev', 'train']:
             print_results(metric, split)
+
+    end = time.time()
+    print(f'Total elapsed time: {end - start:.0f}s')
