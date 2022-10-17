@@ -186,9 +186,10 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.1990
-            R@100: 0.5476
+          - nDCG@10: 0.2018
+            R@100: 0.5541
       - split: dev
         scores:
-          - nDCG@10: 0.1775
-            R@100: 0.5551
+          - nDCG@10: 0.1801
+            R@100: 0.5599
+
