@@ -28,8 +28,8 @@ from pyserini.search import get_topics
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
-        self.threads = 12
-        self.batch_size = 36
+        self.threads = 16
+        self.batch_size = 256
 
         # Hard-code larger values for internal servers
         if socket.gethostname().startswith('damiano') or socket.gethostname().startswith('orca'):
@@ -67,7 +67,7 @@ class TestSearchIntegration(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3345, places=4)
+        self.assertAlmostEqual(score, 0.3345, delta=0.0002)
 
     def test_msmarco_passage_tct_colbert_bf_bm25_hybrid_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert.bf-otf.bm25.tsv'

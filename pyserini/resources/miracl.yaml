@@ -1,0 +1,195 @@
+conditions:
+  # BM25
+  - name: bm25.ar
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-ar
+    command: python -m pyserini.search.lucene --language ar --topics tools/topics-and-qrels/topics.miracl-v1.0-ar-${split}.tsv --index miracl-v1.0-ar --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4434
+            R@100: 0.8562
+      - split: dev
+        scores:
+          - nDCG@10: 0.4809
+            R@100: 0.8885
+  - name: bm25.bn
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-bn
+    command: python -m pyserini.search.lucene --language bn --topics tools/topics-and-qrels/topics.miracl-v1.0-bn-${split}.tsv --index miracl-v1.0-bn --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5122
+            R@100: 0.8934
+      - split: dev
+        scores:
+          - nDCG@10: 0.5079
+            R@100: 0.9088
+  - name: bm25.en
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-en
+    command: python -m pyserini.search.lucene --language en --topics tools/topics-and-qrels/topics.miracl-v1.0-en-${split}.tsv --index miracl-v1.0-en --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3415
+            R@100: 0.7928
+      - split: dev
+        scores:
+          - nDCG@10: 0.3506
+            R@100: 0.8190
+  - name: bm25.es
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-es
+    command: python -m pyserini.search.lucene --language es --topics tools/topics-and-qrels/topics.miracl-v1.0-es-${split}.tsv --index miracl-v1.0-es --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3030
+            R@100: 0.7020
+      - split: dev
+        scores:
+          - nDCG@10: 0.3193
+            R@100: 0.7018
+  - name: bm25.fa
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-fa
+    command: python -m pyserini.search.lucene --language fa --topics tools/topics-and-qrels/topics.miracl-v1.0-fa-${split}.tsv --index miracl-v1.0-fa --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3270
+            R@100: 0.7139
+      - split: dev
+        scores:
+          - nDCG@10: 0.3334
+            R@100: 0.7306
+  - name: bm25.fi
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-fi
+    command: python -m pyserini.search.lucene --language fi --topics tools/topics-and-qrels/topics.miracl-v1.0-fi-${split}.tsv --index miracl-v1.0-fi --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5106
+            R@100: 0.8471
+      - split: dev
+        scores:
+          - nDCG@10: 0.5513
+            R@100: 0.8910
+  - name: bm25.fr
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-fr
+    command: python -m pyserini.search.lucene --language fr --topics tools/topics-and-qrels/topics.miracl-v1.0-fr-${split}.tsv --index miracl-v1.0-fr --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.2152
+            R@100: 0.6601
+      - split: dev
+        scores:
+          - nDCG@10: 0.1832
+            R@100: 0.6528
+  - name: bm25.hi
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-hi
+    command: python -m pyserini.search.lucene --language hi --topics tools/topics-and-qrels/topics.miracl-v1.0-hi-${split}.tsv --index miracl-v1.0-hi --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4745
+            R@100: 0.9016
+      - split: dev
+        scores:
+          - nDCG@10: 0.4578
+            R@100: 0.8679
+  - name: bm25.id
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-id
+    command: python -m pyserini.search.lucene --language id --topics tools/topics-and-qrels/topics.miracl-v1.0-id-${split}.tsv --index miracl-v1.0-id --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4844
+            R@100: 0.9234
+      - split: dev
+        scores:
+          - nDCG@10: 0.4486
+            R@100: 0.9041
+  - name: bm25.ja
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-ja
+    command: python -m pyserini.search.lucene --language ja --topics tools/topics-and-qrels/topics.miracl-v1.0-ja-${split}.tsv --index miracl-v1.0-ja --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3796
+            R@100: 0.8225
+      - split: dev
+        scores:
+          - nDCG@10: 0.3689
+            R@100: 0.8048
+  - name: bm25.ko
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-ko
+    command: python -m pyserini.search.lucene --language ko --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-${split}.tsv --index miracl-v1.0-ko --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4279
+            R@100: 0.7572
+      - split: dev
+        scores:
+          - nDCG@10: 0.4190
+            R@100: 0.7831
+  - name: bm25.ru
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-ru
+    command: python -m pyserini.search.lucene --language ru --topics tools/topics-and-qrels/topics.miracl-v1.0-ru-${split}.tsv --index miracl-v1.0-ru --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3153
+            R@100: 0.6464
+      - split: dev
+        scores:
+          - nDCG@10: 0.3342
+            R@100: 0.6614
+  - name: bm25.sw
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-sw
+    command: python -m pyserini.search.lucene --language sw --topics tools/topics-and-qrels/topics.miracl-v1.0-sw-${split}.tsv --index miracl-v1.0-sw --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3356
+            R@100: 0.6499
+      - split: dev
+        scores:
+          - nDCG@10: 0.3826
+            R@100: 0.7008
+  - name: bm25.te
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-te
+    command: python -m pyserini.search.lucene --language te --topics tools/topics-and-qrels/topics.miracl-v1.0-te-${split}.tsv --index miracl-v1.0-te --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4814
+            R@100: 0.8077
+      - split: dev
+        scores:
+          - nDCG@10: 0.4942
+            R@100: 0.8307
+  - name: bm25.th
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-th
+    command: python -m pyserini.search.lucene --language th --topics tools/topics-and-qrels/topics.miracl-v1.0-th-${split}.tsv --index miracl-v1.0-th --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4629
+            R@100: 0.8768
+      - split: dev
+        scores:
+          - nDCG@10: 0.4838
+            R@100: 0.8874
+  - name: bm25.zh
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-zh
+    command: python -m pyserini.search.lucene --language zh --topics tools/topics-and-qrels/topics.miracl-v1.0-zh-${split}.tsv --index miracl-v1.0-zh --output $output --batch 128 --threads 16 --bm25 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.2018
+            R@100: 0.5541
+      - split: dev
+        scores:
+          - nDCG@10: 0.1801
+            R@100: 0.5599
+

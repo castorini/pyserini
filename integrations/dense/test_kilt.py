@@ -36,8 +36,8 @@ def parse_kilt_score(output, metric, digits=4):
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
-        self.threads = 12
-        self.batch_size = 36
+        self.threads = 16
+        self.batch_size = 256
 
         # Hard-code larger values for internal servers
         if socket.gethostname().startswith('damiano') or socket.gethostname().startswith('orca'):
