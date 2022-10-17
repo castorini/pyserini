@@ -108,7 +108,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.lucene --topics msmarco-v2-doc-dev \
                           --encoder castorini/unicoil-noexp-msmarco-passage \
-                          --index msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2  \
+                          --index msmarco-v2-doc-segmented-unicoil-noexp-0shot  \
                           --output {output_file} \
                           --impact \
                           --hits 10000 \
