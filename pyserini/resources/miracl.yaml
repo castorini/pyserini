@@ -6,11 +6,11 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.5112
+          - nDCG@10: 0.4434
             R@100: 0.8562
       - split: dev
         scores:
-          - nDCG: 0.5529
+          - nDCG@10: 0.4809
             R@100: 0.8885
   - name: bm25.bn
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-bn
@@ -18,11 +18,11 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.5839
+          - nDCG@10: 0.5122
             R@100: 0.8934
       - split: dev
         scores:
-          - nDCG: 0.5765
+          - nDCG@10: 0.5079
             R@100: 0.9088
   - name: bm25.en
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-en
@@ -30,11 +30,11 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.4409
+          - nDCG@10: 0.3415
             R@100: 0.7928
       - split: dev
         scores:
-          - nDCG: 0.4581
+          - nDCG@10: 0.3506
             R@100: 0.8190
   - name: bm25.es
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-es
@@ -42,11 +42,11 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.4215
+          - nDCG@10: 0.3030
             R@100: 0.7020
       - split: dev
         scores:
-          - nDCG: 0.4345
+          - nDCG@10: 0.3193
             R@100: 0.7018
   - name: bm25.fa
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-fa
@@ -54,11 +54,11 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.3965
+          - nDCG@10: 0.3270
             R@100: 0.7139
       - split: dev
         scores:
-          - nDCG: 0.4084
+          - nDCG@10: 0.3334
             R@100: 0.7306
   - name: bm25.fi
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-fi
@@ -66,11 +66,11 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.5606
+          - nDCG@10: 0.5106
             R@100: 0.8471
       - split: dev
         scores:
-          - nDCG: 0.6085
+          - nDCG@10: 0.5513
             R@100: 0.8910
   - name: bm25.fr
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-fr
@@ -78,11 +78,11 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.3017
+          - nDCG@10: 0.2152
             R@100: 0.6601
       - split: dev
         scores:
-          - nDCG: 0.2802
+          - nDCG@10: 0.1832
             R@100: 0.6528
   - name: bm25.hi
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-hi
@@ -90,11 +90,11 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.5488
+          - nDCG@10: 0.4745
             R@100: 0.9016
       - split: dev
         scores:
-          - nDCG: 0.5327
+          - nDCG@10: 0.4578
             R@100: 0.8679
   - name: bm25.id
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-id
@@ -102,23 +102,23 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.5938
-            R@100: 0.9387
+          - nDCG@10: 0.4844
+            R@100: 0.9234
       - split: dev
         scores:
-          - nDCG: 0.5707
-            R@100: 0.9214
+          - nDCG@10: 0.4486
+            R@100: 0.9041
   - name: bm25.ja
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-ja
     command: python -m pyserini.search.lucene --language ja --topics tools/topics-and-qrels/topics.miracl-v1.0-ja-${split}.tsv --index miracl-v1.0-ja --output $output --batch 128 --threads 16 --bm25 --hits 100
     splits:
       - split: train
         scores:
-          - nDCG: 0.4591
+          - nDCG@10: 0.3796
             R@100: 0.8225
       - split: dev
         scores:
-          - nDCG: 0.4495
+          - nDCG@10: 0.3689
             R@100: 0.8048
   - name: bm25.ko
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-ko
@@ -126,11 +126,11 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.4960
+          - nDCG@10: 0.4279
             R@100: 0.7572
       - split: dev
         scores:
-          - nDCG: 0.5042
+          - nDCG@10: 0.4190
             R@100: 0.7831
   - name: bm25.ru
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-ru
@@ -138,11 +138,11 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.3812
+          - nDCG@10: 0.3153
             R@100: 0.6464
       - split: dev
         scores:
-          - nDCG: 0.4104
+          - nDCG@10: 0.3342
             R@100: 0.6614
   - name: bm25.sw
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-sw
@@ -150,11 +150,11 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.3792
+          - nDCG@10: 0.3356
             R@100: 0.6499
       - split: dev
         scores:
-          - nDCG: 0.4357
+          - nDCG@10: 0.3826
             R@100: 0.7008
   - name: bm25.te
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-te
@@ -162,11 +162,11 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.5191
+          - nDCG@10: 0.4814
             R@100: 0.8077
       - split: dev
         scores:
-          - nDCG: 0.5292
+          - nDCG@10: 0.4942
             R@100: 0.8307
   - name: bm25.th
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-th
@@ -174,21 +174,22 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG: 0.5081
-            R@100: 0.8357
+          - nDCG@10: 0.4629
+            R@100: 0.8768
       - split: dev
         scores:
-          - nDCG: 0.5279
-            R@100: 0.8424
+          - nDCG@10: 0.4838
+            R@100: 0.8874
   - name: bm25.zh
     eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-zh
     command: python -m pyserini.search.lucene --language zh --topics tools/topics-and-qrels/topics.miracl-v1.0-zh-${split}.tsv --index miracl-v1.0-zh --output $output --batch 128 --threads 16 --bm25 --hits 100
     splits:
       - split: train
         scores:
-          - nDCG: 0.2723
-            R@100: 0.5476
+          - nDCG@10: 0.2018
+            R@100: 0.5541
       - split: dev
         scores:
-          - nDCG: 0.2595
-            R@100: 0.5551
+          - nDCG@10: 0.1801
+            R@100: 0.5599
+

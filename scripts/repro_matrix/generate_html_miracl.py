@@ -170,9 +170,9 @@ if __name__ == '__main__':
         split = 'dev'
 
         # Build the table for MRR@100, test queries
-        html_rows = generate_table_rows(1, split, 'nDCG')
+        html_rows = generate_table_rows(1, split, 'nDCG@10')
         all_rows = '\n'.join(html_rows)
-        tables_html.append(Template(table_template).substitute(desc=f'nDCG, {split} queries', rows=all_rows))
+        tables_html.append(Template(table_template).substitute(desc=f'nDCG@10, {split} queries', rows=all_rows))
 
         # Build the table for R@100, test queries
         html_rows = generate_table_rows(2, split, 'R@100')

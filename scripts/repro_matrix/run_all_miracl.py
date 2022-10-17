@@ -42,7 +42,7 @@ def print_results(metric, split):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Generate regression matrix for Mr.TyDi.')
+    parser = argparse.ArgumentParser(description='Generate regression matrix for MIRACL.')
     parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
     args = parser.parse_args()
 
@@ -62,7 +62,7 @@ if __name__ == '__main__':
 
                 print(f'  - split: {split}')
 
-                runfile = f'runs/run.mrtydi.{name}.{split}.txt'
+                runfile = f'runs/run.miracl.{name}.{split}.txt'
                 cmd = Template(cmd_template).substitute(split=split, output=runfile)
 
                 if not os.path.exists(runfile):
@@ -93,6 +93,6 @@ if __name__ == '__main__':
 
             print('')
 
-    for metric in ['nDCG', 'R@100']:
+    for metric in ['nDCG@10', 'R@100']:
         for split in ['dev', 'train']:
             print_results(metric, split)
