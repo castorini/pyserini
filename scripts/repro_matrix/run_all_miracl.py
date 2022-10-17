@@ -93,6 +93,6 @@ if __name__ == '__main__':
 
             print('')
 
-    for metric in ['nDCG', 'R@100']:
+    for metric in ['nDCG@10', 'R@100']:
         for split in ['dev', 'train']:
             print_results(metric, split)

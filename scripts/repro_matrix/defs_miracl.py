@@ -44,6 +44,6 @@ html_display = {
 }
 
 trec_eval_metric_definitions = {
-    'nDCG': '-c -M 100 -m ndcg_cut.100',
+    'nDCG@10': '-c -M 100 -m ndcg_cut.10',
     'R@100': '-c -m recall.100',
 }
