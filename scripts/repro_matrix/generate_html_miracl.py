@@ -160,6 +160,8 @@ if __name__ == '__main__':
                 for expected in splits['scores']:
                     for metric in expected:
                         if str(expected[metric])[-1] == "5":
+                            # without adding espilon, there is a chance that f-string would round 0.5 to 0 rather than 1
+                            # e.g., 0.8885 -> 0.888 rather than 0.889
                             # add a espilon to the expected score to avoid rounding error
                             expected[metric] += 1e-5
                         table[name][split][metric] = expected[metric]
