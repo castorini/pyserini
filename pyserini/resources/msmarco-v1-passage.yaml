@@ -350,7 +350,7 @@ conditions:
     display: BM25+RM3 w/ doc2query-T5 (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (2b)"
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-slim --topics $topics --output $output --bm25 --rm3 --k1 0.9 --b 0.4
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset

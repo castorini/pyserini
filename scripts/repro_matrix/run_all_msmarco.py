@@ -138,4 +138,6 @@ if __name__ == '__main__':
                   f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
 
     end = time.time()
+
+    print('\n')
     print(f'Total elapsed time: {end - start:.0f}s')
