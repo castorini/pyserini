@@ -4657,8 +4657,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
-        "md5": "59f44f67623e6c40402a26a4df585acd",
-        "size compressed (bytes)": 6286832435,
+        "md5": "e8b59e3eb2e08f61f81569c6d4c85350",
+        "size compressed (bytes)": 6286832343,
         "documents": 2207172,
         "downloaded": False,
         "texts": "miracl-v1.0-fa"
