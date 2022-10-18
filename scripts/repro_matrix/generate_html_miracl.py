@@ -159,6 +159,9 @@ if __name__ == '__main__':
 
                 for expected in splits['scores']:
                     for metric in expected:
+                        if str(expected[metric])[-1] == "5":
+                            # add a espilon to the expected score to avoid rounding error
+                            expected[metric] += 1e-5
                         table[name][split][metric] = expected[metric]
 
                         eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
@@ -179,6 +182,4 @@ if __name__ == '__main__':
         all_rows = '\n'.join(html_rows)
         tables_html.append(Template(table_template).substitute(desc=f'Recall@100, {split} queries', rows=all_rows))
 
-        # import pdb
-        # pdb.set_trace()
         print(Template(html_template).substitute(title='MIRACL', tables=' '.join(tables_html)))
