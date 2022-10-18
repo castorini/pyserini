@@ -33,14 +33,11 @@ languages = [
     ['zh', 'chinese']
 ]
 
-models = ['bm25']  # , 'mdpr-tied-pft-msmarco', 'mdpr-tied-pft-msmarco-ft-all']
+models = ['bm25', 'mdpr-tied-pft-msmarco']
 
 html_display = {
     'bm25': 'BM25',
-    # 'mdpr-split-pft-nq': 'mDPR (split encoders), pre-FT w/ NQ',
-    # 'mdpr-tied-pft-nq': 'mDPR (tied encoders), pre-FT w/ NQ',
-    # 'mdpr-tied-pft-msmarco': 'mDPR (tied encoders), pre-FT w/ MS MARCO',
-    # 'mdpr-tied-pft-msmarco-ft-all': 'mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all'
+    'mdpr-tied-pft-msmarco': 'mDPR (tied encoders), pre-FT w/ MS MARCO',
 }
 
 trec_eval_metric_definitions = {

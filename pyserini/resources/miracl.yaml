@@ -193,3 +193,196 @@ conditions:
           - nDCG@10: 0.1801
             R@100: 0.5599
 
+  # mdpr-tied-pft-msmarco
+  - name: mdpr-tied-pft-msmarco.ar
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-ar
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-ar-${split}.tsv --index miracl-v1.0-ar-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.4653
+            R@100: 0.8293  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.4993
+            R@100: 0.8407
+  - name: mdpr-tied-pft-msmarco.bn
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-bn
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-bn-${split}.tsv --index miracl-v1.0-bn-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.4362
+            R@100: 0.8045  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.4427
+            R@100: 0.8193
+  - name: mdpr-tied-pft-msmarco.en
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-en
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-en-${split}.tsv --index miracl-v1.0-en-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.3986
+            R@100: 0.7779  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.3938
+            R@100: 0.7675
+  - name: mdpr-tied-pft-msmarco.es
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-es
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-es-${split}.tsv --index miracl-v1.0-es-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4637
+            R@100: 0.8654
+      - split: dev
+        scores:
+          - nDCG@10: 0.4777
+            R@100: 0.8643
+  - name: mdpr-tied-pft-msmarco.fa
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-fa
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-fa-${split}.tsv --index miracl-v1.0-fa-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4882
+            R@100: 0.9092
+      - split: dev
+        scores:
+          - nDCG@10: 0.4800
+            R@100: 0.8980
+  - name: mdpr-tied-pft-msmarco.fi
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-fi
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-fi-${split}.tsv --index miracl-v1.0-fi-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.4426
+            R@100: 0.7611  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.4721
+            R@100: 0.7877
+  - name: mdpr-tied-pft-msmarco.fr
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-fr
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-fr-${split}.tsv --index miracl-v1.0-fr-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4372
+            R@100: 0.9268
+      - split: dev
+        scores:
+          - nDCG@10: 0.4352
+            R@100: 0.9154
+  - name: mdpr-tied-pft-msmarco.hi
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-hi
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-hi-${split}.tsv --index miracl-v1.0-hi-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3685
+            R@100: 0.7780
+      - split: dev
+        scores:
+          - nDCG@10: 0.3830
+            R@100: 0.7755
+  - name: mdpr-tied-pft-msmarco.id
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-id
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-id-${split}.tsv --index miracl-v1.0-id-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.2549
+            R@100: 0.5610  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.2719
+            R@100: 0.5734
+  - name: mdpr-tied-pft-msmarco.ja
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-ja
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-ja-${split}.tsv --index miracl-v1.0-ja-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.4342
+            R@100: 0.8211  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.4390
+            R@100: 0.8254
+  - name: mdpr-tied-pft-msmarco.ko
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-ko
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-${split}.tsv --index miracl-v1.0-ko-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.4147
+            R@100: 0.7699  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.4189
+            R@100: 0.7369
+  - name: mdpr-tied-pft-msmarco.ru
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-ru
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-ru-${split}.tsv --index miracl-v1.0-ru-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.3812
+            R@100: 0.7854  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.4073
+            R@100: 0.7972
+  - name: mdpr-tied-pft-msmarco.sw
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-sw
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-sw-${split}.tsv --index miracl-v1.0-sw-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.2973
+            R@100: 0.5761  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.2990
+            R@100: 0.6158
+  - name: mdpr-tied-pft-msmarco.te
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-te
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-te-${split}.tsv --index miracl-v1.0-te-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3723
+            R@100: 0.7698
+      - split: dev
+        scores:
+          - nDCG@10: 0.3557
+            R@100: 0.7619
+  - name: mdpr-tied-pft-msmarco.th
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-th
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-th-${split}.tsv --index miracl-v1.0-th-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3451
+            R@100: 0.6728
+      - split: dev
+        scores:
+          - nDCG@10: 0.3578
+            R@100: 0.6783
+  - name: mdpr-tied-pft-msmarco.zh
+    eval_key: tools/topics-and-qrels/qrels.miracl-v1.0-zh
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics tools/topics-and-qrels/topics.miracl-v1.0-zh-${split}.tsv --index miracl-v1.0-zh-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 100
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5040
+            R@100: 0.9355
+      - split: dev
+        scores:
+          - nDCG@10: 0.5116
+            R@100: 0.9436
