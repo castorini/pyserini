@@ -26,7 +26,8 @@ from scripts.repro_matrix.utils import find_msmarco_table_topic_set_key_v1, find
 
 
 def format_command(raw):
-    return raw.replace('--topics', '\\\n  --topics')\
+    return raw.replace('--topics', '\\\n  --topics') \
+        .replace('--threads', '\\\n  --threads')\
         .replace('--index', '\\\n  --index')\
         .replace('--output', '\\\n  --output')\
         .replace('.txt', '.txt \\\n ')

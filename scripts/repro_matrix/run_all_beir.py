@@ -17,6 +17,7 @@
 import argparse
 import math
 import os
+import time
 from collections import defaultdict
 from string import Template
 
@@ -29,6 +30,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for BEIR.')
     parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
     args = parser.parse_args()
+
+    start = time.time()
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
@@ -105,3 +108,6 @@ if __name__ == '__main__':
     print('avg' + ' ' * 22 + f'{final_scores["flat"]["nDCG@10"]:8.4f}{final_scores["flat"]["R@100"]:8.4f}  ' +
           f'{final_scores["multifield"]["nDCG@10"]:8.4f}{final_scores["multifield"]["R@100"]:8.4f}  ' +
           f'{final_scores["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{final_scores["splade-distil-cocodenser-medium"]["R@100"]:8.4f} ')
+
+    end = time.time()
+    print(f'Total elapsed time: {end - start:.0f}s')
