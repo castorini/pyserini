@@ -116,6 +116,32 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(results['q2'][9].docid, 'CACM-3040')
         self.assertAlmostEqual(results['q2'][9].score, 2.68780, places=5)
 
+    def test_batch_rocchio(self):
+        self.searcher.set_rocchio()
+        results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], threads=2)
+        self.searcher.unset_rocchio()
+
+        self.assertEqual(3204, self.searcher.num_docs)
+        self.assertTrue(isinstance(results, Dict))
+
+        self.assertTrue(isinstance(results['q1'], List))
+        self.assertTrue(isinstance(results['q1'][0], JLuceneSearcherResult))
+        self.assertEqual(results['q1'][0].docid, 'CACM-3134')
+        self.assertAlmostEqual(results['q1'][0].score, 7.18830, places=5)
+
+        self.assertTrue(isinstance(results['q1'][9], JLuceneSearcherResult))
+        self.assertEqual(results['q1'][9].docid, 'CACM-2140')
+        self.assertAlmostEqual(results['q1'][9].score, 5.57970, places=5)
+
+        self.assertTrue(isinstance(results['q2'], List))
+        self.assertTrue(isinstance(results['q2'][0], JLuceneSearcherResult))
+        self.assertEqual(results['q2'][0].docid, 'CACM-3041')
+        self.assertAlmostEqual(results['q2'][0].score, 6.14870, places=5)
+
+        self.assertTrue(isinstance(results['q2'][9], JLuceneSearcherResult))
+        self.assertEqual(results['q2'][9].docid, 'CACM-2251')
+        self.assertAlmostEqual(results['q2'][9].score, 4.97380, places=5)
+
     def test_basic_k(self):
         hits = self.searcher.search('information retrieval', k=100)
 
