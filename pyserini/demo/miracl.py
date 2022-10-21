@@ -15,111 +15,135 @@
 #
 
 """
-This script provides a web interface demo for retrieval on the MIRACL dataset.
+This script provides an interactive web interface demo for retrieval on the MIRACL dataset.
 It requires `flask` (`pip install flask~=2.2.0`).
-An example command looks like `python -m pyserini.demo.miracl --language en` that starts up a server on port 8080.
+An example command looks like `python -m pyserini.demo.miracl` that starts up a server on port 8080.
 The demo can be accessed via "http://localhost:8080" in a web browser.
 Additional arguments include:
-    `--port [PORT] --hits [Number of hits] --index [BM25 or mdpr-pft] --k1 [BM25 k1] --b [BM25 b] --device [cpu, cuda]`
+    --port [PORT] --hits [Number of hits] --index [BM25 or mdpr-tied-pft-msmarco]
+    --k1 [BM25 k1] --b [BM25 b] --device [cpu, cuda]
 """
 import json
 import logging
 from argparse import ArgumentParser
+from functools import partial
+from typing import Callable, Optional, Tuple, Union
 
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, jsonify
 from pyserini.search import LuceneSearcher, FaissSearcher, AutoQueryEncoder
 
 logging.basicConfig(
-    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
+    format='%(asctime)s | %(levelname)s | %(name)s | %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
     level=logging.INFO,
 )
-logger = logging.getLogger("miracl-demo")
+logger = logging.getLogger('miracl-demo')
 
-VERSION = "1.0"
-LANGUAGES = ("ar", "bn", "en", "es", "fa", "fi", "fr", "hi", "id", "ja", "ko", "ru", "sw", "te", "th", "zh")
+VERSION = '1.0'
+LANGUAGES = ('ar', 'bn', 'en', 'es', 'fa', 'fi', 'fr', 'hi', 'id', 'ja', 'ko', 'ru', 'sw', 'te', 'th', 'zh')
+Searcher = Union[FaissSearcher, LuceneSearcher]
 
 
-def create_app(searcher, lang: str, k: int, retriever: str):
+def create_app(k: int, load_searcher_fn: Callable[[str], Tuple[Searcher, str]]):
     app = Flask(__name__)
 
-    @app.route("/")
-    def index():
-        return render_template("miracl.html", lang=lang, retriever=retriever)
+    lang = LANGUAGES[0]
+    searcher, retriever = load_searcher_fn(lang)
 
-    @app.route("/search", methods=["GET", "POST"])
+    @app.route('/')
+    def index():
+        nonlocal lang, searcher, retriever
+        return render_template('miracl.html', lang=lang, retriever=retriever)
+
+    @app.route('/search', methods=['GET', 'POST'])
     def search():
-        query = request.form["q"]
+        nonlocal lang, searcher, retriever
+        query = request.form['q']
         if not query:
             search_results = []
-            flash("Question is required")
+            flash('Question is required')
         else:
             hits = searcher.search(query, k=k)
             docs = [json.loads(searcher.doc(hit.docid).raw()) for hit in hits]
             search_results = [
                 {
-                    "rank": r + 1,
-                    "docid": hit.docid,
-                    "doc": docs[r]["text"],
-                    "title": docs[r]["title"],
-                    "score": hit.score,
+                    'rank': r + 1,
+                    'docid': hit.docid,
+                    'doc': docs[r]['text'],
+                    'title': docs[r]['title'],
+                    'score': hit.score,
                 }
                 for r, hit in enumerate(hits)
             ]
         return render_template(
-            "miracl.html", search_results=search_results, query=query, lang=lang, retriever=retriever
+            'miracl.html', search_results=search_results, query=query, lang=lang, retriever=retriever
         )
 
+    @app.route('/lang', methods=['GET'])
+    def change_language():
+        nonlocal lang, searcher, retriever
+        new_lang = request.args.get('new_lang', '', type=str)
+        if not new_lang or new_lang not in LANGUAGES:
+            return
+
+        lang = new_lang
+        searcher, retriever = load_searcher_fn(lang)
+        return jsonify(lang=lang)
+
     return app
+
+
+def _load_sparse_searcher(language: str, k1: Optional[float]=None, b: Optional[float]=None) -> (Searcher, str):
+    searcher = LuceneSearcher.from_prebuilt_index(f'miracl-v{VERSION}-{language}')
+    searcher.set_language(language)
+    if k1 is not None and b is not None:
+        searcher.set_bm25(k1, b)
+        retriever_name = f'BM25 (k1={k1}, b={b})'
+    else:
+        retriever_name = 'BM25'
+
+    return searcher, retriever_name
+
+
+def _load_faiss_searcher(language: str, device:  str) -> (Searcher, str):
+    query_encoder = AutoQueryEncoder(encoder_dir='castorini/mdpr-tied-pft-msmarco', device=device)
+    searcher = FaissSearcher.from_prebuilt_index(
+        f'miracl-v{VERSION}-{language}-mdpr-tied-pft-msmarco', query_encoder
+    )
+    retriever_name = 'mDPR-pFT-MSMARCO'
+    return searcher, retriever_name
 
 
 def main():
     parser = ArgumentParser()
 
+    parser.add_argument('--index', default='BM25', choices=('BM25', 'mdpr-tied-pft-msmarco'), help='Index type.')
+    parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
+    parser.add_argument('--b', type=float, help='BM25 b parameter.')
+    parser.add_argument('--hits', type=int, default=10, help='Number of hits returned by the retriever')
     parser.add_argument(
-        "--language",
+        '--device',
         type=str,
-        choices=LANGUAGES,
-        required=True,
-        default=None,
-    )
-    parser.add_argument("--index", default="BM25", choices=("BM25", "mdpr-pft"), help="Index type.")
-    parser.add_argument("--k1", type=float, help="BM25 k1 parameter.")
-    parser.add_argument("--b", type=float, help="BM25 b parameter.")
-    parser.add_argument("--hits", type=int, default=10, help="Number of hits returned by the retriever")
-    parser.add_argument(
-        "--device",
-        type=str,
-        default="cpu",
-        help="Device to run query encoder, cpu or [cuda:0, cuda:1, ...] (used only when index is based on FAISS)",
+        default='cpu',
+        help='Device to run query encoder, cpu or [cuda:0, cuda:1, ...] (used only when index is based on FAISS)',
     )
     parser.add_argument(
-        "--port",
+        '--port',
         default=8080,
         type=int,
-        help="Web server port",
+        help='Web server port',
     )
 
     args = parser.parse_args()
 
-    if args.index == "mdpr-pft":
-        query_encoder = AutoQueryEncoder(encoder_dir="castorini/mdpr-tied-pft-msmarco", device=args.device)
-        searcher = FaissSearcher.from_prebuilt_index(
-            f"miracl-v{VERSION}-{args.language}-mdpr-tied-pft-msmarco", query_encoder
-        )
-        retriever = "mDPR-pFT-MSMARCO"
+    if args.index == 'mdpr-tied-pft-msmarco':
+        load_fn = partial(_load_faiss_searcher, device=args.device)
     else:
-        searcher = LuceneSearcher.from_prebuilt_index(f"miracl-v{VERSION}-{args.language}")
-        searcher.set_language(args.language)
-        if args.k1 is not None and args.b is not None:
-            searcher.set_bm25(args.k1, args.b)
-            retriever = f"BM25 (k1={args.k1}, b={args.b})"
-        else:
-            retriever = "BM25"
+        load_fn = partial(_load_sparse_searcher, k1=args.k1, b=args.b)
 
-    app = create_app(searcher, args.language, args.hits, retriever)
-    app.run(host="0.0.0.0", port=args.port)
+    app = create_app(args.hits, load_fn)
+    app.run(host='0.0.0.0', port=args.port)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
