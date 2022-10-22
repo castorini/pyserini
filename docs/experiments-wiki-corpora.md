@@ -131,42 +131,49 @@ Here's how our results stack up
 ### BM25 Results:
 
 NQ Dev Results
+
 | Wikipedia Corpus | Ours (100 word splits) | Ours (Segment 6, Stride 3) | Ours (Segment 8, Stride 4) | With Tables and Lists (Segment 6, Stride 3) | With Tables and Lists (Segment 8, Stride 4) |
 |------------------|------------------------|----------------------------|----------------------------|-----------------------------------|-----------------------------------|
 | Top 20 Accuracy  | 0.6219                 | 0.6252                     | 0.6451                     | 0.6465                            | 0.6672                            |
 | Top 100 Accuracy | 0.7603                 | 0.7635                     | 0.7807                     | 0.7987                            | 0.8080                            |
 
 Trivia Dev Results
+
 | Wikipedia Corpus | Ours (100 word splits) | Ours (Segment 6, Stride 3) | Ours (Segment 8, Stride 4) | With Tables and Lists (Segment 6, Stride 3) | With Tables and Lists (Segment 8, Stride 4) |
 |------------------|------------------------|----------------------------|----------------------------|-----------------------------------|-----------------------------------|
 | Top 20 Accuracy  | 0.7632                 | 0.7751                     | 0.7839                     | 0.7814                            | 0.7895                            |
 | Top 100 Accuracy | 0.8313                 | 0.8401                     | 0.8479                     | 0.8453                            | 0.8523                            |
 
 NQ Test Results
+
 | Wikipedia Corpus | Ours (100 word splits) | Ours (Segment 6, Stride 3) | Ours (Segment 8, Stride 4) | With Tables and Lists (Segment 6, Stride 3) | With Tables and Lists (Segment 8, Stride 4) |
 |------------------|------------------------|----------------------------|----------------------------|-----------------------------------|-----------------------------------|
 | Top 20 Accuracy  | 0.6377                 | 0.6429                     | 0.6673                     | 0.6665                            | 0.6964                            |
 | Top 100 Accuracy | 0.7812                 | 0.7892                     | 0.7964                     | 0.8166                            | 0.8291                            |
 
 Trivia Test Results
+
 | Wikipedia Corpus | Ours (100 word splits) | Ours (Segment 6, Stride 3) | Ours (Segment 8, Stride 4) | With Tables and Lists (Segment 6, Stride 3) | With Tables and Lists (Segment 8, Stride 4) |
 |------------------|------------------------|----------------------------|----------------------------|-----------------------------------|-----------------------------------|
 | Top 20 Accuracy  | 0.7625                 | 0.7749                     | 0.7858                     | 0.7832                            | 0.7947                            |
 | Top 100 Accuracy | 0.8328                 | 0.8420                     | 0.8471                     | 0.8482                            | 0.8546                            |
 
 WQ Test Results
+
 | Wikipedia Corpus | Ours (100 word splits) | Ours (Segment 6, Stride 3) | Ours (Segment 8, Stride 4) | With Tables and Lists (Segment 6, Stride 3) | With Tables and Lists (Segment 8, Stride 4) |
 |------------------|------------------------|----------------------------|----------------------------|-----------------------------------|-----------------------------------|
 | Top 20 Accuracy  | 0.6063                 | 0.6284                     | 0.6521                     | 0.6403                            | 0.6609                            |
 | Top 100 Accuracy | 0.7515                 | 0.7653                     | 0.7820                     | 0.7874                            | 0.8022                            |
 
 Curated Test Results
+
 | Wikipedia Corpus | Ours (100 word splits) | Ours (Segment 6, Stride 3) | Ours (Segment 8, Stride 4) | With Tables and Lists (Segment 6, Stride 3) | With Tables and Lists (Segment 8, Stride 4) |
 |------------------|------------------------|----------------------------|----------------------------|-----------------------------------|-----------------------------------|
 | Top 20 Accuracy  | 0.7983                 | 0.8141                     | 0.8271                     | 0.8055                            | 0.8271                            |
 | Top 100 Accuracy | 0.9049                 | 0.9121                     | 0.9222                     | 0.9135                            | 0.9207                            |
 
 Squad Test Results
+
 | Wikipedia Corpus | Ours (100 word splits) | Ours (Segment 6, Stride 3) | Ours (Segment 8, Stride 4) | With Tables and Lists (Segment 6, Stride 3) | With Tables and Lists (Segment 8, Stride 4) |
 |------------------|------------------------|----------------------------|----------------------------|-----------------------------------|-----------------------------------|
 | Top 20 Accuracy  | 0.7020                 | 0.7408                     | 0.7479                     | 0.7265                            | 0.7348                            |
