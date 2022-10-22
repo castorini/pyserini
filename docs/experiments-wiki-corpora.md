@@ -72,7 +72,7 @@ python -m pyserini.search.lucene \
 
 ## DPR Retrieval
 
-Retrieval with a DPR model is done in the Tevatron toolkit. Please follow the instructions from this document: https://github.com/texttron/tevatron/blob/main/examples/example_dpr.md. 
+Retrieval with a DPR model is done in the Tevatron toolkit. Please follow the instructions from Tevatron to do this. 
 
 We make the DPR models available here: (You may use wget to download them)
 
