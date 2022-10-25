@@ -1024,7 +1024,7 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 733)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('miracl-v1.0-th-dev')
+        topics = search.get_topics('miracl-v1.0-zh-dev')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 393)
         self.assertTrue(isinstance(next(iter(topics.keys())), str))

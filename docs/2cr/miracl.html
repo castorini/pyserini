@@ -662,7 +662,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ar-dev.tsv \
+  --topics miracl-v1.0-ar-dev \
   --index miracl-v1.0-ar-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.ar.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -671,7 +671,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-ar-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-ar-dev \
   run.miracl.mdpr-tied-pft-msmarco.ar.dev.txt</code></pre>
   </blockquote>
 
@@ -683,7 +683,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-bn-dev.tsv \
+  --topics miracl-v1.0-bn-dev \
   --index miracl-v1.0-bn-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.bn.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -692,7 +692,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-bn-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-bn-dev \
   run.miracl.mdpr-tied-pft-msmarco.bn.dev.txt</code></pre>
   </blockquote>
 
@@ -704,7 +704,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-en-dev.tsv \
+  --topics miracl-v1.0-en-dev \
   --index miracl-v1.0-en-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.en.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -713,7 +713,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-en-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-en-dev \
   run.miracl.mdpr-tied-pft-msmarco.en.dev.txt</code></pre>
   </blockquote>
 
@@ -725,7 +725,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-es-dev.tsv \
+  --topics miracl-v1.0-es-dev \
   --index miracl-v1.0-es-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.es.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -734,7 +734,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-es-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-es-dev \
   run.miracl.mdpr-tied-pft-msmarco.es.dev.txt</code></pre>
   </blockquote>
 
@@ -746,7 +746,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-fa-dev.tsv \
+  --topics miracl-v1.0-fa-dev \
   --index miracl-v1.0-fa-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.fa.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -755,7 +755,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-fa-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-fa-dev \
   run.miracl.mdpr-tied-pft-msmarco.fa.dev.txt</code></pre>
   </blockquote>
 
@@ -767,7 +767,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-fi-dev.tsv \
+  --topics miracl-v1.0-fi-dev \
   --index miracl-v1.0-fi-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.fi.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -776,7 +776,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-fi-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-fi-dev \
   run.miracl.mdpr-tied-pft-msmarco.fi.dev.txt</code></pre>
   </blockquote>
 
@@ -788,7 +788,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-fr-dev.tsv \
+  --topics miracl-v1.0-fr-dev \
   --index miracl-v1.0-fr-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.fr.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -797,7 +797,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-fr-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-fr-dev \
   run.miracl.mdpr-tied-pft-msmarco.fr.dev.txt</code></pre>
   </blockquote>
 
@@ -809,7 +809,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-hi-dev.tsv \
+  --topics miracl-v1.0-hi-dev  \
   --index miracl-v1.0-hi-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.hi.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -818,7 +818,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-hi-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-hi-dev  \
   run.miracl.mdpr-tied-pft-msmarco.hi.dev.txt</code></pre>
   </blockquote>
 
@@ -830,7 +830,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-id-dev.tsv \
+  --topics miracl-v1.0-id-dev  \
   --index miracl-v1.0-id-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.id.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -839,7 +839,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-id-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-id-dev \
   run.miracl.mdpr-tied-pft-msmarco.id.dev.txt</code></pre>
   </blockquote>
 
@@ -851,7 +851,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ja-dev.tsv \
+  --topics miracl-v1.0-ja-dev \
   --index miracl-v1.0-ja-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.ja.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -860,7 +860,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-ja-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-ja-dev \
   run.miracl.mdpr-tied-pft-msmarco.ja.dev.txt</code></pre>
   </blockquote>
 
@@ -872,7 +872,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --topics miracl-v1.0-ko-dev \
   --index miracl-v1.0-ko-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.ko.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -881,7 +881,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-ko-dev \
   run.miracl.mdpr-tied-pft-msmarco.ko.dev.txt</code></pre>
   </blockquote>
 
@@ -893,7 +893,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ru-dev.tsv \
+  --topics miracl-v1.0-ru-dev \
   --index miracl-v1.0-ru-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.ru.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -902,7 +902,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-ru-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-ru-dev \
   run.miracl.mdpr-tied-pft-msmarco.ru.dev.txt</code></pre>
   </blockquote>
 
@@ -914,7 +914,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-sw-dev.tsv \
+  --topics miracl-v1.0-sw-dev \
   --index miracl-v1.0-sw-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.sw.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -923,7 +923,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-sw-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-sw-dev \
   run.miracl.mdpr-tied-pft-msmarco.sw.dev.txt</code></pre>
   </blockquote>
 
@@ -936,7 +936,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-te-dev.tsv \
+  --topics miracl-v1.0-te-dev \
   --index miracl-v1.0-te-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.te.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -945,7 +945,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-te-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-te-dev \
   run.miracl.mdpr-tied-pft-msmarco.te.dev.txt</code></pre>
   </blockquote>
 
@@ -958,7 +958,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-th-dev.tsv \
+  --topics miracl-v1.0-th-dev \
   --index miracl-v1.0-th-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.th.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -967,7 +967,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-th-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-th-dev \
   run.miracl.mdpr-tied-pft-msmarco.th.dev.txt</code></pre>
   </blockquote>
 
@@ -980,7 +980,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-zh-dev.tsv \
+  --topics miracl-v1.0-zh-dev \
   --index miracl-v1.0-zh-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.zh.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -989,7 +989,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-zh-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-zh-dev \
   run.miracl.mdpr-tied-pft-msmarco.zh.dev.txt</code></pre>
   </blockquote>
 
@@ -1121,7 +1121,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language ar \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ar-dev.tsv \
+  --topics miracl-v1.0-ar-dev \
   --index miracl-v1.0-ar \
   --output run.miracl.bm25.ar.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1130,7 +1130,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ar-dev.tsv \
+  -c -m recall.100 miracl-v1.0-ar-dev \
   run.miracl.bm25.ar.dev.txt</code></pre>
   </blockquote>
 
@@ -1141,7 +1141,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language bn \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-bn-dev.tsv \
+  --topics miracl-v1.0-bn-dev \
   --index miracl-v1.0-bn \
   --output run.miracl.bm25.bn.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1150,7 +1150,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-bn-dev.tsv \
+  -c -m recall.100 miracl-v1.0-bn-dev \
   run.miracl.bm25.bn.dev.txt</code></pre>
   </blockquote>
 
@@ -1161,7 +1161,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language en \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-en-dev.tsv \
+  --topics miracl-v1.0-en-dev \
   --index miracl-v1.0-en \
   --output run.miracl.bm25.en.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1170,7 +1170,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-en-dev.tsv \
+  -c -m recall.100 miracl-v1.0-en-dev \
   run.miracl.bm25.en.dev.txt</code></pre>
   </blockquote>
 
@@ -1181,7 +1181,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language es \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-es-dev.tsv \
+  --topics miracl-v1.0-es-dev \
   --index miracl-v1.0-es \
   --output run.miracl.bm25.es.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1190,7 +1190,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-es-dev.tsv \
+  -c -m recall.100 miracl-v1.0-es-dev \
   run.miracl.bm25.es.dev.txt</code></pre>
   </blockquote>
 
@@ -1201,7 +1201,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language fa \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-fa-dev.tsv \
+  --topics miracl-v1.0-fa-dev \
   --index miracl-v1.0-fa \
   --output run.miracl.bm25.fa.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1210,7 +1210,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-fa-dev.tsv \
+  -c -m recall.100 miracl-v1.0-fa-dev \
   run.miracl.bm25.fa.dev.txt</code></pre>
   </blockquote>
 
@@ -1221,7 +1221,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language fi \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-fi-dev.tsv \
+  --topics miracl-v1.0-fi-dev \
   --index miracl-v1.0-fi \
   --output run.miracl.bm25.fi.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1230,7 +1230,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-fi-dev.tsv \
+  -c -m recall.100 miracl-v1.0-fi-dev \
   run.miracl.bm25.fi.dev.txt</code></pre>
   </blockquote>
 
@@ -1241,7 +1241,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language fr \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-fr-dev.tsv \
+  --topics miracl-v1.0-fr-dev \
   --index miracl-v1.0-fr \
   --output run.miracl.bm25.fr.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1250,7 +1250,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-fr-dev.tsv \
+  -c -m recall.100 miracl-v1.0-fr-dev \
   run.miracl.bm25.fr.dev.txt</code></pre>
   </blockquote>
 
@@ -1261,7 +1261,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language hi \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-hi-dev.tsv \
+  --topics miracl-v1.0-hi-dev \
   --index miracl-v1.0-hi \
   --output run.miracl.bm25.hi.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1270,7 +1270,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-hi-dev.tsv \
+  -c -m recall.100 miracl-v1.0-hi-dev \
   run.miracl.bm25.hi.dev.txt</code></pre>
   </blockquote>
 
@@ -1281,7 +1281,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language id \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-id-dev.tsv \
+  --topics miracl-v1.0-id-dev \
   --index miracl-v1.0-id \
   --output run.miracl.bm25.id.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1290,7 +1290,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-id-dev.tsv \
+  -c -m recall.100 miracl-v1.0-id-dev \
   run.miracl.bm25.id.dev.txt</code></pre>
   </blockquote>
 
@@ -1301,7 +1301,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language ja \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ja-dev.tsv \
+  --topics miracl-v1.0-ja-dev \
   --index miracl-v1.0-ja \
   --output run.miracl.bm25.ja.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1310,7 +1310,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ja-dev.tsv \
+  -c -m recall.100 miracl-v1.0-ja-dev \
   run.miracl.bm25.ja.dev.txt</code></pre>
   </blockquote>
 
@@ -1321,7 +1321,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language ko \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --topics miracl-v1.0-ko-dev \
   --index miracl-v1.0-ko \
   --output run.miracl.bm25.ko.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1330,7 +1330,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  -c -m recall.100 miracl-v1.0-ko-dev \
   run.miracl.bm25.ko.dev.txt</code></pre>
   </blockquote>
 
@@ -1341,7 +1341,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language ru \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ru-dev.tsv \
+  --topics miracl-v1.0-ru-dev \
   --index miracl-v1.0-ru \
   --output run.miracl.bm25.ru.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1350,7 +1350,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ru-dev.tsv \
+  -c -m recall.100 miracl-v1.0-ru-dev \
   run.miracl.bm25.ru.dev.txt</code></pre>
   </blockquote>
 
@@ -1361,7 +1361,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language sw \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-sw-dev.tsv \
+  --topics miracl-v1.0-sw-dev \
   --index miracl-v1.0-sw \
   --output run.miracl.bm25.sw.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1370,7 +1370,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-sw-dev.tsv \
+  -c -m recall.100 miracl-v1.0-sw-dev \
   run.miracl.bm25.sw.dev.txt</code></pre>
   </blockquote>
 
@@ -1382,7 +1382,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language te \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-te-dev.tsv \
+  --topics miracl-v1.0-te-dev \
   --index miracl-v1.0-te \
   --output run.miracl.bm25.te.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1391,7 +1391,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-te-dev.tsv \
+  -c -m recall.100 miracl-v1.0-te-dev \
   run.miracl.bm25.te.dev.txt</code></pre>
   </blockquote>
 
@@ -1403,7 +1403,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language th \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-th-dev.tsv \
+  --topics miracl-v1.0-th-dev \
   --index miracl-v1.0-th \
   --output run.miracl.bm25.th.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1412,7 +1412,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-th-dev.tsv \
+  -c -m recall.100 miracl-v1.0-th-dev \
   run.miracl.bm25.th.dev.txt</code></pre>
   </blockquote>
 
@@ -1424,7 +1424,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language zh \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-zh-dev.tsv \
+  --topics miracl-v1.0-zh-dev \
   --index miracl-v1.0-zh \
   --output run.miracl.bm25.zh.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -1433,7 +1433,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-zh-dev.tsv \
+  -c -m recall.100 miracl-v1.0-zh-dev \
   run.miracl.bm25.zh.dev.txt</code></pre>
   </blockquote>
 
@@ -1534,7 +1534,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ar-dev.tsv \
+  --topics miracl-v1.0-ar-dev \
   --index miracl-v1.0-ar-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.ar.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1543,7 +1543,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ar-dev.tsv \
+  -c -m recall.100 miracl-v1.0-ar-dev \
   run.miracl.mdpr-tied-pft-msmarco.ar.dev.txt</code></pre>
   </blockquote>
 
@@ -1555,7 +1555,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-bn-dev.tsv \
+  --topics miracl-v1.0-bn-dev \
   --index miracl-v1.0-bn-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.bn.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1564,7 +1564,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-bn-dev.tsv \
+  -c -m recall.100 miracl-v1.0-bn-dev \
   run.miracl.mdpr-tied-pft-msmarco.bn.dev.txt</code></pre>
   </blockquote>
 
@@ -1576,7 +1576,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-en-dev.tsv \
+  --topics miracl-v1.0-en-dev \
   --index miracl-v1.0-en-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.en.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1585,7 +1585,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-en-dev.tsv \
+  -c -m recall.100 miracl-v1.0-en-dev \
   run.miracl.mdpr-tied-pft-msmarco.en.dev.txt</code></pre>
   </blockquote>
 
@@ -1597,7 +1597,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-es-dev.tsv \
+  --topics miracl-v1.0-es-dev \
   --index miracl-v1.0-es-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.es.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1606,7 +1606,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-es-dev.tsv \
+  -c -m recall.100 miracl-v1.0-es-dev \
   run.miracl.mdpr-tied-pft-msmarco.es.dev.txt</code></pre>
   </blockquote>
 
@@ -1618,7 +1618,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-fa-dev.tsv \
+  --topics miracl-v1.0-fa-dev \
   --index miracl-v1.0-fa-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.fa.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1627,7 +1627,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-fa-dev.tsv \
+  -c -m recall.100 miracl-v1.0-fa-dev  \
   run.miracl.mdpr-tied-pft-msmarco.fa.dev.txt</code></pre>
   </blockquote>
 
@@ -1639,7 +1639,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-fi-dev.tsv \
+  --topics miracl-v1.0-fi-dev  \
   --index miracl-v1.0-fi-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.fi.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1648,7 +1648,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-fi-dev.tsv \
+  -c -m recall.100 miracl-v1.0-fi-dev \
   run.miracl.mdpr-tied-pft-msmarco.fi.dev.txt</code></pre>
   </blockquote>
 
@@ -1660,7 +1660,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-fr-dev.tsv \
+  --topics miracl-v1.0-fr-dev \
   --index miracl-v1.0-fr-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.fr.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1669,7 +1669,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-fr-dev.tsv \
+  -c -m recall.100 miracl-v1.0-fr-dev \
   run.miracl.mdpr-tied-pft-msmarco.fr.dev.txt</code></pre>
   </blockquote>
 
@@ -1681,7 +1681,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-hi-dev.tsv \
+  --topics miracl-v1.0-hi-dev \
   --index miracl-v1.0-hi-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.hi.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1690,7 +1690,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-hi-dev.tsv \
+  -c -m recall.100 miracl-v1.0-hi-dev \
   run.miracl.mdpr-tied-pft-msmarco.hi.dev.txt</code></pre>
   </blockquote>
 
@@ -1702,7 +1702,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-id-dev.tsv \
+  --topics miracl-v1.0-id-dev \
   --index miracl-v1.0-id-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.id.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1711,7 +1711,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-id-dev.tsv \
+  -c -m recall.100 miracl-v1.0-id-dev \
   run.miracl.mdpr-tied-pft-msmarco.id.dev.txt</code></pre>
   </blockquote>
 
@@ -1723,7 +1723,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ja-dev.tsv \
+  --topics miracl-v1.0-ja-dev \
   --index miracl-v1.0-ja-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.ja.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1732,7 +1732,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ja-dev.tsv \
+  -c -m recall.100 miracl-v1.0-ja-dev \
   run.miracl.mdpr-tied-pft-msmarco.ja.dev.txt</code></pre>
   </blockquote>
 
@@ -1744,7 +1744,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --topics miracl-v1.0-ko-dev \
   --index miracl-v1.0-ko-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.ko.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1753,7 +1753,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  -c -m recall.100 miracl-v1.0-ko-dev \
   run.miracl.mdpr-tied-pft-msmarco.ko.dev.txt</code></pre>
   </blockquote>
 
@@ -1765,7 +1765,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ru-dev.tsv \
+  --topics miracl-v1.0-ru-dev \
   --index miracl-v1.0-ru-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.ru.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1774,7 +1774,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-ru-dev.tsv \
+  -c -m recall.100 miracl-v1.0-ru-dev \
   run.miracl.mdpr-tied-pft-msmarco.ru.dev.txt</code></pre>
   </blockquote>
 
@@ -1786,7 +1786,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-sw-dev.tsv \
+  --topics miracl-v1.0-sw-dev \
   --index miracl-v1.0-sw-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.sw.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1795,7 +1795,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-sw-dev.tsv \
+  -c -m recall.100 miracl-v1.0-sw-dev \
   run.miracl.mdpr-tied-pft-msmarco.sw.dev.txt</code></pre>
   </blockquote>
 
@@ -1808,7 +1808,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-te-dev.tsv \
+  --topics miracl-v1.0-te-dev \
   --index miracl-v1.0-te-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.te.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1817,7 +1817,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-te-dev.tsv \
+  -c -m recall.100 miracl-v1.0-te-dev \
   run.miracl.mdpr-tied-pft-msmarco.te.dev.txt</code></pre>
   </blockquote>
 
@@ -1830,7 +1830,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-th-dev.tsv \
+  --topics miracl-v1.0-th-dev \
   --index miracl-v1.0-th-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.th.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1839,7 +1839,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-th-dev.tsv \
+  -c -m recall.100 miracl-v1.0-th-dev \
   run.miracl.mdpr-tied-pft-msmarco.th.dev.txt</code></pre>
   </blockquote>
 
@@ -1852,7 +1852,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-zh-dev.tsv \
+  --topics miracl-v1.0-zh-dev \
   --index miracl-v1.0-zh-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.zh.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1861,7 +1861,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 tools/topics-and-qrels/qrels.miracl-v1.0-zh-dev.tsv \
+  -c -m recall.100 miracl-v1.0-zh-dev \
   run.miracl.mdpr-tied-pft-msmarco.zh.dev.txt</code></pre>
   </blockquote>
 

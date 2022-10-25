@@ -57,8 +57,8 @@ python -m pyserini.search.lucene  --index  miracl-v1.0-bn \
 
 python -m pyserini.search.lucene  --index  miracl-v1.0-en \
     --topics miracl-v1.0-en-dev \
-[    --output runs/run.miracl-v1.0-en.bm25.topics.miracl-v1.0-en.dev.txt \
-]()    --bm25 --language en
+    --output runs/run.miracl-v1.0-en.bm25.topics.miracl-v1.0-en.dev.txt \
+    --bm25 --language en
 
 python -m pyserini.search.lucene  --index  miracl-v1.0-es \
     --topics miracl-v1.0-es-dev \
