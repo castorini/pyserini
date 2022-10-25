@@ -249,7 +249,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language ar \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ar-dev.tsv \
+  --topics miracl-v1.0-ar-dev \
   --index miracl-v1.0-ar \
   --output run.miracl.bm25.ar.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -258,7 +258,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-ar-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-ar-dev \
   run.miracl.bm25.ar.dev.txt</code></pre>
   </blockquote>
 
@@ -269,7 +269,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language bn \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-bn-dev.tsv \
+  --topics miracl-v1.0-bn-dev  \
   --index miracl-v1.0-bn \
   --output run.miracl.bm25.bn.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -278,7 +278,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-bn-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-bn-dev \
   run.miracl.bm25.bn.dev.txt</code></pre>
   </blockquote>
 
@@ -289,7 +289,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language en \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-en-dev.tsv \
+  --topics miracl-v1.0-en-dev \
   --index miracl-v1.0-en \
   --output run.miracl.bm25.en.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -298,7 +298,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-en-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-en-dev \
   run.miracl.bm25.en.dev.txt</code></pre>
   </blockquote>
 
@@ -309,7 +309,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language es \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-es-dev.tsv \
+  --topics miracl-v1.0-es-dev \
   --index miracl-v1.0-es \
   --output run.miracl.bm25.es.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -318,7 +318,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-es-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-es-dev \
   run.miracl.bm25.es.dev.txt</code></pre>
   </blockquote>
 
@@ -329,7 +329,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language fa \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-fa-dev.tsv \
+  --topics miracl-v1.0-fa-dev \
   --index miracl-v1.0-fa \
   --output run.miracl.bm25.fa.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -338,7 +338,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-fa-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-fa-dev \
   run.miracl.bm25.fa.dev.txt</code></pre>
   </blockquote>
 
@@ -349,7 +349,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language fi \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-fi-dev.tsv \
+  --topics miracl-v1.0-fi-dev \
   --index miracl-v1.0-fi \
   --output run.miracl.bm25.fi.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -358,7 +358,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-fi-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-fi-dev \
   run.miracl.bm25.fi.dev.txt</code></pre>
   </blockquote>
 
@@ -369,7 +369,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language fr \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-fr-dev.tsv \
+  --topics miracl-v1.0-fr-dev \
   --index miracl-v1.0-fr \
   --output run.miracl.bm25.fr.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -378,7 +378,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-fr-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-fr-dev \
   run.miracl.bm25.fr.dev.txt</code></pre>
   </blockquote>
 
@@ -389,7 +389,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language hi \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-hi-dev.tsv \
+  --topics miracl-v1.0-hi-dev \
   --index miracl-v1.0-hi \
   --output run.miracl.bm25.hi.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -398,7 +398,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-hi-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-hi-dev \
   run.miracl.bm25.hi.dev.txt</code></pre>
   </blockquote>
 
@@ -409,7 +409,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language id \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-id-dev.tsv \
+  --topics miracl-v1.0-id-dev \
   --index miracl-v1.0-id \
   --output run.miracl.bm25.id.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -418,7 +418,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-id-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-id-dev \
   run.miracl.bm25.id.dev.txt</code></pre>
   </blockquote>
 
@@ -429,7 +429,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language ja \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ja-dev.tsv \
+  --topics miracl-v1.0-ja-dev \
   --index miracl-v1.0-ja \
   --output run.miracl.bm25.ja.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -438,7 +438,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-ja-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-ja-dev \
   run.miracl.bm25.ja.dev.txt</code></pre>
   </blockquote>
 
@@ -449,7 +449,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language ko \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ko-dev.tsv \
+  --topics miracl-v1.0-ko-dev \
   --index miracl-v1.0-ko \
   --output run.miracl.bm25.ko.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -458,7 +458,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-ko-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-ko-dev \
   run.miracl.bm25.ko.dev.txt</code></pre>
   </blockquote>
 
@@ -469,7 +469,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language ru \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-ru-dev.tsv \
+  --topics miracl-v1.0-ru-dev \
   --index miracl-v1.0-ru \
   --output run.miracl.bm25.ru.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -478,7 +478,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-ru-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-ru-dev \
   run.miracl.bm25.ru.dev.txt</code></pre>
   </blockquote>
 
@@ -489,7 +489,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language sw \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-sw-dev.tsv \
+  --topics miracl-v1.0-sw-dev \
   --index miracl-v1.0-sw \
   --output run.miracl.bm25.sw.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -498,7 +498,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-sw-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-sw-dev \
   run.miracl.bm25.sw.dev.txt</code></pre>
   </blockquote>
 
@@ -510,7 +510,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language te \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-te-dev.tsv \
+  --topics miracl-v1.0-te-dev \
   --index miracl-v1.0-te \
   --output run.miracl.bm25.te.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -519,7 +519,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-te-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-te-dev \
   run.miracl.bm25.te.dev.txt</code></pre>
   </blockquote>
 
@@ -531,7 +531,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language th \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-th-dev.tsv \
+  --topics miracl-v1.0-th-dev \
   --index miracl-v1.0-th \
   --output run.miracl.bm25.th.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -540,7 +540,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-th-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-te-dev \
   run.miracl.bm25.th.dev.txt</code></pre>
   </blockquote>
 
@@ -552,7 +552,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language zh \
-  --topics tools/topics-and-qrels/topics.miracl-v1.0-zh-dev.tsv \
+  --topics miracl-v1.0-zh-dev \
   --index miracl-v1.0-zh \
   --output run.miracl.bm25.zh.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -561,7 +561,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 tools/topics-and-qrels/qrels.miracl-v1.0-zh-dev.tsv \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-zh-dev \
   run.miracl.bm25.zh.dev.txt</code></pre>
   </blockquote>
 
