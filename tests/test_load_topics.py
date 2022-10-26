@@ -948,6 +948,88 @@ class TestLoadTopics(unittest.TestCase):
         # self.assertIsNotNone(topics)
         # self.assertEqual(len(topics), 4)
         # self.assertTrue(isinstance(next(iter(topics.keys())), int))
+    def test_miracl_10(self):
+        topics = search.get_topics('miracl-v1.0-ar-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 2896)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-bn-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 411)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-en-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 799)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-es-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 648)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('miracl-v1.0-fa-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 632)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('miracl-v1.0-fi-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1271)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-fr-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 343)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('miracl-v1.0-hi-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 350)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('miracl-v1.0-id-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 960)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-ja-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 860)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-ko-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 213)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-ru-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1252)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-sw-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 482)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-te-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 828)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-th-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 733)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-zh-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 393)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
+
 
     # General test cases
     def test_tsv_int_topicreader(self):
