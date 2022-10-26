@@ -124,7 +124,6 @@ python -m pyserini.search.lucene  --index  miracl-v1.0-zh \
 
 ## Evaluation: Dev Topics
 
-Condition: **Title**
 
 ```bash
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.100  miracl-v1.0-ar-dev runs/run.miracl-v1.0-ar.bm25.topics.miracl-v1.0-ar.dev.txt
