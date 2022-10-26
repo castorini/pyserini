@@ -1993,7 +1993,7 @@ TF_INDEX_INFO_CURRENT = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-zh-en.20221025.c4a8d0.tar.gz"
         ],
-        "md5": "46fe989676ff510b997af24f6398199f",
+        "md5": "d44ca9c7b634cf56e8cfd5892a3d3427",
         "size compressed (bytes)": 8470981318,
         "total_terms": 803227160,
         "documents": 3179206,
