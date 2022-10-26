@@ -912,11 +912,6 @@ class TestGetQrels(unittest.TestCase):
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
     def test_hc4_neuclir22(self):
-        qrels = search.get_qrels('hc4-neuclir22-zh-test')
-        self.assertIsNotNone(qrels)
-        self.assertEqual(len(qrels), 50)
-        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
-
         qrels = search.get_qrels('hc4-neuclir22-fa-test')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 50)
@@ -925,6 +920,12 @@ class TestGetQrels(unittest.TestCase):
         qrels = search.get_qrels('hc4-neuclir22-ru-test')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 50)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('hc4-neuclir22-zh-test')
+        self.assertIsNotNone(qrels)
+        # For whatever reason, these qrels also have dev topics.
+        self.assertEqual(len(qrels), 60)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
     def tearDown(self):

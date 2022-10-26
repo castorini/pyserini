@@ -386,11 +386,9 @@ qrels_mapping = {
     'hc4-v1.0-ru-test': JQrels.HC4_V1_0_RU_TEST,
     'hc4-v1.0-zh-dev': JQrels.HC4_V1_0_ZH_DEV,
     'hc4-v1.0-zh-test': JQrels.HC4_V1_0_ZH_TEST,
-
     'hc4-neuclir22-fa-test': JQrels.HC4_NEUCLIR22_FA_TEST,
     'hc4-neuclir22-ru-test': JQrels.HC4_NEUCLIR22_RU_TEST,
     'hc4-neuclir22-zh-test': JQrels.HC4_NEUCLIR22_ZH_TEST,
-
     'miracl-v1.0-ar-dev': JQrels.MIRACL_V10_AR_DEV,
     'miracl-v1.0-bn-dev': JQrels.MIRACL_V10_BN_DEV,
     'miracl-v1.0-en-dev': JQrels.MIRACL_V10_EN_DEV,
