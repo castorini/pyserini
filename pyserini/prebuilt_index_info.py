@@ -901,6 +901,8 @@ TF_INDEX_INFO_CURRENT = {
         "unique_terms": 8722502,
         "downloaded": False
     },
+
+    # Mr.TyDi indexes
     "mrtydi-v1.1-arabic": {
         "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
         "filename": "lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.tar.gz",
@@ -1871,90 +1873,134 @@ TF_INDEX_INFO_CURRENT = {
         "unique_terms": 28581,
         "downloaded": False
     },
-    "hc4-v1.0-zh": {
-        "description": "Lucene index for HC4 v1.0 (Chinese).",
-        "filename": "lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz",
-        "readme": "lucene-index.hc4-v1.0-zh.20220719.71c120.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz"
-        ],
-        "md5": "7351794f4b570c387a12527cf46a7956",
-        "size compressed (bytes)": 2904147388,
-        "total_terms": 304468573,
-        "documents": 646302,
-        "unique_terms": 4380931,
-        "downloaded": False
-    },
+
     "hc4-v1.0-fa": {
-        "description": "Lucene index for HC4 v1.0 (Persian).",
-        "filename": "lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz",
-        "readme": "lucene-index.hc4-v1.0-fa.20220719.71c120.README.md",
+        "description": "Lucene index for HC4 v1.0 (Persian). (Lucene 9)",
+        "filename": "lucene-index.hc4-v1.0-fa.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.hc4-v1.0.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-fa.20221025.c4a8d0.tar.gz"
         ],
-        "md5": "fd838abb94864f22cb4d94cd33660b24",
-        "size compressed (bytes)": 1656366266,
-        "total_terms": 112225895,
+        "md5": "80735c01b2f2cf82288381370adf1d66",
+        "size compressed (bytes)": 1652960750,
+        "total_terms": 112225896,
         "documents": 486486,
-        "unique_terms": 617107,
+        "unique_terms": 617109,
         "downloaded": False
     },
     "hc4-v1.0-ru": {
-        "description": "Lucene index for HC4 v1.0 (Russian).",
-        "filename": "lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz",
-        "readme": "lucene-index.hc4-v1.0-ru.20220719.71c120.README.md",
+        "description": "Lucene index for HC4 v1.0 (Russian). (Lucene 9)",
+        "filename": "lucene-index.hc4-v1.0-ru.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.hc4-v1.0.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-ru.20221025.c4a8d0.tar.gz"
         ],
-        "md5": "3f15b30d1238d2d0a6f720f06c7c442c",
-        "size compressed (bytes)": 13323791981,
-        "total_terms": 764996697,
+        "md5": "40259ba9ca993f850c960a172debe33e",
+        "size compressed (bytes)": 13292705599,
+        "total_terms": 764996714,
         "documents": 4721064,
-        "unique_terms": 2640439,
+        "unique_terms": 2625222,
         "downloaded": False
     },
-    "neuclir22-zh": {
-        "description": "Lucene index for NeuClir '22 (Persian).",
-        "filename": "lucene-index.neuclir22-zh.20220719.71c120.tar.gz",
-        "readme": "lucene-index.neuclir22-zh.20220719.71c120.README.md",
+    "hc4-v1.0-zh": {
+        "description": "Lucene index for HC4 v1.0 (Chinese). (Lucene 9)",
+        "filename": "lucene-index.hc4-v1.0-zh.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.hc4-v1.0.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-zh.20220719.71c120.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-zh.20221025.c4a8d0.tar.gz"
         ],
-        "md5": "edca109c2f39464f73cf9d12af776b73",
-        "size compressed (bytes)": 15744742868,
-        "total_terms": 1654090468,
-        "documents": 3179206,
-        "unique_terms": 8213049,
+        "md5": "2ea8885b8ec6c637971c8df0706b623e",
+        "size compressed (bytes)": 2899033342,
+        "total_terms": 304468580,
+        "documents": 646302,
+        "unique_terms": 4380932,
         "downloaded": False
     },
     "neuclir22-fa": {
-        "description": "Lucene index for NeuClir '22 (Persian).",
-        "filename": "lucene-index.neuclir22-fa.20220719.71c120.tar.gz",
-        "readme": "lucene-index.neuclir22-fa.20220719.71c120.README.md",
+        "description": "Lucene index for NeuCLIR 2022 corpus (Persian). (Lucene 9)",
+        "filename": "lucene-index.neuclir22-fa.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.neuclir22.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-fa.20220719.71c120.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-fa.20221025.c4a8d0.tar.gz"
         ],
-        "md5": "ff3a6ac9a4c428d3aa42e1ae3c007147",
-        "size compressed (bytes)": 7577718950,
+        "md5": "d423fb72bcd5bf2dea6e4a19743dcb95",
+        "size compressed (bytes)": 7565790180,
         "total_terms": 514262091,
         "documents": 2232016,
-        "unique_terms": 1479422,
+        "unique_terms": 1479443,
         "downloaded": False
     },
     "neuclir22-ru": {
-        "description": "Lucene index for NeuClir '22 (Russian).",
-        "filename": "lucene-index.neuclir22-ru.20220719.71c120.tar.gz",
-        "readme": "lucene-index.neuclir22-ru.20220719.71c120.README.md",
+        "description": "Lucene index for NeuCLIR 2022 corpus (Russian). (Lucene 9)",
+        "filename": "lucene-index.neuclir22-ru.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.neuclir22.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-ru.20220719.71c120.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-ru.20221025.c4a8d0.tar.gz"
         ],
-        "md5": "dd483e258fddde98cd059fd5f4f0fe1e",
-        "size compressed (bytes)": 14237631658,
-        "total_terms": 830006488,
+        "md5": "2d04bbc880d535c1c4ab172c2c2d8ffe",
+        "size compressed (bytes)": 14202967387,
+        "total_terms": 830006658,
         "documents": 4627541,
-        "unique_terms": 3412268,
+        "unique_terms": 3396095,
         "downloaded": False
     },
+    "neuclir22-zh": {
+        "description": "Lucene index for NeuCLIR 2022 corpus (Chinese). (Lucene 9)",
+        "filename": "lucene-index.neuclir22-zh.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.neuclir22.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-zh.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "46fe989676ff510b997af24f6398199f",
+        "size compressed (bytes)": 15733809682,
+        "total_terms": 1654090507,
+        "documents": 3179206,
+        "unique_terms": 8213058,
+        "downloaded": False
+    },
+    "neuclir22-fa-en": {
+        "description": "Lucene index for NeuCLIR 2022 corpus (official English translation from Persian). (Lucene 9)",
+        "filename": "lucene-index.neuclir22-fa-en.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.neuclir22-en.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-fa-en.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "35363339b7f0527f27403b848fe01b04",
+        "size compressed (bytes)": 6172239242,
+        "total_terms": 554848215,
+        "documents": 2232016,
+        "unique_terms": 1033260,
+        "downloaded": False
+    },
+    "neuclir22-ru-en": {
+        "description": "Lucene index for NeuCLIR 2022 corpus (official English translation from Russian). (Lucene 9)",
+        "filename": "lucene-index.neuclir22-ru-en.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.neuclir22-en.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-ru-en.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "b0b98803260665eeae97163d2361838e",
+        "size compressed (bytes)": 10513242212,
+        "total_terms": 911886830,
+        "documents": 4627541,
+        "unique_terms": 2794257,
+        "downloaded": False
+    },
+    "neuclir22-zh-en": {
+        "description": "Lucene index for NeuCLIR 2022 corpus (official English translation from Chinese). (Lucene 9)",
+        "filename": "lucene-index.neuclir22-zh-en.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.neuclir22-en.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-zh-en.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "d44ca9c7b634cf56e8cfd5892a3d3427",
+        "size compressed (bytes)": 8470981318,
+        "total_terms": 803227160,
+        "documents": 3179206,
+        "unique_terms": 1616532,
+        "downloaded": False
+    },
+
     "miracl-v1.0-ar": {
         "description": "Lucene index for MIRACL v1.0 (Arabic).",
         "filename": "lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz",
@@ -2182,6 +2228,91 @@ TF_INDEX_INFO_CURRENT = {
 }
 
 TF_INDEX_INFO_DEPRECATED = {
+    "hc4-v1.0-zh-lucene8": {
+        "description": "Lucene index for HC4 v1.0 (Chinese). (Lucene 8; deprecated)",
+        "filename": "lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz",
+        "readme": "lucene-index.hc4-v1.0-zh.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz"
+        ],
+        "md5": "7351794f4b570c387a12527cf46a7956",
+        "size compressed (bytes)": 2904147388,
+        "total_terms": 304468573,
+        "documents": 646302,
+        "unique_terms": 4380931,
+        "downloaded": False
+    },
+    "hc4-v1.0-fa-lucene8": {
+        "description": "Lucene index for HC4 v1.0 (Persian). (Lucene 8; deprecated)",
+        "filename": "lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz",
+        "readme": "lucene-index.hc4-v1.0-fa.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz"
+        ],
+        "md5": "fd838abb94864f22cb4d94cd33660b24",
+        "size compressed (bytes)": 1656366266,
+        "total_terms": 112225895,
+        "documents": 486486,
+        "unique_terms": 617107,
+        "downloaded": False
+    },
+    "hc4-v1.0-ru-lucene8": {
+        "description": "Lucene index for HC4 v1.0 (Russian). (Lucene 8; deprecated)",
+        "filename": "lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz",
+        "readme": "lucene-index.hc4-v1.0-ru.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz"
+        ],
+        "md5": "3f15b30d1238d2d0a6f720f06c7c442c",
+        "size compressed (bytes)": 13323791981,
+        "total_terms": 764996697,
+        "documents": 4721064,
+        "unique_terms": 2640439,
+        "downloaded": False
+    },
+    "neuclir22-zh-lucene8": {
+        "description": "Lucene index for NeuCLIR 2022 corpus (Chinese). (Lucene 8; deprecated)",
+        "filename": "lucene-index.neuclir22-zh.20220719.71c120.tar.gz",
+        "readme": "lucene-index.neuclir22-zh.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-zh.20220719.71c120.tar.gz"
+        ],
+        "md5": "edca109c2f39464f73cf9d12af776b73",
+        "size compressed (bytes)": 15744742868,
+        "total_terms": 1654090468,
+        "documents": 3179206,
+        "unique_terms": 8213049,
+        "downloaded": False
+    },
+    "neuclir22-fa-lucene8": {
+        "description": "Lucene index for NeuCLIR 2022 corpus (Persian). (Lucene 8; deprecated)",
+        "filename": "lucene-index.neuclir22-fa.20220719.71c120.tar.gz",
+        "readme": "lucene-index.neuclir22-fa.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-fa.20220719.71c120.tar.gz"
+        ],
+        "md5": "ff3a6ac9a4c428d3aa42e1ae3c007147",
+        "size compressed (bytes)": 7577718950,
+        "total_terms": 514262091,
+        "documents": 2232016,
+        "unique_terms": 1479422,
+        "downloaded": False
+    },
+    "neuclir22-ru-lucene8": {
+        "description": "Lucene index for NeuCLIR 2022 corpus (Russian). (Lucene 8; deprecated)",
+        "filename": "lucene-index.neuclir22-ru.20220719.71c120.tar.gz",
+        "readme": "lucene-index.neuclir22-ru.20220719.71c120.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-ru.20220719.71c120.tar.gz"
+        ],
+        "md5": "dd483e258fddde98cd059fd5f4f0fe1e",
+        "size compressed (bytes)": 14237631658,
+        "total_terms": 830006488,
+        "documents": 4627541,
+        "unique_terms": 3412268,
+        "downloaded": False
+    },
+
     "mrtydi-v1.1-arabic-lucene8": {
         "description": "Lucene index for Mr.TyDi v1.1 (Arabic). (Lucene 8; deprecated)",
         "filename": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",

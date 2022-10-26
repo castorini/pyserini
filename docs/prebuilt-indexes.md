@@ -549,29 +549,105 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): SciFact
 </dd>
-<dt></dt><b><code>hc4-v1.0-zh</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0-zh.20220719.71c120.README.md">readme</a>]
-<dd>Lucene index for HC4 v1.0 (Chinese).
-</dd>
 <dt></dt><b><code>hc4-v1.0-fa</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0-fa.20220719.71c120.README.md">readme</a>]
-<dd>Lucene index for HC4 v1.0 (Persian).
+[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for HC4 v1.0 (Persian). (Lucene 9)
 </dd>
 <dt></dt><b><code>hc4-v1.0-ru</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0-ru.20220719.71c120.README.md">readme</a>]
-<dd>Lucene index for HC4 v1.0 (Russian).
+[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for HC4 v1.0 (Russian). (Lucene 9)
 </dd>
-<dt></dt><b><code>neuclir22-zh</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-zh.20220719.71c120.README.md">readme</a>]
-<dd>Lucene index for NeuClir '22 (Persian).
+<dt></dt><b><code>hc4-v1.0-zh</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for HC4 v1.0 (Chinese). (Lucene 9)
 </dd>
 <dt></dt><b><code>neuclir22-fa</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-fa.20220719.71c120.README.md">readme</a>]
-<dd>Lucene index for NeuClir '22 (Persian).
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for NeuCLIR 2022 corpus (Persian). (Lucene 9)
 </dd>
 <dt></dt><b><code>neuclir22-ru</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-ru.20220719.71c120.README.md">readme</a>]
-<dd>Lucene index for NeuClir '22 (Russian).
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for NeuCLIR 2022 corpus (Russian). (Lucene 9)
+</dd>
+<dt></dt><b><code>neuclir22-zh</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for NeuCLIR 2022 corpus (Chinese). (Lucene 9)
+</dd>
+<dt></dt><b><code>neuclir22-fa-en</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-en.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for NeuCLIR 2022 corpus (official English translation from Persian). (Lucene 9)
+</dd>
+<dt></dt><b><code>neuclir22-ru-en</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-en.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for NeuCLIR 2022 corpus (official English translation from Russian). (Lucene 9)
+</dd>
+<dt></dt><b><code>neuclir22-zh-en</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-en.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for NeuCLIR 2022 corpus (official English translation from Chinese). (Lucene 9)
+</dd>
+<dt></dt><b><code>miracl-v1.0-ar</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Arabic).
+</dd>
+<dt></dt><b><code>miracl-v1.0-bn</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Bengali).
+</dd>
+<dt></dt><b><code>miracl-v1.0-en</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (English).
+</dd>
+<dt></dt><b><code>miracl-v1.0-es</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Spanish).
+</dd>
+<dt></dt><b><code>miracl-v1.0-fa</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Persian).
+</dd>
+<dt></dt><b><code>miracl-v1.0-fi</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Finnish).
+</dd>
+<dt></dt><b><code>miracl-v1.0-fr</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (French).
+</dd>
+<dt></dt><b><code>miracl-v1.0-hi</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Hindi).
+</dd>
+<dt></dt><b><code>miracl-v1.0-id</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Indonesian).
+</dd>
+<dt></dt><b><code>miracl-v1.0-ja</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Japanese).
+</dd>
+<dt></dt><b><code>miracl-v1.0-ko</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Korean).
+</dd>
+<dt></dt><b><code>miracl-v1.0-ru</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Russian).
+</dd>
+<dt></dt><b><code>miracl-v1.0-sw</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Swahili).
+</dd>
+<dt></dt><b><code>miracl-v1.0-te</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Telugu).
+</dd>
+<dt></dt><b><code>miracl-v1.0-th</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Thai).
+</dd>
+<dt></dt><b><code>miracl-v1.0-zh</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Chinese).
 </dd>
 </dl>
 
@@ -977,68 +1053,68 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
 </dd>
-<dt></dt><b><code>miracl-v1.0-ar</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Arabic).
+<dt></dt><b><code>miracl-v1.0-ar-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-bn</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Bengali).
+<dt></dt><b><code>miracl-v1.0-bn-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-en</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (English).
+<dt></dt><b><code>miracl-v1.0-en-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-es</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Spanish).
+<dt></dt><b><code>miracl-v1.0-es-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-fa</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Persian).
+<dt></dt><b><code>miracl-v1.0-fa-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Persian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-fi</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Finnish).
+<dt></dt><b><code>miracl-v1.0-fi-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-fr</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (French).
+<dt></dt><b><code>miracl-v1.0-fr-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (French) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-hi</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Hindi).
+<dt></dt><b><code>miracl-v1.0-hi-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-id</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Indonesian).
+<dt></dt><b><code>miracl-v1.0-id-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-ja</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Japanese).
+<dt></dt><b><code>miracl-v1.0-ja-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-ko</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Korean).
+<dt></dt><b><code>miracl-v1.0-ko-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-ru</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Russian).
+<dt></dt><b><code>miracl-v1.0-ru-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-sw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Swahili).
+<dt></dt><b><code>miracl-v1.0-sw-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-te</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Telugu).
+<dt></dt><b><code>miracl-v1.0-te-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-th</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Thai).
+<dt></dt><b><code>miracl-v1.0-th-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>miracl-v1.0-zh</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Chinese).
+<dt></dt><b><code>miracl-v1.0-zh-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
 </dl>
