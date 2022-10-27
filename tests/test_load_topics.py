@@ -960,6 +960,67 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+    def test_neurclir22(self):
+        topics = search.get_topics('neuclir22-en-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-en-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-en-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-fa-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-fa-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-fa-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-ru-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-ru-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-ru-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-zh-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-zh-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-zh-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
     def test_miracl_10(self):
         topics = search.get_topics('miracl-v1.0-ar-dev')
         self.assertIsNotNone(topics)
