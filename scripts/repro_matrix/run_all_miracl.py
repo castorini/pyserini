@@ -15,6 +15,7 @@
 #
 
 import argparse
+import subprocess
 import math
 import os
 import time
@@ -40,6 +41,12 @@ def print_results(metric, split):
             print(f'{table[key][split][metric]:7.3f}', end='')
         print('')
     print('')
+
+
+def extract_topic_fn_from_cmd(cmd):
+    cmd = cmd.split()
+    topic_idx = cmd.index('--topics')
+    return cmd[topic_idx + 1]
 
 
 if __name__ == '__main__':
@@ -70,12 +77,17 @@ if __name__ == '__main__':
 
                 if not os.path.exists(runfile):
                     print(f'    Running: {cmd}')
-                    os.system(cmd)
+                    rtn = subprocess.run(cmd.split(), capture_output=True)
+                    stderr = rtn.stderr.decode()
+                    topic_fn = extract_topic_fn_from_cmd(cmd)
+                    if f'ValueError: Topic {topic_fn} Not Found' in stderr:
+                        print(f'Skipping {topic_fn}: file not found.')
+                        continue
 
                 for expected in splits['scores']:
                     for metric in expected:
                         if not args.skip_eval:
-                            score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}.tsv',
+                            score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}',
                                                                      trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str

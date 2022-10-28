@@ -269,7 +269,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language bn \
-  --topics miracl-v1.0-bn-dev  \
+  --topics miracl-v1.0-bn-dev \
   --index miracl-v1.0-bn \
   --output run.miracl.bm25.bn.dev.txt \
   --batch 128 --threads 16 --bm25 --hits 100
@@ -540,7 +540,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 miracl-v1.0-te-dev \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-th-dev \
   run.miracl.bm25.th.dev.txt</code></pre>
   </blockquote>
 
@@ -809,7 +809,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics miracl-v1.0-hi-dev  \
+  --topics miracl-v1.0-hi-dev \
   --index miracl-v1.0-hi-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.hi.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -818,7 +818,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 100 -m ndcg_cut.10 miracl-v1.0-hi-dev  \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-hi-dev \
   run.miracl.mdpr-tied-pft-msmarco.hi.dev.txt</code></pre>
   </blockquote>
 
@@ -830,7 +830,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics miracl-v1.0-id-dev  \
+  --topics miracl-v1.0-id-dev \
   --index miracl-v1.0-id-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.id.dev.txt \
   --batch 128 --threads 16 --hits 100
@@ -1627,7 +1627,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 miracl-v1.0-fa-dev  \
+  -c -m recall.100 miracl-v1.0-fa-dev \
   run.miracl.mdpr-tied-pft-msmarco.fa.dev.txt</code></pre>
   </blockquote>
 
@@ -1639,7 +1639,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics miracl-v1.0-fi-dev  \
+  --topics miracl-v1.0-fi-dev \
   --index miracl-v1.0-fi-mdpr-tied-pft-msmarco \
   --output run.miracl.mdpr-tied-pft-msmarco.fi.dev.txt \
   --batch 128 --threads 16 --hits 100
