@@ -42,6 +42,13 @@ def print_results(metric, split):
     print('')
 
 
+def extract_topic_fn_from_cmd(cmd):
+    cmd = cmd.split()
+    topic_fn = [component for component in cmd if component.startswith("tools/topics-and-qrels") and "topics." in component]
+    assert len(topic_fn) == 1
+    return topic_fn[0]
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for MIRACL.')
     parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
@@ -70,6 +77,10 @@ if __name__ == '__main__':
 
                 if not os.path.exists(runfile):
                     print(f'    Running: {cmd}')
+                    topic_fn = extract_topic_fn_from_cmd(cmd)
+                    if not os.path.exists(topic_fn):
+                        print(f"Cannot find {topic_fn}. Skip.")
+                        continue
                     os.system(cmd)
 
                 for expected in splits['scores']:
