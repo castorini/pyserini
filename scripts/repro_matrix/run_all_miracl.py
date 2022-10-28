@@ -81,7 +81,7 @@ if __name__ == '__main__':
                     stderr = rtn.stderr.decode()
                     topic_fn = extract_topic_fn_from_cmd(cmd)
                     if f"ValueError: Topic {topic_fn} Not Found" in stderr:
-                        print(f"Skip {topic_fn}.")
+                        print(f"Skipping {topic_fn}: file not found.")
                         continue
 
                 for expected in splits['scores']:
