@@ -25,7 +25,7 @@ from string import Template
 import yaml
 
 from scripts.repro_matrix.defs_miracl import models, languages, trec_eval_metric_definitions
-from scripts.repro_matrix.utils import run_eval_and_return_metric, ok_str, fail_str
+from scripts.repro_matrix.utils import run_eval_and_return_metric, ok_str, okish_str, fail_str
 
 
 def print_results(metric, split):
@@ -107,6 +107,10 @@ if __name__ == '__main__':
                                                                      trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
+                            # Flaky test: small difference on Mac Studio (M1 chip)
+                            elif name == 'mdpr-tied-pft-msmarco.hi' and split == 'train' \
+                                    and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
+                                result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
                             print(f'      {metric:7}: {score:.4f} {result_str}')
