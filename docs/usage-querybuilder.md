@@ -68,3 +68,33 @@ for i in range(0, 10):
 ```
 
 Note that the results are different, because we've placed more weight on the term `hubble`.
+
+
+String queries can also be created, without specifying each term separately.
+
+For example:
+
+```python
+query = querybuilder.get_standard_query('hubble space telescope')
+
+hits = searcher.search(query)
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
+```
+
+It is also possible to use string queries for specifying boosted terms as indicated in 
+Lucene's [query parser syntax documentation](https://lucene.apache.org/core/2_9_4/queryparsersyntax.html).
+
+For example:
+
+```python
+query = querybuilder.get_standard_query('hubble^2 space^1 telescope^1')
+hits = searcher.search(query)
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:15} {hits[i].score:.5f}')
+```
+
+The results are the same as specifying boost scores for each term using `querybuilder.get_boost_query`.
+
