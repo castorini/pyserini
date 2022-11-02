@@ -700,7 +700,7 @@ The following guides provide step-by-step instructions:
 
 ## Release History
 
-+ v0.19.0 (w/ Anserini v0.16.1): November 2, 2022 [[Release Notes](docs/release-notes/release-notes-v0.18.0.md)]
++ v0.19.0 (w/ Anserini v0.16.1): November 2, 2022 [[Release Notes](docs/release-notes/release-notes-v0.19.0.md)]
 + v0.18.0 (w/ Anserini v0.15.0): September 26, 2022 [[Release Notes](docs/release-notes/release-notes-v0.18.0.md)] (First release based on Lucene 9)
 + v0.17.1 (w/ Anserini v0.14.4): August 13, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.1.md)] (Final release based on Lucene 8)
 + v0.17.0 (w/ Anserini v0.14.3): May 28, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.0.md)]
