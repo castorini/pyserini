@@ -2225,6 +2225,216 @@ TF_INDEX_INFO_CURRENT = {
         "unique_terms": 6517412,
         "downloaded": False
     },
+   "africlirmatrix-v1.0-af":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Afrikaans).",
+        "filename": "lucene-index.africlirmatrix-v1.0-af.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-af.20221020.7cb701.tar.gz"
+        ],
+        "md5": "166bde44901045b5326c11aca677bbb8",
+        "size compressed (bytes)": 103485027,
+        "total_terms": 11423597,
+        "documents": 102635,
+        "unique_terms": 367113,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-am":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Amharic).",
+        "filename": "lucene-index.africlirmatrix-v1.0-am.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-am.20221020.7cb701.tar.gz"
+        ],
+        "md5": "0bb87ea9d13022fef09cf2d8b81eaba2",
+        "size compressed (bytes)": 10640457,
+        "total_terms": 724370,
+        "documents": 15106,
+        "unique_terms": 114499,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-ary":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Moroccan Arabic).",
+        "filename": "lucene-index.africlirmatrix-v1.0-ary.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-ary.20221020.7cb701.tar.gz"
+        ],
+        "md5": "13001b11cab3ba5bcfdf127e8668efd4",
+        "size compressed (bytes)": 5841984,
+        "total_terms": 526485,
+        "documents": 5074,
+        "unique_terms": 62597,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-arz":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Egyptian Arabic).",
+        "filename": "lucene-index.africlirmatrix-v1.0-arz.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-arz.20221020.7cb701.tar.gz"
+        ],
+        "md5": "d1f8831801c34ee0a77ddb79ef988ef6",
+        "size compressed (bytes)": 1311529247,
+        "total_terms": 184982616,
+        "documents": 1568079,
+        "unique_terms": 2871480,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-ha":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Hausa).",
+        "filename": "lucene-index.africlirmatrix-v1.0-ha.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-ha.20221020.7cb701.tar.gz"
+        ],
+        "md5": "dbb83748dacbef3d2870b5ae471cd302",
+        "size compressed (bytes)": 16928335,
+        "total_terms": 1809665,
+        "documents": 15959,
+        "unique_terms": 94163,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-ig":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Igbo).",
+        "filename": "lucene-index.africlirmatrix-v1.0-ig.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-ig.20221020.7cb701.tar.gz"
+        ],
+        "md5": "458e1e8b62f614684a64b6b268039ef4",
+        "size compressed (bytes)": 4622483,
+        "total_terms": 515283,
+        "documents": 4065,
+        "unique_terms": 36683,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-nso":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Northern Sotho).",
+        "filename": "lucene-index.africlirmatrix-v1.0-nso.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-nso.20221020.7cb701.tar.gz"
+        ],
+        "md5": "55d68830f0c7db304c7ee622d1db46b9",
+        "size compressed (bytes)": 1696360,
+        "total_terms": 236530,
+        "documents": 8318,
+        "unique_terms": 14637,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-sn":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Shona).",
+        "filename": "lucene-index.africlirmatrix-v1.0-sn.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-sn.20221020.7cb701.tar.gz"
+        ],
+        "md5": "6ad22727e1f638e6b1b8832550bf70f4",
+        "size compressed (bytes)": 6696167,
+        "total_terms": 604164,
+        "documents": 8258,
+        "unique_terms": 89349,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-so":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Somali).",
+        "filename": "lucene-index.africlirmatrix-v1.0-so.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-so.20221020.7cb701.tar.gz"
+        ],
+        "md5": "304b14833ce0504647dca91b7c648f92",
+        "size compressed (bytes)": 9711427,
+        "total_terms": 930214,
+        "documents": 9777,
+        "unique_terms": 94328,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-sw":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Swahili).",
+        "filename": "lucene-index.africlirmatrix-v1.0-sw.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-sw.20221020.7cb701.tar.gz"
+        ],
+        "md5": "c36e36eeb9d9e5ca485b4472bc982482",
+        "size compressed (bytes)": 46675686,
+        "total_terms": 5422598,
+        "documents": 70796,
+        "unique_terms": 239486,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-ti":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Tigrinya).",
+        "filename": "lucene-index.africlirmatrix-v1.0-ti.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-ti.20221020.7cb701.tar.gz"
+        ],
+        "md5": "20742b09d707022a85e22b17665024fc",
+        "size compressed (bytes)": 228530,
+        "total_terms": 13591,
+        "documents": 364,
+        "unique_terms": 5410,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-tw":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Twi).",
+        "filename": "lucene-index.africlirmatrix-v1.0-tw.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-tw.20221020.7cb701.tar.gz"
+        ],
+        "md5": "2471a540b1161328feffeaa17dc122ba",
+        "size compressed (bytes)": 1601460,
+        "total_terms": 179453,
+        "documents": 1838,
+        "unique_terms": 17822,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-wo":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Wolof).",
+        "filename": "lucene-index.africlirmatrix-v1.0-wo.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-wo.20221020.7cb701.tar.gz"
+        ],
+        "md5": "d5d2554e8db9375877922240ad99942b",
+        "size compressed (bytes)": 1276421,
+        "total_terms": 143102,
+        "documents": 1687,
+        "unique_terms": 17253,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-yo":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Yoruba).",
+        "filename": "lucene-index.africlirmatrix-v1.0-yo.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-yo.20221020.7cb701.tar.gz"
+        ],
+        "md5": "46658c6828ddee3aa27d544b72498b4b",
+        "size compressed (bytes)": 9699036,
+        "total_terms": 955154,
+        "documents": 33456,
+        "unique_terms": 99418,
+        "downloaded": False
+    },
+   "africlirmatrix-v1.0-zu":{
+        "description": "Lucene index for AfriCLIRMatrix v1.0 (Zulu).",
+        "filename": "lucene-index.africlirmatrix-v1.0-zu.20221020.7cb701.tar.gz",
+        "readme": "lucene-index.africlirmatrix-v1.0.20221020.7cb701.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.africlirmatrix-v1.0-zu.20221020.7cb701.tar.gz"
+        ],
+        "md5": "8f4a0562a1c3ef8c2ced3e89c3d6b96c",
+        "size compressed (bytes)": 4572376,
+        "total_terms": 419838,
+        "documents": 10805,
+        "unique_terms": 65895,
+        "downloaded": False
+    },
 }
 
 TF_INDEX_INFO_DEPRECATED = {
@@ -4935,5 +5145,200 @@ FAISS_INDEX_INFO = {
         "documents": 4934368,
         "downloaded": False,
         "texts": "miracl-v1.0-zh",
+    },
+   "africlirmatrix-v1.0-af-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Afrikaans) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-af.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-af.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 102675,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-af",
+    },
+   "africlirmatrix-v1.0-am-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Amharic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-am.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-am.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 15458,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-am",
+    },
+   "africlirmatrix-v1.0-ary-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Moroccan Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-ary.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-ary.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 5074,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-ary",
+    },
+   "africlirmatrix-v1.0-arz-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Egyptian Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-arz.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-arz.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 1568079,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-arz",
+    },
+   "africlirmatrix-v1.0-ha-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Hausa) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-ha.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-ha.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 16003,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-ha",
+    },
+   "africlirmatrix-v1.0-ig-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Igbo) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-ig.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-ig.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 4066,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-ig",
+    },
+   "africlirmatrix-v1.0-nso-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Northern Sotho) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-nso.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-nso.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 8320,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-nso",
+    },
+   "africlirmatrix-v1.0-sn-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Shona) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-sn.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-sn.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 8258,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-sn",
+    },
+   "africlirmatrix-v1.0-so-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Somali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-so.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-so.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 9860,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-so",
+    },
+   "africlirmatrix-v1.0-sw-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-sw.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-sw.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 70808,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-sw",
+    },
+   "africlirmatrix-v1.0-ti-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Tigrinya) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-ti.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-ti.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 378,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-ti",
+    },
+   "africlirmatrix-v1.0-tw-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Twi) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-tw.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-tw.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 1838,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-tw",
+    },
+   "africlirmatrix-v1.0-wo-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Wolof) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-wo.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-wo.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 1693,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-wo",
+    },
+   "africlirmatrix-v1.0-yo-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Yoruba) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-yo.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-yo.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 33456,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-yo",
+    },
+   "africlirmatrix-v1.0-zu-mdpr-tied-pft-msmarco":{
+        "description": "Faiss index for AfriCLIRMatrix v1.0 (Zulu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss-index.africlirmatrix-v1.0-zu.20221020.3469e0.tar.gz",
+        "readme": "faiss-index.africlirmatrix-v1.0.20221020.3469e0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-index.africlirmatrix-v1.0-zu.20221020.3469e0.tar.gz"
+        ],
+        "md5": "440803fc33139aa57b8b773538897d9c",
+        "size compressed (bytes)": 292942426,
+        "documents": 10808,
+        "downloaded": False,
+        "texts": "africlirmatrix-v1.0-zu",
     },
 }
