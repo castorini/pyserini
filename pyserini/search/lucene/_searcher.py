@@ -23,7 +23,7 @@ import logging
 from typing import Dict, List, Optional, Union
 
 from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
-from pyserini.index import Document
+from pyserini.index import Document, IndexReader
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
 from pyserini.search import JQuery, JQueryGenerator
 from pyserini.trectools import TrecRun
@@ -52,27 +52,40 @@ class LuceneSearcher:
         self.num_docs = self.object.get_total_num_docs()
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, verbose=False):
         """Build a searcher from a pre-built index; download the index if necessary.
 
         Parameters
         ----------
         prebuilt_index_name : str
             Prebuilt index name.
+        verbose : bool
+            Print status information.
 
         Returns
         -------
         LuceneSearcher
             Searcher built from the prebuilt index.
         """
-        print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+        if verbose:
+            print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+
         try:
-            index_dir = download_prebuilt_index(prebuilt_index_name)
+            index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)
         except ValueError as e:
             print(str(e))
             return None
 
-        print(f'Initializing {prebuilt_index_name}...')
+        # Currently, there is no way to validate stats is to create a separate IndexReader.
+        # see: https://github.com/castorini/anserini/issues/2013
+        index_reader = IndexReader(index_dir)
+        # So, this is a bit janky as we're created a separate IndexReader for the sole purpose of validating
+        # index stats.
+        index_reader.validate(prebuilt_index_name, verbose=verbose)
+
+        if verbose:
+            print(f'Initializing {prebuilt_index_name}...')
+
         return cls(index_dir)
 
     @staticmethod
