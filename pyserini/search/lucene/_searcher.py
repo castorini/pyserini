@@ -76,11 +76,10 @@ class LuceneSearcher:
             print(str(e))
             return None
 
-        # Currently, there is no way to validate stats is to create a separate IndexReader.
-        # see: https://github.com/castorini/anserini/issues/2013
+        # Currently, the only way to validate stats is to create a separate IndexReader, because there is no method
+        # to obtain the underlying reader of a SimpleSearcher; see https://github.com/castorini/anserini/issues/2013
         index_reader = IndexReader(index_dir)
-        # So, this is a bit janky as we're created a separate IndexReader for the sole purpose of validating
-        # index stats.
+        # This is janky as we're created a separate IndexReader for the sole purpose of validating index stats.
         index_reader.validate(prebuilt_index_name, verbose=verbose)
 
         if verbose:
