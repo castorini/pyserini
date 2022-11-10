@@ -22,7 +22,7 @@ from pyserini.search.faiss import FaissSearcher, QueryEncoder, BinaryDenseSearch
 def check_sparse(index):
     for entry in index:
         print(f'# Validating "{entry}"...')
-        IndexReader.validate_prebuilt_index(entry)
+        IndexReader.from_prebuilt_index(entry, verbose=True)
         print('\n')
 
 

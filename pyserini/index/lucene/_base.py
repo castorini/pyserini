@@ -190,54 +190,38 @@ class IndexReader:
         self.reader = self.object.getReader(index_dir)
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, verbose=False):
         """Build an index reader from a prebuilt index; download the index if necessary.
 
         Parameters
         ----------
         prebuilt_index_name : str
             Prebuilt index name.
+        verbose : bool
+            Print status information.
 
         Returns
         -------
         IndexReader
             Index reader built from the prebuilt index.
         """
-        print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+        if verbose:
+            print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+
         try:
-            index_dir = download_prebuilt_index(prebuilt_index_name)
+            index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)
         except ValueError as e:
             print(str(e))
             return None
 
-        print(f'Initializing {prebuilt_index_name}...')
-        return cls(index_dir)
+        if verbose:
+            print(f'Initializing {prebuilt_index_name}...')
 
-    @classmethod
-    def validate_prebuilt_index(cls, prebuilt_index_name: str):
-        """Validate prebuilt index stats against stored stats."""
-        reader = cls.from_prebuilt_index(prebuilt_index_name)
-        stats = reader.stats()
+        index_reader = cls(index_dir)
+        # Validate index stats; will throw exception there are any issues.
+        index_reader.validate(prebuilt_index_name, verbose=verbose)
 
-        if prebuilt_index_name in TF_INDEX_INFO:
-            if stats['documents'] != TF_INDEX_INFO[prebuilt_index_name]['documents']:
-                raise ValueError('"documents" does not match!')
-            if stats['unique_terms'] != TF_INDEX_INFO[prebuilt_index_name]['unique_terms']:
-                raise ValueError('"unique_terms" does not match!')
-            if stats['total_terms'] != TF_INDEX_INFO[prebuilt_index_name]['total_terms']:
-                raise ValueError('"total_terms" does not match!')
-        else:
-            if stats['documents'] != IMPACT_INDEX_INFO[prebuilt_index_name]['documents']:
-                raise ValueError('"documents" does not match!')
-            if stats['unique_terms'] != IMPACT_INDEX_INFO[prebuilt_index_name]['unique_terms']:
-                raise ValueError('"unique_terms" does not match!')
-            if stats['total_terms'] != IMPACT_INDEX_INFO[prebuilt_index_name]['total_terms']:
-                raise ValueError('"total_terms" does not match!')
-
-        print(reader.stats())
-        print('Statistics match!')
-
-        return True
+        return index_reader
 
     @staticmethod
     def list_prebuilt_indexes():
@@ -266,6 +250,34 @@ class IndexReader:
         for token in results.toArray():
             tokens.append(token)
         return tokens
+
+    def validate(self, prebuilt_index_name: str, verbose=False):
+        """Validate this index against stored stats for a pre-built index."""
+        stats = self.stats()
+
+        if prebuilt_index_name in TF_INDEX_INFO:
+            if stats['documents'] != TF_INDEX_INFO[prebuilt_index_name]['documents']:
+                raise ValueError('Pre-built index fails consistency check: "documents" does not match!')
+            if stats['unique_terms'] != TF_INDEX_INFO[prebuilt_index_name]['unique_terms']:
+                raise ValueError('Pre-built index fails consistency check: "unique_terms" does not match!')
+            if stats['total_terms'] != TF_INDEX_INFO[prebuilt_index_name]['total_terms']:
+                raise ValueError('Pre-built index fails consistency check: "total_terms" does not match!')
+        elif prebuilt_index_name in IMPACT_INDEX_INFO:
+            if stats['documents'] != IMPACT_INDEX_INFO[prebuilt_index_name]['documents']:
+                raise ValueError('Pre-built index fails consistency check: "documents" does not match!')
+            if stats['unique_terms'] != IMPACT_INDEX_INFO[prebuilt_index_name]['unique_terms']:
+                raise ValueError('Pre-built index fails consistency check: "unique_terms" does not match!')
+            if stats['total_terms'] != IMPACT_INDEX_INFO[prebuilt_index_name]['total_terms']:
+                raise ValueError('Pre-built index fails consistency check: "total_terms" does not match!')
+        else:
+            print(f'Unknown pre-built index \'{prebuilt_index_name}\'!')
+            return False
+
+        if verbose:
+            print(stats)
+            print(f'Index passes consistency checks against pre-built index \'{prebuilt_index_name}\'!')
+
+        return True
 
     def terms(self) -> Iterator[IndexTerm]:
         """Return an iterator over analyzed terms in the index.
