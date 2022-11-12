@@ -8,7 +8,7 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name="pyserini",
-    version="0.19.0",
+    version="0.19.1",
     author="Jimmy Lin",
     author_email="jimmylin@uwaterloo.ca",
     description="A Python toolkit for reproducible information retrieval research with sparse and dense representations",
@@ -25,5 +25,5 @@ setuptools.setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.8',
 )
