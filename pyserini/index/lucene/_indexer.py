@@ -14,7 +14,22 @@
 # limitations under the License.
 #
 
-from ._base import Document, Generator, IndexTerm, Posting, IndexReader
-from ._indexer import LuceneIndexer
+import logging
 
-__all__ = ['Document', 'Generator', 'IndexTerm', 'Posting', 'IndexReader', 'LuceneIndexer']
+from pyserini.pyclass import autoclass
+
+logger = logging.getLogger(__name__)
+
+JLuceneIndexer = autoclass('io.anserini.index.SimpleIndexer')
+
+
+class LuceneIndexer:
+    def __init__(self, index_dir: str):
+        self.index_dir = index_dir
+        self.object = JLuceneIndexer(index_dir)
+
+    def add(self, doc: str):
+        self.object.addDocument(doc)
+
+    def close(self):
+        self.object.close()
