@@ -24,12 +24,29 @@ JLuceneIndexer = autoclass('io.anserini.index.SimpleIndexer')
 
 
 class LuceneIndexer:
+    """Wrapper class for ``SimpleIndexer`` in Anserini. Provides basic functionality of on-the-fly indexing via a
+    programmatic API, i.e., indexing in-process objects as opposed to on-file documents.
+
+    Parameters
+    ----------
+    index_dir : str
+        Path to Lucene index directory.
+    """
+
     def __init__(self, index_dir: str):
         self.index_dir = index_dir
         self.object = JLuceneIndexer(index_dir)
 
     def add(self, doc: str):
+        """Add a document to the index.
+
+        Parameters
+        ----------
+        doc : str
+            Document to add.
+        """
         self.object.addDocument(doc)
 
     def close(self):
+        """Close this indexer, committing all in-memory data to disk."""
         self.object.close()
