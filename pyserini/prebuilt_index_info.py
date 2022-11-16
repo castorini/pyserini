@@ -4710,6 +4710,415 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "unique_terms": 29172,
         "downloaded": False
     },
+
+    # BEIR (v1.0.0) impact indexes encoded by SPLADE-distill CoCodenser-medium (Lucene 8; deprecated)
+    "beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): TREC-COVID encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "b9c3837f2421667ba48adb84fcb599aa",
+        "size compressed (bytes)": 57011989,
+        "total_terms": 1697942549,
+        "documents": 171332,
+        "unique_terms": 26611,
+        "downloaded": False
+    },
+    "beir-v1.0.0-bioasq-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): BioASQ encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "96ebb0b9016d9894e9784fa71ad7595d",
+        "size compressed (bytes)": 5474720263,
+        "total_terms": 181960155708,
+        "documents": 14914603,
+        "unique_terms": 27703,
+        "downloaded": False
+    },
+    "beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): NFCorpus encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "7f5ec129305d630a18d63f188e08aa22",
+        "size compressed (bytes)": 1445273,
+        "total_terms": 41582222,
+        "documents": 3633,
+        "unique_terms": 16295,
+        "downloaded": False
+    },
+    "beir-v1.0.0-nq-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): NQ encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "026dc3c2ed7292e7549ce4ff9ae2c318",
+        "size compressed (bytes)": 859416460,
+        "total_terms": 21901570532,
+        "documents": 2681468,
+        "unique_terms": 28747,
+        "downloaded": False
+    },
+    "beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): HotpotQA encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "3edf537dfed5a9274ba56ef58ab090f6",
+        "size compressed (bytes)": 1197602761,
+        "total_terms": 32565190895,
+        "documents": 5233329,
+        "unique_terms": 28724,
+        "downloaded": False
+    },
+    "beir-v1.0.0-fiqa-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): FiQA-2018 encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "a6ff07fe2a75f30838c3faf7c133efc1",
+        "size compressed (bytes)": 19858617,
+        "total_terms": 487502241,
+        "documents": 57638,
+        "unique_terms": 26244,
+        "downloaded": False
+    },
+    "beir-v1.0.0-signal1m-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): Signal-1M encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "6d1fedefd3cb3a08820edc9552dd44b6",
+        "size compressed (bytes)": 611827346,
+        "total_terms": 13103073741,
+        "documents": 2866316,
+        "unique_terms": 28130,
+        "downloaded": False
+    },
+    "beir-v1.0.0-trec-news-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): TREC-NEWS encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "05faf28e84259629aceb4d39d52471db",
+        "size compressed (bytes)": 278203568,
+        "total_terms": 7519025445,
+        "documents": 594977,
+        "unique_terms": 27745,
+        "downloaded": False
+    },
+    "beir-v1.0.0-robust04-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): Robust04 encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "c2c7f69edf7bc0edf2ede9d88f4d0402",
+        "size compressed (bytes)": 217727819,
+        "total_terms": 6718533167,
+        "documents": 528155,
+        "unique_terms": 27623,
+        "downloaded": False
+    },
+    "beir-v1.0.0-arguana-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): ArguAna encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "2dbb3cdd8412697cc336197912783eb2",
+        "size compressed (bytes)": 3866879,
+        "total_terms": 96421121,
+        "documents": 8674,
+        "unique_terms": 22536,
+        "downloaded": False
+    },
+    "beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): Webis-Touche2020 encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "ff5cb006fac08086c575109e0ac80a1c",
+        "size compressed (bytes)": 126819142,
+        "total_terms": 3229042324,
+        "documents": 382545,
+        "unique_terms": 27742,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-android encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "1fb9462d93a21293a0c7aedd26653158",
+        "size compressed (bytes)": 6068305,
+        "total_terms": 157949889,
+        "documents": 22998,
+        "unique_terms": 18891,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-english encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "12f4581a96b775166210b462a78f72e3",
+        "size compressed (bytes)": 9955691,
+        "total_terms": 218761119,
+        "documents": 40221,
+        "unique_terms": 26613,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gaming encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "310750f0cbe930fd521d875b6df7a61f",
+        "size compressed (bytes)": 13104645,
+        "total_terms": 296073202,
+        "documents": 45301,
+        "unique_terms": 24564,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gis encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "3b42c73ccc278cc0bb823829867c6fce",
+        "size compressed (bytes)": 10380891,
+        "total_terms": 296967034,
+        "documents": 37637,
+        "unique_terms": 22034,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-mathematica encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "5b9d594270ff7417aabf1e9ca0a5bdf5",
+        "size compressed (bytes)": 4823160,
+        "total_terms": 132796971,
+        "documents": 16705,
+        "unique_terms": 19765,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-physics encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "a520cde380062b58f52c90e15d05e445",
+        "size compressed (bytes)": 11011175,
+        "total_terms": 284896455,
+        "documents": 38316,
+        "unique_terms": 22985,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-programmers encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "a90bd4f1185184881cbeaae095eb9e6f",
+        "size compressed (bytes)": 10146685,
+        "total_terms": 258856106,
+        "documents": 32176,
+        "unique_terms": 22560,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-stats encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "33f8e2025e89fd637806fe3083b61e86",
+        "size compressed (bytes)": 12016946,
+        "total_terms": 333590386,
+        "documents": 42269,
+        "unique_terms": 23322,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-tex encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "c20a0543a3ed90cf0ac8a2f4f52a8f7a",
+        "size compressed (bytes)": 19883333,
+        "total_terms": 604604076,
+        "documents": 68184,
+        "unique_terms": 24669,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-unix encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "7fdc9d04b7a3ced70bdef10e1bf92a09",
+        "size compressed (bytes)": 12857043,
+        "total_terms": 369576280,
+        "documents": 47382,
+        "unique_terms": 21712,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-webmasters encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "71a8d47e53a7befd43d4e29827699bfd",
+        "size compressed (bytes)": 5044024,
+        "total_terms": 127823828,
+        "documents": 17405,
+        "unique_terms": 20286,
+        "downloaded": False
+    },
+    "beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-wordpress encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "370d0a704300987447a884bce28b0057",
+        "size compressed (bytes)": 12737602,
+        "total_terms": 362488001,
+        "documents": 48605,
+        "unique_terms": 21867,
+        "downloaded": False
+    },
+    "beir-v1.0.0-quora-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): Quora encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "0fc0e726e877bfcc65f00d11e62d014a",
+        "size compressed (bytes)": 52687112,
+        "total_terms": 1322737004,
+        "documents": 522931,
+        "unique_terms": 27042,
+        "downloaded": False
+    },
+    "beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): DBPedia encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "3e0979e02c97ee76ae30b1bf135ac2c8",
+        "size compressed (bytes)": 1230929506,
+        "total_terms": 30490098411,
+        "documents": 4635922,
+        "unique_terms": 28709,
+        "downloaded": False
+    },
+    "beir-v1.0.0-scidocs-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): SCIDOCS encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "ac689f1bcf15d858fdbec70e692f9642",
+        "size compressed (bytes)": 11401355,
+        "total_terms": 273175826,
+        "documents": 25657,
+        "unique_terms": 24241,
+        "downloaded": False
+    },
+    "beir-v1.0.0-fever-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): FEVER encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "99ac85688f3bee09a14334a02e0bc06c",
+        "size compressed (bytes)": 1504352314,
+        "total_terms": 38844967407,
+        "documents": 5416568,
+        "unique_terms": 28670,
+        "downloaded": False
+    },
+    "beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): Climate-FEVER encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "60956badd9028ad18adfaf0a87e2c2d7",
+        "size compressed (bytes)": 1504855696,
+        "total_terms": 38845226073,
+        "documents": 5416593,
+        "unique_terms": 28670,
+        "downloaded": False
+    },
+    "beir-v1.0.0-scifact-splade_distil_cocodenser_medium-lucene8": {
+        "description": "Lucene impact index of BEIR (v1.0.0): SciFact encoded by SPLADE-distill CoCodenser-medium. (Lucene 8; deprecated)",
+        "filename": "lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+        ],
+        "md5": "bb0f30dad94daa06766da55ae615091d",
+        "size compressed (bytes)": 2184301,
+        "total_terms": 65836037,
+        "documents": 5183,
+        "unique_terms": 17486,
+        "downloaded": False
+    }
+
 }
 
 IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_CURRENT, **IMPACT_INDEX_INFO_DEPRECATED}
