@@ -51,8 +51,8 @@ beir_keys = {
     'scifact': 'SciFact'
 }
 
-commitid = '1842ee'
-date = '20220501'
+commitid = '505594'
+date = '20221116'
 
 # We want to generate entries that look like this:
 #
