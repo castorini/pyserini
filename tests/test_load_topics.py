@@ -1129,6 +1129,14 @@ class TestLoadTopics(unittest.TestCase):
 
         self.assertEqual(search.get_topics('robust04'), topics)
 
+    def test_trec_topicreader_nonint_qid(self):
+        path = 'tests/resources/sample_queries_nonint_qid.tsv'
+        self.assertTrue(os.path.exists(path))
+        topics = search.get_topics_with_reader('io.anserini.search.topicreader.TsvStringTopicReader', path)
+        self.assertEqual(len(topics), 3)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+        self.assertEqual({'30_1', '30_2', '30_3'}, set(topics))
+
 
 if __name__ == '__main__':
     unittest.main()
