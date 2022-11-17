@@ -1060,41 +1060,41 @@ TF_INDEX_INFO_CURRENT = {
     # BEIR (v1.0.0) flat indexes
     "beir-v1.0.0-trec-covid-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): TREC-COVID",
-        "filename": "lucene-index.beir-v1.0.0-trec-covid-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-trec-covid-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-trec-covid-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-covid-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-flat.20221116.505594.tar.gz"
         ],
-        "md5": "d8574b8263df5dc337b443c4c35d384f",
-        "size compressed (bytes)": 226745226,
-        "total_terms": 20822810,
+        "md5": "9ae06c30a7c352f18a5a8e75b88b9106",
+        "size compressed (bytes)": 226268661,
+        "total_terms": 20822821,
         "documents": 171331,
-        "unique_terms": 202643,
+        "unique_terms": 202648,
         "downloaded": False
     },
     "beir-v1.0.0-bioasq-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): BioASQ",
-        "filename": "lucene-index.beir-v1.0.0-bioasq-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-bioasq-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-bioasq-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-bioasq-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-flat.20221116.505594.tar.gz"
         ],
-        "md5": "ab4823b0b59dbb59ae72c2689b73133c",
-        "size compressed (bytes)": 24861183683,
-        "total_terms": 2257541768,
+        "md5": "d9b098a7e127a79f390285290a7c0ba8",
+        "size compressed (bytes)": 24821933182,
+        "total_terms": 2257541758,
         "documents": 14914603,
-        "unique_terms": 4959999,
+        "unique_terms": 4960004,
         "downloaded": False
     },
     "beir-v1.0.0-nfcorpus-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): NFCorpus",
-        "filename": "lucene-index.beir-v1.0.0-nfcorpus-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-nfcorpus-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-nfcorpus-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nfcorpus-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-flat.20221116.505594.tar.gz"
         ],
-        "md5": "b52e0f918eb3a5517289980850dec55c",
-        "size compressed (bytes)": 6508815,
+        "md5": "12ad00c0f58393b9a6c473183b4ff55a",
+        "size compressed (bytes)": 6509693,
         "total_terms": 637485,
         "documents": 3633,
         "unique_terms": 22111,
@@ -1102,41 +1102,41 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-nq-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): NQ",
-        "filename": "lucene-index.beir-v1.0.0-nq-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-nq-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-nq-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nq-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-flat.20221116.505594.tar.gz"
         ],
-        "md5": "71c35db0343ba9800c6b34510acbfb4f",
-        "size compressed (bytes)": 1650195223,
-        "total_terms": 151249287,
+        "md5": "fefe2c93019b2eb899d875a90861b9f4",
+        "size compressed (bytes)": 1645453710,
+        "total_terms": 151249294,
         "documents": 2681468,
-        "unique_terms": 997009,
+        "unique_terms": 997027,
         "downloaded": False
     },
     "beir-v1.0.0-hotpotqa-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): HotpotQA",
-        "filename": "lucene-index.beir-v1.0.0-hotpotqa-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-hotpotqa-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-hotpotqa-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-hotpotqa-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-flat.20221116.505594.tar.gz"
         ],
-        "md5": "431995b33471f183272bb84d9499d8f6",
-        "size compressed (bytes)": 2027634934,
-        "total_terms": 172477063,
+        "md5": "29723f2d1ea53880720765dd558fb264",
+        "size compressed (bytes)": 2019085858,
+        "total_terms": 172477066,
         "documents": 5233329,
-        "unique_terms": 2644887,
+        "unique_terms": 2644892,
         "downloaded": False
     },
     "beir-v1.0.0-fiqa-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): FiQA-2018",
-        "filename": "lucene-index.beir-v1.0.0-fiqa-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fiqa-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-fiqa-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fiqa-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-flat.20221116.505594.tar.gz"
         ],
-        "md5": "332ec18504778b03e330847a006541d4",
-        "size compressed (bytes)": 56101137,
+        "md5": "7ead89ae57ca09a0f6f39f0c621feba8",
+        "size compressed (bytes)": 55982529,
         "total_terms": 5288635,
         "documents": 57600,
         "unique_terms": 66977,
@@ -1144,27 +1144,27 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-signal1m-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): Signal-1M",
-        "filename": "lucene-index.beir-v1.0.0-signal1m-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-signal1m-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-signal1m-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-signal1m-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-flat.20221116.505594.tar.gz"
         ],
-        "md5": "95b279bbd4533b631967540647f18476",
-        "size compressed (bytes)": 499183897,
-        "total_terms": 32240067,
+        "md5": "a1c952e55f7dd3383c9140c7b446e044",
+        "size compressed (bytes)": 496596590,
+        "total_terms": 32240069,
         "documents": 2866315,
-        "unique_terms": 796646,
+        "unique_terms": 796647,
         "downloaded": False
     },
     "beir-v1.0.0-trec-news-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): TREC-NEWS",
-        "filename": "lucene-index.beir-v1.0.0-trec-news-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-trec-news-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-trec-news-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-news-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-flat.20221116.505594.tar.gz"
         ],
-        "md5": "9f78f049ffdcac5f6f55cd118e008bdb",
-        "size compressed (bytes)": 2630489172,
+        "md5": "599aca58ee57e9593d40953b12a1bd69",
+        "size compressed (bytes)": 2623577554,
         "total_terms": 275651967,
         "documents": 594589,
         "unique_terms": 729872,
@@ -1172,13 +1172,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-robust04-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): Robust04",
-        "filename": "lucene-index.beir-v1.0.0-robust04-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-robust04-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-robust04-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-robust04-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-flat.20221116.505594.tar.gz"
         ],
-        "md5": "a9340eeedb444a303afbf974ba1872d5",
-        "size compressed (bytes)": 1731243578,
+        "md5": "717325e5c282f45d2a8e189e9ef89388",
+        "size compressed (bytes)": 1728446672,
         "total_terms": 174384263,
         "documents": 528036,
         "unique_terms": 923466,
@@ -1186,13 +1186,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-arguana-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): ArguAna",
-        "filename": "lucene-index.beir-v1.0.0-arguana-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-arguana-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-arguana-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-arguana-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-flat.20221116.505594.tar.gz"
         ],
-        "md5": "62ba65fa619e7f1c9e48850974ab242d",
-        "size compressed (bytes)": 10563170,
+        "md5": "5989163bb5c7e0a29f8241f3fae95c02",
+        "size compressed (bytes)": 10563484,
         "total_terms": 969528,
         "documents": 8674,
         "unique_terms": 23895,
@@ -1200,13 +1200,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-webis-touche2020-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): Webis-Touche2020",
-        "filename": "lucene-index.beir-v1.0.0-webis-touche2020-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-webis-touche2020-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-webis-touche2020-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-webis-touche2020-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-flat.20221116.505594.tar.gz"
         ],
-        "md5": "9e43abfd1de98da6671df90bba8486a1",
-        "size compressed (bytes)": 751902399,
+        "md5": "5f54ca552b6075b8dff6d9ae9cd138e6",
+        "size compressed (bytes)": 750400909,
         "total_terms": 76082209,
         "documents": 382545,
         "unique_terms": 525540,
@@ -1214,27 +1214,27 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-android-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-android",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-flat.20221116.505594.tar.gz"
         ],
-        "md5": "870b2ddfd59abb96a74c00515122b9e1",
-        "size compressed (bytes)": 17466940,
-        "total_terms": 1760761,
+        "md5": "14451ca82955bc7ce3b1df73091d5f0e",
+        "size compressed (bytes)": 17423304,
+        "total_terms": 1760762,
         "documents": 22998,
-        "unique_terms": 41455,
+        "unique_terms": 41456,
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-english-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-english",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-flat.20221116.505594.tar.gz"
         ],
-        "md5": "bdcfe2cb5798b79405cba1185ad4ad38",
-        "size compressed (bytes)": 24992357,
+        "md5": "0b66a52f9f67b4ddd163590bb968efee",
+        "size compressed (bytes)": 24949592,
         "total_terms": 2236655,
         "documents": 40221,
         "unique_terms": 62517,
@@ -1242,13 +1242,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-gaming-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-gaming",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20221116.505594.tar.gz"
         ],
-        "md5": "92fc7435b1ee64783c4a97eea9d2c4a4",
-        "size compressed (bytes)": 29224430,
+        "md5": "a369444e1296c54beb6d7eae19f30f3b",
+        "size compressed (bytes)": 29156968,
         "total_terms": 2827717,
         "documents": 45301,
         "unique_terms": 60070,
@@ -1256,13 +1256,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-gis-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-gis",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20221116.505594.tar.gz"
         ],
-        "md5": "80c3dcc4b3fd39a1125537b587f27436",
-        "size compressed (bytes)": 43466795,
+        "md5": "85ad4715eb06b2a2079385c74504da15",
+        "size compressed (bytes)": 43396160,
         "total_terms": 4048584,
         "documents": 37637,
         "unique_terms": 184133,
@@ -1270,13 +1270,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-mathematica-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-mathematica",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20221116.505594.tar.gz"
         ],
-        "md5": "359c577e5a4f9a48e7b61fbd70447121",
-        "size compressed (bytes)": 21621544,
+        "md5": "5b8bd6d8f8f37d449856e0bc14eb16fc",
+        "size compressed (bytes)": 21589911,
         "total_terms": 2332642,
         "documents": 16705,
         "unique_terms": 111611,
@@ -1284,13 +1284,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-physics-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-physics",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20221116.505594.tar.gz"
         ],
-        "md5": "3f4a0c885463a50038893c5169374e56",
-        "size compressed (bytes)": 38016173,
+        "md5": "e4a1dda9c0940277d8bbc2d5e9278eb7",
+        "size compressed (bytes)": 37956223,
         "total_terms": 3785483,
         "documents": 38316,
         "unique_terms": 55950,
@@ -1298,13 +1298,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-programmers-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-programmers",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20221116.505594.tar.gz"
         ],
-        "md5": "2b0be6fc6d9623201540cbcb2f4881ab",
-        "size compressed (bytes)": 40373220,
+        "md5": "f8b124fb052d2f14e908f20c47792cc3",
+        "size compressed (bytes)": 40297081,
         "total_terms": 3905694,
         "documents": 32176,
         "unique_terms": 74195,
@@ -1312,13 +1312,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-stats-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-stats",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20221116.505594.tar.gz"
         ],
-        "md5": "ce64d853969bde0fecea2228c1258944",
-        "size compressed (bytes)": 52283784,
+        "md5": "a622bd3c4d6b413c50c1855b6fa85e64",
+        "size compressed (bytes)": 52212616,
         "total_terms": 5356042,
         "documents": 42269,
         "unique_terms": 183358,
@@ -1326,27 +1326,27 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-tex-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-tex",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20221116.505594.tar.gz"
         ],
-        "md5": "558efcfba599b0e8e7a95a41df4dc5f2",
-        "size compressed (bytes)": 91968319,
-        "total_terms": 9556422,
+        "md5": "939c69cdf1ab563729697bc936f45e6a",
+        "size compressed (bytes)": 91818976,
+        "total_terms": 9556423,
         "documents": 68184,
-        "unique_terms": 288087,
+        "unique_terms": 288088,
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-unix-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-unix",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20221116.505594.tar.gz"
         ],
-        "md5": "a3c6cbfc1e81d98abc6cc4380a8f19d2",
-        "size compressed (bytes)": 53892386,
+        "md5": "34913c5e811c0399c6ee3c03c68861d1",
+        "size compressed (bytes)": 53802802,
         "total_terms": 5767374,
         "documents": 47382,
         "unique_terms": 206323,
@@ -1354,13 +1354,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-webmasters-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-webmasters",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20221116.505594.tar.gz"
         ],
-        "md5": "fa35ece230cb4d85a5e4ad5de0fd9240",
-        "size compressed (bytes)": 15204463,
+        "md5": "41f91e1dc4c4d7ee4da89ef2e7210dfb",
+        "size compressed (bytes)": 15174810,
         "total_terms": 1482585,
         "documents": 17405,
         "unique_terms": 40547,
@@ -1368,13 +1368,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-wordpress-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-wordpress",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20221116.505594.tar.gz"
         ],
-        "md5": "5a3591b6ff9ce5a97d1600f8a8cd63e8",
-        "size compressed (bytes)": 54895441,
+        "md5": "c10a130177b7ca65ae47640cffc4a5ec",
+        "size compressed (bytes)": 54807600,
         "total_terms": 5463472,
         "documents": 48605,
         "unique_terms": 125727,
@@ -1382,13 +1382,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-quora-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): Quora",
-        "filename": "lucene-index.beir-v1.0.0-quora-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-quora-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-quora-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-quora-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-flat.20221116.505594.tar.gz"
         ],
-        "md5": "dde92b4610b08282d11e7a4465b29181",
-        "size compressed (bytes)": 52750359,
+        "md5": "20cc429516848d0f314ac593c94bf226",
+        "size compressed (bytes)": 52698681,
         "total_terms": 4390852,
         "documents": 522931,
         "unique_terms": 69597,
@@ -1396,27 +1396,27 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-dbpedia-entity-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): DBPedia",
-        "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-flat.20221116.505594.tar.gz"
         ],
-        "md5": "0d38ea1abf89644bb7d39e74cc4dd2d9",
-        "size compressed (bytes)": 2079898414,
-        "total_terms": 164794987,
+        "md5": "8aabf2456b0cccc1a1d013059125b6ef",
+        "size compressed (bytes)": 2085472968,
+        "total_terms": 164794982,
         "documents": 4635922,
-        "unique_terms": 3351449,
+        "unique_terms": 3351459,
         "downloaded": False
     },
     "beir-v1.0.0-scidocs-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): SCIDOCS",
-        "filename": "lucene-index.beir-v1.0.0-scidocs-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-scidocs-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-scidocs-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scidocs-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-flat.20221116.505594.tar.gz"
         ],
-        "md5": "09a0ea1853445be14da2afb0bc47335e",
-        "size compressed (bytes)": 186605163,
+        "md5": "a25663e4bce0d588814efb3091a3a53f",
+        "size compressed (bytes)": 186572828,
         "total_terms": 3266767,
         "documents": 25657,
         "unique_terms": 63604,
@@ -1424,41 +1424,41 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-fever-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): FEVER",
-        "filename": "lucene-index.beir-v1.0.0-fever-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fever-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-fever-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fever-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-flat.20221116.505594.tar.gz"
         ],
-        "md5": "63cd5f369b5952386f138efe45571d41",
-        "size compressed (bytes)": 3878535207,
-        "total_terms": 325179170,
+        "md5": "ce620e8c11b44528a498360912d5fe46",
+        "size compressed (bytes)": 3880155518,
+        "total_terms": 325179165,
         "documents": 5416568,
         "unique_terms": 3293639,
         "downloaded": False
     },
     "beir-v1.0.0-climate-fever-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): Climate-FEVER",
-        "filename": "lucene-index.beir-v1.0.0-climate-fever-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-climate-fever-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-climate-fever-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-climate-fever-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-flat.20221116.505594.tar.gz"
         ],
-        "md5": "9af959cf58139d086d52121917913a02",
-        "size compressed (bytes)": 3878606250,
-        "total_terms": 325185077,
+        "md5": "50adaaac662f7fadaf5494808e50f9d6",
+        "size compressed (bytes)": 3880208210,
+        "total_terms": 325185072,
         "documents": 5416593,
         "unique_terms": 3293621,
         "downloaded": False
     },
     "beir-v1.0.0-scifact-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): SciFact",
-        "filename": "lucene-index.beir-v1.0.0-scifact-flat.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-scifact-flat.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-scifact-flat.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scifact-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-flat.20221116.505594.tar.gz"
         ],
-        "md5": "8c79300afd78acb95f127c58682fc881",
-        "size compressed (bytes)": 8851845,
+        "md5": "5fee55eb99327b38a5ca623e68e25edf",
+        "size compressed (bytes)": 8851172,
         "total_terms": 838128,
         "documents": 5183,
         "unique_terms": 28865,
@@ -1468,41 +1468,41 @@ TF_INDEX_INFO_CURRENT = {
     # BEIR (v1.0.0) multifield indexes
     "beir-v1.0.0-trec-covid-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): TREC-COVID",
-        "filename": "lucene-index.beir-v1.0.0-trec-covid-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-trec-covid-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-trec-covid-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-covid-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "2dabcca159c157215ae59b1899c495a8",
-        "size compressed (bytes)": 223251753,
-        "total_terms": 19060111,
+        "md5": "ec260e10c9897e736820c22476c3574f",
+        "size compressed (bytes)": 222831948,
+        "total_terms": 19060122,
         "documents": 129192,
-        "unique_terms": 193846,
+        "unique_terms": 193851,
         "downloaded": False
     },
     "beir-v1.0.0-bioasq-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): BioASQ",
-        "filename": "lucene-index.beir-v1.0.0-bioasq-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-bioasq-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-bioasq-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-bioasq-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "723dcc48c961a9faef23e41cc0f372b0",
-        "size compressed (bytes)": 25390117017,
-        "total_terms": 2099554317,
+        "md5": "d754a05c01fd1c3e34d883e4fa912d63",
+        "size compressed (bytes)": 25346354708,
+        "total_terms": 2099554307,
         "documents": 14914602,
-        "unique_terms": 4889048,
+        "unique_terms": 4889053,
         "downloaded": False
     },
     "beir-v1.0.0-nfcorpus-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): NFCorpus",
-        "filename": "lucene-index.beir-v1.0.0-nfcorpus-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-nfcorpus-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-nfcorpus-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nfcorpus-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "7c6a63153cca484bd85510d9ffc7c62e",
-        "size compressed (bytes)": 6644821,
+        "md5": "6e5fc4f35cc1fa8dc98b86b2385c4a0b",
+        "size compressed (bytes)": 6645574,
         "total_terms": 601950,
         "documents": 3633,
         "unique_terms": 21819,
@@ -1510,41 +1510,41 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-nq-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): NQ",
-        "filename": "lucene-index.beir-v1.0.0-nq-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-nq-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-nq-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nq-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "3642ab8879de1c37993347d164694885",
-        "size compressed (bytes)": 1647410313,
-        "total_terms": 144050884,
+        "md5": "db80e0851c81c082688add60b57bd9f1",
+        "size compressed (bytes)": 1642708222,
+        "total_terms": 144050891,
         "documents": 2680961,
-        "unique_terms": 996635,
+        "unique_terms": 996653,
         "downloaded": False
     },
     "beir-v1.0.0-hotpotqa-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): HotpotQA",
-        "filename": "lucene-index.beir-v1.0.0-hotpotqa-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-hotpotqa-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-hotpotqa-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-hotpotqa-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "fa80379866ff06ad905d70ba1d4d55e3",
-        "size compressed (bytes)": 2092477199,
-        "total_terms": 158180689,
+        "md5": "95c657338468ddacfae5874cbd09d7eb",
+        "size compressed (bytes)": 2083441352,
+        "total_terms": 158180692,
         "documents": 5233235,
-        "unique_terms": 2627634,
+        "unique_terms": 2627639,
         "downloaded": False
     },
     "beir-v1.0.0-fiqa-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): FiQA-2018",
-        "filename": "lucene-index.beir-v1.0.0-fiqa-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fiqa-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-fiqa-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fiqa-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "2cc96d72349f5f864235a88303af5da9",
-        "size compressed (bytes)": 56101140,
+        "md5": "ba7f197331d1a84582c5485536b0d2aa",
+        "size compressed (bytes)": 55984431,
         "total_terms": 5288635,
         "documents": 57600,
         "unique_terms": 66977,
@@ -1552,27 +1552,27 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-signal1m-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): Signal-1M",
-        "filename": "lucene-index.beir-v1.0.0-signal1m-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-signal1m-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-signal1m-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-signal1m-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "16a8c34363c69afc820af20ec6ec0848",
-        "size compressed (bytes)": 499183933,
-        "total_terms": 32240067,
+        "md5": "6f5c151ade6efc6567d2b98016a97041",
+        "size compressed (bytes)": 496603097,
+        "total_terms": 32240069,
         "documents": 2866315,
-        "unique_terms": 796646,
+        "unique_terms": 796647,
         "downloaded": False
     },
     "beir-v1.0.0-trec-news-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): TREC-NEWS",
-        "filename": "lucene-index.beir-v1.0.0-trec-news-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-trec-news-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-trec-news-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-news-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "91390f9e059ba04479f3550cca166a65",
-        "size compressed (bytes)": 2640469722,
+        "md5": "b9e935edb604edb04524970c40ca107a",
+        "size compressed (bytes)": 2633899051,
         "total_terms": 270886723,
         "documents": 578605,
         "unique_terms": 727856,
@@ -1580,13 +1580,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-robust04-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): Robust04",
-        "filename": "lucene-index.beir-v1.0.0-robust04-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-robust04-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-robust04-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-robust04-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "f9821cef4dc903772dec283cc8c9e0f5",
-        "size compressed (bytes)": 1731243641,
+        "md5": "bb2939df4ca76dec5d6e5f366d08fe00",
+        "size compressed (bytes)": 1728446264,
         "total_terms": 174384263,
         "documents": 528036,
         "unique_terms": 923466,
@@ -1594,13 +1594,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-arguana-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): ArguAna",
-        "filename": "lucene-index.beir-v1.0.0-arguana-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-arguana-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-arguana-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-arguana-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "d22aa6b4247535dedb78b3f876d958e7",
-        "size compressed (bytes)": 10523627,
+        "md5": "3b548e373d85835f478199cdcebd7b0b",
+        "size compressed (bytes)": 10524119,
         "total_terms": 944123,
         "documents": 8674,
         "unique_terms": 23867,
@@ -1608,13 +1608,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-webis-touche2020-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): Webis-Touche2020",
-        "filename": "lucene-index.beir-v1.0.0-webis-touche2020-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-webis-touche2020-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-webis-touche2020-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-webis-touche2020-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "f9d1601b76bdbafef6bfa335bf1d1595",
-        "size compressed (bytes)": 752116420,
+        "md5": "2a1549bc27a34a140914e42b709f1a19",
+        "size compressed (bytes)": 750724431,
         "total_terms": 74066724,
         "documents": 382545,
         "unique_terms": 524665,
@@ -1622,27 +1622,27 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-android-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-android",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "05801b35a25af7c16172255512b4ce36",
-        "size compressed (bytes)": 17931810,
-        "total_terms": 1591284,
+        "md5": "858ed389f7a924cd90a8c9c8882954ed",
+        "size compressed (bytes)": 17887744,
+        "total_terms": 1591285,
         "documents": 22998,
-        "unique_terms": 40823,
+        "unique_terms": 40824,
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-english-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-english",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "bf9eef1c5fd10b66b6816f272e7872e1",
-        "size compressed (bytes)": 25605309,
+        "md5": "40e87436b956a78ba312751d90116c27",
+        "size compressed (bytes)": 25558892,
         "total_terms": 2006983,
         "documents": 40221,
         "unique_terms": 61530,
@@ -1650,13 +1650,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-gaming-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-gaming",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "3393426ddc796ce263ffb318a6d2bfed",
-        "size compressed (bytes)": 30065920,
+        "md5": "eed5e2778ed6e22fca99eec8dae8f77f",
+        "size compressed (bytes)": 29992461,
         "total_terms": 2510477,
         "documents": 45300,
         "unique_terms": 59113,
@@ -1664,13 +1664,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-gis-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-gis",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "f69c20cdd61ca7d59ba13e46d8119f5c",
-        "size compressed (bytes)": 44265052,
+        "md5": "add51b3adeb981dfb7749b01edc9b4e5",
+        "size compressed (bytes)": 44188649,
         "total_terms": 3789161,
         "documents": 37637,
         "unique_terms": 183298,
@@ -1678,13 +1678,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-mathematica-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-mathematica",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "74ef57dcbca928d6ac77b79bb9e6c9ad",
-        "size compressed (bytes)": 21944398,
+        "md5": "90e592f86ab093bbc1d77b8de65dc9ba",
+        "size compressed (bytes)": 21911907,
         "total_terms": 2234369,
         "documents": 16705,
         "unique_terms": 111306,
@@ -1692,13 +1692,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-physics-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-physics",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "be67a3ae1f91fbe3fb26262e695871f3",
-        "size compressed (bytes)": 38801084,
+        "md5": "a8abde1bced888a706d0a6311c3e13ad",
+        "size compressed (bytes)": 38736490,
         "total_terms": 3542078,
         "documents": 38316,
         "unique_terms": 55229,
@@ -1706,13 +1706,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-programmers-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-programmers",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "8d40c0e813171a68ea27da42e1943ebe",
-        "size compressed (bytes)": 41061263,
+        "md5": "2f99a6e167475ecdb2265846381e7171",
+        "size compressed (bytes)": 40982054,
         "total_terms": 3682227,
         "documents": 32176,
         "unique_terms": 73765,
@@ -1720,13 +1720,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-stats-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-stats",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "d00eec70ebfba38d32e5d588be7e0d74",
-        "size compressed (bytes)": 53164818,
+        "md5": "4b4a103decd723566f1935134434c9a9",
+        "size compressed (bytes)": 53094503,
         "total_terms": 5073873,
         "documents": 42269,
         "unique_terms": 182933,
@@ -1734,27 +1734,27 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-tex-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-tex",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "6952954b17ebe87987c08d1994bcb801",
-        "size compressed (bytes)": 93231672,
-        "total_terms": 9155404,
+        "md5": "93e0cb6018cc7fcf042a2119e3b73d5d",
+        "size compressed (bytes)": 93081213,
+        "total_terms": 9155405,
         "documents": 68184,
-        "unique_terms": 287392,
+        "unique_terms": 287393,
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-unix-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-unix",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "858632caf3b93fd0ce6f2c4cdc95503b",
-        "size compressed (bytes)": 54854147,
+        "md5": "c7d4cebf819aa19c6a0da6df7aed93fe",
+        "size compressed (bytes)": 54758840,
         "total_terms": 5449726,
         "documents": 47382,
         "unique_terms": 205471,
@@ -1762,13 +1762,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-webmasters-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-webmasters",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "d40fbb1d750a8d4bfcb77edd3d74e758",
-        "size compressed (bytes)": 15560909,
+        "md5": "1ff00797eb6fb43bef05b054281ca016",
+        "size compressed (bytes)": 15524401,
         "total_terms": 1358292,
         "documents": 17405,
         "unique_terms": 40073,
@@ -1776,13 +1776,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-wordpress-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-wordpress",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "938abf49a6835006e1b29b1bcd28602f",
-        "size compressed (bytes)": 55833972,
+        "md5": "5e571c3ca3d28cb53e2b280fd05dfaec",
+        "size compressed (bytes)": 55738645,
         "total_terms": 5151575,
         "documents": 48605,
         "unique_terms": 125110,
@@ -1790,13 +1790,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-quora-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): Quora",
-        "filename": "lucene-index.beir-v1.0.0-quora-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-quora-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-quora-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-quora-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "0812beec31e051515524c746323e0ee2",
-        "size compressed (bytes)": 52750399,
+        "md5": "1e033c875d3fdda2f096928003d6f977",
+        "size compressed (bytes)": 52703125,
         "total_terms": 4390852,
         "documents": 522931,
         "unique_terms": 69597,
@@ -1804,27 +1804,27 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-dbpedia-entity-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): DBPedia",
-        "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "0834295cdc4e955cb9052b24a56f074b",
-        "size compressed (bytes)": 2139032416,
-        "total_terms": 152205484,
+        "md5": "107ac2e15140ae889315920148e73ce6",
+        "size compressed (bytes)": 2144410442,
+        "total_terms": 152205479,
         "documents": 4635922,
-        "unique_terms": 3338466,
+        "unique_terms": 3338476,
         "downloaded": False
     },
     "beir-v1.0.0-scidocs-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): SCIDOCS",
-        "filename": "lucene-index.beir-v1.0.0-scidocs-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-scidocs-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-scidocs-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scidocs-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "0944c45ccf3ab5bb3cee5f1863725114",
-        "size compressed (bytes)": 175925466,
+        "md5": "e97467dff3cf15b20471421c4ef7e106",
+        "size compressed (bytes)": 175887258,
         "total_terms": 3065828,
         "documents": 25313,
         "unique_terms": 62562,
@@ -1832,41 +1832,41 @@ TF_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-fever-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): FEVER",
-        "filename": "lucene-index.beir-v1.0.0-fever-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fever-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-fever-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fever-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "3ba53efbdbeed974a641c7dc5860dbc8",
-        "size compressed (bytes)": 3946159718,
-        "total_terms": 310655704,
+        "md5": "7a10971ad193dddaf604240e54965305",
+        "size compressed (bytes)": 3947213520,
+        "total_terms": 310655699,
         "documents": 5396138,
         "unique_terms": 3275057,
         "downloaded": False
     },
     "beir-v1.0.0-climate-fever-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): Climate-FEVER",
-        "filename": "lucene-index.beir-v1.0.0-climate-fever-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-climate-fever-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-climate-fever-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-climate-fever-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "998e9e9aa3d91c8022e1f8cae3f75a5f",
-        "size compressed (bytes)": 3946246078,
-        "total_terms": 310661482,
+        "md5": "a940bc3477e67f3231e891863ebfe393",
+        "size compressed (bytes)": 3947277760,
+        "total_terms": 310661477,
         "documents": 5396163,
         "unique_terms": 3275068,
         "downloaded": False
     },
     "beir-v1.0.0-scifact-multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): SciFact",
-        "filename": "lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-scifact-multifield.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scifact-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-multifield.20221116.505594.tar.gz"
         ],
-        "md5": "a72d8c62859a2434fba2e0034268dbe4",
-        "size compressed (bytes)": 9078043,
+        "md5": "1a918170d342b0e208b28c9f02d626b3",
+        "size compressed (bytes)": 9078031,
         "total_terms": 784591,
         "documents": 5183,
         "unique_terms": 28581,
@@ -4136,13 +4136,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     # BEIR (v1.0.0) impact indexes encoded by SPLADE-distill CoCodenser-medium
     "beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): TREC-COVID encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "b9c3837f2421667ba48adb84fcb599aa",
-        "size compressed (bytes)": 57011989,
+        "md5": "0f91fb01fec4b1c590fe683ad2383339",
+        "size compressed (bytes)": 55889585,
         "total_terms": 1697942549,
         "documents": 171332,
         "unique_terms": 26611,
@@ -4150,13 +4150,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-bioasq-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): BioASQ encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "96ebb0b9016d9894e9784fa71ad7595d",
-        "size compressed (bytes)": 5474720263,
+        "md5": "a0317f26b1fab3bca71b46e0a4eff816",
+        "size compressed (bytes)": 5396189427,
         "total_terms": 181960155708,
         "documents": 14914603,
         "unique_terms": 27703,
@@ -4164,13 +4164,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): NFCorpus encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "7f5ec129305d630a18d63f188e08aa22",
-        "size compressed (bytes)": 1445273,
+        "md5": "9c6f3ecfa6186c3ab5125f5c3d4eb962",
+        "size compressed (bytes)": 1439110,
         "total_terms": 41582222,
         "documents": 3633,
         "unique_terms": 16295,
@@ -4178,13 +4178,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-nq-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): NQ encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "026dc3c2ed7292e7549ce4ff9ae2c318",
-        "size compressed (bytes)": 859416460,
+        "md5": "9d418f806b8304a075945afa80bfcc22",
+        "size compressed (bytes)": 833470407,
         "total_terms": 21901570532,
         "documents": 2681468,
         "unique_terms": 28747,
@@ -4192,13 +4192,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): HotpotQA encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "3edf537dfed5a9274ba56ef58ab090f6",
-        "size compressed (bytes)": 1197602761,
+        "md5": "e96767f3d97cba5104dfd76eafdb35b7",
+        "size compressed (bytes)": 1173403732,
         "total_terms": 32565190895,
         "documents": 5233329,
         "unique_terms": 28724,
@@ -4206,13 +4206,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-fiqa-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): FiQA-2018 encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "a6ff07fe2a75f30838c3faf7c133efc1",
-        "size compressed (bytes)": 19858617,
+        "md5": "937f0112a77a81879d6e42431d7fd522",
+        "size compressed (bytes)": 19624314,
         "total_terms": 487502241,
         "documents": 57638,
         "unique_terms": 26244,
@@ -4220,13 +4220,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-signal1m-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): Signal-1M encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "6d1fedefd3cb3a08820edc9552dd44b6",
-        "size compressed (bytes)": 611827346,
+        "md5": "ac79812f60bcd597d351174a58fb085c",
+        "size compressed (bytes)": 602427178,
         "total_terms": 13103073741,
         "documents": 2866316,
         "unique_terms": 28130,
@@ -4234,13 +4234,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-trec-news-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): TREC-NEWS encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "05faf28e84259629aceb4d39d52471db",
-        "size compressed (bytes)": 278203568,
+        "md5": "d24ca30cb52510d193f9361e7f6996b7",
+        "size compressed (bytes)": 270800660,
         "total_terms": 7519025445,
         "documents": 594977,
         "unique_terms": 27745,
@@ -4248,13 +4248,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-robust04-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): Robust04 encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "c2c7f69edf7bc0edf2ede9d88f4d0402",
-        "size compressed (bytes)": 217727819,
+        "md5": "24e6310cd04a73604a8b467e582d153f",
+        "size compressed (bytes)": 213476457,
         "total_terms": 6718533167,
         "documents": 528155,
         "unique_terms": 27623,
@@ -4262,13 +4262,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-arguana-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): ArguAna encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "2dbb3cdd8412697cc336197912783eb2",
-        "size compressed (bytes)": 3866879,
+        "md5": "d008e420e5be96ab7e9d40bafc3183ce",
+        "size compressed (bytes)": 3816904,
         "total_terms": 96421121,
         "documents": 8674,
         "unique_terms": 22536,
@@ -4276,13 +4276,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): Webis-Touche2020 encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "ff5cb006fac08086c575109e0ac80a1c",
-        "size compressed (bytes)": 126819142,
+        "md5": "e05433f5cd3113b50b5fe166e18975d4",
+        "size compressed (bytes)": 124322238,
         "total_terms": 3229042324,
         "documents": 382545,
         "unique_terms": 27742,
@@ -4290,13 +4290,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-android encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "1fb9462d93a21293a0c7aedd26653158",
-        "size compressed (bytes)": 6068305,
+        "md5": "753c02411a6391e5d45ba39fdc30a535",
+        "size compressed (bytes)": 5995405,
         "total_terms": 157949889,
         "documents": 22998,
         "unique_terms": 18891,
@@ -4304,13 +4304,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-english encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "12f4581a96b775166210b462a78f72e3",
-        "size compressed (bytes)": 9955691,
+        "md5": "f377274f93d9f6426034fdd78457f5ee",
+        "size compressed (bytes)": 9857825,
         "total_terms": 218761119,
         "documents": 40221,
         "unique_terms": 26613,
@@ -4318,13 +4318,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gaming encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "310750f0cbe930fd521d875b6df7a61f",
-        "size compressed (bytes)": 13104645,
+        "md5": "a8549ec6b7af25fe4a60fd7f4827afbd",
+        "size compressed (bytes)": 12976249,
         "total_terms": 296073202,
         "documents": 45301,
         "unique_terms": 24564,
@@ -4332,13 +4332,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gis encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "3b42c73ccc278cc0bb823829867c6fce",
-        "size compressed (bytes)": 10380891,
+        "md5": "26341f18a352668986bc8cf82006dc38",
+        "size compressed (bytes)": 10250646,
         "total_terms": 296967034,
         "documents": 37637,
         "unique_terms": 22034,
@@ -4346,13 +4346,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-mathematica encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "5b9d594270ff7417aabf1e9ca0a5bdf5",
-        "size compressed (bytes)": 4823160,
+        "md5": "799a7c044cc774b29e55de4a8c0a813b",
+        "size compressed (bytes)": 4771584,
         "total_terms": 132796971,
         "documents": 16705,
         "unique_terms": 19765,
@@ -4360,13 +4360,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-physics encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "a520cde380062b58f52c90e15d05e445",
-        "size compressed (bytes)": 11011175,
+        "md5": "75ed5bb0217ba4f1c957bc25109f2823",
+        "size compressed (bytes)": 10887180,
         "total_terms": 284896455,
         "documents": 38316,
         "unique_terms": 22985,
@@ -4374,13 +4374,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-programmers encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "a90bd4f1185184881cbeaae095eb9e6f",
-        "size compressed (bytes)": 10146685,
+        "md5": "42e2da2036a3e1d5780c90cda8c2193e",
+        "size compressed (bytes)": 10036425,
         "total_terms": 258856106,
         "documents": 32176,
         "unique_terms": 22560,
@@ -4388,13 +4388,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-stats encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "33f8e2025e89fd637806fe3083b61e86",
-        "size compressed (bytes)": 12016946,
+        "md5": "50043a036497ea6533fd2ce62f151370",
+        "size compressed (bytes)": 11867711,
         "total_terms": 333590386,
         "documents": 42269,
         "unique_terms": 23322,
@@ -4402,13 +4402,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-tex encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "c20a0543a3ed90cf0ac8a2f4f52a8f7a",
-        "size compressed (bytes)": 19883333,
+        "md5": "83026f984c1007c656f15d7c01cf5da0",
+        "size compressed (bytes)": 19613041,
         "total_terms": 604604076,
         "documents": 68184,
         "unique_terms": 24669,
@@ -4416,13 +4416,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-unix encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "7fdc9d04b7a3ced70bdef10e1bf92a09",
-        "size compressed (bytes)": 12857043,
+        "md5": "5bb2b4999e8769aca00c7dff2baaf297",
+        "size compressed (bytes)": 12705584,
         "total_terms": 369576280,
         "documents": 47382,
         "unique_terms": 21712,
@@ -4430,13 +4430,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-webmasters encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "71a8d47e53a7befd43d4e29827699bfd",
-        "size compressed (bytes)": 5044024,
+        "md5": "bb2b4227659f8f32e1fcd4d7dee6065c",
+        "size compressed (bytes)": 4987493,
         "total_terms": 127823828,
         "documents": 17405,
         "unique_terms": 20286,
@@ -4444,13 +4444,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-wordpress encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "370d0a704300987447a884bce28b0057",
-        "size compressed (bytes)": 12737602,
+        "md5": "2acbaa7b2a0f8699e54fdee2efb2d376",
+        "size compressed (bytes)": 12583602,
         "total_terms": 362488001,
         "documents": 48605,
         "unique_terms": 21867,
@@ -4458,13 +4458,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-quora-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): Quora encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "0fc0e726e877bfcc65f00d11e62d014a",
-        "size compressed (bytes)": 52687112,
+        "md5": "6358d683527284ecf4c1dbb6ad008a0f",
+        "size compressed (bytes)": 51880975,
         "total_terms": 1322737004,
         "documents": 522931,
         "unique_terms": 27042,
@@ -4472,13 +4472,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): DBPedia encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "3e0979e02c97ee76ae30b1bf135ac2c8",
-        "size compressed (bytes)": 1230929506,
+        "md5": "9cb05766611bea863a96818219657c78",
+        "size compressed (bytes)": 1225612002,
         "total_terms": 30490098411,
         "documents": 4635922,
         "unique_terms": 28709,
@@ -4486,13 +4486,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-scidocs-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): SCIDOCS encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "ac689f1bcf15d858fdbec70e692f9642",
-        "size compressed (bytes)": 11401355,
+        "md5": "38d2a4bbabf9b6b1cd627ce81660e07d",
+        "size compressed (bytes)": 11252695,
         "total_terms": 273175826,
         "documents": 25657,
         "unique_terms": 24241,
@@ -4500,13 +4500,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-fever-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): FEVER encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "99ac85688f3bee09a14334a02e0bc06c",
-        "size compressed (bytes)": 1504352314,
+        "md5": "cc71baa5838edd4e7cd288ca26488532",
+        "size compressed (bytes)": 1497554696,
         "total_terms": 38844967407,
         "documents": 5416568,
         "unique_terms": 28670,
@@ -4514,13 +4514,13 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): Climate-FEVER encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "60956badd9028ad18adfaf0a87e2c2d7",
-        "size compressed (bytes)": 1504855696,
+        "md5": "1479d75cd9496a7d57064b86f6ee67ef",
+        "size compressed (bytes)": 1497450545,
         "total_terms": 38845226073,
         "documents": 5416593,
         "unique_terms": 28670,
@@ -4528,18 +4528,18 @@ IMPACT_INDEX_INFO_CURRENT = {
     },
     "beir-v1.0.0-scifact-splade_distil_cocodenser_medium": {
         "description": "Lucene impact index of BEIR (v1.0.0): SciFact encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
+        "filename": "lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
+        "readme": "lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
-        "md5": "bb0f30dad94daa06766da55ae615091d",
-        "size compressed (bytes)": 2184301,
+        "md5": "367db6c4a466d442ba089a38dad9fc6e",
+        "size compressed (bytes)": 2173167,
         "total_terms": 65836037,
         "documents": 5183,
         "unique_terms": 17486,
         "downloaded": False
-    }
+    },
 }
 
 IMPACT_INDEX_INFO_DEPRECATED = {
