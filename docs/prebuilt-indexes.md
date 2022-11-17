@@ -326,7 +326,7 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene flat index of BEIR (v1.0.0): BioASQ
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus-flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-fcorpus-flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): NFCorpus
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq-flat</code></b>
@@ -338,7 +338,7 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene flat index of BEIR (v1.0.0): HotpotQA
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa-flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-fiqa-flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): FiQA-2018
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m-flat</code></b>
@@ -422,11 +422,11 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene flat index of BEIR (v1.0.0): SCIDOCS
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever-flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-fever-flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): FEVER
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever-flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-fever-flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): Climate-FEVER
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact-flat</code></b>

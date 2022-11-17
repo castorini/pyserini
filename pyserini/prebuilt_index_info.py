@@ -1089,7 +1089,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-nfcorpus-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): NFCorpus",
         "filename": "lucene-index.beir-v1.0.0-nfcorpus-flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fcorpus-flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-flat.20221116.505594.tar.gz"
         ],
@@ -1131,7 +1131,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-fiqa-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): FiQA-2018",
         "filename": "lucene-index.beir-v1.0.0-fiqa-flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fiqa-flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-flat.20221116.505594.tar.gz"
         ],
@@ -1425,7 +1425,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-fever-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): FEVER",
         "filename": "lucene-index.beir-v1.0.0-fever-flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fever-flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-flat.20221116.505594.tar.gz"
         ],
@@ -1439,7 +1439,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-climate-fever-flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): Climate-FEVER",
         "filename": "lucene-index.beir-v1.0.0-climate-fever-flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fever-flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-flat.20221116.505594.tar.gz"
         ],
