@@ -439,11 +439,13 @@ def get_topics(collection_name):
 
     t = {}
     for topic in topics.keySet().toArray():
-        # Try and parse the keys into integers
-        if topic.isdigit()
+        
+        if topic.isdigit():
+            # parse the keys into integers
             topic_key = int(topic)
         else:
             topic_key = topic
+            
         t[topic_key] = {}
         for key in topics.get(topic).keySet().toArray():
             t[topic_key][key] = topics.get(topic).get(key)
@@ -458,11 +460,13 @@ def get_topics_with_reader(reader_class, file):
 
     t = {}
     for topic in topics.keySet().toArray():
-        # Try and parse the keys into integers
-        try:
+        
+        if topic.isdigit():
+            # parse the keys into integers
             topic_key = int(topic)
-        except ValueError:
+        else:
             topic_key = topic
+            
         t[topic_key] = {}
         for key in topics.get(topic).keySet().toArray():
             t[topic_key][key] = topics.get(topic).get(key)
@@ -514,14 +518,17 @@ def get_qrels(collection_name):
     with open(file_path, 'r') as f:
         for line in f:
             qid, _, docid, judgement = line.rstrip().split()
-            try:
+            
+            if qid.isdigit():
                 qrels_key = int(qid)
-            except ValueError:
+            else:
                 qrels_key = qid
-            try:
+                
+            if docid.isdigit():
                 doc_key = int(docid)
-            except ValueError:
+            else:
                 doc_key = docid
+                
             if qrels_key in qrels:
                 qrels[qrels_key][doc_key] = judgement
             else:
