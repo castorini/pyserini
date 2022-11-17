@@ -11,7 +11,7 @@ Retrieval using sparse representations is provided via integration with our grou
 Retrieval using dense representations is provided via integration with Facebook's [Faiss](https://github.com/facebookresearch/faiss) library.
 
 Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
-Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, pre-built indexes, and evaluation scripts for many commonly used IR test collections
+Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, [pre-built indexes](docs/prebuilt-indexes.md), and evaluation scripts for many commonly used IR test collections
 With Pyserini, it's easy to reproduce runs on a number of standard IR test collections!
 <!--
 A low-effort way to try things out is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
@@ -607,6 +607,7 @@ We provide access to a multitude of experimental conditions organized in the fol
 + [MS MARCO V1 Document](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html)
 + [MS MARCO V2 Passage](https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html)
 + [MS MARCO V2 Document](https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html)
++ [BEIR](https://castorini.github.io/pyserini/2cr/beir.html)
 + [Mr.TyDi](https://castorini.github.io/pyserini/2cr/mrtydi.html)
 + [MIRACL](https://castorini.github.io/pyserini/2cr/miracl.html)
 

@@ -110,4 +110,6 @@ if __name__ == '__main__':
           f'{final_scores["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{final_scores["splade-distil-cocodenser-medium"]["R@100"]:8.4f} ')
 
     end = time.time()
+
+    print('\n')
     print(f'Total elapsed time: {end - start:.0f}s')
