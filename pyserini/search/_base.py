@@ -440,9 +440,9 @@ def get_topics(collection_name):
     t = {}
     for topic in topics.keySet().toArray():
         # Try and parse the keys into integers
-        try:
+        if topic.isdigit()
             topic_key = int(topic)
-        except ValueError:
+        else:
             topic_key = topic
         t[topic_key] = {}
         for key in topics.get(topic).keySet().toArray():
