@@ -41,16 +41,20 @@ JIndexReader = autoclass('io.anserini.index.IndexReaderUtils')
 
 
 class JIndexHelpers:
+    @staticmethod
     def JArgs():
-        args = autoclass('io.anserini.index.IndexArgs')()
+        args = autoclass('io.anserini.index.IndexCollection$Args')()
         args.storeContents = True
         args.storeRaw = True
         args.dryRun = True ## So that indexing will be skipped
+
         return args
 
+    @staticmethod
     def JCounters():
         IndexCollection = autoclass('io.anserini.index.IndexCollection')
         Counters = autoclass('io.anserini.index.IndexCollection$Counters')
+
         return Counters(IndexCollection)
 
 
