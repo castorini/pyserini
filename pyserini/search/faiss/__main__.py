@@ -79,6 +79,8 @@ def define_dsearch_args(parser):
                         help='The path to sparse index containing the passage contents')
     parser.add_argument('--ance-prf-encoder', type=str, metavar='query encoder path for ANCE-PRF', required=False,
                         help='The path or name to ANCE-PRF model checkpoint')
+    parser.add_argument('--ef-search', type=int, metavar='efSearch for HNSW index', required=False, default=None,
+                        help="Set efSearch for HNSW index")
 
 
 def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, encoded_queries, device, prefix):
@@ -194,6 +196,9 @@ if __name__ == '__main__':
         else:
             searcher = FaissSearcher.from_prebuilt_index(args.index, query_encoder)
     
+    if args.ef_search:
+        searcher.set_hnsw_ef_search(args.ef_search)
+
     if not searcher:
         exit()
 
