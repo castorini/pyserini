@@ -527,6 +527,9 @@ class FaissSearcher:
         docids = [line.rstrip() for line in id_f.readlines()]
         id_f.close()
         return docids
+    
+    def set_hnsw_ef_search(self, ef_search: int):
+        self.index.hnsw.efSearch = ef_search
 
 
 class BinaryDenseSearcher(FaissSearcher):
