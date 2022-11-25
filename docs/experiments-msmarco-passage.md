@@ -25,7 +25,7 @@ tar xvfz collections/msmarco-passage/collectionandqueries.tar.gz -C collections/
 
 To confirm, `collectionandqueries.tar.gz` should have MD5 checksum of `31644046b18952c1386cd4564ba2ae69`.
 
-Next, we need to convert the MS MARCO tsv collection into Anserini's jsonl files (which have one json object per line):
+Next, we need to convert the MS MARCO tsv collection into Pyserini's jsonl files (which have one json object per line):
 
 ```bash
 python tools/scripts/msmarco/convert_collection_to_jsonl.py \
@@ -35,7 +35,7 @@ python tools/scripts/msmarco/convert_collection_to_jsonl.py \
 
 The above script should generate 9 jsonl files in `collections/msmarco-passage/collection_jsonl`, each with 1M lines (except for the last one, which should have 841,823 lines).
 
-We can now index these docs as a `JsonCollection` using Anserini:
+We can now index these docs as a `JsonCollection` using Pyserini:
 
 ```bash
 python -m pyserini.index.lucene \
@@ -176,3 +176,4 @@ On the other hand, recall@1000 provides the upper bound effectiveness of downstr
 + Results reproduced by [@aivan6842](https://github.com/aivan6842) on 2022-07-11 (commit [`f553d43`](https://github.com/castorini/pyserini/commit/f553d43e5bd0b5617a002f1ab7861a158d6e2e71))
 + Results reproduced by [@Jasonwu-0803](https://github.com/Jasonwu-0803) on 2022-09-27 (commit [`563e4e7`](https://github.com/castorini/pyserini/commit/563e4e7d0daa2869355952663ed3f68955cdefdc))
 + Results reproduced by [@limelody](https://github.com/limelody) on 2022-09-27 (commit [`7b53918`](https://github.com/castorini/pyserini/commit/7b5391864897df4523b34a4943ce08d7e373dbe7))
++ Results reproduced by [@minconszhang](https://github.com/minconszhang) on 2022-11-25 (commit [`384fb20`](https://github.com/castorini/pyserini/commit/384fb20d5b40d7b5c9eb40022b4d15d0b4d066fc))
