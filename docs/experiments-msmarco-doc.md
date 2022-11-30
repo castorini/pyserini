@@ -22,7 +22,7 @@ wget https://msmarco.blob.core.windows.net/msmarcoranking/msmarco-docs.trec.gz -
 
 To confirm, `msmarco-docs.trec.gz` should have MD5 checksum of `d4863e4f342982b51b9a8fc668b2d0c0`.
 
-There's no need to uncompress the file, as Anserini can directly index gzipped files.
+There's no need to uncompress the file, as Pyserini can directly index gzipped files.
 Build the index with the following command:
 
 ```bash
@@ -134,7 +134,7 @@ map                   	all	0.2219
 recall_100            	all	0.7564
 ```
 
-We can see that Anserini's (tuned) BM25 baseline is already much better than the baseline provided by the organizers.
+We can see that Pyserini's (tuned) BM25 baseline is already much better than the baseline provided by the organizers.
 
 ## Reproduction Log[*](reproducibility.md)
 
@@ -176,3 +176,4 @@ We can see that Anserini's (tuned) BM25 baseline is already much better than the
 + Results reproduced by [@aivan6842](https://github.com/aivan6842) on 2022-07-11 (commit [`f553d43`](https://github.com/castorini/pyserini/commit/f553d43e5bd0b5617a002f1ab7861a158d6e2e71))
 + Results reproduced by [@Jasonwu-0803](https://github.com/Jasonwu-0803) on 2022-09-27 (commit [`563e4e7`](https://github.com/castorini/pyserini/commit/563e4e7d0daa2869355952663ed3f68955cdefdc))
 + Results reproduced by [@limelody](https://github.com/limelody) on 2022-10-14 (commit [`40ecc7b`](https://github.com/castorini/pyserini/commit/40ecc7bedd8bf26ae9ac6f0cb0358213ce2182f7))
++ Results reproduced by [@minconszhang](https://github.com/minconszhang) on 2022-11-25 (commit [`a3b0631`](https://github.com/castorini/pyserini/commit/a3b06316594859bc56706b711a68a28b9880f49c))
