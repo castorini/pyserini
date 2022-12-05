@@ -6168,8 +6168,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "0957e524fa4a7c48ee74fbbb8c2dddb2",
-        "size compressed (bytes)": 5866200051,
+        "md5": "428fbde84d2c18e48f0821298947a9d1",
+        "size compressed (bytes)": 5866199790,
         "documents": 2061414,
         "downloaded": False,
         "texts": "miracl-v1.0-ar",
@@ -6181,8 +6181,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "1efa493466ed316c4108ae091a1ccf94",
-        "size compressed (bytes)": 846476057,
+        "md5": "4394a09e043be9be5b820814a82fc8ac",
+        "size compressed (bytes)": 846476050,
         "documents": 297265,
         "downloaded": False,
         "texts": "miracl-v1.0-bn",
@@ -6194,8 +6194,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "8c46fa654c940f0a53cc8545da269017",
-        "size compressed (bytes)": 93527498030,
+        "md5": "5bd57f5e4daf93294fd2cbd969c05bb3",
+        "size compressed (bytes)": 93527497283,
         "documents": 32893221,
         "downloaded": False,
         "texts": "miracl-v1.0-en"
@@ -6207,8 +6207,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "40dfca0344114f0f0c9739a01b3b272f",
-        "size compressed (bytes)": 29544412184,
+        "md5": "b6db16c1ab0ae95fec0465299c660d2a",
+        "size compressed (bytes)": 29544413180,
         "documents": 10373953,
         "downloaded": False,
         "texts": "miracl-v1.0-es"
@@ -6220,8 +6220,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "c6b38b432a8373915da18abf0f9d47db",
-        "size compressed (bytes)": 6283957396,
+        "md5": "2a2825706211eb96bd3dbb616463c661",
+        "size compressed (bytes)": 6283957262,
         "documents": 2207172,
         "downloaded": False,
         "texts": "miracl-v1.0-fa"
@@ -6233,8 +6233,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "cbe1e8166b68258b86a884dd45235e7d",
-        "size compressed (bytes)": 5363289508,
+        "md5": "65719de730cda3fa5f6a8a75611db6eb",
+        "size compressed (bytes)": 5363289277,
         "documents": 1883509,
         "downloaded": False,
         "texts": "miracl-v1.0-fi"
@@ -6246,8 +6246,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "393afc49ab9ba433f6aefa8bf285186d",
-        "size compressed (bytes)": 41635102077,
+        "md5": "24eb2f63f78aa1e39b1ea61e20661424",
+        "size compressed (bytes)": 41635104326,
         "documents": 14636953,
         "downloaded": False,
         "texts": "miracl-v1.0-fr"
@@ -6259,8 +6259,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "235b9174dd8dffa1b63b5773d7eb1f5b",
-        "size compressed (bytes)": 1439797880,
+        "md5": "d08aad08a8592aa40355fb7d50afd170",
+        "size compressed (bytes)": 1439798033,
         "documents": 506264,
         "downloaded": False,
         "texts": "miracl-v1.0-hi"
@@ -6272,8 +6272,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "dbe72ed35695105b1310d180f2d07201",
-        "size compressed (bytes)": 4113737714,
+        "md5": "b02c20d4fc27e390ec5b1e9ca732dc5a",
+        "size compressed (bytes)": 4113737773,
         "documents": 1446315,
         "downloaded": False,
         "texts": "miracl-v1.0-id"
@@ -6285,8 +6285,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "832108aeec479fddb7fdd0dcee49e3a7",
-        "size compressed (bytes)": 19790154466,
+        "md5": "a5f219c7f46a36c5c7a2555fbdaa0479",
+        "size compressed (bytes)": 19790154560,
         "documents": 6953614,
         "downloaded": False,
         "texts": "miracl-v1.0-ja"
@@ -6298,8 +6298,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "80e29b753283ceebc93f125d5bbd84e6",
-        "size compressed (bytes)": 4230830861,
+        "md5": "67b2a803eab3491a057d4ac6b81974f1",
+        "size compressed (bytes)": 4230830690,
         "documents": 1486752,
         "downloaded": False,
         "texts": "miracl-v1.0-korean"
@@ -6311,8 +6311,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "ad878f827427123500d05d52cf44ebc2",
-        "size compressed (bytes)": 27169920937,
+        "md5": "edad6d5cb508de61ba84173d0ad2aa31",
+        "size compressed (bytes)": 27169921407,
         "documents": 9543918,
         "downloaded": False,
         "texts": "miracl-v1.0-ru"
@@ -6324,8 +6324,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "a117305adde286ac30d4ab5c97c8f699",
-        "size compressed (bytes)": 375865620,
+        "md5": "0b039d766b55f678102a59a6e050d0bc",
+        "size compressed (bytes)": 375865677,
         "documents": 131924,
         "downloaded": False,
         "texts": "miracl-v1.0-sw"
@@ -6337,8 +6337,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "1ff1afc47fbfc4eb1bf178d92db0b621",
-        "size compressed (bytes)": 1474866123,
+        "md5": "ea21915c69f70f41acadee4b6b83d129",
+        "size compressed (bytes)": 1474866678,
         "documents": 518079,
         "downloaded": False,
         "texts": "miracl-v1.0-te"
@@ -6350,8 +6350,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "3b73e4b330f300a8e184d4d2b0691c1b",
-        "size compressed (bytes)": 1540180577,
+        "md5": "a5875b473109310789710e2f3df91b0f",
+        "size compressed (bytes)": 1540180247,
         "documents": 542166,
         "downloaded": False,
         "texts": "miracl-v1.0-th"
@@ -6363,8 +6363,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
-        "md5": "e9387fd1ec85d3479b92e80887209748",
-        "size compressed (bytes)": 14043150134,
+        "md5": "a2d233e792d46c20c912d10afff033f5",
+        "size compressed (bytes)": 14043150097,
         "documents": 4934368,
         "downloaded": False,
         "texts": "miracl-v1.0-zh",
