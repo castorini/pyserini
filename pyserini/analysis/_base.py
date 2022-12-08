@@ -52,7 +52,7 @@ JTweetAnalyzer = autoclass('io.anserini.analysis.TweetAnalyzer')
 JHuggingFaceTokenizerAnalyzer = autoclass('io.anserini.analysis.HuggingFaceTokenizerAnalyzer')
 
 
-def get_lucene_analyzer(language='en', stemming=True, stemmer='porter', stopwords=True, huggingFaceTokenizer=None) -> JAnalyzer:
+def get_lucene_analyzer(language: str='en', stemming: bool=True, stemmer: str='porter', stopwords: bool=True, huggingFaceTokenizer: str=None) -> JAnalyzer:
     """Create a Lucene ``Analyzer`` with specific settings.
 
     Parameters
@@ -116,7 +116,7 @@ def get_lucene_analyzer(language='en', stemming=True, stemmer='porter', stopword
     elif language.lower() == 'tweet':
         return JTweetAnalyzer()
     elif language.lower() == 'hgf_tokenizer':
-        return JHuggingFaceTokenizerAnalyzer("bert-base-uncased")
+        return JHuggingFaceTokenizerAnalyzer(huggingFaceTokenizer)
     elif language.lower() == 'en':
         if stemming:
             if stopwords:
