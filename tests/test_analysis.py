@@ -96,6 +96,16 @@ class TestAnalyzers(unittest.TestCase):
         tokens = analyzer.analyze('City buses are running on time.')
         self.assertEqual(tokens, ['citi', 'buse', 'ar', 'run', 'on', 'time'])
 
+        # HuggingFace analyzer, with bert wordpiece tokenizer
+        analyzer = Analyzer(get_lucene_analyzer(language="hgf_tokenizer", huggingFaceTokenizer="bert-base-uncased"))
+        self.assertTrue(isinstance(analyzer, Analyzer))
+        tokens = analyzer.analyze('This tokenizer generates wordpiece tokens')
+        self.assertEqual(tokens, ['this', 'token', '##izer', 'generates', 'word', '##piece', 'token', '##s'])
+
+
+
+
+
     def test_invalid_analyzer_wrapper(self):
         # Invalid JAnalyzer, make sure we get an exception.
         with self.assertRaises(TypeError):
