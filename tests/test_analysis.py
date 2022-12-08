@@ -102,10 +102,6 @@ class TestAnalyzers(unittest.TestCase):
         tokens = analyzer.analyze('This tokenizer generates wordpiece tokens')
         self.assertEqual(tokens, ['this', 'token', '##izer', 'generates', 'word', '##piece', 'token', '##s'])
 
-
-
-
-
     def test_invalid_analyzer_wrapper(self):
         # Invalid JAnalyzer, make sure we get an exception.
         with self.assertRaises(TypeError):
