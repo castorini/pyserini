@@ -49,9 +49,10 @@ JCharArraySet = autoclass('org.apache.lucene.analysis.CharArraySet')
 JAnalyzerUtils = autoclass('io.anserini.analysis.AnalyzerUtils')
 JDefaultEnglishAnalyzer = autoclass('io.anserini.analysis.DefaultEnglishAnalyzer')
 JTweetAnalyzer = autoclass('io.anserini.analysis.TweetAnalyzer')
+JHuggingFaceTokenizerAnalyzer = autoclass('io.anserini.analysis.HuggingFaceTokenizerAnalyzer')
 
 
-def get_lucene_analyzer(language='en', stemming=True, stemmer='porter', stopwords=True) -> JAnalyzer:
+def get_lucene_analyzer(language='en', stemming=True, stemmer='porter', stopwords=True, huggingFaceTokenizer=None) -> JAnalyzer:
     """Create a Lucene ``Analyzer`` with specific settings.
 
     Parameters
@@ -64,6 +65,8 @@ def get_lucene_analyzer(language='en', stemming=True, stemmer='porter', stopword
         Stemmer to use.
     stopwords : bool
         Set to filter stopwords.
+    huggingFaceTokenizer: str
+        a huggingface model id or path to a tokenizer.json file
 
     Returns
     -------
@@ -112,6 +115,8 @@ def get_lucene_analyzer(language='en', stemming=True, stemmer='porter', stopword
         return JTurkishAnalyzer()
     elif language.lower() == 'tweet':
         return JTweetAnalyzer()
+    elif language.lower() == 'hgf_tokenizer':
+        return JHuggingFaceTokenizerAnalyzer("bert-base-uncased")
     elif language.lower() == 'en':
         if stemming:
             if stopwords:
