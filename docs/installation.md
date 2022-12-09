@@ -108,6 +108,8 @@ If everything is working properly, you should be able to reproduce the results a
 If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 
+***If you are using an Apple M1 MacBook, please check out [installation_M1.md](./installation_M1.md)***
+
 Start with creating a new `conda` environment:
 
 ```
