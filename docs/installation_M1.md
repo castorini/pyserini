@@ -1,8 +1,8 @@
 # Pyserini: Detailed Installation Guide for Apple M1 Machines
 Start with creating a new `conda` environment:
 ```
-$ conda create -n pyserini-dev python=3.8
-$ conda activate pyserini-dev
+conda create -n pyserini-dev python=3.8
+conda activate pyserini-dev
 ```
 If you do not already have JDK 11 installed, install via `conda`:
 ```
@@ -21,13 +21,14 @@ Clone the Pyserini repo with the `--recurse-submodules` option to make sure the 
 ```
 git clone git@github.com:castorini/pyserini.git --recurse-submodules
 ```
+
 The `tools/` directory, which contains evaluation tools and scripts, is actually [this repo](https://github.com/castorini/anserini-tools), integrated as a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) (so that it can be shared across related projects).
 Change into the `pyserini` subdirectory and build as follows (you might get warnings, but okay to ignore):
 
 ```
-$ cd pyserini
-$ cd tools/eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make && cd ../../..
-$ cd tools/eval/ndeval && make && cd ../../..
+cd pyserini
+cd tools/eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make && cd ../../..
+cd tools/eval/ndeval && make && cd ../../..
 ```
 You'll still need to install the other packages separately:
 
@@ -45,15 +46,16 @@ pip install --no-binary :all: nmslib
 
 Use `pip` to "install" the checked out code in "editable" mode:
 
-```bash
-$ pip install -e .
+```
+pip install -e .
 ```
 
 You'll need to download the Spacy English model to reproduce tasks such as [LTR Filtering for MS MARCO Passage](https://github.com/castorini/pyserini/blob/master/docs/experiments-ltr-msmarco-passage-reranking.md).
 
-```bash
+```
 python -m spacy download en_core_web_sm
 ```
+
 Next, you'll need to clone and build [Anserini](http://anserini.io/).
 It makes sense to put both `pyserini/` and `anserini/` in a common folder.
 After you've successfully built Anserini, copy the fatjar, which will be `target/anserini-X.Y.Z-SNAPSHOT-fatjar.jar` into `pyserini/resources/jars/`.
@@ -61,7 +63,7 @@ As with the `pip` installation, a potential source of frustration is incompatibi
 
 You can confirm everything is working by running the unit tests:
 
-```bash
+```
 python -m unittest
 ```
 
