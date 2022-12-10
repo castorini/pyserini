@@ -108,8 +108,6 @@ If everything is working properly, you should be able to reproduce the results a
 If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 
-***If you are using an Apple M1 MacBook, please check out [installation_M1.md](./installation_M1.md)***
-
 Start with creating a new `conda` environment:
 
 ```
@@ -185,6 +183,33 @@ To fix, manually set environment variable `set _JAVA_OPTIONS=-Dfile.encoding=UTF
 The solution to this is to check the version of your `numpy`. At the time of this writing, the latest numpy version is `1.23.2`, which is incompatible with the API.
 Fix by downgrading to `1.21.1` so that the other dependent libraries are compatible with the API version.
 (See [#1259](https://github.com/castorini/pyserini/pull/1259)).
+
+If you are using an Apple M1 machine, and encountered Java Runtime Environment error or failed tests, please try recreating a new `conda` environment:
+```
+conda create -n pyserini-dev python=3.8
+conda activate pyserini-dev
+```
+
+Install the following packages:
+```
+conda install wget
+conda install -c conda-forge maven
+conda install -c conda-forge lightgbm
+conda install -c conda-forge faiss-cpu
+conda install pytorch torchvision torchaudio -c pytorch
+pip install psutil
+pip install --no-binary :all: nmslib
+```
+
+Use `pip` to "install" the checked out code in "editable" mode:
+```
+pip install -e .
+```
+
+Then you can run the unit tests again:
+```
+python -m unittest
+```
 
 ## Internal Notes
 
