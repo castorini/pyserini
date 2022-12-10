@@ -184,6 +184,33 @@ The solution to this is to check the version of your `numpy`. At the time of thi
 Fix by downgrading to `1.21.1` so that the other dependent libraries are compatible with the API version.
 (See [#1259](https://github.com/castorini/pyserini/pull/1259)).
 
+If you are using an Apple M1 machine, and encountered Java Runtime Environment error or failed tests, please try recreating a new `conda` environment:
+```
+conda create -n pyserini-dev python=3.8
+conda activate pyserini-dev
+```
+
+Install the following packages:
+```
+conda install wget
+conda install -c conda-forge maven
+conda install -c conda-forge lightgbm
+conda install -c conda-forge faiss-cpu
+conda install pytorch torchvision torchaudio -c pytorch
+pip install psutil
+pip install --no-binary :all: nmslib
+```
+
+Use `pip` to "install" the checked out code in "editable" mode:
+```
+pip install -e .
+```
+
+Then you can run the unit tests again:
+```
+python -m unittest
+```
+
 ## Internal Notes
 
 At the University of Waterloo, we have two (CPU) development servers, `tuna` and `ocra`.
