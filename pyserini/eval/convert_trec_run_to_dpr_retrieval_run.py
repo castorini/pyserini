@@ -19,13 +19,13 @@ import json
 import os
 from tqdm import tqdm
 
-from pyserini.search import get_topics
+from pyserini.search import get_topics, get_topics_with_reader
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.eval.evaluate_dpr_retrieval import has_answers, SimpleTokenizer
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert an TREC run to DPR retrieval result json.')
-    parser.add_argument('--topics', required=True, help='topic name')
+    parser.add_argument('--topics', required=True, help='topic name or path to a topics file')
     parser.add_argument('--index', required=True, help='Anserini Index that contains raw')
     parser.add_argument('--input', required=True, help='Input TREC run file.')
     parser.add_argument('--store-raw', action='store_true', help='Store raw text of passage')
@@ -33,7 +33,13 @@ if __name__ == '__main__':
     parser.add_argument('--output', required=True, help='Output DPR Retrieval json file.')
     args = parser.parse_args()
 
-    qas = get_topics(args.topics)
+    if os.path.exists(args.topics):
+        try:
+            qas = get_topics_with_reader("io.anserini.search.topicreader.DprNqTopicReader", args.topics)
+        except ValueError as e:
+            qas = get_topics_with_reader("io.anserini.search.topicreader.DprJsonlTopicReader", args.topics)
+    else:
+        qas = get_topics(args.topics)
 
     if os.path.exists(args.index):
         searcher = LuceneSearcher(args.index)
