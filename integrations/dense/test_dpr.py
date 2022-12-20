@@ -17,6 +17,7 @@
 """Integration tests for DPR model using pre-encoded queries."""
 
 import os
+import json
 import socket
 import unittest
 
@@ -57,6 +58,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.7947, places=4)
+
 
     def test_dpr_nq_test_bf_bm25_hybrid_otf(self):
         output_file = 'test_run.dpr.nq-test.multi.bf.otf.bm25.trec'
@@ -301,9 +303,38 @@ class TestSearchIntegration(unittest.TestCase):
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)
 
+    def test_convert_trec_run_to_dpr_retrieval_run(self):
+        trec_run_file = 'tests/resources/simple_test_run_convert_trec_run_dpr.trec'
+        topics_file = 'tests/resources/simple_topics_dpr.txt'
+        dpr_run_file = 'test_run.convert.trec_run.dpr.json'
+        collection_path = "tests/resources/sample_collection_dense"
+        topic_reader = "io.anserini.search.topicreader.DprNqTopicReader"
+        index_dir = 'temp_index'
+
+        self.temp_files.extend([dpr_run_file, index_dir])
+        cmd1 = f'python -m pyserini.index.lucene -collection JsonCollection ' + \
+               f'-generator DefaultLuceneDocumentGenerator ' + \
+               f'-threads 1 -input {collection_path} -index {index_dir} -storeRaw'
+
+        cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics-file {topics_file} \
+                                                           --topics-reader {topic_reader} \
+                                                           --index {index_dir} \
+                                                           --input {trec_run_file} \
+                                                           --output {dpr_run_file}'
+        _ = os.system(cmd1)
+        _ = os.system(cmd2)
+
+        with open(dpr_run_file) as f:
+            topic_data = json.load(f)
+
+        self.assertEqual(topic_data["0"]["answers"], ['text'])
+        self.assertEqual(topic_data["0"]["question"], "what is in document three")
+        self.assertEqual(topic_data["1"]["answers"], ['contents'])
+        self.assertEqual(topic_data["1"]["question"], "what is document two")
+
+
     def tearDown(self):
         clean_files(self.temp_files)
-
 
 if __name__ == '__main__':
     unittest.main()
