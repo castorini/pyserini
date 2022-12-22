@@ -32,7 +32,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.robust04.20221005.252b5e.tar.gz",
         "readme": "lucene-index.robust04.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.robust04.20221005.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.robust04.20221005.252b5e.tar.gz",
         ],
         "md5": "a1abd5437394956b7ec8bea4699b5e46",
         "size compressed (bytes)": 1806776535,
@@ -47,7 +47,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-doc.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc.20221004.252b5e.tar.gz",
         ],
         "md5": "b2b1841c93255f9902150128d5e27e41",
         "size compressed (bytes)": 13736982438,
@@ -61,7 +61,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
         ],
         "md5": "400fe94ec97a20cf775596085c5ad79d",
         "size compressed (bytes)": 1791498133,
@@ -75,7 +75,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
         ],
         "md5": "75735da0dd35e3631d22bf682ebed8a0",
         "size compressed (bytes)": 25525615599,
@@ -91,7 +91,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.tar.gz",
         ],
         "md5": "87530b64e55080fcfb90ec9e598be23e",
         "size compressed (bytes)": 1885596544,
@@ -105,7 +105,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         ],
         "md5": "a081b866b78e0f604ddb9e3103ee6cc5",
         "size compressed (bytes)": 11152231182,
@@ -121,7 +121,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
         ],
         "md5": "59fdf88f360d0a72d1b94b9729c2198e",
         "size compressed (bytes)": 15924438098,
@@ -135,7 +135,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
         ],
         "md5": "c277161780d501ab832e16e6396f9cae",
         "size compressed (bytes)": 3306727108,
@@ -149,7 +149,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
         ],
         "md5": "c1af97d16c552a99a23382639c4a668c",
         "size compressed (bytes)": 29470600011,
@@ -165,7 +165,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.tar.gz",
         ],
         "md5": "b242fd9cb0982e87d0c667439cb6d59c",
         "size compressed (bytes)": 3554554620,
@@ -179,7 +179,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         ],
         "md5": "40341fc2cf151b8c447a8e77f5e9f100",
         "size compressed (bytes)": 16349673687,
@@ -195,7 +195,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-passage.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage.20221004.252b5e.tar.gz",
         ],
         "md5": "c697b18c9a0686ca760583e615dbe450",
         "size compressed (bytes)": 2170758938,
@@ -209,7 +209,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
         ],
         "md5": "9f952db731ed7c3f2ec14010664ddcec",
         "size compressed (bytes)": 491451085,
@@ -223,7 +223,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
         ],
         "md5": "0ff5ceaae32333d3580ae594d460385c",
         "size compressed (bytes)": 3720616158,
@@ -239,7 +239,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.tar.gz",
         ],
         "md5": "0a62959d300634aa0eb37e910aa4f4a7",
         "size compressed (bytes)": 807866125,
@@ -253,7 +253,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20221004.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         ],
         "md5": "2530b20771c6f441073ff49a56ea9004",
         "size compressed (bytes)": 4409861543,
@@ -269,7 +269,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
         "readme": "index-msmarco-passage-ltr-20210519-e25e33f-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-msmarco-passage-ltr-20210519-e25e33f.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/8qFCaCtwabRfYQD/download"
         ],
         "md5": "a5de642c268ac1ed5892c069bdc29ae3",
@@ -283,7 +283,7 @@ TF_INDEX_INFO_CURRENT = {
         "description": "Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR. (Lucene 8)",
         "filename": "index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-msmarco-doc-per-passage-ltr-20211031-33e4151.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/kNdXMWXEsTt3fT8/download"
         ],
         "md5": "bd60e89041b4ebbabc4bf0cfac608a87",
@@ -297,7 +297,7 @@ TF_INDEX_INFO_CURRENT = {
         "description": "Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR. (Lucene 8)",
         "filename": "lucene-index.msmarco-doc-segmented.ibm.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-doc-segmented.ibm.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-doc-segmented.ibm.tar.gz"
         ],
         "md5": "13064bdaf8e8a79222634d67ecd3ddb5",
         "size compressed (bytes)": 98984853515,
@@ -313,7 +313,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-doc.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc.20220808.4d6d2a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc.20220808.4d6d2a.tar.gz",
         ],
         "md5": "0599bd6ed5ee28390b279eb398ef0267",
         "size compressed (bytes)": 63431299815,
@@ -327,7 +327,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-doc-slim.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-slim.20220808.4d6d2a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-slim.20220808.4d6d2a.tar.gz",
         ],
         "md5": "4dfc5549e3c15abec4b9694542a376d1",
         "size compressed (bytes)": 7172175394,
@@ -341,7 +341,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-doc-full.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-full.20220808.4d6d2a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-full.20220808.4d6d2a.tar.gz",
         ],
         "md5": "fc6f546898725617eb5ca7a144bef531",
         "size compressed (bytes)": 119537276117,
@@ -357,7 +357,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-doc-d2q-t5.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-d2q-t5.20220808.4d6d2a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-d2q-t5.20220808.4d6d2a.tar.gz",
         ],
         "md5": "25514f77600a6be87aeb1c66c9107b89",
         "size compressed (bytes)": 8155218407,
@@ -371,7 +371,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-doc-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         ],
         "md5": "a3ce9b1146857a332825825623ab89e7",
         "size compressed (bytes)": 54415612794,
@@ -387,7 +387,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.tar.gz"
         ],
         "md5": "8a5f444fa5a63cc5d4ddc3e6dd15faa0",
         "size compressed (bytes)": 109269078191,
@@ -401,7 +401,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-slim.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-slim.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-slim.20220808.4d6d2a.tar.gz"
         ],
         "md5": "f50c591aa9a0a0126ebc4dc53c6306d7",
         "size compressed (bytes)": 20852487058,
@@ -415,7 +415,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-full.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-full.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-full.20220808.4d6d2a.tar.gz"
         ],
         "md5": "259b936d3591e48770da9dde153d1617",
         "size compressed (bytes)": 201358944352,
@@ -431,7 +431,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220808.4d6d2a.tar.gz"
         ],
         "md5": "1e9fa18f082aaadfef02ba9eea32fcc2",
         "size compressed (bytes)": 24242738999,
@@ -445,7 +445,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         ],
         "md5": "eff6fe5b61936491c8985ad7efa46b20",
         "size compressed (bytes)": 114315186555,
@@ -461,7 +461,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-passage.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage.20220808.4d6d2a.tar.gz"
         ],
         "md5": "eacd8556dd416ccad517b5e7dc97bceb",
         "size compressed (bytes)": 38808092190,
@@ -475,7 +475,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-passage-slim.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-slim.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-slim.20220808.4d6d2a.tar.gz"
         ],
         "md5": "d7e644c048669aa72314dd358b475765",
         "size compressed (bytes)": 8170344330,
@@ -489,7 +489,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-passage-full.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-full.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-full.20220808.4d6d2a.tar.gz"
         ],
         "md5": "ef5c22c865094c386b9ec600165bb061",
         "size compressed (bytes)": 60413585958,
@@ -505,7 +505,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-passage-d2q-t5.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-d2q-t5.20220808.4d6d2a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-d2q-t5.20220808.4d6d2a.tar.gz",
         ],
         "md5": "3c357f9c219e4c3d980bc663e1f5a5f4",
         "size compressed (bytes)": 14404903785,
@@ -519,7 +519,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-passage-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         ],
         "md5": "01e369b644e5a8b7413e04140780cf94",
         "size compressed (bytes)": 59206472740,
@@ -535,7 +535,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.tar.gz"
         ],
         "md5": "69675971a0172eb5e37668ea42761d43",
         "size compressed (bytes)": 75036026507,
@@ -549,7 +549,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-passage-augmented-slim.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-slim.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-augmented-slim.20220808.4d6d2a.tar.gz"
         ],
         "md5": "3524b5b28117ac1a5365cd664c6871f1",
         "size compressed (bytes)": 14757394934,
@@ -563,7 +563,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-passage-augmented-full.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-full.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-augmented-full.20220808.4d6d2a.tar.gz"
         ],
         "md5": "c3e18c02e749c0416e1acc653899c6b0",
         "size compressed (bytes)": 130622740320,
@@ -579,7 +579,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220808.4d6d2a.tar.gz"
         ],
         "md5": "2b683a3a64692b95375ddbdcb9590f25",
         "size compressed (bytes)": 14404903785,
@@ -593,7 +593,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-passage-augmented-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         ],
         "md5": "fe6eaeceabaa06cb09fdf8432f65f9d8",
         "size compressed (bytes)": 59206472740,
@@ -607,7 +607,7 @@ TF_INDEX_INFO_CURRENT = {
         "description": "Lucene index of English Wikipedia for BERTserini",
         "filename": "lucene-index.enwiki-20180701-paragraphs.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.enwiki-20180701-paragraphs.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.enwiki-20180701-paragraphs.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/WHKMSCbwQfDXyHt/download"
         ],
         "md5": "77d1cd530579905dad2ee3c2bda1b73d",
@@ -621,7 +621,7 @@ TF_INDEX_INFO_CURRENT = {
         "description": "Lucene index of Chinese Wikipedia for BERTserini",
         "filename": "lucene-index.zhwiki-20181201-paragraphs.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.zhwiki-20181201-paragraphs.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.zhwiki-20181201-paragraphs.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/6kEjQZaRYtnb8A6/download"
         ],
         "md5": "c005af4036296972831288c894918a92",
@@ -845,7 +845,7 @@ TF_INDEX_INFO_CURRENT = {
         "description": "Lucene index for TREC 2019 CaST",
         "filename": "index-cast2019.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-cast2019.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-cast2019.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/56LcDcRPopdQc4d/download"
         ],
         "md5": "36e604d7f5a4e08ade54e446be2f6345",
@@ -860,7 +860,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
         "readme": "index-wikipedia-dpr-20210120-d1b9e6-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/t6tDJmpoxPw9tH8/download"
         ],
         "md5": "c28f3a56b2dfcef25bf3bf755c264d04",
@@ -875,7 +875,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
         "readme": "index-wikipedia-dpr-slim-20210120-d1b9e6-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Gk2sfTyJCyaTrYH/download"
         ],
         "md5": "7d40604a824b5df37a1ae9d25ea38071",
@@ -890,7 +890,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
         "readme": "index-wikipedia-kilt-doc-20210421-f29307-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/RqtLg3CZT38k32c/download"
         ],
         "md5": "b8ec8feb654f7aaa86f9901dc6c804a8",
@@ -907,7 +907,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.tar.gz",
         ],
         "md5": "efff40a2548f759eb8b0e47e0622685b",
         "size compressed (bytes)": 1420441600,
@@ -921,7 +921,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.tar.gz"
         ],
         "md5": "6ed844c8f17b2f041fba7c5676d3fb42",
         "size compressed (bytes)": 294942720,
@@ -935,7 +935,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.tar.gz"
         ],
         "md5": "e6b0a2531d958c3d1a65634dc315b0ab",
         "size compressed (bytes)": 20566118400,
@@ -949,7 +949,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.tar.gz"
         ],
         "md5": "0f464c022447eed5431157f0b2feb0b3",
         "size compressed (bytes)": 1116272640,
@@ -963,7 +963,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.tar.gz"
         ],
         "md5": "345d43a2443786a3394a93a6f7ef77b7",
         "size compressed (bytes)": 698388480,
@@ -977,7 +977,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.tar.gz"
         ],
         "md5": "5f0802c1257c325a3e25c58523dba841",
         "size compressed (bytes)": 4333844480,
@@ -991,7 +991,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.tar.gz"
         ],
         "md5": "4277f406b138c46edf7c17e4248f3b2e",
         "size compressed (bytes)": 1349109760,
@@ -1005,7 +1005,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.tar.gz"
         ],
         "md5": "d5837fee29c60c7a3a24cfd598056038",
         "size compressed (bytes)": 6864660480,
@@ -1019,7 +1019,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.tar.gz"
         ],
         "md5": "bebff76ec6dfe76c904604f8ed1bcd3e",
         "size compressed (bytes)": 59607040,
@@ -1033,7 +1033,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.tar.gz"
         ],
         "md5": "89f8b280cacbdc27e90bb1ea40029c21",
         "size compressed (bytes)": 519157760,
@@ -1047,7 +1047,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.tar.gz"
         ],
         "md5": "047152fc6bc1b5c5d945f38b23de971e",
         "size compressed (bytes)": 546201600,
@@ -1063,7 +1063,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-trec-covid-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-covid-flat.20221116.505594.tar.gz"
         ],
         "md5": "9ae06c30a7c352f18a5a8e75b88b9106",
         "size compressed (bytes)": 226268661,
@@ -1077,7 +1077,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-bioasq-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-bioasq-flat.20221116.505594.tar.gz"
         ],
         "md5": "d9b098a7e127a79f390285290a7c0ba8",
         "size compressed (bytes)": 24821933182,
@@ -1091,7 +1091,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-nfcorpus-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nfcorpus-flat.20221116.505594.tar.gz"
         ],
         "md5": "12ad00c0f58393b9a6c473183b4ff55a",
         "size compressed (bytes)": 6509693,
@@ -1105,7 +1105,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-nq-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nq-flat.20221116.505594.tar.gz"
         ],
         "md5": "fefe2c93019b2eb899d875a90861b9f4",
         "size compressed (bytes)": 1645453710,
@@ -1119,7 +1119,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-hotpotqa-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-hotpotqa-flat.20221116.505594.tar.gz"
         ],
         "md5": "29723f2d1ea53880720765dd558fb264",
         "size compressed (bytes)": 2019085858,
@@ -1133,7 +1133,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-fiqa-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fiqa-flat.20221116.505594.tar.gz"
         ],
         "md5": "7ead89ae57ca09a0f6f39f0c621feba8",
         "size compressed (bytes)": 55982529,
@@ -1147,7 +1147,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-signal1m-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-signal1m-flat.20221116.505594.tar.gz"
         ],
         "md5": "a1c952e55f7dd3383c9140c7b446e044",
         "size compressed (bytes)": 496596590,
@@ -1161,7 +1161,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-trec-news-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-news-flat.20221116.505594.tar.gz"
         ],
         "md5": "599aca58ee57e9593d40953b12a1bd69",
         "size compressed (bytes)": 2623577554,
@@ -1175,7 +1175,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-robust04-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-robust04-flat.20221116.505594.tar.gz"
         ],
         "md5": "717325e5c282f45d2a8e189e9ef89388",
         "size compressed (bytes)": 1728446672,
@@ -1189,7 +1189,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-arguana-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-arguana-flat.20221116.505594.tar.gz"
         ],
         "md5": "5989163bb5c7e0a29f8241f3fae95c02",
         "size compressed (bytes)": 10563484,
@@ -1203,7 +1203,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-webis-touche2020-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-webis-touche2020-flat.20221116.505594.tar.gz"
         ],
         "md5": "5f54ca552b6075b8dff6d9ae9cd138e6",
         "size compressed (bytes)": 750400909,
@@ -1217,7 +1217,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-android-flat.20221116.505594.tar.gz"
         ],
         "md5": "14451ca82955bc7ce3b1df73091d5f0e",
         "size compressed (bytes)": 17423304,
@@ -1231,7 +1231,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-english-flat.20221116.505594.tar.gz"
         ],
         "md5": "0b66a52f9f67b4ddd163590bb968efee",
         "size compressed (bytes)": 24949592,
@@ -1245,7 +1245,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20221116.505594.tar.gz"
         ],
         "md5": "a369444e1296c54beb6d7eae19f30f3b",
         "size compressed (bytes)": 29156968,
@@ -1259,7 +1259,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20221116.505594.tar.gz"
         ],
         "md5": "85ad4715eb06b2a2079385c74504da15",
         "size compressed (bytes)": 43396160,
@@ -1273,7 +1273,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20221116.505594.tar.gz"
         ],
         "md5": "5b8bd6d8f8f37d449856e0bc14eb16fc",
         "size compressed (bytes)": 21589911,
@@ -1287,7 +1287,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20221116.505594.tar.gz"
         ],
         "md5": "e4a1dda9c0940277d8bbc2d5e9278eb7",
         "size compressed (bytes)": 37956223,
@@ -1301,7 +1301,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20221116.505594.tar.gz"
         ],
         "md5": "f8b124fb052d2f14e908f20c47792cc3",
         "size compressed (bytes)": 40297081,
@@ -1315,7 +1315,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20221116.505594.tar.gz"
         ],
         "md5": "a622bd3c4d6b413c50c1855b6fa85e64",
         "size compressed (bytes)": 52212616,
@@ -1329,7 +1329,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20221116.505594.tar.gz"
         ],
         "md5": "939c69cdf1ab563729697bc936f45e6a",
         "size compressed (bytes)": 91818976,
@@ -1343,7 +1343,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20221116.505594.tar.gz"
         ],
         "md5": "34913c5e811c0399c6ee3c03c68861d1",
         "size compressed (bytes)": 53802802,
@@ -1357,7 +1357,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20221116.505594.tar.gz"
         ],
         "md5": "41f91e1dc4c4d7ee4da89ef2e7210dfb",
         "size compressed (bytes)": 15174810,
@@ -1371,7 +1371,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20221116.505594.tar.gz"
         ],
         "md5": "c10a130177b7ca65ae47640cffc4a5ec",
         "size compressed (bytes)": 54807600,
@@ -1385,7 +1385,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-quora-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-quora-flat.20221116.505594.tar.gz"
         ],
         "md5": "20cc429516848d0f314ac593c94bf226",
         "size compressed (bytes)": 52698681,
@@ -1399,7 +1399,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-dbpedia-entity-flat.20221116.505594.tar.gz"
         ],
         "md5": "8aabf2456b0cccc1a1d013059125b6ef",
         "size compressed (bytes)": 2085472968,
@@ -1413,7 +1413,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-scidocs-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scidocs-flat.20221116.505594.tar.gz"
         ],
         "md5": "a25663e4bce0d588814efb3091a3a53f",
         "size compressed (bytes)": 186572828,
@@ -1427,7 +1427,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-fever-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fever-flat.20221116.505594.tar.gz"
         ],
         "md5": "ce620e8c11b44528a498360912d5fe46",
         "size compressed (bytes)": 3880155518,
@@ -1441,7 +1441,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-climate-fever-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-climate-fever-flat.20221116.505594.tar.gz"
         ],
         "md5": "50adaaac662f7fadaf5494808e50f9d6",
         "size compressed (bytes)": 3880208210,
@@ -1455,7 +1455,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-scifact-flat.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-flat.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scifact-flat.20221116.505594.tar.gz"
         ],
         "md5": "5fee55eb99327b38a5ca623e68e25edf",
         "size compressed (bytes)": 8851172,
@@ -1471,7 +1471,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-trec-covid-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-covid-multifield.20221116.505594.tar.gz"
         ],
         "md5": "ec260e10c9897e736820c22476c3574f",
         "size compressed (bytes)": 222831948,
@@ -1485,7 +1485,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-bioasq-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-bioasq-multifield.20221116.505594.tar.gz"
         ],
         "md5": "d754a05c01fd1c3e34d883e4fa912d63",
         "size compressed (bytes)": 25346354708,
@@ -1499,7 +1499,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-nfcorpus-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nfcorpus-multifield.20221116.505594.tar.gz"
         ],
         "md5": "6e5fc4f35cc1fa8dc98b86b2385c4a0b",
         "size compressed (bytes)": 6645574,
@@ -1513,7 +1513,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-nq-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nq-multifield.20221116.505594.tar.gz"
         ],
         "md5": "db80e0851c81c082688add60b57bd9f1",
         "size compressed (bytes)": 1642708222,
@@ -1527,7 +1527,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-hotpotqa-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-hotpotqa-multifield.20221116.505594.tar.gz"
         ],
         "md5": "95c657338468ddacfae5874cbd09d7eb",
         "size compressed (bytes)": 2083441352,
@@ -1541,7 +1541,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-fiqa-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fiqa-multifield.20221116.505594.tar.gz"
         ],
         "md5": "ba7f197331d1a84582c5485536b0d2aa",
         "size compressed (bytes)": 55984431,
@@ -1555,7 +1555,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-signal1m-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-signal1m-multifield.20221116.505594.tar.gz"
         ],
         "md5": "6f5c151ade6efc6567d2b98016a97041",
         "size compressed (bytes)": 496603097,
@@ -1569,7 +1569,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-trec-news-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-news-multifield.20221116.505594.tar.gz"
         ],
         "md5": "b9e935edb604edb04524970c40ca107a",
         "size compressed (bytes)": 2633899051,
@@ -1583,7 +1583,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-robust04-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-robust04-multifield.20221116.505594.tar.gz"
         ],
         "md5": "bb2939df4ca76dec5d6e5f366d08fe00",
         "size compressed (bytes)": 1728446264,
@@ -1597,7 +1597,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-arguana-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-arguana-multifield.20221116.505594.tar.gz"
         ],
         "md5": "3b548e373d85835f478199cdcebd7b0b",
         "size compressed (bytes)": 10524119,
@@ -1611,7 +1611,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-webis-touche2020-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-webis-touche2020-multifield.20221116.505594.tar.gz"
         ],
         "md5": "2a1549bc27a34a140914e42b709f1a19",
         "size compressed (bytes)": 750724431,
@@ -1625,7 +1625,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20221116.505594.tar.gz"
         ],
         "md5": "858ed389f7a924cd90a8c9c8882954ed",
         "size compressed (bytes)": 17887744,
@@ -1639,7 +1639,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20221116.505594.tar.gz"
         ],
         "md5": "40e87436b956a78ba312751d90116c27",
         "size compressed (bytes)": 25558892,
@@ -1653,7 +1653,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20221116.505594.tar.gz"
         ],
         "md5": "eed5e2778ed6e22fca99eec8dae8f77f",
         "size compressed (bytes)": 29992461,
@@ -1667,7 +1667,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20221116.505594.tar.gz"
         ],
         "md5": "add51b3adeb981dfb7749b01edc9b4e5",
         "size compressed (bytes)": 44188649,
@@ -1681,7 +1681,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20221116.505594.tar.gz"
         ],
         "md5": "90e592f86ab093bbc1d77b8de65dc9ba",
         "size compressed (bytes)": 21911907,
@@ -1695,7 +1695,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20221116.505594.tar.gz"
         ],
         "md5": "a8abde1bced888a706d0a6311c3e13ad",
         "size compressed (bytes)": 38736490,
@@ -1709,7 +1709,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20221116.505594.tar.gz"
         ],
         "md5": "2f99a6e167475ecdb2265846381e7171",
         "size compressed (bytes)": 40982054,
@@ -1723,7 +1723,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20221116.505594.tar.gz"
         ],
         "md5": "4b4a103decd723566f1935134434c9a9",
         "size compressed (bytes)": 53094503,
@@ -1737,7 +1737,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20221116.505594.tar.gz"
         ],
         "md5": "93e0cb6018cc7fcf042a2119e3b73d5d",
         "size compressed (bytes)": 93081213,
@@ -1751,7 +1751,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20221116.505594.tar.gz"
         ],
         "md5": "c7d4cebf819aa19c6a0da6df7aed93fe",
         "size compressed (bytes)": 54758840,
@@ -1765,7 +1765,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20221116.505594.tar.gz"
         ],
         "md5": "1ff00797eb6fb43bef05b054281ca016",
         "size compressed (bytes)": 15524401,
@@ -1779,7 +1779,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20221116.505594.tar.gz"
         ],
         "md5": "5e571c3ca3d28cb53e2b280fd05dfaec",
         "size compressed (bytes)": 55738645,
@@ -1793,7 +1793,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-quora-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-quora-multifield.20221116.505594.tar.gz"
         ],
         "md5": "1e033c875d3fdda2f096928003d6f977",
         "size compressed (bytes)": 52703125,
@@ -1807,7 +1807,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20221116.505594.tar.gz"
         ],
         "md5": "107ac2e15140ae889315920148e73ce6",
         "size compressed (bytes)": 2144410442,
@@ -1821,7 +1821,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-scidocs-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scidocs-multifield.20221116.505594.tar.gz"
         ],
         "md5": "e97467dff3cf15b20471421c4ef7e106",
         "size compressed (bytes)": 175887258,
@@ -1835,7 +1835,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-fever-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fever-multifield.20221116.505594.tar.gz"
         ],
         "md5": "7a10971ad193dddaf604240e54965305",
         "size compressed (bytes)": 3947213520,
@@ -1849,7 +1849,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-climate-fever-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-climate-fever-multifield.20221116.505594.tar.gz"
         ],
         "md5": "a940bc3477e67f3231e891863ebfe393",
         "size compressed (bytes)": 3947277760,
@@ -1863,7 +1863,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-scifact-multifield.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-multifield.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scifact-multifield.20221116.505594.tar.gz"
         ],
         "md5": "1a918170d342b0e208b28c9f02d626b3",
         "size compressed (bytes)": 9078031,
@@ -1878,7 +1878,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.hc4-v1.0-fa.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.hc4-v1.0.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-fa.20221025.c4a8d0.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.hc4-v1.0-fa.20221025.c4a8d0.tar.gz"
         ],
         "md5": "80735c01b2f2cf82288381370adf1d66",
         "size compressed (bytes)": 1652960750,
@@ -1892,7 +1892,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.hc4-v1.0-ru.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.hc4-v1.0.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-ru.20221025.c4a8d0.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.hc4-v1.0-ru.20221025.c4a8d0.tar.gz"
         ],
         "md5": "40259ba9ca993f850c960a172debe33e",
         "size compressed (bytes)": 13292705599,
@@ -1906,7 +1906,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.hc4-v1.0-zh.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.hc4-v1.0.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-zh.20221025.c4a8d0.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.hc4-v1.0-zh.20221025.c4a8d0.tar.gz"
         ],
         "md5": "2ea8885b8ec6c637971c8df0706b623e",
         "size compressed (bytes)": 2899033342,
@@ -1920,7 +1920,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.neuclir22-fa.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.neuclir22.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-fa.20221025.c4a8d0.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-fa.20221025.c4a8d0.tar.gz"
         ],
         "md5": "d423fb72bcd5bf2dea6e4a19743dcb95",
         "size compressed (bytes)": 7565790180,
@@ -1934,7 +1934,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.neuclir22-ru.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.neuclir22.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-ru.20221025.c4a8d0.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-ru.20221025.c4a8d0.tar.gz"
         ],
         "md5": "2d04bbc880d535c1c4ab172c2c2d8ffe",
         "size compressed (bytes)": 14202967387,
@@ -1948,7 +1948,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.neuclir22-zh.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.neuclir22.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-zh.20221025.c4a8d0.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-zh.20221025.c4a8d0.tar.gz"
         ],
         "md5": "46fe989676ff510b997af24f6398199f",
         "size compressed (bytes)": 15733809682,
@@ -1962,7 +1962,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.neuclir22-fa-en.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.neuclir22-en.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-fa-en.20221025.c4a8d0.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-fa-en.20221025.c4a8d0.tar.gz"
         ],
         "md5": "35363339b7f0527f27403b848fe01b04",
         "size compressed (bytes)": 6172239242,
@@ -1976,7 +1976,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.neuclir22-ru-en.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.neuclir22-en.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-ru-en.20221025.c4a8d0.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-ru-en.20221025.c4a8d0.tar.gz"
         ],
         "md5": "b0b98803260665eeae97163d2361838e",
         "size compressed (bytes)": 10513242212,
@@ -1990,7 +1990,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.neuclir22-zh-en.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.neuclir22-en.20221025.c4a8d0.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-zh-en.20221025.c4a8d0.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-zh-en.20221025.c4a8d0.tar.gz"
         ],
         "md5": "d44ca9c7b634cf56e8cfd5892a3d3427",
         "size compressed (bytes)": 8470981318,
@@ -2005,7 +2005,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz"
         ],
         "md5": "503d3b49a557222d8074ac831a2f047a",
         "size compressed (bytes)": 1193292491,
@@ -2019,7 +2019,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz"
         ],
         "md5": "7a20210328f0b83f44e041f0c94d30e2",
         "size compressed (bytes)": 236113202,
@@ -2033,7 +2033,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz"
         ],
         "md5": "4fbd652deb76bcc05daa35392d4aa9f3",
         "size compressed (bytes)": 17823436054,
@@ -2047,7 +2047,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz"
         ],
         "md5": "b4c9993ee3a131871d4f07dd96e80531",
         "size compressed (bytes)": 5474245249,
@@ -2061,7 +2061,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz"
         ],
         "md5": "bfc824aa37633e3d45bcfd5c5e0e1701",
         "size compressed (bytes)": 1023090577,
@@ -2075,7 +2075,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz"
         ],
         "md5": "4197c90efd781c6153acaf15452c5479",
         "size compressed (bytes)": 925422988,
@@ -2089,7 +2089,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz"
         ],
         "md5": "e68b10d90be71b702888a3d00a8aa39c",
         "size compressed (bytes)": 6747612709,
@@ -2103,7 +2103,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz"
         ],
         "md5": "d81f4e2b7ec5df8f9741168c23c977e2",
         "size compressed (bytes)": 340997734,
@@ -2117,7 +2117,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz"
         ],
         "md5": "b1092e732991029fae7c542e5e129255",
         "size compressed (bytes)": 577263718,
@@ -2131,7 +2131,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz"
         ],
         "md5": "4db9550d0af63736a0fd2b486b3b7273",
         "size compressed (bytes)": 3745158372,
@@ -2145,7 +2145,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz"
         ],
         "md5": "c82f5c7641fd78b8dadfcb279a1c0340",
         "size compressed (bytes)": 1150899287,
@@ -2159,7 +2159,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz"
         ],
         "md5": "c1b974e298d9e1deeccae8b84a5bcd64",
         "size compressed (bytes)": 6003987738,
@@ -2173,7 +2173,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz"
         ],
         "md5": "64b77bcc11e04575d0723ad81ac7c135",
         "size compressed (bytes)": 45410264,
@@ -2187,7 +2187,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz"
         ],
         "md5": "1f78c68678f439a3143a6fb0d25bfe27",
         "size compressed (bytes)": 402045711,
@@ -2201,7 +2201,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz"
         ],
         "md5": "eeef93c23b76fdc66b9e1ee01576765e",
         "size compressed (bytes)": 431498349,
@@ -2215,7 +2215,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz"
         ],
         "md5": "dc7880da333b7c56d3a4ff0bf018febd",
         "size compressed (bytes)": 4212198217,
@@ -2232,7 +2232,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz",
         "readme": "lucene-index.hc4-v1.0-zh.20220719.71c120.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.hc4-v1.0-zh.20220719.71c120.tar.gz"
         ],
         "md5": "7351794f4b570c387a12527cf46a7956",
         "size compressed (bytes)": 2904147388,
@@ -2246,7 +2246,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz",
         "readme": "lucene-index.hc4-v1.0-fa.20220719.71c120.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.hc4-v1.0-fa.20220719.71c120.tar.gz"
         ],
         "md5": "fd838abb94864f22cb4d94cd33660b24",
         "size compressed (bytes)": 1656366266,
@@ -2260,7 +2260,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz",
         "readme": "lucene-index.hc4-v1.0-ru.20220719.71c120.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.hc4-v1.0-ru.20220719.71c120.tar.gz"
         ],
         "md5": "3f15b30d1238d2d0a6f720f06c7c442c",
         "size compressed (bytes)": 13323791981,
@@ -2274,7 +2274,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.neuclir22-zh.20220719.71c120.tar.gz",
         "readme": "lucene-index.neuclir22-zh.20220719.71c120.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-zh.20220719.71c120.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-zh.20220719.71c120.tar.gz"
         ],
         "md5": "edca109c2f39464f73cf9d12af776b73",
         "size compressed (bytes)": 15744742868,
@@ -2288,7 +2288,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.neuclir22-fa.20220719.71c120.tar.gz",
         "readme": "lucene-index.neuclir22-fa.20220719.71c120.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-fa.20220719.71c120.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-fa.20220719.71c120.tar.gz"
         ],
         "md5": "ff3a6ac9a4c428d3aa42e1ae3c007147",
         "size compressed (bytes)": 7577718950,
@@ -2302,7 +2302,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.neuclir22-ru.20220719.71c120.tar.gz",
         "readme": "lucene-index.neuclir22-ru.20220719.71c120.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.neuclir22-ru.20220719.71c120.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-ru.20220719.71c120.tar.gz"
         ],
         "md5": "dd483e258fddde98cd059fd5f4f0fe1e",
         "size compressed (bytes)": 14237631658,
@@ -2317,7 +2317,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-arabic.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/7oDFnq8FmTazf2a/download"
         ],
         "md5": "0129b01cc88524e13a9ff3e398e988a5",
@@ -2332,7 +2332,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-bengali.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/HaPaz2wFbRMP2LK/download"
         ],
         "md5": "756a686cc5723791eb5ab5357271be10",
@@ -2347,7 +2347,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-english.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-english.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/w4ccMwH5BLnXQ3j/download"
         ],
         "md5": "804c7626b5a36f06f75e0a04c6ec4fe1",
@@ -2362,7 +2362,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-finnish.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Pgd3mqjy77a6FR8/download"
         ],
         "md5": "65361258d1a318447f364ccae90c293a",
@@ -2377,7 +2377,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-indonesian.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/tF8NE7pWZ2xGix7/download"
         ],
         "md5": "ca62d690401b84a493c70693ee2626c3",
@@ -2392,7 +2392,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-japanese.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/ema8i83zqJr7n48/download"
         ],
         "md5": "d05aefed5f79bfc151a9f4815d3693d8",
@@ -2407,7 +2407,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-korean.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/igmEHCTjTwNi3de/download"
         ],
         "md5": "4ecc408de4c749f25865859ea97278bd",
@@ -2422,7 +2422,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-russian.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Pbi9xrD7jSYaxnX/download"
         ],
         "md5": "9e229b33f4ddea411477d2f00c25be72",
@@ -2437,7 +2437,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-swahili.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/SWqajDQgq8wppf6/download"
         ],
         "md5": "ec88a5b39c2506b8cd61e6e47b8044e7",
@@ -2452,7 +2452,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-telugu.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/DAB6ba5ZF98awH6/download"
         ],
         "md5": "2704b725c0418905037a45b6301e8666",
@@ -2467,7 +2467,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
         "readme": "lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.mrtydi-v1.1-thai.20220108.6fcb89.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/2Ady6AwBwNbYLpg/download"
         ],
         "md5": "9756502f1aeeee035c37975202787538",
@@ -2484,7 +2484,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/aDRAfyZytQsQ9T3/download"
         ],
         "md5": "43b60b3fc75324c648a02375772e7fe8",
@@ -2499,7 +2499,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-slim.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-slim.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/iCnysqnaG9SL9pA/download"
         ],
         "md5": "17a7b079e9d527492904c7697a9cae59",
@@ -2514,7 +2514,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-full.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-full.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/KsqZ2AwkSrTM8yS/download"
         ],
         "md5": "ef60d7f8afa3919cdeedc6fea89aa3f7",
@@ -2531,7 +2531,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-d2q-t5.20220201.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/jWb3La4NYorwSCp/download"
         ],
         "md5": "37c639c9c26a34d2612ea6549fb866df",
@@ -2546,7 +2546,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20220525.30c997.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20220525.30c997.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20220525.30c997.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20220525.30c997.tar.gz",
         ],
         "md5": "987088270d4df2d51bcdffb1588f6915",
         "size compressed (bytes)": 11169880136,
@@ -2562,7 +2562,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-segmented.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/FKniAWGJjZHy3TF/download"
         ],
         "md5": "611bb83e043c0d6febe0fa3508d1d7f9",
@@ -2577,7 +2577,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-segmented-slim.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/QNYpaAcLXERr74y/download"
         ],
         "md5": "d42113cfeeea862b51765329795948ad",
@@ -2592,7 +2592,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-segmented-full.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/RzRBC6xkmaTsmX9/download"
         ],
         "md5": "2ed7457c8804d2d6370a1a7f604eb360",
@@ -2609,7 +2609,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/gJmL8iiWWztnYmH/download"
         ],
         "md5": "6c1f86ee4f7175eed4d3a7acc3d567b8",
@@ -2624,7 +2624,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20220525.30c997.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
         ],
         "md5": "a67e6854187f084a8a3eee11dd30bc31",
         "size compressed (bytes)": 16627681594,
@@ -2640,7 +2640,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/L7yNfCXpqK5yf8e/download"
         ],
         "md5": "4d8fdbdcd119c1f47a4cc5d01a45dad3",
@@ -2655,7 +2655,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/swtPDQAGg6oHD8m/download"
         ],
         "md5": "2f1e50d60a0df32a50111a986159de51",
@@ -2670,7 +2670,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-full.20220131.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-full.20220131.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/wzGLFMQyKAc2TTC/download"
         ],
         "md5": "3283069c6e8451659c8ea83e2140d739",
@@ -2687,7 +2687,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-d2q-t5.20220201.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/P7Lt234kyZP87nB/download"
         ],
         "md5": "136205f35bd895077c0874eaa063376c",
@@ -2702,7 +2702,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20220525.30c997.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20220525.30c997.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20220525.30c997.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20220525.30c997.tar.gz",
         ],
         "md5": "5eb8178e48a4a9b85714be156d85b2d1",
         "size compressed (bytes)": 4433982542,
@@ -2718,7 +2718,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "index-msmarco-passage-20201117-f87c94.tar.gz",
         "readme": "index-msmarco-passage-20201117-f87c94-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-20201117-f87c94.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-msmarco-passage-20201117-f87c94.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/QQsZMFG8MpF4P8M/download"
         ],
         "md5": "1efad4f1ae6a77e235042eff4be1612d",
@@ -2733,7 +2733,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
         "readme": "index-msmarco-passage-slim-20201202-ab6e28-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-msmarco-passage-slim-20201202-ab6e28.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Kx6K9NJFmwnaAP8/download"
         ],
         "md5": "5e11da4cebd2e8dda2e73c589ffb0b4c",
@@ -2748,7 +2748,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "index-msmarco-doc-20201117-f87c94.tar.gz",
         "readme": "index-msmarco-doc-20201117-f87c94-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-20201117-f87c94.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-msmarco-doc-20201117-f87c94.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/5NC7A2wAL7opJKH/download"
         ],
         "md5": "ac747860e7a37aed37cc30ed3990f273",
@@ -2763,7 +2763,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
         "readme": "index-msmarco-doc-slim-20201202-ab6e28-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-msmarco-doc-slim-20201202-ab6e28.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/BMZ6oYBoEPgTFqs/download"
         ],
         "md5": "c56e752f7992bf6149761097641d515a",
@@ -2778,7 +2778,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
         "readme": "index-msmarco-doc-per-passage-20201204-f50dcc-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-msmarco-doc-per-passage-20201204-f50dcc.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/q6sAxE6q57q2TBo/download"
         ],
         "md5": "797367406a7542b649cefa6b41cf4c33",
@@ -2793,7 +2793,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
         "readme": "index-msmarco-doc-per-passage-slim-20201204-f50dcc-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-msmarco-doc-per-passage-slim-20201204-f50dcc.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/mKTjbTKMwWF9kY3/download"
         ],
         "md5": "77c2409943a8c9faffabf57cb6adca69",
@@ -2810,7 +2810,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
         "readme": "index-msmarco-passage-expanded-20201121-e127fb-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-msmarco-passage-expanded-20201121-e127fb.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/pm7cisJtRxiAMHd/download"
         ],
         "md5": "e5762e9e065b6fe5000f9c18da778565",
@@ -2825,7 +2825,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
         "readme": "index-msmarco-doc-expanded-per-doc-20201126-1b4d0a-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-msmarco-doc-expanded-per-doc-20201126-1b4d0a.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/3BQz6ZAXAxtfne8/download"
         ],
         "md5": "f7056191842ab77a01829cff68004782",
@@ -2840,7 +2840,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
         "readme": "index-msmarco-doc-expanded-per-passage-20201126-1b4d0a-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-msmarco-doc-expanded-per-passage-20201126-1b4d0a.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/eZLbPWcnB7LzKnQ/download"
         ],
         "md5": "54ea30c64515edf3c3741291b785be53",
@@ -2857,7 +2857,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc.20220111.06fb4f.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/BC7CXiRrTfg9FbD/download"
         ],
         "md5": "3ca8b924f00f11e51e337c5421e55d96",
@@ -2872,7 +2872,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-slim.20220111.06fb4f.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/eAjtprNt2fwjQ7F/download"
         ],
         "md5": "502c4c96ecd95e4113a7a26a06065ecf",
@@ -2887,7 +2887,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-full.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-full.20220111.06fb4f.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/ZqEx5bbznxc9ekd/download"
         ],
         "md5": "cdb600adceccd327cb97c4277f910150",
@@ -2904,7 +2904,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-d2q-t5.20220201.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/MeTFfBnwffS7gLd/download"
         ],
         "md5": "431391554854c51f347ba38c5e07ef94",
@@ -2919,7 +2919,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-d2q-t5-docvectors.20220525.30c997.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-d2q-t5-docvectors.20220525.30c997.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-d2q-t5-docvectors.20220525.30c997.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-d2q-t5-docvectors.20220525.30c997.tar.gz",
         ],
         "md5": "200176909cd31d750919f38410f20b8a",
         "size compressed (bytes)": 54511069668,
@@ -2935,7 +2935,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented.20220111.06fb4f.tar.gz"
         ],
         "md5": "cb37211851bd0053227b8db1dd0a3853",
         "size compressed (bytes)": 105646039864,
@@ -2949,7 +2949,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-slim.20220111.06fb4f.tar.gz"
         ],
         "md5": "448c1e0e49c38364abbc4d880e865ee5",
         "size compressed (bytes)": 21004046043,
@@ -2963,7 +2963,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-full.20220111.06fb4f.tar.gz"
         ],
         "md5": "bb597b3d03eba00653387ffab8c01998",
         "size compressed (bytes)": 186377654091,
@@ -2979,7 +2979,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220201.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/m4DRWpeGW9Dawd7/download"
         ],
         "md5": "3ce9eaca885e1e8a79466bee5e6a4084",
@@ -2994,7 +2994,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5-docvectors.20220525.30c997.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
         ],
         "md5": "d7fd3d9fbca6ca0b5ffeb8b824db0cd7",
         "size compressed (bytes)": 114312032964,
@@ -3010,7 +3010,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage.20220111.06fb4f.tar.gz"
         ],
         "md5": "5990b4938dfdd092888ce9c9dfb6a90c",
         "size compressed (bytes)": 38013278576,
@@ -3024,7 +3024,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-slim.20220111.06fb4f.tar.gz"
         ],
         "md5": "b9a6fdf88775b0b546907d4cd84c4a58",
         "size compressed (bytes)": 8174630082,
@@ -3038,7 +3038,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage-full.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-full.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-full.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-full.20220111.06fb4f.tar.gz"
         ],
         "md5": "a233873bef304dd87adef35f54c7a436",
         "size compressed (bytes)": 59658189636,
@@ -3054,7 +3054,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-d2q-t5.20220201.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/EiPESdXiikAcbFF/download"
         ],
         "md5": "72f3f0f56b9c7a1bdff836419f2f30bd",
@@ -3069,7 +3069,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage-d2q-t5-docvectors.20220525.30c997.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-d2q-t5-docvectors.20220525.30c997.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-d2q-t5-docvectors.20220525.30c997.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-d2q-t5-docvectors.20220525.30c997.tar.gz",
         ],
         "md5": "e0ed749284f67db1f0890cb709ecb690",
         "size compressed (bytes)": 59320157969,
@@ -3085,7 +3085,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-augmented.20220111.06fb4f.tar.gz"
         ],
         "md5": "975f6be8d49238fe1d47e2895d26f99e",
         "size compressed (bytes)": 65574361728,
@@ -3099,7 +3099,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-augmented-slim.20220111.06fb4f.tar.gz"
         ],
         "md5": "af893e56d050a98b6646ce2ca063d3f4",
         "size compressed (bytes)": 117322378611,
@@ -3113,7 +3113,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-augmented-full.20220111.06fb4f.tar.gz"
         ],
         "md5": "e99f99503b9e030424546d59239f0cb5",
         "size compressed (bytes)": 14819003760,
@@ -3129,7 +3129,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220201.9ea315.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/44EDc5a9aCbHZNW/download"
         ],
         "md5": "f248becbe3ef3fffc39680cff417791d",
@@ -3144,7 +3144,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage-augmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-d2q-t5-docvectors.20220525.30c997.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-augmented-d2q-t5-docvectors.20220525.30c997.tar.gz",
         ],
         "md5": "8fc1cc2b71331772ff7b306cd62794f6",
         "size compressed (bytes)": 96122355388,
@@ -3160,7 +3160,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-trec-covid-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-trec-covid-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-covid-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "d8574b8263df5dc337b443c4c35d384f",
         "size compressed (bytes)": 226745226,
@@ -3174,7 +3174,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-bioasq-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-bioasq-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-bioasq-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "ab4823b0b59dbb59ae72c2689b73133c",
         "size compressed (bytes)": 24861183683,
@@ -3188,7 +3188,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-nfcorpus-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-nfcorpus-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nfcorpus-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "b52e0f918eb3a5517289980850dec55c",
         "size compressed (bytes)": 6508815,
@@ -3202,7 +3202,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-nq-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-nq-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nq-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "71c35db0343ba9800c6b34510acbfb4f",
         "size compressed (bytes)": 1650195223,
@@ -3216,7 +3216,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-hotpotqa-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-hotpotqa-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-hotpotqa-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "431995b33471f183272bb84d9499d8f6",
         "size compressed (bytes)": 2027634934,
@@ -3230,7 +3230,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-fiqa-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-fiqa-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fiqa-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "332ec18504778b03e330847a006541d4",
         "size compressed (bytes)": 56101137,
@@ -3244,7 +3244,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-signal1m-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-signal1m-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-signal1m-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "95b279bbd4533b631967540647f18476",
         "size compressed (bytes)": 499183897,
@@ -3258,7 +3258,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-trec-news-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-trec-news-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-news-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "9f78f049ffdcac5f6f55cd118e008bdb",
         "size compressed (bytes)": 2630489172,
@@ -3272,7 +3272,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-robust04-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-robust04-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-robust04-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "a9340eeedb444a303afbf974ba1872d5",
         "size compressed (bytes)": 1731243578,
@@ -3286,7 +3286,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-arguana-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-arguana-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-arguana-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "62ba65fa619e7f1c9e48850974ab242d",
         "size compressed (bytes)": 10563170,
@@ -3300,7 +3300,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-webis-touche2020-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-webis-touche2020-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-webis-touche2020-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "9e43abfd1de98da6671df90bba8486a1",
         "size compressed (bytes)": 751902399,
@@ -3314,7 +3314,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-android-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "870b2ddfd59abb96a74c00515122b9e1",
         "size compressed (bytes)": 17466940,
@@ -3328,7 +3328,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-english-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "bdcfe2cb5798b79405cba1185ad4ad38",
         "size compressed (bytes)": 24992357,
@@ -3342,7 +3342,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "92fc7435b1ee64783c4a97eea9d2c4a4",
         "size compressed (bytes)": 29224430,
@@ -3356,7 +3356,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "80c3dcc4b3fd39a1125537b587f27436",
         "size compressed (bytes)": 43466795,
@@ -3370,7 +3370,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "359c577e5a4f9a48e7b61fbd70447121",
         "size compressed (bytes)": 21621544,
@@ -3384,7 +3384,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "3f4a0c885463a50038893c5169374e56",
         "size compressed (bytes)": 38016173,
@@ -3398,7 +3398,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "2b0be6fc6d9623201540cbcb2f4881ab",
         "size compressed (bytes)": 40373220,
@@ -3412,7 +3412,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "ce64d853969bde0fecea2228c1258944",
         "size compressed (bytes)": 52283784,
@@ -3426,7 +3426,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "558efcfba599b0e8e7a95a41df4dc5f2",
         "size compressed (bytes)": 91968319,
@@ -3440,7 +3440,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "a3c6cbfc1e81d98abc6cc4380a8f19d2",
         "size compressed (bytes)": 53892386,
@@ -3454,7 +3454,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "fa35ece230cb4d85a5e4ad5de0fd9240",
         "size compressed (bytes)": 15204463,
@@ -3468,7 +3468,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "5a3591b6ff9ce5a97d1600f8a8cd63e8",
         "size compressed (bytes)": 54895441,
@@ -3482,7 +3482,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-quora-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-quora-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-quora-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "dde92b4610b08282d11e7a4465b29181",
         "size compressed (bytes)": 52750359,
@@ -3496,7 +3496,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-dbpedia-entity-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "0d38ea1abf89644bb7d39e74cc4dd2d9",
         "size compressed (bytes)": 2079898414,
@@ -3510,7 +3510,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-scidocs-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-scidocs-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scidocs-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "09a0ea1853445be14da2afb0bc47335e",
         "size compressed (bytes)": 186605163,
@@ -3524,7 +3524,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-fever-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-fever-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fever-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "63cd5f369b5952386f138efe45571d41",
         "size compressed (bytes)": 3878535207,
@@ -3538,7 +3538,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-climate-fever-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-climate-fever-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-climate-fever-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "9af959cf58139d086d52121917913a02",
         "size compressed (bytes)": 3878606250,
@@ -3552,7 +3552,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-scifact-flat.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-scifact-flat.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-flat.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scifact-flat.20220501.1842ee.tar.gz"
         ],
         "md5": "8c79300afd78acb95f127c58682fc881",
         "size compressed (bytes)": 8851845,
@@ -3568,7 +3568,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-trec-covid-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-trec-covid-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-covid-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "2dabcca159c157215ae59b1899c495a8",
         "size compressed (bytes)": 223251753,
@@ -3582,7 +3582,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-bioasq-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-bioasq-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-bioasq-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "723dcc48c961a9faef23e41cc0f372b0",
         "size compressed (bytes)": 25390117017,
@@ -3596,7 +3596,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-nfcorpus-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-nfcorpus-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nfcorpus-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "7c6a63153cca484bd85510d9ffc7c62e",
         "size compressed (bytes)": 6644821,
@@ -3610,7 +3610,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-nq-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-nq-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nq-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "3642ab8879de1c37993347d164694885",
         "size compressed (bytes)": 1647410313,
@@ -3624,7 +3624,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-hotpotqa-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-hotpotqa-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-hotpotqa-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "fa80379866ff06ad905d70ba1d4d55e3",
         "size compressed (bytes)": 2092477199,
@@ -3638,7 +3638,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-fiqa-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-fiqa-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fiqa-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "2cc96d72349f5f864235a88303af5da9",
         "size compressed (bytes)": 56101140,
@@ -3652,7 +3652,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-signal1m-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-signal1m-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-signal1m-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "16a8c34363c69afc820af20ec6ec0848",
         "size compressed (bytes)": 499183933,
@@ -3666,7 +3666,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-trec-news-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-trec-news-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-news-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "91390f9e059ba04479f3550cca166a65",
         "size compressed (bytes)": 2640469722,
@@ -3680,7 +3680,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-robust04-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-robust04-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-robust04-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "f9821cef4dc903772dec283cc8c9e0f5",
         "size compressed (bytes)": 1731243641,
@@ -3694,7 +3694,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-arguana-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-arguana-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-arguana-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "d22aa6b4247535dedb78b3f876d958e7",
         "size compressed (bytes)": 10523627,
@@ -3708,7 +3708,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-webis-touche2020-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-webis-touche2020-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-webis-touche2020-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "f9d1601b76bdbafef6bfa335bf1d1595",
         "size compressed (bytes)": 752116420,
@@ -3722,7 +3722,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-android-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "05801b35a25af7c16172255512b4ce36",
         "size compressed (bytes)": 17931810,
@@ -3736,7 +3736,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-english-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "bf9eef1c5fd10b66b6816f272e7872e1",
         "size compressed (bytes)": 25605309,
@@ -3750,7 +3750,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "3393426ddc796ce263ffb318a6d2bfed",
         "size compressed (bytes)": 30065920,
@@ -3764,7 +3764,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "f69c20cdd61ca7d59ba13e46d8119f5c",
         "size compressed (bytes)": 44265052,
@@ -3778,7 +3778,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "74ef57dcbca928d6ac77b79bb9e6c9ad",
         "size compressed (bytes)": 21944398,
@@ -3792,7 +3792,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "be67a3ae1f91fbe3fb26262e695871f3",
         "size compressed (bytes)": 38801084,
@@ -3806,7 +3806,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "8d40c0e813171a68ea27da42e1943ebe",
         "size compressed (bytes)": 41061263,
@@ -3820,7 +3820,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "d00eec70ebfba38d32e5d588be7e0d74",
         "size compressed (bytes)": 53164818,
@@ -3834,7 +3834,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "6952954b17ebe87987c08d1994bcb801",
         "size compressed (bytes)": 93231672,
@@ -3848,7 +3848,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "858632caf3b93fd0ce6f2c4cdc95503b",
         "size compressed (bytes)": 54854147,
@@ -3862,7 +3862,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "d40fbb1d750a8d4bfcb77edd3d74e758",
         "size compressed (bytes)": 15560909,
@@ -3876,7 +3876,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "938abf49a6835006e1b29b1bcd28602f",
         "size compressed (bytes)": 55833972,
@@ -3890,7 +3890,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-quora-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-quora-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-quora-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "0812beec31e051515524c746323e0ee2",
         "size compressed (bytes)": 52750399,
@@ -3904,7 +3904,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-dbpedia-entity-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "0834295cdc4e955cb9052b24a56f074b",
         "size compressed (bytes)": 2139032416,
@@ -3918,7 +3918,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-scidocs-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-scidocs-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scidocs-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "0944c45ccf3ab5bb3cee5f1863725114",
         "size compressed (bytes)": 175925466,
@@ -3932,7 +3932,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-fever-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-fever-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fever-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "3ba53efbdbeed974a641c7dc5860dbc8",
         "size compressed (bytes)": 3946159718,
@@ -3946,7 +3946,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-climate-fever-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-climate-fever-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-climate-fever-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "998e9e9aa3d91c8022e1f8cae3f75a5f",
         "size compressed (bytes)": 3946246078,
@@ -3960,7 +3960,7 @@ TF_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scifact-multifield.20220501.1842ee.tar.gz"
         ],
         "md5": "a72d8c62859a2434fba2e0034268dbe4",
         "size compressed (bytes)": 9078043,
@@ -3980,7 +3980,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.tar.gz",
         ],
         "md5": "29521fa94165e87caaaddcb5b0d37b13",
         "size compressed (bytes)": 1161034003,
@@ -3994,7 +3994,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-passage-unicoil-noexp.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-unicoil-noexp.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil-noexp.20221005.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-unicoil-noexp.20221005.252b5e.tar.gz",
         ],
         "md5": "dcb6506e0b8bb1d41863ea9cbaa057cf",
         "size compressed (bytes)": 873512626,
@@ -4008,7 +4008,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.tar.gz",
         ],
         "md5": "e1cd5bd86ae5b35912991a6c8c448bb0",
         "size compressed (bytes)": 1242661484,
@@ -4022,7 +4022,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.tar.gz",
         ],
         "md5": "b732c58113ec39b197083dee3e702932",
         "size compressed (bytes)": 1871922326,
@@ -4036,7 +4036,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.tar.gz"
         ],
         "md5": "7d8b56b348685b9c3e29e306803c61eb",
         "size compressed (bytes)": 3822892457,
@@ -4051,7 +4051,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.tar.gz",
         ],
         "md5": "06e087b8575f3d49177abfcfaf4bba1c",
         "size compressed (bytes)": 5765257637,
@@ -4065,7 +4065,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.tar.gz",
         ],
         "md5": "f2bb0e6e9e0ea4baa6072f6f842623d8",
         "size compressed (bytes)": 5323380960,
@@ -4080,7 +4080,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-0shot.20220808.4d6d2a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-unicoil-0shot.20220808.4d6d2a.tar.gz",
         ],
         "md5": "9da229088995a3abfea57dd8681d16d5",
         "size compressed (bytes)": 21736933361,
@@ -4094,7 +4094,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
         ],
         "md5": "dda9de84072d2162e8649a040153942e",
         "size compressed (bytes)": 14347302774,
@@ -4109,7 +4109,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.tar.gz"
         ],
         "md5": "cc98b13869c78ad3ef069d3a1c4ebaf4",
         "size compressed (bytes)": 33573641204,
@@ -4123,7 +4123,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220808.4d6d2a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220808.4d6d2a.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220808.4d6d2a.tar.gz"
         ],
         "md5": "e70c3bf0016407bf20cfe35fb0d277e0",
         "size compressed (bytes)": 29059155839,
@@ -4139,7 +4139,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "0f91fb01fec4b1c590fe683ad2383339",
         "size compressed (bytes)": 55889585,
@@ -4153,7 +4153,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "a0317f26b1fab3bca71b46e0a4eff816",
         "size compressed (bytes)": 5396189427,
@@ -4167,7 +4167,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "9c6f3ecfa6186c3ab5125f5c3d4eb962",
         "size compressed (bytes)": 1439110,
@@ -4181,7 +4181,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "9d418f806b8304a075945afa80bfcc22",
         "size compressed (bytes)": 833470407,
@@ -4195,7 +4195,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "e96767f3d97cba5104dfd76eafdb35b7",
         "size compressed (bytes)": 1173403732,
@@ -4209,7 +4209,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "937f0112a77a81879d6e42431d7fd522",
         "size compressed (bytes)": 19624314,
@@ -4223,7 +4223,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "ac79812f60bcd597d351174a58fb085c",
         "size compressed (bytes)": 602427178,
@@ -4237,7 +4237,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "d24ca30cb52510d193f9361e7f6996b7",
         "size compressed (bytes)": 270800660,
@@ -4251,7 +4251,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "24e6310cd04a73604a8b467e582d153f",
         "size compressed (bytes)": 213476457,
@@ -4265,7 +4265,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "d008e420e5be96ab7e9d40bafc3183ce",
         "size compressed (bytes)": 3816904,
@@ -4279,7 +4279,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "e05433f5cd3113b50b5fe166e18975d4",
         "size compressed (bytes)": 124322238,
@@ -4293,7 +4293,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "753c02411a6391e5d45ba39fdc30a535",
         "size compressed (bytes)": 5995405,
@@ -4307,7 +4307,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "f377274f93d9f6426034fdd78457f5ee",
         "size compressed (bytes)": 9857825,
@@ -4321,7 +4321,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "a8549ec6b7af25fe4a60fd7f4827afbd",
         "size compressed (bytes)": 12976249,
@@ -4335,7 +4335,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "26341f18a352668986bc8cf82006dc38",
         "size compressed (bytes)": 10250646,
@@ -4349,7 +4349,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "799a7c044cc774b29e55de4a8c0a813b",
         "size compressed (bytes)": 4771584,
@@ -4363,7 +4363,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "75ed5bb0217ba4f1c957bc25109f2823",
         "size compressed (bytes)": 10887180,
@@ -4377,7 +4377,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "42e2da2036a3e1d5780c90cda8c2193e",
         "size compressed (bytes)": 10036425,
@@ -4391,7 +4391,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "50043a036497ea6533fd2ce62f151370",
         "size compressed (bytes)": 11867711,
@@ -4405,7 +4405,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "83026f984c1007c656f15d7c01cf5da0",
         "size compressed (bytes)": 19613041,
@@ -4419,7 +4419,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "5bb2b4999e8769aca00c7dff2baaf297",
         "size compressed (bytes)": 12705584,
@@ -4433,7 +4433,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "bb2b4227659f8f32e1fcd4d7dee6065c",
         "size compressed (bytes)": 4987493,
@@ -4447,7 +4447,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "2acbaa7b2a0f8699e54fdee2efb2d376",
         "size compressed (bytes)": 12583602,
@@ -4461,7 +4461,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "6358d683527284ecf4c1dbb6ad008a0f",
         "size compressed (bytes)": 51880975,
@@ -4475,7 +4475,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "9cb05766611bea863a96818219657c78",
         "size compressed (bytes)": 1225612002,
@@ -4489,7 +4489,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "38d2a4bbabf9b6b1cd627ce81660e07d",
         "size compressed (bytes)": 11252695,
@@ -4503,7 +4503,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "cc71baa5838edd4e7cd288ca26488532",
         "size compressed (bytes)": 1497554696,
@@ -4517,7 +4517,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "1479d75cd9496a7d57064b86f6ee67ef",
         "size compressed (bytes)": 1497450545,
@@ -4531,7 +4531,7 @@ IMPACT_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
         ],
         "md5": "367db6c4a466d442ba089a38dad9fc6e",
         "size compressed (bytes)": 2173167,
@@ -4550,7 +4550,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-unicoil-0shot.20220219.6a7080.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/SCskjTJLX4CExkF/download"
         ],
         "md5": "ea024b0dd43a574deb65942e14d32630",
@@ -4565,7 +4565,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/FmW6N5FpMCyjMCE/download"
         ],
         "md5": "fb356e7614afc07e330b0559ae5cef18",
@@ -4580,7 +4580,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage.unicoil-tilde.20211012.58d286.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/oGQ8tWifozPaHLK/download"
         ],
         "md5": "562f9534eefe04ab8c07beb304074d41",
@@ -4596,7 +4596,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220219.6a7080.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/7PTnyEGwNGoJjXm/download"
         ],
         "md5": "94fc8af0d08682f7c79ffb16d82dcfab",
@@ -4611,7 +4611,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot-v2.20220419.c47993.tar.gz"
         ],
         "md5": "109572d65098021642b33e0feecde057",
         "size compressed (bytes)": 33967003367,
@@ -4625,7 +4625,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220219.6a7080.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/PoWYJzGJYx6nCik/download"
         ],
         "md5": "d7807b60087b630010e9c31b59d30b69",
@@ -4640,7 +4640,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot-v2.20220419.c47993.tar.gz"
         ],
         "md5": "8a48373934ad45052b5267ba73cdcad0",
         "size compressed (bytes)": 29662349942,
@@ -4656,7 +4656,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
         "readme": "lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-passage.unicoil-d2q.20211012.58d286.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/LGoAAXM7ZEbyQ7y/download"
         ],
         "md5": "4a8cb3b86a0d9085a0860c7f7bb7fe99",
@@ -4671,7 +4671,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
         "readme": "lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-doc-per-passage-expansion.unicoil-d2q.20211012.58d286.tar.gz",
         ],
         "md5": "44bfc848f9a77302b10a59c5b136eb95",
         "size compressed (bytes)": 5945466106,
@@ -4685,7 +4685,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/eXA2BHF8WQjdY8R/download"
         ],
         "md5": "8886a8d9599838bc6d8d61464da61086",
@@ -4700,7 +4700,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-doc-per-passage.unicoil-noexp-0shot.20211012.58d286.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/BSrJmAFJywsRYXo/download"
         ],
         "md5": "1980db886d969c3393e4da20190eaa8f",
@@ -4717,7 +4717,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "b9c3837f2421667ba48adb84fcb599aa",
         "size compressed (bytes)": 57011989,
@@ -4731,7 +4731,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "96ebb0b9016d9894e9784fa71ad7595d",
         "size compressed (bytes)": 5474720263,
@@ -4745,7 +4745,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "7f5ec129305d630a18d63f188e08aa22",
         "size compressed (bytes)": 1445273,
@@ -4759,7 +4759,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "026dc3c2ed7292e7549ce4ff9ae2c318",
         "size compressed (bytes)": 859416460,
@@ -4773,7 +4773,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "3edf537dfed5a9274ba56ef58ab090f6",
         "size compressed (bytes)": 1197602761,
@@ -4787,7 +4787,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "a6ff07fe2a75f30838c3faf7c133efc1",
         "size compressed (bytes)": 19858617,
@@ -4801,7 +4801,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "6d1fedefd3cb3a08820edc9552dd44b6",
         "size compressed (bytes)": 611827346,
@@ -4815,7 +4815,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "05faf28e84259629aceb4d39d52471db",
         "size compressed (bytes)": 278203568,
@@ -4829,7 +4829,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "c2c7f69edf7bc0edf2ede9d88f4d0402",
         "size compressed (bytes)": 217727819,
@@ -4843,7 +4843,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "2dbb3cdd8412697cc336197912783eb2",
         "size compressed (bytes)": 3866879,
@@ -4857,7 +4857,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "ff5cb006fac08086c575109e0ac80a1c",
         "size compressed (bytes)": 126819142,
@@ -4871,7 +4871,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "1fb9462d93a21293a0c7aedd26653158",
         "size compressed (bytes)": 6068305,
@@ -4885,7 +4885,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "12f4581a96b775166210b462a78f72e3",
         "size compressed (bytes)": 9955691,
@@ -4899,7 +4899,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "310750f0cbe930fd521d875b6df7a61f",
         "size compressed (bytes)": 13104645,
@@ -4913,7 +4913,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "3b42c73ccc278cc0bb823829867c6fce",
         "size compressed (bytes)": 10380891,
@@ -4927,7 +4927,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "5b9d594270ff7417aabf1e9ca0a5bdf5",
         "size compressed (bytes)": 4823160,
@@ -4941,7 +4941,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "a520cde380062b58f52c90e15d05e445",
         "size compressed (bytes)": 11011175,
@@ -4955,7 +4955,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "a90bd4f1185184881cbeaae095eb9e6f",
         "size compressed (bytes)": 10146685,
@@ -4969,7 +4969,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "33f8e2025e89fd637806fe3083b61e86",
         "size compressed (bytes)": 12016946,
@@ -4983,7 +4983,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "c20a0543a3ed90cf0ac8a2f4f52a8f7a",
         "size compressed (bytes)": 19883333,
@@ -4997,7 +4997,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "7fdc9d04b7a3ced70bdef10e1bf92a09",
         "size compressed (bytes)": 12857043,
@@ -5011,7 +5011,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "71a8d47e53a7befd43d4e29827699bfd",
         "size compressed (bytes)": 5044024,
@@ -5025,7 +5025,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "370d0a704300987447a884bce28b0057",
         "size compressed (bytes)": 12737602,
@@ -5039,7 +5039,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "0fc0e726e877bfcc65f00d11e62d014a",
         "size compressed (bytes)": 52687112,
@@ -5053,7 +5053,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "3e0979e02c97ee76ae30b1bf135ac2c8",
         "size compressed (bytes)": 1230929506,
@@ -5067,7 +5067,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "ac689f1bcf15d858fdbec70e692f9642",
         "size compressed (bytes)": 11401355,
@@ -5081,7 +5081,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "99ac85688f3bee09a14334a02e0bc06c",
         "size compressed (bytes)": 1504352314,
@@ -5095,7 +5095,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "60956badd9028ad18adfaf0a87e2c2d7",
         "size compressed (bytes)": 1504855696,
@@ -5109,7 +5109,7 @@ IMPACT_INDEX_INFO_DEPRECATED = {
         "filename": "lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20220501.1842ee.tar.gz"
         ],
         "md5": "bb0f30dad94daa06766da55ae615091d",
         "size compressed (bytes)": 2184301,
@@ -5128,7 +5128,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss HNSW index of the MS MARCO passage corpus encoded by TCT-ColBERT",
         "filename": "dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/F6MjyjmCi6yHFTa/download"
         ],
         "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
@@ -5141,7 +5141,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by TCT-ColBERT",
         "filename": "dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/mHxezzSAkrWbXZC/download"
         ],
         "md5": "7312e0e7acec2a686e994902ca064fc5",
@@ -5154,7 +5154,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT",
         "filename": "dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Ti5JxdCgjdw3noq/download"
         ],
         "md5": "f0b4c3bff3bb685be5c475511004c3b0",
@@ -5167,7 +5167,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
         "filename": "faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/XjkKAWMz2fwSeJB/download",
         ],
         "md5": "c6a7d295cfe711ef84dffe9ba6a702e5",
@@ -5180,7 +5180,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on multiple QA datasets",
         "filename": "dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/xN44ZSC9tFFtp3F/download"
         ],
         "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
@@ -5193,7 +5193,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on NQ",
         "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/W4k44aLZWcbcJXe/download"
         ],
         "md5": "d1ef9286ddb38633cd052171963c62cb",
@@ -5206,7 +5206,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss binary index of Wikipedia encoded by the BPR doc encoder trained on NQ",
         "filename": "dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/qKFrptGP4pSp987/download"
         ],
         "md5": "e60e5ed1d7fab924bfa9149ed169d082",
@@ -5219,7 +5219,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the ANCE MS MARCO passage encoder",
         "filename": "dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/mntwDQtXc9WbZSM/download"
         ],
         "md5": "f6332edb8f06ba796850388cf975b414",
@@ -5232,7 +5232,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by the ANCE MaxP encoder",
         "filename": "dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/ifXbHmgTz27SYCC/download"
         ],
         "md5": "a9f8d77ea0cef7c6acdba881c45b7d99",
@@ -5245,7 +5245,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of Wikipedia encoded by the ANCE-multi encoder",
         "filename": "dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/XRGYFBN6d6WZRNw/download"
         ],
         "md5": "715605b56dc393b8f939e12682dfd467",
@@ -5258,7 +5258,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the SBERT MS MARCO passage encoder",
         "filename": "dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/8xiZK5cx4ffExoz/download"
         ],
         "md5": "3f98b9564cd3a33e45bfeca4d4fec623",
@@ -5271,7 +5271,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the distilbert-dot-margin_mse-T2-msmarco passage encoder",
         "filename": "dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/DSHYNJJRZLqckLA/download"
         ],
         "md5": "83a8081d6020910058164978b095615f",
@@ -5284,7 +5284,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by msmarco-passage-distilbert-dot-tas_b-b256 passage encoder",
         "filename": "dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/89fr56FNeGFbyrG/download",
         ],
         "md5": "cc947bf66d9552a2a7c6fe060466e490",
@@ -5297,7 +5297,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2 passage encoder",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/2EZ2feACyL8cnw5/download",
         ],
         "md5": "479591e265347ceff954ae05f6d3462b",
@@ -5310,7 +5310,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hn passage encoder",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/2dP6EJz7QgywM4b/download",
         ],
         "md5": "61d38e4935b3ca36c99e0cda2b27fba2",
@@ -5323,7 +5323,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder",
         "filename": "dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/od63ZXNadCZymwj/download",
         ],
         "md5": "c3c3fc3a288bcdf61708d4bba4bc79ff",
@@ -5337,7 +5337,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
         "readme": "faiss-hnsw.cast2019.tct_colbert-v2-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/ncrZdE67BCKxPwc/download"
         ],
         "md5": "fa7673509b34d978e1b931d5705369ee",
@@ -5351,7 +5351,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-arabic.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-arabic.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-arabic.20220207.5df364.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220207.5df364.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/Jgj3rYjbyRrmJs8/download"  # Note, this is Crystina's account.
         ],
         "md5": "de86c1ce43854bbeea4e3af5d95d6ffb",
@@ -5365,7 +5365,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-bengali.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-bengali.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-bengali.20220207.5df364.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220207.5df364.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/4PpkzXAQtXFFJHR/download"  # Note, this is Crystina's account.
         ],
         "md5": "e60cb6f1f7139cf0551f0ba4e4e83bf6",
@@ -5379,7 +5379,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-english.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-english.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-english.20220207.5df364.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220207.5df364.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/A7pjbwYeoT4Krnj/download"  # Note, this is Crystina's account.
         ],
         "md5": "a0a8cc39e8af782ec82188a18c4c97c3",
@@ -5393,7 +5393,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-finnish.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-finnish.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-finnish.20220207.5df364.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220207.5df364.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/erNYkrYzRZxpecz/download"  # Note, this is Crystina's account.
         ],
         "md5": "3e4e18aacf07ca551b474315f267ead6",
@@ -5407,7 +5407,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-indonesian.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-indonesian.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-indonesian.20220207.5df364.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220207.5df364.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/BpR3MzT7KJ6edx7/download"  # Note, this is Crystina's account.
         ],
         "md5": "0bf693e4046d9a565ae18b9f5939d193",
@@ -5421,7 +5421,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-japanese.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-japanese.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-japanese.20220207.5df364.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220207.5df364.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/k7bptHT8GwMJpnF/download"  # Note, this is Crystina's account.
         ],
         "md5": "4ba566e27bc0158108259b18a153e2fc",
@@ -5435,7 +5435,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-korean.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-korean.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-korean.20220207.5df364.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220207.5df364.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/TigfYMde94YWAoE/download"  # Note, this is Crystina's account.
         ],
         "md5": "44212e5722632d5bcb14f0680741638c",
@@ -5449,7 +5449,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-russian.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-russian.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-russian.20220207.5df364.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220207.5df364.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/eN7demnmnspqxjk/download"  # Note, this is Crystina's account.
         ],
         "md5": "e7634093f2a3362928e9699441ce8a3b",
@@ -5463,7 +5463,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-swahili.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-swahili.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-swahili.20220207.5df364.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220207.5df364.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/JgiX8PRftnqcPwy/download"  # Note, this is Crystina's account.
         ],
         "md5": "5061bdd1d81bc32490bbb3682096acdd",
@@ -5477,7 +5477,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-telugu.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-telugu.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-telugu.20220207.5df364.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220207.5df364.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/dkm6RGdgRbnwiX2/download"  # Note, this is Crystina's account.
         ],
         "md5": "4952dacaeae89185d3757f9f26af4e88",
@@ -5491,7 +5491,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-thai.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-thai.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-thai.20220207.5df364.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220207.5df364.tar.gz",
             "https://vault.cs.uwaterloo.ca/s/fFrRYefd3nWFR3J/download"  # Note, this is Crystina's account.
         ],
         "md5": "2458f704b277fa8ffe2509b6296892a0",
@@ -5504,7 +5504,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ",
         "filename": "faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz",
         ],
         "md5": "e58886fd5485b84f2c44963ce644561b",
         "size compressed (bytes)": 37812137819,
@@ -5516,7 +5516,7 @@ FAISS_INDEX_INFO = {
         "description": "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA",
         "filename": "faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz",
         ],
         "md5": "a6b02d33c9c0376ad1bf6550212ecdcb",
         "size compressed (bytes)": 37802648060,
@@ -5529,7 +5529,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-arabic.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-arabic.20220413.aa1c0e9.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "bafb6fb2c530567dec26aa4597c6ee25",
         "size compressed (bytes)": 5997943791,
@@ -5542,7 +5542,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-bengali.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-bengali.20220413.aa1c0e9.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "d04bb6e634fb4f7df23dbff7481a8f9b",
         "size compressed (bytes)": 865733058,
@@ -5555,7 +5555,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-english.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-english.20220413.aa1c0e9.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "4a93a2211199f7359cc99486a9f93d02",
         "size compressed (bytes)": 93594561391,
@@ -5568,7 +5568,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-finnish.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-finnish.20220413.aa1c0e9.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "6cbe2d52225fb15a494857b9df593113",
         "size compressed (bytes)": 5436419399,
@@ -5581,7 +5581,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-indonesian.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-indonesian.20220413.aa1c0e9.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "26108a7ee1fc5ac15e0b7fcecf4d39ad",
         "size compressed (bytes)": 4178791300,
@@ -5594,7 +5594,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-japanese.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-japanese.20220413.aa1c0e9.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "2ef2b5e3f5778d99e65aafc48450508a",
         "size compressed (bytes)": 19918319452,
@@ -5607,7 +5607,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-korean.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-korean.20220413.aa1c0e9.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "26ed9be031603019304b66f985ce154c",
         "size compressed (bytes)": 4256863335,
@@ -5620,7 +5620,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-russian.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-russian.20220413.aa1c0e9.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "b1be7a45a702be4021f38425c0001f39",
         "size compressed (bytes)": 27318555548,
@@ -5633,7 +5633,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-swahili.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-swahili.20220413.aa1c0e9.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "14edb5f677820b5a5a3858555e900591",
         "size compressed (bytes)": 389600527,
@@ -5646,7 +5646,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-telugu.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-telugu.20220413.aa1c0e9.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "25b37f5d7a035a17b447f1732e241b85",
         "size compressed (bytes)": 1561419958,
@@ -5659,7 +5659,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-thai.20220413.aa1c0e9.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-thai.20220413.aa1c0e9.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "0544ce677fa31b633a29a079c0cdfc82",
         "size compressed (bytes)": 1616716166,
@@ -5672,7 +5672,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-arabic.20220523.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-arabic.20220523.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220523.7b099d5.tar.gz",
         ],
         "md5": "3d764e7936bb6beb5308ccfd6717b38e",
         "size compressed (bytes)": 5988743258,
@@ -5685,7 +5685,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-bengali.20220523.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-bengali.20220523.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220523.7b099d5.tar.gz",
         ],
         "md5": "2ee8e550245f7eb5184c27fe3369d818",
         "size compressed (bytes)": 864358280,
@@ -5698,7 +5698,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-english.20220523.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-english.20220523.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220523.7b099d5.tar.gz",
         ],
         "md5": "a1be61486c209bf2545d63f950274a99",
         "size compressed (bytes)": 93435965796,
@@ -5711,7 +5711,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-finnish.20220523.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-finnish.20220523.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220523.7b099d5.tar.gz",
         ],
         "md5": "0dbd873fa8bf8c87052940bdf4097ba2",
         "size compressed (bytes)": 5427976705,
@@ -5724,7 +5724,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-indonesian.20220523.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-indonesian.20220523.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220523.7b099d5.tar.gz",
         ],
         "md5": "937f7c03e2386166e34ef81b25d7959f",
         "size compressed (bytes)": 4172976570,
@@ -5737,7 +5737,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-japanese.20220523.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-japanese.20220523.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220523.7b099d5.tar.gz",
         ],
         "md5": "21a64d1a012a854d4bf42fa24c8712fd",
         "size compressed (bytes)": 19890571158,
@@ -5750,7 +5750,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-korean.20220523.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-korean.20220523.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220523.7b099d5.tar.gz",
         ],
         "md5": "ed3216fb5bc431ac52931b58cc4c4d0f",
         "size compressed (bytes)": 4250320804,
@@ -5763,7 +5763,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-russian.20220523.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-russian.20220523.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220523.7b099d5.tar.gz",
         ],
         "md5": "c3c4db1397c7125f8e411cf637054148",
         "size compressed (bytes)": 27278520787,
@@ -5776,7 +5776,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-swahili.20220523.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-swahili.20220523.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220523.7b099d5.tar.gz",
         ],
         "md5": "20235115c0a877e11c91cb662d5a6fdb",
         "size compressed (bytes)": 389244265,
@@ -5789,7 +5789,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-telugu.20220523.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-telugu.20220523.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220523.7b099d5.tar.gz",
         ],
         "md5": "86cae6fe8f8c08489e49b6e6c28a09b0",
         "size compressed (bytes)": 1558691592,
@@ -5802,7 +5802,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-thai.20220523.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220523.7b099d5.mdpr-tied-pft-nq.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-thai.20220523.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220523.7b099d5.tar.gz",
         ],
         "md5": "3ba9c64a9f7479bd2e3a84a816ee0f6f",
         "size compressed (bytes)": 1613563144,
@@ -5810,12 +5810,12 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
     },
-   "mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco-ft-all": {
+    "mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
         "filename": "faiss.mrtydi-v1.1-arabic.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-arabic.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220524.7b099d5.tar.gz",
         ],
         "md5": "9ea47ae7425fd3376f015ca7c6ba5134",
         "size compressed (bytes)": 5988743258,
@@ -5828,7 +5828,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-bengali.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-bengali.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220524.7b099d5.tar.gz",
         ],
         "md5": "d1e75f4960a723b068bb778a972ffb54",
         "size compressed (bytes)": 864358280,
@@ -5841,7 +5841,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-english.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-english.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220524.7b099d5.tar.gz",
         ],
         "md5": "1fce43e549ff57bbac432a579961f34b",
         "size compressed (bytes)": 93435965796,
@@ -5854,7 +5854,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-finnish.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-finnish.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220524.7b099d5.tar.gz",
         ],
         "md5": "6faa7b2fe8ad4b9ca284bd7e8f69b727",
         "size compressed (bytes)": 5427976705,
@@ -5867,7 +5867,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-indonesian.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-indonesian.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220524.7b099d5.tar.gz",
         ],
         "md5": "659b1e0a1bea46f62a842b55385085b7",
         "size compressed (bytes)": 4172976570,
@@ -5880,7 +5880,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-japanese.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-japanese.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220524.7b099d5.tar.gz",
         ],
         "md5": "126c82da9e0e0e1fd290cf62d7fe4dfa",
         "size compressed (bytes)": 19890571158,
@@ -5893,7 +5893,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-korean.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-korean.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220524.7b099d5.tar.gz",
         ],
         "md5": "cf07b71aaefba58bbe150265f6696503",
         "size compressed (bytes)": 4250320804,
@@ -5906,7 +5906,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-russian.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-russian.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220524.7b099d5.tar.gz",
         ],
         "md5": "c0a53fa6428cb9b1399a90e3a9a805d5",
         "size compressed (bytes)": 27278520787,
@@ -5919,7 +5919,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-swahili.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-swahili.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220524.7b099d5.tar.gz",
         ],
         "md5": "93dc3f3453815c92f3bccf4f41c5f2d4",
         "size compressed (bytes)": 389244265,
@@ -5932,7 +5932,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-telugu.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-telugu.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220524.7b099d5.tar.gz",
         ],
         "md5": "7aba1b7ee36e572bd982b3f62f41c380",
         "size compressed (bytes)": 1558691592,
@@ -5945,7 +5945,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.mrtydi-v1.1-thai.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.mrtydi-v1.1-thai.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220524.7b099d5.tar.gz",
         ],
         "md5": "57151073a4c0d90b64242e4536a3af75",
         "size compressed (bytes)": 1613563144,
@@ -5958,7 +5958,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-ar.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "177d47e9a802c87abca52380ad1ce83b",
         "size compressed (bytes)": 5997943791,
@@ -5971,7 +5971,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-bn.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "156e8ba8cd369b1c4a606e28ea025b2e",
         "size compressed (bytes)": 846825710,
@@ -5984,7 +5984,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-en.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "ce00518f54b130a157112c2a1b2d0980",
         "size compressed (bytes)": 93554329467,
@@ -5997,7 +5997,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-es.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "d7a9627bb60e901386f455ba6c9063ac",
         "size compressed (bytes)": 29553300598,
@@ -6010,7 +6010,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-fa.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "e8b59e3eb2e08f61f81569c6d4c85350",
         "size compressed (bytes)": 6286832343,
@@ -6023,7 +6023,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-fi.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "a82d6e6cf964d2e4cfac99cf14cbcc35",
         "size compressed (bytes)": 5366190875,
@@ -6036,7 +6036,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-fr.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "a952d944aa63dcee604c8357f1be18db",
         "size compressed (bytes)": 41648462587,
@@ -6049,7 +6049,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-hi.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "9d1dc4b948edf3df263977d82c9fcc3f",
         "size compressed (bytes)": 1440625097,
@@ -6062,7 +6062,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-id.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "19815233f5cc3a198b88cdb990459637",
         "size compressed (bytes)": 4115281873,
@@ -6075,7 +6075,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-ja.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "6e9b6e304b2b1a192a3d81e55880f971",
         "size compressed (bytes)": 19791965448,
@@ -6088,7 +6088,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-ko.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "ea1fa34341fc5d5ea88e5b633025d2d5",
         "size compressed (bytes)": 4231563116,
@@ -6101,7 +6101,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-ru.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "4325e716ee6af5ea2b73d4b25f1ad76c",
         "size compressed (bytes)": 27173379698,
@@ -6114,7 +6114,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-sw.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "2b879dac6823077ae497ba8ebfce523b",
         "size compressed (bytes)": 376181791,
@@ -6127,7 +6127,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-te.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "a3dfb8ba31f316c93d1fd147f88fbbfd",
         "size compressed (bytes)": 1476021181,
@@ -6140,7 +6140,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-th.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "cb0c9b84a80ff338372b32857c58368d",
         "size compressed (bytes)": 1541590044,
@@ -6153,7 +6153,7 @@ FAISS_INDEX_INFO = {
         "filename": "faiss.miracl-v1.0-zh.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "2743dfaa794b7abbef1d3c912c5cc4b5",
         "size compressed (bytes)": 14046912361,
