@@ -71,7 +71,7 @@ The expected results are as follows, shown in the "ours" column:
 | Top-500  |               90.37 |                     |            92.24 |
 | Top-1000 |               91.30 |                     |            93.43 |
 
-For reference, reported results from the paper (Table 7) are shown in the "orig" column.
+For reference, reported results from the paper (Table 8) are shown in the "orig" column.
 
 ## TriviaQA (TQA)
 
@@ -134,7 +134,7 @@ The expected results are as follows, shown in the "ours" column:
 | Top-500  |                   89.77 |                         |                    89.87 |
 | Top-1000 |                   90.35 |                         |                    90.63 |
 
-For reference, reported results from the paper (Table 7) are shown in the "orig" column.
+For reference, reported results from the paper (Table 8) are shown in the "orig" column.
 
 ## Hybrid sparse-dense retrieval with GAR-T5
 
