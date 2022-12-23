@@ -89,6 +89,6 @@ recall_1000             all     0.9659
 
 ## Reproduction Log[*](reproducibility.md)
 
-+ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-26 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-02 (commit [`8dcf99`](https://github.com/castorini/pyserini/commit/8dcf99982a7bfd447ce9182ff219a9dad2ddd1f2))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-26 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-23 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
