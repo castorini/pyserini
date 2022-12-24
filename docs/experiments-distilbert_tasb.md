@@ -4,10 +4,7 @@ This guide provides instructions to reproduce the DistilBERT KD TASB dense retri
 
 > Sebastian Hofstätter, Sheng-Chieh Lin, Jheng-Hong Yang, Jimmy Lin, Allan Hanbury. [Efficiently Teaching an Effective Dense Retriever with Balanced Topic Aware Sampling.](https://arxiv.org/abs/2104.06967) _SIGIR 2021_.
 
-Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
-See [package installation notes](../README.md#installation) for more details.
-
-Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
+Note that we often observe minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
 Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
@@ -56,3 +53,4 @@ recall_1000             all     0.9771
 ## Reproduction Log[*](reproducibility.md)
  
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-05-28 (commit [`102ed2`](https://github.com/castorini/pyserini/commit/102ed2b2e8770978e4b3e09804913dcffb63c4a7))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-23 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
