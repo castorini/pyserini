@@ -71,7 +71,7 @@ The expected results are as follows, shown in the "ours" column:
 | Top-500  |               90.37 |                     |            92.24 |
 | Top-1000 |               91.30 |                     |            93.43 |
 
-For reference, reported results from the paper (Table 7) are shown in the "orig" column.
+For reference, reported results from the paper (Table 8) are shown in the "orig" column.
 
 ## TriviaQA (TQA)
 
@@ -134,7 +134,7 @@ The expected results are as follows, shown in the "ours" column:
 | Top-500  |                   89.77 |                         |                    89.87 |
 | Top-1000 |                   90.35 |                         |                    90.63 |
 
-For reference, reported results from the paper (Table 7) are shown in the "orig" column.
+For reference, reported results from the paper (Table 8) are shown in the "orig" column.
 
 ## Hybrid sparse-dense retrieval with GAR-T5
 
@@ -143,3 +143,4 @@ Running hybrid sparse-dense retrieval with DKKR and [GAR-T5](https://github.com/
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-23 (commit [`90676b`](https://github.com/castorini/pyserini/commit/90676b351b47585084aa8136265d02a67ced3803))

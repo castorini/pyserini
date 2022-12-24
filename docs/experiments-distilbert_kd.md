@@ -4,11 +4,7 @@ This guide provides instructions to reproduce the DistilBERT KD dense retrieval 
 
 > Sebastian Hofstätter, Sophia Althammer, Michael Schröder, Mete Sertkan, and Allan Hanbury. [Improving Efficient Neural Ranking Models with Cross-Architecture Knowledge Distillation.](https://arxiv.org/abs/2010.02666) arXiv:2010.02666, October 2020. 
 
-Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
-Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
-See [package installation notes](../README.md#installation) for more details.
-
-Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
+Note that we often observe minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
 Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
@@ -56,3 +52,4 @@ recall_1000             all     0.9553
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-26 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-23 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
