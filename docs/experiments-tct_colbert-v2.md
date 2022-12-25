@@ -4,10 +4,7 @@ This guide provides instructions to reproduce the family of TCT-ColBERT-V2 dense
 
 > Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [In-Batch Negatives for Knowledge Distillation with Tightly-CoupledTeachers for Dense Retrieval.](https://aclanthology.org/2021.repl4nlp-1.17/) _Proceedings of the 6th Workshop on Representation Learning for NLP (RepL4NLP-2021)_, pages 163-173, August 2021.
 
-Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
-See [package installation notes](../README.md#installation) for more details.
-
-Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
+Note that we often observe minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
 Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
@@ -223,95 +220,96 @@ recall_1000           	all	0.9759
 Follow the same instructions above to perform on-the-fly query encoding.
 
 
-## MS MARCO Document Ranking with TCT-ColBERT-V2 (zero-shot)
+## MS MARCO Document Ranking
 
-Document retrieval with TCT-ColBERT, brute-force index:
+We can also perform retrieval with the models trained on the MS MARCO passage corpus (above), but applied to the MS MARCO document corpus in a zero-shot manner.
 
-
-Step0: search (with on-the-fly query encoding)
 ```bash
-$ python -m pyserini.search.faiss --topics msmarco-doc-dev \
-	--index msmarco-doc-tct_colbert-v2-hnp-bf \
-	--encoder castorini/tct_colbert-v2-hnp-msmarco \
-	--output runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.txt \
-	--hits 1000 \
-	--max-passage \
-	--max-passage-hits 100 \
-	--output-format msmarco \
-	--batch-size 144 \
-	--threads 36
+# MS MARCO doc queries (dev set)
+python -m pyserini.search.faiss \
+  --index msmarco-doc-tct_colbert-v2-hnp-bf \
+  --topics msmarco-doc-dev \
+  --encoder castorini/tct_colbert-v2-hnp-msmarco \
+  --output runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.txt \
+  --output-format msmarco \
+  --hits 1000 \
+  --max-passage \
+  --max-passage-hits 100 \
+  --batch-size 36 --threads 12
 
-$ python -m pyserini.search.faiss --topics dl19-doc \
-	--index msmarco-doc-tct_colbert-v2-hnp-bf \
-	--encoder castorini/tct_colbert-v2-hnp-msmarco \
-	--output runs/run.dl19-doc.passage.tct_colbert-v2-hnp-maxp.txt \
-	--hits 1000 \
-	--max-passage \
-	--max-passage-hits 100 \
-	--output-format msmarco \
-	--batch-size 144 \
-	--threads 36
+# TREC 2019 DL queries
+python -m pyserini.search.faiss \
+  --index msmarco-doc-tct_colbert-v2-hnp-bf \
+  --topics dl19-doc \
+  --encoder castorini/tct_colbert-v2-hnp-msmarco \
+  --output runs/run.dl19-doc.passage.tct_colbert-v2-hnp-maxp.txt \
+  --hits 1000 \
+  --max-passage \
+  --max-passage-hits 100 \
+  --batch-size 36 --threads 12
 
-$ python -m pyserini.search.faiss --topics dl20-doc \
-	--index msmarco-doc-tct_colbert-v2-hnp-bf \
-	--encoder castorini/tct_colbert-v2-hnp-msmarco \
-	--output runs/run.dl20-doc.passage.tct_colbert-v2-hnp-maxp.txt \
-	--hits 1000 \
-	--max-passage \
-	--max-passage-hits 100 \
-	--output-format msmarco \
-	--batch-size 144 \
-	--threads 36
+# TREC 2020 DL queries
+python -m pyserini.search.faiss \
+  --index msmarco-doc-tct_colbert-v2-hnp-bf \
+  --topics dl20 \
+  --encoder castorini/tct_colbert-v2-hnp-msmarco \
+  --output runs/run.dl20-doc.passage.tct_colbert-v2-hnp-maxp.txt \
+  --hits 1000 \
+  --max-passage \
+  --max-passage-hits 100 \
+  --batch-size 36 --threads 12
 ```
 
-Step1: eval
+Evaluation on MS MARCO doc queries (dev set):
 
-For MSMARCO-Doc-dev
 ```bash
-$ python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.txt
+$ python -m pyserini.eval.msmarco_doc_eval \
+    --judgments msmarco-doc-dev \
+    --run runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.txt
 
 #####################
-MRR @100: 0.3508557690776294
+MRR @100: 0.3509
 QueriesRanked: 5193
 #####################
 
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.txt \
- --output runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap -mndcg_cut.10 msmarco-doc-dev 
+$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+    --input runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.txt \
+   --output runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.trec
+
+$ python -m pyserini.eval.trec_eval -c -m recall.100 -m map -m ndcg_cut.10 \
+    msmarco-doc-dev runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.trec
 
 Results:
 map                     all     0.3509
 recall_100              all     0.8908
 ndcg_cut_10             all     0.4123
-
 ```
 
-For TREC-DL19
+Evaluation TREC 2019 DL queries:
+
 ```bash
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.dl19-doc.passage.tct_colbert-v2-hnp-maxp.txt \
- --output runs/run.dl19-doc.passage.tct_colbert-v2-hnp-maxp.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap -mndcg_cut.10 dl19-doc 
+$ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap -mndcg_cut.10 dl19-doc \
+    runs/run.dl19-doc.passage.tct_colbert-v2-hnp-maxp.txt
 
 Results:
-map                     all     0.2683
+map                     all     0.2684
 recall_100              all     0.3854
-ndcg_cut_10             all     0.6592
+ndcg_cut_10             all     0.6593
 ```
 
-For TREC-DL20
+Evaluation TREC 2020 DL queries:
+
 ```bash
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run --input runs/run.dl20-doc.passage.tct_colbert-v2-hnp-maxp.txt \
- --output runs/run.dl20-doc.passage.tct_colbert-v2-hnp-maxp.trec
-$ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap -mndcg_cut.10 dl20-doc 
+$ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap -mndcg_cut.10 dl20-doc \
+    runs/run.dl20-doc.passage.tct_colbert-v2-hnp-maxp.txt
 
 Results:
-map                     all     0.3915
+map                     all     0.3914
 recall_100              all     0.5964
-ndcg_cut_10             all     0.6106
+ndcg_cut_10             all     0.6094
 ```
-
 
 ## Reproduction Log[*](reproducibility.md)
 
-+ Results reproduced by [@lintool](https://github.com/lintool) on 2021-07-01 (commit [`b1576a2`](https://github.com/castorini/pyserini/commit/b1576a2c3e899349be12e897f92f3ad75ec82d6f))
-+ Results reproduced by [@yuki617](https://github.com/yuki617) on 2021-06-30 (commit [`b3f3d94`](https://github.com/castorini/pyserini/commit/b3f3d94f2d2397e684094be7e997c9fe45c6fa76))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-07-01 (commit [`b1576a`](https://github.com/castorini/pyserini/commit/b1576a2c3e899349be12e897f92f3ad75ec82d6f))
++ Results reproduced by [@yuki617](https://github.com/yuki617) on 2021-06-30 (commit [`b3f3d9`](https://github.com/castorini/pyserini/commit/b3f3d94f2d2397e684094be7e997c9fe45c6fa76))
