@@ -24,7 +24,7 @@ The slight differences between the reproduced scores and those reported in the p
 
 ### TCT_ColBERT-V2
 
-Dense retrieval with TCT-ColBERT, brute-force index:
+Dense retrieval with TCT-ColBERT (v2), brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
@@ -35,8 +35,9 @@ python -m pyserini.search.faiss \
   --output-format msmarco \
   --batch-size 36 --threads 12
 ```
+
 Note that to ensure maximum reproducibility, by default Pyserini uses pre-computed query representations that are automatically downloaded.
-As an alternative, to perform "on-the-fly" query encoding, see additional instructions below.
+As an alternative, replace with `--encoder castorini/tct_colbert-v2-msmarco` to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process.
 
 To evaluate:
 
@@ -67,6 +68,8 @@ recall_1000             all     0.9670
 
 ### TCT_ColBERT-V2-HN
 
+Dense retrieval with TCT-ColBERT (v2) HN variant, brute-force index:
+
 ```bash
 python -m pyserini.search.faiss \
   --index msmarco-passage-tct_colbert-v2-hn-bf \
@@ -76,6 +79,9 @@ python -m pyserini.search.faiss \
   --output-format msmarco \
   --batch-size 36 --threads 12
 ```
+
+Note that to ensure maximum reproducibility, by default Pyserini uses pre-computed query representations that are automatically downloaded.
+As an alternative, replace with `--encoder castorini/tct_colbert-v2-hn-msmarco` to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process.
 
 To evaluate:
 
@@ -101,6 +107,8 @@ recall_1000             all     0.9708
 
 ### TCT_ColBERT-V2-HN+
 
+Dense retrieval with TCT-ColBERT (v2) HN+ variant, brute-force index:
+
 ```bash
 python -m pyserini.search.faiss \
   --index msmarco-passage-tct_colbert-v2-hnp-bf \
@@ -110,6 +118,9 @@ python -m pyserini.search.faiss \
   --output-format msmarco \
   --batch-size 36 --threads 12
 ```
+
+Note that to ensure maximum reproducibility, by default Pyserini uses pre-computed query representations that are automatically downloaded.
+As an alternative, replace with `--encoder castorini/tct_colbert-v2-hnp-msmarco` to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process.
 
 To evaluate:
 
@@ -132,10 +143,6 @@ $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-s
 map                     all     0.3645
 recall_1000             all     0.9695
 ```
-
-To perform on-the-fly query encoding with our [pretrained encoder model](https://huggingface.co/castorini/tct_colbert-v2-hnp-msmarco) use the option `--encoder castorini/tct_colbert-v2-hnp-msmarco`.
-Query encoding will run on the CPU by default.
-To perform query encoding on the GPU, use the option `--device cuda:0`.
 
 ### Hybrid Dense-Sparse Retrieval with TCT_ColBERT-V2-HN+
 
