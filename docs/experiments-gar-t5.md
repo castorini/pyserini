@@ -6,7 +6,8 @@ This guide provides instructions to reproduce the search results of our GAR-T5 m
 We first need to download the test dataset for evaluation. For both NQ and TriviaQA, there are three types of query generation targets, answer, title and sentence.
 
 ## Get the Dataset as tsv
-Download the dataset from HuggingFace and use script to process it to a .tsv file 
+Download the dataset from HuggingFace and use script to process it to a .tsv file ([TriviaQA](https://huggingface.co/datasets/castorini/triviaqa_gar-t5_expansions) and [NaturalQuestion](https://huggingface.co/datasets/castorini/nq_gar-t5_expansions))
+
 ```bash
 export ANSERINI=<path to anserini>
 

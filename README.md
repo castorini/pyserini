@@ -3,7 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/v/pyserini?color=brightgreen)](https://pypi.org/project/pyserini/)
 [![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
 [![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
-[![Generic badge](https://img.shields.io/badge/Lucene-v9.3.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/9.3.0/)
+[![Generic badge](https://img.shields.io/badge/Lucene-v9.4.2-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/9.4.2/)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 Pyserini is a Python toolkit for reproducible information retrieval research with sparse and dense representations.
@@ -11,7 +11,7 @@ Retrieval using sparse representations is provided via integration with our grou
 Retrieval using dense representations is provided via integration with Facebook's [Faiss](https://github.com/facebookresearch/faiss) library.
 
 Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
-Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, pre-built indexes, and evaluation scripts for many commonly used IR test collections
+Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, [pre-built indexes](docs/prebuilt-indexes.md), and evaluation scripts for many commonly used IR test collections
 With Pyserini, it's easy to reproduce runs on a number of standard IR test collections!
 <!--
 A low-effort way to try things out is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
@@ -607,6 +607,7 @@ We provide access to a multitude of experimental conditions organized in the fol
 + [MS MARCO V1 Document](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html)
 + [MS MARCO V2 Passage](https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html)
 + [MS MARCO V2 Document](https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html)
++ [BEIR](https://castorini.github.io/pyserini/2cr/beir.html)
 + [Mr.TyDi](https://castorini.github.io/pyserini/2cr/mrtydi.html)
 + [MIRACL](https://castorini.github.io/pyserini/2cr/miracl.html)
 
@@ -700,6 +701,9 @@ The following guides provide step-by-step instructions:
 
 ## Release History
 
++ v0.19.2 (w/ Anserini v0.16.2): December 16, 2022 [[Release Notes](docs/release-notes/release-notes-v0.19.2.md)]
++ v0.19.1 (w/ Anserini v0.16.1): November 12, 2022 [[Release Notes](docs/release-notes/release-notes-v0.19.1.md)]
++ v0.19.0 (w/ Anserini v0.16.1): November 2, 2022 [[Release Notes](docs/release-notes/release-notes-v0.19.0.md)] [[Known Issues](docs/release-notes/known-issues-v0.19.0.md)]
 + v0.18.0 (w/ Anserini v0.15.0): September 26, 2022 [[Release Notes](docs/release-notes/release-notes-v0.18.0.md)] (First release based on Lucene 9)
 + v0.17.1 (w/ Anserini v0.14.4): August 13, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.1.md)] (Final release based on Lucene 8)
 + v0.17.0 (w/ Anserini v0.14.3): May 28, 2022 [[Release Notes](docs/release-notes/release-notes-v0.17.0.md)]

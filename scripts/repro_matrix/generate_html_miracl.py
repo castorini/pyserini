@@ -167,7 +167,7 @@ if __name__ == '__main__':
                         table[name][split][metric] = expected[metric]
 
                         eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
-                                   f'{trec_eval_metric_definitions[metric]} {eval_key}-{split}.tsv {runfile}'
+                                   f'{trec_eval_metric_definitions[metric]} {eval_key}-{split} {runfile}'
                         eval_commands[name][metric] = format_eval_command(eval_cmd)
 
         tables_html = []

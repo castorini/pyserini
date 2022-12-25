@@ -719,7 +719,6 @@ class TestLoadTopics(unittest.TestCase):
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 1190)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
-        
 
     def test_beir(self):
         topics = search.get_topics('beir-v1.0.0-trec-covid-test')
@@ -839,115 +838,269 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 300)
     
     def test_hc4_1_0_fa(self):
-        topics = search.get_topics('hc4-v1.0-fa-test-title')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 50)
-        self.assertTrue(isinstance(next(iter(topics.keys())), int))
-
-        topics = search.get_topics('hc4-v1.0-fa-test-description')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 50)
-        self.assertTrue(isinstance(next(iter(topics.keys())), int))
-        
-        """
-        Test case commented out pending the upgrade to Lucene 9.0
-        """
-        # topics = search.get_topics('hc4-v1.0-fa-test-description-title')
-        # self.assertIsNotNone(topics)
-        # self.assertEqual(len(topics), 50)
-        # self.assertTrue(isinstance(next(iter(topics.keys())), int))
-
         topics = search.get_topics('hc4-v1.0-fa-dev-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-fa-dev-description')
+        topics = search.get_topics('hc4-v1.0-fa-dev-desc')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 10)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        """
-        Test case commented out pending the upgrade to Lucene 9.0
-        """
-        # topics = search.get_topics('hc4-v1.0-fa-dev-description-title')
-        # self.assertIsNotNone(topics)
-        # self.assertEqual(len(topics), 10)
-        # self.assertTrue(isinstance(next(iter(topics.keys())), int))
-    
-    def test_hc4_1_0_zh(self):
-        topics = search.get_topics('hc4-v1.0-zh-test-title')
+        topics = search.get_topics('hc4-v1.0-fa-dev-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 10)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-fa-test-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-zh-test-description')
+        topics = search.get_topics('hc4-v1.0-fa-test-desc')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        """
-        Test case commented out pending the upgrade to Lucene 9.0
-        """
-        # topics = search.get_topics('hc4-v1.0-zh-test-description-title')
-        # self.assertIsNotNone(topics)
-        # self.assertEqual(len(topics), 50)
-        # self.assertTrue(isinstance(next(iter(topics.keys())), int))
-
-        topics = search.get_topics('hc4-v1.0-zh-dev-title')
+        topics = search.get_topics('hc4-v1.0-fa-test-desc-title')
         self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 10)
+        self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-zh-dev-description')
+        topics = search.get_topics('hc4-v1.0-fa-en-test-title')
         self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 10)
+        self.assertEqual(len(topics), 50)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        """
-        Test case commented out pending the upgrade to Lucene 9.0
-        """
-        # topics = search.get_topics('hc4-v1.0-zh-dev-description-title')
-        # self.assertIsNotNone(topics)
-        # self.assertEqual(len(topics), 10)
-        # self.assertTrue(isinstance(next(iter(topics.keys())), int))
-    
+        topics = search.get_topics('hc4-v1.0-fa-en-test-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-fa-en-test-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
     def test_hc4_1_0_ru(self):
-        topics = search.get_topics('hc4-v1.0-ru-test-title')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 50)
-        self.assertTrue(isinstance(next(iter(topics.keys())), int))
-
-        topics = search.get_topics('hc4-v1.0-ru-test-description')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 50)
-        self.assertTrue(isinstance(next(iter(topics.keys())), int))
-
-        """
-        Test case commented out pending the upgrade to Lucene 9.0
-        """
-        # topics = search.get_topics('hc4-v1.0-ru-test-description-title')
-        # self.assertIsNotNone(topics)
-        # self.assertEqual(len(topics), 50)
-        # self.assertTrue(isinstance(next(iter(topics.keys())), int))
-
         topics = search.get_topics('hc4-v1.0-ru-dev-title')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 4)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        topics = search.get_topics('hc4-v1.0-ru-dev-description')
+        topics = search.get_topics('hc4-v1.0-ru-dev-desc')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 4)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        """
-        Test case commented out pending the upgrade to Lucene 9.0
-        """
-        # topics = search.get_topics('hc4-v1.0-ru-dev-description-title')
-        # self.assertIsNotNone(topics)
-        # self.assertEqual(len(topics), 4)
-        # self.assertTrue(isinstance(next(iter(topics.keys())), int))
+        topics = search.get_topics('hc4-v1.0-ru-dev-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 4)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-ru-test-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-ru-test-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-ru-test-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-ru-en-test-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-ru-en-test-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-ru-en-test-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_hc4_1_0_zh(self):
+        topics = search.get_topics('hc4-v1.0-zh-dev-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 10)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-zh-dev-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 10)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-zh-dev-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 10)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-zh-en-test-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-zh-en-test-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('hc4-v1.0-zh-en-test-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_neurclir22(self):
+        topics = search.get_topics('neuclir22-en-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-en-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-en-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-fa-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-fa-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-fa-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-ru-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-ru-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-ru-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-zh-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-zh-desc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('neuclir22-zh-desc-title')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 114)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_miracl_10(self):
+        topics = search.get_topics('miracl-v1.0-ar-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 2896)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-bn-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 411)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-en-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 799)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-es-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 648)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('miracl-v1.0-fa-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 632)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('miracl-v1.0-fi-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1271)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-fr-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 343)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('miracl-v1.0-hi-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 350)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('miracl-v1.0-id-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 960)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-ja-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 860)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-ko-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 213)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-ru-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1252)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-sw-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 482)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-te-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 828)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-th-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 733)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('miracl-v1.0-zh-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 393)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
 
     # General test cases
     def test_tsv_int_topicreader(self):
@@ -975,6 +1128,14 @@ class TestLoadTopics(unittest.TestCase):
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
         self.assertEqual(search.get_topics('robust04'), topics)
+
+    def test_trec_topicreader_nonint_qid(self):
+        path = 'tests/resources/sample_queries_nonint_qid.tsv'
+        self.assertTrue(os.path.exists(path))
+        topics = search.get_topics_with_reader('io.anserini.search.topicreader.TsvStringTopicReader', path)
+        self.assertEqual(len(topics), 3)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+        self.assertEqual({'30_1', '30_2', '30_3'}, set(topics))
 
 
 if __name__ == '__main__':

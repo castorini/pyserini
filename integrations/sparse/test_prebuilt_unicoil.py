@@ -17,7 +17,6 @@
 """Integration tests for uniCOIL and Tilde models using on-the-fly query encoding."""
 
 import os
-import socket
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score
@@ -32,96 +31,109 @@ class TestSearchIntegration(unittest.TestCase):
     def test_msmarco_passage_unicoil_d2q_otf(self):
         output_file = 'test_run.msmarco-passage.unicoil-d2q.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset \
-                          --encoder castorini/unicoil-msmarco-passage \
-                          --index msmarco-v1-passage-unicoil \
-                          --output {output_file} \
-                          --impact \
-                          --hits 1000  --threads {self.threads} --batch-size {self.batch_size} \
-                          --output-format msmarco'
-        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
+        cmd = f'python -m pyserini.search.lucene \
+                   --threads {self.threads} --batch-size {self.batch_size} \
+                   --index msmarco-v1-passage-unicoil \
+                   --topics msmarco-passage-dev-subset \
+                   --encoder castorini/unicoil-msmarco-passage \
+                   --output {output_file} \
+                   --impact --hits 1000'
+        status = os.system(cmd)
         self.assertEqual(status, 0)
-        # Matches score in https://castorini.github.io/pyserini/2cr/msmarco-v1-passage.html
-        self.assertAlmostEqual(score, 0.3509, delta=0.0001)
+
+        # Match score in https://castorini.github.io/pyserini/2cr/msmarco-v1-passage.html
+        stdout, stderr = run_command(f'python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank \
+                                         msmarco-passage-dev-subset {output_file}')
+        self.assertAlmostEqual(0.3509, parse_score(stdout, "recip_rank"), delta=0.0001)
+
+        stdout, stderr = run_command(f'python -m pyserini.eval.trec_eval -c -m recall.1000 \
+                                         msmarco-passage-dev-subset {output_file}')
+        self.assertAlmostEqual(0.9581, parse_score(stdout, "recall_1000"), delta=0.0001)
 
     def test_msmarco_doc_unicoil_d2q_otf(self):
         output_file = 'test_run.msmarco-doc.unicoil-d2q.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search.lucene --topics msmarco-doc-dev \
-                          --encoder castorini/unicoil-msmarco-passage \
-                          --index msmarco-v1-doc-segmented-unicoil \
-                          --output {output_file} \
-                          --impact \
-                          --hits 1000  --threads {self.threads} --batch-size {self.batch_size} \
-                          --max-passage --max-passage-hits 100 \
-                          --output-format msmarco'
-        cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
+        cmd = f'python -m pyserini.search.lucene \
+                   --threads {self.threads} --batch-size {self.batch_size} \
+                   --index msmarco-v1-doc-segmented-unicoil \
+                   --topics msmarco-doc-dev \
+                   --encoder castorini/unicoil-msmarco-passage \
+                   --output {output_file} \
+                   --impact --hits 10000 --max-passage --max-passage-hits 1000'
+        status = os.system(cmd)
         self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3531, delta=0.0001)
-        # Matches score in https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html
-        # 0.3531 on my iMac Pro, but above link says 0.3532.
-    
+
+        # Match score in https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html
+        stdout, stderr = run_command(f'python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank \
+                                         msmarco-doc-dev {output_file}')
+        self.assertAlmostEqual(0.3532, parse_score(stdout, "recip_rank"), delta=0.0001)
+
+        stdout, stderr = run_command(f'python -m pyserini.eval.trec_eval -c -m recall.1000 \
+                                         msmarco-doc-dev {output_file}')
+        self.assertAlmostEqual(0.9546, parse_score(stdout, "recall_1000"), delta=0.0001)
+
     def test_msmarco_passage_tilde_otf(self):
         output_file = 'test_run.msmarco-passage.tilde.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset \
-                          --encoder ielab/unicoil-tilde200-msmarco-passage \
-                          --index msmarco-v1-passage-unicoil-tilde \
-                          --output {output_file} \
-                          --impact \
-                          --hits 1000  --threads {self.threads} --batch-size {self.batch_size} \
-                          --output-format msmarco'
-        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
+        cmd = f'python -m pyserini.search.lucene \
+                   --threads {self.threads} --batch-size {self.batch_size} \
+                   --index msmarco-v1-passage-unicoil-tilde \
+                   --topics msmarco-passage-dev-subset \
+                   --encoder ielab/unicoil-tilde200-msmarco-passage \
+                   --output {output_file} \
+                   --output-format msmarco \
+                   --impact --hits 1000'
+        status = os.system(cmd)
         self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3495, delta=0.0001)
-        # Matches score in https://github.com/castorini/pyserini/blob/master/docs/experiments-unicoil-tilde-expansion.md
+
+        # Match score in https://github.com/castorini/pyserini/blob/master/docs/experiments-unicoil-tilde-expansion.md
+        stdout, stderr = run_command(f'python -m pyserini.eval.msmarco_passage_eval \
+                                         msmarco-passage-dev-subset {output_file}')
+        self.assertAlmostEqual(0.3495, parse_score(stdout, "MRR @10"), delta=0.0001)
 
     def test_msmarco_v2_passage_unicoil_noexp_otf(self):
         output_file = 'test_run.msmarco-v2-passage.unicoil-noexp.0shot.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search.lucene --topics msmarco-v2-passage-dev \
-                          --encoder castorini/unicoil-noexp-msmarco-passage \
-                          --index msmarco-v2-passage-unicoil-noexp-0shot  \
-                          --output {output_file} \
-                          --impact \
-                          --hits 1000 \
-                          --threads {self.threads} --batch-size {self.batch_size}'
-        cmd2 = f'python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "recip_rank")
+        cmd = f'python -m pyserini.search.lucene \
+                  --threads {self.threads} --batch-size {self.batch_size} \
+                  --index msmarco-v2-passage-unicoil-noexp-0shot  \
+                  --topics msmarco-v2-passage-dev \
+                  --encoder castorini/unicoil-noexp-msmarco-passage \
+                  --output {output_file} \
+                  --impact --hits 1000'
+        status = os.system(cmd)
         self.assertEqual(status, 0)
-        # Matches score in https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html
-        self.assertAlmostEqual(score, 0.1343, delta=0.0001)
+
+        # Match score in https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html
+        stdout, stderr = run_command(f'python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank \
+                                         msmarco-v2-passage-dev {output_file}')
+        self.assertAlmostEqual(0.1343, parse_score(stdout, "recip_rank"), delta=0.0001)
+
+        stdout, stderr = run_command(f'python -m pyserini.eval.trec_eval -c -m recall.1000 \
+                                         msmarco-v2-passage-dev {output_file}')
+        self.assertAlmostEqual(0.7010, parse_score(stdout, "recall_1000"), delta=0.0001)
 
     def test_msmarco_v2_doc_unicoil_noexp_otf(self):
         output_file = 'test_run.msmarco-v2-doc.unicoil-noexp.0shot.otf.tsv'
         self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search.lucene --topics msmarco-v2-doc-dev \
-                          --encoder castorini/unicoil-noexp-msmarco-passage \
-                          --index msmarco-v2-doc-segmented-unicoil-noexp-0shot  \
-                          --output {output_file} \
-                          --impact \
-                          --hits 10000 \
-                          --threads {self.threads} --batch-size {self.batch_size} \
-                          --max-passage-hits 1000 \
-                          --max-passage'
-        cmd2 = f'python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-doc-dev {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "recip_rank")
+        cmd = f'python -m pyserini.search.lucene \
+                   --threads {self.threads} --batch-size {self.batch_size} \
+                   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot  \
+                   --topics msmarco-v2-doc-dev \
+                   --encoder castorini/unicoil-noexp-msmarco-passage \
+                   --output {output_file} \
+                   --impact --hits 10000 --max-passage-hits 1000 --max-passage'
+        status = os.system(cmd)
         self.assertEqual(status, 0)
-        # Matches score in https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html
-        self.assertAlmostEqual(score, 0.2232, delta=0.0001)
+
+        # Match scores in https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html
+        stdout, stderr = run_command(f'python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank \
+                                         msmarco-v2-doc-dev {output_file}')
+        self.assertAlmostEqual(0.2232, parse_score(stdout, "recip_rank"), delta=0.0001)
+
+        stdout, stderr = run_command(f'python -m pyserini.eval.trec_eval -c -m recall.1000 \
+                                         msmarco-v2-doc-dev {output_file}')
+        self.assertAlmostEqual(0.8987, parse_score(stdout, "recall_1000"), delta=0.0001)
 
     def tearDown(self):
         clean_files(self.temp_files)

@@ -228,7 +228,8 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
     for url in target_index['urls']:
         local_filename = target_index['filename'] if 'filename' in target_index else None
         try:
-            return download_and_unpack_index(url, local_filename=local_filename, prebuilt=True, md5=index_md5)
+            return download_and_unpack_index(url, local_filename=local_filename,
+                                             prebuilt=True, md5=index_md5, verbose=verbose)
         except (HTTPError, URLError) as e:
             print(f'Unable to download pre-built index at {url}, trying next URL...')
     raise ValueError(f'Unable to download pre-built index at any known URLs.')

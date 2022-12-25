@@ -222,18 +222,61 @@ topics_mapping = {
     'beir-v1.0.0-fever-test-splade_distil_cocodenser_medium': JTopics.BEIR_V1_0_0_FEVER_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM,
     'beir-v1.0.0-climate-fever-test-splade_distil_cocodenser_medium': JTopics.BEIR_V1_0_0_CLIMATE_FEVER_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM,
     'beir-v1.0.0-scifact-test-splade_distil_cocodenser_medium': JTopics.BEIR_V1_0_0_SCIFACT_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM,
-    'hc4-v1.0-zh-dev-title': JTopics.HC4_V1_0_ZH_DEV_TITLE,
-    'hc4-v1.0-zh-dev-description': JTopics.HC4_V1_0_ZH_DEV_DESCRIPTION,
-    'hc4-v1.0-zh-test-title': JTopics.HC4_V1_0_ZH_TEST_TITLE,
-    'hc4-v1.0-zh-test-description': JTopics.HC4_V1_0_ZH_TEST_DESCRIPTION,
     'hc4-v1.0-fa-dev-title': JTopics.HC4_V1_0_FA_DEV_TITLE,
-    'hc4-v1.0-fa-dev-description': JTopics.HC4_V1_0_FA_DEV_DESCRIPTION,
+    'hc4-v1.0-fa-dev-desc': JTopics.HC4_V1_0_FA_DEV_DESC,
+    'hc4-v1.0-fa-dev-desc-title': JTopics.HC4_V1_0_FA_DEV_DESC_TITLE,
     'hc4-v1.0-fa-test-title': JTopics.HC4_V1_0_FA_TEST_TITLE,
-    'hc4-v1.0-fa-test-description': JTopics.HC4_V1_0_FA_TEST_DESCRIPTION,
+    'hc4-v1.0-fa-test-desc': JTopics.HC4_V1_0_FA_TEST_DESC,
+    'hc4-v1.0-fa-test-desc-title': JTopics.HC4_V1_0_FA_TEST_DESC_TITLE,
+    'hc4-v1.0-fa-en-test-title': JTopics.HC4_V1_0_FA_EN_TEST_TITLE,
+    'hc4-v1.0-fa-en-test-desc': JTopics.HC4_V1_0_FA_EN_TEST_DESC,
+    'hc4-v1.0-fa-en-test-desc-title': JTopics.HC4_V1_0_FA_EN_TEST_DESC_TITLE,
     'hc4-v1.0-ru-dev-title': JTopics.HC4_V1_0_RU_DEV_TITLE,
-    'hc4-v1.0-ru-dev-description': JTopics.HC4_V1_0_RU_DEV_DESCRIPTION,
+    'hc4-v1.0-ru-dev-desc': JTopics.HC4_V1_0_RU_DEV_DESC,
+    'hc4-v1.0-ru-dev-desc-title': JTopics.HC4_V1_0_RU_DEV_DESC_TITLE,
     'hc4-v1.0-ru-test-title': JTopics.HC4_V1_0_RU_TEST_TITLE,
-    'hc4-v1.0-ru-test-description': JTopics.HC4_V1_0_RU_TEST_DESCRIPTION,
+    'hc4-v1.0-ru-test-desc': JTopics.HC4_V1_0_RU_TEST_DESC,
+    'hc4-v1.0-ru-test-desc-title': JTopics.HC4_V1_0_RU_TEST_DESC_TITLE,
+    'hc4-v1.0-ru-en-test-title': JTopics.HC4_V1_0_RU_EN_TEST_TITLE,
+    'hc4-v1.0-ru-en-test-desc': JTopics.HC4_V1_0_RU_EN_TEST_DESC,
+    'hc4-v1.0-ru-en-test-desc-title': JTopics.HC4_V1_0_RU_EN_TEST_DESC_TITLE,
+    'hc4-v1.0-zh-dev-title': JTopics.HC4_V1_0_ZH_DEV_TITLE,
+    'hc4-v1.0-zh-dev-desc': JTopics.HC4_V1_0_ZH_DEV_DESC,
+    'hc4-v1.0-zh-dev-desc-title': JTopics.HC4_V1_0_ZH_DEV_DESC_TITLE,
+    'hc4-v1.0-zh-test-title': JTopics.HC4_V1_0_ZH_TEST_TITLE,
+    'hc4-v1.0-zh-test-desc': JTopics.HC4_V1_0_ZH_TEST_DESC,
+    'hc4-v1.0-zh-test-desc-title': JTopics.HC4_V1_0_ZH_TEST_DESC_TITLE,
+    'hc4-v1.0-zh-en-test-title': JTopics.HC4_V1_0_ZH_EN_TEST_TITLE,
+    'hc4-v1.0-zh-en-test-desc': JTopics.HC4_V1_0_ZH_EN_TEST_DESC,
+    'hc4-v1.0-zh-en-test-desc-title': JTopics.HC4_V1_0_ZH_EN_TEST_DESC_TITLE,
+    'neuclir22-en-title': JTopics.NEUCLIR22_EN_TITLE,
+    'neuclir22-en-desc': JTopics.NEUCLIR22_EN_DESC,
+    'neuclir22-en-desc-title': JTopics.NEUCLIR22_EN_DESC_TITLE,
+    'neuclir22-fa-title': JTopics.NEUCLIR22_FA_TITLE,
+    'neuclir22-fa-desc': JTopics.NEUCLIR22_FA_DESC,
+    'neuclir22-fa-desc-title': JTopics.NEUCLIR22_FA_DESC_TITLE,
+    'neuclir22-ru-title': JTopics.NEUCLIR22_RU_TITLE,
+    'neuclir22-ru-desc': JTopics.NEUCLIR22_RU_DESC,
+    'neuclir22-ru-desc-title': JTopics.NEUCLIR22_RU_DESC_TITLE,
+    'neuclir22-zh-title': JTopics.NEUCLIR22_ZH_TITLE,
+    'neuclir22-zh-desc': JTopics.NEUCLIR22_ZH_DESC,
+    'neuclir22-zh-desc-title': JTopics.NEUCLIR22_ZH_DESC_TITLE,
+    'miracl-v1.0-ar-dev': JTopics.MIRACL_V10_AR_DEV,
+    'miracl-v1.0-bn-dev': JTopics.MIRACL_V10_BN_DEV,
+    'miracl-v1.0-en-dev': JTopics.MIRACL_V10_EN_DEV,
+    'miracl-v1.0-es-dev': JTopics.MIRACL_V10_ES_DEV,
+    'miracl-v1.0-fa-dev': JTopics.MIRACL_V10_FA_DEV,
+    'miracl-v1.0-fi-dev': JTopics.MIRACL_V10_FI_DEV,
+    'miracl-v1.0-fr-dev': JTopics.MIRACL_V10_FR_DEV,
+    'miracl-v1.0-hi-dev': JTopics.MIRACL_V10_HI_DEV,
+    'miracl-v1.0-id-dev': JTopics.MIRACL_V10_ID_DEV,
+    'miracl-v1.0-ja-dev': JTopics.MIRACL_V10_JA_DEV,
+    'miracl-v1.0-ko-dev': JTopics.MIRACL_V10_KO_DEV,
+    'miracl-v1.0-ru-dev': JTopics.MIRACL_V10_RU_DEV,
+    'miracl-v1.0-sw-dev': JTopics.MIRACL_V10_SW_DEV,
+    'miracl-v1.0-te-dev': JTopics.MIRACL_V10_TE_DEV,
+    'miracl-v1.0-th-dev': JTopics.MIRACL_V10_TH_DEV,
+    'miracl-v1.0-zh-dev': JTopics.MIRACL_V10_ZH_DEV,
 }
 
 qrels_mapping = {
@@ -349,12 +392,31 @@ qrels_mapping = {
     'beir-v1.0.0-fever-test': JQrels.BEIR_V1_0_0_FEVER_TEST,
     'beir-v1.0.0-climate-fever-test': JQrels.BEIR_V1_0_0_CLIMATE_FEVER_TEST,
     'beir-v1.0.0-scifact-test': JQrels.BEIR_V1_0_0_SCIFACT_TEST,
-    'hc4-v1.0-zh-dev': JQrels.HC4_V1_0_ZH_DEV,
-    'hc4-v1.0-zh-test': JQrels.HC4_V1_0_ZH_TEST,
     'hc4-v1.0-fa-dev': JQrels.HC4_V1_0_FA_DEV,
     'hc4-v1.0-fa-test': JQrels.HC4_V1_0_FA_TEST,
     'hc4-v1.0-ru-dev': JQrels.HC4_V1_0_RU_DEV,
     'hc4-v1.0-ru-test': JQrels.HC4_V1_0_RU_TEST,
+    'hc4-v1.0-zh-dev': JQrels.HC4_V1_0_ZH_DEV,
+    'hc4-v1.0-zh-test': JQrels.HC4_V1_0_ZH_TEST,
+    'hc4-neuclir22-fa-test': JQrels.HC4_NEUCLIR22_FA_TEST,
+    'hc4-neuclir22-ru-test': JQrels.HC4_NEUCLIR22_RU_TEST,
+    'hc4-neuclir22-zh-test': JQrels.HC4_NEUCLIR22_ZH_TEST,
+    'miracl-v1.0-ar-dev': JQrels.MIRACL_V10_AR_DEV,
+    'miracl-v1.0-bn-dev': JQrels.MIRACL_V10_BN_DEV,
+    'miracl-v1.0-en-dev': JQrels.MIRACL_V10_EN_DEV,
+    'miracl-v1.0-es-dev': JQrels.MIRACL_V10_ES_DEV,
+    'miracl-v1.0-fa-dev': JQrels.MIRACL_V10_FA_DEV,
+    'miracl-v1.0-fi-dev': JQrels.MIRACL_V10_FI_DEV,
+    'miracl-v1.0-fr-dev': JQrels.MIRACL_V10_FR_DEV,
+    'miracl-v1.0-hi-dev': JQrels.MIRACL_V10_HI_DEV,
+    'miracl-v1.0-id-dev': JQrels.MIRACL_V10_ID_DEV,
+    'miracl-v1.0-ja-dev': JQrels.MIRACL_V10_JA_DEV,
+    'miracl-v1.0-ko-dev': JQrels.MIRACL_V10_KO_DEV,
+    'miracl-v1.0-ru-dev': JQrels.MIRACL_V10_RU_DEV,
+    'miracl-v1.0-sw-dev': JQrels.MIRACL_V10_SW_DEV,
+    'miracl-v1.0-te-dev': JQrels.MIRACL_V10_TE_DEV,
+    'miracl-v1.0-th-dev': JQrels.MIRACL_V10_TH_DEV,
+    'miracl-v1.0-zh-dev': JQrels.MIRACL_V10_ZH_DEV,
 }
 
 
@@ -377,11 +439,13 @@ def get_topics(collection_name):
 
     t = {}
     for topic in topics.keySet().toArray():
-        # Try and parse the keys into integers
-        try:
+        
+        if topic.isdigit():
+            # parse the keys into integers
             topic_key = int(topic)
-        except ValueError:
+        else:
             topic_key = topic
+            
         t[topic_key] = {}
         for key in topics.get(topic).keySet().toArray():
             t[topic_key][key] = topics.get(topic).get(key)
@@ -396,11 +460,13 @@ def get_topics_with_reader(reader_class, file):
 
     t = {}
     for topic in topics.keySet().toArray():
-        # Try and parse the keys into integers
-        try:
+        
+        if topic.isdigit():
+            # parse the keys into integers
             topic_key = int(topic)
-        except ValueError:
+        else:
             topic_key = topic
+            
         t[topic_key] = {}
         for key in topics.get(topic).keySet().toArray():
             t[topic_key][key] = topics.get(topic).get(key)
@@ -452,14 +518,17 @@ def get_qrels(collection_name):
     with open(file_path, 'r') as f:
         for line in f:
             qid, _, docid, judgement = line.rstrip().split()
-            try:
+            
+            if qid.isdigit():
                 qrels_key = int(qid)
-            except ValueError:
+            else:
                 qrels_key = qid
-            try:
+                
+            if docid.isdigit():
                 doc_key = int(docid)
-            except ValueError:
+            else:
                 doc_key = docid
+                
             if qrels_key in qrels:
                 qrels[qrels_key][doc_key] = judgement
             else:

@@ -509,14 +509,14 @@ class FaissSearcher:
 
     @staticmethod
     def _init_encoder_from_str(encoder):
-        encoder = encoder.lower()
-        if 'dpr' in encoder:
+        encoder_lower = encoder.lower()
+        if 'dpr' in encoder_lower:
             return DprQueryEncoder(encoder_dir=encoder)
-        elif 'tct_colbert' in encoder:
+        elif 'tct_colbert' in encoder_lower:
             return TctColBertQueryEncoder(encoder_dir=encoder)
-        elif 'ance' in encoder:
+        elif 'ance' in encoder_lower:
             return AnceQueryEncoder(encoder_dir=encoder)
-        elif 'sentence' in encoder:
+        elif 'sentence' in encoder_lower:
             return AutoQueryEncoder(encoder_dir=encoder, pooling='mean', l2_norm=True)
         else:
             return AutoQueryEncoder(encoder_dir=encoder)
@@ -527,6 +527,9 @@ class FaissSearcher:
         docids = [line.rstrip() for line in id_f.readlines()]
         id_f.close()
         return docids
+    
+    def set_hnsw_ef_search(self, ef_search: int):
+        self.index.hnsw.efSearch = ef_search
 
 
 class BinaryDenseSearcher(FaissSearcher):
