@@ -23,7 +23,7 @@ Here's how our results stack up against results reported in the paper using the 
 BPR with brute-force index:
 
 ```bash
-python -m pyserini.dsearch \
+python -m pyserini.search.faiss \
   --index wikipedia-bpr-single-nq-hash \
   --topics dpr-nq-test \
   --encoded-queries bpr_single_nq-nq-test \
