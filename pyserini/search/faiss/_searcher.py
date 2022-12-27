@@ -25,6 +25,7 @@ from typing import Dict, List, Union, Optional, Tuple
 
 import numpy as np
 import pandas as pd
+import torch.nn.functional as F
 
 from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, BertTokenizerFast,
                           DPRQuestionEncoder, DPRQuestionEncoderTokenizer, RobertaTokenizer)
@@ -139,6 +140,51 @@ class DprQueryEncoder(QueryEncoder):
             return embeddings.flatten()
         else:
             return super().encode(query)
+
+class GtrQueryEncoder(QueryEncoder):
+
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cuda:0',
+                 pooling: str = 'mean', **kwargs):
+        super().__init__(encoded_query_dir)
+        if encoder_dir:
+            self.device = device
+            self.model = T5EncoderModel.from_pretrained(encoder_dir)
+            self.model.to(self.device)
+            try:
+                self.tokenizer = T5Tokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            except:
+                self.tokenizer = T5Tokenizer.from_pretrained(tokenizer_name or encoder_dir, use_fast=False)
+            self.has_model = True
+            self.pooling = pooling
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+
+    @staticmethod
+    def _mean_pooling(model_output, attention_mask):
+        token_embeddings = model_output[0]  # First element of model_output contains all token embeddings
+        input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
+        sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
+        sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
+        return sum_embeddings / sum_mask
+
+    def encode(self, query: str):
+        if self.has_model:
+            inputs = self.tokenizer(
+                query,
+                return_tensors='pt',
+                truncation='only_first',
+                padding='longest',
+                return_token_type_ids=False,
+            )
+
+            inputs.to(self.device)
+            outputs = self.model(**inputs)
+
+            embeddings = self._mean_pooling(outputs, inputs['attention_mask']).detach().cpu()
+            embeddings = F.normalize(embeddings, p=2, dim=1).numpy()
+            return embeddings.flatten()
+
 
 
 class BprQueryEncoder(QueryEncoder):
@@ -518,6 +564,8 @@ class FaissSearcher:
             return AnceQueryEncoder(encoder_dir=encoder)
         elif 'sentence' in encoder_lower:
             return AutoQueryEncoder(encoder_dir=encoder, pooling='mean', l2_norm=True)
+        elif 'gtr' in encoder_lower:
+            return GtrQueryEncoder(encoder_dir=encoder)
         else:
             return AutoQueryEncoder(encoder_dir=encoder)
 
