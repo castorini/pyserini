@@ -1,0 +1,20 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">$desc</th>
+        <th scope="col">Top 5</th>
+        <th scope="col">Top 20</th>
+        <th scope="col">Top 100</th>
+        <th scope="col">Top 500</th>
+        <th scope="col">Top 1000</th>
+      </tr>
+    </thead>
+    <tbody>
+
+$rows
+
+    </tbody>
+  </table>
+</div>
