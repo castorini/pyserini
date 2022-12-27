@@ -93,6 +93,7 @@ if __name__ == '__main__':
     parser.add_argument('--topics', choices=['triviaqa','naturalquestion'], help='Topics to be run [triviaqa, naturalquestion]', required=True)
     args = parser.parse_args()
     topics = 'dpr-trivia-test' if args.topics == 'triviaqa' else 'nq-test'
+    print_topics = 'TriviaQA' if args.topics == 'triviaqa' else 'Natural Question'
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
     commands = defaultdict(lambda: '')
@@ -129,15 +130,9 @@ if __name__ == '__main__':
                                 f'{evaluate_dpr_retrieval_metric_definitions[metric]}'
                     eval_commands[name][metric] = format_eval_command(eval_cmd)
         tables_html = []
-
-        # Build the table for MRR@100, test queries
+ 
         html_rows = generate_table_rows(1, topics, table)
         all_rows = '\n'.join(html_rows)
         tables_html.append(Template(table_template).substitute(desc='Models', rows=all_rows))
 
-        # # Build the table for R@100, test queries
-        # html_rows = generate_table_rows(2, topics)
-        # all_rows = '\n'.join(html_rows)
-        # tables_html.append(Template(table_template).substitute(desc='Recall@100, test queries', rows=all_rows))
-
-        print(Template(html_template).substitute(title='ODQA Retrieval', tables=' '.join(tables_html)))
+        print(Template(html_template).substitute(title=f'{print_topics} Retrieval', tables=' '.join(tables_html)))
