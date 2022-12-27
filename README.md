@@ -610,6 +610,8 @@ We provide access to a multitude of experimental conditions organized in the fol
 + [BEIR](https://castorini.github.io/pyserini/2cr/beir.html)
 + [Mr.TyDi](https://castorini.github.io/pyserini/2cr/mrtydi.html)
 + [MIRACL](https://castorini.github.io/pyserini/2cr/miracl.html)
++ [TriviaQA](https://castorini.github.io/pyserini/2cr/triviaqa.html)
++ [NaturalQuestion](https://castorini.github.io/pyserini/2cr/naturalquestion.html)
 
 To run all these conditions programmatically:
 
@@ -633,6 +635,8 @@ python scripts/repro_matrix/generate_html_msmarco.py --collection v2-doc > docs/
 python scripts/repro_matrix/generate_html_beir.py > docs/2cr/beir.html
 python scripts/repro_matrix/generate_html_mrtydi.py > docs/2cr/mrtydi.html
 python scripts/repro_matrix/generate_html_miracl.py > docs/2cr/miracl.html
+python scripts/repro_matrix/generate_html_odqa.py --topics triviaqa > docs/2cr/triviaqa.html
+python scripts/repro_matrix/generate_html_odqa.py --topics naturalquestion > docs/2cr/naturalquestion.html
 ```
 
 ## Reproduction Guides
