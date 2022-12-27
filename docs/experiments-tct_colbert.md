@@ -4,11 +4,7 @@ This guide provides instructions to reproduce the TCT-ColBERT dense retrieval mo
 
 > Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [Distilling Dense Representations for Ranking using Tightly-Coupled Teachers.](https://arxiv.org/abs/2010.11386) arXiv:2010.11386, October 2020. 
 
-Starting with v0.12.0, you can reproduce these results directly from the [Pyserini PyPI package](https://pypi.org/project/pyserini/).
-Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
-See [package installation notes](../README.md#installation) for more details.
-
-Note that we have observed minor differences in scores between different computing environments (e.g., Linux vs. macOS).
+Note that we often observe minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
 Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
 
@@ -113,7 +109,7 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 - sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
 
 ```bash
-python -m pyserini.hsearch \
+python -m pyserini.search.hybrid \
   dense  --index msmarco-passage-tct_colbert-bf \
          --encoded-queries tct_colbert-msmarco-passage-dev-subset \
   sparse --index msmarco-passage \
@@ -154,7 +150,7 @@ Hybrid retrieval with dense-sparse representations (with document expansion):
 - sparse retrieval with doc2query-T5 expanded index.
 
 ```bash
-python -m pyserini.hsearch \
+python -m pyserini.search.hybrid \
   dense  --index msmarco-passage-tct_colbert-bf \
          --encoded-queries tct_colbert-msmarco-passage-dev-subset \
   sparse --index msmarco-passage-expanded \
@@ -251,7 +247,7 @@ Dense-sparse hybrid retrieval (without document expansion):
 - sparse retrieval with BoW BM25 index.
 
 ```bash
-python -m pyserini.hsearch \
+python -m pyserini.search.hybrid \
   dense  --index msmarco-doc-tct_colbert-bf \
          --encoded-queries tct_colbert-msmarco-doc-dev \
   sparse --index msmarco-doc-per-passage \
@@ -293,7 +289,7 @@ Dense-sparse hybrid retrieval (with document expansion):
 - sparse retrieval with doc2query-T5 expanded index.
 
 ```bash
-python -m pyserini.hsearch \
+python -m pyserini.search.hybrid \
   dense  --index msmarco-doc-tct_colbert-bf \
          --encoded-queries tct_colbert-msmarco-doc-dev \
   sparse --index msmarco-doc-expanded-per-passage \
@@ -332,9 +328,10 @@ recall_100            	all	0.9081
 
 ## Reproduction Log[*](reproducibility.md)
 
-+ Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7f`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
-+ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-25 (commit [`854c193`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
-+ Results reproduced by [@isoboroff](https://github.com/isoboroff) on 2021-05-14 (PyPI [`0.12.0`](https://pypi.org/project/pyserini/0.12.0/)
-+ Results reproduced by [@jingtaozhan](https://github.com/jingtaozhan) on 2021-05-15 (commit [`53d8d3c`](https://github.com/castorini/pyserini/commit/53d8d3cbb78c88a23ce132a42b0396caad7d2e0f))
-+ Results reproduced by [@jmmackenzie](https://github.com/jmmackenzie) on 2021-05-17 (PyPI [`0.12.0`](https://pypi.org/project/pyserini/0.12.0/))
-+ Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-06-12 (commit [`f614111`](https://github.com/castorini/pyserini/commit/f614111f014b7490f75e585e610f64f769164dd2))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-25 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
++ Results reproduced by [@isoboroff](https://github.com/isoboroff) on 2021-05-14 ([PyPI 0.12.0](https://pypi.org/project/pyserini/0.12.0/))
++ Results reproduced by [@jingtaozhan](https://github.com/jingtaozhan) on 2021-05-15 (commit [`53d8d3`](https://github.com/castorini/pyserini/commit/53d8d3cbb78c88a23ce132a42b0396caad7d2e0f))
++ Results reproduced by [@jmmackenzie](https://github.com/jmmackenzie) on 2021-05-17 ([PyPI 0.12.0](https://pypi.org/project/pyserini/0.12.0/))
++ Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-06-12 (commit [`f61411`](https://github.com/castorini/pyserini/commit/f614111f014b7490f75e585e610f64f769164dd2))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-24 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))

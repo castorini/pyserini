@@ -611,6 +611,30 @@ We provide access to a multitude of experimental conditions organized in the fol
 + [Mr.TyDi](https://castorini.github.io/pyserini/2cr/mrtydi.html)
 + [MIRACL](https://castorini.github.io/pyserini/2cr/miracl.html)
 
+To run all these conditions programmatically:
+
+```bash
+python scripts/repro_matrix/run_all_msmarco.py --collection v1-passage
+python scripts/repro_matrix/run_all_msmarco.py --collection v1-doc
+python scripts/repro_matrix/run_all_msmarco.py --collection v2-passage
+python scripts/repro_matrix/run_all_msmarco.py --collection v2-doc
+python scripts/repro_matrix/run_all_beir.py
+python scripts/repro_matrix/run_all_mrtydi.py
+python scripts/repro_matrix/run_all_miracl.py
+```
+
+And to generate the nicely formatted documentation pages:
+
+```bash
+python scripts/repro_matrix/generate_html_msmarco.py --collection v1-passage > docs/2cr/msmarco-v1-passage.html
+python scripts/repro_matrix/generate_html_msmarco.py --collection v1-doc > docs/2cr/msmarco-v1-doc.html
+python scripts/repro_matrix/generate_html_msmarco.py --collection v2-passage > docs/2cr/msmarco-v2-passage.html
+python scripts/repro_matrix/generate_html_msmarco.py --collection v2-doc > docs/2cr/msmarco-v2-doc.html
+python scripts/repro_matrix/generate_html_beir.py > docs/2cr/beir.html
+python scripts/repro_matrix/generate_html_mrtydi.py > docs/2cr/mrtydi.html
+python scripts/repro_matrix/generate_html_miracl.py > docs/2cr/miracl.html
+```
+
 ## Reproduction Guides
 
 With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a number of standard IR test collections!
