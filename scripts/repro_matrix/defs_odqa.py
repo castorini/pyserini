@@ -17,8 +17,7 @@
 # The models: the rows of the results table will be ordered this way.
 models = {
     'models':
-    ['BM25-default',
-     'BM25-k1_0.9_b_0.4',
+    ['BM25-k1_0.9_b_0.4',
      'BM25-k1_0.9_b_0.4-RM3',
      'GarT5',
      'DPR',
@@ -29,6 +28,7 @@ models = {
 }
 
 evaluate_dpr_retrieval_metric_definitions = {
+        'Top5-1000': '--topk 5 20 100 500 1000',
         'Top5': '--topk 5',
         'Top20': '--topk 20',
         'Top100': '--topk 100',

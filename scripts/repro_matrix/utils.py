@@ -15,6 +15,7 @@
 #
 
 import subprocess
+import os
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK]'
@@ -64,5 +65,41 @@ def run_eval_and_return_metric(metric, eval_key, defs, runfile):
         if len(parts) == 3 and parts[1] == 'all':
             return round(float(parts[2]), 4)
 
+    return 0.0
+
+def run_dpr_retrieval_eval_and_return_metric(defs, json_file):
+    """Generate dpr retrieval evaluation scores
+
+    Args:
+        defs: topk definitions (e.g., '--topk 5 20')
+        json_file: dpr retrieval json file
+
+    Returns:
+        topk: a dictionary of topk scores (e.g., {"Top5": <score>})
+    """    
+    eval_cmd = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {json_file} {defs} '
+    eval_stdout, eval_stderr = run_command(eval_cmd)
+    topk = {}
+    for line in eval_stdout.split('\n'):
+        parts = line.split('\t')
+        if len(parts) == 2 and 'accuracy' in parts[1]:
+            topk.update({parts[0]:round(float(parts[1][10:])*100, 4)})
+    return topk
+
+
+def convert_trec_run_to_dpr_retrieval_json(topics,index,runfile,output):
+    """Convert trec runfile to dpr retrieval json file
+
+    Args:
+        topics: topics field
+        index: index field 
+        runfile: input runfile
+        output: output jsonfile
+
+    Returns:
+        dummy value: 0.0
+    """    
+    cmd = f"python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics {topics} --index {index} --input {runfile} --output {output}"
+    os.system(cmd)
     return 0.0
 

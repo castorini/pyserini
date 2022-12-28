@@ -23,24 +23,27 @@ from string import Template
 
 import yaml
 
-from scripts.repro_matrix.defs_gardkrr import models, evaluate_dpr_retrieval_metric_definitions
+from scripts.repro_matrix.defs_odqa import models, evaluate_dpr_retrieval_metric_definitions
 from scripts.repro_matrix.utils import run_dpr_retrieval_eval_and_return_metric, convert_trec_run_to_dpr_retrieval_json, ok_str, fail_str
 
 
 def print_results(metric, topics):
     print(f'Metric = {metric}, Topics = {topics}')
-    print(' ' * 32, end='')
-    for model in models:
+    for model in models['models']:
+        print(' ' * 32, end='')
         print(f'{model:30}', end='')
         key = f'{model}'
-        print(f'{table[key][topics][metric]:7.3f}', end='')
+        print(f'{table[key][topics][metric]:7.3f}', end='\n')
     print('')
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Generate regression matrix for GarDKRR')
-    parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
-    parser.add_argument('--topics', choices=['triviaqa','naturalquestion'], help='Topics to be run')
+    parser = argparse.ArgumentParser(
+        description='Generate regression matrix for GarDKRR')
+    parser.add_argument('--skip-eval', action='store_true',
+                        default=False, help='Skip running trec_eval.')
+    parser.add_argument('--topics', choices=['triviaqa', 'naturalquestion'],
+                        help='Topics to be run [triviaqa, naturalquestion]', required=True)
     args = parser.parse_args()
     yaml_path = 'pyserini/resources/triviaqa.yaml' if args.topics == "triviaqa" else 'pyserini/resources/naturalquestion.yaml'
     topics = 'dpr-trivia-test' if args.topics == 'triviaqa' else 'nq-test'
@@ -49,38 +52,43 @@ if __name__ == '__main__':
 
     with open(yaml_path) as f:
         yaml_data = yaml.safe_load(f)
-        for condition in yaml_data['conditions']: 
+        for condition in yaml_data['conditions']:
             name = condition['model_name']
             cmd_template = condition['command']
 
             print(f'model {name}:')
             print(f'  - Topics: {topics}')
-            
-            runfile = f'runs/run.gardkrr.{name}.{topics}.txt'
+
+            runfile = f'runs/run.odqa.{name}.{topics}.txt'
             cmd = Template(cmd_template).substitute(output=runfile)
             if not os.path.exists(runfile):
                 print(f'    Running: {cmd}')
                 os.system(cmd)
 
+            # evaluation
+            if not args.skip_eval:
+                jsonfile = runfile.replace('.txt', '.json')
+                if not os.path.exists(jsonfile):
+                    convert_trec_run_to_dpr_retrieval_json(
+                        topics, 'wikipedia-dpr', runfile, jsonfile)
+                score = run_dpr_retrieval_eval_and_return_metric(
+                    evaluate_dpr_retrieval_metric_definitions['Top5-1000'], jsonfile)
             for expected in condition['scores']:
-                for metric,expected_score in expected.items():
+                for metric, expected_score in expected.items():
                     if not args.skip_eval:
-                        jsonfile = runfile.replace('.txt','.json')
-                        convert_trec_run_to_dpr_retrieval_json(topics,'wikipedia-dpr', runfile, jsonfile)
-                        score = float(run_dpr_retrieval_eval_and_return_metric(metric,
-                                                                    evaluate_dpr_retrieval_metric_definitions[metric], jsonfile))
-                        if math.isclose(score, float(expected_score)):
+                        if math.isclose(score[metric], float(expected_score),abs_tol=2e-2):
                             result_str = ok_str
                         else:
-                            result_str = fail_str + f' expected {expected[metric]:.4f}'
-                        print(f'      {metric:7}: {score:.4f} {result_str}')
-                        table[name][topics][metric] = score
+                            result_str = fail_str + \
+                                f' expected {expected[metric]:.4f}'
+                        print(f'      {metric:7}: {score[metric]:.2f} {result_str}')
+                        table[name][topics][metric] = score[metric]
                     else:
                         table[name][topics][metric] = expected_score
 
             print('')
 
-    for metric in ['Top5', 'Top20','Top100','Top500','Top1000']:
+    for metric in ['Top5', 'Top20', 'Top100', 'Top500', 'Top1000']:
         print_results(metric, topics)
 
     end = time.time()

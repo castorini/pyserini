@@ -1,20 +1,13 @@
 conditions:
-  - model_name: BM25-default
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index wikipedia-dpr --topics dpr-trivia-test --output $output --bm25
+  - model_name: BM25-k1_0.9_b_0.4
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index wikipedia-dpr --topics dpr-trivia-test --output $output --bm25 --k1 0.9 --b 0.4
     scores:
-      - Top5: '-'
-        Top20: '-'
-        Top100: '-'
-        Top500: '-'
-        Top1000: '-'
+      - Top5: 66.28
+        Top20: 76.41
+        Top100: 83.15
+        Top500: 87.34
+        Top1000: 88.50
   # - model_name: BM25-k1_0.9_b_0.4
-  #   command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index wikipedia-dpr --topics dpr-trivia-test --output $output --bm25 --k1 0.9 --b 0.4
-  #   scores:
-  #     - Top5: 0.6913
-  #       Top20: 0.9165
-  #       Top100: 0
-  #       Top500: 0
-  #       Top1000: 0
   # - model_name: BM25-k1_0.9_b_0.4-RM3
   # - model_name: GarT5
   # - model_name: DPR
