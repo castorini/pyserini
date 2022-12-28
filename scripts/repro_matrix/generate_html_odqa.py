@@ -110,8 +110,8 @@ if __name__ == '__main__':
             name = condition_tqa['model_name']
             cmd_template_tqa = condition_tqa['command']
             cmd_template_nq = condition_nq['command']
-            runfile_tqa = f'run.odqa.{name}.{TQA_TOPICS}.txt'
-            runfile_nq = f'run.odqa.{name}.{NQ_TOPICS}.txt'
+            runfile_tqa = f'runs/run.odqa.{name}.{TQA_TOPICS}.txt'
+            runfile_nq = f'runs/run.odqa.{name}.{NQ_TOPICS}.txt'
             jsonfile_tqa = runfile_tqa.replace('.txt', '.json')
             jsonfile_nq = runfile_nq.replace('.txt', '.json')
             cmd_tqa = Template(cmd_template_tqa).substitute(
