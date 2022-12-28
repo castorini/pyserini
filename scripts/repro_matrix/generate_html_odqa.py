@@ -115,8 +115,8 @@ if __name__ == '__main__':
             jsonfile_tqa = runfile_tqa.replace('.txt', '.json')
             jsonfile_nq = runfile_nq.replace('.txt', '.json')
             cmd_tqa = Template(cmd_template_tqa).substitute(
-                output=jsonfile_tqa)
-            cmd_nq = Template(cmd_template_nq).substitute(output=jsonfile_nq)
+                output=runfile_tqa)
+            cmd_nq = Template(cmd_template_nq).substitute(output=runfile_nq)
             commands[name][TQA_TOPICS] = format_run_command(cmd_tqa)
             commands[name][NQ_TOPICS] = format_run_command(cmd_nq)
             convert_cmd_tqa = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run ' + \
