@@ -69,8 +69,10 @@ if __name__ == '__main__':
             if not args.skip_eval:
                 jsonfile = runfile.replace('.txt', '.json')
                 if not os.path.exists(jsonfile):
-                    convert_trec_run_to_dpr_retrieval_json(
+                    status = convert_trec_run_to_dpr_retrieval_json(
                         topics, 'wikipedia-dpr', runfile, jsonfile)
+                    if status != 0:
+                        raise RuntimeError("dpr retrieval convertion failed")
                 score = run_dpr_retrieval_eval_and_return_metric(
                     evaluate_dpr_retrieval_metric_definitions['Top5-1000'], jsonfile)
             for expected in condition['scores']:

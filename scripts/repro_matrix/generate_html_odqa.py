@@ -20,7 +20,7 @@ import argparse
 
 import yaml
 
-from scripts.repro_matrix.defs_odqa import models, evaluate_dpr_retrieval_metric_definitions
+from scripts.repro_matrix.defs_odqa import models
 
 # global vars
 TQA_TOPICS = 'dpr-trivia-test'

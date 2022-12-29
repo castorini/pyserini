@@ -97,9 +97,7 @@ def convert_trec_run_to_dpr_retrieval_json(topics,index,runfile,output):
         output: output jsonfile
 
     Returns:
-        dummy value: 0.0
+        exit status: exit status
     """    
     cmd = f"python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics {topics} --index {index} --input {runfile} --output {output}"
-    os.system(cmd)
-    return 0.0
-
+    return os.system(cmd)
