@@ -1,0 +1,16 @@
+conditions:
+  - model_name: BM25-k1_0.9_b_0.4
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index wikipedia-dpr --topics nq-test --output $output --bm25 --k1 0.9 --b 0.4
+    scores:
+      - Top5: 44.82
+        Top20: 64.02
+        Top100: 79.20
+        Top500: 86.59
+        Top1000: 88.95
+  # - model_name: BM25-k1_0.9_b_0.4
+  # - model_name: BM25-k1_0.9_b_0.4-RM3
+  # - model_name: GarT5
+  # - model_name: DPR
+  # - model_name: DPR-DKRR
+  # - model_name: DPR-hybrid
+  # - model_name: RRF
