@@ -610,7 +610,7 @@ We provide access to a multitude of experimental conditions organized in the fol
 + [BEIR](https://castorini.github.io/pyserini/2cr/beir.html)
 + [Mr.TyDi](https://castorini.github.io/pyserini/2cr/mrtydi.html)
 + [MIRACL](https://castorini.github.io/pyserini/2cr/miracl.html)
-+ [ODQA](https://castorini.github.io/pyserini/2cr/odqa.html)
++ [Open-Domain Question Answering](https://castorini.github.io/pyserini/2cr/odqa.html)
 
 To run all these conditions programmatically:
 
