@@ -44,9 +44,10 @@ if __name__ == '__main__':
                         default=False, help='Skip running trec_eval.')
     parser.add_argument('--topics', choices=['triviaqa', 'naturalquestion'],
                         help='Topics to be run [triviaqa, naturalquestion]', required=True)
-    parser.add_argument('--full_topk', action='store_true',
+    parser.add_argument('--full-topk', action='store_true',
                         default=False, help='Run topk 5-1000, default is topk 5-100')
     args = parser.parse_args()
+    hits = 1000 if args.full_topk else 100
     yaml_path = 'pyserini/resources/triviaqa.yaml' if args.topics == "triviaqa" else 'pyserini/resources/naturalquestion.yaml'
     topics = 'dpr-trivia-test' if args.topics == 'triviaqa' else 'nq-test'
     start = time.time()
@@ -61,8 +62,10 @@ if __name__ == '__main__':
             print(f'model {name}:')
             print(f'  - Topics: {topics}')
 
-            runfile = f'runs/run.odqa.{name}.{topics}.txt'
+            runfile = f'runs/run.odqa.{name}.{topics}.hits={hits}.txt'
             cmd = Template(cmd_template).substitute(output=runfile)
+            if not args.full_topk:
+                cmd += ' --hits 100'
             if not os.path.exists(runfile):
                 print(f'    Running: {cmd}')
                 os.system(cmd)
