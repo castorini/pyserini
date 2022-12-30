@@ -1,12 +1,11 @@
 <!-- Condition: $model -->
 <tr class="accordion-toggle collapsed" id="table${table_cnt}-row${row_cnt}" data-toggle="collapse" data-parent="#table${table_cnt}-row${row_cnt}" href="#table${table_cnt}-collapse${row_cnt}">
-<td class="expand-button"></td>
-<td>$model</td>
+<td class="expand-button" style="padding-right:50px"></td>
+<td nowrap style="padding-right:100px">$model</td>
 <td>$TQA_Top20</td>
 <td>$TQA_Top100</td>
 <td>$NQ_Top20</td>
 <td>$NQ_Top100</td>
-<td></td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
