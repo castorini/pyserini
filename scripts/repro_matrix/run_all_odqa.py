@@ -44,6 +44,8 @@ if __name__ == '__main__':
                         default=False, help='Skip running trec_eval.')
     parser.add_argument('--topics', choices=['triviaqa', 'naturalquestion'],
                         help='Topics to be run [triviaqa, naturalquestion]', required=True)
+    parser.add_argument('--full_topk', action='store_true',
+                        default=False, help='Run topk 5-1000, default is topk 5-100')
     args = parser.parse_args()
     yaml_path = 'pyserini/resources/triviaqa.yaml' if args.topics == "triviaqa" else 'pyserini/resources/naturalquestion.yaml'
     topics = 'dpr-trivia-test' if args.topics == 'triviaqa' else 'nq-test'
@@ -73,10 +75,13 @@ if __name__ == '__main__':
                         topics, 'wikipedia-dpr', runfile, jsonfile)
                     if status != 0:
                         raise RuntimeError("dpr retrieval convertion failed")
-                score = run_dpr_retrieval_eval_and_return_metric(
-                    evaluate_dpr_retrieval_metric_definitions['Top5-1000'], jsonfile)
+                topk_defs = evaluate_dpr_retrieval_metric_definitions['Top5-100']
+                if args.full_topk:
+                    topk_defs = evaluate_dpr_retrieval_metric_definitions['Top5-1000']
+                score = run_dpr_retrieval_eval_and_return_metric(topk_defs, jsonfile)
             for expected in condition['scores']:
                 for metric, expected_score in expected.items():
+                    if metric not in score.keys(): continue
                     if not args.skip_eval:
                         if math.isclose(score[metric], float(expected_score),abs_tol=2e-2):
                             result_str = ok_str
@@ -89,8 +94,9 @@ if __name__ == '__main__':
                         table[name][topics][metric] = expected_score
 
             print('')
-
-    for metric in ['Top5', 'Top20', 'Top100', 'Top500', 'Top1000']:
+    metric_ls = ['Top5', 'Top20', 'Top100', 'Top500', 'Top1000']
+    metric_ls = metric_ls[:3] if not args.full_topk else metric_ls
+    for metric in metric_ls:
         print_results(metric, topics)
 
     end = time.time()
