@@ -164,7 +164,7 @@ if __name__ == '__main__':
         # TABLETOREPLACE was added in the WikiExtractor step, where tables were replaced with the string TABLETOREPLACE so that they were included in the processed text corpus as TABLETOREPLACE, instead of gotten rid of by default.
         while table_found and ("TABLETOREPLACE" in text or len(p_tables) > table_num + 1): 
             # Trying to put the tables back in the appropriate location in the text
-            # However, might have parsed more tables in some article than there are occurences of TABLETOREPLACE in the article for some reason. Add these extra linearized tables to end of text.
+            # However, might have parsed more tables in some article than there are occurrences of TABLETOREPLACE in the article for some reason. Add these extra linearized tables to end of text.
             table_num +=1
             table_text = ""
             if len(p_tables) < table_num+1:
