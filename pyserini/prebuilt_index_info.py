@@ -2243,13 +2243,14 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-yo.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-yo.20221004.2b2856.tar.gz"
+            "https://vault.cs.uwaterloo.ca/s/6S68PqPxyz4GoJt/download",
+            # "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-yo.20221004.2b2856.tar.gz"
         ],
-        "md5": "b0066963f13848baded5dca0a96f7723",
-        "size compressed (bytes)": 12100327,
-        "total_terms": 1366398,
+        "md5": "7ff5329cb6a57cbb60afb9062fd68377",
+        "size compressed (bytes)": 13211664,
+        "total_terms": 1387088,
         "documents": 49043,
-        "unique_terms": 106823,
+        "unique_terms": 174539,
         "downloaded": False
     },
 }
