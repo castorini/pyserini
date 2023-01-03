@@ -24,8 +24,7 @@
 <td>$avg</td>
 </tr>
 <tr class="hide-table-padding">
-<td></td>
-<td colspan="17" >
+<td colspan="22">
 <div id="table${table_cnt}-collapse${row_cnt}" class="collapse in p-3">
 
 <!-- Tabs navs -->

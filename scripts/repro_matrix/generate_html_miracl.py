@@ -95,8 +95,8 @@ def generate_table_rows(table_id, split, metric):
                          te=f'{table[keys["te"]][split][metric]:.3f}',
                          th=f'{table[keys["th"]][split][metric]:.3f}',
                          zh=f'{table[keys["zh"]][split][metric]:.3f}',
-                         zh=f'{table[keys["de"]][split][metric]:.3f}',
-                         zh=f'{table[keys["yo"]][split][metric]:.3f}',
+                         de=f'{table[keys["de"]][split][metric]:.3f}',
+                         yo=f'{table[keys["yo"]][split][metric]:.3f}',
                          avg=f'{avg:.3f}',
                          cmd1=f'{commands[keys["ar"]]}',
                          cmd2=f'{commands[keys["bn"]]}',
@@ -131,11 +131,12 @@ def generate_table_rows(table_id, split, metric):
                          eval_cmd13=f'{eval_commands[keys["sw"]][metric]}',
                          eval_cmd14=f'{eval_commands[keys["te"]][metric]}',
                          eval_cmd15=f'{eval_commands[keys["th"]][metric]}',
-                         eval_cmd16=f'{eval_commands[keys["zh"]][metric]}'
-                         eval_cmd17=f'{eval_commands[keys["de"]][metric]}'
+                         eval_cmd16=f'{eval_commands[keys["zh"]][metric]}',
+                         eval_cmd17=f'{eval_commands[keys["de"]][metric]}',
                          eval_cmd18=f'{eval_commands[keys["yo"]][metric]}'
                          )
 
+        s = s.replace("0.000", "--")
         html_rows.append(s)
         row_cnt += 1
 
