@@ -70,9 +70,11 @@ def generate_table_rows(table_id, split, metric):
               table[keys["ru"]][split][metric] + \
               table[keys["sw"]][split][metric] + \
               table[keys["te"]][split][metric] + \
+              table[keys["th"]][split][metric] + \
               table[keys["zh"]][split][metric] + \
-              table[keys["th"]][split][metric]
-        avg = sum / 16
+              table[keys["de"]][split][metric] + \
+              table[keys["yo"]][split][metric]
+        avg = sum / 18
 
         s = s.substitute(table_cnt=table_id,
                          row_cnt=row_cnt,
@@ -93,6 +95,8 @@ def generate_table_rows(table_id, split, metric):
                          te=f'{table[keys["te"]][split][metric]:.3f}',
                          th=f'{table[keys["th"]][split][metric]:.3f}',
                          zh=f'{table[keys["zh"]][split][metric]:.3f}',
+                         zh=f'{table[keys["de"]][split][metric]:.3f}',
+                         zh=f'{table[keys["yo"]][split][metric]:.3f}',
                          avg=f'{avg:.3f}',
                          cmd1=f'{commands[keys["ar"]]}',
                          cmd2=f'{commands[keys["bn"]]}',
@@ -110,6 +114,8 @@ def generate_table_rows(table_id, split, metric):
                          cmd14=f'{commands[keys["te"]]}',
                          cmd15=f'{commands[keys["th"]]}',
                          cmd16=f'{commands[keys["zh"]]}',
+                         cmd17=f'{commands[keys["de"]]}',
+                         cmd18=f'{commands[keys["yo"]]}',
                          eval_cmd1=f'{eval_commands[keys["ar"]][metric]}',
                          eval_cmd2=f'{eval_commands[keys["bn"]][metric]}',
                          eval_cmd3=f'{eval_commands[keys["en"]][metric]}',
@@ -126,6 +132,8 @@ def generate_table_rows(table_id, split, metric):
                          eval_cmd14=f'{eval_commands[keys["te"]][metric]}',
                          eval_cmd15=f'{eval_commands[keys["th"]][metric]}',
                          eval_cmd16=f'{eval_commands[keys["zh"]][metric]}'
+                         eval_cmd17=f'{eval_commands[keys["de"]][metric]}'
+                         eval_cmd18=f'{eval_commands[keys["yo"]][metric]}'
                          )
 
         html_rows.append(s)
