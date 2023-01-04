@@ -33,11 +33,12 @@ languages = [
     ['zh', 'chinese']
 ]
 
-models = ['bm25', 'mdpr-tied-pft-msmarco']
+models = ['bm25', 'mdpr-tied-pft-msmarco', 'mdpr-tied-pft-msmarco-ft-all']
 
 html_display = {
     'bm25': 'BM25',
     'mdpr-tied-pft-msmarco': 'mDPR (tied encoders), pre-FT w/ MS MARCO',
+    'mdpr-tied-pft-msmarco-ft-all': 'mDPR (tied encoders), pre-FT w/ MS MARCO then FT w/ all Mr. TyDi',
 }
 
 trec_eval_metric_definitions = {

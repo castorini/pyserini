@@ -1,0 +1,27 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr> 
+      <th width="1%"></th>
+      <th width="1%">$desc</th>
+      <th colspan="2">TriviaQA</th> 
+      <th colspan="2">Natural Question</th> 
+
+    </tr> 
+    <tr>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col">Top20</th>
+      <th scope="col">Top100</th>
+      <th scope="col">Top20</th>
+      <th scope="col">Top100</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+$rows
+
+    </tbody>
+  </table>
+</div>

@@ -1,4 +1,4 @@
-# Pyserini
+# Pyserini <img src="docs/pyserini-logo.png" width="300" />
 
 [![PyPI](https://img.shields.io/pypi/v/pyserini?color=brightgreen)](https://pypi.org/project/pyserini/)
 [![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
@@ -19,7 +19,7 @@ A low-effort way to try things out is to look at our [online notebooks](https://
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
 
-## Important Note: Lucene 8 to Lucene 9 Transition
+## ⁉️ Important Note: Lucene 8 to Lucene 9 Transition
 
 tl;dr &mdash; Pyserini just underwent a transition from Lucene 8 to Lucene 9.
 Main trunk is currently based on Lucene 9, but pre-built indexes are still based on Lucene 8.
@@ -42,7 +42,7 @@ Note that Lucene 8 code is _not_ able to read indexes built with Lucene 9.
 **Why is this necessary?**
 Although disruptive, an upgrade to Lucene 9 is necessary to take advantage of Lucene's HNSW indexes, which will increase the capabilities of Pyserini and open up the design space of dense/sparse hybrids.
 
-## Installation
+## 🎬 Installation
 
 Install via PyPI (requires Python 3.8+):
 
@@ -64,7 +64,7 @@ If you're planning on just _using_ Pyserini, then the `pip` instructions above a
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 Instructions are provided [here](./docs/installation.md#development-installation).
 
-## How do I search?
+## 🙋 How do I search?
 
 Pyserini supports sparse retrieval (e.g., BM25 ranking using bag-of-words representations), dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), as well hybrid retrieval that integrates both approaches via linear combination of scores. 
 
@@ -220,7 +220,7 @@ In general, hybrid retrieval will be more effective than dense retrieval, which 
 
 </details>
 
-## How do I fetch a document?
+## 🙋 How do I fetch a document?
 
 Another commonly used feature in Pyserini is to fetch a document (i.e., its text) given its `docid`.
 A sparse (Lucene) index can be configured to include the raw document text, in which case the `doc()` method can be used to fetch the document:
@@ -288,7 +288,7 @@ for i in range(searcher.num_docs):
 
 </details>
 
-## How do I index and search my own documents?
+## 🙋 How do I index and search my own documents?
 
 In addition to standard corpora used in IR and NLP research, Pyserini allows you to index and search your own documents.
 
@@ -598,10 +598,13 @@ for i in range(0, 10):
 
 </details>
 
-## Two-Click Reproductions
+## ⚗️ Reproducibility
 
-Accompanying our [SIGIR 2022 paper](https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf), we introduced "two-click reproductions" that allow anyone to reproduce experimental runs with only two clicks (i.e., copy and paste).
-We provide access to a multitude of experimental conditions organized in the following pages:
+With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a number of standard IR test collections!
+We provide a number of [pre-built indexes](docs/prebuilt-indexes.md) that directly support reproducibility "out of the box".
+
+In our [SIGIR 2022 paper](https://dl.acm.org/doi/10.1145/3477495.3531749), we introduced "two-click reproductions" that allow anyone to reproduce experimental runs with only two clicks (i.e., copy and paste).
+Documentation is organized into reproduction matrices for different corpora that provide a summary of different experimental conditions and query sets:
 
 + [MS MARCO V1 Passage](https://castorini.github.io/pyserini/2cr/msmarco-v1-passage.html)
 + [MS MARCO V1 Document](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html)
@@ -610,12 +613,43 @@ We provide access to a multitude of experimental conditions organized in the fol
 + [BEIR](https://castorini.github.io/pyserini/2cr/beir.html)
 + [Mr.TyDi](https://castorini.github.io/pyserini/2cr/mrtydi.html)
 + [MIRACL](https://castorini.github.io/pyserini/2cr/miracl.html)
++ [Open-Domain Question Answering](https://castorini.github.io/pyserini/2cr/odqa.html)
 
-## Reproduction Guides
+For more details, see our paper on [Building a Culture of Reproducibility in Academic Research](https://arxiv.org/abs/2212.13534).
 
-With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a number of standard IR test collections!
-We provide a number of [pre-built indexes](docs/prebuilt-indexes.md) that directly support reproducibility "out of the box".
-The following guides provide step-by-step instructions:
+<details>
+<summary>Programmatic execution of the reproductions</summary>
+
+To run all these conditions programmatically:
+
+```bash
+python scripts/repro_matrix/run_all_msmarco.py --collection v1-passage
+python scripts/repro_matrix/run_all_msmarco.py --collection v1-doc
+python scripts/repro_matrix/run_all_msmarco.py --collection v2-passage
+python scripts/repro_matrix/run_all_msmarco.py --collection v2-doc
+python scripts/repro_matrix/run_all_beir.py
+python scripts/repro_matrix/run_all_mrtydi.py
+python scripts/repro_matrix/run_all_miracl.py
+python scripts/repro_matrix/run_all_odqa.py --topics naturalquestion
+python scripts/repro_matrix/run_all_odqa.py --topics triviaqa
+```
+
+And to generate the nicely formatted documentation pages:
+
+```bash
+python scripts/repro_matrix/generate_html_msmarco.py --collection v1-passage > docs/2cr/msmarco-v1-passage.html
+python scripts/repro_matrix/generate_html_msmarco.py --collection v1-doc > docs/2cr/msmarco-v1-doc.html
+python scripts/repro_matrix/generate_html_msmarco.py --collection v2-passage > docs/2cr/msmarco-v2-passage.html
+python scripts/repro_matrix/generate_html_msmarco.py --collection v2-doc > docs/2cr/msmarco-v2-doc.html
+python scripts/repro_matrix/generate_html_beir.py > docs/2cr/beir.html
+python scripts/repro_matrix/generate_html_mrtydi.py > docs/2cr/mrtydi.html
+python scripts/repro_matrix/generate_html_miracl.py > docs/2cr/miracl.html
+python scripts/repro_matrix/generate_html_odqa.py > docs/2cr/odqa.html
+```
+
+</details>
+
+Additional reproduction guides below provide detailed step-by-step instructions.
 
 ### Sparse Retrieval
 
@@ -668,7 +702,7 @@ The following guides provide step-by-step instructions:
 | [MS MARCO V2 doc: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_doc_segmented_unicoil_0shot_v2.tar) | 72 GB | `c5639748c2cbad0152e10b0ebde3b804` |
 
 
-## FAQs
+## 🙋 Additional FAQs
 
 + [How do I configure search?](docs/usage-interactive-search.md#how-do-i-configure-search) (Guide to Interactive Search)
 + [How do I manually download indexes?](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) (Guide to Interactive Search)
@@ -682,7 +716,7 @@ The following guides provide step-by-step instructions:
 + [How do I build custom Lucene queries?](docs/usage-querybuilder.md) (Query Builder API)
 + [How do I iterate over raw collections?](docs/usage-collection.md) (Collection API)
 
-## Additional Documentation
+## 📃 Additional Documentation
 
 + [Baselines](docs/experiments-kilt.md) for [KILT](https://github.com/facebookresearch/KILT): a benchmark for Knowledge Intensive Language Tasks
 + [Baselines](docs/experiments-tripclick-doc.md) for [TripClick](https://tripdatabase.github.io/tripclick/): a large-scale dataset of click logs in the health domain
@@ -699,7 +733,7 @@ The following guides provide step-by-step instructions:
 + [Usage of the Collection API](docs/usage-collection.md)
 + [Direct Interaction via Pyjnius](docs/usage-pyjnius.md)
 
-## Release History
+## ℹ️ Release History
 
 + v0.19.2 (w/ Anserini v0.16.2): December 16, 2022 [[Release Notes](docs/release-notes/release-notes-v0.19.2.md)]
 + v0.19.1 (w/ Anserini v0.16.1): November 12, 2022 [[Release Notes](docs/release-notes/release-notes-v0.19.1.md)]
@@ -743,7 +777,7 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 </details>
 
-## Citation
+## ✨ References
 
 If you use Pyserini, please cite the following paper: 
 
@@ -757,6 +791,6 @@ If you use Pyserini, please cite the following paper:
 }
 ```
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
 This research is supported in part by the Natural Sciences and Engineering Research Council (NSERC) of Canada.
