@@ -20,7 +20,7 @@ import argparse
 
 import yaml
 
-from scripts.repro_matrix.defs_odqa import models, evaluate_dpr_retrieval_metric_definitions
+from scripts.repro_matrix.defs_odqa import models
 
 # global vars
 TQA_TOPICS = 'dpr-trivia-test'
@@ -36,7 +36,8 @@ def format_run_command(raw):
         .replace('--index', '\\\n  --index')\
         .replace('--output', '\\\n  --output')\
         .replace('--batch', '\\\n  --batch') \
-        .replace('--threads 12', '--threads 12 \\\n')
+        .replace('--threads 12', '--threads 12 \\\n')\
+        .replace('--hits 100', '\\\n  --hits 100')
 
 
 def format_convert_command(raw):
@@ -110,13 +111,13 @@ if __name__ == '__main__':
             name = condition_tqa['model_name']
             cmd_template_tqa = condition_tqa['command']
             cmd_template_nq = condition_nq['command']
-            runfile_tqa = f'runs/run.odqa.{name}.{TQA_TOPICS}.txt'
-            runfile_nq = f'runs/run.odqa.{name}.{NQ_TOPICS}.txt'
+            runfile_tqa = f'runs/run.odqa.{name}.{TQA_TOPICS}.hits=100.txt'
+            runfile_nq = f'runs/run.odqa.{name}.{NQ_TOPICS}.hits=100.txt'
             jsonfile_tqa = runfile_tqa.replace('.txt', '.json')
             jsonfile_nq = runfile_nq.replace('.txt', '.json')
             cmd_tqa = Template(cmd_template_tqa).substitute(
-                output=jsonfile_tqa)
-            cmd_nq = Template(cmd_template_nq).substitute(output=jsonfile_nq)
+                output=runfile_tqa) + " --hits 100"
+            cmd_nq = Template(cmd_template_nq).substitute(output=runfile_nq) + " --hits 100"
             commands[name][TQA_TOPICS] = format_run_command(cmd_tqa)
             commands[name][NQ_TOPICS] = format_run_command(cmd_nq)
             convert_cmd_tqa = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run ' + \

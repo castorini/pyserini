@@ -29,9 +29,5 @@ models = {
 
 evaluate_dpr_retrieval_metric_definitions = {
         'Top5-1000': '--topk 5 20 100 500 1000',
-        'Top5': '--topk 5',
-        'Top20': '--topk 20',
-        'Top100': '--topk 100',
-        'Top500': '--topk 500',
-        'Top1000': '--topk 1000',
+        'Top5-100': '--topk 5 20 100'
 }
