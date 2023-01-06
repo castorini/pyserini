@@ -92,6 +92,7 @@ def define_search_args(parser):
     parser.add_argument('--qld', action='store_true', help="Use QLD")
 
     parser.add_argument('--language', type=str, help='language code for BM25, e.g. zh for Chinese', default='en')
+    parser.add_argument('--pretokenized', action='store_true', help="Boolean switch to accept pre-tokenized topics")
 
     parser.add_argument('--prcl', type=ClassifierType, nargs='+', default=[],
                         help='Specify the classifier PseudoRelevanceClassifierReranker uses.')
@@ -198,6 +199,12 @@ if __name__ == "__main__":
         query_generator = JDisjunctionMaxQueryGenerator(args.tiebreaker)
         print(f'Using dismax query generator with tiebreaker={args.tiebreaker}')
     
+    if args.pretokenized:
+        analyzer = JWhiteSpaceAnalyzer()
+        searcher.set_analyzer(analyzer)
+        if args.tokenizer is not None:
+            raise ValueError(f"--tokenizer is not supported with when setting --pretokenized.")
+
     if args.tokenizer != None:
         analyzer = JWhiteSpaceAnalyzer()
         searcher.set_analyzer(analyzer)
