@@ -9,26 +9,25 @@ We have replicated DPR results with our Wikipedia corpus variants.
 Our own efforts are described in the paper entitled: 
 > "Pre-Processing Matters! Improved Wikipedia Corpora for Open-Domain Question Answering"
 
-This guide provides instructions to reproduce the pre-processing to generate the corpora and the retrieval on the ```wiki-all-6-3``` corpus variant.
-Our efforts also include end-to-end answer generation.
-We cover only retrieval here; for end-to-end answer generation, please see [this guide](https://github.com/castorini/pygaggle/blob/master/docs/experiments-wiki-corpora-fid.md) in our PyGaggle neural text ranking and question answering library.
+This guide provides instructions to reproduce the pre-processing to generate the corpora and the retrieval on the ```wiki-all-6-3-tamber``` corpus variant.
+For end-to-end answer generation, please see [this guide](https://github.com/castorini/pygaggle/blob/master/docs/experiments-wiki-corpora-fid.md) in our PyGaggle neural text ranking and question answering library.
 
 ## Generate Corpora
-We start with downloading the full December 20, 2018 Wikipedia XML dump: ```enwiki-20181220-pages-articles.xml``` from the Internet Archive: https://archive.org/details/enwiki-20181220. This is then Pre-processed by WikiExtractor: https://github.com/attardi/wikiextractor (making sure to modify the code to include lists as desired and replacing tables with the string "TABLETOREPLACE") using the following command for no tables, infoboxes, or lists:
+We start with downloading the full December 20, 2018 Wikipedia XML dump: ```enwiki-20181220-pages-articles.xml``` from the Internet Archive: https://archive.org/details/enwiki-20181220. This is then Pre-processed by WikiExtractor: https://github.com/attardi/wikiextractor (making sure to modify the code to include lists as desired and replacing tables with the string "TABLETOREPLACE"). The following command is used for the corpora with no tables, infoboxes, or lists:
 ```
 python -m wikiextractor.WikiExtractor \
   ../wiki/enwiki-20181220-pages-articles.xml  
   -o ../wiki_extractor_out/wiki-text/ \
   --json
 ```
-and the same command (with modified code as described above) for the corpora with tables, infoboxs, and lists:
+and the same command (with modified code as described above) is used for the corpora with tables, infoboxes, and lists:
 ```
 python -m wikiextractor.WikiExtractor \
   ../wiki/enwiki-20181220-pages-articles.xml  
   -o ../wiki_extractor_out/wiki-all/ \
   --json
 ```
-and DrQA: https://github.com/facebookresearch/DrQA/tree/main/scripts/retriever (again making sure to modify the code to not remove lists as desired) using the following commands:
+The next step is using DrQA: https://github.com/facebookresearch/DrQA/tree/main/scripts/retriever (again making sure to modify the code to not remove lists as desired) using the following commands:
 ```
 python build_db.py \
   ../wiki_extractor_out/wiki-text/ \
@@ -75,7 +74,7 @@ Then to clone, run:
 git clone https://huggingface.co/datasets/castorini/odqa-wiki-corpora
 ```
 
-The following instructions will continue with the wiki-all-6-3 Corpus. We use the NaturalQuestions and TriviaQA datasets for evaluation.
+The following instructions will continue with the wiki-all-6-3-tamber corpus. We use the NaturalQuestions and TriviaQA datasets for evaluation.
 
 ## Indexing
 We index the jsonl file(s) using the following command.
@@ -156,19 +155,19 @@ Top100  accuracy: 0.8482
 
 Retrieval with a DPR model can be done in the Tevatron toolkit. Please follow the instructions from [Tevatron](https://github.com/texttron/tevatron/blob/main/examples/example_dpr.md) to do this. 
 
-We make the $2^{nd}$ iteration DPR models available in HuggingFace🤗 for all corpus variants. The links to the models for wiki-all-6-3 are:
+We make the $2^{nd}$ iteration DPR models available in HuggingFace🤗 for all corpus variants. The links to the models for wiki-all-6-3-tamber are:
 
 [wiki-all-6-3-multi-dpr2-passage-encoder](https://huggingface.co/manveertamber/wiki-all-6-3-multi-dpr2-passage-encoder)  
 [wiki-all-6-3-multi-dpr2-query-encoder](https://huggingface.co/manveertamber/wiki-all-6-3-multi-dpr2-query-encoder)  
  
-Alternatively, retrieval can be performed in Pyserini as we make the encoded-queries for NaturalQuestions and TriviaQA and the dense index available in the wiki-all-6-3 case:
+Alternatively, retrieval can be performed in Pyserini as we make the encoded-queries for NaturalQuestions and TriviaQA and the dense index available in the wiki-all-6-3-tamber setting:
 
 ### Natural Questions
 ```
 python3 -m pyserini.search.faiss \
-  --index wiki-6-3-all-dindex \
+  --index wiki-6-3-all-dpr2-multi \
   --topics nq-test \
-  --encoded-queries wiki-all-6-3-nq-test-query_emb \
+  --encoded-queries wiki-6-3-all-dpr2-multi-nq-test \
   --output runs/run.wiki-all-6-3.nq-test.dpr2.trec \
   --hits 1000 \
   --batch-size 72 --threads 36
@@ -195,9 +194,9 @@ Top100  accuracy: 0.9175
 ### TriviaQA
 ```
 python3 -m pyserini.search.faiss \
-  --index wiki-6-3-all-dindex \
+  --index wiki-6-3-all-dpr2-multi \
   --topics dpr-trivia-test \
-  --encoded-queries wiki-all-6-3-dpr-trivia-test-query_emb \
+  --encoded-queries wiki-6-3-all-dpr2-multi-dpr-trivia-test \
   --output runs/run.wiki-all-6-3.dpr-trivia-test.dpr2.trec \
   --hits 1000 \
   --batch-size 72 --threads 36

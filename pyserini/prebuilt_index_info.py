@@ -6425,4 +6425,16 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "miracl-v1.0-zh",
     },
+    "wiki-6-3-all-dpr2-multi": {
+        "description": "Faiss FlatIP index of wiki-6-3-all-tamber (https://huggingface.co/datasets/castorini/odqa-wiki-corpora) encoded by a 2nd iteration DPR model trained on multiple QA datasets (castorini/wiki-all-6-3-multi-dpr2-passage-encoder)",
+        "filename": "faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.tar.gz",
+        ],
+        "md5": "b77b8e296c339b6d76988ee5c2d3e96a",
+        "size compressed (bytes)": 218257913793,
+        "documents": 76680040,
+        "downloaded": False,
+        "texts": "wiki-all-6-3-tamber"
+    }
 }
