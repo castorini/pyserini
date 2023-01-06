@@ -40,8 +40,7 @@ if __name__ == '__main__':
         concatenated = list(map(lambda x: x.split('\t'), file))
 
     data_files = {"dev":"dev/dev.jsonl", "test": "test/test.jsonl"}
-    json_list = load_dataset(dataset)[args.data_split]
-
+    json_list = load_dataset(dataset, data_files=data_files)[args.data_split]
     for i in range(len(json_list)):
         temp_list = []
         temp2_list = []
