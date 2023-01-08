@@ -3,18 +3,11 @@
 This guide provides instructions to reproduce the search results of our GAR-T5 model which takes inspiration from the following paper:
 > Mao, Y., He, P., Liu, X., Shen, Y., Gao, J., Han, J., & Chen, W. (2020). [Generation-augmented retrieval for open-domain question answering](https://arxiv.org/abs/2009.08553). arXiv preprint arXiv:2009.08553.
 
-We first need to download the test dataset for evaluation. For both NQ and TriviaQA, there are three types of query generation targets, answer, title and sentence.
-
 ## GAR-T5 enhanced retrieval evaluation
-To evaluate the augmented queries, we need to concatenate and convert them into .tsv format for us to run BM25-search on Pyserini, which is then converted to .json format as required for evaluation.
-
-Without specifying the output path, the default output will be an `augmented_topics.tsv` file in the working directory.
-
-Once we have the tsv file, we can proceed to run search and evaluation
 
 ```bash
 python -m pyserini.search \
-  --topics gar-t5-<dpr-trivia, or nq>-test-<answers, titles, sentences, or all> \
+  --topics <dpr-trivia, or nq>-test-gar-t5-<answers, titles, sentences, or all> \
   --index wikipedia-dpr \
   --output runs/gar-t5-run.trec \
   --batch-size 70 \
