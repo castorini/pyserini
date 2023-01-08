@@ -14,7 +14,7 @@ Once we have the tsv file, we can proceed to run search and evaluation
 
 ```bash
 python -m pyserini.search \
-  --topics gar-t5-dpr-trivia-test-<answers, titles, sentences, or all> \
+  --topics gar-t5-<dpr-trivia, or nq>-test-<answers, titles, sentences, or all> \
   --index wikipedia-dpr \
   --output runs/gar-t5-run.trec \
   --batch-size 70 \
