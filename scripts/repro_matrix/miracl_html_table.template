@@ -20,6 +20,8 @@
         <th scope="col">te</th>
         <th scope="col">th</th>
         <th scope="col">zh</th>
+        <th scope="col">de</th>
+        <th scope="col">yo</th>
         <th scope="col"></th>
         <th scope="col">avg</th>
       </tr>
