@@ -5,21 +5,6 @@ This guide provides instructions to reproduce the search results of our GAR-T5 m
 
 We first need to download the test dataset for evaluation. For both NQ and TriviaQA, there are three types of query generation targets, answer, title and sentence.
 
-## Get the Dataset as tsv
-Download the dataset from HuggingFace and use script to process it to a .tsv file ([TriviaQA](https://huggingface.co/datasets/castorini/triviaqa_gar-t5_expansions) and [NaturalQuestion](https://huggingface.co/datasets/castorini/nq_gar-t5_expansions))
-
-```bash
-export ANSERINI=<path to anserini>
-
-python scripts/gar/query_augmentation_tsv.py \
-  --dataset <nq or trivia> \
-  --data_split <validation or test> \
-  --output_path <default is augmented_topics.tsv> \
-  --sentences <optional> \
-  --titles <optional> \
-  --answers <optional>
-```
-
 ## GAR-T5 enhanced retrieval evaluation
 To evaluate the augmented queries, we need to concatenate and convert them into .tsv format for us to run BM25-search on Pyserini, which is then converted to .json format as required for evaluation.
 
@@ -29,7 +14,7 @@ Once we have the tsv file, we can proceed to run search and evaluation
 
 ```bash
 python -m pyserini.search \
-  --topics augmented_topics.tsv \
+  --topics gar-t5-dpr-trivia-test-<answers, titles, sentences, or all> \
   --index wikipedia-dpr \
   --output runs/gar-t5-run.trec \
   --batch-size 70 \
