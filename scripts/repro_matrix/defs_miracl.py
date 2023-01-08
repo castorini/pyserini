@@ -30,7 +30,9 @@ languages = [
     ['sw', 'swahili'],
     ['te', 'telugu'],
     ['th', 'thai'],
-    ['zh', 'chinese']
+    ['zh', 'chinese'],
+    ['de', 'german'],
+    ['yo', 'yoruba']
 ]
 
 models = ['bm25', 'mdpr-tied-pft-msmarco', 'mdpr-tied-pft-msmarco-ft-all']

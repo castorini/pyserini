@@ -285,6 +285,8 @@ topics_mapping = {
     'miracl-v1.0-te-dev': JTopics.MIRACL_V10_TE_DEV,
     'miracl-v1.0-th-dev': JTopics.MIRACL_V10_TH_DEV,
     'miracl-v1.0-zh-dev': JTopics.MIRACL_V10_ZH_DEV,
+    'miracl-v1.0-de-dev': JTopics.MIRACL_V10_DE_DEV,
+    'miracl-v1.0-yo-dev': JTopics.MIRACL_V10_YO_DEV,
 }
 
 qrels_mapping = {
@@ -425,6 +427,8 @@ qrels_mapping = {
     'miracl-v1.0-te-dev': JQrels.MIRACL_V10_TE_DEV,
     'miracl-v1.0-th-dev': JQrels.MIRACL_V10_TH_DEV,
     'miracl-v1.0-zh-dev': JQrels.MIRACL_V10_ZH_DEV,
+    'miracl-v1.0-de-dev': JQrels.MIRACL_V10_DE_DEV,
+    'miracl-v1.0-yo-dev': JQrels.MIRACL_V10_YO_DEV,
 }
 
 
