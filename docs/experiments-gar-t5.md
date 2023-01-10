@@ -4,14 +4,15 @@ This guide provides instructions to reproduce the search results of our GAR-T5 m
 > Mao, Y., He, P., Liu, X., Shen, Y., Gao, J., Han, J., & Chen, W. (2020). [Generation-augmented retrieval for open-domain question answering](https://arxiv.org/abs/2009.08553). arXiv preprint arXiv:2009.08553.
 
 ## GAR-T5 enhanced retrieval evaluation
-
+### Method 1: use prebuilt topics
 ```bash
 python -m pyserini.search \
-  --topics <dpr-trivia, or nq>-test-gar-t5-<answers, titles, sentences, or all> \
+  --topics <dpr-trivia or nq>-test-gar-t5-<answers, titles, sentences, or all> \
   --index wikipedia-dpr \
   --output runs/gar-t5-run.trec \
   --batch-size 70 \
   --threads 70
+
 
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics <nq-test, nq-dev, dpr-trivia-dev or dpr-trivia-test> \
@@ -20,6 +21,42 @@ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --output runs/gar-t5-run.json
 ```
 
+### Method 2: Interacting with Gar-T5 Predictions
+**Get the Dataset as tsv**  
+Use the script below to automatically download and process the topics for you ([TriviaQA](https://huggingface.co/datasets/castorini/triviaqa_gar-t5_expansions) and [NaturalQuestion](https://huggingface.co/datasets/castorini/nq_gar-t5_expansions))
+
+```bash
+export ANSERINI=<path to anserini>
+python scripts/gar/query_augmentation_tsv.py \
+  --dataset <nq or trivia> \
+  --data_split <validation or test> \
+  --output_path <default is augmented_topics.tsv> \
+  --sentences <optional> \
+  --titles <optional> \
+  --answers <optional>
+```
+
+Running retrieval
+
+```bash
+python -m pyserini.search \
+  --topics <path to your topic files> \
+  --index wikipedia-dpr \
+  --output runs/gar-t5-run.trec \
+  --batch-size 70 \
+  --threads 70
+
+
+python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+  --topics <nq-test, nq-dev, dpr-trivia-dev or dpr-trivia-test> \
+  --index wikipedia-dpr \
+  --input runs/gar-t5-run.trec \
+  --output runs/gar-t5-run.json
+```
+  
+The rest of the section should be the same for both methods
+
+---
 To run fusion RRF, you will need all three (answers, titles, sentences) trec files
 ```bash
 python -m pyserini.fusion \
