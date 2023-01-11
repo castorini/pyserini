@@ -4,7 +4,7 @@ This guide provides instructions to reproduce the search results of our GAR-T5 m
 > Mao, Y., He, P., Liu, X., Shen, Y., Gao, J., Han, J., & Chen, W. (2020). [Generation-augmented retrieval for open-domain question answering](https://arxiv.org/abs/2009.08553). arXiv preprint arXiv:2009.08553.
 
 ## GAR-T5 enhanced retrieval evaluation
-### Method 1: use prebuilt topics
+### Method 1: Using prebuilt topics
 ```bash
 python -m pyserini.search \
   --topics <dpr-trivia or nq>-test-gar-t5-<answers, titles, sentences, or all> \
@@ -23,7 +23,7 @@ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
 
 ### Method 2: Interacting with Gar-T5 Predictions
 **Get the Dataset as tsv**  
-Use the script below to automatically download and process the topics for you ([TriviaQA](https://huggingface.co/datasets/castorini/triviaqa_gar-t5_expansions) and [NaturalQuestion](https://huggingface.co/datasets/castorini/nq_gar-t5_expansions))
+With the command below, we download the GAR-T5 predictions and augment the topics ([TriviaQA](https://huggingface.co/datasets/castorini/triviaqa_gar-t5_expansions) and [NaturalQuestion](https://huggingface.co/datasets/castorini/nq_gar-t5_expansions))
 
 ```bash
 export ANSERINI=<path to anserini>
