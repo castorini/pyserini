@@ -444,7 +444,50 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 8837)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    # TREC-COVID
+    # GarT5 topics
+    def test_gart5_nq_test(self):
+        topics = search.get_topics('nq-test-gar-t5-answers')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3610)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('nq-test-gar-t5-titles')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3610)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('nq-test-gar-t5-sentences')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3610)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('nq-test-gar-t5-all')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3610)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_gart5_trivia_test(self):
+        topics = search.get_topics('dpr-trivia-test-gar-t5-answers')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 11313)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dpr-trivia-test-gar-t5-titles')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 11313)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dpr-trivia-test-gar-t5-sentences')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 11313)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dpr-trivia-test-gar-t5-all')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 11313)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    # TREC-COVID    
     def test_covid_round1(self):
         topics = search.get_topics('covid-round1')
         self.assertIsNotNone(topics)
