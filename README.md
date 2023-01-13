@@ -630,8 +630,8 @@ python scripts/repro_matrix/run_all_msmarco.py --collection v2-doc
 python scripts/repro_matrix/run_all_beir.py
 python scripts/repro_matrix/run_all_mrtydi.py
 python scripts/repro_matrix/run_all_miracl.py
-python scripts/repro_matrix/run_all_odqa.py --topics naturalquestion
-python scripts/repro_matrix/run_all_odqa.py --topics triviaqa
+python scripts/repro_matrix/run_all_odqa.py --topics nq
+python scripts/repro_matrix/run_all_odqa.py --topics tqa
 ```
 
 And to generate the nicely formatted documentation pages:
