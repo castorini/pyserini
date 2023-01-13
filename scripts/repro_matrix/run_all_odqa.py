@@ -23,9 +23,11 @@ from string import Template
 
 import yaml
 
-from scripts.repro_matrix.defs_odqa import models, evaluate_dpr_retrieval_metric_definitions
-from scripts.repro_matrix.utils import run_dpr_retrieval_eval_and_return_metric, convert_trec_run_to_dpr_retrieval_json, ok_str, fail_str
+from defs_odqa import models, evaluate_dpr_retrieval_metric_definitions
+from utils import run_dpr_retrieval_eval_and_return_metric, convert_trec_run_to_dpr_retrieval_json, run_fusion, ok_str, fail_str
 
+GARRRF_LS = ['answers','titles','sentences']
+HITS_1K = set(['GarT5-RRF', 'DPR-DKRR', 'DPR-Hybrid'])
 
 def print_results(metric, topics):
     print(f'Metric = {metric}, Topics = {topics}')
@@ -33,7 +35,7 @@ def print_results(metric, topics):
         print(' ' * 32, end='')
         print(f'{model:30}', end='')
         key = f'{model}'
-        print(f'{table[key][topics][metric]:7.3f}', end='\n')
+        print(f'{table[key][metric]:7.3f}', end='\n')
     print('')
 
 
@@ -42,16 +44,16 @@ if __name__ == '__main__':
         description='Generate regression matrix for GarDKRR')
     parser.add_argument('--skip-eval', action='store_true',
                         default=False, help='Skip running trec_eval.')
-    parser.add_argument('--topics', choices=['triviaqa', 'naturalquestion'],
-                        help='Topics to be run [triviaqa, naturalquestion]', required=True)
+    parser.add_argument('--topics', choices=['tqa', 'nq'],
+                        help='Topics to be run [tqa, nq]', required=True)
     parser.add_argument('--full-topk', action='store_true',
                         default=False, help='Run topk 5-1000, default is topk 5-100')
     args = parser.parse_args()
     hits = 1000 if args.full_topk else 100
-    yaml_path = 'pyserini/resources/triviaqa.yaml' if args.topics == "triviaqa" else 'pyserini/resources/naturalquestion.yaml'
-    topics = 'dpr-trivia-test' if args.topics == 'triviaqa' else 'nq-test'
+    yaml_path = 'pyserini/resources/triviaqa.yaml' if args.topics == "tqa" else 'pyserini/resources/naturalquestion.yaml'
+    topics = 'dpr-trivia-test' if args.topics == 'tqa' else 'nq-test'
     start = time.time()
-    table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
+    table = defaultdict(lambda: defaultdict(lambda: 0.0))
 
     with open(yaml_path) as f:
         yaml_data = yaml.safe_load(f)
@@ -59,20 +61,62 @@ if __name__ == '__main__':
             name = condition['model_name']
             cmd_template = condition['command']
 
+            if not args.full_topk:
+                # if using topk100
+                if name in HITS_1K:
+                    # if running topk1000 is a must to ensure scores match with the ones in the table
+                    hits = 1000
+                else:
+                    hits = 100
+
             print(f'model {name}:')
+            if topics == 'nq-test' and name == 'BM25-k1_0.9_b_0.4_dpr-topics':
+                topics = 'dpr-nq-test'
+            elif args.topics == 'nq':
+                topics = 'nq-test'
             print(f'  - Topics: {topics}')
 
-            runfile = f'runs/run.odqa.{name}.{topics}.hits={hits}.txt'
-            cmd = Template(cmd_template).substitute(output=runfile)
-            if not args.full_topk:
-                cmd += ' --hits 100'
-            if not os.path.exists(runfile):
-                print(f'    Running: {cmd}')
-                os.system(cmd)
+            # running retrieval
+            if name == "GarT5-RRF":
+                runfile = [f'runs/run.odqa.{name}.{topics}.{i}.hits={hits}.txt' for i in GARRRF_LS]
+            else:
+                runfile = [f'runs/run.odqa.{name}.{topics}.hits={hits}.txt']
 
-            # evaluation
+            if name != "GarT5RRF-DKRR-RRF":
+                cmd = [Template(cmd_template[i]).substitute(output=runfile[i]) for i in range(len(runfile))]
+                if hits == 100:
+                    cmd = [i + ' --hits 100' for i in cmd]
+                for i in range(len(runfile)):
+                    if not os.path.exists(runfile[i]):
+                        print(f'    Running: {cmd[i]}')
+                        os.system(cmd[i])
+
+            # fusion
+            if 'RRF' in name:
+                runs = []
+                output = ''
+                if name == 'GarT5-RRF':
+                    runs = runfile
+                    output = f'runs/run.odqa.{name}.{topics}.hits={hits}.fusion.txt'
+                elif name == 'GarT5RRF-DKRR-RRF':
+                    runs = [f'runs/run.odqa.DPR-DKRR.{topics}.hits=1000.txt', f'runs/run.odqa.GarT5-RRF.{topics}.hits=1000.fusion.txt']
+                    output = runfile[0].replace('.txt','.fusion.txt')
+                else:
+                    raise NameError('Unexpected model name')
+                if not os.path.exists(output):
+                    if not args.full_topk and name != 'GarT5-RRF':
+                        # if using topk100, we change it back for methods that require topk1000 to generate runs
+                        hits = 100
+                    status = run_fusion(runs, output, hits)
+                    if status != 0:
+                        raise RuntimeError('fusion failed')
+                runfile = [output]
+
+
+            # trec conversion + evaluation
             if not args.skip_eval:
-                jsonfile = runfile.replace('.txt', '.json')
+                jsonfile = runfile[0].replace('.txt', '.json')
+                runfile = jsonfile.replace('.json','.txt')
                 if not os.path.exists(jsonfile):
                     status = convert_trec_run_to_dpr_retrieval_json(
                         topics, 'wikipedia-dpr', runfile, jsonfile)
@@ -82,6 +126,8 @@ if __name__ == '__main__':
                 if args.full_topk:
                     topk_defs = evaluate_dpr_retrieval_metric_definitions['Top5-1000']
                 score = run_dpr_retrieval_eval_and_return_metric(topk_defs, jsonfile)
+            
+            # comparing ground truth scores with the generated ones 
             for expected in condition['scores']:
                 for metric, expected_score in expected.items():
                     if metric not in score.keys(): continue
@@ -92,9 +138,9 @@ if __name__ == '__main__':
                             result_str = fail_str + \
                                 f' expected {expected[metric]:.4f}'
                         print(f'      {metric:7}: {score[metric]:.2f} {result_str}')
-                        table[name][topics][metric] = score[metric]
+                        table[name][metric] = score[metric]
                     else:
-                        table[name][topics][metric] = expected_score
+                        table[name][metric] = expected_score
 
             print('')
     metric_ls = ['Top5', 'Top20', 'Top100', 'Top500', 'Top1000']
