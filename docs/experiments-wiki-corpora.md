@@ -13,7 +13,7 @@ This guide provides instructions to reproduce the pre-processing to generate the
 For end-to-end answer generation, please see [this guide](https://github.com/castorini/pygaggle/blob/master/docs/experiments-wiki-corpora-fid.md) in our PyGaggle neural text ranking and question answering library.
 
 ## Generate Corpora
-We start with downloading the full December 20, 2018 Wikipedia XML dump: ```enwiki-20181220-pages-articles.xml``` from the Internet Archive: https://archive.org/details/enwiki-20181220. This is then Pre-processed by WikiExtractor: https://github.com/attardi/wikiextractor (making sure to modify the code to include lists as desired and replacing tables with the string "TABLETOREPLACE"). The following command is used for the corpora with no tables, infoboxes, or lists:
+We start with downloading the full December 20, 2018 Wikipedia XML dump: ```enwiki-20181220-pages-articles.xml``` from the Internet Archive: https://archive.org/details/enwiki-20181220. This is then pre-processed by WikiExtractor: https://github.com/attardi/wikiextractor (making sure to modify the code to include lists as desired and replacing tables with the string "TABLETOREPLACE"). The following command is used for the corpora with no tables, infoboxes, or lists:
 ```
 python -m wikiextractor.WikiExtractor \
   ../wiki/enwiki-20181220-pages-articles.xml  
@@ -27,7 +27,7 @@ python -m wikiextractor.WikiExtractor \
   -o ../wiki_extractor_out/wiki-all/ \
   --json
 ```
-The next step is using DrQA: https://github.com/facebookresearch/DrQA/tree/main/scripts/retriever (again making sure to modify the code to not remove lists as desired) using the following commands:
+The next step is using DrQA pre-processing: https://github.com/facebookresearch/DrQA/tree/main/scripts/retriever (again making sure to modify the code to not remove lists as desired) using the following commands:
 ```
 python build_db.py \
   ../wiki_extractor_out/wiki-text/ \
@@ -240,7 +240,6 @@ python3 -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wiki-all-6-3-tamber \
   --input runs/run.wiki-all-6-3.nq-test.hybrid.trec \
   --output runs/run.wiki-all-6-3.nq-test.hybrid.json \
-  --depth 100 \
   --store-raw \
   --combine-title-text
 
@@ -269,7 +268,6 @@ python3 -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wiki-all-6-3-tamber \
   --input runs/run.wiki-all-6-3.dpr-trivia-test.hybrid.trec \
   --output runs/run.wiki-all-6-3.dpr-trivia-test.hybrid.json \
-  --depth 100 \
   --store-raw \
   --combine-title-text
 
