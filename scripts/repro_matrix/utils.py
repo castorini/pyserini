@@ -101,3 +101,18 @@ def convert_trec_run_to_dpr_retrieval_json(topics,index,runfile,output):
     """    
     cmd = f"python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics {topics} --index {index} --input {runfile} --output {output}"
     return os.system(cmd)
+
+def run_fusion(run_ls, output, k):
+    """run fusion command and return status code
+
+    Args:
+        run_ls: a list of runfile paths
+        output: output path
+        k: topk value
+
+    Returns:
+        status code: status code 
+    """
+    run_files = ' '.join(run_ls)
+    cmd = f'python -m pyserini.fusion --runs {run_files} --output {output} --k {k}'
+    return os.system(cmd)

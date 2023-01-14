@@ -18,12 +18,12 @@
 models = {
     'models':
     ['BM25-k1_0.9_b_0.4',
-     'BM25-k1_0.9_b_0.4-RM3',
-     'GarT5',
+     'BM25-k1_0.9_b_0.4_dpr-topics',
+     'GarT5-RRF',
      'DPR',
      'DPR-DKRR',
-     'DPR-hybrid',
-     'RRF'
+     'DPR-Hybrid',
+     'GarT5RRF-DKRR-RRF'
      ]
 }
 
