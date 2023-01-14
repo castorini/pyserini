@@ -217,7 +217,7 @@ python3 -m pyserini.eval.evaluate_dpr_retrieval \
 Expected Output:
 ```
 Top20   accuracy: 0.8192
-Top100  accuracy: 0.8704
+Top100  accuracy: 0.8709
 ```
 
 ## Hybrid Retrieval
@@ -251,7 +251,7 @@ python3 -m pyserini.eval.evaluate_dpr_retrieval \
 Expected Output:
 ```
 Top20   accuracy: 0.8526
-Top100  accuracy: 0.9299
+Top100  accuracy: 0.9302
 ```
 
 ### TriviaQA
@@ -280,7 +280,7 @@ python3 -m pyserini.eval.evaluate_dpr_retrieval \
 Expected Output:
 ```
 Top20   accuracy: 0.8420
-Top100  accuracy: 0.8800
+Top100  accuracy: 0.8803
 ```
 
 

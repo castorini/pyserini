@@ -30,7 +30,6 @@ if __name__ == '__main__':
     parser.add_argument('--topics-reader', help='anserini TopicReader class')
     parser.add_argument('--index', required=True, help='Anserini Index that contains raw')
     parser.add_argument('--input', required=True, help='Input TREC run file.')
-    parser.add_argument('--depth', required=False, default=-1, help='Number of hits per question to convert.')
     parser.add_argument('--store-raw', action='store_true', help='Store raw text of passage')
     parser.add_argument('--regex', action='store_true', default=False, help="regex match")
     parser.add_argument('--combine-title-text', action='store_true', help="Make context the concatenation of title and text.")
@@ -56,9 +55,6 @@ if __name__ == '__main__':
     with open(args.input) as f_in:
         for line in tqdm(f_in.readlines()):
             question_id, _, doc_id, rank, score, _ = line.strip().split()
-            if int(args.depth) != -1:
-                if int(rank) >= int(args.depth):
-                    continue
             question_id = int(question_id)
             question = qas[question_id]['title']
             answers = qas[question_id]['answers']

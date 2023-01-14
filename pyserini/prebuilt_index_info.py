@@ -900,6 +900,19 @@ TF_INDEX_INFO_CURRENT = {
         "unique_terms": 8722502,
         "downloaded": False
     },
+    "wiki-all-6-3-tamber": {
+        "description": "Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora",
+        "filename": "index-wiki-all-6-3-tamber-20230111-40277a.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-wiki-all-6-3-tamber-20230111-40277a.tar.gz",
+        ],
+        "md5": "666b3391c772abacae9b58bb60a8948f",
+        "size compressed (bytes)": 20712532306,
+        "total_terms": 5064706668,
+        "documents": 76680040,
+        "unique_terms": -1,
+        "downloaded": False
+    },
 
     # Mr.TyDi indexes
     "mrtydi-v1.1-arabic": {
