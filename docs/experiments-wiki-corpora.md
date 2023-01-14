@@ -77,7 +77,7 @@ git clone https://huggingface.co/datasets/castorini/odqa-wiki-corpora
 The following instructions will continue with the wiki-all-6-3-tamber corpus. We use the NaturalQuestions and TriviaQA datasets for evaluation.
 
 ## Indexing
-We index the jsonl file(s) using the following command.
+We index the jsonl file(s) using the following command. You may skip this step as we provide the lucene index prebuilt in Pyserini. In the following steps, if you would like to use the index that you generate in this step then specify ```--index indexes/wiki-all-6-3-tamber``` instead of ```--index wiki-all-6-3-tamber```.
 ```
 python3 -m pyserini.index.lucene \
   --collection MrTyDiCollection \
@@ -94,7 +94,7 @@ To run BM25 retrieval:
 ### Natural Questions
 ```
 python3 -m pyserini.search.lucene \
-  --index indexes/wiki-all-6-3-tamber \
+  --index wiki-all-6-3-tamber \
   --topics nq-test \
   --batch-size 20 \
   --threads 10 \
@@ -107,7 +107,7 @@ After retrieval is complete, we can evaluate results as follows. The final comma
 ```
 python3 -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics nq-test \
-  --index indexes/wiki-all-6-3-tamber \
+  --index wiki-all-6-3-tamber \
   --input runs/run.wiki-all-6-3.nq-test.bm25.trec \
   --output runs/run.wiki-all-6-3.nq-test.bm25.json \
   --combine-title-text
@@ -124,7 +124,7 @@ Top100  accuracy: 0.8166
 ### TriviaQA
 ```
 python3 -m pyserini.search.lucene \
-  --index indexes/wiki-all-6-3-tamber \
+  --index wiki-all-6-3-tamber \
   --topics dpr-trivia-test \
   --batch-size 20 \
   --threads 10 \
@@ -136,7 +136,7 @@ To get the results:
 ```
 python3 -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics dpr-trivia-test \
-  --index indexes/wiki-all-6-3-tamber \
+  --index wiki-all-6-3-tamber \
   --input runs/run.wiki-all-6-3.dpr-trivia-test.bm25.trec \
   --output runs/run.wiki-all-6-3.dpr-trivia-test.bm25.json \
   --combine-title-text
@@ -176,7 +176,7 @@ To get the results:
 ```
 python3 -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics nq-test \
-  --index indexes/wiki-all-6-3-tamber \
+  --index wiki-all-6-3-tamber \
   --input runs/run.wiki-all-6-3.nq-test.dpr2.trec \
   --output runs/run.wiki-all-6-3.nq-test.dpr2.json \
   --combine-title-text
@@ -205,7 +205,7 @@ To get the results:
 ```
 python3 -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics dpr-trivia-test \
-  --index indexes/wiki-all-6-3-tamber \
+  --index wiki-all-6-3-tamber \
   --input runs/run.wiki-all-6-3.dpr-trivia-test.dpr2.trec \
   --output runs/run.wiki-all-6-3.dpr-trivia-test.dpr2.json \
   --combine-title-text
@@ -237,7 +237,7 @@ To get the results:
 ```
 python3 -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics nq-test \
-  --index indexes/wiki-all-6-3-tamber \
+  --index wiki-all-6-3-tamber \
   --input runs/run.wiki-all-6-3.nq-test.hybrid.trec \
   --output runs/run.wiki-all-6-3.nq-test.hybrid.json \
   --depth 100 \
@@ -266,7 +266,7 @@ To get the results:
 ```
 python3 -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics dpr-trivia-test \
-  --index indexes/wiki-all-6-3-tamber \
+  --index wiki-all-6-3-tamber \
   --input runs/run.wiki-all-6-3.dpr-trivia-test.hybrid.trec \
   --output runs/run.wiki-all-6-3.dpr-trivia-test.hybrid.json \
   --depth 100 \
