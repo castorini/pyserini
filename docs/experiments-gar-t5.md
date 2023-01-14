@@ -3,14 +3,30 @@
 This guide provides instructions to reproduce the search results of our GAR-T5 model which takes inspiration from the following paper:
 > Mao, Y., He, P., Liu, X., Shen, Y., Gao, J., Han, J., & Chen, W. (2020). [Generation-augmented retrieval for open-domain question answering](https://arxiv.org/abs/2009.08553). arXiv preprint arXiv:2009.08553.
 
-We first need to download the test dataset for evaluation. For both NQ and TriviaQA, there are three types of query generation targets, answer, title and sentence.
+## GAR-T5 enhanced retrieval evaluation
+### Method 1: Using prebuilt topics
+```bash
+python -m pyserini.search \
+  --topics <dpr-trivia or nq>-test-gar-t5-<answers, titles, sentences, or all> \
+  --index wikipedia-dpr \
+  --output runs/gar-t5-run.trec \
+  --batch-size 70 \
+  --threads 70
 
-## Get the Dataset as tsv
-Download the dataset from HuggingFace and use script to process it to a .tsv file ([TriviaQA](https://huggingface.co/datasets/castorini/triviaqa_gar-t5_expansions) and [NaturalQuestion](https://huggingface.co/datasets/castorini/nq_gar-t5_expansions))
+
+python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+  --topics <nq-test, nq-dev, dpr-trivia-dev or dpr-trivia-test> \
+  --index wikipedia-dpr \
+  --input runs/gar-t5-run.trec \
+  --output runs/gar-t5-run.json
+```
+
+### Method 2: Interacting with Gar-T5 Predictions
+**Get the Dataset as tsv**  
+With the command below, we download the GAR-T5 predictions and augment the topics ([TriviaQA](https://huggingface.co/datasets/castorini/triviaqa_gar-t5_expansions) and [NaturalQuestion](https://huggingface.co/datasets/castorini/nq_gar-t5_expansions))
 
 ```bash
 export ANSERINI=<path to anserini>
-
 python scripts/gar/query_augmentation_tsv.py \
   --dataset <nq or trivia> \
   --data_split <validation or test> \
@@ -20,20 +36,16 @@ python scripts/gar/query_augmentation_tsv.py \
   --answers <optional>
 ```
 
-## GAR-T5 enhanced retrieval evaluation
-To evaluate the augmented queries, we need to concatenate and convert them into .tsv format for us to run BM25-search on Pyserini, which is then converted to .json format as required for evaluation.
-
-Without specifying the output path, the default output will be an `augmented_topics.tsv` file in the working directory.
-
-Once we have the tsv file, we can proceed to run search and evaluation
+Running retrieval
 
 ```bash
 python -m pyserini.search \
-  --topics augmented_topics.tsv \
+  --topics <path to your topic files> \
   --index wikipedia-dpr \
   --output runs/gar-t5-run.trec \
   --batch-size 70 \
   --threads 70
+
 
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics <nq-test, nq-dev, dpr-trivia-dev or dpr-trivia-test> \
@@ -41,7 +53,10 @@ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --input runs/gar-t5-run.trec \
   --output runs/gar-t5-run.json
 ```
+  
+The rest of the section should be the same for both methods
 
+---
 To run fusion RRF, you will need all three (answers, titles, sentences) trec files
 ```bash
 python -m pyserini.fusion \
