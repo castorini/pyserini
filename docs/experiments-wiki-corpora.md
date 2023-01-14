@@ -6,8 +6,8 @@ Dense passage retriever (DPR) is a dense retrieval method described in the follo
 
 We have replicated DPR results with our Wikipedia corpus variants.
 
-Our own efforts are described in the paper entitled: 
-> "Pre-Processing Matters! Improved Wikipedia Corpora for Open-Domain Question Answering"
+Our own efforts are described in the paper: 
+> Manveer Singh Tamber, Ronak Pradeep, and Jimmy Lin. "Pre-Processing Matters! Improved Wikipedia Corpora for Open-Domain Question Answering". ECIR 2023.
 
 This guide provides instructions to reproduce the pre-processing to generate the corpora and the retrieval on the ```wiki-all-6-3-tamber``` corpus variant.
 For end-to-end answer generation, please see [this guide](https://github.com/castorini/pygaggle/blob/master/docs/experiments-wiki-corpora-fid.md) in our PyGaggle neural text ranking and question answering library.
