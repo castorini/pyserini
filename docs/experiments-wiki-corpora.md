@@ -12,7 +12,7 @@ Our own efforts are described in the paper:
 This guide provides instructions for retrieval on the `wiki-all-6-3-tamber` corpus variant and to reproduce the pre-processing to generate the corpora.
 For end-to-end answer generation, please see [this guide](https://github.com/castorini/pygaggle/blob/master/docs/experiments-wiki-corpora-fid.md) in our PyGaggle neural text ranking and question answering library.
 
-In this guide, we start with retrieval. We provide the lucene index and the dense index for `wiki-all-6-3-tamber` prebuilt in Pyserini to make this possible. If you would like to download the corpora yourself or you would like to generate the lucene index yourself please refer to the #download-the-corpora section to start. Also if you would like to reproduce dense retrieval, retrieval with a DPR model can be done in the Tevatron toolkit. Please follow the instructions from [Tevatron](https://github.com/texttron/tevatron/blob/main/examples/example_dpr.md) to do this. 
+In this guide, we start with retrieval. We provide the lucene index and the dense index for `wiki-all-6-3-tamber` prebuilt in Pyserini to make this possible. If you would like to download the corpora yourself or you would like to generate the lucene index yourself please refer to the [download-the-corpora](#download-the-corpora) section to start. Also, if you would like to reproduce dense retrieval, retrieval with a DPR model can be done in the Tevatron toolkit. Please follow the instructions from [Tevatron](https://github.com/texttron/tevatron/blob/main/examples/example_dpr.md) to do this. 
 
 We make the $2^{nd}$ iteration DPR models available in HuggingFace🤗 for all corpus variants. The links to the models for wiki-all-6-3-tamber are:
 
