@@ -910,7 +910,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 20712532306,
         "total_terms": 5064706668,
         "documents": 76680040,
-        "unique_terms": -1,
+        "unique_terms": 14604922,
         "downloaded": False
     },
 
