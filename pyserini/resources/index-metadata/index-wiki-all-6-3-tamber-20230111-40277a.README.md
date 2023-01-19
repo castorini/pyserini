@@ -11,7 +11,7 @@ git lfs install
 ```bash
 git clone https://huggingface.co/datasets/castorini/odqa-wiki-corpora
 
-python3 -m pyserini.index.lucene \
+python -m pyserini.index.lucene \
   --collection MrTyDiCollection \
   --input odqa-wiki-corpora/wiki-all-6-3-tamber \
   --index indexes/index-wiki-all-6-3-tamber-20230111-40277a \
