@@ -17,6 +17,7 @@
 from collections import defaultdict
 from string import Template
 
+import os
 import yaml
 
 from scripts.repro_matrix.defs_miracl import models, languages, html_display, trec_eval_metric_definitions
@@ -28,6 +29,7 @@ def format_run_command(raw):
         .replace('--topics', '\\\n  --topics')\
         .replace('--index', '\\\n  --index')\
         .replace('--output ', '\\\n  --output ')\
+        .replace('--runs', '\\\n  --runs ')\
         .replace('--batch ', '\\\n  --batch ') \
         .replace('--threads 12', '--threads 12 \\\n ')
 
@@ -158,12 +160,25 @@ if __name__ == '__main__':
             name = condition['name']
             eval_key = condition['eval_key']
             cmd_template = condition['command']
+            cmd_lst = cmd_template.split()
+            lang = name.split('.')[-1]
+            is_hybrid_run = 'hybrid' in name
 
             for splits in condition['splits']:
                 split = splits['split']
+                if is_hybrid_run:
+                    hits = int(cmd_lst[cmd_lst.index('--k') + 1])
+                else:
+                    hits = int(cmd_lst[cmd_lst.index('--hits') + 1])
 
                 runfile = f'run.miracl.{name}.{split}.txt'
-                cmd = Template(cmd_template).substitute(split=split, output=runfile)
+                if is_hybrid_run: 
+                    bm25_output = f'runs/run.miracl.bm25.{lang}.{split}.top{hits}.txt'
+                    mdpr_output = f'runs/run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt'
+                    cmd = Template(cmd_template).substitute(split=split, output=runfile, bm25_output=bm25_output, mdpr_output=mdpr_output)
+                else:
+                    cmd = Template(cmd_template).substitute(split=split, output=runfile)
+
                 commands[name] = format_run_command(cmd)
 
                 for expected in splits['scores']:

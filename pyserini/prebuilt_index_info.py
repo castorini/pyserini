@@ -2243,8 +2243,7 @@ TF_INDEX_INFO_CURRENT = {
         "filename": "lucene-index.miracl-v1.0-yo.20221004.2b2856.tar.gz",
         "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/6S68PqPxyz4GoJt/download",
-            # "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-yo.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-yo.20221004.2b2856.tar.gz"
         ],
         "md5": "7ff5329cb6a57cbb60afb9062fd68377",
         "size compressed (bytes)": 13211664,
@@ -6424,5 +6423,31 @@ FAISS_INDEX_INFO = {
         "documents": 4934368,
         "downloaded": False,
         "texts": "miracl-v1.0-zh",
+    },
+    "miracl-v1.0-de-mdpr-tied-pft-msmarco-ft-all": {
+        "description": "Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-de.20221004.2b2856.tar.gz",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-de.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+        ],
+        "md5": "d53da12ae6119ed54ef968e968f8520a",
+        "size compressed (bytes)": 45139752128,
+        "documents": 15866222,
+        "downloaded": False,
+        "texts": "miracl-v1.0-de",
+    },
+    "miracl-v1.0-yo-mdpr-tied-pft-msmarco-ft-all": {
+        "description": "Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-yo.20221004.2b2856.tar.gz",
+        "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-yo.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+        ],
+        "md5": "0a1b0f48108508724a3892dfc04eb756",
+        "size compressed (bytes)": 139286213,
+        "documents": 49043,
+        "downloaded": False,
+        "texts": "miracl-v1.0-yo",
     },
 }
