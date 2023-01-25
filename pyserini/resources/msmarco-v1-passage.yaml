@@ -114,13 +114,25 @@ conditions:
     display: "DistilBERT KD TASB: pre-encoded"
     display-html: "DistilBERT KD TASB: pre-encoded queries"
     display-row: "[4]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-distilbert-dot-tas_b-b256-bf --topics $topics --encoded-queries distilbert_tas_b-msmarco-passage-dev-subset --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-distilbert-dot-tas_b-b256-bf --topics $topics --encoded-queries distilbert_tas_b-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
           - MRR@10: 0.3444
             R@1K: 0.9771
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4590
+            nDCG@10: 0.7210
+            R@1K: 0.8406
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4698
+            nDCG@10: 0.6854
+            R@1K: 0.8727
   - name: distilbert-kd-otf
     display: "DistilBERT KD: otf"
     display-html: "DistilBERT KD: on-the-fly query inference"
@@ -148,13 +160,25 @@ conditions:
     display: "DistilBERT KD: pre-encoded"
     display-html: "DistilBERT KD: pre-encoded queries"
     display-row: "[3]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-distilbert-dot-margin_mse-T2-bf --topics $topics --encoded-queries distilbert_kd-msmarco-passage-dev-subset --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-distilbert-dot-margin_mse-T2-bf --topics $topics --encoded-queries distilbert_kd-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
           - MRR@10: 0.3251
             R@1K: 0.9553
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4053
+            nDCG@10: 0.6994
+            R@1K: 0.7653
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4159
+            nDCG@10: 0.6447
+            R@1K: 0.7953
   - name: ance-otf
     display: "ANCE: otf"
     display-html: "ANCE: on-the-fly query inference"
@@ -182,13 +206,25 @@ conditions:
     display: "ANCE: pre-encoded"
     display-html: "ANCE: pre-encoded queries"
     display-row: "[2]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-ance-bf --topics $topics --encoded-queries ance-msmarco-passage-dev-subset --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-ance-bf --topics $topics --encoded-queries ance-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
           - MRR@10: 0.3302
             R@1K: 0.9584
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.3710
+            nDCG@10: 0.6452
+            R@1K: 0.7554
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4076
+            nDCG@10: 0.6458
+            R@1K: 0.7764
   - name: bm25-tuned
     display: BM25 (k1=0.82, b=0.68)
     display-html: BM25 (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68)
@@ -486,11 +522,22 @@ conditions:
     display: "TCT_ColBERT-V2-HN+: pre-encoded"
     display-html: "TCT_ColBERT-V2-HN+: pre-encoded queries"
     display-row: "[5]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-tct_colbert-v2-hnp-bf --topics $topics --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-tct_colbert-v2-hnp-bf --topics $topics --encoded-queries tct_colbert-v2-hnp-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
           - MRR@10: 0.3584
             R@1K: 0.9695
-      # TODO: We don't have DL19 an DL20 queries pre-encoded
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4469
+            nDCG@10: 0.7204
+            R@1K: 0.8261
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4754
+            nDCG@10: 0.6882
+            R@1K: 0.8429
