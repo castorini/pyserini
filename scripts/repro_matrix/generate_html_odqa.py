@@ -28,8 +28,8 @@ TQA_TOPICS = 'dpr-trivia-test'
 NQ_TOPICS = 'nq-test'
 PRINT_TQA_TOPICS = 'TriviaQA'
 PRINT_NQ_TOPICS = 'Natural Question'
-TQA_DKRR_RUN = f'runs/run.odqa.DPR-DKRR.{TQA_TOPICS}.hits=100.txt'
-NQ_DKRR_RUN = f'runs/run.odqa.DPR-DKRR.{NQ_TOPICS}.hits=100.txt'
+TQA_DKRR_RUN = f'runs/run.odqa.DPR-DKRR.{TQA_TOPICS}.hits-100.txt'
+NQ_DKRR_RUN = f'runs/run.odqa.DPR-DKRR.{NQ_TOPICS}.hits-100.txt'
 HITS_1K = set(['GarT5-RRF', 'DPR-DKRR'])
 
 
@@ -41,14 +41,15 @@ def format_run_command(raw):
         .replace('--output', '\\\n  --output')\
         .replace('--batch', '\\\n  --batch') \
         .replace('--threads', '\\\n  --threads')\
+        .replace('--bm25', '\\\n  --bm25')\
         .replace('--hits 100', '\\\n  --hits 100')
 
 def format_hybrid_search_command(raw):
     return raw.replace('--encoder', '\\\n\t--encoder')\
-        .replace(' dense', '\\\n dense ')\
-        .replace(' sparse', '\\\n sparse')\
-        .replace(' fusion', '\\\n fusion')\
-        .replace(' run ', '\\\n run\t')\
+        .replace(' dense', ' \\\n dense ')\
+        .replace(' sparse', ' \\\n sparse')\
+        .replace(' fusion', ' \\\n fusion')\
+        .replace(' run ', ' \\\n run\t')\
         .replace('--output', '\\\n\t--output')\
         .replace('--batch', '\\\n\t--batch') \
         .replace('--threads', '\\\n\t--threads')\
@@ -176,12 +177,12 @@ if __name__ == '__main__':
             cmd_template_nq = condition_nq['command']
             if 'RRF' in name:
                 if name == 'GarT5-RRF':
-                    runfile_tqa = [f'runs/run.odqa.{name}.{TQA_TOPICS}.{garrrf_ls[i]}.hits=1000.txt' for i in range(len(cmd_template_tqa))]
-                    runfile_nq = [f'runs/run.odqa.{name}.{NQ_TOPICS}.{garrrf_ls[i]}.hits=1000.txt' for i in range(len(cmd_template_nq))]
-                    tqa_fused_run.update({name: runfile_tqa[0].replace('.answers.hits=1000.txt', '.hits=100.fusion.txt')})
-                    nq_fused_run.update({name: runfile_nq[0].replace('.answers.hits=1000.txt', '.hits=100.fusion.txt')})
-                    jsonfile_tqa = tqa_fused_run[name].replace('.txt', '.json').replace('.hits=1000', '')
-                    jsonfile_nq = nq_fused_run[name].replace('.txt', '.json').replace('.hits=1000', '')
+                    runfile_tqa = [f'runs/run.odqa.{name}.{TQA_TOPICS}.{garrrf_ls[i]}.hits-1000.txt' for i in range(len(cmd_template_tqa))]
+                    runfile_nq = [f'runs/run.odqa.{name}.{NQ_TOPICS}.{garrrf_ls[i]}.hits-1000.txt' for i in range(len(cmd_template_nq))]
+                    tqa_fused_run.update({name: runfile_tqa[0].replace('.answers.hits-1000.txt', '.hits-100.fusion.txt')})
+                    nq_fused_run.update({name: runfile_nq[0].replace('.answers.hits-1000.txt', '.hits-100.fusion.txt')})
+                    jsonfile_tqa = tqa_fused_run[name].replace('.txt', '.json').replace('.hits-1000', '')
+                    jsonfile_nq = nq_fused_run[name].replace('.txt', '.json').replace('.hits-1000', '')
                 elif name == 'GarT5RRF-DKRR-RRF':
                     jsonfile_tqa = f'runs/run.odqa.{name}.{TQA_TOPICS}.json'
                     jsonfile_nq = f'runs/run.odqa.{name}.{TQA_TOPICS}.json'
@@ -191,10 +192,10 @@ if __name__ == '__main__':
                     raise NameError('Wrong model name in yaml config')
             else:
                 if 'dpr-topics' in name:
-                    runfile_nq = [f'runs/run.odqa.{name}.dpr-nq-test.hits=100.txt']
+                    runfile_nq = [f'runs/run.odqa.{name}.dpr-nq-test.hits-100.txt']
                 else:
-                    runfile_nq = [f'runs/run.odqa.{name}.{NQ_TOPICS}.hits=100.txt']
-                runfile_tqa = [f'runs/run.odqa.{name}.{TQA_TOPICS}.hits=100.txt']   
+                    runfile_nq = [f'runs/run.odqa.{name}.{NQ_TOPICS}.hits-100.txt']
+                runfile_tqa = [f'runs/run.odqa.{name}.{TQA_TOPICS}.hits-100.txt']   
                 jsonfile_tqa = runfile_tqa[0].replace('.answers', '').replace('.txt', '.json')
                 jsonfile_nq = runfile_nq[0].replace('.answers', '').replace('.txt', '.json')
             
@@ -212,7 +213,7 @@ if __name__ == '__main__':
                 
                 fusion_cmd_tqa.append(f'python -m pyserini.fusion \\\n' + \
                     f'  --runs {tqa_runs} \\\n' + \
-                    f'  --output {tqa_fused_run[name]}\\\n'
+                    f'  --output {tqa_fused_run[name]} \\\n'
                     f'  --k 100')
                 fusion_cmd_nq.append(f'python -m pyserini.fusion \\\n' + \
                     f'  --runs {nq_runs} \\\n' + \
