@@ -101,6 +101,7 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
         "tct_colbert": TctColBertQueryEncoder,
         "ance": AnceQueryEncoder,
         "sentence": AutoQueryEncoder,
+        "contriever": AutoQueryEncoder,
         "auto": AutoQueryEncoder,
     }
 
@@ -127,7 +128,8 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
         kwargs = dict(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device, prefix=prefix)
         if (_encoder_class == "sentence") or ("sentence" in encoder):
             kwargs.update(dict(pooling='mean', l2_norm=True))
-
+        if (_encoder_class == "contriever") or ("contriever" in encoder):
+            kwargs.update(dict(pooling='mean', l2_norm=False))
         return encoder_class(**kwargs)
 
     if encoded_queries:
