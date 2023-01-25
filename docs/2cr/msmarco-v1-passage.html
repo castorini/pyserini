@@ -1836,13 +1836,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
 <td class="expand-button"></td>
 <td style="min-width: 85px">[2]</td>
 <td style="min-width: 400px">ANCE: pre-encoded queries</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
+<td>0.3710</td>
+<td>0.6452</td>
+<td>0.7554</td>
 <td></td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
+<td>0.4076</td>
+<td>0.6458</td>
+<td>0.7764</td>
 <td></td>
 <td>0.3302</td>
 <td>0.9584</td>
@@ -1883,8 +1883,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
   
     <blockquote class="mycode">
   <pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.ance.dl19.txt
-    python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.ance.dl19.txt
-    python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.ance.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.ance.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.ance.dl19.txt
   </code></pre>
     </blockquote>
   </div>
@@ -1895,7 +1895,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
   <pre><code>python -m pyserini.search.faiss \
     --threads 16 --batch-size 512 \
     --index msmarco-passage-ance-bf \
-    --topics dl20-passage --encoded-queries ance-dl20 \
+    --topics dl20 --encoded-queries ance-dl20 \
     --output run.msmarco-v1-passage.ance.dl20.txt
    
   </code></pre></blockquote>
@@ -1903,8 +1903,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
   
     <blockquote class="mycode">
   <pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.ance.dl20.txt
-    python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.ance.dl20.txt
-    python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.ance.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.ance.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.ance.dl20.txt
   </code></pre>
     </blockquote>
   </div>
@@ -1938,13 +1938,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
 <td class="expand-button"></td>
 <td style="min-width: 85px">[3]</td>
 <td style="min-width: 400px">DistilBERT KD: pre-encoded queries</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
+<td>0.4053</td>
+<td>0.6994</td>
+<td>0.7653</td>
 <td></td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
+<td>0.4159</td>
+<td>0.6447</td>
+<td>0.7953</td>
 <td></td>
 <td>0.3251</td>
 <td>0.9553</td>
@@ -1985,8 +1985,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
   
     <blockquote class="mycode">
   <pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.distilbert-kd.dl19.txt
-    python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.distilbert-kd.dl19.txt
-    python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.distilbert-kd.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.distilbert-kd.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.distilbert-kd.dl19.txt
   </code></pre>
     </blockquote>
   </div>
@@ -1997,16 +1997,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
   <pre><code>python -m pyserini.search.faiss \
     --threads 16 --batch-size 512 \
     --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
-    --topics dl20 --encoded-queries distilbert_kd-dl20-passage \
+    --topics dl20 --encoded-queries distilbert_kd-dl20 \
     --output run.msmarco-v1-passage.distilbert-kd.dl20.txt
    
   </code></pre></blockquote>
   Evaluation commands:
   
     <blockquote class="mycode">
-  <pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.distilbert-kd.dl20.txt
-    python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.distilbert-kd.dl20.txt
-    python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.distilbert-kd.dl20.txt
+  <pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.distilbert-kd.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.distilbert-kd.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.distilbert-kd.dl20.txt
   </code></pre>
     </blockquote>
   </div>
@@ -2040,13 +2040,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
 <td class="expand-button"></td>
 <td style="min-width: 85px">[4]</td>
 <td style="min-width: 400px">DistilBERT KD TASB: pre-encoded queries</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
+<td>0.4590</td>
+<td>0.7210</td>
+<td>0.8406</td>
 <td></td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
+<td>0.4698</td>
+<td>0.6854</td>
+<td>0.8727</td>
 <td></td>
 <td>0.3444</td>
 <td>0.9771</td>
@@ -2087,8 +2087,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
   
     <blockquote class="mycode">
   <pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.distilbert_tas_b.dl19.txt
-    python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.distilbert_tas_b.dl19.txt
-    python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.distilbert_tas_b.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.distilbert_tas_b.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.distilbert_tas_b.dl19.txt
   </code></pre>
     </blockquote>
   </div>
@@ -2107,8 +2107,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
   
     <blockquote class="mycode">
   <pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.distilbert_tas_b.dl20.txt
-    python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.distilbert_tas_b.dl20.txt
-    python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.distilbert_tas_b.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.distilbert_tas_b.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.distilbert_tas_b.dl20.txt
   </code></pre>
     </blockquote>
   </div>
@@ -2142,13 +2142,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
 <td class="expand-button"></td>
 <td style="min-width: 85px">[5]</td>
 <td style="min-width: 400px">TCT_ColBERT-V2-HN+: pre-encoded queries</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
+<td>0.4469</td>
+<td>0.7204</td>
+<td>0.8261</td>
 <td></td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
+<td>0.4754</td>
+<td>0.6882</td>
+<td>0.8429</td>
 <td></td>
 <td>0.3584</td>
 <td>0.9695</td>
@@ -2189,8 +2189,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
   
     <blockquote class="mycode">
   <pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl19.txt
-    python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl19.txt
-    python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl19.txt
   </code></pre>
     </blockquote>
   </div>
@@ -2210,8 +2210,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
   
     <blockquote class="mycode">
   <pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl20.txt
-    python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl20.txt
-    python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl20.txt
   </code></pre>
     </blockquote>
   </div>
