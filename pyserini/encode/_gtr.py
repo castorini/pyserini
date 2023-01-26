@@ -28,7 +28,7 @@ class GtrDocumentEncoder(DocumentEncoder):
         self.model.to(self.device)
 
         try:
-            self.tokenizer = T5Tokenizer.from_pretrained(tokenizer_name or model_name)
+            self.tokenizer = T5Tokenizer.from_pretrained("t5-base")
         except:
             self.tokenizer = T5Tokenizer.from_pretrained(tokenizer_name or model_name, use_fast=False)
 
@@ -90,10 +90,11 @@ class GtrQueryEncoder(QueryEncoder):
         sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
         return sum_embeddings / sum_mask
 
-    def encode(self, query: str):
+    def encode(self, query: str,  max_length=512):
         if self.has_model:
             inputs = self.tokenizer(
                 query,
+                max_length=max_length,
                 return_tensors='pt',
                 truncation='only_first',
                 padding='longest',

@@ -19,7 +19,7 @@ import sys
 
 from pyserini.encode import JsonlRepresentationWriter, FaissRepresentationWriter, JsonlCollectionIterator
 from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AutoDocumentEncoder
-from pyserini.encode import UniCoilDocumentEncoder
+from pyserini.encode import UniCoilDocumentEncoder, GtrDocumentEncoder
 
 
 encoder_class_map = {
@@ -29,6 +29,7 @@ encoder_class_map = {
     "sentence-transformers": AutoDocumentEncoder,
     "unicoil": UniCoilDocumentEncoder,
     "auto": AutoDocumentEncoder,
+    "gtr": GtrDocumentEncoder,
 }
 
 def init_encoder(encoder, encoder_class, device):
@@ -99,7 +100,7 @@ if __name__ == '__main__':
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
     encoder_parser.add_argument('--encoder-class', type=str, required=False, default=None,
-                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "auto"],
+                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "auto", "gtr"],
                                 help='which query encoder class to use. `default` would infer from the args.encoder')
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--batch-size', type=int, help='batch size', default=64, required=False)
@@ -123,7 +124,7 @@ if __name__ == '__main__':
     with embedding_writer:
         for batch_info in collection_iterator(args.encoder.batch_size, args.input.shard_id, args.input.shard_num):
             kwargs = {
-                'texts': batch_info['text'],
+                'texts': batch_info['contents'],
                 'titles': batch_info['title'] if 'title' in args.encoder.fields else None,
                 'expands': batch_info['expand'] if 'expand' in args.encoder.fields else None,
                 'fp16': args.encoder.fp16,

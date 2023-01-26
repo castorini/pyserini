@@ -168,10 +168,11 @@ class GtrQueryEncoder(QueryEncoder):
         sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
         return sum_embeddings / sum_mask
 
-    def encode(self, query: str):
+    def encode(self, query: str, max_length: int = 64):
         if self.has_model:
             inputs = self.tokenizer(
                 query,
+                max_length=max_length,
                 return_tensors='pt',
                 truncation='only_first',
                 padding='longest',
