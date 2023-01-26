@@ -2245,7 +2245,7 @@ TF_INDEX_INFO_CURRENT = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-yo.20221004.2b2856.tar.gz"
         ],
-        "md5": "7ff5329cb6a57cbb60afb9062fd68377",
+        "md5": "7fa283d1af4a7c4ea8791eab9e386807",
         "size compressed (bytes)": 13211664,
         "total_terms": 1387088,
         "documents": 49043,
