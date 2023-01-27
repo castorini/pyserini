@@ -633,6 +633,10 @@ conditions:
     eval_key: miracl-v1.0-ar
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits: 
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.6729
@@ -641,14 +645,22 @@ conditions:
     eval_key: miracl-v1.0-bn
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.6540
-            R@100: 0.9100
+            R@100: 0.9321
   - name: bm25-mdpr-tied-pft-msmarco-hybrid.en
     eval_key: miracl-v1.0-en
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.5488
@@ -657,6 +669,10 @@ conditions:
     eval_key: miracl-v1.0-es
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.6413
@@ -665,6 +681,10 @@ conditions:
     eval_key: miracl-v1.0-fa
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.5935
@@ -673,6 +693,10 @@ conditions:
     eval_key: miracl-v1.0-fi
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.6716
@@ -681,6 +705,10 @@ conditions:
     eval_key: miracl-v1.0-fr
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.5233
@@ -689,6 +717,10 @@ conditions:
     eval_key: miracl-v1.0-hi
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.6157
@@ -697,6 +729,10 @@ conditions:
     eval_key: miracl-v1.0-id
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.4433
@@ -705,6 +741,10 @@ conditions:
     eval_key: miracl-v1.0-ja
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.5757
@@ -713,6 +753,10 @@ conditions:
     eval_key: miracl-v1.0-ko
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.6086
@@ -721,6 +765,10 @@ conditions:
     eval_key: miracl-v1.0-ru
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.5323
@@ -729,6 +777,10 @@ conditions:
     eval_key: miracl-v1.0-sw
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.4457
@@ -737,6 +789,10 @@ conditions:
     eval_key: miracl-v1.0-te
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.6021
@@ -745,6 +801,10 @@ conditions:
     eval_key: miracl-v1.0-th
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.5990
@@ -753,6 +813,10 @@ conditions:
     eval_key: miracl-v1.0-zh
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
     splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.
+            R@100: 0.
       - split: dev
         scores:
           - nDCG@10: 0.5254
