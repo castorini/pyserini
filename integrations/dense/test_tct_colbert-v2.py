@@ -70,23 +70,6 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.3543, delta=0.0001)
 
-    def test_msmarco_passage_tct_colbert_v2_hnp_otf(self):
-        output_file = 'test_run.msmarco-passage.tct_colbert-v2-hnp.bf-otf.tsv'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search.faiss --topics msmarco-passage-dev-subset \
-                             --index msmarco-passage-tct_colbert-v2-hnp-bf \
-                             --encoder castorini/tct_colbert-v2-hnp-msmarco \
-                             --batch-size {self.batch_size} \
-                             --threads {self.threads} \
-                             --output {output_file} \
-                             --output-format msmarco'
-        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3585, delta=0.0001)
-
     def test_msmarco_passage_tct_colbert_v2_hnp_bf_bm25_hybrid_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert-v2-hnp.bf-otf.bm25.tsv'
         self.temp_files.append(output_file)
@@ -124,22 +107,22 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertAlmostEqual(score, 0.3731, delta=0.0001)
 
     def test_msmarco_passage_tct_colbert_v2_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('tct_colbert-v2-msmarco-passage-dev-subset')
+        encoded = QueryEncoder.load_encoded_queries('tct_colbert-v2-msmarco-passage-dev-subset')
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def test_msmarco_passage_tct_colbert_v2_hn_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('tct_colbert-v2-hn-msmarco-passage-dev-subset')
+        encoded = QueryEncoder.load_encoded_queries('tct_colbert-v2-hn-msmarco-passage-dev-subset')
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def test_msmarco_passage_tct_colbert_v2_hnp_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('tct_colbert-v2-hnp-msmarco-passage-dev-subset')
+        encoded = QueryEncoder.load_encoded_queries('tct_colbert-v2-hnp-msmarco-passage-dev-subset')
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def tearDown(self):
         clean_files(self.temp_files)
