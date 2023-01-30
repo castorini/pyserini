@@ -194,7 +194,7 @@ Summary of results:
 |:-------------------------------------------------------|--------:|-------:|-----------:|
 | TCT-ColBERT (brute-force index)                        |  0.3323 | 0.3323 |     0.8664 |
 | TCT-ColBERT (brute-force index) + BoW BM25             |  0.3701 | 0.3701 |     0.9020 |
-| TCT-ColBERT (brute-force index) + BM25 w/ doc2query-T5 |  0.3784 | 0.3784 |     0.9081 |
+| TCT-ColBERT (brute-force index) + BM25 w/ doc2query-T5 |  0.3784 | 0.3784 |     0.9083 |
 
 Although this is not described in the paper, we have adapted TCT-ColBERT to the MS MARCO document ranking task in a zero-shot manner.
 Documents in the MS MARCO document collection are first segmented, and each segment is then encoded with the TCT-ColBERT model trained on trained on MS MARCO passages.
@@ -323,7 +323,7 @@ $ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev \
     runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.trec
 
 map                   	all	0.3784
-recall_100            	all	0.9081
+recall_100            	all	0.9083
 ```
 
 ## Reproduction Log[*](reproducibility.md)
@@ -335,3 +335,4 @@ recall_100            	all	0.9081
 + Results reproduced by [@jmmackenzie](https://github.com/jmmackenzie) on 2021-05-17 ([PyPI 0.12.0](https://pypi.org/project/pyserini/0.12.0/))
 + Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-06-12 (commit [`f61411`](https://github.com/castorini/pyserini/commit/f614111f014b7490f75e585e610f64f769164dd2))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-24 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))

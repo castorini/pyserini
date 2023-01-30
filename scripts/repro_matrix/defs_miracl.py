@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+from collections import OrderedDict
 
 languages = [
     ['ar', 'arabic'],
@@ -35,13 +36,14 @@ languages = [
     ['yo', 'yoruba']
 ]
 
-models = ['bm25', 'mdpr-tied-pft-msmarco', 'mdpr-tied-pft-msmarco-ft-all']
 
-html_display = {
-    'bm25': 'BM25',
-    'mdpr-tied-pft-msmarco': 'mDPR (tied encoders), pre-FT w/ MS MARCO',
-    'mdpr-tied-pft-msmarco-ft-all': 'mDPR (tied encoders), pre-FT w/ MS MARCO then FT w/ all Mr. TyDi',
-}
+html_display = OrderedDict()
+html_display['bm25'] = 'BM25'
+html_display['mdpr-tied-pft-msmarco'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO'
+html_display['mdpr-tied-pft-msmarco-ft-all'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO then FT w/ all Mr. TyDi'
+html_display['bm25-mdpr-tied-pft-msmarco-hybrid'] =  'Hybrid of `bm25` and `mdpr-tied-pft-msmarco`'
+
+models = list(html_display) 
 
 trec_eval_metric_definitions = {
     'nDCG@10': '-c -M 100 -m ndcg_cut.10',

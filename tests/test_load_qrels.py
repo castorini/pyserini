@@ -733,6 +733,97 @@ class TestGetQrels(unittest.TestCase):
         self.assertEqual(len(qrels), 1190)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
+    def test_mircal_10(self):
+        qrels = search.get_qrels('miracl-v1.0-ar-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 2896)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('miracl-v1.0-bn-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 411)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('miracl-v1.0-en-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 799)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('miracl-v1.0-es-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 648)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))  # note, not int
+
+        qrels = search.get_qrels('miracl-v1.0-fa-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 632)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))  # note, not int
+
+        qrels = search.get_qrels('miracl-v1.0-fi-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1271)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('miracl-v1.0-fr-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 343)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))  # note, not int
+
+        qrels = search.get_qrels('miracl-v1.0-hi-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 350)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))  # note, not int
+
+        qrels = search.get_qrels('miracl-v1.0-id-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 960)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('miracl-v1.0-ja-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 860)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('miracl-v1.0-ko-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 213)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('miracl-v1.0-ru-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1252)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('miracl-v1.0-sw-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 482)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('miracl-v1.0-te-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 828)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('miracl-v1.0-th-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 733)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('miracl-v1.0-zh-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 393)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))  # note, not int
+
+        qrels = search.get_qrels('miracl-v1.0-de-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 305)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))  # note, not int
+
+        qrels = search.get_qrels('miracl-v1.0-yo-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 119)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))  # note, not int
+
     def test_beir(self):
         qrels = search.get_qrels('beir-v1.0.0-trec-covid-test')
         self.assertIsNotNone(qrels)

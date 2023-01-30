@@ -35,7 +35,7 @@ def print_results(metric, topics):
         print(' ' * 32, end='')
         print(f'{model:30}', end='')
         key = f'{model}'
-        print(f'{table[key][metric]:7.3f}', end='\n')
+        print(f'{table[key][metric]:7.2f}', end='\n')
     print('')
 
 
@@ -78,9 +78,9 @@ if __name__ == '__main__':
 
             # running retrieval
             if name == "GarT5-RRF":
-                runfile = [f'runs/run.odqa.{name}.{topics}.{i}.hits={hits}.txt' for i in GARRRF_LS]
+                runfile = [f'runs/run.odqa.{name}.{topics}.{i}.hits-{hits}.txt' for i in GARRRF_LS]
             else:
-                runfile = [f'runs/run.odqa.{name}.{topics}.hits={hits}.txt']
+                runfile = [f'runs/run.odqa.{name}.{topics}.hits-{hits}.txt']
 
             if name != "GarT5RRF-DKRR-RRF":
                 cmd = [Template(cmd_template[i]).substitute(output=runfile[i]) for i in range(len(runfile))]
@@ -97,9 +97,9 @@ if __name__ == '__main__':
                 output = ''
                 if name == 'GarT5-RRF':
                     runs = runfile
-                    output = f'runs/run.odqa.{name}.{topics}.hits={hits}.fusion.txt'
+                    output = f'runs/run.odqa.{name}.{topics}.hits-{hits}.fusion.txt'
                 elif name == 'GarT5RRF-DKRR-RRF':
-                    runs = [f'runs/run.odqa.DPR-DKRR.{topics}.hits=1000.txt', f'runs/run.odqa.GarT5-RRF.{topics}.hits=1000.fusion.txt']
+                    runs = [f'runs/run.odqa.DPR-DKRR.{topics}.hits-1000.txt', f'runs/run.odqa.GarT5-RRF.{topics}.hits-1000.fusion.txt']
                     output = runfile[0].replace('.txt','.fusion.txt')
                 else:
                     raise NameError('Unexpected model name')

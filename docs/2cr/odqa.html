@@ -192,7 +192,8 @@ Command to generate run:
   --batch-size 128 \
   --index wikipedia-dpr \
   --topics dpr-trivia-test \
-  --output runs/run.odqa.BM25-k1_0.9_b_0.4.dpr-trivia-test.hits=100.txt --bm25 --k1 0.9 --b 0.4 \
+  --output runs/run.odqa.BM25-k1_0.9_b_0.4.dpr-trivia-test.hits-100.txt \
+  --bm25 --k1 0.9 --b 0.4 \
   --hits 100
 </code></pre></blockquote>
 
@@ -201,8 +202,8 @@ Converting from trec into json
 <pre><code>python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics dpr-trivia-test \
   --index wikipedia-dpr \
-  --input runs/run.odqa.BM25-k1_0.9_b_0.4.dpr-trivia-test.hits=100.txt \
-  --output runs/run.odqa.BM25-k1_0.9_b_0.4.dpr-trivia-test.hits=100.json
+  --input runs/run.odqa.BM25-k1_0.9_b_0.4.dpr-trivia-test.hits-100.txt \
+  --output runs/run.odqa.BM25-k1_0.9_b_0.4.dpr-trivia-test.hits-100.json
 </code></pre></blockquote>
 
 
@@ -210,7 +211,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.odqa.BM25-k1_0.9_b_0.4.dpr-trivia-test.hits=100.json \
+  --retrieval runs/run.odqa.BM25-k1_0.9_b_0.4.dpr-trivia-test.hits-100.json \
   --topk 20 100</code></pre>
   </blockquote>
 
@@ -224,7 +225,8 @@ Command to generate run:
   --batch-size 128 \
   --index wikipedia-dpr \
   --topics nq-test \
-  --output runs/run.odqa.BM25-k1_0.9_b_0.4.nq-test.hits=100.txt --bm25 --k1 0.9 --b 0.4 \
+  --output runs/run.odqa.BM25-k1_0.9_b_0.4.nq-test.hits-100.txt \
+  --bm25 --k1 0.9 --b 0.4 \
   --hits 100
 </code></pre></blockquote>
 
@@ -233,8 +235,8 @@ Converting from trec into json
 <pre><code>python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics nq-test \
   --index wikipedia-dpr \
-  --input runs/run.odqa.BM25-k1_0.9_b_0.4.nq-test.hits=100.txt \
-  --output runs/run.odqa.BM25-k1_0.9_b_0.4.nq-test.hits=100.json
+  --input runs/run.odqa.BM25-k1_0.9_b_0.4.nq-test.hits-100.txt \
+  --output runs/run.odqa.BM25-k1_0.9_b_0.4.nq-test.hits-100.json
 </code></pre></blockquote>
 
 
@@ -242,7 +244,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.odqa.BM25-k1_0.9_b_0.4.nq-test.hits=100.json \
+  --retrieval runs/run.odqa.BM25-k1_0.9_b_0.4.nq-test.hits-100.json \
   --topk 20 100</code></pre>
   </blockquote>
 
@@ -290,7 +292,8 @@ Command to generate run:
   --batch-size 128 \
   --index wikipedia-dpr \
   --topics dpr-trivia-test \
-  --output runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-trivia-test.hits=100.txt --bm25 --k1 0.9 --b 0.4 \
+  --output runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-trivia-test.hits-100.txt \
+  --bm25 --k1 0.9 --b 0.4 \
   --hits 100
 </code></pre></blockquote>
 
@@ -299,8 +302,8 @@ Converting from trec into json
 <pre><code>python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics dpr-trivia-test \
   --index wikipedia-dpr \
-  --input runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-trivia-test.hits=100.txt \
-  --output runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-trivia-test.hits=100.json
+  --input runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-trivia-test.hits-100.txt \
+  --output runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-trivia-test.hits-100.json
 </code></pre></blockquote>
 
 
@@ -308,7 +311,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-trivia-test.hits=100.json \
+  --retrieval runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-trivia-test.hits-100.json \
   --topk 20 100</code></pre>
   </blockquote>
 
@@ -322,7 +325,8 @@ Command to generate run:
   --batch-size 128 \
   --index wikipedia-dpr \
   --topics dpr-nq-test \
-  --output runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-nq-test.hits=100.txt --bm25 --k1 0.9 --b 0.4 \
+  --output runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-nq-test.hits-100.txt \
+  --bm25 --k1 0.9 --b 0.4 \
   --hits 100
 </code></pre></blockquote>
 
@@ -331,8 +335,8 @@ Converting from trec into json
 <pre><code>python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics dpr-nq-test \
   --index wikipedia-dpr \
-  --input runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-nq-test.hits=100.txt \
-  --output runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-nq-test.hits=100.json
+  --input runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-nq-test.hits-100.txt \
+  --output runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-nq-test.hits-100.json
 </code></pre></blockquote>
 
 
@@ -340,7 +344,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-nq-test.hits=100.json \
+  --retrieval runs/run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-nq-test.hits-100.json \
   --topk 20 100</code></pre>
   </blockquote>
 
@@ -388,7 +392,8 @@ Command to generate runs:
   --batch-size 128 \
   --index wikipedia-dpr \
   --topics dpr-trivia-test-gar-t5-answers \
-  --output runs/run.odqa.GarT5-RRF.dpr-trivia-test.answers.hits=1000.txt --bm25 --k1 0.9 --b 0.4 \
+  --output runs/run.odqa.GarT5-RRF.dpr-trivia-test.answers.hits-1000.txt \
+  --bm25 --k1 0.9 --b 0.4 \
   --hits 1000
 </code></pre></blockquote>
 
@@ -398,7 +403,8 @@ Command to generate runs:
   --batch-size 128 \
   --index wikipedia-dpr \
   --topics dpr-trivia-test-gar-t5-titles \
-  --output runs/run.odqa.GarT5-RRF.dpr-trivia-test.titles.hits=1000.txt --bm25 --k1 0.9 --b 0.4 \
+  --output runs/run.odqa.GarT5-RRF.dpr-trivia-test.titles.hits-1000.txt \
+  --bm25 --k1 0.9 --b 0.4 \
   --hits 1000
 </code></pre></blockquote>
 
@@ -408,17 +414,18 @@ Command to generate runs:
   --batch-size 128 \
   --index wikipedia-dpr \
   --topics dpr-trivia-test-gar-t5-sentences \
-  --output runs/run.odqa.GarT5-RRF.dpr-trivia-test.sentences.hits=1000.txt --bm25 --k1 0.9 --b 0.4 \
+  --output runs/run.odqa.GarT5-RRF.dpr-trivia-test.sentences.hits-1000.txt \
+  --bm25 --k1 0.9 --b 0.4 \
   --hits 1000
 </code></pre></blockquote>
 
 Fusing the results using RRF
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs runs/run.odqa.GarT5-RRF.dpr-trivia-test.answers.hits=1000.txt \
-	 runs/run.odqa.GarT5-RRF.dpr-trivia-test.titles.hits=1000.txt \
-	 runs/run.odqa.GarT5-RRF.dpr-trivia-test.sentences.hits=1000.txt \
-  --output runs/run.odqa.GarT5-RRF.dpr-trivia-test.hits=100.fusion.txt\
+  --runs runs/run.odqa.GarT5-RRF.dpr-trivia-test.answers.hits-1000.txt \
+	 runs/run.odqa.GarT5-RRF.dpr-trivia-test.titles.hits-1000.txt \
+	 runs/run.odqa.GarT5-RRF.dpr-trivia-test.sentences.hits-1000.txt \
+  --output runs/run.odqa.GarT5-RRF.dpr-trivia-test.hits-100.fusion.txt \
   --k 100
 </code></pre></blockquote>
 
@@ -427,8 +434,8 @@ Converting from trec into json
 <pre><code>python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics dpr-trivia-test \
   --index wikipedia-dpr \
-  --input runs/run.odqa.GarT5-RRF.dpr-trivia-test.hits=100.fusion.txt \
-  --output runs/run.odqa.GarT5-RRF.dpr-trivia-test.hits=100.fusion.json
+  --input runs/run.odqa.GarT5-RRF.dpr-trivia-test.hits-100.fusion.txt \
+  --output runs/run.odqa.GarT5-RRF.dpr-trivia-test.hits-100.fusion.json
 </code></pre></blockquote>
 
 
@@ -436,7 +443,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.odqa.GarT5-RRF.dpr-trivia-test.hits=100.fusion.json \
+  --retrieval runs/run.odqa.GarT5-RRF.dpr-trivia-test.hits-100.fusion.json \
   --topk 20 100</code></pre>
   </blockquote>
 
@@ -450,7 +457,8 @@ Command to generate runs:
   --batch-size 128 \
   --index wikipedia-dpr \
   --topics nq-test-gar-t5-answers \
-  --output runs/run.odqa.GarT5-RRF.nq-test.answers.hits=1000.txt --bm25 --k1 0.9 --b 0.4 \
+  --output runs/run.odqa.GarT5-RRF.nq-test.answers.hits-1000.txt \
+  --bm25 --k1 0.9 --b 0.4 \
   --hits 1000
 </code></pre></blockquote>
 
@@ -460,7 +468,8 @@ Command to generate runs:
   --batch-size 128 \
   --index wikipedia-dpr \
   --topics nq-test-gar-t5-titles \
-  --output runs/run.odqa.GarT5-RRF.nq-test.titles.hits=1000.txt --bm25 --k1 0.9 --b 0.4 \
+  --output runs/run.odqa.GarT5-RRF.nq-test.titles.hits-1000.txt \
+  --bm25 --k1 0.9 --b 0.4 \
   --hits 1000
 </code></pre></blockquote>
 
@@ -470,17 +479,18 @@ Command to generate runs:
   --batch-size 128 \
   --index wikipedia-dpr \
   --topics nq-test-gar-t5-sentences \
-  --output runs/run.odqa.GarT5-RRF.nq-test.sentences.hits=1000.txt --bm25 --k1 0.9 --b 0.4 \
+  --output runs/run.odqa.GarT5-RRF.nq-test.sentences.hits-1000.txt \
+  --bm25 --k1 0.9 --b 0.4 \
   --hits 1000
 </code></pre></blockquote>
 
 Fusing the results using RRF
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs runs/run.odqa.GarT5-RRF.nq-test.answers.hits=1000.txt \
-	 runs/run.odqa.GarT5-RRF.nq-test.titles.hits=1000.txt \
-	 runs/run.odqa.GarT5-RRF.nq-test.sentences.hits=1000.txt \
-  --output runs/run.odqa.GarT5-RRF.nq-test.hits=100.fusion.txt \
+  --runs runs/run.odqa.GarT5-RRF.nq-test.answers.hits-1000.txt \
+	 runs/run.odqa.GarT5-RRF.nq-test.titles.hits-1000.txt \
+	 runs/run.odqa.GarT5-RRF.nq-test.sentences.hits-1000.txt \
+  --output runs/run.odqa.GarT5-RRF.nq-test.hits-100.fusion.txt \
   --k 100
 </code></pre></blockquote>
 
@@ -489,8 +499,8 @@ Converting from trec into json
 <pre><code>python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics nq-test \
   --index wikipedia-dpr \
-  --input runs/run.odqa.GarT5-RRF.nq-test.hits=100.fusion.txt \
-  --output runs/run.odqa.GarT5-RRF.nq-test.hits=100.fusion.json
+  --input runs/run.odqa.GarT5-RRF.nq-test.hits-100.fusion.txt \
+  --output runs/run.odqa.GarT5-RRF.nq-test.hits-100.fusion.json
 </code></pre></blockquote>
 
 
@@ -498,7 +508,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.odqa.GarT5-RRF.nq-test.hits=100.fusion.json \
+  --retrieval runs/run.odqa.GarT5-RRF.nq-test.hits-100.fusion.json \
   --topk 20 100</code></pre>
   </blockquote>
 
@@ -547,7 +557,7 @@ Command to generate run:
   --index wikipedia-dpr-multi-bf \
   --encoder facebook/dpr-question_encoder-multiset-base \
   --topics dpr-trivia-test \
-  --output runs/run.odqa.DPR.dpr-trivia-test.hits=100.txt \
+  --output runs/run.odqa.DPR.dpr-trivia-test.hits-100.txt \
   --hits 100
 </code></pre></blockquote>
 
@@ -556,8 +566,8 @@ Converting from trec into json
 <pre><code>python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics dpr-trivia-test \
   --index wikipedia-dpr \
-  --input runs/run.odqa.DPR.dpr-trivia-test.hits=100.txt \
-  --output runs/run.odqa.DPR.dpr-trivia-test.hits=100.json
+  --input runs/run.odqa.DPR.dpr-trivia-test.hits-100.txt \
+  --output runs/run.odqa.DPR.dpr-trivia-test.hits-100.json
 </code></pre></blockquote>
 
 
@@ -565,7 +575,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.odqa.DPR.dpr-trivia-test.hits=100.json \
+  --retrieval runs/run.odqa.DPR.dpr-trivia-test.hits-100.json \
   --topk 20 100</code></pre>
   </blockquote>
 
@@ -580,7 +590,7 @@ Command to generate run:
   --index wikipedia-dpr-single-nq-bf \
   --encoder facebook/dpr-question_encoder-single-nq-base \
   --topics nq-test \
-  --output runs/run.odqa.DPR.nq-test.hits=100.txt \
+  --output runs/run.odqa.DPR.nq-test.hits-100.txt \
   --hits 100
 </code></pre></blockquote>
 
@@ -589,8 +599,8 @@ Converting from trec into json
 <pre><code>python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics nq-test \
   --index wikipedia-dpr \
-  --input runs/run.odqa.DPR.nq-test.hits=100.txt \
-  --output runs/run.odqa.DPR.nq-test.hits=100.json
+  --input runs/run.odqa.DPR.nq-test.hits-100.txt \
+  --output runs/run.odqa.DPR.nq-test.hits-100.json
 </code></pre></blockquote>
 
 
@@ -598,7 +608,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.odqa.DPR.nq-test.hits=100.json \
+  --retrieval runs/run.odqa.DPR.nq-test.hits-100.json \
   --topk 20 100</code></pre>
   </blockquote>
 
@@ -647,7 +657,7 @@ Command to generate run:
   --index wikipedia-dpr-dkrr-tqa \
   --encoder castorini/dkrr-dpr-tqa-retriever \
   --topics dpr-trivia-test \
-  --output runs/run.odqa.DPR-DKRR.dpr-trivia-test.hits=100.txt --query-prefix question:  \
+  --output runs/run.odqa.DPR-DKRR.dpr-trivia-test.hits-100.txt --query-prefix question:  \
   --hits 1000
 </code></pre></blockquote>
 
@@ -656,8 +666,8 @@ Converting from trec into json
 <pre><code>python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics dpr-trivia-test \
   --index wikipedia-dpr \
-  --input runs/run.odqa.DPR-DKRR.dpr-trivia-test.hits=100.txt \
-  --output runs/run.odqa.DPR-DKRR.dpr-trivia-test.hits=100.json
+  --input runs/run.odqa.DPR-DKRR.dpr-trivia-test.hits-100.txt \
+  --output runs/run.odqa.DPR-DKRR.dpr-trivia-test.hits-100.json
 </code></pre></blockquote>
 
 
@@ -665,7 +675,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.odqa.DPR-DKRR.dpr-trivia-test.hits=100.json \
+  --retrieval runs/run.odqa.DPR-DKRR.dpr-trivia-test.hits-100.json \
   --topk 20 100</code></pre>
   </blockquote>
 
@@ -680,7 +690,7 @@ Command to generate run:
   --index wikipedia-dpr-dkrr-nq \
   --encoder castorini/dkrr-dpr-nq-retriever \
   --topics nq-test \
-  --output runs/run.odqa.DPR-DKRR.nq-test.hits=100.txt --query-prefix question:  \
+  --output runs/run.odqa.DPR-DKRR.nq-test.hits-100.txt --query-prefix question:  \
   --hits 1000
 </code></pre></blockquote>
 
@@ -689,8 +699,8 @@ Converting from trec into json
 <pre><code>python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics nq-test \
   --index wikipedia-dpr \
-  --input runs/run.odqa.DPR-DKRR.nq-test.hits=100.txt \
-  --output runs/run.odqa.DPR-DKRR.nq-test.hits=100.json
+  --input runs/run.odqa.DPR-DKRR.nq-test.hits-100.txt \
+  --output runs/run.odqa.DPR-DKRR.nq-test.hits-100.json
 </code></pre></blockquote>
 
 
@@ -698,7 +708,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.odqa.DPR-DKRR.nq-test.hits=100.json \
+  --retrieval runs/run.odqa.DPR-DKRR.nq-test.hits-100.json \
   --topk 20 100</code></pre>
   </blockquote>
 
@@ -741,13 +751,13 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.hybrid\
+<pre><code>python -m pyserini.search.hybrid \
  dense  --index wikipedia-dpr-multi-bf \
-	--encoder facebook/dpr-question_encoder-multiset-base\
- sparse --index wikipedia-dpr\
- fusion --alpha 0.95\
+	--encoder facebook/dpr-question_encoder-multiset-base \
+ sparse --index wikipedia-dpr \
+ fusion --alpha 0.95 \
  run	--topics dpr-trivia-test \
-	--output runs/run.odqa.DPR-Hybrid.dpr-trivia-test.hits=100.txt \
+	--output runs/run.odqa.DPR-Hybrid.dpr-trivia-test.hits-100.txt \
 	--threads 72 \
 	--batch-size 128 \
 	--hits 100
@@ -758,8 +768,8 @@ Converting from trec into json
 <pre><code>python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics dpr-trivia-test \
   --index wikipedia-dpr \
-  --input runs/run.odqa.DPR-Hybrid.dpr-trivia-test.hits=100.txt \
-  --output runs/run.odqa.DPR-Hybrid.dpr-trivia-test.hits=100.json
+  --input runs/run.odqa.DPR-Hybrid.dpr-trivia-test.hits-100.txt \
+  --output runs/run.odqa.DPR-Hybrid.dpr-trivia-test.hits-100.json
 </code></pre></blockquote>
 
 
@@ -767,7 +777,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.odqa.DPR-Hybrid.dpr-trivia-test.hits=100.json \
+  --retrieval runs/run.odqa.DPR-Hybrid.dpr-trivia-test.hits-100.json \
   --topk 20 100</code></pre>
   </blockquote>
 
@@ -776,13 +786,13 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.hybrid\
+<pre><code>python -m pyserini.search.hybrid \
  dense  --index wikipedia-dpr-single-nq-bf \
-	--encoder facebook/dpr-question_encoder-single-nq-base\
- sparse --index wikipedia-dpr\
- fusion --alpha 1.2\
+	--encoder facebook/dpr-question_encoder-single-nq-base \
+ sparse --index wikipedia-dpr \
+ fusion --alpha 1.2 \
  run	--topics nq-test \
-	--output runs/run.odqa.DPR-Hybrid.nq-test.hits=100.txt \
+	--output runs/run.odqa.DPR-Hybrid.nq-test.hits-100.txt \
 	--threads 72 \
 	--batch-size 128 \
 	--hits 100
@@ -793,8 +803,8 @@ Converting from trec into json
 <pre><code>python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics nq-test \
   --index wikipedia-dpr \
-  --input runs/run.odqa.DPR-Hybrid.nq-test.hits=100.txt \
-  --output runs/run.odqa.DPR-Hybrid.nq-test.hits=100.json
+  --input runs/run.odqa.DPR-Hybrid.nq-test.hits-100.txt \
+  --output runs/run.odqa.DPR-Hybrid.nq-test.hits-100.json
 </code></pre></blockquote>
 
 
@@ -802,7 +812,7 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.odqa.DPR-Hybrid.nq-test.hits=100.json \
+  --retrieval runs/run.odqa.DPR-Hybrid.nq-test.hits-100.json \
   --topk 20 100</code></pre>
   </blockquote>
 
@@ -847,9 +857,9 @@ Runs can be generated using the commands above.
 Fusing the results using RRF
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs runs/run.odqa.DPR-DKRR.dpr-trivia-test.hits=100.txt \
-	 runs/run.odqa.GarT5-RRF.dpr-trivia-test.hits=100.fusion.txt \
-  --output runs/run.odqa.GarT5RRF-DKRR-RRF.dpr-trivia-test.txt\
+  --runs runs/run.odqa.DPR-DKRR.dpr-trivia-test.hits-100.txt \
+	 runs/run.odqa.GarT5-RRF.dpr-trivia-test.hits-100.fusion.txt \
+  --output runs/run.odqa.GarT5RRF-DKRR-RRF.dpr-trivia-test.txt \
   --k 100
 </code></pre></blockquote>
 
@@ -877,8 +887,8 @@ Runs can be generated using the commands above.
 Fusing the results using RRF
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs runs/run.odqa.DPR-DKRR.nq-test.hits=100.txt \
-	 runs/run.odqa.GarT5-RRF.nq-test.hits=100.fusion.txt \
+  --runs runs/run.odqa.DPR-DKRR.nq-test.hits-100.txt \
+	 runs/run.odqa.GarT5-RRF.nq-test.hits-100.fusion.txt \
   --output runs/run.odqa.GarT5RRF-DKRR-RRF.dpr-trivia-test.txt \
   --k 100
 </code></pre></blockquote>

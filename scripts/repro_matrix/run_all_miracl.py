@@ -64,17 +64,34 @@ if __name__ == '__main__':
             name = condition['name']
             eval_key = condition['eval_key']
             cmd_template = condition['command']
+            cmd_lst = cmd_template.split()
 
             print(f'condition {name}:')
             lang = name.split('.')[-1]
+            is_hybrid_run = 'hybrid' in name
 
             for splits in condition['splits']:
                 split = splits['split']
+                if is_hybrid_run:
+                    hits = int(cmd_lst[cmd_lst.index('--k') + 1])
+                else:
+                    hits = int(cmd_lst[cmd_lst.index('--hits') + 1])
 
                 print(f'  - split: {split}')
 
-                runfile = f'runs/run.miracl.{name}.{split}.txt'
-                cmd = Template(cmd_template).substitute(split=split, output=runfile)
+                runfile = f'runs/run.miracl.{name}.{split}.top{hits}.txt'
+                if is_hybrid_run:
+                    bm25_output = f'runs/run.miracl.bm25.{lang}.{split}.top{hits}.txt'
+                    mdpr_output = f'runs/run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt'
+                    if not os.path.exists(bm25_output):
+                        print(f'Missing BM25 file: {bm25_output}')
+                        continue
+                    if not os.path.exists(mdpr_output):
+                        print(f'Missing mDPR file: {mdpr_output}')
+                        continue
+                    cmd = Template(cmd_template).substitute(split=split, output=runfile, bm25_output=bm25_output, mdpr_output=mdpr_output)
+                else:
+                    cmd = Template(cmd_template).substitute(split=split, output=runfile)
 
                 # In the yaml file, the topics are written as something like '--topics miracl-v1.0-ar-${split}'
                 # This works for the dev split because the topics are directly included in Anserini/Pyserini.
@@ -88,10 +105,11 @@ if __name__ == '__main__':
                     print(f'    Running: {cmd}')
                     rtn = subprocess.run(cmd.split(), capture_output=True)
                     stderr = rtn.stderr.decode()
-                    topic_fn = extract_topic_fn_from_cmd(cmd)
-                    if f'ValueError: Topic {topic_fn} Not Found' in stderr:
-                        print(f'Skipping {topic_fn}: file not found.')
-                        continue
+                    if '--topics' in cmd:
+                        topic_fn = extract_topic_fn_from_cmd(cmd)
+                        if f'ValueError: Topic {topic_fn} Not Found' in stderr:
+                            print(f'Skipping {topic_fn}: file not found.')
+                            continue
 
                 for expected in splits['scores']:
                     for metric in expected:
