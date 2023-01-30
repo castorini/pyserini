@@ -635,8 +635,8 @@ conditions:
     splits: 
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.6259
+            R@100: 0.9173
       - split: dev
         scores:
           - nDCG@10: 0.6729
@@ -647,8 +647,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.6587
+            R@100: 0.9297
       - split: dev
         scores:
           - nDCG@10: 0.6540
@@ -659,8 +659,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.5347
+            R@100: 0.8772
       - split: dev
         scores:
           - nDCG@10: 0.5488
@@ -671,8 +671,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.6234
+            R@100: 0.9425
       - split: dev
         scores:
           - nDCG@10: 0.6413
@@ -683,8 +683,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.5890
+            R@100: 0.9433
       - split: dev
         scores:
           - nDCG@10: 0.5935
@@ -695,8 +695,9 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+        scores:
+          - nDCG@10: 0.6164
+            R@100: 0.8506
       - split: dev
         scores:
           - nDCG@10: 0.6716
@@ -707,8 +708,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.5299
+            R@100: 0.9709
       - split: dev
         scores:
           - nDCG@10: 0.5233
@@ -719,8 +720,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.6217
+            R@100: 0.9059
       - split: dev
         scores:
           - nDCG@10: 0.6157
@@ -731,8 +732,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.4442
+            R@100: 0.7595
       - split: dev
         scores:
           - nDCG@10: 0.4433
@@ -743,8 +744,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.5795
+            R@100: 0.9082
       - split: dev
         scores:
           - nDCG@10: 0.5757
@@ -755,8 +756,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.5758
+            R@100: 0.8744
       - split: dev
         scores:
           - nDCG@10: 0.6086
@@ -767,8 +768,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.4921
+            R@100: 0.8494
       - split: dev
         scores:
           - nDCG@10: 0.5323
@@ -779,8 +780,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.4100
+            R@100: 0.6987
       - split: dev
         scores:
           - nDCG@10: 0.4457
@@ -791,8 +792,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.6000
+            R@100: 0.8717
       - split: dev
         scores:
           - nDCG@10: 0.6021
@@ -803,8 +804,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.5669
+            R@100: 0.8195
       - split: dev
         scores:
           - nDCG@10: 0.5990
@@ -815,8 +816,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.
-            R@100: 0.
+          - nDCG@10: 0.5209
+            R@100: 0.9576
       - split: dev
         scores:
           - nDCG@10: 0.5254
