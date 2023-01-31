@@ -40,7 +40,7 @@ def define_dsearch_args(parser):
                         help="Path to Faiss index or name of prebuilt index.")
     parser.add_argument('--encoder-class', type=str, metavar='which query encoder class to use. `default` would infer from the args.encoder',
                         required=False,
-                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "auto"],
+                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "contriever", "auto"],
                         default=None,
                         help='which query encoder class to use. `default` would infer from the args.encoder')
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
@@ -197,7 +197,7 @@ if __name__ == '__main__':
             searcher = BinaryDenseSearcher.from_prebuilt_index(args.index, query_encoder)
         else:
             searcher = FaissSearcher.from_prebuilt_index(args.index, query_encoder)
-    
+
     if args.ef_search:
         searcher.set_hnsw_ef_search(args.ef_search)
 
