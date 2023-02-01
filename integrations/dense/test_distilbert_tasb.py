@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for DistilBERT KD."""
+"""Integration tests for DistilBERT TAS-B."""
 
 import unittest
 
