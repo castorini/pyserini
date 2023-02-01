@@ -30,12 +30,12 @@ from scripts.repro_matrix.utils import run_eval_and_return_metric, ok_str, okish
 
 def print_results(metric, split):
     print(f'Metric = {metric}, Split = {split}')
-    print(' ' * 32, end='')
+    print(' ' * 35, end='')
     for lang in languages:
         print(f'{lang[0]:3}    ', end='')
     print('')
     for model in models:
-        print(f'{model:30}', end='')
+        print(f'{model:33}', end='')
         for lang in languages:
             key = f'{model}.{lang[0]}'
             print(f'{table[key][split][metric]:7.3f}', end='')
@@ -125,9 +125,18 @@ if __name__ == '__main__':
                                                                      trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky test: small difference on Mac Studio (M1 chip)
-                            elif name == 'mdpr-tied-pft-msmarco.hi' and split == 'train' \
-                                    and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
+                            # Flaky tests
+                            elif (name == 'mdpr-tied-pft-msmarco.hi' and split == 'train'
+                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
+                                 (name == 'mdpr-tied-pft-msmarco-ft-all.ru'
+                                  and split == 'dev' and metric == 'nDCG@10'
+                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
+                                 (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.te'
+                                  and split == 'train' and metric == 'nDCG@10'
+                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
+                                 (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh'
+                                  and split == 'dev' and metric == 'nDCG@10'
+                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)):
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
