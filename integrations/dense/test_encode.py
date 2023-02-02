@@ -16,13 +16,16 @@
 
 """Integration tests for create dense index """
 
-import faiss
 import os
 import shutil
 import unittest
+from urllib.request import urlretrieve
+
+import faiss
+
 from pyserini.search.faiss import FaissSearcher
 from pyserini.search.lucene import LuceneImpactSearcher
-from urllib.request import urlretrieve
+
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
