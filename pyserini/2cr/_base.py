@@ -14,37 +14,12 @@
 # limitations under the License.
 #
 
-import subprocess
 import os
+import subprocess
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK]'
 okish_str = '\033[94m[OKish]\033[0m'
-
-
-def find_msmarco_table_topic_set_key_v1(topic_key):
-    # E.g., we want to map variants like 'dl19-passage-unicoil' and 'dl19-passage' both into 'dl19'
-    key = ''
-    if topic_key.startswith('dl19'):
-        key = 'dl19'
-    elif topic_key.startswith('dl20'):
-        key = 'dl20'
-    elif topic_key.startswith('msmarco'):
-        key = 'dev'
-
-    return key
-
-
-def find_msmarco_table_topic_set_key_v2(topic_key):
-    key = ''
-    if topic_key.endswith('dev') or topic_key.endswith('dev-unicoil') or topic_key.endswith('dev-unicoil-noexp'):
-        key = 'dev'
-    elif topic_key.endswith('dev2') or topic_key.endswith('dev2-unicoil') or topic_key.endswith('dev2-unicoil-noexp'):
-        key = 'dev2'
-    elif topic_key.startswith('dl21'):
-        key = 'dl21'
-
-    return key
 
 
 def run_command(cmd):
@@ -66,6 +41,7 @@ def run_eval_and_return_metric(metric, eval_key, defs, runfile):
             return round(float(parts[2]), 4)
 
     return 0.0
+
 
 def run_dpr_retrieval_eval_and_return_metric(defs, json_file):
     """Generate dpr retrieval evaluation scores
@@ -99,8 +75,9 @@ def convert_trec_run_to_dpr_retrieval_json(topics,index,runfile,output):
     Returns:
         exit status: exit status
     """
-    cmd = f"python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics {topics} --index {index} --input {runfile} --output {output}"
+    cmd = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics {topics} --index {index} --input {runfile} --output {output}'
     return os.system(cmd)
+
 
 def run_fusion(run_ls, output, k):
     """run fusion command and return status code
