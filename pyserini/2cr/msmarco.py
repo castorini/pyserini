@@ -208,7 +208,7 @@ def run_conditions(args):
 
     if args.collection == 'v1-passage':
         collection = 'msmarco-v1-passage'
-        yaml_file = 'pyserini/resources/msmarco-v1-passage.yaml'
+        yaml_file = pkg_resources.resource_filename(__name__, 'msmarco-v1-passage.yaml')
     elif args.collection == 'v1-doc':
         collection = 'msmarco-v1-doc'
         yaml_file = 'pyserini/resources/msmarco-v1-doc.yaml'
