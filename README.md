@@ -623,10 +623,10 @@ For more details, see our paper on [Building a Culture of Reproducibility in Aca
 To run all these conditions programmatically:
 
 ```bash
-python scripts/repro_matrix/run_all_msmarco.py --collection v1-passage
-python scripts/repro_matrix/run_all_msmarco.py --collection v1-doc
-python scripts/repro_matrix/run_all_msmarco.py --collection v2-passage
-python scripts/repro_matrix/run_all_msmarco.py --collection v2-doc
+python scripts/repro_matrix/msmarco.py --collection v1-passage
+python scripts/repro_matrix/msmarco.py --collection v1-doc
+python scripts/repro_matrix/msmarco.py --collection v2-passage
+python scripts/repro_matrix/msmarco.py --collection v2-doc
 python scripts/repro_matrix/run_all_beir.py
 python scripts/repro_matrix/run_all_mrtydi.py
 python scripts/repro_matrix/run_all_miracl.py

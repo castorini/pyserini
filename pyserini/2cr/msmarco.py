@@ -17,21 +17,39 @@
 import argparse
 import math
 import os
+import sys
 import time
 from collections import defaultdict
 from string import Template
 
 import yaml
 
-from scripts.repro_matrix.defs_msmarco import models, trec_eval_metric_definitions
-from scripts.repro_matrix.utils import run_eval_and_return_metric, ok_str, okish_str, fail_str, \
+from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str, \
     find_msmarco_table_topic_set_key_v1, find_msmarco_table_topic_set_key_v2
+from .defs_msmarco import models, trec_eval_metric_definitions
+
+
+def format_command(raw):
+    return raw.replace('--topics', '\\\n  --topics') \
+        .replace('--threads', '\\\n  --threads')\
+        .replace('--index', '\\\n  --index')\
+        .replace('--output', '\\\n  --output')\
+        .replace('.txt', '.txt \\\n ')
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for MS MARCO corpora.')
     parser.add_argument('--collection', type=str, help='Collection = {v1-passage, v1-doc, v2-passage, v2-doc}.', required=True)
+    parser.add_argument('--all', action='store_true', default=False, help='Run all commands.')
+    parser.add_argument('--condition', type=str, help='Condition', required=False)
+    parser.add_argument('--dry-run', action='store_true', default=False, help='Print out command but not execute.')
     parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
+    parser.add_argument('--display-commands', action='store_true', default=False, help='Display command.')
     args = parser.parse_args()
+
+    if not args.all and not args.condition:
+        print(f'Must specify a specific condition using --condition or use --all to run all conditions.')
+        sys.exit()
 
     start = time.time()
 
@@ -56,12 +74,16 @@ if __name__ == '__main__':
     with open(yaml_file) as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
+            # Either we're running all conditions, or running only the condition specified in --condition
+            if not args.all:
+                if not condition['name'] == args.condition:
+                    continue
+
             name = condition['name']
             display = condition['display']
             cmd_template = condition['command']
 
-            if not args.skip_eval:
-                print(f'# Running condition "{name}": {display}\n')
+            print(f'# Running condition "{name}": {display}\n')
             for topic_set in condition['topics']:
                 topic_key = topic_set['topic_key']
                 eval_key = topic_set['eval_key']
@@ -72,24 +94,27 @@ if __name__ == '__main__':
                 else:
                     short_topic_key = find_msmarco_table_topic_set_key_v2(topic_key)
 
-                if not args.skip_eval:
-                    print(f'  - topic_key: {topic_key}')
+                print(f'  - topic_key: {topic_key}')
 
                 runfile = f'runs/run.{collection}.{name}.{short_topic_key}.txt'
                 cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile)
 
-                if not args.skip_eval:
-                    if not os.path.exists(runfile):
-                        print(f'    Running: {cmd}')
-                        os.system(cmd)
+                if args.display_commands:
+                    print(f'\n```bash\n{format_command(cmd)}\n```\n')
 
-                if not args.skip_eval:
-                    print('')
+                if not os.path.exists(runfile):
+                    if not args.dry_run:
+                        os.system(cmd)
 
                 for expected in topic_set['scores']:
                     for metric in expected:
                         table_keys[name] = display
                         if not args.skip_eval:
+                            # If the runfile doesn't exist, we can't evaluate.
+                            # This would be the case if --dry-run were set.
+                            if not os.path.exists(runfile):
+                                continue
+
                             score = float(
                                 run_eval_and_return_metric(metric,
                                                            eval_key,
@@ -99,7 +124,7 @@ if __name__ == '__main__':
                                 result_str = ok_str
                             # Flaky test: small difference on my iMac Studio
                             elif args.collection == 'v1-passage' and topic_key == 'msmarco-passage-dev-subset' and \
-                                 name == 'ance-otf' and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
+                                    name == 'ance-otf' and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
@@ -115,14 +140,24 @@ if __name__ == '__main__':
         print(' ' * 69 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
         print(' ' * 62 + 'MAP    nDCG@10    R@1K       MAP nDCG@10    R@1K    MRR@10    R@1K')
         print(' ' * 62 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
-        for name in models[collection]:
-            if not name:
-                print('')
-                continue
+
+        if args.condition:
+            # If we've used --condition to specify a specific condition, print out only that row.
+            name = args.condition
             print(f'{table_keys[name]:60}' +
                   f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
                   f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
                   f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
+        else:
+            # Otherwise, print out all rows
+            for name in models[collection]:
+                if not name:
+                    print('')
+                    continue
+                print(f'{table_keys[name]:60}' +
+                      f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
+                      f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
+                      f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
     else:
         print(' ' * 77 + 'TREC 2021' + ' ' * 18 + 'MS MARCO dev' + ' ' * 6 + 'MS MARCO dev2')
         print(' ' * 62 + 'MAP@100 nDCG@10 MRR@100 R@100   R@1K     MRR@100   R@1K    MRR@100   R@1K')
