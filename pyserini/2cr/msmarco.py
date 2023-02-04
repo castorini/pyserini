@@ -239,24 +239,25 @@ def read_file(f):
 
 
 def list_conditions(args):
-    print(models[args.collection])
+    for condition in models[args.collection]:
+        if condition == '':
+            continue
+        print(condition)
 
 
 def generate_report(args):
+    yaml_file = pkg_resources.resource_filename(__name__, f'{args.collection}.yaml')
+
     if args.collection == 'msmarco-v1-passage':
-        yaml_file = pkg_resources.resource_filename(__name__, 'msmarco-v1-passage.yaml')
         html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v1_passage.template'))
         row_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_row_v1.template'))
     elif args.collection == 'msmarco-v1-doc':
-        yaml_file = pkg_resources.resource_filename(__name__, 'msmarco-v1-doc.yaml')
         html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v1_doc.template'))
         row_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_row_v1.template'))
     elif args.collection == 'msmarco-v2-passage':
-        yaml_file = pkg_resources.resource_filename(__name__, 'msmarco-v2-passage.yaml')
         html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v2.template'))
         row_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_row_v2.template'))
     elif args.collection == 'msmarco-v2-doc':
-        yaml_file = pkg_resources.resource_filename(__name__, 'msmarco-v2-doc.yaml')
         html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v2.template'))
         row_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_row_v2.template'))
     else:
@@ -284,7 +285,6 @@ def generate_report(args):
                 topic_key = topic_set['topic_key']
                 eval_key = topic_set['eval_key']
 
-                short_topic_key = ''
                 if args.collection == 'msmarco-v1-passage' or args.collection == 'msmarco-v1-doc':
                     short_topic_key = find_msmarco_table_topic_set_key_v1(topic_key)
                 else:
@@ -497,15 +497,26 @@ def run_conditions(args):
         print(' ' * 77 + 'TREC 2021' + ' ' * 18 + 'MS MARCO dev' + ' ' * 6 + 'MS MARCO dev2')
         print(' ' * 62 + 'MAP@100 nDCG@10 MRR@100 R@100   R@1K     MRR@100   R@1K    MRR@100   R@1K')
         print(' ' * 62 + '-' * 38 + '    ' + '-' * 14 + '    ' + '-' * 14)
-        for name in models[args.collection]:
-            if not name:
-                print('')
-                continue
+
+        if args.condition:
+            # If we've used --condition to specify a specific condition, print out only that row.
+            name = args.condition
             print(f'{table_keys[name]:60}' +
                   f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}' +
                   f'{table[name]["dl21"]["MRR@100"]:8.4f}{table[name]["dl21"]["R@100"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
                   f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
                   f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
+        else:
+            # Otherwise, print out all rows
+            for name in models[args.collection]:
+                if not name:
+                    print('')
+                    continue
+                print(f'{table_keys[name]:60}' +
+                      f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}' +
+                      f'{table[name]["dl21"]["MRR@100"]:8.4f}{table[name]["dl21"]["R@100"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
+                      f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
+                      f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
 
     end = time.time()
 
