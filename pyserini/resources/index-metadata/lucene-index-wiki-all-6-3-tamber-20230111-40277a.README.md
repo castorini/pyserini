@@ -21,4 +21,4 @@ python -m pyserini.index.lucene \
   --storeRaw
   ```
 
-index-wiki-all-6-3-tamber-20230111-40277a.tar.gz MD5 checksum = 9f9ca306d8b7a13473d7e016cce5d201
+lucene-index-wiki-all-6-3-tamber-20230111-40277a.tar.gz MD5 checksum = 018b45ee8c6278a879caa3145b2dc05d

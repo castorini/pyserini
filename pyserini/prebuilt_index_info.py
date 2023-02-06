@@ -902,13 +902,13 @@ TF_INDEX_INFO_CURRENT = {
     },
     "wiki-all-6-3-tamber": {
         "description": "Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora",
-        "filename": "index-wiki-all-6-3-tamber-20230111-40277a.tar.gz",
-        "readme": "index-wiki-all-6-3-tamber-20230111-40277a.README.md",
+        "filename": "lucene-index.wiki-all-6-3-tamber.20230111.40277a.tar.gz",
+        "readme": "lucene-index-wiki-all-6-3-tamber-20230111-40277a.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-wiki-all-6-3-tamber-20230111-40277a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wiki-all-6-3-tamber.20230111.40277a.tar.gz",
         ],
-        "md5": "9f9ca306d8b7a13473d7e016cce5d201",
-        "size compressed (bytes)": 20712532306,
+        "md5": "018b45ee8c6278a879caa3145b2dc05d",
+        "size compressed (bytes)": 26240661946,
         "total_terms": 5064706668,
         "documents": 76680040,
         "unique_terms": 14604922,
