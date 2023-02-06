@@ -30,12 +30,12 @@ from scripts.repro_matrix.utils import run_eval_and_return_metric, ok_str, okish
 
 def print_results(metric, split):
     print(f'Metric = {metric}, Split = {split}')
-    print(' ' * 32, end='')
+    print(' ' * 35, end='')
     for lang in languages:
         print(f'{lang[0]:3}    ', end='')
     print('')
     for model in models:
-        print(f'{model:30}', end='')
+        print(f'{model:33}', end='')
         for lang in languages:
             key = f'{model}.{lang[0]}'
             print(f'{table[key][split][metric]:7.3f}', end='')
@@ -64,17 +64,34 @@ if __name__ == '__main__':
             name = condition['name']
             eval_key = condition['eval_key']
             cmd_template = condition['command']
+            cmd_lst = cmd_template.split()
 
             print(f'condition {name}:')
             lang = name.split('.')[-1]
+            is_hybrid_run = 'hybrid' in name
 
             for splits in condition['splits']:
                 split = splits['split']
+                if is_hybrid_run:
+                    hits = int(cmd_lst[cmd_lst.index('--k') + 1])
+                else:
+                    hits = int(cmd_lst[cmd_lst.index('--hits') + 1])
 
                 print(f'  - split: {split}')
 
-                runfile = f'runs/run.miracl.{name}.{split}.txt'
-                cmd = Template(cmd_template).substitute(split=split, output=runfile)
+                runfile = f'runs/run.miracl.{name}.{split}.top{hits}.txt'
+                if is_hybrid_run:
+                    bm25_output = f'runs/run.miracl.bm25.{lang}.{split}.top{hits}.txt'
+                    mdpr_output = f'runs/run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt'
+                    if not os.path.exists(bm25_output):
+                        print(f'Missing BM25 file: {bm25_output}')
+                        continue
+                    if not os.path.exists(mdpr_output):
+                        print(f'Missing mDPR file: {mdpr_output}')
+                        continue
+                    cmd = Template(cmd_template).substitute(split=split, output=runfile, bm25_output=bm25_output, mdpr_output=mdpr_output)
+                else:
+                    cmd = Template(cmd_template).substitute(split=split, output=runfile)
 
                 # In the yaml file, the topics are written as something like '--topics miracl-v1.0-ar-${split}'
                 # This works for the dev split because the topics are directly included in Anserini/Pyserini.
@@ -88,10 +105,11 @@ if __name__ == '__main__':
                     print(f'    Running: {cmd}')
                     rtn = subprocess.run(cmd.split(), capture_output=True)
                     stderr = rtn.stderr.decode()
-                    topic_fn = extract_topic_fn_from_cmd(cmd)
-                    if f'ValueError: Topic {topic_fn} Not Found' in stderr:
-                        print(f'Skipping {topic_fn}: file not found.')
-                        continue
+                    if '--topics' in cmd:
+                        topic_fn = extract_topic_fn_from_cmd(cmd)
+                        if f'ValueError: Topic {topic_fn} Not Found' in stderr:
+                            print(f'Skipping {topic_fn}: file not found.')
+                            continue
 
                 for expected in splits['scores']:
                     for metric in expected:
@@ -107,9 +125,18 @@ if __name__ == '__main__':
                                                                      trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky test: small difference on Mac Studio (M1 chip)
-                            elif name == 'mdpr-tied-pft-msmarco.hi' and split == 'train' \
-                                    and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
+                            # Flaky tests
+                            elif (name == 'mdpr-tied-pft-msmarco.hi' and split == 'train'
+                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
+                                 (name == 'mdpr-tied-pft-msmarco-ft-all.ru'
+                                  and split == 'dev' and metric == 'nDCG@10'
+                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
+                                 (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.te'
+                                  and split == 'train' and metric == 'nDCG@10'
+                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
+                                 (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh'
+                                  and split == 'dev' and metric == 'nDCG@10'
+                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)):
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'

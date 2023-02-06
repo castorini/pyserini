@@ -16,12 +16,12 @@
 
 """Integration tests for DPR model using pre-encoded queries."""
 
-import os
 import json
+import os
 import socket
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score, parse_score_qa
+from integrations.utils import clean_files, run_command, parse_score_qa
 from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
@@ -58,7 +58,6 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.7947, places=4)
-
 
     def test_dpr_nq_test_bf_bm25_hybrid_otf(self):
         output_file = 'test_run.dpr.nq-test.multi.bf.otf.bm25.trec'
@@ -332,9 +331,9 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(topic_data["1"]["answers"], ['contents'])
         self.assertEqual(topic_data["1"]["question"], "what is document two")
 
-
     def tearDown(self):
         clean_files(self.temp_files)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -30,7 +30,7 @@ def init_encoder(encoder, device):
     elif 'tct' in encoder.lower():
         return TctColBertQueryEncoder(encoder, device=device)
     elif 'ance' in encoder.lower():
-        return AnceQueryEncoder(encoder, device=device)
+        return AnceQueryEncoder(encoder, device=device, tokenizer_name='roberta-base')
     elif 'sentence-transformers' in encoder.lower():
         return AutoQueryEncoder(encoder, device=device, pooling='mean', l2_norm=True)
     elif 'unicoil' in encoder.lower():

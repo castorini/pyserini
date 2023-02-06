@@ -55,6 +55,26 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
+    "tct_colbert-v2-hnp-dl19-passage": {
+        "description": "TREC DL19-passage queries encoded by TCT-ColBERT V2 HN+",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-hnp-dl19-passage-20230124-99b795.tar.gz",
+        ],
+        "md5": "ee945fb0a5b17cba4e2e5d51318fbe05",
+        "size (bytes)": 125193,
+        "total_queries": 43,
+        "downloaded": False
+    },
+    "tct_colbert-v2-hnp-dl20": {
+        "description": "TREC DL20 queries encoded by TCT-ColBERT V2 HN+",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-tct_colbert-v2-hnp-dl20-passage-20230124-99b795.tar.gz",
+        ],
+        "md5": "b940d3d38cf5a50a9467a4aa7a59d226",
+        "size (bytes)": 577645,
+        "total_queries": 200,
+        "downloaded": False
+    },
     "ance-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by ANCE",
         "urls": [
@@ -63,6 +83,26 @@ QUERY_INFO = {
         "md5": "adad81bb1495eff2f0463e809ecc01b8",
         "size (bytes)": 19965095,
         "total_queries": 6980,
+        "downloaded": False
+    },
+    "ance-dl19-passage": {
+        "description": "TREC DL19 passage queries encoded by ANCE",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-ance-dl19-passage-20230124-99b79.tar.gz",
+        ],
+        "md5": "828714ef5481dc49686e14b61881ba06",
+        "size (bytes)": 124468,
+        "total_queries": 43,
+        "downloaded": False
+    },
+    "ance-dl20": {
+        "description": "TREC DL20 queries encoded by ANCE",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-ance-dl20-passage-20230124-99b79.tar.gz",
+        ],
+        "md5": "79acea9812a5c20d0d0817b07b348d15",
+        "size (bytes)": 574183,
+        "total_queries": 200,
         "downloaded": False
     },
     "tct_colbert-msmarco-doc-dev": {
@@ -105,6 +145,26 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
     },
+        "distilbert_kd-dl19-passage": {
+        "description": "TREC DL19 passage queries encoded by SBERT",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-distilbert_kd-dl19-passage-20230124-99b79.tar.gz",
+        ],
+        "md5": "c9fe8c8112a7d4fcda1aa606af77e66a",
+        "size (bytes)": 124760,
+        "total_queries": 43,
+        "downloaded": False
+    },
+    "distilbert_kd-dl20": {
+        "description": "TREC DL20 queries encoded by SBERT",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-distilbert_kd-dl20-passage-20230124-99b79.tar.gz",
+        ],
+        "md5": "09fe19984515145a78183a98e44bd699",
+        "size (bytes)": 575682,
+        "total_queries": 200,
+        "downloaded": False
+    },
     "distilbert_tas_b-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by TAS-B",
         "urls": [
@@ -113,6 +173,26 @@ QUERY_INFO = {
         "md5": "17a3f81de7ba497728050b83733b1c46",
         "size (bytes)": 20016799,
         "total_queries": 6980,
+        "downloaded": False
+    },
+    "distilbert_tas_b-dl19-passage": {
+        "description": "TREC DL19 passage queries encoded by TAS-B",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-distilbert_dot_tas_b_b256-dl19-passage-20230124-99b795.tar.gz",
+        ],
+        "md5": "a0a23a1be77e6e9e5dfacf32dfcd5e9b",
+        "size (bytes)": 124809,
+        "total_queries": 43,
+        "downloaded": False
+    },
+    "distilbert_tas_b-dl20": {
+        "description": "TREC DL20 queries encoded by TAS-B",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-distilbert_dot_tas_b_b256-dl20-passage-20230124-99b795.tar.gz",
+        ],
+        "md5": "8ffb4d5a17a2c028fb5065ef8a394ab3",
+        "size (bytes)": 575875,
+        "total_queries": 200,
         "downloaded": False
     },
     "dpr_multi-nq-dev": {

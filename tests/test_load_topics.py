@@ -1145,6 +1145,16 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 393)
         self.assertTrue(isinstance(next(iter(topics.keys())), str))
 
+        topics = search.get_topics('miracl-v1.0-de-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 305)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('miracl-v1.0-yo-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 119)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
+
     # General test cases
     def test_tsv_int_topicreader(self):
         # Running from command-line, we're in root of repo, but running in IDE, we're in tests/
@@ -1173,7 +1183,11 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(search.get_topics('robust04'), topics)
 
     def test_trec_topicreader_nonint_qid(self):
+        # Running from command-line, we're in root of repo, but running in IDE, we're in tests/
         path = 'tests/resources/sample_queries_nonint_qid.tsv'
+        if not os.path.exists(path):
+            path = f'../{path}'
+
         self.assertTrue(os.path.exists(path))
         topics = search.get_topics_with_reader('io.anserini.search.topicreader.TsvStringTopicReader', path)
         self.assertEqual(len(topics), 3)

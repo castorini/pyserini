@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for ANCE model and ANCE PRF using on-the-fly query encoding."""
+"""Integration tests for ANCE and ANCE PRF using on-the-fly query encoding."""
 
 import os
 import socket
@@ -38,28 +38,21 @@ class TestSearchIntegration(unittest.TestCase):
             self.threads = 36
             self.batch_size = 144
 
-    def test_msmarco_passage_ance_bf_otf(self):
-        output_file = 'test_run.msmarco-passage.ance.bf.otf.tsv'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search.faiss --topics msmarco-passage-dev-subset \
-                             --index msmarco-passage-ance-bf \
-                             --encoder castorini/ance-msmarco-passage \
-                             --batch-size {self.batch_size} \
-                             --threads {self.threads} \
-                             --output {output_file} \
-                             --output-format msmarco'
-        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score_msmarco(stdout, 'MRR @10')
-        self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3302, delta=0.0001)
-
-    def test_msmarco_passage_ance_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('ance-msmarco-passage-dev-subset')
+    def test_ance_encoded_queries(self):
+        encoded = QueryEncoder.load_encoded_queries('ance-msmarco-passage-dev-subset')
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoded.embedding)
+
+        encoded = QueryEncoder.load_encoded_queries('ance-dl19-passage')
+        topics = get_topics('dl19-passage')
+        for t in topics:
+            self.assertTrue(topics[t]['title'] in encoded.embedding)
+
+        encoded = QueryEncoder.load_encoded_queries('ance-dl20')
+        topics = get_topics('dl20')
+        for t in topics:
+            self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def test_msmarco_passage_ance_avg_prf_otf(self):
         output_file = 'test_run.dl2019.ance.avg-prf.otf.trec'

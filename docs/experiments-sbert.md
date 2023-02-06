@@ -72,7 +72,7 @@ $ python -m pyserini.eval.msmarco_passage_eval \
     msmarco-passage-dev-subset runs/run.msmarco-passage.sbert.bf.bm25.tsv
 
 #####################
-MRR @10: 0.3379
+MRR @10: 0.3380
 QueriesRanked: 6980
 #####################
 
@@ -83,7 +83,7 @@ $ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
 $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
     runs/run.msmarco-passage.sbert.bf.bm25.trec
 
-map                     all     0.3445
+map                     all     0.3446
 recall_1000             all     0.9659
 ```
 
@@ -92,3 +92,4 @@ recall_1000             all     0.9659
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-02 (commit [`8dcf99`](https://github.com/castorini/pyserini/commit/8dcf99982a7bfd447ce9182ff219a9dad2ddd1f2))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-04-26 (commit [`854c19`](https://github.com/castorini/pyserini/commit/854c1930ba00819245c0a9fbcf2090ce14db4db0))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-23 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))

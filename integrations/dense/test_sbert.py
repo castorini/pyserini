@@ -54,10 +54,10 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertAlmostEqual(score, 0.3314, delta=0.0001)
 
     def test_msmarco_passage_sbert_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('sbert-msmarco-passage-dev-subset')
+        encoded = QueryEncoder.load_encoded_queries('sbert-msmarco-passage-dev-subset')
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def tearDown(self):
         clean_files(self.temp_files)

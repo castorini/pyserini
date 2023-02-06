@@ -106,10 +106,10 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertAlmostEqual(score, 0.3647, places=4)
 
     def test_msmarco_passage_tct_colbert_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-passage-dev-subset')
+        encoded = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-passage-dev-subset')
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def test_msmarco_doc_tct_colbert_bf_otf(self):
         output_file = 'test_run.msmarco-doc.passage.tct_colbert-otf.txt'
@@ -170,10 +170,10 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertAlmostEqual(score, 0.3784, places=4)
 
     def test_msmarco_doc_tct_colbert_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-doc-dev')
+        encoded = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-doc-dev')
         topics = get_topics('msmarco-doc-dev')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def tearDown(self):
         clean_files(self.temp_files)
