@@ -900,6 +900,20 @@ TF_INDEX_INFO_CURRENT = {
         "unique_terms": 8722502,
         "downloaded": False
     },
+    "wiki-all-6-3-tamber": {
+        "description": "Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora",
+        "filename": "lucene-index.wiki-all-6-3-tamber.20230111.40277a.tar.gz",
+        "readme": "lucene-index-wiki-all-6-3-tamber-20230111-40277a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wiki-all-6-3-tamber.20230111.40277a.tar.gz",
+        ],
+        "md5": "018b45ee8c6278a879caa3145b2dc05d",
+        "size compressed (bytes)": 26240661946,
+        "total_terms": 5064706668,
+        "documents": 76680040,
+        "unique_terms": 14604922,
+        "downloaded": False
+    },
 
     # Mr.TyDi indexes
     "mrtydi-v1.1-arabic": {
@@ -6449,5 +6463,18 @@ FAISS_INDEX_INFO = {
         "documents": 49043,
         "downloaded": False,
         "texts": "miracl-v1.0-yo",
+    },
+    "wiki-all-6-3-dpr2-multi": {
+        "description": "Faiss FlatIP index of wiki-all-6-3-tamber encoded by a 2nd iteration DPR model trained on multiple QA datasets",
+        "filename": "faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.tar.gz",
+        "readme": "faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.tar.gz",
+        ],
+        "md5": "b77b8e296c339b6d76988ee5c2d3e96a",
+        "size compressed (bytes)": 218257913793,
+        "documents": 76680040,
+        "downloaded": False,
+        "texts": "wiki-all-6-3-tamber"
     },
 }

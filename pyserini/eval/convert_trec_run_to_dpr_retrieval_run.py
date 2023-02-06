@@ -32,6 +32,7 @@ if __name__ == '__main__':
     parser.add_argument('--input', required=True, help='Input TREC run file.')
     parser.add_argument('--store-raw', action='store_true', help='Store raw text of passage')
     parser.add_argument('--regex', action='store_true', default=False, help="regex match")
+    parser.add_argument('--combine-title-text', action='store_true', help="Make context the concatenation of title and text.")
     parser.add_argument('--output', required=True, help='Output DPR Retrieval json file.')
     args = parser.parse_args()
 
@@ -60,7 +61,11 @@ if __name__ == '__main__':
             if answers[0] == '"':
                 answers = answers[1:-1].replace('""', '"')
             answers = eval(answers)
-            ctx = json.loads(searcher.doc(doc_id).raw())['contents']
+            if args.combine_title_text:
+                passage = json.loads(searcher.doc(doc_id).raw())
+                ctx = passage['title'] + "\n" + passage['text']
+            else:
+                ctx = json.loads(searcher.doc(doc_id).raw())['contents']
             if question_id not in retrieval:
                 retrieval[question_id] = {'question': question, 'answers': answers, 'contexts': []}
             title, text = ctx.split('\n')
@@ -77,4 +82,4 @@ if __name__ == '__main__':
                     {'docid': doc_id, 'score': score, 'has_answer': answer_exist}
                 )
 
-    json.dump(retrieval, open(args.output, 'w'), indent=4)
+    json.dump(retrieval, open(args.output, 'w'), indent=4, ensure_ascii=False)
