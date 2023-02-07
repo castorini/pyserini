@@ -172,6 +172,9 @@ if __name__ == '__main__':
                         help="search batch of queries in parallel")
     parser.add_argument('--threads', type=int, metavar='num', required=False, default=1,
                         help="maximum threads to use during search")
+    # For some test collections, a query is doc from the corpus (e.g., arguana in BEIR).
+    # We want to remove the query from the results. This is equivalent to -removeQuery in Java.
+    parser.add_argument('--remove-query', action='store_true', default=False, help="Remove query from results list.")
     define_dsearch_args(parser)
     args = parser.parse_args()
 
@@ -280,6 +283,11 @@ if __name__ == '__main__':
                     continue
 
             for topic, hits in results:
+                # For some test collections, a query is doc from the corpus (e.g., arguana in BEIR).
+                # We want to remove the query from the results.
+                if args.remove_query:
+                    hits = [hit for hit in hits if hit.docid != topic]
+                
                 output_writer.write(topic, hits)
 
             results.clear()
