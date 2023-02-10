@@ -21,14 +21,12 @@ from integrations.run_lucenesearcher import RunLuceneSearcher
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
-        self.test_threads = ['--threads 1 --batch-size 64',
-                             '--threads 4 --batch-size 64']
+        self.test_threads = ['--threads 1 --batch-size 64', '--threads 4 --batch-size 64']
 
     def check_equal(self, runner: RunLuceneSearcher, runtag: str, extras: str) -> bool:
         checksums = []
         for i, config in enumerate(self.test_threads):
-            checksum = runner.run(runtag=f'{runtag}-{i}',
-                                  extras=f'{config} {extras}')
+            checksum = runner.run(runtag=f'{runtag}-{i}', extras=f'{config} {extras}')
             if len(checksum) == 0:
                 print(f'[FAIL] {runtag} {config} failed to run!')
                 return False
@@ -41,53 +39,37 @@ class TestSearchIntegration(unittest.TestCase):
         return equal
 
     def test_robust04(self):
-        checker = RunLuceneSearcher(
-            index='robust04',
-            topics='robust04')
-        self.assertTrue(self.check_equal(checker,
-                                         'robust04', extras=''))
+        checker = RunLuceneSearcher(index='robust04', topics='robust04')
+        self.assertTrue(self.check_equal(checker, 'robust04', extras=''))
 
     def test_msmarco_passage(self):
-        checker = RunLuceneSearcher(
-            index='msmarco-passage',
-            topics='msmarco-passage-dev-subset')
-        self.assertTrue(self.check_equal(checker,
-                                         'msmarco_passage', extras='--output-format msmarco'))
+        checker = RunLuceneSearcher(index='msmarco-v1-passage', topics='msmarco-passage-dev-subset')
+        self.assertTrue(self.check_equal(checker, 'msmarco-v1-passage', extras='--output-format msmarco'))
 
     def test_msmarco_passage_docTTTTTquery(self):
-        checker = RunLuceneSearcher(
-            index='msmarco-passage-expanded',
-            topics='msmarco-passage-dev-subset')
-        self.assertTrue(self.check_equal(checker,
-                                         'msmarco_passage_docTTTTTquery', extras='--output-format msmarco'))
+        checker = RunLuceneSearcher(index='msmarco-v1-passage-d2q-t5', topics='msmarco-passage-dev-subset')
+        self.assertTrue(self.check_equal(checker, 'msmarco-v1-passage-d2q-t5', extras='--output-format msmarco'))
 
     def test_msmarco_doc(self):
-        checker = RunLuceneSearcher(
-            index='msmarco-doc',
-            topics='msmarco-doc-dev')
-        self.assertTrue(self.check_equal(checker, 'msmarco_doc',
-                                         extras='--hits 100 --output-format msmarco'))
+        checker = RunLuceneSearcher(index='msmarco-v1-doc', topics='msmarco-doc-dev')
+        self.assertTrue(self.check_equal(checker, 'msmarco-v1-doc', extras='--hits 100 --output-format msmarco'))
 
     def test_msmarco_doc_docTTTTTquery(self):
-        checker = RunLuceneSearcher(
-            index='msmarco-doc-expanded-per-doc',
-            topics='msmarco-doc-dev')
-        self.assertTrue(self.check_equal(checker, 'msmarco_doc_docTTTTTquery',
+        checker = RunLuceneSearcher(index='msmarco-v1-doc-d2q-t5', topics='msmarco-doc-dev')
+        self.assertTrue(self.check_equal(checker, 'msmarco-v1-doc-d2q-t5',
                                          extras='--hits 100 --output-format msmarco'))
 
     def test_msmarco_doc_per_passage(self):
-        checker = RunLuceneSearcher(
-            index='msmarco-doc-per-passage',
-            topics='msmarco-doc-dev')
-        self.assertTrue(self.check_equal(checker, 'msmarco_doc_per_passage',
-                                         extras='--hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco'))
+        checker = RunLuceneSearcher(index='msmarco-v1-doc-segmented', topics='msmarco-doc-dev')
+        self.assertTrue(
+            self.check_equal(checker, 'msmarco-v1-doc-segmented',
+                             extras='--hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco'))
 
     def test_msmarco_doc_docTTTTTquery_passage(self):
-        checker = RunLuceneSearcher(
-            index='msmarco-doc-expanded-per-passage',
-            topics='msmarco-doc-dev')
-        self.assertTrue(self.check_equal(checker, 'msmarco_doc_docTTTTTquery_passage',
-                                         extras='--hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco'))
+        checker = RunLuceneSearcher(index='msmarco-v1-doc-segmented-d2q-t5', topics='msmarco-doc-dev')
+        self.assertTrue(
+            self.check_equal(checker, 'msmarco-v1-doc-segmented-d2q-t5',
+                             extras='--hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco'))
 
     def tearDown(self):
         pass
