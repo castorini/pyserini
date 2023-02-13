@@ -14,10 +14,11 @@
 # limitations under the License.
 #
 
-from ._geo_searcher import LuceneGeoSearcher
-from ._impact_searcher import JImpactSearcherResult, LuceneImpactSearcher
 from ._searcher import JLuceneSearcherResult, LuceneSimilarities, \
     LuceneFusionSearcher, LuceneSearcher
+from ._geo_searcher import LuceneGeoSearcher
+from ._impact_searcher import JImpactSearcherResult, LuceneImpactSearcher
+
 
 __all__ = ['JImpactSearcherResult',
            'JLuceneSearcherResult',
