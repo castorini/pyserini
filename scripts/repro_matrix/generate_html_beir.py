@@ -25,6 +25,7 @@ from scripts.repro_matrix.defs_beir import beir_keys, trec_eval_metric_definitio
 def format_run_command(raw):
     return raw.replace('--topics', '\\\n  --topics')\
         .replace('--index', '\\\n  --index')\
+        .replace('--encoder-class', '\\\n --encoder-class')\
         .replace('--output ', '\\\n  --output ')\
         .replace('--output-format trec', '\\\n  --output-format trec \\\n ') \
         .replace('--hits ', '\\\n  --hits ')
@@ -84,12 +85,16 @@ if __name__ == '__main__':
                              s4=f'{table[dataset]["multifield"]["R@100"]:8.4f}',
                              s5=f'{table[dataset]["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}',
                              s6=f'{table[dataset]["splade-distil-cocodenser-medium"]["R@100"]:8.4f}',
+                             s7=f'{table[dataset]["contriever"]["nDCG@10"]:8.4f}',
+                             s8=f'{table[dataset]["contriever"]["R@100"]:8.4f}',
                              cmd1=commands[dataset]["flat"],
                              cmd2=commands[dataset]["multifield"],
                              cmd3=commands[dataset]["splade-distil-cocodenser-medium"],
+                             cmd4=commands[dataset]["contriever"],
                              eval_cmd1=eval_commands[dataset]["flat"].rstrip(),
                              eval_cmd2=eval_commands[dataset]["multifield"].rstrip(),
                              eval_cmd3=eval_commands[dataset]["splade-distil-cocodenser-medium"].rstrip(),
+                             eval_cmd4=eval_commands[dataset]["contriever"].rstrip(),
                              )
 
             html_rows.append(s)

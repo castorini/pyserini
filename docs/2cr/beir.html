@@ -149,6 +149,7 @@ pre[class*="prettyprint"] {
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 Multifield</b></th>
         <th class="headertop" colspan="2"><b>SPLADE</b></th>
+        <th class="headertop" colspan="2"><b>Contriever</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
@@ -159,6 +160,8 @@ pre[class*="prettyprint"] {
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>
       </tr>
@@ -177,10 +180,12 @@ pre[class*="prettyprint"] {
 <td></td>
 <td>  0.7109</td>
 <td>  0.1308</td>
+<td>  0.2732</td>
+<td>  0.0368</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse1" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -193,6 +198,9 @@ pre[class*="prettyprint"] {
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -286,6 +294,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row1-tab4" role="tabpanel" aria-labelledby="row1-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-trec-covid.contriever.20230124 \
+  --topics beir-v1.0.0-trec-covid-test \
+  --output run.beir-contriever.trec-covid.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
+  run.beir-contriever.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-covid-test \
+  run.beir-contriever.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-covid-test \
+  run.beir-contriever.trec-covid.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -303,10 +339,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.5035</td>
 <td>  0.7422</td>
+<td>  0.3016</td>
+<td>  0.5412</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse2" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -319,6 +357,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -412,6 +453,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row2-tab4" role="tabpanel" aria-labelledby="row2-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-bioasq.contriever.20230124 \
+  --topics beir-v1.0.0-bioasq-test \
+  --output run.beir-contriever.bioasq.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
+  run.beir-contriever.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-bioasq-test \
+  run.beir-contriever.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-bioasq-test \
+  run.beir-contriever.bioasq.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -429,10 +498,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3454</td>
 <td>  0.2891</td>
+<td>  0.3173</td>
+<td>  0.2943</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse3" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -445,6 +516,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -538,6 +612,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row3-tab4" role="tabpanel" aria-labelledby="row3-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-nfcorpus.contriever.20230124 \
+  --topics beir-v1.0.0-nfcorpus-test \
+  --output run.beir-contriever.nfcorpus.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
+  run.beir-contriever.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nfcorpus-test \
+  run.beir-contriever.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
+  run.beir-contriever.nfcorpus.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -555,10 +657,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.5442</td>
 <td>  0.9285</td>
+<td>  0.2536</td>
+<td>  0.7712</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse4" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -571,6 +675,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -664,6 +771,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row4-tab4" role="tabpanel" aria-labelledby="row4-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-nq.contriever.20230124 \
+  --topics beir-v1.0.0-nq-test \
+  --output run.beir-contriever.nq.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
+  run.beir-contriever.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nq-test \
+  run.beir-contriever.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nq-test \
+  run.beir-contriever.nq.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -681,10 +816,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.6860</td>
 <td>  0.8144</td>
+<td>  0.4807</td>
+<td>  0.7046</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse5" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -697,6 +834,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -790,6 +930,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row5-tab4" role="tabpanel" aria-labelledby="row5-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-hotpotqa.contriever.20230124 \
+  --topics beir-v1.0.0-hotpotqa-test \
+  --output run.beir-contriever.hotpotqa.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
+  run.beir-contriever.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-hotpotqa-test \
+  run.beir-contriever.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
+  run.beir-contriever.hotpotqa.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -807,10 +975,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3514</td>
 <td>  0.6298</td>
+<td>  0.2449</td>
+<td>  0.5619</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse6" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -823,6 +993,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -916,6 +1089,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row6-tab4" role="tabpanel" aria-labelledby="row6-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-fiqa.contriever.20230124 \
+  --topics beir-v1.0.0-fiqa-test \
+  --output run.beir-contriever.fiqa.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
+  run.beir-contriever.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fiqa-test \
+  run.beir-contriever.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fiqa-test \
+  run.beir-contriever.fiqa.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -933,10 +1134,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2957</td>
 <td>  0.3311</td>
+<td>  0.2338</td>
+<td>  0.2568</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse7" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -949,6 +1152,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1042,6 +1248,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row7-tab4" role="tabpanel" aria-labelledby="row7-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-signal1m.contriever.20230124 \
+  --topics beir-v1.0.0-signal1m-test \
+  --output run.beir-contriever.signal1m.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
+  run.beir-contriever.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-signal1m-test \
+  run.beir-contriever.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-signal1m-test \
+  run.beir-contriever.signal1m.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1059,10 +1293,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3936</td>
 <td>  0.4323</td>
+<td>  0.3484</td>
+<td>  0.4234</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse8" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1075,6 +1311,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1168,6 +1407,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row8-tab4" role="tabpanel" aria-labelledby="row8-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-trec-news.contriever.20230124 \
+  --topics beir-v1.0.0-trec-news-test \
+  --output run.beir-contriever.trec-news.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
+  run.beir-contriever.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-news-test \
+  run.beir-contriever.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-news-test \
+  run.beir-contriever.trec-news.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1185,10 +1452,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.4581</td>
 <td>  0.3773</td>
+<td>  0.3155</td>
+<td>  0.2757</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse9" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1201,6 +1470,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1294,6 +1566,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row9-tab4" role="tabpanel" aria-labelledby="row9-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-robust04.contriever.20230124 \
+  --topics beir-v1.0.0-robust04-test \
+  --output run.beir-contriever.robust04.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
+  run.beir-contriever.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-robust04-test \
+  run.beir-contriever.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-robust04-test \
+  run.beir-contriever.robust04.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1311,10 +1611,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.5210</td>
 <td>  0.9822</td>
+<td>  0.3791</td>
+<td>  0.9011</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse10" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1327,6 +1629,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1420,6 +1725,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row10-tab4" role="tabpanel" aria-labelledby="row10-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-arguana.contriever.20230124 \
+  --topics beir-v1.0.0-arguana-test \
+  --output run.beir-contriever.arguana.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
+  run.beir-contriever.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-arguana-test \
+  run.beir-contriever.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-arguana-test \
+  run.beir-contriever.arguana.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1437,10 +1770,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2435</td>
 <td>  0.4723</td>
+<td>  0.1668</td>
+<td>  0.3736</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse11" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1453,6 +1788,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1546,6 +1884,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row11-tab4" role="tabpanel" aria-labelledby="row11-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-webis-touche2020.contriever.20230124 \
+  --topics beir-v1.0.0-webis-touche2020-test \
+  --output run.beir-contriever.webis-touche2020.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
+  run.beir-contriever.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
+  run.beir-contriever.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
+  run.beir-contriever.webis-touche2020.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1563,10 +1929,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3954</td>
 <td>  0.7405</td>
+<td>  0.3771</td>
+<td>  0.7436</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse12" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1579,6 +1947,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1672,6 +2043,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row12-tab4" role="tabpanel" aria-labelledby="row12-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-android.contriever.20230124 \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --output run.beir-contriever.cqadupstack-android.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-contriever.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-contriever.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-contriever.cqadupstack-android.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1689,10 +2088,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.4026</td>
 <td>  0.6768</td>
+<td>  0.3571</td>
+<td>  0.6442</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse13" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1705,6 +2106,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row13-tab4-header" data-mdb-toggle="tab" href="#row13-tab4" role="tab" aria-controls="row13-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1798,6 +2202,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row13-tab4" role="tabpanel" aria-labelledby="row13-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-english.contriever.20230124 \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --output run.beir-contriever.cqadupstack-english.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-contriever.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-contriever.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-contriever.cqadupstack-english.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1815,10 +2247,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.5061</td>
 <td>  0.8138</td>
+<td>  0.4597</td>
+<td>  0.8092</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse14" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1831,6 +2265,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row14-tab3-header" data-mdb-toggle="tab" href="#row14-tab3" role="tab" aria-controls="row14-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row14-tab4-header" data-mdb-toggle="tab" href="#row14-tab4" role="tab" aria-controls="row14-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1924,6 +2361,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row14-tab4" role="tabpanel" aria-labelledby="row14-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-gaming.contriever.20230124 \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --output run.beir-contriever.cqadupstack-gaming.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-contriever.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-contriever.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-contriever.cqadupstack-gaming.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1941,10 +2406,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3223</td>
 <td>  0.6419</td>
+<td>  0.2411</td>
+<td>  0.5792</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse15" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1957,6 +2424,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row15-tab3-header" data-mdb-toggle="tab" href="#row15-tab3" role="tab" aria-controls="row15-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row15-tab4-header" data-mdb-toggle="tab" href="#row15-tab4" role="tab" aria-controls="row15-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2050,6 +2520,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row15-tab4" role="tabpanel" aria-labelledby="row15-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-gis.contriever.20230124 \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --output run.beir-contriever.cqadupstack-gis.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-contriever.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-contriever.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-contriever.cqadupstack-gis.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2067,10 +2565,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2423</td>
 <td>  0.5732</td>
+<td>  0.1841</td>
+<td>  0.5127</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse16" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2083,6 +2583,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row16-tab3-header" data-mdb-toggle="tab" href="#row16-tab3" role="tab" aria-controls="row16-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row16-tab4-header" data-mdb-toggle="tab" href="#row16-tab4" role="tab" aria-controls="row16-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2176,6 +2679,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row16-tab4" role="tabpanel" aria-labelledby="row16-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-mathematica.contriever.20230124 \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --output run.beir-contriever.cqadupstack-mathematica.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-contriever.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-contriever.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-contriever.cqadupstack-mathematica.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2193,10 +2724,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3668</td>
 <td>  0.7286</td>
+<td>  0.3430</td>
+<td>  0.7013</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse17" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2209,6 +2742,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row17-tab3-header" data-mdb-toggle="tab" href="#row17-tab3" role="tab" aria-controls="row17-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row17-tab4-header" data-mdb-toggle="tab" href="#row17-tab4" role="tab" aria-controls="row17-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2302,6 +2838,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row17-tab4" role="tabpanel" aria-labelledby="row17-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-physics.contriever.20230124 \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --output run.beir-contriever.cqadupstack-physics.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-contriever.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-contriever.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-contriever.cqadupstack-physics.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2319,10 +2883,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3412</td>
 <td>  0.6653</td>
+<td>  0.3029</td>
+<td>  0.6402</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse18" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2335,6 +2901,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row18-tab3-header" data-mdb-toggle="tab" href="#row18-tab3" role="tab" aria-controls="row18-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row18-tab4-header" data-mdb-toggle="tab" href="#row18-tab4" role="tab" aria-controls="row18-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2428,6 +2997,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row18-tab4" role="tabpanel" aria-labelledby="row18-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-programmers.contriever.20230124 \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --output run.beir-contriever.cqadupstack-programmers.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-contriever.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-contriever.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-contriever.cqadupstack-programmers.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2445,10 +3042,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3142</td>
 <td>  0.5889</td>
+<td>  0.2483</td>
+<td>  0.5269</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse19" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2461,6 +3060,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row19-tab3-header" data-mdb-toggle="tab" href="#row19-tab3" role="tab" aria-controls="row19-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row19-tab4-header" data-mdb-toggle="tab" href="#row19-tab4" role="tab" aria-controls="row19-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2554,6 +3156,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row19-tab4" role="tabpanel" aria-labelledby="row19-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-stats.contriever.20230124 \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --output run.beir-contriever.cqadupstack-stats.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-contriever.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-contriever.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-contriever.cqadupstack-stats.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2571,10 +3201,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2575</td>
 <td>  0.5231</td>
+<td>  0.1540</td>
+<td>  0.4333</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse20" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2587,6 +3219,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row20-tab3-header" data-mdb-toggle="tab" href="#row20-tab3" role="tab" aria-controls="row20-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row20-tab4-header" data-mdb-toggle="tab" href="#row20-tab4" role="tab" aria-controls="row20-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2680,6 +3315,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row20-tab4" role="tabpanel" aria-labelledby="row20-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-tex.contriever.20230124 \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --output run.beir-contriever.cqadupstack-tex.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-contriever.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-contriever.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-contriever.cqadupstack-tex.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2697,10 +3360,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3292</td>
 <td>  0.6192</td>
+<td>  0.2636</td>
+<td>  0.5879</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse21" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2713,6 +3378,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row21-tab3-header" data-mdb-toggle="tab" href="#row21-tab3" role="tab" aria-controls="row21-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row21-tab4-header" data-mdb-toggle="tab" href="#row21-tab4" role="tab" aria-controls="row21-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2806,6 +3474,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row21-tab4" role="tabpanel" aria-labelledby="row21-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-unix.contriever.20230124 \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --output run.beir-contriever.cqadupstack-unix.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-contriever.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-contriever.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-contriever.cqadupstack-unix.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2823,10 +3519,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3343</td>
 <td>  0.6404</td>
+<td>  0.2878</td>
+<td>  0.6485</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse22" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2839,6 +3537,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row22-tab3-header" data-mdb-toggle="tab" href="#row22-tab3" role="tab" aria-controls="row22-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row22-tab4-header" data-mdb-toggle="tab" href="#row22-tab4" role="tab" aria-controls="row22-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2932,6 +3633,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row22-tab4" role="tabpanel" aria-labelledby="row22-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-webmasters.contriever.20230124 \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --output run.beir-contriever.cqadupstack-webmasters.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-contriever.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-contriever.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-contriever.cqadupstack-webmasters.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2949,10 +3678,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2839</td>
 <td>  0.5974</td>
+<td>  0.1914</td>
+<td>  0.5364</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse23" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2965,6 +3696,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row23-tab3-header" data-mdb-toggle="tab" href="#row23-tab3" role="tab" aria-controls="row23-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row23-tab4-header" data-mdb-toggle="tab" href="#row23-tab4" role="tab" aria-controls="row23-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3058,6 +3792,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row23-tab4" role="tabpanel" aria-labelledby="row23-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-wordpress.contriever.20230124 \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --output run.beir-contriever.cqadupstack-wordpress.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-contriever.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-contriever.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-contriever.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3075,10 +3837,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.8136</td>
 <td>  0.9817</td>
+<td>  0.8349</td>
+<td>  0.9871</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse24" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -3091,6 +3855,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3184,6 +3951,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row24-tab4" role="tabpanel" aria-labelledby="row24-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-quora.contriever.20230124 \
+  --topics beir-v1.0.0-quora-test \
+  --output run.beir-contriever.quora.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir-contriever.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir-contriever.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir-contriever.quora.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3201,10 +3996,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.4416</td>
 <td>  0.5636</td>
+<td>  0.2916</td>
+<td>  0.4529</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse25" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -3217,6 +4014,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3310,6 +4110,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row25-tab4" role="tabpanel" aria-labelledby="row25-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-dbpedia-entity.contriever.20230124 \
+  --topics beir-v1.0.0-dbpedia-entity-test \
+  --output run.beir-contriever.dbpedia-entity.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-contriever.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-contriever.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-contriever.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3327,10 +4155,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.1590</td>
 <td>  0.3671</td>
+<td>  0.1491</td>
+<td>  0.3601</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse26" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -3343,6 +4173,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3436,6 +4269,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row26-tab4" role="tabpanel" aria-labelledby="row26-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-scidocs.contriever.20230124 \
+  --topics beir-v1.0.0-scidocs-test \
+  --output run.beir-contriever.scidocs.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir-contriever.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir-contriever.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir-contriever.scidocs.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3453,10 +4314,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.7962</td>
 <td>  0.9550</td>
+<td>  0.6821</td>
+<td>  0.9356</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse27" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -3469,6 +4332,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row27-tab3-header" data-mdb-toggle="tab" href="#row27-tab3" role="tab" aria-controls="row27-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3562,6 +4428,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row27-tab4" role="tabpanel" aria-labelledby="row27-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-fever.contriever.20230124 \
+  --topics beir-v1.0.0-fever-test \
+  --output run.beir-contriever.fever.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir-contriever.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir-contriever.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir-contriever.fever.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3579,10 +4473,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2276</td>
 <td>  0.5140</td>
+<td>  0.1550</td>
+<td>  0.4422</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse28" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -3595,6 +4491,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row28-tab3-header" data-mdb-toggle="tab" href="#row28-tab3" role="tab" aria-controls="row28-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3688,6 +4587,34 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row28-tab4" role="tabpanel" aria-labelledby="row28-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-climate-fever.contriever.20230124 \
+  --topics beir-v1.0.0-climate-fever-test \
+  --output run.beir-contriever.climate-fever.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir-contriever.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir-contriever.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir-contriever.climate-fever.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3705,10 +4632,12 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.6992</td>
 <td>  0.9270</td>
+<td>  0.6493</td>
+<td>  0.9260</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="11">
 <div id="collapse29" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -3721,6 +4650,9 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row29-tab3-header" data-mdb-toggle="tab" href="#row29-tab3" role="tab" aria-controls="row29-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3811,6 +4743,34 @@ python -m pyserini.eval.trec_eval \
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scifact-test \
   run.beir-splade-distil-cocodenser-medium.scifact.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row29-tab4" role="tabpanel" aria-labelledby="row29-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-scifact.contriever.20230124 \
+  --topics beir-v1.0.0-scifact-test \
+  --output run.beir-contriever.scifact.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir-contriever.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir-contriever.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir-contriever.scifact.txt</code></pre>
   </blockquote>
 
   </div>

@@ -92,3 +92,16 @@ for key in beir_keys:
     os.system(cmd)
     cmd = f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.100,1000 beir-v1.0.0-{key}-test runs/run.beir-v1.0.0-{key}-splade_distil_cocodenser_medium.trec'
     os.system(cmd)
+
+# Runs on Contriever index
+for key in beir_keys:
+    cmd = f'python -m pyserini.search.faiss \
+              --encoder-class contriever   --encoder facebook/contriever \
+              --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-{key}.contriever.20230124 \
+              --topics beir-v1.0.0-{key}-test \
+              --output runs/run.beir.contriever.{key}.txt \
+              --batch 128 --threads 16 \
+              --remove-query --hits 1000'
+    os.system(cmd)
+    cmd = f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.100,1000 beir-v1.0.0-{key}-test runs/run.beir.contriever.{key}.txt'
+    os.system(cmd)
