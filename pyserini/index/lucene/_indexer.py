@@ -15,6 +15,7 @@
 #
 
 import logging
+from typing import List
 
 from pyserini.pyclass import autoclass
 
@@ -33,9 +34,14 @@ class LuceneIndexer:
         Path to Lucene index directory.
     """
 
-    def __init__(self, index_dir: str):
+    def __init__(self, index_dir: str = None, args: List[str] = None):
         self.index_dir = index_dir
-        self.object = JLuceneIndexer(index_dir)
+        self.args = args
+        if args:
+            # `-input` is required by `IndexCollection.Args` but not by `SimpleIndexer`
+            self.object = JLuceneIndexer(args)
+        else:
+            self.object = JLuceneIndexer(index_dir)
 
     def add(self, doc: str):
         """Add a document to the index.

@@ -55,5 +55,29 @@ class TestSearch(unittest.TestCase):
         self.assertEqual('CACM-2274', hits[0].docid)
         self.assertAlmostEqual(1.53650, hits[0].score, places=5)
 
+    def test_indexer_with_args(self):
+        indexer = LuceneIndexer(args=[
+            "-input", "", "-index", self.tmp_dir,
+            "-collection", "JsonCollection"
+            , "-threads", "1", "-pretokenized"
+        ])
+
+        with open(self.test_file) as f:
+            for doc in f:
+                indexer.add(doc)
+
+        indexer.close()
+
+        searcher = LuceneSearcher(self.tmp_dir)
+        self.assertEqual(3, searcher.num_docs)
+
+        hits = searcher.search('semantic networks')
+
+        self.assertTrue(isinstance(hits, List))
+        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
+        self.assertEqual(1, len(hits))
+        self.assertEqual('CACM-2274', hits[0].docid)
+        self.assertAlmostEqual(0.62610, hits[0].score, places=5)
+
     def tearDown(self):
         shutil.rmtree(self.tmp_dir)
