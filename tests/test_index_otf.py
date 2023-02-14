@@ -56,11 +56,7 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(1.53650, hits[0].score, places=5)
 
     def test_indexer_with_args(self):
-        indexer = LuceneIndexer(args=[
-            "-input", "", "-index", self.tmp_dir,
-            "-collection", "JsonCollection"
-            , "-threads", "1", "-pretokenized"
-        ])
+        indexer = LuceneIndexer(args=["-index", self.tmp_dir, "-pretokenized"])
 
         with open(self.test_file) as f:
             for doc in f:
