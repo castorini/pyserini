@@ -32,13 +32,19 @@ class LuceneIndexer:
     ----------
     index_dir : str
         Path to Lucene index directory.
+    args : List[str]
+        List of arguments to pass to ``SimpleIndexer``.
     """
 
     def __init__(self, index_dir: str = None, args: List[str] = None):
         self.index_dir = index_dir
         self.args = args
         if args:
-            # `-input` is required by `IndexCollection.Args` but not by `SimpleIndexer`
+            default_args = ["-input", "", "-collection", "JsonCollection"]
+            if not "-threads" in args:
+                default_args.extend(["-threads", "1"])
+            
+            args.extend(default_args)
             self.object = JLuceneIndexer(args)
         else:
             self.object = JLuceneIndexer(index_dir)
