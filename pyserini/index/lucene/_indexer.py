@@ -15,6 +15,7 @@
 #
 
 import logging
+from typing import List
 
 from pyserini.pyclass import autoclass
 
@@ -31,11 +32,22 @@ class LuceneIndexer:
     ----------
     index_dir : str
         Path to Lucene index directory.
+    args : List[str]
+        List of arguments to pass to ``SimpleIndexer``.
     """
 
-    def __init__(self, index_dir: str):
+    def __init__(self, index_dir: str = None, args: List[str] = None):
         self.index_dir = index_dir
-        self.object = JLuceneIndexer(index_dir)
+        self.args = args
+        if args:
+            default_args = ["-input", "", "-collection", "JsonCollection"]
+            if not "-threads" in args:
+                default_args.extend(["-threads", "1"])
+            
+            args.extend(default_args)
+            self.object = JLuceneIndexer(args)
+        else:
+            self.object = JLuceneIndexer(index_dir)
 
     def add(self, doc: str):
         """Add a document to the index.
