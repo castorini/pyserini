@@ -45,7 +45,7 @@ python -m pyserini.search.lucene \
   --index msmarco-v1-passage-slim-pp \
   --topics msmarco-passage-dev-subset \
   --encoder castorini/slim-pp-msmarco-passage \
-  --sparse_vec_path scipy-sparse-vectors.msmarco-v1-passage-slim-pp \
+  --sparse_corpus_vector scipy-sparse-vectors.msmarco-v1-passage-slim-pp \
   --output runs/run.msmarco-passage.slim-pp.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \
