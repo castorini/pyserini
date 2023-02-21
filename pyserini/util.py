@@ -255,8 +255,9 @@ def download_encoded_corpus(corpus_name, force=False, verbose=True, mirror=None)
         raise ValueError(f'Unrecognized corpus name {corpus_name}')
     corpus_md5 = CORPUS_INFO[corpus_name]['md5']
     for url in CORPUS_INFO[corpus_name]['urls']:
+        local_filename = CORPUS_INFO[corpus_name]['filename'] if 'filename' in CORPUS_INFO[corpus_name] else None
         try:
-            return download_and_unpack_index(url, index_directory='corpus', prebuilt=True, md5=corpus_md5)
+            return download_and_unpack_index(url, local_filename=local_filename, index_directory='corpus', prebuilt=True, md5=corpus_md5)
         except (HTTPError, URLError) as e:
             print(f'Unable to download encoded corpus at {url}, trying next URL...')
     raise ValueError(f'Unable to download encoded corpus at any known URLs.')

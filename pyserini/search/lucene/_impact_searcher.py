@@ -269,26 +269,26 @@ def maxsim(entry):
     return qid, scores, docids
 
 class SLIMSearcher(LuceneImpactSearcher):
-    def __init__(self, sparse_corpus_vector, *args, **kwargs):
+    def __init__(self, encoded_corpus, *args, **kwargs):
         super().__init__(*args, **kwargs)
         print("Loading sparse corpus vectors for fast reranking...")
-        with open(os.path.join(sparse_corpus_vector, "sparse_range.pkl"), "rb") as f:
+        with open(os.path.join(encoded_corpus, "sparse_range.pkl"), "rb") as f:
             self.sparse_ranges = pickle.load(f)
-        sparse_vecs = scipy.sparse.load_npz(os.path.join(sparse_corpus_vector, "sparse_vec.npz"))
+        sparse_vecs = scipy.sparse.load_npz(os.path.join(encoded_corpus, "sparse_vec.npz"))
         self.sparse_vecs = [sparse_vecs[start:end] for start, end in tqdm(self.sparse_ranges)]
     
     @classmethod
-    def from_prebuilt_index(cls, sparse_corpus_vector:str, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0):
+    def from_prebuilt_index(cls, encoded_corpus:str, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0):
         print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name)
-            sparse_corpus_vector = download_encoded_corpus(sparse_corpus_vector)
+            encoded_corpus = download_encoded_corpus(encoded_corpus)
         except ValueError as e:
             print(str(e))
             return None
 
         print(f'Initializing {prebuilt_index_name}...')
-        return cls(sparse_corpus_vector, index_dir, query_encoder, min_idf)
+        return cls(encoded_corpus, index_dir, query_encoder, min_idf)
 
     def search(self, q: str, k: int = 10, fields=dict()) -> List[JImpactSearcherResult]:
         jfields = JHashMap()

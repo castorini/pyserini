@@ -77,7 +77,7 @@ def set_bm25_parameters(searcher, index, k1=None, b=None):
 def define_search_args(parser):
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                         help="Path to Lucene index or name of prebuilt index.")
-    parser.add_argument('--sparse_corpus_vector', type=str, default=None, help="path to stored sparse vectors")
+    parser.add_argument('--encoded-corpus', type=str, default=None, help="path to stored sparse vectors")
 
     parser.add_argument('--impact', action='store_true', help="Use Impact.")
     parser.add_argument('--encoder', type=str, default=None, help="encoder name")
@@ -160,13 +160,13 @@ if __name__ == "__main__":
             searcher = LuceneSearcher.from_prebuilt_index(args.index)
     elif args.impact:
         if os.path.exists(args.index):
-            if args.sparse_corpus_vector is not None:
-                searcher = SLIMSearcher(args.sparse_corpus_vector, args.index, args.encoder, args.min_idf)
+            if args.encoded_corpus is not None:
+                searcher = SLIMSearcher(args.encoded_corpus, args.index, args.encoder, args.min_idf)
             else:
                 searcher = LuceneImpactSearcher(args.index, args.encoder, args.min_idf)
         else:
-            if args.sparse_corpus_vector is not None:
-                searcher = SLIMSearcher.from_prebuilt_index(args.sparse_corpus_vector, args.index, args.encoder, args.min_idf)
+            if args.encoded_corpus is not None:
+                searcher = SLIMSearcher.from_prebuilt_index(args.encoded_corpus, args.index, args.encoder, args.min_idf)
             else:
                 searcher = LuceneImpactSearcher.from_prebuilt_index(args.index, args.encoder, args.min_idf)
 
