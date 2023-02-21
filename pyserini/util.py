@@ -27,6 +27,7 @@ import pandas as pd
 from tqdm import tqdm
 
 from pyserini.encoded_query_info import QUERY_INFO
+from pyserini.encoded_corpus_info import CORPUS_INFO
 from pyserini.evaluate_script_info import EVALUATION_INFO
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, FAISS_INDEX_INFO, IMPACT_INDEX_INFO
 
@@ -106,7 +107,6 @@ def get_cache_home():
         return custom_dir
     return os.path.expanduser(os.path.join(f'~{os.path.sep}.cache', "pyserini"))
 
-
 def download_and_unpack_index(url, index_directory='indexes', local_filename=False,
                               force=False, verbose=True, prebuilt=False, md5=None):
     # If caller does not specify local filename, figure it out from the download URL:
@@ -150,8 +150,11 @@ def download_and_unpack_index(url, index_directory='indexes', local_filename=Fal
 
     if verbose:
         print(f'Extracting {local_tarball} into {index_path}...')
-    tarball = tarfile.open(local_tarball)
-
+    try:
+        tarball = tarfile.open(local_tarball)
+    except:
+        local_tarball = os.path.join(index_directory, f'{index_name}')
+        tarball = tarfile.open(local_tarball)
     dirs_in_tarball = [member.name for member in tarball if member.isdir()]
     assert len(dirs_in_tarball), f"Detect multiple members ({', '.join(dirs_in_tarball)}) under the tarball {local_tarball}."
     tarball.extractall(index_directory)
@@ -245,6 +248,18 @@ def download_encoded_queries(query_name, force=False, verbose=True, mirror=None)
         except (HTTPError, URLError) as e:
             print(f'Unable to download encoded query at {url}, trying next URL...')
     raise ValueError(f'Unable to download encoded query at any known URLs.')
+
+
+def download_encoded_corpus(corpus_name, force=False, verbose=True, mirror=None):
+    if corpus_name not in CORPUS_INFO:
+        raise ValueError(f'Unrecognized corpus name {corpus_name}')
+    corpus_md5 = CORPUS_INFO[corpus_name]['md5']
+    for url in CORPUS_INFO[corpus_name]['urls']:
+        try:
+            return download_and_unpack_index(url, index_directory='corpus', prebuilt=True, md5=corpus_md5)
+        except (HTTPError, URLError) as e:
+            print(f'Unable to download encoded corpus at {url}, trying next URL...')
+    raise ValueError(f'Unable to download encoded corpus at any known URLs.')
 
 
 def download_evaluation_script(evaluation_name, force=False, verbose=True, mirror=None):
