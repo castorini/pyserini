@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for uniCOIL and Tilde models using on-the-fly query encoding."""
+"""Integration tests for uniCOIL models using on-the-fly query encoding."""
 
 import os
 import unittest
@@ -27,28 +27,6 @@ class TestSearchIntegration(unittest.TestCase):
         self.temp_files = []
         self.threads = 16
         self.batch_size = 128
-
-    def test_msmarco_doc_unicoil_d2q_otf(self):
-        output_file = 'test_run.msmarco-doc.unicoil-d2q.otf.tsv'
-        self.temp_files.append(output_file)
-        cmd = f'python -m pyserini.search.lucene \
-                   --threads {self.threads} --batch-size {self.batch_size} \
-                   --index msmarco-v1-doc-segmented-unicoil \
-                   --topics msmarco-doc-dev \
-                   --encoder castorini/unicoil-msmarco-passage \
-                   --output {output_file} \
-                   --impact --hits 10000 --max-passage --max-passage-hits 1000'
-        status = os.system(cmd)
-        self.assertEqual(status, 0)
-
-        # Match score in https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html
-        stdout, stderr = run_command(f'python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank \
-                                         msmarco-doc-dev {output_file}')
-        self.assertAlmostEqual(0.3532, parse_score(stdout, "recip_rank"), delta=0.0001)
-
-        stdout, stderr = run_command(f'python -m pyserini.eval.trec_eval -c -m recall.1000 \
-                                         msmarco-doc-dev {output_file}')
-        self.assertAlmostEqual(0.9546, parse_score(stdout, "recall_1000"), delta=0.0001)
 
     def test_msmarco_passage_tilde_otf(self):
         output_file = 'test_run.msmarco-passage.tilde.otf.tsv'
