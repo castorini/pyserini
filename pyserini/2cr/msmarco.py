@@ -223,11 +223,14 @@ def find_msmarco_table_topic_set_key_v2(topic_key):
 
 
 def format_command(raw):
+    # After "--output foo.txt" are additional options like "--hits 1000 --impact".
+    # We want these on a separate line for better readability, but note that sometimes that might
+    # be the end of the command, in which case we don't want to add an extra line break.
     return raw.replace('--topics', '\\\n  --topics') \
         .replace('--threads', '\\\n  --threads')\
         .replace('--index', '\\\n  --index')\
         .replace('--output', '\\\n  --output')\
-        .replace('.txt', '.txt \\\n ')
+        .replace('.txt ', '.txt \\\n  ')
 
 
 def read_file(f):
@@ -255,10 +258,10 @@ def generate_report(args):
         html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v1_doc.template'))
         row_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_row_v1.template'))
     elif args.collection == 'msmarco-v2-passage':
-        html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v2.template'))
+        html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v2_passage.template'))
         row_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_row_v2.template'))
     elif args.collection == 'msmarco-v2-doc':
-        html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v2.template'))
+        html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v2_doc.template'))
         row_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_row_v2.template'))
     else:
         raise ValueError(f'Unknown corpus: {args.collection}')

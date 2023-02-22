@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Pyserini Reproductions</title>
+    <title>Pyserini Reproductions: MS MARCO V1 Passage</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -37,6 +37,14 @@ blockquote.mycode {
   border-left: 3px solid #ccc;
   margin-left: 25px;
   margin-top: 15px;
+  padding-left: 15px;
+}
+
+blockquote.mycode2 {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   padding-left: 15px;
 }
 
@@ -132,7 +140,8 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
-<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.</p>
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.
+Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
 
 <div class="table-responsive">
   <table class="table">
@@ -1876,8 +1885,7 @@ Command to generate run on TREC 2019 queries:
   --threads 16 --batch-size 512 \
   --index msmarco-passage-ance-bf \
   --topics dl19-passage --encoded-queries ance-dl19-passage \
-  --output run.msmarco-v1-passage.ance.dl19.txt \
- 
+  --output run.msmarco-v1-passage.ance.dl19.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1897,8 +1905,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-ance-bf \
   --topics dl20 --encoded-queries ance-dl20 \
-  --output run.msmarco-v1-passage.ance.dl20.txt \
- 
+  --output run.msmarco-v1-passage.ance.dl20.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1918,8 +1925,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-ance-bf \
   --topics msmarco-passage-dev-subset --encoded-queries ance-msmarco-passage-dev-subset \
-  --output run.msmarco-v1-passage.ance.dev.txt \
- 
+  --output run.msmarco-v1-passage.ance.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1980,8 +1986,7 @@ Command to generate run on TREC 2019 queries:
   --threads 16 --batch-size 512 \
   --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
   --topics dl19-passage --encoded-queries distilbert_kd-dl19-passage \
-  --output run.msmarco-v1-passage.distilbert-kd.dl19.txt \
- 
+  --output run.msmarco-v1-passage.distilbert-kd.dl19.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2001,8 +2006,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
   --topics dl20 --encoded-queries distilbert_kd-dl20 \
-  --output run.msmarco-v1-passage.distilbert-kd.dl20.txt \
- 
+  --output run.msmarco-v1-passage.distilbert-kd.dl20.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2022,8 +2026,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
   --topics msmarco-passage-dev-subset --encoded-queries distilbert_kd-msmarco-passage-dev-subset \
-  --output run.msmarco-v1-passage.distilbert-kd.dev.txt \
- 
+  --output run.msmarco-v1-passage.distilbert-kd.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2084,8 +2087,7 @@ Command to generate run on TREC 2019 queries:
   --threads 16 --batch-size 512 \
   --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
   --topics dl19-passage --encoded-queries distilbert_tas_b-dl19-passage \
-  --output run.msmarco-v1-passage.distilbert-kd-tasb.dl19.txt \
- 
+  --output run.msmarco-v1-passage.distilbert-kd-tasb.dl19.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2105,8 +2107,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
   --topics dl20 --encoded-queries distilbert_tas_b-dl20 \
-  --output run.msmarco-v1-passage.distilbert-kd-tasb.dl20.txt \
- 
+  --output run.msmarco-v1-passage.distilbert-kd-tasb.dl20.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2126,8 +2127,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
   --topics msmarco-passage-dev-subset --encoded-queries distilbert_tas_b-msmarco-passage-dev-subset \
-  --output run.msmarco-v1-passage.distilbert-kd-tasb.dev.txt \
- 
+  --output run.msmarco-v1-passage.distilbert-kd-tasb.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2188,8 +2188,7 @@ Command to generate run on TREC 2019 queries:
   --threads 16 --batch-size 512 \
   --index msmarco-passage-tct_colbert-v2-hnp-bf \
   --topics dl19-passage --encoded-queries tct_colbert-v2-hnp-dl19-passage \
-  --output run.msmarco-v1-passage.tct_colbert-v2-hnp.dl19.txt \
- 
+  --output run.msmarco-v1-passage.tct_colbert-v2-hnp.dl19.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2209,8 +2208,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-tct_colbert-v2-hnp-bf \
   --topics dl20 --encoded-queries tct_colbert-v2-hnp-dl20 \
-  --output run.msmarco-v1-passage.tct_colbert-v2-hnp.dl20.txt \
- 
+  --output run.msmarco-v1-passage.tct_colbert-v2-hnp.dl20.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2230,8 +2228,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-tct_colbert-v2-hnp-bf \
   --topics msmarco-passage-dev-subset --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
-  --output run.msmarco-v1-passage.tct_colbert-v2-hnp.dev.txt \
- 
+  --output run.msmarco-v1-passage.tct_colbert-v2-hnp.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2293,8 +2290,7 @@ Command to generate run on TREC 2019 queries:
   --threads 16 --batch-size 512 \
   --index msmarco-passage-ance-bf \
   --topics dl19-passage --encoder castorini/ance-msmarco-passage \
-  --output run.msmarco-v1-passage.ance-otf.dl19.txt \
- 
+  --output run.msmarco-v1-passage.ance-otf.dl19.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2314,8 +2310,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-ance-bf \
   --topics dl20 --encoder castorini/ance-msmarco-passage \
-  --output run.msmarco-v1-passage.ance-otf.dl20.txt \
- 
+  --output run.msmarco-v1-passage.ance-otf.dl20.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2335,8 +2330,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-ance-bf \
   --topics msmarco-passage-dev-subset --encoder castorini/ance-msmarco-passage \
-  --output run.msmarco-v1-passage.ance-otf.dev.txt \
- 
+  --output run.msmarco-v1-passage.ance-otf.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2397,8 +2391,7 @@ Command to generate run on TREC 2019 queries:
   --threads 16 --batch-size 512 \
   --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
   --topics dl19-passage --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
-  --output run.msmarco-v1-passage.distilbert-kd-otf.dl19.txt \
- 
+  --output run.msmarco-v1-passage.distilbert-kd-otf.dl19.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2418,8 +2411,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
   --topics dl20 --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
-  --output run.msmarco-v1-passage.distilbert-kd-otf.dl20.txt \
- 
+  --output run.msmarco-v1-passage.distilbert-kd-otf.dl20.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2439,8 +2431,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
   --topics msmarco-passage-dev-subset --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
-  --output run.msmarco-v1-passage.distilbert-kd-otf.dev.txt \
- 
+  --output run.msmarco-v1-passage.distilbert-kd-otf.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2501,8 +2492,7 @@ Command to generate run on TREC 2019 queries:
   --threads 16 --batch-size 512 \
   --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
   --topics dl19-passage --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
-  --output run.msmarco-v1-passage.distilbert-kd-tasb-otf.dl19.txt \
- 
+  --output run.msmarco-v1-passage.distilbert-kd-tasb-otf.dl19.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2522,8 +2512,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
   --topics dl20 --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
-  --output run.msmarco-v1-passage.distilbert-kd-tasb-otf.dl20.txt \
- 
+  --output run.msmarco-v1-passage.distilbert-kd-tasb-otf.dl20.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2543,8 +2532,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
   --topics msmarco-passage-dev-subset --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
-  --output run.msmarco-v1-passage.distilbert-kd-tasb-otf.dev.txt \
- 
+  --output run.msmarco-v1-passage.distilbert-kd-tasb-otf.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2605,8 +2593,7 @@ Command to generate run on TREC 2019 queries:
   --threads 16 --batch-size 512 \
   --index msmarco-passage-tct_colbert-v2-hnp-bf \
   --topics dl19-passage --encoder castorini/tct_colbert-v2-hnp-msmarco \
-  --output run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dl19.txt \
- 
+  --output run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dl19.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2626,8 +2613,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-tct_colbert-v2-hnp-bf \
   --topics dl20 --encoder castorini/tct_colbert-v2-hnp-msmarco \
-  --output run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dl20.txt \
- 
+  --output run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dl20.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2647,8 +2633,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarc
   --threads 16 --batch-size 512 \
   --index msmarco-passage-tct_colbert-v2-hnp-bf \
   --topics msmarco-passage-dev-subset --encoder castorini/tct_colbert-v2-hnp-msmarco \
-  --output run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dev.txt \
- 
+  --output run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2694,6 +2679,59 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset r
 <i>Proceedings of the 6th Workshop on Representation Learning for NLP (RepL4NLP-2021)</i>, pages 163-173, August 2021.</p></li>
 
 </ul>
+
+<div style="padding-top: 20px"/>
+
+<h4>Programmatic Execution</h4>
+
+<p>All experimental runs shown in the above table can be programmatically executed based on the instructions below.
+To list all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-passage --list-conditions
+</tt></blockquote>
+
+<p>These conditions correspond to the table rows above.</p>
+
+<p>For all conditions, just show the commands in a "dry run":</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-passage --all --display-commands --dry-run
+</tt></blockquote>
+
+<p>To actually run all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-passage --all --display-commands
+</tt></blockquote>
+
+<p>With the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>To show the commands for a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-passage --condition bm25-default --display-commands --dry-run
+</tt></blockquote>
+
+<p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
+
+<p>To actually run a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-passage --condition bm25-default --display-commands
+</tt></blockquote>
+
+<p>Again, with the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>Finally, to generate this page:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-passage --generate-report --output msmarco-v1-passage.html
+</tt></blockquote>
+
+<p>The output file <tt>msmarco-v1-passage.html</tt> should be identical to this page.</p>
 
 <div style="padding-top: 50px"/>
 
