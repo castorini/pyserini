@@ -25,7 +25,7 @@ from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.pyclass import autoclass
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.search import JDisjunctionMaxQueryGenerator
-from . import LuceneImpactSearcher, LuceneSearcher, SLIMSearcher
+from . import LuceneImpactSearcher, LuceneSearcher, SlimSearcher
 from .reranker import ClassifierType, PseudoRelevanceClassifierReranker
 
 
@@ -161,12 +161,12 @@ if __name__ == "__main__":
     elif args.impact:
         if os.path.exists(args.index):
             if args.encoded_corpus is not None:
-                searcher = SLIMSearcher(args.encoded_corpus, args.index, args.encoder, args.min_idf)
+                searcher = SlimSearcher(args.encoded_corpus, args.index, args.encoder, args.min_idf)
             else:
                 searcher = LuceneImpactSearcher(args.index, args.encoder, args.min_idf)
         else:
             if args.encoded_corpus is not None:
-                searcher = SLIMSearcher.from_prebuilt_index(args.encoded_corpus, args.index, args.encoder, args.min_idf)
+                searcher = SlimSearcher.from_prebuilt_index(args.encoded_corpus, args.index, args.encoder, args.min_idf)
             else:
                 searcher = LuceneImpactSearcher.from_prebuilt_index(args.index, args.encoder, args.min_idf)
 

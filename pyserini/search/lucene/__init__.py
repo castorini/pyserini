@@ -15,7 +15,7 @@
 #
 
 from ._geo_searcher import LuceneGeoSearcher
-from ._impact_searcher import JImpactSearcherResult, LuceneImpactSearcher, SLIMSearcher
+from ._impact_searcher import JImpactSearcherResult, LuceneImpactSearcher, SlimSearcher
 from ._searcher import JLuceneSearcherResult, LuceneSimilarities, \
     LuceneFusionSearcher, LuceneSearcher
 
@@ -25,5 +25,5 @@ __all__ = ['JImpactSearcherResult',
            'LuceneGeoSearcher',
            'LuceneImpactSearcher',
            'LuceneSearcher',
-           'SLIMSearcher',
+           'SlimSearcher',
            'LuceneSimilarities']

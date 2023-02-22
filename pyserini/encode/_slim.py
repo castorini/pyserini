@@ -6,7 +6,7 @@ import scipy
 from pyserini.encode import QueryEncoder
 
 
-class SLIMQueryEncoder(QueryEncoder):
+class SlimQueryEncoder(QueryEncoder):
     def __init__(self, model_name_or_path, tokenizer_name=None, fusion_weight=.99, device='cpu'):
         self.device = device
         self.fusion_weight = fusion_weight

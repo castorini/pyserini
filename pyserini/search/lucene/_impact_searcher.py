@@ -30,7 +30,7 @@ import numpy as np
 import scipy
 
 from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder, \
-    CachedDataQueryEncoder, SpladeQueryEncoder, SLIMQueryEncoder
+    CachedDataQueryEncoder, SpladeQueryEncoder, SlimQueryEncoder
 from pyserini.index import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
 from pyserini.util import download_prebuilt_index, download_encoded_corpus
@@ -237,7 +237,7 @@ class LuceneImpactSearcher:
         elif 'splade' in query_encoder.lower():
             return SpladeQueryEncoder(query_encoder)
         elif 'slim' in query_encoder.lower():
-            return SLIMQueryEncoder(query_encoder)
+            return SlimQueryEncoder(query_encoder)
 
     @staticmethod
     def _compute_idf(index_path):
@@ -252,7 +252,7 @@ class LuceneImpactSearcher:
         return dict(zip(tokens, idfs))
 
 
-SLIMResult = namedtuple("SLIMResult", "docid score")
+SlimResult = namedtuple("SlimResult", "docid score")
 
 def maxsim(entry):
     q_embed, d_embeds, d_lens, qid, scores, docids = entry
@@ -268,7 +268,7 @@ def maxsim(entry):
     scores, docids = list(zip(*sorted(list(zip(scores, docids)), key=lambda x: -x[0])))
     return qid, scores, docids
 
-class SLIMSearcher(LuceneImpactSearcher):
+class SlimSearcher(LuceneImpactSearcher):
     def __init__(self, encoded_corpus, *args, **kwargs):
         super().__init__(*args, **kwargs)
         print("Loading sparse corpus vectors for fast reranking...")
@@ -373,6 +373,6 @@ class SLIMSearcher(LuceneImpactSearcher):
         for qid, scores, docids in results:
             hits = []
             for score, docid in list(zip(scores, docids))[:k]:
-                hits.append(SLIMResult(docid, score))
+                hits.append(SlimResult(docid, score))
             anserini_results[qid] = hits
         return anserini_results
