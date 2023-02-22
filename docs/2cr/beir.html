@@ -300,7 +300,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-trec-covid.contriever.20230124 \
+  --index beir-v1.0.0-trec-covid.contriever \
   --topics beir-v1.0.0-trec-covid-test \
   --output run.beir-contriever.trec-covid.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -459,7 +459,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-bioasq.contriever.20230124 \
+  --index beir-v1.0.0-bioasq.contriever \
   --topics beir-v1.0.0-bioasq-test \
   --output run.beir-contriever.bioasq.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -618,7 +618,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-nfcorpus.contriever.20230124 \
+  --index beir-v1.0.0-nfcorpus.contriever \
   --topics beir-v1.0.0-nfcorpus-test \
   --output run.beir-contriever.nfcorpus.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -777,7 +777,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-nq.contriever.20230124 \
+  --index beir-v1.0.0-nq.contriever \
   --topics beir-v1.0.0-nq-test \
   --output run.beir-contriever.nq.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -936,7 +936,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-hotpotqa.contriever.20230124 \
+  --index beir-v1.0.0-hotpotqa.contriever \
   --topics beir-v1.0.0-hotpotqa-test \
   --output run.beir-contriever.hotpotqa.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -1095,7 +1095,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-fiqa.contriever.20230124 \
+  --index beir-v1.0.0-fiqa.contriever \
   --topics beir-v1.0.0-fiqa-test \
   --output run.beir-contriever.fiqa.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -1254,7 +1254,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-signal1m.contriever.20230124 \
+  --index beir-v1.0.0-signal1m.contriever \
   --topics beir-v1.0.0-signal1m-test \
   --output run.beir-contriever.signal1m.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -1413,7 +1413,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-trec-news.contriever.20230124 \
+  --index beir-v1.0.0-trec-news.contriever \
   --topics beir-v1.0.0-trec-news-test \
   --output run.beir-contriever.trec-news.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -1572,7 +1572,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-robust04.contriever.20230124 \
+  --index beir-v1.0.0-robust04.contriever \
   --topics beir-v1.0.0-robust04-test \
   --output run.beir-contriever.robust04.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -1731,7 +1731,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-arguana.contriever.20230124 \
+  --index beir-v1.0.0-arguana.contriever \
   --topics beir-v1.0.0-arguana-test \
   --output run.beir-contriever.arguana.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -1890,7 +1890,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-webis-touche2020.contriever.20230124 \
+  --index beir-v1.0.0-webis-touche2020.contriever \
   --topics beir-v1.0.0-webis-touche2020-test \
   --output run.beir-contriever.webis-touche2020.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -2049,7 +2049,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-android.contriever.20230124 \
+  --index beir-v1.0.0-cqadupstack-android.contriever \
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir-contriever.cqadupstack-android.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -2208,7 +2208,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-english.contriever.20230124 \
+  --index beir-v1.0.0-cqadupstack-english.contriever \
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir-contriever.cqadupstack-english.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -2367,7 +2367,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-gaming.contriever.20230124 \
+  --index beir-v1.0.0-cqadupstack-gaming.contriever \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir-contriever.cqadupstack-gaming.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -2526,7 +2526,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-gis.contriever.20230124 \
+  --index beir-v1.0.0-cqadupstack-gis.contriever \
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir-contriever.cqadupstack-gis.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -2685,7 +2685,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-mathematica.contriever.20230124 \
+  --index beir-v1.0.0-cqadupstack-mathematica.contriever \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir-contriever.cqadupstack-mathematica.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -2844,7 +2844,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-physics.contriever.20230124 \
+  --index beir-v1.0.0-cqadupstack-physics.contriever \
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir-contriever.cqadupstack-physics.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -3003,7 +3003,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-programmers.contriever.20230124 \
+  --index beir-v1.0.0-cqadupstack-programmers.contriever \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir-contriever.cqadupstack-programmers.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -3162,7 +3162,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-stats.contriever.20230124 \
+  --index beir-v1.0.0-cqadupstack-stats.contriever \
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir-contriever.cqadupstack-stats.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -3321,7 +3321,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-tex.contriever.20230124 \
+  --index beir-v1.0.0-cqadupstack-tex.contriever \
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir-contriever.cqadupstack-tex.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -3480,7 +3480,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-unix.contriever.20230124 \
+  --index beir-v1.0.0-cqadupstack-unix.contriever \
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir-contriever.cqadupstack-unix.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -3639,7 +3639,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-webmasters.contriever.20230124 \
+  --index beir-v1.0.0-cqadupstack-webmasters.contriever \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir-contriever.cqadupstack-webmasters.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -3798,7 +3798,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-cqadupstack-wordpress.contriever.20230124 \
+  --index beir-v1.0.0-cqadupstack-wordpress.contriever \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir-contriever.cqadupstack-wordpress.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -3957,7 +3957,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-quora.contriever.20230124 \
+  --index beir-v1.0.0-quora.contriever \
   --topics beir-v1.0.0-quora-test \
   --output run.beir-contriever.quora.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -4116,7 +4116,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-dbpedia-entity.contriever.20230124 \
+  --index beir-v1.0.0-dbpedia-entity.contriever \
   --topics beir-v1.0.0-dbpedia-entity-test \
   --output run.beir-contriever.dbpedia-entity.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -4275,7 +4275,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-scidocs.contriever.20230124 \
+  --index beir-v1.0.0-scidocs.contriever \
   --topics beir-v1.0.0-scidocs-test \
   --output run.beir-contriever.scidocs.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -4434,7 +4434,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-fever.contriever.20230124 \
+  --index beir-v1.0.0-fever.contriever \
   --topics beir-v1.0.0-fever-test \
   --output run.beir-contriever.fever.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -4593,7 +4593,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-climate-fever.contriever.20230124 \
+  --index beir-v1.0.0-climate-fever.contriever \
   --topics beir-v1.0.0-climate-fever-test \
   --output run.beir-contriever.climate-fever.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -4752,7 +4752,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever \
-  --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-scifact.contriever.20230124 \
+  --index beir-v1.0.0-scifact.contriever \
   --topics beir-v1.0.0-scifact-test \
   --output run.beir-contriever.scifact.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query

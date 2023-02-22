@@ -444,7 +444,7 @@ conditions:
             R@100: 0.9270
             R@1000: 0.9767
   - name: contriever
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/contriever --index /store/collections/beir-v1.0.0-contriever-faiss/faiss.beir-v1.0.0-${dataset}.contriever.20230124 --topics beir-v1.0.0-${dataset}-test --output $output --batch 128 --threads 16 --hits 1000 --remove-query
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/contriever --index beir-v1.0.0-${dataset}.contriever --topics beir-v1.0.0-${dataset}-test --output $output --batch 128 --threads 16 --hits 1000 --remove-query
     datasets:
       - dataset: trec-covid
         scores:

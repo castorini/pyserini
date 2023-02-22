@@ -1887,6 +1887,398 @@ TF_INDEX_INFO_CURRENT = {
         "downloaded": False
     },
 
+    # BEIR (v1.0.0) contriever indexes
+    "beir-v1.0.0-trec-covid-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-trec-covid.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-trec-covid.contriever.20230124.tar.gz"
+        ],
+        "md5": "5b5baf557979e30e943180627fe31340",
+        "size compressed (bytes)": 488100317,
+        "documents": 171332,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-trec-covid-contriever",
+    },
+    "beir-v1.0.0-bioasq-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-bioasq.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-bioasq.contriever.20230124.tar.gz"
+        ],
+        "md5": "c0cbca535d38c1f1f78ff1bd6d91af5d",
+        "size compressed (bytes)": 42417202460,
+        "documents": 14914603,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-bioasq-contriever",
+    },
+    "beir-v1.0.0-nfcorpus-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-nfcorpus.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nfcorpus.contriever.20230124.tar.gz"
+        ],
+        "md5": "5eff0107f7953ebe7658c3a6400e7027",
+        "size compressed (bytes)": 10322409,
+        "documents": 3633,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-nfcorpus-contriever",
+    },
+    "beir-v1.0.0-nfcorpus-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-nfcorpus.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nfcorpus.contriever.20230124.tar.gz"
+        ],
+        "md5": "5eff0107f7953ebe7658c3a6400e7027",
+        "size compressed (bytes)": 10322409,
+        "documents": 3633,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-nfcorpus-contriever",
+    },
+    "beir-v1.0.0-nq-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (NQ) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-nq.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nq.contriever.20230124.tar.gz"
+        ],
+        "md5": "e1825fe0ce5c8000b63b1499374adb0e",
+        "size compressed (bytes)": 7617697503,
+        "documents": 2681468,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-nq-contriever",
+    },
+    "beir-v1.0.0-hotpotqa-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-hotpotqa.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-hotpotqa.contriever.20230124.tar.gz"
+        ],
+        "md5": "51445960e00a18264ae3947b3af2bc80",
+        "size compressed (bytes)": 14874721901,
+        "documents": 5233329,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-hotpotqa-contriever",
+    },
+    "beir-v1.0.0-fiqa-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-fiqa.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-fiqa.contriever.20230124.tar.gz"
+        ],
+        "md5": "a03cc30459b1a1928b93ad1aa51a7849",
+        "size compressed (bytes)": 164024764,
+        "documents": 57638,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-fiqa-contriever",
+    },
+    "beir-v1.0.0-signal1m-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-signal1m.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-signal1m.contriever.20230124.tar.gz"
+        ],
+        "md5": "19e3e324b7b87e55fb9f6b6b1e72c464",
+        "size compressed (bytes)": 8142533760,
+        "documents": 2866316,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-signal1m-contriever",
+    },
+    "beir-v1.0.0-trec-news-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-trec-news.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-trec-news.contriever.20230124.tar.gz"
+        ],
+        "md5": "20db6299b57b3e78ea2f8b7a2b649770",
+        "size compressed (bytes)": 1629958623,
+        "documents": 594977,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-trec-news-contriever",
+    },
+    "beir-v1.0.0-robust04-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-robust04.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-robust04.contriever.20230124.tar.gz"
+        ],
+        "md5": "81c730b68e066baf18d5b46918b8c830",
+        "size compressed (bytes)": 1501110333,
+        "documents": 528155,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-robust04-contriever",
+    },
+    "beir-v1.0.0-arguana-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-arguana.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-arguana.contriever.20230124.tar.gz"
+        ],
+        "md5": "03f701916d49dd86b9c8989796d2dcc4",
+        "size compressed (bytes)": 24710561,
+        "documents": 8674,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-arguana-contriever",
+    },
+    "beir-v1.0.0-webis-touche2020-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-webis-touche2020.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-webis-touche2020.contriever.20230124.tar.gz"
+        ],
+        "md5": "dfff9bc58521f09542f0affa3069f9a7",
+        "size compressed (bytes)": 1091320704,
+        "documents": 382545,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-webis-touche2020-contriever",
+    },
+    "beir-v1.0.0-cqadupstack-android-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-android.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-android.contriever.20230124.tar.gz"
+        ],
+        "md5": "4f03c0238f0e8f77e6365b61108042ed",
+        "size compressed (bytes)": 65447231,
+        "documents": 22998,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-android-contriever",
+    },
+    "beir-v1.0.0-cqadupstack-english-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-english.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-english.contriever.20230124.tar.gz"
+        ],
+        "md5": "319e3cba8f5f5d5175aad92c99c4b0fd",
+        "size compressed (bytes)": 114460495,
+        "documents": 40221,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-english-contriever",
+    },
+    "beir-v1.0.0-cqadupstack-gaming-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-gaming.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-gaming.contriever.20230124.tar.gz"
+        ],
+        "md5": "049f2cb22adfb5803a5f7f762f578bce",
+        "size compressed (bytes)": 128906099,
+        "documents": 45301,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-gaming-contriever",
+    },
+    "beir-v1.0.0-cqadupstack-gis-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-gis.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-gis.contriever.20230124.tar.gz"
+        ],
+        "md5": "13fdfa5a13634c10c1e7e6179bb4c376",
+        "size compressed (bytes)": 107128974,
+        "documents": 37637,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-gis-contriever",
+    },
+    "beir-v1.0.0-cqadupstack-mathematica-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-mathematica.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-mathematica.contriever.20230124.tar.gz"
+        ],
+        "md5": "e4f756eede3ae5f9228d32096c1bd5b4",
+        "size compressed (bytes)": 47544559,
+        "documents": 16705,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-mathematica-contriever",
+    },
+    "beir-v1.0.0-cqadupstack-physics-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-physics.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-physics.contriever.20230124.tar.gz"
+        ],
+        "md5": "b92ec0c233a1112d6f8782fb0f2bc9c1",
+        "size compressed (bytes)": 109048286,
+        "documents": 38316,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-physics-contriever",
+    },
+    "beir-v1.0.0-cqadupstack-programmers-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-programmers.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-programmers.contriever.20230124.tar.gz"
+        ],
+        "md5": "f180240f35e2a3c27d39361a20533205",
+        "size compressed (bytes)": 91583135,
+        "documents": 32176,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-programmers-contriever",
+    },
+    "beir-v1.0.0-cqadupstack-stats-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-stats.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-stats.contriever.20230124.tar.gz"
+        ],
+        "md5": "64737df62b4e03b93356ba234cefe0e6",
+        "size compressed (bytes)": 120288620,
+        "documents": 42269,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-stats-contriever",
+    },
+    "beir-v1.0.0-cqadupstack-tex-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-tex.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-tex.contriever.20230124.tar.gz"
+        ],
+        "md5": "ef087faff49e5bae0799e8576e387c0d",
+        "size compressed (bytes)": 194080724,
+        "documents": 68184,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-tex-contriever",
+    },
+    "beir-v1.0.0-cqadupstack-unix-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-unix.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-unix.contriever.20230124.tar.gz"
+        ],
+        "md5": "9279884bfc3a14c2896276b679a58dbf",
+        "size compressed (bytes)": 134860159,
+        "documents": 47382,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-unix-contriever",
+    },
+    "beir-v1.0.0-cqadupstack-webmasters-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-webmasters.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-webmasters.contriever.20230124.tar.gz"
+        ],
+        "md5": "f1a46fc6f6586c716d2a6239753c9573",
+        "size compressed (bytes)": 49531545,
+        "documents": 17405,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-webmasters-contriever",
+    },
+    "beir-v1.0.0-cqadupstack-wordpress-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-wordpress.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-wordpress.contriever.20230124.tar.gz"
+        ],
+        "md5": "27480c7a4c8d437af30618bf98b10969",
+        "size compressed (bytes)": 138348184,
+        "documents": 48605,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-wordpress-contriever",
+    },
+    "beir-v1.0.0-quora-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (Quora) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-quora.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-quora.contriever.20230124.tar.gz"
+        ],
+        "md5": "4876145908b7af946593df6dbb8af600",
+        "size compressed (bytes)": 1485866217,
+        "documents": 522931,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-quora-contriever",
+    },
+    "beir-v1.0.0-dbpedia-entity-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-dbpedia-entity.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-dbpedia-entity.contriever.20230124.tar.gz"
+        ],
+        "md5": "ee88a23de31d3faf403673c08ea0c844",
+        "size compressed (bytes)": 13214316305,
+        "documents": 4635922,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-dbpedia-entity-contriever",
+    },
+    "beir-v1.0.0-scidocs-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-scidocs.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-scidocs.contriever.20230124.tar.gz"
+        ],
+        "md5": "dd1555b714c482a22cbb74d8c72599c9",
+        "size compressed (bytes)": 73532556,
+        "documents": 25657,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-scidocs-contriever",
+    },
+    "beir-v1.0.0-fever-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-fever.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-fever.contriever.20230124.tar.gz"
+        ],
+        "md5": "d5b738dc38e56857a987bdb1eb4ce5c1",
+        "size compressed (bytes)": 15437918827,
+        "documents": 5416568,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-fever-contriever",
+    },
+    "beir-v1.0.0-climate-fever-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-climate-fever.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-climate-fever.contriever.20230124.tar.gz"
+        ],
+        "md5": "1e169cf6a8baaa4909f6823e3c23a80f",
+        "size compressed (bytes)": 15437988868,
+        "documents": 5416593,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-climate-fever-contriever",
+    },
+    "beir-v1.0.0-scifact-contriever": {
+        "description": "Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by Contriever encoder.",
+        "filename": "faiss.beir-v1.0.0-scifact.contriever.20230124.tar.gz",
+        "readme": "faiss.contriever.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-scifact.contriever.20230124.tar.gz"
+        ],
+        "md5": "61eb253aa08c9c97fa2f82ef2a96ca7b",
+        "size compressed (bytes)": 14753553,
+        "documents": 5183,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-scifact-contriever",
+    },
+
     "hc4-v1.0-fa": {
         "description": "Lucene index for HC4 v1.0 (Persian). (Lucene 9)",
         "filename": "lucene-index.hc4-v1.0-fa.20221025.c4a8d0.tar.gz",
