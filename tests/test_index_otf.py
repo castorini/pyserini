@@ -19,7 +19,7 @@ import shutil
 import unittest
 from typing import List
 
-from pyserini.index.lucene import LuceneIndexer
+from pyserini.index.lucene import LuceneIndexer, IndexReader
 from pyserini.search.lucene import JLuceneSearcherResult, LuceneSearcher
 
 
@@ -74,6 +74,60 @@ class TestSearch(unittest.TestCase):
         self.assertEqual(1, len(hits))
         self.assertEqual('CACM-2274', hits[0].docid)
         self.assertAlmostEqual(0.62610, hits[0].score, places=5)
+
+    def test_indexer_append1(self):
+        indexer = LuceneIndexer(self.tmp_dir)
+        indexer.add('{"id": "0", "contents": "Document 0"}')
+        indexer.close()
+
+        reader = IndexReader(self.tmp_dir)
+        stats = reader.stats()
+        self.assertEqual(1, stats['documents'])
+        self.assertIsNotNone(reader.doc('0'))
+
+        indexer = LuceneIndexer(self.tmp_dir, append=True)
+        indexer.add('{"id": "1", "contents": "Document 1"}')
+        indexer.close()
+
+        reader = IndexReader(self.tmp_dir)
+        stats = reader.stats()
+        self.assertEqual(2, stats['documents'])
+        self.assertIsNotNone(reader.doc('0'))
+        self.assertIsNotNone(reader.doc('1'))
+
+    def test_indexer_append2(self):
+        # Make sure it's okay if we append to an empty index.
+        indexer = LuceneIndexer(self.tmp_dir, append=True)
+        indexer.add('{"id": "0", "contents": "Document 0"}')
+        indexer.close()
+
+        reader = IndexReader(self.tmp_dir)
+        stats = reader.stats()
+        self.assertEqual(1, stats['documents'])
+        self.assertIsNotNone(reader.doc('0'))
+
+        # Confirm that we are overwriting.
+        indexer = LuceneIndexer(self.tmp_dir)
+        indexer.add('{"id": "1", "contents": "Document 1"}')
+        indexer.close()
+
+        reader = IndexReader(self.tmp_dir)
+        stats = reader.stats()
+        self.assertEqual(1, stats['documents'])
+        self.assertIsNone(reader.doc('0'))
+        self.assertIsNotNone(reader.doc('1'))
+
+        # Now we're appending.
+        indexer = LuceneIndexer(self.tmp_dir, append=True)
+        indexer.add('{"id": "x", "contents": "Document x"}')
+        indexer.close()
+
+        reader = IndexReader(self.tmp_dir)
+        stats = reader.stats()
+        self.assertEqual(2, stats['documents'])
+        self.assertIsNone(reader.doc('0'))
+        self.assertIsNotNone(reader.doc('1'))
+        self.assertIsNotNone(reader.doc('x'))
 
     def tearDown(self):
         shutil.rmtree(self.tmp_dir)
