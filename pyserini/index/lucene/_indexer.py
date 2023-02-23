@@ -34,20 +34,20 @@ class LuceneIndexer:
         Path to Lucene index directory.
     args : List[str]
         List of arguments to pass to ``SimpleIndexer``.
+    append : bool
+        Append to existing index.
     """
 
-    def __init__(self, index_dir: str = None, args: List[str] = None):
+    def __init__(self, index_dir: str = None, args: List[str] = None, append: bool = False):
         self.index_dir = index_dir
         self.args = args
         if args:
-            default_args = ["-input", "", "-collection", "JsonCollection"]
-            if not "-threads" in args:
-                default_args.extend(["-threads", "1"])
-            
-            args.extend(default_args)
+            args.extend(['-input', '', '-collection', 'JsonCollection'])
+            if append:
+                args.extend(['-append'])
             self.object = JLuceneIndexer(args)
         else:
-            self.object = JLuceneIndexer(index_dir)
+            self.object = JLuceneIndexer(index_dir, append)
 
     def add(self, doc: str):
         """Add a document to the index.
