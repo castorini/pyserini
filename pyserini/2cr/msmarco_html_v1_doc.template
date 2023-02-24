@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Pyserini Reproductions</title>
+    <title>Pyserini Reproductions: MS MARCO V1 Document</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -37,6 +37,14 @@ blockquote.mycode {
   border-left: 3px solid #ccc;
   margin-left: 25px;
   margin-top: 15px;
+  padding-left: 15px;
+}
+
+blockquote.mycode2 {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   padding-left: 15px;
 }
 
@@ -132,11 +140,8 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
-<p>The two-click reproduction matrix below provides commands for reproducing experimental results reported in the following paper.
-Numbered rows correspond to tables in the paper; additional conditions are provided for comparison purposes.</p>
-
-<p class="note note-light">Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin. <a href="https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
-<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.</p>
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.
+Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
 
 <div class="table-responsive">
   <table class="table">
@@ -145,21 +150,20 @@ Numbered rows correspond to tables in the paper; additional conditions are provi
         <th class="headertop"></th>
         <th class="headertop"></th>
         <th class="headertop"></th>
-        <th class="headertop" colspan="6"><b>TREC 2021</b></th>
+        <th class="headertop" colspan="4"><b>TREC 2019</b></th>
+        <th class="headertop" colspan="4"><b>TREC 2020</b></th>
         <th class="headertop" colspan="3"><b>dev</b></th>
-        <th class="headertop" colspan="3"><b>dev2</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"><br/>AP</th>
+        <th class="headerbottom" scope="col"><br/>AP@100</th>
         <th class="headerbottom" scope="col">nDCG@10</th>
-        <th class="headerbottom" scope="col">RR@100</th>
-        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col">R@1K</th>
         <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col">RR@100</th>
+        <th class="headerbottom" scope="col"><br/>AP@100</th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@1K</th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">RR@100</th>
@@ -173,6 +177,71 @@ $rows
     </tbody>
   </table>
 </div>
+
+<ul style="list-style-type:none; padding-top: 25px">
+
+<li><p>[1] Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin.
+<a href="https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
+<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp;Numbers in parentheses correspond to rows in Table 2 of the paper.</p></li>
+
+</ul>
+
+<div style="padding-top: 20px"/>
+
+<h4>Programmatic Execution</h4>
+
+<p>All experimental runs shown in the above table can be programmatically executed based on the instructions below.
+To list all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-doc --list-conditions
+</tt></blockquote>
+
+<p>These conditions correspond to the table rows above.</p>
+
+<p>For all conditions, just show the commands in a "dry run":</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-doc --all --display-commands --dry-run
+</tt></blockquote>
+
+<p>To actually run all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-doc --all --display-commands
+</tt></blockquote>
+
+<p>With the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>To show the commands for a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-doc --condition bm25-doc-default --display-commands --dry-run
+</tt></blockquote>
+
+<p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
+
+<p>To actually run a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-doc --condition bm25-doc-default --display-commands
+</tt></blockquote>
+
+<p>Again, with the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>Finally, to generate this page:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-doc --generate-report --output msmarco-v1-doc.html
+</tt></blockquote>
+
+<p>The output file <tt>msmarco-v1-doc.html</tt> should be identical to this page.</p>
+
+<div style="padding-top: 50px"/>
 
       </div>
 
