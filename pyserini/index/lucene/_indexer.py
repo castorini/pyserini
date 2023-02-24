@@ -25,7 +25,7 @@ JLuceneIndexer = autoclass('io.anserini.index.SimpleIndexer')
 
 
 class LuceneIndexer:
-    """Wrapper class for ``SimpleIndexer`` in Anserini. Provides basic functionality of on-the-fly indexing via a
+    """Wrapper class for ``SimpleIndexer`` in Anserini. Provides basic functionality for on-the-fly indexing via a
     programmatic API, i.e., indexing in-process objects as opposed to on-file documents.
 
     Parameters
@@ -36,18 +36,20 @@ class LuceneIndexer:
         List of arguments to pass to ``SimpleIndexer``.
     append : bool
         Append to existing index.
+    threads : int
+        Number of indexing threads.
     """
 
-    def __init__(self, index_dir: str = None, args: List[str] = None, append: bool = False):
+    def __init__(self, index_dir: str = None, args: List[str] = None, append: bool = False, threads: int = 8):
         self.index_dir = index_dir
         self.args = args
         if args:
-            args.extend(['-input', '', '-collection', 'JsonCollection'])
+            args.extend(['-input', '', '-collection', 'JsonCollection', '-threads', str(threads)])
             if append:
                 args.extend(['-append'])
             self.object = JLuceneIndexer(args)
         else:
-            self.object = JLuceneIndexer(index_dir, append)
+            self.object = JLuceneIndexer(index_dir, append, int(threads))
 
     def add(self, doc: str):
         """Add a document to the index.
@@ -58,6 +60,16 @@ class LuceneIndexer:
             Document to add.
         """
         self.object.addDocument(doc)
+
+    def add_batch(self, docs: List[str]):
+        """Add a batch of documents to the index.
+
+        Parameters
+        ----------
+        docs : List[str]
+            Documents to add.
+        """
+        self.object.addDocuments(docs)
 
     def close(self):
         """Close this indexer, committing all in-memory data to disk."""
