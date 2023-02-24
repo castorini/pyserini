@@ -55,8 +55,78 @@ class TestSearch(unittest.TestCase):
         self.assertEqual('CACM-2274', hits[0].docid)
         self.assertAlmostEqual(1.53650, hits[0].score, places=5)
 
+    def test_indexer_batch1(self):
+        batch = []
+        with open(self.test_file) as f:
+            for doc in f:
+                batch.append(doc)
+
+        # Test different ways to initialize indexer.
+        indexer = LuceneIndexer(self.tmp_dir)
+        indexer.add_batch(batch)
+        indexer.close()
+
+        searcher = LuceneSearcher(self.tmp_dir)
+        self.assertEqual(3, searcher.num_docs)
+
+        hits = searcher.search('semantic networks')
+
+        self.assertTrue(isinstance(hits, List))
+        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
+        self.assertEqual(1, len(hits))
+        self.assertEqual('CACM-2274', hits[0].docid)
+        self.assertAlmostEqual(1.53650, hits[0].score, places=5)
+
+        # Test different ways to initialize indexer.
+        indexer = LuceneIndexer(self.tmp_dir, threads=2)
+        indexer.add_batch(batch)
+        indexer.close()
+
+        searcher = LuceneSearcher(self.tmp_dir)
+        self.assertEqual(3, searcher.num_docs)
+
+        hits = searcher.search('semantic networks')
+
+        self.assertTrue(isinstance(hits, List))
+        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
+        self.assertEqual(1, len(hits))
+        self.assertEqual('CACM-2274', hits[0].docid)
+        self.assertAlmostEqual(1.53650, hits[0].score, places=5)
+
+        # Test different ways to initialize indexer.
+        indexer = LuceneIndexer(self.tmp_dir, threads=4)
+        indexer.add_batch(batch)
+        indexer.close()
+
+        searcher = LuceneSearcher(self.tmp_dir)
+        self.assertEqual(3, searcher.num_docs)
+
+        hits = searcher.search('semantic networks')
+
+        self.assertTrue(isinstance(hits, List))
+        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
+        self.assertEqual(1, len(hits))
+        self.assertEqual('CACM-2274', hits[0].docid)
+        self.assertAlmostEqual(1.53650, hits[0].score, places=5)
+
+        # Test different ways to initialize indexer
+        indexer = LuceneIndexer(args=['-index', self.tmp_dir, '-threads', '4'])
+        indexer.add_batch(batch)
+        indexer.close()
+
+        searcher = LuceneSearcher(self.tmp_dir)
+        self.assertEqual(3, searcher.num_docs)
+
+        hits = searcher.search('semantic networks')
+
+        self.assertTrue(isinstance(hits, List))
+        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
+        self.assertEqual(1, len(hits))
+        self.assertEqual('CACM-2274', hits[0].docid)
+        self.assertAlmostEqual(1.53650, hits[0].score, places=5)
+
     def test_indexer_with_args(self):
-        indexer = LuceneIndexer(args=["-index", self.tmp_dir, "-pretokenized"])
+        indexer = LuceneIndexer(args=['-index', self.tmp_dir, '-pretokenized'])
 
         with open(self.test_file) as f:
             for doc in f:
