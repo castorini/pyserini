@@ -18,6 +18,7 @@ import argparse
 import gzip
 import os
 import time
+import json
 
 from pyserini.index.lucene import LuceneIndexer
 
@@ -27,6 +28,7 @@ if __name__ == '__main__':
     parser.add_argument('--index', required=True, type=str, help='Path to index.')
     parser.add_argument('--threads', required=True, type=int, help='Number of threads.')
     parser.add_argument('--batch-size', required=True, type=int, help='Batch size.')
+    parser.add_argument('--raw',  action='store_true', default=False, help="Directly index raw documents.")
     args = parser.parse_args()
 
     start = time.time()
@@ -35,6 +37,7 @@ if __name__ == '__main__':
     print(f'index: {args.index}')
     print(f'threads: {args.threads}')
     print(f'batch size: {args.batch_size}')
+    print(f'index raw? {args.raw}')
 
     batch = []
     indexer = LuceneIndexer(args.index, threads=args.threads)
@@ -45,11 +48,18 @@ if __name__ == '__main__':
             continue
         with gzip.open(os.path.join(args.input, file), 'r') as f:
             for line in f:
-                batch.append(line.decode())
+                if args.raw:
+                    batch.append(line.decode())
+                else:
+                    obj = json.loads(line.decode())
+                    batch.append({'id': obj['id'], 'contents': obj['contents']})
                 cnt += 1
 
                 if len(batch) == args.batch_size:
-                    indexer.add_batch(batch)
+                    if args.raw:
+                        indexer.add_raw_batch(batch)
+                    else:
+                        indexer.add_batch(batch)
                     batch = []
                     batch_cnt += 1
 
@@ -57,7 +67,10 @@ if __name__ == '__main__':
                     print(f'{cnt} docs indexed, {batch_cnt} batches')
 
     # Remember to add the final batch.
-    indexer.add_batch(batch)
+    if args.raw:
+        indexer.add_raw_batch(batch)
+    else:
+        indexer.add_batch(batch)
 
     indexer.close()
     end = time.time()

@@ -15,13 +15,14 @@
 #
 
 import logging
-from typing import List
+from typing import List, Dict, Union
 
 from pyserini.pyclass import autoclass
 
 logger = logging.getLogger(__name__)
 
 JLuceneIndexer = autoclass('io.anserini.index.SimpleIndexer')
+JsonCollectionDocument = autoclass('io.anserini.collection.JsonCollection$Document')
 
 
 class LuceneIndexer:
@@ -51,7 +52,7 @@ class LuceneIndexer:
         else:
             self.object = JLuceneIndexer(index_dir, append, int(threads))
 
-    def add(self, doc: str):
+    def add_raw_doc(self, doc: str):
         """Add a document to the index.
 
         Parameters
@@ -59,9 +60,13 @@ class LuceneIndexer:
         doc : str
             Document to add.
         """
-        self.object.addDocument(doc)
+        self.object.addRawDocument(doc)
 
-    def add_batch(self, docs: List[str]):
+    def add_doc(self, doc: Dict[str, str]):
+        doc_obj = JsonCollectionDocument.fromFields(doc['id'], doc['contents'])
+        self.object.addJsonDocument(doc_obj)
+
+    def add_raw_batch(self, docs: List[str]):
         """Add a batch of documents to the index.
 
         Parameters
@@ -69,7 +74,11 @@ class LuceneIndexer:
         docs : List[str]
             Documents to add.
         """
-        self.object.addDocuments(docs)
+        self.object.addRawDocuments(docs)
+
+    def add_batch(self, docs: List[Dict[str, str]]):
+        docs = list(map(lambda d: JsonCollectionDocument.fromFields(d['id'], d['contents']), docs))
+        self.object.addJsonDocuments(docs)
 
     def close(self):
         """Close this indexer, committing all in-memory data to disk."""
