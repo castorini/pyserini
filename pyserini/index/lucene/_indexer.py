@@ -15,7 +15,7 @@
 #
 
 import logging
-from typing import List, Dict, Union
+from typing import List, Dict
 
 from pyserini.pyclass import autoclass
 
@@ -23,6 +23,8 @@ logger = logging.getLogger(__name__)
 
 JLuceneIndexer = autoclass('io.anserini.index.SimpleIndexer')
 JsonCollectionDocument = autoclass('io.anserini.collection.JsonCollection$Document')
+JacksonObjectMapper = autoclass('com.fasterxml.jackson.databind.ObjectMapper')
+JacksonJsonNode = autoclass('com.fasterxml.jackson.databind.JsonNode')
 
 
 class LuceneIndexer:
@@ -52,7 +54,9 @@ class LuceneIndexer:
         else:
             self.object = JLuceneIndexer(index_dir, append, int(threads))
 
-    def add_raw_doc(self, doc: str):
+        self.mapper = JacksonObjectMapper()
+
+    def add_doc_raw(self, doc: str):
         """Add a document to the index.
 
         Parameters
@@ -62,11 +66,13 @@ class LuceneIndexer:
         """
         self.object.addRawDocument(doc)
 
-    def add_doc(self, doc: Dict[str, str]):
-        doc_obj = JsonCollectionDocument.fromFields(doc['id'], doc['contents'])
-        self.object.addJsonDocument(doc_obj)
+    def add_doc_dict(self, doc: Dict[str, str]):
+        self.object.addJsonDocument(JsonCollectionDocument.fromFields(doc['id'], doc['contents']))
 
-    def add_raw_batch(self, docs: List[str]):
+    def add_doc_json(self, node: JacksonJsonNode):
+        self.object.addJsonNode(node)
+
+    def add_batch_raw(self, docs: List[str]):
         """Add a batch of documents to the index.
 
         Parameters
@@ -76,9 +82,12 @@ class LuceneIndexer:
         """
         self.object.addRawDocuments(docs)
 
-    def add_batch(self, docs: List[Dict[str, str]]):
+    def add_batch_dict(self, docs: List[Dict[str, str]]):
         docs = list(map(lambda d: JsonCollectionDocument.fromFields(d['id'], d['contents']), docs))
         self.object.addJsonDocuments(docs)
+
+    def add_batch_json(self, nodes: List[JacksonJsonNode]):
+        self.object.addJsonNodes(nodes)
 
     def close(self):
         """Close this indexer, committing all in-memory data to disk."""

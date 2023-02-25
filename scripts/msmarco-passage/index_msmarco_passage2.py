@@ -16,11 +16,12 @@
 
 import argparse
 import gzip
+import json
 import os
 import time
-import json
 
-from pyserini.index.lucene import LuceneIndexer
+from pyserini.index.lucene import LuceneIndexer, JacksonObjectMapper
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Index MS MARCO Passage corpus.')
@@ -29,8 +30,10 @@ if __name__ == '__main__':
     parser.add_argument('--threads', required=True, type=int, help='Number of threads.')
     parser.add_argument('--batch-size', required=True, type=int, help='Batch size.')
     parser.add_argument('--raw',  action='store_true', default=False, help="Directly index raw documents.")
+    parser.add_argument('--dict',  action='store_true', default=False, help="Parse and index Python dictionaries.")
     args = parser.parse_args()
 
+    mapper = JacksonObjectMapper()
     start = time.time()
 
     print(f'input: {args.input}')
@@ -50,28 +53,36 @@ if __name__ == '__main__':
             for line in f:
                 if args.raw:
                     batch.append(line.decode())
-                else:
+                elif args.dict:
                     obj = json.loads(line.decode())
                     batch.append({'id': obj['id'], 'contents': obj['contents']})
+                else:
+                    obj = json.loads(line.decode())
+                    batch.append(mapper.createObjectNode().put('id', obj['id']).put('contents', obj['contents']))
                 cnt += 1
 
                 if len(batch) == args.batch_size:
                     if args.raw:
-                        indexer.add_raw_batch(batch)
+                        indexer.add_batch_raw(batch)
+                    elif args.dict:
+                        indexer.add_batch_dict(batch)
                     else:
-                        indexer.add_batch(batch)
+                        indexer.add_batch_json(batch)
                     batch = []
                     batch_cnt += 1
 
                 if cnt % 100000 == 0:
-                    print(f'{cnt} docs indexed, {batch_cnt} batches')
+                    cur = time.time()
+                    print(f'{cnt} docs indexed, {batch_cnt} batches, {cnt/(cur - start):.0f} docs/s')
 
     # Remember to add the final batch.
     if args.raw:
-        indexer.add_raw_batch(batch)
+        indexer.add_batch_raw(batch)
+    elif args.dict:
+        indexer.add_batch_dict(batch)
     else:
-        indexer.add_batch(batch)
+        indexer.add_batch_json(batch)
 
     indexer.close()
     end = time.time()
-    print(f'Total {cnt} docs indexed in {end - start:.0f}s')
+    print(f'Total {cnt} docs indexed in {end - start:.0f}s, {cnt/(cur - start):.0f} docs/s')
