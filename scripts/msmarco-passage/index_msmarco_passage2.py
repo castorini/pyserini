@@ -85,4 +85,4 @@ if __name__ == '__main__':
 
     indexer.close()
     end = time.time()
-    print(f'Total {cnt} docs indexed in {end - start:.0f}s, {cnt/(cur - start):.0f} docs/s')
+    print(f'Total {cnt} docs indexed in {end - start:.0f}s, {cnt/(end - start):.0f} docs/s')
