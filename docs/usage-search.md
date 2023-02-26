@@ -59,10 +59,22 @@ The following method will list available pre-built indexes:
 LuceneSearcher.list_prebuilt_indexes()
 ```
 
-A description of what's available can be found [here](docs/prebuilt-indexes.md).
-Alternatively, see [this answer](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) for how to download an index manually.
+A description of what's available can be found [here](prebuilt-indexes.md).
+Alternatively, see [this answer](usage-interactive-search.md#how-do-i-manually-download-indexes) for how to download an index manually.
 
 ## Learned Sparse Retrieval Models
+
+```python
+from pyserini.search.lucene import LuceneImpactSearcher
+
+searcher = LuceneImpactSearcher.from_prebuilt_index(
+    'msmarco-v1-passage-unicoil',
+    'castorini/unicoil-msmarco-passage')
+hits = searcher.search('what is a lobster roll?')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+```
 
 ## Learned Dense Retrieval Models
 
