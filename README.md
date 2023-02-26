@@ -68,32 +68,28 @@ Instructions are provided [here](./docs/installation.md#development-installation
 
 Pyserini supports the following classes of retrieval models:
 
-+ `LuceneSearcher`: traditional bag-of-words lexical models (i.e., BM25).
-+ `LuceneImpactSearcher`: learned sparse retrieval models (e.g., uniCOIL, SPLADE, etc.)
-+ `FaissSearcher`: learned dense retrieval models (e.g., DPR, Contriever, etc.).
-+ `HybridSearcher` hybrid sparse-dense retrieval models.
++ [Traditional lexical models]() (e.g., BM25) using `LuceneSearcher`.
++ [Learned sparse retrieval models]() (e.g., uniCOIL, SPLADE, etc.) using `LuceneImpactSearcher`.
++ [Learned dense retrieval models]() (e.g., DPR, Contriever, etc.) using `FaissSearcher`.
++ [Hybrid retrieval models]() (e.g., dense-sparse fusion) using `HybridSearcher`.
 
-See [this guide](docs/usage-search.md) for more details on how to use these classes.
+See [this guide](docs/usage-search.md) (same as the links above) for details on how to search common corpora in IR and NLP research
+(e.g., MS MARCO, NaturalQuestions, BEIR, etc.) using indexes that we have already built for you.
 
-## 🙋 How do I fetch a document?
+Once you get the top-_k_ results, you'll actually want to fetch the document text...
+See [this guide](docs/usage-fetch.md) for how.
 
-Once you get a ranked list, you actually want fetch the document text...
-If a Lucene index has been configured to store the raw text, `doc()` method can be used to fetch the document:
+## 🙋 How do I index my own corpus?
 
-```python
-from pyserini.search.lucene import LuceneSearcher
+Well, it depends on what type of retrieval model you want to search with:
 
-searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
-doc = searcher.doc('7157715')
-```
++ [Building a BM25 Index (Direct Java Implementation)]()
++ [Building a BM25 Index (Embeddable Python Implementation)]()
++ [Building a Sparse Vector Index]()
++ [Building a Dense Vector Index]()
 
-See [this guide](docs/usage-fetch.md) for details on how to do this.
-
-## 🙋 How do I index and search my own documents?
-
-Well, it depends on what type of retrieval model you want to search with...
-The steps are different for different classes of models;
-[this guide](docs/usage-index.md) describes the details.
+The steps are different for different classes of models:
+[this guide](docs/usage-index.md) (same as the links above) describes the details.
 
 ## 🙋 Additional FAQs
 

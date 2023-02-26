@@ -2,7 +2,12 @@
 
 In addition to standard corpora used in IR and NLP research, Pyserini allows you to index and search your own documents.
 
-### Building a BM25 Index
++ Building a BM25 Index (Direct Java Implementation)
++ Building a BM25 Index (Embeddable Python Implementation)
++ Building a Sparse Vector Index
++ Building a Dense Vector Index
+
+## Building a BM25 Index (Direct Java Implementation)
 
 To build sparse (i.e., Lucene inverted indexes) on your own document collections, follow the instructions below.
 
@@ -165,7 +170,11 @@ $ cat run.sample_zh.txt
 2 Q0 doc1 3 0.091100 Anserini
 ```
 
-### Building a Dense Vector Index
+## Building a BM25 Index (Embeddable Python Implementation)
+
+## Building a Sparse Vector Index
+
+## Building a Dense Vector Index
 
 To build dense indexes (e.g., Faiss indexes) on your own document collections, follow the instructions below.
 

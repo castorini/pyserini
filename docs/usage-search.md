@@ -1,8 +1,16 @@
 # Pyserini: Searching with Different Retrieval Models
 
-Pyserini supports sparse retrieval (e.g., BM25 ranking using bag-of-words representations), dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), as well hybrid retrieval that integrates both approaches via linear combination of scores. 
+Pyserini supports the following classes of retrieval models:
 
-### Sparse Retrieval
++ [Traditional lexical models]() (e.g., BM25) using `LuceneSearcher`.
++ [Learned sparse retrieval models]() (e.g., uniCOIL, SPLADE, etc.) using `LuceneImpactSearcher`.
++ [Learned dense retrieval models]() (e.g., DPR, Contriever, etc.) using `FaissSearcher`.
++ [Hybrid retrieval models]() (e.g., dense-sparse fusion) using `HybridSearcher`.
+
+For many common IR and NLP corpora, we have already built indexes for you, so you can search them directly.
+This guide describes using thes indexes.
+
+## Traditional Lexical Models
 
 The `LuceneSearcher` class provides the entry point for retrieval using bag-of-words representations.
 
@@ -54,7 +62,9 @@ LuceneSearcher.list_prebuilt_indexes()
 A description of what's available can be found [here](docs/prebuilt-indexes.md).
 Alternatively, see [this answer](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) for how to download an index manually.
 
-### Dense Retrieval
+## Learned Sparse Retrieval Models
+
+## Learned Dense Retrieval Models
 
 The `FaissSearcher` class provides the entry point for retrieval using dense transformer-derived representations.
 
@@ -99,7 +109,7 @@ The results should be as follows:
 10 2920399 69.01737
 ```
 
-### Hybrid Sparse-Dense Retrieval
+## Hybrid Retrieval Models
 
 The `HybridSearcher` class provides the entry point to perform hybrid sparse-dense retrieval.
 
