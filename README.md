@@ -1,6 +1,7 @@
 # Pyserini <img src="docs/pyserini-logo.png" width="300" />
 
 [![PyPI](https://img.shields.io/pypi/v/pyserini?color=brightgreen)](https://pypi.org/project/pyserini/)
+[![Downloads](https://static.pepy.tech/personalized-badge/pyserini?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/pyserini)
 [![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
 [![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
 [![Generic badge](https://img.shields.io/badge/Lucene-v9.4.2-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/9.4.2/)
