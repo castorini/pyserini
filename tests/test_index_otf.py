@@ -19,7 +19,7 @@ import shutil
 import unittest
 from typing import List
 
-from pyserini.index.lucene import LuceneIndexer, IndexReader
+from pyserini.index.lucene import LuceneIndexer, IndexReader, JacksonObjectMapper
 from pyserini.search.lucene import JLuceneSearcherResult, LuceneSearcher
 
 
@@ -40,7 +40,7 @@ class TestSearch(unittest.TestCase):
 
         with open(self.test_file) as f:
             for doc in f:
-                indexer.add(doc)
+                indexer.add_doc_raw(doc)
 
         indexer.close()
 
@@ -63,7 +63,7 @@ class TestSearch(unittest.TestCase):
 
         # Test different ways to initialize indexer.
         indexer = LuceneIndexer(self.tmp_dir)
-        indexer.add_batch(batch)
+        indexer.add_batch_raw(batch)
         indexer.close()
 
         searcher = LuceneSearcher(self.tmp_dir)
@@ -79,7 +79,7 @@ class TestSearch(unittest.TestCase):
 
         # Test different ways to initialize indexer.
         indexer = LuceneIndexer(self.tmp_dir, threads=2)
-        indexer.add_batch(batch)
+        indexer.add_batch_raw(batch)
         indexer.close()
 
         searcher = LuceneSearcher(self.tmp_dir)
@@ -95,7 +95,7 @@ class TestSearch(unittest.TestCase):
 
         # Test different ways to initialize indexer.
         indexer = LuceneIndexer(self.tmp_dir, threads=4)
-        indexer.add_batch(batch)
+        indexer.add_batch_raw(batch)
         indexer.close()
 
         searcher = LuceneSearcher(self.tmp_dir)
@@ -111,7 +111,7 @@ class TestSearch(unittest.TestCase):
 
         # Test different ways to initialize indexer
         indexer = LuceneIndexer(args=['-index', self.tmp_dir, '-threads', '4'])
-        indexer.add_batch(batch)
+        indexer.add_batch_raw(batch)
         indexer.close()
 
         searcher = LuceneSearcher(self.tmp_dir)
@@ -130,7 +130,7 @@ class TestSearch(unittest.TestCase):
 
         with open(self.test_file) as f:
             for doc in f:
-                indexer.add(doc)
+                indexer.add_doc_raw(doc)
 
         indexer.close()
 
@@ -147,7 +147,7 @@ class TestSearch(unittest.TestCase):
 
     def test_indexer_append1(self):
         indexer = LuceneIndexer(self.tmp_dir)
-        indexer.add('{"id": "0", "contents": "Document 0"}')
+        indexer.add_doc_raw('{"id": "0", "contents": "Document 0"}')
         indexer.close()
 
         reader = IndexReader(self.tmp_dir)
@@ -156,7 +156,7 @@ class TestSearch(unittest.TestCase):
         self.assertIsNotNone(reader.doc('0'))
 
         indexer = LuceneIndexer(self.tmp_dir, append=True)
-        indexer.add('{"id": "1", "contents": "Document 1"}')
+        indexer.add_doc_raw('{"id": "1", "contents": "Document 1"}')
         indexer.close()
 
         reader = IndexReader(self.tmp_dir)
@@ -168,7 +168,7 @@ class TestSearch(unittest.TestCase):
     def test_indexer_append2(self):
         # Make sure it's okay if we append to an empty index.
         indexer = LuceneIndexer(self.tmp_dir, append=True)
-        indexer.add('{"id": "0", "contents": "Document 0"}')
+        indexer.add_doc_raw('{"id": "0", "contents": "Document 0"}')
         indexer.close()
 
         reader = IndexReader(self.tmp_dir)
@@ -178,7 +178,7 @@ class TestSearch(unittest.TestCase):
 
         # Confirm that we are overwriting.
         indexer = LuceneIndexer(self.tmp_dir)
-        indexer.add('{"id": "1", "contents": "Document 1"}')
+        indexer.add_doc_raw('{"id": "1", "contents": "Document 1"}')
         indexer.close()
 
         reader = IndexReader(self.tmp_dir)
@@ -189,7 +189,7 @@ class TestSearch(unittest.TestCase):
 
         # Now we're appending.
         indexer = LuceneIndexer(self.tmp_dir, append=True)
-        indexer.add('{"id": "x", "contents": "Document x"}')
+        indexer.add_doc_raw('{"id": "x", "contents": "Document x"}')
         indexer.close()
 
         reader = IndexReader(self.tmp_dir)
@@ -198,6 +198,87 @@ class TestSearch(unittest.TestCase):
         self.assertIsNone(reader.doc('0'))
         self.assertIsNotNone(reader.doc('1'))
         self.assertIsNotNone(reader.doc('x'))
+
+    def test_indexer_type_raw(self):
+        indexer = LuceneIndexer(self.tmp_dir)
+        indexer.add_doc_raw('{"id": "doc0", "contents": "document 0 contents"}')
+        indexer.add_doc_raw('{"id": "doc1", "contents": "document 1 contents"}')
+        indexer.close()
+
+        reader = IndexReader(self.tmp_dir)
+        stats = reader.stats()
+        self.assertEqual(2, stats['documents'])
+        self.assertIsNotNone(reader.doc('doc0'))
+        self.assertIsNotNone(reader.doc('doc1'))
+
+    def test_indexer_type_raw_batch(self):
+        batch = ['{"id": "doc0", "contents": "document 0 contents"}',
+                 '{"id": "doc1", "contents": "document 1 contents"}']
+
+        indexer = LuceneIndexer(self.tmp_dir)
+        indexer.add_batch_raw(batch)
+        indexer.close()
+
+        reader = IndexReader(self.tmp_dir)
+        stats = reader.stats()
+        self.assertEqual(2, stats['documents'])
+        self.assertIsNotNone(reader.doc('doc0'))
+        self.assertIsNotNone(reader.doc('doc1'))
+
+    def test_indexer_type_dict(self):
+        indexer = LuceneIndexer(self.tmp_dir)
+        indexer.add_doc_dict({'id': 'doc0', 'contents': 'document 0 contents'})
+        indexer.add_doc_dict({'id': 'doc1', 'contents': 'document 1 contents'})
+        indexer.close()
+
+        reader = IndexReader(self.tmp_dir)
+        stats = reader.stats()
+        self.assertEqual(2, stats['documents'])
+        self.assertIsNotNone(reader.doc('doc0'))
+        self.assertIsNotNone(reader.doc('doc1'))
+
+    def test_indexer_type_dict_batch(self):
+        batch = [{'id': 'doc0', 'contents': 'document 0 contents'},
+                 {'id': 'doc1', 'contents': 'document 1 contents'}]
+
+        indexer = LuceneIndexer(self.tmp_dir)
+        indexer.add_batch_dict(batch)
+        indexer.close()
+
+        reader = IndexReader(self.tmp_dir)
+        stats = reader.stats()
+        self.assertEqual(2, stats['documents'])
+        self.assertIsNotNone(reader.doc('doc0'))
+        self.assertIsNotNone(reader.doc('doc1'))
+
+    def test_indexer_type_json(self):
+        mapper = JacksonObjectMapper()
+
+        indexer = LuceneIndexer(self.tmp_dir)
+        indexer.add_doc_json(mapper.createObjectNode().put('id', 'doc0').put('contents', 'document 0 contents'))
+        indexer.add_doc_json(mapper.createObjectNode().put('id', 'doc1').put('contents', 'document 1 contents'))
+        indexer.close()
+
+        reader = IndexReader(self.tmp_dir)
+        stats = reader.stats()
+        self.assertEqual(2, stats['documents'])
+        self.assertIsNotNone(reader.doc('doc0'))
+        self.assertIsNotNone(reader.doc('doc1'))
+
+    def test_indexer_type_json_batch(self):
+        mapper = JacksonObjectMapper()
+        batch = [mapper.createObjectNode().put('id', 'doc0').put('contents', 'document 0 contents'),
+                 mapper.createObjectNode().put('id', 'doc1').put('contents', 'document 1 contents')]
+
+        indexer = LuceneIndexer(self.tmp_dir)
+        indexer.add_batch_json(batch)
+        indexer.close()
+
+        reader = IndexReader(self.tmp_dir)
+        stats = reader.stats()
+        self.assertEqual(2, stats['documents'])
+        self.assertIsNotNone(reader.doc('doc0'))
+        self.assertIsNotNone(reader.doc('doc1'))
 
     def tearDown(self):
         shutil.rmtree(self.tmp_dir)
