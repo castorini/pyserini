@@ -68,10 +68,10 @@ Instructions are provided [here](./docs/installation.md#development-installation
 
 Pyserini supports the following classes of retrieval models:
 
-+ [Traditional lexical models]() (e.g., BM25) using `LuceneSearcher`.
-+ [Learned sparse retrieval models]() (e.g., uniCOIL, SPLADE, etc.) using `LuceneImpactSearcher`.
-+ [Learned dense retrieval models]() (e.g., DPR, Contriever, etc.) using `FaissSearcher`.
-+ [Hybrid retrieval models]() (e.g., dense-sparse fusion) using `HybridSearcher`.
++ [Traditional lexical models](docs/usage-search.md#traditional-lexical-models) (e.g., BM25) using `LuceneSearcher`.
++ [Learned sparse retrieval models](docs/usage-search.md#learned-sparse-retrieval-models) (e.g., uniCOIL, SPLADE, etc.) using `LuceneImpactSearcher`.
++ [Learned dense retrieval models](docs/usage-search.md#learned-dense-retrieval-models) (e.g., DPR, Contriever, etc.) using `FaissSearcher`.
++ [Hybrid retrieval models](docs/usage-search.md#hybrid-retrieval-models) (e.g., dense-sparse fusion) using `HybridSearcher`.
 
 See [this guide](docs/usage-search.md) (same as the links above) for details on how to search common corpora in IR and NLP research
 (e.g., MS MARCO, NaturalQuestions, BEIR, etc.) using indexes that we have already built for you.
@@ -83,10 +83,10 @@ See [this guide](docs/usage-fetch.md) for how.
 
 Well, it depends on what type of retrieval model you want to search with:
 
-+ [Building a BM25 Index (Direct Java Implementation)]()
-+ [Building a BM25 Index (Embeddable Python Implementation)]()
-+ [Building a Sparse Vector Index]()
-+ [Building a Dense Vector Index]()
++ [Building a BM25 Index (Direct Java Implementation)](docs/usage-index.md#building-a-bm25-index-direct-java-implementation)
++ [Building a BM25 Index (Embeddable Python Implementation)](docs/usage-index.md#building-a-bm25-index-embeddable-python-implementation)
++ [Building a Sparse Vector Index](docs/usage-index.md#building-a-sparse-vector-index)
++ [Building a Dense Vector Index](docs/usage-index.md#building-a-dense-vector-index)
 
 The steps are different for different classes of models:
 [this guide](docs/usage-index.md) (same as the links above) describes the details.

@@ -2,10 +2,10 @@
 
 Pyserini supports the following classes of retrieval models:
 
-+ [Traditional lexical models]() (e.g., BM25) using `LuceneSearcher`.
-+ [Learned sparse retrieval models]() (e.g., uniCOIL, SPLADE, etc.) using `LuceneImpactSearcher`.
-+ [Learned dense retrieval models]() (e.g., DPR, Contriever, etc.) using `FaissSearcher`.
-+ [Hybrid retrieval models]() (e.g., dense-sparse fusion) using `HybridSearcher`.
++ [Traditional lexical models](#traditional-lexical-models) (e.g., BM25) using `LuceneSearcher`.
++ [Learned sparse retrieval models](#learned-sparse-retrieval-models) (e.g., uniCOIL, SPLADE, etc.) using `LuceneImpactSearcher`.
++ [Learned dense retrieval models](#learned-dense-retrieval-models) (e.g., DPR, Contriever, etc.) using `FaissSearcher`.
++ [Hybrid retrieval models](#hybrid-retrieval-models) (e.g., dense-sparse fusion) using `HybridSearcher`.
 
 For many common IR and NLP corpora, we have already built indexes for you, so you can search them directly.
 This guide describes using thes indexes.
