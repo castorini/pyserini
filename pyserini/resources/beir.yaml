@@ -1,6 +1,6 @@
 conditions:
   - name: flat
-    command: python -m pyserini.search.lucene --index beir-v1.0.0-${dataset}-flat --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --batch 36 --threads 12 --hits 1000 --bm25 --remove-query
+    command: python -m pyserini.search.lucene --index beir-v1.0.0-${dataset}.bm25-flat --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --batch 36 --threads 12 --hits 1000 --bm25 --remove-query
     datasets:
       - dataset: trec-covid
         scores:
