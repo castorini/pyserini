@@ -1,6 +1,6 @@
 conditions:
-  - name: flat
-    command: python -m pyserini.search.lucene --index beir-v1.0.0-${dataset}.bm25-flat --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --batch 36 --threads 12 --hits 1000 --bm25 --remove-query
+  - name: bm25-flat
+    command: python -m pyserini.search.lucene --index beir-v1.0.0-${dataset}.flat --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --batch 36 --threads 12 --hits 1000 --bm25 --remove-query
     datasets:
       - dataset: trec-covid
         scores:
@@ -147,8 +147,8 @@ conditions:
           - nDCG@10: 0.6789
             R@100: 0.9253
             R@1000: 0.9767
-  - name: multifield
-    command: python -m pyserini.search.lucene --index beir-v1.0.0-${dataset}-multifield --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --batch 36 --threads 12 --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  - name: bm25-multifield
+    command: python -m pyserini.search.lucene --index beir-v1.0.0-${dataset}.multifield --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --batch 36 --threads 12 --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
     datasets:
       - dataset: trec-covid
         scores:

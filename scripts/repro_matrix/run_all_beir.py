@@ -48,7 +48,7 @@ if __name__ == '__main__':
 
                 print(f'  - dataset: {dataset}')
 
-                runfile = f'runs/run.beir-{name}.{dataset}.txt'
+                runfile = f'runs/run.beir.{name}.{dataset}.txt'
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)
 
                 if not os.path.exists(runfile):
@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
             print('')
 
-    models = ['bm25-flat'] #, 'multifield', 'splade-distil-cocodenser-medium']
+    models = ['bm25-flat', 'bm25-multifield', 'splade-distil-cocodenser-medium']
     metrics = ['nDCG@10', 'R@100', 'R@1000']
 
     top_level_sums = defaultdict(lambda: defaultdict(float))
