@@ -51,9 +51,9 @@ beir_keys = {
     'scifact': 'SciFact'
 }
 
-commitid = '1842ee'
-date = '20220501'
-type = 'bm25-flat'
+commitid = '505594'
+date = '20221116'
+type = 'flat'
 
 for key in beir_keys:
     index_reader = IndexReader(f'indexes/lucene-index.beir-v1.0.0-{key}.{type}.{date}.{commitid}')
