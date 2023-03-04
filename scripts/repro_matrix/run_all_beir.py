@@ -48,7 +48,7 @@ if __name__ == '__main__':
 
                 print(f'  - dataset: {dataset}')
 
-                runfile = f'runs/run.beir-{name}.{dataset}.txt'
+                runfile = f'runs/run.beir.{name}.{dataset}.txt'
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)
 
                 if not os.path.exists(runfile):
@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
             print('')
 
-    models = ['flat', 'multifield', 'splade-distil-cocodenser-medium']
+    models = ['bm25-flat', 'bm25-multifield', 'splade-distil-cocodenser-medium']
     metrics = ['nDCG@10', 'R@100', 'R@1000']
 
     top_level_sums = defaultdict(lambda: defaultdict(float))
@@ -101,12 +101,12 @@ if __name__ == '__main__':
     print(' ' * 27 + '-' * 14 + '    ' + '-' * 14 + '    ' + '-' * 14)
     for dataset in beir_keys:
         print(f'{dataset:25}' +
-              f'{table[dataset]["flat"]["nDCG@10"]:8.4f}{table[dataset]["flat"]["R@100"]:8.4f}  ' +
-              f'{table[dataset]["multifield"]["nDCG@10"]:8.4f}{table[dataset]["multifield"]["R@100"]:8.4f}  ' +
+              f'{table[dataset]["bm25-flat"]["nDCG@10"]:8.4f}{table[dataset]["bm25-flat"]["R@100"]:8.4f}  ' +
+              f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.4f}{table[dataset]["bm25-multifield"]["R@100"]:8.4f}  ' +
               f'{table[dataset]["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{table[dataset]["splade-distil-cocodenser-medium"]["R@100"]:8.4f}')
     print(' ' * 27 + '-' * 14 + '    ' + '-' * 14 + '    ' + '-' * 14)
-    print('avg' + ' ' * 22 + f'{final_scores["flat"]["nDCG@10"]:8.4f}{final_scores["flat"]["R@100"]:8.4f}  ' +
-          f'{final_scores["multifield"]["nDCG@10"]:8.4f}{final_scores["multifield"]["R@100"]:8.4f}  ' +
+    print('avg' + ' ' * 22 + f'{final_scores["bm25-flat"]["nDCG@10"]:8.4f}{final_scores["bm25-flat"]["R@100"]:8.4f}  ' +
+          f'{final_scores["bm25-multifield"]["nDCG@10"]:8.4f}{final_scores["bm25-multifield"]["R@100"]:8.4f}  ' +
           f'{final_scores["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{final_scores["splade-distil-cocodenser-medium"]["R@100"]:8.4f} ')
 
     end = time.time()
