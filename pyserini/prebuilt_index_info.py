@@ -1951,7 +1951,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 14874721901,
         "documents": 5233329,
         "downloaded": False,
-        "texts": "beir-v1.0.0-hotpotqa-flat",
+        "texts": "beir-v1.0.0-hotpotqa.flat",
     },
     "beir-v1.0.0-fiqa.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by Contriever encoder.",
@@ -1964,7 +1964,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 164024764,
         "documents": 57638,
         "downloaded": False,
-        "texts": "beir-v1.0.0-fiqa-flat",
+        "texts": "beir-v1.0.0-fiqa.flat",
     },
     "beir-v1.0.0-signal1m.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by Contriever encoder.",
@@ -1977,7 +1977,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 8142533760,
         "documents": 2866316,
         "downloaded": False,
-        "texts": "beir-v1.0.0-signal1m-flat",
+        "texts": "beir-v1.0.0-signal1m.flat",
     },
     "beir-v1.0.0-trec-news.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by Contriever encoder.",
@@ -1990,7 +1990,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 1629958623,
         "documents": 594977,
         "downloaded": False,
-        "texts": "beir-v1.0.0-trec-news-flat",
+        "texts": "beir-v1.0.0-trec-news.flat",
     },
     "beir-v1.0.0-robust04.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by Contriever encoder.",
@@ -2003,7 +2003,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 1501110333,
         "documents": 528155,
         "downloaded": False,
-        "texts": "beir-v1.0.0-robust04-flat",
+        "texts": "beir-v1.0.0-robust04.flat",
     },
     "beir-v1.0.0-arguana.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by Contriever encoder.",
@@ -2016,7 +2016,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 24710561,
         "documents": 8674,
         "downloaded": False,
-        "texts": "beir-v1.0.0-arguana-flat",
+        "texts": "beir-v1.0.0-arguana.flat",
     },
     "beir-v1.0.0-webis-touche2020.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by Contriever encoder.",
@@ -2029,7 +2029,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 1091320704,
         "documents": 382545,
         "downloaded": False,
-        "texts": "beir-v1.0.0-webis-touche2020-flat",
+        "texts": "beir-v1.0.0-webis-touche2020.flat",
     },
     "beir-v1.0.0-cqadupstack-android.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by Contriever encoder.",
@@ -2042,7 +2042,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 65447231,
         "documents": 22998,
         "downloaded": False,
-        "texts": "beir-v1.0.0-cqadupstack-android-flat",
+        "texts": "beir-v1.0.0-cqadupstack-android.flat",
     },
     "beir-v1.0.0-cqadupstack-english.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by Contriever encoder.",
@@ -2055,7 +2055,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 114460495,
         "documents": 40221,
         "downloaded": False,
-        "texts": "beir-v1.0.0-cqadupstack-english-flat",
+        "texts": "beir-v1.0.0-cqadupstack-english.flat",
     },
     "beir-v1.0.0-cqadupstack-gaming.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by Contriever encoder.",
@@ -2068,7 +2068,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 128906099,
         "documents": 45301,
         "downloaded": False,
-        "texts": "beir-v1.0.0-cqadupstack-gaming-flat",
+        "texts": "beir-v1.0.0-cqadupstack-gaming.flat",
     },
     "beir-v1.0.0-cqadupstack-gis.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by Contriever encoder.",
@@ -2081,7 +2081,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 107128974,
         "documents": 37637,
         "downloaded": False,
-        "texts": "beir-v1.0.0-cqadupstack-gis-flat",
+        "texts": "beir-v1.0.0-cqadupstack-gis.flat",
     },
     "beir-v1.0.0-cqadupstack-mathematica.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by Contriever encoder.",
@@ -2094,7 +2094,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 47544559,
         "documents": 16705,
         "downloaded": False,
-        "texts": "beir-v1.0.0-cqadupstack-mathematica-flat",
+        "texts": "beir-v1.0.0-cqadupstack-mathematica.flat",
     },
     "beir-v1.0.0-cqadupstack-physics.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by Contriever encoder.",
@@ -2107,7 +2107,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 109048286,
         "documents": 38316,
         "downloaded": False,
-        "texts": "beir-v1.0.0-cqadupstack-physics-flat",
+        "texts": "beir-v1.0.0-cqadupstack-physics.flat",
     },
     "beir-v1.0.0-cqadupstack-programmers.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by Contriever encoder.",
@@ -2120,7 +2120,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 91583135,
         "documents": 32176,
         "downloaded": False,
-        "texts": "beir-v1.0.0-cqadupstack-programmers-flat",
+        "texts": "beir-v1.0.0-cqadupstack-programmers.flat",
     },
     "beir-v1.0.0-cqadupstack-stats.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by Contriever encoder.",
@@ -2133,7 +2133,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 120288620,
         "documents": 42269,
         "downloaded": False,
-        "texts": "beir-v1.0.0-cqadupstack-stats-flat",
+        "texts": "beir-v1.0.0-cqadupstack-stats.flat",
     },
     "beir-v1.0.0-cqadupstack-tex.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by Contriever encoder.",
@@ -2146,7 +2146,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 194080724,
         "documents": 68184,
         "downloaded": False,
-        "texts": "beir-v1.0.0-cqadupstack-tex-flat",
+        "texts": "beir-v1.0.0-cqadupstack-tex.flat",
     },
     "beir-v1.0.0-cqadupstack-unix.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by Contriever encoder.",
@@ -2159,7 +2159,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 134860159,
         "documents": 47382,
         "downloaded": False,
-        "texts": "beir-v1.0.0-cqadupstack-unix-flat",
+        "texts": "beir-v1.0.0-cqadupstack-unix.flat",
     },
     "beir-v1.0.0-cqadupstack-webmasters.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by Contriever encoder.",
@@ -2172,7 +2172,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 49531545,
         "documents": 17405,
         "downloaded": False,
-        "texts": "beir-v1.0.0-cqadupstack-webmasters-flat",
+        "texts": "beir-v1.0.0-cqadupstack-webmasters.flat",
     },
     "beir-v1.0.0-cqadupstack-wordpress.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by Contriever encoder.",
@@ -2185,7 +2185,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 138348184,
         "documents": 48605,
         "downloaded": False,
-        "texts": "beir-v1.0.0-cqadupstack-wordpress-flat",
+        "texts": "beir-v1.0.0-cqadupstack-wordpress.flat",
     },
     "beir-v1.0.0-quora.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (Quora) corpus encoded by Contriever encoder.",
@@ -2198,7 +2198,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 1485866217,
         "documents": 522931,
         "downloaded": False,
-        "texts": "beir-v1.0.0-quora-flat",
+        "texts": "beir-v1.0.0-quora.flat",
     },
     "beir-v1.0.0-dbpedia-entity.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by Contriever encoder.",
@@ -2211,7 +2211,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 13214316305,
         "documents": 4635922,
         "downloaded": False,
-        "texts": "beir-v1.0.0-dbpedia-entity-flat",
+        "texts": "beir-v1.0.0-dbpedia-entity.flat",
     },
     "beir-v1.0.0-scidocs.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by Contriever encoder.",
@@ -2224,7 +2224,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 73532556,
         "documents": 25657,
         "downloaded": False,
-        "texts": "beir-v1.0.0-scidocs-flat",
+        "texts": "beir-v1.0.0-scidocs.flat",
     },
     "beir-v1.0.0-fever.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by Contriever encoder.",
@@ -2237,7 +2237,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 15437918827,
         "documents": 5416568,
         "downloaded": False,
-        "texts": "beir-v1.0.0-fever-flat",
+        "texts": "beir-v1.0.0-fever.flat",
     },
     "beir-v1.0.0-climate-fever.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by Contriever encoder.",
@@ -2250,7 +2250,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 15437988868,
         "documents": 5416593,
         "downloaded": False,
-        "texts": "beir-v1.0.0-climate-fever-flat",
+        "texts": "beir-v1.0.0-climate-fever.flat",
     },
     "beir-v1.0.0-scifact.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by Contriever encoder.",
@@ -2263,7 +2263,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 14753553,
         "documents": 5183,
         "downloaded": False,
-        "texts": "beir-v1.0.0-scifact-flat",
+        "texts": "beir-v1.0.0-scifact.flat",
     },
 
     "hc4-v1.0-fa": {
