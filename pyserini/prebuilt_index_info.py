@@ -1899,7 +1899,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 488100317,
         "documents": 171332,
         "downloaded": False,
-        "texts": "beir-v1.0.0-trec-covid-flat",
+        "texts": "beir-v1.0.0-trec-covid.flat",
     },
     "beir-v1.0.0-bioasq.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by Contriever encoder.",
@@ -1912,7 +1912,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 42417202460,
         "documents": 14914603,
         "downloaded": False,
-        "texts": "beir-v1.0.0-bioasq-flat",
+        "texts": "beir-v1.0.0-bioasq.flat",
     },
     "beir-v1.0.0-nfcorpus.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by Contriever encoder.",
@@ -1925,7 +1925,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 10322409,
         "documents": 3633,
         "downloaded": False,
-        "texts": "beir-v1.0.0-nfcorpus-flat",
+        "texts": "beir-v1.0.0-nfcorpus.flat",
     },
     "beir-v1.0.0-nq.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (NQ) corpus encoded by Contriever encoder.",
@@ -1938,7 +1938,7 @@ TF_INDEX_INFO_CURRENT = {
         "size compressed (bytes)": 7617697503,
         "documents": 2681468,
         "downloaded": False,
-        "texts": "beir-v1.0.0-nq-flat",
+        "texts": "beir-v1.0.0-nq.flat",
     },
     "beir-v1.0.0-hotpotqa.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by Contriever encoder.",
