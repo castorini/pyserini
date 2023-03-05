@@ -97,7 +97,7 @@ for key in beir_keys:
 for key in beir_keys:
     cmd = f'python -m pyserini.search.faiss \
               --encoder-class contriever --encoder facebook/contriever \
-              --index beir-v1.0.0-{key}-contriever \
+              --index beir-v1.0.0-{key}.contriever \
               --topics beir-v1.0.0-{key}-test \
               --output runs/run.beir.contriever.{key}.txt \
               --batch 128 --threads 16 \
