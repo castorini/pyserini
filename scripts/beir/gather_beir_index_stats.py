@@ -152,5 +152,5 @@ for key in beir_keys:
     print(f'        "size compressed (bytes)": {size},')
     print(f'        "documents": {stats["documents"]},')
     print(f'        "downloaded": False')
-    print(f'        "texts": beir-v1.0.0-{key}.flat')
+    print(f'        "texts": "beir-v1.0.0-{key}.flat"')
     print(f'    }},')
