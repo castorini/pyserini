@@ -838,3 +838,149 @@ conditions:
         scores:
           - nDCG@10: 0.6114
             R@100: 0.9496
+  
+  # mContriever
+  - name: mdpr-tied-mContriever.ar
+    eval_key: miracl-v1.0-ar-dev
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-ar-dev --index miracl-v1.0.0-ar --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.3602
+            R@100: 0.8532
+  - name: mdpr-tied-mContriever.bn
+    eval_key: miracl-v1.0-bn
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-bn-dev --index miracl-v1.0.0-bn --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.4162
+            R@100: 0.888
+  - name: mdpr-tied-mContriever.en
+    eval_key: miracl-v1.0-en
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-en-dev --index miracl-v1.0.0-en --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.121
+            R@100: 0.3367
+  - name: mdpr-tied-mContriever.es
+    eval_key: miracl-v1.0-es
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-es-dev --index miracl-v1.0.0-es --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.2721
+            R@100: 0.6828
+  - name: mdpr-tied-mContriever.fa
+    eval_key: miracl-v1.0-fa
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-fa-dev --index miracl-v1.0.0-fa --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.1333
+            R@100: 0.4221
+  - name: mdpr-tied-mContriever.fi
+    eval_key: miracl-v1.0-fi
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-fi-dev --index miracl-v1.0.0-fi --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.397
+            R@100: 0.8776
+  - name: mdpr-tied-mContriever.fr
+    eval_key: miracl-v1.0-fr
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-fr-dev --index miracl-v1.0.0-fr --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.1579
+            R@100: 0.585
+  - name: mdpr-tied-mContriever.hi
+    eval_key: miracl-v1.0-hi
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-hi-dev --index miracl-v1.0.0-hi --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.1779
+            R@100: 0.4892
+  - name: mdpr-tied-mContriever.id
+    eval_key: miracl-v1.0-id
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-id-dev --index miracl-v1.0.0-id --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.2323
+            R@100: 0.667
+  - name: mdpr-tied-mContriever.ja
+    eval_key: miracl-v1.0-ja
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-ja-dev --index miracl-v1.0.0-ja --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.2885
+            R@100: 0.7923
+  - name: mdpr-tied-mContriever.ko
+    eval_key: miracl-v1.0-ko
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-ko-dev --index miracl-v1.0.0-ko --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.3077
+            R@100: 0.7038
+  - name: mdpr-tied-mContriever.ru
+    eval_key: miracl-v1.0-ru
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-ru-dev --index miracl-v1.0.0-ru --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.2193
+            R@100: 0.672
+  - name: mdpr-tied-mContriever.sw
+    eval_key: miracl-v1.0-sw
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-sw-dev --index miracl-v1.0.0-sw --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.3682
+            R@100: 0.8403
+  - name: mdpr-tied-mContriever.te
+    eval_key: miracl-v1.0-te
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-te-dev --index miracl-v1.0.0-te --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.3865
+            R@100: 0.8541
+  - name: mdpr-tied-mContriever.th
+    eval_key: miracl-v1.0-th
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-th-dev --index miracl-v1.0.0-th --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.3956
+            R@100: 0.8572
+  - name: mdpr-tied-mContriever.zh
+    eval_key: miracl-v1.0-zh
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-zh-dev --index miracl-v1.0.0-zh --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.2121
+            R@100: 0.5674
+  - name: mdpr-tied-mContriever.de
+    eval_key: miracl-v1.0-de
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-de-dev --index miracl-v1.0.0-de --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.2036
+            R@100: 0.6243
+  - name: mdpr-tied-mContriever.yo
+    eval_key: miracl-v1.0-yo
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever --topics miracl-v1.0-yo-dev --index miracl-v1.0.0-yo --output ${output} --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.187
+            R@100: 0.4062
