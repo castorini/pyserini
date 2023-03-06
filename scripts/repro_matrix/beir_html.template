@@ -149,6 +149,7 @@ pre[class*="prettyprint"] {
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 Multifield</b></th>
         <th class="headertop" colspan="2"><b>SPLADE</b></th>
+        <th class="headertop" colspan="2"><b>Contriever</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
@@ -159,6 +160,8 @@ pre[class*="prettyprint"] {
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>
       </tr>
