@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
             print('')
 
-    models = ['bm25-flat', 'bm25-multifield', 'splade-distil-cocodenser-medium']
+    models = ['bm25-flat', 'bm25-multifield', 'splade-distil-cocodenser-medium', 'contriever']
     metrics = ['nDCG@10', 'R@100', 'R@1000']
 
     top_level_sums = defaultdict(lambda: defaultdict(float))
