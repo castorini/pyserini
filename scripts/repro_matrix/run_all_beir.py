@@ -97,7 +97,7 @@ if __name__ == '__main__':
             final_scores[model][metric] = final_score
 
     print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 11 + 'SPLADE' + ' ' * 11 + 'Contriever')
-    print(' ' * 26 + 'nDCG@10   R@100   ' * 3)
+    print(' ' * 26 + 'nDCG@10   R@100   ' * 4)
     print(' ' * 27 + '-' * 14 + '    ' + '-' * 14 + '    ' + '-' * 14 + '    ' + '-' * 14)
     for dataset in beir_keys:
         print(f'{dataset:25}' +
