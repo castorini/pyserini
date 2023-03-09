@@ -6,16 +6,16 @@ This guide describes how to reproduce the SLIM experiments in the following pape
 Inverted Indexes.](https://arxiv.org/abs/2302.06587) _arXiv:2302.06587_.
 
 ### Retrieval
-
-We run retrieval using the `castorini/slim-msmarco-passage` model available on Huggingface's model hub:
+Due to naming conflict with [Lucence optimation](), we use `slimr` to denote our model which stands for ''slim retrieval''.
+We run retrieval using the `castorini/slimr-msmarco-passage` model available on Huggingface's model hub:
 
 ```bash
 python -m pyserini.search.lucene \
-  --index msmarco-v1-passage-slim-bm25 \
+  --index msmarco-v1-passage-slimr \
   --topics msmarco-passage-dev-subset \
-  --encoder castorini/slim-msmarco-passage \
-  --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slim-bm25 \
-  --output runs/run.msmarco-passage.slim.tsv \
+  --encoder castorini/slimr-msmarco-passage \
+  --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr \
+  --output runs/run.msmarco-passage.slimr.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \
   --hits 1000 \
@@ -29,7 +29,7 @@ With these impact scores, query evaluation is already slower than bag-of-words B
 The output is in MS MARCO output format, so we can directly evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.slim.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.slimr.tsv
 
 #####################
 MRR @10: 0.3581149656615276
@@ -42,11 +42,11 @@ For the distilled version, we could follow the similar procedure of indexing and
 Retrieval
 ```bash
 python -m pyserini.search.lucene \
-  --index msmarco-v1-passage-slim-pp \
+  --index msmarco-v1-passage-slimr-pp \
   --topics msmarco-passage-dev-subset \
-  --encoder castorini/slim-pp-msmarco-passage \
-  --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slim-pp \
-  --output runs/run.msmarco-passage.slim-pp.tsv \
+  --encoder castorini/slimr-pp-msmarco-passage \
+  --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr-pp \
+  --output runs/run.msmarco-passage.slimr-pp.tsv \
   --output-format msmarco \
   --batch 36 --threads 12 \
   --hits 1000 \
@@ -55,7 +55,7 @@ python -m pyserini.search.lucene \
 
 Evaluation
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.slim-pp.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.slimr-pp.tsv
 
 #####################
 MRR @10: 0.40315936689862253
