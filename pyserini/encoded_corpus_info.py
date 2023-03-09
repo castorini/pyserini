@@ -15,9 +15,9 @@
 #
 
 CORPUS_INFO = {
-    "scipy-sparse-vectors.msmarco-v1-passage-slim-bm25": {
+    "scipy-sparse-vectors.msmarco-v1-passage-slimr": {
         "description": "MS MARCO passages-v1 corpus encoded by SLIM trained with BM25 negatives. (Scipy)",
-        "filename": "scipy-sparse-vectors.msmarco-v1-passage-slim-bm25.20230220.tar.gz",
+        "filename": "scipy-sparse-vectors.msmarco-v1-passage-slimr.20230220.tar.gz",
         "urls": [
             "https://vault.cs.uwaterloo.ca/s/4MRXSmiDqNH4mgF/download",
         ],
@@ -26,9 +26,9 @@ CORPUS_INFO = {
         "documents": 8841823,
         "downloaded": False
     },
-    "scipy-sparse-vectors.msmarco-v1-passage-slim-pp": {
+    "scipy-sparse-vectors.msmarco-v1-passage-slimr-pp": {
         "description": "MS MARCO passages-v1 corpus encoded by SLIM trained with cross-encoder distillation and hardnegative mining (Scipy)",
-        "filename": "scipy-sparse-vectors.msmarco-v1-passage-slim-pp.20230220.tar.gz",
+        "filename": "scipy-sparse-vectors.msmarco-v1-passage-slimr-pp.20230220.tar.gz",
         "urls": [
             "https://vault.cs.uwaterloo.ca/s/gDJnrYGKsq6ir4w/download",
         ],

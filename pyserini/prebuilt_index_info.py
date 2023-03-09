@@ -4017,10 +4017,10 @@ TF_INDEX_INFO_DEPRECATED = {
 TF_INDEX_INFO = {**TF_INDEX_INFO_CURRENT, **TF_INDEX_INFO_DEPRECATED}
 
 IMPACT_INDEX_INFO_CURRENT = {
-    "msmarco-v1-passage-slim-bm25": {
+    "msmarco-v1-passage-slimr": {
         "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with BM25 negatives. (Lucene 9)",
-        "filename": "lucene-index.msmarco-v1-passage-slim-bm25.20230220.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-slim-bm25.20230220.md",
+        "filename": "lucene-index.msmarco-v1-passage-slimr.20230220.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-slimr.20230220.md",
         "urls": [
             "https://vault.cs.uwaterloo.ca/s/EptAojzmCxz7mYM/download",
         ],
@@ -4031,10 +4031,10 @@ IMPACT_INDEX_INFO_CURRENT = {
         "unique_terms": 28121,
         "downloaded": False
     },
-    "msmarco-v1-passage-slim-pp": {
+    "msmarco-v1-passage-slimr-pp": {
         "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with cross-encoder distillation and hardnegative mining. (Lucene 9)",
-        "filename": "lucene-index.msmarco-v1-passage-slim-pp.20230220.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-slim-pp.20230220.md",
+        "filename": "lucene-index.msmarco-v1-passage-slimr-pp.20230220.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-slimr-pp.20230220.md",
         "urls": [
             "https://vault.cs.uwaterloo.ca/s/22Gjmnp5EP2HpqR/download",
         ],
