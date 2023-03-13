@@ -195,7 +195,7 @@ conditions:
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
     display-row: (3a)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented-unicoil-noexp-0shot --topics $topics --output $output --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented-unicoil-noexp-0shot --topics $topics --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev-unicoil-noexp
         eval_key: msmarco-v2-doc-dev
@@ -218,7 +218,7 @@ conditions:
   - name: unicoil-noexp-otf
     display: "uniCOIL (noexp): otf"
     display-html: "uniCOIL (noexp): on-the-fly query inference"
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented-unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented-unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
@@ -242,7 +242,7 @@ conditions:
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
     display-row: (3b)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented-unicoil-0shot --topics $topics --output $output --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented-unicoil-0shot --topics $topics --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev-unicoil
         eval_key: msmarco-v2-doc-dev
@@ -265,7 +265,7 @@ conditions:
   - name: unicoil-otf
     display: "uniCOIL (w/ doc2query-T5): otf"
     display-html: "uniCOIL (w/ doc2query-T5): on-the-fly query inference"
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented-unicoil-0shot --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --batch 36 --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented-unicoil-0shot --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev

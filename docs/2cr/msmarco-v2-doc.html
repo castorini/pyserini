@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Pyserini Reproductions</title>
+    <title>Pyserini Reproductions: MS MARCO V2 Document</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -37,6 +37,14 @@ blockquote.mycode {
   border-left: 3px solid #ccc;
   margin-left: 25px;
   margin-top: 15px;
+  padding-left: 15px;
+}
+
+blockquote.mycode2 {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   padding-left: 15px;
 }
 
@@ -132,11 +140,13 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
-<p>The two-click reproduction matrix below provides commands for reproducing experimental results reported in the following paper.
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in the following paper.
 Numbered rows correspond to tables in the paper; additional conditions are provided for comparison purposes.</p>
 
 <p class="note note-light">Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin. <a href="https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
 <i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.</p>
+
+<p>Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
 
 <div class="table-responsive">
   <table class="table">
@@ -1065,8 +1075,7 @@ Command to generate run on TREC 2021 queries:
   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot \
   --topics dl21-unicoil-noexp \
   --output run.msmarco-v2-doc.unicoil-noexp.dl21.txt \
-  --batch 36 \
-  --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1089,8 +1098,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot \
   --topics msmarco-v2-doc-dev-unicoil-noexp \
   --output run.msmarco-v2-doc.unicoil-noexp.dev.txt \
-  --batch 36 \
-  --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1110,8 +1118,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot \
   --topics msmarco-v2-doc-dev2-unicoil-noexp \
   --output run.msmarco-v2-doc.unicoil-noexp.dev2.txt \
-  --batch 36 \
-  --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1174,8 +1181,7 @@ Command to generate run on TREC 2021 queries:
   --index msmarco-v2-doc-segmented-unicoil-0shot \
   --topics dl21-unicoil \
   --output run.msmarco-v2-doc.unicoil.dl21.txt \
-  --batch 36 \
-  --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1198,8 +1204,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   --index msmarco-v2-doc-segmented-unicoil-0shot \
   --topics msmarco-v2-doc-dev-unicoil \
   --output run.msmarco-v2-doc.unicoil.dev.txt \
-  --batch 36 \
-  --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1219,8 +1224,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   --index msmarco-v2-doc-segmented-unicoil-0shot \
   --topics msmarco-v2-doc-dev2-unicoil \
   --output run.msmarco-v2-doc.unicoil.dev2.txt \
-  --batch 36 \
-  --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1284,8 +1288,7 @@ Command to generate run on TREC 2021 queries:
   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot \
   --topics dl21 --encoder castorini/unicoil-noexp-msmarco-passage \
   --output run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt \
-  --batch 36 \
-  --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1308,8 +1311,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot \
   --topics msmarco-v2-doc-dev --encoder castorini/unicoil-noexp-msmarco-passage \
   --output run.msmarco-v2-doc.unicoil-noexp-otf.dev.txt \
-  --batch 36 \
-  --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1329,8 +1331,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot \
   --topics msmarco-v2-doc-dev2 --encoder castorini/unicoil-noexp-msmarco-passage \
   --output run.msmarco-v2-doc.unicoil-noexp-otf.dev2.txt \
-  --batch 36 \
-  --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1393,8 +1394,7 @@ Command to generate run on TREC 2021 queries:
   --index msmarco-v2-doc-segmented-unicoil-0shot \
   --topics dl21 --encoder castorini/unicoil-msmarco-passage \
   --output run.msmarco-v2-doc.unicoil-otf.dl21.txt \
-  --batch 36 \
-  --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1417,8 +1417,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   --index msmarco-v2-doc-segmented-unicoil-0shot \
   --topics msmarco-v2-doc-dev --encoder castorini/unicoil-msmarco-passage \
   --output run.msmarco-v2-doc.unicoil-otf.dev.txt \
-  --batch 36 \
-  --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1438,8 +1437,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   --index msmarco-v2-doc-segmented-unicoil-0shot \
   --topics msmarco-v2-doc-dev2 --encoder castorini/unicoil-msmarco-passage \
   --output run.msmarco-v2-doc.unicoil-otf.dev2.txt \
-  --batch 36 \
-  --threads 12 --impact --hits 10000 --max-passage-hits 1000 --max-passage
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1459,6 +1457,61 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
     </tbody>
   </table>
 </div>
+
+<div style="padding-top: 20px"/>
+
+<h4>Programmatic Execution</h4>
+
+<p>All experimental runs shown in the above table can be programmatically executed based on the instructions below.
+To list all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2-doc --list-conditions
+</tt></blockquote>
+
+<p>These conditions correspond to the table rows above.</p>
+
+<p>For all conditions, just show the commands in a "dry run":</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2-doc --all --display-commands --dry-run
+</tt></blockquote>
+
+<p>To actually run all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2-doc --all --display-commands
+</tt></blockquote>
+
+<p>With the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>To show the commands for a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2-doc --condition bm25-doc-default --display-commands --dry-run
+</tt></blockquote>
+
+<p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
+
+<p>To actually run a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2-doc --condition bm25-doc-default --display-commands
+</tt></blockquote>
+
+<p>Again, with the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>Finally, to generate this page:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2-doc --generate-report --output msmarco-v2-doc.html
+</tt></blockquote>
+
+<p>The output file <tt>msmarco-v2-doc.html</tt> should be identical to this page.</p>
+
+<div style="padding-top: 50px"/>
 
       </div>
 
@@ -1511,4 +1564,3 @@ clipboard.on('error', function(e) {
 
 </body>
 </html>
-

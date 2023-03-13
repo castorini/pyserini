@@ -1,6 +1,7 @@
 # Pyserini <img src="docs/pyserini-logo.png" width="300" />
 
 [![PyPI](https://img.shields.io/pypi/v/pyserini?color=brightgreen)](https://pypi.org/project/pyserini/)
+[![Downloads](https://static.pepy.tech/personalized-badge/pyserini?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/pyserini)
 [![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
 [![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
 [![Generic badge](https://img.shields.io/badge/Lucene-v9.4.2-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/9.4.2/)
@@ -620,13 +621,10 @@ For more details, see our paper on [Building a Culture of Reproducibility in Aca
 <details>
 <summary>Programmatic execution of the reproductions</summary>
 
-To run all these conditions programmatically:
+To run the MS MARCO reproductions programmatically, see instructions on each individual page above.
+For all the others:
 
 ```bash
-python scripts/repro_matrix/run_all_msmarco.py --collection v1-passage
-python scripts/repro_matrix/run_all_msmarco.py --collection v1-doc
-python scripts/repro_matrix/run_all_msmarco.py --collection v2-passage
-python scripts/repro_matrix/run_all_msmarco.py --collection v2-doc
 python scripts/repro_matrix/run_all_beir.py
 python scripts/repro_matrix/run_all_mrtydi.py
 python scripts/repro_matrix/run_all_miracl.py
@@ -637,10 +635,6 @@ python scripts/repro_matrix/run_all_odqa.py --topics tqa
 And to generate the nicely formatted documentation pages:
 
 ```bash
-python scripts/repro_matrix/generate_html_msmarco.py --collection v1-passage > docs/2cr/msmarco-v1-passage.html
-python scripts/repro_matrix/generate_html_msmarco.py --collection v1-doc > docs/2cr/msmarco-v1-doc.html
-python scripts/repro_matrix/generate_html_msmarco.py --collection v2-passage > docs/2cr/msmarco-v2-passage.html
-python scripts/repro_matrix/generate_html_msmarco.py --collection v2-doc > docs/2cr/msmarco-v2-doc.html
 python scripts/repro_matrix/generate_html_beir.py > docs/2cr/beir.html
 python scripts/repro_matrix/generate_html_mrtydi.py > docs/2cr/mrtydi.html
 python scripts/repro_matrix/generate_html_miracl.py > docs/2cr/miracl.html
