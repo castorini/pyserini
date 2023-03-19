@@ -21,15 +21,19 @@ class, which wraps the Java class with the same name in Anserini.
 
 import logging
 import os
+import pickle
+from tqdm import tqdm
 from typing import Dict, List, Optional, Union
+from collections import namedtuple
 
 import numpy as np
+import scipy
 
 from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder, \
-    CachedDataQueryEncoder, SpladeQueryEncoder
+    CachedDataQueryEncoder, SpladeQueryEncoder, SlimQueryEncoder
 from pyserini.index import Document
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
-from pyserini.util import download_prebuilt_index
+from pyserini.util import download_prebuilt_index, download_encoded_corpus
 
 logger = logging.getLogger(__name__)
 
@@ -232,6 +236,8 @@ class LuceneImpactSearcher:
             return UniCoilQueryEncoder(query_encoder)
         elif 'splade' in query_encoder.lower():
             return SpladeQueryEncoder(query_encoder)
+        elif 'slim' in query_encoder.lower():
+            return SlimQueryEncoder(query_encoder)
 
     @staticmethod
     def _compute_idf(index_path):
@@ -244,3 +250,129 @@ class LuceneImpactSearcher:
             tokens.append(term.term)
         idfs = np.log((index_reader.stats()['documents'] / (np.array(dfs))))
         return dict(zip(tokens, idfs))
+
+
+SlimResult = namedtuple("SlimResult", "docid score")
+
+def maxsim(entry):
+    q_embed, d_embeds, d_lens, qid, scores, docids = entry
+    if len(d_embeds) == 0:
+        return qid, scores, docids
+    d_embeds = scipy.sparse.vstack(d_embeds).transpose() # (LD x 1000) x D
+    max_scores = (q_embed@d_embeds).todense() # LQ x (LD x 1000)
+    scores = []
+    start = 0
+    for d_len in d_lens:
+        scores.append(max_scores[:, start:start+d_len].max(1).sum())
+        start += d_len
+    scores, docids = list(zip(*sorted(list(zip(scores, docids)), key=lambda x: -x[0])))
+    return qid, scores, docids
+
+class SlimSearcher(LuceneImpactSearcher):
+    def __init__(self, encoded_corpus, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print("Loading sparse corpus vectors for fast reranking...")
+        with open(os.path.join(encoded_corpus, "sparse_range.pkl"), "rb") as f:
+            self.sparse_ranges = pickle.load(f)
+        sparse_vecs = scipy.sparse.load_npz(os.path.join(encoded_corpus, "sparse_vec.npz"))
+        self.sparse_vecs = [sparse_vecs[start:end] for start, end in tqdm(self.sparse_ranges)]
+    
+    @classmethod
+    def from_prebuilt_index(cls, encoded_corpus:str, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0):
+        print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+        try:
+            index_dir = download_prebuilt_index(prebuilt_index_name)
+            encoded_corpus = download_encoded_corpus(encoded_corpus)
+        except ValueError as e:
+            print(str(e))
+            return None
+
+        print(f'Initializing {prebuilt_index_name}...')
+        return cls(encoded_corpus, index_dir, query_encoder, min_idf)
+
+    def search(self, q: str, k: int = 10, fields=dict()) -> List[JImpactSearcherResult]:
+        jfields = JHashMap()
+        for (field, boost) in fields.items():
+            jfields.put(field, JFloat(boost))
+
+        fusion_encoded_query, sparse_encoded_query = self.query_encoder.encode(q, return_sparse=True)
+        jquery = JHashMap()
+        for (token, weight) in fusion_encoded_query.items():
+            if token in self.idf and self.idf[token] > self.min_idf:
+                jquery.put(token, JFloat(weight))
+
+        if self.sparse_vecs is not None:
+            search_k = k * (self.min_idf + 1)
+        if not fields:
+            hits = self.object.search(jquery, search_k)
+        else:
+            hits = self.object.searchFields(jquery, jfields, search_k)
+        hits = self.fast_rerank([sparse_encoded_query], {0: hits}, k)[0]
+        return hits
+    
+    def batch_search(self, queries: List[str], qids: List[str],
+                     k: int = 10, threads: int = 1, fields=dict()) -> Dict[str, List[JImpactSearcherResult]]:
+        query_lst = JArrayList()
+        qid_lst = JArrayList()
+        sparse_encoded_queries = {}
+        for qid, q in zip(qids, queries):
+            fusion_encoded_query, sparse_encoded_query = self.query_encoder.encode(q, return_sparse=True)
+            jquery = JHashMap()
+            for (token, weight) in fusion_encoded_query.items():
+                if token in self.idf and self.idf[token] > self.min_idf:
+                    jquery.put(token, JFloat(weight))
+            query_lst.add(jquery)
+            sparse_encoded_queries[qid] = sparse_encoded_query
+
+        for qid in qids:
+            jqid = qid
+            qid_lst.add(jqid)
+
+        jfields = JHashMap()
+        for (field, boost) in fields.items():
+            jfields.put(field, JFloat(boost))
+        
+        if not fields:
+            results = self.object.batch_search(query_lst, qid_lst, k * (self.min_idf + 1), threads)
+        else:
+            results = self.object.batch_search_fields(query_lst, qid_lst, k * (self.min_idf + 1), threads, jfields)
+        
+        results = {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
+        results = self.fast_rerank(sparse_encoded_queries, results, k)
+        return results
+
+    def fast_rerank(self, q_embeds, results, k):
+        all_scores = []
+        all_docids = []
+        all_q_embeds = []
+        all_d_embeds = []
+        all_d_lens = []
+        qids = []
+        for qid in results.keys():
+            all_q_embeds.append(q_embeds[qid])
+            qids.append(qid)
+            hits = results[qid]
+            docids = []
+            scores = []
+            d_embeds = []
+            d_lens = []
+            for hit in hits:
+                docids.append(hit.docid)
+                scores.append(hit.score)
+                start, end = self.sparse_ranges[int(hit.docid)]
+                d_embeds.append(self.sparse_vecs[int(hit.docid)])
+                d_lens.append(end-start)
+            all_scores.append(scores)
+            all_docids.append(docids)
+            all_d_embeds.append(d_embeds)
+            all_d_lens.append(d_lens)
+
+        entries = list(zip(all_q_embeds, all_d_embeds, all_d_lens, qids, all_scores, all_docids))
+        results = [maxsim(entry) for entry in entries]
+        anserini_results = {}
+        for qid, scores, docids in results:
+            hits = []
+            for score, docid in list(zip(scores, docids))[:k]:
+                hits.append(SlimResult(docid, score))
+            anserini_results[qid] = hits
+        return anserini_results
