@@ -230,7 +230,7 @@ A sparse (Lucene) index can be configured to include the raw document text, in w
 from pyserini.search.lucene import LuceneSearcher
 
 searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
-doc = searcher.doc('doc7157715')
+doc = searcher.doc('7157715')
 ```
 
 <details>
@@ -357,6 +357,8 @@ You should get something like the following:
  1 doc2 0.25620
  2 doc3 0.23140
 ```
+
+You can also use the doc() method to fetch a document, but you need to specify the document ID with the prefix 'doc', like this: `doc = searcher.doc('doc2')` instead of `doc = searcher.doc('2')`, otherwise it will return None.
 
 If you want to perform a batch retrieval run (e.g., directly from the command line), organize all your queries in a tsv file, like [here](tests/resources/sample_queries.tsv).
 The format is simple: the first field is a query id, and the second field is the query itself.
