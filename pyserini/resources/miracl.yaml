@@ -838,3 +838,14 @@ conditions:
         scores:
           - nDCG@10: 0.6114
             R@100: 0.9496
+
+ # mdpr-tied-pft-msmarco-ft-miracl-ft-miracl 
+  - name: mdpr-tied-pft-msmarco-ft-miracl.sw
+    eval_key: miracl-v1.0-sw
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-sw --topics miracl-v1.0-sw-${split} --index miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.6853
+            R@100: 0.9367
+  

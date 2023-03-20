@@ -6884,4 +6884,16 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "wiki-all-6-3-tamber"
     },
+    "miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw": {
+        "description": "Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw.tar.gz",
+        "readme": "miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw.README.md",
+        "urls": [
+        ],
+        "md5": "fbe7b155f975c2790a17872dd86cf1e9",
+        "size compressed (bytes)": 376196608,
+        "documents": 131924,
+        "downloaded": False,
+        "texts": "miracl-v1.0-sw"
+    },
 }
