@@ -53,7 +53,7 @@ if __name__ == '__main__':
 
                 if not os.path.exists(runfile):
                     print(f'    Running: {cmd}')
-                    # os.system(cmd)
+                    os.system(cmd)
 
                 for expected in datasets['scores']:
                     for metric in expected:
