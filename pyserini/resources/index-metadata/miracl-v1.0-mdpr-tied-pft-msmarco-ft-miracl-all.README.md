@@ -114,3 +114,29 @@ CUDA_VISIBLE_DEVICES=0 python -m tevatron.driver.encode \
 ```bash
 python test.py --input=model_miracl_${lang}_corpus --output=${lang}_index
 ```
+
+
+## Index from Pyserini
+Tested to use the same checkpoint to index directly via Pyserini using the following command, got the same score. (on basilisk)
+(only tested on Swahili)
+```bash
+encoder=jasper-xian/mdpr-tied-pft-msmarco_miracl-$lang
+
+index_dir=miracl-v1.0-$lang-mdpr-tied-pft-msmarco-ft-miracl-$lang
+echo $index_dir
+
+
+CUDA_VISIBLE_DEVICES=1 \
+python -m pyserini.encode   input   --corpus $corpus \
+                                    --fields title text \
+                                    --delimiter "\n\n" \
+                                    --shard-id $shard_id \
+                                    --shard-num $shard_num \
+                            output  --embeddings  $index_dir \
+                                    --to-faiss \
+                            encoder --encoder $encoder \
+                                    --fields title text \
+                                    --batch 128 \
+                                    --encoder-class 'auto' \
+                                    --fp16
+```
