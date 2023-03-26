@@ -87,14 +87,18 @@ if __name__ == '__main__':
                              s6=f'{table[dataset]["splade-distil-cocodenser-medium"]["R@100"]:8.4f}',
                              s7=f'{table[dataset]["contriever"]["nDCG@10"]:8.4f}',
                              s8=f'{table[dataset]["contriever"]["R@100"]:8.4f}',
+                             s9=f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}',
+                             s10=f'{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}',
                              cmd1=commands[dataset]["flat"],
                              cmd2=commands[dataset]["multifield"],
                              cmd3=commands[dataset]["splade-distil-cocodenser-medium"],
                              cmd4=commands[dataset]["contriever"],
+                             cmd5=commands[dataset]["contriever-msmarco"],
                              eval_cmd1=eval_commands[dataset]["flat"].rstrip(),
                              eval_cmd2=eval_commands[dataset]["multifield"].rstrip(),
                              eval_cmd3=eval_commands[dataset]["splade-distil-cocodenser-medium"].rstrip(),
                              eval_cmd4=eval_commands[dataset]["contriever"].rstrip(),
+                             eval_cmd5=eval_commands[dataset]["contriever-msmarco"].rstrip(),
                              )
 
             html_rows.append(s)
