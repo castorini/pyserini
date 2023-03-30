@@ -55,8 +55,10 @@ def generate_table_rows(table_id, split, metric):
         s = Template(row_template)
 
         keys = {}
+        used_langs = 0
         for lang in languages:
             keys[lang[0]] = f'{model}.{lang[0]}'
+            used_langs += 1 if table[keys[lang[0]]][split][metric] != 0 else 0
 
         sum = table[keys["ar"]][split][metric] + \
               table[keys["bn"]][split][metric] + \
@@ -76,7 +78,7 @@ def generate_table_rows(table_id, split, metric):
               table[keys["zh"]][split][metric] + \
               table[keys["de"]][split][metric] + \
               table[keys["yo"]][split][metric]
-        avg = sum / 18
+        avg = sum / used_langs
 
         s = s.substitute(table_cnt=table_id,
                          row_cnt=row_cnt,
