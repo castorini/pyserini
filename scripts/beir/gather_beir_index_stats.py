@@ -94,3 +94,23 @@ for key in beir_keys:
     print(f'        "downloaded": False,')
     print(f'        "texts": "beir-v1.0.0-{key}.flat"')
     print(f'    }},')
+
+# Stats for "contriever" indexes with msmarco-ft
+for key in beir_keys:
+    index_reader = IndexReader(f'indexes/faiss.beir-v1.0.0-{key}.contriever-msmarco.{date}')
+    stats = index_reader.stats()
+    md5 = compute_md5(f'indexes/faiss.beir-v1.0.0-{key}.contriever-msmarco.{date}.tar.gz')
+    size = os.path.getsize(f'indexes/faiss.beir-v1.0.0-{key}.contriever-msmarco.{date}.tar.gz')
+    print(f'    "beir-v1.0.0-{key}.contriever": {{')
+    print(f'        "description": "Faiss index for BEIR v1.0.0 ({beir_keys[key]}) corpus encoded by Contriever encoder fine-tuned with MS MARCO.",')
+    print(f'        "filename": "faiss.beir-v1.0.0-{key}.contriever-msmarco.{date}.tar.gz",')
+    print(f'        "readme": "faiss.beir-v1.0.0-{key}.contriever-msmarco.{date}.README.md",')
+    print(f'        "urls": [')
+    print(f'            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-{key}.contriever-msmarco.20230124.tar.gz"')
+    print(f'        ],')
+    print(f'        "md5": "{md5}",')
+    print(f'        "size compressed (bytes)": {size},')
+    print(f'        "documents": {stats["documents"]},')
+    print(f'        "downloaded": False,')
+    print(f'        "texts": "beir-v1.0.0-{key}.flat"')
+    print(f'    }},')

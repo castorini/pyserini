@@ -5573,6 +5573,385 @@ FAISS_INDEX_INFO = {
         "texts": "beir-v1.0.0-scifact.flat"
     },
 
+    # BEIR (v1.0.0) contriever ft MSMARCO indexes
+    "beir-v1.0.0-trec-covid.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-trec-covid.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-trec-covid.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "7dd33fbd77deba89174b6d1b2c34866c",
+        "size compressed (bytes)": 487986935,
+        "documents": 171332,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-trec-covid.flat",
+    },
+    "beir-v1.0.0-bioasq.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-bioasq.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-bioasq.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "e51924bb78555942f0a9465959a6f6f2",
+        "size compressed (bytes)": 42438279267,
+        "documents": 14914603,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-bioasq.flat",
+    },
+    "beir-v1.0.0-nfcorpus.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-nfcorpus.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nfcorpus.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "657649d19fafd06cb031c6b11868d7f9",
+        "size compressed (bytes)": 10327231,
+        "documents": 3633,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-nfcorpus.flat",
+    },
+    "beir-v1.0.0-nq.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (NQ) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-nq.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nq.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "8d7ff2e5e285b1549bb8af27a7cf6e30",
+        "size compressed (bytes)": 7619790303,
+        "documents": 2681468,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-nq.flat",
+    },
+    "beir-v1.0.0-hotpotqa.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-hotpotqa.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-hotpotqa.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "bef5b2fba77859c778f121ae2f17c9f1",
+        "size compressed (bytes)": 14889518902,
+        "documents": 5233329,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-hotpotqa.flat",
+    },
+    "beir-v1.0.0-fiqa.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-fiqa.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-fiqa.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "3dd16db861dbef4da545ccbea127198a",
+        "size compressed (bytes)": 163998627,
+        "documents": 57638,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-fiqa.flat",
+    },
+    "beir-v1.0.0-signal1m.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-signal1m.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-signal1m.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "c4e25dc99c27a9d1931ad129d4091da0",
+        "size compressed (bytes)": 8146484698,
+        "documents": 2866316,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-signal1m.flat",
+    },
+    "beir-v1.0.0-trec-news.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-trec-news.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-trec-news.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "22272011f0e0dea7f66b624de196b6b3",
+        "size compressed (bytes)": 1629437319,
+        "documents": 594977,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-trec-news.flat",
+    },
+    "beir-v1.0.0-robust04.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-robust04.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-robust04.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "a2a0603fae866e1e92abcdfc46de6fe5",
+        "size compressed (bytes)": 1501089289,
+        "documents": 528155,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-robust04.flat",
+    },
+    "beir-v1.0.0-arguana.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-arguana.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-arguana.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "dcc0408ab033433d47363f5902fbde3d",
+        "size compressed (bytes)": 24705859,
+        "documents": 8674,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-arguana.flat",
+    },
+    "beir-v1.0.0-webis-touche2020.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-webis-touche2020.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-webis-touche2020.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "60072a3b32855067fea0f8e21ce0d905",
+        "size compressed (bytes)": 1090748271,
+        "documents": 382545,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-webis-touche2020.flat",
+    },
+    "beir-v1.0.0-cqadupstack-android.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-android.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-android.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "f9b02c2410fc8ddf63e96ea6ebbd8447",
+        "size compressed (bytes)": 65438882,
+        "documents": 22998,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-android.flat",
+    },
+    "beir-v1.0.0-cqadupstack-english.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-english.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-english.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "7c50f04a61a08f16dfb1d28010b4e222",
+        "size compressed (bytes)": 114462161,
+        "documents": 40221,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-english.flat",
+    },
+    "beir-v1.0.0-cqadupstack-gaming.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-gaming.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-gaming.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "d97fafe933ae40fc12a9df0afc6a8e78",
+        "size compressed (bytes)": 128896840,
+        "documents": 45301,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-gaming.flat",
+    },
+    "beir-v1.0.0-cqadupstack-gis.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-gis.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-gis.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "f536d8feda0069a1769ad71010fab0e3",
+        "size compressed (bytes)": 107086862,
+        "documents": 37637,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-gis.flat",
+    },
+    "beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "987fb7ac275baf344828cdda0013703d",
+        "size compressed (bytes)": 47526982,
+        "documents": 16705,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-mathematica.flat",
+    },
+    "beir-v1.0.0-cqadupstack-physics.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-physics.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-physics.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "e252b1c4dcb06d2183109dc4bc820176",
+        "size compressed (bytes)": 109024692,
+        "documents": 38316,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-physics.flat",
+    },
+    "beir-v1.0.0-cqadupstack-programmers.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-programmers.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-programmers.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "09bd10b2b06c7b0c7611e7811958f4b3",
+        "size compressed (bytes)": 91567840,
+        "documents": 32176,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-programmers.flat",
+    },
+    "beir-v1.0.0-cqadupstack-stats.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-stats.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-stats.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "c4586c11a2bc90f9ea5a3355fc6e6c53",
+        "size compressed (bytes)": 120271253,
+        "documents": 42269,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-stats.flat",
+    },
+    "beir-v1.0.0-cqadupstack-tex.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-tex.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-tex.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "c3c5ec87aeb33a7320c0d61146c03fc0",
+        "size compressed (bytes)": 194009234,
+        "documents": 68184,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-tex.flat",
+    },
+    "beir-v1.0.0-cqadupstack-unix.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-unix.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-unix.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "3220f3eb0e9f0095cf13dcc8eb3ae1e0",
+        "size compressed (bytes)": 134821535,
+        "documents": 47382,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-unix.flat",
+    },
+    "beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "f696855c02090833a6ca695f8efa3006",
+        "size compressed (bytes)": 49530869,
+        "documents": 17405,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-webmasters.flat",
+    },
+    "beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "e92063c046803a76010b57e0ef1ace9e",
+        "size compressed (bytes)": 138328541,
+        "documents": 48605,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-wordpress.flat",
+    },
+    "beir-v1.0.0-quora.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (Quora) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-quora.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-quora.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "82481f11087ebf63156da1f3dda00d5e",
+        "size compressed (bytes)": 1487402659,
+        "documents": 522931,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-quora.flat",
+    },
+    "beir-v1.0.0-dbpedia-entity.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-dbpedia-entity.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-dbpedia-entity.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "5b9249745aa548776a8f22269bd55dbe",
+        "size compressed (bytes)": 13226846024,
+        "documents": 4635922,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-dbpedia-entity.flat",
+    },
+    "beir-v1.0.0-scidocs.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-scidocs.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-scidocs.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "091d751629ae22d843ce741f05f00b81",
+        "size compressed (bytes)": 73530332,
+        "documents": 25657,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-scidocs.flat",
+    },
+    "beir-v1.0.0-fever.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-fever.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-fever.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "c1e9851e23c9f46e7210aedd613e4a1b",
+        "size compressed (bytes)": 15444001312,
+        "documents": 5416568,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-fever.flat",
+    },
+    "beir-v1.0.0-climate-fever.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-climate-fever.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-climate-fever.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "1ec289569b80edb25d885100feba83aa",
+        "size compressed (bytes)": 15444073223,
+        "documents": 5416593,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-climate-fever.flat",
+    },
+    "beir-v1.0.0-scifact.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-scifact.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-scifact.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "e560d5de0ccb65f66853540cb6917369",
+        "size compressed (bytes)": 14758747,
+        "documents": 5183,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-scifact.flat",
+    },
+
     "msmarco-passage-tct_colbert-hnsw": {
         "description": "Faiss HNSW index of the MS MARCO passage corpus encoded by TCT-ColBERT",
         "filename": "dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
