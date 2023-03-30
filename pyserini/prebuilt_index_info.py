@@ -5581,8 +5581,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-trec-covid.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "f56adee3b622d9a2c1e59648225a339f",
-        "size compressed (bytes)": 487986979,
+        "md5": "7dd33fbd77deba89174b6d1b2c34866c",
+        "size compressed (bytes)": 487986935,
         "documents": 171332,
         "downloaded": False,
         "texts": "beir-v1.0.0-trec-covid.flat",
@@ -5594,8 +5594,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-bioasq.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "607d8413495817245508f346a4dc8ae4",
-        "size compressed (bytes)": 42438278763,
+        "md5": "e51924bb78555942f0a9465959a6f6f2",
+        "size compressed (bytes)": 42438279267,
         "documents": 14914603,
         "downloaded": False,
         "texts": "beir-v1.0.0-bioasq.flat",
@@ -5607,8 +5607,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nfcorpus.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "1462a39fed54e9699d289746b615ae0b",
-        "size compressed (bytes)": 10327233,
+        "md5": "657649d19fafd06cb031c6b11868d7f9",
+        "size compressed (bytes)": 10327231,
         "documents": 3633,
         "downloaded": False,
         "texts": "beir-v1.0.0-nfcorpus.flat",
@@ -5620,8 +5620,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nq.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "2cf1d2dd3536ded5a868fe76100236fa",
-        "size compressed (bytes)": 7619790367,
+        "md5": "8d7ff2e5e285b1549bb8af27a7cf6e30",
+        "size compressed (bytes)": 7619790303,
         "documents": 2681468,
         "downloaded": False,
         "texts": "beir-v1.0.0-nq.flat",
@@ -5633,8 +5633,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-hotpotqa.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "2318bd0b6a759464ffcdc4de08ac7475",
-        "size compressed (bytes)": 14889518837,
+        "md5": "bef5b2fba77859c778f121ae2f17c9f1",
+        "size compressed (bytes)": 14889518902,
         "documents": 5233329,
         "downloaded": False,
         "texts": "beir-v1.0.0-hotpotqa.flat",
@@ -5646,8 +5646,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-fiqa.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "bee0389b0c76868856b88f75d1e6ec13",
-        "size compressed (bytes)": 163998615,
+        "md5": "3dd16db861dbef4da545ccbea127198a",
+        "size compressed (bytes)": 163998627,
         "documents": 57638,
         "downloaded": False,
         "texts": "beir-v1.0.0-fiqa.flat",
@@ -5659,8 +5659,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-signal1m.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "226ac4dd05d33b301e469c240341777f",
-        "size compressed (bytes)": 8146484516,
+        "md5": "c4e25dc99c27a9d1931ad129d4091da0",
+        "size compressed (bytes)": 8146484698,
         "documents": 2866316,
         "downloaded": False,
         "texts": "beir-v1.0.0-signal1m.flat",
@@ -5672,8 +5672,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-trec-news.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "44bfbe425ac87e919d672c5d9bc061a4",
-        "size compressed (bytes)": 1629437306,
+        "md5": "22272011f0e0dea7f66b624de196b6b3",
+        "size compressed (bytes)": 1629437319,
         "documents": 594977,
         "downloaded": False,
         "texts": "beir-v1.0.0-trec-news.flat",
@@ -5685,8 +5685,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-robust04.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "1e289372554b7bc14814d28f894b125a",
-        "size compressed (bytes)": 1501089350,
+        "md5": "a2a0603fae866e1e92abcdfc46de6fe5",
+        "size compressed (bytes)": 1501089289,
         "documents": 528155,
         "downloaded": False,
         "texts": "beir-v1.0.0-robust04.flat",
@@ -5698,8 +5698,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-arguana.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "5629bf2b89fe608e318a79181eb1f214",
-        "size compressed (bytes)": 24705868,
+        "md5": "dcc0408ab033433d47363f5902fbde3d",
+        "size compressed (bytes)": 24705859,
         "documents": 8674,
         "downloaded": False,
         "texts": "beir-v1.0.0-arguana.flat",
@@ -5711,8 +5711,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-webis-touche2020.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "ab3ffdf8cd00417e72e7e27c6ff3a8ee",
-        "size compressed (bytes)": 1090748391,
+        "md5": "60072a3b32855067fea0f8e21ce0d905",
+        "size compressed (bytes)": 1090748271,
         "documents": 382545,
         "downloaded": False,
         "texts": "beir-v1.0.0-webis-touche2020.flat",
@@ -5724,8 +5724,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-android.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "ca8d155195ff43b3ecc1facf583d75fa",
-        "size compressed (bytes)": 65438871,
+        "md5": "f9b02c2410fc8ddf63e96ea6ebbd8447",
+        "size compressed (bytes)": 65438882,
         "documents": 22998,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-android.flat",
@@ -5737,8 +5737,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-english.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "fbb88f47d45fdc6a6f749a2b461cf235",
-        "size compressed (bytes)": 114462159,
+        "md5": "7c50f04a61a08f16dfb1d28010b4e222",
+        "size compressed (bytes)": 114462161,
         "documents": 40221,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-english.flat",
@@ -5750,8 +5750,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-gaming.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "6cd3293e3118150aaaf80c1866125345",
-        "size compressed (bytes)": 128896839,
+        "md5": "d97fafe933ae40fc12a9df0afc6a8e78",
+        "size compressed (bytes)": 128896840,
         "documents": 45301,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-gaming.flat",
@@ -5763,8 +5763,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-gis.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "cba19f7313b1e9d79589dc3bdead254c",
-        "size compressed (bytes)": 107086843,
+        "md5": "f536d8feda0069a1769ad71010fab0e3",
+        "size compressed (bytes)": 107086862,
         "documents": 37637,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-gis.flat",
@@ -5776,8 +5776,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "f55cbfb0f1a11670f7f6b6aecc0b1f12",
-        "size compressed (bytes)": 47526967,
+        "md5": "987fb7ac275baf344828cdda0013703d",
+        "size compressed (bytes)": 47526982,
         "documents": 16705,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-mathematica.flat",
@@ -5789,8 +5789,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-physics.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "8736e04dfd1a925f6d784406f582156f",
-        "size compressed (bytes)": 109024703,
+        "md5": "e252b1c4dcb06d2183109dc4bc820176",
+        "size compressed (bytes)": 109024692,
         "documents": 38316,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-physics.flat",
@@ -5802,8 +5802,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-programmers.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "7923bc8960ffae6997653cca646a4c13",
-        "size compressed (bytes)": 91567848,
+        "md5": "09bd10b2b06c7b0c7611e7811958f4b3",
+        "size compressed (bytes)": 91567840,
         "documents": 32176,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-programmers.flat",
@@ -5815,8 +5815,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-stats.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "b2b6c778a2f873161d82a75c3ada6c1a",
-        "size compressed (bytes)": 120271219,
+        "md5": "c4586c11a2bc90f9ea5a3355fc6e6c53",
+        "size compressed (bytes)": 120271253,
         "documents": 42269,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-stats.flat",
@@ -5828,8 +5828,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-tex.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "05c6bd633a4ccc8c00d15648da7de988",
-        "size compressed (bytes)": 194009231,
+        "md5": "c3c5ec87aeb33a7320c0d61146c03fc0",
+        "size compressed (bytes)": 194009234,
         "documents": 68184,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-tex.flat",
@@ -5841,8 +5841,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-unix.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "990215d447f06967392671a8f656c5d2",
-        "size compressed (bytes)": 134821507,
+        "md5": "3220f3eb0e9f0095cf13dcc8eb3ae1e0",
+        "size compressed (bytes)": 134821535,
         "documents": 47382,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-unix.flat",
@@ -5854,8 +5854,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "cc4fee175db2ca44a151b77aa045cf8d",
-        "size compressed (bytes)": 49530871,
+        "md5": "f696855c02090833a6ca695f8efa3006",
+        "size compressed (bytes)": 49530869,
         "documents": 17405,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-webmasters.flat",
@@ -5867,8 +5867,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "a6cbda5e3e9623bb760680da0fb3f051",
-        "size compressed (bytes)": 138328518,
+        "md5": "e92063c046803a76010b57e0ef1ace9e",
+        "size compressed (bytes)": 138328541,
         "documents": 48605,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-wordpress.flat",
@@ -5880,8 +5880,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-quora.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "6a25efd3254656e3bc93d34416eb6178",
-        "size compressed (bytes)": 1487402665,
+        "md5": "82481f11087ebf63156da1f3dda00d5e",
+        "size compressed (bytes)": 1487402659,
         "documents": 522931,
         "downloaded": False,
         "texts": "beir-v1.0.0-quora.flat",
@@ -5893,8 +5893,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-dbpedia-entity.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "e9c9d214909a8f297f8cb8ffd5c5ec2c",
-        "size compressed (bytes)": 13226846072,
+        "md5": "5b9249745aa548776a8f22269bd55dbe",
+        "size compressed (bytes)": 13226846024,
         "documents": 4635922,
         "downloaded": False,
         "texts": "beir-v1.0.0-dbpedia-entity.flat",
@@ -5906,8 +5906,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-scidocs.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "80acb0d4f8a3850f06f450e0b89c70dd",
-        "size compressed (bytes)": 73530314,
+        "md5": "091d751629ae22d843ce741f05f00b81",
+        "size compressed (bytes)": 73530332,
         "documents": 25657,
         "downloaded": False,
         "texts": "beir-v1.0.0-scidocs.flat",
@@ -5919,8 +5919,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-fever.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "98ac7e95fcdd664c5ac907cc19140f6e",
-        "size compressed (bytes)": 15444001194,
+        "md5": "c1e9851e23c9f46e7210aedd613e4a1b",
+        "size compressed (bytes)": 15444001312,
         "documents": 5416568,
         "downloaded": False,
         "texts": "beir-v1.0.0-fever.flat",
@@ -5932,8 +5932,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-climate-fever.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "05aa52489fb7a20d0a1097abe6fc37ac",
-        "size compressed (bytes)": 15444073332,
+        "md5": "1ec289569b80edb25d885100feba83aa",
+        "size compressed (bytes)": 15444073223,
         "documents": 5416593,
         "downloaded": False,
         "texts": "beir-v1.0.0-climate-fever.flat",
@@ -5945,8 +5945,8 @@ FAISS_INDEX_INFO = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-scifact.contriever-msmarco.20230124.tar.gz"
         ],
-        "md5": "f8e528d199c22bf02f6068a18a58af1c",
-        "size compressed (bytes)": 14758732,
+        "md5": "e560d5de0ccb65f66853540cb6917369",
+        "size compressed (bytes)": 14758747,
         "documents": 5183,
         "downloaded": False,
         "texts": "beir-v1.0.0-scifact.flat",
