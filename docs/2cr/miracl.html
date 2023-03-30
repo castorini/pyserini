@@ -1995,6 +1995,471 @@ Evaluation commands:
 </div></td>
 </tr>
 
+<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO then in-lang FT w/ MIRACL -->
+<tr class="accordion-toggle collapsed" id="table1-row5" data-toggle="collapse" data-parent="#table1-row5" href="#table1-collapse5">
+<td class="expand-button"></td>
+<td>mDPR (tied encoders), pre-FT w/ MS MARCO then in-lang FT w/ MIRACL</td>
+<td>0.725</td>
+<td>0.685</td>
+<td>0.488</td>
+<td>0.565</td>
+<td>0.593</td>
+<td>0.714</td>
+<td>0.589</td>
+<td>0.516</td>
+<td>0.496</td>
+<td>0.642</td>
+<td>0.590</td>
+<td>0.597</td>
+<td>0.685</td>
+<td>0.804</td>
+<td>0.695</td>
+<td>0.650</td>
+<td>--</td>
+<td>--</td>
+<td></td>
+<td>0.627</td>
+</tr>
+<tr class="hide-table-padding">
+<td colspan="22">
+<div id="table1-collapse5" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table1-row5-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table1-row5-tab1-header" data-mdb-toggle="tab" href="#table1-row5-tab1" role="tab" aria-controls="table1-row5-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab2-header" data-mdb-toggle="tab" href="#table1-row5-tab2" role="tab" aria-controls="table1-row5-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab3-header" data-mdb-toggle="tab" href="#table1-row5-tab3" role="tab" aria-controls="table1-row5-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab4-header" data-mdb-toggle="tab" href="#table1-row5-tab4" role="tab" aria-controls="table1-row5-tab4" aria-selected="false" style="text-transform:none">es</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab5-header" data-mdb-toggle="tab" href="#table1-row5-tab5" role="tab" aria-controls="table1-row5-tab5" aria-selected="false" style="text-transform:none">fa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab6-header" data-mdb-toggle="tab" href="#table1-row5-tab6" role="tab" aria-controls="table1-row5-tab6" aria-selected="false" style="text-transform:none">fi</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab7-header" data-mdb-toggle="tab" href="#table1-row5-tab7" role="tab" aria-controls="table1-row5-tab7" aria-selected="false" style="text-transform:none">fr</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab8-header" data-mdb-toggle="tab" href="#table1-row5-tab8" role="tab" aria-controls="table1-row5-tab8" aria-selected="false" style="text-transform:none">hi</a>
+  </li>  
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab9-header" data-mdb-toggle="tab" href="#table1-row5-tab9" role="tab" aria-controls="table1-row5-tab9" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab10-header" data-mdb-toggle="tab" href="#table1-row5-tab10" role="tab" aria-controls="table1-row5-tab10" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab11-header" data-mdb-toggle="tab" href="#table1-row5-tab11" role="tab" aria-controls="table1-row5-tab11" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab12-header" data-mdb-toggle="tab" href="#table1-row5-tab12" role="tab" aria-controls="table1-row5-tab12" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab13-header" data-mdb-toggle="tab" href="#table1-row5-tab13" role="tab" aria-controls="table1-row5-tab13" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab14-header" data-mdb-toggle="tab" href="#table1-row5-tab14" role="tab" aria-controls="table1-row5-tab14" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab15-header" data-mdb-toggle="tab" href="#table1-row5-tab15" role="tab" aria-controls="table1-row5-tab15" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab16-header" data-mdb-toggle="tab" href="#table1-row5-tab16" role="tab" aria-controls="table1-row5-tab16" aria-selected="false" style="text-transform:none">zh</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab17-header" data-mdb-toggle="tab" href="#table1-row5-tab17" role="tab" aria-controls="table1-row5-tab17" aria-selected="false" style="text-transform:none">de</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab18-header" data-mdb-toggle="tab" href="#table1-row5-tab18" role="tab" aria-controls="table1-row5-tab18" aria-selected="false" style="text-transform:none">yo</a>
+  </li> 
+    
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table1-row5-content">
+  <div class="tab-pane fade show active" id="table1-row5-tab1" role="tabpanel" aria-labelledby="table1-row5-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-ar \
+  --topics miracl-v1.0-ar-dev \
+  --index miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-miracl-ar \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ar.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-ar-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ar.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab2" role="tabpanel" aria-labelledby="table1-row5-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-bn \
+  --topics miracl-v1.0-bn-dev \
+  --index miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-mirac-bn \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.bn.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-bn-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.bn.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab3" role="tabpanel" aria-labelledby="table1-row5-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-en \
+  --topics miracl-v1.0-en-dev \
+  --index miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-miracl-en \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.en.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-en-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.en.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab4" role="tabpanel" aria-labelledby="table1-row5-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-es \
+  --topics miracl-v1.0-es-dev \
+  --index miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-miracl-es \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.es.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-es-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.es.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab5" role="tabpanel" aria-labelledby="table1-row5-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-fa \
+  --topics miracl-v1.0-fa-dev \
+  --index miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-miracl-fa \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.fa.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-fa-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.fa.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab6" role="tabpanel" aria-labelledby="table1-row5-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-fi \
+  --topics miracl-v1.0-fi-dev \
+  --index miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-miracl-fi \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.fi.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-fi-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.fi.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab7" role="tabpanel" aria-labelledby="table1-row5-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-fr \
+  --topics miracl-v1.0-fr-dev \
+  --index miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-miracl-fr \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.fr.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-fr-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.fr.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab8" role="tabpanel" aria-labelledby="table1-row5-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-hi \
+  --topics miracl-v1.0-hi-dev \
+  --index miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-miracl-hi \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.hi.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-hi-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.hi.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab9" role="tabpanel" aria-labelledby="table1-row5-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-id \
+  --topics miracl-v1.0-id-dev \
+  --index miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-miracl-id \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.id.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-id-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.id.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab10" role="tabpanel" aria-labelledby="table1-row5-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-ja \
+  --topics miracl-v1.0-ja-dev \
+  --index miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-miracl-ja \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ja.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-ja-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ja.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab11" role="tabpanel" aria-labelledby="table1-row5-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-ko \
+  --topics miracl-v1.0-ko-dev \
+  --index miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-miracl-ko \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ko.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-ko-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ko.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab12" role="tabpanel" aria-labelledby="table1-row5-tab12">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-ru \
+  --topics miracl-v1.0-ru-dev \
+  --index miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-miracl-ru \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ru.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-ru-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ru.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab13" role="tabpanel" aria-labelledby="table1-row5-tab13">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-sw \
+  --topics miracl-v1.0-sw-dev \
+  --index miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.sw.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-sw-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.sw.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab14" role="tabpanel" aria-labelledby="table1-row5-tab14">
+
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-te \
+  --topics miracl-v1.0-te-dev \
+  --index miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-miracl-te \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.te.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-te-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.te.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab15" role="tabpanel" aria-labelledby="table1-row5-tab15">
+
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-th \
+  --topics miracl-v1.0-th-dev \
+  --index miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-miracl-th \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.th.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-th-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.th.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+
+  <div class="tab-pane fade" id="table1-row5-tab16" role="tabpanel" aria-labelledby="table1-row5-tab16">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-zh \
+  --topics miracl-v1.0-zh-dev \
+  --index miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-miracl-zh \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.zh.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -M 100 -m ndcg_cut.10 miracl-v1.0-zh-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.zh.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+
+   <div class="tab-pane fade" id="table1-row5-tab17" role="tabpanel" aria-labelledby="table1-row5-tab17">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+
+  <div class="tab-pane fade" id="table1-row5-tab18" role="tabpanel" aria-labelledby="table1-row5-tab18">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+   
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
 
     </tbody>
   </table>
@@ -3852,6 +4317,471 @@ Evaluation commands:
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-yo-dev \
   run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.yo.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+   
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO then in-lang FT w/ MIRACL -->
+<tr class="accordion-toggle collapsed" id="table2-row5" data-toggle="collapse" data-parent="#table2-row5" href="#table2-collapse5">
+<td class="expand-button"></td>
+<td>mDPR (tied encoders), pre-FT w/ MS MARCO then in-lang FT w/ MIRACL</td>
+<td>0.949</td>
+<td>0.955</td>
+<td>0.834</td>
+<td>0.911</td>
+<td>0.913</td>
+<td>0.948</td>
+<td>0.954</td>
+<td>0.886</td>
+<td>0.864</td>
+<td>0.923</td>
+<td>0.886</td>
+<td>0.910</td>
+<td>0.937</td>
+<td>0.962</td>
+<td>0.931</td>
+<td>0.963</td>
+<td>--</td>
+<td>--</td>
+<td></td>
+<td>0.920</td>
+</tr>
+<tr class="hide-table-padding">
+<td colspan="22">
+<div id="table2-collapse5" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table2-row5-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table2-row5-tab1-header" data-mdb-toggle="tab" href="#table2-row5-tab1" role="tab" aria-controls="table2-row5-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab2-header" data-mdb-toggle="tab" href="#table2-row5-tab2" role="tab" aria-controls="table2-row5-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab3-header" data-mdb-toggle="tab" href="#table2-row5-tab3" role="tab" aria-controls="table2-row5-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab4-header" data-mdb-toggle="tab" href="#table2-row5-tab4" role="tab" aria-controls="table2-row5-tab4" aria-selected="false" style="text-transform:none">es</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab5-header" data-mdb-toggle="tab" href="#table2-row5-tab5" role="tab" aria-controls="table2-row5-tab5" aria-selected="false" style="text-transform:none">fa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab6-header" data-mdb-toggle="tab" href="#table2-row5-tab6" role="tab" aria-controls="table2-row5-tab6" aria-selected="false" style="text-transform:none">fi</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab7-header" data-mdb-toggle="tab" href="#table2-row5-tab7" role="tab" aria-controls="table2-row5-tab7" aria-selected="false" style="text-transform:none">fr</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab8-header" data-mdb-toggle="tab" href="#table2-row5-tab8" role="tab" aria-controls="table2-row5-tab8" aria-selected="false" style="text-transform:none">hi</a>
+  </li>  
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab9-header" data-mdb-toggle="tab" href="#table2-row5-tab9" role="tab" aria-controls="table2-row5-tab9" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab10-header" data-mdb-toggle="tab" href="#table2-row5-tab10" role="tab" aria-controls="table2-row5-tab10" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab11-header" data-mdb-toggle="tab" href="#table2-row5-tab11" role="tab" aria-controls="table2-row5-tab11" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab12-header" data-mdb-toggle="tab" href="#table2-row5-tab12" role="tab" aria-controls="table2-row5-tab12" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab13-header" data-mdb-toggle="tab" href="#table2-row5-tab13" role="tab" aria-controls="table2-row5-tab13" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab14-header" data-mdb-toggle="tab" href="#table2-row5-tab14" role="tab" aria-controls="table2-row5-tab14" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab15-header" data-mdb-toggle="tab" href="#table2-row5-tab15" role="tab" aria-controls="table2-row5-tab15" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab16-header" data-mdb-toggle="tab" href="#table2-row5-tab16" role="tab" aria-controls="table2-row5-tab16" aria-selected="false" style="text-transform:none">zh</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab17-header" data-mdb-toggle="tab" href="#table2-row5-tab17" role="tab" aria-controls="table2-row5-tab17" aria-selected="false" style="text-transform:none">de</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table2-row5-tab18-header" data-mdb-toggle="tab" href="#table2-row5-tab18" role="tab" aria-controls="table2-row5-tab18" aria-selected="false" style="text-transform:none">yo</a>
+  </li> 
+    
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table2-row5-content">
+  <div class="tab-pane fade show active" id="table2-row5-tab1" role="tabpanel" aria-labelledby="table2-row5-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-ar \
+  --topics miracl-v1.0-ar-dev \
+  --index miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-miracl-ar \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ar.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-ar-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ar.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab2" role="tabpanel" aria-labelledby="table2-row5-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-bn \
+  --topics miracl-v1.0-bn-dev \
+  --index miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-mirac-bn \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.bn.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-bn-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.bn.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab3" role="tabpanel" aria-labelledby="table2-row5-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-en \
+  --topics miracl-v1.0-en-dev \
+  --index miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-miracl-en \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.en.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-en-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.en.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab4" role="tabpanel" aria-labelledby="table2-row5-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-es \
+  --topics miracl-v1.0-es-dev \
+  --index miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-miracl-es \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.es.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-es-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.es.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab5" role="tabpanel" aria-labelledby="table2-row5-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-fa \
+  --topics miracl-v1.0-fa-dev \
+  --index miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-miracl-fa \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.fa.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-fa-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.fa.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab6" role="tabpanel" aria-labelledby="table2-row5-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-fi \
+  --topics miracl-v1.0-fi-dev \
+  --index miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-miracl-fi \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.fi.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-fi-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.fi.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab7" role="tabpanel" aria-labelledby="table2-row5-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-fr \
+  --topics miracl-v1.0-fr-dev \
+  --index miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-miracl-fr \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.fr.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-fr-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.fr.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab8" role="tabpanel" aria-labelledby="table2-row5-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-hi \
+  --topics miracl-v1.0-hi-dev \
+  --index miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-miracl-hi \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.hi.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-hi-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.hi.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab9" role="tabpanel" aria-labelledby="table2-row5-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-id \
+  --topics miracl-v1.0-id-dev \
+  --index miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-miracl-id \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.id.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-id-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.id.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab10" role="tabpanel" aria-labelledby="table2-row5-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-ja \
+  --topics miracl-v1.0-ja-dev \
+  --index miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-miracl-ja \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ja.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-ja-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ja.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab11" role="tabpanel" aria-labelledby="table2-row5-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-ko \
+  --topics miracl-v1.0-ko-dev \
+  --index miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-miracl-ko \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ko.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-ko-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ko.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab12" role="tabpanel" aria-labelledby="table2-row5-tab12">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-ru \
+  --topics miracl-v1.0-ru-dev \
+  --index miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-miracl-ru \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ru.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-ru-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.ru.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab13" role="tabpanel" aria-labelledby="table2-row5-tab13">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-sw \
+  --topics miracl-v1.0-sw-dev \
+  --index miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.sw.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-sw-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.sw.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab14" role="tabpanel" aria-labelledby="table2-row5-tab14">
+
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-te \
+  --topics miracl-v1.0-te-dev \
+  --index miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-miracl-te \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.te.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-te-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.te.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table2-row5-tab15" role="tabpanel" aria-labelledby="table2-row5-tab15">
+
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-th \
+  --topics miracl-v1.0-th-dev \
+  --index miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-miracl-th \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.th.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-th-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.th.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+
+  <div class="tab-pane fade" id="table2-row5-tab16" role="tabpanel" aria-labelledby="table2-row5-tab16">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder jasper-xian/mdpr-tied-pft-msmarco_miracl-zh \
+  --topics miracl-v1.0-zh-dev \
+  --index miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-miracl-zh \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-miracl.zh.dev.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 miracl-v1.0-zh-dev \
+  run.miracl.mdpr-tied-pft-msmarco-ft-miracl.zh.dev.txt</code></pre>
+  </blockquote>
+
+  </div>
+
+   <div class="tab-pane fade" id="table2-row5-tab17" role="tabpanel" aria-labelledby="table2-row5-tab17">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+
+  <div class="tab-pane fade" id="table2-row5-tab18" role="tabpanel" aria-labelledby="table2-row5-tab18">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
   </blockquote>
 
   </div>
