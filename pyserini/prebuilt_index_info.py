@@ -6884,16 +6884,196 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "wiki-all-6-3-tamber"
     },
+    "miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-miracl-ar": {
+        "description": "Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-miracl-ar.tar.gz",
+        "readme": "miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-miracl-ar.README.md",
+        "urls": [
+        ],
+        "md5": "d8801977715e8dd3b71bc94c6e661986",
+        "size compressed (bytes)": 5871030544,
+        "documents": 2061414,
+        "downloaded": False,
+        "texts": "miracl-v1.0-ar"
+    },
+    "miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-miracl-bn": {
+        "description": "Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-miracl-bn.tar.gz",
+        "readme": "miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-miracl-bn.README.md",
+        "urls": [
+        ],
+        "md5": "536bcfaac9b7c56b1790f32104073d77",
+        "size compressed (bytes)": 846236839,
+        "documents": 297265,
+        "downloaded": False,
+        "texts": "miracl-v1.0-bn"
+    },
+    "miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-miracl-en": {
+        "description": "Faiss index for MIRACL v1.0 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-miracl-en.tar.gz",
+        "readme": "miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-miracl-en.README.md",
+        "urls": [
+        ],
+        "md5": "a0cdfad59c535ec42c2833bad2b6d7ae",
+        "size compressed (bytes)": 93502847747,
+        "documents": 32893221,
+        "downloaded": False,
+        "texts": "miracl-v1.0-en"
+    },
+    "miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-miracl-es": {
+        "description": "Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-miracl-es.tar.gz",
+        "readme": "miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-miracl-es.README.md",
+        "urls": [
+        ],
+        "md5": "e4a7ef961ae85963fe7f2fa1398599fa",
+        "size compressed (bytes)": 29552467152,
+        "documents": 10373953,
+        "downloaded": False,
+        "texts": "miracl-v1.0-es"
+    },
+    "miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-miracl-fa": {
+        "description": "Faiss index for MIRACL v1.0 (Persian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-miracl-fa.tar.gz",
+        "readme": "miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-miracl-fa.README.md",
+        "urls": [
+        ],
+        "md5": "c38ce24fa39a149ae602c8d52b57c221",
+        "size compressed (bytes)": 6287728538,
+        "documents": 2207172,
+        "downloaded": False,
+        "texts": "miracl-v1.0-fa"
+    },
+    "miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-miracl-fi": {
+        "description": "Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-miracl-fi.tar.gz",
+        "readme": "miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-miracl-fi.README.md",
+        "urls": [
+        ],
+        "md5": "b94a03ecd4a30364af8390f6d64b61dc",
+        "size compressed (bytes)": 5367069604,
+        "documents": 1883509,
+        "downloaded": False,
+        "texts": "miracl-v1.0-fi"
+    },
+    "miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-miracl-fr": {
+        "description": "Faiss index for MIRACL v1.0 (French) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-miracl-fr.tar.gz",
+        "readme": "miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-miracl-fr.README.md",
+        "urls": [
+        ],
+        "md5": "5db71cc293b4a8ebf2c3f2907454b2b3",
+        "size compressed (bytes)": 41654287509,
+        "documents": 14636953,
+        "downloaded": False,
+        "texts": "miracl-v1.0-fr"
+    },
+    "miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-miracl-hi": {
+        "description": "Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-miracl-hi.tar.gz",
+        "readme": "miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-miracl-hi.README.md",
+        "urls": [
+        ],
+        "md5": "c2cef4bd69680229ff78b3e8fdad7420",
+        "size compressed (bytes)": 1440859075,
+        "documents": 506264,
+        "downloaded": False,
+        "texts": "miracl-v1.0-hi"
+    },
+    "miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-miracl-id": {
+        "description": "Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-miracl-id.tar.gz",
+        "readme": "miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-miracl-id.README.md",
+        "urls": [
+        ],
+        "md5": "e4032e67cba7f53c07508be3d52006d3",
+        "size compressed (bytes)": 4111429291,
+        "documents": 1446315,
+        "downloaded": False,
+        "texts": "miracl-v1.0-id"
+    },
+    "miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-miracl-ja": {
+        "description": "Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-miracl-ja.tar.gz",
+        "readme": "miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-miracl-ja.README.md",
+        "urls": [
+        ],
+        "md5": "9ddd37aca2d2783b1e7cc4e3c03bcb81",
+        "size compressed (bytes)": 19790421211,
+        "documents": 6953614,
+        "downloaded": False,
+        "texts": "miracl-v1.0-ja"
+    },
+    "miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-miracl-ko": {
+        "description": "Faiss index for MIRACL v1.0 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-miracl-ko.tar.gz",
+        "readme": "miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-miracl-ko.README.md",
+        "urls": [
+        ],
+        "md5": "2468cf722feb27ff7228cb249362980c",
+        "size compressed (bytes)": 4230154705,
+        "documents": 1486752,
+        "downloaded": False,
+        "texts": "miracl-v1.0-ko"
+    },
+    "miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-miracl-ru": {
+        "description": "Faiss index for MIRACL v1.0 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-miracl-ru.tar.gz",
+        "readme": "miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-miracl-ru.README.md",
+        "urls": [
+        ],
+        "md5": "18060d86c8141a249d53eaa9fc65ff6b",
+        "size compressed (bytes)": 27177740372,
+        "documents": 9543918,
+        "downloaded": False,
+        "texts": "miracl-v1.0-ru"
+    },
     "miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw": {
         "description": "Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw.tar.gz",
         "readme": "miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw.README.md",
         "urls": [
         ],
-        "md5": "fbe7b155f975c2790a17872dd86cf1e9",
-        "size compressed (bytes)": 376196608,
+        "md5": "30de18d097932c81d802861211b6ecd8",
+        "size compressed (bytes)": 375865631,
         "documents": 131924,
         "downloaded": False,
         "texts": "miracl-v1.0-sw"
+    },
+    "miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-miracl-te": {
+        "description": "Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-miracl-te.tar.gz",
+        "readme": "miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-miracl-te.README.md",
+        "urls": [
+        ],
+        "md5": "0a9ea9d9bb548375f89c085210e5281e",
+        "size compressed (bytes)": 1475895309,
+        "documents": 518079,
+        "downloaded": False,
+        "texts": "miracl-v1.0-te"
+    },
+    "miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-miracl-th": {
+        "description": "Faiss index for MIRACL v1.0 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-miracl-th.tar.gz",
+        "readme": "miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-miracl-th.README.md",
+        "urls": [
+        ],
+        "md5": "bcd4648139debb28d9e732537654bb03",
+        "size compressed (bytes)": 1540580720,
+        "documents": 542166,
+        "downloaded": False,
+        "texts": "miracl-v1.0-th"
+    },
+    "miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-miracl-zh": {
+        "description": "Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-miracl-zh.tar.gz",
+        "readme": "miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-miracl-zh.README.md",
+        "urls": [
+        ],
+        "md5": "373d40447e5da11c4c95803cfbfdcd60",
+        "size compressed (bytes)": 14049243325,
+        "documents": 4934368,
+        "downloaded": False,
+        "texts": "miracl-v1.0-zh"
     },
 }
