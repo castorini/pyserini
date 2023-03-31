@@ -5,9 +5,11 @@ This guide describes how to reproduce the SLIM experiments in the following pape
 > Minghan Li, Sheng-Chieh Lin, Xueguang Ma, Jimmy Lin. [SLIM: Sparsified Late Interaction for Multi-Vector Retrieval with
 Inverted Indexes.](https://arxiv.org/abs/2302.06587) _arXiv:2302.06587_.
 
-### Retrieval
-Due to naming conflict with [Lucence optimation](), we use `slimr` to denote our model which stands for ''slim retrieval''.
-We run retrieval using the `castorini/slimr-msmarco-passage` model available on Huggingface's model hub:
+The training code is provided [here](https://github.com/alexlimh/SLIM).
+
+Due to naming conflict with [Lucence optimation](https://github.com/castorini/pyserini/blob/f010aa17a8f51887c056bff2f52f85d78e6eb27b/pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md), we use `slimr` to denote our model which stands for ''slim retrieval''.
+
+To reproduce the non-distilled version of SLIM, we run retrieval using the `castorini/slimr-msmarco-passage` model available on Huggingface's model hub:
 
 ```bash
 python -m pyserini.search.lucene \
