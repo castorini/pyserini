@@ -1,0 +1,336 @@
+<!-- Condition: $model -->
+<tr class="accordion-toggle collapsed" id="table${table_cnt}-row${row_cnt}" data-toggle="collapse" data-parent="#table${table_cnt}-row${row_cnt}" href="#table${table_cnt}-collapse${row_cnt}">
+<td class="expand-button"></td>
+<td>$model</td>
+<td>$ar</td>
+<td>$bn</td>
+<td>$en</td>
+<td>$es</td>
+<td>$fa</td>
+<td>$fi</td>
+<td>$fr</td>
+<td>$hi</td>
+<td>$id</td>
+<td>$ja</td>
+<td>$ko</td>
+<td>$ru</td>
+<td>$sw</td>
+<td>$te</td>
+<td>$th</td>
+<td>$zh</td>
+<td>$de</td>
+<td>$yo</td>
+<td></td>
+<td>$avg</td>
+</tr>
+<tr class="hide-table-padding">
+<td colspan="22">
+<div id="table${table_cnt}-collapse${row_cnt}" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table${table_cnt}-row${row_cnt}-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table${table_cnt}-row${row_cnt}-tab1-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab1" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab1" aria-selected="true" style="text-transform:none">ar</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab2-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab2" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab2" aria-selected="false" style="text-transform:none">bn</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab3-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab3" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab3" aria-selected="false" style="text-transform:none">en</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab4-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab4" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab4" aria-selected="false" style="text-transform:none">es</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab5-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab5" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab5" aria-selected="false" style="text-transform:none">fa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab6-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab6" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab6" aria-selected="false" style="text-transform:none">fi</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab7-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab7" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab7" aria-selected="false" style="text-transform:none">fr</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab8-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab8" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab8" aria-selected="false" style="text-transform:none">hi</a>
+  </li>  
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab9-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab9" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab9" aria-selected="false" style="text-transform:none">id</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab10-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab10" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab10" aria-selected="false" style="text-transform:none">ja</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab11-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab11" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab11" aria-selected="false" style="text-transform:none">ko</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab12-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab12" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab12" aria-selected="false" style="text-transform:none">ru</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab13-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab13" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab13" aria-selected="false" style="text-transform:none">sw</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab14-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab14" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab14" aria-selected="false" style="text-transform:none">te</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab15-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab15" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab15" aria-selected="false" style="text-transform:none">th</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab16-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab16" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab16" aria-selected="false" style="text-transform:none">zh</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab17-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab17" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab17" aria-selected="false" style="text-transform:none">de</a>
+  </li> 
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab18-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab18" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab18" aria-selected="false" style="text-transform:none">yo</a>
+  </li> 
+    
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table${table_cnt}-row${row_cnt}-content">
+  <div class="tab-pane fade show active" id="table${table_cnt}-row${row_cnt}-tab1" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd1
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd1}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab2" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd2
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd2}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab3" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd3}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab4" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd4}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab5" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd5
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd5}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab6" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd6
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd6}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab7" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab7">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd7
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd7}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab8" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab8">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd8
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd8}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab9" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab9">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd9
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd9}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab10" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab10">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd10
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd10}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab11" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab11">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd11
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd11}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab12" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab12">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd12
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd12}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab13" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab13">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd13
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd13}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab14" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab14">
+
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd14
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd14}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab15" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab15">
+
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd15
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd15}</code></pre>
+  </blockquote>
+
+  </div>
+
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab16" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab16">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd16
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd16}</code></pre>
+  </blockquote>
+
+  </div>
+
+   <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab17" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab17">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd17
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd17}</code></pre>
+  </blockquote>
+
+  </div>
+
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab18" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab18">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd18
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd18}</code></pre>
+  </blockquote>
+
+  </div>
+   
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>

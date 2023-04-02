@@ -1,0 +1,840 @@
+conditions:
+  # BM25
+  - name: bm25.ar
+    eval_key: miracl-v1.0-ar
+    command: python -m pyserini.search.lucene --language ar --topics miracl-v1.0-ar-${split} --index miracl-v1.0-ar --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4434
+            R@100: 0.8562
+      - split: dev
+        scores:
+          - nDCG@10: 0.4809
+            R@100: 0.8885
+  - name: bm25.bn
+    eval_key: miracl-v1.0-bn
+    command: python -m pyserini.search.lucene --language bn --topics miracl-v1.0-bn-${split} --index miracl-v1.0-bn --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5122
+            R@100: 0.8934
+      - split: dev
+        scores:
+          - nDCG@10: 0.5079
+            R@100: 0.9088
+  - name: bm25.en
+    eval_key: miracl-v1.0-en
+    command: python -m pyserini.search.lucene --language en --topics miracl-v1.0-en-${split} --index miracl-v1.0-en --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3415
+            R@100: 0.7928
+      - split: dev
+        scores:
+          - nDCG@10: 0.3506
+            R@100: 0.8190
+  - name: bm25.es
+    eval_key: miracl-v1.0-es
+    command: python -m pyserini.search.lucene --language es --topics miracl-v1.0-es-${split} --index miracl-v1.0-es --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3030
+            R@100: 0.7020
+      - split: dev
+        scores:
+          - nDCG@10: 0.3193
+            R@100: 0.7018
+  - name: bm25.fa
+    eval_key: miracl-v1.0-fa
+    command: python -m pyserini.search.lucene --language fa --topics miracl-v1.0-fa-${split} --index miracl-v1.0-fa --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3270
+            R@100: 0.7139
+      - split: dev
+        scores:
+          - nDCG@10: 0.3334
+            R@100: 0.7306
+  - name: bm25.fi
+    eval_key: miracl-v1.0-fi
+    command: python -m pyserini.search.lucene --language fi --topics miracl-v1.0-fi-${split} --index miracl-v1.0-fi --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5106
+            R@100: 0.8471
+      - split: dev
+        scores:
+          - nDCG@10: 0.5513
+            R@100: 0.8910
+  - name: bm25.fr
+    eval_key: miracl-v1.0-fr
+    command: python -m pyserini.search.lucene --language fr --topics miracl-v1.0-fr-${split} --index miracl-v1.0-fr --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.2152
+            R@100: 0.6601
+      - split: dev
+        scores:
+          - nDCG@10: 0.1832
+            R@100: 0.6528
+  - name: bm25.hi
+    eval_key: miracl-v1.0-hi
+    command: python -m pyserini.search.lucene --language hi --topics miracl-v1.0-hi-${split} --index miracl-v1.0-hi --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4745
+            R@100: 0.9016
+      - split: dev
+        scores:
+          - nDCG@10: 0.4578
+            R@100: 0.8679
+  - name: bm25.id
+    eval_key: miracl-v1.0-id
+    command: python -m pyserini.search.lucene --language id --topics miracl-v1.0-id-${split} --index miracl-v1.0-id --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4844
+            R@100: 0.9234
+      - split: dev
+        scores:
+          - nDCG@10: 0.4486
+            R@100: 0.9041
+  - name: bm25.ja
+    eval_key: miracl-v1.0-ja
+    command: python -m pyserini.search.lucene --language ja --topics miracl-v1.0-ja-${split} --index miracl-v1.0-ja --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3796
+            R@100: 0.8225
+      - split: dev
+        scores:
+          - nDCG@10: 0.3689
+            R@100: 0.8048
+  - name: bm25.ko
+    eval_key: miracl-v1.0-ko
+    command: python -m pyserini.search.lucene --language ko --topics miracl-v1.0-ko-${split} --index miracl-v1.0-ko --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4279
+            R@100: 0.7572
+      - split: dev
+        scores:
+          - nDCG@10: 0.4190
+            R@100: 0.7831
+  - name: bm25.ru
+    eval_key: miracl-v1.0-ru
+    command: python -m pyserini.search.lucene --language ru --topics miracl-v1.0-ru-${split} --index miracl-v1.0-ru --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3153
+            R@100: 0.6464
+      - split: dev
+        scores:
+          - nDCG@10: 0.3342
+            R@100: 0.6614
+  - name: bm25.sw
+    eval_key: miracl-v1.0-sw
+    command: python -m pyserini.search.lucene --language sw --topics miracl-v1.0-sw-${split} --index miracl-v1.0-sw --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3356
+            R@100: 0.6499
+      - split: dev
+        scores:
+          - nDCG@10: 0.3826
+            R@100: 0.7008
+  - name: bm25.te
+    eval_key: miracl-v1.0-te
+    command: python -m pyserini.search.lucene --language te --topics miracl-v1.0-te-${split} --index miracl-v1.0-te --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4814
+            R@100: 0.8077
+      - split: dev
+        scores:
+          - nDCG@10: 0.4942
+            R@100: 0.8307
+  - name: bm25.th
+    eval_key: miracl-v1.0-th
+    command: python -m pyserini.search.lucene --language th --topics miracl-v1.0-th-${split} --index miracl-v1.0-th --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4629
+            R@100: 0.8768
+      - split: dev
+        scores:
+          - nDCG@10: 0.4838
+            R@100: 0.8874
+  - name: bm25.zh
+    eval_key: miracl-v1.0-zh
+    command: python -m pyserini.search.lucene --language zh --topics miracl-v1.0-zh-${split} --index miracl-v1.0-zh --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.2018
+            R@100: 0.5541
+      - split: dev
+        scores:
+          - nDCG@10: 0.1801
+            R@100: 0.5599
+  - name: bm25.de
+    eval_key: miracl-v1.0-de
+    command: python -m pyserini.search.lucene --language de --topics miracl-v1.0-de-${split} --index miracl-v1.0-de --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.2262
+            R@100: 0.5724
+  - name: bm25.yo
+    eval_key: miracl-v1.0-yo
+    command: python -m pyserini.search.lucene --pretokenized --topics miracl-v1.0-yo-${split} --index miracl-v1.0-yo --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.4059
+            R@100: 0.7325
+
+  # mdpr-tied-pft-msmarco
+  - name: mdpr-tied-pft-msmarco.ar
+    eval_key: miracl-v1.0-ar
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-ar-${split} --index miracl-v1.0-ar-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.4653
+            R@100: 0.8293  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.4993
+            R@100: 0.8407
+  - name: mdpr-tied-pft-msmarco.bn
+    eval_key: miracl-v1.0-bn
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-bn-${split} --index miracl-v1.0-bn-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.4362
+            R@100: 0.8045  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.4427
+            R@100: 0.8193
+  - name: mdpr-tied-pft-msmarco.en
+    eval_key: miracl-v1.0-en
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-en-${split} --index miracl-v1.0-en-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.3986
+            R@100: 0.7779  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.3938
+            R@100: 0.7675
+  - name: mdpr-tied-pft-msmarco.es
+    eval_key: miracl-v1.0-es
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-es-${split} --index miracl-v1.0-es-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4637
+            R@100: 0.8654
+      - split: dev
+        scores:
+          - nDCG@10: 0.4777
+            R@100: 0.8643
+  - name: mdpr-tied-pft-msmarco.fa
+    eval_key: miracl-v1.0-fa
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-fa-${split} --index miracl-v1.0-fa-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4882
+            R@100: 0.9092
+      - split: dev
+        scores:
+          - nDCG@10: 0.4800
+            R@100: 0.8980
+  - name: mdpr-tied-pft-msmarco.fi
+    eval_key: miracl-v1.0-fi
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-fi-${split} --index miracl-v1.0-fi-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.4426
+            R@100: 0.7611  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.4721
+            R@100: 0.7877
+  - name: mdpr-tied-pft-msmarco.fr
+    eval_key: miracl-v1.0-fr
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-fr-${split} --index miracl-v1.0-fr-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4372
+            R@100: 0.9268
+      - split: dev
+        scores:
+          - nDCG@10: 0.4352
+            R@100: 0.9154
+  - name: mdpr-tied-pft-msmarco.hi
+    eval_key: miracl-v1.0-hi
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-hi-${split} --index miracl-v1.0-hi-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3685
+            R@100: 0.7780
+      - split: dev
+        scores:
+          - nDCG@10: 0.3830
+            R@100: 0.7755
+  - name: mdpr-tied-pft-msmarco.id
+    eval_key: miracl-v1.0-id
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-id-${split} --index miracl-v1.0-id-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.2549
+            R@100: 0.5610  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.2719
+            R@100: 0.5734
+  - name: mdpr-tied-pft-msmarco.ja
+    eval_key: miracl-v1.0-ja
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-ja-${split} --index miracl-v1.0-ja-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.4342
+            R@100: 0.8211  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.4390
+            R@100: 0.8254
+  - name: mdpr-tied-pft-msmarco.ko
+    eval_key: miracl-v1.0-ko
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-ko-${split} --index miracl-v1.0-ko-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.4147
+            R@100: 0.7699  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.4189
+            R@100: 0.7369
+  - name: mdpr-tied-pft-msmarco.ru
+    eval_key: miracl-v1.0-ru
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-ru-${split} --index miracl-v1.0-ru-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.3812
+            R@100: 0.7854  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.4073
+            R@100: 0.7972
+  - name: mdpr-tied-pft-msmarco.sw
+    eval_key: miracl-v1.0-sw
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-sw-${split} --index miracl-v1.0-sw-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:     
+          - nDCG@10: 0.2973
+            R@100: 0.5761  
+      - split: dev       
+        scores:   
+          - nDCG@10: 0.2990
+            R@100: 0.6158
+  - name: mdpr-tied-pft-msmarco.te
+    eval_key: miracl-v1.0-te
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-te-${split} --index miracl-v1.0-te-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3723
+            R@100: 0.7698
+      - split: dev
+        scores:
+          - nDCG@10: 0.3557
+            R@100: 0.7619
+  - name: mdpr-tied-pft-msmarco.th
+    eval_key: miracl-v1.0-th
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-th-${split} --index miracl-v1.0-th-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3451
+            R@100: 0.6728
+      - split: dev
+        scores:
+          - nDCG@10: 0.3578
+            R@100: 0.6783
+  - name: mdpr-tied-pft-msmarco.zh
+    eval_key: miracl-v1.0-zh
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-zh-${split} --index miracl-v1.0-zh-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5040
+            R@100: 0.9355
+      - split: dev
+        scores:
+          - nDCG@10: 0.5116
+            R@100: 0.9436
+  - name: mdpr-tied-pft-msmarco.de
+    eval_key: miracl-v1.0-de
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-de-${split} --index miracl-v1.0-de-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.4895
+            R@100: 0.8983
+  - name: mdpr-tied-pft-msmarco.yo
+    eval_key: miracl-v1.0-yo
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-yo-${split} --index miracl-v1.0-yo-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.4439
+            R@100: 0.8403
+
+  # mdpr-tied-pft-msmarco-ft-all
+  - name: mdpr-tied-pft-msmarco-ft-all.ar
+    eval_key: miracl-v1.0-ar
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-ar-${split} --index miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.6954
+            R@100: 0.8542
+      - split: dev
+        scores:
+          - nDCG@10: 0.5782
+            R@100: 0.7953
+  - name: mdpr-tied-pft-msmarco-ft-all.bn
+    eval_key: miracl-v1.0-bn
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-bn-${split} --index miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.6823
+            R@100: 0.8646
+      - split: dev
+        scores:
+          - nDCG@10: 0.5804
+            R@100: 0.8480
+  - name: mdpr-tied-pft-msmarco-ft-all.en
+    eval_key: miracl-v1.0-en
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-en-${split} --index miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3491
+            R@100: 0.5678
+      - split: dev
+        scores:
+          - nDCG@10: 0.2813
+            R@100: 0.5083
+  - name: mdpr-tied-pft-msmarco-ft-all.es
+    eval_key: miracl-v1.0-es
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-es-${split} --index miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.2488
+            R@100: 0.4799
+      - split: dev
+        scores:
+          - nDCG@10: 0.2509
+            R@100: 0.4706
+  - name: mdpr-tied-pft-msmarco-ft-all.fa
+    eval_key: miracl-v1.0-fa
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-fa-${split} --index miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3809
+            R@100: 0.6899
+      - split: dev
+        scores:
+          - nDCG@10: 0.3836
+            R@100: 0.6863
+  - name: mdpr-tied-pft-msmarco-ft-all.fi
+    eval_key: miracl-v1.0-fi
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-fi-${split} --index miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.7738
+            R@100: 0.9081
+      - split: dev
+        scores:
+          - nDCG@10: 0.5694
+            R@100: 0.7984
+  - name: mdpr-tied-pft-msmarco-ft-all.fr
+    eval_key: miracl-v1.0-fr
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-fr-${split} --index miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.2989
+            R@100: 0.6197
+      - split: dev
+        scores:
+          - nDCG@10: 0.3010
+            R@100: 0.6005
+  - name: mdpr-tied-pft-msmarco-ft-all.hi
+    eval_key: miracl-v1.0-hi
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-hi-${split} --index miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3336
+            R@100: 0.6388
+      - split: dev
+        scores:
+          - nDCG@10: 0.3286
+            R@100: 0.6371
+  - name: mdpr-tied-pft-msmarco-ft-all.id
+    eval_key: miracl-v1.0-id
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-id-${split} --index miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3321
+            R@100: 0.5492
+      - split: dev
+        scores:
+          - nDCG@10: 0.3462
+            R@100: 0.5841
+  - name: mdpr-tied-pft-msmarco-ft-all.ja
+    eval_key: miracl-v1.0-ja
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-ja-${split} --index miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.6378
+            R@100: 0.7950
+      - split: dev
+        scores:
+          - nDCG@10: 0.4999
+            R@100: 0.7451
+  - name: mdpr-tied-pft-msmarco-ft-all.ko
+    eval_key: miracl-v1.0-ko
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-ko-${split} --index miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5795
+            R@100: 0.7850
+      - split: dev
+        scores:
+          - nDCG@10: 0.4864
+            R@100: 0.7183
+  - name: mdpr-tied-pft-msmarco-ft-all.ru
+    eval_key: miracl-v1.0-ru
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-ru-${split} --index miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.6011
+            R@100: 0.8188
+      - split: dev
+        scores:
+          - nDCG@10: 0.3933
+            R@100: 0.6707
+  - name: mdpr-tied-pft-msmarco-ft-all.sw
+    eval_key: miracl-v1.0-sw
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-sw-${split} --index miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.8882
+            R@100: 0.9710
+      - split: dev
+        scores:
+          - nDCG@10: 0.6575
+            R@100: 0.8883
+  - name: mdpr-tied-pft-msmarco-ft-all.te
+    eval_key: miracl-v1.0-te
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-te-${split} --index miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.8757
+            R@100: 0.9725
+      - split: dev
+        scores:
+          - nDCG@10: 0.7783
+            R@100: 0.9513
+  - name: mdpr-tied-pft-msmarco-ft-all.th
+    eval_key: miracl-v1.0-th
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-th-${split} --index miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.7761
+            R@100: 0.9241
+      - split: dev
+        scores:
+          - nDCG@10: 0.5975
+            R@100: 0.8360
+  - name: mdpr-tied-pft-msmarco-ft-all.zh
+    eval_key: miracl-v1.0-zh
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-zh-${split} --index miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.3446
+            R@100: 0.6608
+      - split: dev
+        scores:
+          - nDCG@10: 0.3575
+            R@100: 0.6725
+  - name: mdpr-tied-pft-msmarco-ft-all.de
+    eval_key: miracl-v1.0-de
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-de-${split} --index miracl-v1.0-de-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.3219
+            R@100: 0.5990
+  - name: mdpr-tied-pft-msmarco-ft-all.yo
+    eval_key: miracl-v1.0-yo
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-yo-${split} --index miracl-v1.0-yo-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.5983
+            R@100: 0.8908
+
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.ar
+    eval_key: miracl-v1.0-ar
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits: 
+      - split: train
+        scores:
+          - nDCG@10: 0.6259
+            R@100: 0.9173
+      - split: dev
+        scores:
+          - nDCG@10: 0.6729
+            R@100: 0.9405
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.bn
+    eval_key: miracl-v1.0-bn
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.6587
+            R@100: 0.9297
+      - split: dev
+        scores:
+          - nDCG@10: 0.6540
+            R@100: 0.9321
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.en
+    eval_key: miracl-v1.0-en
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5347
+            R@100: 0.8772
+      - split: dev
+        scores:
+          - nDCG@10: 0.5488
+            R@100: 0.8815
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.es
+    eval_key: miracl-v1.0-es
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.6234
+            R@100: 0.9425
+      - split: dev
+        scores:
+          - nDCG@10: 0.6413
+            R@100: 0.9479
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.fa
+    eval_key: miracl-v1.0-fa
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5890
+            R@100: 0.9433
+      - split: dev
+        scores:
+          - nDCG@10: 0.5935
+            R@100: 0.9374
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.fi
+    eval_key: miracl-v1.0-fi
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+        scores:
+          - nDCG@10: 0.6164
+            R@100: 0.8506
+      - split: dev
+        scores:
+          - nDCG@10: 0.6716
+            R@100: 0.8949
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.fr
+    eval_key: miracl-v1.0-fr
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5299
+            R@100: 0.9709
+      - split: dev
+        scores:
+          - nDCG@10: 0.5233
+            R@100: 0.9647
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.hi
+    eval_key: miracl-v1.0-hi
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.6217
+            R@100: 0.9059
+      - split: dev
+        scores:
+          - nDCG@10: 0.6157
+            R@100: 0.9115
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.id
+    eval_key: miracl-v1.0-id
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4442
+            R@100: 0.7595
+      - split: dev
+        scores:
+          - nDCG@10: 0.4433
+            R@100: 0.7683
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.ja
+    eval_key: miracl-v1.0-ja
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5795
+            R@100: 0.9082
+      - split: dev
+        scores:
+          - nDCG@10: 0.5757
+            R@100: 0.9036
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.ko
+    eval_key: miracl-v1.0-ko
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5758
+            R@100: 0.8744
+      - split: dev
+        scores:
+          - nDCG@10: 0.6086
+            R@100: 0.8997
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.ru
+    eval_key: miracl-v1.0-ru
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4921
+            R@100: 0.8494
+      - split: dev
+        scores:
+          - nDCG@10: 0.5323
+            R@100: 0.8738
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.sw
+    eval_key: miracl-v1.0-sw
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.4100
+            R@100: 0.6987
+      - split: dev
+        scores:
+          - nDCG@10: 0.4457
+            R@100: 0.7254
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.te
+    eval_key: miracl-v1.0-te
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.6000
+            R@100: 0.8717
+      - split: dev
+        scores:
+          - nDCG@10: 0.6021
+            R@100: 0.8569
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.th
+    eval_key: miracl-v1.0-th
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5669
+            R@100: 0.8195
+      - split: dev
+        scores:
+          - nDCG@10: 0.5990
+            R@100: 0.8228
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.zh
+    eval_key: miracl-v1.0-zh
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: train
+        scores:
+          - nDCG@10: 0.5209
+            R@100: 0.9576
+      - split: dev
+        scores:
+          - nDCG@10: 0.5254
+            R@100: 0.9587
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.de
+    eval_key: miracl-v1.0-de
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.5643
+            R@100: 0.9482
+  - name: bm25-mdpr-tied-pft-msmarco-hybrid.yo
+    eval_key: miracl-v1.0-yo
+    command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@10: 0.6114
+            R@100: 0.9496
