@@ -109,8 +109,7 @@ If you're planning on just _using_ Pyserini, then the `pip` instructions above a
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 
 Start with creating a new `conda` environment:
-
-```
+```bash
 $ conda create -n pyserini-dev python=3.8
 $ conda activate pyserini-dev
 ```
@@ -136,23 +135,25 @@ $ cd tools/eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make
 $ cd tools/eval/ndeval && make && cd ../../..
 ```
 
-Use `pip` to "install" the checked out code in "editable" mode:
-
+Install the following packages:
 ```bash
-$ pip install -e .
+$ conda install wget
+$ conda install -c conda-forge lightgbm
+$ conda install -c conda-forge faiss-cpu
+$ conda install pytorch torchvision torchaudio -c pytorch
+$ pip install psutil
+$ pip install --no-binary :all: nmslib
 ```
 
-You'll still need to install the other packages separately:
-
+Use `pip` to "install" the checked out code in "editable" mode:
 ```bash
-$ pip install torch
-$ conda install faiss-cpu -c pytorch
+$ pip install -e .
 ```
 
 You'll need to download the Spacy English model to reproduce tasks such as [LTR Filtering for MS MARCO Passage](https://github.com/castorini/pyserini/blob/master/docs/experiments-ltr-msmarco-passage-reranking.md).
 
 ```bash
-python -m spacy download en_core_web_sm
+$ python -m spacy download en_core_web_sm
 ```
 
 Next, you'll need to clone and build [Anserini](http://anserini.io/).
@@ -163,7 +164,7 @@ As with the `pip` installation, a potential source of frustration is incompatibi
 You can confirm everything is working by running the unit tests:
 
 ```bash
-python -m unittest
+$ python -m unittest
 ```
 
 Assuming all tests pass, you should be ready to go!
@@ -183,33 +184,6 @@ To fix, manually set environment variable `set _JAVA_OPTIONS=-Dfile.encoding=UTF
 The solution to this is to check the version of your `numpy`. At the time of this writing, the latest numpy version is `1.23.2`, which is incompatible with the API.
 Fix by downgrading to `1.21.1` so that the other dependent libraries are compatible with the API version.
 (See [#1259](https://github.com/castorini/pyserini/pull/1259)).
-
-If you are using an Apple M1 machine, and encountered Java Runtime Environment error or failed tests, please try recreating a new `conda` environment:
-```
-conda create -n pyserini-dev python=3.8
-conda activate pyserini-dev
-```
-
-Install the following packages:
-```
-conda install wget
-conda install -c conda-forge maven
-conda install -c conda-forge lightgbm
-conda install -c conda-forge faiss-cpu
-conda install pytorch torchvision torchaudio -c pytorch
-pip install psutil
-pip install --no-binary :all: nmslib
-```
-
-Use `pip` to "install" the checked out code in "editable" mode:
-```
-pip install -e .
-```
-
-Then you can run the unit tests again:
-```
-python -m unittest
-```
 
 ## Internal Notes
 
