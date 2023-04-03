@@ -21,8 +21,9 @@ from typing import OrderedDict
 from tqdm import tqdm
 
 from pyserini.search import FaissSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, QueryEncoder, \
-    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AutoQueryEncoder, DenseVectorAveragePrf, \
+    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, AutoQueryEncoder, DenseVectorAveragePrf, \
     DenseVectorRocchioPrf, DenseVectorAncePrf
+
 from pyserini.encode import PcaEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
@@ -40,7 +41,7 @@ def define_dsearch_args(parser):
                         help="Path to Faiss index or name of prebuilt index.")
     parser.add_argument('--encoder-class', type=str, metavar='which query encoder class to use. `default` would infer from the args.encoder',
                         required=False,
-                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "contriever", "auto"],
+                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "contriever", "auto", "aggretriever"],
                         default=None,
                         help='which query encoder class to use. `default` would infer from the args.encoder')
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
@@ -102,6 +103,7 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
         "ance": AnceQueryEncoder,
         "sentence": AutoQueryEncoder,
         "contriever": AutoQueryEncoder,
+        "aggretriever": AggretrieverQueryEncoder,
         "auto": AutoQueryEncoder,
     }
 
@@ -130,6 +132,7 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
             kwargs.update(dict(pooling='mean', l2_norm=True))
         if (_encoder_class == "contriever") or ("contriever" in encoder):
             kwargs.update(dict(pooling='mean', l2_norm=False))
+
         return encoder_class(**kwargs)
 
     if encoded_queries:

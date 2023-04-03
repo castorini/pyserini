@@ -39,6 +39,7 @@ from ._model import AnceEncoder
 import torch
 
 from ...encode import PcaEncoder
+from ...encode._aggretriever import BERTAggretrieverEncoder, DistlBERTAggretrieverEncoder
 
 if is_faiss_available():
     import faiss
@@ -83,6 +84,44 @@ class QueryEncoder:
     def _load_embeddings(encoded_query_dir):
         df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
         return dict(zip(df['text'].tolist(), df['embedding'].tolist()))
+
+
+class AggretrieverQueryEncoder(QueryEncoder):
+    # def __init__(self, model_name: str, tokenizer_name=None, device='cuda:0'):
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
+        if encoder_dir:
+            self.device = device
+            if 'distilbert' in encoder_dir.lower():
+                self.model = DistlBERTAggretrieverEncoder.from_pretrained(encoder_dir)
+            else:
+                self.model = BERTAggretrieverEncoder.from_pretrained(encoder_dir)
+            self.model.to(self.device)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            self.has_model = True
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+
+    def encode(self, texts, titles=None, fp16=False,  max_length=32, **kwargs):
+        if self.has_model:
+            if titles is not None:
+                texts = [f'{title} {text}' for title, text in zip(titles, texts)]
+            else:
+                texts = [text for text in texts]
+            inputs = self.tokenizer(
+                texts,
+                max_length=max_length,
+                padding="longest",
+                truncation=True,
+                add_special_tokens=True,
+                return_tensors='pt'
+            )
+            inputs.to(self.device)
+            outputs = self.model(**inputs)
+            return outputs.detach().cpu().numpy()        
+        else:
+            return super().encode(query)        
+        
 
 
 class TctColBertQueryEncoder(QueryEncoder):
