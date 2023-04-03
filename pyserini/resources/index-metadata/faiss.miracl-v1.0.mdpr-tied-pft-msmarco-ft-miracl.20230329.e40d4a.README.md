@@ -120,7 +120,7 @@ python test.py --input=model_miracl_${lang}_corpus --output=${lang}_index
 Tested to use the same checkpoint to index directly via Pyserini using the following command, got the same score. (on basilisk)
 (only tested on Swahili)
 ```bash
-encoder=jasper-xian/mdpr-tied-pft-msmarco_miracl-$lang
+encoder=castorini/mdpr-tied-pft-msmarco-ft-miracl-$lang
 
 index_dir=miracl-v1.0-$lang-mdpr-tied-pft-msmarco-ft-miracl-$lang
 echo $index_dir
