@@ -87,7 +87,6 @@ class QueryEncoder:
 
 
 class AggretrieverQueryEncoder(QueryEncoder):
-    # def __init__(self, model_name: str, tokenizer_name=None, device='cuda:0'):
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
                  encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
         if encoder_dir:
@@ -102,14 +101,10 @@ class AggretrieverQueryEncoder(QueryEncoder):
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
-    def encode(self, texts, titles=None, fp16=False,  max_length=32, **kwargs):
+    def encode(self, query: str,  max_length: int=32):
         if self.has_model:
-            if titles is not None:
-                texts = [f'{title} {text}' for title, text in zip(titles, texts)]
-            else:
-                texts = [text for text in texts]
             inputs = self.tokenizer(
-                texts,
+                query,
                 max_length=max_length,
                 padding="longest",
                 truncation=True,
@@ -118,11 +113,11 @@ class AggretrieverQueryEncoder(QueryEncoder):
             )
             inputs.to(self.device)
             outputs = self.model(**inputs)
-            return outputs.detach().cpu().numpy()        
+            embeddings = outputs.detach().cpu().numpy() 
+            return embeddings.flatten()
         else:
             return super().encode(query)        
         
-
 
 class TctColBertQueryEncoder(QueryEncoder):
 

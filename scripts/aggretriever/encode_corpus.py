@@ -3,8 +3,14 @@ import pickle
 import numpy as np
 from tqdm import tqdm
 import faiss
-import os
 import json
+import sys
+import os
+
+# We're going to explicitly use a local installation of Pyserini (as opposed to a pip-installed one).
+# Comment these lines out to use a pip-installed one instead.
+sys.path.insert(0, './')
+sys.path.insert(0, '../pyserini/')
 from pyserini.encode._aggretriever import AggretrieverDocumentEncoder
 
 DATA_ITEM = {'msmarco-passage': {'id':'id', 'contents': ['contents']}, 

@@ -130,7 +130,8 @@ class BERTAggretrieverEncoder(PreTrainedModel):
         lexical_reps = self.aggregate(lexical_reps, 640)
         semantic_reps = self.cls_proj(cls_hidden)
 
-        return torch.cat((semantic_reps, lexical_reps), -1) 
+        return torch.squeeze(torch.cat((semantic_reps, lexical_reps), -1))
+
 
 class DistlBERTAggretrieverEncoder(BERTAggretrieverEncoder):
 
@@ -182,11 +183,8 @@ class AggretrieverQueryEncoder(QueryEncoder):
         self.model.to(self.device)
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name)
 
-    def encode(self, texts, titles=None, fp16=False,  max_length=32, **kwargs):
-        if titles is not None:
-            texts = [f'{title} {text}' for title, text in zip(titles, texts)]
-        else:
-            texts = [text for text in texts]
+    def encode(self, texts, fp16=False,  max_length=32, **kwargs):
+        texts = [text for text in texts]
         inputs = self.tokenizer(
             texts,
             max_length=max_length,
