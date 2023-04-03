@@ -1,4 +1,4 @@
-# miracl-v1.0-mdpr-tied-pft-msmarco-ft-all
+# miracl-v1.0-mdpr-tied-pft-msmarco-ft-miracl-${lang}
 
 This index was generated on 2023/03/21 using [tevatron](https://github.com/texttron/tevatron) with the following commands:
 
