@@ -7266,7 +7266,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-miracl-ar": {
         "description": "Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco-ft-miracl-ar.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-miracl-ar.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco-ft-miracl-ar.20230329.e40d4a.tar.gz",
         ],
@@ -7279,7 +7279,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-miracl-bn": {
         "description": "Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco-ft-miracl-bn.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-miracl-bn.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco-ft-miracl-bn.20230329.e40d4a.tar.gz",
         ],
@@ -7292,7 +7292,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-miracl-en": {
         "description": "Faiss index for MIRACL v1.0 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco-ft-miracl-en.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-miracl-en.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco-ft-miracl-en.20230329.e40d4a.tar.gz",
         ],
@@ -7305,7 +7305,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-miracl-es": {
         "description": "Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco-ft-miracl-es.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-miracl-es.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco-ft-miracl-es.20230329.e40d4a.tar.gz",
         ],
@@ -7318,7 +7318,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-miracl-fa": {
         "description": "Faiss index for MIRACL v1.0 (Persian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco-ft-miracl-fa.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-miracl-fa.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco-ft-miracl-fa.20230329.e40d4a.tar.gz",
         ],
@@ -7331,7 +7331,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-miracl-fi": {
         "description": "Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco-ft-miracl-fi.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-miracl-fi.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco-ft-miracl-fi.20230329.e40d4a.tar.gz",
         ],
@@ -7344,7 +7344,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-miracl-fr": {
         "description": "Faiss index for MIRACL v1.0 (French) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco-ft-miracl-fr.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-miracl-fr.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco-ft-miracl-fr.20230329.e40d4a.tar.gz",
         ],
@@ -7357,7 +7357,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-miracl-hi": {
         "description": "Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco-ft-miracl-hi.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-miracl-hi.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco-ft-miracl-hi.20230329.e40d4a.tar.gz",
         ],
@@ -7370,7 +7370,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-miracl-id": {
         "description": "Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco-ft-miracl-id.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-miracl-id.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco-ft-miracl-id.20230329.e40d4a.tar.gz",
         ],
@@ -7383,7 +7383,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-miracl-ja": {
         "description": "Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco-ft-miracl-ja.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-miracl-ja.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco-ft-miracl-ja.20230329.e40d4a.tar.gz",
         ],
@@ -7396,7 +7396,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-miracl-ko": {
         "description": "Faiss index for MIRACL v1.0 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco-ft-miracl-ko.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-miracl-ko.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco-ft-miracl-ko.20230329.e40d4a.tar.gz",
         ],
@@ -7409,7 +7409,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-miracl-ru": {
         "description": "Faiss index for MIRACL v1.0 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco-ft-miracl-ru.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-miracl-ru.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco-ft-miracl-ru.20230329.e40d4a.tar.gz",
         ],
@@ -7422,7 +7422,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw": {
         "description": "Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco-ft-miracl-sw.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco-ft-miracl-sw.20230329.e40d4a.tar.gz",
         ],
@@ -7435,7 +7435,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-miracl-te": {
         "description": "Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco-ft-miracl-te.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-miracl-te.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco-ft-miracl-te.20230329.e40d4a.tar.gz",
         ],
@@ -7448,7 +7448,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-miracl-th": {
         "description": "Faiss index for MIRACL v1.0 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco-ft-miracl-th.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-miracl-th.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco-ft-miracl-th.20230329.e40d4a.tar.gz",
         ],
@@ -7461,7 +7461,7 @@ FAISS_INDEX_INFO = {
     "miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-miracl-zh": {
         "description": "Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco-ft-miracl-zh.20230329.e40d4a.tar.gz",
-        "readme": "faiss.miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-miracl-zh.20230329.e40d4a.README.md",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco-ft-miracl-zh.20230329.e40d4a.tar.gz",
         ],
