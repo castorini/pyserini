@@ -935,7 +935,7 @@ conditions:
       - split: dev       
         scores:   
           - nDCG@10: 0.5974
-            R@100: 0.9102
+            R@100: 0.9099
   - name: mdpr-tied-pft-msmarco-ft-miracl.sw
     eval_key: miracl-v1.0-sw
     command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-miracl-sw --topics miracl-v1.0-sw-${split} --index miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw --output $output --batch 128 --threads 16 --hits 1000
