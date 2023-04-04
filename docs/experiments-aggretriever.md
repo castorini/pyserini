@@ -7,6 +7,7 @@ This guide provides instructions to reproduce the Aggretriever dense retrieval m
 Note that we often observe minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
 Thus, while the scoring script provides results to much higher precision, we have intentionally rounded to four digits after the decimal point.
+The models, indexes and encoded queries are now on orca so we use the local path temporarily.
 
 ## MS MARCO Passage Ranking
 
@@ -23,25 +24,15 @@ Dense retrieval with Aggretriever-DistilBERT, brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index /store2/scratch/s269lin/index/aggretriever-distilbert \
+  --index /store/scratch/s269lin/experiments/aggretriever/index/aggretriever-distilbert \
   --topics msmarco-passage-dev-subset \
-  --encoder /store2/scratch/s269lin/Aggretriever/results/experiments/hf_model/aggretriever-distilbert \
+  --encoded-queries /store/scratch/s269lin/experiments/aggretriever/queries/aggretriever-distilbert \
   --output runs/run.msmarco-passage.distilbert-agg.bf.tsv \
-  --output-format msmarco \
+  --output-format trec \
   --batch-size 36 --threads 12
 ```
 
-Note that to ensure maximum reproducibility, by default Pyserini uses pre-computed query representations that are automatically downloaded. As an alternative, replace with `--encoder castorini/aggretriever-distilbert` to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process.
-
-```bash
-python -m pyserini.search.faiss \
-  --index /store2/scratch/s269lin/index/aggretriever-distilbert \
-  --topics msmarco-passage-dev-subset \
-  --encoder /store2/scratch/s269lin/Aggretriever/results/experiments/hf_model/aggretriever-distilbert \
-  --output runs/run.msmarco-passage.distilbert-agg.bf.tsv \
-  --output-format msmarco \
-  --batch-size 36 --threads 12
-```
+Note that to ensure maximum reproducibility, by default Pyserini uses pre-computed query representations that are automatically downloaded. As an alternative, replace `--encoded-queries /store/scratch/s269lin/experiments/aggretriever/queries/aggretriever-distilbert` with `--encoder /store/scratch/s269lin/experiments/aggretriever/hf_model/aggretriever-distilbert` to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process.
 
 To evaluate:
 
@@ -72,25 +63,15 @@ Dense retrieval with Aggretriever-coCondenser, brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index /store2/scratch/s269lin/index/aggretriever-cocondenser \
+  --index /store/scratch/s269lin/experiments/aggretriever/index/aggretriever-cocondenser \
   --topics msmarco-passage-dev-subset \
-  --encoder /store2/scratch/s269lin/Aggretriever/results/experiments/hf_model/aggretriever-cocondenser \
+  --encoded-queries /store/scratch/s269lin/experiments/aggretriever/queries/aggretriever-cocondenser \
   --output runs/run.msmarco-passage.cocondenser-agg.bf.tsv \
-  --output-format msmarco \
+  --output-format trec \
   --batch-size 36 --threads 12
 ```
 
-Note that to ensure maximum reproducibility, by default Pyserini uses pre-computed query representations that are automatically downloaded. As an alternative, replace with `--encoder castorini/aggretriever-cocondenser` to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process.
-
-```bash
-python -m pyserini.search.faiss \
-  --index /store2/scratch/s269lin/index/aggretriever-cocondenser \
-  --topics msmarco-passage-dev-subset \
-  --encoder /store2/scratch/s269lin/Aggretriever/results/experiments/hf_model/aggretriever-cocondenser \
-  --output runs/run.msmarco-passage.cocondenser-agg.bf.tsv \
-  --output-format msmarco \
-  --batch-size 36 --threads 12
-```
+Note that to ensure maximum reproducibility, by default Pyserini uses pre-computed query representations that are automatically downloaded. As an alternative, replace `--encoded-queries /store/scratch/s269lin/experiments/aggretriever/queries/aggretriever-cocondenser` with `--encoder /store/scratch/s269lin/experiments/aggretriever/hf_model/aggretriever-cocondenser` to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process.
 
 To evaluate:
 
