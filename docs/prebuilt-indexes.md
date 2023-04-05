@@ -322,235 +322,235 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index for Mr.TyDi v1.1 (Thai).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-trec-covid.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): TREC-COVID
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-bioasq.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): BioASQ
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-nfcorpus.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): NFCorpus
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-nq.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): NQ
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-hotpotqa.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): HotpotQA
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-fiqa.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): FiQA-2018
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-signal1m.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): Signal-1M
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-trec-news.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): TREC-NEWS
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-robust04.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): Robust04
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-arguana.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): ArguAna
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-webis-touche2020.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): Webis-Touche2020
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-android.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-android
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-english.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-english
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-gaming.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-gaming
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-gis.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-gis
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-mathematica.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-mathematica
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-physics.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-physics
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-programmers.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-programmers
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-stats.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-stats
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-tex.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-tex
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-unix.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-unix
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-webmasters.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-webmasters
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-wordpress.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-wordpress
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-quora.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): Quora
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-dbpedia-entity.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): DBPedia
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-scidocs.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): SCIDOCS
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-fever.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): FEVER
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-climate-fever.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): Climate-FEVER
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-scifact.flat.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): SciFact
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-trec-covid.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): TREC-COVID
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-bioasq.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): BioASQ
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-nfcorpus.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): NFCorpus
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-nq.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): NQ
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-hotpotqa.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): HotpotQA
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-fiqa.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): FiQA-2018
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-signal1m.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): Signal-1M
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-trec-news.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): TREC-NEWS
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-robust04.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): Robust04
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-arguana.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): ArguAna
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-webis-touche2020.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): Webis-Touche2020
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-android.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-android
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-english.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-english
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-gaming.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-gaming
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-gis.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-gis
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-mathematica.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-mathematica
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-physics.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-physics
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-programmers.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-programmers
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-stats.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-stats
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-tex.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-tex
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-unix.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-unix
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-webmasters.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-webmasters
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-cqadupstack-wordpress.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-wordpress
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-quora.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): Quora
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-dbpedia-entity.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): DBPedia
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-scidocs.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): SCIDOCS
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-fever.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): FEVER
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-climate-fever.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): Climate-FEVER
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-scifact.multifield.20221116.505594.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): SciFact
 </dd>
 <dt></dt><b><code>hc4-v1.0-fa</code></b>
