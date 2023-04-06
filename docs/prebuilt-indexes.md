@@ -956,119 +956,119 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by Contriever encoder.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (NQ) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (Quora) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.contriever-msmarco</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.contriever-msmarco.20230124.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
 <dt></dt><b><code>msmarco-passage-tct_colbert-hnsw</code></b>
