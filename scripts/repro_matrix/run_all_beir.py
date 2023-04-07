@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
             print('')
 
-    models = ['bm25-flat', 'bm25-multifield', 'splade-distil-cocodenser-medium', 'contriever']
+    models = ['bm25-flat', 'bm25-multifield', 'splade-distil-cocodenser-medium', 'contriever', 'contriever-msmarco']
     metrics = ['nDCG@10', 'R@100', 'R@1000']
 
     top_level_sums = defaultdict(lambda: defaultdict(float))
@@ -96,20 +96,22 @@ if __name__ == '__main__':
             final_score = (top_level_sums[model][metric] + cqa_score) / 18
             final_scores[model][metric] = final_score
 
-    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 11 + 'SPLADE' + ' ' * 10 + 'Contriever')
-    print(' ' * 26 + 'nDCG@10   R@100   ' * 4)
-    print(' ' * 27 + '-' * 14 + '    ' + '-' * 14 + '    ' + '-' * 14 + '    ' + '-' * 14)
+    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 13 + 'SPLADE' + ' ' * 11 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco')
+    print(' ' * 26 + 'nDCG@10   R@100    ' * 5)
+    print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
     for dataset in beir_keys:
         print(f'{dataset:25}' +
-              f'{table[dataset]["bm25-flat"]["nDCG@10"]:8.4f}{table[dataset]["bm25-flat"]["R@100"]:8.4f}  ' +
-              f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.4f}{table[dataset]["bm25-multifield"]["R@100"]:8.4f}  ' +
-              f'{table[dataset]["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{table[dataset]["splade-distil-cocodenser-medium"]["R@100"]:8.4f}  ' + 
-              f'{table[dataset]["contriever"]["nDCG@10"]:8.4f}{table[dataset]["contriever"]["R@100"]:8.4f}  ')
-    print(' ' * 27 + '-' * 14 + '    ' + '-' * 14 + '    ' + '-' * 14 + '    ' + '-' * 14)
-    print('avg' + ' ' * 22 + f'{final_scores["bm25-flat"]["nDCG@10"]:8.4f}{final_scores["bm25-flat"]["R@100"]:8.4f}  ' +
-            f'{final_scores["bm25-multifield"]["nDCG@10"]:8.4f}{final_scores["bm25-multifield"]["R@100"]:8.4f}  ' +
-            f'{final_scores["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{final_scores["splade-distil-cocodenser-medium"]["R@100"]:8.4f}  ' + 
-            f'{final_scores["contriever"]["nDCG@10"]:8.4f}{final_scores["contriever"]["R@100"]:8.4f}')
+              f'{table[dataset]["bm25-flat"]["nDCG@10"]:8.4f}{table[dataset]["bm25-flat"]["R@100"]:8.4f}   ' +
+              f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.4f}{table[dataset]["bm25-multifield"]["R@100"]:8.4f}   ' +
+              f'{table[dataset]["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{table[dataset]["splade-distil-cocodenser-medium"]["R@100"]:8.4f}   ' + 
+              f'{table[dataset]["contriever"]["nDCG@10"]:8.4f}{table[dataset]["contriever"]["R@100"]:8.4f}   ' + 
+              f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}')
+    print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
+    print('avg' + ' ' * 22 + f'{final_scores["bm25-flat"]["nDCG@10"]:8.4f}{final_scores["bm25-flat"]["R@100"]:8.4f}   ' +
+            f'{final_scores["bm25-multifield"]["nDCG@10"]:8.4f}{final_scores["bm25-multifield"]["R@100"]:8.4f}   ' +
+            f'{final_scores["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{final_scores["splade-distil-cocodenser-medium"]["R@100"]:8.4f}   ' + 
+            f'{final_scores["contriever"]["nDCG@10"]:8.4f}{final_scores["contriever"]["R@100"]:8.4f}   ' +
+            f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.4f}{final_scores["contriever-msmarco"]["R@100"]:8.4f}')
 
     end = time.time()
 

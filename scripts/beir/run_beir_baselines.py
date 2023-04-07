@@ -105,3 +105,16 @@ for key in beir_keys:
     os.system(cmd)
     cmd = f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.100,1000 beir-v1.0.0-{key}-test runs/run.beir.contriever.{key}.txt'
     os.system(cmd)
+
+# Runs on Contriever index ft with MS MARCO
+for key in beir_keys:
+    cmd = f'python -m pyserini.search.faiss \
+              --encoder-class contriever --encoder facebook/contriever-msmarco \
+              --index beir-v1.0.0-{key}.contriever-ft \
+              --topics beir-v1.0.0-{key}-test \
+              --output runs/run.beir.contriever-msmarco.{key}.txt \
+              --batch 128 --threads 16 \
+              --remove-query --hits 1000'
+    os.system(cmd)
+    cmd = f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.100,1000 beir-v1.0.0-{key}-test runs/run.beir.contriever-msmarco.{key}.txt'
+    os.system(cmd)

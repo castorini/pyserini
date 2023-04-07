@@ -273,6 +273,10 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/index-wikipedia-kilt-doc-20210421-f29307-readme.txt">readme</a>]
 <dd>Lucene index of Wikipedia snapshot used as KILT's knowledge source.
 </dd>
+<dt></dt><b><code>wiki-all-6-3-tamber</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index-wiki-all-6-3-tamber-20230111-40277a.README.md">readme</a>]
+<dd>Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora
+</dd>
 <dt></dt><b><code>mrtydi-v1.1-arabic</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Arabic).
@@ -317,235 +321,235 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Thai).
 </dd>
-<dt></dt><b><code>beir-v1.0.0-trec-covid-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-trec-covid.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): TREC-COVID
 </dd>
-<dt></dt><b><code>beir-v1.0.0-bioasq-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-bioasq.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): BioASQ
 </dd>
-<dt></dt><b><code>beir-v1.0.0-nfcorpus-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-nfcorpus.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): NFCorpus
 </dd>
-<dt></dt><b><code>beir-v1.0.0-nq-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-nq.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): NQ
 </dd>
-<dt></dt><b><code>beir-v1.0.0-hotpotqa-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-hotpotqa.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): HotpotQA
 </dd>
-<dt></dt><b><code>beir-v1.0.0-fiqa-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-fiqa.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): FiQA-2018
 </dd>
-<dt></dt><b><code>beir-v1.0.0-signal1m-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-signal1m.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): Signal-1M
 </dd>
-<dt></dt><b><code>beir-v1.0.0-trec-news-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-trec-news.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): TREC-NEWS
 </dd>
-<dt></dt><b><code>beir-v1.0.0-robust04-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-robust04.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): Robust04
 </dd>
-<dt></dt><b><code>beir-v1.0.0-arguana-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-arguana.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): ArguAna
 </dd>
-<dt></dt><b><code>beir-v1.0.0-webis-touche2020-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-webis-touche2020.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): Webis-Touche2020
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-android-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-android.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-android
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-english-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-english.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-english
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-gaming
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-gis-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-gis
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-mathematica
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-physics-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-physics
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-programmers
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-stats-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-stats
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-tex-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-tex
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-unix-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-unix
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-webmasters
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): CQADupStack-wordpress
 </dd>
-<dt></dt><b><code>beir-v1.0.0-quora-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-quora.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): Quora
 </dd>
-<dt></dt><b><code>beir-v1.0.0-dbpedia-entity-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-dbpedia-entity.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): DBPedia
 </dd>
-<dt></dt><b><code>beir-v1.0.0-scidocs-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-scidocs.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): SCIDOCS
 </dd>
-<dt></dt><b><code>beir-v1.0.0-fever-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-fever.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): FEVER
 </dd>
-<dt></dt><b><code>beir-v1.0.0-climate-fever-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-climate-fever.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): Climate-FEVER
 </dd>
-<dt></dt><b><code>beir-v1.0.0-scifact-flat</code></b>
+<dt></dt><b><code>beir-v1.0.0-scifact.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): SciFact
 </dd>
-<dt></dt><b><code>beir-v1.0.0-trec-covid-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-trec-covid.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): TREC-COVID
 </dd>
-<dt></dt><b><code>beir-v1.0.0-bioasq-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-bioasq.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): BioASQ
 </dd>
-<dt></dt><b><code>beir-v1.0.0-nfcorpus-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-nfcorpus.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): NFCorpus
 </dd>
-<dt></dt><b><code>beir-v1.0.0-nq-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-nq.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): NQ
 </dd>
-<dt></dt><b><code>beir-v1.0.0-hotpotqa-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-hotpotqa.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): HotpotQA
 </dd>
-<dt></dt><b><code>beir-v1.0.0-fiqa-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-fiqa.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): FiQA-2018
 </dd>
-<dt></dt><b><code>beir-v1.0.0-signal1m-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-signal1m.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): Signal-1M
 </dd>
-<dt></dt><b><code>beir-v1.0.0-trec-news-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-trec-news.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): TREC-NEWS
 </dd>
-<dt></dt><b><code>beir-v1.0.0-robust04-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-robust04.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): Robust04
 </dd>
-<dt></dt><b><code>beir-v1.0.0-arguana-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-arguana.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): ArguAna
 </dd>
-<dt></dt><b><code>beir-v1.0.0-webis-touche2020-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-webis-touche2020.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): Webis-Touche2020
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-android-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-android.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-android
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-english-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-english.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-english
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-gaming
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-gis-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-gis
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-mathematica
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-physics-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-physics
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-programmers
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-stats-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-stats
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-tex-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-tex
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-unix-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-unix
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-webmasters
 </dd>
-<dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-wordpress
 </dd>
-<dt></dt><b><code>beir-v1.0.0-quora-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-quora.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): Quora
 </dd>
-<dt></dt><b><code>beir-v1.0.0-dbpedia-entity-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-dbpedia-entity.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): DBPedia
 </dd>
-<dt></dt><b><code>beir-v1.0.0-scidocs-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-scidocs.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): SCIDOCS
 </dd>
-<dt></dt><b><code>beir-v1.0.0-fever-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-fever.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): FEVER
 </dd>
-<dt></dt><b><code>beir-v1.0.0-climate-fever-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-climate-fever.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): Climate-FEVER
 </dd>
-<dt></dt><b><code>beir-v1.0.0-scifact-multifield</code></b>
+<dt></dt><b><code>beir-v1.0.0-scifact.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): SciFact
 </dd>
@@ -649,11 +653,27 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 (Chinese).
 </dd>
+<dt></dt><b><code>miracl-v1.0-de</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (German).
+</dd>
+<dt></dt><b><code>miracl-v1.0-yo</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 (Yoruba).
+</dd>
 </dl>
 
 
 ## Lucene Impact Indexes
 <dl>
+<dt></dt><b><code>msmarco-v1-passage-slimr</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-slimr.20230220.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with BM25 negatives. (Lucene 9)
+</dd>
+<dt></dt><b><code>msmarco-v1-passage-slimr-pp</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-slimr-pp.20230220.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with cross-encoder distillation and hardnegative mining. (Lucene 9)
+</dd>
 <dt></dt><b><code>msmarco-v1-passage-unicoil</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL. (Lucene 9)
@@ -819,6 +839,238 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 
 ## Faiss Indexes
 <dl>
+<dt></dt><b><code>beir-v1.0.0-trec-covid.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-bioasq.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-nfcorpus.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-nq.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (NQ) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-hotpotqa.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-fiqa.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-signal1m.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-trec-news.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-robust04.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-arguana.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-webis-touche2020.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-android.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-english.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-quora.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Quora) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-dbpedia-entity.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-scidocs.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-fever.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-climate-fever.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-scifact.contriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by Contriever encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-trec-covid.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-bioasq.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-nfcorpus.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-nq.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (NQ) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-hotpotqa.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-fiqa.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-signal1m.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-trec-news.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-robust04.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-arguana.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-webis-touche2020.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-android.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-english.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-quora.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Quora) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-dbpedia-entity.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-scidocs.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-fever.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-climate-fever.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-scifact.contriever-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
+</dd>
 <dt></dt><b><code>msmarco-passage-tct_colbert-hnsw</code></b>
 <dd>Faiss HNSW index of the MS MARCO passage corpus encoded by TCT-ColBERT
 </dd>
@@ -1116,5 +1368,153 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>miracl-v1.0-zh-mdpr-tied-pft-msmarco</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-de-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (German) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-yo-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Yoruba) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Persian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (French) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-de-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-yo-mdpr-tied-pft-msmarco-ft-all</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>wiki-all-6-3-dpr2-multi</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.README.md">readme</a>]
+<dd>Faiss FlatIP index of wiki-all-6-3-tamber encoded by a 2nd iteration DPR model trained on multiple QA datasets
+</dd>
+<dt></dt><b><code>miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-miracl-ar</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-miracl-bn</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-miracl-en</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-miracl-es</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-miracl-fa</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Persian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-miracl-fi</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-miracl-fr</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (French) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-miracl-hi</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-miracl-id</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-miracl-ja</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-miracl-ko</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-miracl-ru</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-miracl-te</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-miracl-th</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-miracl-zh</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
 </dd>
 </dl>
