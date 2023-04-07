@@ -166,6 +166,7 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 + Reproducing [Mr. TyDi experiments](https://github.com/castorini/mr.tydi/blob/main/README.md#1-bm25)
 + Reproducing [BM25 baselines for HC4](docs/experiments-hc4-v1.0.md)
 + Reproducing [BM25 baselines for HC4 on NeuCLIR22](docs/experiments-hc4-neuclir22.md)
++ Reproducing [SLIM experiments](docs/experiments-slim.md)
 
 ### Dense Retrieval
 
