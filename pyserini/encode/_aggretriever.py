@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 from typing import Optional
 import numpy as np
 import torch
@@ -23,11 +24,9 @@ if torch.cuda.is_available():
 
 from transformers import DistilBertConfig, BertConfig, BertTokenizer
 from transformers import AutoModelForMaskedLM, AutoTokenizer, PreTrainedModel
-
 from pyserini.encode import DocumentEncoder, QueryEncoder
 
 class BERTAggretrieverEncoder(PreTrainedModel):
-    
     config_class = BertConfig
     base_model_prefix = 'encoder'
     load_tf_weights = None
@@ -45,11 +44,9 @@ class BERTAggretrieverEncoder(PreTrainedModel):
 
     # Copied from https://github.com/castorini/dhr/blob/main/tevatron/Aggretriever/utils.py
     def cal_remove_dim(self, dims, vocab_size=30522):
-
         remove_dims = vocab_size % dims
         if remove_dims > 1000: # the first 1000 tokens in BERT are useless
             remove_dims -= dims
-
         return remove_dims
 
     # Copied from https://github.com/castorini/dhr/blob/main/tevatron/Aggretriever/utils.py
@@ -59,7 +56,6 @@ class BERTAggretrieverEncoder(PreTrainedModel):
                   remove_dims: int = -198, 
                   full: bool = True
     ):
-
         if full:
             remove_dims = self.cal_remove_dim(dims*2)
             batch_size = lexical_reps.shape[0]
@@ -68,11 +64,9 @@ class BERTAggretrieverEncoder(PreTrainedModel):
             else:
                 lexical_reps = torch.nn.functional.pad(lexical_reps, (0, -remove_dims), "constant", 0).view(batch_size, -1, dims*2)
             
-            tok_reps, _ = lexical_reps.max(1)    
-
+            tok_reps, _ = lexical_reps.max(1)
             positive_tok_reps = tok_reps[:, 0:2*dims:2]
             negative_tok_reps = tok_reps[:, 1:2*dims:2]
-
             positive_mask = positive_tok_reps > negative_tok_reps
             negative_mask = positive_tok_reps <= negative_tok_reps
             tok_reps = positive_tok_reps * positive_mask - negative_tok_reps * negative_mask
@@ -105,12 +99,9 @@ class BERTAggretrieverEncoder(PreTrainedModel):
     def forward(
             self,
             input_ids: torch.Tensor,
-            token_type_ids: Optional[torch.Tensor] = None,
             attention_mask: Optional[torch.Tensor] = None,
             skip_mlm: bool = False
     ):
-        
-
         seq_out = self.encoder(input_ids=input_ids, attention_mask=attention_mask, return_dict=True)
         seq_hidden = seq_out.hidden_states[-1] 
         cls_hidden = seq_hidden[:,0] # get [CLS] embeddings
@@ -134,7 +125,6 @@ class BERTAggretrieverEncoder(PreTrainedModel):
 
 
 class DistlBERTAggretrieverEncoder(BERTAggretrieverEncoder):
-
     config_class = DistilBertConfig
     base_model_prefix = 'encoder'
     load_tf_weights = None
@@ -193,7 +183,6 @@ class AggretrieverQueryEncoder(QueryEncoder):
             add_special_tokens=True,
             return_tensors='pt'
         )
-
         inputs.to(self.device)
         if fp16:
             with autocast():
