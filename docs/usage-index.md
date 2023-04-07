@@ -172,7 +172,11 @@ $ cat run.sample_zh.txt
 
 ## Building a BM25 Index (Embeddable Python Implementation)
 
+To be added...
+
 ## Building a Sparse Vector Index
+
+To be added...
 
 ## Building a Dense Vector Index
 
