@@ -54,6 +54,8 @@ def init_encoder(encoder, encoder_class, device):
     kwargs = dict(model_name=encoder, device=device)
     if (_encoder_class == "sentence-transformers") or ("sentence-transformers" in encoder):
         kwargs.update(dict(pooling='mean', l2_norm=True))
+    if (_encoder_class == "contriever") or ("contriever" in encoder):
+        kwargs.update(dict(pooling='mean', l2_norm=False))
 
     return encoder_class(**kwargs)
 

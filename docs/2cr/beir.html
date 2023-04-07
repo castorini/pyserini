@@ -138,6 +138,8 @@ pre[class*="prettyprint"] {
   <li>BM25 Flat: BM25 "flat" baseline</li>
   <li>BM25 Multifield: BM25 "multifield" baseline</li>
   <li>SPLADE: SPLADE-distill CoCodenser-medium</li>
+  <li>Contriever: mContriever</li>
+  <li>Contriever-msmarco: Contriever FT MS MARCO</li>
 </ul>
 
 <div class="table-responsive">
@@ -148,10 +150,18 @@ pre[class*="prettyprint"] {
         <th class="headertop"></th>
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 Multifield</b></th>
-        <th class="headertop" colspan="2"><b>SPLADE</b></th>
+        <th class="headertop" colspan="3"><b>SPLADE</b></th>
+        <th class="headertop" colspan="3"><b>Contriever</b></th>
+        <th class="headertop" colspan="2"><b>Contriever MSMARCO</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>
@@ -177,10 +187,16 @@ pre[class*="prettyprint"] {
 <td></td>
 <td>  0.7109</td>
 <td>  0.1308</td>
+<td></td>
+<td>  0.2732</td>
+<td>  0.0368</td>
+<td></td>
+<td>  0.5964</td>
+<td>  0.0907</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse1" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -194,6 +210,12 @@ pre[class*="prettyprint"] {
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab5-header" data-mdb-toggle="tab" href="#row1-tab5" role="tab" aria-controls="row1-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -204,9 +226,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-trec-covid-flat \
+  --index beir-v1.0.0-trec-covid.flat \
   --topics beir-v1.0.0-trec-covid-test \
-  --output run.beir-flat.trec-covid.txt \
+  --output run.beir-bm25-flat.trec-covid.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -216,15 +238,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
-  run.beir-flat.trec-covid.txt
+  run.beir-bm25-flat.trec-covid.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-trec-covid-test \
-  run.beir-flat.trec-covid.txt
+  run.beir-bm25-flat.trec-covid.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-trec-covid-test \
-  run.beir-flat.trec-covid.txt</code></pre>
+  run.beir-bm25-flat.trec-covid.txt</code></pre>
   </blockquote>
 
   </div>
@@ -233,9 +255,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-trec-covid-multifield \
+  --index beir-v1.0.0-trec-covid.multifield \
   --topics beir-v1.0.0-trec-covid-test \
-  --output run.beir-multifield.trec-covid.txt \
+  --output run.beir-bm25-multifield.trec-covid.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -245,15 +267,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
-  run.beir-multifield.trec-covid.txt
+  run.beir-bm25-multifield.trec-covid.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-trec-covid-test \
-  run.beir-multifield.trec-covid.txt
+  run.beir-bm25-multifield.trec-covid.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-trec-covid-test \
-  run.beir-multifield.trec-covid.txt</code></pre>
+  run.beir-bm25-multifield.trec-covid.txt</code></pre>
   </blockquote>
 
   </div>
@@ -286,6 +308,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row1-tab4" role="tabpanel" aria-labelledby="row1-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-trec-covid.contriever \
+  --topics beir-v1.0.0-trec-covid-test \
+  --output run.beir-contriever.trec-covid.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
+  run.beir-contriever.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-covid-test \
+  run.beir-contriever.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-covid-test \
+  run.beir-contriever.trec-covid.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab5" role="tabpanel" aria-labelledby="row1-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-trec-covid.contriever-ft \
+  --topics beir-v1.0.0-trec-covid-test \
+  --output run.beir-contriever-msmarco.trec-covid.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
+  run.beir-contriever-msmarco.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-covid-test \
+  run.beir-contriever-msmarco.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-covid-test \
+  run.beir-contriever-msmarco.trec-covid.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -303,10 +381,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.5035</td>
 <td>  0.7422</td>
+<td></td>
+<td>  0.3016</td>
+<td>  0.5412</td>
+<td></td>
+<td>  0.3829</td>
+<td>  0.6072</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse2" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -320,6 +404,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab5-header" data-mdb-toggle="tab" href="#row2-tab5" role="tab" aria-controls="row2-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -330,9 +420,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-bioasq-flat \
+  --index beir-v1.0.0-bioasq.flat \
   --topics beir-v1.0.0-bioasq-test \
-  --output run.beir-flat.bioasq.txt \
+  --output run.beir-bm25-flat.bioasq.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -342,15 +432,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
-  run.beir-flat.bioasq.txt
+  run.beir-bm25-flat.bioasq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-bioasq-test \
-  run.beir-flat.bioasq.txt
+  run.beir-bm25-flat.bioasq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-bioasq-test \
-  run.beir-flat.bioasq.txt</code></pre>
+  run.beir-bm25-flat.bioasq.txt</code></pre>
   </blockquote>
 
   </div>
@@ -359,9 +449,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-bioasq-multifield \
+  --index beir-v1.0.0-bioasq.multifield \
   --topics beir-v1.0.0-bioasq-test \
-  --output run.beir-multifield.bioasq.txt \
+  --output run.beir-bm25-multifield.bioasq.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -371,15 +461,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
-  run.beir-multifield.bioasq.txt
+  run.beir-bm25-multifield.bioasq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-bioasq-test \
-  run.beir-multifield.bioasq.txt
+  run.beir-bm25-multifield.bioasq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-bioasq-test \
-  run.beir-multifield.bioasq.txt</code></pre>
+  run.beir-bm25-multifield.bioasq.txt</code></pre>
   </blockquote>
 
   </div>
@@ -412,6 +502,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row2-tab4" role="tabpanel" aria-labelledby="row2-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-bioasq.contriever \
+  --topics beir-v1.0.0-bioasq-test \
+  --output run.beir-contriever.bioasq.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
+  run.beir-contriever.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-bioasq-test \
+  run.beir-contriever.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-bioasq-test \
+  run.beir-contriever.bioasq.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab5" role="tabpanel" aria-labelledby="row2-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-bioasq.contriever-ft \
+  --topics beir-v1.0.0-bioasq-test \
+  --output run.beir-contriever-msmarco.bioasq.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
+  run.beir-contriever-msmarco.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-bioasq-test \
+  run.beir-contriever-msmarco.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-bioasq-test \
+  run.beir-contriever-msmarco.bioasq.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -429,10 +575,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3454</td>
 <td>  0.2891</td>
+<td></td>
+<td>  0.3173</td>
+<td>  0.2943</td>
+<td></td>
+<td>  0.3281</td>
+<td>  0.3008</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse3" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -446,6 +598,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab5-header" data-mdb-toggle="tab" href="#row3-tab5" role="tab" aria-controls="row3-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -456,9 +614,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-nfcorpus-flat \
+  --index beir-v1.0.0-nfcorpus.flat \
   --topics beir-v1.0.0-nfcorpus-test \
-  --output run.beir-flat.nfcorpus.txt \
+  --output run.beir-bm25-flat.nfcorpus.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -468,15 +626,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
-  run.beir-flat.nfcorpus.txt
+  run.beir-bm25-flat.nfcorpus.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-nfcorpus-test \
-  run.beir-flat.nfcorpus.txt
+  run.beir-bm25-flat.nfcorpus.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
-  run.beir-flat.nfcorpus.txt</code></pre>
+  run.beir-bm25-flat.nfcorpus.txt</code></pre>
   </blockquote>
 
   </div>
@@ -485,9 +643,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-nfcorpus-multifield \
+  --index beir-v1.0.0-nfcorpus.multifield \
   --topics beir-v1.0.0-nfcorpus-test \
-  --output run.beir-multifield.nfcorpus.txt \
+  --output run.beir-bm25-multifield.nfcorpus.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -497,15 +655,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
-  run.beir-multifield.nfcorpus.txt
+  run.beir-bm25-multifield.nfcorpus.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-nfcorpus-test \
-  run.beir-multifield.nfcorpus.txt
+  run.beir-bm25-multifield.nfcorpus.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
-  run.beir-multifield.nfcorpus.txt</code></pre>
+  run.beir-bm25-multifield.nfcorpus.txt</code></pre>
   </blockquote>
 
   </div>
@@ -538,6 +696,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row3-tab4" role="tabpanel" aria-labelledby="row3-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-nfcorpus.contriever \
+  --topics beir-v1.0.0-nfcorpus-test \
+  --output run.beir-contriever.nfcorpus.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
+  run.beir-contriever.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nfcorpus-test \
+  run.beir-contriever.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
+  run.beir-contriever.nfcorpus.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab5" role="tabpanel" aria-labelledby="row3-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-nfcorpus.contriever-ft \
+  --topics beir-v1.0.0-nfcorpus-test \
+  --output run.beir-contriever-msmarco.nfcorpus.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
+  run.beir-contriever-msmarco.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nfcorpus-test \
+  run.beir-contriever-msmarco.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
+  run.beir-contriever-msmarco.nfcorpus.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -555,10 +769,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.5442</td>
 <td>  0.9285</td>
+<td></td>
+<td>  0.2536</td>
+<td>  0.7712</td>
+<td></td>
+<td>  0.4977</td>
+<td>  0.9252</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse4" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -572,6 +792,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab5-header" data-mdb-toggle="tab" href="#row4-tab5" role="tab" aria-controls="row4-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -582,9 +808,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-nq-flat \
+  --index beir-v1.0.0-nq.flat \
   --topics beir-v1.0.0-nq-test \
-  --output run.beir-flat.nq.txt \
+  --output run.beir-bm25-flat.nq.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -594,15 +820,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
-  run.beir-flat.nq.txt
+  run.beir-bm25-flat.nq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-nq-test \
-  run.beir-flat.nq.txt
+  run.beir-bm25-flat.nq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-nq-test \
-  run.beir-flat.nq.txt</code></pre>
+  run.beir-bm25-flat.nq.txt</code></pre>
   </blockquote>
 
   </div>
@@ -611,9 +837,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-nq-multifield \
+  --index beir-v1.0.0-nq.multifield \
   --topics beir-v1.0.0-nq-test \
-  --output run.beir-multifield.nq.txt \
+  --output run.beir-bm25-multifield.nq.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -623,15 +849,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
-  run.beir-multifield.nq.txt
+  run.beir-bm25-multifield.nq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-nq-test \
-  run.beir-multifield.nq.txt
+  run.beir-bm25-multifield.nq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-nq-test \
-  run.beir-multifield.nq.txt</code></pre>
+  run.beir-bm25-multifield.nq.txt</code></pre>
   </blockquote>
 
   </div>
@@ -664,6 +890,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row4-tab4" role="tabpanel" aria-labelledby="row4-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-nq.contriever \
+  --topics beir-v1.0.0-nq-test \
+  --output run.beir-contriever.nq.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
+  run.beir-contriever.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nq-test \
+  run.beir-contriever.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nq-test \
+  run.beir-contriever.nq.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab5" role="tabpanel" aria-labelledby="row4-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-nq.contriever-ft \
+  --topics beir-v1.0.0-nq-test \
+  --output run.beir-contriever-msmarco.nq.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
+  run.beir-contriever-msmarco.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nq-test \
+  run.beir-contriever-msmarco.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nq-test \
+  run.beir-contriever-msmarco.nq.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -681,10 +963,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.6860</td>
 <td>  0.8144</td>
+<td></td>
+<td>  0.4807</td>
+<td>  0.7046</td>
+<td></td>
+<td>  0.6376</td>
+<td>  0.7772</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse5" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -698,6 +986,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab5-header" data-mdb-toggle="tab" href="#row5-tab5" role="tab" aria-controls="row5-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -708,9 +1002,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-hotpotqa-flat \
+  --index beir-v1.0.0-hotpotqa.flat \
   --topics beir-v1.0.0-hotpotqa-test \
-  --output run.beir-flat.hotpotqa.txt \
+  --output run.beir-bm25-flat.hotpotqa.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -720,15 +1014,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
-  run.beir-flat.hotpotqa.txt
+  run.beir-bm25-flat.hotpotqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-hotpotqa-test \
-  run.beir-flat.hotpotqa.txt
+  run.beir-bm25-flat.hotpotqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
-  run.beir-flat.hotpotqa.txt</code></pre>
+  run.beir-bm25-flat.hotpotqa.txt</code></pre>
   </blockquote>
 
   </div>
@@ -737,9 +1031,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-hotpotqa-multifield \
+  --index beir-v1.0.0-hotpotqa.multifield \
   --topics beir-v1.0.0-hotpotqa-test \
-  --output run.beir-multifield.hotpotqa.txt \
+  --output run.beir-bm25-multifield.hotpotqa.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -749,15 +1043,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
-  run.beir-multifield.hotpotqa.txt
+  run.beir-bm25-multifield.hotpotqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-hotpotqa-test \
-  run.beir-multifield.hotpotqa.txt
+  run.beir-bm25-multifield.hotpotqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
-  run.beir-multifield.hotpotqa.txt</code></pre>
+  run.beir-bm25-multifield.hotpotqa.txt</code></pre>
   </blockquote>
 
   </div>
@@ -790,6 +1084,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row5-tab4" role="tabpanel" aria-labelledby="row5-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-hotpotqa.contriever \
+  --topics beir-v1.0.0-hotpotqa-test \
+  --output run.beir-contriever.hotpotqa.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
+  run.beir-contriever.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-hotpotqa-test \
+  run.beir-contriever.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
+  run.beir-contriever.hotpotqa.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab5" role="tabpanel" aria-labelledby="row5-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-hotpotqa.contriever-ft \
+  --topics beir-v1.0.0-hotpotqa-test \
+  --output run.beir-contriever-msmarco.hotpotqa.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
+  run.beir-contriever-msmarco.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-hotpotqa-test \
+  run.beir-contriever-msmarco.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
+  run.beir-contriever-msmarco.hotpotqa.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -807,10 +1157,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3514</td>
 <td>  0.6298</td>
+<td></td>
+<td>  0.2449</td>
+<td>  0.5619</td>
+<td></td>
+<td>  0.3293</td>
+<td>  0.6558</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse6" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -824,6 +1180,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab5-header" data-mdb-toggle="tab" href="#row6-tab5" role="tab" aria-controls="row6-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -834,9 +1196,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-fiqa-flat \
+  --index beir-v1.0.0-fiqa.flat \
   --topics beir-v1.0.0-fiqa-test \
-  --output run.beir-flat.fiqa.txt \
+  --output run.beir-bm25-flat.fiqa.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -846,15 +1208,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
-  run.beir-flat.fiqa.txt
+  run.beir-bm25-flat.fiqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-fiqa-test \
-  run.beir-flat.fiqa.txt
+  run.beir-bm25-flat.fiqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-fiqa-test \
-  run.beir-flat.fiqa.txt</code></pre>
+  run.beir-bm25-flat.fiqa.txt</code></pre>
   </blockquote>
 
   </div>
@@ -863,9 +1225,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-fiqa-multifield \
+  --index beir-v1.0.0-fiqa.multifield \
   --topics beir-v1.0.0-fiqa-test \
-  --output run.beir-multifield.fiqa.txt \
+  --output run.beir-bm25-multifield.fiqa.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -875,15 +1237,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
-  run.beir-multifield.fiqa.txt
+  run.beir-bm25-multifield.fiqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-fiqa-test \
-  run.beir-multifield.fiqa.txt
+  run.beir-bm25-multifield.fiqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-fiqa-test \
-  run.beir-multifield.fiqa.txt</code></pre>
+  run.beir-bm25-multifield.fiqa.txt</code></pre>
   </blockquote>
 
   </div>
@@ -916,6 +1278,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row6-tab4" role="tabpanel" aria-labelledby="row6-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-fiqa.contriever \
+  --topics beir-v1.0.0-fiqa-test \
+  --output run.beir-contriever.fiqa.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
+  run.beir-contriever.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fiqa-test \
+  run.beir-contriever.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fiqa-test \
+  run.beir-contriever.fiqa.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab5" role="tabpanel" aria-labelledby="row6-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-fiqa.contriever-ft \
+  --topics beir-v1.0.0-fiqa-test \
+  --output run.beir-contriever-msmarco.fiqa.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
+  run.beir-contriever-msmarco.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fiqa-test \
+  run.beir-contriever-msmarco.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fiqa-test \
+  run.beir-contriever-msmarco.fiqa.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -933,10 +1351,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2957</td>
 <td>  0.3311</td>
+<td></td>
+<td>  0.2338</td>
+<td>  0.2568</td>
+<td></td>
+<td>  0.2783</td>
+<td>  0.3220</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse7" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -950,6 +1374,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab5-header" data-mdb-toggle="tab" href="#row7-tab5" role="tab" aria-controls="row7-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -960,9 +1390,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-signal1m-flat \
+  --index beir-v1.0.0-signal1m.flat \
   --topics beir-v1.0.0-signal1m-test \
-  --output run.beir-flat.signal1m.txt \
+  --output run.beir-bm25-flat.signal1m.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -972,15 +1402,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
-  run.beir-flat.signal1m.txt
+  run.beir-bm25-flat.signal1m.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-signal1m-test \
-  run.beir-flat.signal1m.txt
+  run.beir-bm25-flat.signal1m.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-signal1m-test \
-  run.beir-flat.signal1m.txt</code></pre>
+  run.beir-bm25-flat.signal1m.txt</code></pre>
   </blockquote>
 
   </div>
@@ -989,9 +1419,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-signal1m-multifield \
+  --index beir-v1.0.0-signal1m.multifield \
   --topics beir-v1.0.0-signal1m-test \
-  --output run.beir-multifield.signal1m.txt \
+  --output run.beir-bm25-multifield.signal1m.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -1001,15 +1431,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
-  run.beir-multifield.signal1m.txt
+  run.beir-bm25-multifield.signal1m.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-signal1m-test \
-  run.beir-multifield.signal1m.txt
+  run.beir-bm25-multifield.signal1m.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-signal1m-test \
-  run.beir-multifield.signal1m.txt</code></pre>
+  run.beir-bm25-multifield.signal1m.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1042,6 +1472,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row7-tab4" role="tabpanel" aria-labelledby="row7-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-signal1m.contriever \
+  --topics beir-v1.0.0-signal1m-test \
+  --output run.beir-contriever.signal1m.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
+  run.beir-contriever.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-signal1m-test \
+  run.beir-contriever.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-signal1m-test \
+  run.beir-contriever.signal1m.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab5" role="tabpanel" aria-labelledby="row7-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-signal1m.contriever-ft \
+  --topics beir-v1.0.0-signal1m-test \
+  --output run.beir-contriever-msmarco.signal1m.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
+  run.beir-contriever-msmarco.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-signal1m-test \
+  run.beir-contriever-msmarco.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-signal1m-test \
+  run.beir-contriever-msmarco.signal1m.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1059,10 +1545,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3936</td>
 <td>  0.4323</td>
+<td></td>
+<td>  0.3484</td>
+<td>  0.4234</td>
+<td></td>
+<td>  0.4283</td>
+<td>  0.4924</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse8" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1076,6 +1568,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab5-header" data-mdb-toggle="tab" href="#row8-tab5" role="tab" aria-controls="row8-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -1086,9 +1584,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-trec-news-flat \
+  --index beir-v1.0.0-trec-news.flat \
   --topics beir-v1.0.0-trec-news-test \
-  --output run.beir-flat.trec-news.txt \
+  --output run.beir-bm25-flat.trec-news.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -1098,15 +1596,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
-  run.beir-flat.trec-news.txt
+  run.beir-bm25-flat.trec-news.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-trec-news-test \
-  run.beir-flat.trec-news.txt
+  run.beir-bm25-flat.trec-news.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-trec-news-test \
-  run.beir-flat.trec-news.txt</code></pre>
+  run.beir-bm25-flat.trec-news.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1115,9 +1613,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-trec-news-multifield \
+  --index beir-v1.0.0-trec-news.multifield \
   --topics beir-v1.0.0-trec-news-test \
-  --output run.beir-multifield.trec-news.txt \
+  --output run.beir-bm25-multifield.trec-news.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -1127,15 +1625,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
-  run.beir-multifield.trec-news.txt
+  run.beir-bm25-multifield.trec-news.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-trec-news-test \
-  run.beir-multifield.trec-news.txt
+  run.beir-bm25-multifield.trec-news.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-trec-news-test \
-  run.beir-multifield.trec-news.txt</code></pre>
+  run.beir-bm25-multifield.trec-news.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1168,6 +1666,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row8-tab4" role="tabpanel" aria-labelledby="row8-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-trec-news.contriever \
+  --topics beir-v1.0.0-trec-news-test \
+  --output run.beir-contriever.trec-news.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
+  run.beir-contriever.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-news-test \
+  run.beir-contriever.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-news-test \
+  run.beir-contriever.trec-news.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab5" role="tabpanel" aria-labelledby="row8-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-trec-news.contriever-ft \
+  --topics beir-v1.0.0-trec-news-test \
+  --output run.beir-contriever-msmarco.trec-news.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
+  run.beir-contriever-msmarco.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-news-test \
+  run.beir-contriever-msmarco.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-news-test \
+  run.beir-contriever-msmarco.trec-news.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1185,10 +1739,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.4581</td>
 <td>  0.3773</td>
+<td></td>
+<td>  0.3155</td>
+<td>  0.2757</td>
+<td></td>
+<td>  0.4729</td>
+<td>  0.3917</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse9" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1202,6 +1762,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab5-header" data-mdb-toggle="tab" href="#row9-tab5" role="tab" aria-controls="row9-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -1212,9 +1778,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-robust04-flat \
+  --index beir-v1.0.0-robust04.flat \
   --topics beir-v1.0.0-robust04-test \
-  --output run.beir-flat.robust04.txt \
+  --output run.beir-bm25-flat.robust04.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -1224,15 +1790,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
-  run.beir-flat.robust04.txt
+  run.beir-bm25-flat.robust04.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-robust04-test \
-  run.beir-flat.robust04.txt
+  run.beir-bm25-flat.robust04.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-robust04-test \
-  run.beir-flat.robust04.txt</code></pre>
+  run.beir-bm25-flat.robust04.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1241,9 +1807,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-robust04-multifield \
+  --index beir-v1.0.0-robust04.multifield \
   --topics beir-v1.0.0-robust04-test \
-  --output run.beir-multifield.robust04.txt \
+  --output run.beir-bm25-multifield.robust04.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -1253,15 +1819,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
-  run.beir-multifield.robust04.txt
+  run.beir-bm25-multifield.robust04.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-robust04-test \
-  run.beir-multifield.robust04.txt
+  run.beir-bm25-multifield.robust04.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-robust04-test \
-  run.beir-multifield.robust04.txt</code></pre>
+  run.beir-bm25-multifield.robust04.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1294,6 +1860,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row9-tab4" role="tabpanel" aria-labelledby="row9-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-robust04.contriever \
+  --topics beir-v1.0.0-robust04-test \
+  --output run.beir-contriever.robust04.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
+  run.beir-contriever.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-robust04-test \
+  run.beir-contriever.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-robust04-test \
+  run.beir-contriever.robust04.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab5" role="tabpanel" aria-labelledby="row9-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-robust04.contriever-ft \
+  --topics beir-v1.0.0-robust04-test \
+  --output run.beir-contriever-msmarco.robust04.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
+  run.beir-contriever-msmarco.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-robust04-test \
+  run.beir-contriever-msmarco.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-robust04-test \
+  run.beir-contriever-msmarco.robust04.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1311,10 +1933,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.5210</td>
 <td>  0.9822</td>
+<td></td>
+<td>  0.3791</td>
+<td>  0.9011</td>
+<td></td>
+<td>  0.4461</td>
+<td>  0.9765</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse10" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1328,6 +1956,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab5-header" data-mdb-toggle="tab" href="#row10-tab5" role="tab" aria-controls="row10-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -1338,9 +1972,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-arguana-flat \
+  --index beir-v1.0.0-arguana.flat \
   --topics beir-v1.0.0-arguana-test \
-  --output run.beir-flat.arguana.txt \
+  --output run.beir-bm25-flat.arguana.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -1350,15 +1984,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
-  run.beir-flat.arguana.txt
+  run.beir-bm25-flat.arguana.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-arguana-test \
-  run.beir-flat.arguana.txt
+  run.beir-bm25-flat.arguana.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-arguana-test \
-  run.beir-flat.arguana.txt</code></pre>
+  run.beir-bm25-flat.arguana.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1367,9 +2001,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-arguana-multifield \
+  --index beir-v1.0.0-arguana.multifield \
   --topics beir-v1.0.0-arguana-test \
-  --output run.beir-multifield.arguana.txt \
+  --output run.beir-bm25-multifield.arguana.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -1379,15 +2013,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
-  run.beir-multifield.arguana.txt
+  run.beir-bm25-multifield.arguana.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-arguana-test \
-  run.beir-multifield.arguana.txt
+  run.beir-bm25-multifield.arguana.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-arguana-test \
-  run.beir-multifield.arguana.txt</code></pre>
+  run.beir-bm25-multifield.arguana.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1420,6 +2054,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row10-tab4" role="tabpanel" aria-labelledby="row10-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-arguana.contriever \
+  --topics beir-v1.0.0-arguana-test \
+  --output run.beir-contriever.arguana.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
+  run.beir-contriever.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-arguana-test \
+  run.beir-contriever.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-arguana-test \
+  run.beir-contriever.arguana.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab5" role="tabpanel" aria-labelledby="row10-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-arguana.contriever-ft \
+  --topics beir-v1.0.0-arguana-test \
+  --output run.beir-contriever-msmarco.arguana.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
+  run.beir-contriever-msmarco.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-arguana-test \
+  run.beir-contriever-msmarco.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-arguana-test \
+  run.beir-contriever-msmarco.arguana.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1437,10 +2127,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2435</td>
 <td>  0.4723</td>
+<td></td>
+<td>  0.1668</td>
+<td>  0.3736</td>
+<td></td>
+<td>  0.2040</td>
+<td>  0.4420</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse11" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1454,6 +2150,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab5-header" data-mdb-toggle="tab" href="#row11-tab5" role="tab" aria-controls="row11-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -1464,9 +2166,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-webis-touche2020-flat \
+  --index beir-v1.0.0-webis-touche2020.flat \
   --topics beir-v1.0.0-webis-touche2020-test \
-  --output run.beir-flat.webis-touche2020.txt \
+  --output run.beir-bm25-flat.webis-touche2020.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -1476,15 +2178,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
-  run.beir-flat.webis-touche2020.txt
+  run.beir-bm25-flat.webis-touche2020.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
-  run.beir-flat.webis-touche2020.txt
+  run.beir-bm25-flat.webis-touche2020.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
-  run.beir-flat.webis-touche2020.txt</code></pre>
+  run.beir-bm25-flat.webis-touche2020.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1493,9 +2195,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-webis-touche2020-multifield \
+  --index beir-v1.0.0-webis-touche2020.multifield \
   --topics beir-v1.0.0-webis-touche2020-test \
-  --output run.beir-multifield.webis-touche2020.txt \
+  --output run.beir-bm25-multifield.webis-touche2020.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -1505,15 +2207,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
-  run.beir-multifield.webis-touche2020.txt
+  run.beir-bm25-multifield.webis-touche2020.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
-  run.beir-multifield.webis-touche2020.txt
+  run.beir-bm25-multifield.webis-touche2020.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
-  run.beir-multifield.webis-touche2020.txt</code></pre>
+  run.beir-bm25-multifield.webis-touche2020.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1546,6 +2248,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row11-tab4" role="tabpanel" aria-labelledby="row11-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-webis-touche2020.contriever \
+  --topics beir-v1.0.0-webis-touche2020-test \
+  --output run.beir-contriever.webis-touche2020.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
+  run.beir-contriever.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
+  run.beir-contriever.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
+  run.beir-contriever.webis-touche2020.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row11-tab5" role="tabpanel" aria-labelledby="row11-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-webis-touche2020.contriever-ft \
+  --topics beir-v1.0.0-webis-touche2020-test \
+  --output run.beir-contriever-msmarco.webis-touche2020.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
+  run.beir-contriever-msmarco.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
+  run.beir-contriever-msmarco.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
+  run.beir-contriever-msmarco.webis-touche2020.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1563,10 +2321,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3954</td>
 <td>  0.7405</td>
+<td></td>
+<td>  0.3771</td>
+<td>  0.7436</td>
+<td></td>
+<td>  0.4255</td>
+<td>  0.7503</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse12" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1580,6 +2344,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab5-header" data-mdb-toggle="tab" href="#row12-tab5" role="tab" aria-controls="row12-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -1590,9 +2360,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-android-flat \
+  --index beir-v1.0.0-cqadupstack-android.flat \
   --topics beir-v1.0.0-cqadupstack-android-test \
-  --output run.beir-flat.cqadupstack-android.txt \
+  --output run.beir-bm25-flat.cqadupstack-android.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -1602,15 +2372,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir-flat.cqadupstack-android.txt
+  run.beir-bm25-flat.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir-flat.cqadupstack-android.txt
+  run.beir-bm25-flat.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
-  run.beir-flat.cqadupstack-android.txt</code></pre>
+  run.beir-bm25-flat.cqadupstack-android.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1619,9 +2389,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-android-multifield \
+  --index beir-v1.0.0-cqadupstack-android.multifield \
   --topics beir-v1.0.0-cqadupstack-android-test \
-  --output run.beir-multifield.cqadupstack-android.txt \
+  --output run.beir-bm25-multifield.cqadupstack-android.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -1631,15 +2401,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir-multifield.cqadupstack-android.txt
+  run.beir-bm25-multifield.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir-multifield.cqadupstack-android.txt
+  run.beir-bm25-multifield.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
-  run.beir-multifield.cqadupstack-android.txt</code></pre>
+  run.beir-bm25-multifield.cqadupstack-android.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1672,6 +2442,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row12-tab4" role="tabpanel" aria-labelledby="row12-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-cqadupstack-android.contriever \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --output run.beir-contriever.cqadupstack-android.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-contriever.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-contriever.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-contriever.cqadupstack-android.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row12-tab5" role="tabpanel" aria-labelledby="row12-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-android.contriever-ft \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --output run.beir-contriever-msmarco.cqadupstack-android.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-contriever-msmarco.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-contriever-msmarco.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir-contriever-msmarco.cqadupstack-android.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1689,10 +2515,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.4026</td>
 <td>  0.6768</td>
+<td></td>
+<td>  0.3571</td>
+<td>  0.6442</td>
+<td></td>
+<td>  0.4326</td>
+<td>  0.6935</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse13" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1706,6 +2538,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row13-tab4-header" data-mdb-toggle="tab" href="#row13-tab4" role="tab" aria-controls="row13-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row13-tab5-header" data-mdb-toggle="tab" href="#row13-tab5" role="tab" aria-controls="row13-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -1716,9 +2554,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-english-flat \
+  --index beir-v1.0.0-cqadupstack-english.flat \
   --topics beir-v1.0.0-cqadupstack-english-test \
-  --output run.beir-flat.cqadupstack-english.txt \
+  --output run.beir-bm25-flat.cqadupstack-english.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -1728,15 +2566,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir-flat.cqadupstack-english.txt
+  run.beir-bm25-flat.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir-flat.cqadupstack-english.txt
+  run.beir-bm25-flat.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
-  run.beir-flat.cqadupstack-english.txt</code></pre>
+  run.beir-bm25-flat.cqadupstack-english.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1745,9 +2583,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-english-multifield \
+  --index beir-v1.0.0-cqadupstack-english.multifield \
   --topics beir-v1.0.0-cqadupstack-english-test \
-  --output run.beir-multifield.cqadupstack-english.txt \
+  --output run.beir-bm25-multifield.cqadupstack-english.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -1757,15 +2595,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir-multifield.cqadupstack-english.txt
+  run.beir-bm25-multifield.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir-multifield.cqadupstack-english.txt
+  run.beir-bm25-multifield.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
-  run.beir-multifield.cqadupstack-english.txt</code></pre>
+  run.beir-bm25-multifield.cqadupstack-english.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1798,6 +2636,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row13-tab4" role="tabpanel" aria-labelledby="row13-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-cqadupstack-english.contriever \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --output run.beir-contriever.cqadupstack-english.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-contriever.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-contriever.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-contriever.cqadupstack-english.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row13-tab5" role="tabpanel" aria-labelledby="row13-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-english.contriever-ft \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --output run.beir-contriever-msmarco.cqadupstack-english.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-contriever-msmarco.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-contriever-msmarco.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir-contriever-msmarco.cqadupstack-english.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1815,10 +2709,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.5061</td>
 <td>  0.8138</td>
+<td></td>
+<td>  0.4597</td>
+<td>  0.8092</td>
+<td></td>
+<td>  0.5276</td>
+<td>  0.8481</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse14" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1832,6 +2732,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row14-tab3-header" data-mdb-toggle="tab" href="#row14-tab3" role="tab" aria-controls="row14-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row14-tab4-header" data-mdb-toggle="tab" href="#row14-tab4" role="tab" aria-controls="row14-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row14-tab5-header" data-mdb-toggle="tab" href="#row14-tab5" role="tab" aria-controls="row14-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -1842,9 +2748,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-gaming-flat \
+  --index beir-v1.0.0-cqadupstack-gaming.flat \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
-  --output run.beir-flat.cqadupstack-gaming.txt \
+  --output run.beir-bm25-flat.cqadupstack-gaming.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -1854,15 +2760,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir-flat.cqadupstack-gaming.txt
+  run.beir-bm25-flat.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir-flat.cqadupstack-gaming.txt
+  run.beir-bm25-flat.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir-flat.cqadupstack-gaming.txt</code></pre>
+  run.beir-bm25-flat.cqadupstack-gaming.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1871,9 +2777,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-gaming-multifield \
+  --index beir-v1.0.0-cqadupstack-gaming.multifield \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
-  --output run.beir-multifield.cqadupstack-gaming.txt \
+  --output run.beir-bm25-multifield.cqadupstack-gaming.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -1883,15 +2789,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir-multifield.cqadupstack-gaming.txt
+  run.beir-bm25-multifield.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir-multifield.cqadupstack-gaming.txt
+  run.beir-bm25-multifield.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir-multifield.cqadupstack-gaming.txt</code></pre>
+  run.beir-bm25-multifield.cqadupstack-gaming.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1924,6 +2830,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row14-tab4" role="tabpanel" aria-labelledby="row14-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-cqadupstack-gaming.contriever \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --output run.beir-contriever.cqadupstack-gaming.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-contriever.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-contriever.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-contriever.cqadupstack-gaming.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row14-tab5" role="tabpanel" aria-labelledby="row14-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-gaming.contriever-ft \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --output run.beir-contriever-msmarco.cqadupstack-gaming.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-contriever-msmarco.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-contriever-msmarco.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir-contriever-msmarco.cqadupstack-gaming.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1941,10 +2903,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3223</td>
 <td>  0.6419</td>
+<td></td>
+<td>  0.2411</td>
+<td>  0.5792</td>
+<td></td>
+<td>  0.3022</td>
+<td>  0.6272</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse15" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1958,6 +2926,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row15-tab3-header" data-mdb-toggle="tab" href="#row15-tab3" role="tab" aria-controls="row15-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row15-tab4-header" data-mdb-toggle="tab" href="#row15-tab4" role="tab" aria-controls="row15-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row15-tab5-header" data-mdb-toggle="tab" href="#row15-tab5" role="tab" aria-controls="row15-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -1968,9 +2942,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-gis-flat \
+  --index beir-v1.0.0-cqadupstack-gis.flat \
   --topics beir-v1.0.0-cqadupstack-gis-test \
-  --output run.beir-flat.cqadupstack-gis.txt \
+  --output run.beir-bm25-flat.cqadupstack-gis.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -1980,15 +2954,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir-flat.cqadupstack-gis.txt
+  run.beir-bm25-flat.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir-flat.cqadupstack-gis.txt
+  run.beir-bm25-flat.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir-flat.cqadupstack-gis.txt</code></pre>
+  run.beir-bm25-flat.cqadupstack-gis.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1997,9 +2971,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-gis-multifield \
+  --index beir-v1.0.0-cqadupstack-gis.multifield \
   --topics beir-v1.0.0-cqadupstack-gis-test \
-  --output run.beir-multifield.cqadupstack-gis.txt \
+  --output run.beir-bm25-multifield.cqadupstack-gis.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -2009,15 +2983,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir-multifield.cqadupstack-gis.txt
+  run.beir-bm25-multifield.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir-multifield.cqadupstack-gis.txt
+  run.beir-bm25-multifield.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir-multifield.cqadupstack-gis.txt</code></pre>
+  run.beir-bm25-multifield.cqadupstack-gis.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2050,6 +3024,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row15-tab4" role="tabpanel" aria-labelledby="row15-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-cqadupstack-gis.contriever \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --output run.beir-contriever.cqadupstack-gis.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-contriever.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-contriever.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-contriever.cqadupstack-gis.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row15-tab5" role="tabpanel" aria-labelledby="row15-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-gis.contriever-ft \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --output run.beir-contriever-msmarco.cqadupstack-gis.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-contriever-msmarco.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-contriever-msmarco.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir-contriever-msmarco.cqadupstack-gis.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2067,10 +3097,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2423</td>
 <td>  0.5732</td>
+<td></td>
+<td>  0.1841</td>
+<td>  0.5127</td>
+<td></td>
+<td>  0.2355</td>
+<td>  0.5726</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse16" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2084,6 +3120,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row16-tab3-header" data-mdb-toggle="tab" href="#row16-tab3" role="tab" aria-controls="row16-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row16-tab4-header" data-mdb-toggle="tab" href="#row16-tab4" role="tab" aria-controls="row16-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row16-tab5-header" data-mdb-toggle="tab" href="#row16-tab5" role="tab" aria-controls="row16-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -2094,9 +3136,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-mathematica-flat \
+  --index beir-v1.0.0-cqadupstack-mathematica.flat \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
-  --output run.beir-flat.cqadupstack-mathematica.txt \
+  --output run.beir-bm25-flat.cqadupstack-mathematica.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -2106,15 +3148,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir-flat.cqadupstack-mathematica.txt
+  run.beir-bm25-flat.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir-flat.cqadupstack-mathematica.txt
+  run.beir-bm25-flat.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir-flat.cqadupstack-mathematica.txt</code></pre>
+  run.beir-bm25-flat.cqadupstack-mathematica.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2123,9 +3165,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-mathematica-multifield \
+  --index beir-v1.0.0-cqadupstack-mathematica.multifield \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
-  --output run.beir-multifield.cqadupstack-mathematica.txt \
+  --output run.beir-bm25-multifield.cqadupstack-mathematica.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -2135,15 +3177,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir-multifield.cqadupstack-mathematica.txt
+  run.beir-bm25-multifield.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir-multifield.cqadupstack-mathematica.txt
+  run.beir-bm25-multifield.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir-multifield.cqadupstack-mathematica.txt</code></pre>
+  run.beir-bm25-multifield.cqadupstack-mathematica.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2176,6 +3218,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row16-tab4" role="tabpanel" aria-labelledby="row16-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-cqadupstack-mathematica.contriever \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --output run.beir-contriever.cqadupstack-mathematica.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-contriever.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-contriever.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-contriever.cqadupstack-mathematica.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row16-tab5" role="tabpanel" aria-labelledby="row16-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-mathematica.contriever-ft \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --output run.beir-contriever-msmarco.cqadupstack-mathematica.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-contriever-msmarco.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-contriever-msmarco.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir-contriever-msmarco.cqadupstack-mathematica.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2193,10 +3291,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3668</td>
 <td>  0.7286</td>
+<td></td>
+<td>  0.3430</td>
+<td>  0.7013</td>
+<td></td>
+<td>  0.4159</td>
+<td>  0.7619</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse17" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2210,6 +3314,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row17-tab3-header" data-mdb-toggle="tab" href="#row17-tab3" role="tab" aria-controls="row17-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row17-tab4-header" data-mdb-toggle="tab" href="#row17-tab4" role="tab" aria-controls="row17-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row17-tab5-header" data-mdb-toggle="tab" href="#row17-tab5" role="tab" aria-controls="row17-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -2220,9 +3330,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-physics-flat \
+  --index beir-v1.0.0-cqadupstack-physics.flat \
   --topics beir-v1.0.0-cqadupstack-physics-test \
-  --output run.beir-flat.cqadupstack-physics.txt \
+  --output run.beir-bm25-flat.cqadupstack-physics.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -2232,15 +3342,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir-flat.cqadupstack-physics.txt
+  run.beir-bm25-flat.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir-flat.cqadupstack-physics.txt
+  run.beir-bm25-flat.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir-flat.cqadupstack-physics.txt</code></pre>
+  run.beir-bm25-flat.cqadupstack-physics.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2249,9 +3359,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-physics-multifield \
+  --index beir-v1.0.0-cqadupstack-physics.multifield \
   --topics beir-v1.0.0-cqadupstack-physics-test \
-  --output run.beir-multifield.cqadupstack-physics.txt \
+  --output run.beir-bm25-multifield.cqadupstack-physics.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -2261,15 +3371,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir-multifield.cqadupstack-physics.txt
+  run.beir-bm25-multifield.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir-multifield.cqadupstack-physics.txt
+  run.beir-bm25-multifield.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir-multifield.cqadupstack-physics.txt</code></pre>
+  run.beir-bm25-multifield.cqadupstack-physics.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2302,6 +3412,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row17-tab4" role="tabpanel" aria-labelledby="row17-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-cqadupstack-physics.contriever \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --output run.beir-contriever.cqadupstack-physics.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-contriever.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-contriever.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-contriever.cqadupstack-physics.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row17-tab5" role="tabpanel" aria-labelledby="row17-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-physics.contriever-ft \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --output run.beir-contriever-msmarco.cqadupstack-physics.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-contriever-msmarco.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-contriever-msmarco.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir-contriever-msmarco.cqadupstack-physics.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2319,10 +3485,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3412</td>
 <td>  0.6653</td>
+<td></td>
+<td>  0.3029</td>
+<td>  0.6402</td>
+<td></td>
+<td>  0.3574</td>
+<td>  0.7191</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse18" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2336,6 +3508,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row18-tab3-header" data-mdb-toggle="tab" href="#row18-tab3" role="tab" aria-controls="row18-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row18-tab4-header" data-mdb-toggle="tab" href="#row18-tab4" role="tab" aria-controls="row18-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row18-tab5-header" data-mdb-toggle="tab" href="#row18-tab5" role="tab" aria-controls="row18-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -2346,9 +3524,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-programmers-flat \
+  --index beir-v1.0.0-cqadupstack-programmers.flat \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
-  --output run.beir-flat.cqadupstack-programmers.txt \
+  --output run.beir-bm25-flat.cqadupstack-programmers.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -2358,15 +3536,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir-flat.cqadupstack-programmers.txt
+  run.beir-bm25-flat.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir-flat.cqadupstack-programmers.txt
+  run.beir-bm25-flat.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir-flat.cqadupstack-programmers.txt</code></pre>
+  run.beir-bm25-flat.cqadupstack-programmers.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2375,9 +3553,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-programmers-multifield \
+  --index beir-v1.0.0-cqadupstack-programmers.multifield \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
-  --output run.beir-multifield.cqadupstack-programmers.txt \
+  --output run.beir-bm25-multifield.cqadupstack-programmers.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -2387,15 +3565,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir-multifield.cqadupstack-programmers.txt
+  run.beir-bm25-multifield.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir-multifield.cqadupstack-programmers.txt
+  run.beir-bm25-multifield.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir-multifield.cqadupstack-programmers.txt</code></pre>
+  run.beir-bm25-multifield.cqadupstack-programmers.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2428,6 +3606,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row18-tab4" role="tabpanel" aria-labelledby="row18-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-cqadupstack-programmers.contriever \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --output run.beir-contriever.cqadupstack-programmers.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-contriever.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-contriever.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-contriever.cqadupstack-programmers.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row18-tab5" role="tabpanel" aria-labelledby="row18-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-programmers.contriever-ft \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --output run.beir-contriever-msmarco.cqadupstack-programmers.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-contriever-msmarco.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-contriever-msmarco.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir-contriever-msmarco.cqadupstack-programmers.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2445,10 +3679,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3142</td>
 <td>  0.5889</td>
+<td></td>
+<td>  0.2483</td>
+<td>  0.5269</td>
+<td></td>
+<td>  0.3095</td>
+<td>  0.5860</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse19" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2462,6 +3702,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row19-tab3-header" data-mdb-toggle="tab" href="#row19-tab3" role="tab" aria-controls="row19-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row19-tab4-header" data-mdb-toggle="tab" href="#row19-tab4" role="tab" aria-controls="row19-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row19-tab5-header" data-mdb-toggle="tab" href="#row19-tab5" role="tab" aria-controls="row19-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -2472,9 +3718,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-stats-flat \
+  --index beir-v1.0.0-cqadupstack-stats.flat \
   --topics beir-v1.0.0-cqadupstack-stats-test \
-  --output run.beir-flat.cqadupstack-stats.txt \
+  --output run.beir-bm25-flat.cqadupstack-stats.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -2484,15 +3730,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir-flat.cqadupstack-stats.txt
+  run.beir-bm25-flat.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir-flat.cqadupstack-stats.txt
+  run.beir-bm25-flat.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir-flat.cqadupstack-stats.txt</code></pre>
+  run.beir-bm25-flat.cqadupstack-stats.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2501,9 +3747,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-stats-multifield \
+  --index beir-v1.0.0-cqadupstack-stats.multifield \
   --topics beir-v1.0.0-cqadupstack-stats-test \
-  --output run.beir-multifield.cqadupstack-stats.txt \
+  --output run.beir-bm25-multifield.cqadupstack-stats.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -2513,15 +3759,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir-multifield.cqadupstack-stats.txt
+  run.beir-bm25-multifield.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir-multifield.cqadupstack-stats.txt
+  run.beir-bm25-multifield.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir-multifield.cqadupstack-stats.txt</code></pre>
+  run.beir-bm25-multifield.cqadupstack-stats.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2554,6 +3800,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row19-tab4" role="tabpanel" aria-labelledby="row19-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-cqadupstack-stats.contriever \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --output run.beir-contriever.cqadupstack-stats.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-contriever.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-contriever.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-contriever.cqadupstack-stats.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row19-tab5" role="tabpanel" aria-labelledby="row19-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-stats.contriever-ft \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --output run.beir-contriever-msmarco.cqadupstack-stats.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-contriever-msmarco.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-contriever-msmarco.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir-contriever-msmarco.cqadupstack-stats.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2571,10 +3873,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2575</td>
 <td>  0.5231</td>
+<td></td>
+<td>  0.1540</td>
+<td>  0.4333</td>
+<td></td>
+<td>  0.2209</td>
+<td>  0.4985</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse20" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2588,6 +3896,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row20-tab3-header" data-mdb-toggle="tab" href="#row20-tab3" role="tab" aria-controls="row20-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row20-tab4-header" data-mdb-toggle="tab" href="#row20-tab4" role="tab" aria-controls="row20-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row20-tab5-header" data-mdb-toggle="tab" href="#row20-tab5" role="tab" aria-controls="row20-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -2598,9 +3912,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-tex-flat \
+  --index beir-v1.0.0-cqadupstack-tex.flat \
   --topics beir-v1.0.0-cqadupstack-tex-test \
-  --output run.beir-flat.cqadupstack-tex.txt \
+  --output run.beir-bm25-flat.cqadupstack-tex.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -2610,15 +3924,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir-flat.cqadupstack-tex.txt
+  run.beir-bm25-flat.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir-flat.cqadupstack-tex.txt
+  run.beir-bm25-flat.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir-flat.cqadupstack-tex.txt</code></pre>
+  run.beir-bm25-flat.cqadupstack-tex.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2627,9 +3941,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-tex-multifield \
+  --index beir-v1.0.0-cqadupstack-tex.multifield \
   --topics beir-v1.0.0-cqadupstack-tex-test \
-  --output run.beir-multifield.cqadupstack-tex.txt \
+  --output run.beir-bm25-multifield.cqadupstack-tex.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -2639,15 +3953,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir-multifield.cqadupstack-tex.txt
+  run.beir-bm25-multifield.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir-multifield.cqadupstack-tex.txt
+  run.beir-bm25-multifield.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir-multifield.cqadupstack-tex.txt</code></pre>
+  run.beir-bm25-multifield.cqadupstack-tex.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2680,6 +3994,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row20-tab4" role="tabpanel" aria-labelledby="row20-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-cqadupstack-tex.contriever \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --output run.beir-contriever.cqadupstack-tex.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-contriever.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-contriever.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-contriever.cqadupstack-tex.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row20-tab5" role="tabpanel" aria-labelledby="row20-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-tex.contriever-ft \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --output run.beir-contriever-msmarco.cqadupstack-tex.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-contriever-msmarco.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-contriever-msmarco.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir-contriever-msmarco.cqadupstack-tex.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2697,10 +4067,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3292</td>
 <td>  0.6192</td>
+<td></td>
+<td>  0.2636</td>
+<td>  0.5879</td>
+<td></td>
+<td>  0.3257</td>
+<td>  0.6161</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse21" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2714,6 +4090,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row21-tab3-header" data-mdb-toggle="tab" href="#row21-tab3" role="tab" aria-controls="row21-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row21-tab4-header" data-mdb-toggle="tab" href="#row21-tab4" role="tab" aria-controls="row21-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row21-tab5-header" data-mdb-toggle="tab" href="#row21-tab5" role="tab" aria-controls="row21-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -2724,9 +4106,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-unix-flat \
+  --index beir-v1.0.0-cqadupstack-unix.flat \
   --topics beir-v1.0.0-cqadupstack-unix-test \
-  --output run.beir-flat.cqadupstack-unix.txt \
+  --output run.beir-bm25-flat.cqadupstack-unix.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -2736,15 +4118,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir-flat.cqadupstack-unix.txt
+  run.beir-bm25-flat.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir-flat.cqadupstack-unix.txt
+  run.beir-bm25-flat.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir-flat.cqadupstack-unix.txt</code></pre>
+  run.beir-bm25-flat.cqadupstack-unix.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2753,9 +4135,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-unix-multifield \
+  --index beir-v1.0.0-cqadupstack-unix.multifield \
   --topics beir-v1.0.0-cqadupstack-unix-test \
-  --output run.beir-multifield.cqadupstack-unix.txt \
+  --output run.beir-bm25-multifield.cqadupstack-unix.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -2765,15 +4147,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir-multifield.cqadupstack-unix.txt
+  run.beir-bm25-multifield.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir-multifield.cqadupstack-unix.txt
+  run.beir-bm25-multifield.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir-multifield.cqadupstack-unix.txt</code></pre>
+  run.beir-bm25-multifield.cqadupstack-unix.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2806,6 +4188,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row21-tab4" role="tabpanel" aria-labelledby="row21-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-cqadupstack-unix.contriever \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --output run.beir-contriever.cqadupstack-unix.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-contriever.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-contriever.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-contriever.cqadupstack-unix.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row21-tab5" role="tabpanel" aria-labelledby="row21-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-unix.contriever-ft \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --output run.beir-contriever-msmarco.cqadupstack-unix.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-contriever-msmarco.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-contriever-msmarco.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir-contriever-msmarco.cqadupstack-unix.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2823,10 +4261,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3343</td>
 <td>  0.6404</td>
+<td></td>
+<td>  0.2878</td>
+<td>  0.6485</td>
+<td></td>
+<td>  0.3392</td>
+<td>  0.7032</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse22" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2840,6 +4284,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row22-tab3-header" data-mdb-toggle="tab" href="#row22-tab3" role="tab" aria-controls="row22-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row22-tab4-header" data-mdb-toggle="tab" href="#row22-tab4" role="tab" aria-controls="row22-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row22-tab5-header" data-mdb-toggle="tab" href="#row22-tab5" role="tab" aria-controls="row22-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -2850,9 +4300,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-webmasters-flat \
+  --index beir-v1.0.0-cqadupstack-webmasters.flat \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
-  --output run.beir-flat.cqadupstack-webmasters.txt \
+  --output run.beir-bm25-flat.cqadupstack-webmasters.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -2862,15 +4312,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir-flat.cqadupstack-webmasters.txt
+  run.beir-bm25-flat.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir-flat.cqadupstack-webmasters.txt
+  run.beir-bm25-flat.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir-flat.cqadupstack-webmasters.txt</code></pre>
+  run.beir-bm25-flat.cqadupstack-webmasters.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2879,9 +4329,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-webmasters-multifield \
+  --index beir-v1.0.0-cqadupstack-webmasters.multifield \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
-  --output run.beir-multifield.cqadupstack-webmasters.txt \
+  --output run.beir-bm25-multifield.cqadupstack-webmasters.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -2891,15 +4341,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir-multifield.cqadupstack-webmasters.txt
+  run.beir-bm25-multifield.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir-multifield.cqadupstack-webmasters.txt
+  run.beir-bm25-multifield.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir-multifield.cqadupstack-webmasters.txt</code></pre>
+  run.beir-bm25-multifield.cqadupstack-webmasters.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2932,6 +4382,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row22-tab4" role="tabpanel" aria-labelledby="row22-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-cqadupstack-webmasters.contriever \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --output run.beir-contriever.cqadupstack-webmasters.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-contriever.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-contriever.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-contriever.cqadupstack-webmasters.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row22-tab5" role="tabpanel" aria-labelledby="row22-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-webmasters.contriever-ft \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --output run.beir-contriever-msmarco.cqadupstack-webmasters.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-contriever-msmarco.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-contriever-msmarco.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir-contriever-msmarco.cqadupstack-webmasters.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2949,10 +4455,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2839</td>
 <td>  0.5974</td>
+<td></td>
+<td>  0.1914</td>
+<td>  0.5364</td>
+<td></td>
+<td>  0.2532</td>
+<td>  0.5769</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse23" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -2966,6 +4478,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row23-tab3-header" data-mdb-toggle="tab" href="#row23-tab3" role="tab" aria-controls="row23-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row23-tab4-header" data-mdb-toggle="tab" href="#row23-tab4" role="tab" aria-controls="row23-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row23-tab5-header" data-mdb-toggle="tab" href="#row23-tab5" role="tab" aria-controls="row23-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -2976,9 +4494,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-wordpress-flat \
+  --index beir-v1.0.0-cqadupstack-wordpress.flat \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
-  --output run.beir-flat.cqadupstack-wordpress.txt \
+  --output run.beir-bm25-flat.cqadupstack-wordpress.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -2988,15 +4506,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir-flat.cqadupstack-wordpress.txt
+  run.beir-bm25-flat.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir-flat.cqadupstack-wordpress.txt
+  run.beir-bm25-flat.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir-flat.cqadupstack-wordpress.txt</code></pre>
+  run.beir-bm25-flat.cqadupstack-wordpress.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3005,9 +4523,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-cqadupstack-wordpress-multifield \
+  --index beir-v1.0.0-cqadupstack-wordpress.multifield \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
-  --output run.beir-multifield.cqadupstack-wordpress.txt \
+  --output run.beir-bm25-multifield.cqadupstack-wordpress.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -3017,15 +4535,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir-multifield.cqadupstack-wordpress.txt
+  run.beir-bm25-multifield.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir-multifield.cqadupstack-wordpress.txt
+  run.beir-bm25-multifield.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir-multifield.cqadupstack-wordpress.txt</code></pre>
+  run.beir-bm25-multifield.cqadupstack-wordpress.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3058,6 +4576,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row23-tab4" role="tabpanel" aria-labelledby="row23-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-cqadupstack-wordpress.contriever \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --output run.beir-contriever.cqadupstack-wordpress.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-contriever.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-contriever.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-contriever.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row23-tab5" role="tabpanel" aria-labelledby="row23-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-wordpress.contriever-ft \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --output run.beir-contriever-msmarco.cqadupstack-wordpress.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-contriever-msmarco.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-contriever-msmarco.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir-contriever-msmarco.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3075,10 +4649,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.8136</td>
 <td>  0.9817</td>
+<td></td>
+<td>  0.8349</td>
+<td>  0.9871</td>
+<td></td>
+<td>  0.8648</td>
+<td>  0.9935</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse24" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -3092,6 +4672,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab5-header" data-mdb-toggle="tab" href="#row24-tab5" role="tab" aria-controls="row24-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -3102,9 +4688,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-quora-flat \
+  --index beir-v1.0.0-quora.flat \
   --topics beir-v1.0.0-quora-test \
-  --output run.beir-flat.quora.txt \
+  --output run.beir-bm25-flat.quora.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -3114,15 +4700,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
-  run.beir-flat.quora.txt
+  run.beir-bm25-flat.quora.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-quora-test \
-  run.beir-flat.quora.txt
+  run.beir-bm25-flat.quora.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-quora-test \
-  run.beir-flat.quora.txt</code></pre>
+  run.beir-bm25-flat.quora.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3131,9 +4717,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-quora-multifield \
+  --index beir-v1.0.0-quora.multifield \
   --topics beir-v1.0.0-quora-test \
-  --output run.beir-multifield.quora.txt \
+  --output run.beir-bm25-multifield.quora.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -3143,15 +4729,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
-  run.beir-multifield.quora.txt
+  run.beir-bm25-multifield.quora.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-quora-test \
-  run.beir-multifield.quora.txt
+  run.beir-bm25-multifield.quora.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-quora-test \
-  run.beir-multifield.quora.txt</code></pre>
+  run.beir-bm25-multifield.quora.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3184,6 +4770,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row24-tab4" role="tabpanel" aria-labelledby="row24-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-quora.contriever \
+  --topics beir-v1.0.0-quora-test \
+  --output run.beir-contriever.quora.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir-contriever.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir-contriever.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir-contriever.quora.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row24-tab5" role="tabpanel" aria-labelledby="row24-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-quora.contriever-ft \
+  --topics beir-v1.0.0-quora-test \
+  --output run.beir-contriever-msmarco.quora.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir-contriever-msmarco.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir-contriever-msmarco.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir-contriever-msmarco.quora.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3201,10 +4843,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.4416</td>
 <td>  0.5636</td>
+<td></td>
+<td>  0.2916</td>
+<td>  0.4529</td>
+<td></td>
+<td>  0.4128</td>
+<td>  0.5414</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse25" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -3218,6 +4866,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab5-header" data-mdb-toggle="tab" href="#row25-tab5" role="tab" aria-controls="row25-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -3228,9 +4882,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-dbpedia-entity-flat \
+  --index beir-v1.0.0-dbpedia-entity.flat \
   --topics beir-v1.0.0-dbpedia-entity-test \
-  --output run.beir-flat.dbpedia-entity.txt \
+  --output run.beir-bm25-flat.dbpedia-entity.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -3240,15 +4894,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
-  run.beir-flat.dbpedia-entity.txt
+  run.beir-bm25-flat.dbpedia-entity.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
-  run.beir-flat.dbpedia-entity.txt
+  run.beir-bm25-flat.dbpedia-entity.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
-  run.beir-flat.dbpedia-entity.txt</code></pre>
+  run.beir-bm25-flat.dbpedia-entity.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3257,9 +4911,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-dbpedia-entity-multifield \
+  --index beir-v1.0.0-dbpedia-entity.multifield \
   --topics beir-v1.0.0-dbpedia-entity-test \
-  --output run.beir-multifield.dbpedia-entity.txt \
+  --output run.beir-bm25-multifield.dbpedia-entity.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -3269,15 +4923,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
-  run.beir-multifield.dbpedia-entity.txt
+  run.beir-bm25-multifield.dbpedia-entity.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
-  run.beir-multifield.dbpedia-entity.txt
+  run.beir-bm25-multifield.dbpedia-entity.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
-  run.beir-multifield.dbpedia-entity.txt</code></pre>
+  run.beir-bm25-multifield.dbpedia-entity.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3310,6 +4964,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row25-tab4" role="tabpanel" aria-labelledby="row25-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-dbpedia-entity.contriever \
+  --topics beir-v1.0.0-dbpedia-entity-test \
+  --output run.beir-contriever.dbpedia-entity.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-contriever.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-contriever.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-contriever.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row25-tab5" role="tabpanel" aria-labelledby="row25-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-dbpedia-entity.contriever-ft \
+  --topics beir-v1.0.0-dbpedia-entity-test \
+  --output run.beir-contriever-msmarco.dbpedia-entity.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-contriever-msmarco.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-contriever-msmarco.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir-contriever-msmarco.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3327,10 +5037,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.1590</td>
 <td>  0.3671</td>
+<td></td>
+<td>  0.1491</td>
+<td>  0.3601</td>
+<td></td>
+<td>  0.1652</td>
+<td>  0.3783</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse26" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -3344,6 +5060,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab5-header" data-mdb-toggle="tab" href="#row26-tab5" role="tab" aria-controls="row26-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -3354,9 +5076,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-scidocs-flat \
+  --index beir-v1.0.0-scidocs.flat \
   --topics beir-v1.0.0-scidocs-test \
-  --output run.beir-flat.scidocs.txt \
+  --output run.beir-bm25-flat.scidocs.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -3366,15 +5088,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
-  run.beir-flat.scidocs.txt
+  run.beir-bm25-flat.scidocs.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-scidocs-test \
-  run.beir-flat.scidocs.txt
+  run.beir-bm25-flat.scidocs.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scidocs-test \
-  run.beir-flat.scidocs.txt</code></pre>
+  run.beir-bm25-flat.scidocs.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3383,9 +5105,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-scidocs-multifield \
+  --index beir-v1.0.0-scidocs.multifield \
   --topics beir-v1.0.0-scidocs-test \
-  --output run.beir-multifield.scidocs.txt \
+  --output run.beir-bm25-multifield.scidocs.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -3395,15 +5117,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
-  run.beir-multifield.scidocs.txt
+  run.beir-bm25-multifield.scidocs.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-scidocs-test \
-  run.beir-multifield.scidocs.txt
+  run.beir-bm25-multifield.scidocs.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scidocs-test \
-  run.beir-multifield.scidocs.txt</code></pre>
+  run.beir-bm25-multifield.scidocs.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3436,6 +5158,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row26-tab4" role="tabpanel" aria-labelledby="row26-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-scidocs.contriever \
+  --topics beir-v1.0.0-scidocs-test \
+  --output run.beir-contriever.scidocs.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir-contriever.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir-contriever.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir-contriever.scidocs.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row26-tab5" role="tabpanel" aria-labelledby="row26-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-scidocs.contriever-ft \
+  --topics beir-v1.0.0-scidocs-test \
+  --output run.beir-contriever-msmarco.scidocs.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir-contriever-msmarco.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir-contriever-msmarco.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir-contriever-msmarco.scidocs.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3453,10 +5231,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.7962</td>
 <td>  0.9550</td>
+<td></td>
+<td>  0.6821</td>
+<td>  0.9356</td>
+<td></td>
+<td>  0.7583</td>
+<td>  0.9494</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse27" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -3470,6 +5254,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row27-tab3-header" data-mdb-toggle="tab" href="#row27-tab3" role="tab" aria-controls="row27-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row27-tab5-header" data-mdb-toggle="tab" href="#row27-tab5" role="tab" aria-controls="row27-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -3480,9 +5270,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-fever-flat \
+  --index beir-v1.0.0-fever.flat \
   --topics beir-v1.0.0-fever-test \
-  --output run.beir-flat.fever.txt \
+  --output run.beir-bm25-flat.fever.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -3492,15 +5282,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
-  run.beir-flat.fever.txt
+  run.beir-bm25-flat.fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-fever-test \
-  run.beir-flat.fever.txt
+  run.beir-bm25-flat.fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-fever-test \
-  run.beir-flat.fever.txt</code></pre>
+  run.beir-bm25-flat.fever.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3509,9 +5299,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-fever-multifield \
+  --index beir-v1.0.0-fever.multifield \
   --topics beir-v1.0.0-fever-test \
-  --output run.beir-multifield.fever.txt \
+  --output run.beir-bm25-multifield.fever.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -3521,15 +5311,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
-  run.beir-multifield.fever.txt
+  run.beir-bm25-multifield.fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-fever-test \
-  run.beir-multifield.fever.txt
+  run.beir-bm25-multifield.fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-fever-test \
-  run.beir-multifield.fever.txt</code></pre>
+  run.beir-bm25-multifield.fever.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3562,6 +5352,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row27-tab4" role="tabpanel" aria-labelledby="row27-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-fever.contriever \
+  --topics beir-v1.0.0-fever-test \
+  --output run.beir-contriever.fever.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir-contriever.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir-contriever.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir-contriever.fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row27-tab5" role="tabpanel" aria-labelledby="row27-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-fever.contriever-ft \
+  --topics beir-v1.0.0-fever-test \
+  --output run.beir-contriever-msmarco.fever.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir-contriever-msmarco.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir-contriever-msmarco.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir-contriever-msmarco.fever.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3579,10 +5425,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2276</td>
 <td>  0.5140</td>
+<td></td>
+<td>  0.1550</td>
+<td>  0.4422</td>
+<td></td>
+<td>  0.2371</td>
+<td>  0.5746</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse28" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -3596,6 +5448,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row28-tab3-header" data-mdb-toggle="tab" href="#row28-tab3" role="tab" aria-controls="row28-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row28-tab5-header" data-mdb-toggle="tab" href="#row28-tab5" role="tab" aria-controls="row28-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -3606,9 +5464,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-climate-fever-flat \
+  --index beir-v1.0.0-climate-fever.flat \
   --topics beir-v1.0.0-climate-fever-test \
-  --output run.beir-flat.climate-fever.txt \
+  --output run.beir-bm25-flat.climate-fever.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -3618,15 +5476,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
-  run.beir-flat.climate-fever.txt
+  run.beir-bm25-flat.climate-fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-climate-fever-test \
-  run.beir-flat.climate-fever.txt
+  run.beir-bm25-flat.climate-fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-climate-fever-test \
-  run.beir-flat.climate-fever.txt</code></pre>
+  run.beir-bm25-flat.climate-fever.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3635,9 +5493,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-climate-fever-multifield \
+  --index beir-v1.0.0-climate-fever.multifield \
   --topics beir-v1.0.0-climate-fever-test \
-  --output run.beir-multifield.climate-fever.txt \
+  --output run.beir-bm25-multifield.climate-fever.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -3647,15 +5505,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
-  run.beir-multifield.climate-fever.txt
+  run.beir-bm25-multifield.climate-fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-climate-fever-test \
-  run.beir-multifield.climate-fever.txt
+  run.beir-bm25-multifield.climate-fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-climate-fever-test \
-  run.beir-multifield.climate-fever.txt</code></pre>
+  run.beir-bm25-multifield.climate-fever.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3688,6 +5546,62 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row28-tab4" role="tabpanel" aria-labelledby="row28-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-climate-fever.contriever \
+  --topics beir-v1.0.0-climate-fever-test \
+  --output run.beir-contriever.climate-fever.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir-contriever.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir-contriever.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir-contriever.climate-fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row28-tab5" role="tabpanel" aria-labelledby="row28-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-climate-fever.contriever-ft \
+  --topics beir-v1.0.0-climate-fever-test \
+  --output run.beir-contriever-msmarco.climate-fever.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir-contriever-msmarco.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir-contriever-msmarco.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir-contriever-msmarco.climate-fever.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3705,10 +5619,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.6992</td>
 <td>  0.9270</td>
+<td></td>
+<td>  0.6493</td>
+<td>  0.9260</td>
+<td></td>
+<td>  0.6768</td>
+<td>  0.9470</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="9">
+<td colspan="15">
 <div id="collapse29" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -3722,6 +5642,12 @@ python -m pyserini.eval.trec_eval \
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row29-tab3-header" data-mdb-toggle="tab" href="#row29-tab3" role="tab" aria-controls="row29-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row29-tab5-header" data-mdb-toggle="tab" href="#row29-tab5" role="tab" aria-controls="row29-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
 </ul>
 <!-- Tabs navs -->
 
@@ -3732,9 +5658,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-scifact-flat \
+  --index beir-v1.0.0-scifact.flat \
   --topics beir-v1.0.0-scifact-test \
-  --output run.beir-flat.scifact.txt \
+  --output run.beir-bm25-flat.scifact.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query
@@ -3744,15 +5670,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir-flat.scifact.txt
+  run.beir-bm25-flat.scifact.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir-flat.scifact.txt
+  run.beir-bm25-flat.scifact.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir-flat.scifact.txt</code></pre>
+  run.beir-bm25-flat.scifact.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3761,9 +5687,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --index beir-v1.0.0-scifact-multifield \
+  --index beir-v1.0.0-scifact.multifield \
   --topics beir-v1.0.0-scifact-test \
-  --output run.beir-multifield.scifact.txt \
+  --output run.beir-bm25-multifield.scifact.txt \
   --output-format trec \
   --batch 36 --threads 12 \
   --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
@@ -3773,15 +5699,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir-multifield.scifact.txt
+  run.beir-bm25-multifield.scifact.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir-multifield.scifact.txt
+  run.beir-bm25-multifield.scifact.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir-multifield.scifact.txt</code></pre>
+  run.beir-bm25-multifield.scifact.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3811,6 +5737,62 @@ python -m pyserini.eval.trec_eval \
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scifact-test \
   run.beir-splade-distil-cocodenser-medium.scifact.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row29-tab4" role="tabpanel" aria-labelledby="row29-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever \
+  --index beir-v1.0.0-scifact.contriever \
+  --topics beir-v1.0.0-scifact-test \
+  --output run.beir-contriever.scifact.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir-contriever.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir-contriever.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir-contriever.scifact.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row29-tab5" role="tabpanel" aria-labelledby="row29-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+ --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-scifact.contriever-ft \
+  --topics beir-v1.0.0-scifact-test \
+  --output run.beir-contriever-msmarco.scifact.txt --batch 128 --threads 16 \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir-contriever-msmarco.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir-contriever-msmarco.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir-contriever-msmarco.scifact.txt</code></pre>
   </blockquote>
 
   </div>
