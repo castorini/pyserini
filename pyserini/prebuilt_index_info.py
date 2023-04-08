@@ -1075,7 +1075,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-trec-covid.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): TREC-COVID",
         "filename": "lucene-index.beir-v1.0.0-trec-covid.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-trec-covid.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-covid.flat.20221116.505594.tar.gz"
         ],
@@ -1089,7 +1089,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-bioasq.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): BioASQ",
         "filename": "lucene-index.beir-v1.0.0-bioasq.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-bioasq.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-bioasq.flat.20221116.505594.tar.gz"
         ],
@@ -1103,7 +1103,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-nfcorpus.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): NFCorpus",
         "filename": "lucene-index.beir-v1.0.0-nfcorpus.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-nfcorpus.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nfcorpus.flat.20221116.505594.tar.gz"
         ],
@@ -1117,7 +1117,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-nq.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): NQ",
         "filename": "lucene-index.beir-v1.0.0-nq.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-nq.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nq.flat.20221116.505594.tar.gz"
         ],
@@ -1131,7 +1131,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-hotpotqa.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): HotpotQA",
         "filename": "lucene-index.beir-v1.0.0-hotpotqa.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-hotpotqa.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-hotpotqa.flat.20221116.505594.tar.gz"
         ],
@@ -1145,7 +1145,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-fiqa.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): FiQA-2018",
         "filename": "lucene-index.beir-v1.0.0-fiqa.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fiqa.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fiqa.flat.20221116.505594.tar.gz"
         ],
@@ -1159,7 +1159,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-signal1m.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): Signal-1M",
         "filename": "lucene-index.beir-v1.0.0-signal1m.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-signal1m.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-signal1m.flat.20221116.505594.tar.gz"
         ],
@@ -1173,7 +1173,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-trec-news.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): TREC-NEWS",
         "filename": "lucene-index.beir-v1.0.0-trec-news.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-trec-news.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-news.flat.20221116.505594.tar.gz"
         ],
@@ -1187,7 +1187,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-robust04.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): Robust04",
         "filename": "lucene-index.beir-v1.0.0-robust04.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-robust04.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-robust04.flat.20221116.505594.tar.gz"
         ],
@@ -1201,7 +1201,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-arguana.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): ArguAna",
         "filename": "lucene-index.beir-v1.0.0-arguana.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-arguana.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-arguana.flat.20221116.505594.tar.gz"
         ],
@@ -1215,7 +1215,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-webis-touche2020.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): Webis-Touche2020",
         "filename": "lucene-index.beir-v1.0.0-webis-touche2020.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-webis-touche2020.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-webis-touche2020.flat.20221116.505594.tar.gz"
         ],
@@ -1229,7 +1229,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-android.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-android",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-android.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-android.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-android.flat.20221116.505594.tar.gz"
         ],
@@ -1243,7 +1243,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-english.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-english",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-english.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-english.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-english.flat.20221116.505594.tar.gz"
         ],
@@ -1257,7 +1257,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-gaming.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-gaming",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming.flat.20221116.505594.tar.gz"
         ],
@@ -1271,7 +1271,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-gis.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-gis",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gis.flat.20221116.505594.tar.gz"
         ],
@@ -1285,7 +1285,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-mathematica.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-mathematica",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica.flat.20221116.505594.tar.gz"
         ],
@@ -1299,7 +1299,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-physics.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-physics",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-physics.flat.20221116.505594.tar.gz"
         ],
@@ -1313,7 +1313,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-programmers.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-programmers",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers.flat.20221116.505594.tar.gz"
         ],
@@ -1327,7 +1327,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-stats.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-stats",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-stats.flat.20221116.505594.tar.gz"
         ],
@@ -1341,7 +1341,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-tex.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-tex",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-tex.flat.20221116.505594.tar.gz"
         ],
@@ -1355,7 +1355,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-unix.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-unix",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-unix.flat.20221116.505594.tar.gz"
         ],
@@ -1369,7 +1369,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-webmasters.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-webmasters",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters.flat.20221116.505594.tar.gz"
         ],
@@ -1383,7 +1383,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-wordpress.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-wordpress",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress.flat.20221116.505594.tar.gz"
         ],
@@ -1397,7 +1397,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-quora.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): Quora",
         "filename": "lucene-index.beir-v1.0.0-quora.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-quora.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-quora.flat.20221116.505594.tar.gz"
         ],
@@ -1411,7 +1411,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-dbpedia-entity.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): DBPedia",
         "filename": "lucene-index.beir-v1.0.0-dbpedia-entity.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-dbpedia-entity.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-dbpedia-entity.flat.20221116.505594.tar.gz"
         ],
@@ -1425,7 +1425,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-scidocs.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): SCIDOCS",
         "filename": "lucene-index.beir-v1.0.0-scidocs.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-scidocs.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scidocs.flat.20221116.505594.tar.gz"
         ],
@@ -1439,7 +1439,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-fever.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): FEVER",
         "filename": "lucene-index.beir-v1.0.0-fever.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fever.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fever.flat.20221116.505594.tar.gz"
         ],
@@ -1453,7 +1453,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-climate-fever.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): Climate-FEVER",
         "filename": "lucene-index.beir-v1.0.0-climate-fever.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-climate-fever.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-climate-fever.flat.20221116.505594.tar.gz"
         ],
@@ -1467,7 +1467,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-scifact.flat": {
         "description": "Lucene flat index of BEIR (v1.0.0): SciFact",
         "filename": "lucene-index.beir-v1.0.0-scifact.flat.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-scifact.flat.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scifact.flat.20221116.505594.tar.gz"
         ],
@@ -1483,7 +1483,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-trec-covid.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): TREC-COVID",
         "filename": "lucene-index.beir-v1.0.0-trec-covid.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-trec-covid.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-covid.multifield.20221116.505594.tar.gz"
         ],
@@ -1497,7 +1497,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-bioasq.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): BioASQ",
         "filename": "lucene-index.beir-v1.0.0-bioasq.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-bioasq.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-bioasq.multifield.20221116.505594.tar.gz"
         ],
@@ -1511,7 +1511,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-nfcorpus.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): NFCorpus",
         "filename": "lucene-index.beir-v1.0.0-nfcorpus.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-nfcorpus.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nfcorpus.multifield.20221116.505594.tar.gz"
         ],
@@ -1525,7 +1525,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-nq.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): NQ",
         "filename": "lucene-index.beir-v1.0.0-nq.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-nq.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nq.multifield.20221116.505594.tar.gz"
         ],
@@ -1539,7 +1539,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-hotpotqa.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): HotpotQA",
         "filename": "lucene-index.beir-v1.0.0-hotpotqa.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-hotpotqa.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-hotpotqa.multifield.20221116.505594.tar.gz"
         ],
@@ -1553,7 +1553,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-fiqa.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): FiQA-2018",
         "filename": "lucene-index.beir-v1.0.0-fiqa.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fiqa.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fiqa.multifield.20221116.505594.tar.gz"
         ],
@@ -1567,7 +1567,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-signal1m.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): Signal-1M",
         "filename": "lucene-index.beir-v1.0.0-signal1m.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-signal1m.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-signal1m.multifield.20221116.505594.tar.gz"
         ],
@@ -1581,7 +1581,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-trec-news.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): TREC-NEWS",
         "filename": "lucene-index.beir-v1.0.0-trec-news.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-trec-news.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-news.multifield.20221116.505594.tar.gz"
         ],
@@ -1595,7 +1595,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-robust04.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): Robust04",
         "filename": "lucene-index.beir-v1.0.0-robust04.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-robust04.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-robust04.multifield.20221116.505594.tar.gz"
         ],
@@ -1609,7 +1609,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-arguana.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): ArguAna",
         "filename": "lucene-index.beir-v1.0.0-arguana.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-arguana.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-arguana.multifield.20221116.505594.tar.gz"
         ],
@@ -1623,7 +1623,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-webis-touche2020.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): Webis-Touche2020",
         "filename": "lucene-index.beir-v1.0.0-webis-touche2020.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-webis-touche2020.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-webis-touche2020.multifield.20221116.505594.tar.gz"
         ],
@@ -1637,7 +1637,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-android.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-android",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-android.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-android.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-android.multifield.20221116.505594.tar.gz"
         ],
@@ -1651,7 +1651,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-english.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-english",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-english.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-english.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-english.multifield.20221116.505594.tar.gz"
         ],
@@ -1665,7 +1665,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-gaming.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-gaming",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gaming.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming.multifield.20221116.505594.tar.gz"
         ],
@@ -1679,7 +1679,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-gis.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-gis",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-gis.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gis.multifield.20221116.505594.tar.gz"
         ],
@@ -1693,7 +1693,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-mathematica.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-mathematica",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-mathematica.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica.multifield.20221116.505594.tar.gz"
         ],
@@ -1707,7 +1707,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-physics.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-physics",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-physics.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-physics.multifield.20221116.505594.tar.gz"
         ],
@@ -1721,7 +1721,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-programmers.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-programmers",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-programmers.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers.multifield.20221116.505594.tar.gz"
         ],
@@ -1735,7 +1735,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-stats.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-stats",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-stats.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-stats.multifield.20221116.505594.tar.gz"
         ],
@@ -1749,7 +1749,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-tex.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-tex",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-tex.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-tex.multifield.20221116.505594.tar.gz"
         ],
@@ -1763,7 +1763,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-unix.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-unix",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-unix.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-unix.multifield.20221116.505594.tar.gz"
         ],
@@ -1777,7 +1777,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-webmasters.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-webmasters",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-webmasters.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters.multifield.20221116.505594.tar.gz"
         ],
@@ -1791,7 +1791,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-cqadupstack-wordpress.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-wordpress",
         "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-cqadupstack-wordpress.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress.multifield.20221116.505594.tar.gz"
         ],
@@ -1805,7 +1805,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-quora.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): Quora",
         "filename": "lucene-index.beir-v1.0.0-quora.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-quora.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-quora.multifield.20221116.505594.tar.gz"
         ],
@@ -1819,7 +1819,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-dbpedia-entity.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): DBPedia",
         "filename": "lucene-index.beir-v1.0.0-dbpedia-entity.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-dbpedia-entity.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-dbpedia-entity.multifield.20221116.505594.tar.gz"
         ],
@@ -1833,7 +1833,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-scidocs.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): SCIDOCS",
         "filename": "lucene-index.beir-v1.0.0-scidocs.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-scidocs.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scidocs.multifield.20221116.505594.tar.gz"
         ],
@@ -1847,7 +1847,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-fever.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): FEVER",
         "filename": "lucene-index.beir-v1.0.0-fever.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-fever.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fever.multifield.20221116.505594.tar.gz"
         ],
@@ -1861,7 +1861,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-climate-fever.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): Climate-FEVER",
         "filename": "lucene-index.beir-v1.0.0-climate-fever.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-climate-fever.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-climate-fever.multifield.20221116.505594.tar.gz"
         ],
@@ -1875,7 +1875,7 @@ TF_INDEX_INFO_CURRENT = {
     "beir-v1.0.0-scifact.multifield": {
         "description": "Lucene multifield index of BEIR (v1.0.0): SciFact",
         "filename": "lucene-index.beir-v1.0.0-scifact.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-scifact.multifield.20221116.505594.README.md",
+        "readme": "lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scifact.multifield.20221116.505594.tar.gz"
         ],
@@ -5573,6 +5573,385 @@ FAISS_INDEX_INFO = {
         "texts": "beir-v1.0.0-scifact.flat"
     },
 
+    # BEIR (v1.0.0) contriever ft MSMARCO indexes
+    "beir-v1.0.0-trec-covid.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-trec-covid.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-trec-covid.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "7dd33fbd77deba89174b6d1b2c34866c",
+        "size compressed (bytes)": 487986935,
+        "documents": 171332,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-trec-covid.flat",
+    },
+    "beir-v1.0.0-bioasq.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-bioasq.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-bioasq.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "e51924bb78555942f0a9465959a6f6f2",
+        "size compressed (bytes)": 42438279267,
+        "documents": 14914603,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-bioasq.flat",
+    },
+    "beir-v1.0.0-nfcorpus.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-nfcorpus.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nfcorpus.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "657649d19fafd06cb031c6b11868d7f9",
+        "size compressed (bytes)": 10327231,
+        "documents": 3633,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-nfcorpus.flat",
+    },
+    "beir-v1.0.0-nq.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (NQ) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-nq.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nq.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "8d7ff2e5e285b1549bb8af27a7cf6e30",
+        "size compressed (bytes)": 7619790303,
+        "documents": 2681468,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-nq.flat",
+    },
+    "beir-v1.0.0-hotpotqa.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-hotpotqa.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-hotpotqa.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "bef5b2fba77859c778f121ae2f17c9f1",
+        "size compressed (bytes)": 14889518902,
+        "documents": 5233329,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-hotpotqa.flat",
+    },
+    "beir-v1.0.0-fiqa.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-fiqa.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-fiqa.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "3dd16db861dbef4da545ccbea127198a",
+        "size compressed (bytes)": 163998627,
+        "documents": 57638,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-fiqa.flat",
+    },
+    "beir-v1.0.0-signal1m.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-signal1m.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-signal1m.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "c4e25dc99c27a9d1931ad129d4091da0",
+        "size compressed (bytes)": 8146484698,
+        "documents": 2866316,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-signal1m.flat",
+    },
+    "beir-v1.0.0-trec-news.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-trec-news.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-trec-news.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "22272011f0e0dea7f66b624de196b6b3",
+        "size compressed (bytes)": 1629437319,
+        "documents": 594977,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-trec-news.flat",
+    },
+    "beir-v1.0.0-robust04.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-robust04.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-robust04.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "a2a0603fae866e1e92abcdfc46de6fe5",
+        "size compressed (bytes)": 1501089289,
+        "documents": 528155,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-robust04.flat",
+    },
+    "beir-v1.0.0-arguana.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-arguana.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-arguana.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "dcc0408ab033433d47363f5902fbde3d",
+        "size compressed (bytes)": 24705859,
+        "documents": 8674,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-arguana.flat",
+    },
+    "beir-v1.0.0-webis-touche2020.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-webis-touche2020.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-webis-touche2020.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "60072a3b32855067fea0f8e21ce0d905",
+        "size compressed (bytes)": 1090748271,
+        "documents": 382545,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-webis-touche2020.flat",
+    },
+    "beir-v1.0.0-cqadupstack-android.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-android.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-android.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "f9b02c2410fc8ddf63e96ea6ebbd8447",
+        "size compressed (bytes)": 65438882,
+        "documents": 22998,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-android.flat",
+    },
+    "beir-v1.0.0-cqadupstack-english.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-english.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-english.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "7c50f04a61a08f16dfb1d28010b4e222",
+        "size compressed (bytes)": 114462161,
+        "documents": 40221,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-english.flat",
+    },
+    "beir-v1.0.0-cqadupstack-gaming.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-gaming.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-gaming.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "d97fafe933ae40fc12a9df0afc6a8e78",
+        "size compressed (bytes)": 128896840,
+        "documents": 45301,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-gaming.flat",
+    },
+    "beir-v1.0.0-cqadupstack-gis.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-gis.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-gis.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "f536d8feda0069a1769ad71010fab0e3",
+        "size compressed (bytes)": 107086862,
+        "documents": 37637,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-gis.flat",
+    },
+    "beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "987fb7ac275baf344828cdda0013703d",
+        "size compressed (bytes)": 47526982,
+        "documents": 16705,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-mathematica.flat",
+    },
+    "beir-v1.0.0-cqadupstack-physics.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-physics.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-physics.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "e252b1c4dcb06d2183109dc4bc820176",
+        "size compressed (bytes)": 109024692,
+        "documents": 38316,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-physics.flat",
+    },
+    "beir-v1.0.0-cqadupstack-programmers.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-programmers.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-programmers.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "09bd10b2b06c7b0c7611e7811958f4b3",
+        "size compressed (bytes)": 91567840,
+        "documents": 32176,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-programmers.flat",
+    },
+    "beir-v1.0.0-cqadupstack-stats.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-stats.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-stats.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "c4586c11a2bc90f9ea5a3355fc6e6c53",
+        "size compressed (bytes)": 120271253,
+        "documents": 42269,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-stats.flat",
+    },
+    "beir-v1.0.0-cqadupstack-tex.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-tex.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-tex.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "c3c5ec87aeb33a7320c0d61146c03fc0",
+        "size compressed (bytes)": 194009234,
+        "documents": 68184,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-tex.flat",
+    },
+    "beir-v1.0.0-cqadupstack-unix.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-unix.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-unix.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "3220f3eb0e9f0095cf13dcc8eb3ae1e0",
+        "size compressed (bytes)": 134821535,
+        "documents": 47382,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-unix.flat",
+    },
+    "beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "f696855c02090833a6ca695f8efa3006",
+        "size compressed (bytes)": 49530869,
+        "documents": 17405,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-webmasters.flat",
+    },
+    "beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "e92063c046803a76010b57e0ef1ace9e",
+        "size compressed (bytes)": 138328541,
+        "documents": 48605,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-wordpress.flat",
+    },
+    "beir-v1.0.0-quora.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (Quora) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-quora.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-quora.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "82481f11087ebf63156da1f3dda00d5e",
+        "size compressed (bytes)": 1487402659,
+        "documents": 522931,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-quora.flat",
+    },
+    "beir-v1.0.0-dbpedia-entity.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-dbpedia-entity.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-dbpedia-entity.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "5b9249745aa548776a8f22269bd55dbe",
+        "size compressed (bytes)": 13226846024,
+        "documents": 4635922,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-dbpedia-entity.flat",
+    },
+    "beir-v1.0.0-scidocs.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-scidocs.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-scidocs.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "091d751629ae22d843ce741f05f00b81",
+        "size compressed (bytes)": 73530332,
+        "documents": 25657,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-scidocs.flat",
+    },
+    "beir-v1.0.0-fever.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-fever.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-fever.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "c1e9851e23c9f46e7210aedd613e4a1b",
+        "size compressed (bytes)": 15444001312,
+        "documents": 5416568,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-fever.flat",
+    },
+    "beir-v1.0.0-climate-fever.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-climate-fever.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-climate-fever.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "1ec289569b80edb25d885100feba83aa",
+        "size compressed (bytes)": 15444073223,
+        "documents": 5416593,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-climate-fever.flat",
+    },
+    "beir-v1.0.0-scifact.contriever-msmarco": {
+        "description": "Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "filename": "faiss.beir-v1.0.0-scifact.contriever-msmarco.20230124.tar.gz",
+        "readme": "faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-scifact.contriever-msmarco.20230124.tar.gz"
+        ],
+        "md5": "e560d5de0ccb65f66853540cb6917369",
+        "size compressed (bytes)": 14758747,
+        "documents": 5183,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-scifact.flat",
+    },
+
     "msmarco-passage-tct_colbert-hnsw": {
         "description": "Faiss HNSW index of the MS MARCO passage corpus encoded by TCT-ColBERT",
         "filename": "dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
@@ -6401,10 +6780,11 @@ FAISS_INDEX_INFO = {
         "documents": 568855,
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
-    }, 
+    },
+
     "miracl-v1.0-ar-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-ar.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6417,7 +6797,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-bn-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-bn.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6430,7 +6810,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-en-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-en.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6443,7 +6823,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-es-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-es.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6456,7 +6836,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-fa-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Persian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-fa.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6469,7 +6849,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-fi-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-fi.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6482,7 +6862,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-fr-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (French) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-fr.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6495,7 +6875,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-hi-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-hi.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6508,7 +6888,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-id-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-id.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6521,7 +6901,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-ja-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-ja.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6534,7 +6914,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-ko-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-ko.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6547,7 +6927,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-ru-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-ru.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6560,7 +6940,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-sw-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-sw.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6573,7 +6953,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-te-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-te.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6586,7 +6966,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-th-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-th.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6599,7 +6979,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-zh-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-zh.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6612,7 +6992,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-de-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (German) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-de.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-de.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-de.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6625,7 +7005,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-yo-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Yoruba) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-yo.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-yo.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-yo.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
@@ -6639,10 +7019,10 @@ FAISS_INDEX_INFO = {
 
     "miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-arabic.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "428fbde84d2c18e48f0821298947a9d1",
         "size compressed (bytes)": 5866199790,
@@ -6652,10 +7032,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-bn.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "4394a09e043be9be5b820814a82fc8ac",
         "size compressed (bytes)": 846476050,
@@ -6665,10 +7045,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-en.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "5bd57f5e4daf93294fd2cbd969c05bb3",
         "size compressed (bytes)": 93527497283,
@@ -6678,10 +7058,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-es.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "b6db16c1ab0ae95fec0465299c660d2a",
         "size compressed (bytes)": 29544413180,
@@ -6691,10 +7071,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Persian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-fa.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "2a2825706211eb96bd3dbb616463c661",
         "size compressed (bytes)": 6283957262,
@@ -6704,10 +7084,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-fi.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "65719de730cda3fa5f6a8a75611db6eb",
         "size compressed (bytes)": 5363289277,
@@ -6717,10 +7097,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (French) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-fr.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "24eb2f63f78aa1e39b1ea61e20661424",
         "size compressed (bytes)": 41635104326,
@@ -6730,10 +7110,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-hi.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "d08aad08a8592aa40355fb7d50afd170",
         "size compressed (bytes)": 1439798033,
@@ -6743,10 +7123,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-id.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "b02c20d4fc27e390ec5b1e9ca732dc5a",
         "size compressed (bytes)": 4113737773,
@@ -6756,10 +7136,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-ja.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "a5f219c7f46a36c5c7a2555fbdaa0479",
         "size compressed (bytes)": 19790154560,
@@ -6769,10 +7149,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-ko.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "67b2a803eab3491a057d4ac6b81974f1",
         "size compressed (bytes)": 4230830690,
@@ -6782,10 +7162,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-ru.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "edad6d5cb508de61ba84173d0ad2aa31",
         "size compressed (bytes)": 27169921407,
@@ -6795,10 +7175,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-sw.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "0b039d766b55f678102a59a6e050d0bc",
         "size compressed (bytes)": 375865677,
@@ -6808,10 +7188,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-te.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "ea21915c69f70f41acadee4b6b83d129",
         "size compressed (bytes)": 1474866678,
@@ -6821,10 +7201,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-th.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "a5875b473109310789710e2f3df91b0f",
         "size compressed (bytes)": 1540180247,
@@ -6834,10 +7214,10 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-zh.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "a2d233e792d46c20c912d10afff033f5",
         "size compressed (bytes)": 14043150097,
@@ -6847,7 +7227,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-de-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-de.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-de.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-de.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
@@ -6860,7 +7240,7 @@ FAISS_INDEX_INFO = {
     },
     "miracl-v1.0-yo-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
-        "filename": "faiss.miracl-v1.0-yo.20221004.2b2856.tar.gz",
+        "filename": "faiss.miracl-v1.0-yo.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz",
         "readme": "faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-yo.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
@@ -6871,6 +7251,7 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "miracl-v1.0-yo",
     },
+
     "wiki-all-6-3-dpr2-multi": {
         "description": "Faiss FlatIP index of wiki-all-6-3-tamber encoded by a 2nd iteration DPR model trained on multiple QA datasets",
         "filename": "faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.tar.gz",
@@ -6883,5 +7264,213 @@ FAISS_INDEX_INFO = {
         "documents": 76680040,
         "downloaded": False,
         "texts": "wiki-all-6-3-tamber"
+    },
+    "miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-miracl-ar": {
+        "description": "Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco-ft-miracl-ar.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco-ft-miracl-ar.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "29cdb7fa7cc52cabc32791d57be3bd42",
+        "size compressed (bytes)": 5871030506,
+        "documents": 2061414,
+        "downloaded": False,
+        "texts": "miracl-v1.0-ar"
+    },
+    "miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-miracl-bn": {
+        "description": "Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco-ft-miracl-bn.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco-ft-miracl-bn.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "8972166564a9c13e102ae83ea062c166",
+        "size compressed (bytes)": 846236944,
+        "documents": 297265,
+        "downloaded": False,
+        "texts": "miracl-v1.0-bn"
+    },
+    "miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-miracl-en": {
+        "description": "Faiss index for MIRACL v1.0 (English) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco-ft-miracl-en.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco-ft-miracl-en.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "cd43e6c93879a107b94396a42aa7c987",
+        "size compressed (bytes)": 93502848095,
+        "documents": 32893221,
+        "downloaded": False,
+        "texts": "miracl-v1.0-en"
+    },
+    "miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-miracl-es": {
+        "description": "Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco-ft-miracl-es.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco-ft-miracl-es.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "4f45c3171690dd691afcfc9e45b89494",
+        "size compressed (bytes)": 29552466540,
+        "documents": 10373953,
+        "downloaded": False,
+        "texts": "miracl-v1.0-es"
+    },
+    "miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-miracl-fa": {
+        "description": "Faiss index for MIRACL v1.0 (Persian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco-ft-miracl-fa.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco-ft-miracl-fa.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "ae262fea849f6903c93e1f3269e07804",
+        "size compressed (bytes)": 6287728719,
+        "documents": 2207172,
+        "downloaded": False,
+        "texts": "miracl-v1.0-fa"
+    },
+    "miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-miracl-fi": {
+        "description": "Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco-ft-miracl-fi.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco-ft-miracl-fi.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "12c5c5c4dd8df37ad8ae90039851fbec",
+        "size compressed (bytes)": 5367069541,
+        "documents": 1883509,
+        "downloaded": False,
+        "texts": "miracl-v1.0-fi"
+    },
+    "miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-miracl-fr": {
+        "description": "Faiss index for MIRACL v1.0 (French) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco-ft-miracl-fr.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco-ft-miracl-fr.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "8cf28f8df0805a848cb5c54d5f5d8bfb",
+        "size compressed (bytes)": 41654288474,
+        "documents": 14636953,
+        "downloaded": False,
+        "texts": "miracl-v1.0-fr"
+    },
+    "miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-miracl-hi": {
+        "description": "Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco-ft-miracl-hi.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco-ft-miracl-hi.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "f579dfa45a5f14c48f97ba9980f7dec8",
+        "size compressed (bytes)": 1440859085,
+        "documents": 506264,
+        "downloaded": False,
+        "texts": "miracl-v1.0-hi"
+    },
+    "miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-miracl-id": {
+        "description": "Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco-ft-miracl-id.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco-ft-miracl-id.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "d5b540fb82fe21c1fd2b56e248184af6",
+        "size compressed (bytes)": 4111428848,
+        "documents": 1446315,
+        "downloaded": False,
+        "texts": "miracl-v1.0-id"
+    },
+    "miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-miracl-ja": {
+        "description": "Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco-ft-miracl-ja.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco-ft-miracl-ja.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "e7ad21b12a7d5e937c55d49184d68814",
+        "size compressed (bytes)": 19790420501,
+        "documents": 6953614,
+        "downloaded": False,
+        "texts": "miracl-v1.0-ja"
+    },
+    "miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-miracl-ko": {
+        "description": "Faiss index for MIRACL v1.0 (Korean) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco-ft-miracl-ko.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco-ft-miracl-ko.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "c31290dfae5429549500759279af3a8d",
+        "size compressed (bytes)": 4230154713,
+        "documents": 1486752,
+        "downloaded": False,
+        "texts": "miracl-v1.0-ko"
+    },
+    "miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-miracl-ru": {
+        "description": "Faiss index for MIRACL v1.0 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco-ft-miracl-ru.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco-ft-miracl-ru.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "b9460efd096292a1012ab1d27082498e",
+        "size compressed (bytes)": 27177739148,
+        "documents": 9543918,
+        "downloaded": False,
+        "texts": "miracl-v1.0-ru"
+    },
+    "miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-miracl-sw": {
+        "description": "Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco-ft-miracl-sw.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco-ft-miracl-sw.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "526a930a27353462e11cc7e1b794dcc7",
+        "size compressed (bytes)": 375865597,
+        "documents": 131924,
+        "downloaded": False,
+        "texts": "miracl-v1.0-sw"
+    },
+    "miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-miracl-te": {
+        "description": "Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco-ft-miracl-te.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco-ft-miracl-te.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "f64b28542afdd15b2fe3831972bcd91e",
+        "size compressed (bytes)": 1475895517,
+        "documents": 518079,
+        "downloaded": False,
+        "texts": "miracl-v1.0-te"
+    },
+    "miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-miracl-th": {
+        "description": "Faiss index for MIRACL v1.0 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco-ft-miracl-th.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco-ft-miracl-th.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "b6ba6d5363bf07a5dc8e1cd35fe11e93",
+        "size compressed (bytes)": 1540581013,
+        "documents": 542166,
+        "downloaded": False,
+        "texts": "miracl-v1.0-th"
+    },
+    "miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-miracl-zh": {
+        "description": "Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
+        "filename": "faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco-ft-miracl-zh.20230329.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco-ft-miracl-zh.20230329.e40d4a.tar.gz",
+        ],
+        "md5": "feba34e41cb8234988f7fb99bd8998f3",
+        "size compressed (bytes)": 14049243202,
+        "documents": 4934368,
+        "downloaded": False,
+        "texts": "miracl-v1.0-zh"
     },
 }

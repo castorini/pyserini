@@ -62,7 +62,7 @@ class AutoDocumentEncoder(DocumentEncoder):
         else:
             embeddings = outputs[0][:, 0, :].detach().cpu().numpy()
         if self.l2_norm:
-            normalize(embeddings, axis=1)
+            embeddings = normalize(embeddings, axis=1)
         return embeddings
 
 
