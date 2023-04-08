@@ -1,4 +1,4 @@
-# Pyserini: Reproducing SLIM on MS MARCO Passages-v1
+# Pyserini: SLIM on MS MARCO V1 Passage Ranking
 
 This guide describes how to reproduce the SLIM experiments in the following paper:
 
@@ -7,7 +7,7 @@ Inverted Indexes.](https://arxiv.org/abs/2302.06587) _arXiv:2302.06587_.
 
 The training code is provided [here](https://github.com/alexlimh/SLIM).
 
-Due to naming conflict with [Lucence optimation](https://github.com/castorini/pyserini/blob/f010aa17a8f51887c056bff2f52f85d78e6eb27b/pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md), we use `slimr` to denote our model which stands for ''slim retrieval''.
+Due to a naming conflict with [the "slim" version of Lucene indexes](https://github.com/castorini/pyserini/blob/f010aa17a8f51887c056bff2f52f85d78e6eb27b/pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-slim.20220131.9ea315.README.md), we use `slimr` to denote our model, which stands for "slim retrieval".
 
 To reproduce the non-distilled version of SLIM, we run retrieval using the `castorini/slimr-msmarco-passage` model available on Huggingface's model hub:
 
