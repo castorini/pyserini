@@ -17,7 +17,7 @@
 import requests
 import unittest
 
-from pyserini.prebuilt_index_info import TF_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
 
 
 class TestPrebuiltIndexes(unittest.TestCase):
@@ -28,7 +28,6 @@ class TestPrebuiltIndexes(unittest.TestCase):
             if 'beir' in key and 'lucene8' not in key:
                 cnt += 1
                 for url in TF_INDEX_INFO[key]['urls']:
-                    print(f'{key} {url}')
                     urls.append(url)
 
         # 29 each for flat and multifield
@@ -42,9 +41,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
             if 'mrtydi' in key and 'lucene8' not in key:
                 cnt += 1
                 for url in TF_INDEX_INFO[key]['urls']:
-                    print(f'{key} {url}')
                     urls.append(url)
-        print(cnt)
 
         # 11 languages
         self.assertEqual(cnt, 11)
@@ -57,12 +54,85 @@ class TestPrebuiltIndexes(unittest.TestCase):
             if 'miracl' in key:
                 cnt += 1
                 for url in TF_INDEX_INFO[key]['urls']:
-                    print(f'{key} {url}')
                     urls.append(url)
-        print(cnt)
 
         # 18 languages including surprise
         self.assertEqual(cnt, 18)
+        self._test_urls(urls)
+
+    def test_impact_beir(self):
+        urls = []
+        cnt = 0
+        for key in IMPACT_INDEX_INFO:
+            if 'miracl' in key:
+                cnt += 1
+                for url in IMPACT_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        # currently, none
+        self.assertEqual(cnt, 0)
+
+    def test_impact_mrtydi(self):
+        urls = []
+        cnt = 0
+        for key in IMPACT_INDEX_INFO:
+            if 'miracl' in key:
+                cnt += 1
+                for url in IMPACT_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        # currently, none
+        self.assertEqual(cnt, 0)
+
+    def test_impact_miracl(self):
+        urls = []
+        cnt = 0
+        for key in IMPACT_INDEX_INFO:
+            if 'miracl' in key:
+                cnt += 1
+                for url in IMPACT_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        # currently, none
+        self.assertEqual(cnt, 0)
+
+    def test_faiss_beir(self):
+        urls = []
+        cnt = 0
+        for key in FAISS_INDEX_INFO:
+            if 'beir' in key:
+                cnt += 1
+                for url in FAISS_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        # each 29: contriever, contriever-msmarco
+        self.assertEqual(cnt, 58)
+        self._test_urls(urls)
+
+    def test_faiss_mrtydi(self):
+        urls = []
+        cnt = 0
+        for key in FAISS_INDEX_INFO:
+            if 'mrtydi' in key:
+                cnt += 1
+                for url in FAISS_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        # each 11: mdpr-nq, mdpr-tied-pft-msmarco, mdpr-tied-pft-nq, mdpr-tied-pft-msmarco-ft-all
+        self.assertEqual(cnt, 44)
+        self._test_urls(urls)
+
+    def test_faiss_miracl(self):
+        urls = []
+        cnt = 0
+        for key in FAISS_INDEX_INFO:
+            if 'miracl' in key:
+                cnt += 1
+                for url in FAISS_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        # 18 pFT MS MARCO, 18 pFT MS MARCO all, 16 pFT MS MARCO + per lang (no de, yo)
+        self.assertEqual(cnt, 52)
         self._test_urls(urls)
 
     def _test_urls(self, urls):
