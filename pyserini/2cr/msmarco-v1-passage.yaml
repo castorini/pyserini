@@ -545,7 +545,7 @@ conditions:
     display: "SLIM: on-the-fly query inference"
     display-html: "SLIM: on-the-fly query inference"
     display-row: "[6]"
-    command: python -m pyserini.search.lucene --index msmarco-v1-passage-slimr --topics $topics --encoder castorini/slimr-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr --output $output --output-format msmarco  --batch 128 --threads 16 --hits 1000 --impact --min-idf 3
+    command: python -m pyserini.search.lucene --threads 16 --batch 128 --index msmarco-v1-passage-slimr --topics $topics --encoder castorini/slimr-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr --output $output --output-format msmarco --hits 1000 --impact --min-idf 3
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
