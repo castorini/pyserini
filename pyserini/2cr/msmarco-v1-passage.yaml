@@ -541,3 +541,26 @@ conditions:
           - MAP: 0.4754
             nDCG@10: 0.6882
             R@1K: 0.8429
+  - name: slimr
+    display: "SLIM: on-the-fly query inference"
+    display-html: "SLIM: on-the-fly query inference"
+    display-row: "[6]"
+    command: python -m pyserini.search.lucene --index msmarco-v1-passage-slimr --topics $topics --encoder castorini/slimr-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr --output $output --output-format msmarco  --batch 128 --threads 16 --hits 1000 --impact --min-idf 3
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3581
+            R@1K: 0.9620
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4486
+            nDCG@10: 0.6995
+            R@1K: 0.8378
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4415
+            nDCG@10: 0.6403
+            R@1K: 0.8635
