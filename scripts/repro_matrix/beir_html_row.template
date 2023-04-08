@@ -10,12 +10,16 @@
 <td></td>
 <td>$s5</td>
 <td>$s6</td>
+<td></td>
 <td>$s7</td>
 <td>$s8</td>
+<td></td>
+<td>$s9</td>
+<td>$s10</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="11">
+<td colspan="15">
 <div id="collapse${row_cnt}" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -31,6 +35,9 @@
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row${row_cnt}-tab4-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab4" role="tab" aria-controls="row${row_cnt}-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row${row_cnt}-tab5-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab5" role="tab" aria-controls="row${row_cnt}-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -86,6 +93,19 @@ Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>${eval_cmd4}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row${row_cnt}-tab5" role="tabpanel" aria-labelledby="row${row_cnt}-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd5
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd5}</code></pre>
   </blockquote>
 
   </div>
