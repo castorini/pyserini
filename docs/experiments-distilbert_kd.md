@@ -12,7 +12,7 @@ Dense retrieval, with brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
+  --index msmarco-passage.distilbert-dot-margin_mse-T2 \
   --topics msmarco-passage-dev-subset \
   --encoded-queries distilbert_kd-msmarco-passage-dev-subset \
   --output runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv \

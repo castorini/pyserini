@@ -26,7 +26,7 @@ from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
 
-class TestSearchIntegration(unittest.TestCase):
+class TestDpr(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
         self.threads = 16

@@ -33,7 +33,7 @@ def parse_kilt_score(output, metric, digits=4):
     return None
 
 
-class TestSearchIntegration(unittest.TestCase):
+class TestKilt(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
         self.threads = 16

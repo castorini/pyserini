@@ -24,7 +24,7 @@ BPR with brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index wikipedia-bpr-single-nq-hash \
+  --index wikipedia.bpr-single-nq \
   --topics dpr-nq-test \
   --encoded-queries bpr_single_nq-nq-test \
   --output runs/run.bpr.rerank.nq-test.nq.hash.trec \

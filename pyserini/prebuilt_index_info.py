@@ -5952,7 +5952,7 @@ FAISS_INDEX_INFO = {
         "texts": "beir-v1.0.0-scifact.flat",
     },
 
-    "msmarco-passage.tct_colbert-hnsw": {
+    "msmarco-passage.tct_colbert.hnsw": {
         "description": "Faiss HNSW index of the MS MARCO passage corpus encoded by TCT-ColBERT",
         "filename": "faiss-hnsw.msmarco-passage.tct_colbert.20210112.be7119.tar.gz",
         "urls": [
