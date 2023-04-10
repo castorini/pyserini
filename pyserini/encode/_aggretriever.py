@@ -22,7 +22,7 @@ import torch.nn as nn
 if torch.cuda.is_available():
     from torch.cuda.amp import autocast
 
-from transformers import DistilBertConfig, BertConfig, BertTokenizer
+from transformers import DistilBertConfig, BertConfig
 from transformers import AutoModelForMaskedLM, AutoTokenizer, PreTrainedModel
 from pyserini.encode import DocumentEncoder, QueryEncoder
 
@@ -33,9 +33,7 @@ class BERTAggretrieverEncoder(PreTrainedModel):
 
     def __init__(self, config: BertConfig):
         super().__init__(config)
-
         self.config = config
-
         self.softmax = nn.Softmax(dim=-1)
         self.encoder = AutoModelForMaskedLM.from_config(config)
         self.tok_proj = torch.nn.Linear(config.hidden_size, 1)
@@ -63,7 +61,6 @@ class BERTAggretrieverEncoder(PreTrainedModel):
                 lexical_reps = lexical_reps[:, remove_dims:].view(batch_size, -1, dims*2)
             else:
                 lexical_reps = torch.nn.functional.pad(lexical_reps, (0, -remove_dims), "constant", 0).view(batch_size, -1, dims*2)
-            
             tok_reps, _ = lexical_reps.max(1)
             positive_tok_reps = tok_reps[:, 0:2*dims:2]
             negative_tok_reps = tok_reps[:, 1:2*dims:2]
@@ -75,7 +72,6 @@ class BERTAggretrieverEncoder(PreTrainedModel):
             batch_size = lexical_reps.shape[0]
             lexical_reps = lexical_reps[:, remove_dims:].view(batch_size, -1, dims)
             tok_reps, index_reps = lexical_reps.max(1)
-
         return tok_reps
 
     # Copied from transformers.models.bert.modeling_bert.BertPreTrainedModel._init_weights
@@ -100,13 +96,13 @@ class BERTAggretrieverEncoder(PreTrainedModel):
             self,
             input_ids: torch.Tensor,
             attention_mask: Optional[torch.Tensor] = None,
+            token_type_ids: torch.Tensor = None,
             skip_mlm: bool = False
     ):
         seq_out = self.encoder(input_ids=input_ids, attention_mask=attention_mask, return_dict=True)
         seq_hidden = seq_out.hidden_states[-1] 
         cls_hidden = seq_hidden[:,0] # get [CLS] embeddings
         term_weights = self.tok_proj(seq_hidden[:,1:]) # batch, seq, 1
-        
         if not skip_mlm:
             logits = seq_out.logits[:,1:] # batch, seq-1, vocab
             logits = self.softmax(logits)
@@ -120,8 +116,7 @@ class BERTAggretrieverEncoder(PreTrainedModel):
 
         lexical_reps = self.aggregate(lexical_reps, 640)
         semantic_reps = self.cls_proj(cls_hidden)
-
-        return torch.squeeze(torch.cat((semantic_reps, lexical_reps), -1))
+        return torch.cat((semantic_reps, lexical_reps), -1)
 
 
 class DistlBERTAggretrieverEncoder(BERTAggretrieverEncoder):
@@ -153,7 +148,6 @@ class AggretrieverDocumentEncoder(DocumentEncoder):
             add_special_tokens=True,
             return_tensors='pt'
         )
-
         inputs.to(self.device)
         if fp16:
             with autocast():
@@ -162,6 +156,7 @@ class AggretrieverDocumentEncoder(DocumentEncoder):
         else:
             outputs = self.model(**inputs)
         return outputs.detach().cpu().numpy()
+
 
 class AggretrieverQueryEncoder(QueryEncoder):
     def __init__(self, model_name: str, tokenizer_name=None, device='cuda:0'):
