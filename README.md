@@ -22,8 +22,8 @@ For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.34632
 
 ## ⁉️ Important Note: Lucene 8 to Lucene 9 Transition
 
-tl;dr &mdash; Pyserini just underwent a transition from Lucene 8 to Lucene 9.
-Main trunk is currently based on Lucene 9, but pre-built indexes are still based on Lucene 8.
+In 2022, Pyserini underwent a transition from Lucene 8 to Lucene 9.
+Most of the pre-built indexes have been rebuilt using Lucene 9, but there are a few still based on Lucene 8.
 
 More details:
 
@@ -34,10 +34,8 @@ Thereafter, Pyserini trunk advanced to Lucene 9.
 
 **What's the impact?**
 Indexes built with Lucene 8 are not fully compatible with Lucene 9 code (see [Anserini #1952](https://github.com/castorini/anserini/issues/1952)).
-The workaround, which has been implemented in Pyserini, is to disable consistent tie-breaking.
-This happens automatically if a Lucene 8 index is detected.
+The workaround is to disable consistent tie-breaking, which happens automatically if a Lucene 8 index is detected by Pyserini.
 However, Lucene 9 code running on Lucene 8 indexes will give slightly different results than Lucene 8 code running on Lucene 8 indexes.
-Since pre-built indexes are still based on Lucene 8, some experiments will exhibit small score differences.
 Note that Lucene 8 code is _not_ able to read indexes built with Lucene 9.
 
 **Why is this necessary?**
@@ -67,537 +65,44 @@ Instructions are provided [here](./docs/installation.md#development-installation
 
 ## 🙋 How do I search?
 
-Pyserini supports sparse retrieval (e.g., BM25 ranking using bag-of-words representations), dense retrieval (e.g., nearest-neighbor search on transformer-encoded representations), as well hybrid retrieval that integrates both approaches via linear combination of scores. 
-
-### Sparse Retrieval
-
-The `LuceneSearcher` class provides the entry point for retrieval using bag-of-words representations.
-
-<details>
-<summary>Usage</summary>
-
-Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
-Here's how to use a pre-built index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively:
-
-```python
-from pyserini.search.lucene import LuceneSearcher
-
-searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
-hits = searcher.search('what is a lobster roll?')
-
-for i in range(0, 10):
-    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
-```
-
-The results should be as follows:
-
-```
- 1 7157707 11.00830
- 2 6034357 10.94310
- 3 5837606 10.81740
- 4 7157715 10.59820
- 5 6034350 10.48360
- 6 2900045 10.31190
- 7 7157713 10.12300
- 8 1584344 10.05290
- 9 533614  9.96350
-10 6234461 9.92200
-```
-
-To further examine the results:
-
-```python
-# Grab the raw text:
-hits[0].raw
-
-# Grab the raw Lucene Document:
-hits[0].lucene_document
-```
-
-Pre-built indexes are hosted on University of Waterloo servers.
-The following method will list available pre-built indexes:
-
-```python
-LuceneSearcher.list_prebuilt_indexes()
-```
-
-A description of what's available can be found [here](docs/prebuilt-indexes.md).
-Alternatively, see [this answer](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) for how to download an index manually.
-
-</details>
-
-### Dense Retrieval
-
-The `FaissSearcher` class provides the entry point for retrieval using dense transformer-derived representations.
-
-<details>
-<summary>Usage</summary>
-
-Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
-Here's how to use a pre-built index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively:
-
-```python
-from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
-
-encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-searcher = FaissSearcher.from_prebuilt_index(
-    'msmarco-passage-tct_colbert-hnsw',
-    encoder
-)
-hits = searcher.search('what is a lobster roll')
-
-for i in range(0, 10):
-    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
-```
-
-Usage parallels `LuceneSearcher`, but for dense retrieval, we need to additionally specify the query encoder.
-
-If you encounter an error (on macOS), you'll need the following:
-
-```python
-import os
-os.environ['KMP_DUPLICATE_LIB_OK']='True'
-```
-
-The results should be as follows:
-
-```
- 1 7157710 70.53742
- 2 7157715 70.50040
- 3 7157707 70.13804
- 4 6034350 69.93666
- 5 6321969 69.62683
- 6 4112862 69.34587
- 7 5515474 69.21354
- 8 7157708 69.08416
- 9 6321974 69.06841
-10 2920399 69.01737
-```
-</details>
-
-### Hybrid Sparse-Dense Retrieval
-
-The `HybridSearcher` class provides the entry point to perform hybrid sparse-dense retrieval.
-
-<details>
-<summary>Usage</summary>
-
-The `HybridSearcher` class is constructed from combining the output of `LuceneSearcher` and `FaissSearcher`:
-
-```python
-from pyserini.search.lucene import LuceneSearcher
-from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
-from pyserini.search.hybrid import HybridSearcher
-
-ssearcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
-encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-dsearcher = FaissSearcher.from_prebuilt_index(
-    'msmarco-passage-tct_colbert-hnsw',
-    encoder
-)
-hsearcher = HybridSearcher(dsearcher, ssearcher)
-hits = hsearcher.search('what is a lobster roll')
-
-for i in range(0, 10):
-    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
-```
-
-The results should be as follows:
-
-```
- 1 7157715 71.56022
- 2 7157710 71.52962
- 3 7157707 71.23887
- 4 6034350 70.98502
- 5 6321969 70.61903
- 6 4112862 70.33807
- 7 5515474 70.20574
- 8 6034357 70.11168
- 9 5837606 70.09911
-10 7157708 70.07636
-```
-
-In general, hybrid retrieval will be more effective than dense retrieval, which will be more effective than sparse retrieval.
-
-</details>
-
-## 🙋 How do I fetch a document?
-
-Another commonly used feature in Pyserini is to fetch a document (i.e., its text) given its `docid`.
-A sparse (Lucene) index can be configured to include the raw document text, in which case the `doc()` method can be used to fetch the document:
-
-```python
-from pyserini.search.lucene import LuceneSearcher
-
-searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
-doc = searcher.doc('7157715')
-```
-
-<details>
-<summary>Additional details</summary>
-
-From `doc`, you can access its `contents` as well as its `raw` representation.
-The `contents` hold the representation of what's actually indexed; the `raw` representation is usually the original "raw document".
-A simple example can illustrate this distinction: for an article from CORD-19, `raw` holds the complete JSON of the article, which obviously includes the article contents, but has metadata and other information as well.
-The `contents` contain extracts from the article that's actually indexed (for example, the title and abstract).
-In most cases, `contents` can be deterministically reconstructed from `raw`.
-When building the index, we specify flags to store `contents` and/or `raw`; it is rarely the case that we store both, since that would be a waste of space.
-In the case of the pre-built `msmacro-passage` index, we only store `raw`.
-Thus:
-
-```python
-# Document contents: what's actually indexed.
-# Note, this is not stored in the pre-built msmacro-v1-passage index.
-doc.contents()
-                                                                                                   
-# Raw document
-doc.raw()
-```
-
-As you'd expected, `doc.id()` returns the `docid`, which is `7157715` in this case.
-Finally, `doc.lucene_document()` returns the underlying Lucene `Document` (i.e., a Java object).
-With that, you get direct access to the complete Lucene API for manipulating documents.
-
-Since each text in the MS MARCO passage corpus is a JSON object, we can read the document into Python and manipulate:
-
-```python
-import json
-json_doc = json.loads(doc.raw())
-
-json_doc['contents']
-# 'contents' of the document:
-# A Lobster Roll is a bread roll filled with bite-sized chunks of lobster meat...
-```
-
-Every document has a `docid`, of type string, assigned by the collection it is part of.
-In addition, Lucene assigns each document a unique internal id (confusingly, Lucene also calls this the `docid`), which is an integer numbered sequentially starting from zero to one less than the number of documents in the index.
-This can be a source of confusion but the meaning is usually clear from context.
-Where there may be ambiguity, we refer to the external collection `docid` and Lucene's internal `docid` to be explicit.
-Programmatically, the two are distinguished by type: the first is a string and the second is an integer.
-
-As an important side note, Lucene's internal `docid`s are _not_ stable across different index instances.
-That is, in two different index instances of the same collection, Lucene is likely to have assigned different internal `docid`s for the same document.
-This is because the internal `docid`s are assigned based on document ingestion order; this will vary due to thread interleaving during indexing (which is usually performed on multiple threads).
-
-The `doc` method in `searcher` takes either a string (interpreted as an external collection `docid`) or an integer (interpreted as Lucene's internal `docid`) and returns the corresponding document.
-Thus, a simple way to iterate through all documents in the collection (and for example, print out its external collection `docid`) is as follows:
-
-```python
-for i in range(searcher.num_docs):
-    print(searcher.doc(i).docid())
-```
-
-</details>
-
-## 🙋 How do I index and search my own documents?
-
-In addition to standard corpora used in IR and NLP research, Pyserini allows you to index and search your own documents.
-
-### Sparse Indexes
-
-To build sparse (i.e., Lucene inverted indexes) on your own document collections, follow the instructions below.
-
-<details>
-<summary>Guide to indexing and searching English documents</summary>
- 
-Pyserini (via Anserini) provides ingestors for document collections in many different formats.
-The simplest, however, is the following JSON format:
-
-```json
-{
-  "id": "doc1",
-  "contents": "this is the contents."
-}
-```
-
-A document is simply comprised of two fields, a `docid` and `contents`.
-Pyserini accepts collections comprised of these documents organized in three different ways:
-
-+ Folder with each JSON in its own file, like [this](tests/resources/sample_collection_json).
-+ Folder with files, each of which contains an array of JSON documents, like [this](tests/resources/sample_collection_json_array).
-+ Folder with files, each of which contains a JSON on an individual line, like [this](tests/resources/sample_collection_jsonl) (often called JSONL format).
-
-So, the quickest way to get started is to write a script that converts your documents into the above format.
-Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
-
-```bash
-python -m pyserini.index.lucene \
-  --collection JsonCollection \
-  --input tests/resources/sample_collection_jsonl \
-  --index indexes/sample_collection_jsonl \
-  --generator DefaultLuceneDocumentGenerator \
-  --threads 1 \
-  --storePositions --storeDocvectors --storeRaw
-```
-
-Three options control the type of index that is built:
-
-+ `--storePositions`: builds a standard positional index
-+ `--storeDocvectors`: stores doc vectors (required for relevance feedback)
-+ `--storeRaw`: stores raw documents
-
-If you don't specify any of the three options above, Pyserini builds an index that only stores term frequencies.
-This is sufficient for simple "bag of words" querying (and yields the smallest index size).
-
-Once indexing is done, you can use `SimpleSearcher` to search the index:
-
-```python
-from pyserini.search.lucene import LuceneSearcher
-
-searcher = LuceneSearcher('indexes/sample_collection_jsonl')
-hits = searcher.search('document')
-
-for i in range(len(hits)):
-    print(f'{i+1:2} {hits[i].docid:4} {hits[i].score:.5f}')
-```
-
-You should get something like the following:
-
-```
- 1 doc2 0.25620
- 2 doc3 0.23140
-```
-
-If you want to perform a batch retrieval run (e.g., directly from the command line), organize all your queries in a tsv file, like [here](tests/resources/sample_queries.tsv).
-The format is simple: the first field is a query id, and the second field is the query itself.
-Note that the file extension _must_ end in `.tsv` so that Pyserini knows what format the queries are in.
-
-Then, you can run:
-
-```bash
-python -m pyserini.search.lucene \
-  --index indexes/sample_collection_jsonl \
-  --topics tests/resources/sample_queries.tsv \
-  --output run.sample.txt \
-  --bm25
-```
-
-The output:
-
-```bash
-$ cat run.sample.txt
-1 Q0 doc2 1 0.256200 Anserini
-1 Q0 doc3 2 0.231400 Anserini
-2 Q0 doc1 1 0.534600 Anserini
-3 Q0 doc1 1 0.256200 Anserini
-3 Q0 doc2 2 0.256199 Anserini
-4 Q0 doc3 1 0.483000 Anserini
-```
-
-Note that output run file is in standard TREC format.
-
-You can also add extra fields in your documents when needed, e.g. text features.
-For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entities) Named Entity Recognition (NER) result of `contents` could be stored as an additional field `NER`.
-
-```json
-{
-  "id": "doc1",
-  "contents": "The Manhattan Project and its atomic bomb helped bring an end to World War II. Its legacy of peaceful uses of atomic energy continues to have an impact on history and science.",
-  "NER": {
-            "ORG": ["The Manhattan Project"],
-            "MONEY": ["World War II"]
-         }
-}
-```
-
-</details>
-
-<details>
-<summary>Guide to indexing and searching non-English documents</summary>
-
-Instructions for indexing and searching non-English corpora is quite similar to English corpora, so check out the above guide first.
-
-Here's a [sample collection in Chinese](tests/resources/sample_collection_jsonl_zh) in the JSONL format.
-To index:
-
-```bash
-python -m pyserini.index.lucene \
-  --collection JsonCollection \
-  --input tests/resources/sample_collection_jsonl_zh \
-  --language zh \
-  --index indexes/sample_collection_jsonl_zh \
-  --generator DefaultLuceneDocumentGenerator \
-  --threads 1 \
-  --storePositions --storeDocvectors --storeRaw
-```
-
-The only difference here is that we specify `--language zh` using the ISO language code.
-
-Using `LuceneSearcher` to search the index:
-
-```python
-from pyserini.search.lucene import LuceneSearcher
-
-searcher = LuceneSearcher('indexes/sample_collection_jsonl_zh')
-searcher.set_language('zh')
-hits = searcher.search('滑铁卢')
-
-for i in range(len(hits)):
-    print(f'{i+1:2} {hits[i].docid:4} {hits[i].score:.5f}')
-```
-
-The only difference is to use `set_language` to set the language.
-
-To perform a batch run:
-
-```bash
-python -m pyserini.search.lucene \
-  --index indexes/sample_collection_jsonl_zh \
-  --topics tests/resources/sample_queries_zh.tsv \
-  --output run.sample_zh.txt \
-  --language zh \
-  --bm25
-```
-
-Here's what the [query file](tests/resources/sample_queries_zh.tsv) looks like, in tsv.
-Once again, add `--language zh`.
-
-And the expected output:
-
-```bash
-$ cat run.sample_zh.txt
-1 Q0 doc1 1 1.337800 Anserini
-2 Q0 doc3 1 0.119100 Anserini
-2 Q0 doc2 2 0.092600 Anserini
-2 Q0 doc1 3 0.091100 Anserini
-```
-
-</details>
-
-### Dense Indexes
-
-To build dense indexes (e.g., Faiss indexes) on your own document collections, follow the instructions below.
-
-<details>
-<summary>Guide to indexing and searching English documents</summary>
-
-To build the dense index, Pyserini allows to either directly build Faiss Flat index via `pyserini.encode` with `output --to-faiss`, 
-or first encode collections into vectors via `pyserini.encode`, then build various types of Faiss index via `pyserini.index.faiss` based on the encoded collections. 
- 
-To use the `pyserini.encode`, the input should be in JSONL format. 
-Each line is a json dictionary containing two fields, i.e .`id` and `contents`.
-- `id` is the document id in string.
-- `contents` contains all the fields of the documents. By default, Pyserini expects the fields in contents are separated by `\n`. The field's boundary can be controled using `--delimiter` argument under `input`, see the example script below.
-
-For example, the following document has *four* fields in contents, `url`, `title`, `text` and `expand`,
-where the value of each field is `"www.url.com`, `title`, `this is the contents`, and `document expansion` respectively.
-```json
-{
-  "id": "doc1",
-  "contents": "www.url.com\ntitle\nthis is the contents.\ndocument expansion"
-}
-```
-The `contents` can also only have one fields, as in the `tests/resources/simple_cacm_corpus.json` sample file:
-```json
-{
-  "id": "CACM-2636",
-  "contents": "Generation of Random Correlated Normal ... \n"
-}
-```
-
-With the collection in the correct foramt, we can now encode documents with Dense encoders:
-```bash
-python -m pyserini.encode \
-  input   --corpus tests/resources/simple_cacm_corpus.json \
-          --fields text \  # fields in collection contents
-          --delimiter "\n" \
-          --shard-id 0 \   # The id of current shard. Default is 0
-          --shard-num 1 \  # The total number of shards. Default is 1
-  output  --embeddings path/to/output/dir \
-          --to-faiss \
-  encoder --encoder castorini/tct_colbert-v2-hnp-msmarco \
-          --fields text \  # fields to encode, they must appear in the input.fields
-          --batch 32 \
-          --fp16  # if inference with autocast()
-```
-* the `--corpus` can be either be a json file, or a directory that contains multiple json files
-* with `--to-faiss`, the generated embeddings will be stored as FaissIndexIP directly.  Otherwise it will be stored in `.jsonl` format.  If in `.jsonl` format, each line contains following info:
-```json
-{
-  "id": "CACM-2636",
-  "contents": "Generation of Random Correlated Normal ... \n"},
-  "vector": [0.126, ..., -0.004]
-}
-```
-* The `shard-id` and `shard-num` arguments are for speeding up the encoding, where the `shard-num` controls the total shard you want to segment the collection into, and the `shard-id` is the id of the current shard to encode. For example, if `shard-num` is 4 and `shard-id` is 0, the command would create a sub-index for the first 1/4 of the collection. Then you can run 4 process on 4 gpu to speed up the process by 4 times.  Once it's done, you can merge the sub-indexes together by:
-```bash
-python -m pyserini.index.merge_faiss_indexes --prefix indexes/dindex-sample-dpr-multi- --shard-num 4
-```
-
-#### Encode documents with Sparse encoder
-```bash
-python -m pyserini.encode \
-  input   --corpus tests/resources/simple_cacm_corpus.json \
-          --fields text \
-  output  --embeddings path/to/output/dir \
-  encoder --encoder castorini/unicoil-d2q-msmarco-passage \
-          --fields text \
-          --batch 32 \
-          --fp16 # if inference with autocast()
-```
-The output will be stored in jsonl format. Each line contains following info:
-```json
-{
-  "id": "CACM-2636",
-  "contents": "Generation of Random Correlated Normal ... \n",
-  "vector": {"generation":  0.12, "of":  0.1, "random":  0, ...}
-}
-```
-
-Once the collections are [encoded](usage-encode.md) into vectors,
-we can start to build the index.
-
-Pyserini supports four types of index so far:
-1. [HNSWPQ](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexHNSWPQ.html#struct-faiss-indexhnswpq)
-```bash
-python -m pyserini.index.faiss \
-  --input path/to/encoded/corpus \  # either in the Faiss or the jsonl format
-  --output path/to/output/index \
-  --hnsw \
-  --pq
-```
-
-2. [HNSW](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexHNSW.html#struct-faiss-indexhnsw)
-```bash
-python -m pyserini.index.faiss \
-  --input path/to/encoded/corpus \  # either in the Faiss or the jsonl format
-  --output path/to/output/index \
-  --hnsw
-```
-
-3. [PQ](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexPQ.html)
-```bash
-python -m pyserini.index.faiss \
-  --input path/to/encoded/corpus \  # either in the Faiss or the jsonl format
-  --output path/to/output/index \
-  --pq
-```
-4. [Flat](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexFlat.html)
-
-This command is for converting the `.jsonl` format into Faiss flat format,
-and generates the same files with `pyserini.encode` with `--to-faiss` specified.
-```bash
-python -m pyserini.index.faiss \
-  --input path/to/encoded/corpus \  # in jsonl format
-  --output path/to/output/index \
-```
-
-Once the index is built, you can use `FaissSearcher` to search in the collection:
-```python
-from pyserini.search import FaissSearcher
-
-searcher = FaissSearcher(
-    'indexes/dindex-sample-dpr-multi',
-    'facebook/dpr-question_encoder-multiset-base'
-)
-hits = searcher.search('what is a lobster roll')
-
-for i in range(0, 10):
-    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
-```
-
-
-</details>
+Pyserini supports the following classes of retrieval models:
+
++ [Traditional lexical models](docs/usage-search.md#traditional-lexical-models) (e.g., BM25) using `LuceneSearcher`.
++ [Learned sparse retrieval models](docs/usage-search.md#learned-sparse-retrieval-models) (e.g., uniCOIL, SPLADE, etc.) using `LuceneImpactSearcher`.
++ [Learned dense retrieval models](docs/usage-search.md#learned-dense-retrieval-models) (e.g., DPR, Contriever, etc.) using `FaissSearcher`.
++ [Hybrid retrieval models](docs/usage-search.md#hybrid-retrieval-models) (e.g., dense-sparse fusion) using `HybridSearcher`.
+
+See [this guide](docs/usage-search.md) (same as the links above) for details on how to search common corpora in IR and NLP research
+(e.g., MS MARCO, NaturalQuestions, BEIR, etc.) using indexes that we have already built for you.
+
+Once you get the top-_k_ results, you'll actually want to fetch the document text...
+See [this guide](docs/usage-fetch.md) for how.
+
+## 🙋 How do I index my own corpus?
+
+Well, it depends on what type of retrieval model you want to search with:
+
++ [Building a BM25 Index (Direct Java Implementation)](docs/usage-index.md#building-a-bm25-index-direct-java-implementation)
++ [Building a BM25 Index (Embeddable Python Implementation)](docs/usage-index.md#building-a-bm25-index-embeddable-python-implementation)
++ [Building a Sparse Vector Index](docs/usage-index.md#building-a-sparse-vector-index)
++ [Building a Dense Vector Index](docs/usage-index.md#building-a-dense-vector-index)
+
+The steps are different for different classes of models:
+[this guide](docs/usage-index.md) (same as the links above) describes the details.
+
+## 🙋 Additional FAQs
+
++ [How do I configure search?](docs/usage-interactive-search.md#how-do-i-configure-search) (Guide to Interactive Search)
++ [How do I manually download indexes?](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) (Guide to Interactive Search)
++ [How do I perform dense and hybrid retrieval?](docs/usage-interactive-search.md#how-do-i-perform-dense-and-hybrid-retrieval) (Guide to Interactive Search)
++ [How do I iterate over index terms and access term statistics?](docs/usage-indexreader.md#how-do-i-iterate-over-index-terms-and-access-term-statistics) (Index Reader API)
++ [How do I traverse postings?](docs/usage-indexreader.md#how-do-i-traverse-postings) (Index Reader API)
++ [How do I access and manipulate term vectors?](docs/usage-indexreader.md#how-do-i-access-and-manipulate-term-vectors) (Index Reader API)
++ [How do I compute the tf-idf or BM25 score of a document?](docs/usage-indexreader.md#how-do-i-compute-the-tf-idf-or-BM25-score-of-a-document) (Index Reader API)
++ [How do I access basic index statistics?](docs/usage-indexreader.md#how-do-i-access-basic-index-statistics) (Index Reader API)
++ [How do I access underlying Lucene analyzers?](docs/usage-analyzer.md) (Analyzer API)
++ [How do I build custom Lucene queries?](docs/usage-querybuilder.md) (Query Builder API)
++ [How do I iterate over raw collections?](docs/usage-collection.md) (Collection API)
 
 ## ⚗️ Reproducibility
 
@@ -661,6 +166,7 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 + Reproducing [Mr. TyDi experiments](https://github.com/castorini/mr.tydi/blob/main/README.md#1-bm25)
 + Reproducing [BM25 baselines for HC4](docs/experiments-hc4-v1.0.md)
 + Reproducing [BM25 baselines for HC4 on NeuCLIR22](docs/experiments-hc4-neuclir22.md)
++ Reproducing [SLIM experiments](docs/experiments-slim.md)
 
 ### Dense Retrieval
 
@@ -694,21 +200,6 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 | [MS MARCO V2 passage: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_passage_unicoil_0shot.tar) | 41 GB | `1949a00bfd5e1f1a230a04bbc1f01539` |
 | [MS MARCO V2 doc: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_doc_segmented_unicoil_noexp_0shot_v2.tar) | 55 GB | `97ba262c497164de1054f357caea0c63` |
 | [MS MARCO V2 doc: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_doc_segmented_unicoil_0shot_v2.tar) | 72 GB | `c5639748c2cbad0152e10b0ebde3b804` |
-
-
-## 🙋 Additional FAQs
-
-+ [How do I configure search?](docs/usage-interactive-search.md#how-do-i-configure-search) (Guide to Interactive Search)
-+ [How do I manually download indexes?](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) (Guide to Interactive Search)
-+ [How do I perform dense and hybrid retrieval?](docs/usage-interactive-search.md#how-do-i-perform-dense-and-hybrid-retrieval) (Guide to Interactive Search)
-+ [How do I iterate over index terms and access term statistics?](docs/usage-indexreader.md#how-do-i-iterate-over-index-terms-and-access-term-statistics) (Index Reader API)
-+ [How do I traverse postings?](docs/usage-indexreader.md#how-do-i-traverse-postings) (Index Reader API)
-+ [How do I access and manipulate term vectors?](docs/usage-indexreader.md#how-do-i-access-and-manipulate-term-vectors) (Index Reader API)
-+ [How do I compute the tf-idf or BM25 score of a document?](docs/usage-indexreader.md#how-do-i-compute-the-tf-idf-or-BM25-score-of-a-document) (Index Reader API)
-+ [How do I access basic index statistics?](docs/usage-indexreader.md#how-do-i-access-basic-index-statistics) (Index Reader API)
-+ [How do I access underlying Lucene analyzers?](docs/usage-analyzer.md) (Analyzer API)
-+ [How do I build custom Lucene queries?](docs/usage-querybuilder.md) (Query Builder API)
-+ [How do I iterate over raw collections?](docs/usage-collection.md) (Collection API)
 
 ## 📃 Additional Documentation
 
