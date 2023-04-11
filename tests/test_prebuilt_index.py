@@ -25,7 +25,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         urls = []
         cnt = 0
         for key in TF_INDEX_INFO:
-            if 'beir' in key and 'lucene8' not in key:
+            if 'beir' in key:
                 cnt += 1
                 for url in TF_INDEX_INFO[key]['urls']:
                     urls.append(url)
@@ -38,7 +38,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         urls = []
         cnt = 0
         for key in TF_INDEX_INFO:
-            if 'mrtydi' in key and 'lucene8' not in key:
+            if 'mrtydi' in key:
                 cnt += 1
                 for url in TF_INDEX_INFO[key]['urls']:
                     urls.append(url)
@@ -64,13 +64,14 @@ class TestPrebuiltIndexes(unittest.TestCase):
         urls = []
         cnt = 0
         for key in IMPACT_INDEX_INFO:
-            if 'miracl' in key:
+            if 'beir' in key:
                 cnt += 1
                 for url in IMPACT_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
-        # currently, none
-        self.assertEqual(cnt, 0)
+        # 29 from SPLADE-distill CoCodenser-medium
+        self.assertEqual(cnt, 29)
+        self._test_urls(urls)
 
     def test_impact_mrtydi(self):
         urls = []
