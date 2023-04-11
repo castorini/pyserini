@@ -555,12 +555,12 @@ conditions:
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.4486
-            nDCG@10: 0.6995
-            R@1K: 0.8378
+          - MAP: 0.4509
+            nDCG@10: 0.7010
+            R@1K: 0.8241
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.4415
+          - MAP: 0.4419
             nDCG@10: 0.6403
-            R@1K: 0.8635
+            R@1K: 0.8543
