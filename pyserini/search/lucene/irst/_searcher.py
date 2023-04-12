@@ -33,7 +33,7 @@ from transformers import AutoTokenizer
 from pyserini.pyclass import autoclass
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.util import download_prebuilt_index, get_cache_home, download_url, download_and_unpack_index
-from pyserini.prebuilt_index_info import TF_INDEX_INFO_CURRENT
+from pyserini.prebuilt_index_info import TF_INDEX_INFO
 
 # Wrappers around Anserini classes
 JQuery = autoclass('org.apache.lucene.search.Query')
@@ -59,16 +59,16 @@ class LuceneIrstSearcher(object):
         index_directory = os.path.join(get_cache_home(), 'indexes')
         if index == 'msmarco-v1-passage':
             index_path = os.path.join(index_directory,
-                                      TF_INDEX_INFO_CURRENT['msmarco-v1-passage']['filename'][:-6] +
-                                      TF_INDEX_INFO_CURRENT['msmarco-v1-passage']['md5'])
+                                      TF_INDEX_INFO['msmarco-v1-passage']['filename'][:-6] +
+                                      TF_INDEX_INFO['msmarco-v1-passage']['md5'])
         elif index == 'msmarco-v1-doc':
             index_path = os.path.join(index_directory,
-                                      TF_INDEX_INFO_CURRENT['msmarco-v1-doc']['filename'][:-6] +
-                                      TF_INDEX_INFO_CURRENT['msmarco-v1-doc']['md5'])
+                                      TF_INDEX_INFO['msmarco-v1-doc']['filename'][:-6] +
+                                      TF_INDEX_INFO['msmarco-v1-doc']['md5'])
         elif index == 'msmarco-v1-doc-segmented':
             index_path = os.path.join(index_directory,
-                                      TF_INDEX_INFO_CURRENT['msmarco-v1-doc-segmented']['filename'][:-6] +
-                                      TF_INDEX_INFO_CURRENT['msmarco-v1-doc-segmented']['md5'])
+                                      TF_INDEX_INFO['msmarco-v1-doc-segmented']['filename'][:-6] +
+                                      TF_INDEX_INFO['msmarco-v1-doc-segmented']['md5'])
         else:
             print("We currently only support three indexes: msmarco-passage, msmarco-v1-doc and msmarco-v1-doc-segmented but the index you inserted is not one of those")
         self.object = JLuceneSearcher(index_path)

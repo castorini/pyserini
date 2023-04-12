@@ -144,6 +144,68 @@ class TestSearch(unittest.TestCase):
         for index_dir in cleanup_list:
             shutil.rmtree(index_dir)
 
+    def test_aggretriever_distilbert_encoder_cmd(self):
+        index_dir = 'temp_index'
+        cmd = f'python -m pyserini.encode \
+                  input   --corpus {self.test_file} \
+                          --fields text \
+                  output  --embeddings {index_dir} \
+                  encoder --encoder castorini/aggretriever-distilbert \
+                          --fields text \
+                          --batch 1 \
+                          --device cpu'
+        status = os.system(cmd)
+        self.assertEqual(status, 0)
+
+        embedding_json_fn = os.path.join(index_dir, 'embeddings.jsonl')
+        self.assertIsFile(embedding_json_fn)
+
+        with open(embedding_json_fn) as f:
+            embeddings = [json.loads(line) for line in f]
+
+        self.assertListEqual([entry["id"] for entry in embeddings], self.docids)
+        self.assertListEqual(
+            [entry["contents"] for entry in embeddings], 
+            [entry.strip() for entry in self.texts],
+        )
+        self.assertAlmostEqual(embeddings[0]['vector'][0], 0.14203716814517975, places=4)
+        self.assertAlmostEqual(embeddings[0]['vector'][-1], -0.011851579882204533, places=4)
+        self.assertAlmostEqual(embeddings[2]['vector'][0], 0.4780103862285614, places=4)
+        self.assertAlmostEqual(embeddings[2]['vector'][-1], 0.0017992404755204916, places=4)
+
+        shutil.rmtree(index_dir)
+    
+    def test_aggretriever_cocondenser_encoder_cmd(self):
+        index_dir = 'temp_index'
+        cmd = f'python -m pyserini.encode \
+                  input   --corpus {self.test_file} \
+                          --fields text \
+                  output  --embeddings {index_dir} \
+                  encoder --encoder castorini/aggretriever-cocondenser \
+                          --fields text \
+                          --batch 1 \
+                          --device cpu'
+        status = os.system(cmd)
+        self.assertEqual(status, 0)
+
+        embedding_json_fn = os.path.join(index_dir, 'embeddings.jsonl')
+        self.assertIsFile(embedding_json_fn)
+
+        with open(embedding_json_fn) as f:
+            embeddings = [json.loads(line) for line in f]
+
+        self.assertListEqual([entry["id"] for entry in embeddings], self.docids)
+        self.assertListEqual(
+            [entry["contents"] for entry in embeddings], 
+            [entry.strip() for entry in self.texts],
+        )
+        self.assertAlmostEqual(embeddings[0]['vector'][0], 0.4865410327911377, places=4)
+        self.assertAlmostEqual(embeddings[0]['vector'][-1], 0.006781343836337328, places=4)
+        self.assertAlmostEqual(embeddings[2]['vector'][0], 0.32751473784446716, places=4)
+        self.assertAlmostEqual(embeddings[2]['vector'][-1], 0.0014184381579980254, places=4)
+
+        shutil.rmtree(index_dir)
+
 
 class TestJsonlCollectionIterator(unittest.TestCase):
     def setUp(self):
