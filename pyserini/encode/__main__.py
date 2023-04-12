@@ -18,13 +18,14 @@ import argparse
 import sys
 
 from pyserini.encode import JsonlRepresentationWriter, FaissRepresentationWriter, JsonlCollectionIterator
-from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AutoDocumentEncoder
+from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AggretrieverDocumentEncoder, AutoDocumentEncoder
 from pyserini.encode import UniCoilDocumentEncoder
 
 
 encoder_class_map = {
     "dpr": DprDocumentEncoder,
     "tct_colbert": TctColBertDocumentEncoder,
+    "aggretriever": AggretrieverDocumentEncoder,
     "ance": AnceDocumentEncoder,
     "sentence-transformers": AutoDocumentEncoder,
     "unicoil": UniCoilDocumentEncoder,
@@ -56,7 +57,6 @@ def init_encoder(encoder, encoder_class, device):
         kwargs.update(dict(pooling='mean', l2_norm=True))
     if (_encoder_class == "contriever") or ("contriever" in encoder):
         kwargs.update(dict(pooling='mean', l2_norm=False))
-
     return encoder_class(**kwargs)
 
 

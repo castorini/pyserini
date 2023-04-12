@@ -15,6 +15,26 @@
 #
 
 QUERY_INFO = {
+    "aggretriever-cocondenser-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by aggretriever-cocondenser",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-aggretriever-cocondenser-msmarco-passage-dev-subset-20230407-f627ef.tar.gz"
+        ],
+        "md5": "c30ad20c7b101e3034f41597f0fc1f67",
+        "size (bytes)": 20859862,
+        "total_queries": 6980,
+        "downloaded": False
+    },
+    "aggretriever-distilbert-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by aggretriever-distilbert",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-aggretriever-distilbert-msmarco-passage-dev-subset-20230407-f627ef.tar.gz"
+        ],
+        "md5": "a6ee094bd681b08e5657ce69185eee82",
+        "size (bytes)": 20771767,
+        "total_queries": 6980,
+        "downloaded": False
+    },
     "tct_colbert-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by TCT-ColBERT",
         "urls": [
