@@ -154,7 +154,7 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 python -m pyserini.search.hybrid \
   dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
          --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
-  sparse --index msmarco-passage \
+  sparse --index msmarco-v1-passage \
   fusion --alpha 0.06 \
   run    --topics msmarco-passage-dev-subset \
          --output-format msmarco \
@@ -194,7 +194,7 @@ Hybrid retrieval with dense-sparse representations (with document expansion):
 python -m pyserini.search.hybrid \
   dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
          --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
-  sparse --index msmarco-passage-expanded \
+  sparse --index msmarco-v1-passage-d2q-t5 \
   fusion --alpha 0.1 \
   run    --topics msmarco-passage-dev-subset \
          --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv \

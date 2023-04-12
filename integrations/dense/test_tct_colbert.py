@@ -74,7 +74,7 @@ class TestTctColBert(unittest.TestCase):
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-passage.tct_colbert \
                                     --encoder castorini/tct_colbert-msmarco \
-                             sparse --index msmarco-passage \
+                             sparse --index msmarco-v1-passage \
                              fusion --alpha 0.12 \
                              run    --topics msmarco-passage-dev-subset \
                                     --output {output_file} \
@@ -92,7 +92,7 @@ class TestTctColBert(unittest.TestCase):
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-passage.tct_colbert \
                                     --encoder castorini/tct_colbert-msmarco \
-                             sparse --index msmarco-passage-expanded \
+                             sparse --index msmarco-v1-passage-d2q-t5 \
                              fusion --alpha 0.22 \
                              run    --topics msmarco-passage-dev-subset \
                                     --output {output_file} \
@@ -136,7 +136,7 @@ class TestTctColBert(unittest.TestCase):
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-doc.tct_colbert \
                                     --encoder castorini/tct_colbert-msmarco \
-                             sparse --index msmarco-doc-per-passage \
+                             sparse --index msmarco-v1-doc-segmented \
                              fusion --alpha 0.25 \
                              run    --topics msmarco-doc-dev \
                                     --output {output_file} \
@@ -155,7 +155,7 @@ class TestTctColBert(unittest.TestCase):
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-doc.tct_colbert \
                                     --encoder castorini/tct_colbert-msmarco \
-                             sparse --index msmarco-doc-expanded-per-passage \
+                             sparse --index msmarco-v1-doc-segmented-d2q-t5 \
                              fusion --alpha 0.32 \
                              run    --topics msmarco-doc-dev \
                                     --output {output_file} \
