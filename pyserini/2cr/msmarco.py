@@ -61,7 +61,9 @@ models = {
      'ance-otf',
      'distilbert-kd-otf',
      'distilbert-kd-tasb-otf',
-     'tct_colbert-v2-hnp-otf'],
+     'tct_colbert-v2-hnp-otf',
+     'slimr',
+     'slimr-pp'],
     'msmarco-v1-doc':
     ['bm25-doc-default',
      'bm25-doc-segmented-default',
