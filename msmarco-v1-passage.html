@@ -1,0 +1,3007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Pyserini Reproductions: MS MARCO V1 Passage</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+tr.hide-table-padding td {
+  padding: 0;
+}
+
+.expand-button {
+  position: relative;
+}
+
+.accordion-toggle .expand-button:after {
+  position: absolute;
+  left:.75rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  content: '-';
+}
+
+.accordion-toggle.collapsed .expand-button:after {
+  content: '+';
+}
+
+blockquote.mycode {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  margin-top: 15px;
+  padding-left: 15px;
+}
+
+blockquote.mycode2 {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+}
+
+tr th.headertop {
+  border-bottom: none;
+  padding-bottom: 0rem
+}
+
+tr th.headerbottom {
+  padding-top: 0rem
+}
+
+.table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
+.copy-code-button {
+	border-radius: 0;
+	min-width: 55px;
+	background: none repeat scroll 0 0 transparent;
+	background-color: grey;
+	color: #F1F2F3 !important;
+	cursor: pointer;
+	border-style: none;
+	font-family: 'HELVETICA',sans-serif;
+	font-size: 0.8em;
+	font-weight: normal;
+	text-align: center;
+	text-decoration: none;
+	text-indent: 0;
+	text-transform: uppercase;
+	font-weight: 500;
+	line-height: 1.42rem;
+	margin: 0;
+	padding: 3px 8px;
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+}
+
+.copy-code-button > span {
+	color: #F1F2F3 !important;
+}
+
+.copy-code-button, ::before, ::after {
+	box-sizing: inherit;
+}
+
+.copy-code-button::before {
+	content: '';
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 3px;
+	background-size: contain;
+	background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIxNXB4IiB2aWV3Qm94PSIwIDAgMTUgMTUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUwLjIgKDU1MDQ3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5QYWdlIDE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iRmxvdyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkJ0dG5faHRtbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTgxOS4wMDAwMDAsIC03NTMuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0xIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMTEuMDAwMDAwLCA0MDUuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTA4LjAwMDAwMCwgMzQyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMy45NzcyNzI3LDYgTDMuNDA5MDkwOTEsNiBDMi44NDQ1NDU0NSw2IDIuMzg2MzYzNjQsNi40NTgxODE4MiAyLjM4NjM2MzY0LDcuMDIyNzI3MjcgTDIuMzg2MzYzNjQsMTcuNTkwOTA5MSBDMi4zODYzNjM2NCwxOC4xNTU0NTQ1IDIuODQ0NTQ1NDUsMTguNjEzNjM2NCAzLjQwOTA5MDkxLDE4LjYxMzYzNjQgTDEzLjk3NzI3MjcsMTguNjEzNjM2NCBDMTQuNTQxODE4MiwxOC42MTM2MzY0IDE1LDE4LjE1NTQ1NDUgMTUsMTcuNTkwOTA5MSBMMTUsNy4wMjI3MjcyNyBDMTUsNi40NTgxODE4MiAxNC41NDE4MTgyLDYgMTMuOTc3MjcyNyw2IFogTTE0LjMxODE4MTgsMTcuNTkwOTA5MSBDMTQuMzE4MTgxOCwxNy43NzkwOTA5IDE0LjE2NTQ1NDUsMTcuOTMxODE4MiAxMy45NzcyNzI3LDE3LjkzMTgxODIgTDMuNDA5MDkwOTEsMTcuOTMxODE4MiBDMy4yMjA5MDkwOSwxNy45MzE4MTgyIDMuMDY4MTgxODIsMTcuNzc5MDkwOSAzLjA2ODE4MTgyLDE3LjU5MDkwOTEgTDMuMDY4MTgxODIsNy4wMjI3MjcyNyBDMy4wNjgxODE4Miw2LjgzNDU0NTQ1IDMuMjIwOTA5MDksNi42ODE4MTgxOCAzLjQwOTA5MDkxLDYuNjgxODE4MTggTDEzLjk3NzI3MjcsNi42ODE4MTgxOCBDMTQuMTY1NDU0NSw2LjY4MTgxODE4IDE0LjMxODE4MTgsNi44MzQ1NDU0NSAxNC4zMTgxODE4LDcuMDIyNzI3MjcgTDE0LjMxODE4MTgsMTcuNTkwOTA5MSBaIE0xMS45MzE4MTgyLDE5Ljk3NzI3MjcgQzExLjkzMTgxODIsMjAuMTY1NDU0NSAxMS43NzkwOTA5LDIwLjMxODE4MTggMTEuNTkwOTA5MSwyMC4zMTgxODE4IEwxLjAyMjcyNzI3LDIwLjMxODE4MTggQzAuODM0NTQ1NDU1LDIwLjMxODE4MTggMC42ODE4MTgxODIsMjAuMTY1NDU0NSAwLjY4MTgxODE4MiwxOS45NzcyNzI3IEwwLjY4MTgxODE4Miw5LjQwOTA5MDkxIEMwLjY4MTgxODE4Miw5LjIyMDkwOTA5IDAuODM0NTQ1NDU1LDkuMDY4MTgxODIgMS4wMjI3MjcyNyw5LjA2ODE4MTgyIEwxLjM2MzYzNjM2LDkuMDY4MTgxODIgTDEuMzYzNjM2MzYsOC4zODYzNjM2NCBMMS4wMjI3MjcyNyw4LjM4NjM2MzY0IEMwLjQ1ODE4MTgxOCw4LjM4NjM2MzY0IDAsOC44NDQ1NDU0NSAwLDkuNDA5MDkwOTEgTDAsMTkuOTc3MjcyNyBDMCwyMC41NDE4MTgyIDAuNDU4MTgxODE4LDIxIDEuMDIyNzI3MjcsMjEgTDExLjU5MDkwOTEsMjEgQzEyLjE1NTQ1NDUsMjEgMTIuNjEzNjM2NCwyMC41NDE4MTgyIDEyLjYxMzYzNjQsMTkuOTc3MjcyNyBMMTIuNjEzNjM2NCwxOS42MzYzNjM2IEwxMS45MzE4MTgyLDE5LjYzNjM2MzYgTDExLjkzMTgxODIsMTkuOTc3MjcyNyBaIiBpZD0iUGFnZS0xIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==");
+	background-repeat: no-repeat;
+	position: relative;
+	top: 3px;
+}
+
+.copy-code-button:focus {
+    /* Avoid an ugly focus outline on click in Chrome,
+       but darken the button for accessibility.
+       See https://stackoverflow.com/a/25298082/1481479 */
+    /* background-color: #E6E6E6; */
+	outline: 0;
+}
+
+pre[class*="prettyprint"] {
+	position: relative;
+	overflow: hidden;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image vh-100 shadow-1-strong" style="max-height: 150px">
+      <div class="mask" style="
+            background: linear-gradient(
+              45deg,
+              rgba(29, 236, 197, 0.7),
+              rgba(91, 14, 214, 0.7) 100%
+            );
+          ">
+        <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
+          <div class="text-white">
+            <h1 class="mb-3">MS MARCO V1 Passage</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+
+<div class="container my-4">
+
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.
+Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="headertop"></th>
+        <th class="headertop"></th>
+        <th class="headertop"></th>
+        <th class="headertop" colspan="4"><b>TREC 2019</b></th>
+        <th class="headertop" colspan="4"><b>TREC 2020</b></th>
+        <th class="headertop" colspan="3"><b>dev</b></th>
+      </tr>
+      <tr>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"><br/>AP</th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@1K</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"><br/>AP</th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@1K</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">RR@10</th>
+        <th class="headerbottom" scope="col">R@1K</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+<!-- Condition: BM25 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (1a)</td>
+<td style="min-width: 400px">BM25 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.3013</td>
+<td>0.5058</td>
+<td>0.7501</td>
+<td></td>
+<td>0.2856</td>
+<td>0.4796</td>
+<td>0.7863</td>
+<td></td>
+<td>0.1840</td>
+<td>0.8526</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse1" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row1-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row1-content">
+  <div class="tab-pane fade show active" id="row1-tab1" role="tabpanel" aria-labelledby="row1-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-slim \
+  --topics dl19-passage \
+  --output run.msmarco-v1-passage.bm25-default.dl19.txt \
+  --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.bm25-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.bm25-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.bm25-default.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab2" role="tabpanel" aria-labelledby="row1-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-slim \
+  --topics dl20 \
+  --output run.msmarco-v1-passage.bm25-default.dl20.txt \
+  --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.bm25-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.bm25-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.bm25-default.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab3" role="tabpanel" aria-labelledby="row1-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-slim \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bm25-default.dev.txt \
+  --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25+RM3 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (1b)</td>
+<td style="min-width: 400px">BM25+RM3 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.3416</td>
+<td>0.5216</td>
+<td>0.8136</td>
+<td></td>
+<td>0.3006</td>
+<td>0.4896</td>
+<td>0.8236</td>
+<td></td>
+<td>0.1566</td>
+<td>0.8606</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse2" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row2-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row2-tab1-header" data-mdb-toggle="tab" href="#row2-tab1" role="tab" aria-controls="row2-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row2-content">
+  <div class="tab-pane fade show active" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics dl19-passage \
+  --output run.msmarco-v1-passage.bm25-rm3-default.dl19.txt \
+  --bm25 --k1 0.9 --b 0.4 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.bm25-rm3-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.bm25-rm3-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.bm25-rm3-default.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics dl20 \
+  --output run.msmarco-v1-passage.bm25-rm3-default.dl20.txt \
+  --bm25 --k1 0.9 --b 0.4 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.bm25-rm3-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.bm25-rm3-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.bm25-rm3-default.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab3" role="tabpanel" aria-labelledby="row2-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bm25-rm3-default.dev.txt \
+  --bm25 --k1 0.9 --b 0.4 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rm3-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rm3-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25+Rocchio (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+Rocchio (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.3474</td>
+<td>0.5275</td>
+<td>0.8007</td>
+<td></td>
+<td>0.3115</td>
+<td>0.4910</td>
+<td>0.8156</td>
+<td></td>
+<td>0.1595</td>
+<td>0.8620</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse3" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row3-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row3-content">
+  <div class="tab-pane fade show active" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics dl19-passage \
+  --output run.msmarco-v1-passage.bm25-rocchio-default.dl19.txt \
+  --bm25 --k1 0.9 --b 0.4 --rocchio
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.bm25-rocchio-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.bm25-rocchio-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.bm25-rocchio-default.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab2" role="tabpanel" aria-labelledby="row3-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics dl20 \
+  --output run.msmarco-v1-passage.bm25-rocchio-default.dl20.txt \
+  --bm25 --k1 0.9 --b 0.4 --rocchio
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.bm25-rocchio-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.bm25-rocchio-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.bm25-rocchio-default.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab3" role="tabpanel" aria-labelledby="row3-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bm25-rocchio-default.dev.txt \
+  --bm25 --k1 0.9 --b 0.4 --rocchio
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rocchio-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rocchio-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: BM25 (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68) -->
+<tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25 (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68)</td>
+<td>0.2903</td>
+<td>0.4973</td>
+<td>0.7450</td>
+<td></td>
+<td>0.2876</td>
+<td>0.4876</td>
+<td>0.8031</td>
+<td></td>
+<td>0.1875</td>
+<td>0.8573</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse4" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row4-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row4-content">
+  <div class="tab-pane fade show active" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics dl19-passage \
+  --index msmarco-v1-passage-slim \
+  --output run.msmarco-v1-passage.bm25-tuned.dl19.txt \
+  --bm25
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.bm25-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.bm25-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.bm25-tuned.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab2" role="tabpanel" aria-labelledby="row4-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics dl20 \
+  --index msmarco-v1-passage-slim \
+  --output run.msmarco-v1-passage.bm25-tuned.dl20.txt \
+  --bm25
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.bm25-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.bm25-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.bm25-tuned.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab3" role="tabpanel" aria-labelledby="row4-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics msmarco-passage-dev-subset \
+  --index msmarco-v1-passage-slim \
+  --output run.msmarco-v1-passage.bm25-tuned.dev.txt \
+  --bm25
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-tuned.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25+RM3 (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68) -->
+<tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+RM3 (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68)</td>
+<td>0.3339</td>
+<td>0.5147</td>
+<td>0.7950</td>
+<td></td>
+<td>0.3017</td>
+<td>0.4924</td>
+<td>0.8292</td>
+<td></td>
+<td>0.1646</td>
+<td>0.8704</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse5" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row5-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row5-content">
+  <div class="tab-pane fade show active" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics dl19-passage \
+  --output run.msmarco-v1-passage.bm25-rm3-tuned.dl19.txt \
+  --bm25 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.bm25-rm3-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.bm25-rm3-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.bm25-rm3-tuned.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab2" role="tabpanel" aria-labelledby="row5-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics dl20 \
+  --output run.msmarco-v1-passage.bm25-rm3-tuned.dl20.txt \
+  --bm25 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.bm25-rm3-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.bm25-rm3-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.bm25-rm3-tuned.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab3" role="tabpanel" aria-labelledby="row5-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bm25-rm3-tuned.dev.txt \
+  --bm25 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rm3-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rm3-tuned.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25+Rocchio (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68) -->
+<tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+Rocchio (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68)</td>
+<td>0.3396</td>
+<td>0.5275</td>
+<td>0.7948</td>
+<td></td>
+<td>0.3120</td>
+<td>0.4908</td>
+<td>0.8327</td>
+<td></td>
+<td>0.1684</td>
+<td>0.8726</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse6" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row6-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row6-content">
+  <div class="tab-pane fade show active" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics dl19-passage \
+  --output run.msmarco-v1-passage.bm25-rocchio-tuned.dl19.txt \
+  --bm25 --rocchio
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.bm25-rocchio-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.bm25-rocchio-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.bm25-rocchio-tuned.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab2" role="tabpanel" aria-labelledby="row6-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics dl20 \
+  --output run.msmarco-v1-passage.bm25-rocchio-tuned.dl20.txt \
+  --bm25 --rocchio
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.bm25-rocchio-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.bm25-rocchio-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.bm25-rocchio-tuned.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab3" role="tabpanel" aria-labelledby="row6-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bm25-rocchio-tuned.dev.txt \
+  --bm25 --rocchio
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rocchio-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rocchio-tuned.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: BM25 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (2a)</td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.4034</td>
+<td>0.6417</td>
+<td>0.8310</td>
+<td></td>
+<td>0.4074</td>
+<td>0.6187</td>
+<td>0.8452</td>
+<td></td>
+<td>0.2723</td>
+<td>0.9470</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse7" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row7-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row7-content">
+  <div class="tab-pane fade show active" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5 \
+  --topics dl19-passage \
+  --output run.msmarco-v1-passage.bm25-d2q-t5-default.dl19.txt \
+  --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.bm25-d2q-t5-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.bm25-d2q-t5-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.bm25-d2q-t5-default.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab2" role="tabpanel" aria-labelledby="row7-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5 \
+  --topics dl20 \
+  --output run.msmarco-v1-passage.bm25-d2q-t5-default.dl20.txt \
+  --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.bm25-d2q-t5-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.bm25-d2q-t5-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.bm25-d2q-t5-default.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab3" role="tabpanel" aria-labelledby="row7-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5 \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bm25-d2q-t5-default.dev.txt \
+  --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-d2q-t5-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-d2q-t5-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25+RM3 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (2b)</td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.4483</td>
+<td>0.6586</td>
+<td>0.8863</td>
+<td></td>
+<td>0.4286</td>
+<td>0.6131</td>
+<td>0.8700</td>
+<td></td>
+<td>0.2139</td>
+<td>0.9460</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse8" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row8-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row8-content">
+  <div class="tab-pane fade show active" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5-docvectors \
+  --topics dl19-passage \
+  --output run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dl19.txt \
+  --bm25 --rm3 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab2" role="tabpanel" aria-labelledby="row8-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5-docvectors \
+  --topics dl20 \
+  --output run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dl20.txt \
+  --bm25 --rm3 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab3" role="tabpanel" aria-labelledby="row8-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5-docvectors \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dev.txt \
+  --bm25 --rm3 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25+Rocchio w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+Rocchio w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td>0.4469</td>
+<td>0.6538</td>
+<td>0.8855</td>
+<td></td>
+<td>0.4246</td>
+<td>0.6102</td>
+<td>0.8675</td>
+<td></td>
+<td>0.2158</td>
+<td>0.9467</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse9" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row9-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row9-content">
+  <div class="tab-pane fade show active" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5-docvectors \
+  --topics dl19-passage \
+  --output run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dl19.txt \
+  --bm25 --rocchio --k1 0.9 --b 0.4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab2" role="tabpanel" aria-labelledby="row9-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5-docvectors \
+  --topics dl20 \
+  --output run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dl20.txt \
+  --bm25 --rocchio --k1 0.9 --b 0.4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab3" role="tabpanel" aria-labelledby="row9-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5-docvectors \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dev.txt \
+  --bm25 --rocchio --k1 0.9 --b 0.4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: BM25 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=2.18, <i>b</i>=0.86) -->
+<tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=2.18, <i>b</i>=0.86)</td>
+<td>0.4046</td>
+<td>0.6336</td>
+<td>0.8134</td>
+<td></td>
+<td>0.4171</td>
+<td>0.6265</td>
+<td>0.8393</td>
+<td></td>
+<td>0.2816</td>
+<td>0.9506</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse10" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row10-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row10-content">
+  <div class="tab-pane fade show active" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5 \
+  --topics dl19-passage \
+  --output run.msmarco-v1-passage.bm25-d2q-t5-tuned.dl19.txt \
+  --bm25
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.bm25-d2q-t5-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.bm25-d2q-t5-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.bm25-d2q-t5-tuned.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab2" role="tabpanel" aria-labelledby="row10-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5 \
+  --topics dl20 \
+  --output run.msmarco-v1-passage.bm25-d2q-t5-tuned.dl20.txt \
+  --bm25
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.bm25-d2q-t5-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.bm25-d2q-t5-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.bm25-d2q-t5-tuned.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab3" role="tabpanel" aria-labelledby="row10-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5 \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bm25-d2q-t5-tuned.dev.txt \
+  --bm25
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-d2q-t5-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-d2q-t5-tuned.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25+RM3 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=2.18, <i>b</i>=0.86) -->
+<tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=2.18, <i>b</i>=0.86)</td>
+<td>0.4377</td>
+<td>0.6537</td>
+<td>0.8443</td>
+<td></td>
+<td>0.4348</td>
+<td>0.6235</td>
+<td>0.8605</td>
+<td></td>
+<td>0.2382</td>
+<td>0.9528</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse11" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row11-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row11-tab1-header" data-mdb-toggle="tab" href="#row11-tab1" role="tab" aria-controls="row11-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row11-content">
+  <div class="tab-pane fade show active" id="row11-tab1" role="tabpanel" aria-labelledby="row11-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5-docvectors \
+  --topics dl19-passage \
+  --output run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dl19.txt \
+  --bm25 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row11-tab2" role="tabpanel" aria-labelledby="row11-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5-docvectors \
+  --topics dl20 \
+  --output run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dl20.txt \
+  --bm25 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row11-tab3" role="tabpanel" aria-labelledby="row11-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5-docvectors \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dev.txt \
+  --bm25 --rm3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: BM25+Rocchio w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=2.18, <i>b</i>=0.86) -->
+<tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">BM25+Rocchio w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=2.18, <i>b</i>=0.86)</td>
+<td>0.4339</td>
+<td>0.6559</td>
+<td>0.8465</td>
+<td></td>
+<td>0.4376</td>
+<td>0.6224</td>
+<td>0.8641</td>
+<td></td>
+<td>0.2395</td>
+<td>0.9535</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse12" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row12-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row12-tab1-header" data-mdb-toggle="tab" href="#row12-tab1" role="tab" aria-controls="row12-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row12-content">
+  <div class="tab-pane fade show active" id="row12-tab1" role="tabpanel" aria-labelledby="row12-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5-docvectors \
+  --topics dl19-passage \
+  --output run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dl19.txt \
+  --bm25 --rocchio
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row12-tab2" role="tabpanel" aria-labelledby="row12-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5-docvectors \
+  --topics dl20 \
+  --output run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dl20.txt \
+  --bm25 --rocchio
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row12-tab3" role="tabpanel" aria-labelledby="row12-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-d2q-t5-docvectors \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dev.txt \
+  --bm25 --rocchio
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: uniCOIL (noexp): pre-encoded queries -->
+<tr class="accordion-toggle collapsed" id="row13" data-toggle="collapse" data-parent="#row13" href="#collapse13">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (3a)</td>
+<td style="min-width: 400px">uniCOIL (noexp): pre-encoded queries</td>
+<td>0.4033</td>
+<td>0.6433</td>
+<td>0.7752</td>
+<td></td>
+<td>0.4021</td>
+<td>0.6523</td>
+<td>0.7861</td>
+<td></td>
+<td>0.3153</td>
+<td>0.9239</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse13" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row13-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row13-tab1-header" data-mdb-toggle="tab" href="#row13-tab1" role="tab" aria-controls="row13-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row13-tab2-header" data-mdb-toggle="tab" href="#row13-tab2" role="tab" aria-controls="row13-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row13-content">
+  <div class="tab-pane fade show active" id="row13-tab1" role="tabpanel" aria-labelledby="row13-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-unicoil-noexp \
+  --topics dl19-passage-unicoil-noexp \
+  --output run.msmarco-v1-passage.unicoil-noexp.dl19.txt \
+  --hits 1000 --impact
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.unicoil-noexp.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.unicoil-noexp.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.unicoil-noexp.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row13-tab2" role="tabpanel" aria-labelledby="row13-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-unicoil-noexp \
+  --topics dl20-unicoil-noexp \
+  --output run.msmarco-v1-passage.unicoil-noexp.dl20.txt \
+  --hits 1000 --impact
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.unicoil-noexp.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.unicoil-noexp.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.unicoil-noexp.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row13-tab3" role="tabpanel" aria-labelledby="row13-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-unicoil-noexp \
+  --topics msmarco-passage-dev-subset-unicoil-noexp \
+  --output run.msmarco-v1-passage.unicoil-noexp.dev.txt \
+  --hits 1000 --impact
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.unicoil-noexp.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.unicoil-noexp.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: uniCOIL (w/ doc2query-T5): pre-encoded queries -->
+<tr class="accordion-toggle collapsed" id="row14" data-toggle="collapse" data-parent="#row14" href="#collapse14">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (3b)</td>
+<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): pre-encoded queries</td>
+<td>0.4612</td>
+<td>0.7024</td>
+<td>0.8292</td>
+<td></td>
+<td>0.4430</td>
+<td>0.6745</td>
+<td>0.8430</td>
+<td></td>
+<td>0.3516</td>
+<td>0.9582</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse14" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row14-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row14-tab1-header" data-mdb-toggle="tab" href="#row14-tab1" role="tab" aria-controls="row14-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row14-tab2-header" data-mdb-toggle="tab" href="#row14-tab2" role="tab" aria-controls="row14-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row14-tab3-header" data-mdb-toggle="tab" href="#row14-tab3" role="tab" aria-controls="row14-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row14-content">
+  <div class="tab-pane fade show active" id="row14-tab1" role="tabpanel" aria-labelledby="row14-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-unicoil \
+  --topics dl19-passage-unicoil \
+  --output run.msmarco-v1-passage.unicoil.dl19.txt \
+  --hits 1000 --impact
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.unicoil.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.unicoil.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.unicoil.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row14-tab2" role="tabpanel" aria-labelledby="row14-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-unicoil \
+  --topics dl20-unicoil \
+  --output run.msmarco-v1-passage.unicoil.dl20.txt \
+  --hits 1000 --impact
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.unicoil.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.unicoil.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.unicoil.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row14-tab3" role="tabpanel" aria-labelledby="row14-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-unicoil \
+  --topics msmarco-passage-dev-subset-unicoil \
+  --output run.msmarco-v1-passage.unicoil.dev.txt \
+  --hits 1000 --impact
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.unicoil.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.unicoil.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: uniCOIL (noexp): on-the-fly query inference -->
+<tr class="accordion-toggle collapsed" id="row15" data-toggle="collapse" data-parent="#row15" href="#collapse15">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">uniCOIL (noexp): on-the-fly query inference</td>
+<td>0.4033</td>
+<td>0.6434</td>
+<td>0.7752</td>
+<td></td>
+<td>0.4022</td>
+<td>0.6524</td>
+<td>0.7861</td>
+<td></td>
+<td>0.3153</td>
+<td>0.9239</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse15" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row15-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row15-tab1-header" data-mdb-toggle="tab" href="#row15-tab1" role="tab" aria-controls="row15-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row15-tab2-header" data-mdb-toggle="tab" href="#row15-tab2" role="tab" aria-controls="row15-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row15-tab3-header" data-mdb-toggle="tab" href="#row15-tab3" role="tab" aria-controls="row15-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row15-content">
+  <div class="tab-pane fade show active" id="row15-tab1" role="tabpanel" aria-labelledby="row15-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-unicoil-noexp \
+  --topics dl19-passage --encoder castorini/unicoil-noexp-msmarco-passage \
+  --output run.msmarco-v1-passage.unicoil-noexp-otf.dl19.txt \
+  --hits 1000 --impact
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.unicoil-noexp-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.unicoil-noexp-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.unicoil-noexp-otf.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row15-tab2" role="tabpanel" aria-labelledby="row15-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-unicoil-noexp \
+  --topics dl20 --encoder castorini/unicoil-noexp-msmarco-passage \
+  --output run.msmarco-v1-passage.unicoil-noexp-otf.dl20.txt \
+  --hits 1000 --impact
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.unicoil-noexp-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.unicoil-noexp-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.unicoil-noexp-otf.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row15-tab3" role="tabpanel" aria-labelledby="row15-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-unicoil-noexp \
+  --topics msmarco-passage-dev-subset --encoder castorini/unicoil-noexp-msmarco-passage \
+  --output run.msmarco-v1-passage.unicoil-noexp-otf.dev.txt \
+  --hits 1000 --impact
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.unicoil-noexp-otf.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.unicoil-noexp-otf.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: uniCOIL (w/ doc2query-T5): on-the-fly query inference -->
+<tr class="accordion-toggle collapsed" id="row16" data-toggle="collapse" data-parent="#row16" href="#collapse16">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): on-the-fly query inference</td>
+<td>0.4617</td>
+<td>0.7027</td>
+<td>0.8291</td>
+<td></td>
+<td>0.4429</td>
+<td>0.6745</td>
+<td>0.8433</td>
+<td></td>
+<td>0.3509</td>
+<td>0.9581</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse16" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row16-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row16-tab1-header" data-mdb-toggle="tab" href="#row16-tab1" role="tab" aria-controls="row16-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row16-tab2-header" data-mdb-toggle="tab" href="#row16-tab2" role="tab" aria-controls="row16-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row16-tab3-header" data-mdb-toggle="tab" href="#row16-tab3" role="tab" aria-controls="row16-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row16-content">
+  <div class="tab-pane fade show active" id="row16-tab1" role="tabpanel" aria-labelledby="row16-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-unicoil \
+  --topics dl19-passage --encoder castorini/unicoil-msmarco-passage \
+  --output run.msmarco-v1-passage.unicoil-otf.dl19.txt \
+  --hits 1000 --impact
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.unicoil-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.unicoil-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.unicoil-otf.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row16-tab2" role="tabpanel" aria-labelledby="row16-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-unicoil \
+  --topics dl20 --encoder castorini/unicoil-msmarco-passage \
+  --output run.msmarco-v1-passage.unicoil-otf.dl20.txt \
+  --hits 1000 --impact
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.unicoil-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.unicoil-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.unicoil-otf.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row16-tab3" role="tabpanel" aria-labelledby="row16-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-unicoil \
+  --topics msmarco-passage-dev-subset --encoder castorini/unicoil-msmarco-passage \
+  --output run.msmarco-v1-passage.unicoil-otf.dev.txt \
+  --hits 1000 --impact
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.unicoil-otf.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.unicoil-otf.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: ANCE: pre-encoded queries -->
+<tr class="accordion-toggle collapsed" id="row17" data-toggle="collapse" data-parent="#row17" href="#collapse17">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[2]</td>
+<td style="min-width: 400px">ANCE: pre-encoded queries</td>
+<td>0.3710</td>
+<td>0.6452</td>
+<td>0.7554</td>
+<td></td>
+<td>0.4076</td>
+<td>0.6458</td>
+<td>0.7764</td>
+<td></td>
+<td>0.3302</td>
+<td>0.9584</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse17" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row17-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row17-tab1-header" data-mdb-toggle="tab" href="#row17-tab1" role="tab" aria-controls="row17-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row17-tab2-header" data-mdb-toggle="tab" href="#row17-tab2" role="tab" aria-controls="row17-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row17-tab3-header" data-mdb-toggle="tab" href="#row17-tab3" role="tab" aria-controls="row17-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row17-content">
+  <div class="tab-pane fade show active" id="row17-tab1" role="tabpanel" aria-labelledby="row17-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-ance-bf \
+  --topics dl19-passage --encoded-queries ance-dl19-passage \
+  --output run.msmarco-v1-passage.ance.dl19.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.ance.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.ance.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.ance.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row17-tab2" role="tabpanel" aria-labelledby="row17-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-ance-bf \
+  --topics dl20 --encoded-queries ance-dl20 \
+  --output run.msmarco-v1-passage.ance.dl20.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.ance.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.ance.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.ance.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row17-tab3" role="tabpanel" aria-labelledby="row17-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-ance-bf \
+  --topics msmarco-passage-dev-subset --encoded-queries ance-msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.ance.dev.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.ance.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.ance.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: DistilBERT KD: pre-encoded queries -->
+<tr class="accordion-toggle collapsed" id="row18" data-toggle="collapse" data-parent="#row18" href="#collapse18">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[3]</td>
+<td style="min-width: 400px">DistilBERT KD: pre-encoded queries</td>
+<td>0.4053</td>
+<td>0.6994</td>
+<td>0.7653</td>
+<td></td>
+<td>0.4159</td>
+<td>0.6447</td>
+<td>0.7953</td>
+<td></td>
+<td>0.3251</td>
+<td>0.9553</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse18" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row18-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row18-tab1-header" data-mdb-toggle="tab" href="#row18-tab1" role="tab" aria-controls="row18-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row18-tab2-header" data-mdb-toggle="tab" href="#row18-tab2" role="tab" aria-controls="row18-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row18-tab3-header" data-mdb-toggle="tab" href="#row18-tab3" role="tab" aria-controls="row18-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row18-content">
+  <div class="tab-pane fade show active" id="row18-tab1" role="tabpanel" aria-labelledby="row18-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
+  --topics dl19-passage --encoded-queries distilbert_kd-dl19-passage \
+  --output run.msmarco-v1-passage.distilbert-kd.dl19.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.distilbert-kd.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.distilbert-kd.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.distilbert-kd.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row18-tab2" role="tabpanel" aria-labelledby="row18-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
+  --topics dl20 --encoded-queries distilbert_kd-dl20 \
+  --output run.msmarco-v1-passage.distilbert-kd.dl20.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.distilbert-kd.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.distilbert-kd.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.distilbert-kd.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row18-tab3" role="tabpanel" aria-labelledby="row18-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
+  --topics msmarco-passage-dev-subset --encoded-queries distilbert_kd-msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.distilbert-kd.dev.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.distilbert-kd.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.distilbert-kd.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: DistilBERT KD TASB: pre-encoded queries -->
+<tr class="accordion-toggle collapsed" id="row19" data-toggle="collapse" data-parent="#row19" href="#collapse19">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[4]</td>
+<td style="min-width: 400px">DistilBERT KD TASB: pre-encoded queries</td>
+<td>0.4590</td>
+<td>0.7210</td>
+<td>0.8406</td>
+<td></td>
+<td>0.4698</td>
+<td>0.6854</td>
+<td>0.8727</td>
+<td></td>
+<td>0.3444</td>
+<td>0.9771</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse19" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row19-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row19-tab1-header" data-mdb-toggle="tab" href="#row19-tab1" role="tab" aria-controls="row19-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row19-tab2-header" data-mdb-toggle="tab" href="#row19-tab2" role="tab" aria-controls="row19-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row19-tab3-header" data-mdb-toggle="tab" href="#row19-tab3" role="tab" aria-controls="row19-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row19-content">
+  <div class="tab-pane fade show active" id="row19-tab1" role="tabpanel" aria-labelledby="row19-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
+  --topics dl19-passage --encoded-queries distilbert_tas_b-dl19-passage \
+  --output run.msmarco-v1-passage.distilbert-kd-tasb.dl19.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.distilbert-kd-tasb.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.distilbert-kd-tasb.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.distilbert-kd-tasb.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row19-tab2" role="tabpanel" aria-labelledby="row19-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
+  --topics dl20 --encoded-queries distilbert_tas_b-dl20 \
+  --output run.msmarco-v1-passage.distilbert-kd-tasb.dl20.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.distilbert-kd-tasb.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.distilbert-kd-tasb.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.distilbert-kd-tasb.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row19-tab3" role="tabpanel" aria-labelledby="row19-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
+  --topics msmarco-passage-dev-subset --encoded-queries distilbert_tas_b-msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.distilbert-kd-tasb.dev.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.distilbert-kd-tasb.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.distilbert-kd-tasb.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: TCT_ColBERT-V2-HN+: pre-encoded queries -->
+<tr class="accordion-toggle collapsed" id="row20" data-toggle="collapse" data-parent="#row20" href="#collapse20">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[5]</td>
+<td style="min-width: 400px">TCT_ColBERT-V2-HN+: pre-encoded queries</td>
+<td>0.4469</td>
+<td>0.7204</td>
+<td>0.8261</td>
+<td></td>
+<td>0.4754</td>
+<td>0.6882</td>
+<td>0.8429</td>
+<td></td>
+<td>0.3584</td>
+<td>0.9695</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse20" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row20-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row20-tab1-header" data-mdb-toggle="tab" href="#row20-tab1" role="tab" aria-controls="row20-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row20-tab2-header" data-mdb-toggle="tab" href="#row20-tab2" role="tab" aria-controls="row20-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row20-tab3-header" data-mdb-toggle="tab" href="#row20-tab3" role="tab" aria-controls="row20-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row20-content">
+  <div class="tab-pane fade show active" id="row20-tab1" role="tabpanel" aria-labelledby="row20-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+  --topics dl19-passage --encoded-queries tct_colbert-v2-hnp-dl19-passage \
+  --output run.msmarco-v1-passage.tct_colbert-v2-hnp.dl19.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row20-tab2" role="tabpanel" aria-labelledby="row20-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+  --topics dl20 --encoded-queries tct_colbert-v2-hnp-dl20 \
+  --output run.msmarco-v1-passage.tct_colbert-v2-hnp.dl20.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.tct_colbert-v2-hnp.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row20-tab3" role="tabpanel" aria-labelledby="row20-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+  --topics msmarco-passage-dev-subset --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.tct_colbert-v2-hnp.dev.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.tct_colbert-v2-hnp.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.tct_colbert-v2-hnp.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: ANCE: on-the-fly query inference -->
+<tr class="accordion-toggle collapsed" id="row21" data-toggle="collapse" data-parent="#row21" href="#collapse21">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[2]</td>
+<td style="min-width: 400px">ANCE: on-the-fly query inference</td>
+<td>0.3710</td>
+<td>0.6452</td>
+<td>0.7554</td>
+<td></td>
+<td>0.4076</td>
+<td>0.6458</td>
+<td>0.7764</td>
+<td></td>
+<td>0.3302</td>
+<td>0.9587</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse21" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row21-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row21-tab1-header" data-mdb-toggle="tab" href="#row21-tab1" role="tab" aria-controls="row21-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row21-tab2-header" data-mdb-toggle="tab" href="#row21-tab2" role="tab" aria-controls="row21-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row21-tab3-header" data-mdb-toggle="tab" href="#row21-tab3" role="tab" aria-controls="row21-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row21-content">
+  <div class="tab-pane fade show active" id="row21-tab1" role="tabpanel" aria-labelledby="row21-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-ance-bf \
+  --topics dl19-passage --encoder castorini/ance-msmarco-passage \
+  --output run.msmarco-v1-passage.ance-otf.dl19.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.ance-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.ance-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.ance-otf.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row21-tab2" role="tabpanel" aria-labelledby="row21-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-ance-bf \
+  --topics dl20 --encoder castorini/ance-msmarco-passage \
+  --output run.msmarco-v1-passage.ance-otf.dl20.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.ance-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.ance-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.ance-otf.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row21-tab3" role="tabpanel" aria-labelledby="row21-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-ance-bf \
+  --topics msmarco-passage-dev-subset --encoder castorini/ance-msmarco-passage \
+  --output run.msmarco-v1-passage.ance-otf.dev.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.ance-otf.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.ance-otf.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: DistilBERT KD: on-the-fly query inference -->
+<tr class="accordion-toggle collapsed" id="row22" data-toggle="collapse" data-parent="#row22" href="#collapse22">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[3]</td>
+<td style="min-width: 400px">DistilBERT KD: on-the-fly query inference</td>
+<td>0.4053</td>
+<td>0.6994</td>
+<td>0.7653</td>
+<td></td>
+<td>0.4159</td>
+<td>0.6447</td>
+<td>0.7953</td>
+<td></td>
+<td>0.3251</td>
+<td>0.9553</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse22" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row22-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row22-tab1-header" data-mdb-toggle="tab" href="#row22-tab1" role="tab" aria-controls="row22-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row22-tab2-header" data-mdb-toggle="tab" href="#row22-tab2" role="tab" aria-controls="row22-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row22-tab3-header" data-mdb-toggle="tab" href="#row22-tab3" role="tab" aria-controls="row22-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row22-content">
+  <div class="tab-pane fade show active" id="row22-tab1" role="tabpanel" aria-labelledby="row22-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
+  --topics dl19-passage --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
+  --output run.msmarco-v1-passage.distilbert-kd-otf.dl19.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.distilbert-kd-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.distilbert-kd-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.distilbert-kd-otf.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row22-tab2" role="tabpanel" aria-labelledby="row22-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
+  --topics dl20 --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
+  --output run.msmarco-v1-passage.distilbert-kd-otf.dl20.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.distilbert-kd-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.distilbert-kd-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.distilbert-kd-otf.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row22-tab3" role="tabpanel" aria-labelledby="row22-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-distilbert-dot-margin_mse-T2-bf \
+  --topics msmarco-passage-dev-subset --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
+  --output run.msmarco-v1-passage.distilbert-kd-otf.dev.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.distilbert-kd-otf.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.distilbert-kd-otf.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: DistilBERT KD TASB: on-the-fly query inference -->
+<tr class="accordion-toggle collapsed" id="row23" data-toggle="collapse" data-parent="#row23" href="#collapse23">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[4]</td>
+<td style="min-width: 400px">DistilBERT KD TASB: on-the-fly query inference</td>
+<td>0.4590</td>
+<td>0.7210</td>
+<td>0.8406</td>
+<td></td>
+<td>0.4698</td>
+<td>0.6854</td>
+<td>0.8727</td>
+<td></td>
+<td>0.3444</td>
+<td>0.9771</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse23" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row23-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row23-tab1-header" data-mdb-toggle="tab" href="#row23-tab1" role="tab" aria-controls="row23-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row23-tab2-header" data-mdb-toggle="tab" href="#row23-tab2" role="tab" aria-controls="row23-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row23-tab3-header" data-mdb-toggle="tab" href="#row23-tab3" role="tab" aria-controls="row23-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row23-content">
+  <div class="tab-pane fade show active" id="row23-tab1" role="tabpanel" aria-labelledby="row23-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
+  --topics dl19-passage --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
+  --output run.msmarco-v1-passage.distilbert-kd-tasb-otf.dl19.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.distilbert-kd-tasb-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.distilbert-kd-tasb-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.distilbert-kd-tasb-otf.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row23-tab2" role="tabpanel" aria-labelledby="row23-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
+  --topics dl20 --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
+  --output run.msmarco-v1-passage.distilbert-kd-tasb-otf.dl20.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.distilbert-kd-tasb-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.distilbert-kd-tasb-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.distilbert-kd-tasb-otf.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row23-tab3" role="tabpanel" aria-labelledby="row23-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-distilbert-dot-tas_b-b256-bf \
+  --topics msmarco-passage-dev-subset --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
+  --output run.msmarco-v1-passage.distilbert-kd-tasb-otf.dev.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.distilbert-kd-tasb-otf.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.distilbert-kd-tasb-otf.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: TCT_ColBERT-V2-HN+: on-the-fly query inference -->
+<tr class="accordion-toggle collapsed" id="row24" data-toggle="collapse" data-parent="#row24" href="#collapse24">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[5]</td>
+<td style="min-width: 400px">TCT_ColBERT-V2-HN+: on-the-fly query inference</td>
+<td>0.4469</td>
+<td>0.7204</td>
+<td>0.8261</td>
+<td></td>
+<td>0.4754</td>
+<td>0.6882</td>
+<td>0.8429</td>
+<td></td>
+<td>0.3584</td>
+<td>0.9695</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse24" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row24-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row24-tab1-header" data-mdb-toggle="tab" href="#row24-tab1" role="tab" aria-controls="row24-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab2-header" data-mdb-toggle="tab" href="#row24-tab2" role="tab" aria-controls="row24-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row24-content">
+  <div class="tab-pane fade show active" id="row24-tab1" role="tabpanel" aria-labelledby="row24-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+  --topics dl19-passage --encoder castorini/tct_colbert-v2-hnp-msmarco \
+  --output run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dl19.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row24-tab2" role="tabpanel" aria-labelledby="row24-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+  --topics dl20 --encoder castorini/tct_colbert-v2-hnp-msmarco \
+  --output run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dl20.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row24-tab3" role="tabpanel" aria-labelledby="row24-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+  --topics msmarco-passage-dev-subset --encoder castorini/tct_colbert-v2-hnp-msmarco \
+  --output run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dev.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.tct_colbert-v2-hnp-otf.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: SLIM: on-the-fly query inference -->
+<tr class="accordion-toggle collapsed" id="row25" data-toggle="collapse" data-parent="#row25" href="#collapse25">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[6]</td>
+<td style="min-width: 400px">SLIM: on-the-fly query inference</td>
+<td>0.4509</td>
+<td>0.7010</td>
+<td>0.8241</td>
+<td></td>
+<td>0.4419</td>
+<td>0.6403</td>
+<td>0.8543</td>
+<td></td>
+<td>0.3581</td>
+<td>0.9620</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse25" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row25-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row25-tab1-header" data-mdb-toggle="tab" href="#row25-tab1" role="tab" aria-controls="row25-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab2-header" data-mdb-toggle="tab" href="#row25-tab2" role="tab" aria-controls="row25-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row25-content">
+  <div class="tab-pane fade show active" id="row25-tab1" role="tabpanel" aria-labelledby="row25-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
+  --index msmarco-v1-passage-slimr \
+  --topics dl19-passage --encoder castorini/slimr-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr \
+  --output run.msmarco-v1-passage.slimr.dl19.txt \
+  \
+  --output-format msmarco --hits 1000 --impact --min-idf 3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.slimr.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.slimr.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.slimr.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row25-tab2" role="tabpanel" aria-labelledby="row25-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
+  --index msmarco-v1-passage-slimr \
+  --topics dl20 --encoder castorini/slimr-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr \
+  --output run.msmarco-v1-passage.slimr.dl20.txt \
+  \
+  --output-format msmarco --hits 1000 --impact --min-idf 3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.slimr.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.slimr.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.slimr.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row25-tab3" role="tabpanel" aria-labelledby="row25-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
+  --index msmarco-v1-passage-slimr \
+  --topics msmarco-passage-dev-subset --encoder castorini/slimr-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr \
+  --output run.msmarco-v1-passage.slimr.dev.txt \
+  \
+  --output-format msmarco --hits 1000 --impact --min-idf 3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.slimr.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.slimr.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: SLIM++: on-the-fly query inference -->
+<tr class="accordion-toggle collapsed" id="row26" data-toggle="collapse" data-parent="#row26" href="#collapse26">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[6]</td>
+<td style="min-width: 400px">SLIM++: on-the-fly query inference</td>
+<td>0.4687</td>
+<td>0.7140</td>
+<td>0.8415</td>
+<td></td>
+<td>0.4906</td>
+<td>0.7021</td>
+<td>0.8551</td>
+<td></td>
+<td>0.4032</td>
+<td>0.9680</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse26" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row26-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row26-tab1-header" data-mdb-toggle="tab" href="#row26-tab1" role="tab" aria-controls="row26-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab2-header" data-mdb-toggle="tab" href="#row26-tab2" role="tab" aria-controls="row26-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row26-content">
+  <div class="tab-pane fade show active" id="row26-tab1" role="tabpanel" aria-labelledby="row26-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
+  --index msmarco-v1-passage-slimr-pp \
+  --topics dl19-passage --encoder castorini/slimr-pp-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr-pp \
+  --output run.msmarco-v1-passage.slimr-pp.dl19.txt \
+  \
+  --output-format msmarco --hits 1000 --impact --min-idf 3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage run.msmarco-v1-passage.slimr-pp.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage run.msmarco-v1-passage.slimr-pp.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage run.msmarco-v1-passage.slimr-pp.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row26-tab2" role="tabpanel" aria-labelledby="row26-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
+  --index msmarco-v1-passage-slimr-pp \
+  --topics dl20 --encoder castorini/slimr-pp-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr-pp \
+  --output run.msmarco-v1-passage.slimr-pp.dl20.txt \
+  \
+  --output-format msmarco --hits 1000 --impact --min-idf 3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage run.msmarco-v1-passage.slimr-pp.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage run.msmarco-v1-passage.slimr-pp.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage run.msmarco-v1-passage.slimr-pp.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row26-tab3" role="tabpanel" aria-labelledby="row26-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
+  --index msmarco-v1-passage-slimr-pp \
+  --topics msmarco-passage-dev-subset --encoder castorini/slimr-pp-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr-pp \
+  --output run.msmarco-v1-passage.slimr-pp.dev.txt \
+  \
+  --output-format msmarco --hits 1000 --impact --min-idf 3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset run.msmarco-v1-passage.slimr-pp.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset run.msmarco-v1-passage.slimr-pp.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+
+<ul style="list-style-type:none; padding-top: 25px">
+
+<li><p>[1] Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin.
+<a href="https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
+<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp;Numbers in parentheses correspond to rows in Table 1 of the paper.</p></li>
+
+<li><p>[2] Lee Xiong, Chenyan Xiong, Ye Li, Kwok-Fung Tang, Jialin Liu, Paul N. Bennett, Junaid Ahmed, and Arnold Overwijk.
+<a href="https://openreview.net/forum?id=zeFrfgyZln">Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval.</a>
+<i>Proceedings of the 9th International Conference on Learning Representations (ICLR 2021), May 2021.</i></p></li>
+
+<li><p>[3] Sebastian Hofstätter, Sophia Althammer, Michael Schröder, Mete Sertkan, and Allan Hanbury.
+<a href="https://arxiv.org/abs/2010.02666">Improving Efficient Neural Ranking Models with Cross-Architecture Knowledge Distillation.</a>
+<i>arXiv:2010.02666</i>, October 2020.</p></li>
+
+<li><p>[4] Sebastian Hofstätter, Sheng-Chieh Lin, Jheng-Hong Yang, Jimmy Lin, and Allan Hanbury.
+<a href="https://dl.acm.org/doi/10.1145/3404835.3462891">Efficiently Teaching an Effective Dense Retriever with Balanced Topic Aware Sampling.</a>
+<i>Proceedings of the 44th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2021)</i>, pages 113-122, July 2021.</p></li>
+
+<li><p>[5] Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin.
+<a href="https://aclanthology.org/2021.repl4nlp-1.17/">In-Batch Negatives for Knowledge Distillation with Tightly-Coupled Teachers for Dense Retrieval.</a>
+<i>Proceedings of the 6th Workshop on Representation Learning for NLP (RepL4NLP-2021)</i>, pages 163-173, August 2021.</p></li>
+
+<li><p>[6] Minghan Li, Sheng-Chieh Lin, Xueguang Ma, Jimmy Lin.
+<a href="https://arxiv.org/abs/2302.06587">SLIM: Sparsified Late Interaction for Multi-Vector Retrieval with Inverted Indexes.</a>
+<i>arXiv:2302.06587</i>, Feburary 2023.</p></li>
+
+
+</ul>
+
+<div style="padding-top: 20px"/>
+
+<h4>Programmatic Execution</h4>
+
+<p>All experimental runs shown in the above table can be programmatically executed based on the instructions below.
+To list all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-passage --list-conditions
+</tt></blockquote>
+
+<p>These conditions correspond to the table rows above.</p>
+
+<p>For all conditions, just show the commands in a "dry run":</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-passage --all --display-commands --dry-run
+</tt></blockquote>
+
+<p>To actually run all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-passage --all --display-commands
+</tt></blockquote>
+
+<p>With the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>To show the commands for a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-passage --condition bm25-default --display-commands --dry-run
+</tt></blockquote>
+
+<p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
+
+<p>To actually run a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-passage --condition bm25-default --display-commands
+</tt></blockquote>
+
+<p>Again, with the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>Finally, to generate this page:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v1-passage --generate-report --output msmarco-v1-passage.html
+</tt></blockquote>
+
+<p>The output file <tt>msmarco-v1-passage.html</tt> should be identical to this page.</p>
+
+<div style="padding-top: 50px"/>
+
+      </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+
+<script>
+document.querySelectorAll('pre').forEach(function (codeBlock) {
+    var button = document.createElement('button');
+    button.className = 'copy-code-button';
+    button.type = 'button';
+    var s = codeBlock.innerText;
+    button.setAttribute('data-clipboard-text',s);
+    button.innerText = 'Copy';
+
+    // var pre = codeBlock.parentNode;
+    codeBlock.classList.add('prettyprint');
+    // pre.parentNode.insertBefore(button, pre);
+    codeBlock.appendChild(button);
+});
+
+var clipboard = new ClipboardJS('.copy-code-button');
+
+clipboard.on('success', function(e) {
+  console.info('Action:', e.action);
+  console.info('Text:', e.text);
+  console.info('Trigger:', e.trigger);
+  e.trigger.textContent = 'Copied';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+  console.error('Action:', e.action);
+  console.error('Trigger:', e.trigger);
+  e.trigger.textContent = 'Error Copying';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+</script>
+
+</body>
+</html>
