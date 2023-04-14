@@ -24,9 +24,9 @@ The simplest, however, is the following JSON format:
 A document is simply comprised of two fields, a `docid` and `contents`.
 Pyserini accepts collections comprised of these documents organized in three different ways:
 
-+ Folder with each JSON in its own file, like [this](tests/resources/sample_collection_json).
-+ Folder with files, each of which contains an array of JSON documents, like [this](tests/resources/sample_collection_json_array).
-+ Folder with files, each of which contains a JSON on an individual line, like [this](tests/resources/sample_collection_jsonl) (often called JSONL format).
++ Folder with each JSON in its own file, like [this](../tests/resources/sample_collection_json).
++ Folder with files, each of which contains an array of JSON documents, like [this](../tests/resources/sample_collection_json_array).
++ Folder with files, each of which contains a JSON on an individual line, like [this](../tests/resources/sample_collection_jsonl) (often called JSONL format).
 
 So, the quickest way to get started is to write a script that converts your documents into the above format.
 Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
@@ -69,7 +69,7 @@ You should get something like the following:
  2 doc3 0.23140
 ```
 
-If you want to perform a batch retrieval run (e.g., directly from the command line), organize all your queries in a tsv file, like [here](tests/resources/sample_queries.tsv).
+If you want to perform a batch retrieval run (e.g., directly from the command line), organize all your queries in a tsv file, like [here](../tests/resources/sample_queries.tsv).
 The format is simple: the first field is a query id, and the second field is the query itself.
 Note that the file extension _must_ end in `.tsv` so that Pyserini knows what format the queries are in.
 
@@ -115,7 +115,7 @@ What about non-English documents?
 
 Instructions for indexing and searching non-English corpora is quite similar to English corpora, so check out the above guide first.
 
-Here's a [sample collection in Chinese](tests/resources/sample_collection_jsonl_zh) in the JSONL format.
+Here's a [sample collection in Chinese](../tests/resources/sample_collection_jsonl_zh) in the JSONL format.
 To index:
 
 ```bash
@@ -157,7 +157,7 @@ python -m pyserini.search.lucene \
   --bm25
 ```
 
-Here's what the [query file](tests/resources/sample_queries_zh.tsv) looks like, in tsv.
+Here's what the [query file](../tests/resources/sample_queries_zh.tsv) looks like, in tsv.
 Once again, add `--language zh`.
 
 And the expected output:
