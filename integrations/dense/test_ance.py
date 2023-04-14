@@ -58,7 +58,7 @@ class TestAnce(unittest.TestCase):
         output_file = 'test_run.dl2019.ance.avg-prf.otf.trec'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.faiss --topics dl19-passage \
-                                     --index msmarco-passage.ance \
+                                     --index msmarco-v1-passage.ance \
                                      --encoder castorini/ance-msmarco-passage \
                                      --batch-size {self.batch_size} \
                                      --threads {self.threads} \
@@ -76,7 +76,7 @@ class TestAnce(unittest.TestCase):
         output_file = 'test_run.dl2019.ance.rocchio-prf.otf.trec'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.faiss --topics dl19-passage \
-                                     --index msmarco-passage.ance \
+                                     --index msmarco-v1-passage.ance \
                                      --encoder castorini/ance-msmarco-passage \
                                      --batch-size {self.batch_size} \
                                      --threads {self.threads} \
@@ -98,7 +98,7 @@ class TestAnce(unittest.TestCase):
         output_file = 'test_run.msmarco-doc.passage.ance-maxp.otf.txt'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.faiss --topics msmarco-doc-dev \
-                             --index msmarco-doc.ance-maxp \
+                             --index msmarco-v1-doc.ance-maxp \
                              --encoder castorini/ance-msmarco-doc-maxp \
                              --output {output_file}\
                              --hits 1000 \
@@ -126,7 +126,7 @@ class TestAnce(unittest.TestCase):
         retrieval_file = 'test_run.ance.nq-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.search.faiss --topics dpr-nq-test \
-                             --index wikipedia.ance-multi \
+                             --index wikipedia-dpr-100w.ance-multi \
                              --encoder castorini/ance-dpr-question-multi \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
@@ -154,7 +154,7 @@ class TestAnce(unittest.TestCase):
         retrieval_file = 'test_run.ance.trivia-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.search.faiss --topics dpr-trivia-test \
-                             --index wikipedia.ance-multi \
+                             --index wikipedia-dpr-100w.ance-multi \
                              --encoder castorini/ance-dpr-question-multi \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
