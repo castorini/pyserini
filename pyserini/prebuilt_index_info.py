@@ -3803,7 +3803,7 @@ FAISS_INDEX_INFO = {
         "texts": "msmarco-v1-passage"
     },
     "msmarco-v1-passage.distilbert-dot-margin-mse-t2": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the distilbert-dot-margin_mse-t2 passage encoder",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the distilbert-dot-margin_mse-T2-msmarco encoder",
         "filename": "faiss.msmarco-v1-passage.distilbert-dot-margin_mse-t2.20210316.d44c3a.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.distilbert-dot-margin_mse-t2.20210316.d44c3a.tar.gz"
@@ -3815,7 +3815,7 @@ FAISS_INDEX_INFO = {
         "texts": "msmarco-v1-passage"
     },
     "msmarco-v1-passage.distilbert-dot-tas_b-b256": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by msmarco-passage-distilbert-dot-tas_b-b256 passage encoder",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by distilbert-dot-tas_b-b256-msmarco encoder",
         "filename": "faiss.msmarco-v1-passage.distilbert-dot-tas_b-b256.20210527.63276f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.distilbert-dot-tas_b-b256.20210527.63276f.tar.gz"
