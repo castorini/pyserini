@@ -2090,31 +2090,29 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
 
-    "wikipedia-dpr": {
+    "wikipedia-dpr-100w": {
         "description": "Lucene index of Wikipedia with DPR 100-word splits",
-        "filename": "index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
+        "filename": "lucene-index.wikipedia-dpr-100w.20210120.d1b9e6.tar.gz",
         "readme": "index-wikipedia-dpr-20210120-d1b9e6-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/t6tDJmpoxPw9tH8/download"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-dpr-100w.20210120.d1b9e6.tar.gz"
         ],
-        "md5": "c28f3a56b2dfcef25bf3bf755c264d04",
-        "size compressed (bytes)": 9177942656,
+        "md5": "7b58c08da992b2ea7e96667f0b176651",
+        "size compressed (bytes)": 9177917732,
         "total_terms": 1512973270,
         "documents": 21015324,
         "unique_terms": 5345463,
         "downloaded": False
     },
-    "wikipedia-dpr-slim": {
+    "wikipedia-dpr-100w-slim": {
         "description": "Lucene index of Wikipedia with DPR 100-word splits (slim version, document text not stored)",
-        "filename": "index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
+        "filename": "lucene-index.wikipedia-dpr-100w-slim.20210120.d1b9e6.tar.gz",
         "readme": "index-wikipedia-dpr-slim-20210120-d1b9e6-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Gk2sfTyJCyaTrYH/download"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-dpr-100w-slim.20210120.d1b9e6.tar.gz"
         ],
-        "md5": "7d40604a824b5df37a1ae9d25ea38071",
-        "size compressed (bytes)": 1810342390,
+        "md5": "5d24352f0de6ae75b60e11a9cf622251",
+        "size compressed (bytes)": 1810337190,
         "total_terms": 1512973270,
         "documents": 21015324,
         "unique_terms": 5345463,
@@ -2122,14 +2120,13 @@ TF_INDEX_INFO_OTHER = {
     },
     "wikipedia-kilt-doc": {
         "description": "Lucene index of Wikipedia snapshot used as KILT's knowledge source.",
-        "filename": "index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+        "filename": "lucene-index.wikipedia-kilt-doc.20210421.f29307.tar.gz",
         "readme": "index-wikipedia-kilt-doc-20210421-f29307-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/RqtLg3CZT38k32c/download"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-kilt-doc.20210421.f29307.tar.gz"
         ],
-        "md5": "b8ec8feb654f7aaa86f9901dc6c804a8",
-        "size compressed (bytes)": 10901127209,
+        "md5": "d4a1e7628f6f68c51dd2d764e62b7f8d",
+        "size compressed (bytes)": 10901145611,
         "total_terms": 1915061164,
         "documents": 5903530,
         "unique_terms": 8722502,
@@ -3728,7 +3725,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 59836766732,
         "documents": 21015320,
         "downloaded": False,
-        "texts": "wikipedia-dpr"
+        "texts": "wikipedia-dpr-100w"
     },
     "wikipedia-dpr-100w.dpr-single-nq": {
         "description": "Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on NQ",
@@ -3740,7 +3737,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 59836863979,
         "documents": 21015320,
         "downloaded": False,
-        "texts": "wikipedia-dpr"
+        "texts": "wikipedia-dpr-100w"
     },
     "wikipedia-dpr-100w.bpr-single-nq": {
         "description": "Faiss binary index of Wikipedia encoded by the BPR doc encoder trained on NQ",
@@ -3752,7 +3749,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 1886380629,
         "documents": 21015320,
         "downloaded": False,
-        "texts": "wikipedia-dpr"
+        "texts": "wikipedia-dpr-100w"
     },
     "msmarco-v1-passage.ance": {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the ANCE MS MARCO passage encoder",
@@ -3788,7 +3785,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 59890491335,
         "documents": 21015320,
         "downloaded": False,
-        "texts": "wikipedia-dpr"
+        "texts": "wikipedia-dpr-100w"
     },
     "msmarco-v1-passage.sbert": {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the SBERT MS MARCO passage encoder",
@@ -4039,7 +4036,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 37812137732,
         "documents": 21015324,
         "downloaded": False,
-        "texts": "wikipedia-dpr"
+        "texts": "wwikipedia-dpr-100w"
     },
     "wikipedia-dpr-100w.dkrr-tqa": {
         "description": "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA",
@@ -4051,7 +4048,7 @@ FAISS_INDEX_INFO = {
         "size compressed (bytes)": 37802648577,
         "documents": 21015324,
         "downloaded": False,
-        "texts": "wikipedia-dpr"
+        "texts": "wikipedia-dpr-100w"
     },
     "mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",

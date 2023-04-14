@@ -47,7 +47,7 @@ class TestDpr(unittest.TestCase):
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
@@ -65,13 +65,13 @@ class TestDpr(unittest.TestCase):
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.search.hybrid dense  --index wikipedia-dpr-100w.dpr-multi \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
-                             sparse --index wikipedia-dpr \
+                             sparse --index wikipedia-dpr-100w \
                              fusion --alpha 1.3 \
                              run    --topics dpr-nq-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
@@ -99,7 +99,7 @@ class TestDpr(unittest.TestCase):
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
@@ -117,13 +117,13 @@ class TestDpr(unittest.TestCase):
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.search.hybrid dense  --index wikipedia-dpr-100w.dpr-multi \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
-                             sparse --index wikipedia-dpr \
+                             sparse --index wikipedia-dpr-100w \
                              fusion --alpha 0.95 \
                              run    --topics dpr-trivia-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
@@ -151,7 +151,7 @@ class TestDpr(unittest.TestCase):
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-wq-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
@@ -169,13 +169,13 @@ class TestDpr(unittest.TestCase):
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.search.hybrid dense  --index wikipedia-dpr-100w.dpr-multi \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
-                             sparse --index wikipedia-dpr \
+                             sparse --index wikipedia-dpr-100w \
                              fusion --alpha 0.95 \
                              run    --topics dpr-wq-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-wq-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
@@ -203,7 +203,7 @@ class TestDpr(unittest.TestCase):
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file} \
                                                            --regex'
@@ -222,13 +222,13 @@ class TestDpr(unittest.TestCase):
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.search.hybrid dense  --index wikipedia-dpr-100w.dpr-multi \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
-                             sparse --index wikipedia-dpr \
+                             sparse --index wikipedia-dpr-100w \
                              fusion --alpha 1.05 \
                              run    --topics dpr-curated-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-curated-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file} \
                                                            --regex'
@@ -257,7 +257,7 @@ class TestDpr(unittest.TestCase):
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-squad-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
@@ -275,13 +275,13 @@ class TestDpr(unittest.TestCase):
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.search.hybrid dense  --index wikipedia-dpr-100w.dpr-multi \
                                     --encoder facebook/dpr-question_encoder-multiset-base \
-                             sparse --index wikipedia-dpr \
+                             sparse --index wikipedia-dpr-100w \
                              fusion --alpha 2.0 \
                              run    --topics dpr-squad-test \
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output {output_file} '
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-squad-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'

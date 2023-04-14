@@ -131,7 +131,7 @@ class TestAnce(unittest.TestCase):
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
@@ -159,7 +159,7 @@ class TestAnce(unittest.TestCase):
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
