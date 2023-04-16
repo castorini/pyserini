@@ -47,7 +47,7 @@ class TestKilt(unittest.TestCase):
     def test_kilt_search(self):
         run_file = 'test_run.fever-dev-kilt.jsonl'
         self.temp_files.append(run_file)
-        cmd1 = f'python -m pyserini.search --topics fever-dev-kilt \
+        cmd1 = f'python -m pyserini.search.lucene --topics fever-dev-kilt \
                              --topics-format kilt \
                              --index wikipedia-kilt-doc \
                              --output {run_file} \

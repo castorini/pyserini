@@ -12,10 +12,10 @@ Dense retrieval, with brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-passage.distilbert-dot-margin_mse-T2 \
+  --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 \
   --topics msmarco-passage-dev-subset \
   --encoded-queries distilbert_kd-msmarco-passage-dev-subset \
-  --output runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv \
+  --output runs/run.msmarco-passage.distilbert-dot-margin_mse-t2.bf.tsv \
   --output-format msmarco \
   --batch-size 36 --threads 12
 ```
@@ -26,7 +26,7 @@ To evaluate:
 
 ```bash
 $ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
-    runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv
+    runs/run.msmarco-passage.distilbert-dot-margin_mse-t2.bf.tsv
 
 #####################
 MRR @10: 0.3250
@@ -39,11 +39,11 @@ For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
 $ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
-    --input runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.tsv \
-    --output runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.trec
+    --input runs/run.msmarco-passage.distilbert-dot-margin_mse-t2.bf.tsv \
+    --output runs/run.msmarco-passage.distilbert-dot-margin_mse-t2.bf.trec
 
 $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
-    runs/run.msmarco-passage.distilbert-dot-margin_mse-T2.bf.trec
+    runs/run.msmarco-passage.distilbert-dot-margin_mse-t2.bf.trec
 
 map                     all     0.3308
 recall_1000             all     0.9553
