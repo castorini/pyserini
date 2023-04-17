@@ -27,7 +27,7 @@ from pyserini.search.faiss import FaissSearcher
 from pyserini.search.lucene import LuceneImpactSearcher
 
 
-class TestSearchIntegration(unittest.TestCase):
+class TestEncode(unittest.TestCase):
     def setUp(self):
         curdir = os.getcwd()
         if curdir.endswith('dense'):
