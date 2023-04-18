@@ -25,7 +25,7 @@ from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
 
-class TestSearchIntegration(unittest.TestCase):
+class TestAnce(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
         self.threads = 16
@@ -58,7 +58,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.dl2019.ance.avg-prf.otf.trec'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.faiss --topics dl19-passage \
-                                     --index msmarco-passage-ance-bf \
+                                     --index msmarco-v1-passage.ance \
                                      --encoder castorini/ance-msmarco-passage \
                                      --batch-size {self.batch_size} \
                                      --threads {self.threads} \
@@ -76,7 +76,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.dl2019.ance.rocchio-prf.otf.trec'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.faiss --topics dl19-passage \
-                                     --index msmarco-passage-ance-bf \
+                                     --index msmarco-v1-passage.ance \
                                      --encoder castorini/ance-msmarco-passage \
                                      --batch-size {self.batch_size} \
                                      --threads {self.threads} \
@@ -98,7 +98,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.msmarco-doc.passage.ance-maxp.otf.txt'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.faiss --topics msmarco-doc-dev \
-                             --index msmarco-doc-ance-maxp-bf \
+                             --index msmarco-v1-doc.ance-maxp \
                              --encoder castorini/ance-msmarco-doc-maxp \
                              --output {output_file}\
                              --hits 1000 \
@@ -126,12 +126,12 @@ class TestSearchIntegration(unittest.TestCase):
         retrieval_file = 'test_run.ance.nq-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.search.faiss --topics dpr-nq-test \
-                             --index wikipedia-ance-multi-bf \
+                             --index wikipedia-dpr-100w.ance-multi \
                              --encoder castorini/ance-dpr-question-multi \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-nq-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
@@ -154,12 +154,12 @@ class TestSearchIntegration(unittest.TestCase):
         retrieval_file = 'test_run.ance.trivia-test.multi.bf.otf.json'
         self.temp_files.extend([output_file, retrieval_file])
         cmd1 = f'python -m pyserini.search.faiss --topics dpr-trivia-test \
-                             --index wikipedia-ance-multi-bf \
+                             --index wikipedia-dpr-100w.ance-multi \
                              --encoder castorini/ance-dpr-question-multi \
                              --output {output_file} \
                              --batch-size {self.batch_size} --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics dpr-trivia-test \
-                                                           --index wikipedia-dpr \
+                                                           --index wikipedia-dpr-100w \
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'

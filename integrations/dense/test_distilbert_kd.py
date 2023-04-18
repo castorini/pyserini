@@ -22,7 +22,7 @@ from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
 
-class TestSearchIntegration(unittest.TestCase):
+class TestDistilBertKd(unittest.TestCase):
     # Note that we test actual retrieval in 2CR, so no need to test here.
     def test_distilbert_kd_encoded_queries(self):
         encoded = QueryEncoder.load_encoded_queries('distilbert_kd-msmarco-passage-dev-subset')

@@ -91,7 +91,7 @@ conditions:
     display: "DistilBERT KD TASB: otf"
     display-html: "DistilBERT KD TASB: on-the-fly query inference"
     display-row: "[4]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-distilbert-dot-tas_b-b256-bf --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -114,7 +114,7 @@ conditions:
     display: "DistilBERT KD TASB: pre-encoded"
     display-html: "DistilBERT KD TASB: pre-encoded queries"
     display-row: "[4]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-distilbert-dot-tas_b-b256-bf --topics $topics --encoded-queries distilbert_tas_b-$topics --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoded-queries distilbert_tas_b-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -137,7 +137,7 @@ conditions:
     display: "DistilBERT KD: otf"
     display-html: "DistilBERT KD: on-the-fly query inference"
     display-row: "[3]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-distilbert-dot-margin_mse-T2-bf --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -160,7 +160,7 @@ conditions:
     display: "DistilBERT KD: pre-encoded"
     display-html: "DistilBERT KD: pre-encoded queries"
     display-row: "[3]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-distilbert-dot-margin_mse-T2-bf --topics $topics --encoded-queries distilbert_kd-$topics --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 --topics $topics --encoded-queries distilbert_kd-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -183,7 +183,7 @@ conditions:
     display: "ANCE: otf"
     display-html: "ANCE: on-the-fly query inference"
     display-row: "[2]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-ance-bf --topics $topics --encoder castorini/ance-msmarco-passage --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -206,7 +206,7 @@ conditions:
     display: "ANCE: pre-encoded"
     display-html: "ANCE: pre-encoded queries"
     display-row: "[2]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-ance-bf --topics $topics --encoded-queries ance-$topics --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.ance --topics $topics --encoded-queries ance-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -499,7 +499,7 @@ conditions:
     display: "TCT_ColBERT-V2-HN+: otf"
     display-html: "TCT_ColBERT-V2-HN+: on-the-fly query inference"
     display-row: "[5]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-tct_colbert-v2-hnp-bf --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -522,7 +522,7 @@ conditions:
     display: "TCT_ColBERT-V2-HN+: pre-encoded"
     display-html: "TCT_ColBERT-V2-HN+: pre-encoded queries"
     display-row: "[5]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage-tct_colbert-v2-hnp-bf --topics $topics --encoded-queries tct_colbert-v2-hnp-$topics --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoded-queries tct_colbert-v2-hnp-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -555,12 +555,35 @@ conditions:
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.4486
-            nDCG@10: 0.6995
-            R@1K: 0.8378
+          - MAP: 0.4509
+            nDCG@10: 0.7010
+            R@1K: 0.8241
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.4415
+          - MAP: 0.4419
             nDCG@10: 0.6403
-            R@1K: 0.8635
+            R@1K: 0.8543
+  - name: slimr-pp
+    display: "SLIM++: on-the-fly query inference"
+    display-html: "SLIM++: on-the-fly query inference"
+    display-row: "[6]"
+    command: python -m pyserini.search.lucene --threads 16 --batch 128 --index msmarco-v1-passage-slimr-pp --topics $topics --encoder castorini/slimr-pp-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr-pp --output $output --output-format msmarco --hits 1000 --impact --min-idf 3
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.4032
+            R@1K: 0.9680
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4687
+            nDCG@10: 0.7140
+            R@1K: 0.8415
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4906
+            nDCG@10: 0.7021
+            R@1K: 0.8551

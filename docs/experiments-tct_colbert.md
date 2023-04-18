@@ -25,7 +25,7 @@ Dense retrieval with TCT-ColBERT, brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-passage-tct_colbert-bf \
+  --index msmarco-v1-passage.tct_colbert \
   --topics msmarco-passage-dev-subset \
   --encoded-queries tct_colbert-msmarco-passage-dev-subset \
   --output runs/run.msmarco-passage.tct_colbert.bf.tsv \
@@ -71,7 +71,7 @@ Dense retrieval with TCT-ColBERT, HNSW index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-passage-tct_colbert-hnsw \
+  --index msmarco-v1-passage.tct_colbert.hnsw \
   --topics msmarco-passage-dev-subset \
   --output runs/run.msmarco-passage.tct_colbert.hnsw.tsv \
   --output-format msmarco
@@ -110,9 +110,9 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 
 ```bash
 python -m pyserini.search.hybrid \
-  dense  --index msmarco-passage-tct_colbert-bf \
+  dense  --index msmarco-v1-passage.tct_colbert \
          --encoded-queries tct_colbert-msmarco-passage-dev-subset \
-  sparse --index msmarco-passage \
+  sparse --index msmarco-v1-passage \
   fusion --alpha 0.12 \
   run    --topics msmarco-passage-dev-subset \
          --output runs/run.msmarco-passage.tct_colbert.bf.bm25.tsv \
@@ -151,9 +151,9 @@ Hybrid retrieval with dense-sparse representations (with document expansion):
 
 ```bash
 python -m pyserini.search.hybrid \
-  dense  --index msmarco-passage-tct_colbert-bf \
+  dense  --index msmarco-v1-passage.tct_colbert \
          --encoded-queries tct_colbert-msmarco-passage-dev-subset \
-  sparse --index msmarco-passage-expanded \
+  sparse --index msmarco-v1-passage-d2q-t5 \
   fusion --alpha 0.22 \
   run    --topics msmarco-passage-dev-subset \
          --output runs/run.msmarco-passage.tct_colbert.bf.doc2queryT5.tsv \
@@ -204,7 +204,7 @@ Dense retrieval using a brute force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-doc-tct_colbert-bf \
+  --index msmarco-v1-doc.tct_colbert \
   --topics msmarco-doc-dev \
   --encoded-queries tct_colbert-msmarco-doc-dev \
   --output runs/run.msmarco-doc.passage.tct_colbert.txt \
@@ -248,9 +248,9 @@ Dense-sparse hybrid retrieval (without document expansion):
 
 ```bash
 python -m pyserini.search.hybrid \
-  dense  --index msmarco-doc-tct_colbert-bf \
+  dense  --index msmarco-v1-doc.tct_colbert \
          --encoded-queries tct_colbert-msmarco-doc-dev \
-  sparse --index msmarco-doc-per-passage \
+  sparse --index msmarco-v1-doc-segmented \
   fusion --alpha 0.25 \
   run    --topics msmarco-doc-dev \
          --output runs/run.msmarco-doc.tct_colbert.bf.bm25.tsv \
@@ -290,9 +290,9 @@ Dense-sparse hybrid retrieval (with document expansion):
 
 ```bash
 python -m pyserini.search.hybrid \
-  dense  --index msmarco-doc-tct_colbert-bf \
+  dense  --index msmarco-v1-doc.tct_colbert \
          --encoded-queries tct_colbert-msmarco-doc-dev \
-  sparse --index msmarco-doc-expanded-per-passage \
+  sparse --index msmarco-v1-doc-segmented-d2q-t5 \
   fusion --alpha 0.32 \
   run    --topics msmarco-doc-dev \
          --output runs/run.msmarco-doc.tct_colbert.bf.doc2queryT5.tsv \

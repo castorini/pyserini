@@ -10,7 +10,7 @@ Dense retrieval, brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-passage-sbert-bf \
+  --index msmarco-v1-passage.sbert \
   --topics msmarco-passage-dev-subset \
   --encoded-queries sbert-msmarco-passage-dev-subset \
   --output runs/run.msmarco-passage.sbert.bf.tsv \
@@ -53,9 +53,9 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 
 ```bash
 python -m pyserini.search.hybrid \
-  dense  --index msmarco-passage-sbert-bf \
+  dense  --index msmarco-v1-passage.sbert \
          --encoded-queries sbert-msmarco-passage-dev-subset \
-  sparse --index msmarco-passage \
+  sparse --index msmarco-v1-passage \
   fusion --alpha 0.015  \
   run    --topics msmarco-passage-dev-subset \
          --output runs/run.msmarco-passage.sbert.bf.bm25.tsv \
