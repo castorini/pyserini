@@ -587,3 +587,49 @@ conditions:
           - MAP: 0.4906
             nDCG@10: 0.7021
             R@1K: 0.8551
+  - name: Aggretriever-Distilbert-otf
+    display: "Aggretriever-DistilBERT: otf"
+    display-html: "Aggretriever-DistilBERT: on-the-fly query inference"
+    display-row: "[7]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage.aggretriever-distilbert --topics $topics --encoder castorini/aggretriever-distilbert --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3412
+            R@1K: 0.9604
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4301
+            nDCG@10: 0.6816
+            R@1K: 0.8028
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4329
+            nDCG@10: 0.6726
+            R@1K: 0.8351
+  - name: Aggretriever-coCondenser-otf
+    display: "Aggretriever-coCondenser: otf"
+    display-html: "Aggretriever-coCondenser: on-the-fly query inference"
+    display-row: "[7]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage.aggretriever-cocondenser --topics $topics --encoder castorini/aggretriever-cocondenser --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3619
+            R@1K: 0.9735
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4350
+            nDCG@10: 0.6837
+            R@1K: 0.8078
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4710
+            nDCG@10: 0.6972
+            R@1K: 0.8555
