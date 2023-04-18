@@ -136,6 +136,30 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(cnt, 52)
         self._test_urls(urls)
 
+    def test_faiss_msmarco(self):
+        urls = []
+        cnt = 0
+        for key in FAISS_INDEX_INFO:
+            if 'msmarco-v' in key:
+                cnt += 1
+                for url in FAISS_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 12)
+        self._test_urls(urls)
+
+    def test_faiss_wikipedia(self):
+        urls = []
+        cnt = 0
+        for key in FAISS_INDEX_INFO:
+            if 'wiki' in key:
+                cnt += 1
+                for url in FAISS_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 7)
+        self._test_urls(urls)
+
     def _test_urls(self, urls):
         cnt = 0
         for url in urls:
