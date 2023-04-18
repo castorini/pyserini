@@ -63,7 +63,9 @@ models = {
      'distilbert-kd-tasb-otf',
      'tct_colbert-v2-hnp-otf',
      'slimr',
-     'slimr-pp'],
+     'slimr-pp',
+     'Aggretriever-Distilbert-otf',
+     'Aggretriever-coCondenser-otf'],
     'msmarco-v1-doc':
     ['bm25-doc-default',
      'bm25-doc-segmented-default',
