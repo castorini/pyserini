@@ -231,7 +231,9 @@ def format_command(raw):
     return raw.replace('--topics', '\\\n  --topics') \
         .replace('--threads', '\\\n  --threads')\
         .replace('--index', '\\\n  --index')\
-        .replace('--output', '\\\n  --output')\
+        .replace('--output ', '\\\n  --output ')\
+        .replace('--encoder', '\\\n  --encoder')\
+        .replace('--encoded-corpus', '\\\n  --encoded-corpus')\
         .replace('.txt ', '.txt \\\n  ')
 
 
