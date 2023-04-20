@@ -603,7 +603,7 @@ conditions:
         scores:
           - MAP: 0.4301
             nDCG@10: 0.6816
-            R@1K: 0.8028
+            R@1K: 0.8023
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
