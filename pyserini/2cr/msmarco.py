@@ -466,7 +466,7 @@ def run_conditions(args):
                                     runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky test: small difference on my iMac Studio
+                            # Flaky tests
                             elif args.collection == 'v1-passage' and topic_key == 'msmarco-passage-dev-subset' and \
                                     name == 'ance-otf' and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
                                 result_str = okish_str
