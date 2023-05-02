@@ -29,6 +29,7 @@ from utils import run_dpr_retrieval_eval_and_return_metric, convert_trec_run_to_
 GARRRF_LS = ['answers','titles','sentences']
 HITS_1K = set(['GarT5-RRF', 'DPR-DKRR', 'DPR-Hybrid'])
 
+
 def print_results(metric, topics):
     print(f'Metric = {metric}, Topics = {topics}')
     for model in models['models']:
@@ -112,16 +113,14 @@ if __name__ == '__main__':
                         raise RuntimeError('fusion failed')
                 runfile = [output]
 
-
             # trec conversion + evaluation
             if not args.skip_eval:
                 jsonfile = runfile[0].replace('.txt', '.json')
                 runfile = jsonfile.replace('.json','.txt')
                 if not os.path.exists(jsonfile):
-                    status = convert_trec_run_to_dpr_retrieval_json(
-                        topics, 'wikipedia-dpr', runfile, jsonfile)
+                    status = convert_trec_run_to_dpr_retrieval_json(topics, 'wikipedia-dpr-100w', runfile, jsonfile)
                     if status != 0:
-                        raise RuntimeError("dpr retrieval convertion failed")
+                        raise RuntimeError("dpr retrieval conversion failed")
                 topk_defs = evaluate_dpr_retrieval_metric_definitions['Top5-100']
                 if args.full_topk:
                     topk_defs = evaluate_dpr_retrieval_metric_definitions['Top5-1000']
@@ -130,13 +129,13 @@ if __name__ == '__main__':
             # comparing ground truth scores with the generated ones 
             for expected in condition['scores']:
                 for metric, expected_score in expected.items():
-                    if metric not in score.keys(): continue
+                    if metric not in score.keys():
+                        continue
                     if not args.skip_eval:
-                        if math.isclose(score[metric], float(expected_score),abs_tol=2e-2):
+                        if math.isclose(score[metric], float(expected_score), abs_tol=2e-2):
                             result_str = ok_str
                         else:
-                            result_str = fail_str + \
-                                f' expected {expected[metric]:.4f}'
+                            result_str = fail_str + f' expected {expected[metric]:.4f}'
                         print(f'      {metric:7}: {score[metric]:.2f} {result_str}')
                         table[name][metric] = score[metric]
                     else:
