@@ -264,10 +264,12 @@ class LuceneSearcher:
         """
         if self.object.reader.getTermVectors(0):
             self.object.set_rm3(None, fb_terms, fb_docs, original_query_weight, debug, filter_terms)
-        elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented',
-                                          'msmarco-v2-passage', 'msmarco-v2-passage-augmented',
-                                          'msmarco-v2-doc', 'msmarco-v2-doc-segmented']:
+        elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented']:
             self.object.set_rm3('JsonCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
+        elif self.prebuilt_index_name in ['msmarco-v2-passage', 'msmarco-v2-passage-augmented']:
+            self.object.set_rm3('MsMarcoV2PassageCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
+        elif self.prebuilt_index_name in ['msmarco-v2-doc', 'msmarco-v2-doc-segmented']:
+            self.object.set_rm3('MsMarcoV2DocCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
         else:
             raise TypeError("RM3 is not supported for indexes without document vectors.")
 
@@ -307,11 +309,11 @@ class LuceneSearcher:
         if self.object.reader.getTermVectors(0):
             self.object.set_rocchio(None, top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
                                     alpha, beta, gamma, debug, use_negative)
-        elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented',
-                                          'msmarco-v2-passage', 'msmarco-v2-passage-augmented',
-                                          'msmarco-v2-doc', 'msmarco-v2-doc-segmented']:
+        elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented']:
             self.object.set_rocchio('JsonCollection', top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
                                     alpha, beta, gamma, debug, use_negative)
+        # Note, we don't have any Pyserini 2CRs that use Rocchio for MS MARCO v2, so there's currently no
+        # corresponding code branch here. To avoid introducing bugs (without 2CR tests), we'll add when it's needed.
         else:
             raise TypeError("Rocchio is not supported for indexes without document vectors.")
 
