@@ -3,7 +3,7 @@ conditions:
     display: BM25 doc (k1=0.9, b=0.4)
     display-html: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (1a)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-slim --topics $topics --output $output --bm25
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc --topics $topics --output $output --bm25
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
@@ -27,7 +27,7 @@ conditions:
     display: BM25 doc segmented (k1=0.9, b=0.4)
     display-html: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (1b)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented-slim --topics $topics --output $output --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented --topics $topics --output $output --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
@@ -51,7 +51,7 @@ conditions:
     display: BM25+RM3 doc (k1=0.9, b=0.4)
     display-html: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (1c)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-full --topics $topics --output $output --bm25 --rm3
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc --topics $topics --output $output --bm25 --rm3
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
@@ -75,7 +75,7 @@ conditions:
     display: BM25+RM3 doc segmented (k1=0.9, b=0.4)
     display-html: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (1d)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented-full --topics $topics --output $output --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented --topics $topics --output $output --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
