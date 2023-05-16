@@ -429,7 +429,7 @@ if __name__ == '__main__':
         generate_report(args)
         sys.exit()
 
-    if args.all or args.language and not args.encoder:
+    if (args.all or args.language) and not args.encoder:
         print('Must specify encoder to generate regressions')
         sys.exit()
 
