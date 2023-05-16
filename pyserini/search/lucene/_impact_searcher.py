@@ -82,6 +82,12 @@ class LuceneImpactSearcher:
         ----------
         prebuilt_index_name : str
             Prebuilt index name.
+        query_encoder: QueryEncoder or str
+            QueryEncoder to encode query text
+        min_idf : int
+            Minimum idf for query tokens
+        encoder_type : str
+            Encoder type, either 'pytorch' or 'onnx'
 
         Returns
         -------
@@ -97,6 +103,13 @@ class LuceneImpactSearcher:
 
         print(f'Initializing {prebuilt_index_name}...')
         return cls(index_dir, query_encoder, min_idf, encoder_type)
+
+    def encode(self, query):
+        if self.encoder_type == 'onnx':
+            encoded_query = self.object.encode_with_onnx(query)
+        else:
+            encoded_query = self.query_encoder.encode(query)
+        return encoded_query
 
     @staticmethod
     def list_prebuilt_indexes():
@@ -127,10 +140,7 @@ class LuceneImpactSearcher:
         for (field, boost) in fields.items():
             jfields.put(field, JFloat(boost))
 
-        if self.encoder_type == 'onnx':
-            encoded_query = self.object.encode_with_onnx(q)
-        else:
-            encoded_query = self.query_encoder.encode(q)
+        encoded_query = self.encode(q)
 
         jquery = encoded_query
         if self.encoder_type == 'pytorch':
@@ -173,10 +183,7 @@ class LuceneImpactSearcher:
         query_lst = JArrayList()
         qid_lst = JArrayList()
         for q in queries:
-            if self.encoder_type == 'onnx':
-                encoded_query = self.object.encode_with_onnx(q)
-            else:
-                encoded_query = self.query_encoder.encode(q)
+            encoded_query = self.encode(q)
             jquery = JHashMap()
             if self.encoder_type == 'pytorch':
                 for (token, weight) in encoded_query.items():
