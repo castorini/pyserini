@@ -14,7 +14,7 @@ Thus, while the scoring script provides results to much higher precision, we hav
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-passage-ance-bf \
+  --index msmarco-v1-passage.ance \
   --topics msmarco-passage-dev-subset \
   --encoded-queries ance-msmarco-passage-dev-subset \
   --output runs/run.msmarco-passage.ance.bf.tsv \
@@ -58,7 +58,7 @@ recall_1000           	all	0.9584
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-doc-ance-maxp-bf \
+  --index msmarco-v1-doc.ance-maxp \
   --topics msmarco-doc-dev \
   --encoded-queries ance_maxp-msmarco-doc-dev \
   --output runs/run.msmarco-doc.passage.ance-maxp.txt \
@@ -103,7 +103,7 @@ recall_100            	all	0.9033
 
 ```bash
 python -m pyserini.search.faiss \
-  --index wikipedia-ance-multi-bf \
+  --index wikipedia-dpr-100w.ance-multi \
   --topics dpr-nq-test \
   --encoded-queries ance_multi-nq-test \
   --output runs/run.ance.nq-test.multi.bf.trec \
@@ -117,7 +117,7 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 ```bash
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
     --topics dpr-nq-test \
-    --index wikipedia-dpr \
+    --index wikipedia-dpr-100w \
     --input runs/run.ance.nq-test.multi.bf.trec \
     --output runs/run.ance.nq-test.multi.bf.json
 
@@ -135,7 +135,7 @@ Top100	accuracy: 0.8787
 
 ```bash
 python -m pyserini.search.faiss \
-  --index wikipedia-ance-multi-bf \
+  --index wikipedia-dpr-100w.ance-multi \
   --topics dpr-trivia-test \
   --encoded-queries ance_multi-trivia-test \
   --output runs/run.ance.trivia-test.multi.bf.trec \
@@ -149,7 +149,7 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 ```bash
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
     --topics dpr-trivia-test \
-    --index wikipedia-dpr \
+    --index wikipedia-dpr-100w \
     --input runs/run.ance.trivia-test.multi.bf.trec \
     --output runs/run.ance.trivia-test.multi.bf.json
 

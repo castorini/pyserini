@@ -25,7 +25,7 @@ from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
 
-class TestSearchIntegration(unittest.TestCase):
+class TestSBert(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
         self.threads = 16
@@ -40,7 +40,7 @@ class TestSearchIntegration(unittest.TestCase):
         output_file = 'test_run.msmarco-passage.sbert.bf.otf.tsv'
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.faiss --topics msmarco-passage-dev-subset \
-                             --index msmarco-passage-sbert-bf \
+                             --index msmarco-v1-passage.sbert \
                              --encoder sentence-transformers/msmarco-distilbert-base-v3 \
                              --batch-size {self.batch_size} \
                              --threads {self.threads} \

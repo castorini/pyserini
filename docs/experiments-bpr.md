@@ -24,7 +24,7 @@ BPR with brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index wikipedia-bpr-single-nq-hash \
+  --index wikipedia-dpr-100w.bpr-single-nq \
   --topics dpr-nq-test \
   --encoded-queries bpr_single_nq-nq-test \
   --output runs/run.bpr.rerank.nq-test.nq.hash.trec \
@@ -39,7 +39,7 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
 $ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
-    --index wikipedia-dpr \
+    --index wikipedia-dpr-100w \
     --topics dpr-nq-test \
     --input runs/run.bpr.rerank.nq-test.nq.hash.trec \
     --output runs/run.bpr.rerank.nq-test.nq.hash.json

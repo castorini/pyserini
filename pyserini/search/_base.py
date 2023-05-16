@@ -29,6 +29,7 @@ logger = logging.getLogger(__name__)
 
 # Wrappers around Lucene classes
 JQuery = autoclass('org.apache.lucene.search.Query')
+JPath = autoclass('java.nio.file.Path')
 
 # Wrappers around Anserini classes
 JQrels = autoclass('io.anserini.eval.Qrels')
@@ -510,14 +511,14 @@ def get_qrels_file(collection_name):
     """
     if collection_name in qrels_mapping:
         qrels = qrels_mapping[collection_name]
-        target_path = os.path.join(get_cache_home(), qrels.path)
+        target_path = JRelevanceJudgments.getQrelsPath(JPath.of(qrels.path)).toString()
         if os.path.exists(target_path):
             return target_path
         target_dir = os.path.split(target_path)[0]
         if not os.path.exists(target_dir):
             os.makedirs(target_dir)
         with open(target_path, 'w') as file:
-            qrels_content = JRelevanceJudgments.getQrelsResource(qrels)
+            qrels_content = JRelevanceJudgments.getQrelsResource(JPath.of(target_path))
             file.write(qrels_content)
         return target_path
 

@@ -61,7 +61,11 @@ models = {
      'ance-otf',
      'distilbert-kd-otf',
      'distilbert-kd-tasb-otf',
-     'tct_colbert-v2-hnp-otf'],
+     'tct_colbert-v2-hnp-otf',
+     'slimr',
+     'slimr-pp',
+     'Aggretriever-Distilbert-otf',
+     'Aggretriever-coCondenser-otf'],
     'msmarco-v1-doc':
     ['bm25-doc-default',
      'bm25-doc-segmented-default',
@@ -229,7 +233,9 @@ def format_command(raw):
     return raw.replace('--topics', '\\\n  --topics') \
         .replace('--threads', '\\\n  --threads')\
         .replace('--index', '\\\n  --index')\
-        .replace('--output', '\\\n  --output')\
+        .replace('--output ', '\\\n  --output ')\
+        .replace('--encoder', '\\\n  --encoder')\
+        .replace('--encoded-corpus', '\\\n  --encoded-corpus')\
         .replace('.txt ', '.txt \\\n  ')
 
 
@@ -460,9 +466,10 @@ def run_conditions(args):
                                     runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky test: small difference on my iMac Studio
-                            elif args.collection == 'v1-passage' and topic_key == 'msmarco-passage-dev-subset' and \
-                                    name == 'ance-otf' and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
+                            # Flaky tests
+                            elif args.collection == 'msmarco-v1-passage' \
+                                    and topic_key == 'msmarco-passage-dev-subset' and name == 'ance-otf' \
+                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
