@@ -81,6 +81,7 @@ def define_search_args(parser):
 
     parser.add_argument('--impact', action='store_true', help="Use Impact.")
     parser.add_argument('--encoder', type=str, default=None, help="encoder name")
+    parser.add_argument('--onnx-encoder', type=str, default=None, help="onnx encoder name")
     parser.add_argument('--min-idf', type=int, default=0, help="minimum idf")
 
     parser.add_argument('--bm25', action='store_true', default=True, help="Use BM25 (default).")
@@ -159,16 +160,30 @@ if __name__ == "__main__":
             # create searcher from prebuilt index name
             searcher = LuceneSearcher.from_prebuilt_index(args.index)
     elif args.impact:
-        if os.path.exists(args.index):
-            if args.encoded_corpus is not None:
-                searcher = SlimSearcher(args.encoded_corpus, args.index, args.encoder, args.min_idf)
+        if args.encoder and args.onnx_encoder:
+            raise ValueError("Cannot specify both --encoder and --onnx-encoder")
+        if args.encoder:
+            if os.path.exists(args.index):
+                if args.encoded_corpus is not None:
+                    searcher = SlimSearcher(args.encoded_corpus, args.index, args.encoder, args.min_idf)
+                else:
+                    searcher = LuceneImpactSearcher(args.index, args.encoder, args.min_idf)
             else:
-                searcher = LuceneImpactSearcher(args.index, args.encoder, args.min_idf)
-        else:
-            if args.encoded_corpus is not None:
-                searcher = SlimSearcher.from_prebuilt_index(args.encoded_corpus, args.index, args.encoder, args.min_idf)
+                if args.encoded_corpus is not None:
+                    searcher = SlimSearcher.from_prebuilt_index(args.encoded_corpus, args.index, args.encoder, args.min_idf)
+                else:
+                    searcher = LuceneImpactSearcher.from_prebuilt_index(args.index, args.encoder, args.min_idf)
+        elif args.onnx_encoder:
+            if os.path.exists(args.index):
+                if args.encoded_corpus is not None:
+                    searcher = SlimSearcher(args.encoded_corpus, args.index, args.onnx_encoder, args.min_idf)
+                else:
+                    searcher = LuceneImpactSearcher(args.index, args.onnx_encoder, args.min_idf, 'onnx')
             else:
-                searcher = LuceneImpactSearcher.from_prebuilt_index(args.index, args.encoder, args.min_idf)
+                if args.encoded_corpus is not None:
+                    searcher = SlimSearcher.from_prebuilt_index(args.encoded_corpus, args.index, args.onnx_encoder, args.min_idf)
+                else:
+                    searcher = LuceneImpactSearcher.from_prebuilt_index(args.index, args.onnx_encoder, args.min_idf, 'onnx')
 
     if args.language != 'en':
         searcher.set_language(args.language)
