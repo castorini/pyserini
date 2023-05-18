@@ -222,11 +222,8 @@ def generate_report(args):
     commands = defaultdict(lambda: '')
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
-    #html_template = read_file('scripts/repro_matrix/mrtydi_html.template')
     html_template = read_file(pkg_resources.resource_filename(__name__, 'mrtydi_html.template'))
-    #table_template = read_file('scripts/repro_matrix/miracl_html_table.template')
     table_template = read_file(pkg_resources.resource_filename(__name__, 'miracl_html_table.template'))
-    #row_template = read_file('scripts/repro_matrix/miracl_html_table_row.template')
     row_template = read_file(pkg_resources.resource_filename(__name__, 'miracl_html_table_row.template'))
 
     with open(pkg_resources.resource_filename(__name__, 'miracl.yaml')) as f:
@@ -246,7 +243,6 @@ def generate_report(args):
                 else:
                     hits = int(cmd_lst[cmd_lst.index('--hits') + 1])
 
-                #runfile = f'run.miracl.{name}.{split}.txt'
                 runfile = os.path.join(args.directory, f'run.miracl.{name}.{split}.txt')
                 if is_hybrid_run: 
                     bm25_output = f'runs/run.miracl.bm25.{lang}.{split}.top{hits}.txt'
@@ -324,7 +320,6 @@ def run_conditions(args):
 
                 print(f'  - split: {split}')
 
-                #runfile = f'runs/run.miracl.{name}.{split}.top{hits}.txt'
                 runfile = os.path.join(args.directory, f'run.miracl.{name}.{split}.top{hits}.txt')
                 if is_hybrid_run:
                     bm25_output = f'runs/run.miracl.bm25.{lang}.{split}.top{hits}.txt'
