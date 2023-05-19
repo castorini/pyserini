@@ -219,9 +219,9 @@ def run_conditions(args):
             name = condition['name']
             encoder = name.split('.')[0]
             lang = name.split('.')[-1]
-            if args.all and args.encoder != encoder:
+            if args.all and args.condition != encoder:
                 continue
-            if not args.all and not (args.encoder == encoder and args.language == lang):
+            if not args.all and not (args.condition == encoder and args.language == lang):
                 continue
             eval_key = condition['eval_key']
             cmd_template = condition['command']
@@ -236,13 +236,12 @@ def run_conditions(args):
                 runfile = os.path.join(args.directory, f'run.mrtydi.{name}.{split}.txt')
                 cmd = Template(cmd_template).substitute(split=split, output=runfile)
 
-                if args.dry_run:
-                    print(f'{cmd}')
-                    continue
+                if args.display_commands:
+                    print(f'\n```bash\n{format_eval_command(cmd)}\n```\n')
 
                 if not os.path.exists(runfile):
-                    print(f'    Running: {cmd}')
-                    os.system(cmd)
+                    if not args.dry_run:
+                        os.system(cmd)
 
                 for expected in splits['scores']:
                     for metric in expected:
@@ -281,14 +280,14 @@ def run_conditions(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for MIRACL.')
-    parser.add_argument('--encoder', type=str,
-                        help='Encoder to use', required=False, choices=['bm25', 'mdpr-split-pft-nq', 'mdpr-tied-pft-nq', 'mdpr-tied-pft-msmarco', 'mdpr-tied-pft-msmarco-ft-all'])
+    parser.add_argument('--condition', type=str,
+                        help='Condition to run', required=False)
     # For generating reports
     parser.add_argument('--generate-report', action='store_true', default=False, help='Generate report.')
     parser.add_argument('--output', type=str, help='File to store report.', required=False)
     # For actually running the experimental conditions
     parser.add_argument('--all', action='store_true', default=False, help='Run using all languages.')
-    parser.add_argument('--language', type=str, help='Language to run.', required=False, choices=['ar','bn','en','fi','id','ja','ko','ru','sw','te','th'])
+    parser.add_argument('--language', type=str, help='Language to run.', required=False)
     parser.add_argument('--directory', type=str, help='Base directory.', default='', required=False)
     parser.add_argument('--dry-run', action='store_true', default=False, help='Print out commands but do not execute.')
     parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
@@ -303,7 +302,7 @@ if __name__ == '__main__':
         generate_report(args)
         sys.exit()
 
-    if (args.all or args.language) and not args.encoder:
+    if (args.all or args.language) and not args.condition:
         print('Must specify encoder to generate regressions')
         sys.exit()
 
