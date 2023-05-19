@@ -78,6 +78,14 @@ def read_file(f):
 
     return text
 
+def list_conditions():
+    print('Conditions:\n-----------')
+    for condition in models:
+        print(condition)
+    print('\nLanguages\n---------')
+    for language in languages:
+        print(language[0])
+
 def print_results(table, metric, split):
     print(f'Metric = {metric}, Split = {split}')
     print(' ' * 32, end='')
@@ -282,6 +290,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for MIRACL.')
     parser.add_argument('--condition', type=str,
                         help='Condition to run', required=False)
+    # To list all conditions
+    parser.add_argument('--list-conditions', action='store_true', default=False, help='List available conditions.')
     # For generating reports
     parser.add_argument('--generate-report', action='store_true', default=False, help='Generate report.')
     parser.add_argument('--output', type=str, help='File to store report.', required=False)
@@ -293,6 +303,10 @@ if __name__ == '__main__':
     parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
     parser.add_argument('--display-commands', action='store_true', default=False, help='Display command.')
     args = parser.parse_args()
+
+    if args.list_conditions:
+        list_conditions()
+        sys.exit()
 
     if args.generate_report:
         if not args.output:
