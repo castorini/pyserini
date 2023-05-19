@@ -252,8 +252,8 @@ def generate_report(args):
 
                 runfile = os.path.join(args.directory, f'run.miracl.{name}.{split}.txt')
                 if is_hybrid_run: 
-                    bm25_output = f'runs/run.miracl.bm25.{lang}.{split}.top{hits}.txt'
-                    mdpr_output = f'runs/run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt'
+                    bm25_output = f'{args.directory}/run.miracl.bm25.{lang}.{split}.top{hits}.txt'
+                    mdpr_output = f'{args.directory}/run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt'
                     cmd = Template(cmd_template).substitute(split=split, output=runfile, bm25_output=bm25_output, mdpr_output=mdpr_output)
                 else:
                     cmd = Template(cmd_template).substitute(split=split, output=runfile)
@@ -329,8 +329,8 @@ def run_conditions(args):
 
                 runfile = os.path.join(args.directory, f'run.miracl.{name}.{split}.top{hits}.txt')
                 if is_hybrid_run:
-                    bm25_output = f'runs/run.miracl.bm25.{lang}.{split}.top{hits}.txt'
-                    mdpr_output = f'runs/run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt'
+                    bm25_output = f'{args.directory}/run.miracl.bm25.{lang}.{split}.top{hits}.txt'
+                    mdpr_output = f'{args.directory}/run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt'
                     if not os.path.exists(bm25_output):
                         print(f'Missing BM25 file: {bm25_output}')
                         continue
