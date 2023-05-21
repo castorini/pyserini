@@ -427,6 +427,28 @@ conditions:
           - MAP: 0.4429
             nDCG@10: 0.6745
             R@1K: 0.8433
+  - name: unicoil-otf-onnx
+    display: "uniCOIL (w/ doc2query-T5): otf with ONNX Runtime"
+    display-html: "uniCOIL (w/ doc2query-T5): on-the-fly query inference with ONNX Runtime"
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-unicoil --topics $topics --onnx-encoder UniCoil --output $output --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3509
+            R@1K: 0.9581
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4617
+            nDCG@10: 0.7027
+            R@1K: 0.8291
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4429
+            nDCG@10: 0.6745
+            R@1K: 0.8433
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
@@ -472,6 +494,28 @@ conditions:
           - MAP: 0.4022
             nDCG@10: 0.6524
             R@1K: 0.7861
+  - name: unicoil-noexp-otf-onnx
+    display: "uniCOIL (noexp): otf ONNX"
+    display-html: "uniCOIL (noexp): on-the-fly query inference"
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-unicoil-noexp --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3119
+            R@1K: 0.9239
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4061
+            nDCG@10: 0.6531
+            R@1K: 0.7809
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.3909
+            nDCG@10: 0.6388
+            R@1K: 0.7915
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
