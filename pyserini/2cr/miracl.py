@@ -329,8 +329,8 @@ def run_conditions(args):
 
                 runfile = os.path.join(args.directory, f'run.miracl.{name}.{split}.top{hits}.txt')
                 if is_hybrid_run:
-                    bm25_output = f'{args.directory}/run.miracl.bm25.{lang}.{split}.top{hits}.txt'
-                    mdpr_output = f'{args.directory}/run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt'
+                    bm25_output = os.path.join(args.directory, f'/run.miracl.bm25.{lang}.{split}.top{hits}.txt')
+                    mdpr_output = os.path.join(args.directory, f'/run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
                     if not os.path.exists(bm25_output):
                         print(f'Missing BM25 file: {bm25_output}')
                         continue
