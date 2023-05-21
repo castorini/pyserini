@@ -307,9 +307,11 @@ def run_conditions(args):
             name = condition['name']
             encoder = name.split('.')[0]
             lang = name.split('.')[-1]
-            if args.all and args.condition != encoder:
+            if args.all:
+                pass
+            elif args.condition != encoder:
                 continue
-            if not args.all and not (args.condition == encoder and args.language == lang):
+            elif args.language and args.language != lang:
                 continue
             eval_key = condition['eval_key']
             cmd_template = condition['command']
@@ -350,7 +352,7 @@ def run_conditions(args):
                                       f'--topics tools/topics-and-qrels/topics.miracl-v1.0-{lang}-{split}.tsv')
 
                 if args.display_commands:
-                    print(f'\n```bash\n{format_eval_command(cmd)}\n```\n')
+                    print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
 
                 if not os.path.exists(runfile):
                     if not args.dry_run:
@@ -436,12 +438,8 @@ if __name__ == '__main__':
         generate_report(args)
         sys.exit()
 
-    if (args.all or args.language) and not args.condition:
-        print('Must specify encoder to generate regressions')
-        sys.exit()
-
-    if not args.all and not args.language:
-        print(f'Must specify a specific language using --language or use --all to run all languages.')
+    if args.all and (args.condition or args.language):
+        print('Specifying --all will run all conditions and languages')
         sys.exit()
 
     run_conditions(args)
