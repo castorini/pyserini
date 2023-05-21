@@ -78,7 +78,7 @@ def format_run_command(raw):
 
 def format_eval_command(raw):
     return raw.replace('-c ', '\\\n  -c ')\
-        .replace('run.', '\\\n  run.')
+        .replace(raw.split()[-1], f'\\\n  {raw.split()[-1]}')
 
 
 def read_file(f):
@@ -252,8 +252,8 @@ def generate_report(args):
 
                 runfile = os.path.join(args.directory, f'run.miracl.{name}.{split}.txt')
                 if is_hybrid_run: 
-                    bm25_output = f'{args.directory}/run.miracl.bm25.{lang}.{split}.top{hits}.txt'
-                    mdpr_output = f'{args.directory}/run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt'
+                    bm25_output = os.path.join(args.directory, f'run.miracl.bm25.{lang}.{split}.top{hits}.txt')
+                    mdpr_output = os.path.join(args.directory, f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
                     cmd = Template(cmd_template).substitute(split=split, output=runfile, bm25_output=bm25_output, mdpr_output=mdpr_output)
                 else:
                     cmd = Template(cmd_template).substitute(split=split, output=runfile)
