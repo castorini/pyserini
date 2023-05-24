@@ -200,7 +200,6 @@ def generate_report(args):
                         eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
                                    f'{trec_eval_metric_definitions[metric]} {eval_key}-{split} {runfile}'
                         eval_commands[name][metric] = format_eval_command(eval_cmd)
-                        print(format_eval_command(eval_cmd))
 
         tables_html = []
 
