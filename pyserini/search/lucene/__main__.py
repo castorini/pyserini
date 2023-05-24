@@ -184,6 +184,11 @@ if __name__ == "__main__":
                     searcher = SlimSearcher.from_prebuilt_index(args.encoded_corpus, args.index, args.onnx_encoder, args.min_idf)
                 else:
                     searcher = LuceneImpactSearcher.from_prebuilt_index(args.index, args.onnx_encoder, args.min_idf, 'onnx')
+        # These are the cases where we're specifying pre-encoded queries
+        elif os.path.exists(args.index):
+            searcher = LuceneImpactSearcher(args.index, args.encoder, args.min_idf)
+        else:
+            searcher = LuceneImpactSearcher.from_prebuilt_index(args.index, args.encoder, args.min_idf)
 
     if args.language != 'en':
         searcher.set_language(args.language)
