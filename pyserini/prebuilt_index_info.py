@@ -2381,6 +2381,91 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
 
+    "msmarco-v1-passage-splade-pp-ed": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-ed.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-ed.20230524.a59610.tar.gz"
+        ],
+        "md5": "4b3c969033cbd017306df42ce134c395",
+        "size compressed (bytes)": 2102229906,
+        "total_terms": 52376261130,
+        "documents": 8841823,
+        "unique_terms": 28679,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-ed-docvectors": {
+        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-ed-docvectors.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-ed-docvectors.20230524.a59610.tar.gz"
+        ],
+        "md5": "270301ea1413c38cc83cf682c7787b49",
+        "size compressed (bytes)": 13052697908,
+        "total_terms": 52376261130,
+        "documents": 8841823,
+        "unique_terms": 28679,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-ed-text": {
+        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-ed-text.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-ed-text.20230524.a59610.tar.gz"
+        ],
+        "md5": "151e9b1b345197cd4a0edbf7127f3deb",
+        "size compressed (bytes)": 9983469862,
+        "total_terms": 52376261130,
+        "documents": 8841823,
+        "unique_terms": 28679,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-sd": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-sd.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-sd.20230524.a59610.tar.gz"
+        ],
+        "md5": "4e4a3969c1e9e7262b2783ad192086ae",
+        "size compressed (bytes)": 2367261002,
+        "total_terms": 55456660129,
+        "documents": 8841823,
+        "unique_terms": 28662,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-sd-docvectors": {
+        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-sd-docvectors.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-sd-docvectors.20230524.a59610.tar.gz"
+        ],
+        "md5": "8d75aecc95e63853c832916da62e97f9",
+        "size compressed (bytes)": 14829233820,
+        "total_terms": 55456660129,
+        "documents": 8841823,
+        "unique_terms": 28662,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-sd-text": {
+        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-sd-text.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-sd-text.20230524.a59610.tar.gz"
+        ],
+        "md5": "1d90dc2803a6fea55a4d16da7623e2ed",
+        "size compressed (bytes)": 11473065718,
+        "total_terms": 55456660129,
+        "documents": 8841823,
+        "unique_terms": 28662,
+        "downloaded": False
+    },
+
     "msmarco-v1-doc-segmented-unicoil": {
         "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL, with title/segment encoding. (Lucene 9)",
         "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.tar.gz",
