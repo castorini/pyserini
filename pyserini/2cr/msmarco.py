@@ -51,7 +51,12 @@ models = {
      'unicoil',
      '',
      'unicoil-noexp-otf',
+     'unicoil-noexp-otf-onnx',
      'unicoil-otf',
+     'unicoil-otf-onnx'
+     '',
+     'splade-pp-ed-otf-onnx',
+     'splade-pp-sd-otf-onnx',
      '',
      'ance',
      'distilbert-kd',
@@ -235,6 +240,7 @@ def format_command(raw):
         .replace('--index', '\\\n  --index')\
         .replace('--output ', '\\\n  --output ')\
         .replace('--encoder', '\\\n  --encoder')\
+        .replace('--onnx-encoder', '\\\n  --onnx-encoder')\
         .replace('--encoded-corpus', '\\\n  --encoded-corpus')\
         .replace('.txt ', '.txt \\\n  ')
 
