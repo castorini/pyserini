@@ -56,6 +56,7 @@ trec_eval_metric_definitions = {
     'R@100': '-c -m recall.100',
 }
 
+
 def format_run_command(raw):
     return raw.replace('--lang', '\\\n  --lang')\
         .replace('--encoder', '\\\n  --encoder')\
@@ -78,6 +79,7 @@ def read_file(f):
 
     return text
 
+
 def list_conditions():
     print('Conditions:\n-----------')
     for condition in models:
@@ -85,6 +87,7 @@ def list_conditions():
     print('\nLanguages\n---------')
     for language in languages:
         print(language[0])
+
 
 def print_results(table, metric, split):
     print(f'Metric = {metric}, Split = {split}')
@@ -216,12 +219,13 @@ def generate_report(args):
     with open(args.output, 'w') as out:
         out.write(Template(html_template).substitute(title='Mr.TyDi', tables=' '.join(tables_html)))
 
+
 def run_conditions(args):
     start = time.time()
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
-    with open('pyserini/2cr/mrtydi.yaml') as f:
+    with open(pkg_resources.resource_filename(__name__, 'mrtydi.yaml')) as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -287,6 +291,7 @@ def run_conditions(args):
 
     end = time.time()
     print(f'Total elapsed time: {end - start:.0f}s')
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for MIRACL.')
