@@ -221,7 +221,7 @@ def run_conditions(args):
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
-    with open('pyserini/resources/mrtydi.yaml') as f:
+    with open('pyserini/2cr/mrtydi.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
