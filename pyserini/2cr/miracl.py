@@ -223,7 +223,7 @@ def generate_report(args):
     commands = defaultdict(lambda: '')
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
-    html_template = read_file(pkg_resources.resource_filename(__name__, 'mrtydi_html.template'))
+    html_template = read_file(pkg_resources.resource_filename(__name__, 'miracl_html.template'))
     table_template = read_file(pkg_resources.resource_filename(__name__, 'miracl_html_table.template'))
     row_template = read_file(pkg_resources.resource_filename(__name__, 'miracl_html_table_row.template'))
 
