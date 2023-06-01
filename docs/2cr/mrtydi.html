@@ -40,14 +40,6 @@ blockquote.mycode {
   padding-left: 15px;
 }
 
-blockquote.mycode2 {
-  border-left: 3px solid #ccc;
-  margin-left: 25px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 15px;
-}
-
 tr th.headertop {
   border-bottom: none;
   padding-bottom: 0rem
@@ -3041,68 +3033,6 @@ Evaluation commands:
   </table>
 </div>
 
-</ul>
-
-<div style="padding-top: 20px"/>
-
-<h4>Programmatic Execution</h4>
-
-<p>All experimental runs shown in the above table can be programmatically executed based on the instructions below.
-To list all the experimental conditions:</p>
-
-<blockquote class="mycode2"><tt>
-python -m pyserini.2cr.mrtydi --list-conditions
-</tt></blockquote>
-
-<p>Run all languages for a specific condition and show commands:</p>
-
-<blockquote class="mycode2"><tt>
-python -m pyserini.2cr.mrtydi --condition bm25 --display-commands
-</tt></blockquote>
-
-<p>Run a particular language for a specific condition and show commands:</p>
-
-<blockquote class="mycode2"><tt>
-python -m pyserini.2cr.mrtydi --condition bm25 --language ko --display-commands
-</tt></blockquote>
-
-<p>Run all languages for all conditions and show commands:</p>
-
-<blockquote class="mycode2"><tt>
-python -m pyserini.2cr.mrtydi --all --display-commands
-</tt></blockquote>
-
-<p>With the above commands, run files will be placed in the current directory. Use the option <tt>--directory runs</tt> to place the runs in a sub-directory.</p>
-
-<p>For a specific condition, just show the commands and do not run:</p>
-
-<blockquote class="mycode2"><tt>
-python -m pyserini.2cr.mrtydi --condition bm25 --display-commands --dry-run
-</tt></blockquote>
-
-<p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
-
-<p>For a specific condition and language, just show the commands and do not run:</p>
-
-<blockquote class="mycode2"><tt>
-python -m pyserini.2cr.mrtydi --condition bm25 --language ko --display-commands --dry-run
-</tt></blockquote>
-
-<p>For all conditions, just show the commands and do not run and skip evaluation:</p>
-
-<blockquote class="mycode2"><tt>
-python -m pyserini.2cr.mrtydi --all --display-commands --dry-run --skip-eval
-</tt></blockquote>
-
-<p>Finally, to generate this page:</p>
-
-<blockquote class="mycode2"><tt>
-python -m pyserini.2cr.mrtydi --generate-report --output docs/2cr/mrtydi.html
-</tt></blockquote>
-
-<p>The output file <tt>mrtydi.html</tt> should be identical to this page.</p>
-
-<div style="padding-top: 50px"/>
 
     </div>
 
