@@ -21,6 +21,7 @@ from enum import Enum, unique
 from pathlib import Path
 
 from pyserini.search import get_topics, get_topics_with_reader
+from pyserini.search.faiss import NumpyReader
 from pyserini.util import download_url, get_cache_home
 from pyserini.external_query_info import KILT_QUERY_INFO
 from urllib.error import HTTPError, URLError
@@ -30,6 +31,7 @@ from urllib.error import HTTPError, URLError
 class TopicsFormat(Enum):
     DEFAULT = 'default'
     KILT = 'kilt'
+    CLIP = 'clip'
 
 
 class QueryIterator(ABC):
@@ -150,10 +152,25 @@ class KiltQueryIterator(QueryIterator):
                 print(f'Unable to download encoded query at {url}, trying next URL...')
         raise ValueError(f'Unable to download encoded query at any known URLs.')
 
+class ClipQueryIterator(QueryIterator):
+
+    @classmethod
+    def from_topics(cls, topics_path: str):
+        if os.path.exists(topics_path):
+            topics = NumpyReader(topics_path)
+        else:
+            raise FileNotFoundError(f'Topic {topics_path} Not Found')
+        order = QueryIterator.get_predefined_order(topics_path)
+        return cls(topics, order)
+    
+    def get_query(self, id_):
+        return self.topics[id_].reshape(1, -1)
+        
 
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
         TopicsFormat.DEFAULT: DefaultQueryIterator,
         TopicsFormat.KILT: KiltQueryIterator,
+        TopicsFormat.CLIP: ClipQueryIterator,
     }
     return mapping[topics_format].from_topics(topics_path)

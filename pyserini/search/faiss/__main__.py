@@ -16,6 +16,7 @@
 
 import argparse
 import os
+import numpy as np
 from typing import OrderedDict
 
 from tqdm import tqdm
@@ -274,6 +275,10 @@ if __name__ == '__main__':
                         else:
                             prf_embs_q = prfRule.get_batch_prf_q_emb(batch_topic_ids, q_embs, prf_candidates)
                         results = searcher.batch_search(prf_embs_q, batch_topic_ids, k=args.hits, threads=args.threads,
+                                                        **kwargs)
+                        results = [(id_, results[id_]) for id_ in batch_topic_ids]
+                    elif args.topics_format == 'clip':
+                        results = searcher.batch_search(np.concatenate(batch_topics), batch_topic_ids, args.hits, threads=args.threads,
                                                         **kwargs)
                         results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     else:

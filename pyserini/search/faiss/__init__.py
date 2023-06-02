@@ -19,7 +19,8 @@ from ._searcher import DenseSearchResult, PRFDenseSearchResult, FaissSearcher, B
 
 from ._model import AnceEncoder
 from._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
+from ._reader import NumpyReader
 
 __all__ = ['DenseSearchResult', 'PRFDenseSearchResult', 'FaissSearcher', 'BinaryDenseSearcher', 'QueryEncoder',
            'DprQueryEncoder', 'BprQueryEncoder', 'DkrrDprQueryEncoder', 'TctColBertQueryEncoder', 'AnceEncoder',
-           'AnceQueryEncoder', 'AggretrieverQueryEncoder', 'AutoQueryEncoder', 'DenseVectorAveragePrf', 'DenseVectorRocchioPrf', 'DenseVectorAncePrf']
+           'AnceQueryEncoder', 'AggretrieverQueryEncoder', 'AutoQueryEncoder', 'DenseVectorAveragePrf', 'DenseVectorRocchioPrf', 'DenseVectorAncePrf', 'NumpyReader']
