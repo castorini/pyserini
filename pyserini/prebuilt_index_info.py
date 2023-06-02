@@ -5176,8 +5176,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ar.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "2ba4885c4fea9a0cc8aaea08eee0eafd",
-        "size compressed (bytes)": 5861079228,
+        "md5": "80c18ac84922ae27bfbee881485816c6",
+        "size compressed (bytes)": 5861079368,
         "documents": 2061414,
         "downloaded": False,
         "texts": "miracl-v1.0-ar",
@@ -5189,8 +5189,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-bn.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "248fdc8f80172e064b45af0a1651cf2e",
-        "size compressed (bytes)": 845828056,
+        "md5": "08191b7749151a7bc70e54b92988dd25",
+        "size compressed (bytes)": 845828394, 
         "documents": 297265,
         "downloaded": False,
         "texts": "miracl-v1.0-bn",
@@ -5202,8 +5202,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-en.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "70aa69937e3db87237f60a53bac897c5",
-        "size compressed (bytes)": 93426889796,
+        "md5": "a460d0eb95cf8a278686531e13141d00",
+        "size compressed (bytes)": 93426889457, 
         "documents": 32893221,
         "downloaded": False,
         "texts": "miracl-v1.0-en"
@@ -5215,8 +5215,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "6d974812ac186855c6753ba9893077f9",
-        "size compressed (bytes)": 29499199630,
+        "md5": "936e9188c4dcf57f8f116b9e25790372",
+        "size compressed (bytes)": 29499200527,
         "documents": 10373953,
         "downloaded": False,
         "texts": "miracl-v1.0-es"
@@ -5228,8 +5228,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fa.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "f8c9d609671baac9b19f15f50caaf97a",
-        "size compressed (bytes)": 6278765681,
+        "md5": "58f83135ecafae6993e49f5f08e471ff",
+        "size compressed (bytes)": 6278766617,
         "documents": 2207172,
         "downloaded": False,
         "texts": "miracl-v1.0-fa"
@@ -5241,8 +5241,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fi.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "93f45c5e5846fcc4f0e83f8cdad47888",
-        "size compressed (bytes)": 5358003982,
+        "md5": "b10bc504213199fe0c0972678ab4fdd6",
+        "size compressed (bytes)": 5358004166,
         "documents": 1883509,
         "downloaded": False,
         "texts": "miracl-v1.0-fi"
@@ -5254,8 +5254,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "5170f6016fa76da863805ee54f624182",
-        "size compressed (bytes)": 41578764927,
+        "md5": "b0d5543824b456d9008d05d7dcef5272",
+        "size compressed (bytes)": 41578767020, 
         "documents": 14636953,
         "downloaded": False,
         "texts": "miracl-v1.0-fr"
@@ -5267,8 +5267,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-hi.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "000f9354f7f8c437fd1519ea360a06c2",
-        "size compressed (bytes)": 1439123019,
+        "md5": "ba66e98169b22244c7a7a89ae9bfe549", 
+        "size compressed (bytes)": 1439122724, 
         "documents": 506264,
         "downloaded": False,
         "texts": "miracl-v1.0-hi"
@@ -5280,8 +5280,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-id.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "4fe8335af50d8fb1c8360bc815cbc923",
-        "size compressed (bytes)": 4113609540,
+        "md5": "700466ab62bfd4b0ceddff7aa9b7a5f8",
+        "size compressed (bytes)": 4113610061,
         "documents": 1446315,
         "downloaded": False,
         "texts": "miracl-v1.0-id"
@@ -5293,8 +5293,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ja.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "9862b9f8465cabb54b687924ec053543",
-        "size compressed (bytes)": 19772958349,
+        "md5": "f0358ae58b32456c3cef5f71e83a0143",
+        "size compressed (bytes)": 19772957772,
         "documents": 6953614,
         "downloaded": False,
         "texts": "miracl-v1.0-ja"
@@ -5306,8 +5306,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ko.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "8905f228a813e839a59b130abed1a708",
-        "size compressed (bytes)": 4229330518,
+        "md5": "fa00afb61fa4332c408069cb6eb2e8f2",
+        "size compressed (bytes)": 4229330667,
         "documents": 1486752,
         "downloaded": False,
         "texts": "miracl-v1.0-korean"
@@ -5319,8 +5319,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ru.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "0a1ad0d14a72ea8338d53a244b8ed1f0",
-        "size compressed (bytes)": 27155046024,
+        "md5": "118835c214f7b24997ab9f1744b3f5ee",
+        "size compressed (bytes)": 27155045095, 
         "documents": 9543918,
         "downloaded": False,
         "texts": "miracl-v1.0-ru"
@@ -5332,8 +5332,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-sw.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "267a85b6bee549df60be3fa5e3d8b4fd",
-        "size compressed (bytes)": 375416314,
+        "md5": "ae45812eadb685c672f7b19c084ae3bc",
+        "size compressed (bytes)": 375416284,
         "documents": 131924,
         "downloaded": False,
         "texts": "miracl-v1.0-sw"
@@ -5345,8 +5345,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-te.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "8b23a2494b7529c6c92e44184a0e5e8d",
-        "size compressed (bytes)": 1474250557,
+        "md5": "8cbea3c141002dd477a15b387350ea37",
+        "size compressed (bytes)": 1474250608,
         "documents": 518079,
         "downloaded": False,
         "texts": "miracl-v1.0-te"
@@ -5358,8 +5358,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "772addf988987df27c24248ccb272ba0",
-        "size compressed (bytes)": 1540980476,
+        "md5": "f8aee10055a31914c4c214819a7c1890",
+        "size compressed (bytes)": 139276690,
         "documents": 542166,
         "downloaded": False,
         "texts": "miracl-v1.0-th"
@@ -5371,8 +5371,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-zh.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "fd7e25be8b2b50237da8e949da58df81",
-        "size compressed (bytes)": 14034991149,
+        "md5": "d8800abe1ac22b4161704f2b6d4fe575",
+        "size compressed (bytes)": 14034991692,
         "documents": 4934368,
         "downloaded": False,
         "texts": "miracl-v1.0-zh",
@@ -5384,8 +5384,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-de.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "f77d8a58f784e41c89857d2e689ac69c",
-        "size compressed (bytes)": 45085912244,
+        "md5": "218cb42441af355285fbf219e9d2d7c7",
+        "size compressed (bytes)": 45085913144,
         "documents": 15866222,
         "downloaded": False,
         "texts": "miracl-v1.0-de",
@@ -5397,8 +5397,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-yo.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "724170f42e8c90c2b921ba0488dc32f1",
-        "size compressed (bytes)": 139276647,
+        "md5": "f8aee10055a31914c4c214819a7c1890",
+        "size compressed (bytes)": 139276690,
         "documents": 49043,
         "downloaded": False,
         "texts": "miracl-v1.0-yo",
