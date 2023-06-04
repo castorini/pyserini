@@ -55,3 +55,5 @@ python -m pyserini.index -collection AclAnthology -generator AclAnthologyGenerat
 You can find the output files in the `index/lucene-index-acl-paragraph` directory.
 
 ## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@billcui57](https://github.com/billcui57) on 2023-06-04 (commit [9fe7836](https://github.com/castorini/pyserini/commit/9fe78365eea89bc93c3a819b7be567d3e1a791eb))
