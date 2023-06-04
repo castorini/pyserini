@@ -43,7 +43,9 @@ Generated ACL files can now be found in `acl-anthology/build/data/`
 
 ## Indexing Data
 
-Now we should install Pyserini. You can follow the installation [here](https://github.com/castorini/pyserini/blob/master/docs/installation.md). After you did the `Preliminaries` section, make sure to skip the `Pip Installation` and follow the `Development Installation`. Note that you should be using the already created `pyserini_acl` conda environment rather than making a new one that was instructed [here](https://github.com/castorini/pyserini/blob/master/docs/installation.md#:~:text=conda%20create%20%2Dn%20pyserini%20python%3D3.8). Just the `Development Installation` will give us the latest features we want.
+Now we should install Pyserini. You can follow the installation [here](https://github.com/castorini/pyserini/blob/master/docs/installation.md). After you did the `Preliminaries` section, make sure to skip the `Pip Installation` and follow the `Development Installation`. 
+Note that you should be using the already created `pyserini_acl` conda environment rather than making a new one that was instructed [here](https://github.com/castorini/pyserini/blob/master/docs/installation.md#:~:text=conda%20create%20%2Dn%20pyserini%20python%3D3.8). 
+Just the `Development Installation` will give us the latest features we want.
 
 Once you completely installed Pyserini, navigate to `acl-anthology` folder and run this line of code.
 
@@ -51,3 +53,5 @@ Once you completely installed Pyserini, navigate to `acl-anthology` folder and r
 python -m pyserini.index -collection AclAnthology -generator AclAnthologyGenerator -threads 8 -input build/data/ -index index/lucene-index-acl-paragraph -storePositions -storeDocvectors -storeContents -storeRaw -optimize
 ```
 You can find the output files in the `index/lucene-index-acl-paragraph` directory.
+
+## Reproduction Log[*](reproducibility.md)
