@@ -5358,8 +5358,8 @@ FAISS_INDEX_INFO_MIRACL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
-        "md5": "f8aee10055a31914c4c214819a7c1890",
-        "size compressed (bytes)": 139276690,
+        "md5": "58cd7d862f202ece45dbd4cb6b6d12f4",
+        "size compressed (bytes)": 1540980581,
         "documents": 542166,
         "downloaded": False,
         "texts": "miracl-v1.0-th"
