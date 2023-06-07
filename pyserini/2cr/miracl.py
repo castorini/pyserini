@@ -129,7 +129,6 @@ def generate_table_rows(table, row_template, commands, eval_commands, table_id, 
               table[keys["zh"]][split][metric] + \
               table[keys["de"]][split][metric] + \
               table[keys["yo"]][split][metric]
-        import pdb ; pdb.set_trace()
         avg = sum / used_langs
 
         s = s.substitute(table_cnt=table_id,
