@@ -49,16 +49,15 @@ languages = [
     ['yo', 'yoruba']
 ]
 
-
 html_display = OrderedDict()
 html_display['bm25'] = 'BM25'
 html_display['mdpr-tied-pft-msmarco'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO'
 html_display['mdpr-tied-pft-msmarco-ft-all'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO then FT w/ all Mr. TyDi'
-html_display['bm25-mdpr-tied-pft-msmarco-hybrid'] =  'Hybrid of `bm25` and `mdpr-tied-pft-msmarco`'
+html_display['bm25-mdpr-tied-pft-msmarco-hybrid'] = 'Hybrid of `bm25` and `mdpr-tied-pft-msmarco`'
 html_display['mdpr-tied-pft-msmarco-ft-miracl'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO then in-lang FT w/ MIRACL'
 html_display['mcontriever-tied-pft-msmarco'] = 'mContriever (tied encoders), pre-FT w/ MS MARCO'
 
-models = list(html_display) 
+models = list(html_display)
 
 trec_eval_metric_definitions = {
     'nDCG@10': '-c -M 100 -m ndcg_cut.10',
@@ -67,18 +66,18 @@ trec_eval_metric_definitions = {
 
 
 def format_run_command(raw):
-    return raw.replace('--lang', '\\\n  --lang')\
-        .replace('--encoder', '\\\n  --encoder')\
-        .replace('--topics', '\\\n  --topics')\
-        .replace('--index', '\\\n  --index')\
-        .replace('--output ', '\\\n  --output ')\
-        .replace('--runs', '\\\n  --runs ')\
+    return raw.replace('--lang', '\\\n  --lang') \
+        .replace('--encoder', '\\\n  --encoder') \
+        .replace('--topics', '\\\n  --topics') \
+        .replace('--index', '\\\n  --index') \
+        .replace('--output ', '\\\n  --output ') \
+        .replace('--runs', '\\\n  --runs ') \
         .replace('--batch ', '\\\n  --batch ') \
         .replace('--threads 12', '--threads 12 \\\n ')
 
 
 def format_eval_command(raw):
-    return raw.replace('-c ', '\\\n  -c ')\
+    return raw.replace('-c ', '\\\n  -c ') \
         .replace(raw.split()[-1], f'\\\n  {raw.split()[-1]}')
 
 
@@ -89,6 +88,7 @@ def read_file(f):
 
     return text
 
+
 def list_conditions():
     print('Conditions:\n-----------')
     for condition, _ in html_display.items():
@@ -96,6 +96,7 @@ def list_conditions():
     print('\nLanguages\n---------')
     for language in languages:
         print(language[0])
+
 
 def generate_table_rows(table, row_template, commands, eval_commands, table_id, split, metric):
     row_cnt = 1
@@ -197,6 +198,7 @@ def generate_table_rows(table, row_template, commands, eval_commands, table_id, 
 
     return html_rows
 
+
 def print_results(table, metric, split):
     print(f'Metric = {metric}, Split = {split}')
     print(' ' * 35, end='')
@@ -218,20 +220,12 @@ def extract_topic_fn_from_cmd(cmd):
     return cmd[topic_idx + 1]
 
 
-def read_file(f):
-    fin = open(f, 'r')
-    text = fin.read()
-    fin.close()
-
-    return text
-
-
 def generate_report(args):
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
     commands = defaultdict(lambda: '')
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
-    html_template = read_file(pkg_resources.resource_filename(__name__, 'mrtydi_html.template'))
+    html_template = read_file(pkg_resources.resource_filename(__name__, 'miracl_html.template'))
     table_template = read_file(pkg_resources.resource_filename(__name__, 'miracl_html_table.template'))
     row_template = read_file(pkg_resources.resource_filename(__name__, 'miracl_html_table_row.template'))
 
@@ -253,10 +247,13 @@ def generate_report(args):
                     hits = int(cmd_lst[cmd_lst.index('--hits') + 1])
 
                 runfile = os.path.join(args.directory, f'run.miracl.{name}.{split}.txt')
-                if is_hybrid_run: 
-                    bm25_output = os.path.join(args.directory, f'run.miracl.bm25.{lang}.{split}.top{hits}.txt')
-                    mdpr_output = os.path.join(args.directory, f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
-                    cmd = Template(cmd_template).substitute(split=split, output=runfile, bm25_output=bm25_output, mdpr_output=mdpr_output)
+                if is_hybrid_run:
+                    bm25_output = os.path.join(args.directory,
+                                               f'run.miracl.bm25.{lang}.{split}.top{hits}.txt')
+                    mdpr_output = os.path.join(args.directory,
+                                               f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
+                    cmd = Template(cmd_template).substitute(split=split, output=runfile, bm25_output=bm25_output,
+                                                            mdpr_output=mdpr_output)
                 else:
                     cmd = Template(cmd_template).substitute(split=split, output=runfile)
 
@@ -290,15 +287,14 @@ def generate_report(args):
         tables_html.append(Template(table_template).substitute(desc=f'Recall@100, {split} queries', rows=all_rows))
 
     with open(args.output, 'w') as out:
-            out.write(Template(html_template).substitute(title='MIRACL', tables=' '.join(tables_html)))
+        out.write(Template(html_template).substitute(title='MIRACL', tables=' '.join(tables_html)))
 
 
 def run_conditions(args):
-
     if args.condition == 'mdpr-tied-pft-msmarco-ft-miracl' and args.language in ['de', 'yo']:
         print('MIRACL de and yo datasets do not have train splits to finetune with')
         return
-    
+
     start = time.time()
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
@@ -333,15 +329,18 @@ def run_conditions(args):
 
                 runfile = os.path.join(args.directory, f'run.miracl.{name}.{split}.top{hits}.txt')
                 if is_hybrid_run:
-                    bm25_output = os.path.join(args.directory, f'run.miracl.bm25.{lang}.{split}.top{hits}.txt')
-                    mdpr_output = os.path.join(args.directory, f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
+                    bm25_output = os.path.join(args.directory,
+                                               f'run.miracl.bm25.{lang}.{split}.top{hits}.txt')
+                    mdpr_output = os.path.join(args.directory,
+                                               f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
                     if not os.path.exists(bm25_output):
                         print(f'Missing BM25 file: {bm25_output}')
                         continue
                     if not os.path.exists(mdpr_output):
                         print(f'Missing mDPR file: {mdpr_output}')
                         continue
-                    cmd = Template(cmd_template).substitute(split=split, output=runfile, bm25_output=bm25_output, mdpr_output=mdpr_output)
+                    cmd = Template(cmd_template).substitute(split=split, output=runfile, bm25_output=bm25_output,
+                                                            mdpr_output=mdpr_output)
                 else:
                     cmd = Template(cmd_template).substitute(split=split, output=runfile)
 
