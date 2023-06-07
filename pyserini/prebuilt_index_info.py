@@ -2272,7 +2272,91 @@ TF_INDEX_INFO_OTHER = {
         "documents": 3179206,
         "unique_terms": 1616532,
         "downloaded": False
-    }
+    },  # TODO: need to update links to these files to rgw.cs.uwaterloo.ca/...
+    "atomic_text_v0.2.1_small_validation": {
+        "description": "Lucene index for AToMiC Text v0.2.1 small setting on validation set (Lucene 9)",
+        "filename": "lucene-index.atomic.image.flat.small.validation.tar.gz",
+        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "urls": [
+            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.text.flat.small.validation.tar.gz"
+        ],
+        "md5": "377f3e4ae48e1afbe05650e339322050",
+        "size compressed (bytes)": 32900945,
+        "total_terms": 2999824,
+        "documents": 17173,
+        "unique_terms": 118071,
+        "downloaded": False
+    },
+    "atomic_text_v0.2.1_base": {
+        "description": "Lucene index for AToMiC Text v0.2.1 base setting on validation set (Lucene 9)",
+        "filename": "lucene-index.atomic.image.flat.base.tar.gz",
+        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "urls": [
+            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.text.flat.base.tar.gz"
+        ],
+        "md5": "41ca80241e77ed3515dd48bfc047a923",
+        "size compressed (bytes)": 5532178004,
+        "total_terms": 520954965,
+        "documents": 3029504,
+        "unique_terms": -1,
+        "downloaded": False
+    },
+    "atomic_text_v0.2.1_large": {
+        "description": "Lucene index for AToMiC Text v0.2.1 large setting on validation set (Lucene 9)",
+        "filename": "lucene-index.atomic.image.flat.large.tar.gz",
+        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "urls": [
+            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.text.flat.large.tar.gz"
+        ],
+        "md5": "0dd1975d82fa7c57a471e4e6b1882177",
+        "size compressed (bytes)": 18224101285,
+        "total_terms": 1727597393,
+        "documents": 10134744,
+        "unique_terms": -1,
+        "downloaded": False
+    },
+    "atomic_image_v0.2_small_validation": {
+        "description": "Lucene index for AToMiC Images v0.2 small setting on validation set (Lucene 9)",
+        "filename": "lucene-index.atomic.image.flat.small.validation.tar.gz",
+        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "urls": [
+            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.image.flat.small.validation.tar.gz"
+        ],
+        "md5": "b5363a9a7ecd0f071fb8e0319168ccf8",
+        "size compressed (bytes)": 4902534,
+        "total_terms": 308646,
+        "documents": 16126,
+        "unique_terms": 48666,
+        "downloaded": False
+    },
+    "atomic_image_v0.2_base": {
+        "description": "Lucene index for AToMiC Images v0.2 base setting on validation set (Lucene 9)",
+        "filename": "lucene-index.atomic.image.flat.base.tar.gz",
+        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "urls": [
+            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.image.flat.base.tar.gz"
+        ],
+        "md5": "55e88e334165b7147092ee67dfa74955",
+        "size compressed (bytes)": 1218292466,
+        "total_terms": 100743397,
+        "documents": 3410779,
+        "unique_terms": -1,
+        "downloaded": False
+    },
+    "atomic_image_v0.2_large": {
+        "description": "Lucene index for AToMiC Images v0.2 large setting on validation set (Lucene 9)",
+        "filename": "lucene-index.atomic.image.flat.large.tar.gz",
+        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "urls": [
+            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.image.flat.large.tar.gz"
+        ],
+        "md5": "919c3f870968ffbe24f30407ad1385f8",
+        "size compressed (bytes)": 1341866370,
+        "total_terms": 108550562,
+        "documents": 3803656,
+        "unique_terms": -1,
+        "downloaded": False
+    },
 }
 
 TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
@@ -2378,6 +2462,91 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "total_terms": 95445422483,
         "documents": 8841823,
         "unique_terms": 28131,
+        "downloaded": False
+    },
+
+    "msmarco-v1-passage-splade-pp-ed": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-ed.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-ed.20230524.a59610.tar.gz"
+        ],
+        "md5": "4b3c969033cbd017306df42ce134c395",
+        "size compressed (bytes)": 2102229906,
+        "total_terms": 52376261130,
+        "documents": 8841823,
+        "unique_terms": 28679,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-ed-docvectors": {
+        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-ed-docvectors.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-ed-docvectors.20230524.a59610.tar.gz"
+        ],
+        "md5": "270301ea1413c38cc83cf682c7787b49",
+        "size compressed (bytes)": 13052697908,
+        "total_terms": 52376261130,
+        "documents": 8841823,
+        "unique_terms": 28679,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-ed-text": {
+        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-ed-text.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-ed-text.20230524.a59610.tar.gz"
+        ],
+        "md5": "151e9b1b345197cd4a0edbf7127f3deb",
+        "size compressed (bytes)": 9983469862,
+        "total_terms": 52376261130,
+        "documents": 8841823,
+        "unique_terms": 28679,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-sd": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-sd.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-sd.20230524.a59610.tar.gz"
+        ],
+        "md5": "4e4a3969c1e9e7262b2783ad192086ae",
+        "size compressed (bytes)": 2367261002,
+        "total_terms": 55456660129,
+        "documents": 8841823,
+        "unique_terms": 28662,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-sd-docvectors": {
+        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-sd-docvectors.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-sd-docvectors.20230524.a59610.tar.gz"
+        ],
+        "md5": "8d75aecc95e63853c832916da62e97f9",
+        "size compressed (bytes)": 14829233820,
+        "total_terms": 55456660129,
+        "documents": 8841823,
+        "unique_terms": 28662,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-sd-text": {
+        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-sd-text.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-sd-text.20230524.a59610.tar.gz"
+        ],
+        "md5": "1d90dc2803a6fea55a4d16da7623e2ed",
+        "size compressed (bytes)": 11473065718,
+        "total_terms": 55456660129,
+        "documents": 8841823,
+        "unique_terms": 28662,
         "downloaded": False
     },
 
