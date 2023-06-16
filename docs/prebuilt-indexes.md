@@ -661,6 +661,30 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-en.20221025.c4a8d0.README.md">readme</a>]
 <dd>Lucene index for NeuCLIR 2022 corpus (official English translation from Chinese). (Lucene 9)
 </dd>
+<dt></dt><b><code>atomic_text_v0.2.1_small_validation</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20230525.a7df7f.README.md">readme</a>]
+<dd>Lucene index for AToMiC Text v0.2.1 small setting on validation set (Lucene 9)
+</dd>
+<dt></dt><b><code>atomic_text_v0.2.1_base</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20230525.a7df7f.README.md">readme</a>]
+<dd>Lucene index for AToMiC Text v0.2.1 base setting on validation set (Lucene 9)
+</dd>
+<dt></dt><b><code>atomic_text_v0.2.1_large</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20230525.a7df7f.README.md">readme</a>]
+<dd>Lucene index for AToMiC Text v0.2.1 large setting on validation set (Lucene 9)
+</dd>
+<dt></dt><b><code>atomic_image_v0.2_small_validation</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20230525.a7df7f.README.md">readme</a>]
+<dd>Lucene index for AToMiC Images v0.2 small setting on validation set (Lucene 9)
+</dd>
+<dt></dt><b><code>atomic_image_v0.2_base</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20230525.a7df7f.README.md">readme</a>]
+<dd>Lucene index for AToMiC Images v0.2 base setting on validation set (Lucene 9)
+</dd>
+<dt></dt><b><code>atomic_image_v0.2_large</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20230525.a7df7f.README.md">readme</a>]
+<dd>Lucene index for AToMiC Images v0.2 large setting on validation set (Lucene 9)
+</dd>
 </dl>
 
 
@@ -1520,6 +1544,78 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-miracl-zh</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
 <dd>Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ar-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-bn-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-en-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (English) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-es-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-fa-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Persian) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-fi-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-fr-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (French) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-hi-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-id-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ja-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ko-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Korean) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ru-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Russian) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-sw-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-te-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-th-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Thai) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-zh-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-de-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (German) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-yo-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Yoruba) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
 </dd>
 <dt></dt><b><code>wikipedia-dpr-100w.dpr-multi</code></b>
 <dd>Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on multiple QA datasets
