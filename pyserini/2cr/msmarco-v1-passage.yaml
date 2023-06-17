@@ -46,7 +46,7 @@ conditions:
   - name: bm25-rocchio-default
     display: BM25+Rocchio (k1=0.9, b=0.4)
     display-html: BM25+Rocchio (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-full --topics $topics --output $output --bm25 --k1 0.9 --b 0.4 --rocchio
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage --topics $topics --output $output --bm25 --k1 0.9 --b 0.4 --rocchio
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -68,7 +68,7 @@ conditions:
   - name: bm25-rocchio-tuned
     display: BM25+Rocchio (k1=0.82, b=0.68)
     display-html: BM25+Rocchio (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-full --topics $topics --output $output --bm25 --rocchio
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage --topics $topics --output $output --bm25 --rocchio
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -228,7 +228,7 @@ conditions:
   - name: bm25-tuned
     display: BM25 (k1=0.82, b=0.68)
     display-html: BM25 (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68)
-    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-passage-slim --output $output --bm25
+    command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-passage --output $output --bm25
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -250,7 +250,7 @@ conditions:
   - name: bm25-rm3-tuned
     display: BM25+RM3 (k1=0.82, b=0.68)
     display-html: BM25+RM3 (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-full --topics $topics --output $output --bm25 --rm3
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage --topics $topics --output $output --bm25 --rm3
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -273,7 +273,7 @@ conditions:
     display: BM25 (k1=0.9, b=0.4)
     display-html: BM25 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (1a)"
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-slim --topics $topics --output $output --bm25 --k1 0.9 --b 0.4
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage --topics $topics --output $output --bm25 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -296,7 +296,7 @@ conditions:
     display: BM25+RM3 (k1=0.9, b=0.4)
     display-html: BM25+RM3 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (1b)"
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-full --topics $topics --output $output --bm25 --k1 0.9 --b 0.4 --rm3
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage --topics $topics --output $output --bm25 --k1 0.9 --b 0.4 --rm3
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -587,3 +587,49 @@ conditions:
           - MAP: 0.4906
             nDCG@10: 0.7021
             R@1K: 0.8551
+  - name: Aggretriever-Distilbert-otf
+    display: "Aggretriever-DistilBERT: otf"
+    display-html: "Aggretriever-DistilBERT: on-the-fly query inference"
+    display-row: "[7]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage.aggretriever-distilbert --topics $topics --encoder castorini/aggretriever-distilbert --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3412
+            R@1K: 0.9604
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4301
+            nDCG@10: 0.6816
+            R@1K: 0.8023
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4329
+            nDCG@10: 0.6726
+            R@1K: 0.8351
+  - name: Aggretriever-coCondenser-otf
+    display: "Aggretriever-coCondenser: otf"
+    display-html: "Aggretriever-coCondenser: on-the-fly query inference"
+    display-row: "[7]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-passage.aggretriever-cocondenser --topics $topics --encoder castorini/aggretriever-cocondenser --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3619
+            R@1K: 0.9735
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4350
+            nDCG@10: 0.6837
+            R@1K: 0.8078
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4710
+            nDCG@10: 0.6972
+            R@1K: 0.8555

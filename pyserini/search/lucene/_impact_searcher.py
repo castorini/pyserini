@@ -53,25 +53,41 @@ class LuceneImpactSearcher:
         QueryEncoder to encode query text
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], min_idf=0):
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str='pytorch'):
         self.index_dir = index_dir
         self.idf = self._compute_idf(index_dir)
         self.min_idf = min_idf
         self.object = JImpactSearcher(index_dir)
         self.num_docs = self.object.get_total_num_docs()
-        if isinstance(query_encoder, str) or query_encoder is None:
-            self.query_encoder = self._init_query_encoder_from_str(query_encoder)
+        self.encoder_type = encoder_type
+        self.query_encoder = query_encoder
+        if encoder_type == 'onnx':
+            if isinstance(query_encoder, str) or query_encoder is None:
+                self.object.set_onnx_query_encoder(query_encoder)
+            else:
+                raise ValueError(f'Invalid query encoder type: {type(query_encoder)} for onnx encoder')
+        elif encoder_type == 'pytorch':
+            if isinstance(query_encoder, str) or query_encoder is None:
+                self.query_encoder = self._init_query_encoder_from_str(query_encoder)
+            else:
+                self.query_encoder = query_encoder
         else:
-            self.query_encoder = query_encoder
+            raise ValueError(f'Invalid encoder type: {encoder_type}')
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str='pytorch'):
         """Build a searcher from a pre-built index; download the index if necessary.
 
         Parameters
         ----------
         prebuilt_index_name : str
             Prebuilt index name.
+        query_encoder: QueryEncoder or str
+            QueryEncoder to encode query text
+        min_idf : int
+            Minimum idf for query tokens
+        encoder_type : str
+            Encoder type, either 'pytorch' or 'onnx'
 
         Returns
         -------
@@ -86,7 +102,14 @@ class LuceneImpactSearcher:
             return None
 
         print(f'Initializing {prebuilt_index_name}...')
-        return cls(index_dir, query_encoder, min_idf)
+        return cls(index_dir, query_encoder, min_idf, encoder_type)
+
+    def encode(self, query):
+        if self.encoder_type == 'onnx':
+            encoded_query = self.object.encode_with_onnx(query)
+        else:
+            encoded_query = self.query_encoder.encode(query)
+        return encoded_query
 
     @staticmethod
     def list_prebuilt_indexes():
@@ -117,11 +140,13 @@ class LuceneImpactSearcher:
         for (field, boost) in fields.items():
             jfields.put(field, JFloat(boost))
 
-        encoded_query = self.query_encoder.encode(q)
-        jquery = JHashMap()
-        for (token, weight) in encoded_query.items():
-            if token in self.idf and self.idf[token] > self.min_idf:
-                jquery.put(token, JFloat(weight))
+        encoded_query = self.encode(q)
+
+        jquery = encoded_query
+        if self.encoder_type == 'pytorch':
+            for (token, weight) in encoded_query.items():
+                if token in self.idf and self.idf[token] > self.min_idf:
+                    jquery.put(token, JFloat(weight))
 
         if not fields:
             hits = self.object.search(jquery, k)
@@ -158,11 +183,14 @@ class LuceneImpactSearcher:
         query_lst = JArrayList()
         qid_lst = JArrayList()
         for q in queries:
-            encoded_query = self.query_encoder.encode(q)
+            encoded_query = self.encode(q)
             jquery = JHashMap()
-            for (token, weight) in encoded_query.items():
-                if token in self.idf and self.idf[token] > self.min_idf:
-                    jquery.put(token, JFloat(weight))
+            if self.encoder_type == 'pytorch':
+                for (token, weight) in encoded_query.items():
+                    if token in self.idf and self.idf[token] > self.min_idf:
+                        jquery.put(token, JFloat(weight))
+            else:
+                jquery = encoded_query
             query_lst.add(jquery)
 
         for qid in qids:

@@ -18,12 +18,16 @@ import json
 import os
 import pathlib as pl
 import shutil
+import tarfile
 import unittest
 
 import faiss
 
 from pyserini.encode import JsonlCollectionIterator, TctColBertDocumentEncoder, DprDocumentEncoder, \
     UniCoilDocumentEncoder
+from pyserini.search.lucene._impact_searcher import LuceneImpactSearcher
+from random import randint
+from urllib.request import urlretrieve
 
 
 class TestSearch(unittest.TestCase):
@@ -37,6 +41,18 @@ class TestSearch(unittest.TestCase):
                 line = json.loads(line)
                 self.docids.append(line['id'])
                 self.texts.append(line['contents'])
+        
+        # LuceneImpactSearcher requires a pre-built index to be initialized
+        r = randint(0, 10000000)
+        self.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene9-index.cacm.tar.gz'
+        self.tarball_name = 'lucene-index.cacm-{}.tar.gz'.format(r)
+        self.index_dir = 'index{}/'.format(r)
+
+        _, _ = urlretrieve(self.collection_url, self.tarball_name)
+
+        tarball = tarfile.open(self.tarball_name)
+        tarball.extractall(self.index_dir)
+        tarball.close()
 
     def assertIsFile(self, path):
         if not pl.Path(path).resolve().is_file():
@@ -206,6 +222,21 @@ class TestSearch(unittest.TestCase):
 
         shutil.rmtree(index_dir)
 
+    def test_onnx_encode_unicoil(self):
+        temp_object = LuceneImpactSearcher(f'{self.index_dir}lucene9-index.cacm', 'SpladePlusPlusEnsembleDistil', encoder_type='onnx')
+
+        results = temp_object.encode("here is a test")
+        self.assertAlmostEqual(results.get("here"), 3.05345, delta=2e-4)
+        self.assertAlmostEqual(results.get("a"), 0.59636426, delta=2e-4)
+        self.assertAlmostEqual(results.get("test"), 2.9012794, delta=2e-4)
+
+        temp_object.close()
+        del temp_object
+        
+    def tearDown(self):
+        os.remove(self.tarball_name)
+        shutil.rmtree(self.index_dir)
+        return super().tearDown()
 
 class TestJsonlCollectionIterator(unittest.TestCase):
     def setUp(self):

@@ -3,7 +3,7 @@ conditions:
     display: BM25 original passage (k1=0.9, b=0.4)
     display-html: BM25 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (1a)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-passage-slim --topics $topics --output $output --bm25
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-passage --topics $topics --output $output --bm25
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
@@ -27,7 +27,7 @@ conditions:
     display: BM25 augmented passage (k1=0.9, b=0.4)
     display-html: BM25 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (1b)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-passage-augmented-slim --topics $topics --output $output --bm25
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-passage-augmented --topics $topics --output $output --bm25
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
@@ -51,7 +51,7 @@ conditions:
     display: BM25+RM3 original passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (1c)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-passage-full --topics $topics --output $output --bm25 --rm3
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-passage --topics $topics --output $output --bm25 --rm3
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
@@ -75,7 +75,7 @@ conditions:
     display: BM25+RM3 augmented passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (1d)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-passage-augmented-full --topics $topics --output $output --bm25 --rm3
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-passage-augmented --topics $topics --output $output --bm25 --rm3
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
