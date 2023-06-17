@@ -2438,7 +2438,19 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "unique_terms": 29148,
         "downloaded": False
     },
-
+    "msmarco-v2-passage-slimr-pp-norefine-0shot": {
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus enoded by SLIM (norefine) trained with cross-encoder distillation and hardnegative mining. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v2-passage-slimr-pp.20230614.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-slimr-pp.20230614.md",
+        "urls": [
+            "https://vault.cs.uwaterloo.ca/s/q89FZmcYSagP7Rr/download",
+        ],
+        "md5": "0251a882369dd9c27f6a629198123a40",
+        "size compressed (bytes)": 35297323293,
+        "total_terms": 1668035574958,
+        "documents": 138364197,
+        "downloaded": False
+    },
     "msmarco-v2-doc-segmented-unicoil-0shot": {
         "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended. (Lucene 9)",
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.tar.gz",
