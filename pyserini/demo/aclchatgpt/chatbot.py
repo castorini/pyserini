@@ -20,7 +20,7 @@ If query_results is empty, say "I don't know"
 query_results: {{pyserini.search $input}}
 ============
 
-Question: {{$input}}
+{{$input}}
 """
 
 
