@@ -47,23 +47,30 @@ models = {
      'bm25-rm3-d2q-t5-tuned',
      'bm25-rocchio-d2q-t5-tuned',
      '',
-     'unicoil-noexp',
      'unicoil',
-     '',
-     'unicoil-noexp-otf',
      'unicoil-otf',
+     'unicoil-otf-onnx',
+     'unicoil-noexp',
+     'unicoil-noexp-otf',
+     'unicoil-noexp-otf-onnx',
+     '',
+     'splade-pp-ed-otf-onnx',
+     'splade-pp-sd-otf-onnx',
      '',
      'ance',
-     'distilbert-kd',
-     'distilbert-kd-tasb',
-     'tct_colbert-v2-hnp',
-     '',
      'ance-otf',
+     '',
+     'distilbert-kd',
      'distilbert-kd-otf',
+     'distilbert-kd-tasb',
      'distilbert-kd-tasb-otf',
+     '',
+     'tct_colbert-v2-hnp',
      'tct_colbert-v2-hnp-otf',
+     '',
      'slimr',
      'slimr-pp',
+     '',
      'Aggretriever-Distilbert-otf',
      'Aggretriever-coCondenser-otf'],
     'msmarco-v1-doc':
@@ -236,6 +243,7 @@ def format_command(raw):
         .replace('--index', '\\\n  --index')\
         .replace('--output ', '\\\n  --output ')\
         .replace('--encoder', '\\\n  --encoder')\
+        .replace('--onnx-encoder', '\\\n  --onnx-encoder')\
         .replace('--encoded-corpus', '\\\n  --encoded-corpus')\
         .replace('.txt ', '.txt \\\n  ')
 
