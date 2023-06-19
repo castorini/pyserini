@@ -3,6 +3,7 @@
 import json
 
 import aiohttp
+import requests
 
 from semantic_kernel.orchestration.sk_context import SKContext
 from semantic_kernel.skill_definition import sk_function, sk_function_context_parameter
@@ -37,12 +38,7 @@ class PyseriniSkill:
         if not url:
             raise ValueError("url cannot be `None` or empty")
 
-        headers = {"Content-Type": "application/json"}
         body = {"query": query}
-        data = json.dumps(body)
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
-                    url, headers=headers, data=data, raise_for_status=True
-            ) as response:
-                return await response.text()
+        result  = requests.post(url, json = body).json()[0]["doc"]
+        return result
 
