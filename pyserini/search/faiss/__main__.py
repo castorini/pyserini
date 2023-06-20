@@ -277,7 +277,8 @@ if __name__ == '__main__':
                         results = searcher.batch_search(prf_embs_q, batch_topic_ids, k=args.hits, threads=args.threads,
                                                         **kwargs)
                         results = [(id_, results[id_]) for id_ in batch_topic_ids]
-                    elif args.topics_format == 'clip':
+                    elif args.topics_format == 'numpy':
+                        # np.concatenate is necessary to batch search embeddings stored in numpy formatting
                         results = searcher.batch_search(np.concatenate(batch_topics), batch_topic_ids, args.hits, threads=args.threads,
                                                         **kwargs)
                         results = [(id_, results[id_]) for id_ in batch_topic_ids]

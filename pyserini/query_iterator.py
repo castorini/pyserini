@@ -31,7 +31,7 @@ from urllib.error import HTTPError, URLError
 class TopicsFormat(Enum):
     DEFAULT = 'default'
     KILT = 'kilt'
-    CLIP = 'clip'
+    NUMPY = 'numpy'
 
 
 class QueryIterator(ABC):
@@ -152,7 +152,7 @@ class KiltQueryIterator(QueryIterator):
                 print(f'Unable to download encoded query at {url}, trying next URL...')
         raise ValueError(f'Unable to download encoded query at any known URLs.')
 
-class ClipQueryIterator(QueryIterator):
+class NumpyQueryIterator(QueryIterator):
 
     @classmethod
     def from_topics(cls, topics_path: str):
@@ -171,6 +171,6 @@ def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
         TopicsFormat.DEFAULT: DefaultQueryIterator,
         TopicsFormat.KILT: KiltQueryIterator,
-        TopicsFormat.CLIP: ClipQueryIterator,
+        TopicsFormat.NUMPY: NumpyQueryIterator,
     }
     return mapping[topics_format].from_topics(topics_path)
