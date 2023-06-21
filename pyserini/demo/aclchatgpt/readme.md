@@ -8,6 +8,14 @@ By default, GPT-3 text-davinci-003 is used. You can change this in `chatbot.py`.
 
 You must have both running for `chatbot.py` to work.
 
+## Environment Varaibles
+You will need to create an `.env` file in directory that you are running in.
+The `.env` file should contain the following:
+```
+OPENAI_API_KEY="<your key>"
+OPENAI_ORG_ID="<your org id>"
+```
+
 ## Setup
 
 1. Follow the instructions in [Indexing the ACL Anthology with Anserini](https://github.com/castorini/pyserini/blob/master/docs/working-with-acl-anthology.md) to setup the project and generate a `lucene-index-acl-paragraph` index.
