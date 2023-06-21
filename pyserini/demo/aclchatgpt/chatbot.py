@@ -1,73 +1,103 @@
+from dataclasses import dataclass
+from argparse import ArgumentParser
+from typing import Optional
+
 import semantic_kernel as sk
 from semantic_kernel.connectors.ai.open_ai import OpenAITextCompletion
 
-from pyserini.demo.aclchatgpt.skill import PyseriniSkill
-
-kernel = sk.Kernel()
-
-api_key, org_id = sk.openai_settings_from_dot_env()
-kernel.add_text_completion_service("dv", OpenAITextCompletion("text-davinci-003", api_key, org_id))
-
-kernel.import_skill(PyseriniSkill(),"pyserini")
+from pyserini.demo.aclchatgpt.skill import PyseriniSkill, PyseriniConfig
 
 
+@dataclass
+class OpenAIConfig:
+    api_key: str
+    org_id: str
+
+class ChatBot:
+
+    acl_chat_prompt = """
+    Given the `query_results` below, your task is to formulate an answer using only the information 
+    provided in these results. You should not draw from other sources or attempt to provide information that is not 
+    contained within the `query_results`. If the `query_results` are empty, simply state "I'm sorry, but I do not have 
+    enough information to provide an answer."
+    
+    ===================
+    query_results: {{pyserini.search $input}}
+    ===================
+    
+    Based on the above `query_results`, what is your response to {{$input}}?
+    """
+
+    absolute_question_prompt = """
+    Task: You are an AI language model tasked with transforming given questions into 
+    absolute questions. An absolute question is a question that can stand on its own and carries all the context needed 
+    to be answered. Here's an example:
+    
+    User: Who is Alan Turing?
+    ChatBot: Who is Alan Turing?
+    User: How old is he?
+    ChatBot: How old is Alan Turing?
+    
+    ===================
+    History: {{$history}}
+    ===================
+    
+    Using the history as context, transform the following question into an absolute question: {{$input}}
+    """
+
+    def __init__(self, pyserini_config: PyseriniConfig, openai_config: OpenAIConfig):
+
+        self.kernel = sk.Kernel()
+        self.kernel.add_text_completion_service("dv", OpenAITextCompletion("text-davinci-003", openai_config.api_key, openai_config.org_id))
+        self.kernel.import_skill(PyseriniSkill(pyserini_config),"pyserini")
+        self.context = self.kernel.create_new_context()
+        self.context["url"] = "http://127.0.0.1:8080/search"
+        self.context["history"] = ""
+
+        self.acl_chat_function = self.kernel.create_semantic_function(self.acl_chat_prompt, max_tokens=200, temperature=0, top_p=0.5)
+        self.absolute_question_function = self.kernel.create_semantic_function(self.absolute_question_prompt, max_tokens=200, temperature=0, top_p=0.5)
 
 
-acl_chat_prompt = """
-Given the `query_results` below, your task is to formulate an answer using only the information 
-provided in these results. You should not draw from other sources or attempt to provide information that is not 
-contained within the `query_results`. If the `query_results` are empty, simply state "I'm sorry, but I do not have 
-enough information to provide an answer."
+    def _chat(self,input_text: str) -> None:
 
-===================
-query_results: {{pyserini.search $input}}
-===================
+        print("---------------------------------------------")
+        absolute_question = self.absolute_question_function(input_text,context=self.context)
 
-Based on the above `query_results`, what is your response to {{$input}}?
-"""
+        print (f"Absolute Question: {absolute_question}")
 
-absolute_question_prompt = """
-Task: You are an AI language model tasked with transforming given questions into 
-absolute questions. An absolute question is a question that can stand on its own and carries all the context needed 
-to be answered. Here's an example:
+        # Process the user message and get an answer
+        answer = self.acl_chat_function(str(absolute_question),context=self.context)
 
-User: Who is Alan Turing?
-ChatBot: Who is Alan Turing?
-User: How old is he?
-ChatBot: How old is Alan Turing?
+        # Show the response
+        print(f"ChatBot: {answer}")
 
-===================
-History: {{$history}}
-===================
+        self.context["history"] += f"\nUser: {input_text}\nChatBot: {answer}\n"
 
-Using the history as context, transform the following question into an absolute question: {{$input}}
-"""
+    def chat(self) -> None:
+
+        while True:
+            print("=============================================")
+            self._chat(input("User: "))
+
+def main():
 
 
-context = kernel.create_new_context()
-context["url"] = "http://127.0.0.1:8080/search"
-context["history"] = ""
+    parser = ArgumentParser()
 
-acl_chat_function = kernel.create_semantic_function(acl_chat_prompt, max_tokens=200, temperature=0, top_p=0.5)
-absolute_question_function = kernel.create_semantic_function(absolute_question_prompt, max_tokens=200, temperature=0, top_p=0.5)
+    parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
+    parser.add_argument('--b', type=float, help='BM25 b parameter.')
+    parser.add_argument('--hits', type=int, default=10, help='Number of hits returned by the retriever')
 
+    args = parser.parse_args()
+    api_key, org_id = sk.openai_settings_from_dot_env()
+    open_ai_config = OpenAIConfig(api_key,org_id)
+    pyserini_config = PyseriniConfig(args.k1, args.b, args.hits)
 
-def chat(input_text: str) -> None:
-
-    print("---------------------------------------------")
-    absolute_question = absolute_question_function(input_text,context=context)
-
-    print (f"Absolute Question: {absolute_question}")
-
-    # Process the user message and get an answer
-    answer = acl_chat_function(str(absolute_question),context=context)
-
-    # Show the response
-    print(f"ChatBot: {answer}")
-
-    context["history"] += f"\nUser: {input_text}\nChatBot: {answer}\n"
+    chatbot = ChatBot(pyserini_config=pyserini_config,openai_config=open_ai_config)
+    chatbot.chat()
 
 
-while True:
-    print("=============================================")
-    chat(input("User: "))
+
+
+if __name__ == '__main__':
+    main()
