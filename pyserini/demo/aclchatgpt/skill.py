@@ -30,7 +30,6 @@ class PyseriniSkill:
         {{pyserini.search $query}}
     """
 
-
     def __init__(self,pyserini_config:PyseriniConfig):
         self.lang = 'en'
         self.searcher = LuceneSearcher('indexes/lucene-index-acl-paragraph')
@@ -72,5 +71,5 @@ class PyseriniSkill:
                 }
                 for r, hit in enumerate(hits)
             ]
-        return search_results[0]["doc"]
+        return "docid:" + search_results[0]["docid"] + ",doc:" + search_results[0]["doc"]
 

@@ -15,17 +15,16 @@ class OpenAIConfig:
 
 class ChatBot:
 
-    acl_chat_prompt = """
-    Given the `query_results` below, your task is to formulate an answer using only the information 
-    provided in these results. You should not draw from other sources or attempt to provide information that is not 
-    contained within the `query_results`. If the `query_results` are empty, simply state "I'm sorry, but I do not have 
-    enough information to provide an answer."
+    acl_chat_prompt = """Given the query_results below, your task is to formulate an answer. You may choose to use or not to use the 
+    information in the query_results.
+    If you use the query_results, you must reference the docid of the document used by appending to the answer with "(docid: doc-id-here)".
+    If you do not use the query_results, do not reference it in your answer.
     
     ===================
     query_results: {{pyserini.search $input}}
     ===================
     
-    Based on the above `query_results`, what is your response to {{$input}}?
+    What is your response to {{$input}}?
     """
 
     absolute_question_prompt = """
@@ -74,13 +73,13 @@ class ChatBot:
         self.context["history"] += f"\nUser: {input_text}\nChatBot: {answer}\n"
 
     def chat(self) -> None:
+        print("Hi, I'm the ACL ChatBot. Ask me a question about ACL Anthology papers and I'll do my best to answer it.")
 
         while True:
             print("=============================================")
             self._chat(input("User: "))
 
 def main():
-
 
     parser = ArgumentParser()
 
@@ -92,6 +91,8 @@ def main():
     api_key, org_id = sk.openai_settings_from_dot_env()
     open_ai_config = OpenAIConfig(api_key,org_id)
     pyserini_config = PyseriniConfig(args.k1, args.b, args.hits)
+
+    print("Starting ChatBot...")
 
     chatbot = ChatBot(pyserini_config=pyserini_config,openai_config=open_ai_config)
     chatbot.chat()

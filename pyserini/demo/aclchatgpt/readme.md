@@ -2,12 +2,6 @@
 
 By default, GPT-3 text-davinci-003 is used. You can change this in `chatbot.py`.
 
-`chatbot.py` is the front-end script. As a CLI, the user can input a query and the chatbot will return a response.
-
-`server.py` is the back-end script. It is a Flask server that will return a response to a query sent to the server.
-
-You must have both running for `chatbot.py` to work.
-
 ## Environment Varaibles
 You will need to create an `.env` file in directory that you are running in.
 The `.env` file should contain the following:
@@ -22,6 +16,5 @@ OPENAI_ORG_ID="<your org id>"
 2. Copy the generated `lucene-index-acl-paragraph` index from the `acl-anthology` folder to `pyserini/indexes`
 3. You will need Semantic Kernel as well. 
    - `pip3 install --upgrade semantic-kernel`
-4. Start the server with `python -m pyserini.demo.aclchatgpt.server`
-5. Start the chatbot with `python -m pyserini.demo.aclchatgpt.chatbot`
-6. Start chatting!
+4. Start the chatbot with `python -m pyserini.demo.aclchatgpt.chatbot`
+5. Start chatting!
