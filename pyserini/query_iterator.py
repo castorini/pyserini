@@ -86,7 +86,7 @@ class DefaultQueryIterator(QueryIterator):
             if topics_path.endswith('.json'):
                 with open(topics_path, 'r') as f:
                     topics = json.load(f)
-            elif "beir" in topics_path:
+            elif 'beir' in topics_path:
                 topics = get_topics_with_reader('io.anserini.search.topicreader.TsvStringTopicReader', topics_path)
             elif topics_path.endswith('.tsv') or topics_path.endswith('.tsv.gz'):
                 try:
@@ -97,6 +97,8 @@ class DefaultQueryIterator(QueryIterator):
                 topics = get_topics_with_reader('io.anserini.search.topicreader.TrecTopicReader', topics_path)
             elif 'cacm' in topics_path:
                 topics = get_topics_with_reader('io.anserini.search.topicreader.CacmTopicReader', topics_path)
+            elif topics_path.endswith('.jsonl'):
+                topics = get_topics_with_reader('io.anserini.search.topicreader.JsonStringTopicReader', topics_path)
             else:
                 raise NotImplementedError(f"Not sure how to parse {topics_path}. Please specify the file extension.")
         else:
