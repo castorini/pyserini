@@ -5604,7 +5604,7 @@ FAISS_INDEX_INFO_OTHER = {
         "size compressed (bytes)": 9284282630,
         "documents": 3410779,
         "downloaded": False,
-        "texts": "atomic-images-v0.2"
+        "texts": "atomic_image_v0.2_base"
     },
     "atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.large": {
         "description": "Faiss index for AToMiC Images v0.2 on large corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
@@ -5617,7 +5617,7 @@ FAISS_INDEX_INFO_OTHER = {
         "size compressed (bytes)": 29984366146,
         "documents": 3803656,
         "downloaded": False,
-        "texts": "atomic-images-v0.2"
+        "texts": "atomic_image_v0.2_large"
     },
     "atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.validation": {
         "description": "Faiss index for AToMiC Images v0.2 on validation corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
@@ -5630,7 +5630,7 @@ FAISS_INDEX_INFO_OTHER = {
         "size compressed (bytes)": 43875634,
         "documents": 16126,
         "downloaded": False,
-        "texts": "atomic-images-v0.2"
+        "texts": "atomic_image_v0.2_small_validation"
     },
      "atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.base": {
         "description": "Faiss index for AToMiC Texts v0.2.1 on base corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
@@ -5643,7 +5643,7 @@ FAISS_INDEX_INFO_OTHER = {
         "size compressed (bytes)": 8187618352,
         "documents": 3029504,
         "downloaded": False,
-        "texts": "atomic-texts-v0.2.1"
+        "texts": "atomic_text_v0.2.1_base"
     },
     "atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.large": {
         "description": "Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
@@ -5656,7 +5656,7 @@ FAISS_INDEX_INFO_OTHER = {
         "size compressed (bytes)": 27373277238,
         "documents": 10134744,
         "downloaded": False,
-        "texts": "atomic-texts-v0.2.1"
+        "texts": "atomic_text_v0.2.1_large"
     },
     "atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.validation": {
         "description": "Faiss index for AToMiC Texts v0.2.1 on validation corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
@@ -5669,7 +5669,7 @@ FAISS_INDEX_INFO_OTHER = {
         "size compressed (bytes)": 46421016,
         "documents": 17173,
         "downloaded": False,
-        "texts": "atomic-texts-v0.2.1"
+        "texts": "atomic_text_v0.2.1_small_validation"
     },
 }
 
