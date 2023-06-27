@@ -31,6 +31,7 @@ encoder_class_map = {
     "unicoil": UniCoilDocumentEncoder,
     "auto": AutoDocumentEncoder,
 }
+ALLOWED_POOLING_OPTS = ["cls","mean"]
 
 def init_encoder(encoder, encoder_class, device):
     _encoder_class = encoder_class
@@ -111,11 +112,17 @@ if __name__ == '__main__':
                                 default='cuda:0', required=False)
     encoder_parser.add_argument('--fp16', action='store_true', default=False)
     encoder_parser.add_argument('--add-sep', action='store_true', default=False)
+    encoder_parser.add_argument('--pooling', type=str,default='cls', help='for auto classes, allow the ability to dictate pooling strategy', required=False)
 
     args = parse_args(parser, commands)
     delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
 
     encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device)
+    if type(encoder).__name__ == "AutoDocumentEncoder":
+        if args.encoder.pooling in ALLOWED_POOLING_OPTS:
+            encoder.pooling = args.encoder.pooling
+        else:
+            raise ValueError(f"Only allowed to use pooling types {ALLOWED_POOLING_OPTS}. You entered {args.encoder.pooling}")
     if args.output.to_faiss:
         embedding_writer = FaissRepresentationWriter(args.output.embeddings, dimension=args.encoder.dimension)
     else:
