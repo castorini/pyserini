@@ -1,0 +1,64 @@
+# Pyserini: Reproducing AToMiC ViT-L-14-laion2B-s32B-b82K Baselines
+
+Pyserini provides the following pre-built indexes for the AToMiC dataset, encoded with [`laion/CLIP-ViT-L-14-laion2B-s32B-b82K`](https://huggingface.co/laion/CLIP-ViT-L-14-laion2B-s32B-b82K):
+- `atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.base`
+- `atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.large`
+- `atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.validation`
+- `atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.base`
+- `atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.large`
+- `atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.validation`
+
+## Data Prep
+We need the topic directories (`ViT-L-14.laion2b_s32b_b82k.text.validation` and `ViT-L-14.laion2b_s32b_b82k.image.validation`) and the qrels files (`qrels.atomic.validation.t2i.trec` and `qrels.atomic.validation.i2t.trec`) to reproduce the baselines. This can be done by running the following script:
+
+```bash
+mkdir topics && cd topics
+wget https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/topics/ViT-L-14.laion2b_s32b_b82k.image.validation.tar.gz
+tar -xzvf ViT-L-14.laion2b_s32b_b82k.image.validation.tar.gz
+wget https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/topics/ViT-L-14.laion2b_s32b_b82k.text.validation.tar.gz
+tar -xzvf ViT-L-14.laion2b_s32b_b82k.text.validation.tar.gz
+cd ..
+
+mkdir qrels
+wget https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/qrels/qrels.atomic.validation.i2t.trec -P qrels
+wget https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/qrels/qrels.atomic.validation.t2i.trec -P qrels
+```
+
+## Batch Retrieval Run
+We can perform a batch retrieval run as follows, replacing `{setting}` with the desired setting (`base`, `large`, `validation`):
+```bash
+# Text to Image
+python -m pyserini.search.faiss \
+    --topics topics/ViT-L-14.laion2b_s32b_b82k.text.validation \
+    --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.{setting} \
+    --hits 1000 \
+    --encoder laion/CLIP-ViT-L-14-laion2B-s32B-b82K \
+    --topics-format numpy \
+    --batch-size 64 \
+    --threads 32 \
+    --output runs/run.ViT-L-14.laion2b_s32b_b82k.t2i.{setting}.trec
+  
+# Image to Text
+python -m pyserini.search.faiss \
+    --topics topics/ViT-L-14.laion2b_s32b_b82k.image.validation \
+    --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.text.{setting} \
+    --hits 1000 \
+    --encoder laion/CLIP-ViT-L-14-laion2B-s32B-b82K \
+    --topics-format numpy \
+    --batch-size 64 \
+    --threads 32 \
+    --output runs/run.ViT-L-14.laion2b_s32b_b82k.i2t.{setting}.trec
+```
+
+We can evaluate using `trec_eval`:
+```bash
+# Text to Image
+python -m pyserini.eval.trec_eval -c -m recip_rank -M 10 qrels/qrels.atomic.validation.t2i.trec runs/run.ViT-L-14.laion2b_s32b_b82k.t2i.{setting}.trec
+python -m pyserini.eval.trec_eval -c -m recall.10,1000 qrels/qrels.atomic.validation.t2i.trec runs/run.ViT-L-14.laion2b_s32b_b82k.t2i.{setting}.trec
+
+# Image to Text
+python -m pyserini.eval.trec_eval -c -m recip_rank -M 10 qrels/qrels.atomic.validation.i2t.trec runs/run.ViT-L-14.laion2b_s32b_b82k.i2t.{setting}.trec
+python -m pyserini.eval.trec_eval -c -m recall.10,1000 qrels/qrels.atomic.validation.i2t.trec runs/run.ViT-L-14.laion2b_s32b_b82k.i2t.{setting}.trec
+```
+
+The results should line up with [this spreadsheet](https://docs.google.com/spreadsheets/d/1wSi_79Qx3GA1WAirwvoapiWJ4m2bPRM_rtUWRZ2qRIo).
