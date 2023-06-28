@@ -12,12 +12,11 @@ Pyserini provides the following pre-built indexes for the AToMiC dataset, encode
 We need the topic directories (`ViT-L-14.laion2b_s32b_b82k.text.validation` and `ViT-L-14.laion2b_s32b_b82k.image.validation`) and the qrels files (`qrels.atomic.validation.t2i.trec` and `qrels.atomic.validation.i2t.trec`) to reproduce the baselines. This can be done by running the following script:
 
 ```bash
-mkdir topics && cd topics
-wget https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/topics/ViT-L-14.laion2b_s32b_b82k.image.validation.tar.gz
-tar -xzvf ViT-L-14.laion2b_s32b_b82k.image.validation.tar.gz
-wget https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/topics/ViT-L-14.laion2b_s32b_b82k.text.validation.tar.gz
-tar -xzvf ViT-L-14.laion2b_s32b_b82k.text.validation.tar.gz
-cd ..
+mkdir topics
+wget https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/topics/ViT-L-14.laion2b_s32b_b82k.image.validation.tar.gz -P topics
+tar -xzvf topics/ViT-L-14.laion2b_s32b_b82k.image.validation.tar.gz -C topics
+wget https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/topics/ViT-L-14.laion2b_s32b_b82k.text.validation.tar.gz -P topics
+tar -xzvf topics/ViT-L-14.laion2b_s32b_b82k.text.validation.tar.gz -C topics
 
 mkdir qrels
 wget https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/qrels/qrels.atomic.validation.i2t.trec -P qrels
