@@ -3186,6 +3186,18 @@ FAISS_INDEX_INFO_MSMARCO = {
         "downloaded": False,
         "texts": "msmarco-v1-passage"
     },
+    "msmarco-v1-passage.openai-ada2": {
+        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
+        "filename": "faiss.msmarco-v1-passage.openai-ada2.20230530.e3a58f.tar.gz",
+        "urls": [
+            ""
+        ],
+        "md5": "14725ced21bdcd0c9866aab1cfe8f2e0",
+        "size compressed (bytes)": 45649935573,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
 
     "msmarco-v1-doc.ance-maxp": {
         "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by the ANCE MaxP encoder",

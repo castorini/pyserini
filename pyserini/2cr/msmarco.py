@@ -72,7 +72,10 @@ models = {
      'slimr-pp',
      '',
      'Aggretriever-Distilbert-otf',
-     'Aggretriever-coCondenser-otf'],
+     'Aggretriever-coCondenser-otf',
+     '',
+     'openai-ada2',
+     'openai-ada2-hyde'],
     'msmarco-v1-doc':
     ['bm25-doc-default',
      'bm25-doc-segmented-default',
