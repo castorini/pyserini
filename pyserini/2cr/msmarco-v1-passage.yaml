@@ -750,15 +750,15 @@ conditions:
     display: "HyDE-OpenAI ada2: pre-encoded queries"
     display-html: "HyDE-OpenAI ada2: pre-encoded queries"
     display-row: "[9]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 128 --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 128 --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics-hyde --output $output
     topics:
-      - topic_key: dl19-passage-hyde
+      - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
           - MAP: 0.5125
             nDCG@10: 0.7163
             R@1K: 0.9002
-      - topic_key: dl20-hyde
+      - topic_key: dl20
         eval_key: dl20-passage
         scores:
           - MAP: 0.4938
