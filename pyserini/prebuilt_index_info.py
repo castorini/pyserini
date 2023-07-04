@@ -3190,7 +3190,7 @@ FAISS_INDEX_INFO_MSMARCO = {
         "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
         "filename": "faiss.msmarco-v1-passage.openai-ada2.20230530.e3a58f.tar.gz",
         "urls": [
-            ""
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.openai-ada2.20230530.e3a58f.tar.gz"
         ],
         "md5": "14725ced21bdcd0c9866aab1cfe8f2e0",
         "size compressed (bytes)": 45649935573,
