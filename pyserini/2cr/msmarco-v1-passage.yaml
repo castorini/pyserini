@@ -726,7 +726,6 @@ conditions:
   - name: openai-ada2
     display: "OpenAI ada2: pre-encoded queries"
     display-html: "OpenAI ada2: pre-encoded queries"
-    display-row: "[9]"
     command: python -m pyserini.search.faiss --threads 16 --batch-size 128 --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -749,7 +748,6 @@ conditions:
   - name: openai-ada2-hyde
     display: "HyDE-OpenAI ada2: pre-encoded queries"
     display-html: "HyDE-OpenAI ada2: pre-encoded queries"
-    display-row: "[9]"
     command: python -m pyserini.search.faiss --threads 16 --batch-size 128 --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics-hyde --output $output
     topics:
       - topic_key: dl19-passage
