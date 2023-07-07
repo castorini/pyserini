@@ -73,7 +73,10 @@ models = {
      'slimr-pp',
      '',
      'aggretriever-distilbert-pytorch',
-     'aggretriever-cocondenser-pytorch'],
+     'aggretriever-cocondenser-pytorch',
+     '',
+     'openai-ada2',
+     'openai-ada2-hyde'],
 
     # MS MARCO v1 doc
     'msmarco-v1-doc':
