@@ -3053,26 +3053,26 @@ IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
 
 FAISS_INDEX_INFO_MSMARCO = {
     # Aggretriever indexes
-    "msmarco-passage.aggretriever-cocondenser": {
+    "msmarco-v1-passage.aggretriever-cocondenser": {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by aggretriever-cocondenser encoder.",
-        "filename": "faiss.msmarco-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz",
+        "filename": "faiss.msmarco-v1-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz"
         ],
-        "md5": "7d5f33b1b350f6cac6a02f3d1c4670ca",
-        "size compressed (bytes)": 26053474787,
+        "md5": "58da608d5b31b28001b3aa1cf33479f6",
+        "size compressed (bytes)": 26053474943,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
     },
-    "msmarco-passage.aggretriever-distilbert": {
+    "msmarco-v1-passage.aggretriever-distilbert": {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by aggretriever-distilbert encoder.",
-        "filename": "faiss.msmarco-passage.aggretriever-distilbert.20230407.f627ef.tar.gz",
+        "filename": "faiss.msmarco-v1-passage.aggretriever-distilbert.20230407.f627ef.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-passage.aggretriever-distilbert.20230407.f627ef.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.aggretriever-distilbert.20230407.f627ef.tar.gz"
         ],
-        "md5": "e9c48c36d1c2a7b3da0ab39f58e10ffc",
-        "size compressed (bytes)": 25963140897,
+        "md5": "ed1492be0ce7539aacd5db5028404989",
+        "size compressed (bytes)": 25963140666,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
