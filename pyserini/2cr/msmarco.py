@@ -102,10 +102,10 @@ models = {
      'bm25-rm3-d2q-t5-doc-segmented-tuned',
      '',
      'unicoil-noexp',
-     'unicoil',
+     'unicoil-noexp-pytorch',
      '',
-     'unicoil-noexp-otf',
-     'unicoil-otf'],
+     'unicoil',
+     'unicoil-pytorch'],
 
     # MS MARCO v2 passage
     'msmarco-v2-passage':
