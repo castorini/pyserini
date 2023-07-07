@@ -59,7 +59,7 @@ models = {
      'splade-pp-sd-onnx',
      '',
      'ance',
-     'ance-otf',
+     'ance-pytorch',
      '',
      'distilbert-kd',
      'distilbert-kd-pytorch',
@@ -486,7 +486,7 @@ def run_conditions(args):
                                 result_str = ok_str
                             # Flaky tests
                             elif args.collection == 'msmarco-v1-passage' \
-                                    and topic_key == 'msmarco-passage-dev-subset' and name == 'ance-otf' \
+                                    and topic_key == 'msmarco-passage-dev-subset' and name == 'ance-pytorch' \
                                     and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
                                 result_str = okish_str
                             else:
