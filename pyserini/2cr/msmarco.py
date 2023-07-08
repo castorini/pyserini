@@ -30,6 +30,7 @@ from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
 
 # The models: the rows of the results table will be ordered this way.
 models = {
+    # MS MARCO v1 passage
     'msmarco-v1-passage':
     ['bm25-default',
      'bm25-rm3-default',
@@ -48,34 +49,36 @@ models = {
      'bm25-rocchio-d2q-t5-tuned',
      '',
      'unicoil',
-     'unicoil-otf',
-     'unicoil-otf-onnx',
+     'unicoil-pytorch',
+     'unicoil-onnx',
      'unicoil-noexp',
-     'unicoil-noexp-otf',
-     'unicoil-noexp-otf-onnx',
+     'unicoil-noexp-pytorch',
+     'unicoil-noexp-onnx',
      '',
-     'splade-pp-ed-otf-onnx',
-     'splade-pp-sd-otf-onnx',
+     'splade-pp-ed-onnx',
+     'splade-pp-sd-onnx',
      '',
      'ance',
-     'ance-otf',
+     'ance-pytorch',
      '',
      'distilbert-kd',
-     'distilbert-kd-otf',
+     'distilbert-kd-pytorch',
      'distilbert-kd-tasb',
-     'distilbert-kd-tasb-otf',
+     'distilbert-kd-tasb-pytorch',
      '',
      'tct_colbert-v2-hnp',
-     'tct_colbert-v2-hnp-otf',
+     'tct_colbert-v2-hnp-pytorch',
      '',
      'slimr',
      'slimr-pp',
      '',
-     'Aggretriever-Distilbert-otf',
-     'Aggretriever-coCondenser-otf',
+     'aggretriever-distilbert-pytorch',
+     'aggretriever-cocondenser-pytorch',
      '',
      'openai-ada2',
      'openai-ada2-hyde'],
+
+    # MS MARCO v1 doc
     'msmarco-v1-doc':
     ['bm25-doc-default',
      'bm25-doc-segmented-default',
@@ -102,10 +105,12 @@ models = {
      'bm25-rm3-d2q-t5-doc-segmented-tuned',
      '',
      'unicoil-noexp',
-     'unicoil',
+     'unicoil-noexp-pytorch',
      '',
-     'unicoil-noexp-otf',
-     'unicoil-otf'],
+     'unicoil',
+     'unicoil-pytorch'],
+
+    # MS MARCO v2 passage
     'msmarco-v2-passage':
     ['bm25-default',
      'bm25-augmented-default',
@@ -122,6 +127,8 @@ models = {
      '',
      'unicoil-noexp-otf',
      'unicoil-otf'],
+
+    # MS MARCO v2 doc
     'msmarco-v2-doc':
     ['bm25-doc-default',
      'bm25-doc-segmented-default',
@@ -479,7 +486,7 @@ def run_conditions(args):
                                 result_str = ok_str
                             # Flaky tests
                             elif args.collection == 'msmarco-v1-passage' \
-                                    and topic_key == 'msmarco-passage-dev-subset' and name == 'ance-otf' \
+                                    and topic_key == 'msmarco-passage-dev-subset' and name == 'ance-pytorch' \
                                     and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
                                 result_str = okish_str
                             else:

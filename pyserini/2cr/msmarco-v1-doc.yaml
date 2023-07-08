@@ -447,9 +447,9 @@ conditions:
           - MAP: 0.4271
             nDCG@10: 0.5851
             R@1K: 0.8266
-  - name: unicoil-noexp-otf
-    display: "uniCOIL (noexp): otf"
-    display-html: "uniCOIL (noexp): on-the-fly query inference"
+  - name: unicoil-noexp-pytorch
+    display: "uniCOIL (noexp): query inference with PyTorch"
+    display-html: "uniCOIL (noexp): query inference with PyTorch"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented-unicoil-noexp --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
@@ -492,9 +492,9 @@ conditions:
           - MAP: 0.3698
             nDCG@10: 0.5893
             R@1K: 0.7623
-  - name: unicoil-otf
-    display: "uniCOIL (w/ doc2query-T5): otf"
-    display-html: "uniCOIL (w/ doc2query-T5): on-the-fly query inference"
+  - name: unicoil-pytorch
+    display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
+    display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented-unicoil --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
