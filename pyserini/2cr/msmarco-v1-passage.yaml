@@ -540,8 +540,8 @@ conditions:
             nDCG@10: 0.6523
             R@1K: 0.7861
   - name: splade-pp-ed-onnx
-    display: "SPLADE++ CoCondenser-EnsembleDistil: query inference with ONNX"
-    display-html: "SPLADE++ CoCondenser-EnsembleDistil: query inference with ONNX"
+    display: "SPLADE++ EnsembleDistil: query inference with ONNX"
+    display-html: "SPLADE++ EnsembleDistil: query inference with ONNX"
     display-row: "[2]"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-ed --topics $topics --onnx-encoder SpladePlusPlusEnsembleDistil --output $output --hits 1000 --impact
     topics:
@@ -563,8 +563,8 @@ conditions:
             nDCG@10: 0.7198
             R@1K: 0.8995
   - name: splade-pp-sd-onnx
-    display: "SPLADE++ CoCondenser-SelfDistil: query inference with ONNX"
-    display-html: "SPLADE++ CoCondenser-SelfDistil: query inference with ONNX"
+    display: "SPLADE++ SelfDistil: query inference with ONNX"
+    display-html: "SPLADE++ SelfDistil: query inference with ONNX"
     display-row: "[2]"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-sd --topics $topics --onnx-encoder SpladePlusPlusSelfDistil --output $output --hits 1000 --impact
     topics:
