@@ -32,7 +32,7 @@ import scipy
 from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder, \
     CachedDataQueryEncoder, SpladeQueryEncoder, SlimQueryEncoder
 from pyserini.index import Document
-from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
+from pyserini.pyclass import autoclass, JFloat, JInt, JArrayList, JHashMap
 from pyserini.util import download_prebuilt_index, download_encoded_corpus
 
 logger = logging.getLogger(__name__)
@@ -146,7 +146,7 @@ class LuceneImpactSearcher:
         if self.encoder_type == 'pytorch':
             for (token, weight) in encoded_query.items():
                 if token in self.idf and self.idf[token] > self.min_idf:
-                    jquery.put(token, JFloat(weight))
+                    jquery.put(token, JInt(weight))
 
         if not fields:
             hits = self.object.search(jquery, k)
@@ -188,7 +188,7 @@ class LuceneImpactSearcher:
             if self.encoder_type == 'pytorch':
                 for (token, weight) in encoded_query.items():
                     if token in self.idf and self.idf[token] > self.min_idf:
-                        jquery.put(token, JFloat(weight))
+                        jquery.put(token, JInt(weight))
             else:
                 jquery = encoded_query
             query_lst.add(jquery)
@@ -206,6 +206,20 @@ class LuceneImpactSearcher:
         else:
             results = self.object.batch_search_fields(query_lst, qid_lst, int(k), int(threads), jfields)
         return {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
+
+    def set_analyzer(self, analyzer):
+        """Set the Java ``Analyzer`` to use.
+
+        Parameters
+        ----------
+        analyzer : JAnalyzer
+            Java ``Analyzer`` object.
+        """
+        self.object.set_analyzer(analyzer)
+
+    def set_language(self, language):
+        """Set language of LuceneSearcher"""
+        self.object.set_language(language)
 
     def doc(self, docid: Union[str, int]) -> Optional[Document]:
         """Return the :class:`Document` corresponding to ``docid``. The ``docid`` is overloaded: if it is of type
@@ -227,6 +241,92 @@ class LuceneImpactSearcher:
         if lucene_document is None:
             return None
         return Document(lucene_document)
+
+    def set_rm3(self):
+        self.object.set_rm3()
+
+    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), debug=False, filter_terms=True):
+        """Configure RM3 pseudo-relevance feedback.
+
+        Parameters
+        ----------
+        fb_terms : int
+            RM3 parameter for number of expansion terms.
+        fb_docs : int
+            RM3 parameter for number of expansion documents.
+        original_query_weight : float
+            RM3 parameter for weight to assign to the original query.
+        debug : bool
+            Print the original and expanded queries as debug output.
+        filter_terms: bool
+            Whether to remove non-English terms.
+        """
+        if self.object.reader.getTermVectors(0):
+            self.object.set_rm3(None, fb_terms, fb_docs, original_query_weight, debug, filter_terms)
+        elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented']:
+            self.object.set_rm3('JsonCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
+        elif self.prebuilt_index_name in ['msmarco-v2-passage', 'msmarco-v2-passage-augmented']:
+            self.object.set_rm3('MsMarcoV2PassageCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
+        elif self.prebuilt_index_name in ['msmarco-v2-doc', 'msmarco-v2-doc-segmented']:
+            self.object.set_rm3('MsMarcoV2DocCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
+        else:
+            raise TypeError("RM3 is not supported for indexes without document vectors.")
+
+    def unset_rm3(self):
+        """Disable RM3 pseudo-relevance feedback."""
+        self.object.unset_rm3()
+
+    def is_using_rm3(self) -> bool:
+        """Check if RM3 pseudo-relevance feedback is being performed."""
+        return self.object.use_rm3()
+
+    def set_rocchio(self):
+        self.object.set_rocchio()
+
+
+    def set_rocchio(self, top_fb_terms=10, top_fb_docs=10, bottom_fb_terms=10, bottom_fb_docs=10,
+                    alpha=1, beta=0.75, gamma=0, debug=False, use_negative=False):
+        """Configure Rocchio pseudo-relevance feedback.
+
+        Parameters
+        ----------
+        top_fb_terms : int
+            Rocchio parameter for number of relevant expansion terms.
+        top_fb_docs : int
+            Rocchio parameter for number of relevant expansion documents.
+        bottom_fb_terms : int
+            Rocchio parameter for number of non-relevant expansion terms.
+        bottom_fb_docs : int
+            Rocchio parameter for number of non-relevant expansion documents.
+        alpha : float
+            Rocchio parameter for weight to assign to the original query.
+        beta: float
+            Rocchio parameter for weight to assign to the relevant document vector.
+        gamma: float
+            Rocchio parameter for weight to assign to the nonrelevant document vector.
+        debug : bool
+            Print the original and expanded queries as debug output.
+        use_negative : bool
+            Rocchio parameter to use negative labels.
+        """
+        if self.object.reader.getTermVectors(0):
+            self.object.set_rocchio(None, top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
+                                    alpha, beta, gamma, debug, use_negative)
+        elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented']:
+            self.object.set_rocchio('JsonCollection', top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
+                                    alpha, beta, gamma, debug, use_negative)
+        # Note, we don't have any Pyserini 2CRs that use Rocchio for MS MARCO v2, so there's currently no
+        # corresponding code branch here. To avoid introducing bugs (without 2CR tests), we'll add when it's needed.
+        else:
+            raise TypeError("Rocchio is not supported for indexes without document vectors.")
+
+    def unset_rocchio(self):
+        """Disable Rocchio pseudo-relevance feedback."""
+        self.object.unset_rocchio()
+
+    def is_using_rocchio(self) -> bool:
+        """Check if Rocchio pseudo-relevance feedback is being performed."""
+        return self.object.use_rocchio()
 
     def doc_by_field(self, field: str, q: str) -> Optional[Document]:
         """Return the :class:`Document` based on a ``field`` with ``id``. For example, this method can be used to fetch
@@ -327,7 +427,7 @@ class SlimSearcher(LuceneImpactSearcher):
         jquery = JHashMap()
         for (token, weight) in fusion_encoded_query.items():
             if token in self.idf and self.idf[token] > self.min_idf:
-                jquery.put(token, JFloat(weight))
+                jquery.put(token, JInt(weight))
 
         if self.sparse_vecs is not None:
             search_k = k * (self.min_idf + 1)
@@ -348,7 +448,7 @@ class SlimSearcher(LuceneImpactSearcher):
             jquery = JHashMap()
             for (token, weight) in fusion_encoded_query.items():
                 if token in self.idf and self.idf[token] > self.min_idf:
-                    jquery.put(token, JFloat(weight))
+                    jquery.put(token, JInt(weight))
             query_lst.add(jquery)
             sparse_encoded_queries[qid] = sparse_encoded_query
 
