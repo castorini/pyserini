@@ -130,7 +130,7 @@ if __name__ == '__main__':
         embedding_writer = FaissRepresentationWriter(args.output.embeddings, dimension=args.encoder.dimension)
     else:
         embedding_writer = JsonlRepresentationWriter(args.output.embeddings)
-    collection_iterator = JsonlCollectionIterator(args.input.corpus, args.input.fields, delimiter)
+    collection_iterator = JsonlCollectionIterator(args.input.corpus, args.input.fields, args.input.docid_field, delimiter)
 
     with embedding_writer:
         for batch_info in collection_iterator(args.encoder.batch_size, args.input.shard_id, args.input.shard_num):
