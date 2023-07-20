@@ -92,7 +92,7 @@ if __name__ == '__main__':
     input_parser.add_argument('--fields', help='fields that contents in jsonl has (in order)',
                               nargs='+', default=['text'], required=False)
     input_parser.add_argument('--docid-field',
-                              help='name of id field name. `default` would be either of `id`, `_id`, `docid`',
+                              help='name of document id field name. If you have a custom id with a name other than "id", "_id" or "docid", then use this argument',
                               default=None, required=False)
     input_parser.add_argument('--delimiter', help='delimiter for the fields', default='\n', required=False)
     input_parser.add_argument('--shard-id', type=int, help='shard-id 0-based', default=0, required=False)
