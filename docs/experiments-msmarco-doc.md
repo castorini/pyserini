@@ -1,9 +1,10 @@
-# Pyserini: BM25 Baseline for MS MARCO Document Retrieval
+# Pyserini: BM25 Baseline for MS MARCO Document Ranking
 
 This guide contains instructions for running BM25 baselines on the [MS MARCO *document* ranking task](https://microsoft.github.io/msmarco/), which is nearly identical to a [similar guide in Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-doc.md), except that everything is in Python here (no Java).
 Note that there is a separate guide for the [MS MARCO *passage* ranking task](experiments-msmarco-passage.md).
 
-**Setup Note:** If you're instantiating an Ubuntu VM on your system or on cloud (AWS and GCP), try to provision enough resources as the tasks such as building the index could take some time to finish such as RAM > 8GB and storage > 100 GB (SSD). This will prevent going back and fixing machine configuration again and again. If you get a configuration which works for Anserini on this task, it will work with Pyserini as well.
+As of July 2023, this exercise has been removed form the Waterloo students [onboarding path](https://github.com/lintool/guide/blob/master/ura.md), which [starts here](start-here.md
+).
 
 ## Data Prep
 

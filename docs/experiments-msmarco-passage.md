@@ -1,4 +1,4 @@
-# Pyserini: BM25 Baseline for MS MARCO Passage Retrieval
+# Pyserini: BM25 Baseline for MS MARCO Passage Ranking
 
 This guide contains instructions for running BM25 baselines on the [MS MARCO *passage* ranking task](https://microsoft.github.io/msmarco/), which is nearly identical to a [similar guide in Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md), except that everything is in Python here (no Java).
 Note that there is a separate guide for the [MS MARCO *document* ranking task](experiments-msmarco-doc.md).
@@ -6,7 +6,7 @@ This exercise will require a machine with >8 GB RAM and >15 GB free disk space .
 
 If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md),
 make sure you've first done the [BM25 Baselines for MS MARCO Passage Ranking **in Anserini**](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md).
-In general, if you don't _understand_ what it is that you're doing when following this guide, i.e., you're just [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming) (i.e., blindly copying and pasting commands into a shell), then you should back up to the previous guide in the onboarding path.
+In general, if you don't understand what it is that you're doing when following this guide, i.e., you're just [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming) (i.e., blindly copying and pasting commands into a shell), then you should back up to the previous guide in the onboarding path.
 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path:
 
@@ -59,7 +59,7 @@ The above script should generate 9 jsonl files in `collections/msmarco-passage/c
 
 ## Indexing
 
-We can now index these docs as a `JsonCollection` using Pyserini:
+We can now index these documents as a `JsonCollection` using Pyserini:
 
 ```bash
 python -m pyserini.index.lucene \
@@ -74,7 +74,7 @@ python -m pyserini.index.lucene \
 The command-line invocation should look familiar: it essentially mirrors the command with Anserini (in Java).
 If you can't make sense of what's going on here, back up and make sure you've first done the [BM25 Baselines for MS MARCO Passage Ranking **in Anserini**](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md).
 
-Upon completion, we should have an index with 8,841,823 documents.
+Upon completion, you should have an index with 8,841,823 documents.
 The indexing speed may vary; on a modern desktop with an SSD, indexing takes a couple of minutes.
 
 ## Retrieval
