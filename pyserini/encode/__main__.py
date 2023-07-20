@@ -91,6 +91,9 @@ if __name__ == '__main__':
                               required=True)
     input_parser.add_argument('--fields', help='fields that contents in jsonl has (in order)',
                               nargs='+', default=['text'], required=False)
+    input_parser.add_argument('--docid-field',
+                              help='name of id field name. `default` would be either of `id`, `_id`, `docid`',
+                              default=None, required=False)
     input_parser.add_argument('--delimiter', help='delimiter for the fields', default='\n', required=False)
     input_parser.add_argument('--shard-id', type=int, help='shard-id 0-based', default=0, required=False)
     input_parser.add_argument('--shard-num', type=int, help='number of shards', default=1, required=False)
@@ -112,7 +115,7 @@ if __name__ == '__main__':
                                 default='cuda:0', required=False)
     encoder_parser.add_argument('--fp16', action='store_true', default=False)
     encoder_parser.add_argument('--add-sep', action='store_true', default=False)
-    encoder_parser.add_argument('--pooling', type=str,default='cls', help='for auto classes, allow the ability to dictate pooling strategy', required=False)
+    encoder_parser.add_argument('--pooling', type=str, default='cls', help='for auto classes, allow the ability to dictate pooling strategy', required=False)
 
     args = parse_args(parser, commands)
     delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
