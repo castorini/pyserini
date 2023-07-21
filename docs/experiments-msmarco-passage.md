@@ -4,7 +4,7 @@ This guide contains instructions for running BM25 baselines on the [MS MARCO *pa
 Note that there is a separate guide for the [MS MARCO *document* ranking task](experiments-msmarco-doc.md).
 This exercise will require a machine with >8 GB RAM and >15 GB free disk space.
 
-If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md),
+If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md) (which [starts here](https://github.com/castorini/anserini/blob/master/docs/start-here.md)),
 make sure you've first done the [BM25 Baselines for MS MARCO Passage Ranking **in Anserini**](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md).
 In general, if you don't understand what it is that you're doing when following this guide, i.e., you're just [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming) (i.e., blindly copying and pasting commands into a shell), then you should back up to the previous guide in the onboarding path.
 
@@ -110,7 +110,8 @@ python -m pyserini.search.lucene \
   --output runs/run.msmarco-passage.bm25tuned.txt \
   --output-format msmarco \
   --hits 1000 \
-  --bm25 --k1 0.82 --b 0.68
+  --bm25 --k1 0.82 --b 0.68 \
+  --threads 4 --batch-size 16
 ```
 
 Here, we set the BM25 parameters to `k1=0.82`, `b=0.68` (tuned by grid search).
@@ -127,10 +128,10 @@ For example, setting `--threads 16 --batch-size 64` on a CPU with sufficient cor
 
 ## Evaluation
 
-After the run finishes, we can evaluate the results using the official MS MARCO evaluation script:
+After the run finishes, we can evaluate the results using the official MS MARCO evaluation script, which has been incorporated into Pyserini:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_passage_eval.py \
+$ python -m pyserini.eval.msmarco_passage_eval \
    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.bm25tuned.txt
 
@@ -141,22 +142,24 @@ QueriesRanked: 6980
 ```
 
 We can also use the official TREC evaluation tool, `trec_eval`, to compute metrics other than MRR@10.
-For that we first need to convert the run file into TREC format:
+The tool needs a different run format, so it's easier to just run retrieval again:
 
 ```bash
-python -m pyserini.eval.convert_msmarco_run_to_trec_run \
-   --input runs/run.msmarco-passage.bm25tuned.txt \
-   --output runs/run.msmarco-passage.bm25tuned.trec
-
-python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
-   --input tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-   --output collections/msmarco-passage/qrels.dev.small.trec
+python -m pyserini.search.lucene \
+  --index indexes/lucene-index-msmarco-passage \
+  --topics msmarco-passage-dev-subset \
+  --output runs/run.msmarco-passage.bm25tuned.trec \
+  --hits 1000 \
+  --bm25 --k1 0.82 --b 0.68 \
+  --threads 4 --batch-size 16
 ```
 
-And then run the `trec_eval` tool:
+The only difference here is that we've removed `--output-format msmarco`.
+
+Let's then run the `trec_eval` tool, which has been incorporated into Pyserini:
 
 ```bash
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
    collections/msmarco-passage/qrels.dev.small.trec \
    runs/run.msmarco-passage.bm25tuned.trec
 
@@ -167,17 +170,85 @@ recall_1000           	all	0.8573
 If you want to examine the MRR@10 for `qid` 1048585:
 
 ```bash
-$ tools/eval/trec_eval.9.0.4/trec_eval -q -c -M 10 -m recip_rank \
+$ python -m pyserini.eval.trec_eval -q -c -M 10 -m recip_rank \
     collections/msmarco-passage/qrels.dev.small.trec \
-    runs/run.msmarco-passage.dev.small.trec | grep 1048585
+    runs/run.msmarco-passage.bm25tuned.trec | grep 1048585
 
 recip_rank            	1048585	1.0000
 ```
 
 Once again, if you can't make sense of what's going on here, back up and make sure you've first done the [BM25 Baselines for MS MARCO Passage Ranking **in Anserini**](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md).
 
-Otherwise, that's it!
+Otherwise, congratulations!
 You've done everything that you did in Anserini (in Java), but now in Pyserini (in Python).
+
+## Interactive Retrieval
+
+There's one final thing we should go over.
+Because we're in Python now, we get the benefit of having an interactive shell.
+Thus, we can run Pyserini interactively.
+
+Try the following:
+
+```python
+from pyserini.search.lucene import LuceneSearcher
+
+searcher = LuceneSearcher('indexes/lucene-index-msmarco-passage')
+searcher.set_bm25(0.82, 0.68)
+hits = searcher.search('what is paula deen\'s brother')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+```
+
+The `LuceneSearcher` class provides search capabilities for BM25.
+In the code snippet above, we're issuing the query about Paula Dean (from above).
+Note that we're explicitly setting the BM25 parameters, which are not the default parameters.
+We get back a list of results (`hits`), which we then iterate through and print out:
+
+```
+ 1 7187158 18.81160
+ 2 7187157 18.33340
+ 3 7187163 17.87880
+ 4 7546327 16.96210
+ 5 7187160 16.56470
+ 6 8227279 16.43250
+ 7 7617404 16.23990
+ 8 7187156 16.02490
+ 9 2298838 15.70150
+10 7187155 15.51330
+```
+
+You can confirm that the output is the same as `pyserini.search.lucene` from above.
+
+```bash
+$ grep 1048585 runs/run.msmarco-passage.bm25tuned.trec | head -10
+1048585 Q0 7187158 1 18.811600 Anserini
+1048585 Q0 7187157 2 18.333401 Anserini
+1048585 Q0 7187163 3 17.878799 Anserini
+1048585 Q0 7546327 4 16.962099 Anserini
+1048585 Q0 7187160 5 16.564699 Anserini
+1048585 Q0 8227279 6 16.432501 Anserini
+1048585 Q0 7617404 7 16.239901 Anserini
+1048585 Q0 7187156 8 16.024900 Anserini
+1048585 Q0 2298838 9 15.701500 Anserini
+1048585 Q0 7187155 10 15.513300 Anserini
+```
+
+To pull up the actual contents of a hit:
+
+```python
+hits[0].raw
+```
+
+And you should get:
+
+```
+'{\n  "id" : "7187158",\n  "contents" : "Paula Deen and her brother Earl W. Bubba Hiers are being sued by a former general manager at Uncle Bubba\'sâ\x80¦ Paula Deen and her brother Earl W. Bubba Hiers are being sued by a former general manager at Uncle Bubba\'sâ\x80¦"\n}'
+```
+
+Everything make sense?
+If so, now you're truly done with this guide!
 
 Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Anserini, and use its 7-hexadecimal prefix for the link anchor text.
 
