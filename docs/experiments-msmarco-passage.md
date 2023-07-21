@@ -202,7 +202,7 @@ for i in range(0, 10):
 ```
 
 The `LuceneSearcher` class provides search capabilities for BM25.
-In the code snippet above, we're issuing the query about Paula Dean (from above).
+In the code snippet above, we're issuing the query about Paula Deen's brother (from above).
 Note that we're explicitly setting the BM25 parameters, which are not the default parameters.
 We get back a list of results (`hits`), which we then iterate through and print out:
 
