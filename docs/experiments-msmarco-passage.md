@@ -2,7 +2,7 @@
 
 This guide contains instructions for running BM25 baselines on the [MS MARCO *passage* ranking task](https://microsoft.github.io/msmarco/), which is nearly identical to a [similar guide in Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md), except that everything is in Python here (no Java).
 Note that there is a separate guide for the [MS MARCO *document* ranking task](experiments-msmarco-doc.md).
-This exercise will require a machine with >8 GB RAM and >15 GB free disk space .
+This exercise will require a machine with >8 GB RAM and >15 GB free disk space.
 
 If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md),
 make sure you've first done the [BM25 Baselines for MS MARCO Passage Ranking **in Anserini**](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md).
@@ -179,7 +179,7 @@ Once again, if you can't make sense of what's going on here, back up and make su
 Otherwise, that's it!
 You've done everything that you did in Anserini (in Java), but now in Pyserini (in Python).
 
-Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Anserini, and use a 7-hexadecimal prefix for the link anchor text.
+Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Anserini, and use its 7-hexadecimal prefix for the link anchor text.
 
 ## Reproduction Log[*](reproducibility.md)
 
