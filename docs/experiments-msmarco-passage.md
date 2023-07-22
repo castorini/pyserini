@@ -6,7 +6,7 @@ This exercise will require a machine with >8 GB RAM and >15 GB free disk space.
 
 If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md) (which [starts here](https://github.com/castorini/anserini/blob/master/docs/start-here.md)),
 make sure you've first done the [BM25 Baselines for MS MARCO Passage Ranking **in Anserini**](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md).
-In general, if you don't understand what it is that you're doing when following this guide, i.e., you're just [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming) (i.e., blindly copying and pasting commands into a shell), then you should back up to the previous guide in the onboarding path.
+In general, if you don't understand what it is that you're doing when following this guide, i.e., you're just [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming) (i.e., blindly copying and pasting commands into a shell), then you should back up to the previous step in the onboarding path.
 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path:
 
@@ -248,7 +248,7 @@ And you should get:
 ```
 
 Everything make sense?
-If so, now you're truly done with this guide!
+If so, now you're truly done with this guide and are ready to move on and [learn about the relationship between sparse and dense retrieval](conceptual-framework.md)!
 
 Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Anserini, and use its 7-hexadecimal prefix for the link anchor text.
 
