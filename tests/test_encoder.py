@@ -240,7 +240,7 @@ class TestEncode(unittest.TestCase):
 
 
 # JsonCollectionIterator exhibits somewhat complex behavior, which I figured out and so I am documenting for the benefit
-# of others. - Jimmy, July 2023
+# of others - Jimmy (July 2023)
 #
 # We specify the fields we want to extract from each document, e.g., ["title", "text"]; in the encoder command-line
 # this is "--fields title text". In the "base case", the corpus is formatted in jsonl as follows:
@@ -256,10 +256,10 @@ class TestEncode(unittest.TestCase):
 #   {"id": "doc1", "contents": "my title\n\nmy text..."}
 #   e.g., tests/resources/simple_mrtydi_corpus.json
 #
-# This comes from a legacy convention with MS MARCO. In this case, the delimiter is "\n\n".
+# This comes from a legacy convention with MS MARCO. Here, the delimiter is "\n\n".
 #
 # In this case, the reader has to parse out the "title" and "text" fields from the "contents" fields. There's also
-# extra logic that handles missing fields. For example, in thie case, "blah\n\n" would indicate an empty text field.
+# extra logic that handles missing fields. For example, in this case, "blah\n\n" would indicate an empty text field.
 class TestJsonlCollectionIterator(unittest.TestCase):
     def setUp(self):
         return
