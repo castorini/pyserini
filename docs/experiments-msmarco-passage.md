@@ -142,6 +142,7 @@ QueriesRanked: 6980
 ```
 
 We can also use the official TREC evaluation tool, `trec_eval`, to compute metrics other than MRR@10.
+
 The tool needs a different run format, so it's easier to just run retrieval again:
 
 ```bash
@@ -156,7 +157,15 @@ python -m pyserini.search.lucene \
 
 The only difference here is that we've removed `--output-format msmarco`.
 
-Let's then run the `trec_eval` tool, which has been incorporated into Pyserini:
+Then, convert qrels files to the TREC format:
+
+```bash
+python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
+  --input collections/msmarco-passage/qrels.dev.small.tsv \
+  --output collections/msmarco-passage/qrels.dev.small.trec
+```
+
+Finally, run the `trec_eval` tool, which has been incorporated into Pyserini:
 
 ```bash
 $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
@@ -299,3 +308,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@dlrudwo1269](https://github.com/dlrudwo1269) on 2023-03-08 (commit [`dfae4bb5`](https://github.com/castorini/pyserini/commit/dfae4bb5128225e81606acbb17d1d92e254d609f))
 + Results reproduced by [@zoehahaha](https://github.com/zoehahaha) on 2023-05-12 (commit [`68be809`](https://github.com/castorini/pyserini/commit/68be8090b8553fc6eaf352ac690a6de9d3dc82dd))
 + Results reproduced by [@pratyushpal](https://github.com/pratyushpal) on 2023-07-14 (commit [`760c22a`](https://github.com/castorini/pyserini/commit/760c22a3300a4fc3bfc83991140cdc1d6d7a35f9))
++ Results reproduced by [@sahel-sh](https://github.com/sahel-sh) on 2023-07-22 (commit [`863ff361`](https://github.com/castorini/pyserini/commit/863ff361fd671bb79b07f8f89a4b8121b7b46e8e))
