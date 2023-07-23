@@ -48,7 +48,7 @@ So we have bunch of vectors now, each corresponding to one document.
 **Step (2).** When a query arrives, we need to encode it, i.e., generate its vector representation.
 
 **Step (3).** In the final step, we need to find the _k_ document vectors that have the highest query-document scores in terms of the inner product of their vector representations.
-We say _k_ because in nearly all settings, _k_ is specifed externally, i.e., the user says, give me the top 10 hits.
+We say _k_ because in nearly all settings, _k_ is specified externally, i.e., the user says, give me the top 10 hits.
 Hence, top-_k_ retrieval.
 
 Step (1) and step (2) are relatively straightforward given the document and query encoders.
