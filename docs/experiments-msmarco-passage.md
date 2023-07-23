@@ -250,7 +250,7 @@ And you should get:
 Everything make sense?
 If so, now you're truly done with this guide and are ready to move on and [learn about the relationship between sparse and dense retrieval](conceptual-framework.md)!
 
-Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Anserini, and use its 7-hexadecimal prefix for the link anchor text.
+Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
 
 ## Reproduction Log[*](reproducibility.md)
 
