@@ -43,7 +43,7 @@ Given this setup, how would we build a retrieval system?
 Well, here's one obvious way:
 
 **Step (1).** Let's take the document collection (or corpus), i.e., _C_ = {_d<sub>i</sub>_}, and encode each document.
-So we have bunch of vectors now, each corresponding to one document.
+So we have a bunch of vectors now, each corresponding to one document.
 
 **Step (2).** When a query arrives, we need to encode it, i.e., generate its vector representation.
 
