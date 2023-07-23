@@ -45,10 +45,7 @@ wget https://msmarco.blob.core.windows.net/msmarcoranking/collectionandqueries.t
 tar xvfz collections/msmarco-passage/collectionandqueries.tar.gz -C collections/msmarco-passage
 ```
 
-To confirm, `collectionandqueries.tar.gz` should have MD5 checksum of `31644046b18952c1386cd4564ba2ae69`:
-```bash
-md5sum collections/msmarco-passage/collectionandqueries.tar.gz
-```
+To confirm, `collectionandqueries.tar.gz` should have MD5 checksum of `31644046b18952c1386cd4564ba2ae69`.
 
 Next, we need to convert the MS MARCO tsv collection into Pyserini's jsonl files (which have one json object per line):
 
