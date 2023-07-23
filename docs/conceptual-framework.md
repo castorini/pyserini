@@ -82,7 +82,7 @@ Paula Deen and her brother Earl W. Bubba Hiers are being sued by a former genera
 
 This is the BM25 vector representation for that document:
 
-```
+```json
 {
     "be": 2.637899875640869,
     "brother": 4.09124231338501,
