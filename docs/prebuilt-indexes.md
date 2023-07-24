@@ -882,6 +882,22 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): SciFact encoded by SPLADE-distill CoCodenser-medium
 </dd>
+<dt></dt><b><code>ciral-v1.0-ha</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
+<dd>Lucene index of the CIRAL Hausa collection. (Lucene 9)
+</dd>
+<dt></dt><b><code>ciral-v1.0-so</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
+<dd>Lucene index of the CIRAL Somali collection. (Lucene 9)
+</dd>
+<dt></dt><b><code>ciral-v1.0-sw</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
+<dd>Lucene index of the CIRAL Swahili collection. (Lucene 9)
+</dd>
+<dt></dt><b><code>ciral-v1.0-yo</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
+<dd>Lucene index of the CIRAL Yoruba collection. (Lucene 9)
+</dd>
 </dl>
 
 

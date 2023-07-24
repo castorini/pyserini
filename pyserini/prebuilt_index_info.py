@@ -1808,6 +1808,70 @@ TF_INDEX_INFO_MIRACL = {
     }
 }
 
+TF_INDEX_INFO_CIRAL = {
+    "ciral-v1.0-ha": {
+        "description": "Lucene index for CIRAL v1.0 (Hausa).",
+        "filename": "lucene-index.ciral-v1.0-ha.20230721.e850ea.tar.gz",
+        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-ha.20230721.e850ea.tar.gz"
+        ],
+        "md5": "9bef13f2b528d3a5712ce412c3c264f7",
+        "size compressed (bytes)": 671653035,
+        'total_terms': 93696543,
+        'documents': 715355,
+        'unique_terms': 817967,
+        "downloaded": False
+    },
+
+    "ciral-v1.0-so": {
+        "description": "Lucene index for CIRAL v1.0 (Somali).",
+        "filename": "lucene-index.ciral-v1.0-so.20230721.e850ea.tar.gz",
+        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-so.20230721.e850ea.tar.gz"
+        ],
+        "md5": "4bb9d3ae1a6d65fbb2a4e7e57a71397d",
+        "size compressed (bytes)": 916229181,
+        "total_terms": 103736362,
+        "documents": 827552,
+        "unique_terms": 1636109,
+        "downloaded": False
+    },
+
+    "ciral-v1.0-sw": {
+        "description": "Lucene index for CIRAL v1.0 (Swahili).",
+        "filename": "lucene-index.ciral-v1.0-sw.20230721.e850ea.tar.gz",
+        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-sw.20230721.e850ea.tar.gz"
+        ],
+        "md5": "1236a1a4c87268d98ec6534cd99aaada",
+        "size compressed (bytes)": 896921754,
+        "total_terms": 115140711,
+        "documents": 949013,
+        "unique_terms": 1655554,
+        "downloaded": False
+    },
+
+    "ciral-v1.0-yo": {
+        "description": "Lucene index for CIRAL v1.0 (Yoruba).",
+        "filename": "lucene-index.ciral-v1.0-yo.20230721.e850ea.tar.gz",
+        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-yo.20230721.e850ea.tar.gz"
+        ],
+        "md5": "655e571314ed85cbfe637246c3d18110",
+        "size compressed (bytes)": 94610259,
+        "total_terms": 13693080,
+        "documents": 82095,
+        "unique_terms": 236638,
+        "downloaded": False
+    }
+
+}
+
+
 TF_INDEX_INFO_OTHER = {
     "cacm": {
         "description": "Lucene index of the CACM corpus. (Lucene 9)",
@@ -2363,6 +2427,7 @@ TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_BEIR,
                  **TF_INDEX_INFO_MRTYDI,
                  **TF_INDEX_INFO_MIRACL,
+                 **TF_INDEX_INFO_CIRAL,
                  **TF_INDEX_INFO_OTHER}
 
 IMPACT_INDEX_INFO_MSMARCO = {
