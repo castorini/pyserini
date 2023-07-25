@@ -548,6 +548,22 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 (Yoruba).
 </dd>
+<dt></dt><b><code>ciral-v1.0-ha</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
+<dd>Lucene index for CIRAL v1.0 (Hausa).
+</dd>
+<dt></dt><b><code>ciral-v1.0-so</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
+<dd>Lucene index for CIRAL v1.0 (Somali).
+</dd>
+<dt></dt><b><code>ciral-v1.0-sw</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
+<dd>Lucene index for CIRAL v1.0 (Swahili).
+</dd>
+<dt></dt><b><code>ciral-v1.0-yo</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
+<dd>Lucene index for CIRAL v1.0 (Yoruba).
+</dd>
 <dt></dt><b><code>cacm</code></b>
 <dd>Lucene index of the CACM corpus. (Lucene 9)
 </dd>
@@ -887,10 +903,10 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 
 ## Faiss Indexes
 <dl>
-<dt></dt><b><code>msmarco-passage.aggretriever-cocondenser</code></b>
+<dt></dt><b><code>msmarco-v1-passage.aggretriever-cocondenser</code></b>
 <dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by aggretriever-cocondenser encoder.
 </dd>
-<dt></dt><b><code>msmarco-passage.aggretriever-distilbert</code></b>
+<dt></dt><b><code>msmarco-v1-passage.aggretriever-distilbert</code></b>
 <dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by aggretriever-distilbert encoder.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.ance</code></b>
@@ -919,6 +935,9 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.tct_colbert-v2-hnp</code></b>
 <dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.openai-ada2</code></b>
+<dd>Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP
 </dd>
 <dt></dt><b><code>msmarco-v1-doc.ance-maxp</code></b>
 <dd>Faiss FlatIP index of the MS MARCO document corpus encoded by the ANCE MaxP encoder
