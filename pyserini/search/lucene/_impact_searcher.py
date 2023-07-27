@@ -62,7 +62,7 @@ class LuceneImpactSearcher:
         self.encoder_type = encoder_type
         self.query_encoder = query_encoder
         if encoder_type == 'onnx':
-            if isinstance(query_encoder, str) or query_encoder is None:
+            if isinstance(query_encoder, str) and query_encoder is not None:
                 self.object.set_onnx_query_encoder(query_encoder)
             else:
                 raise ValueError(f'Invalid query encoder type: {type(query_encoder)} for onnx encoder')
@@ -140,13 +140,14 @@ class LuceneImpactSearcher:
         for (field, boost) in fields.items():
             jfields.put(field, JFloat(boost))
 
-        encoded_query = self.encode(q)
-
-        jquery = encoded_query
         if self.encoder_type == 'pytorch':
+            encoded_query = self.encode(q)
+            jquery = encoded_query
             for (token, weight) in encoded_query.items():
                 if token in self.idf and self.idf[token] > self.min_idf:
                     jquery.put(token, JInt(weight))
+        else:
+            jquery = q
 
         if not fields:
             hits = self.object.search(jquery, k)
@@ -183,14 +184,14 @@ class LuceneImpactSearcher:
         query_lst = JArrayList()
         qid_lst = JArrayList()
         for q in queries:
-            encoded_query = self.encode(q)
             jquery = JHashMap()
             if self.encoder_type == 'pytorch':
+                encoded_query = self.encode(q)
                 for (token, weight) in encoded_query.items():
                     if token in self.idf and self.idf[token] > self.min_idf:
                         jquery.put(token, JInt(weight))
             else:
-                jquery = encoded_query
+                jquery = q
             query_lst.add(jquery)
 
         for qid in qids:
@@ -202,7 +203,10 @@ class LuceneImpactSearcher:
             jfields.put(field, JFloat(boost))
 
         if not fields:
-            results = self.object.batch_search(query_lst, qid_lst, int(k), int(threads))
+            if self.encoder_type == 'onnx':
+                results = self.object.batch_search_queries(query_lst, qid_lst, int(k), int(threads))
+            else:
+                results = self.object.batch_search(query_lst, qid_lst, int(k), int(threads))
         else:
             results = self.object.batch_search_fields(query_lst, qid_lst, int(k), int(threads), jfields)
         return {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
