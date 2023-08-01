@@ -5603,7 +5603,86 @@ FAISS_INDEX_INFO_OTHER = {
         "documents": 38429835,
         "downloaded": False,
         "texts": "cast2019"
-    }
+    },
+    # TODO: update urls to rgw.cs.uwaterloo.ca/....
+    "atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.base": {
+        "description": "Faiss index for AToMiC Images v0.2 on base corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
+        "filename": "ViT-L-14.laion2b_s32b_b82k.image.base.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-L-14.laion2b_s32b_b82k.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.image.base.faiss.flat.tar.gz"
+        ],
+        "md5": "7e7abf80e99b81c444281405db19c579",
+        "size compressed (bytes)": 9284282630,
+        "documents": 3410779,
+        "downloaded": False,
+        "texts": "atomic_image_v0.2_base"
+    },
+    "atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.large": {
+        "description": "Faiss index for AToMiC Images v0.2 on large corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
+        "filename": "ViT-L-14.laion2b_s32b_b82k.image.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-L-14.laion2b_s32b_b82k.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.image.faiss.flat.tar.gz"
+        ],
+        "md5": "501b7477a8e1eea9e10904a2ea307906",
+        "size compressed (bytes)": 29984366146,
+        "documents": 3803656,
+        "downloaded": False,
+        "texts": "atomic_image_v0.2_large"
+    },
+    "atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.validation": {
+        "description": "Faiss index for AToMiC Images v0.2 on validation corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
+        "filename": "ViT-L-14.laion2b_s32b_b82k.image.small.validation.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-L-14.laion2b_s32b_b82k.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.image.small.validation.faiss.flat.tar.gz"
+        ],
+        "md5": "798d601cfc505a4b290bb708290a38fc",
+        "size compressed (bytes)": 43875634,
+        "documents": 16126,
+        "downloaded": False,
+        "texts": "atomic_image_v0.2_small_validation"
+    },
+     "atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.base": {
+        "description": "Faiss index for AToMiC Texts v0.2.1 on base corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
+        "filename": "ViT-L-14.laion2b_s32b_b82k.text.base.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-L-14.laion2b_s32b_b82k.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.text.base.faiss.flat.tar.gz"
+        ],
+        "md5": "1d90ecfb703b96f003a9d6dc054c057b",
+        "size compressed (bytes)": 8187618352,
+        "documents": 3029504,
+        "downloaded": False,
+        "texts": "atomic_text_v0.2.1_base"
+    },
+    "atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.large": {
+        "description": "Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
+        "filename": "ViT-L-14.laion2b_s32b_b82k.image.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-L-14.laion2b_s32b_b82k.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.text.faiss.flat.tar.gz"
+        ],
+        "md5": "9f5962e0b29bb341cba88041107b693e",
+        "size compressed (bytes)": 27373277238,
+        "documents": 10134744,
+        "downloaded": False,
+        "texts": "atomic_text_v0.2.1_large"
+    },
+    "atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.validation": {
+        "description": "Faiss index for AToMiC Texts v0.2.1 on validation corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
+        "filename": "ViT-L-14.laion2b_s32b_b82k.image.small.validation.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-L-14.laion2b_s32b_b82k.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.text.small.validation.faiss.flat.tar.gz"
+        ],
+        "md5": "2dd9d0c805bbef6a6a23ece3c2b221a3",
+        "size compressed (bytes)": 46421016,
+        "documents": 17173,
+        "downloaded": False,
+        "texts": "atomic_text_v0.2.1_small_validation"
+    },
 }
 
 FAISS_INDEX_INFO = {**FAISS_INDEX_INFO_MSMARCO,
