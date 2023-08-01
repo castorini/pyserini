@@ -29,9 +29,9 @@ We can convert the numpy topics to pyserini format as follows:
 ```bash
 mkdir converted.ViT-L-14.laion2b_s32b_b82k.text.validation && mkdir converted.ViT-L-14.laion2b_s32b_b82k.image.validation
 # Text
-python convert_embeddings.py --encode-type text --inputs topics/ViT-L-14.laion2b_s32b_b82k.text.validation --topics-output converted.ViT-L-14.laion2b_s32b_b82k.text --embeddings-output converted.ViT-L-14.laion2b_s32b_b82k.text
+python convert_embeddings.py --encode-type text --inputs topics/ViT-L-14.laion2b_s32b_b82k.text.validation --topics-output converted.ViT-L-14.laion2b_s32b_b82k.text.validation --embeddings-output converted.ViT-L-14.laion2b_s32b_b82k.text.validation
 # Image
-python convert_embeddings.py --encode-type image --inputs topics/ViT-L-14.laion2b_s32b_b82k.image.validation --topics-output converted.ViT-L-14.laion2b_s32b_b82k.image --embeddings-output converted.ViT-L-14.laion2b_s32b_b82k.image
+python convert_embeddings.py --encode-type image --inputs topics/ViT-L-14.laion2b_s32b_b82k.image.validation --topics-output converted.ViT-L-14.laion2b_s32b_b82k.image.validation --embeddings-output converted.ViT-L-14.laion2b_s32b_b82k.image.validation
 ```
 
 ## Batch Retrieval Run
@@ -42,7 +42,7 @@ python -m pyserini.search.faiss \
     --topics converted.ViT-L-14.laion2b_s32b_b82k.text.validation/topics.json \
     --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.{setting} \
     --hits 1000 \
-    --encoder converted.ViT-L-14.laion2b_s32b_b82k.text.validation \
+    --encoded-queries converted.ViT-L-14.laion2b_s32b_b82k.text.validation \
     --batch-size 256 \
     --threads 32 \
     --output run.ViT-L-14.laion2b_s32b_b82k.t2i.{setting}.trec
