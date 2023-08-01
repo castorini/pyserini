@@ -10,8 +10,8 @@ def get_args_parser():
     parser = argparse.ArgumentParser('Encode embeddings', add_help=False)
     parser.add_argument('--inputs', type=str, help='directory of the AToMiC prebuilt topic embeddings', required=True)
     parser.add_argument('--encode-type', type=str, default='text', choices=['text', 'image'], required=True)
-    parser.add_argument('--topics-output', type=str, help='directory to store topics file', required=True)
-    parser.add_argument('--embeddings-output', type=str, help='directory to store embeddings file', required=True)
+    parser.add_argument('--topics-output', type=str, help='directory to store topics file', default='')
+    parser.add_argument('--embeddings-output', type=str, help='directory to store embeddings file', default='')
 
     # only required for text datasets, to process the raw text
     parser.add_argument('--dataset', type=str, default='TREC-AToMiC/AToMiC-Texts-v0.2.1')
