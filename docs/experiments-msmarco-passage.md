@@ -6,14 +6,14 @@ This exercise will require a machine with >8 GB RAM and >15 GB free disk space.
 
 If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md) (which [starts here](https://github.com/castorini/anserini/blob/master/docs/start-here.md)),
 make sure you've first done the [BM25 Baselines for MS MARCO Passage Ranking **in Anserini**](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md).
-In general, if you don't understand what it is that you're doing when following this guide, i.e., you're just [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming) (i.e., blindly copying and pasting commands into a shell), then you should back up to the previous step in the onboarding path.
+In general, if you don't understand what it is that you're doing when following this guide, i.e., you're just [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming) (blindly copying and pasting commands into a shell), then you should back up to the previous step in the onboarding path.
 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path:
 
-+ Be able to use Pyserini to index the MS MARCO passage collection.
-+ Be able to use Pyserini to search the MS MARCO passage collection with the dev queries.
++ Be able to use Pyserini to build a Lucene inverted index on the MS MARCO passage collection.
++ Be able to use Pyserini to perform a batch retrieval run on the MS MARCO passage collection with the dev queries.
 + Be able to evaluate the retrieved results above.
-+ Understand the MRR metric.
++ Be able to generate the retrieved results above _interactively_ by directly manipulating Pyserini Python classes.
 
 In short, you'll do everything you did with Anserini (in Java) on the MS MARCO passage ranking test collection, but now with Pyserini (in Python).
 

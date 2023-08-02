@@ -4,7 +4,7 @@ This guide presents a conceptual framework for a representational approach to in
 
 If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md),
 make sure you've first done all the exercises leading up to this guide, starting [here](https://github.com/castorini/anserini/blob/master/docs/start-here.md).
-In general, if you don't understand what it is that you're doing when following this guide, i.e., you're just [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming) (i.e., blindly copying and pasting commands into a shell), then you should back up to the previous step in the onboarding path.
+In general, if you don't understand what it is that you're doing when following this guide, i.e., you're just [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming) (blindly copying and pasting commands into a shell), then you should back up to the previous step in the onboarding path.
 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path:
 
@@ -226,6 +226,9 @@ Again, you got it: datasets such as MS MARCO.
 So the picture for dense retrieval looks like this:
 
 <img src="images/architecture-dense.png" width="400" />
+
+When people say "vector search" or "semantic search" these days, they're referring to the picture above.
+Often, the outputs of the encoders are called **embedding vectors**, or just **embeddings** for short.
 
 Again, to summarize:
 We often say that dense retrieval models generate learned dense representations.
