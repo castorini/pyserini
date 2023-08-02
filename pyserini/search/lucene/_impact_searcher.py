@@ -63,7 +63,7 @@ class LuceneImpactSearcher:
         self.query_encoder = query_encoder
         if encoder_type == 'onnx':
             if isinstance(query_encoder, str) and query_encoder is not None:
-                self.object.setOnnxQueryEncoder(query_encoder)
+                self.object.set_onnx_query_encoder(query_encoder)
             else:
                 raise ValueError(f'Invalid query encoder type: {type(query_encoder)} for onnx encoder')
         elif encoder_type == 'pytorch':
@@ -105,10 +105,9 @@ class LuceneImpactSearcher:
         return cls(index_dir, query_encoder, min_idf, encoder_type)
 
     def encode(self, query):
-        if self.encoder_type == 'onnx':
-            encoded_query = self.object.encodeWithOnnx(query)
-        else:
+        if self.encoder_type == 'pytorch':
             encoded_query = self.query_encoder.encode(query)
+        else: raise ValueError(f'Invalid query encoder type: {type(query_encoder)} for encode')
         return encoded_query
 
     @staticmethod
