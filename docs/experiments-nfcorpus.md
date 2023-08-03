@@ -95,7 +95,7 @@ Pyserini wraps [Faiss](https://github.com/facebookresearch/faiss/), which is a l
 That is, once all the documents have been encoded (i.e., converted into representation vectors), they are passed to Faiss to manage (i.e., for storage and for search later on).
 "Index" here is in quotes because, in reality we're using something called a ["flat" index](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes) (`FlatIP` to be exact), which just stores the vectors in fixed-width bytes, one after the other.
 At search time, each document vector is sequentially compared to the query vector.
-In other words, library just performs brute force dot products of each query vector against all document vectors.
+In other words, the library just performs brute force dot products of each query vector against all document vectors.
 
 The above indexing command takes around 30 minutes to run on a modern laptop, with most of the time occupied by perform neural inference using the CPU.
 
