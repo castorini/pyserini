@@ -152,7 +152,7 @@ Here's the snippet of Python code that does what we want:
 from pyserini.search.faiss import FaissSearcher, AutoQueryEncoder
 
 encoder = AutoQueryEncoder('facebook/contriever-msmarco', device='cpu', pooling='mean')
-searcher = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmacro.v1', encoder)
+searcher = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmacro', encoder)
 hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
 
 for i in range(0, 10):
