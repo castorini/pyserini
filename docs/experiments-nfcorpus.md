@@ -160,7 +160,7 @@ for i in range(0, 10):
 ```
 
 The `FaissSearcher` provides search capabilities using Faiss as its underlying implementation.
-The `AutoQueryEncoder` allows us to intialize an encoder using a HuggingFace model.
+The `AutoQueryEncoder` allows us to initialize an encoder using a HuggingFace model.
 
 ```
  1 MED-4555 1.47220
