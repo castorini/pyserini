@@ -12,7 +12,7 @@ Instead, really try to understand what's going on.
 **Learning outcomes** for this guide, building on previous steps in the onboarding path:
 
 + Understand how sparse and dense representations can be viewed as variations in a bi-encoder architecture.
-+ Be able to identify correspondences between Lucene indexing and retrieval operations with the above conceptual framework.
++ Be able to identify correspondences between Lucene indexing and retrieval operations within the above conceptual framework.
 + Be able to extract the BM25 vector representation of a document from a Lucene index and compute its inner product with respect to a query.
 + Understand the difference between dense and sparse representations, and between supervised (learned) and unsupervised (heuristic) representations.
 
