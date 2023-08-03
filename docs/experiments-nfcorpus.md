@@ -65,7 +65,7 @@ with open('collections/nfcorpus/queries.tsv', 'w') as out:
 ```
 
 Similarly, we need to munge the relevance judgments (qrels) into the right format.
-This command-line invocation does the trik:
+This command-line invocation does the trick:
 
 ```bash
 tail -n +2 collections/nfcorpus/qrels/test.tsv | sed 's/\t/\tQ0\t/' > collections/nfcorpus/qrels/test.qrels
