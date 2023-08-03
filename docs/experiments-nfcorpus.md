@@ -156,23 +156,23 @@ searcher = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmacro', encoder)
 hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
 
 for i in range(0, 10):
-    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.6f}')
 ```
 
 The `FaissSearcher` provides search capabilities using Faiss as its underlying implementation.
 The `AutoQueryEncoder` allows us to initialize an encoder using a HuggingFace model.
 
 ```
- 1 MED-4555 1.47220
- 2 MED-3180 1.12501
- 3 MED-1309 1.06715
- 4 MED-2224 1.05954
- 5 MED-4423 1.03844
- 6 MED-4887 1.03262
- 7 MED-2530 1.02076
- 8 MED-2372 1.01614
- 9 MED-1006 1.01360
-10 MED-2587 1.01081
+ 1 MED-4555 1.472201
+ 2 MED-3180 1.125014
+ 3 MED-1309 1.067153
+ 4 MED-2224 1.059536
+ 5 MED-4423 1.038440
+ 6 MED-4887 1.032622
+ 7 MED-2530 1.020758
+ 8 MED-2372 1.016142
+ 9 MED-1006 1.013599
+10 MED-2587 1.010811
 ```
 
 You'll see that the ranked list is the same as the batch run you performed above:
