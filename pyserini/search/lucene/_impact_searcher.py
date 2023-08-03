@@ -151,7 +151,7 @@ class LuceneImpactSearcher:
         if not fields:
             hits = self.object.search(jquery, k)
         else:
-            hits = self.object.searchFields(jquery, jfields, k)
+            hits = self.object.search_fields(jquery, jfields, k)
 
         return hits
 
@@ -334,7 +334,7 @@ class SlimSearcher(LuceneImpactSearcher):
         if not fields:
             hits = self.object.search(jquery, search_k)
         else:
-            hits = self.object.searchFields(jquery, jfields, search_k)
+            hits = self.object.search_fields(jquery, jfields, search_k)
         hits = self.fast_rerank([sparse_encoded_query], {0: hits}, k)[0]
         return hits
     
