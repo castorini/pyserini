@@ -97,7 +97,7 @@ That is, once all the documents have been encoded (i.e., converted into represen
 At search time, each document vector is sequentially compared to the query vector.
 In other words, the library just performs brute force dot products of each query vector against all document vectors.
 
-The above indexing command takes around 30 minutes to run on a modern laptop, with most of the time occupied by perform neural inference using the CPU.
+The above indexing command takes around 30 minutes to run on a modern laptop, with most of the time occupied by performing neural inference using the CPU.
 
 ## Retrieval
 
