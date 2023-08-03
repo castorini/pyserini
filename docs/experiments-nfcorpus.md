@@ -3,14 +3,16 @@
 This guide contains instructions for running a Contriever baseline for NFCorpus.
 
 If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md) (which [starts here](https://github.com/castorini/anserini/blob/master/docs/start-here.md)),
-make sure you've first done the previous step ([a conceptual framework for retrieval
+make sure you've first done the previous step, [a conceptual framework for retrieval
 ](conceptual-framework).
-In general, if you don't understand what it is that you're doing when following this guide, i.e., you're just [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming) (blindly copying and pasting commands into a shell), then you should back up to the previous step in the onboarding path.
+In general, don't try to rush through this guide by just blindly copying and pasting commands into a shell;
+that's what I call [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming).
+Instead, really try to understand what's going on.
 
 If you've traversed the onboarding path, by now you've learned the basics of bag-of-words retrieval with BM25 using Lucene (via Anserini and Pyserini).
 Conceptually, you understand how it's a specific manifestation of a bi-encoder architecture where the vector representations are _lexical_ and the weights are assigned in an _unsupervised_ (or _heuristic_) manner.
 
-In this lesson, we're going to go through an example of retrieval using a _learned_, _dense_ representation.
+In this guide, we're going to go through an example of retrieval using a _learned_, _dense_ representation.
 These are often called "dense retrieval models" and informally referred to as "vector search".
 Coming back to here:
 
@@ -19,7 +21,7 @@ Coming back to here:
 The document and query encoders are now transformer-based models that are trained on large amounts of _supervised_ data.
 The outputs of the encoders are often called **embedding vectors**, or just **embeddings** for short.
 
-For this lesson, assume that we've already got trained encoders.
+For this guide, assume that we've already got trained encoders.
 How to actually train such models will be covered later.
 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path:
@@ -117,7 +119,7 @@ As mentioned above, Pyserini wraps the [Faiss](https://github.com/facebookresear
 With the flat index here, we're performing brute-force computation of dot products (albeit in parallel and with batching).
 As a result, we are performing _exact_ search, i.e., we are finding the _exact_ top-_k_ documents that have the highest dot products. 
 
-The above retrieval command takes roughly XX minutes on a modern laptop.
+The above retrieval command takes only a few minutes on a modern laptop.
 
 ## Evaluation
 

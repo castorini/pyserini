@@ -4,8 +4,11 @@ This guide presents a conceptual framework for a representational approach to in
 
 If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md),
 make sure you've first done all the exercises leading up to this guide, starting [here](https://github.com/castorini/anserini/blob/master/docs/start-here.md).
-In general, if you don't understand what it is that you're doing when following this guide, i.e., you're just [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming) (blindly copying and pasting commands into a shell), then you should back up to the previous step in the onboarding path.
-
+The [previous step](experiments-msmarco-passage.md) in the onboarding path is to reproduce BM25 baselines for the MS MARCO passage ranking task in Pyserini.
+In general, don't try to rush through this guide by just blindly copying and pasting commands into a shell;
+that's what I call [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming).
+Instead, really try to understand what's going on.
+ 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path:
 
 + Understand how sparse and dense representations can be viewed as variations in a bi-encoder architecture.
