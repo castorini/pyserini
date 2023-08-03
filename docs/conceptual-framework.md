@@ -243,6 +243,7 @@ We'll save a more complete exploration of this design space for some other time,
 > Jimmy Lin. [A Proposed Conceptual Framework for a Representational Approach to Information Retrieval.](https://arxiv.org/abs/2110.01529) arXiv:2110.01529, October 2021. 
 
 Okay, that's it for this lesson.
+Next, you're going to play with [an actual dense retrieval model](experiments-nfcorpus.md).
 Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
 
 ## Reproduction Log[*](reproducibility.md)
