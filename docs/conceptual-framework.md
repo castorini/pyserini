@@ -4,12 +4,15 @@ This guide presents a conceptual framework for a representational approach to in
 
 If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md),
 make sure you've first done all the exercises leading up to this guide, starting [here](https://github.com/castorini/anserini/blob/master/docs/start-here.md).
-In general, if you don't understand what it is that you're doing when following this guide, i.e., you're just [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming) (i.e., blindly copying and pasting commands into a shell), then you should back up to the previous step in the onboarding path.
-
+The [previous step](experiments-msmarco-passage.md) in the onboarding path is to reproduce BM25 baselines for the MS MARCO passage ranking task in Pyserini.
+In general, don't try to rush through this guide by just blindly copying and pasting commands into a shell;
+that's what I call [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming).
+Instead, really try to understand what's going on.
+ 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path:
 
 + Understand how sparse and dense representations can be viewed as variations in a bi-encoder architecture.
-+ Be able to identify correspondences between Lucene indexing and retrieval operations with the above conceptual framework.
++ Be able to identify correspondences between Lucene indexing and retrieval operations within the above conceptual framework.
 + Be able to extract the BM25 vector representation of a document from a Lucene index and compute its inner product with respect to a query.
 + Understand the difference between dense and sparse representations, and between supervised (learned) and unsupervised (heuristic) representations.
 
@@ -227,6 +230,9 @@ So the picture for dense retrieval looks like this:
 
 <img src="images/architecture-dense.png" width="400" />
 
+When people say "vector search" or "semantic search" these days, they're referring to the picture above.
+Often, the outputs of the encoders are called **embedding vectors**, or just **embeddings** for short.
+
 Again, to summarize:
 We often say that dense retrieval models generate learned dense representations.
 In contrast, BM25 generates unsupervised (or heuristic) sparse representations.
@@ -237,6 +243,7 @@ We'll save a more complete exploration of this design space for some other time,
 > Jimmy Lin. [A Proposed Conceptual Framework for a Representational Approach to Information Retrieval.](https://arxiv.org/abs/2110.01529) arXiv:2110.01529, October 2021. 
 
 Okay, that's it for this lesson.
+Next, you're going to play with [an actual dense retrieval model](experiments-nfcorpus.md).
 Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
 
 ## Reproduction Log[*](reproducibility.md)
