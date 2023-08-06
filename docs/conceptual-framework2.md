@@ -16,14 +16,14 @@ Informally, we're "peeling back the covers".
 **Learning outcomes** for this guide, building on previous steps in the onboarding path, are divided into three parts.
 With respect to dense retrieval models:
 
-1. Be able to inspect dense vectors stored in Faiss.
+1. Be able to materialize and inspect dense vectors stored in Faiss.
 2. Be able to encode documents and queries with the Contriever model and manipulate the resulting vector representations.
 3. Be able to compute query-document scores (i.e., retrieval scores) "by hand" for dense retrieval, by directly manipulating the vectors.
 4. Be able to perform retrieval "by hand" given a query, by directly manipulating the document vectors stored in the index.
 
 With respect to sparse (i.e., bag-of-words) retrieval models:
 
-1. Be able to recreate BM25 document vectors from a Lucene inverted index.
+1. Be able to materialize and inspect BM25 document vectors from a Lucene inverted index.
 2. Be able to compute query-document scores (i.e., retrieval scores) "by hand" for bag-of-words retrieval, by directly manipulating the vectors.
 3. Be able to perform retrieval "by hand" given a query, by directly manipulating the document vectors materialized from the inverted index.
 
@@ -40,7 +40,7 @@ As a recap from [here](conceptual-framework.md), this is the "core retrieval" pr
 > Given an information need expressed as a query _q_, the text retrieval task is to return a ranked list of _k_ texts {_d<sub>1</sub>_, _d<sub>2</sub>_ ... _d<sub>k</sub>_} from an arbitrarily large but finite collection
 of texts _C_ = {_d<sub>i</sub>_} that maximizes a metric of interest, for example, nDCG, AP, etc.
 
-And this is the bi-encoder architecture for tackling the above challenge.
+And this is the bi-encoder architecture for tackling the above challenge:
 
 <img src="images/architecture-biencoder.png" width="400" />
 
@@ -62,7 +62,7 @@ num_vectors = index.ntotal
 We see, from `num_vectors`, that there are 3633 vectors in this index.
 That's a vector (or alternatively, embedding) for each document.
 
-You can print out each vector:
+We can print out each vector:
 
 ```python
 for i in range(num_vectors):
@@ -110,7 +110,6 @@ Let's push this further and work through a query.
 Consider the query "How to Help Prevent Abdominal Aortic Aneurysms", which is `PLAIN-3074`.
 We can perform interactive retrieval as follows:
 
-
 ```python
 from pyserini.search.faiss import FaissSearcher, AutoQueryEncoder
 
@@ -152,9 +151,9 @@ Then, we compute the dot product between the query vector `q_vec`
 np.dot(q_vec, v1)
 ```
 
-We should arrive at the same score as above (1.472201).
+We should arrive at the same score as above (`1.472201`).
 In other words, the query-document score (i.e., the relevance score of the document with respect to the query) is exactly the dot product of the two vector representations.
-This is exactly as expected.
+This is as expected!
 
 We can take this a step further and manually perform retrieval by computing the dot product between the query vector and _all_ document vectors.
 The corpus is small enough that this is practical:
@@ -176,11 +175,11 @@ for s in scores[:10]:
     print(f'{s[0]} {s[1]:.6f}')
 ```
 
-In a bit more detail, we iterate through all document vectors in the index, compute its dot product with the query vector, and append the results in `hits`.
-After going through the entire corpus in this manner, we sort all results and print out the top-10.
+In a bit more detail, we iterate through all document vectors in the index, compute its dot product with the query vector, and append the results in `scores`.
+After going through the entire corpus in this manner, we sort the results and print out the top-10.
 This sorting operation corresponds to top-_k_ retrieval.
 
-We'll see that the output is the same as search with `FaissSearcher` above.
+We can see that the output is the same as search with `FaissSearcher` above.
 This is exactly as expected.
 
 ## Sparse Retrieval Models
@@ -239,7 +238,7 @@ python -m pyserini.eval.trec_eval \
   runs/run.beir-bm25.nfcorpus.txt
 ```
 
-And the expected results:
+The expected results are:
 
 ```
 Results:
@@ -284,8 +283,9 @@ import json
 
 index_reader = IndexReader('indexes/lucene-index.nfcorpus')
 tf = index_reader.get_document_vector('MED-4555')
-bm25_weights = {term: index_reader.compute_bm25_term_weight('MED-4555', term, analyzer=None) \
-                for term in tf.keys()}
+bm25_weights = \
+    {term: index_reader.compute_bm25_term_weight('MED-4555', term, analyzer=None) \
+     for term in tf.keys()}
 
 print(json.dumps(bm25_weights, indent=4, sort_keys=True))
 ```
