@@ -10,7 +10,7 @@ that's what I call [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_prog
 Instead, really try to understand what's going on.
 
 Following the onboarding path, this lesson does **not** introduce any new concepts.
-Rather, the focus is to solidify previously introduced concepts and connect the bi-encoder architecture to implementations in Pyserini.
+Rather, the focus is to solidify previously introduced concepts and to connect the bi-encoder architecture to implementations in Pyserini.
 Informally, we're "peeling back the covers".
 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path, are divided into three parts.
@@ -23,7 +23,7 @@ With respect to dense retrieval models:
 
 With respect to sparse (i.e., bag-of-words) retrieval models:
 
-1. Be able to recreate BM25 vectors for a given document from a Lucene inverted index.
+1. Be able to recreate BM25 document vectors from a Lucene inverted index.
 2. Be able to compute query-document scores (i.e., retrieval scores) "by hand" for bag-of-words retrieval, by directly manipulating the vectors.
 3. Be able to perform retrieval "by hand" given a query, by directly manipulating the document vectors materialized from the inverted index.
 
