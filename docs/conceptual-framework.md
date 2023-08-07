@@ -184,7 +184,7 @@ import numpy as np
 terms = set.union(set(bm25_weights.keys()), set(multihot_query_weights.keys()))
 
 bm25_vec = np.array([ bm25_weights.get(t, 0) for t in terms ])
-multihot_qvec = np.array([ (t in multihot_query_weights and 1) or 0 for t in terms ])
+multihot_qvec = np.array([ multihot_query_weights.get(t, 0) for t in terms ])
 
 np.dot(multihot_qvec, bm25_vec)
 ```
