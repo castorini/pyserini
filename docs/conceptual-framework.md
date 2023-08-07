@@ -169,7 +169,7 @@ The query tokens (`query_tokens`) are:
 ```
 
 The query representation is simply a sparse vector where all the query tokens get a score (weight) of one.
-That's a fancy way of saying this is a "multi-hot vector".
+This is also known as a "multi-hot vector".
 We represent the query vector as a Python dictionary in `multihot_query_weights`.
 
 As described above, the top-_k_ retrieval problem is to find the _k_ documents from the collection that have the highest inner product (between a document vector and the query vector).
@@ -206,7 +206,8 @@ sum({term: bm25_weights[term] \
 
 Here, we are using a dictionary comprehension to generate a new dictionary that only contains the keys (terms) that appear in _both_ the query and the document.
 Then we sum up the values (i.e., the term weights) to arrive at the query-document score.
-This is exactly the inner product, and you should get exactly the same query-document score.
+This is exactly the inner product of the `multihot_qvec` and `bm25_vec` vectors since `multihot_qvec` is a vector of zeros and ones.
+You should get exactly the same query-document score.
 
 Let's try searching with the same query using Lucene:
 
