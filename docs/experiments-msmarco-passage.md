@@ -209,7 +209,7 @@ searcher.set_bm25(0.82, 0.68)
 hits = searcher.search('what is paula deen\'s brother')
 
 for i in range(0, 10):
-    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.6f}')
 ```
 
 The `LuceneSearcher` class provides search capabilities for BM25.
@@ -218,16 +218,16 @@ Note that we're explicitly setting the BM25 parameters, which are not the defaul
 We get back a list of results (`hits`), which we then iterate through and print out:
 
 ```
- 1 7187158 18.81160
- 2 7187157 18.33340
- 3 7187163 17.87880
- 4 7546327 16.96210
- 5 7187160 16.56470
- 6 8227279 16.43250
- 7 7617404 16.23990
- 8 7187156 16.02490
- 9 2298838 15.70150
-10 7187155 15.51330
+ 1 7187158 18.811600
+ 2 7187157 18.333401
+ 3 7187163 17.878799
+ 4 7546327 16.962099
+ 5 7187160 16.564699
+ 6 8227279 16.432501
+ 7 7617404 16.239901
+ 8 7187156 16.024900
+ 9 2298838 15.701500
+10 7187155 15.513300
 ```
 
 You can confirm that the output is the same as `pyserini.search.lucene` from above.
