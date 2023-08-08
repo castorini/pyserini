@@ -1,14 +1,14 @@
 # Pyserini Regressions: BM25 Baselines for CIRAL Version 1.0
 
-This page documents BM25 regression experiments for CIRAL (v1.0)
+This page documents BM25 regression experiments for CIRAL (v1.0).
 
 ## Corpus Download
 
 ### 1. Manual Download
 
-The CIRAL Corpus can be downloaded from the [Hugging Face Repo](https://huggingface.co/datasets/CIRAL/ciral-corpus)
+The CIRAL Corpus can be downloaded from the [Hugging Face Repo](https://huggingface.co/datasets/CIRAL/ciral-corpus).
 
-We can now index the documents for each language as a `MrTyDiCollection`  using Anserini bindings from Pyserini
+We can now index the documents for each language as a `MrTyDiCollection`  using Anserini bindings from Pyserini.
 
 ```bash
 python -m pyserini.index.lucene --collection MrTyDiCollection \
@@ -43,17 +43,19 @@ python -m pyserini.index.lucene --collection MrTyDiCollection \
 
 ### 2.  Download Pre-Built Sparse Indexes (for BM25)
 
-[Hausa](https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-ha.20230721.e850ea.tar.gz)
-[Somali](https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-so.20230721.e850ea.tar.gz)
-[Swahili](https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-sw.20230721.e850ea.tar.gz)
-[Yoruba](https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-yo.20230721.e850ea.tar.gz)
+As an alternative to running the build commands above, the BM25 prebuilt indexes for each language are also provided and can be downloaded below.
+
+- [Hausa](https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-ha.20230721.e850ea.tar.gz)
+- [Somali](https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-so.20230721.e850ea.tar.gz)
+- [Swahili](https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-sw.20230721.e850ea.tar.gz)
+- [Yoruba](https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-yo.20230721.e850ea.tar.gz)
 
 
-### Data Prep
+## Data Prep
 
-We would need the topic and qrel files from the [Hugging Face repo](https://huggingface.co/datasets/CIRAL/ciral) to reproduce the baselines.  # TO-DO: To remove this section once queries and qrels are added to Anserini tools.
+We would need the topic and qrel files from the [Hugging Face repo](https://huggingface.co/datasets/CIRAL/ciral) to reproduce the baselines.  
 
-Clone the repo and copy the files to `tools/topics-and-qrels` in the cloned `Pyserini` repo. This requires the Pyserini [dev install](https://github.com/castorini/pyserini/blob/master/docs/installation.md#development-installation)
+Clone the repo and copy the files to `tools/topics-and-qrels` in the cloned `Pyserini` repo. This requires the Pyserini [dev install](https://github.com/castorini/pyserini/blob/master/docs/installation.md#development-installation).
 
 ```bash
 git clone https://huggingface.co/datasets/CIRAL/ciral
@@ -92,11 +94,12 @@ python -m pyserini.search.lucene --index ciral-v1.0-yo \
 ```
 
 ## Evaluation: Dev Topics
+```bash
 python -m pyserini.eval.trec_eval -c -m recall.1000 tools/topics-and-qrels/qrels.ciral-v1.0-ha-train.tsv runs/run.ciral-v1.0-ha.bm25.topics.ciral-v1.0-ha.train.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 tools/topics-and-qrels/qrels.ciral-v1.0-so-train.tsv runs/run.ciral-v1.0-so.bm25.topics.ciral-v1.0-so.train.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 tools/topics-and-qrels/qrels.ciral-v1.0-sw-train.tsv runs/run.ciral-v1.0-sw.bm25.topics.ciral-v1.0-sw.train.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 tools/topics-and-qrels/qrels.ciral-v1.0-yo-train.tsv runs/run.ciral-v1.0-yo.bm25.topics.ciral-v1.0-yo.train.txt
-
+```
 
 ## Effectiveness
 
