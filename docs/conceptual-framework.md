@@ -139,9 +139,11 @@ import json
 
 index_reader = IndexReader('indexes/lucene-index-msmarco-passage')
 tf = index_reader.get_document_vector('7187158')
-bm25_vector = {term: index_reader.compute_bm25_term_weight('7187158', term, analyzer=None) for term in tf.keys()}
+bm25_weights = \
+    {term: index_reader.compute_bm25_term_weight('7187158', term, analyzer=None) \
+     for term in tf.keys()}
 
-print(json.dumps(bm25_vector, indent=4, sort_keys=True))
+print(json.dumps(bm25_weights, indent=4, sort_keys=True))
 ```
 
 The above snippet of code will generate exactly the same JSON above.
@@ -157,16 +159,18 @@ from pyserini.analysis import Analyzer, get_lucene_analyzer
 
 analyzer = Analyzer(get_lucene_analyzer())
 query_tokens = analyzer.analyze('what is paula deen\'s brother')
+multihot_query_weights = {k: 1 for k in query_tokens}
 ```
 
-The query tokens are:
+The query tokens (`query_tokens`) are:
 
 ```
 ['what', 'paula', 'deen', 'brother']
 ```
 
 The query representation is simply a sparse vector where all the query tokens get a score (weight) of one.
-The fancy way of saying this is a "multi-hot vector".
+This is also known as a "multi-hot vector".
+We represent the query vector as a Python dictionary in `multihot_query_weights`.
 
 As described above, the top-_k_ retrieval problem is to find the _k_ documents from the collection that have the highest inner product (between a document vector and the query vector).
 Without getting into details, the inverted index allows this top-_k_ to be computed efficiently.
@@ -174,14 +178,36 @@ Without getting into details, the inverted index allows this top-_k_ to be compu
 Here, we can manually compute the inner product between the query vector and the document vector:
 
 ```python
-score = sum({term: bm25_vector[term] for term in bm25_vector.keys() & query_tokens}.values())
+import numpy as np
+
+# Gather up the dimensions (i.e., the combined dictionary).
+terms = set.union(set(bm25_weights.keys()), set(multihot_query_weights.keys()))
+
+bm25_vec = np.array([ bm25_weights.get(t, 0) for t in terms ])
+multihot_qvec = np.array([ multihot_query_weights.get(t, 0) for t in terms ])
+
+np.dot(multihot_qvec, bm25_vec)
+```
+
+The dot product is `17.949487686157227`.
+
+In the code snippet above, we're first creating numpy vectors for the document (`bm25_vec`) and the query (`multihot_qvec`).
+The dimensions of the vectors are the (unique) union of the terms from the query and the document.
+Then we use numpy's dot product method to compute the query-document score.
+
+In the approach above, we perform the operations explicitly, but it's a bit roundabout.
+Alternatively we can compute the dot product as follows:
+
+```python
+sum({term: bm25_weights[term] \
+     for term in bm25_weights.keys() & \
+     multihot_query_weights.keys()}.values())
 ```
 
 Here, we are using a dictionary comprehension to generate a new dictionary that only contains the keys (terms) that appear in _both_ the query and the document.
 Then we sum up the values (i.e., the term weights) to arrive at the query-document score.
-This is exactly the inner product.
-
-The query-document score you should get is `17.949487686157227`.
+This is exactly the inner product of the `multihot_qvec` and `bm25_vec` vectors since `multihot_qvec` is a vector of zeros and ones.
+You should get exactly the same query-document score.
 
 Let's try searching with the same query using Lucene:
 
@@ -247,6 +273,7 @@ Next, you're going to play with [an actual dense retrieval model](experiments-nf
 Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
 
 ## Reproduction Log[*](reproducibility.md)
-+ Results reproduced by [@sahel-sh](https://github.com/sahel-sh) on 2023-07-23 (commit [`9619502`](https://github.com/castorini/pyserini/commit/9619502f7c1b421ae86b59cafed137fc5eaafa10))
 
++ Results reproduced by [@sahel-sh](https://github.com/sahel-sh) on 2023-07-23 (commit [`9619502`](https://github.com/castorini/pyserini/commit/9619502f7c1b421ae86b59cafed137fc5eaafa10))
++ Results reproduced by [@Mofetoluwa](https://github.com/Mofetoluwa) on 2023-08-05 (commit [`6a2088b`](https://github.com/castorini/pyserini/commit/6a2088bae75f87c19d889293a00da87b33cc0ffd))
 
