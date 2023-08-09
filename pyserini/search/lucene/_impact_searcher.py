@@ -61,6 +61,7 @@ class LuceneImpactSearcher:
         self.num_docs = self.object.get_total_num_docs()
         self.encoder_type = encoder_type
         self.query_encoder = query_encoder
+        self.prebuilt_index_name = None
         if encoder_type == 'onnx':
             if isinstance(query_encoder, str) and query_encoder is not None:
                 self.object.set_onnx_query_encoder(query_encoder)
@@ -97,6 +98,7 @@ class LuceneImpactSearcher:
         print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name)
+            self.prebuilt_index_name = prebuilt_index_name
         except ValueError as e:
             print(str(e))
             return None
