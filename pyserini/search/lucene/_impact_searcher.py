@@ -53,7 +53,7 @@ class LuceneImpactSearcher:
         QueryEncoder to encode query text
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str='pytorch'):
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str='pytorch', prebuilt_index_name = None):
         self.index_dir = index_dir
         self.idf = self._compute_idf(index_dir)
         self.min_idf = min_idf
@@ -61,7 +61,7 @@ class LuceneImpactSearcher:
         self.num_docs = self.object.get_total_num_docs()
         self.encoder_type = encoder_type
         self.query_encoder = query_encoder
-        self.prebuilt_index_name = None
+        self.prebuilt_index_name = prebuilt_index_name
         if encoder_type == 'onnx':
             if isinstance(query_encoder, str) and query_encoder is not None:
                 self.object.set_onnx_query_encoder(query_encoder)
@@ -98,13 +98,12 @@ class LuceneImpactSearcher:
         print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name)
-            self.prebuilt_index_name = prebuilt_index_name
         except ValueError as e:
             print(str(e))
             return None
 
         print(f'Initializing {prebuilt_index_name}...')
-        return cls(index_dir, query_encoder, min_idf, encoder_type)
+        return cls(index_dir, query_encoder, min_idf, encoder_type, prebuilt_index_name=prebuilt_index_name)
 
     def encode(self, query):
         if self.encoder_type == 'pytorch':
@@ -268,6 +267,8 @@ class LuceneImpactSearcher:
         """
         if self.object.reader.getTermVectors(0):
             self.object.set_rm3(None, fb_terms, fb_docs, original_query_weight, debug, filter_terms)
+        elif self.object.reader.document(0).getField('raw'):
+            self.object.set_rm3('JsonVectorCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
         elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented']:
             self.object.set_rm3('JsonCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
         elif self.prebuilt_index_name in ['msmarco-v2-passage', 'msmarco-v2-passage-augmented']:
@@ -275,7 +276,7 @@ class LuceneImpactSearcher:
         elif self.prebuilt_index_name in ['msmarco-v2-doc', 'msmarco-v2-doc-segmented']:
             self.object.set_rm3('MsMarcoV2DocCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
         else:
-            raise TypeError("RM3 is not supported for indexes without document vectors.")
+            raise TypeError("RM3 is not supported for indexes without document vectors or raw texts.")
 
     def unset_rm3(self):
         """Disable RM3 pseudo-relevance feedback."""
@@ -317,13 +318,16 @@ class LuceneImpactSearcher:
         if self.object.reader.getTermVectors(0):
             self.object.set_rocchio(None, top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
                                     alpha, beta, gamma, debug, use_negative)
+        elif self.object.reader.document(0).getField('raw'):
+            self.object.set_rocchio('JsonVectorCollection', top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
+                                    alpha, beta, gamma, debug, use_negative)
         elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented']:
             self.object.set_rocchio('JsonCollection', top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
                                     alpha, beta, gamma, debug, use_negative)
         # Note, we don't have any Pyserini 2CRs that use Rocchio for MS MARCO v2, so there's currently no
         # corresponding code branch here. To avoid introducing bugs (without 2CR tests), we'll add when it's needed.
         else:
-            raise TypeError("Rocchio is not supported for indexes without document vectors.")
+            raise TypeError("Rocchio is not supported for indexes without document vectors or raw texts.")
 
     def unset_rocchio(self):
         """Disable Rocchio pseudo-relevance feedback."""
