@@ -77,10 +77,10 @@ class TestSearch(unittest.TestCase):
     def test_unicoil_encoder(self):
         encoder = UniCoilDocumentEncoder('castorini/unicoil-msmarco-passage', device='cpu')
         vectors = encoder.encode(self.texts[:3])
-        self.assertAlmostEqual(vectors[0]['generation'], 115, places=4)
-        self.assertAlmostEqual(vectors[0]['normal'], 126, places=4)
-        self.assertAlmostEqual(vectors[2]['rounding'], 202, places=4)
-        self.assertAlmostEqual(vectors[2]['commercial'], 168, places=4)
+        self.assertAlmostEqual(vectors[0]['generation'], 2.2441017627716064, places=4)
+        self.assertAlmostEqual(vectors[0]['normal'], 2.4618067741394043, places=4)
+        self.assertAlmostEqual(vectors[2]['rounding'], 3.9474332332611084, places=4)
+        self.assertAlmostEqual(vectors[2]['commercial'], 3.288801670074463, places=4)
 
     def test_tct_colbert_v2_encoder_cmd(self):
         index_dir = 'temp_index'
@@ -225,7 +225,8 @@ class TestSearch(unittest.TestCase):
     def test_onnx_encode_unicoil(self):
         temp_object = LuceneImpactSearcher(f'{self.index_dir}lucene9-index.cacm', 'SpladePlusPlusEnsembleDistil', encoder_type='onnx')
 
-        results = temp_object.encode("here is a test")
+        # this function will never be called in _impact_searcher, here to check quantization correctness
+        results = temp_object.object.encodeWithOnnx("here is a test")
         self.assertAlmostEqual(results.get("here"), 156, delta=2e-4)
         self.assertAlmostEqual(results.get("a"), 31, delta=2e-4)
         self.assertAlmostEqual(results.get("test"), 149, delta=2e-4)
