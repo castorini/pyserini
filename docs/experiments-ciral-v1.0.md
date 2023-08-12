@@ -111,7 +111,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 tools/topics-and-qrels/qrels
 With the above commands, you should be able to reproduce the following results:
 | **recall@1000**                                                                   | **BM25 (default)**| 
 |:----------------------------------------------------------------------------------|-----------|
-| [CIRAL (Yoruba): dev](https://github.com/ciralproject/ciral)                      | 0.6010    |
+| [CIRAL (Yoruba)](https://github.com/ciralproject/ciral)                      | 0.6010    |
 
 
 
@@ -120,7 +120,7 @@ With the above commands, you should be able to reproduce the following results:
 With the above commands, you should be able to reproduce the following results:
 | **recall@1000**                                                                   | **BM25 (default)**| 
 |:----------------------------------------------------------------------------------|-----------|
-| [CIRAL (Swahili): dev](https://github.com/ciralproject/ciral)                     | 0.1333    |
+| [CIRAL (Swahili)](https://github.com/ciralproject/ciral)                     | 0.1333    |
 
 
 
@@ -129,7 +129,7 @@ With the above commands, you should be able to reproduce the following results:
 With the above commands, you should be able to reproduce the following results:
 | **recall@1000**                                                                   | **BM25 (default)**| 
 |:----------------------------------------------------------------------------------|-----------|
-| [CIRAL (Somali): dev](https://github.com/ciralproject/ciral)                      | 0.1267    |
+| [CIRAL (Somali)](https://github.com/ciralproject/ciral)                      | 0.1267    |
 
 
 
@@ -138,5 +138,5 @@ With the above commands, you should be able to reproduce the following results:
 With the above commands, you should be able to reproduce the following results:
 | **recall@1000**                                                                   | **BM25 (default)**| 
 |:----------------------------------------------------------------------------------|-----------|
-| [CIRAL (Hausa): dev](https://github.com/ciralproject/ciral)                       | 0.1050    |
+| [CIRAL (Hausa)](https://github.com/ciralproject/ciral)                       | 0.1050    |
 
