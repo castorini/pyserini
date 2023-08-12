@@ -64,7 +64,9 @@ cp -r ciral/*/*/* $PYSERINI_PATH/tools/topics-and-qrels/
 
 
 
-## Retrieval: Dev Topics
+## Batch Retrieval Run: Train Samples
+
+NB: As mentioned on the track's [webiste](https://ciralproject.github.io/#datasets), the train set for each language comprises of a few samples of queries and judgements. 
 
 ```bash
 python -m pyserini.search.lucene --index ciral-v1.0-ha \
@@ -93,7 +95,8 @@ python -m pyserini.search.lucene --index ciral-v1.0-yo \
 
 ```
 
-## Evaluation: Dev Topics
+## Evaluation
+
 ```bash
 python -m pyserini.eval.trec_eval -c -m recall.1000 tools/topics-and-qrels/qrels.ciral-v1.0-ha-train.tsv runs/run.ciral-v1.0-ha.bm25.topics.ciral-v1.0-ha.train.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 tools/topics-and-qrels/qrels.ciral-v1.0-so-train.tsv runs/run.ciral-v1.0-so.bm25.topics.ciral-v1.0-so.train.txt
@@ -106,7 +109,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 tools/topics-and-qrels/qrels
 ### Yoruba
 
 With the above commands, you should be able to reproduce the following results:
-| **recall@1000**                                                                   | **BM2 (default)**| 
+| **recall@1000**                                                                   | **BM25 (default)**| 
 |:----------------------------------------------------------------------------------|-----------|
 | [CIRAL (Yoruba): dev](https://github.com/ciralproject/ciral)                      | 0.6010    |
 
@@ -115,7 +118,7 @@ With the above commands, you should be able to reproduce the following results:
 ### Swahili
 
 With the above commands, you should be able to reproduce the following results:
-| **recall@1000**                                                                   | **BM2 (default)**| 
+| **recall@1000**                                                                   | **BM25 (default)**| 
 |:----------------------------------------------------------------------------------|-----------|
 | [CIRAL (Swahili): dev](https://github.com/ciralproject/ciral)                     | 0.1333    |
 
@@ -124,7 +127,7 @@ With the above commands, you should be able to reproduce the following results:
 ### Somali
 
 With the above commands, you should be able to reproduce the following results:
-| **recall@1000**                                                                   | **BM2 (default)**| 
+| **recall@1000**                                                                   | **BM25 (default)**| 
 |:----------------------------------------------------------------------------------|-----------|
 | [CIRAL (Somali): dev](https://github.com/ciralproject/ciral)                      | 0.1267    |
 
@@ -133,7 +136,7 @@ With the above commands, you should be able to reproduce the following results:
 ### Hausa
 
 With the above commands, you should be able to reproduce the following results:
-| **recall@1000**                                                                   | **BM2 (default)**| 
+| **recall@1000**                                                                   | **BM25 (default)**| 
 |:----------------------------------------------------------------------------------|-----------|
 | [CIRAL (Hausa): dev](https://github.com/ciralproject/ciral)                       | 0.1050    |
 
