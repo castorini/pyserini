@@ -455,20 +455,20 @@ conditions:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.3410
+          - MRR@10: 0.3409
             R@1K: 0.9420
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
-          - MAP: 0.2661
-            nDCG@10: 0.6347
-            R@1K: 0.6385
+          - MAP: 0.2665
+            nDCG@10: 0.6349
+            R@1K: 0.6391
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
           - MAP: 0.3698
-            nDCG@10: 0.5906
-            R@1K: 0.7621
+            nDCG@10: 0.5893
+            R@1K: 0.7623
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
@@ -500,20 +500,20 @@ conditions:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.3532
+          - MRR@10: 0.3531
             R@1K: 0.9546
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
           - MAP: 0.2789
             nDCG@10: 0.6396
-            R@1K: 0.6654
+            R@1K: 0.6652
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
-          - MAP: 0.3881
-            nDCG@10: 0.6030
-            R@1K: 0.7866
+          - MAP: 0.3882
+            nDCG@10: 0.6033
+            R@1K: 0.7869
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
