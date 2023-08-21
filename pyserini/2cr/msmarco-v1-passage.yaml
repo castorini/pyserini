@@ -414,19 +414,19 @@ conditions:
         eval_key: msmarco-passage-dev-subset
         scores:
           - MRR@10: 0.3509
-            R@1K: 0.9581
+            R@1K: 0.9583
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.4617
-            nDCG@10: 0.7027
-            R@1K: 0.8291
+          - MAP: 0.4612
+            nDCG@10: 0.7024
+            R@1K: 0.8292
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.4429
+          - MAP: 0.4430
             nDCG@10: 0.6745
-            R@1K: 0.8433
+            R@1K: 0.8430
   - name: unicoil-onnx
     display: "uniCOIL (w/ doc2query-T5): query inference with ONNX"
     display-html: "uniCOIL (w/ doc2query-T5): query inference with ONNX"
@@ -436,19 +436,19 @@ conditions:
         eval_key: msmarco-passage-dev-subset
         scores:
           - MRR@10: 0.3509
-            R@1K: 0.9581
+            R@1K: 0.9583
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.4617
-            nDCG@10: 0.7027
-            R@1K: 0.8291
+          - MAP: 0.4612
+            nDCG@10: 0.7024
+            R@1K: 0.8292
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.4429
+          - MAP: 0.4430
             nDCG@10: 0.6745
-            R@1K: 0.8433
+            R@1K: 0.8430
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
@@ -486,13 +486,13 @@ conditions:
         eval_key: dl19-passage
         scores:
           - MAP: 0.4033
-            nDCG@10: 0.6434
+            nDCG@10: 0.6433
             R@1K: 0.7752
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.4022
-            nDCG@10: 0.6524
+          - MAP: 0.4021
+            nDCG@10: 0.6523
             R@1K: 0.7861
   - name: unicoil-noexp-onnx
     display: "uniCOIL (noexp): query inference with ONNX"
@@ -502,20 +502,20 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.3119
+          - MRR@10: 0.3120
             R@1K: 0.9239
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.4061
-            nDCG@10: 0.6531
-            R@1K: 0.7809
+          - MAP: 0.4059
+            nDCG@10: 0.6535
+            R@1K: 0.7811
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.3909
-            nDCG@10: 0.6388
-            R@1K: 0.7915
+          - MAP: 0.3908
+            nDCG@10: 0.6400
+            R@1K: 0.7910
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
@@ -548,20 +548,20 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.3830
+          - MRR@10: 0.3828
             R@1K: 0.9831
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.5054
-            nDCG@10: 0.7320
-            R@1K: 0.8724
+          - MAP: 0.5050
+            nDCG@10: 0.7308
+            R@1K: 0.8728
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.5002
-            nDCG@10: 0.7198
-            R@1K: 0.8995
+          - MAP: 0.4999
+            nDCG@10: 0.7197
+            R@1K: 0.8998
   - name: splade-pp-sd-onnx
     display: "SPLADE++ SelfDistil: query inference with ONNX"
     display-html: "SPLADE++ SelfDistil: query inference with ONNX"
@@ -571,20 +571,20 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.3778
+          - MRR@10: 0.3776
             R@1K: 0.9846
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.4997
-            nDCG@10: 0.7356
-            R@1K: 0.8758
+          - MAP: 0.4998
+            nDCG@10: 0.7358
+            R@1K: 0.8761
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.5140
-            nDCG@10: 0.7285
-            R@1K: 0.9023   
+          - MAP: 0.5139
+            nDCG@10: 0.7282
+            R@1K: 0.9024
   - name: tct_colbert-v2-hnp-pytorch
     display: "TCT_ColBERT-V2-HN+: query inference with PyTorch"
     display-html: "TCT_ColBERT-V2-HN+: query inference with PyTorch"
@@ -641,7 +641,7 @@ conditions:
         eval_key: msmarco-passage-dev-subset
         scores:
           - MRR@10: 0.3581
-            R@1K: 0.9620
+            R@1K: 0.9622
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
