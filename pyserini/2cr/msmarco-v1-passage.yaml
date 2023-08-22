@@ -1,4 +1,50 @@
 conditions:
+  - name: splade-pp-ed-rocchio-onnx
+    display: "SPLADE++ EnsembleDistil + Rocchio: query inference with ONNX"
+    display-html: "SPLADE++ EnsembleDistil + Rocchio: query inference with ONNX"
+    display-row: ""
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-ed-text --topics $topics --onnx-encoder SpladePlusPlusEnsembleDistil --output $output --hits 1000 --impact --rocchio
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3300
+            R@1K: 0.9811
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.5140
+            nDCG@10: 0.7119
+            R@1K: 0.8799
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5084
+            nDCG@10: 0.7280
+            R@1K: 0.9069
+  - name: splade-pp-sd-rocchio-onnx
+    display: "SPLADE++ SelfDistil + Rocchio: query inference with ONNX"
+    display-html: "SPLADE++ SelfDistil + Rocchio: query inference with ONNX"
+    display-row: ""
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-sd-text --topics $topics --onnx-encoder SpladePlusPlusSelfDistil --output $output --hits 1000 --impact --rocchio
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3278
+            R@1K: 0.9824
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.5072
+            nDCG@10: 0.7156
+            R@1K: 0.8918
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5335
+            nDCG@10: 0.7388
+            R@1K: 0.9120
   - name: bm25-rocchio-d2q-t5-tuned
     display: BM25+Rocchio w/ doc2query-T5 (k1=2.18, b=0.86)
     display-html: BM25+Rocchio w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=2.18, <i>b</i>=0.86)
