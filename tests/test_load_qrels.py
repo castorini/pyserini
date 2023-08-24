@@ -14,22 +14,20 @@
 # limitations under the License.
 #
 
-import os
-import shutil
 import unittest
 
 from pyserini import search
 
 
-def read_file_lines(path):
-    with open(path) as f:
-        return f.readlines()
+class TestLoadQrels(unittest.TestCase):
+    @staticmethod
+    def read_file_lines(path):
+        with open(path) as f:
+            return f.readlines()
 
-
-class TestGetQrels(unittest.TestCase):
-
-    def setUp(self):
-        os.environ['PYSERINI_CACHE'] = 'temp_dir'
+    # Note that these test cases download and cache qrels in ~/.cache/anserini/topics-and-qrels,
+    # which is hard-coded from the Anserini end. So if the original source is unavailable, these
+    # tests will still pass.
 
     def test_trec1_adhoc(self):
         qrels = search.get_qrels('trec1-adhoc')
@@ -51,7 +49,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_robust04a(self):
         qrels_path = search.get_qrels_file('robust04')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length//2].rstrip()
@@ -69,7 +67,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_robust05a(self):
         qrels_path = search.get_qrels_file('robust05')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -87,7 +85,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_core17a(self):
         qrels_path = search.get_qrels_file('core17')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -105,7 +103,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_core18a(self):
         qrels_path = search.get_qrels_file('core18')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -195,7 +193,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_car15a(self):
         qrels_path = search.get_qrels_file('car17v1.5-benchmarkY1test')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -216,7 +214,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_car20a(self):
         qrels_path = search.get_qrels_file('car17v2.0-benchmarkY1test')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -236,7 +234,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_msmarco_doc1(self):
         qrels_path = search.get_qrels_file('msmarco-doc-dev')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -254,7 +252,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_msmarco_passage1(self):
         qrels_path = search.get_qrels_file('msmarco-passage-dev-subset')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -398,7 +396,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_covid_round1(self):
         qrels_path = search.get_qrels_file('covid-round1')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -415,7 +413,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_covid_round2(self):
         qrels_path = search.get_qrels_file('covid-round2')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -432,7 +430,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_covid_round3(self):
         qrels_path = search.get_qrels_file('covid-round3')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -449,7 +447,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_covid_round4(self):
         qrels_path = search.get_qrels_file('covid-round4')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -466,7 +464,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_covid_round5(self):
         qrels_path = search.get_qrels_file('covid-round5')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -483,7 +481,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_covid_round3_cumulative(self):
         qrels_path = search.get_qrels_file('covid-round3-cumulative')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -495,7 +493,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_covid_round4_cumulative(self):
         qrels_path = search.get_qrels_file('covid-round4-cumulative')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -507,7 +505,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_covid_complete(self):
         qrels_path = search.get_qrels_file('covid-complete')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -519,7 +517,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_trec2018_bl(self):
         qrels_path = search.get_qrels_file('trec2018-bl')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -536,7 +534,7 @@ class TestGetQrels(unittest.TestCase):
 
     def test_trec2019_bl(self):
         qrels_path = search.get_qrels_file('trec2019-bl')
-        lines = read_file_lines(qrels_path)
+        lines = self.read_file_lines(qrels_path)
         length = len(lines)
         first_line = lines[0].rstrip()
         mid_line = lines[length // 2].rstrip()
@@ -1018,11 +1016,6 @@ class TestGetQrels(unittest.TestCase):
         # For whatever reason, these qrels also have dev topics.
         self.assertEqual(len(qrels), 60)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
-
-    def tearDown(self):
-        if os.path.exists('temp_dir'):
-            shutil.rmtree('temp_dir')
-            os.environ['PYSERINI_CACHE'] = ''
 
 
 if __name__ == '__main__':

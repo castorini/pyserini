@@ -2,7 +2,7 @@ conditions:
   - name: bm25-doc-tuned
     display: BM25 doc (k1=4.46, b=0.82)
     display-html: BM25 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-slim --topics $topics --output $output --bm25
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc --topics $topics --output $output --bm25
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
@@ -25,7 +25,7 @@ conditions:
     display: BM25 doc (k1=0.9, b=0.4)
     display-html: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (1a)"
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-slim --topics $topics --output $output --bm25 --k1 0.9 --b 0.4
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc --topics $topics --output $output --bm25 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
@@ -47,7 +47,7 @@ conditions:
   - name: bm25-doc-segmented-tuned
     display: BM25 doc segmented (k1=2.16, b=0.61)
     display-html: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented-slim --topics $topics --output $output --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented --topics $topics --output $output --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
@@ -70,7 +70,7 @@ conditions:
     display: BM25 doc segmented (k1=0.9, b=0.4)
     display-html: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (1b)"
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented-slim --topics $topics --output $output --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented --topics $topics --output $output --bm25 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
@@ -92,7 +92,7 @@ conditions:
   - name: bm25-rm3-doc-tuned
     display: BM25+RM3 doc (k1=4.46, b=0.82)
     display-html: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-full --topics $topics --output $output --bm25 --rm3
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc --topics $topics --output $output --bm25 --rm3
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
@@ -115,7 +115,7 @@ conditions:
     display: BM25+RM3 doc (k1=0.9, b=0.4)
     display-html: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (1c)"
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-full --topics $topics --output $output --bm25 --rm3 --k1 0.9 --b 0.4
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc --topics $topics --output $output --bm25 --rm3 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
@@ -137,7 +137,7 @@ conditions:
   - name: bm25-rm3-doc-segmented-tuned
     display: BM25+RM3 doc segmented (k1=2.16, b=0.61)
     display-html: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented-full --topics $topics --output $output --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented --topics $topics --output $output --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
@@ -160,7 +160,7 @@ conditions:
     display: BM25+RM3 doc segmented (k1=0.9, b=0.4)
     display-html: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (1d)"
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented-full --topics $topics --output $output --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented --topics $topics --output $output --bm25 --rm3 --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
@@ -182,7 +182,7 @@ conditions:
   - name: bm25-rocchio-doc-tuned
     display: BM25+Rocchio doc (k1=4.46, b=0.82)
     display-html: BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-full --topics $topics --output $output --bm25 --rocchio
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc --topics $topics --output $output --bm25 --rocchio
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
@@ -204,7 +204,7 @@ conditions:
   - name: bm25-rocchio-doc-default
     display: BM25+Rocchio doc (k1=0.9, b=0.4)
     display-html: BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-full --topics $topics --output $output --bm25 --rocchio --k1 0.9 --b 0.4
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc --topics $topics --output $output --bm25 --rocchio --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
@@ -226,7 +226,7 @@ conditions:
   - name: bm25-rocchio-doc-segmented-tuned
     display: BM25+Rocchio doc segmented (k1=2.16, b=0.61)
     display-html: BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented-full --topics $topics --output $output --bm25 --rocchio --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented --topics $topics --output $output --bm25 --rocchio --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
@@ -248,7 +248,7 @@ conditions:
   - name: bm25-rocchio-doc-segmented-default
     display: BM25+Rocchio doc segmented (k1=0.9, b=0.4)
     display-html: BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented-full --topics $topics --output $output --bm25 --rocchio --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented --topics $topics --output $output --bm25 --rocchio --k1 0.9 --b 0.4 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
@@ -447,28 +447,28 @@ conditions:
           - MAP: 0.4271
             nDCG@10: 0.5851
             R@1K: 0.8266
-  - name: unicoil-noexp-otf
-    display: "uniCOIL (noexp): otf"
-    display-html: "uniCOIL (noexp): on-the-fly query inference"
+  - name: unicoil-noexp-pytorch
+    display: "uniCOIL (noexp): query inference with PyTorch"
+    display-html: "uniCOIL (noexp): query inference with PyTorch"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented-unicoil-noexp --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.3410
+          - MRR@10: 0.3409
             R@1K: 0.9420
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
-          - MAP: 0.2661
-            nDCG@10: 0.6347
-            R@1K: 0.6385
+          - MAP: 0.2665
+            nDCG@10: 0.6349
+            R@1K: 0.6391
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
           - MAP: 0.3698
-            nDCG@10: 0.5906
-            R@1K: 0.7621
+            nDCG@10: 0.5893
+            R@1K: 0.7623
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
@@ -492,28 +492,28 @@ conditions:
           - MAP: 0.3698
             nDCG@10: 0.5893
             R@1K: 0.7623
-  - name: unicoil-otf
-    display: "uniCOIL (w/ doc2query-T5): otf"
-    display-html: "uniCOIL (w/ doc2query-T5): on-the-fly query inference"
+  - name: unicoil-pytorch
+    display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
+    display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-doc-segmented-unicoil --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
         scores:
-          - MRR@10: 0.3532
+          - MRR@10: 0.3531
             R@1K: 0.9546
       - topic_key: dl19-doc
         eval_key: dl19-doc
         scores:
           - MAP: 0.2789
             nDCG@10: 0.6396
-            R@1K: 0.6654
+            R@1K: 0.6652
       - topic_key: dl20
         eval_key: dl20-doc
         scores:
-          - MAP: 0.3881
-            nDCG@10: 0.6030
-            R@1K: 0.7866
+          - MAP: 0.3882
+            nDCG@10: 0.6033
+            R@1K: 0.7869
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"

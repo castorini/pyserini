@@ -22,7 +22,7 @@ from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
 
 
-class TestSearchIntegration(unittest.TestCase):
+class TestDistilBertTasB(unittest.TestCase):
     def test_distilbert_kd_tas_b_encoded_queries(self):
         encoded = QueryEncoder.load_encoded_queries('distilbert_tas_b-msmarco-passage-dev-subset')
         topics = get_topics('msmarco-passage-dev-subset')

@@ -50,13 +50,6 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 
 ## Standard Lucene Indexes
 <dl>
-<dt></dt><b><code>cacm</code></b>
-<dd>Lucene index of the CACM corpus. (Lucene 9)
-</dd>
-<dt></dt><b><code>robust04</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.robust04.20221005.252b5e.README.md">readme</a>]
-<dd>Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track. (Lucene 9)
-</dd>
 <dt></dt><b><code>msmarco-v1-doc</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 document corpus. (Lucene 9)
@@ -206,120 +199,6 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>msmarco-v2-passage-augmented-d2q-t5-docvectors</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions. (Lucene 9)
-</dd>
-<dt></dt><b><code>enwiki-paragraphs</code></b>
-<dd>Lucene index of English Wikipedia for BERTserini
-</dd>
-<dt></dt><b><code>zhwiki-paragraphs</code></b>
-<dd>Lucene index of Chinese Wikipedia for BERTserini
-</dd>
-<dt></dt><b><code>trec-covid-r5-abstract</code></b>
-<dd>Lucene index for TREC-COVID Round 5: abstract index
-</dd>
-<dt></dt><b><code>trec-covid-r5-full-text</code></b>
-<dd>Lucene index for TREC-COVID Round 5: full-text index
-</dd>
-<dt></dt><b><code>trec-covid-r5-paragraph</code></b>
-<dd>Lucene index for TREC-COVID Round 5: paragraph index
-</dd>
-<dt></dt><b><code>trec-covid-r4-abstract</code></b>
-<dd>Lucene index for TREC-COVID Round 4: abstract index
-</dd>
-<dt></dt><b><code>trec-covid-r4-full-text</code></b>
-<dd>Lucene index for TREC-COVID Round 4: full-text index
-</dd>
-<dt></dt><b><code>trec-covid-r4-paragraph</code></b>
-<dd>Lucene index for TREC-COVID Round 4: paragraph index
-</dd>
-<dt></dt><b><code>trec-covid-r3-abstract</code></b>
-<dd>Lucene index for TREC-COVID Round 3: abstract index
-</dd>
-<dt></dt><b><code>trec-covid-r3-full-text</code></b>
-<dd>Lucene index for TREC-COVID Round 3: full-text index
-</dd>
-<dt></dt><b><code>trec-covid-r3-paragraph</code></b>
-<dd>Lucene index for TREC-COVID Round 3: paragraph index
-</dd>
-<dt></dt><b><code>trec-covid-r2-abstract</code></b>
-<dd>Lucene index for TREC-COVID Round 2: abstract index
-</dd>
-<dt></dt><b><code>trec-covid-r2-full-text</code></b>
-<dd>Lucene index for TREC-COVID Round 2: full-text index
-</dd>
-<dt></dt><b><code>trec-covid-r2-paragraph</code></b>
-<dd>Lucene index for TREC-COVID Round 2: paragraph index
-</dd>
-<dt></dt><b><code>trec-covid-r1-abstract</code></b>
-<dd>Lucene index for TREC-COVID Round 1: abstract index
-</dd>
-<dt></dt><b><code>trec-covid-r1-full-text</code></b>
-<dd>Lucene index for TREC-COVID Round 1: full-text index
-</dd>
-<dt></dt><b><code>trec-covid-r1-paragraph</code></b>
-<dd>Lucene index for TREC-COVID Round 1: paragraph index
-</dd>
-<dt></dt><b><code>cast2019</code></b>
-<dd>Lucene index for TREC 2019 CaST
-</dd>
-<dt></dt><b><code>wikipedia-dpr</code></b>
-[<a href="../pyserini/resources/index-metadata/index-wikipedia-dpr-20210120-d1b9e6-readme.txt">readme</a>]
-<dd>Lucene index of Wikipedia with DPR 100-word splits
-</dd>
-<dt></dt><b><code>wikipedia-dpr-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/index-wikipedia-dpr-slim-20210120-d1b9e6-readme.txt">readme</a>]
-<dd>Lucene index of Wikipedia with DPR 100-word splits (slim version, document text not stored)
-</dd>
-<dt></dt><b><code>wikipedia-kilt-doc</code></b>
-[<a href="../pyserini/resources/index-metadata/index-wikipedia-kilt-doc-20210421-f29307-readme.txt">readme</a>]
-<dd>Lucene index of Wikipedia snapshot used as KILT's knowledge source.
-</dd>
-<dt></dt><b><code>wiki-all-6-3-tamber</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index-wiki-all-6-3-tamber-20230111-40277a.README.md">readme</a>]
-<dd>Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora
-</dd>
-<dt></dt><b><code>mrtydi-v1.1-arabic</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Arabic).
-</dd>
-<dt></dt><b><code>mrtydi-v1.1-bengali</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Bengali).
-</dd>
-<dt></dt><b><code>mrtydi-v1.1-english</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (English).
-</dd>
-<dt></dt><b><code>mrtydi-v1.1-finnish</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Finnish).
-</dd>
-<dt></dt><b><code>mrtydi-v1.1-indonesian</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Indonesian).
-</dd>
-<dt></dt><b><code>mrtydi-v1.1-japanese</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Japanese).
-</dd>
-<dt></dt><b><code>mrtydi-v1.1-korean</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Korean).
-</dd>
-<dt></dt><b><code>mrtydi-v1.1-russian</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Russian).
-</dd>
-<dt></dt><b><code>mrtydi-v1.1-swahili</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Swahili).
-</dd>
-<dt></dt><b><code>mrtydi-v1.1-telugu</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Telugu).
-</dd>
-<dt></dt><b><code>mrtydi-v1.1-thai</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Thai).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
@@ -553,41 +432,49 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): SciFact
 </dd>
-<dt></dt><b><code>hc4-v1.0-fa</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0.20221025.c4a8d0.README.md">readme</a>]
-<dd>Lucene index for HC4 v1.0 (Persian). (Lucene 9)
+<dt></dt><b><code>mrtydi-v1.1-arabic</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 (Arabic).
 </dd>
-<dt></dt><b><code>hc4-v1.0-ru</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0.20221025.c4a8d0.README.md">readme</a>]
-<dd>Lucene index for HC4 v1.0 (Russian). (Lucene 9)
+<dt></dt><b><code>mrtydi-v1.1-bengali</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 (Bengali).
 </dd>
-<dt></dt><b><code>hc4-v1.0-zh</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0.20221025.c4a8d0.README.md">readme</a>]
-<dd>Lucene index for HC4 v1.0 (Chinese). (Lucene 9)
+<dt></dt><b><code>mrtydi-v1.1-english</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 (English).
 </dd>
-<dt></dt><b><code>neuclir22-fa</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22.20221025.c4a8d0.README.md">readme</a>]
-<dd>Lucene index for NeuCLIR 2022 corpus (Persian). (Lucene 9)
+<dt></dt><b><code>mrtydi-v1.1-finnish</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 (Finnish).
 </dd>
-<dt></dt><b><code>neuclir22-ru</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22.20221025.c4a8d0.README.md">readme</a>]
-<dd>Lucene index for NeuCLIR 2022 corpus (Russian). (Lucene 9)
+<dt></dt><b><code>mrtydi-v1.1-indonesian</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 (Indonesian).
 </dd>
-<dt></dt><b><code>neuclir22-zh</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22.20221025.c4a8d0.README.md">readme</a>]
-<dd>Lucene index for NeuCLIR 2022 corpus (Chinese). (Lucene 9)
+<dt></dt><b><code>mrtydi-v1.1-japanese</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 (Japanese).
 </dd>
-<dt></dt><b><code>neuclir22-fa-en</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-en.20221025.c4a8d0.README.md">readme</a>]
-<dd>Lucene index for NeuCLIR 2022 corpus (official English translation from Persian). (Lucene 9)
+<dt></dt><b><code>mrtydi-v1.1-korean</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 (Korean).
 </dd>
-<dt></dt><b><code>neuclir22-ru-en</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-en.20221025.c4a8d0.README.md">readme</a>]
-<dd>Lucene index for NeuCLIR 2022 corpus (official English translation from Russian). (Lucene 9)
+<dt></dt><b><code>mrtydi-v1.1-russian</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 (Russian).
 </dd>
-<dt></dt><b><code>neuclir22-zh-en</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-en.20221025.c4a8d0.README.md">readme</a>]
-<dd>Lucene index for NeuCLIR 2022 corpus (official English translation from Chinese). (Lucene 9)
+<dt></dt><b><code>mrtydi-v1.1-swahili</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 (Swahili).
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-telugu</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 (Telugu).
+</dd>
+<dt></dt><b><code>mrtydi-v1.1-thai</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 (Thai).
 </dd>
 <dt></dt><b><code>miracl-v1.0-ar</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
@@ -661,6 +548,159 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 (Yoruba).
 </dd>
+<dt></dt><b><code>ciral-v1.0-ha</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
+<dd>Lucene index for CIRAL v1.0 (Hausa).
+</dd>
+<dt></dt><b><code>ciral-v1.0-so</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
+<dd>Lucene index for CIRAL v1.0 (Somali).
+</dd>
+<dt></dt><b><code>ciral-v1.0-sw</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
+<dd>Lucene index for CIRAL v1.0 (Swahili).
+</dd>
+<dt></dt><b><code>ciral-v1.0-yo</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
+<dd>Lucene index for CIRAL v1.0 (Yoruba).
+</dd>
+<dt></dt><b><code>cacm</code></b>
+<dd>Lucene index of the CACM corpus. (Lucene 9)
+</dd>
+<dt></dt><b><code>robust04</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.robust04.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track. (Lucene 9)
+</dd>
+<dt></dt><b><code>enwiki-paragraphs</code></b>
+<dd>Lucene index of English Wikipedia for BERTserini
+</dd>
+<dt></dt><b><code>zhwiki-paragraphs</code></b>
+<dd>Lucene index of Chinese Wikipedia for BERTserini
+</dd>
+<dt></dt><b><code>trec-covid-r5-abstract</code></b>
+<dd>Lucene index for TREC-COVID Round 5: abstract index
+</dd>
+<dt></dt><b><code>trec-covid-r5-full-text</code></b>
+<dd>Lucene index for TREC-COVID Round 5: full-text index
+</dd>
+<dt></dt><b><code>trec-covid-r5-paragraph</code></b>
+<dd>Lucene index for TREC-COVID Round 5: paragraph index
+</dd>
+<dt></dt><b><code>trec-covid-r4-abstract</code></b>
+<dd>Lucene index for TREC-COVID Round 4: abstract index
+</dd>
+<dt></dt><b><code>trec-covid-r4-full-text</code></b>
+<dd>Lucene index for TREC-COVID Round 4: full-text index
+</dd>
+<dt></dt><b><code>trec-covid-r4-paragraph</code></b>
+<dd>Lucene index for TREC-COVID Round 4: paragraph index
+</dd>
+<dt></dt><b><code>trec-covid-r3-abstract</code></b>
+<dd>Lucene index for TREC-COVID Round 3: abstract index
+</dd>
+<dt></dt><b><code>trec-covid-r3-full-text</code></b>
+<dd>Lucene index for TREC-COVID Round 3: full-text index
+</dd>
+<dt></dt><b><code>trec-covid-r3-paragraph</code></b>
+<dd>Lucene index for TREC-COVID Round 3: paragraph index
+</dd>
+<dt></dt><b><code>trec-covid-r2-abstract</code></b>
+<dd>Lucene index for TREC-COVID Round 2: abstract index
+</dd>
+<dt></dt><b><code>trec-covid-r2-full-text</code></b>
+<dd>Lucene index for TREC-COVID Round 2: full-text index
+</dd>
+<dt></dt><b><code>trec-covid-r2-paragraph</code></b>
+<dd>Lucene index for TREC-COVID Round 2: paragraph index
+</dd>
+<dt></dt><b><code>trec-covid-r1-abstract</code></b>
+<dd>Lucene index for TREC-COVID Round 1: abstract index
+</dd>
+<dt></dt><b><code>trec-covid-r1-full-text</code></b>
+<dd>Lucene index for TREC-COVID Round 1: full-text index
+</dd>
+<dt></dt><b><code>trec-covid-r1-paragraph</code></b>
+<dd>Lucene index for TREC-COVID Round 1: paragraph index
+</dd>
+<dt></dt><b><code>cast2019</code></b>
+<dd>Lucene index for TREC 2019 CaST
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w</code></b>
+[<a href="../pyserini/resources/index-metadata/index-wikipedia-dpr-20210120-d1b9e6-readme.txt">readme</a>]
+<dd>Lucene index of Wikipedia with DPR 100-word splits
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w-slim</code></b>
+[<a href="../pyserini/resources/index-metadata/index-wikipedia-dpr-slim-20210120-d1b9e6-readme.txt">readme</a>]
+<dd>Lucene index of Wikipedia with DPR 100-word splits (slim version, document text not stored)
+</dd>
+<dt></dt><b><code>wikipedia-kilt-doc</code></b>
+[<a href="../pyserini/resources/index-metadata/index-wikipedia-kilt-doc-20210421-f29307-readme.txt">readme</a>]
+<dd>Lucene index of Wikipedia snapshot used as KILT's knowledge source.
+</dd>
+<dt></dt><b><code>wiki-all-6-3-tamber</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index-wiki-all-6-3-tamber-20230111-40277a.README.md">readme</a>]
+<dd>Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora
+</dd>
+<dt></dt><b><code>hc4-v1.0-fa</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for HC4 v1.0 (Persian). (Lucene 9)
+</dd>
+<dt></dt><b><code>hc4-v1.0-ru</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for HC4 v1.0 (Russian). (Lucene 9)
+</dd>
+<dt></dt><b><code>hc4-v1.0-zh</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for HC4 v1.0 (Chinese). (Lucene 9)
+</dd>
+<dt></dt><b><code>neuclir22-fa</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for NeuCLIR 2022 corpus (Persian). (Lucene 9)
+</dd>
+<dt></dt><b><code>neuclir22-ru</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for NeuCLIR 2022 corpus (Russian). (Lucene 9)
+</dd>
+<dt></dt><b><code>neuclir22-zh</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for NeuCLIR 2022 corpus (Chinese). (Lucene 9)
+</dd>
+<dt></dt><b><code>neuclir22-fa-en</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-en.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for NeuCLIR 2022 corpus (official English translation from Persian). (Lucene 9)
+</dd>
+<dt></dt><b><code>neuclir22-ru-en</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-en.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for NeuCLIR 2022 corpus (official English translation from Russian). (Lucene 9)
+</dd>
+<dt></dt><b><code>neuclir22-zh-en</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.neuclir22-en.20221025.c4a8d0.README.md">readme</a>]
+<dd>Lucene index for NeuCLIR 2022 corpus (official English translation from Chinese). (Lucene 9)
+</dd>
+<dt></dt><b><code>atomic_text_v0.2.1_small_validation</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20230525.a7df7f.README.md">readme</a>]
+<dd>Lucene index for AToMiC Text v0.2.1 small setting on validation set (Lucene 9)
+</dd>
+<dt></dt><b><code>atomic_text_v0.2.1_base</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20230525.a7df7f.README.md">readme</a>]
+<dd>Lucene index for AToMiC Text v0.2.1 base setting on validation set (Lucene 9)
+</dd>
+<dt></dt><b><code>atomic_text_v0.2.1_large</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20230525.a7df7f.README.md">readme</a>]
+<dd>Lucene index for AToMiC Text v0.2.1 large setting on validation set (Lucene 9)
+</dd>
+<dt></dt><b><code>atomic_image_v0.2_small_validation</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20230525.a7df7f.README.md">readme</a>]
+<dd>Lucene index for AToMiC Images v0.2 small setting on validation set (Lucene 9)
+</dd>
+<dt></dt><b><code>atomic_image_v0.2_base</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20230525.a7df7f.README.md">readme</a>]
+<dd>Lucene index for AToMiC Images v0.2 base setting on validation set (Lucene 9)
+</dd>
+<dt></dt><b><code>atomic_image_v0.2_large</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20230525.a7df7f.README.md">readme</a>]
+<dd>Lucene index for AToMiC Images v0.2 large setting on validation set (Lucene 9)
+</dd>
 </dl>
 
 
@@ -693,6 +733,30 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>msmarco-v1-passage-distill-splade-max</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max. (Lucene 9)
+</dd>
+<dt></dt><b><code>msmarco-v1-passage-splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)
+</dd>
+<dt></dt><b><code>msmarco-v1-passage-splade-pp-ed-docvectors</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md">readme</a>]
+<dd>Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)
+</dd>
+<dt></dt><b><code>msmarco-v1-passage-splade-pp-ed-text</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md">readme</a>]
+<dd>Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)
+</dd>
+<dt></dt><b><code>msmarco-v1-passage-splade-pp-sd</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)
+</dd>
+<dt></dt><b><code>msmarco-v1-passage-splade-pp-sd-docvectors</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md">readme</a>]
+<dd>Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)
+</dd>
+<dt></dt><b><code>msmarco-v1-passage-splade-pp-sd-text</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md">readme</a>]
+<dd>Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-unicoil</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.README.md">readme</a>]
@@ -839,6 +903,51 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 
 ## Faiss Indexes
 <dl>
+<dt></dt><b><code>msmarco-v1-passage.aggretriever-cocondenser</code></b>
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by aggretriever-cocondenser encoder.
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.aggretriever-distilbert</code></b>
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by aggretriever-distilbert encoder.
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.ance</code></b>
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the ANCE MS MARCO passage encoder
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.distilbert-dot-margin-mse-t2</code></b>
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the distilbert-dot-margin_mse-T2-msmarco encoder
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.distilbert-dot-tas_b-b256</code></b>
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by distilbert-dot-tas_b-b256-msmarco encoder
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.sbert</code></b>
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the SBERT MS MARCO passage encoder
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.tct_colbert</code></b>
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by TCT-ColBERT
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.tct_colbert.hnsw</code></b>
+<dd>Faiss HNSW index of the MS MARCO passage corpus encoded by TCT-ColBERT
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.tct_colbert-v2</code></b>
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2 passage encoder
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.tct_colbert-v2-hn</code></b>
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hn passage encoder
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.tct_colbert-v2-hnp</code></b>
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.openai-ada2</code></b>
+<dd>Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP
+</dd>
+<dt></dt><b><code>msmarco-v1-doc.ance-maxp</code></b>
+<dd>Faiss FlatIP index of the MS MARCO document corpus encoded by the ANCE MaxP encoder
+</dd>
+<dt></dt><b><code>msmarco-v1-doc.tct_colbert</code></b>
+<dd>Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT
+</dd>
+<dt></dt><b><code>msmarco-v1-doc-segmented.tct_colbert-v2-hnp</code></b>
+<dd>Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP
+</dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.contriever</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by Contriever encoder.
@@ -1071,58 +1180,6 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/faiss.beir-v1.0.0.contriever-msmarco.20230124.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.
 </dd>
-<dt></dt><b><code>msmarco-passage-tct_colbert-hnsw</code></b>
-<dd>Faiss HNSW index of the MS MARCO passage corpus encoded by TCT-ColBERT
-</dd>
-<dt></dt><b><code>msmarco-passage-tct_colbert-bf</code></b>
-<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by TCT-ColBERT
-</dd>
-<dt></dt><b><code>msmarco-doc-tct_colbert-bf</code></b>
-<dd>Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT
-</dd>
-<dt></dt><b><code>msmarco-doc-tct_colbert-v2-hnp-bf</code></b>
-<dd>Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP
-</dd>
-<dt></dt><b><code>wikipedia-dpr-multi-bf</code></b>
-<dd>Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on multiple QA datasets
-</dd>
-<dt></dt><b><code>wikipedia-dpr-single-nq-bf</code></b>
-<dd>Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on NQ
-</dd>
-<dt></dt><b><code>wikipedia-bpr-single-nq-hash</code></b>
-<dd>Faiss binary index of Wikipedia encoded by the BPR doc encoder trained on NQ
-</dd>
-<dt></dt><b><code>msmarco-passage-ance-bf</code></b>
-<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the ANCE MS MARCO passage encoder
-</dd>
-<dt></dt><b><code>msmarco-doc-ance-maxp-bf</code></b>
-<dd>Faiss FlatIP index of the MS MARCO document corpus encoded by the ANCE MaxP encoder
-</dd>
-<dt></dt><b><code>wikipedia-ance-multi-bf</code></b>
-<dd>Faiss FlatIP index of Wikipedia encoded by the ANCE-multi encoder
-</dd>
-<dt></dt><b><code>msmarco-passage-sbert-bf</code></b>
-<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the SBERT MS MARCO passage encoder
-</dd>
-<dt></dt><b><code>msmarco-passage-distilbert-dot-margin_mse-T2-bf</code></b>
-<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the distilbert-dot-margin_mse-T2-msmarco passage encoder
-</dd>
-<dt></dt><b><code>msmarco-passage-distilbert-dot-tas_b-b256-bf</code></b>
-<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by msmarco-passage-distilbert-dot-tas_b-b256 passage encoder
-</dd>
-<dt></dt><b><code>msmarco-passage-tct_colbert-v2-bf</code></b>
-<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2 passage encoder
-</dd>
-<dt></dt><b><code>msmarco-passage-tct_colbert-v2-hn-bf</code></b>
-<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hn passage encoder
-</dd>
-<dt></dt><b><code>msmarco-passage-tct_colbert-v2-hnp-bf</code></b>
-<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder
-</dd>
-<dt></dt><b><code>cast2019-tct_colbert-v2-hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-hnsw.cast2019.tct_colbert-v2-readme.txt">readme</a>]
-<dd>Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder
-</dd>
 <dt></dt><b><code>mrtydi-v1.1-arabic-mdpr-nq</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-arabic.20220207.5df364.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
@@ -1166,12 +1223,6 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>mrtydi-v1.1-thai-mdpr-nq</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-thai.20220207.5df364.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
-</dd>
-<dt></dt><b><code>wikipedia-dpr-dkrr-nq</code></b>
-<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ
-</dd>
-<dt></dt><b><code>wikipedia-dpr-dkrr-tqa</code></b>
-<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220413.aa1c0e9.mdpr-tied-pft-msmarco.README.md">readme</a>]
@@ -1449,10 +1500,6 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
 <dd>Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>wiki-all-6-3-dpr2-multi</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.README.md">readme</a>]
-<dd>Faiss FlatIP index of wiki-all-6-3-tamber encoded by a 2nd iteration DPR model trained on multiple QA datasets
-</dd>
 <dt></dt><b><code>miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-miracl-ar</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
 <dd>Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
@@ -1516,5 +1563,103 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-miracl-zh</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.mdpr-tied-pft-msmarco-ft-miracl.20230329.e40d4a.README.md">readme</a>]
 <dd>Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ar-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-bn-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-en-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (English) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-es-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-fa-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Persian) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-fi-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-fr-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (French) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-hi-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-id-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ja-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ko-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Korean) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-ru-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Russian) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-sw-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-te-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-th-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Thai) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-zh-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-de-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (German) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>miracl-v1.0-yo-mcontriever-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
+<dd>Faiss index for MIRACL v1.0 (Yoruba) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w.dpr-multi</code></b>
+<dd>Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on multiple QA datasets
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w.dpr-single-nq</code></b>
+<dd>Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on NQ
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w.bpr-single-nq</code></b>
+<dd>Faiss binary index of Wikipedia encoded by the BPR doc encoder trained on NQ
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w.ance-multi</code></b>
+<dd>Faiss FlatIP index of Wikipedia encoded by the ANCE-multi encoder
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w.dkrr-nq</code></b>
+<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w.dkrr-tqa</code></b>
+<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA
+</dd>
+<dt></dt><b><code>wiki-all-6-3.dpr2-multi-retriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.README.md">readme</a>]
+<dd>Faiss FlatIP index of wiki-all-6-3-tamber encoded by a 2nd iteration DPR model trained on multiple QA datasets
+</dd>
+<dt></dt><b><code>cast2019-tct_colbert-v2.hnsw</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-hnsw.cast2019.tct_colbert-v2-readme.txt">readme</a>]
+<dd>Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder
 </dd>
 </dl>

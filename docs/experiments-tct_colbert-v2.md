@@ -28,7 +28,7 @@ Dense retrieval with TCT-ColBERT (v2), brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-passage-tct_colbert-v2-bf \
+  --index msmarco-v1-passage.tct_colbert-v2 \
   --topics msmarco-passage-dev-subset \
   --encoded-queries tct_colbert-v2-msmarco-passage-dev-subset \
   --output runs/run.msmarco-passage.tct_colbert-v2.bf.tsv \
@@ -72,7 +72,7 @@ Dense retrieval with TCT-ColBERT (v2) HN variant, brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-passage-tct_colbert-v2-hn-bf \
+  --index msmarco-v1-passage.tct_colbert-v2-hn \
   --topics msmarco-passage-dev-subset \
   --encoded-queries tct_colbert-v2-hn-msmarco-passage-dev-subset \
   --output runs/run.msmarco-passage.tct_colbert-v2-hn.bf.tsv \
@@ -111,7 +111,7 @@ Dense retrieval with TCT-ColBERT (v2) HN+ variant, brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+  --index msmarco-v1-passage.tct_colbert-v2-hnp \
   --topics msmarco-passage-dev-subset \
   --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
   --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.tsv \
@@ -152,9 +152,9 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 
 ```bash
 python -m pyserini.search.hybrid \
-  dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+  dense  --index msmarco-v1-passage.tct_colbert-v2-hnp \
          --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
-  sparse --index msmarco-passage \
+  sparse --index msmarco-v1-passage \
   fusion --alpha 0.06 \
   run    --topics msmarco-passage-dev-subset \
          --output-format msmarco \
@@ -192,9 +192,9 @@ Hybrid retrieval with dense-sparse representations (with document expansion):
 
 ```bash
 python -m pyserini.search.hybrid \
-  dense  --index msmarco-passage-tct_colbert-v2-hnp-bf \
+  dense  --index msmarco-v1-passage.tct_colbert-v2-hnp \
          --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
-  sparse --index msmarco-passage-expanded \
+  sparse --index msmarco-v1-passage-d2q-t5 \
   fusion --alpha 0.1 \
   run    --topics msmarco-passage-dev-subset \
          --output runs/run.msmarco-passage.tct_colbert-v2-hnp.bf.doc2queryT5.tsv \
@@ -234,7 +234,7 @@ We can also perform retrieval with the models trained on the MS MARCO passage co
 ```bash
 # MS MARCO doc queries (dev set)
 python -m pyserini.search.faiss \
-  --index msmarco-doc-tct_colbert-v2-hnp-bf \
+  --index msmarco-v1-doc-segmented.tct_colbert-v2-hnp \
   --topics msmarco-doc-dev \
   --encoder castorini/tct_colbert-v2-hnp-msmarco \
   --output runs/run.msmarco-doc.passage.tct_colbert-v2-hnp-maxp.txt \
@@ -246,7 +246,7 @@ python -m pyserini.search.faiss \
 
 # TREC 2019 DL queries
 python -m pyserini.search.faiss \
-  --index msmarco-doc-tct_colbert-v2-hnp-bf \
+  --index msmarco-v1-doc-segmented.tct_colbert-v2-hnp \
   --topics dl19-doc \
   --encoder castorini/tct_colbert-v2-hnp-msmarco \
   --output runs/run.dl19-doc.passage.tct_colbert-v2-hnp-maxp.txt \
@@ -257,7 +257,7 @@ python -m pyserini.search.faiss \
 
 # TREC 2020 DL queries
 python -m pyserini.search.faiss \
-  --index msmarco-doc-tct_colbert-v2-hnp-bf \
+  --index msmarco-v1-doc-segmented.tct_colbert-v2-hnp \
   --topics dl20 \
   --encoder castorini/tct_colbert-v2-hnp-msmarco \
   --output runs/run.dl20-doc.passage.tct_colbert-v2-hnp-maxp.txt \
@@ -322,3 +322,4 @@ ndcg_cut_10             all     0.6094
 + Results reproduced by [@yuki617](https://github.com/yuki617) on 2021-06-30 (commit [`b3f3d9`](https://github.com/castorini/pyserini/commit/b3f3d94f2d2397e684094be7e997c9fe45c6fa76))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-25 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2023-05-06 (commit [`dcc0ba`](https://github.com/castorini/pyserini/commit/dcc0ba06585a08d7c78cbffac4217b57e170fc3a))

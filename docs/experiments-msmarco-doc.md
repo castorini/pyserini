@@ -1,9 +1,9 @@
-# Pyserini: BM25 Baseline for MS MARCO Document Retrieval
+# Pyserini: BM25 Baseline for MS MARCO Document Ranking
 
 This guide contains instructions for running BM25 baselines on the [MS MARCO *document* ranking task](https://microsoft.github.io/msmarco/), which is nearly identical to a [similar guide in Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-doc.md), except that everything is in Python here (no Java).
 Note that there is a separate guide for the [MS MARCO *passage* ranking task](experiments-msmarco-passage.md).
 
-**Setup Note:** If you're instantiating an Ubuntu VM on your system or on cloud (AWS and GCP), try to provision enough resources as the tasks such as building the index could take some time to finish such as RAM > 8GB and storage > 100 GB (SSD). This will prevent going back and fixing machine configuration again and again. If you get a configuration which works for Anserini on this task, it will work with Pyserini as well.
+As of July 2023, this exercise has been removed from the Waterloo students [onboarding path](https://github.com/lintool/guide/blob/master/ura.md), which [starts here](https://github.com/castorini/anserini/blob/master/docs/start-here.md).
 
 ## Data Prep
 
@@ -182,3 +182,5 @@ We can see that Pyserini's (tuned) BM25 baseline is already much better than the
 + Results reproduced by [@Cath](https://github.com/Cathrineee) on 2023-01-14 (commit [`ec37c5e`](https://github.com/castorini/pyserini/commit/ec37c5e1d02868e7ed73d6293155a6f16f0d9a12))
 + Results reproduced by [@dlrudwo1269](https://github.com/dlrudwo1269) on 2023-03-08 (commit [`dfae4bb5`](https://github.com/castorini/pyserini/commit/dfae4bb5128225e81606acbb17d1d92e254d609f))
 + Results reproduced by [@aryamancodes](https://github.com/aryamancodes) on 2023-04-11 (commit [`1aea2b0`](https://github.com/castorini/pyserini/commit/1aea2b02ccb48e7f9bfe8065657ba57462eb1a47))
++ Results reproduced by [@zoehahaha](https://github.com/zoehahaha) on 2023-05-12 (commit [`b429218`](https://github.com/castorini/anserini/commit/b429218e52a385eabf3fd81979e221111fbc4a19))
++ Results reproduced by [@pratyushpal](https://github.com/pratyushpal) on 2023-07-14 (commit [`760c22a`](https://github.com/castorini/pyserini/commit/760c22a3300a4fc3bfc83991140cdc1d6d7a35f9))

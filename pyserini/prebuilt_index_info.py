@@ -1808,6 +1808,70 @@ TF_INDEX_INFO_MIRACL = {
     }
 }
 
+TF_INDEX_INFO_CIRAL = {
+    "ciral-v1.0-ha": {
+        "description": "Lucene index for CIRAL v1.0 (Hausa).",
+        "filename": "lucene-index.ciral-v1.0-ha.20230721.e850ea.tar.gz",
+        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-ha.20230721.e850ea.tar.gz"
+        ],
+        "md5": "9bef13f2b528d3a5712ce412c3c264f7",
+        "size compressed (bytes)": 671653035,
+        'total_terms': 93696543,
+        'documents': 715355,
+        'unique_terms': 817967,
+        "downloaded": False
+    },
+
+    "ciral-v1.0-so": {
+        "description": "Lucene index for CIRAL v1.0 (Somali).",
+        "filename": "lucene-index.ciral-v1.0-so.20230721.e850ea.tar.gz",
+        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-so.20230721.e850ea.tar.gz"
+        ],
+        "md5": "4bb9d3ae1a6d65fbb2a4e7e57a71397d",
+        "size compressed (bytes)": 916229181,
+        "total_terms": 103736362,
+        "documents": 827552,
+        "unique_terms": 1636109,
+        "downloaded": False
+    },
+
+    "ciral-v1.0-sw": {
+        "description": "Lucene index for CIRAL v1.0 (Swahili).",
+        "filename": "lucene-index.ciral-v1.0-sw.20230721.e850ea.tar.gz",
+        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-sw.20230721.e850ea.tar.gz"
+        ],
+        "md5": "1236a1a4c87268d98ec6534cd99aaada",
+        "size compressed (bytes)": 896921754,
+        "total_terms": 115140711,
+        "documents": 949013,
+        "unique_terms": 1655554,
+        "downloaded": False
+    },
+
+    "ciral-v1.0-yo": {
+        "description": "Lucene index for CIRAL v1.0 (Yoruba).",
+        "filename": "lucene-index.ciral-v1.0-yo.20230721.e850ea.tar.gz",
+        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-yo.20230721.e850ea.tar.gz"
+        ],
+        "md5": "655e571314ed85cbfe637246c3d18110",
+        "size compressed (bytes)": 94610259,
+        "total_terms": 13693080,
+        "documents": 82095,
+        "unique_terms": 236638,
+        "downloaded": False
+    }
+
+}
+
+
 TF_INDEX_INFO_OTHER = {
     "cacm": {
         "description": "Lucene index of the CACM corpus. (Lucene 9)",
@@ -2090,31 +2154,29 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
 
-    "wikipedia-dpr": {
+    "wikipedia-dpr-100w": {
         "description": "Lucene index of Wikipedia with DPR 100-word splits",
-        "filename": "index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
+        "filename": "lucene-index.wikipedia-dpr-100w.20210120.d1b9e6.tar.gz",
         "readme": "index-wikipedia-dpr-20210120-d1b9e6-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-wikipedia-dpr-20210120-d1b9e6.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/t6tDJmpoxPw9tH8/download"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-dpr-100w.20210120.d1b9e6.tar.gz"
         ],
-        "md5": "c28f3a56b2dfcef25bf3bf755c264d04",
-        "size compressed (bytes)": 9177942656,
+        "md5": "7b58c08da992b2ea7e96667f0b176651",
+        "size compressed (bytes)": 9177917732,
         "total_terms": 1512973270,
         "documents": 21015324,
         "unique_terms": 5345463,
         "downloaded": False
     },
-    "wikipedia-dpr-slim": {
+    "wikipedia-dpr-100w-slim": {
         "description": "Lucene index of Wikipedia with DPR 100-word splits (slim version, document text not stored)",
-        "filename": "index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
+        "filename": "lucene-index.wikipedia-dpr-100w-slim.20210120.d1b9e6.tar.gz",
         "readme": "index-wikipedia-dpr-slim-20210120-d1b9e6-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-wikipedia-dpr-slim-20210120-d1b9e6.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Gk2sfTyJCyaTrYH/download"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-dpr-100w-slim.20210120.d1b9e6.tar.gz"
         ],
-        "md5": "7d40604a824b5df37a1ae9d25ea38071",
-        "size compressed (bytes)": 1810342390,
+        "md5": "5d24352f0de6ae75b60e11a9cf622251",
+        "size compressed (bytes)": 1810337190,
         "total_terms": 1512973270,
         "documents": 21015324,
         "unique_terms": 5345463,
@@ -2122,14 +2184,13 @@ TF_INDEX_INFO_OTHER = {
     },
     "wikipedia-kilt-doc": {
         "description": "Lucene index of Wikipedia snapshot used as KILT's knowledge source.",
-        "filename": "index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
+        "filename": "lucene-index.wikipedia-kilt-doc.20210421.f29307.tar.gz",
         "readme": "index-wikipedia-kilt-doc-20210421-f29307-readme.txt",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-wikipedia-kilt-doc-20210421-f29307.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/RqtLg3CZT38k32c/download"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-kilt-doc.20210421.f29307.tar.gz"
         ],
-        "md5": "b8ec8feb654f7aaa86f9901dc6c804a8",
-        "size compressed (bytes)": 10901127209,
+        "md5": "d4a1e7628f6f68c51dd2d764e62b7f8d",
+        "size compressed (bytes)": 10901145611,
         "total_terms": 1915061164,
         "documents": 5903530,
         "unique_terms": 8722502,
@@ -2275,13 +2336,98 @@ TF_INDEX_INFO_OTHER = {
         "documents": 3179206,
         "unique_terms": 1616532,
         "downloaded": False
-    }
+    },  # TODO: need to update links to these files to rgw.cs.uwaterloo.ca/...
+    "atomic_text_v0.2.1_small_validation": {
+        "description": "Lucene index for AToMiC Text v0.2.1 small setting on validation set (Lucene 9)",
+        "filename": "lucene-index.atomic.image.flat.small.validation.tar.gz",
+        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "urls": [
+            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.text.flat.small.validation.tar.gz"
+        ],
+        "md5": "377f3e4ae48e1afbe05650e339322050",
+        "size compressed (bytes)": 32900945,
+        "total_terms": 2999824,
+        "documents": 17173,
+        "unique_terms": 118071,
+        "downloaded": False
+    },
+    "atomic_text_v0.2.1_base": {
+        "description": "Lucene index for AToMiC Text v0.2.1 base setting on validation set (Lucene 9)",
+        "filename": "lucene-index.atomic.image.flat.base.tar.gz",
+        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "urls": [
+            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.text.flat.base.tar.gz"
+        ],
+        "md5": "41ca80241e77ed3515dd48bfc047a923",
+        "size compressed (bytes)": 5532178004,
+        "total_terms": 520954965,
+        "documents": 3029504,
+        "unique_terms": -1,
+        "downloaded": False
+    },
+    "atomic_text_v0.2.1_large": {
+        "description": "Lucene index for AToMiC Text v0.2.1 large setting on validation set (Lucene 9)",
+        "filename": "lucene-index.atomic.image.flat.large.tar.gz",
+        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "urls": [
+            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.text.flat.large.tar.gz"
+        ],
+        "md5": "0dd1975d82fa7c57a471e4e6b1882177",
+        "size compressed (bytes)": 18224101285,
+        "total_terms": 1727597393,
+        "documents": 10134744,
+        "unique_terms": -1,
+        "downloaded": False
+    },
+    "atomic_image_v0.2_small_validation": {
+        "description": "Lucene index for AToMiC Images v0.2 small setting on validation set (Lucene 9)",
+        "filename": "lucene-index.atomic.image.flat.small.validation.tar.gz",
+        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "urls": [
+            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.image.flat.small.validation.tar.gz"
+        ],
+        "md5": "b5363a9a7ecd0f071fb8e0319168ccf8",
+        "size compressed (bytes)": 4902534,
+        "total_terms": 308646,
+        "documents": 16126,
+        "unique_terms": 48666,
+        "downloaded": False
+    },
+    "atomic_image_v0.2_base": {
+        "description": "Lucene index for AToMiC Images v0.2 base setting on validation set (Lucene 9)",
+        "filename": "lucene-index.atomic.image.flat.base.tar.gz",
+        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "urls": [
+            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.image.flat.base.tar.gz"
+        ],
+        "md5": "55e88e334165b7147092ee67dfa74955",
+        "size compressed (bytes)": 1218292466,
+        "total_terms": 100743397,
+        "documents": 3410779,
+        "unique_terms": -1,
+        "downloaded": False
+    },
+    "atomic_image_v0.2_large": {
+        "description": "Lucene index for AToMiC Images v0.2 large setting on validation set (Lucene 9)",
+        "filename": "lucene-index.atomic.image.flat.large.tar.gz",
+        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "urls": [
+            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.image.flat.large.tar.gz"
+        ],
+        "md5": "919c3f870968ffbe24f30407ad1385f8",
+        "size compressed (bytes)": 1341866370,
+        "total_terms": 108550562,
+        "documents": 3803656,
+        "unique_terms": -1,
+        "downloaded": False
+    },
 }
 
 TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_BEIR,
                  **TF_INDEX_INFO_MRTYDI,
                  **TF_INDEX_INFO_MIRACL,
+                 **TF_INDEX_INFO_CIRAL,
                  **TF_INDEX_INFO_OTHER}
 
 IMPACT_INDEX_INFO_MSMARCO = {
@@ -2381,6 +2527,91 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "total_terms": 95445422483,
         "documents": 8841823,
         "unique_terms": 28131,
+        "downloaded": False
+    },
+
+    "msmarco-v1-passage-splade-pp-ed": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-ed.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-ed.20230524.a59610.tar.gz"
+        ],
+        "md5": "4b3c969033cbd017306df42ce134c395",
+        "size compressed (bytes)": 2102229906,
+        "total_terms": 52376261130,
+        "documents": 8841823,
+        "unique_terms": 28679,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-ed-docvectors": {
+        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-ed-docvectors.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-ed-docvectors.20230524.a59610.tar.gz"
+        ],
+        "md5": "270301ea1413c38cc83cf682c7787b49",
+        "size compressed (bytes)": 13052697908,
+        "total_terms": 52376261130,
+        "documents": 8841823,
+        "unique_terms": 28679,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-ed-text": {
+        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-ed-text.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-ed-text.20230524.a59610.tar.gz"
+        ],
+        "md5": "151e9b1b345197cd4a0edbf7127f3deb",
+        "size compressed (bytes)": 9983469862,
+        "total_terms": 52376261130,
+        "documents": 8841823,
+        "unique_terms": 28679,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-sd": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-sd.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-sd.20230524.a59610.tar.gz"
+        ],
+        "md5": "4e4a3969c1e9e7262b2783ad192086ae",
+        "size compressed (bytes)": 2367261002,
+        "total_terms": 55456660129,
+        "documents": 8841823,
+        "unique_terms": 28662,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-sd-docvectors": {
+        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-sd-docvectors.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-sd-docvectors.20230524.a59610.tar.gz"
+        ],
+        "md5": "8d75aecc95e63853c832916da62e97f9",
+        "size compressed (bytes)": 14829233820,
+        "total_terms": 55456660129,
+        "documents": 8841823,
+        "unique_terms": 28662,
+        "downloaded": False
+    },
+    "msmarco-v1-passage-splade-pp-sd-text": {
+        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v1-passage-splade-pp-sd-text.20230524.a59610.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-splade-pp-sd-text.20230524.a59610.tar.gz"
+        ],
+        "md5": "1d90dc2803a6fea55a4d16da7623e2ed",
+        "size compressed (bytes)": 11473065718,
+        "total_terms": 55456660129,
+        "documents": 8841823,
+        "unique_terms": 28662,
         "downloaded": False
     },
 
@@ -2885,32 +3116,193 @@ IMPACT_INDEX_INFO_BEIR = {
 IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
                      **IMPACT_INDEX_INFO_BEIR}
 
-FAISS_INDEX_INFO = {
+FAISS_INDEX_INFO_MSMARCO = {
     # Aggretriever indexes
-    "msmarco-passage.aggretriever-cocondenser": {
+    "msmarco-v1-passage.aggretriever-cocondenser": {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by aggretriever-cocondenser encoder.",
-        "filename": "faiss.msmarco-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz",
+        "filename": "faiss.msmarco-v1-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz"
         ],
-        "md5": "7d5f33b1b350f6cac6a02f3d1c4670ca",
-        "size compressed (bytes)": 26053474787,
+        "md5": "58da608d5b31b28001b3aa1cf33479f6",
+        "size compressed (bytes)": 26053474943,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
     },
-     "msmarco-passage.aggretriever-distilbert": {
+    "msmarco-v1-passage.aggretriever-distilbert": {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by aggretriever-distilbert encoder.",
-        "filename": "faiss.msmarco-passage.aggretriever-distilbert.20230407.f627ef.tar.gz",
+        "filename": "faiss.msmarco-v1-passage.aggretriever-distilbert.20230407.f627ef.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-passage.aggretriever-distilbert.20230407.f627ef.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.aggretriever-distilbert.20230407.f627ef.tar.gz"
         ],
-        "md5": "e9c48c36d1c2a7b3da0ab39f58e10ffc",
-        "size compressed (bytes)": 25963140897,
+        "md5": "ed1492be0ce7539aacd5db5028404989",
+        "size compressed (bytes)": 25963140666,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
     },
+
+    "msmarco-v1-passage.ance": {
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the ANCE MS MARCO passage encoder",
+        "filename": "faiss.msmarco-v1-passage.ance.20210224.060cef.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.ance.20210224.060cef.tar.gz"
+        ],
+        "md5": "c4e485efd0802031783d6fe487125446",
+        "size compressed (bytes)": 25102344836,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
+    "msmarco-v1-passage.distilbert-dot-margin-mse-t2": {
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the distilbert-dot-margin_mse-T2-msmarco encoder",
+        "filename": "faiss.msmarco-v1-passage.distilbert-dot-margin_mse-t2.20210316.d44c3a.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.distilbert-dot-margin_mse-t2.20210316.d44c3a.tar.gz"
+        ],
+        "md5": "66dcbf3331f270673e3b9702a6ad3540",
+        "size compressed (bytes)": 25162771693,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
+    "msmarco-v1-passage.distilbert-dot-tas_b-b256": {
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by distilbert-dot-tas_b-b256-msmarco encoder",
+        "filename": "faiss.msmarco-v1-passage.distilbert-dot-tas_b-b256.20210527.63276f.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.distilbert-dot-tas_b-b256.20210527.63276f.tar.gz"
+        ],
+        "md5": "4e64a643fc051bc9506a3a554e9394e7",
+        "size compressed (bytes)": 25162329414,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
+    "msmarco-v1-passage.sbert": {
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the SBERT MS MARCO passage encoder",
+        "filename": "faiss.msmarco-v1-passage.sbert.20210313.a0fbb3.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.sbert.20210313.a0fbb3.tar.gz"
+        ],
+        "md5": "d5d9eb67fa9da8b77a219ac77a5a3d3e",
+        "size compressed (bytes)": 25214193092,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
+    "msmarco-v1-passage.tct_colbert": {
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by TCT-ColBERT",
+        "filename": "faiss.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz"
+        ],
+        "md5": "2dea6e8697b220719139027c7ee2aff0",
+        "size compressed (bytes)": 25204501822,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
+    "msmarco-v1-passage.tct_colbert.hnsw": {
+        "description": "Faiss HNSW index of the MS MARCO passage corpus encoded by TCT-ColBERT",
+        "filename": "hnsw-faiss.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/hnsw-faiss.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz"
+        ],
+        "md5": "24acb6e6ba0ac1f5c6b73bd3e6d6477f",
+        "size compressed (bytes)": 33359120779,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
+    "msmarco-v1-passage.tct_colbert-v2": {
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2 passage encoder",
+        "filename": "faiss.msmarco-v1-passage.tct_colbert-v2.20210608.5f341b.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.tct_colbert-v2.20210608.5f341b.tar.gz"
+        ],
+        "md5": "805bb253828a59af1899a8cc42e0f766",
+        "size compressed (bytes)": 25211079468,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
+    "msmarco-v1-passage.tct_colbert-v2-hn": {
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hn passage encoder",
+        "filename": "faiss.msmarco-v1-passage.tct_colbert-v2-hn.20210608.5f341b.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.tct_colbert-v2-hn.20210608.5f341b.tar.gz"
+        ],
+        "md5": "569f0ee9d45586b547d84fcd240e5cee",
+        "size compressed (bytes)": 25205730053,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
+    "msmarco-v1-passage.tct_colbert-v2-hnp": {
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder",
+        "filename": "faiss.msmarco-v1-passage.tct_colbert-v2-hnp.20210608.5f341b.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.tct_colbert-v2-hnp.20210608.5f341b.tar.gz"
+        ],
+        "md5": "53bcaa78ab0ca629f3379b8aa00eb3ae",
+        "size compressed (bytes)": 25225526436,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
+    "msmarco-v1-passage.openai-ada2": {
+        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
+        "filename": "faiss.msmarco-v1-passage.openai-ada2.20230530.e3a58f.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.openai-ada2.20230530.e3a58f.tar.gz"
+        ],
+        "md5": "14725ced21bdcd0c9866aab1cfe8f2e0",
+        "size compressed (bytes)": 45649935573,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
+
+    "msmarco-v1-doc.ance-maxp": {
+        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by the ANCE MaxP encoder",
+        "filename": "faiss.msmarco-v1-doc.ance_maxp.20210304.b2a1b0.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-doc.ance_maxp.20210304.b2a1b0.tar.gz"
+        ],
+        "md5": "6b484b0c04872f22ae903ed7d7ba1327",
+        "size compressed (bytes)": 58312805253,
+        "documents": 20544550,
+        "downloaded": False,
+        "texts": "msmarco-v1-doc"
+    },
+    "msmarco-v1-doc.tct_colbert": {
+        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT",
+        "filename": "faiss.msmarco-v1-doc.tct_colbert.20210112.be7119.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-doc.tct_colbert.20210112.be7119.tar.gz"
+        ],
+        "md5": "4e97e1d6990ba5d4b93b7798c3036edc",
+        "size compressed (bytes)": 58514325945,
+        "documents": 20544550,
+        "downloaded": False,
+        "texts": "smarco-v1-doc"
+    },
+    "msmarco-v1-doc-segmented.tct_colbert-v2-hnp": {
+        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
+        "filename": "faiss.msmarco-v1-doc-segmented.tct_colbert-v2-hnp.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-doc-segmented.tct_colbert-v2-hnp.tar.gz"
+        ],
+        "md5": "1dab64255822d2fd4dff8c0807319d0a",
+        "size compressed (bytes)": 58586765413,
+        "documents": 20544550,
+        "downloaded": False,
+        "texts": "msmarco-v1-doc-segmented"
+    }
+}
+
+FAISS_INDEX_INFO_BEIR = {
     # BEIR (v1.0.0) contriever indexes
     "beir-v1.0.0-trec-covid.contriever": {
         "description": "Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by Contriever encoder.",
@@ -3667,230 +4059,10 @@ FAISS_INDEX_INFO = {
         "documents": 5183,
         "downloaded": False,
         "texts": "beir-v1.0.0-scifact.flat",
-    },
+    }
+}
 
-    "msmarco-passage-tct_colbert-hnsw": {
-        "description": "Faiss HNSW index of the MS MARCO passage corpus encoded by TCT-ColBERT",
-        "filename": "dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-tct_colbert-hnsw-20210112-be7119.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/F6MjyjmCi6yHFTa/download"
-        ],
-        "md5": "7e12ae728ea5f2ae6d1cfb88a8775ba8",
-        "size compressed (bytes)": 33359100887,
-        "documents": 8841823,
-        "downloaded": False,
-        "texts": "msmarco-v1-passage"
-    },
-    "msmarco-passage-tct_colbert-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by TCT-ColBERT",
-        "filename": "dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-tct_colbert-bf-20210112-be7119.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/mHxezzSAkrWbXZC/download"
-        ],
-        "md5": "7312e0e7acec2a686e994902ca064fc5",
-        "size compressed (bytes)": 25204514289,
-        "documents": 8841823,
-        "downloaded": False,
-        "texts": "msmarco-v1-passage"
-    },
-    "msmarco-doc-tct_colbert-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT",
-        "filename": "dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-doc-tct_colbert-bf-20210112-be7119.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Ti5JxdCgjdw3noq/download"
-        ],
-        "md5": "f0b4c3bff3bb685be5c475511004c3b0",
-        "size compressed (bytes)": 58514325936,
-        "documents": 20544550,
-        "downloaded": False,
-        "texts": "msmarco-v1-passage"
-    },
-    "msmarco-doc-tct_colbert-v2-hnp-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
-        "filename": "faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss-flat.msmarco-doc-per-passage.tct_colbert-v2-hnp.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/XjkKAWMz2fwSeJB/download",
-        ],
-        "md5": "c6a7d295cfe711ef84dffe9ba6a702e5",
-        "size compressed (bytes)": 58586765624,
-        "documents": 20544550,
-        "downloaded": False,
-        "texts": "msmarco-v1-passage"
-    },
-    "wikipedia-dpr-multi-bf": {
-        "description": "Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on multiple QA datasets",
-        "filename": "dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-wikipedia-dpr_multi-bf-20200127-f403c3.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/xN44ZSC9tFFtp3F/download"
-        ],
-        "md5": "29eb39fe0b00a03c36c0eeae4c24f775",
-        "size compressed (bytes)": 59836766981,
-        "documents": 21015320,
-        "downloaded": False,
-        "texts": "wikipedia-dpr"
-    },
-    "wikipedia-dpr-single-nq-bf": {
-        "description": "Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on NQ",
-        "filename": "dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-wikipedia-dpr_single_nq-bf-20200115-cd5034.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/W4k44aLZWcbcJXe/download"
-        ],
-        "md5": "d1ef9286ddb38633cd052171963c62cb",
-        "size compressed (bytes)": 59836863670,
-        "documents": 21015320,
-        "downloaded": False,
-        "texts": "wikipedia-dpr"
-    },
-    "wikipedia-bpr-single-nq-hash": {
-        "description": "Faiss binary index of Wikipedia encoded by the BPR doc encoder trained on NQ",
-        "filename": "dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-wikipedia_bpr_single_nq-hash-20210827-8a8f75.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/qKFrptGP4pSp987/download"
-        ],
-        "md5": "e60e5ed1d7fab924bfa9149ed169d082",
-        "size compressed (bytes)": 1887382350,
-        "documents": 21015320,
-        "downloaded": False,
-        "texts": "wikipedia-dpr"
-    },
-    "msmarco-passage-ance-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the ANCE MS MARCO passage encoder",
-        "filename": "dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-ance-bf-20210224-060cef.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/mntwDQtXc9WbZSM/download"
-        ],
-        "md5": "f6332edb8f06ba796850388cf975b414",
-        "size compressed (bytes)": 25102344985,
-        "documents": 8841823,
-        "downloaded": False,
-        "texts": "msmarco-v1-passage"
-    },
-    "msmarco-doc-ance-maxp-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by the ANCE MaxP encoder",
-        "filename": "dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-doc-ance_maxp-bf-20210304-b2a1b0.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/ifXbHmgTz27SYCC/download"
-        ],
-        "md5": "a9f8d77ea0cef7c6acdba881c45b7d99",
-        "size compressed (bytes)": 58312805496,
-        "documents": 20544550,
-        "downloaded": False,
-        "texts": "msmarco-v1-doc"
-    },
-    "wikipedia-ance-multi-bf": {
-        "description": "Faiss FlatIP index of Wikipedia encoded by the ANCE-multi encoder",
-        "filename": "dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-wikipedia-ance_multi-bf-20210224-060cef.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/XRGYFBN6d6WZRNw/download"
-        ],
-        "md5": "715605b56dc393b8f939e12682dfd467",
-        "size compressed (bytes)": 59890492088,
-        "documents": 21015320,
-        "downloaded": False,
-        "texts": "wikipedia-dpr"
-    },
-    "msmarco-passage-sbert-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the SBERT MS MARCO passage encoder",
-        "filename": "dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-sbert-bf-20210313-a0fbb3.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/8xiZK5cx4ffExoz/download"
-        ],
-        "md5": "3f98b9564cd3a33e45bfeca4d4fec623",
-        "size compressed (bytes)": 25214193901,
-        "documents": 8841823,
-        "downloaded": False,
-        "texts": "msmarco-v1-passage"
-    },
-    "msmarco-passage-distilbert-dot-margin_mse-T2-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the distilbert-dot-margin_mse-T2-msmarco passage encoder",
-        "filename": "dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-distilbert-dot-margin_mse-T2-20210316-d44c3a.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/DSHYNJJRZLqckLA/download"
-        ],
-        "md5": "83a8081d6020910058164978b095615f",
-        "size compressed (bytes)": 25162770962,
-        "documents": 8841823,
-        "downloaded": False,
-        "texts": "msmarco-v1-passage"
-    },
-    "msmarco-passage-distilbert-dot-tas_b-b256-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by msmarco-passage-distilbert-dot-tas_b-b256 passage encoder",
-        "filename": "dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-distilbert-dot-tas_b-b256-bf-20210527-63276f.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/89fr56FNeGFbyrG/download",
-        ],
-        "md5": "cc947bf66d9552a2a7c6fe060466e490",
-        "size compressed (bytes)": 25162328596,
-        "documents": 8841823,
-        "downloaded": False,
-        "texts": "msmarco-v1-passage"
-    },
-    "msmarco-passage-tct_colbert-v2-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2 passage encoder",
-        "filename": "dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-tct_colbert-v2-bf-20210608-5f341b.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/2EZ2feACyL8cnw5/download",
-        ],
-        "md5": "479591e265347ceff954ae05f6d3462b",
-        "size compressed (bytes)": 25211079381,
-        "documents": 8841823,
-        "downloaded": False,
-        "texts": "msmarco-v1-passage"
-    },
-    "msmarco-passage-tct_colbert-v2-hn-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hn passage encoder",
-        "filename": "dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-tct_colbert-v2-hn-bf-20210608-5f341b.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/2dP6EJz7QgywM4b/download",
-        ],
-        "md5": "61d38e4935b3ca36c99e0cda2b27fba2",
-        "size compressed (bytes)": 25205729786,
-        "documents": 8841823,
-        "downloaded": False,
-        "texts": "msmarco-v1-passage"
-    },
-    "msmarco-passage-tct_colbert-v2-hnp-bf": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder",
-        "filename": "dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/dindex-msmarco-passage-tct_colbert-v2-hnp-bf-20210608-5f341b.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/od63ZXNadCZymwj/download",
-        ],
-        "md5": "c3c3fc3a288bcdf61708d4bba4bc79ff",
-        "size compressed (bytes)": 25225528775,
-        "documents": 8841823,
-        "downloaded": False,
-        "texts": "msmarco-v1-passage"
-    },
-    "cast2019-tct_colbert-v2-hnsw": {
-        "description": "Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder",
-        "filename": "faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
-        "readme": "faiss-hnsw.cast2019.tct_colbert-v2-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/ncrZdE67BCKxPwc/download"
-        ],
-        "md5": "fa7673509b34d978e1b931d5705369ee",
-        "size compressed (bytes)": 112121366773,
-        "documents": 38429835,
-        "downloaded": False,
-        "texts": "cast2019"
-    },
+FAISS_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-arabic-mdpr-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
         "filename": "faiss.mrtydi-v1.1-arabic.20220207.5df364.tar.gz",
@@ -4045,30 +4217,7 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
     },
-    "wikipedia-dpr-dkrr-nq": {
-        "description": "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ",
-        "filename": "faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss-flat.wikipedia.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz",
-        ],
-        "md5": "e58886fd5485b84f2c44963ce644561b",
-        "size compressed (bytes)": 37812137819,
-        "documents": 21015324,
-        "downloaded": False,
-        "texts": "wikipedia-dpr"
-    },
-    "wikipedia-dpr-dkrr-tqa": {
-        "description": "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA",
-        "filename": "faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss-flat.wikipedia.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz",
-        ],
-        "md5": "a6b02d33c9c0376ad1bf6550212ecdcb",
-        "size compressed (bytes)": 37802648060,
-        "documents": 21015324,
-        "downloaded": False,
-        "texts": "wikipedia-dpr"
-    },
+
     "mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.mrtydi-v1.1-arabic.20220413.aa1c0e9.tar.gz",
@@ -4355,6 +4504,7 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
     },
+
     "mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
         "filename": "faiss.mrtydi-v1.1-arabic.20220524.7b099d5.tar.gz",
@@ -4497,8 +4647,10 @@ FAISS_INDEX_INFO = {
         "documents": 568855,
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
-    },
+    }
+}
 
+FAISS_INDEX_INFO_MIRACL = {
     "miracl-v1.0-ar-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
         "filename": "faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz",
@@ -4969,19 +5121,6 @@ FAISS_INDEX_INFO = {
         "texts": "miracl-v1.0-yo",
     },
 
-    "wiki-all-6-3-dpr2-multi": {
-        "description": "Faiss FlatIP index of wiki-all-6-3-tamber encoded by a 2nd iteration DPR model trained on multiple QA datasets",
-        "filename": "faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.tar.gz",
-        "readme": "faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.tar.gz",
-        ],
-        "md5": "b77b8e296c339b6d76988ee5c2d3e96a",
-        "size compressed (bytes)": 218257913793,
-        "documents": 76680040,
-        "downloaded": False,
-        "texts": "wiki-all-6-3-tamber"
-    },
     "miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-miracl-ar": {
         "description": "Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO, then fine-tuned in-language with MIRACL.",
         "filename": "faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco-ft-miracl-ar.20230329.e40d4a.tar.gz",
@@ -5190,4 +5329,351 @@ FAISS_INDEX_INFO = {
         "downloaded": False,
         "texts": "miracl-v1.0-zh"
     },
+
+    "miracl-v1.0-ar-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-ar.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ar.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "80c18ac84922ae27bfbee881485816c6",
+        "size compressed (bytes)": 5861079368,
+        "documents": 2061414,
+        "downloaded": False,
+        "texts": "miracl-v1.0-ar",
+    },
+    "miracl-v1.0-bn-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Bengali) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-bn.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-bn.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "08191b7749151a7bc70e54b92988dd25",
+        "size compressed (bytes)": 845828394, 
+        "documents": 297265,
+        "downloaded": False,
+        "texts": "miracl-v1.0-bn",
+    },
+    "miracl-v1.0-en-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (English) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-en.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-en.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "a460d0eb95cf8a278686531e13141d00",
+        "size compressed (bytes)": 93426889457, 
+        "documents": 32893221,
+        "downloaded": False,
+        "texts": "miracl-v1.0-en"
+    },
+    "miracl-v1.0-es-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Spanish) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-es.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "936e9188c4dcf57f8f116b9e25790372",
+        "size compressed (bytes)": 29499200527,
+        "documents": 10373953,
+        "downloaded": False,
+        "texts": "miracl-v1.0-es"
+    },
+    "miracl-v1.0-fa-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Persian) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-fa.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fa.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "58f83135ecafae6993e49f5f08e471ff",
+        "size compressed (bytes)": 6278766617,
+        "documents": 2207172,
+        "downloaded": False,
+        "texts": "miracl-v1.0-fa"
+    },
+    "miracl-v1.0-fi-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Finnish) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-fi.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fi.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "b10bc504213199fe0c0972678ab4fdd6",
+        "size compressed (bytes)": 5358004166,
+        "documents": 1883509,
+        "downloaded": False,
+        "texts": "miracl-v1.0-fi"
+    },
+    "miracl-v1.0-fr-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (French) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-fr.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "b0d5543824b456d9008d05d7dcef5272",
+        "size compressed (bytes)": 41578767020, 
+        "documents": 14636953,
+        "downloaded": False,
+        "texts": "miracl-v1.0-fr"
+    },
+    "miracl-v1.0-hi-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Hindi) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-hi.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-hi.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "ba66e98169b22244c7a7a89ae9bfe549", 
+        "size compressed (bytes)": 1439122724, 
+        "documents": 506264,
+        "downloaded": False,
+        "texts": "miracl-v1.0-hi"
+    },
+    "miracl-v1.0-id-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Indonesian) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-id.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-id.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "700466ab62bfd4b0ceddff7aa9b7a5f8",
+        "size compressed (bytes)": 4113610061,
+        "documents": 1446315,
+        "downloaded": False,
+        "texts": "miracl-v1.0-id"
+    },
+    "miracl-v1.0-ja-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Japanese) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-ja.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ja.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "f0358ae58b32456c3cef5f71e83a0143",
+        "size compressed (bytes)": 19772957772,
+        "documents": 6953614,
+        "downloaded": False,
+        "texts": "miracl-v1.0-ja"
+    },
+    "miracl-v1.0-ko-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Korean) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-ko.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ko.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "fa00afb61fa4332c408069cb6eb2e8f2",
+        "size compressed (bytes)": 4229330667,
+        "documents": 1486752,
+        "downloaded": False,
+        "texts": "miracl-v1.0-korean"
+    },
+    "miracl-v1.0-ru-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Russian) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-ru.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ru.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "118835c214f7b24997ab9f1744b3f5ee",
+        "size compressed (bytes)": 27155045095, 
+        "documents": 9543918,
+        "downloaded": False,
+        "texts": "miracl-v1.0-ru"
+    },
+    "miracl-v1.0-sw-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Swahili) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-sw.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-sw.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "ae45812eadb685c672f7b19c084ae3bc",
+        "size compressed (bytes)": 375416284,
+        "documents": 131924,
+        "downloaded": False,
+        "texts": "miracl-v1.0-sw"
+    },
+    "miracl-v1.0-te-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Telugu) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-te.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-te.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "8cbea3c141002dd477a15b387350ea37",
+        "size compressed (bytes)": 1474250608,
+        "documents": 518079,
+        "downloaded": False,
+        "texts": "miracl-v1.0-te"
+    },
+    "miracl-v1.0-th-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Thai) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-th.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "58cd7d862f202ece45dbd4cb6b6d12f4",
+        "size compressed (bytes)": 1540980581,
+        "documents": 542166,
+        "downloaded": False,
+        "texts": "miracl-v1.0-th"
+    },
+    "miracl-v1.0-zh-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Chinese) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-zh.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-zh.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "d8800abe1ac22b4161704f2b6d4fe575",
+        "size compressed (bytes)": 14034991692,
+        "documents": 4934368,
+        "downloaded": False,
+        "texts": "miracl-v1.0-zh",
+    },
+    "miracl-v1.0-de-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (German) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-de.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-de.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "218cb42441af355285fbf219e9d2d7c7",
+        "size compressed (bytes)": 45085913144,
+        "documents": 15866222,
+        "downloaded": False,
+        "texts": "miracl-v1.0-de",
+    },
+    "miracl-v1.0-yo-mcontriever-pft-msmarco": {
+        "description": "Faiss index for MIRACL v1.0 (Yoruba) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
+        "filename": "faiss.miracl-v1.0-yo.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz",
+        "readme": "faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-yo.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
+        ],
+        "md5": "f8aee10055a31914c4c214819a7c1890",
+        "size compressed (bytes)": 139276690,
+        "documents": 49043,
+        "downloaded": False,
+        "texts": "miracl-v1.0-yo",
+    }
+
 }
+
+FAISS_INDEX_INFO_WIKIPEDIA = {
+    "wikipedia-dpr-100w.dpr-multi": {
+        "description": "Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on multiple QA datasets",
+        "filename": "faiss.wikipedia-dpr-100w.dpr_multi.20200127.f403c3.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.dpr_multi.20200127.f403c3.tar.gz"
+        ],
+        "md5": "fe307ef2e60ab6e6f3ad66e24a4144ae",
+        "size compressed (bytes)": 59836766732,
+        "documents": 21015320,
+        "downloaded": False,
+        "texts": "wikipedia-dpr-100w"
+    },
+    "wikipedia-dpr-100w.dpr-single-nq": {
+        "description": "Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on NQ",
+        "filename": "faiss.wikipedia-dpr-100w.dpr_single-nq.20200115.cd5034.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.dpr_single-nq.20200115.cd5034.tar.gz"
+        ],
+        "md5": "01fb6bcaa047df254663d0a3d854b7cc",
+        "size compressed (bytes)": 59836863979,
+        "documents": 21015320,
+        "downloaded": False,
+        "texts": "wikipedia-dpr-100w"
+    },
+    "wikipedia-dpr-100w.bpr-single-nq": {
+        "description": "Faiss binary index of Wikipedia encoded by the BPR doc encoder trained on NQ",
+        "filename": "faiss.wikipedia-dpr-100w.bpr_single-nq.20210827.8a8f75.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.bpr_single-nq.20210827.8a8f75.tar.gz"
+        ],
+        "md5": "b022580ab2fc66f6eaa54af241dba690",
+        "size compressed (bytes)": 1886380629,
+        "documents": 21015320,
+        "downloaded": False,
+        "texts": "wikipedia-dpr-100w"
+    },
+    "wikipedia-dpr-100w.ance-multi": {
+        "description": "Faiss FlatIP index of Wikipedia encoded by the ANCE-multi encoder",
+        "filename": "faiss.wikipedia-dpr-100w.ance_multi.20210224.060cef.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.ance_multi.20210224.060cef.tar.gz"
+        ],
+        "md5": "eb00e096460c8e6296a39732f1676dd7",
+        "size compressed (bytes)": 59890491335,
+        "documents": 21015320,
+        "downloaded": False,
+        "texts": "wikipedia-dpr-100w"
+    },
+    "wikipedia-dpr-100w.dkrr-nq": {
+        "description": "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ",
+        "filename": "faiss.wikipedia-dpr-100w.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz",
+        ],
+        "md5": "36a658e08dafb3e3313b05f88e001557",
+        "size compressed (bytes)": 37812137732,
+        "documents": 21015324,
+        "downloaded": False,
+        "texts": "wwikipedia-dpr-100w"
+    },
+    "wikipedia-dpr-100w.dkrr-tqa": {
+        "description": "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA",
+        "filename": "faiss.wikipedia-dpr-100w.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz",
+        ],
+        "md5": "072a514ca3ff7717339038d024019e3d",
+        "size compressed (bytes)": 37802648577,
+        "documents": 21015324,
+        "downloaded": False,
+        "texts": "wikipedia-dpr-100w"
+    },
+    "wiki-all-6-3.dpr2-multi-retriever": {
+        "description": "Faiss FlatIP index of wiki-all-6-3-tamber encoded by a 2nd iteration DPR model trained on multiple QA datasets",
+        "filename": "faiss.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.tar.gz",
+        "readme": "faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.tar.gz",
+        ],
+        "md5": "823b6297d6fd8011598e7618742ac7f8",
+        "size compressed (bytes)": 218257913366,
+        "documents": 76680040,
+        "downloaded": False,
+        "texts": "wiki-all-6-3-tamber"
+    }
+}
+
+FAISS_INDEX_INFO_OTHER = {
+    "cast2019-tct_colbert-v2.hnsw": {
+        "description": "Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder",
+        "filename": "faiss-hnsw.cast2019.tct_colbert-v2.tar.gz",
+        "readme": "faiss-hnsw.cast2019.tct_colbert-v2-readme.txt",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/hnsw-faiss.cast2019.tct_colbert-v2.tar.gz"
+        ],
+        "md5": "2ce7ce8064ed235a9b6aad08571340d4",
+        "size compressed (bytes)": 112121368296,
+        "documents": 38429835,
+        "downloaded": False,
+        "texts": "cast2019"
+    }
+}
+
+FAISS_INDEX_INFO = {**FAISS_INDEX_INFO_MSMARCO,
+                    **FAISS_INDEX_INFO_BEIR,
+                    **FAISS_INDEX_INFO_MRTYDI,
+                    **FAISS_INDEX_INFO_MIRACL,
+                    **FAISS_INDEX_INFO_WIKIPEDIA,
+                    **FAISS_INDEX_INFO_OTHER}

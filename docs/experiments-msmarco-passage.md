@@ -1,13 +1,37 @@
-# Pyserini: BM25 Baseline for MS MARCO Passage Retrieval
+# Pyserini: BM25 Baseline for MS MARCO Passage Ranking
 
-This guide contains instructions for running BM25 baselines on the [MS MARCO *passage* ranking task](https://microsoft.github.io/msmarco/), which is nearly identical to a [similar guide in Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md), except that everything is in Python here (no Java).
+This guide contains instructions for running a BM25 baseline on the [MS MARCO *passage* ranking task](https://microsoft.github.io/msmarco/), which is nearly identical to a [similar guide in Anserini](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md), except that everything is in Python here (no Java).
 Note that there is a separate guide for the [MS MARCO *document* ranking task](experiments-msmarco-doc.md).
+This exercise will require a machine with >8 GB RAM and >15 GB free disk space.
 
-**Setup Note:** If you're instantiating an Ubuntu VM on your system or on cloud (AWS and GCP), try to provision enough resources such as RAM > 6GB and storage ~ 100 (can also be around 70 - 80 for this task) GB (SSD). This will prevent going back and fixing machine configuration again and again. If you get a configuration which works for Anserini on this task, it will work with Pyserini as well.
+If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md) (which [starts here](https://github.com/castorini/anserini/blob/master/docs/start-here.md)),
+make sure you've already done the [BM25 Baselines for MS MARCO Passage Ranking **in Anserini**](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md).
+In general, don't try to rush through this guide by just blindly copying and pasting commands into a shell;
+that's what I call [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming).
+Instead, really try to understand what's going on.
+
+**Learning outcomes** for this guide, building on previous steps in the onboarding path:
+
++ Be able to use Pyserini to build a Lucene inverted index on the MS MARCO passage collection.
++ Be able to use Pyserini to perform a batch retrieval run on the MS MARCO passage collection with the dev queries.
++ Be able to evaluate the retrieved results above.
++ Be able to generate the retrieved results above _interactively_ by directly manipulating Pyserini Python classes.
+
+In short, you'll do everything you did with Anserini (in Java) on the MS MARCO passage ranking test collection, but now with Pyserini (in Python).
+
+What's Pyserini?
+Well, it's the repo that you're in right now.
+Pyserini is a Python toolkit for reproducible information retrieval research with sparse and dense representations.
+The toolkit provides Python bindings for our group's [Anserini IR toolkit](http://anserini.io/), which is built on Lucene (in Java).
+Pyserini provides entrée into the broader deep learning ecosystem, which is heavily Python-centric.
 
 ## Data Prep
 
-The guide requires the [development installation](https://github.com/castorini/pyserini/blob/master/docs/installation.md#development-installation) for additional resource that are not shipped with the Python module.
+The guide requires the [development installation](https://github.com/castorini/pyserini/blob/master/docs/installation.md#development-installation).
+So get your Python environment set up.
+
+Once you've done that: congratulations, you've passed the most difficult part!
+Everything else below mirrors what you did in Anserini (in Java), so it should be easy.
 
 We're going to use `collections/msmarco-passage/` as the working directory.
 First, we need to download and extract the MS MARCO passage dataset:
@@ -35,7 +59,9 @@ python tools/scripts/msmarco/convert_collection_to_jsonl.py \
 
 The above script should generate 9 jsonl files in `collections/msmarco-passage/collection_jsonl`, each with 1M lines (except for the last one, which should have 841,823 lines).
 
-We can now index these docs as a `JsonCollection` using Pyserini:
+## Indexing
+
+We can now index these documents as a `JsonCollection` using Pyserini:
 
 ```bash
 python -m pyserini.index.lucene \
@@ -47,11 +73,13 @@ python -m pyserini.index.lucene \
   --storePositions --storeDocvectors --storeRaw
 ```
 
+The command-line invocation should look familiar: it essentially mirrors the command with Anserini (in Java).
+If you can't make sense of what's going on here, back up and make sure you've first done the [BM25 Baselines for MS MARCO Passage Ranking **in Anserini**](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md).
 
-Upon completion, we should have an index with 8,841,823 documents.
+Upon completion, you should have an index with 8,841,823 documents.
 The indexing speed may vary; on a modern desktop with an SSD, indexing takes a couple of minutes.
 
-## Performing Retrieval on the Dev Queries
+## Retrieval
 
 The 6980 queries in the development set are already stored in the repo.
 Let's take a peek:
@@ -84,7 +112,8 @@ python -m pyserini.search.lucene \
   --output runs/run.msmarco-passage.bm25tuned.txt \
   --output-format msmarco \
   --hits 1000 \
-  --bm25 --k1 0.82 --b 0.68
+  --bm25 --k1 0.82 --b 0.68 \
+  --threads 4 --batch-size 16
 ```
 
 Here, we set the BM25 parameters to `k1=0.82`, `b=0.68` (tuned by grid search).
@@ -92,16 +121,21 @@ The option `--output-format msmarco` says to generate output in the MS MARCO out
 The option `--hits` specifies the number of documents to return per query.
 Thus, the output file should have approximately 6980 × 1000 = 6.9M lines.
 
+Once again, if you can't make sense of what's going on here, back up and make sure you've first done the [BM25 Baselines for MS MARCO Passage Ranking **in Anserini**](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md).
+
 Retrieval speed will vary by hardware:
 On a reasonably modern CPU with an SSD, we might get around 13 qps (queries per second), and so the entire run should finish in under ten minutes (using a single thread).
 We can perform multi-threaded retrieval by using the `--threads` and `--batch-size` arguments.
 For example, setting `--threads 16 --batch-size 64` on a CPU with sufficient cores, the entire run will finish in a couple of minutes.
 
-After the run finishes, we can evaluate the results using the official MS MARCO evaluation script:
+## Evaluation
+
+After the run finishes, we can evaluate the results using the official MS MARCO evaluation script, which has been incorporated into Pyserini:
 
 ```bash
-$ python tools/scripts/msmarco/msmarco_passage_eval.py \
-   tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt runs/run.msmarco-passage.bm25tuned.txt
+$ python -m pyserini.eval.msmarco_passage_eval \
+   tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+   runs/run.msmarco-passage.bm25tuned.txt
 
 #####################
 MRR @10: 0.18741227770955546
@@ -110,31 +144,124 @@ QueriesRanked: 6980
 ```
 
 We can also use the official TREC evaluation tool, `trec_eval`, to compute metrics other than MRR@10.
-For that we first need to convert the run file into TREC format:
+
+The tool needs a different run format, so it's easier to just run retrieval again:
 
 ```bash
-python -m pyserini.eval.convert_msmarco_run_to_trec_run \
-   --input runs/run.msmarco-passage.bm25tuned.txt \
-   --output runs/run.msmarco-passage.bm25tuned.trec
-
-python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
-   --input tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-   --output collections/msmarco-passage/qrels.dev.small.trec
+python -m pyserini.search.lucene \
+  --index indexes/lucene-index-msmarco-passage \
+  --topics msmarco-passage-dev-subset \
+  --output runs/run.msmarco-passage.bm25tuned.trec \
+  --hits 1000 \
+  --bm25 --k1 0.82 --b 0.68 \
+  --threads 4 --batch-size 16
 ```
 
-And then run the `trec_eval` tool:
+The only difference here is that we've removed `--output-format msmarco`.
+
+Then, convert qrels files to the TREC format:
 
 ```bash
-$ tools/eval/trec_eval.9.0.4/trec_eval -c -mrecall.1000 -mmap \
-   collections/msmarco-passage/qrels.dev.small.trec runs/run.msmarco-passage.bm25tuned.trec
+python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
+  --input collections/msmarco-passage/qrels.dev.small.tsv \
+  --output collections/msmarco-passage/qrels.dev.small.trec
+```
+
+Finally, run the `trec_eval` tool, which has been incorporated into Pyserini:
+
+```bash
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
+   collections/msmarco-passage/qrels.dev.small.trec \
+   runs/run.msmarco-passage.bm25tuned.trec
 
 map                   	all	0.1957
 recall_1000           	all	0.8573
 ```
 
-Average precision or AP (also called mean average precision, MAP) and recall@1000 (recall at rank 1000) are the two metrics we care about the most.
-AP captures aspects of both precision and recall in a single metric, and is the most common metric used by information retrieval researchers.
-On the other hand, recall@1000 provides the upper bound effectiveness of downstream reranking modules (i.e., rerankers are useless if there isn't a relevant document in the results).
+If you want to examine the MRR@10 for `qid` 1048585:
+
+```bash
+$ python -m pyserini.eval.trec_eval -q -c -M 10 -m recip_rank \
+    collections/msmarco-passage/qrels.dev.small.trec \
+    runs/run.msmarco-passage.bm25tuned.trec | grep 1048585
+
+recip_rank            	1048585	1.0000
+```
+
+Once again, if you can't make sense of what's going on here, back up and make sure you've first done the [BM25 Baselines for MS MARCO Passage Ranking **in Anserini**](https://github.com/castorini/anserini/blob/master/docs/experiments-msmarco-passage.md).
+
+Otherwise, congratulations!
+You've done everything that you did in Anserini (in Java), but now in Pyserini (in Python).
+
+## Interactive Retrieval
+
+There's one final thing we should go over.
+Because we're in Python now, we get the benefit of having an interactive shell.
+Thus, we can run Pyserini interactively.
+
+Try the following:
+
+```python
+from pyserini.search.lucene import LuceneSearcher
+
+searcher = LuceneSearcher('indexes/lucene-index-msmarco-passage')
+searcher.set_bm25(0.82, 0.68)
+hits = searcher.search('what is paula deen\'s brother')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.6f}')
+```
+
+The `LuceneSearcher` class provides search capabilities for BM25.
+In the code snippet above, we're issuing the query about Paula Deen's brother (from above).
+Note that we're explicitly setting the BM25 parameters, which are not the default parameters.
+We get back a list of results (`hits`), which we then iterate through and print out:
+
+```
+ 1 7187158 18.811600
+ 2 7187157 18.333401
+ 3 7187163 17.878799
+ 4 7546327 16.962099
+ 5 7187160 16.564699
+ 6 8227279 16.432501
+ 7 7617404 16.239901
+ 8 7187156 16.024900
+ 9 2298838 15.701500
+10 7187155 15.513300
+```
+
+You can confirm that the output is the same as `pyserini.search.lucene` from above.
+
+```bash
+$ grep 1048585 runs/run.msmarco-passage.bm25tuned.trec | head -10
+1048585 Q0 7187158 1 18.811600 Anserini
+1048585 Q0 7187157 2 18.333401 Anserini
+1048585 Q0 7187163 3 17.878799 Anserini
+1048585 Q0 7546327 4 16.962099 Anserini
+1048585 Q0 7187160 5 16.564699 Anserini
+1048585 Q0 8227279 6 16.432501 Anserini
+1048585 Q0 7617404 7 16.239901 Anserini
+1048585 Q0 7187156 8 16.024900 Anserini
+1048585 Q0 2298838 9 15.701500 Anserini
+1048585 Q0 7187155 10 15.513300 Anserini
+```
+
+To pull up the actual contents of a hit:
+
+```python
+hits[0].raw
+```
+
+And you should get:
+
+```
+'{\n  "id" : "7187158",\n  "contents" : "Paula Deen and her brother Earl W. Bubba Hiers are being sued by a former general manager at Uncle Bubba\'sâ\x80¦ Paula Deen and her brother Earl W. Bubba Hiers are being sued by a former general manager at Uncle Bubba\'sâ\x80¦"\n}'
+```
+
+Everything make sense?
+If so, now you're truly done with this guide and are ready to move on and [learn about the relationship between sparse and dense retrieval](conceptual-framework.md)!
+
+Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
 
 ## Reproduction Log[*](reproducibility.md)
 
@@ -182,3 +309,6 @@ On the other hand, recall@1000 provides the upper bound effectiveness of downstr
 + Results reproduced by [@Cath](https://github.com/Cathrineee) on 2023-01-14 (commit [`ec37c5e`](https://github.com/castorini/pyserini/commit/ec37c5e1d02868e7ed73d6293155a6f16f0d9a12))
 + Results reproduced by [@dlrudwo1269](https://github.com/dlrudwo1269) on 2023-03-08 (commit [`dfae4bb5`](https://github.com/castorini/pyserini/commit/dfae4bb5128225e81606acbb17d1d92e254d609f))
 + Results reproduced by [@aryamancodes](https://github.com/aryamancodes) on 2023-04-11 (commit [`1aea2b0`](https://github.com/castorini/pyserini/commit/1aea2b02ccb48e7f9bfe8065657ba57462eb1a47))
++ Results reproduced by [@zoehahaha](https://github.com/zoehahaha) on 2023-05-12 (commit [`68be809`](https://github.com/castorini/pyserini/commit/68be8090b8553fc6eaf352ac690a6de9d3dc82dd))
++ Results reproduced by [@pratyushpal](https://github.com/pratyushpal) on 2023-07-14 (commit [`760c22a`](https://github.com/castorini/pyserini/commit/760c22a3300a4fc3bfc83991140cdc1d6d7a35f9))
++ Results reproduced by [@sahel-sh](https://github.com/sahel-sh) on 2023-07-22 (commit [`863ff361`](https://github.com/castorini/pyserini/commit/863ff361fd671bb79b07f8f89a4b8121b7b46e8e))
