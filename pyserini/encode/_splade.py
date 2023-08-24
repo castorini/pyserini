@@ -12,6 +12,8 @@ class SpladeQueryEncoder(QueryEncoder):
         self.model.to(self.device)
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name_or_path)
         self.reverse_voc = {v: k for k, v in self.tokenizer.vocab.items()}
+        self.weight_range = 5
+        self.quant_range = 256
 
     def encode(self, text, max_length=256, **kwargs):
         inputs = self.tokenizer([text], max_length=max_length, padding='longest',
@@ -23,7 +25,8 @@ class SpladeQueryEncoder(QueryEncoder):
         batch_aggregated_logits, _ = torch.max(torch.log(1 + torch.relu(batch_logits))
                                                * input_attention.unsqueeze(-1), dim=1)
         batch_aggregated_logits = batch_aggregated_logits.cpu().detach().numpy()
-        return self._output_to_weight_dicts(batch_aggregated_logits)[0]
+        raw_weights = self._output_to_weight_dicts(batch_token_ids, batch_weights)
+        return self._get_encoded_query_token_wight_dicts(raw_weights)[0]
 
     def _output_to_weight_dicts(self, batch_aggregated_logits):
         to_return = []
@@ -32,4 +35,14 @@ class SpladeQueryEncoder(QueryEncoder):
             weights = aggregated_logits[col]
             d = {self.reverse_voc[k]: float(v) for k, v in zip(list(col), list(weights))}
             to_return.append(d)
+        return to_return
+
+    def _get_encoded_query_token_wight_dicts(self, tok_weights):
+        to_return = []
+        for _tok_weight in tok_weights:
+            _weights = {}
+            for token, weight in _tok_weight.items():
+                weight_quanted = round(weight / self.weight_range * self.quant_range)
+                _weights[token] = weight_quanted
+            to_return.append(_weights)
         return to_return

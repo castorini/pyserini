@@ -16,28 +16,31 @@
 
 import json
 import os
+import random
+
 import faiss
 import shutil
 import unittest
 import pathlib as pl
 
 
-class TestSearch(unittest.TestCase):
+class TestIndexFaiss(unittest.TestCase):
+    @staticmethod
+    def assertIsFile(path):
+        if not pl.Path(path).resolve().is_file():
+            raise AssertionError("File does not exist: %s" % str(path))
+
     def setUp(self):
         self.docids = []
         self.texts = []
         self.test_file = 'tests/resources/simple_cacm_corpus.json'
-        self.tmp_dir = "temp_dir"
+        self.tmp_dir = f'tmp_{self.__class__.__name__}_{str(random.randint(0, 1000))}'
 
         with open(self.test_file) as f:
             for line in f:
                 line = json.loads(line)
                 self.docids.append(line['id'])
                 self.texts.append(line['contents'])
-    
-    def assertIsFile(self, path):
-        if not pl.Path(path).resolve().is_file():
-            raise AssertionError("File does not exist: %s" % str(path))
 
     def prepare_encoded_collection(self):
         encoded_corpus_dir = f'{self.tmp_dir}/temp_index'

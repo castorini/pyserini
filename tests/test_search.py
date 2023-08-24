@@ -27,21 +27,28 @@ from pyserini.index.lucene import Document
 
 
 class TestSearch(unittest.TestCase):
+    tarball_name = None
+    collection_url = None
+    searcher = None
+    searcher_index_dir = None
+    no_vec_searcher = None
+    no_vec_searcher_index_dir = None
+
     @classmethod
     def setUpClass(cls):
         # Download pre-built CACM index built using Lucene 9; append a random value to avoid filename clashes.
         r = randint(0, 10000000)
         cls.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene9-index.cacm.tar.gz'
         cls.tarball_name = 'lucene-index.cacm-{}.tar.gz'.format(r)
-        cls.index_dir = 'index{}/'.format(r)
+        cls.searcher_index_dir = 'index{}/'.format(r)
 
-        filename, headers = urlretrieve(cls.collection_url, cls.tarball_name)
+        urlretrieve(cls.collection_url, cls.tarball_name)
 
         tarball = tarfile.open(cls.tarball_name)
-        tarball.extractall(cls.index_dir)
+        tarball.extractall(cls.searcher_index_dir)
         tarball.close()
 
-        cls.searcher = LuceneSearcher(f'{cls.index_dir}lucene9-index.cacm')
+        cls.searcher = LuceneSearcher(f'{cls.searcher_index_dir}lucene9-index.cacm')
 
         # Create index without document vectors
         # The current directory depends on if you're running inside an IDE or from command line.
@@ -50,12 +57,13 @@ class TestSearch(unittest.TestCase):
             corpus_path = '../tests/resources/sample_collection_json'
         else:
             corpus_path = 'tests/resources/sample_collection_json'
-        cls.no_vec_index_dir = 'no_vec_index'
+
+        cls.no_vec_searcher_index_dir = 'no_vec_index'
         cmd1 = f'python -m pyserini.index.lucene -collection JsonCollection ' + \
                f'-generator DefaultLuceneDocumentGenerator ' + \
-               f'-threads 1 -input {corpus_path} -index {cls.no_vec_index_dir}'
+               f'-threads 1 -input {corpus_path} -index {cls.no_vec_searcher_index_dir}'
         os.system(cmd1)
-        cls.no_vec_searcher = LuceneSearcher(cls.no_vec_index_dir)
+        cls.no_vec_searcher = LuceneSearcher(cls.no_vec_searcher_index_dir)
 
     def test_basic(self):
         self.assertTrue(self.searcher.get_similarity().toString().startswith('BM25'))
@@ -231,7 +239,7 @@ class TestSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[9].score, 4.33320, places=5)
 
     def test_rm3(self):
-        self.searcher = LuceneSearcher(f'{self.index_dir}lucene9-index.cacm')
+        self.searcher = LuceneSearcher(f'{self.searcher_index_dir}lucene9-index.cacm')
         self.searcher.set_rm3()
         self.assertTrue(self.searcher.is_using_rm3())
 
@@ -271,7 +279,7 @@ class TestSearch(unittest.TestCase):
             self.no_vec_searcher.set_rm3()
 
     def test_rocchio(self):
-        self.searcher = LuceneSearcher(f'{self.index_dir}lucene9-index.cacm')
+        self.searcher = LuceneSearcher(f'{self.searcher_index_dir}lucene9-index.cacm')
         self.searcher.set_rocchio()
         self.assertTrue(self.searcher.is_using_rocchio())
 
@@ -406,8 +414,8 @@ class TestSearch(unittest.TestCase):
         cls.searcher.close()
         cls.no_vec_searcher.close()
         os.remove(cls.tarball_name)
-        shutil.rmtree(cls.index_dir)
-        shutil.rmtree(cls.no_vec_index_dir)
+        shutil.rmtree(cls.searcher_index_dir)
+        shutil.rmtree(cls.no_vec_searcher_index_dir)
 
 
 if __name__ == '__main__':

@@ -30,6 +30,7 @@ from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
 
 # The models: the rows of the results table will be ordered this way.
 models = {
+    # MS MARCO v1 passage
     'msmarco-v1-passage':
     ['bm25-default',
      'bm25-rm3-default',
@@ -47,25 +48,37 @@ models = {
      'bm25-rm3-d2q-t5-tuned',
      'bm25-rocchio-d2q-t5-tuned',
      '',
-     'unicoil-noexp',
      'unicoil',
+     'unicoil-pytorch',
+     'unicoil-onnx',
+     'unicoil-noexp',
+     'unicoil-noexp-pytorch',
+     'unicoil-noexp-onnx',
      '',
-     'unicoil-noexp-otf',
-     'unicoil-otf',
+     'splade-pp-ed-onnx',
+     'splade-pp-sd-onnx',
      '',
      'ance',
-     'distilbert-kd',
-     'distilbert-kd-tasb',
-     'tct_colbert-v2-hnp',
+     'ance-pytorch',
      '',
-     'ance-otf',
-     'distilbert-kd-otf',
-     'distilbert-kd-tasb-otf',
-     'tct_colbert-v2-hnp-otf',
+     'distilbert-kd',
+     'distilbert-kd-pytorch',
+     'distilbert-kd-tasb',
+     'distilbert-kd-tasb-pytorch',
+     '',
+     'tct_colbert-v2-hnp',
+     'tct_colbert-v2-hnp-pytorch',
+     '',
      'slimr',
      'slimr-pp',
-     'Aggretriever-Distilbert-otf',
-     'Aggretriever-coCondenser-otf'],
+     '',
+     'aggretriever-distilbert-pytorch',
+     'aggretriever-cocondenser-pytorch',
+     '',
+     'openai-ada2',
+     'openai-ada2-hyde'],
+
+    # MS MARCO v1 doc
     'msmarco-v1-doc':
     ['bm25-doc-default',
      'bm25-doc-segmented-default',
@@ -92,10 +105,12 @@ models = {
      'bm25-rm3-d2q-t5-doc-segmented-tuned',
      '',
      'unicoil-noexp',
-     'unicoil',
+     'unicoil-noexp-pytorch',
      '',
-     'unicoil-noexp-otf',
-     'unicoil-otf'],
+     'unicoil',
+     'unicoil-pytorch'],
+
+    # MS MARCO v2 passage
     'msmarco-v2-passage':
     ['bm25-default',
      'bm25-augmented-default',
@@ -112,6 +127,8 @@ models = {
      '',
      'unicoil-noexp-otf',
      'unicoil-otf'],
+
+    # MS MARCO v2 doc
     'msmarco-v2-doc':
     ['bm25-doc-default',
      'bm25-doc-segmented-default',
@@ -235,6 +252,7 @@ def format_command(raw):
         .replace('--index', '\\\n  --index')\
         .replace('--output ', '\\\n  --output ')\
         .replace('--encoder', '\\\n  --encoder')\
+        .replace('--onnx-encoder', '\\\n  --onnx-encoder')\
         .replace('--encoded-corpus', '\\\n  --encoded-corpus')\
         .replace('.txt ', '.txt \\\n  ')
 
@@ -468,7 +486,7 @@ def run_conditions(args):
                                 result_str = ok_str
                             # Flaky tests
                             elif args.collection == 'msmarco-v1-passage' \
-                                    and topic_key == 'msmarco-passage-dev-subset' and name == 'ance-otf' \
+                                    and topic_key == 'msmarco-passage-dev-subset' and name == 'ance-pytorch' \
                                     and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
                                 result_str = okish_str
                             else:

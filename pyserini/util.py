@@ -194,7 +194,7 @@ def get_sparse_indexes_info():
         df[index]['downloaded'] = check_downloaded(index)
 
     with pd.option_context('display.max_rows', None, 'display.max_columns',
-                           None, 'display.max_colwidth', -1, 'display.colheader_justify', 'left'):
+                           None, 'display.max_colwidth', None, 'display.colheader_justify', 'left'):
         print(df)
 
 
@@ -204,7 +204,7 @@ def get_impact_indexes_info():
         df[index]['downloaded'] = check_downloaded(index)
 
     with pd.option_context('display.max_rows', None, 'display.max_columns',
-                           None, 'display.max_colwidth', -1, 'display.colheader_justify', 'left'):
+                           None, 'display.max_colwidth', None, 'display.colheader_justify', 'left'):
         print(df)
 
 
@@ -214,7 +214,7 @@ def get_dense_indexes_info():
         df[index]['downloaded'] = check_downloaded(index)
 
     with pd.option_context('display.max_rows', None, 'display.max_columns',
-                           None, 'display.max_colwidth', -1, 'display.colheader_justify', 'left'):
+                           None, 'display.max_colwidth', None, 'display.colheader_justify', 'left'):
         print(df)
 
 
