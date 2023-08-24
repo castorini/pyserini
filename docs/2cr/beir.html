@@ -342,7 +342,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-trec-covid.contriever-ft \
+  --index beir-v1.0.0-trec-covid.contriever-msmarco \
   --topics beir-v1.0.0-trec-covid-test \
   --output run.beir-contriever-msmarco.trec-covid.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -536,7 +536,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-bioasq.contriever-ft \
+  --index beir-v1.0.0-bioasq.contriever-msmarco \
   --topics beir-v1.0.0-bioasq-test \
   --output run.beir-contriever-msmarco.bioasq.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -730,7 +730,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-nfcorpus.contriever-ft \
+  --index beir-v1.0.0-nfcorpus.contriever-msmarco \
   --topics beir-v1.0.0-nfcorpus-test \
   --output run.beir-contriever-msmarco.nfcorpus.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -924,7 +924,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-nq.contriever-ft \
+  --index beir-v1.0.0-nq.contriever-msmarco \
   --topics beir-v1.0.0-nq-test \
   --output run.beir-contriever-msmarco.nq.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -1118,7 +1118,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-hotpotqa.contriever-ft \
+  --index beir-v1.0.0-hotpotqa.contriever-msmarco \
   --topics beir-v1.0.0-hotpotqa-test \
   --output run.beir-contriever-msmarco.hotpotqa.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -1312,7 +1312,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-fiqa.contriever-ft \
+  --index beir-v1.0.0-fiqa.contriever-msmarco \
   --topics beir-v1.0.0-fiqa-test \
   --output run.beir-contriever-msmarco.fiqa.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -1506,7 +1506,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-signal1m.contriever-ft \
+  --index beir-v1.0.0-signal1m.contriever-msmarco \
   --topics beir-v1.0.0-signal1m-test \
   --output run.beir-contriever-msmarco.signal1m.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -1700,7 +1700,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-trec-news.contriever-ft \
+  --index beir-v1.0.0-trec-news.contriever-msmarco \
   --topics beir-v1.0.0-trec-news-test \
   --output run.beir-contriever-msmarco.trec-news.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -1894,7 +1894,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-robust04.contriever-ft \
+  --index beir-v1.0.0-robust04.contriever-msmarco \
   --topics beir-v1.0.0-robust04-test \
   --output run.beir-contriever-msmarco.robust04.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -2088,7 +2088,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-arguana.contriever-ft \
+  --index beir-v1.0.0-arguana.contriever-msmarco \
   --topics beir-v1.0.0-arguana-test \
   --output run.beir-contriever-msmarco.arguana.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -2282,7 +2282,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-webis-touche2020.contriever-ft \
+  --index beir-v1.0.0-webis-touche2020.contriever-msmarco \
   --topics beir-v1.0.0-webis-touche2020-test \
   --output run.beir-contriever-msmarco.webis-touche2020.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -2476,7 +2476,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-android.contriever-ft \
+  --index beir-v1.0.0-cqadupstack-android.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir-contriever-msmarco.cqadupstack-android.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -2670,7 +2670,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-english.contriever-ft \
+  --index beir-v1.0.0-cqadupstack-english.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir-contriever-msmarco.cqadupstack-english.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -2864,7 +2864,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-gaming.contriever-ft \
+  --index beir-v1.0.0-cqadupstack-gaming.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir-contriever-msmarco.cqadupstack-gaming.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -3058,7 +3058,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-gis.contriever-ft \
+  --index beir-v1.0.0-cqadupstack-gis.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir-contriever-msmarco.cqadupstack-gis.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -3252,7 +3252,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-mathematica.contriever-ft \
+  --index beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir-contriever-msmarco.cqadupstack-mathematica.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -3446,7 +3446,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-physics.contriever-ft \
+  --index beir-v1.0.0-cqadupstack-physics.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir-contriever-msmarco.cqadupstack-physics.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -3640,7 +3640,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-programmers.contriever-ft \
+  --index beir-v1.0.0-cqadupstack-programmers.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir-contriever-msmarco.cqadupstack-programmers.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -3834,7 +3834,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-stats.contriever-ft \
+  --index beir-v1.0.0-cqadupstack-stats.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir-contriever-msmarco.cqadupstack-stats.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -4028,7 +4028,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-tex.contriever-ft \
+  --index beir-v1.0.0-cqadupstack-tex.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir-contriever-msmarco.cqadupstack-tex.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -4222,7 +4222,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-unix.contriever-ft \
+  --index beir-v1.0.0-cqadupstack-unix.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir-contriever-msmarco.cqadupstack-unix.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -4416,7 +4416,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-webmasters.contriever-ft \
+  --index beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir-contriever-msmarco.cqadupstack-webmasters.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -4610,7 +4610,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-wordpress.contriever-ft \
+  --index beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir-contriever-msmarco.cqadupstack-wordpress.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -4804,7 +4804,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-quora.contriever-ft \
+  --index beir-v1.0.0-quora.contriever-msmarco \
   --topics beir-v1.0.0-quora-test \
   --output run.beir-contriever-msmarco.quora.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -4998,7 +4998,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-dbpedia-entity.contriever-ft \
+  --index beir-v1.0.0-dbpedia-entity.contriever-msmarco \
   --topics beir-v1.0.0-dbpedia-entity-test \
   --output run.beir-contriever-msmarco.dbpedia-entity.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -5192,7 +5192,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-scidocs.contriever-ft \
+  --index beir-v1.0.0-scidocs.contriever-msmarco \
   --topics beir-v1.0.0-scidocs-test \
   --output run.beir-contriever-msmarco.scidocs.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -5386,7 +5386,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-fever.contriever-ft \
+  --index beir-v1.0.0-fever.contriever-msmarco \
   --topics beir-v1.0.0-fever-test \
   --output run.beir-contriever-msmarco.fever.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -5580,7 +5580,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-climate-fever.contriever-ft \
+  --index beir-v1.0.0-climate-fever.contriever-msmarco \
   --topics beir-v1.0.0-climate-fever-test \
   --output run.beir-contriever-msmarco.climate-fever.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
@@ -5774,7 +5774,7 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-scifact.contriever-ft \
+  --index beir-v1.0.0-scifact.contriever-msmarco \
   --topics beir-v1.0.0-scifact-test \
   --output run.beir-contriever-msmarco.scifact.txt --batch 128 --threads 16 \
   --hits 1000 --remove-query
