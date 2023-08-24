@@ -17,16 +17,17 @@
 import os
 import shutil
 import unittest
+import random
 from typing import List
 
 from pyserini.index.lucene import LuceneIndexer, IndexReader, JacksonObjectMapper
 from pyserini.search.lucene import JLuceneSearcherResult, LuceneSearcher
 
 
-class TestSearch(unittest.TestCase):
+class TestIndexOTF(unittest.TestCase):
     def setUp(self):
         self.docs = []
-        self.tmp_dir = "temp_dir"
+        self.tmp_dir = f'tmp_{self.__class__.__name__}_{str(random.randint(0, 1000))}'
 
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()

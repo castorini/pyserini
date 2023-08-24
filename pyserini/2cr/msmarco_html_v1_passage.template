@@ -187,30 +187,33 @@ $rows
 
 <p>&nbsp; &nbsp; &nbsp; &nbsp;Numbers in parentheses correspond to rows in Table 1 of the paper.</p></li>
 
-<li><p>[2] Lee Xiong, Chenyan Xiong, Ye Li, Kwok-Fung Tang, Jialin Liu, Paul N. Bennett, Junaid Ahmed, and Arnold Overwijk.
+<li><p>[2] Thibault Formal, Carlos Lassance, Benjamin Piwowarski, and Stéphane Clinchant
+<a href="https://arxiv.org/abs/2205.04733">From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.</a>
+<i>Proceedings of the 45th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022), May 2022.</i></p></li>
+
+<li><p>[3] Lee Xiong, Chenyan Xiong, Ye Li, Kwok-Fung Tang, Jialin Liu, Paul N. Bennett, Junaid Ahmed, and Arnold Overwijk.
 <a href="https://openreview.net/forum?id=zeFrfgyZln">Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval.</a>
 <i>Proceedings of the 9th International Conference on Learning Representations (ICLR 2021), May 2021.</i></p></li>
 
-<li><p>[3] Sebastian Hofstätter, Sophia Althammer, Michael Schröder, Mete Sertkan, and Allan Hanbury.
+<li><p>[4] Sebastian Hofstätter, Sophia Althammer, Michael Schröder, Mete Sertkan, and Allan Hanbury.
 <a href="https://arxiv.org/abs/2010.02666">Improving Efficient Neural Ranking Models with Cross-Architecture Knowledge Distillation.</a>
 <i>arXiv:2010.02666</i>, October 2020.</p></li>
 
-<li><p>[4] Sebastian Hofstätter, Sheng-Chieh Lin, Jheng-Hong Yang, Jimmy Lin, and Allan Hanbury.
+<li><p>[5] Sebastian Hofstätter, Sheng-Chieh Lin, Jheng-Hong Yang, Jimmy Lin, and Allan Hanbury.
 <a href="https://dl.acm.org/doi/10.1145/3404835.3462891">Efficiently Teaching an Effective Dense Retriever with Balanced Topic Aware Sampling.</a>
 <i>Proceedings of the 44th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2021)</i>, pages 113-122, July 2021.</p></li>
 
-<li><p>[5] Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin.
+<li><p>[6] Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin.
 <a href="https://aclanthology.org/2021.repl4nlp-1.17/">In-Batch Negatives for Knowledge Distillation with Tightly-Coupled Teachers for Dense Retrieval.</a>
 <i>Proceedings of the 6th Workshop on Representation Learning for NLP (RepL4NLP-2021)</i>, pages 163-173, August 2021.</p></li>
 
-<li><p>[6] Minghan Li, Sheng-Chieh Lin, Xueguang Ma, Jimmy Lin.
+<li><p>[7] Minghan Li, Sheng-Chieh Lin, Xueguang Ma, Jimmy Lin.
 <a href="https://arxiv.org/abs/2302.06587">SLIM: Sparsified Late Interaction for Multi-Vector Retrieval with Inverted Indexes.</a>
 <i>arXiv:2302.06587</i>, Feburary 2023.</p></li>
 
-<li><p>[7] Sheng-Chieh Lin, Minghan Li and Jimmy Lin.
+<li><p>[8] Sheng-Chieh Lin, Minghan Li and Jimmy Lin.
 <a href="https://arxiv.org/abs/2208.00511">Aggretriever: A Simple Approach to Aggregate Textual Representation for Robust Dense Passage Retrieval.</a>
 <i>arXiv:2208.00511</i>, July 2022.</p></li>
-
 
 </ul>
 

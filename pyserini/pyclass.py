@@ -29,6 +29,7 @@ from jnius import autoclass, cast
 # Base Java classes
 JString = autoclass('java.lang.String')
 JFloat = autoclass('java.lang.Float')
+JInt = autoclass('java.lang.Integer')
 JPath = autoclass('java.nio.file.Path')
 JPaths = autoclass('java.nio.file.Paths')
 JList = autoclass('java.util.List')

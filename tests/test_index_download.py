@@ -15,6 +15,7 @@
 #
 
 import os
+import random
 import shutil
 import unittest
 
@@ -22,17 +23,19 @@ from pyserini.search.lucene import LuceneSearcher
 
 
 class TestIndexDownload(unittest.TestCase):
+    def setUp(self):
+        self.tmp_dir = f'tmp_{self.__class__.__name__}_{str(random.randint(0, 1000))}'
 
     def test_default_cache(self):
         LuceneSearcher.from_prebuilt_index('cacm')
         self.assertTrue(os.path.exists(os.path.expanduser('~/.cache/pyserini/indexes')))
 
     def test_custom_cache(self):
-        os.environ['PYSERINI_CACHE'] = 'temp_dir'
+        os.environ['PYSERINI_CACHE'] = self.tmp_dir
         LuceneSearcher.from_prebuilt_index('cacm')
-        self.assertTrue(os.path.exists('temp_dir/indexes'))
+        self.assertTrue(os.path.exists(os.path.join(self.tmp_dir, 'indexes')))
 
     def tearDown(self):
-        if os.path.exists('temp_dir'):
-            shutil.rmtree('temp_dir')
+        if os.path.exists(self.tmp_dir):
+            shutil.rmtree(self.tmp_dir)
             os.environ['PYSERINI_CACHE'] = ''
