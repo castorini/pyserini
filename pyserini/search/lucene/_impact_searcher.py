@@ -141,8 +141,8 @@ class LuceneImpactSearcher:
             jfields.put(field, JFloat(boost))
 
         if self.encoder_type == 'pytorch':
+            jquery = JHashMap()
             encoded_query = self.encode(q)
-            jquery = encoded_query
             for (token, weight) in encoded_query.items():
                 if token in self.idf and self.idf[token] > self.min_idf:
                     jquery.put(token, JInt(weight))
