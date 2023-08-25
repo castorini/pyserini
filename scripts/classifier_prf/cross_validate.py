@@ -39,7 +39,7 @@ def get_trec_eval_cmd(anserini_root: str):
 
 
 def get_qrels_path(anserini_root: str, collection: str):
-    return f"{anserini_root}/src/main/resources/topics-and-qrels/qrels.{collection}.txt"
+    return f"{anserini_root}/tools/topics-and-qrels/qrels.{collection}.txt"
 
 
 def read_topics_alpha_map(anserini_root, collection, run_file, classifier, rm3: bool):
