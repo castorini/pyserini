@@ -44,7 +44,7 @@ class TestSearchIntegration(unittest.TestCase):
         os.mkdir(f'{self.tmp}/runs')
 
         self.round4_runs = {
-            'https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.covid-round4-cumulative.txt':
+            'https://raw.githubusercontent.com/castorini/anserini-tools/master/topics-and-qrels/qrels.covid-round4-cumulative.txt':
                 '7a5c27e8e052c49ff72d557051825973',
         }
 
