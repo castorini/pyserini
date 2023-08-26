@@ -383,14 +383,20 @@ def run_conditions(args):
                             # Flaky tests
                             elif (name == 'mdpr-tied-pft-msmarco.hi' and split == 'train'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
+                                 (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh'
+                                  and split == 'dev' and metric == 'nDCG@10'
+                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
                                  (name == 'mdpr-tied-pft-msmarco-ft-all.ru'
+                                 # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3932 -> expected 0.3933
                                   and split == 'dev' and metric == 'nDCG@10'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
                                  (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.te'
+                                 # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.6000 -> expected 0.5999
                                   and split == 'train' and metric == 'nDCG@10'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
-                                 (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh'
-                                  and split == 'dev' and metric == 'nDCG@10'
+                                 (name == 'mcontriever-tied-pft-msmarco.id'
+                                 # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3748 -> expected 0.3749
+                                  and split == 'train' and metric == 'nDCG@10'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)):
                                 result_str = okish_str
                             else:
