@@ -22,7 +22,7 @@ import unittest
 from integrations.utils import clean_files, run_command, parse_score, parse_score_msmarco
 
 
-class TestSIGIR2021(unittest.TestCase):
+class TestSIGIR2022(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
 
@@ -66,8 +66,7 @@ class TestSIGIR2021(unittest.TestCase):
         eval_cmd = f'python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev {output_file}'
         stdout, stderr = run_command(eval_cmd)
         score = parse_score(stdout, "recip_rank")
-        self.assertAlmostEqual(score, 0.1501, delta=0.0001)
-        # This is the score with otf; with pre-encoded, the score is 0.1499.
+        self.assertAlmostEqual(score, 0.1499, delta=0.0001)
 
     def test_Trotman_etal(self):
         """Sample code in Trotman et al. demo paper."""

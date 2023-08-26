@@ -69,6 +69,13 @@ class LuceneSearcher:
         LuceneSearcher
             Searcher built from the prebuilt index.
         """
+        # see integrations/papers/test_sigir2021.py - preserve working commands published in papers
+        if prebuilt_index_name == 'msmarco-passage':
+            prebuilt_index_name = 'msmarco-v1-passage'
+        # see integrations/papers/test_ecir2023.py - preserve working commands published in papers
+        elif prebuilt_index_name == 'wikipedia-dpr':
+            prebuilt_index_name = 'wikipedia-dpr-100w'
+
         if verbose:
             print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
 
