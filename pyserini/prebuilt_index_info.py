@@ -5626,7 +5626,7 @@ FAISS_INDEX_INFO_WIKIPEDIA = {
         "size compressed (bytes)": 37812137732,
         "documents": 21015324,
         "downloaded": False,
-        "texts": "wwikipedia-dpr-100w"
+        "texts": "wikipedia-dpr-100w"
     },
     "wikipedia-dpr-100w.dkrr-tqa": {
         "description": "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA",
