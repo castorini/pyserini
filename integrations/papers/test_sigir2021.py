@@ -169,8 +169,7 @@ class TestSIGIR2021(unittest.TestCase):
                        msmarco-passage-dev-subset {output_file}'
         stdout, stderr = run_command(eval_cmd)
         score = parse_score_msmarco(stdout, "MRR @10")
-        self.assertAlmostEqual(score, 0.1872, delta=0.0001)
-        # Temporary fix: this is Lucene 9 code running on Lucene 8 prebuilt index.
+        self.assertAlmostEqual(score, 0.1874, delta=0.0001)
 
     def tearDown(self):
         clean_files(self.temp_files)
