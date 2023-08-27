@@ -315,3 +315,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@pratyushpal](https://github.com/pratyushpal) on 2023-07-14 (commit [`760c22a`](https://github.com/castorini/pyserini/commit/760c22a3300a4fc3bfc83991140cdc1d6d7a35f9))
 + Results reproduced by [@sahel-sh](https://github.com/sahel-sh) on 2023-07-22 (commit [`863ff361`](https://github.com/castorini/pyserini/commit/863ff361fd671bb79b07f8f89a4b8121b7b46e8e))
 + Results reproduced by [@yilinjz](https://github.com/yilinjz) on 2023-08-25 (commit [`b57b583`](https://github.com/castorini/pyserini/commit/b57b5838bcb48ecbc478302d364eace787cc1b6f))
++ Results reproduced by [@Andrwyl](https://github.com/Andrwyl) on 2023-08-26 (commit [`0b3ec90`](https://github.com/castorini/pyserini/commit/0b3ec904376d207a36f809944108720c49ff8ce1))
