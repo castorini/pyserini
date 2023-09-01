@@ -19,6 +19,8 @@ With other versions of the dependent packages, as they say, your mileage may var
 
 Below is a step-by-step Pyserini installation guide based on Python 3.8.
 We recommend using [Anaconda](https://www.anaconda.com/) and assume you have already installed it.
++ If you are installing Anaconda on Windows Ubuntu Terminal, [here](https://gist.github.com/kauffmanes/5e74916617f9993bc3479f401dfec7da) is a useful guide.
++ If you are installing Anaconda on Mac M1/M2 ARM processor, we strongly recommend you first read the **Troubleshooting Tips** section below regarding potential issues with Anaconda ARM64 distribution.
 
 Create new environment:
 
@@ -184,6 +186,33 @@ To fix, manually set environment variable `set _JAVA_OPTIONS=-Dfile.encoding=UTF
 The solution to this is to check the version of your `numpy`. At the time of this writing, the latest numpy version is `1.23.2`, which is incompatible with the API.
 Fix by downgrading to `1.21.1` so that the other dependent libraries are compatible with the API version.
 (See [#1259](https://github.com/castorini/pyserini/pull/1259)).
+
+If you're on a **Mac M1/M2 ARM processor** (See [#1599](https://github.com/castorini/pyserini/pull/1599) and [#1607](https://github.com/castorini/pyserini/pull/1607)), the following tips have been submitted by our users:
+
++ If you encountered issues with Pip Installation for Pyserini (e.g. Failed building wheel for `nmslib` or `lightgbm`), try the Development Installation:
+```bash
+% conda env list
+% conda create -n pyserini-dev python=3.8
+% conda activate pyserini-dev
+
+% conda install wget
+% conda install -c conda-forge openjdk=11
+% conda install -c conda-forge maven
+% conda install -c conda-forge lightgbm
+% conda install -c conda-forge faiss-cpu
+% conda install pytorch torchvision torchaudio -c pytorch
+% pip install --no-binary :all: nmslib
+% pip install -e .
+```
+
++ If you encountered issues with running the unit tests (i.e. `python -m unittest`), the following tips have been submitted by our users:
+
+1. Uninstall your current conda distribution (https://docs.anaconda.com/free/anaconda/install/uninstall/)
+2. If you do not have Rosetta installed on your Mac, install Rosetta (https://osxdaily.com/2020/12/04/how-install-rosetta-2-apple-silicon-mac/)
+3. Install the latest **Intel** Mac distribution (https://www.anaconda.com/). Rosetta will handle the x86 translation which allows the Intel distribution to run on your M1/M2 Mac.
+4. Go through the Pyserini Installation again and it should work fine (https://github.com/castorini/pyserini/blob/master/docs/installation.md). Try the Development Installation if you encounter issues with the Pip Installation.
+
+Note: This issue ([#1599](https://github.com/castorini/pyserini/pull/1599)) seemed to be caused by Conda 23.7.2 ARM64 distribution. If you prefer installing an ARM64 distribution over Rosetta + an Intel x86 distribution, try an earlier Conda ARM64 distribution for possible fix.
 
 ## Internal Notes
 
