@@ -63,6 +63,8 @@ If you're planning on just _using_ Pyserini, then the `pip` instructions above a
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 Instructions are provided [here](./docs/installation.md#development-installation).
 
+If you encountered issues with Mac M1/M2 ARM processor, see [this](./docs/installation.md#troubleshooting-tips) for some debugging tips.
+
 ## 🙋 How do I search?
 
 Pyserini supports the following classes of retrieval models:
