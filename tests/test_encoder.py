@@ -226,9 +226,9 @@ class TestEncode(unittest.TestCase):
         temp_object = LuceneImpactSearcher(f'{self.index_dir}lucene9-index.cacm', 'SpladePlusPlusEnsembleDistil', encoder_type='onnx')
 
         results = temp_object.encode("here is a test")
-        self.assertAlmostEqual(results.get("here"), 3.05345, delta=2e-4)
-        self.assertAlmostEqual(results.get("a"), 0.59636426, delta=2e-4)
-        self.assertAlmostEqual(results.get("test"), 2.9012794, delta=2e-4)
+        self.assertEqual(results.get("here"), 156)
+        self.assertEqual(results.get("a"), 31)
+        self.assertEqual(results.get("test"), 149)
 
         temp_object.close()
         del temp_object
