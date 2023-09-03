@@ -14,6 +14,8 @@ class SlimQueryEncoder(QueryEncoder):
         self.model.to(self.device)
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name_or_path)
         self.reverse_vocab = {v: k for k, v in self.tokenizer.vocab.items()}
+        self.weight_range = 5
+        self.quant_range = 256
 
     def encode(self, text, max_length=256, topk=20, return_sparse=False, **kwargs):
         inputs = self.tokenizer(
@@ -31,8 +33,15 @@ class SlimQueryEncoder(QueryEncoder):
         full_router_repr = torch.log(1 + torch.relu(logits)) * attention_mask.unsqueeze(-1)
         expert_weights, expert_ids = torch.topk(full_router_repr, dim=2, k=topk) # B x T x topk
         min_expert_weight = torch.min(expert_weights, -1, True)[0]
-        sparse_expert_weights = torch.where(full_router_repr >= min_expert_weight, full_router_repr, 0)
-        return self._output_to_weight_dicts(expert_weights.cpu(), expert_ids.cpu(), sparse_expert_weights.cpu(), attention_mask.cpu(), return_sparse)[0]
+        sparse_expert_weights = torch.where(full_router_repr >= min_expert_weight, full_router_repr, torch.tensor(0, dtype=full_router_repr.dtype))
+        if return_sparse:
+            raw_weights, sparse_tok = self._output_to_weight_dicts(expert_weights.cpu(), expert_ids.cpu(), sparse_expert_weights.cpu(), attention_mask.cpu(), return_sparse)[0]
+            return self._get_encoded_query_token_wight_dicts([raw_weights])[0], sparse_tok
+        else:
+            raw_weights = self._output_to_weight_dicts(expert_weights.cpu(), expert_ids.cpu(), sparse_expert_weights.cpu(), attention_mask.cpu(), return_sparse)[0]
+            return self._get_encoded_query_token_wight_dicts([raw_weights])[0]
+        # return self._output_to_weight_dicts(expert_weights.cpu(), expert_ids.cpu(), sparse_expert_weights.cpu(), attention_mask.cpu(), return_sparse)[0]
+
 
     def _output_to_weight_dicts(self, batch_expert_weights, batch_expert_ids, batch_sparse_expert_weights, batch_attention, return_sparse):
         to_return = []
@@ -59,4 +68,14 @@ class SlimQueryEncoder(QueryEncoder):
                 to_return.append((fusion_vector, tok_vector))
             else:
                 to_return.append(fusion_vector)
+        return to_return
+
+    def _get_encoded_query_token_wight_dicts(self, tok_weights):
+        to_return = []
+        for _tok_weight in tok_weights:
+            _weights = {}
+            for token, weight in _tok_weight.items():
+                weight_quanted = round(weight / self.weight_range * self.quant_range)
+                _weights[token] = weight_quanted
+            to_return.append(_weights)
         return to_return

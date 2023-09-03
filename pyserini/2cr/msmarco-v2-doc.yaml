@@ -223,21 +223,21 @@ conditions:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
         scores:
-          - MRR@100: 0.2232
+          - MRR@100: 0.2231
             R@1K: 0.8987
       - topic_key: msmarco-v2-doc-dev2
         eval_key: msmarco-v2-doc-dev2
         scores:
           - MRR@100: 0.2314
-            R@1K: 0.8993
+            R@1K: 0.8995
       - topic_key: dl21
         eval_key: dl21-doc
         scores:
-          - MAP@100: 0.2589
-            nDCG@10: 0.6501
+          - MAP@100: 0.2587
+            nDCG@10: 0.6495
             MRR@100: 0.9282
-            R@100: 0.3574
-            R@1K: 0.6782
+            R@100: 0.3563
+            R@1K: 0.6787
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
@@ -271,17 +271,17 @@ conditions:
         eval_key: msmarco-v2-doc-dev
         scores:
           - MRR@100: 0.2419
-            R@1K: 0.9120
+            R@1K: 0.9122
       - topic_key: msmarco-v2-doc-dev2
         eval_key: msmarco-v2-doc-dev2
         scores:
-          - MRR@100: 0.2447
-            R@1K: 0.9174
+          - MRR@100: 0.2445
+            R@1K: 0.9172
       - topic_key: dl21
         eval_key: dl21-doc
         scores:
-          - MAP@100: 0.2720
-            nDCG@10: 0.6782
+          - MAP@100: 0.2718
+            nDCG@10: 0.6783
             MRR@100: 0.9684
-            R@100: 0.3702
-            R@1K: 0.7071
+            R@100: 0.3700
+            R@1K: 0.7069

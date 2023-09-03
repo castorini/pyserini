@@ -19,7 +19,7 @@
 import os
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score, parse_score_qa
+from integrations.utils import clean_files, run_command, parse_score_qa
 
 
 class TestECIR2023(unittest.TestCase):
