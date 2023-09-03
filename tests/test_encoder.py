@@ -226,10 +226,10 @@ class TestEncode(unittest.TestCase):
         temp_object = LuceneImpactSearcher(f'{self.index_dir}lucene9-index.cacm', 'SpladePlusPlusEnsembleDistil', encoder_type='onnx')
 
         # this function will never be called in _impact_searcher, here to check quantization correctness
-        results = temp_object.object.encodeWithOnnx("here is a test")
-        self.assertAlmostEqual(results.get("here"), 156, delta=2e-4)
-        self.assertAlmostEqual(results.get("a"), 31, delta=2e-4)
-        self.assertAlmostEqual(results.get("test"), 149, delta=2e-4)
+        results = temp_object.encode("here is a test")
+        self.assertEqual(results.get("here"), 156)
+        self.assertEqual(results.get("a"), 31)
+        self.assertEqual(results.get("test"), 149)
 
         temp_object.close()
         del temp_object
