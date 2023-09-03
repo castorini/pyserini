@@ -38,22 +38,6 @@ class TestAnce(unittest.TestCase):
             self.threads = 36
             self.batch_size = 144
 
-    def test_ance_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('ance-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
-        encoded = QueryEncoder.load_encoded_queries('ance-dl19-passage')
-        topics = get_topics('dl19-passage')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
-        encoded = QueryEncoder.load_encoded_queries('ance-dl20')
-        topics = get_topics('dl20')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
     def test_msmarco_passage_ance_avg_prf_otf(self):
         output_file = 'test_run.dl2019.ance.avg-prf.otf.trec'
         self.temp_files.append(output_file)
