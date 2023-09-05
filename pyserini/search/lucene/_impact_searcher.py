@@ -131,8 +131,6 @@ class LuceneImpactSearcher:
             Query string.
         k : int
             Number of hits to return.
-        min_idf : int
-            Minimum idf for query tokens
         fields : dict
             Optional map of fields to search with associated boosts.
 
@@ -176,8 +174,6 @@ class LuceneImpactSearcher:
             Number of hits to return.
         threads : int
             Maximum number of threads to use.
-        min_idf : int
-            Minimum idf for query tokens
         fields : dict
             Optional map of fields to search with associated boosts.
 
