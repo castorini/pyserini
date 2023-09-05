@@ -243,7 +243,7 @@ class LuceneImpactSearcher:
         Document
             :class:`Document` corresponding to the ``docid``.
         """
-        lucene_document = self.object.document(docid)
+        lucene_document = self.object.doc(docid)
         if lucene_document is None:
             return None
         return Document(lucene_document)
@@ -356,7 +356,7 @@ class LuceneImpactSearcher:
         Document
             :class:`Document` whose ``field`` is ``id``.
         """
-        lucene_document = self.object.documentByField(field, q)
+        lucene_document = self.object.doc_by_field(field, q)
         if lucene_document is None:
             return None
         return Document(lucene_document)
