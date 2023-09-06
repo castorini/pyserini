@@ -136,27 +136,21 @@ if __name__ == '__main__':
         embedding_writer = JsonlRepresentationWriter(args.output.embeddings)
     collection_iterator = JsonlCollectionIterator(args.input.corpus, args.input.fields, args.input.docid_field, delimiter)
 
+    if args.encoder.use_openai:
+        batch_size = int(args.encoder.rate_limit / (60 / OPENAI_API_RETRY_DELAY))
+    else:
+        batch_size = args.encoder.batch_size
+    
     with embedding_writer:
-        if args.encoder.use_openai:
-            for batch_info in collection_iterator(int(args.encoder.rate_limit // (60 / OPENAI_API_RETRY_DELAY)), args.input.shard_id, args.input.shard_num):
-                kwargs = {
-                    'texts': batch_info['text'],
-                    'titles': batch_info['title'] if 'title' in args.encoder.fields else None,
-                    'max_length': args.encoder.max_length,
-                }
-                embeddings = encoder.encode(**kwargs)
-                batch_info['vector'] = embeddings
-                embedding_writer.write(batch_info, args.input.fields)
-        else:
-            for batch_info in collection_iterator(args.encoder.batch_size, args.input.shard_id, args.input.shard_num):
-                kwargs = {
-                    'texts': batch_info['text'],
-                    'titles': batch_info['title'] if 'title' in args.encoder.fields else None,
-                    'expands': batch_info['expand'] if 'expand' in args.encoder.fields else None,
-                    'fp16': args.encoder.fp16,
-                    'max_length': args.encoder.max_length,
-                    'add_sep': args.encoder.add_sep,
-                }
-                embeddings = encoder.encode(**kwargs)
-                batch_info['vector'] = embeddings
-                embedding_writer.write(batch_info, args.input.fields)
+        for batch_info in collection_iterator(batch_size, args.input.shard_id, args.input.shard_num):
+            kwargs = {
+                'texts': batch_info['text'],
+                'titles': batch_info['title'] if 'title' in args.encoder.fields else None,
+                'expands': batch_info['expand'] if 'expand' in args.encoder.fields else None,
+                'fp16': args.encoder.fp16,
+                'max_length': args.encoder.max_length,
+                'add_sep': args.encoder.add_sep,
+            }
+            embeddings = encoder.encode(**kwargs)
+            batch_info['vector'] = embeddings
+            embedding_writer.write(batch_info, args.input.fields)
