@@ -1,8 +1,6 @@
 import openai
-from tenacity import retry, wait_random_exponential, stop_after_attempt
 from typing import List
 import os
-import random
 import time
 from pyserini.encode import DocumentEncoder, QueryEncoder
 import tiktoken
@@ -49,7 +47,7 @@ class OpenAIQueryEncoder(QueryEncoder):
         self.model = model_name
         self.tokenizer = tiktoken.get_encoding(tokenizer_name)
 
-    # @retry_with_delay TODO: implement query encoder, uncomment when implemented
+    @retry_with_delay
     def get_embedding(self, text: str):
         return np.array(openai.Embedding.create(input=text, model=self.model)['data'][0]['embedding'])
 
