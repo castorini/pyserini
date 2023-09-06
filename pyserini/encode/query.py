@@ -21,7 +21,7 @@ import numpy as np
 import pandas as pd
 from pyserini.query_iterator import DefaultQueryIterator
 from pyserini.encode import DprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
-from pyserini.encode import UniCoilQueryEncoder, SpladeQueryEncoder
+from pyserini.encode import UniCoilQueryEncoder, SpladeQueryEncoder, OpenAIQueryEncoder
 
 
 def init_encoder(encoder, device):
@@ -37,6 +37,8 @@ def init_encoder(encoder, device):
         return UniCoilQueryEncoder(encoder, device=device)
     elif 'splade' in encoder.lower():
         return SpladeQueryEncoder(encoder, device=device)
+    elif 'openai-api' in encoder.lower():
+        return OpenAIQueryEncoder()
     else:
         return AutoQueryEncoder(encoder, device=device)
 

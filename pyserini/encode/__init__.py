@@ -26,3 +26,4 @@ from ._cached_data import CachedDataQueryEncoder
 from ._tok_freq import TokFreqQueryEncoder
 from ._splade import SpladeQueryEncoder
 from ._slim import SlimQueryEncoder
+from ._openai import OpenAIDocumentEncoder, OpenAIQueryEncoder, OPENAI_API_RETRY_DELAY
