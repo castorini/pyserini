@@ -10,7 +10,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 openai.organization = os.getenv("OPENAI_ORG_KEY")
 OPENAI_API_RETRY_DELAY = 5
 
-def retry_with_delay(func, max_retries: int = 10, errors: tuple = (openai.error.RateLimitError)):
+def retry_with_delay(func, delay: int = OPENAI_API_RETRY_DELAY, max_retries: int = 10, errors: tuple = (openai.error.RateLimitError)):
     def wrapper(*args, **kwargs):
         num_retries = 0
         while True:
@@ -20,13 +20,13 @@ def retry_with_delay(func, max_retries: int = 10, errors: tuple = (openai.error.
                 num_retries += 1
                 if num_retries > max_retries:
                     raise Exception(f"Maximum number of retries ({max_retries}) exceeded.")
-                time.sleep(OPENAI_API_RETRY_DELAY)
+                time.sleep(delay)
             except Exception as e:
                 raise e
     return wrapper
 
 class OpenAIDocumentEncoder(DocumentEncoder):
-    def __init__(self, model_name: str = 'text-embedding-ada-002', tokenizer_name: str = 'cl100k_base', device = None):
+    def __init__(self, model_name: str = 'text-embedding-ada-002', tokenizer_name: str = 'cl100k_base', **kwargs):
         self.model = model_name
         self.tokenizer = tiktoken.get_encoding(tokenizer_name)
 

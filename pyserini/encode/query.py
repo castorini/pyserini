@@ -53,6 +53,7 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=str, help='path to stored encoded queries', required=True)
     parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]',
                         default='cpu', required=False)
+    parser.add_argument('--max-length', type=int, help='max length', default=256, required=False)
     args = parser.parse_args()
 
     encoder = init_encoder(args.encoder, device=args.device)
@@ -63,7 +64,7 @@ if __name__ == '__main__':
     query_texts = []
     query_embeddings = []
     for topic_id, text in tqdm(query_iterator):
-        embedding = encoder.encode(text)
+        embedding = encoder.encode(text, max_length=args.max_length)
         if isinstance(embedding, dict):
             is_sparse = True
             pseudo_str = []
