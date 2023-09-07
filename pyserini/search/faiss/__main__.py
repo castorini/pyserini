@@ -22,7 +22,7 @@ from tqdm import tqdm
 
 from pyserini.search import FaissSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, QueryEncoder, \
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, AutoQueryEncoder, DenseVectorAveragePrf, \
-    DenseVectorRocchioPrf, DenseVectorAncePrf
+    DenseVectorRocchioPrf, DenseVectorAncePrf, OpenAIQueryEncoder
 
 from pyserini.encode import PcaEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
@@ -41,7 +41,7 @@ def define_dsearch_args(parser):
                         help="Path to Faiss index or name of prebuilt index.")
     parser.add_argument('--encoder-class', type=str, metavar='which query encoder class to use. `default` would infer from the args.encoder',
                         required=False,
-                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "contriever", "auto", "aggretriever"],
+                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "contriever", "auto", "aggretriever", "openai-api"],
                         default=None,
                         help='which query encoder class to use. `default` would infer from the args.encoder')
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
@@ -61,6 +61,7 @@ def define_dsearch_args(parser):
                         help="Query prefix if exists.")
     parser.add_argument('--searcher', type=str, metavar='str', required=False, default='simple',
                         help="dense searcher type")
+    parser.add_argument('--max-length', type=int, help='max length', default=256, required=False)
     parser.add_argument('--prf-depth', type=int, metavar='num of passages used for PRF', required=False, default=0,
                         help="Specify how many passages are used for PRF, 0: Simple retrieval with no PRF, > 0: perform PRF")
     parser.add_argument('--prf-method', type=str, metavar='avg or rocchio', required=False, default='avg',
@@ -84,7 +85,7 @@ def define_dsearch_args(parser):
                         help="Set efSearch for HNSW index")
 
 
-def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, encoded_queries, device, prefix):
+def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, encoded_queries, device, prefix, max_length):
     encoded_queries_map = {
         'msmarco-passage-dev-subset': 'tct_colbert-msmarco-passage-dev-subset',
         'dpr-nq-dev': 'dpr_multi-nq-dev',
@@ -104,6 +105,7 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
         "sentence": AutoQueryEncoder,
         "contriever": AutoQueryEncoder,
         "aggretriever": AggretrieverQueryEncoder,
+        "openai-api": OpenAIQueryEncoder,
         "auto": AutoQueryEncoder,
     }
 
@@ -132,7 +134,8 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
             kwargs.update(dict(pooling='mean', l2_norm=True))
         if (_encoder_class == "contriever") or ("contriever" in encoder):
             kwargs.update(dict(pooling='mean', l2_norm=False))
-
+        if (_encoder_class == "openai-api") or ("openai" in encoder):
+            kwargs.update(dict(max_length=max_length))
         return encoder_class(**kwargs)
 
     if encoded_queries:
@@ -185,7 +188,7 @@ if __name__ == '__main__':
     topics = query_iterator.topics
 
     query_encoder = init_query_encoder(
-        args.encoder, args.encoder_class, args.tokenizer, args.topics, args.encoded_queries, args.device, args.query_prefix)
+        args.encoder, args.encoder_class, args.tokenizer, args.topics, args.encoded_queries, args.device, args.query_prefix, args.max_length)
     if args.pca_model:
         query_encoder = PcaEncoder(query_encoder, args.pca_model)
     kwargs = {}
