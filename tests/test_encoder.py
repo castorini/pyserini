@@ -233,6 +233,17 @@ class TestEncode(unittest.TestCase):
 
         temp_object.close()
         del temp_object
+
+        temp_object1 = LuceneImpactSearcher(f'{self.index_dir}lucene9-index.cacm', 'naver/splade-cocondenser-ensembledistil')
+
+        # this function will never be called in _impact_searcher, here to check quantization correctness
+        results = temp_object1.encode("here is a test")
+        self.assertEqual(results.get("here"), 156)
+        self.assertEqual(results.get("a"), 31)
+        self.assertEqual(results.get("test"), 149)
+
+        temp_object1.close()
+        del temp_object1
         
     def tearDown(self):
         os.remove(self.tarball_name)
