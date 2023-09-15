@@ -33,7 +33,7 @@ class TestAnce(unittest.TestCase):
         self.rocchio_alpha = 0.4
         self.rocchio_beta = 0.6
 
-        half_cores = multiprocessing.cpu_count() / 2
+        half_cores = int(multiprocessing.cpu_count() / 2)
         # If server supports more threads, then use more threads.
         # As a heuristic, use up half up available CPU cores.
         if half_cores > self.threads:
