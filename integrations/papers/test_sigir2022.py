@@ -27,14 +27,14 @@ class TestSIGIR2022(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
         self.threads = 16
-        self.batch_size = self.threads * 32
+        self.batch_size = self.threads * 8
 
-        half_cores = multiprocessing.cpu_count()
+        half_cores = multiprocessing.cpu_count() / 2
         # If server supports more threads, then use more threads.
         # As a heuristic, use up half up available CPU cores.
         if half_cores > self.threads:
             self.threads = half_cores
-            self.batch_size = half_cores * 32
+            self.batch_size = half_cores * 8
 
     def test_Ma_etal_section4_1a(self):
         """Sample code in Section 4.1. in Ma et al. resource paper."""

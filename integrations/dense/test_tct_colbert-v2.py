@@ -29,7 +29,7 @@ class TestTctColBertV2(unittest.TestCase):
         self.threads = 16
         self.batch_size = self.threads * 32
 
-        half_cores = multiprocessing.cpu_count()
+        half_cores = multiprocessing.cpu_count() / 2
         # If server supports more threads, then use more threads.
         # As a heuristic, use up half up available CPU cores.
         if half_cores > self.threads:
