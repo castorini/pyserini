@@ -16,9 +16,9 @@
 
 """Integration tests for KILT integration."""
 
+import multiprocessing
 import os
 import re
-import socket
 import unittest
 
 from integrations.utils import clean_files, run_command
@@ -37,12 +37,14 @@ class TestKilt(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
         self.threads = 16
-        self.batch_size = 256
+        self.batch_size = self.threads * 32
 
-        # Hard-code larger values for internal servers
-        if socket.gethostname().startswith('orca') or socket.gethostname().startswith('tuna'):
-            self.threads = 32
-            self.batch_size = 512
+        half_cores = multiprocessing.cpu_count()
+        # If server supports more threads, then use more threads.
+        # As a heuristic, use up half up available CPU cores.
+        if half_cores > self.threads:
+            self.threads = half_cores
+            self.batch_size = half_cores * 32
 
     def test_kilt_search(self):
         run_file = 'test_run.fever-dev-kilt.jsonl'

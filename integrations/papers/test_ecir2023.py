@@ -16,6 +16,7 @@
 
 """Integration tests for commands in Pradeep et al. resource paper at ECIR 2023."""
 
+import multiprocessing
 import os
 import unittest
 
@@ -25,6 +26,15 @@ from integrations.utils import clean_files, run_command, parse_score_qa
 class TestECIR2023(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
+        self.threads = 16
+        self.batch_size = self.threads * 32
+
+        half_cores = multiprocessing.cpu_count()
+        # If server supports more threads, then use more threads.
+        # As a heuristic, use up half up available CPU cores.
+        if half_cores > self.threads:
+            self.threads = half_cores
+            self.batch_size = half_cores * 32
 
     def test_section5_sub2_first(self):
         """Sample code of the first command in Section 5.2."""
@@ -42,7 +52,7 @@ class TestECIR2023(unittest.TestCase):
                       --topics nq-test \
                       --encoder castorini/dkrr-dpr-nq-retriever \
                       --output {output_file} --query-prefix question: \
-                      --threads 72 --batch-size 72 \
+                      --threads {self.threads} --batch-size {self.batch_size} \
                       --hits 100'
         status = os.system(run_cmd)
         self.assertEqual(status, 0)
