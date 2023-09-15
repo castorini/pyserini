@@ -169,12 +169,6 @@ class TestTctColBert(unittest.TestCase):
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.3784, places=4)
 
-    def test_msmarco_doc_tct_colbert_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-doc-dev')
-        topics = get_topics('msmarco-doc-dev')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
     def tearDown(self):
         clean_files(self.temp_files)
 

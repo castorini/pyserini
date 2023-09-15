@@ -106,24 +106,6 @@ class TestTctColBertV2(unittest.TestCase):
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.3731, delta=0.0001)
 
-    def test_msmarco_passage_tct_colbert_v2_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-v2-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
-    def test_msmarco_passage_tct_colbert_v2_hn_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-v2-hn-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
-    def test_msmarco_passage_tct_colbert_v2_hnp_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-v2-hnp-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
     def tearDown(self):
         clean_files(self.temp_files)
 
