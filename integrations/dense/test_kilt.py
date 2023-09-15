@@ -40,9 +40,9 @@ class TestKilt(unittest.TestCase):
         self.batch_size = 256
 
         # Hard-code larger values for internal servers
-        if socket.gethostname().startswith('damiano') or socket.gethostname().startswith('orca'):
-            self.threads = 36
-            self.batch_size = 144
+        if socket.gethostname().startswith('orca') or socket.gethostname().startswith('tuna'):
+            self.threads = 32
+            self.batch_size = 512
 
     def test_kilt_search(self):
         run_file = 'test_run.fever-dev-kilt.jsonl'

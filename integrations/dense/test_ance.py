@@ -34,9 +34,9 @@ class TestAnce(unittest.TestCase):
         self.rocchio_beta = 0.6
 
         # Hard-code larger values for internal servers
-        if socket.gethostname().startswith('damiano') or socket.gethostname().startswith('orca'):
-            self.threads = 36
-            self.batch_size = 144
+        if socket.gethostname().startswith('orca') or socket.gethostname().startswith('tuna'):
+            self.threads = 32
+            self.batch_size = 512
 
     def test_ance_encoded_queries(self):
         encoded = QueryEncoder.load_encoded_queries('ance-msmarco-passage-dev-subset')

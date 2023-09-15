@@ -32,9 +32,9 @@ class TestTctColBertV2(unittest.TestCase):
         self.batch_size = 256
 
         # Hard-code larger values for internal servers
-        if socket.gethostname().startswith('damiano') or socket.gethostname().startswith('orca'):
-            self.threads = 36
-            self.batch_size = 144
+        if socket.gethostname().startswith('orca') or socket.gethostname().startswith('tuna'):
+            self.threads = 32
+            self.batch_size = 512
 
     def test_msmarco_passage_tct_colbert_v2_bf_otf(self):
         output_file = 'test_run.msmarco-passage.tct_colbert-v2.bf-otf.tsv'
