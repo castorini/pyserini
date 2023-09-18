@@ -372,6 +372,8 @@ def run_conditions(args):
                             # We have the translate the training qrels into a file located in tools/topics-and-qrels/
                             # because they are not included with Anserini/Pyserini by default.
                             # Here, we assume that the developer has cloned the miracl repo and placed the qrels there.
+                            if not os.path.exists(runfile):
+                                continue
                             if split == 'train':
                                 qrels = f'tools/topics-and-qrels/qrels.{eval_key}-train.tsv'
                             else:
