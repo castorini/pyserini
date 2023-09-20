@@ -16,8 +16,8 @@
 
 """Integration tests for ANCE and ANCE PRF using on-the-fly query encoding."""
 
+import multiprocessing
 import os
-import socket
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score, parse_score_qa, parse_score_msmarco
@@ -29,14 +29,16 @@ class TestAnce(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
         self.threads = 16
-        self.batch_size = 256
+        self.batch_size = self.threads * 32
         self.rocchio_alpha = 0.4
         self.rocchio_beta = 0.6
 
-        # Hard-code larger values for internal servers
-        if socket.gethostname().startswith('damiano') or socket.gethostname().startswith('orca'):
-            self.threads = 36
-            self.batch_size = 144
+        half_cores = int(multiprocessing.cpu_count() / 2)
+        # If server supports more threads, then use more threads.
+        # As a heuristic, use up half up available CPU cores.
+        if half_cores > self.threads:
+            self.threads = half_cores
+            self.batch_size = half_cores * 32
 
     def test_msmarco_passage_ance_avg_prf_otf(self):
         output_file = 'test_run.dl2019.ance.avg-prf.otf.trec'

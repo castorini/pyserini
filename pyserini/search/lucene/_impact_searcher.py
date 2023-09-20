@@ -131,8 +131,6 @@ class LuceneImpactSearcher:
             Query string.
         k : int
             Number of hits to return.
-        min_idf : int
-            Minimum idf for query tokens
         fields : dict
             Optional map of fields to search with associated boosts.
 
@@ -176,8 +174,6 @@ class LuceneImpactSearcher:
             Number of hits to return.
         threads : int
             Maximum number of threads to use.
-        min_idf : int
-            Minimum idf for query tokens
         fields : dict
             Optional map of fields to search with associated boosts.
 
@@ -247,7 +243,7 @@ class LuceneImpactSearcher:
         Document
             :class:`Document` corresponding to the ``docid``.
         """
-        lucene_document = self.object.document(docid)
+        lucene_document = self.object.doc(docid)
         if lucene_document is None:
             return None
         return Document(lucene_document)
@@ -360,7 +356,7 @@ class LuceneImpactSearcher:
         Document
             :class:`Document` whose ``field`` is ``id``.
         """
-        lucene_document = self.object.documentByField(field, q)
+        lucene_document = self.object.doc_by_field(field, q)
         if lucene_document is None:
             return None
         return Document(lucene_document)

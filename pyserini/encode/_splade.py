@@ -25,7 +25,7 @@ class SpladeQueryEncoder(QueryEncoder):
         batch_aggregated_logits, _ = torch.max(torch.log(1 + torch.relu(batch_logits))
                                                * input_attention.unsqueeze(-1), dim=1)
         batch_aggregated_logits = batch_aggregated_logits.cpu().detach().numpy()
-        raw_weights = self._output_to_weight_dicts(batch_token_ids, batch_weights)
+        raw_weights = self._output_to_weight_dicts(batch_aggregated_logits)
         return self._get_encoded_query_token_wight_dicts(raw_weights)[0]
 
     def _output_to_weight_dicts(self, batch_aggregated_logits):

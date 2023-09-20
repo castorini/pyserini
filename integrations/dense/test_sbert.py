@@ -16,25 +16,25 @@
 
 """Integration tests for ANCE model using on-the-fly query encoding."""
 
+import multiprocessing
 import os
-import socket
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score
-from pyserini.search import QueryEncoder
-from pyserini.search import get_topics
 
 
 class TestSBert(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
         self.threads = 16
-        self.batch_size = 256
+        self.batch_size = self.threads * 32
 
-        # Hard-code larger values for internal servers
-        if socket.gethostname().startswith('damiano') or socket.gethostname().startswith('orca'):
-            self.threads = 36
-            self.batch_size = 144
+        half_cores = int(multiprocessing.cpu_count() / 2)
+        # If server supports more threads, then use more threads.
+        # As a heuristic, use up half up available CPU cores.
+        if half_cores > self.threads:
+            self.threads = half_cores
+            self.batch_size = half_cores * 32
 
     def test_msmarco_passage_sbert_bf_otf(self):
         output_file = 'test_run.msmarco-passage.sbert.bf.otf.tsv'

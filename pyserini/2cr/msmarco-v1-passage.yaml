@@ -1,4 +1,96 @@
 conditions:
+  - name: splade-pp-ed-rocchio-pytorch
+    display: "SPLADE++ EnsembleDistil + Rocchio: query inference with PyTorch"
+    display-html: "SPLADE++ EnsembleDistil + Rocchio: query inference with PyTorch"
+    display-row: ""
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-ed-text --topics $topics --encoder naver/splade-cocondenser-ensembledistil --output $output --hits 1000 --impact --rocchio
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3300
+            R@1K: 0.9811
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.5140
+            nDCG@10: 0.7119
+            R@1K: 0.8799
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5084
+            nDCG@10: 0.7280
+            R@1K: 0.9069
+  - name: splade-pp-sd-rocchio-pytorch
+    display: "SPLADE++ SelfDistil + Rocchio: query inference with PyTorch"
+    display-html: "SPLADE++ SelfDistil + Rocchio: query inference with PyTorch"
+    display-row: ""
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-sd-text --topics $topics --encoder naver/splade-cocondenser-selfdistil --output $output --hits 1000 --impact --rocchio
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3278
+            R@1K: 0.9824
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.5072
+            nDCG@10: 0.7156
+            R@1K: 0.8918
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5335
+            nDCG@10: 0.7388
+            R@1K: 0.9120
+  - name: splade-pp-ed-pytorch
+    display: "SPLADE++ EnsembleDistil: query inference with PyTorch"
+    display-html: "SPLADE++ EnsembleDistil: query inference with PyTorch"
+    display-row: "[2]"
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-ed --topics $topics --encoder naver/splade-cocondenser-ensembledistil --output $output --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3828
+            R@1K: 0.9831
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.5050
+            nDCG@10: 0.7308
+            R@1K: 0.8728
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4999
+            nDCG@10: 0.7197
+            R@1K: 0.8998
+  - name: splade-pp-sd-pytorch
+    display: "SPLADE++ SelfDistil: query inference with PyTorch"
+    display-html: "SPLADE++ SelfDistil: query inference with PyTorch"
+    display-row: "[2]"
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-sd --topics $topics --encoder naver/splade-cocondenser-selfdistil --output $output --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3776
+            R@1K: 0.9846
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4998
+            nDCG@10: 0.7358
+            R@1K: 0.8761
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5139
+            nDCG@10: 0.7282
+            R@1K: 0.9024
   - name: splade-pp-ed-rocchio-onnx
     display: "SPLADE++ EnsembleDistil + Rocchio: query inference with ONNX"
     display-html: "SPLADE++ EnsembleDistil + Rocchio: query inference with ONNX"

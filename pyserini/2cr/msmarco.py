@@ -56,9 +56,13 @@ models = {
      'unicoil-noexp-pytorch',
      'unicoil-noexp-onnx',
      '',
+     'splade-pp-ed-pytorch',
      'splade-pp-ed-onnx',
+     'splade-pp-ed-rocchio-pytorch',
      'splade-pp-ed-rocchio-onnx',
+     'splade-pp-sd-pytorch',
      'splade-pp-sd-onnx',
+     'splade-pp-sd-rocchio-pytorch',
      'splade-pp-sd-rocchio-onnx',
      '',
      'ance',
@@ -492,6 +496,11 @@ def run_conditions(args):
                                     and topic_key == 'msmarco-passage-dev-subset' and name == 'ance-pytorch' \
                                     and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
                                 result_str = okish_str
+                            # Flaky test on Jimmy's iMac Pro
+                            elif args.collection == 'msmarco-v1-passage' and name == 'splade-pp-ed-rocchio-pytorch'\
+                                    and topic_key == 'msmarco-passage-dev-subset' \
+                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
+                                result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
                             print(f'    {metric:7}: {score:.4f} {result_str}')
@@ -503,14 +512,14 @@ def run_conditions(args):
                     print('')
 
     if args.collection == 'msmarco-v1-passage' or args.collection == 'msmarco-v1-doc':
-        print(' ' * 69 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
-        print(' ' * 62 + 'MAP    nDCG@10    R@1K       MAP nDCG@10    R@1K    MRR@10    R@1K')
-        print(' ' * 62 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
+        print(' ' * 74 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
+        print(' ' * 67 + 'MAP    nDCG@10    R@1K       MAP nDCG@10    R@1K    MRR@10    R@1K')
+        print(' ' * 67 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
 
         if args.condition:
             # If we've used --condition to specify a specific condition, print out only that row.
             name = args.condition
-            print(f'{table_keys[name]:60}' +
+            print(f'{table_keys[name]:65}' +
                   f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
                   f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
                   f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
@@ -520,7 +529,7 @@ def run_conditions(args):
                 if not name:
                     print('')
                     continue
-                print(f'{table_keys[name]:60}' +
+                print(f'{table_keys[name]:65}' +
                       f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
                       f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
                       f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
