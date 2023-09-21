@@ -1,7 +1,7 @@
 conditions:
   - name: splade-pp-ed-rocchio-pytorch
-    display: "SPLADE++ EnsembleDistil + Rocchio: query inference with PyTorch"
-    display-html: "SPLADE++ EnsembleDistil + Rocchio: query inference with PyTorch"
+    display: "SPLADE++ EnsembleDistil + Rocchio: PyTorch"
+    display-html: "SPLADE++ EnsembleDistil + Rocchio: PyTorch"
     display-row: ""
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-ed-text --topics $topics --encoder naver/splade-cocondenser-ensembledistil --output $output --hits 1000 --impact --rocchio
     topics:
@@ -23,8 +23,8 @@ conditions:
             nDCG@10: 0.7280
             R@1K: 0.9069
   - name: splade-pp-sd-rocchio-pytorch
-    display: "SPLADE++ SelfDistil + Rocchio: query inference with PyTorch"
-    display-html: "SPLADE++ SelfDistil + Rocchio: query inference with PyTorch"
+    display: "SPLADE++ SelfDistil + Rocchio: PyTorch"
+    display-html: "SPLADE++ SelfDistil + Rocchio: PyTorch"
     display-row: ""
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-sd-text --topics $topics --encoder naver/splade-cocondenser-selfdistil --output $output --hits 1000 --impact --rocchio
     topics:
@@ -46,8 +46,8 @@ conditions:
             nDCG@10: 0.7388
             R@1K: 0.9120
   - name: splade-pp-ed-pytorch
-    display: "SPLADE++ EnsembleDistil: query inference with PyTorch"
-    display-html: "SPLADE++ EnsembleDistil: query inference with PyTorch"
+    display: "SPLADE++ EnsembleDistil: PyTorch"
+    display-html: "SPLADE++ EnsembleDistil: PyTorch"
     display-row: "[2]"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-ed --topics $topics --encoder naver/splade-cocondenser-ensembledistil --output $output --hits 1000 --impact
     topics:
@@ -69,8 +69,8 @@ conditions:
             nDCG@10: 0.7197
             R@1K: 0.8998
   - name: splade-pp-sd-pytorch
-    display: "SPLADE++ SelfDistil: query inference with PyTorch"
-    display-html: "SPLADE++ SelfDistil: query inference with PyTorch"
+    display: "SPLADE++ SelfDistil: PyTorch"
+    display-html: "SPLADE++ SelfDistil: PyTorch"
     display-row: "[2]"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-sd --topics $topics --encoder naver/splade-cocondenser-selfdistil --output $output --hits 1000 --impact
     topics:
@@ -92,8 +92,8 @@ conditions:
             nDCG@10: 0.7282
             R@1K: 0.9024
   - name: splade-pp-ed-rocchio-onnx
-    display: "SPLADE++ EnsembleDistil + Rocchio: query inference with ONNX"
-    display-html: "SPLADE++ EnsembleDistil + Rocchio: query inference with ONNX"
+    display: "SPLADE++ EnsembleDistil + Rocchio: ONNX"
+    display-html: "SPLADE++ EnsembleDistil + Rocchio: ONNX"
     display-row: ""
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-ed-text --topics $topics --onnx-encoder SpladePlusPlusEnsembleDistil --output $output --hits 1000 --impact --rocchio
     topics:
@@ -115,8 +115,8 @@ conditions:
             nDCG@10: 0.7280
             R@1K: 0.9069
   - name: splade-pp-sd-rocchio-onnx
-    display: "SPLADE++ SelfDistil + Rocchio: query inference with ONNX"
-    display-html: "SPLADE++ SelfDistil + Rocchio: query inference with ONNX"
+    display: "SPLADE++ SelfDistil + Rocchio: ONNX"
+    display-html: "SPLADE++ SelfDistil + Rocchio: ONNX"
     display-row: ""
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-sd-text --topics $topics --onnx-encoder SpladePlusPlusSelfDistil --output $output --hits 1000 --impact --rocchio
     topics:
@@ -226,8 +226,8 @@ conditions:
             nDCG@10: 0.4908
             R@1K: 0.8327
   - name: distilbert-kd-tasb-pytorch
-    display: "DistilBERT KD TASB: query inference with PyTorch"
-    display-html: "DistilBERT KD TASB: query inference with PyTorch"
+    display: "DistilBERT KD TASB: PyTorch"
+    display-html: "DistilBERT KD TASB: PyTorch"
     display-row: "[5]"
     command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output
     topics:
@@ -272,8 +272,8 @@ conditions:
             nDCG@10: 0.6854
             R@1K: 0.8727
   - name: distilbert-kd-pytorch
-    display: "DistilBERT KD: query inference with PyTorch"
-    display-html: "DistilBERT KD: query inference with PyTorch"
+    display: "DistilBERT KD: PyTorch"
+    display-html: "DistilBERT KD: PyTorch"
     display-row: "[4]"
     command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco --output $output
     topics:
@@ -317,29 +317,6 @@ conditions:
           - MAP: 0.4159
             nDCG@10: 0.6447
             R@1K: 0.7953
-  - name: ance-pytorch
-    display: "ANCE: query inference with PyTorch"
-    display-html: "ANCE: query inference with PyTorch"
-    display-row: "[3]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output
-    topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
-        scores:
-          - MRR@10: 0.3302
-            R@1K: 0.9587
-      - topic_key: dl19-passage
-        eval_key: dl19-passage
-        scores:
-          - MAP: 0.3710
-            nDCG@10: 0.6452
-            R@1K: 0.7554
-      - topic_key: dl20
-        eval_key: dl20-passage
-        scores:
-          - MAP: 0.4076
-            nDCG@10: 0.6458
-            R@1K: 0.7764
   - name: ance
     display: "ANCE: pre-encoded"
     display-html: "ANCE: pre-encoded queries"
@@ -363,6 +340,75 @@ conditions:
           - MAP: 0.4076
             nDCG@10: 0.6458
             R@1K: 0.7764
+  - name: ance-pytorch
+    display: "ANCE: PyTorch"
+    display-html: "ANCE: PyTorch"
+    display-row: "[3]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3302
+            R@1K: 0.9587
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.3710
+            nDCG@10: 0.6452
+            R@1K: 0.7554
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4076
+            nDCG@10: 0.6458
+            R@1K: 0.7764
+  - name: ance-avg-prf-pytorch
+    display: "ANCE + Average PRF: PyTorch"
+    display-html: "ANCE + Average PRF: PyTorch"
+    display-row: ""
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output --prf-depth 3 --prf-method avg
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3075
+            R@1K: 0.9490
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4247
+            nDCG@10: 0.6532
+            R@1K: 0.7739
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4325
+            nDCG@10: 0.6573
+            R@1K: 0.7909
+  - name: ance-rocchio-prf-pytorch
+    display: "ANCE + Rocchio PRF: PyTorch"
+    display-html: "ANCE + Rocchio PRF: PyTorch"
+    display-row: ""
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output --prf-depth 5 --prf-method rocchio --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3048
+            R@1K: 0.9547
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4211
+            nDCG@10: 0.6539
+            R@1K: 0.7825
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4315
+            nDCG@10: 0.6471
+            R@1K: 0.7967
   - name: bm25-tuned
     display: BM25 (k1=0.82, b=0.68)
     display-html: BM25 (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68)
@@ -544,8 +590,8 @@ conditions:
             nDCG@10: 0.6131
             R@1K: 0.8700
   - name: unicoil-pytorch
-    display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
-    display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
+    display: "uniCOIL (w/ doc2query-T5): PyTorch"
+    display-html: "uniCOIL (w/ doc2query-T5): PyTorch"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-unicoil --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -566,8 +612,8 @@ conditions:
             nDCG@10: 0.6745
             R@1K: 0.8430
   - name: unicoil-onnx
-    display: "uniCOIL (w/ doc2query-T5): query inference with ONNX"
-    display-html: "uniCOIL (w/ doc2query-T5): query inference with ONNX"
+    display: "uniCOIL (w/ doc2query-T5): ONNX"
+    display-html: "uniCOIL (w/ doc2query-T5): ONNX"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-unicoil --topics $topics --onnx-encoder UniCoil --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -611,8 +657,8 @@ conditions:
             nDCG@10: 0.6745
             R@1K: 0.8430
   - name: unicoil-noexp-pytorch
-    display: "uniCOIL (noexp): query inference with PyTorch"
-    display-html: "uniCOIL (noexp): query inference with PyTorch"
+    display: "uniCOIL (noexp): PyTorch"
+    display-html: "uniCOIL (noexp): PyTorch"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-unicoil-noexp --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -633,8 +679,8 @@ conditions:
             nDCG@10: 0.6523
             R@1K: 0.7861
   - name: unicoil-noexp-onnx
-    display: "uniCOIL (noexp): query inference with ONNX"
-    display-html: "uniCOIL (noexp): query inference with ONNX"
+    display: "uniCOIL (noexp): ONNX"
+    display-html: "uniCOIL (noexp): ONNX"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-unicoil-noexp --topics $topics --onnx-encoder UniCoil --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -678,8 +724,8 @@ conditions:
             nDCG@10: 0.6523
             R@1K: 0.7861
   - name: splade-pp-ed-onnx
-    display: "SPLADE++ EnsembleDistil: query inference with ONNX"
-    display-html: "SPLADE++ EnsembleDistil: query inference with ONNX"
+    display: "SPLADE++ EnsembleDistil: ONNX"
+    display-html: "SPLADE++ EnsembleDistil: ONNX"
     display-row: "[2]"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-ed --topics $topics --onnx-encoder SpladePlusPlusEnsembleDistil --output $output --hits 1000 --impact
     topics:
@@ -701,8 +747,8 @@ conditions:
             nDCG@10: 0.7197
             R@1K: 0.8998
   - name: splade-pp-sd-onnx
-    display: "SPLADE++ SelfDistil: query inference with ONNX"
-    display-html: "SPLADE++ SelfDistil: query inference with ONNX"
+    display: "SPLADE++ SelfDistil: ONNX"
+    display-html: "SPLADE++ SelfDistil: ONNX"
     display-row: "[2]"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-sd --topics $topics --onnx-encoder SpladePlusPlusSelfDistil --output $output --hits 1000 --impact
     topics:
@@ -723,29 +769,6 @@ conditions:
           - MAP: 0.5139
             nDCG@10: 0.7282
             R@1K: 0.9024
-  - name: tct_colbert-v2-hnp-pytorch
-    display: "TCT_ColBERT-V2-HN+: query inference with PyTorch"
-    display-html: "TCT_ColBERT-V2-HN+: query inference with PyTorch"
-    display-row: "[6]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output
-    topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
-        scores:
-          - MRR@10: 0.3584
-            R@1K: 0.9695
-      - topic_key: dl19-passage
-        eval_key: dl19-passage
-        scores:
-          - MAP: 0.4469
-            nDCG@10: 0.7204
-            R@1K: 0.8261
-      - topic_key: dl20
-        eval_key: dl20-passage
-        scores:
-          - MAP: 0.4754
-            nDCG@10: 0.6882
-            R@1K: 0.8429
   - name: tct_colbert-v2-hnp
     display: "TCT_ColBERT-V2-HN+: pre-encoded"
     display-html: "TCT_ColBERT-V2-HN+: pre-encoded queries"
@@ -769,9 +792,78 @@ conditions:
           - MAP: 0.4754
             nDCG@10: 0.6882
             R@1K: 0.8429
+  - name: tct_colbert-v2-hnp-pytorch
+    display: "TCT_ColBERT-V2-HN+: PyTorch"
+    display-html: "TCT_ColBERT-V2-HN+: PyTorch"
+    display-row: "[6]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3584
+            R@1K: 0.9695
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4469
+            nDCG@10: 0.7204
+            R@1K: 0.8261
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4754
+            nDCG@10: 0.6882
+            R@1K: 0.8429
+  - name: tct_colbert-v2-hnp-bm25-pytorch
+    display: "Hybrid TCT_ColBERT-V2-HN+ and BM25: PyTorch"
+    display-html: "Hybrid TCT_ColBERT-V2-HN+ and BM25: PyTorch"
+    display-row: "[6]"
+    command: python -m pyserini.search.hybrid dense --index msmarco-v1-passage.tct_colbert-v2-hnp --encoder castorini/tct_colbert-v2-hnp-msmarco sparse --index msmarco-v1-passage fusion --alpha 0.06 run --threads 16 --batch-size 512 --topics $topics --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3683
+            R@1K: 0.9707
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4697
+            nDCG@10: 0.7320
+            R@1K: 0.8802
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4859
+            nDCG@10: 0.7016
+            R@1K: 0.8898
+  - name: tct_colbert-v2-hnp-bm25d2q-pytorch
+    display: "Hybrid TCT_ColBERT-V2-HN+ and BM25 doc2query: PyTorch"
+    display-html: "Hybrid TCT_ColBERT-V2-HN+ and BM25 doc2query: PyTorch"
+    display-row: "[6]"
+    command: python -m pyserini.search.hybrid dense --index msmarco-v1-passage.tct_colbert-v2-hnp --encoder castorini/tct_colbert-v2-hnp-msmarco sparse --index msmarco-v1-passage-d2q-t5 fusion --alpha 0.1 run --threads 16 --batch-size 512 --topics $topics --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3731
+            R@1K: 0.9759
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4829
+            nDCG@10: 0.7376
+            R@1K: 0.8614
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5079
+            nDCG@10: 0.7244
+            R@1K: 0.8847
   - name: slimr
-    display: "SLIM: query inference with PyTorch"
-    display-html: "SLIM: query inference with PyTorch"
+    display: "SLIM: PyTorch"
+    display-html: "SLIM: PyTorch"
     display-row: "[7]"
     command: python -m pyserini.search.lucene --threads 16 --batch 128 --index msmarco-v1-passage-slimr --topics $topics --encoder castorini/slimr-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr --output $output --output-format msmarco --hits 1000 --impact --min-idf 3
     topics:
@@ -793,8 +885,8 @@ conditions:
             nDCG@10: 0.6403
             R@1K: 0.8543
   - name: slimr-pp
-    display: "SLIM++: query inference with PyTorch"
-    display-html: "SLIM++: query inference with PyTorch"
+    display: "SLIM++: PyTorch"
+    display-html: "SLIM++: PyTorch"
     display-row: "[7]"
     command: python -m pyserini.search.lucene --threads 16 --batch 128 --index msmarco-v1-passage-slimr-pp --topics $topics --encoder castorini/slimr-pp-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr-pp --output $output --output-format msmarco --hits 1000 --impact --min-idf 3
     topics:
@@ -816,8 +908,8 @@ conditions:
             nDCG@10: 0.7021
             R@1K: 0.8551
   - name: aggretriever-distilbert-pytorch
-    display: "Aggretriever-DistilBERT: query inference with PyTorch"
-    display-html: "Aggretriever-DistilBERT: query inference with PyTorch"
+    display: "Aggretriever-DistilBERT: PyTorch"
+    display-html: "Aggretriever-DistilBERT: PyTorch"
     display-row: "[8]"
     command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.aggretriever-distilbert --topics $topics --encoder castorini/aggretriever-distilbert --output $output
     topics:
@@ -839,8 +931,8 @@ conditions:
             nDCG@10: 0.6726
             R@1K: 0.8351
   - name: aggretriever-cocondenser-pytorch
-    display: "Aggretriever-coCondenser: query inference with PyTorch"
-    display-html: "Aggretriever-coCondenser: query inference with PyTorch"
+    display: "Aggretriever-coCondenser: PyTorch"
+    display-html: "Aggretriever-coCondenser: PyTorch"
     display-row: "[8]"
     command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.aggretriever-cocondenser --topics $topics --encoder castorini/aggretriever-cocondenser --output $output
     topics:
