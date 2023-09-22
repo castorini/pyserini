@@ -1,7 +1,7 @@
 conditions:
   - name: splade-pp-ed-rocchio-pytorch
-    display: "SPLADE++ EnsembleDistil + Rocchio: PyTorch"
-    display-html: "SPLADE++ EnsembleDistil + Rocchio: PyTorch"
+    display: "SPLADE++ EnsembleDistil w/ Rocchio: PyTorch"
+    display-html: "SPLADE++ EnsembleDistil w/ Rocchio: PyTorch"
     display-row: ""
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-ed-text --topics $topics --encoder naver/splade-cocondenser-ensembledistil --output $output --hits 1000 --impact --rocchio
     topics:
@@ -23,8 +23,8 @@ conditions:
             nDCG@10: 0.7280
             R@1K: 0.9069
   - name: splade-pp-sd-rocchio-pytorch
-    display: "SPLADE++ SelfDistil + Rocchio: PyTorch"
-    display-html: "SPLADE++ SelfDistil + Rocchio: PyTorch"
+    display: "SPLADE++ SelfDistil w/ Rocchio: PyTorch"
+    display-html: "SPLADE++ SelfDistil w/ Rocchio: PyTorch"
     display-row: ""
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-sd-text --topics $topics --encoder naver/splade-cocondenser-selfdistil --output $output --hits 1000 --impact --rocchio
     topics:
@@ -92,8 +92,8 @@ conditions:
             nDCG@10: 0.7282
             R@1K: 0.9024
   - name: splade-pp-ed-rocchio-onnx
-    display: "SPLADE++ EnsembleDistil + Rocchio: ONNX"
-    display-html: "SPLADE++ EnsembleDistil + Rocchio: ONNX"
+    display: "SPLADE++ EnsembleDistil w/ Rocchio: ONNX"
+    display-html: "SPLADE++ EnsembleDistil w/ Rocchio: ONNX"
     display-row: ""
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-ed-text --topics $topics --onnx-encoder SpladePlusPlusEnsembleDistil --output $output --hits 1000 --impact --rocchio
     topics:
@@ -115,8 +115,8 @@ conditions:
             nDCG@10: 0.7280
             R@1K: 0.9069
   - name: splade-pp-sd-rocchio-onnx
-    display: "SPLADE++ SelfDistil + Rocchio: ONNX"
-    display-html: "SPLADE++ SelfDistil + Rocchio: ONNX"
+    display: "SPLADE++ SelfDistil w/ Rocchio: ONNX"
+    display-html: "SPLADE++ SelfDistil w/ Rocchio: ONNX"
     display-row: ""
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-splade-pp-sd-text --topics $topics --onnx-encoder SpladePlusPlusSelfDistil --output $output --hits 1000 --impact --rocchio
     topics:
@@ -225,29 +225,6 @@ conditions:
           - MAP: 0.3120
             nDCG@10: 0.4908
             R@1K: 0.8327
-  - name: distilbert-kd-tasb-pytorch
-    display: "DistilBERT KD TASB: PyTorch"
-    display-html: "DistilBERT KD TASB: PyTorch"
-    display-row: "[5]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output
-    topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
-        scores:
-          - MRR@10: 0.3444
-            R@1K: 0.9771
-      - topic_key: dl19-passage
-        eval_key: dl19-passage
-        scores:
-          - MAP: 0.4590
-            nDCG@10: 0.7210
-            R@1K: 0.8406
-      - topic_key: dl20
-        eval_key: dl20-passage
-        scores:
-          - MAP: 0.4698
-            nDCG@10: 0.6854
-            R@1K: 0.8727
   - name: distilbert-kd-tasb
     display: "DistilBERT KD TASB: pre-encoded"
     display-html: "DistilBERT KD TASB: pre-encoded queries"
@@ -271,11 +248,80 @@ conditions:
           - MAP: 0.4698
             nDCG@10: 0.6854
             R@1K: 0.8727
-  - name: distilbert-kd-pytorch
-    display: "DistilBERT KD: PyTorch"
-    display-html: "DistilBERT KD: PyTorch"
+  - name: distilbert-kd-tasb-pytorch
+    display: "DistilBERT KD TASB: PyTorch"
+    display-html: "DistilBERT KD TASB: PyTorch"
+    display-row: "[5]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3444
+            R@1K: 0.9771
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4590
+            nDCG@10: 0.7210
+            R@1K: 0.8406
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4698
+            nDCG@10: 0.6854
+            R@1K: 0.8727
+  - name: distilbert-kd-tasb-avg-prf-pytorch
+    display: "DistilBERT KD TASB w/ Average PRF: PyTorch"
+    display-html: "DistilBERT KD TASB w/ Average PRF: PyTorch"
+    display-row: "[9]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output --prf-depth 3 --prf-method avg
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.2910
+            R@1K: 0.9613
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4856
+            nDCG@10: 0.7190
+            R@1K: 0.8517
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4887
+            nDCG@10: 0.7086
+            R@1K: 0.9030
+  - name: distilbert-kd-tasb-rocchio-prf-pytorch
+    display: "DistilBERT KD TASB w/ Rocchio PRF: PyTorch"
+    display-html: "DistilBERT KD TASB w/ Rocchio PRF: PyTorch"
+    display-row: "[9]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output --prf-depth 5 --prf-method rocchio --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.2896
+            R@1K: 0.9702
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4974
+            nDCG@10: 0.7231
+            R@1K: 0.8775
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4879
+            nDCG@10: 0.7083
+            R@1K: 0.8926
+  - name: distilbert-kd
+    display: "DistilBERT KD: pre-encoded"
+    display-html: "DistilBERT KD: pre-encoded queries"
     display-row: "[4]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 --topics $topics --encoded-queries distilbert_kd-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -294,11 +340,11 @@ conditions:
           - MAP: 0.4159
             nDCG@10: 0.6447
             R@1K: 0.7953
-  - name: distilbert-kd
-    display: "DistilBERT KD: pre-encoded"
-    display-html: "DistilBERT KD: pre-encoded queries"
+  - name: distilbert-kd-pytorch
+    display: "DistilBERT KD: PyTorch"
+    display-html: "DistilBERT KD: PyTorch"
     display-row: "[4]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 --topics $topics --encoded-queries distilbert_kd-$topics --output $output
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -364,9 +410,9 @@ conditions:
             nDCG@10: 0.6458
             R@1K: 0.7764
   - name: ance-avg-prf-pytorch
-    display: "ANCE + Average PRF: PyTorch"
-    display-html: "ANCE + Average PRF: PyTorch"
-    display-row: ""
+    display: "ANCE w/ Average PRF: PyTorch"
+    display-html: "ANCE w/ Average PRF: PyTorch"
+    display-row: "[9]"
     command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output --prf-depth 3 --prf-method avg
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -387,9 +433,9 @@ conditions:
             nDCG@10: 0.6573
             R@1K: 0.7909
   - name: ance-rocchio-prf-pytorch
-    display: "ANCE + Rocchio PRF: PyTorch"
-    display-html: "ANCE + Rocchio PRF: PyTorch"
-    display-row: ""
+    display: "ANCE w/ Rocchio PRF: PyTorch"
+    display-html: "ANCE w/ Rocchio PRF: PyTorch"
+    display-row: "[9]"
     command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output --prf-depth 5 --prf-method rocchio --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -409,6 +455,75 @@ conditions:
           - MAP: 0.4315
             nDCG@10: 0.6471
             R@1K: 0.7967
+  - name: sbert-pytorch
+    display: "SBERT: PyTorch"
+    display-html: "SBERT: PyTorch"
+    display-row: "[10]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.sbert --topics $topics --encoder sentence-transformers/msmarco-distilbert-base-v3 --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3314
+            R@1K: 0.9558
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4060
+            nDCG@10: 0.6930
+            R@1K: 0.7872
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4124
+            nDCG@10: 0.6344
+            R@1K: 0.7937
+  - name: sbert-avg-prf-pytorch
+    display: "SBERT w/ Average PRF: PyTorch"
+    display-html: "SBERT w/ Average PRF: PyTorch"
+    display-row: "[9]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.sbert --topics $topics --encoder sentence-transformers/msmarco-distilbert-base-v3 --output $output --prf-depth 3 --prf-method avg
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3035
+            R@1K: 0.9446
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4354
+            nDCG@10: 0.7001
+            R@1K: 0.7937
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4258
+            nDCG@10: 0.6412
+            R@1K: 0.8169
+  - name: sbert-rocchio-prf-pytorch
+    display: "SBERT w/ Rocchio PRF: PyTorch"
+    display-html: "SBERT w/ Rocchio PRF: PyTorch"
+    display-row: "[9]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.sbert --topics $topics --encoder sentence-transformers/msmarco-distilbert-base-v3 --output $output --prf-depth 5 --prf-method rocchio --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.2972
+            R@1K: 0.9529
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4371
+            nDCG@10: 0.6952
+            R@1K: 0.7941
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4342
+            nDCG@10: 0.6559
+            R@1K: 0.8226
   - name: bm25-tuned
     display: BM25 (k1=0.82, b=0.68)
     display-html: BM25 (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68)
@@ -815,6 +930,52 @@ conditions:
           - MAP: 0.4754
             nDCG@10: 0.6882
             R@1K: 0.8429
+  - name: tct_colbert-v2-hnp-avg-prf-pytorch
+    display: "TCT_ColBERT-V2-HN+ w/ Average PRF: PyTorch"
+    display-html: "TCT_ColBERT-V2-HN+ w/ Average PRF: PyTorch"
+    display-row: "[9]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output --prf-depth 3 --prf-method avg
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3121
+            R@1K: 0.9585
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4879
+            nDCG@10: 0.7311
+            R@1K: 0.8586
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4811
+            nDCG@10: 0.6836
+            R@1K: 0.8579
+  - name: tct_colbert-v2-hnp-rocchio-prf-pytorch
+    display: "TCT_ColBERT-V2-HN+ w/ Rocchio PRF: PyTorch"
+    display-html: "TCT_ColBERT-V2-HN+ w/ Rocchio PRF: PyTorch"
+    display-row: "[9]"
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output --prf-depth 5 --prf-method rocchio --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3125
+            R@1K: 0.9659
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4883
+            nDCG@10: 0.7111
+            R@1K: 0.8694
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4860
+            nDCG@10: 0.6804
+            R@1K: 0.8518
   - name: tct_colbert-v2-hnp-bm25-pytorch
     display: "Hybrid TCT_ColBERT-V2-HN+ and BM25: PyTorch"
     display-html: "Hybrid TCT_ColBERT-V2-HN+ and BM25: PyTorch"
