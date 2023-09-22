@@ -263,7 +263,21 @@ def find_msmarco_table_topic_set_key_v2(topic_key):
     return key
 
 
+def format_eval_command(raw):
+    return raw.replace('run.', '\\\n  run.')
+
+
 def format_command(raw):
+    # Format hybrid commands differently.
+    if 'pyserini.search.hybrid' in raw:
+        return raw.replace('dense', '\\\n  dense ') \
+                .replace('--encoder', '\\\n         --encoder')\
+                .replace('sparse', '\\\n  sparse') \
+                .replace('fusion', '\\\n  fusion') \
+                .replace('run --', '\\\n  run    --') \
+                .replace('--topics ', '\\\n         --topics ') \
+                .replace('--output ', '\\\n         --output ')
+
     # After "--output foo.txt" are additional options like "--hits 1000 --impact".
     # We want these on a separate line for better readability, but note that sometimes that might
     # be the end of the command, in which case we don't want to add an extra line break.
@@ -372,9 +386,9 @@ def generate_report(args):
                              cmd1=format_command(commands[name]['dl19']),
                              cmd2=format_command(commands[name]['dl20']),
                              cmd3=format_command(commands[name]['dev']),
-                             eval_cmd1=eval_commands[name]['dl19'],
-                             eval_cmd2=eval_commands[name]['dl20'],
-                             eval_cmd3=eval_commands[name]['dev']
+                             eval_cmd1=format_eval_command(eval_commands[name]['dl19']),
+                             eval_cmd2=format_eval_command(eval_commands[name]['dl20']),
+                             eval_cmd3=format_eval_command(eval_commands[name]['dev'])
                              )
 
             # If we don't have scores, we want to remove the commands also. Use simple regexp substitution.

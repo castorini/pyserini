@@ -275,7 +275,7 @@ conditions:
     display: "DistilBERT KD TASB w/ Average PRF: PyTorch"
     display-html: "DistilBERT KD TASB w/ Average PRF: PyTorch"
     display-row: "[9]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output --prf-depth 3 --prf-method avg
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output --prf-method avg --prf-depth 3
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -298,7 +298,7 @@ conditions:
     display: "DistilBERT KD TASB w/ Rocchio PRF: PyTorch"
     display-html: "DistilBERT KD TASB w/ Rocchio PRF: PyTorch"
     display-row: "[9]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output --prf-depth 5 --prf-method rocchio --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -413,7 +413,7 @@ conditions:
     display: "ANCE w/ Average PRF: PyTorch"
     display-html: "ANCE w/ Average PRF: PyTorch"
     display-row: "[9]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output --prf-depth 3 --prf-method avg
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output --prf-method avg --prf-depth 3
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -436,7 +436,7 @@ conditions:
     display: "ANCE w/ Rocchio PRF: PyTorch"
     display-html: "ANCE w/ Rocchio PRF: PyTorch"
     display-row: "[9]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output --prf-depth 5 --prf-method rocchio --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -482,7 +482,7 @@ conditions:
     display: "SBERT w/ Average PRF: PyTorch"
     display-html: "SBERT w/ Average PRF: PyTorch"
     display-row: "[9]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.sbert --topics $topics --encoder sentence-transformers/msmarco-distilbert-base-v3 --output $output --prf-depth 3 --prf-method avg
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.sbert --topics $topics --encoder sentence-transformers/msmarco-distilbert-base-v3 --output $output --prf-method avg --prf-depth 3
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -505,7 +505,7 @@ conditions:
     display: "SBERT w/ Rocchio PRF: PyTorch"
     display-html: "SBERT w/ Rocchio PRF: PyTorch"
     display-row: "[9]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.sbert --topics $topics --encoder sentence-transformers/msmarco-distilbert-base-v3 --output $output --prf-depth 5 --prf-method rocchio --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.sbert --topics $topics --encoder sentence-transformers/msmarco-distilbert-base-v3 --output $output --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -934,7 +934,7 @@ conditions:
     display: "TCT_ColBERT-V2-HN+ w/ Average PRF: PyTorch"
     display-html: "TCT_ColBERT-V2-HN+ w/ Average PRF: PyTorch"
     display-row: "[9]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output --prf-depth 3 --prf-method avg
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output --prf-method avg --prf-depth 3
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -957,7 +957,7 @@ conditions:
     display: "TCT_ColBERT-V2-HN+ w/ Rocchio PRF: PyTorch"
     display-html: "TCT_ColBERT-V2-HN+ w/ Rocchio PRF: PyTorch"
     display-row: "[9]"
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output --prf-depth 5 --prf-method rocchio --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
+    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
