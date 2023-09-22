@@ -99,7 +99,7 @@ v2 = encoder.encode(doc_text)
 
 Minor detail here: the encoder is designed to work on batches of input, so the actual vector representation is `v2[0]`.
 
-We can verify that the vector we generated using the encoder is identical to the vector that is stored in the index by computing the L2 norm (which should be zero):
+We can verify that the vector we generated using the encoder is identical to the vector that is stored in the index by computing the L2 norm (which should be a value very close to zero):
 
 ```python
 import numpy as np
