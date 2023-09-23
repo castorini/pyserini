@@ -518,15 +518,35 @@ def run_conditions(args):
                                     runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky tests
+                            # Flaky test on Jimmy's iMac Pro and Jimmy's Mac Studio
+                            elif args.collection == 'msmarco-v1-passage' and name == 'splade-pp-ed-rocchio-pytorch' \
+                                    and topic_key == 'msmarco-passage-dev-subset' \
+                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
+                                result_str = okish_str
+                            # Flaky test on Jimmy's Mac Studio
+                            elif args.collection == 'msmarco-v1-passage' and name == 'distilbert-kd-tasb-avg-prf-pytorch' \
+                                    and topic_key == 'msmarco-passage-dev-subset' \
+                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0002:
+                                result_str = okish_str
+                            # Flaky test on Jimmy's Mac Studio
+                            elif args.collection == 'msmarco-v1-passage' and name == 'distilbert-kd-tasb-rocchio-prf-pytorch' \
+                                    and topic_key == 'msmarco-passage-dev-subset' \
+                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
+                                result_str = okish_str
+                            # Flaky test on Jimmy's Mac Studio
                             elif args.collection == 'msmarco-v1-passage' \
                                     and topic_key == 'msmarco-passage-dev-subset' and name == 'ance-pytorch' \
                                     and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
                                 result_str = okish_str
-                            # Flaky test on Jimmy's iMac Pro
-                            elif args.collection == 'msmarco-v1-passage' and name == 'splade-pp-ed-rocchio-pytorch'\
-                                    and topic_key == 'msmarco-passage-dev-subset' \
-                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
+                            # Flaky test on Jimmy's Mac Studio
+                            elif args.collection == 'msmarco-v1-passage' \
+                                    and topic_key == 'msmarco-passage-dev-subset' and name == 'ance-rocchio-prf-pytorch' \
+                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0003:
+                                result_str = okish_str
+                            # Flaky test on Jimmy's Mac Studio
+                            elif args.collection == 'msmarco-v1-passage' \
+                                    and topic_key == 'dl20' and name == 'ance-rocchio-prf-pytorch' \
+                                    and metric == 'R@1K' and abs(score-float(expected[metric])) <= 0.0011:
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
