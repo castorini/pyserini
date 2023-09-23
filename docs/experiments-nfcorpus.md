@@ -86,7 +86,8 @@ python -m pyserini.encode \
   encoder --encoder facebook/contriever-msmarco \
           --device cpu \
           --pooling mean \
-          --fields title text
+          --fields title text \
+          --batch 32
 ```
 
 We're using the [`facebook/contriever-msmarco`](https://huggingface.co/facebook/contriever-msmarco) encoder, which can be found on HuggingFace.
@@ -98,6 +99,7 @@ At search time, each document vector is sequentially compared to the query vecto
 In other words, the library just performs brute force dot products of each query vector against all document vectors.
 
 The above indexing command takes around 30 minutes to run on a modern laptop, with most of the time occupied by performing neural inference using the CPU.
+Adjust the `batch` parameter above accordingly for your hardware; 32 is the default, but reduce the value if you find that the encoding is taking too long.
 
 ## Retrieval
 
@@ -120,6 +122,7 @@ With the flat index here, we're performing brute-force computation of dot produc
 As a result, we are performing _exact_ search, i.e., we are finding the _exact_ top-_k_ documents that have the highest dot products. 
 
 The above retrieval command takes only a few minutes on a modern laptop.
+Adjust the `threads` and `batch` parameters above accordingly for your hardware.
 
 ## Evaluation
 
