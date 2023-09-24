@@ -89,7 +89,11 @@ def list_conditions(args):
     with open(pkg_resources.resource_filename(__name__, 'beir.yaml')) as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
-            print(condition)
+            print(condition['name'])
+            
+def list_datasets(args):
+    for dataset in beir_keys:
+        print(dataset)
 
 def generate_report(args):
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
@@ -168,6 +172,8 @@ def run_conditions(args):
 
             if args.all or args.condition == name:
                 print(f'condition {name}:')
+            else:
+                continue
 
             for datasets in condition['datasets']:
                 dataset = datasets['dataset']
@@ -259,8 +265,9 @@ def run_conditions(args):
     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for BeIR corpora.')
-    # To list all conditions
+    # To list all conditions/datasets
     parser.add_argument('--list-conditions', action='store_true', default=False, help='List available conditions.')
+    parser.add_argument('--list-datasets', action='store_true', default=False, help='List available datasets.')
     # For generating reports
     parser.add_argument('--generate-report', action='store_true', default=False, help='Generate report.')
     parser.add_argument('--output', type=str, help='File to store report.', required=False)
@@ -276,6 +283,10 @@ if __name__ == '__main__':
 
     if args.list_conditions:
         list_conditions(args)
+        sys.exit()
+    
+    if args.list_datasets:
+        list_datasets(args)
         sys.exit()
 
     if args.generate_report:
