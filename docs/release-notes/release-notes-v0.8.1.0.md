@@ -18,4 +18,4 @@ Sorted by number of commits, [according to GitHub](https://github.com/castorini/
 + Zeynep Akkalyoncu Yilmaz ([zeynepakkalyoncu](https://github.com/zeynepakkalyoncu))
 + Chris Kamphuis ([Chriskamphuis](https://github.com/Chriskamphuis))
 + Pepijn Boers ([PepijnBoers](https://github.com/PepijnBoers))
-+ Alireza Mirzaeiyan ([amirzaeiyan](https://github.com/amirzaeiyan))
++ Alireza Mirzaeiyan ([amirzaeiyan](https://github.com/mirzaeiyan))
