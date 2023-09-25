@@ -8,4 +8,4 @@ python -m pyserini.index.lucene \
   --threads 48 \
   --impact --pretokenized
 
-lucene-index.msmarco-v1-passage-slimr.20230220.tar.gz MD5 checksum = 79e566fee4f376096e12a33cf67c8012
+lucene-index.msmarco-v1-passage-slimr.20230925.tar.gz MD5 checksum = 3532a09a4a47f862d63b8df81b39ecc9
