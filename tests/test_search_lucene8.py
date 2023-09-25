@@ -26,6 +26,11 @@ from pyserini.search.lucene import LuceneSearcher, JLuceneSearcherResult
 
 
 class TestSearch(unittest.TestCase):
+    searcher = None
+    index_dir = None
+    collection_url = None
+    tarball_name = None
+
     @classmethod
     def setUpClass(cls):
         # Download pre-built CACM index; append a random value to avoid filename clashes.

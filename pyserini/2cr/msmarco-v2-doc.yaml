@@ -216,28 +216,28 @@ conditions:
             R@100: 0.3563
             R@1K: 0.6787
   - name: unicoil-noexp-otf
-    display: "uniCOIL (noexp): otf"
-    display-html: "uniCOIL (noexp): on-the-fly query inference"
+    display: "uniCOIL (noexp): query inference with PyTorch"
+    display-html: "uniCOIL (noexp): query inference with PyTorch"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented-unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
         scores:
-          - MRR@100: 0.2232
+          - MRR@100: 0.2231
             R@1K: 0.8987
       - topic_key: msmarco-v2-doc-dev2
         eval_key: msmarco-v2-doc-dev2
         scores:
           - MRR@100: 0.2314
-            R@1K: 0.8993
+            R@1K: 0.8995
       - topic_key: dl21
         eval_key: dl21-doc
         scores:
-          - MAP@100: 0.2589
-            nDCG@10: 0.6501
+          - MAP@100: 0.2587
+            nDCG@10: 0.6495
             MRR@100: 0.9282
-            R@100: 0.3574
-            R@1K: 0.6782
+            R@100: 0.3563
+            R@1K: 0.6787
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
@@ -263,25 +263,25 @@ conditions:
             R@100: 0.3700
             R@1K: 0.7069
   - name: unicoil-otf
-    display: "uniCOIL (w/ doc2query-T5): otf"
-    display-html: "uniCOIL (w/ doc2query-T5): on-the-fly query inference"
+    display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
+    display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-doc-segmented-unicoil-0shot --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
         scores:
           - MRR@100: 0.2419
-            R@1K: 0.9120
+            R@1K: 0.9122
       - topic_key: msmarco-v2-doc-dev2
         eval_key: msmarco-v2-doc-dev2
         scores:
-          - MRR@100: 0.2447
-            R@1K: 0.9174
+          - MRR@100: 0.2445
+            R@1K: 0.9172
       - topic_key: dl21
         eval_key: dl21-doc
         scores:
-          - MAP@100: 0.2720
-            nDCG@10: 0.6782
+          - MAP@100: 0.2718
+            nDCG@10: 0.6783
             MRR@100: 0.9684
-            R@100: 0.3702
-            R@1K: 0.7071
+            R@100: 0.3700
+            R@1K: 0.7069

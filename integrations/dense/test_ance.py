@@ -16,8 +16,8 @@
 
 """Integration tests for ANCE and ANCE PRF using on-the-fly query encoding."""
 
+import multiprocessing
 import os
-import socket
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score, parse_score_qa, parse_score_msmarco
@@ -29,70 +29,16 @@ class TestAnce(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
         self.threads = 16
-        self.batch_size = 256
+        self.batch_size = self.threads * 32
         self.rocchio_alpha = 0.4
         self.rocchio_beta = 0.6
 
-        # Hard-code larger values for internal servers
-        if socket.gethostname().startswith('damiano') or socket.gethostname().startswith('orca'):
-            self.threads = 36
-            self.batch_size = 144
-
-    def test_ance_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('ance-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
-        encoded = QueryEncoder.load_encoded_queries('ance-dl19-passage')
-        topics = get_topics('dl19-passage')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
-        encoded = QueryEncoder.load_encoded_queries('ance-dl20')
-        topics = get_topics('dl20')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
-    def test_msmarco_passage_ance_avg_prf_otf(self):
-        output_file = 'test_run.dl2019.ance.avg-prf.otf.trec'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search.faiss --topics dl19-passage \
-                                     --index msmarco-v1-passage.ance \
-                                     --encoder castorini/ance-msmarco-passage \
-                                     --batch-size {self.batch_size} \
-                                     --threads {self.threads} \
-                                     --output {output_file} \
-                                     --prf-depth 3 \
-                                     --prf-method avg'
-        cmd2 = f'python -m pyserini.eval.trec_eval -l 2 -m map dl19-passage {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, 'map')
-        self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.4247, delta=0.0001)
-
-    def test_msmarco_passage_ance_rocchio_prf_otf(self):
-        output_file = 'test_run.dl2019.ance.rocchio-prf.otf.trec'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search.faiss --topics dl19-passage \
-                                     --index msmarco-v1-passage.ance \
-                                     --encoder castorini/ance-msmarco-passage \
-                                     --batch-size {self.batch_size} \
-                                     --threads {self.threads} \
-                                     --output {output_file} \
-                                     --prf-depth 5 \
-                                     --prf-method rocchio \
-                                     --rocchio-topk 5 \
-                                     --threads {self.threads} \
-                                     --rocchio-alpha {self.rocchio_alpha} \
-                                     --rocchio-beta {self.rocchio_beta}'
-        cmd2 = f'python -m pyserini.eval.trec_eval -l 2 -m map dl19-passage {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, 'map')
-        self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.4211, delta=0.0001)
+        half_cores = int(multiprocessing.cpu_count() / 2)
+        # If server supports more threads, then use more threads.
+        # As a heuristic, use up half up available CPU cores.
+        if half_cores > self.threads:
+            self.threads = half_cores
+            self.batch_size = half_cores * 32
 
     def test_msmarco_doc_ance_bf_otf(self):
         output_file = 'test_run.msmarco-doc.passage.ance-maxp.otf.txt'

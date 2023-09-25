@@ -57,11 +57,12 @@ class PcaEncoder:
 
 
 class JsonlCollectionIterator:
-    def __init__(self, collection_path: str, fields=None, delimiter="\n"):
+    def __init__(self, collection_path: str, fields=None, docid_field=None, delimiter="\n"):
         if fields:
             self.fields = fields
         else:
             self.fields = ['text']
+        self.docid_field = docid_field
         self.delimiter = delimiter
         self.all_info = self._load(collection_path)
         self.size = len(self.all_info['id'])
@@ -127,9 +128,12 @@ class JsonlCollectionIterator:
             with open(filename) as f:
                 for line_i, line in tqdm(enumerate(f)):
                     info = json.loads(line)
-                    _id = info.get('id', info.get('docid', None))
+                    if self.docid_field:
+                        _id = info.get(self.docid_field, None)
+                    else:
+                        _id = info.get('id', info.get('_id', info.get('docid', None)))
                     if _id is None:
-                        raise ValueError(f"Cannot find 'id' or 'docid' from {filename}.")
+                        raise ValueError(f"Cannot find f'`{self.docid_field if self.docid_field else '`id` or `_id` or `docid'}`' from {filename}.")
                     all_info['id'].append(str(_id))
                     fields_info = self._parse_fields_from_info(info)
                     if len(fields_info) != len(self.fields):

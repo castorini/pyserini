@@ -216,28 +216,28 @@ conditions:
             R@100: 0.4731
             R@1K: 0.7551
   - name: unicoil-otf
-    display: "uniCOIL (w/ doc2query-T5): otf"
-    display-html: "uniCOIL (w/ doc2query-T5): on-the-fly query inference"
+    display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
+    display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-passage-unicoil-0shot --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
         scores:
-          - MRR@100: 0.1501
-            R@1K: 0.7613
+          - MRR@100: 0.1499
+            R@1K: 0.7616
       - topic_key: msmarco-v2-passage-dev2
         eval_key: msmarco-v2-passage-dev2
         scores:
-          - MRR@100: 0.1576
-            R@1K: 0.7676
+          - MRR@100: 0.1577
+            R@1K: 0.7671
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
-          - MAP@100: 0.2539
-            nDCG@10: 0.6160
+          - MAP@100: 0.2538
+            nDCG@10: 0.6159
             MRR@100: 0.7311
-            R@100: 0.4723
-            R@1K: 0.7560
+            R@100: 0.4731
+            R@1K: 0.7551
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
@@ -263,14 +263,14 @@ conditions:
             R@100: 0.4246
             R@1K: 0.6897
   - name: unicoil-noexp-otf
-    display: "uniCOIL (noexp): otf"
-    display-html: "uniCOIL (noexp): on-the-fly query inference"
+    display: "uniCOIL (noexp): query inference with PyTorch"
+    display-html: "uniCOIL (noexp): query inference with PyTorch"
     command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-passage-unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev
         scores:
-          - MRR@100: 0.1343
+          - MRR@100: 0.1342
             R@1K: 0.7010
       - topic_key: msmarco-v2-passage-dev2
         eval_key: msmarco-v2-passage-dev2
@@ -280,8 +280,8 @@ conditions:
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
-          - MAP@100: 0.2194
-            nDCG@10: 0.5759
+          - MAP@100: 0.2193
+            nDCG@10: 0.5756
             MRR@100: 0.6991
             R@100: 0.4247
             R@1K: 0.6893

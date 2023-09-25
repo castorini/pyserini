@@ -207,14 +207,21 @@ $rows
 <a href="https://aclanthology.org/2021.repl4nlp-1.17/">In-Batch Negatives for Knowledge Distillation with Tightly-Coupled Teachers for Dense Retrieval.</a>
 <i>Proceedings of the 6th Workshop on Representation Learning for NLP (RepL4NLP-2021)</i>, pages 163-173, August 2021.</p></li>
 
-<li><p>[7] Minghan Li, Sheng-Chieh Lin, Xueguang Ma, Jimmy Lin.
-<a href="https://arxiv.org/abs/2302.06587">SLIM: Sparsified Late Interaction for Multi-Vector Retrieval with Inverted Indexes.</a>
-<i>arXiv:2302.06587</i>, Feburary 2023.</p></li>
+<li><p>[7] Minghan Li, Sheng-Chieh Lin, Xueguang Ma, and Jimmy Lin.
+<a href="https://dl.acm.org/doi/abs/10.1145/3539618.3591977">SLIM: Sparsified Late Interaction for Multi-Vector Retrieval with Inverted Indexes.</a>
+<i>Proceedings of the 46th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2023)</i>, pages 1954–1959, July 2023, Taipei, Taiwan.</p></li>
 
 <li><p>[8] Sheng-Chieh Lin, Minghan Li and Jimmy Lin.
-<a href="https://arxiv.org/abs/2208.00511">Aggretriever: A Simple Approach to Aggregate Textual Representation for Robust Dense Passage Retrieval.</a>
-<i>arXiv:2208.00511</i>, July 2022.</p></li>
+<a href="https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00556/116046/Aggretriever-A-Simple-Approach-to-Aggregate">Aggretriever: A Simple Approach to Aggregate Textual Representation for Robust Dense Passage Retrieval.</a>
+<i>Transactions of the Association for Computational Linguistics</i>, 11:436-452, 2023.</p></li>
 
+<li><p>[9] Hang Li, Ahmed Mourad, Shengyao Zhuang, Bevan Koopman, and Guido Zuccon.
+<a href="https://dl.acm.org/doi/abs/10.1145/3570724">Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.</a>
+<i>ACM Transactions on Information Systems</i>, 41(3), Article No. 62, 2023.</p></li>
+
+<li><p>[10] Nils Reimers and Iryna Gurevych.
+<a href="https://aclanthology.org/D19-1410/">Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks.</a>
+<i>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)</i>, 2019.</p></li>
 
 </ul>
 

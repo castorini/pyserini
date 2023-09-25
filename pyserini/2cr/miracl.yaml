@@ -228,12 +228,12 @@ conditions:
     splits:
       - split: train
         scores:     
-          - nDCG@10: 0.4362
-            R@100: 0.8045  
+          - nDCG@10: 0.4589
+            R@100: 0.8244
       - split: dev       
         scores:   
-          - nDCG@10: 0.4427
-            R@100: 0.8193
+          - nDCG@10: 0.4622
+            R@100: 0.8311
   - name: mdpr-tied-pft-msmarco.en
     eval_key: miracl-v1.0-en
     command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-en-${split} --index miracl-v1.0-en-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
@@ -300,12 +300,12 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.3685
-            R@100: 0.7780
+          - nDCG@10: 0.3700
+            R@100: 0.7760
       - split: dev
         scores:
-          - nDCG@10: 0.3830
-            R@100: 0.7755
+          - nDCG@10: 0.3895
+            R@100: 0.7810
   - name: mdpr-tied-pft-msmarco.id
     eval_key: miracl-v1.0-id
     command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics miracl-v1.0-id-${split} --index miracl-v1.0-id-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
@@ -372,7 +372,7 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.3723
+          - nDCG@10: 0.3724
             R@100: 0.7698
       - split: dev
         scores:
@@ -438,12 +438,12 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.6823
-            R@100: 0.8646
+          - nDCG@10: 0.6863
+            R@100: 0.8706
       - split: dev
         scores:
-          - nDCG@10: 0.5804
-            R@100: 0.8480
+          - nDCG@10: 0.5923
+            R@100: 0.8660
   - name: mdpr-tied-pft-msmarco-ft-all.en
     eval_key: miracl-v1.0-en
     command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-en-${split} --index miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
@@ -510,12 +510,12 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.3336
-            R@100: 0.6388
+          - nDCG@10: 0.3363
+            R@100: 0.6408
       - split: dev
         scores:
-          - nDCG@10: 0.3286
-            R@100: 0.6371
+          - nDCG@10: 0.3324
+            R@100: 0.6348
   - name: mdpr-tied-pft-msmarco-ft-all.id
     eval_key: miracl-v1.0-id
     command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics miracl-v1.0-id-${split} --index miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-all --output $output --batch 128 --threads 16 --hits 1000
@@ -582,7 +582,7 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.8757
+          - nDCG@10: 0.8756
             R@100: 0.9725
       - split: dev
         scores:
@@ -595,7 +595,7 @@ conditions:
       - split: train
         scores:
           - nDCG@10: 0.7761
-            R@100: 0.9241
+            R@100: 0.9240
       - split: dev
         scores:
           - nDCG@10: 0.5975
@@ -647,12 +647,12 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.6587
-            R@100: 0.9297
+          - nDCG@10: 0.6733
+            R@100: 0.9394
       - split: dev
         scores:
-          - nDCG@10: 0.6540
-            R@100: 0.9321
+          - nDCG@10: 0.6714
+            R@100: 0.9491
   - name: bm25-mdpr-tied-pft-msmarco-hybrid.en
     eval_key: miracl-v1.0-en
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
@@ -720,12 +720,12 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.6217
-            R@100: 0.9059
+          - nDCG@10: 0.6187
+            R@100: 0.9038
       - split: dev
         scores:
-          - nDCG@10: 0.6157
-            R@100: 0.9115
+          - nDCG@10: 0.6145
+            R@100: 0.9153
   - name: bm25-mdpr-tied-pft-msmarco-hybrid.id
     eval_key: miracl-v1.0-id
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
@@ -972,7 +972,7 @@ conditions:
   # mcontriever
   - name: mcontriever-tied-pft-msmarco.ar
     eval_key: miracl-v1.0-ar
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-ar-dev --index miracl-v1.0-ar-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-ar-${split} --index miracl-v1.0-ar-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -984,7 +984,7 @@ conditions:
             R@100: 0.9253
   - name: mcontriever-tied-pft-msmarco.bn
     eval_key: miracl-v1.0-bn
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-bn-dev --index miracl-v1.0-bn-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-bn-${split} --index miracl-v1.0-bn-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -996,7 +996,7 @@ conditions:
             R@100: 0.9205
   - name: mcontriever-tied-pft-msmarco.en
     eval_key: miracl-v1.0-en
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-en-dev --index miracl-v1.0-en-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-en-${split} --index miracl-v1.0-en-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1008,7 +1008,7 @@ conditions:
             R@100: 0.7967
   - name: mcontriever-tied-pft-msmarco.es
     eval_key: miracl-v1.0-es
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-es-dev --index miracl-v1.0-es-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-es-${split} --index miracl-v1.0-es-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1020,7 +1020,7 @@ conditions:
             R@100: 0.8411
   - name: mcontriever-tied-pft-msmarco.fa
     eval_key: miracl-v1.0-fa
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-fa-dev --index miracl-v1.0-fa-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-fa-${split} --index miracl-v1.0-fa-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1032,7 +1032,7 @@ conditions:
             R@100: 0.6540
   - name: mcontriever-tied-pft-msmarco.fi
     eval_key: miracl-v1.0-fi
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-fi-dev --index miracl-v1.0-fi-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-fi-${split} --index miracl-v1.0-fi-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1044,7 +1044,7 @@ conditions:
             R@100: 0.9527
   - name: mcontriever-tied-pft-msmarco.fr
     eval_key: miracl-v1.0-fr
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-fr-dev --index miracl-v1.0-fr-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-fr-${split} --index miracl-v1.0-fr-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1056,7 +1056,7 @@ conditions:
             R@100: 0.8243
   - name: mcontriever-tied-pft-msmarco.hi
     eval_key: miracl-v1.0-hi
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-hi-dev --index miracl-v1.0-hi-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-hi-${split} --index miracl-v1.0-hi-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1068,11 +1068,11 @@ conditions:
             R@100: 0.6461
   - name: mcontriever-tied-pft-msmarco.id
     eval_key: miracl-v1.0-id
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-id-dev --index miracl-v1.0-id-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-id-${split} --index miracl-v1.0-id-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.3748
+          - nDCG@10: 0.3749
             R@100: 0.7955
       - split: dev
         scores:
@@ -1080,7 +1080,7 @@ conditions:
             R@100: 0.8015
   - name: mcontriever-tied-pft-msmarco.ja
     eval_key: miracl-v1.0-ja
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-ja-dev --index miracl-v1.0-ja-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-ja-${split} --index miracl-v1.0-ja-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1092,7 +1092,7 @@ conditions:
             R@100: 0.8783
   - name: mcontriever-tied-pft-msmarco.ko
     eval_key: miracl-v1.0-ko
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-ko-dev --index miracl-v1.0-ko-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-ko-${split} --index miracl-v1.0-ko-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1104,7 +1104,7 @@ conditions:
             R@100: 0.8753
   - name: mcontriever-tied-pft-msmarco.ru
     eval_key: miracl-v1.0-ru
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-ru-dev --index miracl-v1.0-ru-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-ru-${split} --index miracl-v1.0-ru-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1116,7 +1116,7 @@ conditions:
             R@100: 0.8500
   - name: mcontriever-tied-pft-msmarco.sw
     eval_key: miracl-v1.0-sw
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-sw-dev --index miracl-v1.0-sw-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-sw-${split} --index miracl-v1.0-sw-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1128,7 +1128,7 @@ conditions:
             R@100: 0.9108
   - name: mcontriever-tied-pft-msmarco.te
     eval_key: miracl-v1.0-te
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-te-dev --index miracl-v1.0-te-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-te-${split} --index miracl-v1.0-te-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1140,7 +1140,7 @@ conditions:
             R@100: 0.9612
   - name: mcontriever-tied-pft-msmarco.th
     eval_key: miracl-v1.0-th
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-th-dev --index miracl-v1.0-th-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-th-${split} --index miracl-v1.0-th-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1152,7 +1152,7 @@ conditions:
             R@100: 0.9361
   - name: mcontriever-tied-pft-msmarco.zh
     eval_key: miracl-v1.0-zh
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-zh-dev --index miracl-v1.0-zh-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-zh-${split} --index miracl-v1.0-zh-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: train
         scores:
@@ -1164,7 +1164,7 @@ conditions:
             R@100: 0.9026
   - name: mcontriever-tied-pft-msmarco.de
     eval_key: miracl-v1.0-de
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-de-dev --index miracl-v1.0-de-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-de-${split} --index miracl-v1.0-de-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: dev
         scores:
@@ -1172,7 +1172,7 @@ conditions:
             R@100: 0.8407
   - name: mcontriever-tied-pft-msmarco.yo
     eval_key: miracl-v1.0-yo
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-yo-dev --index miracl-v1.0-yo-mcontriever-pft-msmarco --output  --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/mcontriever-msmarco --topics miracl-v1.0-yo-${split} --index miracl-v1.0-yo-mcontriever-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: dev
         scores:

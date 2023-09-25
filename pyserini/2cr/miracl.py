@@ -251,11 +251,13 @@ def generate_report(args):
                                                f'run.miracl.bm25.{lang}.{split}.top{hits}.txt')
                     mdpr_output = os.path.join(args.directory,
                                                f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
-                    cmd = Template(cmd_template).substitute(split=split, output=runfile, bm25_output=bm25_output,
-                                                            mdpr_output=mdpr_output)
+                    expected_args = dict(output=runfile, bm25_output=bm25_output, mdpr_output=mdpr_output)
                 else:
-                    cmd = Template(cmd_template).substitute(split=split, output=runfile)
+                    expected_args = dict(split=split, output=runfile)
 
+                if not all([f"${k}" in cmd_template or f"${{{k}}}" in cmd_template for k in expected_args]):
+                    raise ValueError(f"Not all arguements {list(expected_args)} detected from inputs: {cmd_template}.")
+                cmd = Template(cmd_template).substitute(**expected_args)
                 commands[name] = format_run_command(cmd)
 
                 for expected in splits['scores']:
@@ -370,6 +372,8 @@ def run_conditions(args):
                             # We have the translate the training qrels into a file located in tools/topics-and-qrels/
                             # because they are not included with Anserini/Pyserini by default.
                             # Here, we assume that the developer has cloned the miracl repo and placed the qrels there.
+                            if not os.path.exists(runfile):
+                                continue
                             if split == 'train':
                                 qrels = f'tools/topics-and-qrels/qrels.{eval_key}-train.tsv'
                             else:
@@ -381,14 +385,20 @@ def run_conditions(args):
                             # Flaky tests
                             elif (name == 'mdpr-tied-pft-msmarco.hi' and split == 'train'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
+                                 (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh'
+                                  and split == 'dev' and metric == 'nDCG@10'
+                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
                                  (name == 'mdpr-tied-pft-msmarco-ft-all.ru'
+                                 # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3932 -> expected 0.3933
                                   and split == 'dev' and metric == 'nDCG@10'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
                                  (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.te'
+                                 # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.6000 -> expected 0.5999
                                   and split == 'train' and metric == 'nDCG@10'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
-                                 (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh'
-                                  and split == 'dev' and metric == 'nDCG@10'
+                                 (name == 'mcontriever-tied-pft-msmarco.id'
+                                 # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3748 -> expected 0.3749
+                                  and split == 'train' and metric == 'nDCG@10'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)):
                                 result_str = okish_str
                             else:

@@ -260,6 +260,8 @@ def run_conditions(args):
                 for expected in splits['scores']:
                     for metric in expected:
                         if not args.skip_eval:
+                            if not os.path.exists(runfile):
+                                continue
                             score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}',
                                                                      trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
