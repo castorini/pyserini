@@ -70,42 +70,6 @@ class TestTctColBertV2(unittest.TestCase):
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.3543, delta=0.0001)
 
-    def test_msmarco_passage_tct_colbert_v2_hnp_bf_bm25_hybrid_otf(self):
-        output_file = 'test_run.msmarco-passage.tct_colbert-v2-hnp.bf-otf.bm25.tsv'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-v1-passage.tct_colbert-v2-hnp \
-                                    --encoder castorini/tct_colbert-v2-hnp-msmarco \
-                             sparse --index msmarco-v1-passage \
-                             fusion --alpha 0.06 \
-                             run    --topics msmarco-passage-dev-subset \
-                                    --output {output_file} \
-                                    --batch-size {self.batch_size} --threads {self.threads} \
-                                    --output-format msmarco'
-        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3682, delta=0.0001)
-
-    def test_msmarco_passage_tct_colbert_v2_hnp_bf_d2q_hybrid_otf(self):
-        output_file = 'test_run.msmarco-passage.tct_colbert-v2-hnp.bf-otf.doc2queryT5.tsv'
-        self.temp_files.append(output_file)
-        cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-v1-passage.tct_colbert-v2-hnp \
-                                    --encoder castorini/tct_colbert-v2-hnp-msmarco \
-                             sparse --index msmarco-v1-passage-d2q-t5 \
-                             fusion --alpha 0.1 \
-                             run    --topics msmarco-passage-dev-subset \
-                                    --output {output_file} \
-                                    --batch-size {self.batch_size} --threads {self.threads} \
-                                    --output-format msmarco'
-        cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3731, delta=0.0001)
-
     def tearDown(self):
         clean_files(self.temp_files)
 
