@@ -309,8 +309,8 @@ def generate_report(args):
 
 def run_conditions(args):
     hits = 1000 if args.full_topk else 100
-    yaml_path = pkg_resources.resource_filename(__name__, 'triviaqa.yaml') if args.topic == "tqa" else pkg_resources.resource_filename(__name__, 'naturalquestion.yaml')
-    topics = 'dpr-trivia-test' if args.topic == 'tqa' else 'nq-test'
+    yaml_path = pkg_resources.resource_filename(__name__, 'triviaqa.yaml') if args.topics == "tqa" else pkg_resources.resource_filename(__name__, 'naturalquestion.yaml')
+    topics = 'dpr-trivia-test' if args.topics == 'tqa' else 'nq-test'
     start = time.time()
     table = defaultdict(lambda: defaultdict(lambda: 0.0))
 
@@ -336,7 +336,7 @@ def run_conditions(args):
             print(f'model {name}:')
             if topics == 'nq-test' and name == 'BM25-k1_0.9_b_0.4_dpr-topics':
                 topics = 'dpr-nq-test'
-            elif args.topic == 'nq':
+            elif args.topics == 'nq':
                 topics = 'nq-test'
             print(f'  - Topics: {topics}')
 
@@ -430,7 +430,7 @@ if __name__ == '__main__':
     # For actually running the experimental conditions
     parser.add_argument('--full-topk', action='store_true', default=False, help='Run topk 5-1000, default is topk 5-100')
     parser.add_argument('--all', action='store_true', default=False, help='Run all conditions.')
-    parser.add_argument('--topic', type=str, help='Topic to run [tqa, nq].', choices=['tqa', 'nq'], required=False)
+    parser.add_argument('--topics', type=str, help='Topics to run [tqa, nq].', choices=['tqa', 'nq'], required=False)
     parser.add_argument('--condition', type=str, help='Condition to run.', required=False)
     parser.add_argument('--directory', type=str, help='Base directory.', default='', required=False)
     parser.add_argument('--dry-run', action='store_true', default=False, help='Print out commands but do not execute.')
@@ -450,7 +450,7 @@ if __name__ == '__main__':
         generate_report(args)
         sys.exit()
         
-    if not args.generate_report and not args.topic:
+    if not args.generate_report and not args.topics:
         print(f"Must specify a topic [tqa, nq] when running an evaluation.")
         sys.exit()
 
