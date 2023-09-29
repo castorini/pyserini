@@ -67,8 +67,8 @@ if len(args) > 1:
             run.to_csv(temp_file, sep='\t', header=None, index=None)
             args[-1] = temp_file
 
-    run = pd.read_csv(args[-1], delim_whitespace=True, header=None)
-    qrels = pd.read_csv(args[-2], delim_whitespace=True, header=None)
+    run = pd.read_csv(args[-1], delim_whitespace=True, engine='python', header=None)
+    qrels = pd.read_csv(args[-2], delim_whitespace=True, engine='python', header=None)
     
     # cast doc_id column as string
     run[0] = run[0].astype(str)
