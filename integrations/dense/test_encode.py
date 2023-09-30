@@ -130,7 +130,7 @@ class TestEncode(unittest.TestCase):
         hits = searcher.search('What is the solution of separable closed queueing networks?', k=1)
         hit = hits[0]
         self.assertEqual(hit.docid, 'CACM-2712')
-        self.assertAlmostEqual(hit.score, 18.402, places=3)
+        self.assertAlmostEqual(hit.score, 940, places=3)
 
     def tearDown(self):
         for f in self.temp_folders:

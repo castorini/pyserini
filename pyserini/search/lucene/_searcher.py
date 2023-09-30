@@ -46,10 +46,12 @@ class LuceneSearcher:
         Path to Lucene index directory.
     """
 
-    def __init__(self, index_dir: str):
+    def __init__(self, index_dir: str, prebuilt_index_name=None):
         self.index_dir = index_dir
         self.object = JLuceneSearcher(index_dir)
         self.num_docs = self.object.get_total_num_docs()
+        # Keep track if self is a known pre-built index.
+        self.prebuilt_index_name = prebuilt_index_name
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str, verbose=False):
@@ -67,6 +69,13 @@ class LuceneSearcher:
         LuceneSearcher
             Searcher built from the prebuilt index.
         """
+        # see integrations/papers/test_sigir2021.py - preserve working commands published in papers
+        if prebuilt_index_name == 'msmarco-passage':
+            prebuilt_index_name = 'msmarco-v1-passage'
+        # see integrations/papers/test_ecir2023.py - preserve working commands published in papers
+        elif prebuilt_index_name == 'wikipedia-dpr':
+            prebuilt_index_name = 'wikipedia-dpr-100w'
+
         if verbose:
             print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
 
@@ -85,7 +94,7 @@ class LuceneSearcher:
         if verbose:
             print(f'Initializing {prebuilt_index_name}...')
 
-        return cls(index_dir)
+        return cls(index_dir, prebuilt_index_name=prebuilt_index_name)
 
     @staticmethod
     def list_prebuilt_indexes():
@@ -261,7 +270,13 @@ class LuceneSearcher:
             Whether to remove non-English terms.
         """
         if self.object.reader.getTermVectors(0):
-            self.object.set_rm3(fb_terms, fb_docs, original_query_weight, debug, filter_terms)
+            self.object.set_rm3(None, fb_terms, fb_docs, original_query_weight, debug, filter_terms)
+        elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented']:
+            self.object.set_rm3('JsonCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
+        elif self.prebuilt_index_name in ['msmarco-v2-passage', 'msmarco-v2-passage-augmented']:
+            self.object.set_rm3('MsMarcoV2PassageCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
+        elif self.prebuilt_index_name in ['msmarco-v2-doc', 'msmarco-v2-doc-segmented']:
+            self.object.set_rm3('MsMarcoV2DocCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
         else:
             raise TypeError("RM3 is not supported for indexes without document vectors.")
 
@@ -284,9 +299,9 @@ class LuceneSearcher:
         top_fb_docs : int
             Rocchio parameter for number of relevant expansion documents.
         bottom_fb_terms : int
-            Rocchio parameter for number of nonrelevant expansion terms.
+            Rocchio parameter for number of non-relevant expansion terms.
         bottom_fb_docs : int
-            Rocchio parameter for number of nonrelevant expansion documents.
+            Rocchio parameter for number of non-relevant expansion documents.
         alpha : float
             Rocchio parameter for weight to assign to the original query.
         beta: float
@@ -299,8 +314,13 @@ class LuceneSearcher:
             Rocchio parameter to use negative labels.
         """
         if self.object.reader.getTermVectors(0):
-            self.object.set_rocchio(top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
+            self.object.set_rocchio(None, top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
                                     alpha, beta, gamma, debug, use_negative)
+        elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented']:
+            self.object.set_rocchio('JsonCollection', top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
+                                    alpha, beta, gamma, debug, use_negative)
+        # Note, we don't have any Pyserini 2CRs that use Rocchio for MS MARCO v2, so there's currently no
+        # corresponding code branch here. To avoid introducing bugs (without 2CR tests), we'll add when it's needed.
         else:
             raise TypeError("Rocchio is not supported for indexes without document vectors.")
 

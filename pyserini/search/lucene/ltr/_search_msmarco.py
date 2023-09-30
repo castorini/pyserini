@@ -205,7 +205,6 @@ class MsmarcoLtrSearcher:
                 group = pd.DataFrame(group_lst, columns=['qid', 'count'])
                 print(features.shape)
                 print(task_infos.qid.drop_duplicates().shape)
-                print(group.mean())
                 print(features.head(10))
                 print(features.info())
                 yield task_infos, features, group
@@ -219,7 +218,6 @@ class MsmarcoLtrSearcher:
             group = pd.DataFrame(group_lst, columns=['qid', 'count'])
             print(features.shape)
             print(task_infos.qid.drop_duplicates().shape)
-            print(group.mean())
             print(features.head(10))
             print(features.info())
             yield task_infos, features, group

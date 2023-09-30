@@ -16,15 +16,25 @@
 
 """Integration tests for commands in Ma et al. resource paper and Trotman et al. demo paper at SIGIR 2022."""
 
+import multiprocessing
 import os
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score, parse_score_msmarco
 
 
-class TestSIGIR2021(unittest.TestCase):
+class TestSIGIR2022(unittest.TestCase):
     def setUp(self):
         self.temp_files = []
+        self.threads = 16
+        self.batch_size = self.threads * 8
+
+        half_cores = int(multiprocessing.cpu_count() / 2)
+        # If server supports more threads, then use more threads.
+        # As a heuristic, use up half up available CPU cores.
+        if half_cores > self.threads:
+            self.threads = half_cores
+            self.batch_size = half_cores * 8
 
     def test_Ma_etal_section4_1a(self):
         """Sample code in Section 4.1. in Ma et al. resource paper."""
@@ -57,7 +67,7 @@ class TestSIGIR2021(unittest.TestCase):
                       --topics msmarco-v2-passage-dev \
                       --encoder castorini/unicoil-msmarco-passage \
                       --output {output_file} \
-                      --batch 144 --threads 36 \
+                      --batch {self.batch_size} --threads {self.threads} \
                       --hits 1000 \
                       --impact'
         status = os.system(run_cmd)
@@ -66,8 +76,7 @@ class TestSIGIR2021(unittest.TestCase):
         eval_cmd = f'python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev {output_file}'
         stdout, stderr = run_command(eval_cmd)
         score = parse_score(stdout, "recip_rank")
-        self.assertAlmostEqual(score, 0.1501, delta=0.0001)
-        # This is the score with otf; with pre-encoded, the score is 0.1499.
+        self.assertAlmostEqual(score, 0.1499, delta=0.0001)
 
     def test_Trotman_etal(self):
         """Sample code in Trotman et al. demo paper."""
@@ -79,7 +88,7 @@ class TestSIGIR2021(unittest.TestCase):
                       --topics msmarco-passage-dev-subset-unicoil \
                       --output {output_file} \
                       --output-format msmarco \
-                      --batch 36 --threads 12 \
+                      --batch {self.batch_size} --threads {self.threads} \
                       --hits 1000 \
                       --impact'
         status = os.system(run_cmd)

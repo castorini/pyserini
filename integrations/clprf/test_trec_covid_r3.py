@@ -43,7 +43,7 @@ class TestSearchIntegration(unittest.TestCase):
         os.mkdir(f'{self.tmp}/runs')
 
         self.round3_runs = {
-            'https://raw.githubusercontent.com/castorini/anserini/master/src/main/resources/topics-and-qrels/qrels.covid-round3-cumulative.txt':
+            'https://raw.githubusercontent.com/castorini/anserini-tools/master/topics-and-qrels/qrels.covid-round3-cumulative.txt':
                 'dfccc32efd58a8284ae411e5c6b27ce9',
         }
 

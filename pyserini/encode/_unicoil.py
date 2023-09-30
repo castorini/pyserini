@@ -144,6 +144,8 @@ class UniCoilQueryEncoder(QueryEncoder):
         self.model = UniCoilEncoder.from_pretrained(model_name_or_path)
         self.model.to(self.device)
         self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name_or_path)
+        self.weight_range = 5
+        self.quant_range = 256
 
     def encode(self, text, **kwargs):
         max_length = 128  # hardcode for now
@@ -152,7 +154,8 @@ class UniCoilQueryEncoder(QueryEncoder):
                                    return_tensors='pt').to(self.device)["input_ids"]
         batch_weights = self.model(input_ids).cpu().detach().numpy()
         batch_token_ids = input_ids.cpu().detach().numpy()
-        return self._output_to_weight_dicts(batch_token_ids, batch_weights)[0]
+        raw_weights = self._output_to_weight_dicts(batch_token_ids, batch_weights)
+        return self._get_encoded_query_token_wight_dicts(raw_weights)[0]
 
     def _output_to_weight_dicts(self, batch_token_ids, batch_weights):
         to_return = []
@@ -173,3 +176,14 @@ class UniCoilQueryEncoder(QueryEncoder):
                     tok_weights[tok] += weight
             to_return.append(tok_weights)
         return to_return
+
+    def _get_encoded_query_token_wight_dicts(self, tok_weights):
+        to_return = []
+        for _tok_weight in tok_weights:
+            _weights = {}
+            for token, weight in _tok_weight.items():
+                weight_quanted = round(weight / self.weight_range * self.quant_range)
+                _weights[token] = weight_quanted
+            to_return.append(_weights)
+        return to_return
+

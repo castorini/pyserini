@@ -40,6 +40,14 @@ blockquote.mycode {
   padding-left: 15px;
 }
 
+blockquote.mycode2 {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+}
+
 tr th.headertop {
   border-bottom: none;
   padding-bottom: 0rem
@@ -438,7 +446,7 @@ Evaluation commands:
 <td class="expand-button"></td>
 <td>mDPR (split encoders), pre-FT w/ NQ</td>
 <td>0.291</td>
-<td>0.291</td>
+<td>0.296</td>
 <td>0.291</td>
 <td>0.205</td>
 <td>0.271</td>
@@ -449,7 +457,7 @@ Evaluation commands:
 <td>0.110</td>
 <td>0.171</td>
 <td></td>
-<td>0.231</td>
+<td>0.232</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -716,7 +724,7 @@ Evaluation commands:
 <td class="expand-button"></td>
 <td>mDPR (tied encoders), pre-FT w/ NQ</td>
 <td>0.221</td>
-<td>0.254</td>
+<td>0.255</td>
 <td>0.243</td>
 <td>0.244</td>
 <td>0.281</td>
@@ -1005,7 +1013,7 @@ Evaluation commands:
 <td class="expand-button"></td>
 <td>mDPR (tied encoders), pre-FT w/ MS MARCO</td>
 <td>0.441</td>
-<td>0.397</td>
+<td>0.417</td>
 <td>0.327</td>
 <td>0.275</td>
 <td>0.352</td>
@@ -1016,7 +1024,7 @@ Evaluation commands:
 <td>0.310</td>
 <td>0.269</td>
 <td></td>
-<td>0.333</td>
+<td>0.335</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1294,7 +1302,7 @@ Evaluation commands:
 <td class="expand-button"></td>
 <td>mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all</td>
 <td>0.695</td>
-<td>0.623</td>
+<td>0.643</td>
 <td>0.492</td>
 <td>0.559</td>
 <td>0.578</td>
@@ -1305,7 +1313,7 @@ Evaluation commands:
 <td>0.891</td>
 <td>0.618</td>
 <td></td>
-<td>0.600</td>
+<td>0.602</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1888,7 +1896,7 @@ Evaluation commands:
 <td class="expand-button"></td>
 <td>mDPR (split encoders), pre-FT w/ NQ</td>
 <td>0.650</td>
-<td>0.779</td>
+<td>0.793</td>
 <td>0.678</td>
 <td>0.568</td>
 <td>0.685</td>
@@ -1899,7 +1907,7 @@ Evaluation commands:
 <td>0.366</td>
 <td>0.515</td>
 <td></td>
-<td>0.594</td>
+<td>0.595</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2166,7 +2174,7 @@ Evaluation commands:
 <td class="expand-button"></td>
 <td>mDPR (tied encoders), pre-FT w/ NQ</td>
 <td>0.600</td>
-<td>0.707</td>
+<td>0.716</td>
 <td>0.689</td>
 <td>0.640</td>
 <td>0.691</td>
@@ -2177,7 +2185,7 @@ Evaluation commands:
 <td>0.245</td>
 <td>0.455</td>
 <td></td>
-<td>0.579</td>
+<td>0.580</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2455,7 +2463,7 @@ Evaluation commands:
 <td class="expand-button"></td>
 <td>mDPR (tied encoders), pre-FT w/ MS MARCO</td>
 <td>0.797</td>
-<td>0.784</td>
+<td>0.820</td>
 <td>0.754</td>
 <td>0.647</td>
 <td>0.736</td>
@@ -2466,7 +2474,7 @@ Evaluation commands:
 <td>0.782</td>
 <td>0.595</td>
 <td></td>
-<td>0.711</td>
+<td>0.714</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -3034,6 +3042,69 @@ Evaluation commands:
 </div>
 
 
+  </ul>
+
+  <div style="padding-top: 20px"/>
+
+  <h4>Programmatic Execution</h4>
+
+  <p>All experimental runs shown in the above table can be programmatically executed based on the instructions below.
+  To list all the experimental conditions:</p>
+
+  <blockquote class="mycode2"><tt>
+  python -m pyserini.2cr.mrtydi --list-conditions
+  </tt></blockquote>
+
+  <p>Run all languages for a specific condition and show commands:</p>
+
+  <blockquote class="mycode2"><tt>
+  python -m pyserini.2cr.mrtydi --condition bm25 --display-commands
+  </tt></blockquote>
+
+  <p>Run a particular language for a specific condition and show commands:</p>
+
+  <blockquote class="mycode2"><tt>
+  python -m pyserini.2cr.mrtydi --condition bm25 --language ko --display-commands
+  </tt></blockquote>
+
+  <p>Run all languages for all conditions and show commands:</p>
+
+  <blockquote class="mycode2"><tt>
+  python -m pyserini.2cr.mrtydi --all --display-commands
+  </tt></blockquote>
+
+  <p>With the above commands, run files will be placed in the current directory. Use the option <tt>--directory runs</tt> to place the runs in a sub-directory.</p>
+
+  <p>For a specific condition, just show the commands and do not run:</p>
+
+  <blockquote class="mycode2"><tt>
+  python -m pyserini.2cr.mrtydi --condition bm25 --display-commands --dry-run
+  </tt></blockquote>
+
+  <p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
+
+  <p>For a specific condition and language, just show the commands and do not run:</p>
+
+  <blockquote class="mycode2"><tt>
+  python -m pyserini.2cr.mrtydi --condition bm25 --language ko --display-commands --dry-run
+  </tt></blockquote>
+
+  <p>For all conditions, just show the commands and do not run and skip evaluation:</p>
+
+  <blockquote class="mycode2"><tt>
+  python -m pyserini.2cr.mrtydi --all --display-commands --dry-run --skip-eval
+  </tt></blockquote>
+
+  <p>Finally, to generate this page:</p>
+
+  <blockquote class="mycode2"><tt>
+  python -m pyserini.2cr.mrtydi --generate-report --output docs/2cr/mrtydi.html
+  </tt></blockquote>
+
+  <p>The output file <tt>mrtydi.html</tt> should be identical to this page.</p>
+
+  <div style="padding-top: 50px"/>
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -3083,4 +3154,3 @@ clipboard.on('error', function(e) {
 
 </body>
 </html>
-

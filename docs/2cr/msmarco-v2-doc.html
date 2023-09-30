@@ -222,7 +222,7 @@ Command to generate run on TREC 2021 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-doc-slim \
+  --index msmarco-v2-doc \
   --topics dl21 \
   --output run.msmarco-v2-doc.bm25-doc-default.dl21.txt \
   --bm25
@@ -245,7 +245,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-doc-slim \
+  --index msmarco-v2-doc \
   --topics msmarco-v2-doc-dev \
   --output run.msmarco-v2-doc.bm25-doc-default.dev.txt \
   --bm25
@@ -265,7 +265,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-doc-slim \
+  --index msmarco-v2-doc \
   --topics msmarco-v2-doc-dev2 \
   --output run.msmarco-v2-doc.bm25-doc-default.dev2.txt \
   --bm25
@@ -328,7 +328,7 @@ Command to generate run on TREC 2021 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-doc-segmented-slim \
+  --index msmarco-v2-doc-segmented \
   --topics dl21 \
   --output run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt \
   --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
@@ -351,7 +351,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-doc-segmented-slim \
+  --index msmarco-v2-doc-segmented \
   --topics msmarco-v2-doc-dev \
   --output run.msmarco-v2-doc.bm25-doc-segmented-default.dev.txt \
   --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
@@ -371,7 +371,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-doc-segmented-slim \
+  --index msmarco-v2-doc-segmented \
   --topics msmarco-v2-doc-dev2 \
   --output run.msmarco-v2-doc.bm25-doc-segmented-default.dev2.txt \
   --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
@@ -434,7 +434,7 @@ Command to generate run on TREC 2021 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-doc-full \
+  --index msmarco-v2-doc \
   --topics dl21 \
   --output run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt \
   --bm25 --rm3
@@ -457,7 +457,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-doc-full \
+  --index msmarco-v2-doc \
   --topics msmarco-v2-doc-dev \
   --output run.msmarco-v2-doc.bm25-rm3-doc-default.dev.txt \
   --bm25 --rm3
@@ -477,7 +477,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-doc-full \
+  --index msmarco-v2-doc \
   --topics msmarco-v2-doc-dev2 \
   --output run.msmarco-v2-doc.bm25-rm3-doc-default.dev2.txt \
   --bm25 --rm3
@@ -540,7 +540,7 @@ Command to generate run on TREC 2021 queries:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-doc-segmented-full \
+  --index msmarco-v2-doc-segmented \
   --topics dl21 \
   --output run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt \
   --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
@@ -563,7 +563,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-doc-segmented-full \
+  --index msmarco-v2-doc-segmented \
   --topics msmarco-v2-doc-dev \
   --output run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev.txt \
   --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
@@ -583,7 +583,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-doc-segmented-full \
+  --index msmarco-v2-doc-segmented \
   --topics msmarco-v2-doc-dev2 \
   --output run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev2.txt \
   --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
@@ -1241,22 +1241,22 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </div></td>
 </tr>
 <tr><td style="border-bottom: 0"></td></tr>
-<!-- Condition: uniCOIL (noexp): on-the-fly query inference -->
+<!-- Condition: uniCOIL (noexp): query inference with PyTorch -->
 <tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">
 <td class="expand-button"></td>
 <td></td>
-<td style="min-width: 400px">uniCOIL (noexp): on-the-fly query inference</td>
-<td>0.2589</td>
-<td>0.6501</td>
+<td style="min-width: 400px">uniCOIL (noexp): query inference with PyTorch</td>
+<td>0.2587</td>
+<td>0.6495</td>
 <td>0.9282</td>
-<td>0.3574</td>
-<td>0.6782</td>
+<td>0.3563</td>
+<td>0.6787</td>
 <td></td>
-<td>0.2232</td>
+<td>0.2231</td>
 <td>0.8987</td>
 <td></td>
 <td>0.2314</td>
-<td>0.8993</td>
+<td>0.8995</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1286,7 +1286,8 @@ Command to generate run on TREC 2021 queries:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot \
-  --topics dl21 --encoder castorini/unicoil-noexp-msmarco-passage \
+  --topics dl21 \
+  --encoder castorini/unicoil-noexp-msmarco-passage \
   --output run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt \
   --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
@@ -1309,7 +1310,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot \
-  --topics msmarco-v2-doc-dev --encoder castorini/unicoil-noexp-msmarco-passage \
+  --topics msmarco-v2-doc-dev \
+  --encoder castorini/unicoil-noexp-msmarco-passage \
   --output run.msmarco-v2-doc.unicoil-noexp-otf.dev.txt \
   --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
@@ -1329,7 +1331,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot \
-  --topics msmarco-v2-doc-dev2 --encoder castorini/unicoil-noexp-msmarco-passage \
+  --topics msmarco-v2-doc-dev2 \
+  --encoder castorini/unicoil-noexp-msmarco-passage \
   --output run.msmarco-v2-doc.unicoil-noexp-otf.dev2.txt \
   --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
@@ -1347,22 +1350,22 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (w/ doc2query-T5): on-the-fly query inference -->
+<!-- Condition: uniCOIL (w/ doc2query-T5): query inference with PyTorch -->
 <tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
 <td class="expand-button"></td>
 <td></td>
-<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): on-the-fly query inference</td>
-<td>0.2720</td>
-<td>0.6782</td>
+<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): query inference with PyTorch</td>
+<td>0.2718</td>
+<td>0.6783</td>
 <td>0.9684</td>
-<td>0.3702</td>
-<td>0.7071</td>
+<td>0.3700</td>
+<td>0.7069</td>
 <td></td>
 <td>0.2419</td>
-<td>0.9120</td>
+<td>0.9122</td>
 <td></td>
-<td>0.2447</td>
-<td>0.9174</td>
+<td>0.2445</td>
+<td>0.9172</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1392,7 +1395,8 @@ Command to generate run on TREC 2021 queries:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented-unicoil-0shot \
-  --topics dl21 --encoder castorini/unicoil-msmarco-passage \
+  --topics dl21 \
+  --encoder castorini/unicoil-msmarco-passage \
   --output run.msmarco-v2-doc.unicoil-otf.dl21.txt \
   --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
@@ -1415,7 +1419,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented-unicoil-0shot \
-  --topics msmarco-v2-doc-dev --encoder castorini/unicoil-msmarco-passage \
+  --topics msmarco-v2-doc-dev \
+  --encoder castorini/unicoil-msmarco-passage \
   --output run.msmarco-v2-doc.unicoil-otf.dev.txt \
   --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
@@ -1435,7 +1440,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmar
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented-unicoil-0shot \
-  --topics msmarco-v2-doc-dev2 --encoder castorini/unicoil-msmarco-passage \
+  --topics msmarco-v2-doc-dev2 \
+  --encoder castorini/unicoil-msmarco-passage \
   --output run.msmarco-v2-doc.unicoil-otf.dev2.txt \
   --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
