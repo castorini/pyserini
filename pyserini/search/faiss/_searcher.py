@@ -483,9 +483,9 @@ class FaissSearcher:
                 unique_docs = set()
                 results = list()
                 for score, idx in zip(distances, indexes):
-                if idx not in unique_docs:
-                    unique_docs.add(idx)
-                    results.append(DenseSearchResult(self.docids[idx],score))
+                    if idx not in unique_docs:
+                        unique_docs.add(idx)
+                        results.append(DenseSearchResult(self.docids[idx],score))
                 return results
             return [DenseSearchResult(self.docids[idx], score)
                     for score, idx in zip(distances, indexes) if idx != -1]
