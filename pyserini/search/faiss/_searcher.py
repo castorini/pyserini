@@ -479,7 +479,7 @@ class FaissSearcher:
             distances, indexes = self.index.search(emb_q, k)
             distances = distances.flat
             indexes = indexes.flat
-            if remove_dups == True:
+            if remove_dups:
                 unique_docs = set()
                 results = list()
                 for score, idx in zip(distances, indexes):
