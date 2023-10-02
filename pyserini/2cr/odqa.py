@@ -49,8 +49,8 @@ TQA_TOPICS = 'dpr-trivia-test'
 NQ_TOPICS = 'nq-test'
 PRINT_TQA_TOPICS = 'TriviaQA'
 PRINT_NQ_TOPICS = 'Natural Question'
-TQA_DKRR_RUN = f'runs/run.odqa.DPR-DKRR.{TQA_TOPICS}.hits-100.txt'
-NQ_DKRR_RUN = f'runs/run.odqa.DPR-DKRR.{NQ_TOPICS}.hits-100.txt'
+TQA_DKRR_RUN = f'run.odqa.DPR-DKRR.{TQA_TOPICS}.hits-100.txt'
+NQ_DKRR_RUN = f'run.odqa.DPR-DKRR.{NQ_TOPICS}.hits-100.txt'
 # HITS_1K = set(['GarT5-RRF', 'DPR-DKRR'])
 
 GARRRF_LS = ['answers','titles','sentences']
@@ -211,25 +211,25 @@ def generate_report(args):
             cmd_template_nq = condition_nq['command']
             if 'RRF' in name:
                 if name == 'GarT5-RRF':
-                    runfile_tqa = [os.path.join(args.directory, f'runs/run.odqa.{name}.{TQA_TOPICS}.{garrrf_ls[i]}.hits-1000.txt') for i in range(len(cmd_template_tqa))]
-                    runfile_nq = [os.path.join(args.directory, f'runs/run.odqa.{name}.{NQ_TOPICS}.{garrrf_ls[i]}.hits-1000.txt') for i in range(len(cmd_template_nq))]
+                    runfile_tqa = [os.path.join(args.directory, f'run.odqa.{name}.{TQA_TOPICS}.{garrrf_ls[i]}.hits-1000.txt') for i in range(len(cmd_template_tqa))]
+                    runfile_nq = [os.path.join(args.directory, f'run.odqa.{name}.{NQ_TOPICS}.{garrrf_ls[i]}.hits-1000.txt') for i in range(len(cmd_template_nq))]
                     tqa_fused_run.update({name: runfile_tqa[0].replace('.answers.hits-1000.txt', '.hits-100.fusion.txt')})
                     nq_fused_run.update({name: runfile_nq[0].replace('.answers.hits-1000.txt', '.hits-100.fusion.txt')})
                     jsonfile_tqa = tqa_fused_run[name].replace('.txt', '.json').replace('.hits-1000', '')
                     jsonfile_nq = nq_fused_run[name].replace('.txt', '.json').replace('.hits-1000', '')
                 elif name == 'GarT5RRF-DKRR-RRF':
-                    jsonfile_tqa = os.path.join(args.directory, f'runs/run.odqa.{name}.{TQA_TOPICS}.json')
-                    jsonfile_nq = os.path.join(args.directory, f'runs/run.odqa.{name}.{TQA_TOPICS}.json')
+                    jsonfile_tqa = os.path.join(args.directory, f'run.odqa.{name}.{TQA_TOPICS}.json')
+                    jsonfile_nq = os.path.join(args.directory, f'run.odqa.{name}.{TQA_TOPICS}.json')
                     tqa_fused_run.update({name: jsonfile_tqa.replace('.json','.txt')})
                     nq_fused_run.update({name: jsonfile_nq.replace('.json','.txt')})
                 else:
                     raise NameError('Wrong model name in yaml config')
             else:
                 if 'dpr-topics' in name:
-                    runfile_nq = [os.path.join(args.directory, f'runs/run.odqa.{name}.dpr-nq-test.hits-100.txt')]
+                    runfile_nq = [os.path.join(args.directory, f'run.odqa.{name}.dpr-nq-test.hits-100.txt')]
                 else:
-                    runfile_nq = [os.path.join(args.directory, f'runs/run.odqa.{name}.{NQ_TOPICS}.hits-100.txt')]
-                runfile_tqa = [os.path.join(args.directory, f'runs/run.odqa.{name}.{TQA_TOPICS}.hits-100.txt')]   
+                    runfile_nq = [os.path.join(args.directory, f'run.odqa.{name}.{NQ_TOPICS}.hits-100.txt')]
+                runfile_tqa = [os.path.join(args.directory, f'run.odqa.{name}.{TQA_TOPICS}.hits-100.txt')]   
                 jsonfile_tqa = runfile_tqa[0].replace('.answers', '').replace('.txt', '.json')
                 jsonfile_nq = runfile_nq[0].replace('.answers', '').replace('.txt', '.json')
             
@@ -309,8 +309,8 @@ def generate_report(args):
 
 def run_conditions(args):
     hits = 1000 if args.full_topk else 100
-    yaml_path = pkg_resources.resource_filename(__name__, 'triviaqa.yaml') if args.topic == "tqa" else pkg_resources.resource_filename(__name__, 'naturalquestion.yaml')
-    topics = 'dpr-trivia-test' if args.topic == 'tqa' else 'nq-test'
+    yaml_path = pkg_resources.resource_filename(__name__, 'triviaqa.yaml') if args.topics == "tqa" else pkg_resources.resource_filename(__name__, 'naturalquestion.yaml')
+    topics = 'dpr-trivia-test' if args.topics == 'tqa' else 'nq-test'
     start = time.time()
     table = defaultdict(lambda: defaultdict(lambda: 0.0))
 
@@ -336,15 +336,15 @@ def run_conditions(args):
             print(f'model {name}:')
             if topics == 'nq-test' and name == 'BM25-k1_0.9_b_0.4_dpr-topics':
                 topics = 'dpr-nq-test'
-            elif args.topic == 'nq':
+            elif args.topics == 'nq':
                 topics = 'nq-test'
             print(f'  - Topics: {topics}')
 
             # running retrieval
             if name == "GarT5-RRF":
-                runfile = [os.path.join(args.directory, f'runs/run.odqa.{name}.{topics}.{i}.hits-{hits}.txt') for i in GARRRF_LS]
+                runfile = [os.path.join(args.directory, f'run.odqa.{name}.{topics}.{i}.hits-{hits}.txt') for i in GARRRF_LS]
             else:
-                runfile = [os.path.join(args.directory, f'runs/run.odqa.{name}.{topics}.hits-{hits}.txt')]
+                runfile = [os.path.join(args.directory, f'run.odqa.{name}.{topics}.hits-{hits}.txt')]
 
             if name != "GarT5RRF-DKRR-RRF":
                 cmd = [Template(cmd_template[i]).substitute(output=runfile[i]) for i in range(len(runfile))]
@@ -365,9 +365,9 @@ def run_conditions(args):
                 output = ''
                 if name == 'GarT5-RRF':
                     runs = runfile
-                    output = os.path.join(args.directory, f'runs/run.odqa.{name}.{topics}.hits-{hits}.fusion.txt')
+                    output = os.path.join(args.directory, f'run.odqa.{name}.{topics}.hits-{hits}.fusion.txt')
                 elif name == 'GarT5RRF-DKRR-RRF':
-                    runs = [os.path.join(args.directory, f'runs/run.odqa.DPR-DKRR.{topics}.hits-1000.txt'), os.path.join(args.directory, f'runs/run.odqa.GarT5-RRF.{topics}.hits-1000.fusion.txt')]
+                    runs = [os.path.join(args.directory, f'run.odqa.DPR-DKRR.{topics}.hits-1000.txt'), os.path.join(args.directory, f'run.odqa.GarT5-RRF.{topics}.hits-1000.fusion.txt')]
                     output = runfile[0].replace('.txt','.fusion.txt')
                 else:
                     raise NameError('Unexpected model name')
@@ -430,7 +430,7 @@ if __name__ == '__main__':
     # For actually running the experimental conditions
     parser.add_argument('--full-topk', action='store_true', default=False, help='Run topk 5-1000, default is topk 5-100')
     parser.add_argument('--all', action='store_true', default=False, help='Run all conditions.')
-    parser.add_argument('--topic', type=str, help='Topic to run [tqa, nq].', choices=['tqa', 'nq'], required=False)
+    parser.add_argument('--topics', type=str, help='Topics to run [tqa, nq].', choices=['tqa', 'nq'], required=False)
     parser.add_argument('--condition', type=str, help='Condition to run.', required=False)
     parser.add_argument('--directory', type=str, help='Base directory.', default='', required=False)
     parser.add_argument('--dry-run', action='store_true', default=False, help='Print out commands but do not execute.')
@@ -450,7 +450,7 @@ if __name__ == '__main__':
         generate_report(args)
         sys.exit()
         
-    if not args.generate_report and not args.topic:
+    if not args.generate_report and not args.topics:
         print(f"Must specify a topic [tqa, nq] when running an evaluation.")
         sys.exit()
 
