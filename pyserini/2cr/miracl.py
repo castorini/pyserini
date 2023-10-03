@@ -188,8 +188,7 @@ def generate_table_rows(table, row_template, commands, eval_commands, table_id, 
                          eval_cmd15=f'{eval_commands[keys["th"]][metric]}',
                          eval_cmd16=f'{eval_commands[keys["zh"]][metric]}',
                          eval_cmd17=f'{eval_commands[keys["de"]][metric]}',
-                         eval_cmd18=f'{eval_commands[keys["yo"]][metric]}'
-                         )
+                         eval_cmd18=f'{eval_commands[keys["yo"]][metric]}')
 
         s = s.replace("0.000", "--")
         html_rows.append(s)
@@ -389,15 +388,15 @@ def run_conditions(args):
                                   and split == 'dev' and metric == 'nDCG@10'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
                                  (name == 'mdpr-tied-pft-msmarco-ft-all.ru'
-                                 # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3932 -> expected 0.3933
+                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3932 -> expected 0.3933
                                   and split == 'dev' and metric == 'nDCG@10'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
                                  (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.te'
-                                 # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.6000 -> expected 0.5999
+                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.6000 -> expected 0.5999
                                   and split == 'train' and metric == 'nDCG@10'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
                                  (name == 'mcontriever-tied-pft-msmarco.id'
-                                 # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3748 -> expected 0.3749
+                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3748 -> expected 0.3749
                                   and split == 'train' and metric == 'nDCG@10'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)):
                                 result_str = okish_str
@@ -415,7 +414,7 @@ def run_conditions(args):
             print_results(table, metric, split)
 
     end = time.time()
-    print(f'Total elapsed time: {end - start:.0f}s')
+    print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
 
 
 if __name__ == '__main__':
