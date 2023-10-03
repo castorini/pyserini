@@ -291,7 +291,7 @@ def run_conditions(args):
             print_results(table, metric, split)
 
     end = time.time()
-    print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.0f}hr')
+    print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
 
 
 if __name__ == '__main__':
