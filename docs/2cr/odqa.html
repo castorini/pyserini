@@ -188,8 +188,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 128 \
   --index wikipedia-dpr-100w \
   --topics dpr-trivia-test \
   --output run.odqa.BM25-k1_0.9_b_0.4.dpr-trivia-test.hits-100.txt \
@@ -221,8 +220,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 128 \
   --index wikipedia-dpr-100w \
   --topics nq-test \
   --output run.odqa.BM25-k1_0.9_b_0.4.nq-test.hits-100.txt \
@@ -288,8 +286,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 128 \
   --index wikipedia-dpr-100w \
   --topics dpr-trivia-test \
   --output run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-trivia-test.hits-100.txt \
@@ -321,8 +318,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 128 \
   --index wikipedia-dpr-100w \
   --topics dpr-nq-test \
   --output run.odqa.BM25-k1_0.9_b_0.4_dpr-topics.dpr-nq-test.hits-100.txt \
@@ -388,8 +384,7 @@ Command to generate runs:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 128 \
   --index wikipedia-dpr-100w \
   --topics dpr-trivia-test-gar-t5-answers \
   --output run.odqa.GarT5-RRF.dpr-trivia-test.answers.hits-1000.txt \
@@ -399,8 +394,7 @@ Command to generate runs:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 128 \
   --index wikipedia-dpr-100w \
   --topics dpr-trivia-test-gar-t5-titles \
   --output run.odqa.GarT5-RRF.dpr-trivia-test.titles.hits-1000.txt \
@@ -410,8 +404,7 @@ Command to generate runs:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 128 \
   --index wikipedia-dpr-100w \
   --topics dpr-trivia-test-gar-t5-sentences \
   --output run.odqa.GarT5-RRF.dpr-trivia-test.sentences.hits-1000.txt \
@@ -453,8 +446,7 @@ Command to generate runs:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 128 \
   --index wikipedia-dpr-100w \
   --topics nq-test-gar-t5-answers \
   --output run.odqa.GarT5-RRF.nq-test.answers.hits-1000.txt \
@@ -464,8 +456,7 @@ Command to generate runs:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 128 \
   --index wikipedia-dpr-100w \
   --topics nq-test-gar-t5-titles \
   --output run.odqa.GarT5-RRF.nq-test.titles.hits-1000.txt \
@@ -475,8 +466,7 @@ Command to generate runs:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 128 \
   --index wikipedia-dpr-100w \
   --topics nq-test-gar-t5-sentences \
   --output run.odqa.GarT5-RRF.nq-test.sentences.hits-1000.txt \
@@ -552,8 +542,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 512 \
   --index wikipedia-dpr-100w.dpr-multi \
   --encoder facebook/dpr-question_encoder-multiset-base \
   --topics dpr-trivia-test \
@@ -585,8 +574,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 512 \
   --index wikipedia-dpr-100w.dpr-single-nq \
   --encoder facebook/dpr-question_encoder-single-nq-base \
   --topics nq-test \
@@ -652,8 +640,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 512 \
   --index wikipedia-dpr-100w.dkrr-tqa \
   --encoder castorini/dkrr-dpr-tqa-retriever \
   --topics dpr-trivia-test \
@@ -685,8 +672,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 \
-  --batch-size 512 \
+  --threads 16 --batch 512 \
   --index wikipedia-dpr-100w.dkrr-nq \
   --encoder castorini/dkrr-dpr-nq-retriever \
   --topics nq-test \
@@ -758,8 +744,7 @@ Command to generate run:
  fusion --alpha 0.95 \
  run	--topics dpr-trivia-test \
 	--output run.odqa.DPR-Hybrid.dpr-trivia-test.hits-100.txt \
-	--threads 16 \
-	--batch-size 512 \
+	--threads 16 --batch 512 \
 	--hits 1000
 </code></pre></blockquote>
 
@@ -793,8 +778,7 @@ Command to generate run:
  fusion --alpha 1.2 \
  run	--topics nq-test \
 	--output run.odqa.DPR-Hybrid.nq-test.hits-100.txt \
-	--threads 16 \
-	--batch-size 512 \
+	--threads 16 --batch 512 \
 	--hits 1000
 </code></pre></blockquote>
 

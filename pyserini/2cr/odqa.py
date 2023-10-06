@@ -14,17 +14,20 @@
 # limitations under the License.
 #
 
-from collections import defaultdict
-from string import Template
 import argparse
-import pkg_resources
-import os
-import yaml
 import math
-import time
+import os
 import sys
+import time
+from collections import defaultdict
+from datetime import datetime
+from string import Template
 
-from ._base import run_dpr_retrieval_eval_and_return_metric, convert_trec_run_to_dpr_retrieval_json, run_fusion, ok_str, fail_str
+import pkg_resources
+import yaml
+
+from ._base import run_dpr_retrieval_eval_and_return_metric, convert_trec_run_to_dpr_retrieval_json, run_fusion, ok_str, \
+    fail_str
 
 dense_threads = 16
 dense_batch_size = 512
@@ -72,39 +75,37 @@ def print_results(table, metric, topics):
 
 
 def format_run_command(raw):
-    return raw.replace('--encoded-queries', '\\\n  --encoded-queries')\
-        .replace('--encoder', '\\\n  --encoder')\
-        .replace('--topics', '\\\n  --topics')\
-        .replace('--index', '\\\n  --index')\
-        .replace('--output', '\\\n  --output')\
-        .replace('--batch', '\\\n  --batch') \
-        .replace('--threads', '\\\n  --threads')\
-        .replace('--bm25', '\\\n  --bm25')\
+    return raw.replace('--encoded-queries', '\\\n  --encoded-queries') \
+        .replace('--encoder', '\\\n  --encoder') \
+        .replace('--topics', '\\\n  --topics') \
+        .replace('--index', '\\\n  --index') \
+        .replace('--output', '\\\n  --output') \
+        .replace('--threads', '\\\n  --threads') \
+        .replace('--bm25', '\\\n  --bm25') \
         .replace('--hits 100', '\\\n  --hits 100')
 
 
 def format_hybrid_search_command(raw):
-    return raw.replace('--encoder', '\\\n\t--encoder')\
-        .replace(' dense', ' \\\n dense ')\
-        .replace(' sparse', ' \\\n sparse')\
-        .replace(' fusion', ' \\\n fusion')\
-        .replace(' run ', ' \\\n run\t')\
-        .replace('--output', '\\\n\t--output')\
-        .replace('--batch', '\\\n\t--batch') \
-        .replace('--threads', '\\\n\t--threads')\
-        .replace('--lang', '\\\n\t--lang')\
+    return raw.replace('--encoder', '\\\n\t--encoder') \
+        .replace(' dense', ' \\\n dense ') \
+        .replace(' sparse', ' \\\n sparse') \
+        .replace(' fusion', ' \\\n fusion') \
+        .replace(' run ', ' \\\n run\t') \
+        .replace('--output', '\\\n\t--output') \
+        .replace('--threads', '\\\n\t--threads') \
+        .replace('--lang', '\\\n\t--lang') \
         .replace('--hits 100', '\\\n\t--hits 100')
 
 
 def format_convert_command(raw):
-    return raw.replace('--topics', '\\\n  --topics')\
-        .replace('--index', '\\\n  --index')\
-        .replace('--input', '\\\n  --input')\
+    return raw.replace('--topics', '\\\n  --topics') \
+        .replace('--index', '\\\n  --index') \
+        .replace('--input', '\\\n  --input') \
         .replace('--output', '\\\n  --output')
 
 
 def format_eval_command(raw):
-    return raw.replace('--retrieval ', '\\\n  --retrieval ')\
+    return raw.replace('--retrieval ', '\\\n  --retrieval ') \
         .replace('--topk', '\\\n  --topk')
 
 
@@ -262,9 +263,16 @@ def generate_report(args):
 
             if name != "GarT5RRF-DKRR-RRF":
                 hits = 100 if name not in HITS_1K else 1000
-                cmd_tqa = [Template(cmd_template_tqa[i]).substitute(
-                    output=runfile_tqa[i]) + f" --hits {hits}" for i in range(len(cmd_template_tqa))]
-                cmd_nq = [Template(cmd_template_nq[i]).substitute(output=runfile_nq[i]) + f" --hits {hits}" for i in range(len(cmd_template_nq))]
+                cmd_tqa = [Template(cmd_template_tqa[i])
+                           .substitute(output=runfile_tqa[i],
+                                       sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                       dense_threads=dense_threads, dense_batch_size=dense_batch_size) +
+                           f' --hits {hits}' for i in range(len(cmd_template_tqa))]
+                cmd_nq = [Template(cmd_template_nq[i])
+                          .substitute(output=runfile_nq[i],
+                                      sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                      dense_threads=dense_threads, dense_batch_size=dense_batch_size) +
+                          f' --hits {hits}' for i in range(len(cmd_template_nq))]
                 if name == 'DPR-Hybrid':
                     commands[name][TQA_TOPICS].extend([format_hybrid_search_command(i) for i in cmd_tqa])
                     commands[name][NQ_TOPICS].extend([format_hybrid_search_command(i) for i in cmd_nq])
@@ -366,7 +374,12 @@ def run_conditions(args):
 
                 for i in range(len(runfile)):
                     if args.display_commands:
-                        print(f'\n```bash\n{format_run_command(cmd[i])}\n```\n')
+                        if name == 'DPR-Hybrid':
+                            formatted_command = format_hybrid_search_command(cmd[i])
+                        else:
+                            formatted_command = format_run_command(cmd[i])
+
+                        print(f'\n```bash\n{formatted_command}\n```\n')
                     if not os.path.exists(runfile[i]):
                         if not args.dry_run:
                             os.system(cmd[i])
@@ -427,6 +440,12 @@ def run_conditions(args):
         print_results(table, metric, topics)
 
     end = time.time()
+    start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.utcfromtimestamp(end).strftime('%Y-%m-%d %H:%M:%S')
+
+    print('\n')
+    print(f'Start time: {start_str}')
+    print(f'End time: {end_str}')
     print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
 
 
