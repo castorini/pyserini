@@ -1,6 +1,6 @@
 conditions:
   - name: bm25-flat
-    command: python -m pyserini.search.lucene --index beir-v1.0.0-${dataset}.flat --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --batch 36 --threads 12 --hits 1000 --bm25 --remove-query
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch ${sparse_batch_size} --index beir-v1.0.0-${dataset}.flat --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --hits 1000 --bm25 --remove-query
     datasets:
       - dataset: trec-covid
         scores:
@@ -148,7 +148,7 @@ conditions:
             R@100: 0.9253
             R@1000: 0.9767
   - name: bm25-multifield
-    command: python -m pyserini.search.lucene --index beir-v1.0.0-${dataset}.multifield --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --batch 36 --threads 12 --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch ${sparse_batch_size} --index beir-v1.0.0-${dataset}.multifield --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
     datasets:
       - dataset: trec-covid
         scores:
@@ -296,7 +296,7 @@ conditions:
             R@100: 0.9076
             R@1000: 0.9800
   - name: splade-distil-cocodenser-medium
-    command: python -m pyserini.search.lucene --index beir-v1.0.0-${dataset}-splade_distil_cocodenser_medium --topics beir-v1.0.0-${dataset}-test-splade_distil_cocodenser_medium --output $output --output-format trec --batch 36 --threads 12 --hits 1000 --impact --remove-query
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch ${sparse_batch_size} --index beir-v1.0.0-${dataset}-splade_distil_cocodenser_medium --topics beir-v1.0.0-${dataset}-test-splade_distil_cocodenser_medium --output $output --output-format trec --hits 1000 --impact --remove-query
     datasets:
       - dataset: trec-covid
         scores:
@@ -444,7 +444,7 @@ conditions:
             R@100: 0.9270
             R@1000: 0.9767
   - name: contriever
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/contriever --index beir-v1.0.0-${dataset}.contriever --topics beir-v1.0.0-${dataset}-test --output $output --batch 128 --threads 16 --hits 1000 --remove-query
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch ${dense_batch_size} --encoder-class contriever --encoder facebook/contriever --index beir-v1.0.0-${dataset}.contriever --topics beir-v1.0.0-${dataset}-test --output $output --hits 1000 --remove-query
     datasets:
       - dataset: trec-covid
         scores:
@@ -592,7 +592,7 @@ conditions:
             R@100: 0.9260
             R@1000: 0.9967
   - name: contriever-msmarco
-    command: python -m pyserini.search.faiss --encoder-class contriever --encoder facebook/contriever-msmarco --index beir-v1.0.0-${dataset}.contriever-msmarco --topics beir-v1.0.0-${dataset}-test --output $output --batch 128 --threads 16 --hits 1000 --remove-query
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch ${dense_batch_size} --encoder-class contriever --encoder facebook/contriever-msmarco --index beir-v1.0.0-${dataset}.contriever-msmarco --topics beir-v1.0.0-${dataset}-test --output $output --hits 1000 --remove-query
     datasets:
       - dataset: trec-covid
         scores:
