@@ -26,6 +26,11 @@ import sys
 
 from ._base import run_dpr_retrieval_eval_and_return_metric, convert_trec_run_to_dpr_retrieval_json, run_fusion, ok_str, fail_str
 
+dense_threads = 16
+dense_batch_size = 512
+sparse_threads = 16
+sparse_batch_size = 128
+
 # The models: the rows of the results table will be ordered this way.
 models = {
     'models':
@@ -351,7 +356,11 @@ def run_conditions(args):
                 runfile = [os.path.join(args.directory, f'run.odqa.{name}.{topics}.hits-{hits}.txt')]
 
             if name != "GarT5RRF-DKRR-RRF":
-                cmd = [Template(cmd_template[i]).substitute(output=runfile[i]) for i in range(len(runfile))]
+                cmd = [Template(cmd_template[i]).substitute(output=runfile[i],
+                                                            sparse_threads=sparse_threads,
+                                                            sparse_batch_size=sparse_batch_size,
+                                                            dense_threads=dense_threads,
+                                                            dense_batch_size=dense_batch_size) for i in range(len(runfile))]
                 if hits == 100:
                     cmd = [i + ' --hits 100' for i in cmd]
 
