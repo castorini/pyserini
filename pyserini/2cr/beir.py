@@ -17,13 +17,13 @@
 import argparse
 import math
 import os
-import time
 import sys
-from datetime import datetime
+import time
 from collections import defaultdict
+from datetime import datetime
 from string import Template
-import pkg_resources
 
+import pkg_resources
 import yaml
 
 from ._base import run_eval_and_return_metric, ok_str, fail_str
