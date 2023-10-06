@@ -226,7 +226,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-trec-covid.flat \
   --topics beir-v1.0.0-trec-covid-test \
   --output run.beir.bm25-flat.trec-covid.txt \
@@ -255,7 +255,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-trec-covid.multifield \
   --topics beir-v1.0.0-trec-covid-test \
   --output run.beir.bm25-multifield.trec-covid.txt \
@@ -284,7 +284,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-trec-covid-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.trec-covid.txt \
@@ -313,7 +313,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-trec-covid.contriever \
   --topics beir-v1.0.0-trec-covid-test \
@@ -342,7 +342,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-trec-covid.contriever-msmarco \
   --topics beir-v1.0.0-trec-covid-test \
@@ -422,7 +422,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-bioasq.flat \
   --topics beir-v1.0.0-bioasq-test \
   --output run.beir.bm25-flat.bioasq.txt \
@@ -451,7 +451,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-bioasq.multifield \
   --topics beir-v1.0.0-bioasq-test \
   --output run.beir.bm25-multifield.bioasq.txt \
@@ -480,7 +480,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-bioasq-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-bioasq-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.bioasq.txt \
@@ -509,7 +509,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-bioasq.contriever \
   --topics beir-v1.0.0-bioasq-test \
@@ -538,7 +538,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-bioasq.contriever-msmarco \
   --topics beir-v1.0.0-bioasq-test \
@@ -618,7 +618,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nfcorpus.flat \
   --topics beir-v1.0.0-nfcorpus-test \
   --output run.beir.bm25-flat.nfcorpus.txt \
@@ -647,7 +647,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nfcorpus.multifield \
   --topics beir-v1.0.0-nfcorpus-test \
   --output run.beir.bm25-multifield.nfcorpus.txt \
@@ -676,7 +676,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-nfcorpus-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.nfcorpus.txt \
@@ -705,7 +705,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-nfcorpus.contriever \
   --topics beir-v1.0.0-nfcorpus-test \
@@ -734,7 +734,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-nfcorpus.contriever-msmarco \
   --topics beir-v1.0.0-nfcorpus-test \
@@ -814,7 +814,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nq.flat \
   --topics beir-v1.0.0-nq-test \
   --output run.beir.bm25-flat.nq.txt \
@@ -843,7 +843,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nq.multifield \
   --topics beir-v1.0.0-nq-test \
   --output run.beir.bm25-multifield.nq.txt \
@@ -872,7 +872,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nq-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-nq-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.nq.txt \
@@ -901,7 +901,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-nq.contriever \
   --topics beir-v1.0.0-nq-test \
@@ -930,7 +930,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-nq.contriever-msmarco \
   --topics beir-v1.0.0-nq-test \
@@ -1010,7 +1010,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-hotpotqa.flat \
   --topics beir-v1.0.0-hotpotqa-test \
   --output run.beir.bm25-flat.hotpotqa.txt \
@@ -1039,7 +1039,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-hotpotqa.multifield \
   --topics beir-v1.0.0-hotpotqa-test \
   --output run.beir.bm25-multifield.hotpotqa.txt \
@@ -1068,7 +1068,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-hotpotqa-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.hotpotqa.txt \
@@ -1097,7 +1097,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-hotpotqa.contriever \
   --topics beir-v1.0.0-hotpotqa-test \
@@ -1126,7 +1126,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-hotpotqa.contriever-msmarco \
   --topics beir-v1.0.0-hotpotqa-test \
@@ -1206,7 +1206,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-fiqa.flat \
   --topics beir-v1.0.0-fiqa-test \
   --output run.beir.bm25-flat.fiqa.txt \
@@ -1235,7 +1235,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-fiqa.multifield \
   --topics beir-v1.0.0-fiqa-test \
   --output run.beir.bm25-multifield.fiqa.txt \
@@ -1264,7 +1264,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-fiqa-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-fiqa-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.fiqa.txt \
@@ -1293,7 +1293,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-fiqa.contriever \
   --topics beir-v1.0.0-fiqa-test \
@@ -1322,7 +1322,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-fiqa.contriever-msmarco \
   --topics beir-v1.0.0-fiqa-test \
@@ -1402,7 +1402,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-signal1m.flat \
   --topics beir-v1.0.0-signal1m-test \
   --output run.beir.bm25-flat.signal1m.txt \
@@ -1431,7 +1431,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-signal1m.multifield \
   --topics beir-v1.0.0-signal1m-test \
   --output run.beir.bm25-multifield.signal1m.txt \
@@ -1460,7 +1460,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-signal1m-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-signal1m-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.signal1m.txt \
@@ -1489,7 +1489,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-signal1m.contriever \
   --topics beir-v1.0.0-signal1m-test \
@@ -1518,7 +1518,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-signal1m.contriever-msmarco \
   --topics beir-v1.0.0-signal1m-test \
@@ -1598,7 +1598,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-trec-news.flat \
   --topics beir-v1.0.0-trec-news-test \
   --output run.beir.bm25-flat.trec-news.txt \
@@ -1627,7 +1627,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-trec-news.multifield \
   --topics beir-v1.0.0-trec-news-test \
   --output run.beir.bm25-multifield.trec-news.txt \
@@ -1656,7 +1656,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-trec-news-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-trec-news-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.trec-news.txt \
@@ -1685,7 +1685,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-trec-news.contriever \
   --topics beir-v1.0.0-trec-news-test \
@@ -1714,7 +1714,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-trec-news.contriever-msmarco \
   --topics beir-v1.0.0-trec-news-test \
@@ -1794,7 +1794,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-robust04.flat \
   --topics beir-v1.0.0-robust04-test \
   --output run.beir.bm25-flat.robust04.txt \
@@ -1823,7 +1823,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-robust04.multifield \
   --topics beir-v1.0.0-robust04-test \
   --output run.beir.bm25-multifield.robust04.txt \
@@ -1852,7 +1852,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-robust04-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-robust04-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.robust04.txt \
@@ -1881,7 +1881,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-robust04.contriever \
   --topics beir-v1.0.0-robust04-test \
@@ -1910,7 +1910,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-robust04.contriever-msmarco \
   --topics beir-v1.0.0-robust04-test \
@@ -1990,7 +1990,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-arguana.flat \
   --topics beir-v1.0.0-arguana-test \
   --output run.beir.bm25-flat.arguana.txt \
@@ -2019,7 +2019,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-arguana.multifield \
   --topics beir-v1.0.0-arguana-test \
   --output run.beir.bm25-multifield.arguana.txt \
@@ -2048,7 +2048,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-arguana-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-arguana-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.arguana.txt \
@@ -2077,7 +2077,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-arguana.contriever \
   --topics beir-v1.0.0-arguana-test \
@@ -2106,7 +2106,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-arguana.contriever-msmarco \
   --topics beir-v1.0.0-arguana-test \
@@ -2186,7 +2186,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-webis-touche2020.flat \
   --topics beir-v1.0.0-webis-touche2020-test \
   --output run.beir.bm25-flat.webis-touche2020.txt \
@@ -2215,7 +2215,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-webis-touche2020.multifield \
   --topics beir-v1.0.0-webis-touche2020-test \
   --output run.beir.bm25-multifield.webis-touche2020.txt \
@@ -2244,7 +2244,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-webis-touche2020-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.webis-touche2020.txt \
@@ -2273,7 +2273,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-webis-touche2020.contriever \
   --topics beir-v1.0.0-webis-touche2020-test \
@@ -2302,7 +2302,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-webis-touche2020.contriever-msmarco \
   --topics beir-v1.0.0-webis-touche2020-test \
@@ -2382,7 +2382,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-android.flat \
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.bm25-flat.cqadupstack-android.txt \
@@ -2411,7 +2411,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-android.multifield \
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.bm25-multifield.cqadupstack-android.txt \
@@ -2440,7 +2440,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-cqadupstack-android-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.cqadupstack-android.txt \
@@ -2469,7 +2469,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-cqadupstack-android.contriever \
   --topics beir-v1.0.0-cqadupstack-android-test \
@@ -2498,7 +2498,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-android.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-android-test \
@@ -2578,7 +2578,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-english.flat \
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.bm25-flat.cqadupstack-english.txt \
@@ -2607,7 +2607,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-english.multifield \
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.bm25-multifield.cqadupstack-english.txt \
@@ -2636,7 +2636,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-cqadupstack-english-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.cqadupstack-english.txt \
@@ -2665,7 +2665,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-cqadupstack-english.contriever \
   --topics beir-v1.0.0-cqadupstack-english-test \
@@ -2694,7 +2694,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-english.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-english-test \
@@ -2774,7 +2774,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gaming.flat \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.bm25-flat.cqadupstack-gaming.txt \
@@ -2803,7 +2803,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gaming.multifield \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.bm25-multifield.cqadupstack-gaming.txt \
@@ -2832,7 +2832,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-cqadupstack-gaming-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.cqadupstack-gaming.txt \
@@ -2861,7 +2861,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-cqadupstack-gaming.contriever \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
@@ -2890,7 +2890,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-gaming.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
@@ -2970,7 +2970,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gis.flat \
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.bm25-flat.cqadupstack-gis.txt \
@@ -2999,7 +2999,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gis.multifield \
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.bm25-multifield.cqadupstack-gis.txt \
@@ -3028,7 +3028,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-cqadupstack-gis-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.cqadupstack-gis.txt \
@@ -3057,7 +3057,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-cqadupstack-gis.contriever \
   --topics beir-v1.0.0-cqadupstack-gis-test \
@@ -3086,7 +3086,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-gis.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-gis-test \
@@ -3166,7 +3166,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-mathematica.flat \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.bm25-flat.cqadupstack-mathematica.txt \
@@ -3195,7 +3195,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-mathematica.multifield \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.bm25-multifield.cqadupstack-mathematica.txt \
@@ -3224,7 +3224,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-cqadupstack-mathematica-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.cqadupstack-mathematica.txt \
@@ -3253,7 +3253,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-cqadupstack-mathematica.contriever \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
@@ -3282,7 +3282,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
@@ -3362,7 +3362,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-physics.flat \
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.bm25-flat.cqadupstack-physics.txt \
@@ -3391,7 +3391,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-physics.multifield \
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.bm25-multifield.cqadupstack-physics.txt \
@@ -3420,7 +3420,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-cqadupstack-physics-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.cqadupstack-physics.txt \
@@ -3449,7 +3449,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-cqadupstack-physics.contriever \
   --topics beir-v1.0.0-cqadupstack-physics-test \
@@ -3478,7 +3478,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-physics.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-physics-test \
@@ -3558,7 +3558,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-programmers.flat \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.bm25-flat.cqadupstack-programmers.txt \
@@ -3587,7 +3587,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-programmers.multifield \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.bm25-multifield.cqadupstack-programmers.txt \
@@ -3616,7 +3616,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-cqadupstack-programmers-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.cqadupstack-programmers.txt \
@@ -3645,7 +3645,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-cqadupstack-programmers.contriever \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
@@ -3674,7 +3674,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-programmers.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
@@ -3754,7 +3754,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-stats.flat \
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.bm25-flat.cqadupstack-stats.txt \
@@ -3783,7 +3783,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-stats.multifield \
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.bm25-multifield.cqadupstack-stats.txt \
@@ -3812,7 +3812,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-cqadupstack-stats-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.cqadupstack-stats.txt \
@@ -3841,7 +3841,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-cqadupstack-stats.contriever \
   --topics beir-v1.0.0-cqadupstack-stats-test \
@@ -3870,7 +3870,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-stats.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-stats-test \
@@ -3950,7 +3950,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-tex.flat \
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.bm25-flat.cqadupstack-tex.txt \
@@ -3979,7 +3979,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-tex.multifield \
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.bm25-multifield.cqadupstack-tex.txt \
@@ -4008,7 +4008,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-cqadupstack-tex-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.cqadupstack-tex.txt \
@@ -4037,7 +4037,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-cqadupstack-tex.contriever \
   --topics beir-v1.0.0-cqadupstack-tex-test \
@@ -4066,7 +4066,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-tex.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-tex-test \
@@ -4146,7 +4146,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-unix.flat \
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.bm25-flat.cqadupstack-unix.txt \
@@ -4175,7 +4175,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-unix.multifield \
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.bm25-multifield.cqadupstack-unix.txt \
@@ -4204,7 +4204,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-cqadupstack-unix-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.cqadupstack-unix.txt \
@@ -4233,7 +4233,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-cqadupstack-unix.contriever \
   --topics beir-v1.0.0-cqadupstack-unix-test \
@@ -4262,7 +4262,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-unix.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-unix-test \
@@ -4342,7 +4342,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-webmasters.flat \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.bm25-flat.cqadupstack-webmasters.txt \
@@ -4371,7 +4371,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-webmasters.multifield \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.bm25-multifield.cqadupstack-webmasters.txt \
@@ -4400,7 +4400,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-cqadupstack-webmasters-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.cqadupstack-webmasters.txt \
@@ -4429,7 +4429,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-cqadupstack-webmasters.contriever \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
@@ -4458,7 +4458,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
@@ -4538,7 +4538,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-wordpress.flat \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.bm25-flat.cqadupstack-wordpress.txt \
@@ -4567,7 +4567,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-wordpress.multifield \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.bm25-multifield.cqadupstack-wordpress.txt \
@@ -4596,7 +4596,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-cqadupstack-wordpress-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.cqadupstack-wordpress.txt \
@@ -4625,7 +4625,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-cqadupstack-wordpress.contriever \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
@@ -4654,7 +4654,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
@@ -4734,7 +4734,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-quora.flat \
   --topics beir-v1.0.0-quora-test \
   --output run.beir.bm25-flat.quora.txt \
@@ -4763,7 +4763,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-quora.multifield \
   --topics beir-v1.0.0-quora-test \
   --output run.beir.bm25-multifield.quora.txt \
@@ -4792,7 +4792,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-quora-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-quora-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.quora.txt \
@@ -4821,7 +4821,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-quora.contriever \
   --topics beir-v1.0.0-quora-test \
@@ -4850,7 +4850,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-quora.contriever-msmarco \
   --topics beir-v1.0.0-quora-test \
@@ -4930,7 +4930,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-dbpedia-entity.flat \
   --topics beir-v1.0.0-dbpedia-entity-test \
   --output run.beir.bm25-flat.dbpedia-entity.txt \
@@ -4959,7 +4959,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-dbpedia-entity.multifield \
   --topics beir-v1.0.0-dbpedia-entity-test \
   --output run.beir.bm25-multifield.dbpedia-entity.txt \
@@ -4988,7 +4988,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-dbpedia-entity-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.dbpedia-entity.txt \
@@ -5017,7 +5017,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-dbpedia-entity.contriever \
   --topics beir-v1.0.0-dbpedia-entity-test \
@@ -5046,7 +5046,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-dbpedia-entity.contriever-msmarco \
   --topics beir-v1.0.0-dbpedia-entity-test \
@@ -5126,7 +5126,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-scidocs.flat \
   --topics beir-v1.0.0-scidocs-test \
   --output run.beir.bm25-flat.scidocs.txt \
@@ -5155,7 +5155,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-scidocs.multifield \
   --topics beir-v1.0.0-scidocs-test \
   --output run.beir.bm25-multifield.scidocs.txt \
@@ -5184,7 +5184,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-scidocs-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-scidocs-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.scidocs.txt \
@@ -5213,7 +5213,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-scidocs.contriever \
   --topics beir-v1.0.0-scidocs-test \
@@ -5242,7 +5242,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-scidocs.contriever-msmarco \
   --topics beir-v1.0.0-scidocs-test \
@@ -5322,7 +5322,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-fever.flat \
   --topics beir-v1.0.0-fever-test \
   --output run.beir.bm25-flat.fever.txt \
@@ -5351,7 +5351,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-fever.multifield \
   --topics beir-v1.0.0-fever-test \
   --output run.beir.bm25-multifield.fever.txt \
@@ -5380,7 +5380,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-fever-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-fever-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.fever.txt \
@@ -5409,7 +5409,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-fever.contriever \
   --topics beir-v1.0.0-fever-test \
@@ -5438,7 +5438,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-fever.contriever-msmarco \
   --topics beir-v1.0.0-fever-test \
@@ -5518,7 +5518,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-climate-fever.flat \
   --topics beir-v1.0.0-climate-fever-test \
   --output run.beir.bm25-flat.climate-fever.txt \
@@ -5547,7 +5547,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-climate-fever.multifield \
   --topics beir-v1.0.0-climate-fever-test \
   --output run.beir.bm25-multifield.climate-fever.txt \
@@ -5576,7 +5576,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-climate-fever-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.climate-fever.txt \
@@ -5605,7 +5605,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-climate-fever.contriever \
   --topics beir-v1.0.0-climate-fever-test \
@@ -5634,7 +5634,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-climate-fever.contriever-msmarco \
   --topics beir-v1.0.0-climate-fever-test \
@@ -5714,7 +5714,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-scifact.flat \
   --topics beir-v1.0.0-scifact-test \
   --output run.beir.bm25-flat.scifact.txt \
@@ -5743,7 +5743,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-scifact.multifield \
   --topics beir-v1.0.0-scifact-test \
   --output run.beir.bm25-multifield.scifact.txt \
@@ -5772,7 +5772,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-scifact-splade_distil_cocodenser_medium \
   --topics beir-v1.0.0-scifact-test-splade_distil_cocodenser_medium \
   --output run.beir.splade-distil-cocodenser-medium.scifact.txt \
@@ -5801,7 +5801,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever \
   --index beir-v1.0.0-scifact.contriever \
   --topics beir-v1.0.0-scifact-test \
@@ -5830,7 +5830,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-scifact.contriever-msmarco \
   --topics beir-v1.0.0-scifact-test \

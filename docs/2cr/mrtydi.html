@@ -232,7 +232,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language ar \
   --topics mrtydi-v1.1-arabic-test \
   --index mrtydi-v1.1-arabic \
@@ -252,7 +252,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language bn \
   --topics mrtydi-v1.1-bengali-test \
   --index mrtydi-v1.1-bengali \
@@ -272,7 +272,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language en \
   --topics mrtydi-v1.1-english-test \
   --index mrtydi-v1.1-english \
@@ -292,7 +292,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language fi \
   --topics mrtydi-v1.1-finnish-test \
   --index mrtydi-v1.1-finnish \
@@ -312,7 +312,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language id \
   --topics mrtydi-v1.1-indonesian-test \
   --index mrtydi-v1.1-indonesian \
@@ -332,7 +332,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language ja \
   --topics mrtydi-v1.1-japanese-test \
   --index mrtydi-v1.1-japanese \
@@ -352,7 +352,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language ko \
   --topics mrtydi-v1.1-korean-test \
   --index mrtydi-v1.1-korean \
@@ -372,7 +372,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language ru \
   --topics mrtydi-v1.1-russian-test \
   --index mrtydi-v1.1-russian \
@@ -392,7 +392,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language sw \
   --topics mrtydi-v1.1-swahili-test \
   --index mrtydi-v1.1-swahili \
@@ -412,7 +412,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language te \
   --topics mrtydi-v1.1-telugu-test \
   --index mrtydi-v1.1-telugu \
@@ -432,7 +432,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language th \
   --topics mrtydi-v1.1-thai-test \
   --index mrtydi-v1.1-thai \
@@ -521,7 +521,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-arabic-test \
   --index mrtydi-v1.1-arabic-mdpr-nq \
@@ -541,7 +541,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-bengali-test \
   --index mrtydi-v1.1-bengali-mdpr-nq \
@@ -561,7 +561,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-english-test \
   --index mrtydi-v1.1-english-mdpr-nq \
@@ -581,7 +581,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-finnish-test \
   --index mrtydi-v1.1-finnish-mdpr-nq \
@@ -601,7 +601,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-indonesian-test \
   --index mrtydi-v1.1-indonesian-mdpr-nq \
@@ -621,7 +621,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-japanese-test \
   --index mrtydi-v1.1-japanese-mdpr-nq \
@@ -641,7 +641,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-korean-test \
   --index mrtydi-v1.1-korean-mdpr-nq \
@@ -661,7 +661,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-russian-test \
   --index mrtydi-v1.1-russian-mdpr-nq \
@@ -681,7 +681,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-swahili-test \
   --index mrtydi-v1.1-swahili-mdpr-nq \
@@ -701,7 +701,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-telugu-test \
   --index mrtydi-v1.1-telugu-mdpr-nq \
@@ -721,7 +721,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-thai-test \
   --index mrtydi-v1.1-thai-mdpr-nq \
@@ -810,7 +810,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-arabic-test \
@@ -831,7 +831,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-bengali-test \
@@ -852,7 +852,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-english-test \
@@ -873,7 +873,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-finnish-test \
@@ -894,7 +894,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-indonesian-test \
@@ -915,7 +915,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-japanese-test \
@@ -936,7 +936,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-korean-test \
@@ -957,7 +957,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-russian-test \
@@ -978,7 +978,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-swahili-test \
@@ -999,7 +999,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-telugu-test \
@@ -1020,7 +1020,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-thai-test \
@@ -1110,7 +1110,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-arabic-test \
@@ -1131,7 +1131,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-bengali-test \
@@ -1152,7 +1152,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-english-test \
@@ -1173,7 +1173,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-finnish-test \
@@ -1194,7 +1194,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-indonesian-test \
@@ -1215,7 +1215,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-japanese-test \
@@ -1236,7 +1236,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-korean-test \
@@ -1257,7 +1257,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-russian-test \
@@ -1278,7 +1278,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-swahili-test \
@@ -1299,7 +1299,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-telugu-test \
@@ -1320,7 +1320,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-thai-test \
@@ -1410,7 +1410,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-arabic-test \
@@ -1431,7 +1431,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-bengali-test \
@@ -1452,7 +1452,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-english-test \
@@ -1473,7 +1473,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-finnish-test \
@@ -1494,7 +1494,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-indonesian-test \
@@ -1515,7 +1515,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-japanese-test \
@@ -1536,7 +1536,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-korean-test \
@@ -1557,7 +1557,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-russian-test \
@@ -1578,7 +1578,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-swahili-test \
@@ -1599,7 +1599,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-telugu-test \
@@ -1620,7 +1620,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-thai-test \
@@ -1737,7 +1737,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language ar \
   --topics mrtydi-v1.1-arabic-test \
   --index mrtydi-v1.1-arabic \
@@ -1757,7 +1757,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language bn \
   --topics mrtydi-v1.1-bengali-test \
   --index mrtydi-v1.1-bengali \
@@ -1777,7 +1777,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language en \
   --topics mrtydi-v1.1-english-test \
   --index mrtydi-v1.1-english \
@@ -1797,7 +1797,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language fi \
   --topics mrtydi-v1.1-finnish-test \
   --index mrtydi-v1.1-finnish \
@@ -1817,7 +1817,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language id \
   --topics mrtydi-v1.1-indonesian-test \
   --index mrtydi-v1.1-indonesian \
@@ -1837,7 +1837,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language ja \
   --topics mrtydi-v1.1-japanese-test \
   --index mrtydi-v1.1-japanese \
@@ -1857,7 +1857,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language ko \
   --topics mrtydi-v1.1-korean-test \
   --index mrtydi-v1.1-korean \
@@ -1877,7 +1877,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language ru \
   --topics mrtydi-v1.1-russian-test \
   --index mrtydi-v1.1-russian \
@@ -1897,7 +1897,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language sw \
   --topics mrtydi-v1.1-swahili-test \
   --index mrtydi-v1.1-swahili \
@@ -1917,7 +1917,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language te \
   --topics mrtydi-v1.1-telugu-test \
   --index mrtydi-v1.1-telugu \
@@ -1937,7 +1937,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --language th \
   --topics mrtydi-v1.1-thai-test \
   --index mrtydi-v1.1-thai \
@@ -2026,7 +2026,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-arabic-test \
   --index mrtydi-v1.1-arabic-mdpr-nq \
@@ -2046,7 +2046,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-bengali-test \
   --index mrtydi-v1.1-bengali-mdpr-nq \
@@ -2066,7 +2066,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-english-test \
   --index mrtydi-v1.1-english-mdpr-nq \
@@ -2086,7 +2086,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-finnish-test \
   --index mrtydi-v1.1-finnish-mdpr-nq \
@@ -2106,7 +2106,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-indonesian-test \
   --index mrtydi-v1.1-indonesian-mdpr-nq \
@@ -2126,7 +2126,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-japanese-test \
   --index mrtydi-v1.1-japanese-mdpr-nq \
@@ -2146,7 +2146,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-korean-test \
   --index mrtydi-v1.1-korean-mdpr-nq \
@@ -2166,7 +2166,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-russian-test \
   --index mrtydi-v1.1-russian-mdpr-nq \
@@ -2186,7 +2186,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-swahili-test \
   --index mrtydi-v1.1-swahili-mdpr-nq \
@@ -2206,7 +2206,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-telugu-test \
   --index mrtydi-v1.1-telugu-mdpr-nq \
@@ -2226,7 +2226,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder castorini/mdpr-question-nq \
   --topics mrtydi-v1.1-thai-test \
   --index mrtydi-v1.1-thai-mdpr-nq \
@@ -2315,7 +2315,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-arabic-test \
@@ -2336,7 +2336,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-bengali-test \
@@ -2357,7 +2357,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-english-test \
@@ -2378,7 +2378,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-finnish-test \
@@ -2399,7 +2399,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-indonesian-test \
@@ -2420,7 +2420,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-japanese-test \
@@ -2441,7 +2441,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-korean-test \
@@ -2462,7 +2462,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-russian-test \
@@ -2483,7 +2483,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-swahili-test \
@@ -2504,7 +2504,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-telugu-test \
@@ -2525,7 +2525,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-nq \
   --topics mrtydi-v1.1-thai-test \
@@ -2615,7 +2615,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-arabic-test \
@@ -2636,7 +2636,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-bengali-test \
@@ -2657,7 +2657,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-english-test \
@@ -2678,7 +2678,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-finnish-test \
@@ -2699,7 +2699,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-indonesian-test \
@@ -2720,7 +2720,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-japanese-test \
@@ -2741,7 +2741,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-korean-test \
@@ -2762,7 +2762,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-russian-test \
@@ -2783,7 +2783,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-swahili-test \
@@ -2804,7 +2804,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-telugu-test \
@@ -2825,7 +2825,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics mrtydi-v1.1-thai-test \
@@ -2915,7 +2915,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-arabic-test \
@@ -2936,7 +2936,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-bengali-test \
@@ -2957,7 +2957,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-english-test \
@@ -2978,7 +2978,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-finnish-test \
@@ -2999,7 +2999,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-indonesian-test \
@@ -3020,7 +3020,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-japanese-test \
@@ -3041,7 +3041,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-korean-test \
@@ -3062,7 +3062,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-russian-test \
@@ -3083,7 +3083,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-swahili-test \
@@ -3104,7 +3104,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-telugu-test \
@@ -3125,7 +3125,7 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch 512 \
+  --threads 16 --batch-size 512 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
   --topics mrtydi-v1.1-thai-test \
