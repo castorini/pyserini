@@ -517,11 +517,6 @@ def run_conditions(args):
                                     runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky test on Jimmy's iMac Pro and Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'splade-pp-ed-rocchio-pytorch' \
-                                    and topic_key == 'msmarco-passage-dev-subset' \
-                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
-                                result_str = okish_str
                             # Flaky test on Jimmy's Mac Studio
                             elif args.collection == 'msmarco-v1-passage' and name == 'distilbert-kd-tasb-avg-prf-pytorch' \
                                     and topic_key == 'msmarco-passage-dev-subset' \
