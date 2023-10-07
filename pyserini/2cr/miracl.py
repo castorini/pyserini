@@ -389,19 +389,15 @@ def run_conditions(args):
                                                                      trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky tests
-                            elif (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh'
-                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.5255 -> expected 0.5254
-                                  and split == 'dev' and metric == 'nDCG@10'
-                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
-                                 (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.te'
-                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.6000 -> expected 0.5999
-                                  and split == 'train' and metric == 'nDCG@10'
-                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
-                                 (name == 'mcontriever-tied-pft-msmarco.id'
-                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3749 -> expected 0.3748
-                                  and split == 'train' and metric == 'nDCG@10'
-                                  and math.isclose(score, float(expected[metric]), abs_tol=1e-4)):
+                            # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.5255 -> expected 0.5254
+                            elif name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh' \
+                                    and split == 'dev' and metric == 'nDCG@10' \
+                                    and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
+                                result_str = okish_str
+                            # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3749 -> expected 0.3748
+                            elif name == 'mcontriever-tied-pft-msmarco.id' \
+                                    and split == 'train' and metric == 'nDCG@10' \
+                                    and math.isclose(score, float(expected[metric]), abs_tol=1e-4):
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
@@ -428,8 +424,7 @@ def run_conditions(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for MIRACL.')
-    parser.add_argument('--condition', type=str,
-                        help='Condition to run', required=False)
+    parser.add_argument('--condition', type=str, help='Condition to run', required=False)
     # To list all conditions
     parser.add_argument('--list-conditions', action='store_true', default=False, help='List available conditions.')
     # For generating reports
