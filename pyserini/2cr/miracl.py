@@ -390,13 +390,8 @@ def run_conditions(args):
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
                             # Flaky tests
-                            elif (name == 'mdpr-tied-pft-msmarco.hi' and split == 'train'
-                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
-                                 (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh'
-                                  and split == 'dev' and metric == 'nDCG@10'
-                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
-                                 (name == 'mdpr-tied-pft-msmarco-ft-all.ru'
-                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3932 -> expected 0.3933
+                            elif (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh'
+                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.5255 -> expected 0.5254
                                   and split == 'dev' and metric == 'nDCG@10'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
                                  (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.te'
@@ -404,9 +399,9 @@ def run_conditions(args):
                                   and split == 'train' and metric == 'nDCG@10'
                                   and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
                                  (name == 'mcontriever-tied-pft-msmarco.id'
-                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3748 -> expected 0.3749
+                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3749 -> expected 0.3748
                                   and split == 'train' and metric == 'nDCG@10'
-                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)):
+                                  and math.isclose(score, float(expected[metric]), abs_tol=1e-4)):
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'

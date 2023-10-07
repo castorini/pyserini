@@ -1459,6 +1459,115 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.
 
 </div></td>
 </tr>
+<!-- Condition: SLIM++ (norefine, tau=0.5, min_idf=1) -->
+<tr class="accordion-toggle collapsed" id="row13" data-toggle="collapse" data-parent="#row13" href="#collapse13">
+<td class="expand-button"></td>
+<td></td>
+<td style="min-width: 400px">SLIM++ (norefine, tau=0.5, min_idf=1)</td>
+<td>0.2819</td>
+<td>0.6340</td>
+<td>0.7554</td>
+<td>0.5092</td>
+<td>0.8392</td>
+<td></td>
+<td>0.1915</td>
+<td>0.8707</td>
+<td></td>
+<td>0.1904</td>
+<td>0.8683</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="12">
+<div id="collapse13" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row13-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row13-tab1-header" data-mdb-toggle="tab" href="#row13-tab1" role="tab" aria-controls="row13-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row13-tab2-header" data-mdb-toggle="tab" href="#row13-tab2" role="tab" aria-controls="row13-tab2" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row13-content">
+  <div class="tab-pane fade show active" id="row13-tab1" role="tabpanel" aria-labelledby="row13-tab1">
+Command to generate run on TREC 2021 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2-passage-slimr-pp-norefine-0shot \
+  --topics dl21 \
+  --encoder castorini/slimr-pp-msmarco-passage \
+  --output run.msmarco-v2-passage.slimr-pp.dl21.txt \
+  --hits 1000 --impact --min-idf 1
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl21-passage run.msmarco-v2-passage.slimr-pp.dl21.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-passage run.msmarco-v2-passage.slimr-pp.dl21.txt
+python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m recip_rank dl21-passage run.msmarco-v2-passage.slimr-pp.dl21.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.100 dl21-passage run.msmarco-v2-passage.slimr-pp.dl21.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarco-v2-passage.slimr-pp.dl21.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row13-tab2" role="tabpanel" aria-labelledby="row13-tab2">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2-passage-slimr-pp-norefine-0shot \
+  --topics msmarco-v2-passage-dev \
+  --encoder castorini/slimr-pp-msmarco-passage \
+  --output run.msmarco-v2-passage.slimr-pp.dev.txt \
+  --hits 1000 --impact --min-idf 1
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-passage-dev run.msmarco-v2-passage.slimr-pp.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev run.msmarco-v2-passage.slimr-pp.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row13-tab3" role="tabpanel" aria-labelledby="row13-tab3">
+    Command to generate run on dev2 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2-passage-slimr-pp-norefine-0shot \
+  --topics msmarco-v2-passage-dev2 \
+  --encoder castorini/slimr-pp-msmarco-passage \
+  --output run.msmarco-v2-passage.slimr-pp.dev2.txt \
+  --hits 1000 --impact --min-idf 1
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-passage-dev2 run.msmarco-v2-passage.slimr-pp.dev2.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-passage-dev2 run.msmarco-v2-passage.slimr-pp.dev2.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
 
     </tbody>
   </table>
