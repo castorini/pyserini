@@ -146,9 +146,8 @@ models = {
      'unicoil',
      '',
      'unicoil-noexp-otf',
-     'unicoil-otf'],
-
-    # MS MARCO v2 doc
+     'unicoil-otf',
+     'slimr-pp'],
     'msmarco-v2-doc':
     ['bm25-doc-default',
      'bm25-doc-segmented-default',

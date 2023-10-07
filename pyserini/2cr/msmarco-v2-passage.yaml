@@ -283,5 +283,29 @@ conditions:
           - MAP@100: 0.2193
             nDCG@10: 0.5756
             MRR@100: 0.6991
-            R@100: 0.4246
-            R@1K: 0.6897
+            R@100: 0.4247
+            R@1K: 0.6893
+  - name: slimr-pp
+    display: "SLIM++ (norefine, tau=0.5, min_idf=1)"
+    display-html: "SLIM++ (norefine, tau=0.5, min_idf=1)"
+    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-passage-slimr-pp-norefine-0shot --topics $topics --encoder castorini/slimr-pp-msmarco-passage --output $output --hits 1000 --impact --min-idf 1
+    topics:
+      - topic_key: msmarco-v2-passage-dev
+        eval_key: msmarco-v2-passage-dev
+        scores:
+          - MRR@100: 0.1915
+            R@1K: 0.8707
+      - topic_key: msmarco-v2-passage-dev2
+        eval_key: msmarco-v2-passage-dev2
+        scores:
+          - MRR@100: 0.1904
+            R@1K: 0.8683
+      - topic_key: dl21
+        eval_key: dl21-passage
+        scores:
+          - MAP@100: 0.2819
+            nDCG@10: 0.6340
+            MRR@100: 0.7554
+            R@100: 0.5092
+            R@1K: 0.8392
+
