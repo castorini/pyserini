@@ -288,7 +288,7 @@ conditions:
   - name: slimr-pp
     display: "SLIM++ (norefine, tau=0.5, min_idf=1)"
     display-html: "SLIM++ (norefine, tau=0.5, min_idf=1)"
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v2-passage-slimr-pp-norefine-0shot --topics $topics --encoder castorini/slimr-pp-msmarco-passage --output $output --hits 1000 --impact --min-idf 1
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-slimr-pp-norefine-0shot --topics $topics --encoder castorini/slimr-pp-msmarco-passage --output $output --hits 1000 --impact --min-idf 1
     topics:
       - topic_key: msmarco-v2-passage-dev
         eval_key: msmarco-v2-passage-dev

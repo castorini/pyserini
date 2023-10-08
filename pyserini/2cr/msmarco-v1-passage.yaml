@@ -3,7 +3,7 @@ conditions:
     display: "SPLADE++ EnsembleDistil w/ Rocchio: PyTorch"
     display-html: "SPLADE++ EnsembleDistil w/ Rocchio: PyTorch"
     display-row: ""
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size-size ${sparse_batch_size} --index msmarco-v1-passage-splade-pp-ed-text --topics $topics --encoder naver/splade-cocondenser-ensembledistil --output $output --hits 1000 --impact --rocchio
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage-splade-pp-ed-text --topics $topics --encoder naver/splade-cocondenser-ensembledistil --output $output --hits 1000 --impact --rocchio
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -26,7 +26,7 @@ conditions:
     display: "SPLADE++ SelfDistil w/ Rocchio: PyTorch"
     display-html: "SPLADE++ SelfDistil w/ Rocchio: PyTorch"
     display-row: ""
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size-size ${sparse_batch_size} --index msmarco-v1-passage-splade-pp-sd-text --topics $topics --encoder naver/splade-cocondenser-selfdistil --output $output --hits 1000 --impact --rocchio
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage-splade-pp-sd-text --topics $topics --encoder naver/splade-cocondenser-selfdistil --output $output --hits 1000 --impact --rocchio
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -49,7 +49,7 @@ conditions:
     display: "SPLADE++ EnsembleDistil: PyTorch"
     display-html: "SPLADE++ EnsembleDistil: PyTorch"
     display-row: "[2]"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size-size ${sparse_batch_size} --index msmarco-v1-passage-splade-pp-ed --topics $topics --encoder naver/splade-cocondenser-ensembledistil --output $output --hits 1000 --impact
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage-splade-pp-ed --topics $topics --encoder naver/splade-cocondenser-ensembledistil --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -72,7 +72,7 @@ conditions:
     display: "SPLADE++ SelfDistil: PyTorch"
     display-html: "SPLADE++ SelfDistil: PyTorch"
     display-row: "[2]"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size-size ${sparse_batch_size} --index msmarco-v1-passage-splade-pp-sd --topics $topics --encoder naver/splade-cocondenser-selfdistil --output $output --hits 1000 --impact
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage-splade-pp-sd --topics $topics --encoder naver/splade-cocondenser-selfdistil --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -95,7 +95,7 @@ conditions:
     display: "SPLADE++ EnsembleDistil w/ Rocchio: ONNX"
     display-html: "SPLADE++ EnsembleDistil w/ Rocchio: ONNX"
     display-row: ""
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size-size ${sparse_batch_size} --index msmarco-v1-passage-splade-pp-ed-text --topics $topics --onnx-encoder SpladePlusPlusEnsembleDistil --output $output --hits 1000 --impact --rocchio
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage-splade-pp-ed-text --topics $topics --onnx-encoder SpladePlusPlusEnsembleDistil --output $output --hits 1000 --impact --rocchio
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -1026,7 +1026,7 @@ conditions:
     display: "SLIM: PyTorch"
     display-html: "SLIM: PyTorch"
     display-row: "[7]"
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-slimr --topics $topics --encoder castorini/slimr-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr --output $output --output-format msmarco --hits 1000 --impact --min-idf 3
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage-slimr --topics $topics --encoder castorini/slimr-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr --output $output --output-format msmarco --hits 1000 --impact --min-idf 3
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -1049,7 +1049,7 @@ conditions:
     display: "SLIM++: PyTorch"
     display-html: "SLIM++: PyTorch"
     display-row: "[7]"
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --index msmarco-v1-passage-slimr-pp --topics $topics --encoder castorini/slimr-pp-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr-pp --output $output --output-format msmarco --hits 1000 --impact --min-idf 3
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage-slimr-pp --topics $topics --encoder castorini/slimr-pp-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr-pp --output $output --output-format msmarco --hits 1000 --impact --min-idf 3
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
