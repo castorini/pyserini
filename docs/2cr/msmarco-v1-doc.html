@@ -887,7 +887,7 @@ Command to generate run on TREC 2019 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size-size 128 \
+  --threads 16 --batch-size 128 \
   --index msmarco-v1-doc \
   --topics dl19-doc \
   --output run.msmarco-v1-doc.bm25-doc-tuned.dl19.txt \
@@ -911,7 +911,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl19-doc \
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size-size 128 \
+  --threads 16 --batch-size 128 \
   --index msmarco-v1-doc \
   --topics dl20 \
   --output run.msmarco-v1-doc.bm25-doc-tuned.dl20.txt \
@@ -935,7 +935,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl20-doc \
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size-size 128 \
+  --threads 16 --batch-size 128 \
   --index msmarco-v1-doc \
   --topics msmarco-doc-dev \
   --output run.msmarco-v1-doc.bm25-doc-tuned.dev.txt \

@@ -2,7 +2,7 @@ conditions:
   - name: bm25-doc-tuned
     display: BM25 doc (k1=4.46, b=0.82)
     display-html: BM25 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size-size ${sparse_batch_size} --index msmarco-v1-doc --topics $topics --output $output --bm25
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-doc --topics $topics --output $output --bm25
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
