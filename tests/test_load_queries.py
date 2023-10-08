@@ -349,7 +349,37 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 4281)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    # TODO: Add DL21
+    def test_dl21(self):
+        topics = search.get_topics('dl21')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 477)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('dl21-unicoil')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 477)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('dl21-unicoil-noexp')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 477)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+    def test_dl22(self):
+        topics = search.get_topics('dl22')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 500)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('dl22-unicoil')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 500)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+        topics = search.get_topics('dl22-unicoil-noexp')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 500)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
     # Various multi-lingual test collections
     def test_ntcir8_zh(self):

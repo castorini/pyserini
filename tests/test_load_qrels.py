@@ -357,6 +357,13 @@ class TestLoadQrels(unittest.TestCase):
         self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 10828)
         self.assertFalse(isinstance(next(iter(qrels.keys())), str))
 
+    def test_dl22(self):
+        qrels = search.get_qrels('dl22-passage')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 76)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 386416)
+        self.assertFalse(isinstance(next(iter(qrels.keys())), str))
+
     # Various multi-lingual test collections
     def test_ntcir8_zh(self):
         qrels = search.get_qrels('ntcir8-zh')
