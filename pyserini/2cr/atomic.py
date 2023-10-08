@@ -1,0 +1,141 @@
+import argparse
+import os
+import sys
+from collections import defaultdict
+from string import Template
+import pkg_resources
+
+import yaml
+
+atomic_models = [
+    'ViT-L-14.laion2b_s32b_b82k',
+]
+
+trec_eval_metric_definitions = {
+    'MRR@10': '-c -m recip_rank -M 10',
+    'R@10': '-c -m recall.10',
+    'R@1000': '-c -m recall.1000'
+}
+
+def format_run_command(raw):
+    return raw.replace('--topics', '\\\n  --topics')\
+        .replace('--index', '\\\n  --index')\
+        .replace('--encoded-queries', '\\\n  --encoded-queries')\
+        .replace('--output ', '\\\n  --output ')\
+        .replace('--hits ', '\\\n  --hits ')
+
+
+def format_eval_command(raw):
+    return raw.replace('-c ', '\\\n  -c ')\
+        .replace('run.', '\\\n  run.')
+
+def read_file(f):
+    fin = open(f, 'r')
+    text = fin.read()
+    fin.close()
+
+    return text
+
+def generate_report(args):
+    table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
+    commands = defaultdict(lambda: defaultdict(lambda: ''))
+    eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
+
+    html_template = read_file(pkg_resources.resource_filename(__name__, 'atomic_html.template'))
+    row_template = read_file(pkg_resources.resource_filename(__name__, 'atomic_html_row.template'))
+
+    with open(pkg_resources.resource_filename(__name__, 'atomic.yaml')) as f:
+        yaml_data = yaml.safe_load(f)
+        for condition in yaml_data['conditions']:
+            name = condition['name']
+            split = name.split('-')[0] # validation, base, large
+            retrieval_type = name.split('-')[1] # t2i or i2t
+            cmd_template = condition['command']
+
+            for models in condition['models']:
+                model = models['model']
+
+                runfile = os.path.join(args.directory, f'run.{model}.{split}.{retrieval_type}.trec')
+                cmd = Template(cmd_template).substitute(model=model, output=runfile)
+                commands[model][name] = format_run_command(cmd)
+
+                for expected in models['scores']:
+                    for metric in expected:
+                        eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
+                                   f'{trec_eval_metric_definitions[metric]} qrels.atomic.{model}.validation.i2t.trec {runfile}'
+                        eval_commands[model][name] += format_eval_command(eval_cmd) + '\n\n'
+
+                        table[model][name][metric] = expected[metric]
+        
+        row_cnt = 1
+        html_rows = []
+        for model in atomic_models:
+            s = Template(row_template)
+            s = s.substitute(row_cnt=row_cnt,
+                             model=model,
+                             s1=f'{table[model]["validation-t2i"]["MRR@10"]:8.4f}',
+                             s2=f'{table[model]["validation-t2i"]["R@10"]:8.4f}',
+                             s3=f'{table[model]["validation-t2i"]["R@1000"]:8.4f}',
+                             s4=f'{table[model]["validation-i2t"]["MRR@10"]:8.4f}',
+                             s5=f'{table[model]["validation-i2t"]["R@10"]:8.4f}',
+                             s6=f'{table[model]["validation-i2t"]["R@1000"]:8.4f}',
+                             s7=f'{table[model]["base-t2i"]["MRR@10"]:8.4f}',
+                             s8=f'{table[model]["base-t2i"]["R@10"]:8.4f}',
+                             s9=f'{table[model]["base-t2i"]["R@1000"]:8.4f}',
+                             s10=f'{table[model]["base-i2t"]["MRR@10"]:8.4f}',
+                             s11=f'{table[model]["base-i2t"]["R@10"]:8.4f}',
+                             s12=f'{table[model]["base-i2t"]["R@1000"]:8.4f}',
+                             s13=f'{table[model]["large-t2i"]["MRR@10"]:8.4f}',
+                             s14=f'{table[model]["large-t2i"]["R@10"]:8.4f}',
+                             s15=f'{table[model]["large-t2i"]["R@1000"]:8.4f}',
+                             s16=f'{table[model]["large-i2t"]["MRR@10"]:8.4f}',
+                             s17=f'{table[model]["large-i2t"]["MRR@10"]:8.4f}',
+                             s18=f'{table[model]["large-i2t"]["R@1000"]:8.4f}',
+                             cmd1=commands[model]["validation-t2i"],
+                             cmd2=commands[model]["validation-i2t"],
+                             cmd3=commands[model]["base-t2i"],
+                             cmd4=commands[model]["base-i2t"],
+                             cmd5=commands[model]["large-t2i"],
+                             cmd6=commands[model]["large-i2t"],
+                             eval_cmd1=eval_commands[model]["validation-t2i"].rstrip(),
+                             eval_cmd2=eval_commands[model]["validation-i2t"].rstrip(),
+                             eval_cmd3=eval_commands[model]["base-t2i"].rstrip(),
+                             eval_cmd4=eval_commands[model]["base-i2t"].rstrip(),
+                             eval_cmd5=eval_commands[model]["large-t2i"].rstrip(),
+                             eval_cmd6=eval_commands[model]["large-i2t"].rstrip(),
+                             )
+
+            html_rows.append(s)
+            row_cnt += 1
+
+        all_rows = '\n'.join(html_rows)
+        with open(args.output, 'w') as out:
+            out.write(Template(html_template).substitute(title='AToMiC', rows=all_rows))
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Generate regression matrix for BeIR corpora.')
+    # To list all conditions/datasets
+    parser.add_argument('--list-conditions', action='store_true', default=False, help='List available conditions.')
+    parser.add_argument('--list-datasets', action='store_true', default=False, help='List available datasets.')
+    # For generating reports
+    parser.add_argument('--generate-report', action='store_true', default=False, help='Generate report.')
+    parser.add_argument('--output', type=str, help='File to store report.', required=False)
+    # For actually running the experimental conditions
+    parser.add_argument('--all', action='store_true', default=False, help='Run all conditions.')
+    parser.add_argument('--condition', type=str, help='Condition to run.', required=False)
+    parser.add_argument('--dataset', type=str, help='Dataset to run.', required=False)
+    parser.add_argument('--directory', type=str, help='Base directory.', default='', required=False)
+    parser.add_argument('--dry-run', action='store_true', default=False, help='Print out commands but do not execute.')
+    parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
+    parser.add_argument('--display-commands', action='store_true', default=False, help='Display command.')
+    args = parser.parse_args()
+
+    if args.generate_report:
+        if not args.output:
+            print(f'Must specify report filename with --output.')
+            sys.exit()
+
+        generate_report(args)
+        sys.exit()
+        
