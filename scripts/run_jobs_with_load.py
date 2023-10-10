@@ -17,6 +17,7 @@
 import argparse
 import logging
 import os
+import re
 import subprocess
 import time
 
@@ -43,7 +44,9 @@ def count_jobs_running(jobs):
     cnt = 0
     for job in lines:
         parts = job.split('>')
-        if parts[0].rstrip().lstrip() in out:
+        cmd = parts[0].rstrip().lstrip()
+        processed_cmd = re.sub(r'\s+', ' ', cmd)
+        if processed_cmd in out:
             cnt += 1
 
     return cnt
