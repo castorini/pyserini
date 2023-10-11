@@ -415,7 +415,7 @@ QUERY_INFO = {
         "total_queries": 11313,
         "downloaded": False
      },
-     "wiki-6-3-all-dpr2-multi-nq-test": {
+     "wiki-all-6-3-dpr2-multi-nq-test": {
         "description": "NQ test set questions encoded by castorini/wiki-all-6-3-multi-dpr2-query-encoder.",
         "urls": [
             "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-wiki-all-6-3-dpr2-multi-retriever-nq-test-20230103-186fa7.tar.gz",
@@ -425,7 +425,7 @@ QUERY_INFO = {
         "total_queries": 3610,
         "downloaded": False
      },
-     "wiki-6-3-all-dpr2-multi-dpr-trivia-test": {
+     "wiki-all-6-3-dpr2-multi-dpr-trivia-test": {
         "description": "TriviaQA test set questions encoded by castorini/wiki-all-6-3-multi-dpr2-query-encoder.",
         "urls": [
             "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-wiki-all-6-3-dpr2-multi-retriever-dpr-trivia-test-20230103-186fa7.tar.gz",

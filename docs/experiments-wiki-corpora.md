@@ -89,7 +89,7 @@ Retrieval can be performed in Pyserini as we make the encoded-queries for Natura
 ### Natural Questions
 ```bash
 python -m pyserini.search.faiss \
-  --index wiki-all-6-3-all-dpr2-multi \
+  --index wiki-all-6-3.dpr2-multi-retriever \
   --topics nq-test \
   --encoded-queries wiki-all-6-3-dpr2-multi-nq-test \
   --output runs/run.wiki-all-6-3.nq-test.dpr2.trec \
@@ -118,7 +118,7 @@ Top100  accuracy: 0.9175
 ### TriviaQA
 ```bash
 python -m pyserini.search.faiss \
-  --index wiki-all-6-3-dpr2-multi \
+  --index wiki-all-6-3.dpr2-multi-retriever \
   --topics dpr-trivia-test \
   --encoded-queries wiki-all-6-3-dpr2-multi-dpr-trivia-test \
   --output runs/run.wiki-all-6-3.dpr-trivia-test.dpr2.trec \
