@@ -246,26 +246,26 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --topics converted.ViT-L-14.laion2b_s32b_b82k.text.validation/topics.json \
+  --topics atomic-v0.2.1-text-validation \
   --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.validation \
-  --encoded-queries converted.ViT-L-14.laion2b_s32b_b82k.text.validation \
+  --encoded-queries atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
-  --output run.ViT-L-14.laion2b_s32b_b82k.validation.t2i.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-t2i.trec
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recip_rank -M 10 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.validation.t2i.trec
+  -c -m recip_rank -M 10 atomic.validation.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-t2i.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.validation.t2i.trec
+  -c -m recall.10 atomic.validation.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-t2i.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.validation.t2i.trec</code></pre>
+  -c -m recall.1000 atomic.validation.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-t2i.trec</code></pre>
   </blockquote>
 
   </div>
@@ -274,26 +274,26 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --topics converted.ViT-L-14.laion2b_s32b_b82k.image.validation/topics.json \
+  --topics atomic-v0.2-image-validation \
   --index atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.validation \
-  --encoded-queries converted.ViT-L-14.laion2b_s32b_b82k.image.validation \
+  --encoded-queries atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
-  --output run.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-i2t.trec
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recip_rank -M 10 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec
+  -c -m recip_rank -M 10 atomic.validation.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-i2t.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec
+  -c -m recall.10 atomic.validation.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-i2t.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec</code></pre>
+  -c -m recall.1000 atomic.validation.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-i2t.trec</code></pre>
   </blockquote>
 
   </div>
@@ -302,26 +302,26 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --topics converted.ViT-L-14.laion2b_s32b_b82k.text.validation/topics.json \
+  --topics atomic-v0.2.1-text-validation \
   --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.base \
-  --encoded-queries converted.ViT-L-14.laion2b_s32b_b82k.text.validation \
+  --encoded-queries atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
-  --output run.ViT-L-14.laion2b_s32b_b82k.base.t2i.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recip_rank -M 10 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.base.t2i.trec
+  -c -m recip_rank -M 10 atomic.base.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.base.t2i.trec
+  -c -m recall.10 atomic.base.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.base.t2i.trec</code></pre>
+  -c -m recall.1000 atomic.base.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec</code></pre>
   </blockquote>
 
   </div>
@@ -330,26 +330,26 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --topics converted.ViT-L-14.laion2b_s32b_b82k.image.validation/topics.json \
+  --topics atomic-v0.2-image-validation \
   --index atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.base \
-  --encoded-queries converted.ViT-L-14.laion2b_s32b_b82k.image.validation \
+  --encoded-queries atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
-  --output run.ViT-L-14.laion2b_s32b_b82k.base.i2t.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recip_rank -M 10 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.base.i2t.trec
+  -c -m recip_rank -M 10 atomic.base.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.base.i2t.trec
+  -c -m recall.10 atomic.base.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.base.i2t.trec</code></pre>
+  -c -m recall.1000 atomic.base.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec</code></pre>
   </blockquote>
 
   </div>
@@ -358,26 +358,26 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --topics converted.ViT-L-14.laion2b_s32b_b82k.text.validation/topics.json \
+  --topics atomic-v0.2.1-text-validation \
   --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.large \
-  --encoded-queries converted.ViT-L-14.laion2b_s32b_b82k.text.validation \
+  --encoded-queries atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
-  --output run.ViT-L-14.laion2b_s32b_b82k.large.t2i.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recip_rank -M 10 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.large.t2i.trec
+  -c -m recip_rank -M 10 atomic.large.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.large.t2i.trec
+  -c -m recall.10 atomic.large.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.large.t2i.trec</code></pre>
+  -c -m recall.1000 atomic.large.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec</code></pre>
   </blockquote>
 
   </div>
@@ -386,26 +386,26 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --topics converted.ViT-L-14.laion2b_s32b_b82k.image.validation/topics.json \
+  --topics atomic-v0.2-image-validation \
   --index atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.large \
-  --encoded-queries converted.ViT-L-14.laion2b_s32b_b82k.image.validation \
+  --encoded-queries atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
-  --output run.ViT-L-14.laion2b_s32b_b82k.large.i2t.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recip_rank -M 10 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.large.i2t.trec
+  -c -m recip_rank -M 10 atomic.large.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.large.i2t.trec
+  -c -m recall.10 atomic.large.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 qrels.atomic.ViT-L-14.laion2b_s32b_b82k.validation.i2t.trec \
-  run.ViT-L-14.laion2b_s32b_b82k.large.i2t.trec</code></pre>
+  -c -m recall.1000 atomic.large.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec</code></pre>
   </blockquote>
 
   </div>
