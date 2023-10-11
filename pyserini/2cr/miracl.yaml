@@ -562,7 +562,7 @@ conditions:
             R@100: 0.8188
       - split: dev
         scores:
-          - nDCG@10: 0.3933
+          - nDCG@10: 0.3932
             R@100: 0.6707
   - name: mdpr-tied-pft-msmarco-ft-all.sw
     eval_key: miracl-v1.0-sw
@@ -792,7 +792,7 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.6000
+          - nDCG@10: 0.5998
             R@100: 0.8717
       - split: dev
         scores:
@@ -1072,7 +1072,7 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.3749
+          - nDCG@10: 0.3748
             R@100: 0.7955
       - split: dev
         scores:

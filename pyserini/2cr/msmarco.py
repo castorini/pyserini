@@ -270,7 +270,7 @@ def format_command(raw):
     # Format hybrid commands differently.
     if 'pyserini.search.hybrid' in raw:
         return raw.replace('dense', '\\\n  dense ') \
-                .replace('--encoder', '\\\n         --encoder')\
+                .replace('--encoder', '\\\n         --encoder') \
                 .replace('sparse', '\\\n  sparse') \
                 .replace('fusion', '\\\n  fusion') \
                 .replace('run --', '\\\n  run    --') \
@@ -281,12 +281,12 @@ def format_command(raw):
     # We want these on a separate line for better readability, but note that sometimes that might
     # be the end of the command, in which case we don't want to add an extra line break.
     return raw.replace('--topics', '\\\n  --topics') \
-        .replace('--threads', '\\\n  --threads')\
-        .replace('--index', '\\\n  --index')\
-        .replace('--output ', '\\\n  --output ')\
-        .replace('--encoder', '\\\n  --encoder')\
-        .replace('--onnx-encoder', '\\\n  --onnx-encoder')\
-        .replace('--encoded-corpus', '\\\n  --encoded-corpus')\
+        .replace('--threads', '\\\n  --threads') \
+        .replace('--index', '\\\n  --index') \
+        .replace('--output ', '\\\n  --output ') \
+        .replace('--encoder', '\\\n  --encoder') \
+        .replace('--onnx-encoder', '\\\n  --onnx-encoder') \
+        .replace('--encoded-corpus', '\\\n  --encoded-corpus') \
         .replace('.txt ', '.txt \\\n  ')
 
 
@@ -338,7 +338,7 @@ def generate_report(args):
             row_id = condition['display-row'] if 'display-row' in condition else ''
             cmd_template = condition['command']
 
-            row_ids[name] =row_id
+            row_ids[name] = row_id
             table_keys[name] = display
 
             for topic_set in condition['topics']:
@@ -482,7 +482,6 @@ def run_conditions(args):
                 topic_key = topic_set['topic_key']
                 eval_key = topic_set['eval_key']
 
-                short_topic_key = ''
                 if args.collection == 'msmarco-v1-passage' or args.collection == 'msmarco-v1-doc':
                     short_topic_key = find_msmarco_table_topic_set_key_v1(topic_key)
                 else:
@@ -517,11 +516,6 @@ def run_conditions(args):
                                     runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky test on Jimmy's iMac Pro and Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'splade-pp-ed-rocchio-pytorch' \
-                                    and topic_key == 'msmarco-passage-dev-subset' \
-                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
-                                result_str = okish_str
                             # Flaky test on Jimmy's Mac Studio
                             elif args.collection == 'msmarco-v1-passage' and name == 'distilbert-kd-tasb-avg-prf-pytorch' \
                                     and topic_key == 'msmarco-passage-dev-subset' \
@@ -607,7 +601,7 @@ def run_conditions(args):
     end = time.time()
 
     print('\n')
-    print(f'Total elapsed time: {end - start:.0f}s')
+    print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
 
 
 if __name__ == '__main__':

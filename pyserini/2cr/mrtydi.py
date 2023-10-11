@@ -58,17 +58,17 @@ trec_eval_metric_definitions = {
 
 
 def format_run_command(raw):
-    return raw.replace('--lang', '\\\n  --lang')\
-        .replace('--encoder', '\\\n  --encoder')\
-        .replace('--topics', '\\\n  --topics')\
-        .replace('--index', '\\\n  --index')\
-        .replace('--output ', '\\\n  --output ')\
+    return raw.replace('--lang', '\\\n  --lang') \
+        .replace('--encoder', '\\\n  --encoder') \
+        .replace('--topics', '\\\n  --topics') \
+        .replace('--index', '\\\n  --index') \
+        .replace('--output ', '\\\n  --output ') \
         .replace('--batch ', '\\\n  --batch ') \
         .replace('--threads 12', '--threads 12 \\\n ')
 
 
 def format_eval_command(raw):
-    return raw.replace('-c ', '\\\n  -c ')\
+    return raw.replace('-c ', '\\\n  -c ') \
         .replace(raw.split()[-1], f'\\\n  {raw.split()[-1]}')
 
 
@@ -164,8 +164,7 @@ def generate_table_rows(table, row_template, commands, eval_commands, table_id, 
                          eval_cmd8=f'{eval_commands[keys["ru"]][metric]}',
                          eval_cmd9=f'{eval_commands[keys["sw"]][metric]}',
                          eval_cmd10=f'{eval_commands[keys["te"]][metric]}',
-                         eval_cmd11=f'{eval_commands[keys["th"]][metric]}'
-                         )
+                         eval_cmd11=f'{eval_commands[keys["th"]][metric]}')
 
         html_rows.append(s)
         row_cnt += 1
@@ -266,18 +265,6 @@ def run_conditions(args):
                                                                      trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky test: small difference on orca
-                            elif name == 'mdpr-tied-pft-nq.te' and split == 'dev' \
-                                    and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
-                                result_str = okish_str
-                            # Flaky test: small difference on orca
-                            elif name == 'mdpr-tied-pft-msmarco-ft-all.ko' and split == 'train' \
-                                    and math.isclose(score, float(expected[metric]), abs_tol=4e-4):
-                                result_str = okish_str
-                            # Flaky test: small difference on Mac Studio (M1)
-                            elif name == 'mdpr-tied-pft-msmarco.th' and split == 'train' \
-                                    and math.isclose(score, float(expected[metric]), abs_tol=3e-4):
-                                result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
                             print(f'      {metric:7}: {score:.4f} {result_str}')
@@ -292,7 +279,7 @@ def run_conditions(args):
             print_results(table, metric, split)
 
     end = time.time()
-    print(f'Total elapsed time: {end - start:.0f}s')
+    print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
 
 
 if __name__ == '__main__':

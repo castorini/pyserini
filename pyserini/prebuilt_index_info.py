@@ -2436,7 +2436,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-index.msmarco-v1-passage-slimr.20230925.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-slimr.20230925.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/SjnaFWA7C9NLmqW/download",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-slimr.20230925.tar.gz",
         ],
         "md5": "3532a09a4a47f862d63b8df81b39ecc9",
         "size compressed (bytes)": 1902711967,
@@ -2450,7 +2450,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-index.msmarco-v1-passage-slimr-pp.20230925.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-slimr-pp.20230925.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/mFTgJJENBZseXXX/download",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-slimr-pp.20230925.tar.gz",
         ],
         "md5": "5badbe47b6a50cf252cafb8a648743f1",
         "size compressed (bytes)": 2135049683,
@@ -2673,16 +2673,17 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-passage-slimr-pp-norefine-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 passage corpus enoded by SLIM (norefine) trained with cross-encoder distillation and hardnegative mining. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by SLIM (norefine) trained with cross-encoder distillation and hard-negative mining. (Lucene 9)",
         "filename": "lucene-index.msmarco-v2-passage-slimr-pp.20230614.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-slimr-pp.20230614.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/q89FZmcYSagP7Rr/download",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-slimr-pp.20230614.tar.gz",
         ],
         "md5": "0251a882369dd9c27f6a629198123a40",
         "size compressed (bytes)": 35297323293,
         "total_terms": 1668035574958,
         "documents": 138364197,
+        "unique_terms": -1,
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-unicoil-0shot": {

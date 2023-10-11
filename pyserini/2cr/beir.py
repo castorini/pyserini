@@ -64,17 +64,18 @@ beir_keys = ['trec-covid',
              'scifact'
              ]
 
+
 def format_run_command(raw):
-    return raw.replace('--topics', '\\\n  --topics')\
-        .replace('--index', '\\\n  --index')\
-        .replace('--encoder-class', '\\\n --encoder-class')\
-        .replace('--output ', '\\\n  --output ')\
+    return raw.replace('--topics', '\\\n  --topics') \
+        .replace('--index', '\\\n  --index') \
+        .replace('--encoder-class', '\\\n --encoder-class') \
+        .replace('--output ', '\\\n  --output ') \
         .replace('--output-format trec', '\\\n  --output-format trec \\\n ') \
         .replace('--hits ', '\\\n  --hits ')
 
 
 def format_eval_command(raw):
-    return raw.replace('-c ', '\\\n  -c ')\
+    return raw.replace('-c ', '\\\n  -c ') \
         .replace('run.', '\\\n  run.')
 
 
@@ -85,15 +86,18 @@ def read_file(f):
 
     return text
 
-def list_conditions(args):
+
+def list_conditions():
     with open(pkg_resources.resource_filename(__name__, 'beir.yaml')) as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             print(condition['name'])
-            
-def list_datasets(args):
+
+
+def list_datasets():
     for dataset in beir_keys:
         print(dataset)
+
 
 def generate_report(args):
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
@@ -112,7 +116,7 @@ def generate_report(args):
             for datasets in condition['datasets']:
                 dataset = datasets['dataset']
 
-                runfile = os.path.join(args.directory, f'run.beir-{name}.{dataset}.txt')
+                runfile = os.path.join(args.directory, f'run.beir.{name}.{dataset}.txt')
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)
                 commands[dataset][name] = format_run_command(cmd)
 
@@ -149,8 +153,7 @@ def generate_report(args):
                              eval_cmd2=eval_commands[dataset]["bm25-multifield"].rstrip(),
                              eval_cmd3=eval_commands[dataset]["splade-distil-cocodenser-medium"].rstrip(),
                              eval_cmd4=eval_commands[dataset]["contriever"].rstrip(),
-                             eval_cmd5=eval_commands[dataset]["contriever-msmarco"].rstrip(),
-                             )
+                             eval_cmd5=eval_commands[dataset]["contriever-msmarco"].rstrip())
 
             html_rows.append(s)
             row_cnt += 1
@@ -158,6 +161,7 @@ def generate_report(args):
         all_rows = '\n'.join(html_rows)
         with open(args.output, 'w') as out:
             out.write(Template(html_template).substitute(title='BEIR', rows=all_rows))
+
 
 def run_conditions(args):
     start = time.time()
@@ -187,7 +191,7 @@ def run_conditions(args):
 
                 print(f'  - dataset: {dataset}')
 
-                runfile = os.path.join(args.directory, f'runs/run.beir.{name}.{dataset}.txt')
+                runfile = os.path.join(args.directory, f'run.beir.{name}.{dataset}.txt')
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)
                 
                 if args.display_commands:
@@ -253,16 +257,17 @@ def run_conditions(args):
               f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}')
     print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
     print('avg' + ' ' * 22 + f'{final_scores["bm25-flat"]["nDCG@10"]:8.4f}{final_scores["bm25-flat"]["R@100"]:8.4f}   ' +
-            f'{final_scores["bm25-multifield"]["nDCG@10"]:8.4f}{final_scores["bm25-multifield"]["R@100"]:8.4f}   ' +
-            f'{final_scores["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{final_scores["splade-distil-cocodenser-medium"]["R@100"]:8.4f}   ' + 
-            f'{final_scores["contriever"]["nDCG@10"]:8.4f}{final_scores["contriever"]["R@100"]:8.4f}   ' +
-            f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.4f}{final_scores["contriever-msmarco"]["R@100"]:8.4f}')
+          f'{final_scores["bm25-multifield"]["nDCG@10"]:8.4f}{final_scores["bm25-multifield"]["R@100"]:8.4f}   ' +
+          f'{final_scores["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{final_scores["splade-distil-cocodenser-medium"]["R@100"]:8.4f}   ' +
+          f'{final_scores["contriever"]["nDCG@10"]:8.4f}{final_scores["contriever"]["R@100"]:8.4f}   ' +
+          f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.4f}{final_scores["contriever-msmarco"]["R@100"]:8.4f}')
 
     end = time.time()
 
     print('\n')
-    print(f'Total elapsed time: {end - start:.0f}s')
-    
+    print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for BeIR corpora.')
     # To list all conditions/datasets
@@ -282,11 +287,11 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.list_conditions:
-        list_conditions(args)
+        list_conditions()
         sys.exit()
     
     if args.list_datasets:
-        list_datasets(args)
+        list_datasets()
         sys.exit()
 
     if args.generate_report:
