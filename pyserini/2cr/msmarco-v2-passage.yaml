@@ -294,18 +294,18 @@ conditions:
         eval_key: msmarco-v2-passage-dev
         scores:
           - MRR@100: 0.1915
-            R@1K: 0.8707
+            R@1K: 0.8710
       - topic_key: msmarco-v2-passage-dev2
         eval_key: msmarco-v2-passage-dev2
         scores:
-          - MRR@100: 0.1904
-            R@1K: 0.8683
+          - MRR@100: 0.1901
+            R@1K: 0.8681
       - topic_key: dl21
         eval_key: dl21-passage
         scores:
-          - MAP@100: 0.2819
-            nDCG@10: 0.6340
+          - MAP@100: 0.2820
+            nDCG@10: 0.6337
             MRR@100: 0.7554
-            R@100: 0.5092
-            R@1K: 0.8392
+            R@100: 0.5093
+            R@1K: 0.8389
 
