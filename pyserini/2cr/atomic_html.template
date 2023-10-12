@@ -135,7 +135,7 @@ pre[class*="prettyprint"] {
 <p>Key:</p>
 
 <ul>
-  <li>Validation: AToMiC validation dataset</li>
+  <li>Small: AToMiC small dataset</li>
   <li>Base: AToMiC base dataset</li>
   <li>Large: AToMiC large dataset</li>
 </ul>
@@ -146,8 +146,8 @@ pre[class*="prettyprint"] {
       <tr>
         <th class="headertop"></th>
         <th class="headertop"></th>
-        <th class="headertop" colspan="4"><b>Validation T2I</b></th>
-        <th class="headertop" colspan="4"><b>Validation I2T</b></th>
+        <th class="headertop" colspan="4"><b>Small T2I</b></th>
+        <th class="headertop" colspan="4"><b>Small I2T</b></th>
         <th class="headertop" colspan="4"><b>Base T2I</b></th>
         <th class="headertop" colspan="4"><b>Base I2T</b></th>
         <th class="headertop" colspan="4"><b>Large T2I</b></th>
@@ -155,7 +155,7 @@ pre[class*="prettyprint"] {
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">val queries</th>
         <th class="headerbottom" scope="col">MRR@10</th>
         <th class="headerbottom" scope="col">R@10</th>
         <th class="headerbottom" scope="col">R@1000</th>
