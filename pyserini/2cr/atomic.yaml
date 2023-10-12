@@ -1,5 +1,5 @@
 conditions:
-  - name: validation-t2i
+  - name: small-t2i
     command: python -m pyserini.search.faiss --topics atomic-v0.2.1-text-validation --index atomic-v0.2.${model}.image.validation --encoded-queries atomic-v0.2.1-text-${model}-validation --hits 1000 --batch-size 256 --threads 32 --output $output
     models:
       - model: ViT-L-14.laion2b_s32b_b82k
@@ -7,7 +7,7 @@ conditions:
           - MRR@10: 0.3142
             R@10: 0.4900
             R@1000: 0.9451
-  - name: validation-i2t
+  - name: small-i2t
     command: python -m pyserini.search.faiss --topics atomic-v0.2-image-validation --index atomic-v0.2.1.${model}.text.validation --encoded-queries atomic-v0.2-image-${model}-validation --hits 1000 --batch-size 256 --threads 32 --output $output
     models:
       - model: ViT-L-14.laion2b_s32b_b82k

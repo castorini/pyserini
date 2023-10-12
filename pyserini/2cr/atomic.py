@@ -82,7 +82,7 @@ def generate_report(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
-            split = name.split('-')[0] # validation, base, large
+            split = name.split('-')[0] # small, base, large
             retrieval_type = name.split('-')[1] # t2i or i2t
             cmd_template = condition['command']
 
@@ -95,6 +95,8 @@ def generate_report(args):
 
                 for expected in models['scores']:
                     for metric in expected:
+                        if split == 'small':
+                            split = 'validation'
                         eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
                                    f'{trec_eval_metric_definitions[metric]} atomic.{split}.{retrieval_type} {runfile}'
                         eval_commands[model][name] += format_eval_command(eval_cmd) + '\n\n'
@@ -107,12 +109,12 @@ def generate_report(args):
             s = Template(row_template)
             s = s.substitute(row_cnt=row_cnt,
                              model=model,
-                             s1=f'{table[model]["validation-t2i"]["MRR@10"]:8.4f}',
-                             s2=f'{table[model]["validation-t2i"]["R@10"]:8.4f}',
-                             s3=f'{table[model]["validation-t2i"]["R@1000"]:8.4f}',
-                             s4=f'{table[model]["validation-i2t"]["MRR@10"]:8.4f}',
-                             s5=f'{table[model]["validation-i2t"]["R@10"]:8.4f}',
-                             s6=f'{table[model]["validation-i2t"]["R@1000"]:8.4f}',
+                             s1=f'{table[model]["small-t2i"]["MRR@10"]:8.4f}',
+                             s2=f'{table[model]["small-t2i"]["R@10"]:8.4f}',
+                             s3=f'{table[model]["small-t2i"]["R@1000"]:8.4f}',
+                             s4=f'{table[model]["small-i2t"]["MRR@10"]:8.4f}',
+                             s5=f'{table[model]["small-i2t"]["R@10"]:8.4f}',
+                             s6=f'{table[model]["small-i2t"]["R@1000"]:8.4f}',
                              s7=f'{table[model]["base-t2i"]["MRR@10"]:8.4f}',
                              s8=f'{table[model]["base-t2i"]["R@10"]:8.4f}',
                              s9=f'{table[model]["base-t2i"]["R@1000"]:8.4f}',
@@ -125,14 +127,14 @@ def generate_report(args):
                              s16=f'{table[model]["large-i2t"]["MRR@10"]:8.4f}',
                              s17=f'{table[model]["large-i2t"]["MRR@10"]:8.4f}',
                              s18=f'{table[model]["large-i2t"]["R@1000"]:8.4f}',
-                             cmd1=commands[model]["validation-t2i"],
-                             cmd2=commands[model]["validation-i2t"],
+                             cmd1=commands[model]["small-t2i"],
+                             cmd2=commands[model]["small-i2t"],
                              cmd3=commands[model]["base-t2i"],
                              cmd4=commands[model]["base-i2t"],
                              cmd5=commands[model]["large-t2i"],
                              cmd6=commands[model]["large-i2t"],
-                             eval_cmd1=eval_commands[model]["validation-t2i"].rstrip(),
-                             eval_cmd2=eval_commands[model]["validation-i2t"].rstrip(),
+                             eval_cmd1=eval_commands[model]["small-t2i"].rstrip(),
+                             eval_cmd2=eval_commands[model]["small-i2t"].rstrip(),
                              eval_cmd3=eval_commands[model]["base-t2i"].rstrip(),
                              eval_cmd4=eval_commands[model]["base-i2t"].rstrip(),
                              eval_cmd5=eval_commands[model]["large-t2i"].rstrip(),
@@ -155,7 +157,7 @@ def run_conditions(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
-            split = name.split('-')[0] # validation, base, large
+            split = name.split('-')[0] # small, base, large
             retrieval_type = name.split('-')[1] # t2i or i2t
             cmd_template = condition['command']
 
@@ -191,6 +193,8 @@ def run_conditions(args):
                         if not args.skip_eval:
                             if not os.path.exists(runfile):
                                 continue
+                            if split == 'small':
+                                split = 'validation'
                             
                             score = float(run_eval_and_return_metric(metric, f'atomic.{split}.{retrieval_type}',
                                                                      trec_eval_metric_definitions[metric], runfile))
@@ -209,8 +213,8 @@ def run_conditions(args):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Generate regression matrix for BeIR corpora.')
-    # To list all conditions/datasets
+    parser = argparse.ArgumentParser(description='Generate regression matrix for AToMiC.')
+    # To list all conditions/models
     parser.add_argument('--list-conditions', action='store_true', default=False, help='List available conditions.')
     parser.add_argument('--list-models', action='store_true', default=False, help='List available datasets.')
     # For generating reports
