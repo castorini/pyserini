@@ -135,7 +135,7 @@ pre[class*="prettyprint"] {
 <p>Key:</p>
 
 <ul>
-  <li>Validation: AToMiC validation dataset</li>
+  <li>Small: AToMiC small dataset</li>
   <li>Base: AToMiC base dataset</li>
   <li>Large: AToMiC large dataset</li>
 </ul>
@@ -146,8 +146,8 @@ pre[class*="prettyprint"] {
       <tr>
         <th class="headertop"></th>
         <th class="headertop"></th>
-        <th class="headertop" colspan="4"><b>Validation T2I</b></th>
-        <th class="headertop" colspan="4"><b>Validation I2T</b></th>
+        <th class="headertop" colspan="4"><b>Small T2I</b></th>
+        <th class="headertop" colspan="4"><b>Small I2T</b></th>
         <th class="headertop" colspan="4"><b>Base T2I</b></th>
         <th class="headertop" colspan="4"><b>Base I2T</b></th>
         <th class="headertop" colspan="4"><b>Large T2I</b></th>
@@ -155,7 +155,7 @@ pre[class*="prettyprint"] {
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">val queries</th>
         <th class="headerbottom" scope="col">MRR@10</th>
         <th class="headerbottom" scope="col">R@10</th>
         <th class="headerbottom" scope="col">R@1000</th>
@@ -219,10 +219,10 @@ pre[class*="prettyprint"] {
 <!-- Tabs navs -->
 <ul class="nav nav-tabs mb-3" id="row1-tabs" role="tablist">
   <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">Validation T2I</a>
+    <a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">Small T2I</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">Validation I2T</a>
+    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">Small I2T</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">Base T2I</a>
@@ -250,22 +250,22 @@ Command to generate run:
   --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.validation \
   --encoded-queries atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-t2i.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.small-t2i.trec
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recip_rank -M 10 atomic.validation.t2i \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-t2i.trec
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.small-t2i.trec
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 atomic.validation.t2i \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-t2i.trec
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.small-t2i.trec
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 atomic.validation.t2i \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-t2i.trec</code></pre>
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.small-t2i.trec</code></pre>
   </blockquote>
 
   </div>
@@ -278,22 +278,22 @@ Command to generate run:
   --index atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.validation \
   --encoded-queries atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-i2t.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.small-i2t.trec
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recip_rank -M 10 atomic.validation.i2t \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-i2t.trec
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.small-i2t.trec
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 atomic.validation.i2t \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-i2t.trec
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.small-i2t.trec
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 atomic.validation.i2t \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.validation-i2t.trec</code></pre>
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.small-i2t.trec</code></pre>
   </blockquote>
 
   </div>
