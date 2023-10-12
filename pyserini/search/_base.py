@@ -302,6 +302,10 @@ topics_mapping = {
     'miracl-v1.0-zh-dev': JTopics.MIRACL_V10_ZH_DEV,
     'miracl-v1.0-de-dev': JTopics.MIRACL_V10_DE_DEV,
     'miracl-v1.0-yo-dev': JTopics.MIRACL_V10_YO_DEV,
+    
+    # AToMiC topics
+    'atomic-v0.2.1-text-validation': JTopics.ATOMIC_V021_TEXT_VAL,
+    'atomic-v0.2-image-validation': JTopics.ATOMIC_V021_IMAGE_VAL,
 }
 
 qrels_mapping = {
@@ -445,6 +449,8 @@ qrels_mapping = {
     'miracl-v1.0-zh-dev': JQrels.MIRACL_V10_ZH_DEV,
     'miracl-v1.0-de-dev': JQrels.MIRACL_V10_DE_DEV,
     'miracl-v1.0-yo-dev': JQrels.MIRACL_V10_YO_DEV,
+    'atomic.validation.t2i': JQrels.ATOMIC_VAL_T2I,
+    'atomic.validation.i2t': JQrels.ATOMIC_VAL_I2T,
 }
 
 
