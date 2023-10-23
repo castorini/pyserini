@@ -21,12 +21,18 @@ import re
 import sys
 import time
 from collections import defaultdict
+from datetime import datetime
 from string import Template
 
 import pkg_resources
 import yaml
 
 from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
+
+dense_threads = 16
+dense_batch_size = 512
+sparse_threads = 16
+sparse_batch_size = 128
 
 # The models: the rows of the results table will be ordered this way.
 models = {
@@ -351,7 +357,9 @@ def generate_report(args):
                     short_topic_key = find_msmarco_table_topic_set_key_v2(topic_key)
 
                 runfile = f'run.{args.collection}.{name}.{short_topic_key}.txt'
-                cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile)
+                cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile,
+                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
                 commands[name][short_topic_key] = cmd
 
                 for expected in topic_set['scores']:
@@ -387,8 +395,7 @@ def generate_report(args):
                              cmd3=format_command(commands[name]['dev']),
                              eval_cmd1=format_eval_command(eval_commands[name]['dl19']),
                              eval_cmd2=format_eval_command(eval_commands[name]['dl20']),
-                             eval_cmd3=format_eval_command(eval_commands[name]['dev'])
-                             )
+                             eval_cmd3=format_eval_command(eval_commands[name]['dev']))
 
             # If we don't have scores, we want to remove the commands also. Use simple regexp substitution.
             if table[name]['dl19']['MAP'] == 0:
@@ -490,7 +497,9 @@ def run_conditions(args):
                 print(f'  - topic_key: {topic_key}')
 
                 runfile = os.path.join(args.directory, f'run.{args.collection}.{name}.{short_topic_key}.txt')
-                cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile)
+                cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile,
+                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
 
                 if args.display_commands:
                     print(f'\n```bash\n{format_command(cmd)}\n```\n')
@@ -599,8 +608,12 @@ def run_conditions(args):
                       f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
 
     end = time.time()
+    start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.utcfromtimestamp(end).strftime('%Y-%m-%d %H:%M:%S')
 
     print('\n')
+    print(f'Start time: {start_str}')
+    print(f'End time: {end_str}')
     print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
 
 

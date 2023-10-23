@@ -14,18 +14,24 @@
 # limitations under the License.
 #
 
-from collections import defaultdict
-from string import Template
-
 import argparse
 import math
 import os
-import pkg_resources
 import sys
 import time
+from collections import defaultdict
+from datetime import datetime
+from string import Template
+
+import pkg_resources
 import yaml
 
 from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
+
+dense_threads = 16
+dense_batch_size = 512
+sparse_threads = 16
+sparse_batch_size = 128
 
 languages = [
     ['ar', 'arabic'],
@@ -63,8 +69,7 @@ def format_run_command(raw):
         .replace('--topics', '\\\n  --topics') \
         .replace('--index', '\\\n  --index') \
         .replace('--output ', '\\\n  --output ') \
-        .replace('--batch ', '\\\n  --batch ') \
-        .replace('--threads 12', '--threads 12 \\\n ')
+        .replace('--threads ', '\\\n  --threads ')
 
 
 def format_eval_command(raw):
@@ -192,7 +197,9 @@ def generate_report(args):
                 split = splits['split']
 
                 runfile = os.path.join(args.directory, f'run.mrtydi.{name}.{split}.txt')
-                cmd = Template(cmd_template).substitute(split=split, output=runfile)
+                cmd = Template(cmd_template).substitute(split=split, output=runfile,
+                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
                 commands[name] = format_run_command(cmd)
 
                 for expected in splits['scores']:
@@ -247,7 +254,9 @@ def run_conditions(args):
                 print(f'  - split: {split}')
 
                 runfile = os.path.join(args.directory, f'run.mrtydi.{name}.{split}.txt')
-                cmd = Template(cmd_template).substitute(split=split, output=runfile)
+                cmd = Template(cmd_template).substitute(split=split, output=runfile,
+                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
 
                 if args.display_commands:
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
@@ -279,6 +288,12 @@ def run_conditions(args):
             print_results(table, metric, split)
 
     end = time.time()
+    start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.utcfromtimestamp(end).strftime('%Y-%m-%d %H:%M:%S')
+
+    print('\n')
+    print(f'Start time: {start_str}')
+    print(f'End time: {end_str}')
     print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
 
 
