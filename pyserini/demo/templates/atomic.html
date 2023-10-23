@@ -101,6 +101,9 @@
             <th scope="col">Score</th>
             <th scope="col">Passage ID</th>
             <th scope="col">Content</th>
+            {% if index_name.startswith("atomic_image") %}
+            <th scope="col">Image</th>
+            {% endif %}
           </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -112,6 +115,11 @@
             <td style="word-wrap: break-word;min-width: 600px;max-width: 600px;" class="text-start">
               <small>{{res["content"]}}</small>
             </td>
+            {% if index_name.startswith("atomic_image") %}
+            <td>
+              <img src="{{ res['image_url'] }}" width="500" height="auto">
+            </td>
+            {% endif %}
           </tr>
           {% endfor %}
         </tbody>

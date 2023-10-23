@@ -15,15 +15,15 @@ We need the topic files (`topics.atomic.validation.text.jsonl` and `topics.atomi
 The required files are located under [`pyserini/tools/topics-and-qrels/`](https://github.com/castorini/anserini-tools/tree/7b84f773225b5973b4533dfa0aa18653409a6146/topics-and-qrels). If you have a dev installation of pyserini, you can simply access the files there.
 Otherwise,
 ```bash
-export DATA_DIR="https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main" # TODO: replace with link from anserini-tools repo once merged
+export DATA_DIR="https://raw.githubusercontent.com/castorini/anserini-tools/master/topics-and-qrels"
 
 mkdir topics
-wget ${DATA_DIR}/topics/topics.atomic.validation.text.jsonl -P topics
-wget ${DATA_DIR}/topics/topics.atomic.validation.image-caption.jsonl -P topics
+wget ${DATA_DIR}/topics.atomic.validation.text.jsonl -P topics
+wget ${DATA_DIR}/topics.atomic.validation.image-caption.jsonl -P topics
 
 mkdir qrels
-wget ${DATA_DIR}/qrels/qrels.atomic.validation.i2t.trec -P qrels
-wget ${DATA_DIR}/qrels/qrels.atomic.validation.t2i.trec -P qrels
+wget ${DATA_DIR}/qrels.atomic.validation.i2t.trec -P qrels
+wget ${DATA_DIR}/qrels.atomic.validation.t2i.trec -P qrels
 ```
 
 ## Batch Retrieval Run

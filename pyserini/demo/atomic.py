@@ -71,6 +71,7 @@ def create_app(k: int, load_searcher_fn: Callable[[str], Tuple[Searcher, str]]):
                     'docid': hit.docid,
                     'content': docs[r]['contents'],
                     'score': hit.score,
+                    'image_url': docs[r].get('image_url')
                 }
                 for r, hit in enumerate(hits)
             ]
