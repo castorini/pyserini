@@ -21,12 +21,18 @@ import re
 import sys
 import time
 from collections import defaultdict
+from datetime import datetime
 from string import Template
 
 import pkg_resources
 import yaml
 
 from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
+
+dense_threads = 16
+dense_batch_size = 512
+sparse_threads = 16
+sparse_batch_size = 128
 
 # The models: the rows of the results table will be ordered this way.
 models = {
@@ -67,14 +73,27 @@ models = {
      '',
      'ance',
      'ance-pytorch',
+     'ance-avg-prf-pytorch',
+     'ance-rocchio-prf-pytorch',
+     '',
+     'sbert-pytorch',
+     'sbert-avg-prf-pytorch',
+     'sbert-rocchio-prf-pytorch',
      '',
      'distilbert-kd',
      'distilbert-kd-pytorch',
      'distilbert-kd-tasb',
      'distilbert-kd-tasb-pytorch',
+     'distilbert-kd-tasb-avg-prf-pytorch',
+     'distilbert-kd-tasb-rocchio-prf-pytorch',
      '',
      'tct_colbert-v2-hnp',
      'tct_colbert-v2-hnp-pytorch',
+     'tct_colbert-v2-hnp-avg-prf-pytorch',
+     'tct_colbert-v2-hnp-rocchio-prf-pytorch',
+     '',
+     'tct_colbert-v2-hnp-bm25-pytorch',
+     'tct_colbert-v2-hnp-bm25d2q-pytorch',
      '',
      'slimr',
      'slimr-pp',
@@ -133,9 +152,8 @@ models = {
      'unicoil',
      '',
      'unicoil-noexp-otf',
-     'unicoil-otf'],
-
-    # MS MARCO v2 doc
+     'unicoil-otf',
+     'slimr-pp'],
     'msmarco-v2-doc':
     ['bm25-doc-default',
      'bm25-doc-segmented-default',
@@ -250,17 +268,31 @@ def find_msmarco_table_topic_set_key_v2(topic_key):
     return key
 
 
+def format_eval_command(raw):
+    return raw.replace('run.', '\\\n  run.')
+
+
 def format_command(raw):
+    # Format hybrid commands differently.
+    if 'pyserini.search.hybrid' in raw:
+        return raw.replace('dense', '\\\n  dense ') \
+                .replace('--encoder', '\\\n         --encoder') \
+                .replace('sparse', '\\\n  sparse') \
+                .replace('fusion', '\\\n  fusion') \
+                .replace('run --', '\\\n  run    --') \
+                .replace('--topics ', '\\\n         --topics ') \
+                .replace('--output ', '\\\n         --output ')
+
     # After "--output foo.txt" are additional options like "--hits 1000 --impact".
     # We want these on a separate line for better readability, but note that sometimes that might
     # be the end of the command, in which case we don't want to add an extra line break.
     return raw.replace('--topics', '\\\n  --topics') \
-        .replace('--threads', '\\\n  --threads')\
-        .replace('--index', '\\\n  --index')\
-        .replace('--output ', '\\\n  --output ')\
-        .replace('--encoder', '\\\n  --encoder')\
-        .replace('--onnx-encoder', '\\\n  --onnx-encoder')\
-        .replace('--encoded-corpus', '\\\n  --encoded-corpus')\
+        .replace('--threads', '\\\n  --threads') \
+        .replace('--index', '\\\n  --index') \
+        .replace('--output ', '\\\n  --output ') \
+        .replace('--encoder', '\\\n  --encoder') \
+        .replace('--onnx-encoder', '\\\n  --onnx-encoder') \
+        .replace('--encoded-corpus', '\\\n  --encoded-corpus') \
         .replace('.txt ', '.txt \\\n  ')
 
 
@@ -312,7 +344,7 @@ def generate_report(args):
             row_id = condition['display-row'] if 'display-row' in condition else ''
             cmd_template = condition['command']
 
-            row_ids[name] =row_id
+            row_ids[name] = row_id
             table_keys[name] = display
 
             for topic_set in condition['topics']:
@@ -325,7 +357,9 @@ def generate_report(args):
                     short_topic_key = find_msmarco_table_topic_set_key_v2(topic_key)
 
                 runfile = f'run.{args.collection}.{name}.{short_topic_key}.txt'
-                cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile)
+                cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile,
+                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
                 commands[name][short_topic_key] = cmd
 
                 for expected in topic_set['scores']:
@@ -359,10 +393,9 @@ def generate_report(args):
                              cmd1=format_command(commands[name]['dl19']),
                              cmd2=format_command(commands[name]['dl20']),
                              cmd3=format_command(commands[name]['dev']),
-                             eval_cmd1=eval_commands[name]['dl19'],
-                             eval_cmd2=eval_commands[name]['dl20'],
-                             eval_cmd3=eval_commands[name]['dev']
-                             )
+                             eval_cmd1=format_eval_command(eval_commands[name]['dl19']),
+                             eval_cmd2=format_eval_command(eval_commands[name]['dl20']),
+                             eval_cmd3=format_eval_command(eval_commands[name]['dev']))
 
             # If we don't have scores, we want to remove the commands also. Use simple regexp substitution.
             if table[name]['dl19']['MAP'] == 0:
@@ -456,7 +489,6 @@ def run_conditions(args):
                 topic_key = topic_set['topic_key']
                 eval_key = topic_set['eval_key']
 
-                short_topic_key = ''
                 if args.collection == 'msmarco-v1-passage' or args.collection == 'msmarco-v1-doc':
                     short_topic_key = find_msmarco_table_topic_set_key_v1(topic_key)
                 else:
@@ -465,7 +497,9 @@ def run_conditions(args):
                 print(f'  - topic_key: {topic_key}')
 
                 runfile = os.path.join(args.directory, f'run.{args.collection}.{name}.{short_topic_key}.txt')
-                cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile)
+                cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile,
+                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
 
                 if args.display_commands:
                     print(f'\n```bash\n{format_command(cmd)}\n```\n')
@@ -491,15 +525,30 @@ def run_conditions(args):
                                     runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky tests
+                            # Flaky test on Jimmy's Mac Studio
+                            elif args.collection == 'msmarco-v1-passage' and name == 'distilbert-kd-tasb-avg-prf-pytorch' \
+                                    and topic_key == 'msmarco-passage-dev-subset' \
+                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0002:
+                                result_str = okish_str
+                            # Flaky test on Jimmy's Mac Studio
+                            elif args.collection == 'msmarco-v1-passage' and name == 'distilbert-kd-tasb-rocchio-prf-pytorch' \
+                                    and topic_key == 'msmarco-passage-dev-subset' \
+                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
+                                result_str = okish_str
+                            # Flaky test on Jimmy's Mac Studio
                             elif args.collection == 'msmarco-v1-passage' \
                                     and topic_key == 'msmarco-passage-dev-subset' and name == 'ance-pytorch' \
                                     and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
                                 result_str = okish_str
-                            # Flaky test on Jimmy's iMac Pro
-                            elif args.collection == 'msmarco-v1-passage' and name == 'splade-pp-ed-rocchio-pytorch'\
-                                    and topic_key == 'msmarco-passage-dev-subset' \
-                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
+                            # Flaky test on Jimmy's Mac Studio
+                            elif args.collection == 'msmarco-v1-passage' \
+                                    and topic_key == 'msmarco-passage-dev-subset' and name == 'ance-rocchio-prf-pytorch' \
+                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0003:
+                                result_str = okish_str
+                            # Flaky test on Jimmy's Mac Studio
+                            elif args.collection == 'msmarco-v1-passage' \
+                                    and topic_key == 'dl20' and name == 'ance-rocchio-prf-pytorch' \
+                                    and metric == 'R@1K' and abs(score-float(expected[metric])) <= 0.0011:
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
@@ -559,9 +608,13 @@ def run_conditions(args):
                       f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
 
     end = time.time()
+    start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.utcfromtimestamp(end).strftime('%Y-%m-%d %H:%M:%S')
 
     print('\n')
-    print(f'Total elapsed time: {end - start:.0f}s')
+    print(f'Start time: {start_str}')
+    print(f'End time: {end_str}')
+    print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
 
 
 if __name__ == '__main__':

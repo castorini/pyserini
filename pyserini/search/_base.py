@@ -79,6 +79,9 @@ topics_mapping = {
     'dl21': JTopics.TREC2021_DL,
     'dl21-unicoil': JTopics.TREC2021_DL_UNICOIL,
     'dl21-unicoil-noexp': JTopics.TREC2021_DL_UNICOIL_NOEXP,
+    'dl22': JTopics.TREC2022_DL,
+    'dl22-unicoil': JTopics.TREC2022_DL_UNICOIL,
+    'dl22-unicoil-noexp': JTopics.TREC2022_DL_UNICOIL_NOEXP,
     'msmarco-doc-dev': JTopics.MSMARCO_DOC_DEV,
     'msmarco-doc-dev-unicoil': JTopics.MSMARCO_DOC_DEV_UNICOIL,
     'msmarco-doc-dev-unicoil-noexp': JTopics.MSMARCO_DOC_DEV_UNICOIL_NOEXP,
@@ -299,6 +302,10 @@ topics_mapping = {
     'miracl-v1.0-zh-dev': JTopics.MIRACL_V10_ZH_DEV,
     'miracl-v1.0-de-dev': JTopics.MIRACL_V10_DE_DEV,
     'miracl-v1.0-yo-dev': JTopics.MIRACL_V10_YO_DEV,
+    
+    # AToMiC topics
+    'atomic-v0.2.1-text-validation': JTopics.ATOMIC_V021_TEXT_VAL,
+    'atomic-v0.2-image-validation': JTopics.ATOMIC_V021_IMAGE_VAL,
 }
 
 qrels_mapping = {
@@ -329,6 +336,7 @@ qrels_mapping = {
     'dl20-passage': JQrels.TREC2020_DL_PASSAGE,
     'dl21-doc': JQrels.TREC2021_DL_DOC,
     'dl21-passage': JQrels.TREC2021_DL_PASSAGE,
+    'dl22-passage': JQrels.TREC2022_DL_PASSAGE,
     'msmarco-doc-dev': JQrels.MSMARCO_DOC_DEV,
     'msmarco-passage-dev-subset': JQrels.MSMARCO_PASSAGE_DEV_SUBSET,
     'msmarco-v2-doc-dev': JQrels.MSMARCO_V2_DOC_DEV,
@@ -441,6 +449,8 @@ qrels_mapping = {
     'miracl-v1.0-zh-dev': JQrels.MIRACL_V10_ZH_DEV,
     'miracl-v1.0-de-dev': JQrels.MIRACL_V10_DE_DEV,
     'miracl-v1.0-yo-dev': JQrels.MIRACL_V10_YO_DEV,
+    'atomic.validation.t2i': JQrels.ATOMIC_VAL_T2I,
+    'atomic.validation.i2t': JQrels.ATOMIC_VAL_I2T,
 }
 
 

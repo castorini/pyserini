@@ -1,0 +1,49 @@
+conditions:
+  - name: small-t2i
+    command: python -m pyserini.search.faiss --topics atomic-v0.2.1-text-validation --index atomic-v0.2.${model}.image.validation --encoded-queries atomic-v0.2.1-text-${model}-validation --hits 1000 --batch-size 256 --threads 32 --output $output
+    models:
+      - model: ViT-L-14.laion2b_s32b_b82k
+        scores:
+          - MRR@10: 0.3142
+            R@10: 0.4900
+            R@1000: 0.9451
+  - name: small-i2t
+    command: python -m pyserini.search.faiss --topics atomic-v0.2-image-validation --index atomic-v0.2.1.${model}.text.validation --encoded-queries atomic-v0.2-image-${model}-validation --hits 1000 --batch-size 256 --threads 32 --output $output
+    models:
+      - model: ViT-L-14.laion2b_s32b_b82k
+        scores:
+          - MRR@10: 0.3158
+            R@10: 0.4797
+            R@1000: 0.9418
+  - name: base-t2i
+    command: python -m pyserini.search.faiss --topics atomic-v0.2.1-text-validation --index atomic-v0.2.${model}.image.base --encoded-queries atomic-v0.2.1-text-${model}-validation --hits 1000 --batch-size 256 --threads 32 --output $output
+    models:
+      - model: ViT-L-14.laion2b_s32b_b82k
+        scores:
+          - MRR@10: 0.0708
+            R@10: 0.1211
+            R@1000: 0.4565
+  - name: base-i2t
+    command: python -m pyserini.search.faiss --topics atomic-v0.2-image-validation --index atomic-v0.2.1.${model}.text.base --encoded-queries atomic-v0.2-image-${model}-validation --hits 1000 --batch-size 256 --threads 32 --output $output
+    models:
+      - model: ViT-L-14.laion2b_s32b_b82k
+        scores:
+          - MRR@10: 0.0716
+            R@10: 0.1203
+            R@1000: 0.4597
+  - name: large-t2i
+    command: python -m pyserini.search.faiss --topics atomic-v0.2.1-text-validation --index atomic-v0.2.${model}.image.large --encoded-queries atomic-v0.2.1-text-${model}-validation --hits 1000 --batch-size 256 --threads 32 --output $output
+    models:
+      - model: ViT-L-14.laion2b_s32b_b82k
+        scores:
+          - MRR@10: 0.0542
+            R@10: 0.0924
+            R@1000: 0.3597
+  - name: large-i2t
+    command: python -m pyserini.search.faiss --topics atomic-v0.2-image-validation --index atomic-v0.2.1.${model}.text.large --encoded-queries atomic-v0.2-image-${model}-validation --hits 1000 --batch-size 256 --threads 32 --output $output
+    models:
+      - model: ViT-L-14.laion2b_s32b_b82k
+        scores:
+          - MRR@10: 0.0393
+            R@10: 0.0764
+            R@1000: 0.3343

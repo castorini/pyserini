@@ -1,0 +1,66 @@
+conditions:
+  - model_name: BM25-k1_0.9_b_0.4
+    command: 
+      - python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index wikipedia-dpr-100w --topics dpr-trivia-test --output $output --bm25 --k1 0.9 --b 0.4
+    scores:
+      - Top5: 66.29
+        Top20: 76.41
+        Top100: 83.14
+        Top500: 87.35
+        Top1000: 88.50
+  - model_name: BM25-k1_0.9_b_0.4_dpr-topics
+    command: 
+      - python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index wikipedia-dpr-100w --topics dpr-trivia-test --output $output --bm25 --k1 0.9 --b 0.4
+    scores:
+      - Top5: 66.29
+        Top20: 76.41
+        Top100: 83.14
+        Top500: 87.35
+        Top1000: 88.50
+  - model_name: GarT5-RRF
+    command: 
+      - python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index wikipedia-dpr-100w --topics dpr-trivia-test-gar-t5-answers --output $output --bm25 --k1 0.9 --b 0.4
+      - python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index wikipedia-dpr-100w --topics dpr-trivia-test-gar-t5-titles --output $output --bm25 --k1 0.9 --b 0.4
+      - python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index wikipedia-dpr-100w --topics dpr-trivia-test-gar-t5-sentences --output $output --bm25 --k1 0.9 --b 0.4
+    scores:
+      - Top5: 72.82
+        Top20: 80.66
+        Top100: 85.95
+        Top500: 89.07
+        Top1000: 90.06
+  - model_name: DPR
+    command: 
+      - python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index wikipedia-dpr-100w.dpr-multi --encoder facebook/dpr-question_encoder-multiset-base --topics dpr-trivia-test --output $output
+    scores:
+      - Top5: 69.80
+        Top20: 78.87 
+        Top100: 84.79
+        Top500: 88.19
+        Top1000: 89.30
+  - model_name: DPR-DKRR
+    command: 
+      - 'python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index wikipedia-dpr-100w.dkrr-tqa --encoder castorini/dkrr-dpr-tqa-retriever --topics dpr-trivia-test --output $output --query-prefix question: '
+    scores:
+      - Top5: 77.23
+        Top20: 83.74
+        Top100: 87.78
+        Top500: 89.87
+        Top1000: 90.63
+  - model_name: DPR-Hybrid
+    command: 
+      - python -m pyserini.search.hybrid dense --index wikipedia-dpr-100w.dpr-multi --encoder facebook/dpr-question_encoder-multiset-base sparse --index wikipedia-dpr-100w fusion --alpha 0.95 run --topics dpr-trivia-test --output $output --threads ${dense_threads} --batch-size ${dense_batch_size}
+    scores:
+      - Top5: 76.01
+        Top20: 82.64
+        Top100: 86.55
+        Top500: 89.12
+        Top1000: 89.90
+  - model_name: GarT5RRF-DKRR-RRF
+    command:
+      - ''
+    scores:
+      - Top5: 78.63
+        Top20: 85.02
+        Top100: 88.41
+        Top500: 90.29 
+        Top1000: 90.83
