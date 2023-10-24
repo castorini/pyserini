@@ -2447,7 +2447,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset \
 <td>0.7280</td>
 <td>0.9069</td>
 <td></td>
-<td>0.3300</td>
+<td>0.3301</td>
 <td>0.9811</td>
 </tr>
 <tr class="hide-table-padding">
@@ -5324,7 +5324,7 @@ Command to generate run on TREC 2019 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index msmarco-v1-passage-slimr \
   --topics dl19-passage \
   --encoder castorini/slimr-msmarco-passage \
@@ -5350,7 +5350,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index msmarco-v1-passage-slimr \
   --topics dl20 \
   --encoder castorini/slimr-msmarco-passage \
@@ -5376,7 +5376,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index msmarco-v1-passage-slimr \
   --topics msmarco-passage-dev-subset \
   --encoder castorini/slimr-msmarco-passage \
@@ -5442,7 +5442,7 @@ Command to generate run on TREC 2019 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index msmarco-v1-passage-slimr-pp \
   --topics dl19-passage \
   --encoder castorini/slimr-pp-msmarco-passage \
@@ -5468,7 +5468,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index msmarco-v1-passage-slimr-pp \
   --topics dl20 \
   --encoder castorini/slimr-pp-msmarco-passage \
@@ -5494,7 +5494,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch 128 \
+  --threads 16 --batch-size 128 \
   --index msmarco-v1-passage-slimr-pp \
   --topics msmarco-passage-dev-subset \
   --encoder castorini/slimr-pp-msmarco-passage \

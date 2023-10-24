@@ -2,7 +2,7 @@ conditions:
   # mDPR, tied encoders, pFT w/ MS MARCO, FT all
   - name: mdpr-tied-pft-msmarco-ft-all.ar
     eval_key: mrtydi-v1.1-arabic
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -18,7 +18,7 @@ conditions:
             R@100: 0.9004
   - name: mdpr-tied-pft-msmarco-ft-all.bn
     eval_key: mrtydi-v1.1-bengali
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bengali-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bengali-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -34,7 +34,7 @@ conditions:
             R@100: 0.9550
   - name: mdpr-tied-pft-msmarco-ft-all.en
     eval_key: mrtydi-v1.1-english
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -50,7 +50,7 @@ conditions:
             R@100: 0.8414
   - name: mdpr-tied-pft-msmarco-ft-all.fi
     eval_key: mrtydi-v1.1-finnish
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-finnish-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-finnish-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -66,7 +66,7 @@ conditions:
             R@100: 0.8563
   - name: mdpr-tied-pft-msmarco-ft-all.id
     eval_key: mrtydi-v1.1-indonesian
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -82,7 +82,7 @@ conditions:
             R@100: 0.8609
   - name: mdpr-tied-pft-msmarco-ft-all.ja
     eval_key: mrtydi-v1.1-japanese
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -98,7 +98,7 @@ conditions:
             R@100: 0.8130
   - name: mdpr-tied-pft-msmarco-ft-all.ko
     eval_key: mrtydi-v1.1-korean
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -114,7 +114,7 @@ conditions:
             R@100: 0.7854
   - name: mdpr-tied-pft-msmarco-ft-all.ru
     eval_key: mrtydi-v1.1-russian
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-russian-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-russian-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -130,7 +130,7 @@ conditions:
             R@100: 0.8432
   - name: mdpr-tied-pft-msmarco-ft-all.sw
     eval_key: mrtydi-v1.1-swahili
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -146,7 +146,7 @@ conditions:
             R@100: 0.8756
   - name: mdpr-tied-pft-msmarco-ft-all.te
     eval_key: mrtydi-v1.1-telugu
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-telugu-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-telugu-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -162,7 +162,7 @@ conditions:
             R@100: 0.9659
   - name: mdpr-tied-pft-msmarco-ft-all.th
     eval_key: mrtydi-v1.1-thai
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco-ft-all --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai-mdpr-tied-pft-msmarco-ft-all --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -180,7 +180,7 @@ conditions:
   # mDPR, tied encoders, pFT w/ MS MARCO
   - name: mdpr-tied-pft-msmarco.ar
     eval_key: mrtydi-v1.1-arabic
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-arabic-mdpr-tied-pft-msmarco --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -196,7 +196,7 @@ conditions:
             R@100: 0.7971
   - name: mdpr-tied-pft-msmarco.bn
     eval_key: mrtydi-v1.1-bengali
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bengali-mdpr-tied-pft-msmarco --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bengali-mdpr-tied-pft-msmarco --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -212,7 +212,7 @@ conditions:
             R@100: 0.8198
   - name: mdpr-tied-pft-msmarco.en
     eval_key: mrtydi-v1.1-english
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-tied-pft-msmarco --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-tied-pft-msmarco --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -228,7 +228,7 @@ conditions:
             R@100: 0.7536
   - name: mdpr-tied-pft-msmarco.fi
     eval_key: mrtydi-v1.1-finnish
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-finnish-mdpr-tied-pft-msmarco --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-finnish-mdpr-tied-pft-msmarco --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -244,7 +244,7 @@ conditions:
             R@100: 0.6471
   - name: mdpr-tied-pft-msmarco.id
     eval_key: mrtydi-v1.1-indonesian
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian-mdpr-tied-pft-msmarco --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian-mdpr-tied-pft-msmarco --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -260,7 +260,7 @@ conditions:
             R@100: 0.7356
   - name: mdpr-tied-pft-msmarco.ja
     eval_key: mrtydi-v1.1-japanese
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese-mdpr-tied-pft-msmarco --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese-mdpr-tied-pft-msmarco --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -276,7 +276,7 @@ conditions:
             R@100: 0.7317
   - name: mdpr-tied-pft-msmarco.ko
     eval_key: mrtydi-v1.1-korean
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean-mdpr-tied-pft-msmarco --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean-mdpr-tied-pft-msmarco --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -292,7 +292,7 @@ conditions:
             R@100: 0.6172
   - name: mdpr-tied-pft-msmarco.ru
     eval_key: mrtydi-v1.1-russian
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-russian-mdpr-tied-pft-msmarco --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-russian-mdpr-tied-pft-msmarco --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -308,7 +308,7 @@ conditions:
             R@100: 0.7432
   - name: mdpr-tied-pft-msmarco.sw
     eval_key: mrtydi-v1.1-swahili
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili-mdpr-tied-pft-msmarco --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili-mdpr-tied-pft-msmarco --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -324,7 +324,7 @@ conditions:
             R@100: 0.6343
   - name: mdpr-tied-pft-msmarco.te
     eval_key: mrtydi-v1.1-telugu
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-telugu-mdpr-tied-pft-msmarco --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-telugu-mdpr-tied-pft-msmarco --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -340,7 +340,7 @@ conditions:
             R@100: 0.7817
   - name: mdpr-tied-pft-msmarco.th
     eval_key: mrtydi-v1.1-thai
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai-mdpr-tied-pft-msmarco --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai-mdpr-tied-pft-msmarco --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -358,7 +358,7 @@ conditions:
   # mDPR, tied encoders, pFT w/ NQ
   - name: mdpr-tied-pft-nq.ar
     eval_key: mrtydi-v1.1-arabic
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-arabic-mdpr-tied-pft-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-arabic-mdpr-tied-pft-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -374,7 +374,7 @@ conditions:
             R@100: 0.6001
   - name: mdpr-tied-pft-nq.bn
     eval_key: mrtydi-v1.1-bengali
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bengali-mdpr-tied-pft-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bengali-mdpr-tied-pft-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -390,7 +390,7 @@ conditions:
             R@100: 0.7162
   - name: mdpr-tied-pft-nq.en
     eval_key: mrtydi-v1.1-english
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-tied-pft-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-tied-pft-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -406,7 +406,7 @@ conditions:
             R@100: 0.6893
   - name: mdpr-tied-pft-nq.fi
     eval_key: mrtydi-v1.1-finnish
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-finnish-mdpr-tied-pft-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-finnish-mdpr-tied-pft-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -422,7 +422,7 @@ conditions:
             R@100: 0.6401
   - name: mdpr-tied-pft-nq.id
     eval_key: mrtydi-v1.1-indonesian
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian-mdpr-tied-pft-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian-mdpr-tied-pft-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -438,7 +438,7 @@ conditions:
             R@100: 0.6914
   - name: mdpr-tied-pft-nq.ja
     eval_key: mrtydi-v1.1-japanese
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese-mdpr-tied-pft-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese-mdpr-tied-pft-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -454,7 +454,7 @@ conditions:
             R@100: 0.5734
   - name: mdpr-tied-pft-nq.ko
     eval_key: mrtydi-v1.1-korean
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean-mdpr-tied-pft-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean-mdpr-tied-pft-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -470,7 +470,7 @@ conditions:
             R@100: 0.5499
   - name: mdpr-tied-pft-nq.ru
     eval_key: mrtydi-v1.1-russian
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-russian-mdpr-tied-pft-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-russian-mdpr-tied-pft-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -486,7 +486,7 @@ conditions:
             R@100: 0.6181
   - name: mdpr-tied-pft-nq.sw
     eval_key: mrtydi-v1.1-swahili
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili-mdpr-tied-pft-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili-mdpr-tied-pft-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -502,7 +502,7 @@ conditions:
             R@100: 0.5965
   - name: mdpr-tied-pft-nq.te
     eval_key: mrtydi-v1.1-telugu
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-telugu-mdpr-tied-pft-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-telugu-mdpr-tied-pft-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -518,7 +518,7 @@ conditions:
             R@100: 0.2454
   - name: mdpr-tied-pft-nq.th
     eval_key: mrtydi-v1.1-thai
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai-mdpr-tied-pft-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai-mdpr-tied-pft-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -536,7 +536,7 @@ conditions:
   # mDPR, split encoders, pFT w/ NQ
   - name: mdpr-split-pft-nq.ar
     eval_key: mrtydi-v1.1-arabic
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-arabic-mdpr-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-arabic-mdpr-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -552,7 +552,7 @@ conditions:
             R@100: 0.6502
   - name: mdpr-split-pft-nq.bn
     eval_key: mrtydi-v1.1-bengali
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bengali-mdpr-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bengali-mdpr-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -568,7 +568,7 @@ conditions:
             R@100: 0.7928
   - name: mdpr-split-pft-nq.en
     eval_key: mrtydi-v1.1-english
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -584,7 +584,7 @@ conditions:
             R@100: 0.6779
   - name: mdpr-split-pft-nq.fi
     eval_key: mrtydi-v1.1-finnish
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-finnish-mdpr-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-finnish-mdpr-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -600,7 +600,7 @@ conditions:
             R@100: 0.5680
   - name: mdpr-split-pft-nq.id
     eval_key: mrtydi-v1.1-indonesian
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian-mdpr-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian-mdpr-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -616,7 +616,7 @@ conditions:
             R@100: 0.6848
   - name: mdpr-split-pft-nq.ja
     eval_key: mrtydi-v1.1-japanese
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese-mdpr-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese-mdpr-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -632,7 +632,7 @@ conditions:
             R@100: 0.5840
   - name: mdpr-split-pft-nq.ko
     eval_key: mrtydi-v1.1-korean
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean-mdpr-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean-mdpr-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -648,7 +648,7 @@ conditions:
             R@100: 0.5325
   - name: mdpr-split-pft-nq.ru
     eval_key: mrtydi-v1.1-russian
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-russian-mdpr-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-russian-mdpr-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -664,7 +664,7 @@ conditions:
             R@100: 0.6474
   - name: mdpr-split-pft-nq.sw
     eval_key: mrtydi-v1.1-swahili
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili-mdpr-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili-mdpr-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -680,7 +680,7 @@ conditions:
             R@100: 0.5281
   - name: mdpr-split-pft-nq.te
     eval_key: mrtydi-v1.1-telugu
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-telugu-mdpr-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-telugu-mdpr-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -696,7 +696,7 @@ conditions:
             R@100: 0.3661
   - name: mdpr-split-pft-nq.th
     eval_key: mrtydi-v1.1-thai
-    command: python -m pyserini.search.faiss --threads 16 --batch-size 512 --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai-mdpr-nq --output $output --hits 100
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai-mdpr-nq --output $output --hits 100
     splits:
       - split: train
         scores:
@@ -714,7 +714,7 @@ conditions:
   # BM25
   - name: bm25.ar
     eval_key: mrtydi-v1.1-arabic
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --language ar --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-arabic --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ar --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-arabic --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -730,7 +730,7 @@ conditions:
             R@100: 0.7928
   - name: bm25.bn
     eval_key: mrtydi-v1.1-bengali
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --language bn --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bengali --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language bn --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bengali --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -746,7 +746,7 @@ conditions:
           - R@100: 0.8694
   - name: bm25.en
     eval_key: mrtydi-v1.1-english
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --language en --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language en --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -762,7 +762,7 @@ conditions:
           - R@100: 0.5365
   - name: bm25.fi
     eval_key: mrtydi-v1.1-finnish
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --language fi --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-finnish --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language fi --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-finnish --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -778,7 +778,7 @@ conditions:
           - R@100: 0.7196
   - name: bm25.id
     eval_key: mrtydi-v1.1-indonesian
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --language id --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language id --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -794,7 +794,7 @@ conditions:
           - R@100: 0.8426
   - name: bm25.ja
     eval_key: mrtydi-v1.1-japanese
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --language ja --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ja --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -810,7 +810,7 @@ conditions:
           - R@100: 0.6431
   - name: bm25.ko
     eval_key: mrtydi-v1.1-korean
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --language ko --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ko --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -826,7 +826,7 @@ conditions:
           - R@100: 0.6188
   - name: bm25.ru
     eval_key: mrtydi-v1.1-russian
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --language ru --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-russian --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ru --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-russian --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -842,7 +842,7 @@ conditions:
           - R@100: 0.6541
   - name: bm25.sw
     eval_key: mrtydi-v1.1-swahili
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --language sw --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language sw --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -858,7 +858,7 @@ conditions:
           - R@100: 0.7642
   - name: bm25.te
     eval_key: mrtydi-v1.1-telugu
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --language te --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-telugu --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language te --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-telugu --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -874,7 +874,7 @@ conditions:
           - R@100: 0.8971
   - name: bm25.th
     eval_key: mrtydi-v1.1-thai
-    command: python -m pyserini.search.lucene --threads 16 --batch-size 128 --language th --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language th --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:

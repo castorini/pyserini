@@ -484,5 +484,25 @@ QUERY_INFO = {
         "size (bytes)": 67615770,
         "total_queries": 6980,
         "downloaded": False
-     },    
+     },
+     "atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation": {
+        "description": "AToMiC text v0.2.1 validation set encoded by ViT-L-14.laion2b_s32b_b82k.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation-20231008-e371ed.tar.gz",
+        ],
+        "md5": "bc3f51d1ddd50dfaf3377497a692d475",
+        "size (bytes)": 58020647,
+        "total_queries": 17173,
+        "downloaded": False
+     },
+     "atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation": {
+        "description": "AToMiC image v0.2 validation set encoded by ViT-L-14.laion2b_s32b_b82k.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation-20231008-e371ed.tar.gz",
+        ],
+        "md5": "3d45cbb7f39e842a03f936c78ff2620d",
+        "size (bytes)": 43983721,
+        "total_queries": 16131,
+        "downloaded": False
+     },      
 }
