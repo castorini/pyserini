@@ -232,7 +232,7 @@ class DkrrDprQueryEncoder(QueryEncoder):
 
     @staticmethod
     def _mean_pooling(model_output, attention_mask):
-        model_output = model_output[0].masked_fill(1 - attention_mask[:, :, None], 0.)
+        model_output = model_output[0].masked_fill(attention_mask[:, :, None] == 0, 0.)
         model_output = torch.sum(model_output, dim=1) / torch.clamp(torch.sum(attention_mask, dim=1), min=1e-9)[:, None]
         return model_output.flatten()
 
