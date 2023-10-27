@@ -17,15 +17,21 @@
 import argparse
 import math
 import os
-import time
 import sys
+import time
 from collections import defaultdict
+from datetime import datetime
 from string import Template
-import pkg_resources
 
+import pkg_resources
 import yaml
 
 from ._base import run_eval_and_return_metric, ok_str, fail_str
+
+dense_threads = 16
+dense_batch_size = 512
+sparse_threads = 16
+sparse_batch_size = 128
 
 trec_eval_metric_definitions = {
     'nDCG@10': '-c -m ndcg_cut.10',
@@ -64,17 +70,19 @@ beir_keys = ['trec-covid',
              'scifact'
              ]
 
+
 def format_run_command(raw):
-    return raw.replace('--topics', '\\\n  --topics')\
-        .replace('--index', '\\\n  --index')\
-        .replace('--encoder-class', '\\\n --encoder-class')\
-        .replace('--output ', '\\\n  --output ')\
-        .replace('--output-format trec', '\\\n  --output-format trec \\\n ') \
+    return raw.replace('--topics', '\\\n  --topics') \
+        .replace('--threads', '\\\n  --threads') \
+        .replace('--index', '\\\n  --index') \
+        .replace('--encoder-class', '\\\n  --encoder-class') \
+        .replace('--output ', '\\\n  --output ') \
+        .replace('--output-format trec ', '\\\n  --output-format trec ') \
         .replace('--hits ', '\\\n  --hits ')
 
 
 def format_eval_command(raw):
-    return raw.replace('-c ', '\\\n  -c ')\
+    return raw.replace('-c ', '\\\n  -c ') \
         .replace('run.', '\\\n  run.')
 
 
@@ -85,15 +93,18 @@ def read_file(f):
 
     return text
 
-def list_conditions(args):
+
+def list_conditions():
     with open(pkg_resources.resource_filename(__name__, 'beir.yaml')) as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             print(condition['name'])
-            
-def list_datasets(args):
+
+
+def list_datasets():
     for dataset in beir_keys:
         print(dataset)
+
 
 def generate_report(args):
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
@@ -112,8 +123,10 @@ def generate_report(args):
             for datasets in condition['datasets']:
                 dataset = datasets['dataset']
 
-                runfile = os.path.join(args.directory, f'run.beir-{name}.{dataset}.txt')
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)
+                runfile = os.path.join(args.directory, f'run.beir.{name}.{dataset}.txt')
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile,
+                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
                 commands[dataset][name] = format_run_command(cmd)
 
                 for expected in datasets['scores']:
@@ -149,8 +162,7 @@ def generate_report(args):
                              eval_cmd2=eval_commands[dataset]["bm25-multifield"].rstrip(),
                              eval_cmd3=eval_commands[dataset]["splade-distil-cocodenser-medium"].rstrip(),
                              eval_cmd4=eval_commands[dataset]["contriever"].rstrip(),
-                             eval_cmd5=eval_commands[dataset]["contriever-msmarco"].rstrip(),
-                             )
+                             eval_cmd5=eval_commands[dataset]["contriever-msmarco"].rstrip())
 
             html_rows.append(s)
             row_cnt += 1
@@ -158,6 +170,7 @@ def generate_report(args):
         all_rows = '\n'.join(html_rows)
         with open(args.output, 'w') as out:
             out.write(Template(html_template).substitute(title='BEIR', rows=all_rows))
+
 
 def run_conditions(args):
     start = time.time()
@@ -188,7 +201,9 @@ def run_conditions(args):
                 print(f'  - dataset: {dataset}')
 
                 runfile = os.path.join(args.directory, f'run.beir.{name}.{dataset}.txt')
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile,
+                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
                 
                 if args.display_commands:
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
@@ -212,6 +227,7 @@ def run_conditions(args):
                             table[dataset][name][metric] = score
                         else:
                             table[dataset][name][metric] = expected[metric]
+                    print('')
 
             print('')
 
@@ -253,16 +269,22 @@ def run_conditions(args):
               f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}')
     print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
     print('avg' + ' ' * 22 + f'{final_scores["bm25-flat"]["nDCG@10"]:8.4f}{final_scores["bm25-flat"]["R@100"]:8.4f}   ' +
-            f'{final_scores["bm25-multifield"]["nDCG@10"]:8.4f}{final_scores["bm25-multifield"]["R@100"]:8.4f}   ' +
-            f'{final_scores["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{final_scores["splade-distil-cocodenser-medium"]["R@100"]:8.4f}   ' + 
-            f'{final_scores["contriever"]["nDCG@10"]:8.4f}{final_scores["contriever"]["R@100"]:8.4f}   ' +
-            f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.4f}{final_scores["contriever-msmarco"]["R@100"]:8.4f}')
+          f'{final_scores["bm25-multifield"]["nDCG@10"]:8.4f}{final_scores["bm25-multifield"]["R@100"]:8.4f}   ' +
+          f'{final_scores["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{final_scores["splade-distil-cocodenser-medium"]["R@100"]:8.4f}   ' +
+          f'{final_scores["contriever"]["nDCG@10"]:8.4f}{final_scores["contriever"]["R@100"]:8.4f}   ' +
+          f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.4f}{final_scores["contriever-msmarco"]["R@100"]:8.4f}')
 
     end = time.time()
 
+    start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.utcfromtimestamp(end).strftime('%Y-%m-%d %H:%M:%S')
+
     print('\n')
-    print(f'Total elapsed time: {end - start:.0f}s')
-    
+    print(f'Start time: {start_str}')
+    print(f'End time: {end_str}')
+    print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for BeIR corpora.')
     # To list all conditions/datasets
@@ -282,11 +304,11 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.list_conditions:
-        list_conditions(args)
+        list_conditions()
         sys.exit()
     
     if args.list_datasets:
-        list_datasets(args)
+        list_datasets()
         sys.exit()
 
     if args.generate_report:

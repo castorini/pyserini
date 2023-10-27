@@ -232,7 +232,7 @@ class DkrrDprQueryEncoder(QueryEncoder):
 
     @staticmethod
     def _mean_pooling(model_output, attention_mask):
-        model_output = model_output[0].masked_fill(1 - attention_mask[:, :, None], 0.)
+        model_output = model_output[0].masked_fill(attention_mask[:, :, None] == 0, 0.)
         model_output = torch.sum(model_output, dim=1) / torch.clamp(torch.sum(attention_mask, dim=1), min=1e-9)[:, None]
         return model_output.flatten()
 
@@ -439,7 +439,7 @@ class FaissSearcher:
         """Display information about available prebuilt indexes."""
         get_dense_indexes_info()
 
-    def search(self, query: Union[str, np.ndarray], k: int = 10, threads: int = 1, return_vector: bool = False) \
+    def search(self, query: Union[str, np.ndarray], k: int = 10, threads: int = 1, remove_dups: bool = False, return_vector: bool = False) \
             -> Union[List[DenseSearchResult], Tuple[np.ndarray, List[PRFDenseSearchResult]]]:
         """Search the collection.
 
@@ -451,6 +451,8 @@ class FaissSearcher:
             Number of hits to return.
         threads : int
             Maximum number of threads to use for intra-query search.
+        remove_dups : bool
+            Remove duplicate docids when writing final run output.    
         return_vector : bool
             Return the results with vectors
         Returns
@@ -477,6 +479,14 @@ class FaissSearcher:
             distances, indexes = self.index.search(emb_q, k)
             distances = distances.flat
             indexes = indexes.flat
+            if remove_dups:
+                unique_docs = set()
+                results = list()
+                for score, idx in zip(distances, indexes):
+                    if idx not in unique_docs:
+                        unique_docs.add(idx)
+                        results.append(DenseSearchResult(self.docids[idx],score))
+                return results
             return [DenseSearchResult(self.docids[idx], score)
                     for score, idx in zip(distances, indexes) if idx != -1]
 
