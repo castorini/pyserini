@@ -22,15 +22,15 @@ conditions:
     splits:
       - split: train
         scores:
-          - MRR@100: 0.9540
-            R@100: 0.9994
+          - MRR@100: 0.9620
+            R@100: 1.0000
       - split: dev
         scores:
-          - MRR@100: 0.6086
-            R@100: 0.9125
+          - MRR@100: 0.5897
+            R@100: 0.8977
       - split: test
         scores:
-          - MRR@100: 0.6427
+          - MRR@100: 0.6228
             R@100: 0.9550
   - name: mdpr-tied-pft-msmarco-ft-all.en
     eval_key: mrtydi-v1.1-english
@@ -150,7 +150,7 @@ conditions:
     splits:
       - split: train
         scores:
-          - MRR@100: 0.9676
+          - MRR@100: 0.9679
             R@100: 1.0000
       - split: dev
         scores:
@@ -200,16 +200,16 @@ conditions:
     splits:
       - split: train
         scores:
-          - MRR@100: 0.3051
-            R@100: 0.7481
+          - MRR@100: 0.2920
+            R@100: 0.7323
       - split: dev
         scores:
-          - MRR@100: 0.3150
-            R@100: 0.7341
+          - MRR@100: 0.2993
+            R@100: 0.7318
       - split: test
         scores:
-          - MRR@100: 0.4171
-            R@100: 0.8198
+          - MRR@100: 0.3969
+            R@100: 0.7838
   - name: mdpr-tied-pft-msmarco.en
     eval_key: mrtydi-v1.1-english
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-tied-pft-msmarco --output $output --hits 100
@@ -328,8 +328,8 @@ conditions:
     splits:
       - split: train
         scores:
-          - MRR@100: 0.3060
-            R@100: 0.7513
+          - MRR@100: 0.3059
+            R@100: 0.7510
       - split: dev
         scores:
           - MRR@100: 0.2995
@@ -378,16 +378,16 @@ conditions:
     splits:
       - split: train
         scores:
-          - MRR@100: 0.2475
-            R@100: 0.6538
+          - MRR@100: 0.2371
+            R@100: 0.6281
       - split: dev
         scores:
-          - MRR@100: 0.2528
-            R@100: 0.6636
+          - MRR@100: 0.2414
+            R@100: 0.6409
       - split: test
         scores:
-          - MRR@100: 0.2546
-            R@100: 0.7162
+          - MRR@100: 0.2535
+            R@100: 0.7072
   - name: mdpr-tied-pft-nq.en
     eval_key: mrtydi-v1.1-english
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder castorini/mdpr-tied-pft-nq --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-tied-pft-nq --output $output --hits 100
@@ -506,7 +506,7 @@ conditions:
     splits:
       - split: train
         scores:
-          - MRR@100: 0.1484
+          - MRR@100: 0.1483
             R@100: 0.4162
       - split: dev
         scores:
@@ -556,16 +556,16 @@ conditions:
     splits:
       - split: train
         scores:
-          - MRR@100: 0.2402
-            R@100: 0.6614
+          - MRR@100: 0.2293
+            R@100: 0.6454
       - split: dev
         scores:
-          - MRR@100: 0.2578
-            R@100: 0.6750
+          - MRR@100: 0.2367
+            R@100: 0.6511
       - split: test
         scores:
-          - MRR@100: 0.2962
-            R@100: 0.7928
+          - MRR@100: 0.2911
+            R@100: 0.7793
   - name: mdpr-split-pft-nq.en
     eval_key: mrtydi-v1.1-english
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-nq --output $output --hits 100
