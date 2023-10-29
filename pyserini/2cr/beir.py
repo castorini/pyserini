@@ -17,15 +17,21 @@
 import argparse
 import math
 import os
-import time
 import sys
+import time
 from collections import defaultdict
+from datetime import datetime
 from string import Template
-import pkg_resources
 
+import pkg_resources
 import yaml
 
 from ._base import run_eval_and_return_metric, ok_str, fail_str
+
+dense_threads = 16
+dense_batch_size = 512
+sparse_threads = 16
+sparse_batch_size = 128
 
 trec_eval_metric_definitions = {
     'nDCG@10': '-c -m ndcg_cut.10',
@@ -67,10 +73,11 @@ beir_keys = ['trec-covid',
 
 def format_run_command(raw):
     return raw.replace('--topics', '\\\n  --topics') \
+        .replace('--threads', '\\\n  --threads') \
         .replace('--index', '\\\n  --index') \
-        .replace('--encoder-class', '\\\n --encoder-class') \
+        .replace('--encoder-class', '\\\n  --encoder-class') \
         .replace('--output ', '\\\n  --output ') \
-        .replace('--output-format trec', '\\\n  --output-format trec \\\n ') \
+        .replace('--output-format trec ', '\\\n  --output-format trec ') \
         .replace('--hits ', '\\\n  --hits ')
 
 
@@ -117,7 +124,9 @@ def generate_report(args):
                 dataset = datasets['dataset']
 
                 runfile = os.path.join(args.directory, f'run.beir.{name}.{dataset}.txt')
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile,
+                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
                 commands[dataset][name] = format_run_command(cmd)
 
                 for expected in datasets['scores']:
@@ -192,7 +201,9 @@ def run_conditions(args):
                 print(f'  - dataset: {dataset}')
 
                 runfile = os.path.join(args.directory, f'run.beir.{name}.{dataset}.txt')
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile,
+                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
                 
                 if args.display_commands:
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
@@ -216,6 +227,7 @@ def run_conditions(args):
                             table[dataset][name][metric] = score
                         else:
                             table[dataset][name][metric] = expected[metric]
+                    print('')
 
             print('')
 
@@ -264,7 +276,12 @@ def run_conditions(args):
 
     end = time.time()
 
+    start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.utcfromtimestamp(end).strftime('%Y-%m-%d %H:%M:%S')
+
     print('\n')
+    print(f'Start time: {start_str}')
+    print(f'End time: {end_str}')
     print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
 
 

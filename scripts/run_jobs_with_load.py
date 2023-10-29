@@ -17,6 +17,8 @@
 import argparse
 import logging
 import os
+import re
+import subprocess
 import time
 
 logger = logging.getLogger('run_jobs_with_load')
@@ -28,12 +30,34 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 
+def run_command(cmd):
+    try:
+        output = subprocess.check_output(cmd, shell=True, universal_newlines=True)
+        return output
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing the command: {e}")
+
+
+def count_jobs_running(jobs):
+    out = run_command('ps -ax')
+
+    cnt = 0
+    for job in lines:
+        parts = job.split('>')
+        cmd = parts[0].rstrip().lstrip()
+        processed_cmd = re.sub(r'\s+', ' ', cmd)
+        if processed_cmd in out:
+            cnt += 1
+
+    return cnt
+
+
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='Run jobs in parallel while maintaining a target load threshold.')
+    parser = argparse.ArgumentParser(description='Run jobs in parallel while maintaining a target load threshold.')
     parser.add_argument('--file', type=str, default=None, help="File with commands.")
     parser.add_argument('--sleep', type=int, default=30, help="Sleep between.")
     parser.add_argument('--load', type=int, default=10, help="Target load.")
+    parser.add_argument('--max-concurrent', type=int, default=2, help="Maximum number of concurrent jobs.")
     args = parser.parse_args()
 
     logger.info(f'Running commands in {args.file}')
@@ -53,6 +77,7 @@ if __name__ == '__main__':
         while True:
             time.sleep(args.sleep)
             load = os.getloadavg()[0]
-            logger.info(f'Current load: {load:.1f} (threshold = {args.load})')
-            if load < args.load:
+            jobs = count_jobs_running(lines)
+            logger.info(f'Current status: {jobs} jobs, {load:.1f} load (threshold = {args.load}, max-concurrent = {args.max_concurrent})')
+            if load < args.load and jobs < args.max_concurrent:
                 break

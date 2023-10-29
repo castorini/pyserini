@@ -2336,16 +2336,16 @@ TF_INDEX_INFO_OTHER = {
         "documents": 3179206,
         "unique_terms": 1616532,
         "downloaded": False
-    },  # TODO: need to update links to these files to rgw.cs.uwaterloo.ca/...
+    },
     "atomic_text_v0.2.1_small_validation": {
         "description": "Lucene index for AToMiC Text v0.2.1 small setting on validation set (Lucene 9)",
         "filename": "lucene-index.atomic.image.flat.small.validation.tar.gz",
-        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
         "urls": [
-            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.text.flat.small.validation.tar.gz"
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.text.flat.small.validation.tar.gz"
         ],
-        "md5": "377f3e4ae48e1afbe05650e339322050",
-        "size compressed (bytes)": 32900945,
+        "md5": "fe0ae1286dde8a4969f16134c47682ae",
+        "size compressed (bytes)": 32902223,
         "total_terms": 2999824,
         "documents": 17173,
         "unique_terms": 118071,
@@ -2354,12 +2354,12 @@ TF_INDEX_INFO_OTHER = {
     "atomic_text_v0.2.1_base": {
         "description": "Lucene index for AToMiC Text v0.2.1 base setting on validation set (Lucene 9)",
         "filename": "lucene-index.atomic.image.flat.base.tar.gz",
-        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
         "urls": [
-            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.text.flat.base.tar.gz"
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.text.flat.base.tar.gz"
         ],
-        "md5": "41ca80241e77ed3515dd48bfc047a923",
-        "size compressed (bytes)": 5532178004,
+        "md5": "fe2f0beb617f5ade4ffce6d05adfbc7a",
+        "size compressed (bytes)": 5532187295,
         "total_terms": 520954965,
         "documents": 3029504,
         "unique_terms": -1,
@@ -2368,12 +2368,12 @@ TF_INDEX_INFO_OTHER = {
     "atomic_text_v0.2.1_large": {
         "description": "Lucene index for AToMiC Text v0.2.1 large setting on validation set (Lucene 9)",
         "filename": "lucene-index.atomic.image.flat.large.tar.gz",
-        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
         "urls": [
-            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.text.flat.large.tar.gz"
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.text.flat.large.tar.gz"
         ],
-        "md5": "0dd1975d82fa7c57a471e4e6b1882177",
-        "size compressed (bytes)": 18224101285,
+        "md5": "0f4639ba8b6ecff1d26da02790f78add",
+        "size compressed (bytes)": 18194155242,
         "total_terms": 1727597393,
         "documents": 10134744,
         "unique_terms": -1,
@@ -2382,12 +2382,12 @@ TF_INDEX_INFO_OTHER = {
     "atomic_image_v0.2_small_validation": {
         "description": "Lucene index for AToMiC Images v0.2 small setting on validation set (Lucene 9)",
         "filename": "lucene-index.atomic.image.flat.small.validation.tar.gz",
-        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
         "urls": [
-            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.image.flat.small.validation.tar.gz"
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.image.flat.small.validation.tar.gz"
         ],
-        "md5": "b5363a9a7ecd0f071fb8e0319168ccf8",
-        "size compressed (bytes)": 4902534,
+        "md5": "7afd990df79462040f175b990545ad40",
+        "size compressed (bytes)": 5454742,
         "total_terms": 308646,
         "documents": 16126,
         "unique_terms": 48666,
@@ -2396,12 +2396,12 @@ TF_INDEX_INFO_OTHER = {
     "atomic_image_v0.2_base": {
         "description": "Lucene index for AToMiC Images v0.2 base setting on validation set (Lucene 9)",
         "filename": "lucene-index.atomic.image.flat.base.tar.gz",
-        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
         "urls": [
-            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.image.flat.base.tar.gz"
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.image.flat.base.tar.gz"
         ],
-        "md5": "55e88e334165b7147092ee67dfa74955",
-        "size compressed (bytes)": 1218292466,
+        "md5": "d8a4e8ce05305406004cceff60147592",
+        "size compressed (bytes)": 1309435624,
         "total_terms": 100743397,
         "documents": 3410779,
         "unique_terms": -1,
@@ -2410,12 +2410,12 @@ TF_INDEX_INFO_OTHER = {
     "atomic_image_v0.2_large": {
         "description": "Lucene index for AToMiC Images v0.2 large setting on validation set (Lucene 9)",
         "filename": "lucene-index.atomic.image.flat.large.tar.gz",
-        "readme": "lucene-index.atomic.20230525.a7df7f.README.md",
+        "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
         "urls": [
-            "https://huggingface.co/spaces/dlrudwo1269/AToMiC_bm25_files/resolve/main/prebuilt_indexes/lucene-index.atomic.image.flat.large.tar.gz"
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.image.flat.large.tar.gz"
         ],
-        "md5": "919c3f870968ffbe24f30407ad1385f8",
-        "size compressed (bytes)": 1341866370,
+        "md5": "3e4a0c976a2c50daeee7a276b9b2c379",
+        "size compressed (bytes)": 1448435404,
         "total_terms": 108550562,
         "documents": 3803656,
         "unique_terms": -1,
@@ -2433,13 +2433,13 @@ TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
 IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage-slimr": {
         "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with BM25 negatives. (Lucene 9)",
-        "filename": "lucene-index.msmarco-v1-passage-slimr.20230220.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-slimr.20230220.md",
+        "filename": "lucene-index.msmarco-v1-passage-slimr.20230925.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-slimr.20230925.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/EptAojzmCxz7mYM/download",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-slimr.20230925.tar.gz",
         ],
-        "md5": "79e566fee4f376096e12a33cf67c8012",
-        "size compressed (bytes)": 1942207690,
+        "md5": "3532a09a4a47f862d63b8df81b39ecc9",
+        "size compressed (bytes)": 1902711967,
         "total_terms": 100694232684,
         "documents": 8841823,
         "unique_terms": 28121,
@@ -2447,13 +2447,13 @@ IMPACT_INDEX_INFO_MSMARCO = {
     },
     "msmarco-v1-passage-slimr-pp": {
         "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with cross-encoder distillation and hardnegative mining. (Lucene 9)",
-        "filename": "lucene-index.msmarco-v1-passage-slimr-pp.20230220.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-slimr-pp.20230220.md",
+        "filename": "lucene-index.msmarco-v1-passage-slimr-pp.20230925.tar.gz",
+        "readme": "lucene-index.msmarco-v1-passage-slimr-pp.20230925.md",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/22Gjmnp5EP2HpqR/download",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v1-passage-slimr-pp.20230925.tar.gz",
         ],
-        "md5": "17b2edd909bcda4980a93fb0ab87e72b",
-        "size compressed (bytes)": 2164253966,
+        "md5": "5badbe47b6a50cf252cafb8a648743f1",
+        "size compressed (bytes)": 2135049683,
         "total_terms": 104421954301,
         "documents": 8841823,
         "unique_terms": 27766,
@@ -2672,7 +2672,20 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "unique_terms": 29148,
         "downloaded": False
     },
-
+    "msmarco-v2-passage-slimr-pp-norefine-0shot": {
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by SLIM (norefine) trained with cross-encoder distillation and hard-negative mining. (Lucene 9)",
+        "filename": "lucene-index.msmarco-v2-passage-slimr-pp.20230614.tar.gz",
+        "readme": "lucene-index.msmarco-v2-passage-slimr-pp.20230614.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.msmarco-v2-passage-slimr-pp.20230614.tar.gz",
+        ],
+        "md5": "0251a882369dd9c27f6a629198123a40",
+        "size compressed (bytes)": 35297323293,
+        "total_terms": 1668035574958,
+        "documents": 138364197,
+        "unique_terms": -1,
+        "downloaded": False
+    },
     "msmarco-v2-doc-segmented-unicoil-0shot": {
         "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended. (Lucene 9)",
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.tar.gz",

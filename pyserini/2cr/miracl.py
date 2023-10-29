@@ -17,16 +17,22 @@
 import argparse
 import math
 import os
+import subprocess
 import sys
 import time
-import subprocess
-import pkg_resources
 from collections import defaultdict, OrderedDict
+from datetime import datetime
 from string import Template
 
+import pkg_resources
 import yaml
 
 from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
+
+dense_threads = 16
+dense_batch_size = 512
+sparse_threads = 16
+sparse_batch_size = 128
 
 languages = [
     ['ar', 'arabic'],
@@ -72,8 +78,8 @@ def format_run_command(raw):
         .replace('--index', '\\\n  --index') \
         .replace('--output ', '\\\n  --output ') \
         .replace('--runs', '\\\n  --runs ') \
-        .replace('--batch ', '\\\n  --batch ') \
-        .replace('--threads 12', '--threads 12 \\\n ')
+        .replace('--threads ', '\\\n  --threads ') \
+        .replace('--bm25 ', '\\\n  --bm25 ')
 
 
 def format_eval_command(raw):
@@ -252,19 +258,19 @@ def generate_report(args):
                                                f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
                     expected_args = dict(output=runfile, bm25_output=bm25_output, mdpr_output=mdpr_output)
                 else:
-                    expected_args = dict(split=split, output=runfile)
+                    expected_args = dict(split=split, output=runfile,
+                                         sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                         dense_threads=dense_threads, dense_batch_size=dense_batch_size)
 
-                if not all([f"${k}" in cmd_template or f"${{{k}}}" in cmd_template for k in expected_args]):
-                    raise ValueError(f"Not all arguements {list(expected_args)} detected from inputs: {cmd_template}.")
                 cmd = Template(cmd_template).substitute(**expected_args)
                 commands[name] = format_run_command(cmd)
 
                 for expected in splits['scores']:
                     for metric in expected:
                         if str(expected[metric])[-1] == "5":
-                            # without adding espilon, there is a chance that f-string would round 0.5 to 0 rather than 1
+                            # without adding epsilon, there is a chance that f-string would round 0.5 to 0 rather than 1
                             # e.g., 0.8885 -> 0.888 rather than 0.889
-                            # add a espilon to the expected score to avoid rounding error
+                            # add an epsilon to the expected score to avoid rounding error
                             expected[metric] += 1e-5
                         table[name][split][metric] = expected[metric]
 
@@ -342,7 +348,9 @@ def run_conditions(args):
                     cmd = Template(cmd_template).substitute(split=split, output=runfile, bm25_output=bm25_output,
                                                             mdpr_output=mdpr_output)
                 else:
-                    cmd = Template(cmd_template).substitute(split=split, output=runfile)
+                    cmd = Template(cmd_template).substitute(split=split, output=runfile,
+                                                            sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                            dense_threads=dense_threads, dense_batch_size=dense_batch_size)
 
                 # In the yaml file, the topics are written as something like '--topics miracl-v1.0-ar-${split}'
                 # This works for the dev split because the topics are directly included in Anserini/Pyserini.
@@ -381,24 +389,15 @@ def run_conditions(args):
                                                                      trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky tests
-                            elif (name == 'mdpr-tied-pft-msmarco.hi' and split == 'train'
-                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
-                                 (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh'
-                                  and split == 'dev' and metric == 'nDCG@10'
-                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
-                                 (name == 'mdpr-tied-pft-msmarco-ft-all.ru'
-                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3932 -> expected 0.3933
-                                  and split == 'dev' and metric == 'nDCG@10'
-                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
-                                 (name == 'bm25-mdpr-tied-pft-msmarco-hybrid.te'
-                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.6000 -> expected 0.5999
-                                  and split == 'train' and metric == 'nDCG@10'
-                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)) or \
-                                 (name == 'mcontriever-tied-pft-msmarco.id'
-                                  # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3748 -> expected 0.3749
-                                  and split == 'train' and metric == 'nDCG@10'
-                                  and math.isclose(score, float(expected[metric]), abs_tol=2e-4)):
+                            # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.5255 -> expected 0.5254
+                            elif name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh' \
+                                    and split == 'dev' and metric == 'nDCG@10' \
+                                    and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
+                                result_str = okish_str
+                            # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3749 -> expected 0.3748
+                            elif name == 'mcontriever-tied-pft-msmarco.id' \
+                                    and split == 'train' and metric == 'nDCG@10' \
+                                    and math.isclose(score, float(expected[metric]), abs_tol=1e-4):
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
@@ -414,13 +413,18 @@ def run_conditions(args):
             print_results(table, metric, split)
 
     end = time.time()
+    start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.utcfromtimestamp(end).strftime('%Y-%m-%d %H:%M:%S')
+
+    print('\n')
+    print(f'Start time: {start_str}')
+    print(f'End time: {end_str}')
     print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for MIRACL.')
-    parser.add_argument('--condition', type=str,
-                        help='Condition to run', required=False)
+    parser.add_argument('--condition', type=str, help='Condition to run', required=False)
     # To list all conditions
     parser.add_argument('--list-conditions', action='store_true', default=False, help='List available conditions.')
     # For generating reports
