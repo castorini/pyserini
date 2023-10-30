@@ -345,7 +345,7 @@ conditions:
       - split: train
         scores:
           - MRR@100: 0.2334
-            R@100: 0.5851
+            R@100: 0.5848
       - split: dev
         scores:
           - MRR@100: 0.2407
@@ -556,16 +556,16 @@ conditions:
     splits:
       - split: train
         scores:
-          - MRR@100: 0.2293
-            R@100: 0.6454
+          - MRR@100: 0.2402
+            R@100: 0.6614
       - split: dev
         scores:
-          - MRR@100: 0.2367
-            R@100: 0.6511
+          - MRR@100: 0.2578
+            R@100: 0.6750
       - split: test
         scores:
-          - MRR@100: 0.2911
-            R@100: 0.7793
+          - MRR@100: 0.2962
+            R@100: 0.7928
   - name: mdpr-split-pft-nq.en
     eval_key: mrtydi-v1.1-english
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder castorini/mdpr-question-nq --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english-mdpr-nq --output $output --hits 100
