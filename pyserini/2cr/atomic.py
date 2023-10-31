@@ -91,7 +91,6 @@ def generate_report(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
-            split = name.split('-')[0] # small, base, large
             retrieval_type = name.split('-')[1] # t2i or i2t
             cmd_template = condition['command']
 
@@ -104,10 +103,8 @@ def generate_report(args):
 
                 for expected in models['scores']:
                     for metric in expected:
-                        if split == 'small':
-                            split = 'validation'
                         eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
-                                   f'{trec_eval_metric_definitions[metric]} atomic.{split}.{retrieval_type} {runfile}'
+                                   f'{trec_eval_metric_definitions[metric]} atomic.validation.{retrieval_type} {runfile}'
                         eval_commands[model][name] += format_eval_command(eval_cmd) + '\n\n'
 
                         table[model][name][metric] = expected[metric]
@@ -167,7 +164,6 @@ def run_conditions(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
-            split = name.split('-')[0] # small, base, large
             retrieval_type = name.split('-')[1] # t2i or i2t
             cmd_template = condition['command']
 
@@ -203,10 +199,8 @@ def run_conditions(args):
                         if not args.skip_eval:
                             if not os.path.exists(runfile):
                                 continue
-                            if split == 'small':
-                                split = 'validation'
                             
-                            score = float(run_eval_and_return_metric(metric, f'atomic.{split}.{retrieval_type}',
+                            score = float(run_eval_and_return_metric(metric, f'atomic.validation.{retrieval_type}',
                                                                      trec_eval_metric_definitions[metric], runfile))
                             result = ok_str if math.isclose(score, float(expected[metric])) \
                                 else fail_str + f' expected {expected[metric]:.4f}'
