@@ -34,10 +34,10 @@
 <!-- Tabs navs -->
 <ul class="nav nav-tabs mb-3" id="row${row_cnt}-tabs" role="tablist">
   <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="row${row_cnt}-tab1-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab1" role="tab" aria-controls="row${row_cnt}-tab1" aria-selected="true" style="text-transform:none">Small T2I</a>
+    <a class="nav-link active" id="row${row_cnt}-tab1-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab1" role="tab" aria-controls="row${row_cnt}-tab1" aria-selected="true" style="text-transform:none">Large T2I</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab2-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab2" role="tab" aria-controls="row${row_cnt}-tab2" aria-selected="false" style="text-transform:none">Small I2T</a>
+    <a class="nav-link" id="row${row_cnt}-tab2-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab2" role="tab" aria-controls="row${row_cnt}-tab2" aria-selected="false" style="text-transform:none">Large I2T</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row${row_cnt}-tab3-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab3" role="tab" aria-controls="row${row_cnt}-tab3" aria-selected="false" style="text-transform:none">Base T2I</a>
@@ -46,10 +46,10 @@
     <a class="nav-link" id="row${row_cnt}-tab4-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab4" role="tab" aria-controls="row${row_cnt}-tab4" aria-selected="false" style="text-transform:none">Base I2T</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab5-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab5" role="tab" aria-controls="row${row_cnt}-tab5" aria-selected="false" style="text-transform:none">Large T2I</a>
+    <a class="nav-link" id="row${row_cnt}-tab5-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab5" role="tab" aria-controls="row${row_cnt}-tab5" aria-selected="false" style="text-transform:none">Small T2I</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab6-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab6" role="tab" aria-controls="row${row_cnt}-tab6" aria-selected="false" style="text-transform:none">Large I2T</a>
+    <a class="nav-link" id="row${row_cnt}-tab6-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab6" role="tab" aria-controls="row${row_cnt}-tab6" aria-selected="false" style="text-transform:none">Small I2T</a>
   </li>
 </ul>
 <!-- Tabs navs -->
