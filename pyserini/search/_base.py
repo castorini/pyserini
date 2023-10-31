@@ -304,8 +304,26 @@ topics_mapping = {
     'miracl-v1.0-yo-dev': JTopics.MIRACL_V10_YO_DEV,
     
     # AToMiC topics
-    'atomic-v0.2.1-text-validation': JTopics.ATOMIC_V021_TEXT_VAL,
-    'atomic-v0.2-image-validation': JTopics.ATOMIC_V021_IMAGE_VAL,
+    'atomic-v0.2.1-ViT-L-14.laion2b_s32b_b82k-text-validation': JTopics.ATOMIC_V021_VIT_L_14_LAION2B_S32B_B82K_TEXT_VAL,
+    'atomic-v0.2-ViT-L-14.laion2b_s32b_b82k-image-validation': JTopics.ATOMIC_V021_VIT_L_14_LAION2B_S32B_B82K_IMAGE_VAL,
+    'atomic-v0.2.1-ViT-H-14.laion2b_s32b_b79k-text-validation': JTopics.ATOMIC_V021_VIT_H_14_LAION2B_S32B_B79K_TEXT_VAL,
+    'atomic-v0.2-ViT-H-14.laion2b_s32b_b79k-image-validation': JTopics.ATOMIC_V021_VIT_H_14_LAION2B_S32B_B79K_IMAGE_VAL,
+    'atomic-v0.2.1-ViT-B-32.laion2b_e16-text-validation': JTopics.ATOMIC_V021_VIT_B_32_LAION2B_E16_TEXT_VAL,
+    'atomic-v0.2-ViT-B-32.laion2b_e16-image-validation': JTopics.ATOMIC_V021_VIT_B_32_LAION2B_E16_IMAGE_VAL,
+    'atomic-v0.2.1-ViT-bigG-14.laion2b_s39b_b160k-text-validation': JTopics.ATOMIC_V021_VIT_BIGG_14_LAION2B_S39B_B160K_TEXT_VAL,
+    'atomic-v0.2-ViT-bigG-14.laion2b_s39b_b160k-image-validation': JTopics.ATOMIC_V021_VIT_BIGG_14_LAION2B_S39B_B160K_IMAGE_VAL,
+    'atomic-v0.2.1-ViT-B-32.laion400m_e32-text-validation': JTopics.ATOMIC_V021_VIT_B_32_LAION400M_E32_TEXT_VAL,
+    'atomic-v0.2-ViT-B-32.laion400m_e32-image-validation': JTopics.ATOMIC_V021_VIT_B_32_LAION400M_E32_IMAGE_VAL,
+    'atomic-v0.2.1-Salesforce.blip-itm-large-coco-text-validation': JTopics.ATOMIC_V021_SALESFORCE_BLIP_ITM_LARGE_COCO_TEXT_VAL,
+    'atomic-v0.2-Salesforce.blip-itm-large-coco-image-validation': JTopics.ATOMIC_V021_SALESFORCE_BLIP_ITM_LARGE_COCO_IMAGE_VAL,
+    'atomic-v0.2.1-Salesforce.blip-itm-base-coco-text-validation': JTopics.ATOMIC_V021_SALESFORCE_BLIP_ITM_BASE_COCO_TEXT_VAL,
+    'atomic-v0.2-Salesforce.blip-itm-base-coco-image-validation': JTopics.ATOMIC_V021_SALESFORCE_BLIP_ITM_BASE_COCO_IMAGE_VAL,
+    'atomic-v0.2.1-openai.clip-vit-base-patch32-text-validation': JTopics.ATOMIC_V021_OPENAI_CLIP_VIT_BASE_PATCH32_TEXT_VAL,
+    'atomic-v0.2-openai.clip-vit-base-patch32-image-validation': JTopics.ATOMIC_V021_OPENAI_CLIP_VIT_BASE_PATCH32_IMAGE_VAL,
+    'atomic-v0.2.1-openai.clip-vit-large-patch14-text-validation': JTopics.ATOMIC_V021_OPENAI_CLIP_VIT_LARGE_PATCH14_TEXT_VAL,
+    'atomic-v0.2-openai.clip-vit-large-patch14-image-validation': JTopics.ATOMIC_V021_OPENAI_CLIP_VIT_LARGE_PATCH14_IMAGE_VAL,
+    'atomic-v0.2.1-facebook.flava-full-text-validation': JTopics.ATOMIC_V021_FACEBOOK_FLAVA_FULL_TEXT_VAL,
+    'atomic-v0.2-facebook.flava-full-image-validation': JTopics.ATOMIC_V021_FACEBOOK_FLAVA_FULL_IMAGE_VAL,
 }
 
 qrels_mapping = {
