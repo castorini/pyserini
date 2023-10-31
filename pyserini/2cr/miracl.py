@@ -399,6 +399,11 @@ def run_conditions(args):
                                     and split == 'train' and metric == 'nDCG@10' \
                                     and math.isclose(score, float(expected[metric]), abs_tol=1e-4):
                                 result_str = okish_str
+                            # Flaky on linux.cs (vs. tuna), nDCG@10: 0.5999 -> expected 0.6000
+                            elif name == 'bm25-mdpr-tied-pft-msmarco-hybrid.te' \
+                                    and split == 'train' and metric == 'nDCG@10' \
+                                    and math.isclose(score, float(expected[metric]), abs_tol=1e-4):
+                                result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
                             print(f'      {metric:7}: {score:.4f} {result_str}')
