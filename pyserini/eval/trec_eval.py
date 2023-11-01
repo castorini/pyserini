@@ -29,8 +29,15 @@ from pyserini.search import get_qrels_file
 from pyserini.util import download_evaluation_script
 
 script_path = download_evaluation_script('trec_eval')
-cmd_prefix = ['java', '-jar', script_path]
-args = sys.argv
+
+if platform.platform().startswith('macOS'):
+    # Hack around the fact that jtrec_eval hasn't been compiled for Mac M processors.
+    # Explicitly set os to x86, and then force the use of Rosetta.
+    cmd_prefix = ['java', '-Dos.arch=x86_64', '-jar', script_path]
+else:
+    cmd_prefix = ['java', '-jar', script_path]
+
+    args = sys.argv
 
 # Option to discard non-judged hits in run file
 judged_docs_only = ''
