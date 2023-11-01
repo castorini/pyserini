@@ -37,7 +37,7 @@ if platform.platform().startswith('macOS'):
 else:
     cmd_prefix = ['java', '-jar', script_path]
 
-    args = sys.argv
+args = sys.argv
 
 # Option to discard non-judged hits in run file
 judged_docs_only = ''
