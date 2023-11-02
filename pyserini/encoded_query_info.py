@@ -504,5 +504,185 @@ QUERY_INFO = {
         "size (bytes)": 43983721,
         "total_queries": 16131,
         "downloaded": False
-     },      
+     },
+     "atomic-v0.2.1-text-ViT-H-14.laion2b_s32b_b79k-validation": {
+        "description": "AToMiC text v0.2.1 validation set encoded by ViT-H-14.laion2b_s32b_b79k.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2.1-text-ViT-H-14.laion2b_s32b_b79k-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "c2a5325c1ea81fda9a192e7f9c422fd6",
+        "size (bytes)": 72348030,
+        "total_queries": 17173,
+        "downloaded": False
+     },
+     "atomic-v0.2-image-ViT-H-14.laion2b_s32b_b79k-validation": {
+        "description": "AToMiC image v0.2 validation set encoded by ViT-H-14.laion2b_s32b_b79k.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2-image-ViT-H-14.laion2b_s32b_b79k-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "78888ff59480872d9072c3826e722283",
+        "size (bytes)": 57476519,
+        "total_queries": 16131,
+        "downloaded": False
+     },
+     "atomic-v0.2.1-text-ViT-bigG-14.laion2b_s39b_b160k-validation": {
+        "description": "AToMiC text v0.2.1 validation set encoded by ViT-bigG-14.laion2b_s39b_b160k.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2.1-text-ViT-bigG-14.laion2b_s39b_b160k-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "519b696a9470e753f5695374f051e778",
+        "size (bytes)": 86540092,
+        "total_queries": 17173,
+        "downloaded": False
+     },
+     "atomic-v0.2-image-ViT-bigG-14.laion2b_s39b_b160k-validation": {
+        "description": "AToMiC image v0.2 validation set encoded by ViT-bigG-14.laion2b_s39b_b160k.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2-image-ViT-bigG-14.laion2b_s39b_b160k-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "ff9271193da705584c03cac78598d0e7",
+        "size (bytes)": 70769039,
+        "total_queries": 16131,
+        "downloaded": False
+     },
+     "atomic-v0.2.1-text-ViT-B-32.laion2b_e16-validation": {
+        "description": "AToMiC text v0.2.1 validation set encoded by ViT-B-32.laion2b_e16.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2.1-text-ViT-B-32.laion2b_e16-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "4f4e460b5a2efd73b0b866d6dca05c99",
+        "size (bytes)": 43104480,
+        "total_queries": 17173,
+        "downloaded": False
+     },
+     "atomic-v0.2-image-ViT-B-32.laion2b_e16-validation": {
+        "description": "AToMiC image v0.2 validation set encoded by ViT-B-32.laion2b_e16.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2-image-ViT-B-32.laion2b_e16-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "daea4c913fbf4d55ffae1f5268f05458",
+        "size (bytes)": 29957263,
+        "total_queries": 16131,
+        "downloaded": False
+     }, 
+     "atomic-v0.2.1-text-ViT-B-32.laion400m_e32-validation": {
+        "description": "AToMiC text v0.2.1 validation set encoded by ViT-B-32.laion400m_e32.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2.1-text-ViT-B-32.laion400m_e32-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "f23f09488e7687150b72f111f8714679",
+        "size (bytes)": 43089746,
+        "total_queries": 17173,
+        "downloaded": False
+     },
+     "atomic-v0.2-image-ViT-B-32.laion400m_e32-validation": {
+        "description": "AToMiC image v0.2 validation set encoded by ViT-B-32.laion400m_e32.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2-image-ViT-B-32.laion400m_e32-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "e0c96e4aa2f7802286420e919ce10e4c",
+        "size (bytes)": 29947336,
+        "total_queries": 16131,
+        "downloaded": False
+     }, 
+     "atomic-v0.2.1-text-openai.clip-vit-base-patch32-validation": {
+        "description": "AToMiC text v0.2.1 validation set encoded by openai.clip-vit-base-patch32.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2.1-text-openai.clip-vit-base-patch32-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "db5c50a61a93b5794b7ce8bd3d8bb86e",
+        "size (bytes)": 43129214,
+        "total_queries": 17173,
+        "downloaded": False
+     },
+     "atomic-v0.2-image-openai.clip-vit-base-patch32-validation": {
+        "description": "AToMiC image v0.2 validation set encoded by openai.clip-vit-base-patch32.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2-image-openai.clip-vit-base-patch32-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "d6a96738ef33c967c4e064649b443e4e",
+        "size (bytes)": 30006725,
+        "total_queries": 16131,
+        "downloaded": False
+     }, 
+     "atomic-v0.2.1-text-openai.clip-vit-large-patch14-validation": {
+        "description": "AToMiC text v0.2.1 validation set encoded by openai.clip-vit-large-patch14.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2.1-text-openai.clip-vit-large-patch14-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "d870c5fb72153a9e31ae13981339003b",
+        "size (bytes)": 58065834,
+        "total_queries": 17173,
+        "downloaded": False
+     },
+     "atomic-v0.2-image-openai.clip-vit-large-patch14-validation": {
+        "description": "AToMiC image v0.2 validation set encoded by openai.clip-vit-large-patch14.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2-image-openai.clip-vit-large-patch14-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "ed13e73f0bd13d12f20913c20380949c",
+        "size (bytes)": 44004616,
+        "total_queries": 16131,
+        "downloaded": False
+     }, 
+     "atomic-v0.2.1-text-Salesforce.blip-itm-base-coco-validation": {
+        "description": "AToMiC text v0.2.1 validation set encoded by Salesforce.blip-itm-base-coco.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2.1-text-Salesforce.blip-itm-base-coco-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "efbf20811f9fbff1318671089f1bbfa1",
+        "size (bytes)": 27616837,
+        "total_queries": 17173,
+        "downloaded": False
+     },
+     "atomic-v0.2-image-Salesforce.blip-itm-base-coco-validation": {
+        "description": "AToMiC image v0.2 validation set encoded by Salesforce.blip-itm-base-coco.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2-image-Salesforce.blip-itm-base-coco-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "559022678021e5c486347d8e4f77ba9e",
+        "size (bytes)": 15405834,
+        "total_queries": 16131,
+        "downloaded": False
+     }, 
+     "atomic-v0.2.1-text-Salesforce.blip-itm-large-coco-validation": {
+        "description": "AToMiC text v0.2.1 validation set encoded by Salesforce.blip-itm-large-coco.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2.1-text-Salesforce.blip-itm-large-coco-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "cff347138b75b4f3bbd42784e47454bb",
+        "size (bytes)": 27618035,
+        "total_queries": 17173,
+        "downloaded": False
+     },
+     "atomic-v0.2-image-Salesforce.blip-itm-large-coco-validation": {
+        "description": "AToMiC image v0.2 validation set encoded by Salesforce.blip-itm-large-coco.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2-image-Salesforce.blip-itm-large-coco-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "11080169841272b7e3e2260a0d9ad431",
+        "size (bytes)": 15400235,
+        "total_queries": 16131,
+        "downloaded": False
+     }, 
+     "atomic-v0.2.1-text-facebook.flava-full-validation": {
+        "description": "AToMiC text v0.2.1 validation set encoded by facebook.flava-full.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2.1-text-facebook.flava-full-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "154eb71f0fbfb7050c1bbd161bec8453",
+        "size (bytes)": 58099689,
+        "total_queries": 17173,
+        "downloaded": False
+     },
+     "atomic-v0.2-image-facebook.flava-full-validation": {
+        "description": "AToMiC image v0.2 validation set encoded by facebook.flava-full.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-atomic-v0.2-image-facebook.flava-full-validation-20231027-d9fe51.tar.gz",
+        ],
+        "md5": "807666ea942eebb3b1fb9b421929e7bd",
+        "size (bytes)": 43949038,
+        "total_queries": 16131,
+        "downloaded": False
+     },       
 }

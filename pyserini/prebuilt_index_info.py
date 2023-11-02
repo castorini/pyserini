@@ -5737,7 +5737,7 @@ FAISS_INDEX_INFO_OTHER = {
     },
     "atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.large": {
         "description": "Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
-        "filename": "ViT-L-14.laion2b_s32b_b82k.image.faiss.flat.tar.gz",
+        "filename": "ViT-L-14.laion2b_s32b_b82k.text.faiss.flat.tar.gz",
         "readme": "faiss.atomic.ViT-L-14.laion2b_s32b_b82k.20230621.83e97fc.README.md",
         "urls": [
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.text.faiss.flat.tar.gz"
@@ -5750,7 +5750,7 @@ FAISS_INDEX_INFO_OTHER = {
     },
     "atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.validation": {
         "description": "Faiss index for AToMiC Texts v0.2.1 on validation corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
-        "filename": "ViT-L-14.laion2b_s32b_b82k.image.small.validation.faiss.flat.tar.gz",
+        "filename": "ViT-L-14.laion2b_s32b_b82k.text.small.validation.faiss.flat.tar.gz",
         "readme": "faiss.atomic.ViT-L-14.laion2b_s32b_b82k.20230621.83e97fc.README.md",
         "urls": [
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.text.small.validation.faiss.flat.tar.gz"
@@ -5760,6 +5760,240 @@ FAISS_INDEX_INFO_OTHER = {
         "documents": 17173,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_small_validation"
+    },
+    "atomic-v0.2.ViT-H-14.laion2b_s32b_b79k.image.large": {
+        "description": "Faiss index for AToMiC Images v0.2 on large corpus encoded by laion/CLIP-ViT-H-14.laion2b_s32b_b79k",
+        "filename": "ViT-H-14.laion2b_s32b_b79k.image.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-H-14.laion2b_s32b_b79k.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-H-14.laion2b_s32b_b79k.image.faiss.flat.tar.gz"
+        ],
+        "md5": "3cacbc8af251dd59177140b83de61024",
+        "size compressed (bytes)": 39192329951,
+        "documents": 3803656,
+        "downloaded": False,
+        "texts": "atomic_image_v0.2_large"
+    },
+    "atomic-v0.2.1.ViT-H-14.laion2b_s32b_b79k.text.large": {
+        "description": "Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-ViT-H-14.laion2b_s32b_b79k",
+        "filename": "ViT-H-14.laion2b_s32b_b79k.text.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-H-14.laion2b_s32b_b79k.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-H-14.laion2b_s32b_b79k.text.faiss.flat.tar.gz"
+        ],
+        "md5": "7866b6b2c38cd46eea5fc28254cf17bc",
+        "size compressed (bytes)": 35824621106,
+        "documents": 10134744,
+        "downloaded": False,
+        "texts": "atomic_text_v0.2.1_large"
+    },
+    "atomic-v0.2.ViT-bigG-14.laion2b_s39b_b160k.image.large": {
+        "description": "Faiss index for AToMiC Images v0.2 on large corpus encoded by laion/CLIP-ViT-bigG-14.laion2b_s39b_b160k",
+        "filename": "ViT-bigG-14.laion2b_s39b_b160k.image.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-bigG-14.laion2b_s39b_b160k.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-bigG-14.laion2b_s39b_b160k.image.faiss.flat.tar.gz"
+        ],
+        "md5": "1837c886187bb6ecc60fdc02c6056a21",
+        "size compressed (bytes)": 48274458058,
+        "documents": 3803656,
+        "downloaded": False,
+        "texts": "atomic_image_v0.2_large"
+    },
+    "atomic-v0.2.1.ViT-bigG-14.laion2b_s39b_b160k.text.large": {
+        "description": "Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-ViT-bigG-14.laion2b_s39b_b160k",
+        "filename": "ViT-bigG-14.laion2b_s39b_b160k.text.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-bigG-14.laion2b_s39b_b160k.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-bigG-14.laion2b_s39b_b160k.text.faiss.flat.tar.gz"
+        ],
+        "md5": "5cc288862b73772b466916a79ec311b0",
+        "size compressed (bytes)": 44195349889,
+        "documents": 10134744,
+        "downloaded": False,
+        "texts": "atomic_text_v0.2.1_large"
+    },
+    "atomic-v0.2.ViT-B-32.laion2b_e16.image.large": {
+        "description": "Faiss index for AToMiC Images v0.2 on large corpus encoded by laion/CLIP-ViT-B-32.laion2b_e16",
+        "filename": "ViT-B-32.laion2b_e16.image.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-B-32.laion2b_e16.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-B-32.laion2b_e16.image.faiss.flat.tar.gz"
+        ],
+        "md5": "1b35007a5b066179180edd2fb2d56448",
+        "size compressed (bytes)": 20408227482,
+        "documents": 3803656,
+        "downloaded": False,
+        "texts": "atomic_image_v0.2_large"
+    },
+    "atomic-v0.2.1.ViT-B-32.laion2b_e16.text.large": {
+        "description": "Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-ViT-B-32.laion2b_e16",
+        "filename": "ViT-B-32.laion2b_e16.text.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-B-32.laion2b_e16.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-B-32.laion2b_e16.text.faiss.flat.tar.gz"
+        ],
+        "md5": "6182fc18d112dea4dcfd91546ddf0747",
+        "size compressed (bytes)": 18574571493,
+        "documents": 10134744,
+        "downloaded": False,
+        "texts": "atomic_text_v0.2.1_large"
+    },
+    "atomic-v0.2.ViT-B-32.laion400m_e32.image.large": {
+        "description": "Faiss index for AToMiC Images v0.2 on large corpus encoded by laion/CLIP-ViT-B-32.laion400m_e32",
+        "filename": "ViT-B-32.laion400m_e32.image.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-B-32.laion400m_e32.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-B-32.laion400m_e32.image.faiss.flat.tar.gz"
+        ],
+        "md5": "c08ea30351953b6c91c9b15ad87749e4",
+        "size compressed (bytes)": 20402486061,
+        "documents": 3803656,
+        "downloaded": False,
+        "texts": "atomic_image_v0.2_large"
+    },
+    "atomic-v0.2.1.ViT-B-32.laion400m_e32.text.large": {
+        "description": "Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-ViT-B-32.laion400m_e32",
+        "filename": "ViT-B-32.laion400m_e32.text.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.ViT-B-32.laion400m_e32.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-B-32.laion400m_e32.text.faiss.flat.tar.gz"
+        ],
+        "md5": "a68e71ed301870a9be82003f0246183b",
+        "size compressed (bytes)": 18566367182,
+        "documents": 10134744,
+        "downloaded": False,
+        "texts": "atomic_text_v0.2.1_large"
+    },
+    "atomic-v0.2.openai.clip-vit-large-patch14.image.large": {
+        "description": "Faiss index for AToMiC Images v0.2 on large corpus encoded by laion/CLIP-openai.clip-vit-large-patch14",
+        "filename": "openai.clip-vit-large-patch14.image.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.openai.clip-vit-large-patch14.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/openai.clip-vit-large-patch14.image.faiss.flat.tar.gz"
+        ],
+        "md5": "6bb4b5169ca864328ab03ecdd484437d",
+        "size compressed (bytes)": 29989412901,
+        "documents": 3803656,
+        "downloaded": False,
+        "texts": "atomic_image_v0.2_large"
+    },
+    "atomic-v0.2.1.openai.clip-vit-large-patch14.text.large": {
+        "description": "Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-openai.clip-vit-large-patch14",
+        "filename": "openai.clip-vit-large-patch14.text.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.openai.clip-vit-large-patch14.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/openai.clip-vit-large-patch14.text.faiss.flat.tar.gz"
+        ],
+        "md5": "c6303d01cac83be6902df2967782d2cb",
+        "size compressed (bytes)": 27399921354,
+        "documents": 10134744,
+        "downloaded": False,
+        "texts": "atomic_text_v0.2.1_large"
+    },
+    "atomic-v0.2.openai.clip-vit-base-patch32.image.large": {
+        "description": "Faiss index for AToMiC Images v0.2 on large corpus encoded by laion/CLIP-openai.clip-vit-base-patch32",
+        "filename": "openai.clip-vit-base-patch32.image.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.openai.clip-vit-base-patch32.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/openai.clip-vit-base-patch32.image.faiss.flat.tar.gz"
+        ],
+        "md5": "2af24862dd2a37b92cc03edc465d3705",
+        "size compressed (bytes)": 20434283763,
+        "documents": 3803656,
+        "downloaded": False,
+        "texts": "atomic_image_v0.2_large"
+    },
+    "atomic-v0.2.1.openai.clip-vit-base-patch32.text.large": {
+        "description": "Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-openai.clip-vit-base-patch32",
+        "filename": "openai.clip-vit-base-patch32.text.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.openai.clip-vit-base-patch32.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/openai.clip-vit-base-patch32.text.faiss.flat.tar.gz"
+        ],
+        "md5": "15c643b65b990aaf5fe3ec1012a710e0",
+        "size compressed (bytes)": 18586684424,
+        "documents": 10134744,
+        "downloaded": False,
+        "texts": "atomic_text_v0.2.1_large"
+    },
+    "atomic-v0.2.facebook.flava-full.image.large": {
+        "description": "Faiss index for AToMiC Images v0.2 on large corpus encoded by laion/CLIP-facebook.flava-full",
+        "filename": "facebook.flava-full.image.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.facebook.flava-full.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/facebook.flava-full.image.faiss.flat.tar.gz"
+        ],
+        "md5": "0c5d4e938627dc902cbde9a47a179d41",
+        "size compressed (bytes)": 29963221412,
+        "documents": 3803656,
+        "downloaded": False,
+        "texts": "atomic_image_v0.2_large"
+    },
+    "atomic-v0.2.1.facebook.flava-full.text.large": {
+        "description": "Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-facebook.flava-full",
+        "filename": "facebook.flava-full.text.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.facebook.flava-full.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/facebook.flava-full.text.faiss.flat.tar.gz"
+        ],
+        "md5": "763e574a749a16b6bf56d7b622131c12",
+        "size compressed (bytes)": 27414008560,
+        "documents": 10134744,
+        "downloaded": False,
+        "texts": "atomic_text_v0.2.1_large"
+    },
+    "atomic-v0.2.Salesforce.blip-itm-base-coco.image.large": {
+        "description": "Faiss index for AToMiC Images v0.2 on large corpus encoded by laion/CLIP-Salesforce.blip-itm-base-coco",
+        "filename": "Salesforce.blip-itm-base-coco.image.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.Salesforce.blip-itm-base-coco.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/Salesforce.blip-itm-base-coco.image.faiss.flat.tar.gz"
+        ],
+        "md5": "9d924b64860ae26857e57591c621b811",
+        "size compressed (bytes)": 10466804855,
+        "documents": 3803656,
+        "downloaded": False,
+        "texts": "atomic_image_v0.2_large"
+    },
+    "atomic-v0.2.1.Salesforce.blip-itm-base-coco.text.large": {
+        "description": "Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-Salesforce.blip-itm-base-coco",
+        "filename": "Salesforce.blip-itm-base-coco.text.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.Salesforce.blip-itm-base-coco.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/Salesforce.blip-itm-base-coco.text.faiss.flat.tar.gz"
+        ],
+        "md5": "a52770a28ce877e271544de3298b1e53",
+        "size compressed (bytes)": 9439317784,
+        "documents": 10134744,
+        "downloaded": False,
+        "texts": "atomic_text_v0.2.1_large"
+    },
+    "atomic-v0.2.Salesforce.blip-itm-large-coco.image.large": {
+        "description": "Faiss index for AToMiC Images v0.2 on large corpus encoded by laion/CLIP-Salesforce.blip-itm-large-coco",
+        "filename": "Salesforce.blip-itm-large-coco.image.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.Salesforce.blip-itm-large-coco.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/Salesforce.blip-itm-large-coco.image.faiss.flat.tar.gz"
+        ],
+        "md5": "550b318e53f18604b2b919a3c22cfa39",
+        "size compressed (bytes)": 10463191370,
+        "documents": 3803656,
+        "downloaded": False,
+        "texts": "atomic_image_v0.2_large"
+    },
+    "atomic-v0.2.1.Salesforce.blip-itm-large-coco.text.large": {
+        "description": "Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-Salesforce.blip-itm-large-coco",
+        "filename": "Salesforce.blip-itm-large-coco.text.faiss.flat.tar.gz",
+        "readme": "faiss.atomic.Salesforce.blip-itm-large-coco.20230621.83e97fc.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/Salesforce.blip-itm-large-coco.text.faiss.flat.tar.gz"
+        ],
+        "md5": "a09bb2b0b2ae3eb5099061a7cddfe949",
+        "size compressed (bytes)": 9440231672,
+        "documents": 10134744,
+        "downloaded": False,
+        "texts": "atomic_text_v0.2.1_large"
     },
 }
 

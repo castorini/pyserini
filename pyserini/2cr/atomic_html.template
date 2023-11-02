@@ -146,12 +146,12 @@ pre[class*="prettyprint"] {
       <tr>
         <th class="headertop"></th>
         <th class="headertop"></th>
-        <th class="headertop" colspan="4"><b>Small T2I</b></th>
-        <th class="headertop" colspan="4"><b>Small I2T</b></th>
-        <th class="headertop" colspan="4"><b>Base T2I</b></th>
-        <th class="headertop" colspan="4"><b>Base I2T</b></th>
         <th class="headertop" colspan="4"><b>Large T2I</b></th>
         <th class="headertop" colspan="4"><b>Large I2T</b></th>
+        <th class="headertop" colspan="4"><b>Base T2I</b></th>
+        <th class="headertop" colspan="4"><b>Base I2T</b></th>
+        <th class="headertop" colspan="4"><b>Small T2I</b></th>
+        <th class="headertop" colspan="4"><b>Small I2T</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>

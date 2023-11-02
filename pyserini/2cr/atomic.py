@@ -12,6 +12,15 @@ from ._base import run_eval_and_return_metric, ok_str, fail_str
 
 atomic_models = [
     'ViT-L-14.laion2b_s32b_b82k',
+    'ViT-H-14.laion2b_s32b_b79k', 
+    'ViT-bigG-14.laion2b_s39b_b160k', 
+    'ViT-B-32.laion2b_e16', 
+    'ViT-B-32.laion400m_e32', 
+    'openai.clip-vit-base-patch32', 
+    'openai.clip-vit-large-patch14', 
+    'Salesforce.blip-itm-base-coco', 
+    'Salesforce.blip-itm-large-coco', 
+    'facebook.flava-full',
 ]
 
 trec_eval_metric_definitions = {
@@ -82,7 +91,6 @@ def generate_report(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
-            split = name.split('-')[0] # small, base, large
             retrieval_type = name.split('-')[1] # t2i or i2t
             cmd_template = condition['command']
 
@@ -95,10 +103,8 @@ def generate_report(args):
 
                 for expected in models['scores']:
                     for metric in expected:
-                        if split == 'small':
-                            split = 'validation'
                         eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
-                                   f'{trec_eval_metric_definitions[metric]} atomic.{split}.{retrieval_type} {runfile}'
+                                   f'{trec_eval_metric_definitions[metric]} atomic.validation.{retrieval_type} {runfile}'
                         eval_commands[model][name] += format_eval_command(eval_cmd) + '\n\n'
 
                         table[model][name][metric] = expected[metric]
@@ -109,38 +115,39 @@ def generate_report(args):
             s = Template(row_template)
             s = s.substitute(row_cnt=row_cnt,
                              model=model,
-                             s1=f'{table[model]["small-t2i"]["MRR@10"]:8.4f}',
-                             s2=f'{table[model]["small-t2i"]["R@10"]:8.4f}',
-                             s3=f'{table[model]["small-t2i"]["R@1000"]:8.4f}',
-                             s4=f'{table[model]["small-i2t"]["MRR@10"]:8.4f}',
-                             s5=f'{table[model]["small-i2t"]["R@10"]:8.4f}',
-                             s6=f'{table[model]["small-i2t"]["R@1000"]:8.4f}',
+                             s1=f'{table[model]["large-t2i"]["MRR@10"]:8.4f}',
+                             s2=f'{table[model]["large-t2i"]["R@10"]:8.4f}',
+                             s3=f'{table[model]["large-t2i"]["R@1000"]:8.4f}',
+                             s4=f'{table[model]["large-i2t"]["MRR@10"]:8.4f}',
+                             s5=f'{table[model]["large-i2t"]["R@10"]:8.4f}',
+                             s6=f'{table[model]["large-i2t"]["R@1000"]:8.4f}',
                              s7=f'{table[model]["base-t2i"]["MRR@10"]:8.4f}',
                              s8=f'{table[model]["base-t2i"]["R@10"]:8.4f}',
                              s9=f'{table[model]["base-t2i"]["R@1000"]:8.4f}',
                              s10=f'{table[model]["base-i2t"]["MRR@10"]:8.4f}',
                              s11=f'{table[model]["base-i2t"]["R@10"]:8.4f}',
                              s12=f'{table[model]["base-i2t"]["R@1000"]:8.4f}',
-                             s13=f'{table[model]["large-t2i"]["MRR@10"]:8.4f}',
-                             s14=f'{table[model]["large-t2i"]["R@10"]:8.4f}',
-                             s15=f'{table[model]["large-t2i"]["R@1000"]:8.4f}',
-                             s16=f'{table[model]["large-i2t"]["MRR@10"]:8.4f}',
-                             s17=f'{table[model]["large-i2t"]["MRR@10"]:8.4f}',
-                             s18=f'{table[model]["large-i2t"]["R@1000"]:8.4f}',
-                             cmd1=commands[model]["small-t2i"],
-                             cmd2=commands[model]["small-i2t"],
+                             s13=f'{table[model]["small-t2i"]["MRR@10"]:8.4f}',
+                             s14=f'{table[model]["small-t2i"]["R@10"]:8.4f}',
+                             s15=f'{table[model]["small-t2i"]["R@1000"]:8.4f}',
+                             s16=f'{table[model]["small-i2t"]["MRR@10"]:8.4f}',
+                             s17=f'{table[model]["small-i2t"]["MRR@10"]:8.4f}',
+                             s18=f'{table[model]["small-i2t"]["R@1000"]:8.4f}',
+                             cmd1=commands[model]["large-t2i"],
+                             cmd2=commands[model]["large-i2t"],
                              cmd3=commands[model]["base-t2i"],
                              cmd4=commands[model]["base-i2t"],
-                             cmd5=commands[model]["large-t2i"],
-                             cmd6=commands[model]["large-i2t"],
-                             eval_cmd1=eval_commands[model]["small-t2i"].rstrip(),
-                             eval_cmd2=eval_commands[model]["small-i2t"].rstrip(),
+                             cmd5=commands[model]["small-t2i"],
+                             cmd6=commands[model]["small-i2t"],
+                             eval_cmd1=eval_commands[model]["large-t2i"].rstrip(),
+                             eval_cmd2=eval_commands[model]["large-i2t"].rstrip(),
                              eval_cmd3=eval_commands[model]["base-t2i"].rstrip(),
                              eval_cmd4=eval_commands[model]["base-i2t"].rstrip(),
-                             eval_cmd5=eval_commands[model]["large-t2i"].rstrip(),
-                             eval_cmd6=eval_commands[model]["large-i2t"].rstrip(),
+                             eval_cmd5=eval_commands[model]["small-t2i"].rstrip(),
+                             eval_cmd6=eval_commands[model]["small-i2t"].rstrip(),
                              )
 
+            s = s.replace("0.0000", "----")
             html_rows.append(s)
             row_cnt += 1
 
@@ -157,7 +164,6 @@ def run_conditions(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
-            split = name.split('-')[0] # small, base, large
             retrieval_type = name.split('-')[1] # t2i or i2t
             cmd_template = condition['command']
 
@@ -193,10 +199,8 @@ def run_conditions(args):
                         if not args.skip_eval:
                             if not os.path.exists(runfile):
                                 continue
-                            if split == 'small':
-                                split = 'validation'
                             
-                            score = float(run_eval_and_return_metric(metric, f'atomic.{split}.{retrieval_type}',
+                            score = float(run_eval_and_return_metric(metric, f'atomic.validation.{retrieval_type}',
                                                                      trec_eval_metric_definitions[metric], runfile))
                             result = ok_str if math.isclose(score, float(expected[metric])) \
                                 else fail_str + f' expected {expected[metric]:.4f}'

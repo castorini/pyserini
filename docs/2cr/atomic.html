@@ -146,12 +146,12 @@ pre[class*="prettyprint"] {
       <tr>
         <th class="headertop"></th>
         <th class="headertop"></th>
-        <th class="headertop" colspan="4"><b>Small T2I</b></th>
-        <th class="headertop" colspan="4"><b>Small I2T</b></th>
-        <th class="headertop" colspan="4"><b>Base T2I</b></th>
-        <th class="headertop" colspan="4"><b>Base I2T</b></th>
         <th class="headertop" colspan="4"><b>Large T2I</b></th>
         <th class="headertop" colspan="4"><b>Large I2T</b></th>
+        <th class="headertop" colspan="4"><b>Base T2I</b></th>
+        <th class="headertop" colspan="4"><b>Base I2T</b></th>
+        <th class="headertop" colspan="4"><b>Small T2I</b></th>
+        <th class="headertop" colspan="4"><b>Small I2T</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
@@ -187,13 +187,13 @@ pre[class*="prettyprint"] {
 <tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
 <td class="expand-button"></td>
 <td>ViT-L-14.laion2b_s32b_b82k</td>
-<td>  0.3142</td>
-<td>  0.4900</td>
-<td>  0.9451</td>
+<td>  0.0542</td>
+<td>  0.0924</td>
+<td>  0.3597</td>
 <td></td>
-<td>  0.3158</td>
-<td>  0.4797</td>
-<td>  0.9418</td>
+<td>  0.0393</td>
+<td>  0.0764</td>
+<td>  0.3343</td>
 <td></td>
 <td>  0.0708</td>
 <td>  0.1211</td>
@@ -203,13 +203,13 @@ pre[class*="prettyprint"] {
 <td>  0.1203</td>
 <td>  0.4597</td>
 <td></td>
-<td>  0.0542</td>
-<td>  0.0924</td>
-<td>  0.3597</td>
+<td>  0.3142</td>
+<td>  0.4900</td>
+<td>  0.9451</td>
 <td></td>
-<td>  0.0393</td>
-<td>  0.0393</td>
-<td>  0.3343</td>
+<td>  0.3158</td>
+<td>  0.3158</td>
+<td>  0.9418</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -219,10 +219,10 @@ pre[class*="prettyprint"] {
 <!-- Tabs navs -->
 <ul class="nav nav-tabs mb-3" id="row1-tabs" role="tablist">
   <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">Small T2I</a>
+    <a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">Large T2I</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">Small I2T</a>
+    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">Large I2T</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">Base T2I</a>
@@ -231,10 +231,10 @@ pre[class*="prettyprint"] {
     <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">Base I2T</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab5-header" data-mdb-toggle="tab" href="#row1-tab5" role="tab" aria-controls="row1-tab5" aria-selected="false" style="text-transform:none">Large T2I</a>
+    <a class="nav-link" id="row1-tab5-header" data-mdb-toggle="tab" href="#row1-tab5" role="tab" aria-controls="row1-tab5" aria-selected="false" style="text-transform:none">Small T2I</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab6-header" data-mdb-toggle="tab" href="#row1-tab6" role="tab" aria-controls="row1-tab6" aria-selected="false" style="text-transform:none">Large I2T</a>
+    <a class="nav-link" id="row1-tab6-header" data-mdb-toggle="tab" href="#row1-tab6" role="tab" aria-controls="row1-tab6" aria-selected="false" style="text-transform:none">Small I2T</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -246,7 +246,119 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --topics atomic-v0.2.1-text-validation \
+  --topics atomic-v0.2.1-ViT-L-14.laion2b_s32b_b82k-text-validation \
+  --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.large \
+  --encoded-queries atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab2" role="tabpanel" aria-labelledby="row1-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2-ViT-L-14.laion2b_s32b_b82k-image-validation \
+  --index atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.large \
+  --encoded-queries atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab3" role="tabpanel" aria-labelledby="row1-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2.1-ViT-L-14.laion2b_s32b_b82k-text-validation \
+  --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.base \
+  --encoded-queries atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.t2i \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab4" role="tabpanel" aria-labelledby="row1-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2-ViT-L-14.laion2b_s32b_b82k-image-validation \
+  --index atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.base \
+  --encoded-queries atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.i2t \
+  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab5" role="tabpanel" aria-labelledby="row1-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2.1-ViT-L-14.laion2b_s32b_b82k-text-validation \
   --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.validation \
   --encoded-queries atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
@@ -269,12 +381,12 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row1-tab2" role="tabpanel" aria-labelledby="row1-tab2">
+  <div class="tab-pane fade" id="row1-tab6" role="tabpanel" aria-labelledby="row1-tab6">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --topics atomic-v0.2-image-validation \
+  --topics atomic-v0.2-ViT-L-14.laion2b_s32b_b82k-image-validation \
   --index atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.validation \
   --encoded-queries atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
@@ -297,115 +409,1542 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row1-tab3" role="tabpanel" aria-labelledby="row1-tab3">
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: ViT-H-14.laion2b_s32b_b79k -->
+<tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
+<td class="expand-button"></td>
+<td>ViT-H-14.laion2b_s32b_b79k</td>
+<td>  0.0620</td>
+<td>  0.1081</td>
+<td>  0.4046</td>
+<td></td>
+<td>  0.0507</td>
+<td>  0.0983</td>
+<td>  0.3882</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse2" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row2-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row2-tab1-header" data-mdb-toggle="tab" href="#row2-tab1" role="tab" aria-controls="row2-tab1" aria-selected="true" style="text-transform:none">Large T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">Large I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">Base T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">Base I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab5-header" data-mdb-toggle="tab" href="#row2-tab5" role="tab" aria-controls="row2-tab5" aria-selected="false" style="text-transform:none">Small T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab6-header" data-mdb-toggle="tab" href="#row2-tab6" role="tab" aria-controls="row2-tab6" aria-selected="false" style="text-transform:none">Small I2T</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row2-content">
+  <div class="tab-pane fade show active" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --topics atomic-v0.2.1-text-validation \
-  --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.base \
-  --encoded-queries atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation \
+  --topics atomic-v0.2.1-ViT-H-14.laion2b_s32b_b79k-text-validation \
+  --index atomic-v0.2.ViT-H-14.laion2b_s32b_b79k.image.large \
+  --encoded-queries atomic-v0.2.1-text-ViT-H-14.laion2b_s32b_b79k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec
+  --output run.atomic.ViT-H-14.laion2b_s32b_b79k.large-t2i.trec
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recip_rank -M 10 atomic.base.t2i \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec
+  -c -m recip_rank -M 10 atomic.validation.t2i \
+  run.atomic.ViT-H-14.laion2b_s32b_b79k.large-t2i.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 atomic.base.t2i \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec
+  -c -m recall.10 atomic.validation.t2i \
+  run.atomic.ViT-H-14.laion2b_s32b_b79k.large-t2i.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 atomic.base.t2i \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec</code></pre>
+  -c -m recall.1000 atomic.validation.t2i \
+  run.atomic.ViT-H-14.laion2b_s32b_b79k.large-t2i.trec</code></pre>
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row1-tab4" role="tabpanel" aria-labelledby="row1-tab4">
+  <div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --topics atomic-v0.2-image-validation \
-  --index atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.base \
-  --encoded-queries atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation \
+  --topics atomic-v0.2-ViT-H-14.laion2b_s32b_b79k-image-validation \
+  --index atomic-v0.2.1.ViT-H-14.laion2b_s32b_b79k.text.large \
+  --encoded-queries atomic-v0.2-image-ViT-H-14.laion2b_s32b_b79k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec
+  --output run.atomic.ViT-H-14.laion2b_s32b_b79k.large-i2t.trec
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recip_rank -M 10 atomic.base.i2t \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec
+  -c -m recip_rank -M 10 atomic.validation.i2t \
+  run.atomic.ViT-H-14.laion2b_s32b_b79k.large-i2t.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 atomic.base.i2t \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec
+  -c -m recall.10 atomic.validation.i2t \
+  run.atomic.ViT-H-14.laion2b_s32b_b79k.large-i2t.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 atomic.base.i2t \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec</code></pre>
+  -c -m recall.1000 atomic.validation.i2t \
+  run.atomic.ViT-H-14.laion2b_s32b_b79k.large-i2t.trec</code></pre>
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row1-tab5" role="tabpanel" aria-labelledby="row1-tab5">
+  <div class="tab-pane fade" id="row2-tab3" role="tabpanel" aria-labelledby="row2-tab3">
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --topics atomic-v0.2.1-text-validation \
-  --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.large \
-  --encoded-queries atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec
+<pre><code>
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recip_rank -M 10 atomic.large.t2i \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.10 atomic.large.t2i \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 atomic.large.t2i \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec</code></pre>
+<pre><code></code></pre>
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row1-tab6" role="tabpanel" aria-labelledby="row1-tab6">
+  <div class="tab-pane fade" id="row2-tab4" role="tabpanel" aria-labelledby="row2-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab5" role="tabpanel" aria-labelledby="row2-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab6" role="tabpanel" aria-labelledby="row2-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: ViT-bigG-14.laion2b_s39b_b160k -->
+<tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
+<td class="expand-button"></td>
+<td>ViT-bigG-14.laion2b_s39b_b160k</td>
+<td>  0.0741</td>
+<td>  0.1279</td>
+<td>  0.4434</td>
+<td></td>
+<td>  0.0610</td>
+<td>  0.1175</td>
+<td>  0.4331</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse3" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row3-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">Large T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">Large I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">Base T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">Base I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab5-header" data-mdb-toggle="tab" href="#row3-tab5" role="tab" aria-controls="row3-tab5" aria-selected="false" style="text-transform:none">Small T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab6-header" data-mdb-toggle="tab" href="#row3-tab6" role="tab" aria-controls="row3-tab6" aria-selected="false" style="text-transform:none">Small I2T</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row3-content">
+  <div class="tab-pane fade show active" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
-  --topics atomic-v0.2-image-validation \
-  --index atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.large \
-  --encoded-queries atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation \
+  --topics atomic-v0.2.1-ViT-bigG-14.laion2b_s39b_b160k-text-validation \
+  --index atomic-v0.2.ViT-bigG-14.laion2b_s39b_b160k.image.large \
+  --encoded-queries atomic-v0.2.1-text-ViT-bigG-14.laion2b_s39b_b160k-validation \
   --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec
+  --output run.atomic.ViT-bigG-14.laion2b_s39b_b160k.large-t2i.trec
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recip_rank -M 10 atomic.large.i2t \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec
+  -c -m recip_rank -M 10 atomic.validation.t2i \
+  run.atomic.ViT-bigG-14.laion2b_s39b_b160k.large-t2i.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 atomic.large.i2t \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec
+  -c -m recall.10 atomic.validation.t2i \
+  run.atomic.ViT-bigG-14.laion2b_s39b_b160k.large-t2i.trec
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 atomic.large.i2t \
-  run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec</code></pre>
+  -c -m recall.1000 atomic.validation.t2i \
+  run.atomic.ViT-bigG-14.laion2b_s39b_b160k.large-t2i.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab2" role="tabpanel" aria-labelledby="row3-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2-ViT-bigG-14.laion2b_s39b_b160k-image-validation \
+  --index atomic-v0.2.1.ViT-bigG-14.laion2b_s39b_b160k.text.large \
+  --encoded-queries atomic-v0.2-image-ViT-bigG-14.laion2b_s39b_b160k-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.ViT-bigG-14.laion2b_s39b_b160k.large-i2t.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.i2t \
+  run.atomic.ViT-bigG-14.laion2b_s39b_b160k.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.i2t \
+  run.atomic.ViT-bigG-14.laion2b_s39b_b160k.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.i2t \
+  run.atomic.ViT-bigG-14.laion2b_s39b_b160k.large-i2t.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab3" role="tabpanel" aria-labelledby="row3-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab4" role="tabpanel" aria-labelledby="row3-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab5" role="tabpanel" aria-labelledby="row3-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab6" role="tabpanel" aria-labelledby="row3-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: ViT-B-32.laion2b_e16 -->
+<tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
+<td class="expand-button"></td>
+<td>ViT-B-32.laion2b_e16</td>
+<td>  0.0311</td>
+<td>  0.0524</td>
+<td>  0.2433</td>
+<td></td>
+<td>  0.0245</td>
+<td>  0.0467</td>
+<td>  0.2340</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse4" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row4-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">Large T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">Large I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">Base T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">Base I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab5-header" data-mdb-toggle="tab" href="#row4-tab5" role="tab" aria-controls="row4-tab5" aria-selected="false" style="text-transform:none">Small T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab6-header" data-mdb-toggle="tab" href="#row4-tab6" role="tab" aria-controls="row4-tab6" aria-selected="false" style="text-transform:none">Small I2T</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row4-content">
+  <div class="tab-pane fade show active" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2.1-ViT-B-32.laion2b_e16-text-validation \
+  --index atomic-v0.2.ViT-B-32.laion2b_e16.image.large \
+  --encoded-queries atomic-v0.2.1-text-ViT-B-32.laion2b_e16-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.ViT-B-32.laion2b_e16.large-t2i.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.t2i \
+  run.atomic.ViT-B-32.laion2b_e16.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.t2i \
+  run.atomic.ViT-B-32.laion2b_e16.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.t2i \
+  run.atomic.ViT-B-32.laion2b_e16.large-t2i.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab2" role="tabpanel" aria-labelledby="row4-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2-ViT-B-32.laion2b_e16-image-validation \
+  --index atomic-v0.2.1.ViT-B-32.laion2b_e16.text.large \
+  --encoded-queries atomic-v0.2-image-ViT-B-32.laion2b_e16-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.ViT-B-32.laion2b_e16.large-i2t.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.i2t \
+  run.atomic.ViT-B-32.laion2b_e16.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.i2t \
+  run.atomic.ViT-B-32.laion2b_e16.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.i2t \
+  run.atomic.ViT-B-32.laion2b_e16.large-i2t.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab3" role="tabpanel" aria-labelledby="row4-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab4" role="tabpanel" aria-labelledby="row4-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab5" role="tabpanel" aria-labelledby="row4-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab6" role="tabpanel" aria-labelledby="row4-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: ViT-B-32.laion400m_e32 -->
+<tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
+<td class="expand-button"></td>
+<td>ViT-B-32.laion400m_e32</td>
+<td>  0.0248</td>
+<td>  0.0372</td>
+<td>  0.1836</td>
+<td></td>
+<td>  0.0184</td>
+<td>  0.0342</td>
+<td>  0.1754</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse5" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row5-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">Large T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">Large I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">Base T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">Base I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab5-header" data-mdb-toggle="tab" href="#row5-tab5" role="tab" aria-controls="row5-tab5" aria-selected="false" style="text-transform:none">Small T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab6-header" data-mdb-toggle="tab" href="#row5-tab6" role="tab" aria-controls="row5-tab6" aria-selected="false" style="text-transform:none">Small I2T</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row5-content">
+  <div class="tab-pane fade show active" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2.1-ViT-B-32.laion400m_e32-text-validation \
+  --index atomic-v0.2.ViT-B-32.laion400m_e32.image.large \
+  --encoded-queries atomic-v0.2.1-text-ViT-B-32.laion400m_e32-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.ViT-B-32.laion400m_e32.large-t2i.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.t2i \
+  run.atomic.ViT-B-32.laion400m_e32.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.t2i \
+  run.atomic.ViT-B-32.laion400m_e32.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.t2i \
+  run.atomic.ViT-B-32.laion400m_e32.large-t2i.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab2" role="tabpanel" aria-labelledby="row5-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2-ViT-B-32.laion400m_e32-image-validation \
+  --index atomic-v0.2.1.ViT-B-32.laion400m_e32.text.large \
+  --encoded-queries atomic-v0.2-image-ViT-B-32.laion400m_e32-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.ViT-B-32.laion400m_e32.large-i2t.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.i2t \
+  run.atomic.ViT-B-32.laion400m_e32.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.i2t \
+  run.atomic.ViT-B-32.laion400m_e32.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.i2t \
+  run.atomic.ViT-B-32.laion400m_e32.large-i2t.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab3" role="tabpanel" aria-labelledby="row5-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab4" role="tabpanel" aria-labelledby="row5-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab5" role="tabpanel" aria-labelledby="row5-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab6" role="tabpanel" aria-labelledby="row5-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: openai.clip-vit-base-patch32 -->
+<tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
+<td class="expand-button"></td>
+<td>openai.clip-vit-base-patch32</td>
+<td>  0.0223</td>
+<td>  0.0416</td>
+<td>  0.2444</td>
+<td></td>
+<td>  0.0127</td>
+<td>  0.0259</td>
+<td>  0.1872</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse6" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row6-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">Large T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">Large I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">Base T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">Base I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab5-header" data-mdb-toggle="tab" href="#row6-tab5" role="tab" aria-controls="row6-tab5" aria-selected="false" style="text-transform:none">Small T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab6-header" data-mdb-toggle="tab" href="#row6-tab6" role="tab" aria-controls="row6-tab6" aria-selected="false" style="text-transform:none">Small I2T</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row6-content">
+  <div class="tab-pane fade show active" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2.1-openai.clip-vit-base-patch32-text-validation \
+  --index atomic-v0.2.openai.clip-vit-base-patch32.image.large \
+  --encoded-queries atomic-v0.2.1-text-openai.clip-vit-base-patch32-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.openai.clip-vit-base-patch32.large-t2i.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.t2i \
+  run.atomic.openai.clip-vit-base-patch32.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.t2i \
+  run.atomic.openai.clip-vit-base-patch32.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.t2i \
+  run.atomic.openai.clip-vit-base-patch32.large-t2i.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab2" role="tabpanel" aria-labelledby="row6-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2-openai.clip-vit-base-patch32-image-validation \
+  --index atomic-v0.2.1.openai.clip-vit-base-patch32.text.large \
+  --encoded-queries atomic-v0.2-image-openai.clip-vit-base-patch32-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.openai.clip-vit-base-patch32.large-i2t.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.i2t \
+  run.atomic.openai.clip-vit-base-patch32.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.i2t \
+  run.atomic.openai.clip-vit-base-patch32.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.i2t \
+  run.atomic.openai.clip-vit-base-patch32.large-i2t.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab3" role="tabpanel" aria-labelledby="row6-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab4" role="tabpanel" aria-labelledby="row6-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab5" role="tabpanel" aria-labelledby="row6-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab6" role="tabpanel" aria-labelledby="row6-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: openai.clip-vit-large-patch14 -->
+<tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
+<td class="expand-button"></td>
+<td>openai.clip-vit-large-patch14</td>
+<td>  0.0577</td>
+<td>  0.1018</td>
+<td>  0.4072</td>
+<td></td>
+<td>  0.0260</td>
+<td>  0.0518</td>
+<td>  0.2732</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse7" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row7-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">Large T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">Large I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">Base T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">Base I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab5-header" data-mdb-toggle="tab" href="#row7-tab5" role="tab" aria-controls="row7-tab5" aria-selected="false" style="text-transform:none">Small T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab6-header" data-mdb-toggle="tab" href="#row7-tab6" role="tab" aria-controls="row7-tab6" aria-selected="false" style="text-transform:none">Small I2T</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row7-content">
+  <div class="tab-pane fade show active" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2.1-openai.clip-vit-large-patch14-text-validation \
+  --index atomic-v0.2.openai.clip-vit-large-patch14.image.large \
+  --encoded-queries atomic-v0.2.1-text-openai.clip-vit-large-patch14-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.openai.clip-vit-large-patch14.large-t2i.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.t2i \
+  run.atomic.openai.clip-vit-large-patch14.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.t2i \
+  run.atomic.openai.clip-vit-large-patch14.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.t2i \
+  run.atomic.openai.clip-vit-large-patch14.large-t2i.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab2" role="tabpanel" aria-labelledby="row7-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2-openai.clip-vit-large-patch14-image-validation \
+  --index atomic-v0.2.1.openai.clip-vit-large-patch14.text.large \
+  --encoded-queries atomic-v0.2-image-openai.clip-vit-large-patch14-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.openai.clip-vit-large-patch14.large-i2t.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.i2t \
+  run.atomic.openai.clip-vit-large-patch14.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.i2t \
+  run.atomic.openai.clip-vit-large-patch14.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.i2t \
+  run.atomic.openai.clip-vit-large-patch14.large-i2t.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab3" role="tabpanel" aria-labelledby="row7-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab4" role="tabpanel" aria-labelledby="row7-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab5" role="tabpanel" aria-labelledby="row7-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab6" role="tabpanel" aria-labelledby="row7-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: Salesforce.blip-itm-base-coco -->
+<tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
+<td class="expand-button"></td>
+<td>Salesforce.blip-itm-base-coco</td>
+<td>  0.0074</td>
+<td>  0.0141</td>
+<td>  0.1092</td>
+<td></td>
+<td>  0.0066</td>
+<td>  0.0134</td>
+<td>  0.1095</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse8" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row8-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">Large T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">Large I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">Base T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">Base I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab5-header" data-mdb-toggle="tab" href="#row8-tab5" role="tab" aria-controls="row8-tab5" aria-selected="false" style="text-transform:none">Small T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab6-header" data-mdb-toggle="tab" href="#row8-tab6" role="tab" aria-controls="row8-tab6" aria-selected="false" style="text-transform:none">Small I2T</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row8-content">
+  <div class="tab-pane fade show active" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2.1-Salesforce.blip-itm-base-coco-text-validation \
+  --index atomic-v0.2.Salesforce.blip-itm-base-coco.image.large \
+  --encoded-queries atomic-v0.2.1-text-Salesforce.blip-itm-base-coco-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.Salesforce.blip-itm-base-coco.large-t2i.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.t2i \
+  run.atomic.Salesforce.blip-itm-base-coco.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.t2i \
+  run.atomic.Salesforce.blip-itm-base-coco.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.t2i \
+  run.atomic.Salesforce.blip-itm-base-coco.large-t2i.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab2" role="tabpanel" aria-labelledby="row8-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2-Salesforce.blip-itm-base-coco-image-validation \
+  --index atomic-v0.2.1.Salesforce.blip-itm-base-coco.text.large \
+  --encoded-queries atomic-v0.2-image-Salesforce.blip-itm-base-coco-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.Salesforce.blip-itm-base-coco.large-i2t.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.i2t \
+  run.atomic.Salesforce.blip-itm-base-coco.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.i2t \
+  run.atomic.Salesforce.blip-itm-base-coco.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.i2t \
+  run.atomic.Salesforce.blip-itm-base-coco.large-i2t.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab3" role="tabpanel" aria-labelledby="row8-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab4" role="tabpanel" aria-labelledby="row8-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab5" role="tabpanel" aria-labelledby="row8-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab6" role="tabpanel" aria-labelledby="row8-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: Salesforce.blip-itm-large-coco -->
+<tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
+<td class="expand-button"></td>
+<td>Salesforce.blip-itm-large-coco</td>
+<td>  0.0112</td>
+<td>  0.0204</td>
+<td>  0.1492</td>
+<td></td>
+<td>  0.0091</td>
+<td>  0.0177</td>
+<td>  0.1365</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse9" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row9-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">Large T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">Large I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">Base T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">Base I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab5-header" data-mdb-toggle="tab" href="#row9-tab5" role="tab" aria-controls="row9-tab5" aria-selected="false" style="text-transform:none">Small T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab6-header" data-mdb-toggle="tab" href="#row9-tab6" role="tab" aria-controls="row9-tab6" aria-selected="false" style="text-transform:none">Small I2T</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row9-content">
+  <div class="tab-pane fade show active" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2.1-Salesforce.blip-itm-large-coco-text-validation \
+  --index atomic-v0.2.Salesforce.blip-itm-large-coco.image.large \
+  --encoded-queries atomic-v0.2.1-text-Salesforce.blip-itm-large-coco-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.Salesforce.blip-itm-large-coco.large-t2i.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.t2i \
+  run.atomic.Salesforce.blip-itm-large-coco.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.t2i \
+  run.atomic.Salesforce.blip-itm-large-coco.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.t2i \
+  run.atomic.Salesforce.blip-itm-large-coco.large-t2i.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab2" role="tabpanel" aria-labelledby="row9-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2-Salesforce.blip-itm-large-coco-image-validation \
+  --index atomic-v0.2.1.Salesforce.blip-itm-large-coco.text.large \
+  --encoded-queries atomic-v0.2-image-Salesforce.blip-itm-large-coco-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.Salesforce.blip-itm-large-coco.large-i2t.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.i2t \
+  run.atomic.Salesforce.blip-itm-large-coco.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.i2t \
+  run.atomic.Salesforce.blip-itm-large-coco.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.i2t \
+  run.atomic.Salesforce.blip-itm-large-coco.large-i2t.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab3" role="tabpanel" aria-labelledby="row9-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab4" role="tabpanel" aria-labelledby="row9-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab5" role="tabpanel" aria-labelledby="row9-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab6" role="tabpanel" aria-labelledby="row9-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: facebook.flava-full -->
+<tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
+<td class="expand-button"></td>
+<td>facebook.flava-full</td>
+<td>  0.0032</td>
+<td>  0.0081</td>
+<td>  0.1432</td>
+<td></td>
+<td>  0.0036</td>
+<td>  0.0083</td>
+<td>  0.1293</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+<td></td>
+<td>  ----</td>
+<td>  ----</td>
+<td>  ----</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse10" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row10-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">Large T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">Large I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">Base T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">Base I2T</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab5-header" data-mdb-toggle="tab" href="#row10-tab5" role="tab" aria-controls="row10-tab5" aria-selected="false" style="text-transform:none">Small T2I</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab6-header" data-mdb-toggle="tab" href="#row10-tab6" role="tab" aria-controls="row10-tab6" aria-selected="false" style="text-transform:none">Small I2T</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row10-content">
+  <div class="tab-pane fade show active" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2.1-facebook.flava-full-text-validation \
+  --index atomic-v0.2.facebook.flava-full.image.large \
+  --encoded-queries atomic-v0.2.1-text-facebook.flava-full-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.facebook.flava-full.large-t2i.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.t2i \
+  run.atomic.facebook.flava-full.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.t2i \
+  run.atomic.facebook.flava-full.large-t2i.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.t2i \
+  run.atomic.facebook.flava-full.large-t2i.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab2" role="tabpanel" aria-labelledby="row10-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --topics atomic-v0.2-facebook.flava-full-image-validation \
+  --index atomic-v0.2.1.facebook.flava-full.text.large \
+  --encoded-queries atomic-v0.2-image-facebook.flava-full-validation \
+  --hits 1000 --batch-size 256 --threads 32 \
+  --output run.atomic.facebook.flava-full.large-i2t.trec
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recip_rank -M 10 atomic.validation.i2t \
+  run.atomic.facebook.flava-full.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 atomic.validation.i2t \
+  run.atomic.facebook.flava-full.large-i2t.trec
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 atomic.validation.i2t \
+  run.atomic.facebook.flava-full.large-i2t.trec</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab3" role="tabpanel" aria-labelledby="row10-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab4" role="tabpanel" aria-labelledby="row10-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab5" role="tabpanel" aria-labelledby="row10-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab6" role="tabpanel" aria-labelledby="row10-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code></code></pre>
   </blockquote>
 
   </div>
