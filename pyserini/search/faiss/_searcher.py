@@ -25,6 +25,8 @@ from typing import Dict, List, Union, Optional, Tuple
 
 import numpy as np
 import pandas as pd
+import openai
+import tiktoken
 
 from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, BertTokenizerFast,
                           DPRQuestionEncoder, DPRQuestionEncoderTokenizer, RobertaTokenizer)
@@ -310,6 +312,32 @@ class AnceQueryEncoder(QueryEncoder):
         embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
         return embeddings
 
+class OpenAIQueryEncoder(QueryEncoder):
+    from pyserini.encode._openai import retry_with_delay
+
+    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None,
+                 tokenizer_name: str = None, max_length: int = 512, **kwargs):
+        super().__init__(encoded_query_dir)
+        if encoder_dir:
+            openai.api_key = os.getenv("OPENAI_API_KEY")
+            openai.organization = os.getenv("OPENAI_ORG_KEY")
+            self.model = encoder_dir
+            self.tokenizer = tiktoken.get_encoding(tokenizer_name)
+            self.max_length = max_length
+            self.has_model = True
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+
+    @retry_with_delay
+    def get_embedding(self, text: str):
+        return np.array(openai.Embedding.create(input=text, model=self.model)['data'][0]['embedding'])
+
+    def encode(self, query: str, **kwargs):
+        if self.has_model:
+            inputs = self.tokenizer.encode(text=query)[:self.max_length]
+            return self.get_embedding(inputs)
+        else:
+            return super().encode(query)
 
 class AutoQueryEncoder(QueryEncoder):
 

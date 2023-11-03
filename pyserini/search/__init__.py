@@ -24,6 +24,7 @@ from .faiss import DenseSearchResult, PRFDenseSearchResult, FaissSearcher, Binar
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, AutoQueryEncoder
 from .faiss import AnceEncoder
 from .faiss import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
+from .faiss import OpenAIQueryEncoder
 
 
 __all__ = ['JQuery',
@@ -54,6 +55,7 @@ __all__ = ['JQuery',
            'AnceEncoder',
            'AnceQueryEncoder',
            'AggretrieverQueryEncoder',
+           'OpenAIQueryEncoder',
            'AutoQueryEncoder',
            'DenseVectorAveragePrf',
            'DenseVectorRocchioPrf',

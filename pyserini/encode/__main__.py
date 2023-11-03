@@ -20,6 +20,7 @@ import sys
 from pyserini.encode import JsonlRepresentationWriter, FaissRepresentationWriter, JsonlCollectionIterator
 from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AggretrieverDocumentEncoder, AutoDocumentEncoder
 from pyserini.encode import UniCoilDocumentEncoder
+from pyserini.encode import OpenAIDocumentEncoder, OPENAI_API_RETRY_DELAY
 
 
 encoder_class_map = {
@@ -29,6 +30,7 @@ encoder_class_map = {
     "ance": AnceDocumentEncoder,
     "sentence-transformers": AutoDocumentEncoder,
     "unicoil": UniCoilDocumentEncoder,
+    "openai-api": OpenAIDocumentEncoder,
     "auto": AutoDocumentEncoder,
 }
 ALLOWED_POOLING_OPTS = ["cls","mean"]
@@ -105,7 +107,7 @@ if __name__ == '__main__':
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
     encoder_parser.add_argument('--encoder-class', type=str, required=False, default=None,
-                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "auto"],
+                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto"],
                                 help='which query encoder class to use. `default` would infer from the args.encoder')
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--batch-size', type=int, help='batch size', default=64, required=False)
@@ -116,6 +118,8 @@ if __name__ == '__main__':
     encoder_parser.add_argument('--fp16', action='store_true', default=False)
     encoder_parser.add_argument('--add-sep', action='store_true', default=False)
     encoder_parser.add_argument('--pooling', type=str, default='cls', help='for auto classes, allow the ability to dictate pooling strategy', required=False)
+    encoder_parser.add_argument('--use-openai', help='use OpenAI text-embedding-ada-002 to retreive embeddings', action='store_true', default=False)
+    encoder_parser.add_argument('--rate-limit', type=int, help='rate limit of the requests per minute for OpenAI embeddings', default=3500, required=False)
 
     args = parse_args(parser, commands)
     delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
@@ -132,8 +136,13 @@ if __name__ == '__main__':
         embedding_writer = JsonlRepresentationWriter(args.output.embeddings)
     collection_iterator = JsonlCollectionIterator(args.input.corpus, args.input.fields, args.input.docid_field, delimiter)
 
+    if args.encoder.use_openai:
+        batch_size = int(args.encoder.rate_limit / (60 / OPENAI_API_RETRY_DELAY))
+    else:
+        batch_size = args.encoder.batch_size
+    
     with embedding_writer:
-        for batch_info in collection_iterator(args.encoder.batch_size, args.input.shard_id, args.input.shard_num):
+        for batch_info in collection_iterator(batch_size, args.input.shard_id, args.input.shard_num):
             kwargs = {
                 'texts': batch_info['text'],
                 'titles': batch_info['title'] if 'title' in args.encoder.fields else None,
