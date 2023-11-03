@@ -328,4 +328,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@Stefan824](https://github.com/stefan824) on 2023-10-04 (commit [`4f3da10`](https://github.com/castorini/pyserini/commit/4f3da10b99341d0bc2729590c23d9f1654d8ee37))
 + Results reproduced by [@shayanbali](https://github.com/shayanbali) on 2023-10-13 (commit [`f889bc4`](https://github.com/castorini/pyserini/commit/f889bc40665952f1698f4bd131bc0093276e279c))
 + Results reproduced by [@gituserbs](https://github.com/gituserbs) on 2023-10-18 (commit [`f1d623c`](https://github.com/castorini/pyserini/commit/f1d623cdcb12c3083ff1db8aed4b84e81951a18c))
-+ Results reproduced by [@shakibaam](https://github.com/shakibaam) on 2023-12-2 (commit [cf45bfb](https://github.com/castorini/pyserini/commit/aa13cc9dee48dbe7369a435536ec6eb1b169d8f5))
++ Results reproduced by [@shakibaam](https://github.com/shakibaam) on 2023-12-2 (commit [cf45bfb](https://github.com/castorini/pyserini/commit/cf45bfbacc52b864397a958561d87d860114a6c5))
