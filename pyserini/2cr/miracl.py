@@ -389,17 +389,28 @@ def run_conditions(args):
                                                                      trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.5255 -> expected 0.5254
-                            elif name == 'bm25-mdpr-tied-pft-msmarco-hybrid.zh' \
-                                    and split == 'dev' and metric == 'nDCG@10' \
-                                    and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
-                                result_str = okish_str
                             # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3749 -> expected 0.3748
                             elif name == 'mcontriever-tied-pft-msmarco.id' \
                                     and split == 'train' and metric == 'nDCG@10' \
                                     and math.isclose(score, float(expected[metric]), abs_tol=1e-4):
                                 result_str = okish_str
+                            # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.4149 -> expected 0.4147
+                            elif name == 'mdpr-tied-pft-msmarco.ko' \
+                                    and split == 'train' and metric == 'nDCG@10' \
+                                    and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
+                                result_str = okish_str
+                            # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.5324 -> expected 0.5323
+                            elif name == 'bm25-mdpr-tied-pft-msmarco-hybrid.ru' \
+                                    and split == 'dev' and metric == 'nDCG@10' \
+                                    and math.isclose(score, float(expected[metric]), abs_tol=1e-4):
+                                result_str = okish_str
+                            # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.4101 -> expected 0.4100
+                            elif name == 'bm25-mdpr-tied-pft-msmarco-hybrid.sw' \
+                                    and split == 'train' and metric == 'nDCG@10' \
+                                    and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
+                                result_str = okish_str
                             # Flaky on linux.cs (vs. tuna), nDCG@10: 0.5999 -> expected 0.6000
+                            # Flaky on Jimmy's Mac Studio also.
                             elif name == 'bm25-mdpr-tied-pft-msmarco-hybrid.te' \
                                     and split == 'train' and metric == 'nDCG@10' \
                                     and math.isclose(score, float(expected[metric]), abs_tol=1e-4):
