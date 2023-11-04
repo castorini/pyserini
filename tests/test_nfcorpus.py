@@ -14,26 +14,21 @@
 # limitations under the License.
 #
 
-import json
 import os
-import pathlib as pl
 import shutil
 import subprocess
 import tarfile
 import unittest
 
-import faiss
-
-from pyserini.encode import JsonlCollectionIterator, TctColBertDocumentEncoder, DprDocumentEncoder, \
-    UniCoilDocumentEncoder
-from pyserini.search.lucene._impact_searcher import LuceneImpactSearcher
 from random import randint
 from urllib.request import urlretrieve
 
 
 class TestNFCorpus(unittest.TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpClass(self):
         self.queries = 'tests/resources/nfcorpus-queries.tsv'
+        self.qrels = 'tests/resources/nfcorpus-qrels.tsv'
 
         r = randint(0, 10000000)
         self.dense_index_url = 'https://www.dropbox.com/scl/fi/b2rx4e9rr4rxyvw6xneul/faiss.nfcorpus.contriever-msmacro.tar.gz?rlkey=33uakcl2y6cy7akj98y6yyupg&dl=1'
@@ -46,24 +41,28 @@ class TestNFCorpus(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
 
-    def test_tct_colbert_v2_encoder_cmd(self):
-        print(self.index_dir)
-
+    def test_dense_retrieval(self):
+        r = randint(0, 10000000)
+        run_file = f'run.{r}.txt'
         cmd = f'python -m pyserini.search.faiss \
                   --encoder-class contriever --encoder facebook/contriever-msmarco \
                   --index {self.index_dir}/faiss.nfcorpus.contriever-msmacro \
                   --topics {self.queries} \
-                  --output tmp.txt \
+                  --output {run_file} \
                   --batch 32 --threads 4 \
                   --hits 10'
 
-        status = os.system(cmd)
+        os.system(cmd)
         results = subprocess.check_output(
-            f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels tmp.txt', shell=True)
+            f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 {self.qrels} {run_file}', shell=True)
         results = results.decode('utf-8').split('\n')
-        print(results)
-        print('###' + results[-2])
         ndcg_line = results[-2]
         ndcg_score = float(ndcg_line.split('\t')[-1])
-        print(ndcg_score)
-        self.assertAlmostEqual(ndcg_score, 0.0056, places=5)
+        self.assertAlmostEqual(ndcg_score, 0.3622, places=5)
+
+        os.remove(run_file)
+
+    @classmethod
+    def tearDownClass(self):
+        shutil.rmtree(self.index_dir)
+        os.remove(self.tarball_name)
