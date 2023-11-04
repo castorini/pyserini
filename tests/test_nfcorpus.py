@@ -26,19 +26,19 @@ from urllib.request import urlretrieve
 
 class TestNFCorpus(unittest.TestCase):
     @classmethod
-    def setUpClass(self):
-        self.queries = 'tests/resources/nfcorpus-queries.tsv'
-        self.qrels = 'tests/resources/nfcorpus-qrels.tsv'
+    def setUpClass(cls):
+        cls.queries = 'tests/resources/nfcorpus-queries.tsv'
+        cls.qrels = 'tests/resources/nfcorpus-qrels.tsv'
 
         r = randint(0, 10000000)
-        self.dense_index_url = 'https://www.dropbox.com/scl/fi/b2rx4e9rr4rxyvw6xneul/faiss.nfcorpus.contriever-msmacro.tar.gz?rlkey=33uakcl2y6cy7akj98y6yyupg&dl=1'
-        self.tarball_name = f'faiss.nfcorpus.contriever-msmacro-{r}.tar.gz'
-        self.index_dir = f'index-{r}/'
+        cls.dense_index_url = 'https://github.com/castorini/anserini-data/raw/master/NFCorpus/faiss.nfcorpus.contriever-msmacro.tar.gz'
+        cls.tarball_name = f'faiss.nfcorpus.contriever-msmacro-{r}.tar.gz'
+        cls.index_dir = f'index-{r}/'
 
-        _, _ = urlretrieve(self.dense_index_url, self.tarball_name)
+        urlretrieve(cls.dense_index_url, cls.tarball_name)
 
-        tarball = tarfile.open(self.tarball_name)
-        tarball.extractall(self.index_dir)
+        tarball = tarfile.open(cls.tarball_name)
+        tarball.extractall(cls.index_dir)
         tarball.close()
 
     def test_dense_retrieval(self):
@@ -63,6 +63,6 @@ class TestNFCorpus(unittest.TestCase):
         os.remove(run_file)
 
     @classmethod
-    def tearDownClass(self):
-        shutil.rmtree(self.index_dir)
-        os.remove(self.tarball_name)
+    def tearDownClass(cls):
+        shutil.rmtree(cls.index_dir)
+        os.remove(cls.tarball_name)
