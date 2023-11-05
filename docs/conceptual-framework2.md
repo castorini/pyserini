@@ -29,16 +29,16 @@ With respect to sparse (i.e., bag-of-words) retrieval models:
 
 And putting the two together:
 
-+ Understand how dense retrieval and sparse (bag-of-words) retrieval are different realizations of the same bi-encoder architecture.
-+ Be able to connect key concepts in the bi-encoder architecture to Pyserini implementations.
-+ Be able to "trace" retrieval with dense and sparse representations through the encoding and top-_k_ retrieval phases.
+- Understand how dense retrieval and sparse (bag-of-words) retrieval are different realizations of the same bi-encoder architecture.
+- Be able to connect key concepts in the bi-encoder architecture to Pyserini implementations.
+- Be able to "trace" retrieval with dense and sparse representations through the encoding and top-_k_ retrieval phases.
 
 ## Recap
 
 As a recap from [here](conceptual-framework.md), this is the "core retrieval" problem that we're trying to solve:
 
 > Given an information need expressed as a query _q_, the text retrieval task is to return a ranked list of _k_ texts {_d<sub>1</sub>_, _d<sub>2</sub>_ ... _d<sub>k</sub>_} from an arbitrarily large but finite collection
-of texts _C_ = {_d<sub>i</sub>_} that maximizes a metric of interest, for example, nDCG, AP, etc.
+> of texts _C_ = {_d<sub>i</sub>_} that maximizes a metric of interest, for example, nDCG, AP, etc.
 
 And this is the bi-encoder architecture for tackling the above challenge:
 
@@ -46,11 +46,11 @@ And this is the bi-encoder architecture for tackling the above challenge:
 
 It's all about representations!
 BM25 generates bag-of-words sparse lexical vectors where the terms are assigned BM25 weights in an unsupervised manner.
-Contriever, which is an example of a dense retrieval model, uses transformer-based encoders, trained on large amounts of supervised data, that generate _dense_ vectors. 
+Contriever, which is an example of a dense retrieval model, uses transformer-based encoders, trained on large amounts of supervised data, that generate _dense_ vectors.
 
 ## Dense Retrieval Models
 
-Let's start by first peeking inside the Faiss index we built: 
+Let's start by first peeking inside the Faiss index we built:
 
 ```python
 import faiss
@@ -367,30 +367,31 @@ The output should match the results from `LuceneSearcher` above.
 
 To recap, what's the point for this exercise?
 
-+ We see that dense retrieval and sparse retrieval are both instantiations of a bi-encoder architecture. The only difference is the output of the encoder representations.
-+ For both a dense index (Faiss) and a sparse index (Lucene), you now know how to reconstruct the document vector representations.
-+ For both a dense retrieval model and a sparse retrieval model, you now know how to encode a query into a query vector.
-+ For both a dense retrieval model and a sparse retrieval model, you know how to compute query-document scores: they're just dot products.
-+ Finally, for both a dense retrieval model and a sparse retrieval model, you can perform retrieval "by hand". This can be accomplished by iterating through all document vectors in the index and computing its dot product with the query vector in a brute force manner. By sorting the scores, you're performing top-_k_ retrieval, which gives exactly the same output as `FaissSearcher` and `LuceneSearcher` (although not as efficient).
+- We see that dense retrieval and sparse retrieval are both instantiations of a bi-encoder architecture. The only difference is the output of the encoder representations.
+- For both a dense index (Faiss) and a sparse index (Lucene), you now know how to reconstruct the document vector representations.
+- For both a dense retrieval model and a sparse retrieval model, you now know how to encode a query into a query vector.
+- For both a dense retrieval model and a sparse retrieval model, you know how to compute query-document scores: they're just dot products.
+- Finally, for both a dense retrieval model and a sparse retrieval model, you can perform retrieval "by hand". This can be accomplished by iterating through all document vectors in the index and computing its dot product with the query vector in a brute force manner. By sorting the scores, you're performing top-_k_ retrieval, which gives exactly the same output as `FaissSearcher` and `LuceneSearcher` (although not as efficient).
 
 Okay, that's it for this lesson.
 Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
 
-## Reproduction Log[*](reproducibility.md)
+## Reproduction Log[\*](reproducibility.md)
 
-+ Results reproduced by [@sahel-sh](https://github.com/sahel-sh) on 2023-08-07 (commit [`9dab30f`](https://github.com/castorini/pyserini/commit/9dab30f1ac2b7672ffc65477f0d4279d30e97ad4))
-+ Results reproduced by [@Andrwyl](https://github.com/Andrwyl) on 2023-08-26 (commit [`d9da49e`](https://github.com/castorini/pyserini/commit/d9da49eb3a23fb9daa26399a2e27a5efc73beb71))
-+ Results reproduced by [@yilinjz](https://github.com/yilinjz) on 2023-08-30 (commit [`42b3549`](https://github.com/castorini/pyserini/commit/42b354914b230880c91b2e4e70605b472441a9a1))
-+ Results reproduced by [@UShivani3](https://github.com/UShivani3) on 2023-09-02 (commit [`42b3549`](https://github.com/castorini/pyserini/commit/42b354914b230880c91b2e4e70605b472441a9a1))
-+ Results reproduced by [@Edward-J-Xu](https://github.com/Edward-J-Xu) on 2023-09-05 (commit [`8063322`](https://github.com/castorini/pyserini/commit/806332286d6eacea23061c04205a71698e6a6208))
-+ Results reproduced by [@mchlp](https://github.com/mchlp) on 2023-09-09 (commit [`d8dc5b3`](https://github.com/castorini/pyserini/commit/d8dc5b3a1f32fd5d0cebeb711ba148ea967fadbe))
-+ Results reproduced by [@lucedes27](https://github.com/lucedes27) on 2023-09-10 (commit [`54014af`](https://github.com/castorini/pyserini/commit/54014af8fe4bf4ba75daba9119acac94c7191cdb))
-+ Results reproduced by [@MojTabaa4](https://github.com/MojTabaa4) on 2023-09-14 (commit [`d4a829d`](https://github.com/castorini/pyserini/commit/d4a829d18043783ef3dec2a8adce50e4061ba99a))
-+ Results reproduced by [@Kshama](https://github.com/Kshama33) on 2023-09-24 (commit [`7d18f4b`](https://github.com/castorini/pyserini/commit/7d18f4bd3f98d4f901dc061ffd93a1c656e32d0d))
-+ Results reproduced by [@MelvinMo](https://github.com/MelvinMo) on 2023-09-24 (commit [`7d18f4b`](https://github.com/castorini/pyserini/commit/7d18f4bd3f98d4f901dc061ffd93a1c656e32d0d))
-+ Results reproduced by [@ksunisth](https://github.com/ksunisth) on 2023-09-28 (commit [`142c774`](https://github.com/castorini/pyserini/commit/142c774a303c906ee245913bc7e714b165074b77))
-+ Results reproduced by [@maizerrr](https://github.com/maizerrr) on 2023-10-01 (commit [`bdb9504`](https://github.com/castorini/pyserini/commit/bdb9504b1757ab88247924b55a8fde3e5c1a3d20))
-+ Results reproduced by [@Mofetoluwa](https://github.com/Mofetoluwa) on 2023-10-02 (commit [`88f1f5b`](https://github.com/castorini/pyserini/commit/88f1f5b653021e249f45bb85c3297bb6af862c3d))
-+ Results reproduced by [@Stefan824](https://github.com/stefan824) on 2023-10-04 (commit [`4f3da10`](https://github.com/castorini/pyserini/commit/4f3da10b99341d0bc2729590c23d9f1654d8ee37))
-+ Results reproduced by [@shayanbali](https://github.com/shayanbali) on 2023-10-16 (commit [`f1d623c`](https://github.com/castorini/pyserini/commit/f1d623cdcb12c3083ff1db8aed4b84e81951a18c))
-+ Results reproduced by [@gituserbs](https://github.com/gituserbs) on 2023-10-19 (commit [`e0a0d35`](https://github.com/castorini/pyserini/commit/e0a0d354ccbd055b42413b1eed911858d68a01fc))
+- Results reproduced by [@sahel-sh](https://github.com/sahel-sh) on 2023-08-07 (commit [`9dab30f`](https://github.com/castorini/pyserini/commit/9dab30f1ac2b7672ffc65477f0d4279d30e97ad4))
+- Results reproduced by [@Andrwyl](https://github.com/Andrwyl) on 2023-08-26 (commit [`d9da49e`](https://github.com/castorini/pyserini/commit/d9da49eb3a23fb9daa26399a2e27a5efc73beb71))
+- Results reproduced by [@yilinjz](https://github.com/yilinjz) on 2023-08-30 (commit [`42b3549`](https://github.com/castorini/pyserini/commit/42b354914b230880c91b2e4e70605b472441a9a1))
+- Results reproduced by [@UShivani3](https://github.com/UShivani3) on 2023-09-02 (commit [`42b3549`](https://github.com/castorini/pyserini/commit/42b354914b230880c91b2e4e70605b472441a9a1))
+- Results reproduced by [@Edward-J-Xu](https://github.com/Edward-J-Xu) on 2023-09-05 (commit [`8063322`](https://github.com/castorini/pyserini/commit/806332286d6eacea23061c04205a71698e6a6208))
+- Results reproduced by [@mchlp](https://github.com/mchlp) on 2023-09-09 (commit [`d8dc5b3`](https://github.com/castorini/pyserini/commit/d8dc5b3a1f32fd5d0cebeb711ba148ea967fadbe))
+- Results reproduced by [@lucedes27](https://github.com/lucedes27) on 2023-09-10 (commit [`54014af`](https://github.com/castorini/pyserini/commit/54014af8fe4bf4ba75daba9119acac94c7191cdb))
+- Results reproduced by [@MojTabaa4](https://github.com/MojTabaa4) on 2023-09-14 (commit [`d4a829d`](https://github.com/castorini/pyserini/commit/d4a829d18043783ef3dec2a8adce50e4061ba99a))
+- Results reproduced by [@Kshama](https://github.com/Kshama33) on 2023-09-24 (commit [`7d18f4b`](https://github.com/castorini/pyserini/commit/7d18f4bd3f98d4f901dc061ffd93a1c656e32d0d))
+- Results reproduced by [@MelvinMo](https://github.com/MelvinMo) on 2023-09-24 (commit [`7d18f4b`](https://github.com/castorini/pyserini/commit/7d18f4bd3f98d4f901dc061ffd93a1c656e32d0d))
+- Results reproduced by [@ksunisth](https://github.com/ksunisth) on 2023-09-28 (commit [`142c774`](https://github.com/castorini/pyserini/commit/142c774a303c906ee245913bc7e714b165074b77))
+- Results reproduced by [@maizerrr](https://github.com/maizerrr) on 2023-10-01 (commit [`bdb9504`](https://github.com/castorini/pyserini/commit/bdb9504b1757ab88247924b55a8fde3e5c1a3d20))
+- Results reproduced by [@Mofetoluwa](https://github.com/Mofetoluwa) on 2023-10-02 (commit [`88f1f5b`](https://github.com/castorini/pyserini/commit/88f1f5b653021e249f45bb85c3297bb6af862c3d))
+- Results reproduced by [@Stefan824](https://github.com/stefan824) on 2023-10-04 (commit [`4f3da10`](https://github.com/castorini/pyserini/commit/4f3da10b99341d0bc2729590c23d9f1654d8ee37))
+- Results reproduced by [@shayanbali](https://github.com/shayanbali) on 2023-10-16 (commit [`f1d623c`](https://github.com/castorini/pyserini/commit/f1d623cdcb12c3083ff1db8aed4b84e81951a18c))
+- Results reproduced by [@gituserbs](https://github.com/gituserbs) on 2023-10-19 (commit [`e0a0d35`](https://github.com/castorini/pyserini/commit/e0a0d354ccbd055b42413b1eed911858d68a01fc))
+- Results reproduced by [@gitHubAndyLee2020](https://github.com/gitHubAndyLee2020) on 2023-11-05 (commit [`01889cc`](https://github.com/castorini/pyserini/commit/01889ccb40c5dcc2c6baf629f58db4e6004eeddf))
