@@ -143,6 +143,7 @@ $ conda install wget
 $ conda install -c conda-forge lightgbm
 $ conda install -c conda-forge faiss-cpu
 $ conda install pytorch torchvision torchaudio -c pytorch
+$ conda install mkl=2021
 $ pip install psutil
 $ pip install --no-binary :all: nmslib
 ```
