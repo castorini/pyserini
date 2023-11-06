@@ -188,7 +188,7 @@ The solution to this is to check the version of your `numpy`. At the time of thi
 Fix by downgrading to `1.21.1` so that the other dependent libraries are compatible with the API version.
 (See [#1259](https://github.com/castorini/pyserini/pull/1259)).
 
-+ If you face `ImportError: libmkl_intel_lp64.so.1: cannot open shared object file: No such file or directory` error while running `python -m unittest`, please run `conda install mkl=2021` (also specified in the installation guide above). This is due to package dependency issues in Faiss package.
++ If you face `ImportError: libmkl_intel_lp64.so.1: cannot open shared object file: No such file or directory` error while running `python -m unittest`, please run `conda install mkl=2021` (also specified in the installation guide above), this is due to package dependency issues in Faiss package.
 
 + If you face `TypeError: issubclass() arg 1 must be a class` error while running `python -m spacy download en_core_web_sm`, please uninstall Pydantic with `pip uninstall pydantic`, then run `python -m spacy download en_core_web_sm` again, which should install the correct version of Pydantic.
 
