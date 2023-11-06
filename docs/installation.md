@@ -12,15 +12,16 @@ A `pip` installation will automatically pull in the first to satisfy the package
 We leave the installation of these packages to you (but provide detailed instructions below).
 
 In general, our development team tries to keep dependent packages (roughly) in sync.
-As of Pyserini v0.18.0 (circa September 2022), we're at `faiss-cpu==1.7.2`,  `transformers==4.21.3`, and `torch==1.12.1`.
+As of Pyserini v0.18.0 (circa September 2022), we're at `faiss-cpu==1.7.2`, `transformers==4.21.3`, and `torch==1.12.1`.
 With other versions of the dependent packages, as they say, your mileage may vary...
 
 ## Preliminaries
 
 Below is a step-by-step Pyserini installation guide based on Python 3.8.
 We recommend using [Anaconda](https://www.anaconda.com/) and assume you have already installed it.
-+ If you are installing Anaconda on Windows Ubuntu Terminal, [here](https://gist.github.com/kauffmanes/5e74916617f9993bc3479f401dfec7da) is a useful guide.
-+ If you are installing Anaconda on Mac M1/M2 ARM processor, we strongly recommend you first read the **Troubleshooting Tips** section below regarding potential issues with Anaconda ARM64 distribution.
+
+- If you are installing Anaconda on Windows Ubuntu Terminal, [here](https://gist.github.com/kauffmanes/5e74916617f9993bc3479f401dfec7da) is a useful guide.
+- If you are installing Anaconda on Mac M1/M2 ARM processor, we strongly recommend you first read the **Troubleshooting Tips** section below regarding potential issues with Anaconda ARM64 distribution.
 
 Create new environment:
 
@@ -111,6 +112,7 @@ If you're planning on just _using_ Pyserini, then the `pip` instructions above a
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 
 Start with creating a new `conda` environment:
+
 ```bash
 $ conda create -n pyserini-dev python=3.8
 $ conda activate pyserini-dev
@@ -128,6 +130,7 @@ Clone the Pyserini repo with the `--recurse-submodules` option to make sure the 
 ```bash
 $ git clone git@github.com:castorini/pyserini.git --recurse-submodules
 ```
+
 The `tools/` directory, which contains evaluation tools and scripts, is actually [this repo](https://github.com/castorini/anserini-tools), integrated as a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) (so that it can be shared across related projects).
 Change into the `pyserini` subdirectory and build as follows (you might get warnings, but okay to ignore):
 
@@ -138,6 +141,7 @@ $ cd tools/eval/ndeval && make && cd ../../..
 ```
 
 Install the following packages:
+
 ```bash
 $ conda install wget
 $ conda install -c conda-forge lightgbm
@@ -149,6 +153,7 @@ $ pip install --no-binary :all: nmslib
 ```
 
 Use `pip` to "install" the checked out code in "editable" mode:
+
 ```bash
 $ pip install -e .
 ```
@@ -174,27 +179,28 @@ Assuming all tests pass, you should be ready to go!
 
 ## Troubleshooting Tips
 
-+ The above guide handle JVM installation via conda. If you are using your own Java environment and get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
-In `bash`, use `echo $JAVA_HOME` to find out what the environmental variable is currently set to, and use `export JAVA_HOME=/path/to/java/home` to change it to the correct path.
-On a Linux system, the correct path might look something like `/usr/lib/jvm/java-11`.
-Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.
+- The above guide handle JVM installation via conda. If you are using your own Java environment and get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
+  In `bash`, use `echo $JAVA_HOME` to find out what the environmental variable is currently set to, and use `export JAVA_HOME=/path/to/java/home` to change it to the correct path.
+  On a Linux system, the correct path might look something like `/usr/lib/jvm/java-11`.
+  Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.
 
 Unfortunately, our development team does not use Windows, but the following tips have been submitted by our users (and have not been verified by us):
 
-+ Windows uses GBK character encoding by default, which makes resource file reading in Anserini inconsistent with that in Linux and macOS.
-To fix, manually set environment variable `set _JAVA_OPTIONS=-Dfile.encoding=UTF-8` to use `UTF-8` encoding.
-+ On Windows, you may encounter the error: `RuntimeError: module compiled against API version 0xe but this version of numpy is 0xd`.
-The solution to this is to check the version of your `numpy`. At the time of this writing, the latest numpy version is `1.23.2`, which is incompatible with the API.
-Fix by downgrading to `1.21.1` so that the other dependent libraries are compatible with the API version.
-(See [#1259](https://github.com/castorini/pyserini/pull/1259)).
+- Windows uses GBK character encoding by default, which makes resource file reading in Anserini inconsistent with that in Linux and macOS.
+  To fix, manually set environment variable `set _JAVA_OPTIONS=-Dfile.encoding=UTF-8` to use `UTF-8` encoding.
+- On Windows, you may encounter the error: `RuntimeError: module compiled against API version 0xe but this version of numpy is 0xd`.
+  The solution to this is to check the version of your `numpy`. At the time of this writing, the latest numpy version is `1.23.2`, which is incompatible with the API.
+  Fix by downgrading to `1.21.1` so that the other dependent libraries are compatible with the API version.
+  (See [#1259](https://github.com/castorini/pyserini/pull/1259)).
 
-+ If use face `ImportError: libmkl_intel_lp64.so.1: cannot open shared object file: No such file or directory` error while running `python -m unittest`, please run `conda install mkl=2021` (also specified in the installation guide above). This is due to package dependency issues in Faiss package.
+- If you face `ImportError: libmkl_intel_lp64.so.1: cannot open shared object file: No such file or directory` error while running `python -m unittest`, please run `conda install mkl=2021` (also specified in the installation guide above). This is due to package dependency issues in Faiss package.
 
-+ If you face `TypeError: issubclass() arg 1 must be a class` error while running `python -m spacy download en_core_web_sm`, please uninstall Pydantic with `pip uninstall pydantic`, then run `python -m spacy download en_core_web_sm` again, which should install the correct version of Pydantic.
+- If you face `TypeError: issubclass() arg 1 must be a class` error while running `python -m spacy download en_core_web_sm`, please uninstall Pydantic with `pip uninstall pydantic`, then run `python -m spacy download en_core_web_sm` again, which should install the correct version of Pydantic.
 
 If you're on a **Mac M1/M2 ARM processor** (See [#1599](https://github.com/castorini/pyserini/pull/1599) and [#1607](https://github.com/castorini/pyserini/pull/1607)), the following tips have been submitted by our users:
 
-+ If you encountered issues with Pip Installation for Pyserini (e.g. Failed building wheel for `nmslib` or `lightgbm`), try the Development Installation:
+- If you encountered issues with Pip Installation for Pyserini (e.g. Failed building wheel for `nmslib` or `lightgbm`), try the Development Installation:
+
 ```bash
 % conda env list
 % conda create -n pyserini-dev python=3.8
@@ -210,7 +216,7 @@ If you're on a **Mac M1/M2 ARM processor** (See [#1599](https://github.com/casto
 % pip install -e .
 ```
 
-+ If you encountered issues with running the unit tests (i.e. `python -m unittest`), the following tips have been submitted by our users:
+- If you encountered issues with running the unit tests (i.e. `python -m unittest`), the following tips have been submitted by our users:
 
 1. Uninstall your current conda distribution (https://docs.anaconda.com/free/anaconda/install/uninstall/)
 2. If you do not have Rosetta installed on your Mac, install Rosetta (https://osxdaily.com/2020/12/04/how-install-rosetta-2-apple-silicon-mac/)
@@ -231,6 +237,7 @@ So, you need to set pyserini cache path to scratch space.
 Set the `PYSERINI_CACHE` environment variable to point to the directory you created above
 
 If you are using Compute Canada, follow above process in a compute node using Anaconda, and in addition:
+
 - clear the `PYTHONPATH` before the steps above, i.e. `export PYTHONPATH=`
 - set the `PYSERINI_CACHE` to somewhere under `/scratch` before running Pyserini
 - reinstall `sentencepiece` by `conda install -c conda-forge sentencepiece` if error occurs
