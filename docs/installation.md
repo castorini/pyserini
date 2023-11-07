@@ -143,6 +143,7 @@ $ conda install wget
 $ conda install -c conda-forge lightgbm
 $ conda install -c conda-forge faiss-cpu
 $ conda install pytorch torchvision torchaudio -c pytorch
+$ conda install mkl=2021
 $ pip install psutil
 $ pip install --no-binary :all: nmslib
 ```
@@ -186,6 +187,10 @@ To fix, manually set environment variable `set _JAVA_OPTIONS=-Dfile.encoding=UTF
 The solution to this is to check the version of your `numpy`. At the time of this writing, the latest numpy version is `1.23.2`, which is incompatible with the API.
 Fix by downgrading to `1.21.1` so that the other dependent libraries are compatible with the API version.
 (See [#1259](https://github.com/castorini/pyserini/pull/1259)).
+
++ If you face `ImportError: libmkl_intel_lp64.so.1: cannot open shared object file: No such file or directory` error while running `python -m unittest`, please run `conda install mkl=2021` (also specified in the installation guide above), this is due to package dependency issues in Faiss package.
+
++ If you face `TypeError: issubclass() arg 1 must be a class` error while running `python -m spacy download en_core_web_sm`, please uninstall Pydantic with `pip uninstall pydantic`, then run `python -m spacy download en_core_web_sm` again, which should install the correct version of Pydantic.
 
 If you're on a **Mac M1/M2 ARM processor** (See [#1599](https://github.com/castorini/pyserini/pull/1599) and [#1607](https://github.com/castorini/pyserini/pull/1607)), the following tips have been submitted by our users:
 
