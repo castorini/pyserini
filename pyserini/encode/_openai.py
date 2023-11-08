@@ -10,7 +10,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 openai.organization = os.getenv("OPENAI_ORG_KEY")
 OPENAI_API_RETRY_DELAY = 5
 
-def retry_with_delay(func, delay: int = OPENAI_API_RETRY_DELAY, max_retries: int = 10, errors: tuple = (openai.error.RateLimitError)):
+def retry_with_delay(func, delay: int = OPENAI_API_RETRY_DELAY, max_retries: int = 10, errors: tuple = (openai.RateLimitError)):
     def wrapper(*args, **kwargs):
         num_retries = 0
         while True:
