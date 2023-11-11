@@ -8,6 +8,7 @@ import numpy as np
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 openai.organization = os.getenv("OPENAI_ORG_KEY")
+client = openai.OpenAI()
 OPENAI_API_RETRY_DELAY = 5
 
 def retry_with_delay(func, delay: int = OPENAI_API_RETRY_DELAY, max_retries: int = 10, errors: tuple = (openai.RateLimitError)):
@@ -49,7 +50,7 @@ class OpenAIQueryEncoder(QueryEncoder):
 
     @retry_with_delay
     def get_embedding(self, text: str):
-        return np.array(openai.Embedding.create(input=text, model=self.model)['data'][0]['embedding'])
+        return np.array(client.embeddings.create(input=text, model=self.model)['data'][0]['embedding'])
 
     def encode(self, text: str, max_length: int = 512, **kwargs):
         inputs = self.tokenizer.encode(text=text)[:max_length]

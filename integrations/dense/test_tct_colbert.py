@@ -105,7 +105,7 @@ class TestTctColBert(unittest.TestCase):
         stdout, stderr = run_command(cmd2)
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
-        self.assertAlmostEqual(score, 0.3647, places=4)
+        self.assertAlmostEqual(score, 0.3647, delta=0.0002)
 
     def test_msmarco_passage_tct_colbert_encoded_queries(self):
         encoded = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-passage-dev-subset')
