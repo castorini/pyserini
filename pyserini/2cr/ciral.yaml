@@ -120,7 +120,7 @@ conditions:
   # BM25 Machine DT
   - name: bm25-dt.ha
     eval_key: ciral-v1.0-ha
-    command: python -m pyserini.search.lucene --language ha --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-en --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-en --output $output --batch 128 --threads 16 --bm25 --hits 1000
     splits:
       - split: dev
         scores:
@@ -134,7 +134,7 @@ conditions:
             R@100: 
   - name: bm25-dt.so
     eval_key: ciral-v1.0-so
-    command: python -m pyserini.search.lucene --language so --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-en --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-en --output $output --batch 128 --threads 16 --bm25 --hits 1000
     splits:
       - split: dev
         scores:
@@ -148,7 +148,7 @@ conditions:
             R@100:
   - name: bm25-dt.sw
     eval_key: ciral-v1.0-sw
-    command: python -m pyserini.search.lucene --language sw --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-en --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-en --output $output --batch 128 --threads 16 --bm25 --hits 1000
     splits:
       - split: dev
         scores:
@@ -162,7 +162,7 @@ conditions:
             R@100:
   - name: bm25-dt.yo
     eval_key: ciral-v1.0-yo
-    command: python -m pyserini.search.lucene --language yo --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-en --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-en --output $output --batch 128 --threads 16 --bm25 --hits 1000
     splits:
       - split: dev
         scores:
