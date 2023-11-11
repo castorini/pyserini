@@ -1,0 +1,93 @@
+<!-- Condition: $model -->
+<tr class="accordion-toggle collapsed" id="table${table_cnt}-row${row_cnt}" data-toggle="collapse" data-parent="#table${table_cnt}-row${row_cnt}" href="#table${table_cnt}-collapse${row_cnt}">
+<td class="expand-button"></td>
+<td>$model</td>
+<td>$Hausa</td>
+<td>$Somali</td>
+<td>$Swahili</td>
+<td>$Yoruba</td>
+<td></td>
+<td>$Avg</td>
+</tr>
+<tr class="hide-table-padding">
+<td colspan="22">
+<div id="table${table_cnt}-collapse${row_cnt}" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table${table_cnt}-row${row_cnt}-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table${table_cnt}-row${row_cnt}-tab1-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab1" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab1" aria-selected="true" style="text-transform:none">Hausa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab2-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab2" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab2" aria-selected="false" style="text-transform:none">Somali</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab3-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab3" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab3" aria-selected="false" style="text-transform:none">Swahili</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table${table_cnt}-row${row_cnt}-tab4-header" data-mdb-toggle="tab" href="#table${table_cnt}-row${row_cnt}-tab4" role="tab" aria-controls="table${table_cnt}-row${row_cnt}-tab4" aria-selected="false" style="text-transform:none">Yoruba</a>
+  </li> 
+   
+    
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table${table_cnt}-row${row_cnt}-content">
+  <div class="tab-pane fade show active" id="table${table_cnt}-row${row_cnt}-tab1" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd1
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd1}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab2" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd2
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd2}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab3" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd3
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd3}</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table${table_cnt}-row${row_cnt}-tab4" role="tabpanel" aria-labelledby="table${table_cnt}-row${row_cnt}-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>$cmd4
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>${eval_cmd4}</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
