@@ -40,22 +40,20 @@ languages = [
     ['yo', 'Yoruba']
 ]
 
-models = ['bm25-mono', 
-          'bm25-qt', 
-          'bm25-dt',]
-        #   'mdpr-tied-pft-msmarco', 
-        #   'mdpr-tied-pft-msmarco-ft-all',
-        #   'afriberta-pft-msmarco-ft-mrtydi']
-
 html_display = OrderedDict()
 html_display['bm25-mono'] = 'BM25 Monolingual (Human QT)'
-html_display['bm25-qt'] = 'BM25 Machine QT'
-html_display['bm25-dt'] = 'BM25 Machine DT'
-html_display['mdpr-tied-pft-msmarco'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO'
-html_display['mdpr-tied-pft-msmarco-ft-all'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO FT w/ all Mr. TyDi'
-html_display['afriberta-pft-msmarco-ft-mrtydi'] = 'Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi'
-html_display['bm25-mdpr-tied-pft-msmarco-hybrid'] = 'Hybrid of `bm25` and `mdpr-tied-pft-msmarco`'
-html_display['bm25-afriberta-pft-msmarco-ft-all-hybrid'] = 'Hybrid of `bm25` and `afriberta-pft-msmarco-ft-all`'
+
+models = list(html_display)
+
+## Other models to add
+
+# html_display['bm25-qt'] = 'BM25 Machine QT'
+# html_display['bm25-dt'] = 'BM25 Machine DT'
+# html_display['mdpr-tied-pft-msmarco'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO'
+# html_display['mdpr-tied-pft-msmarco-ft-all'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO FT w/ all Mr. TyDi'
+# html_display['afriberta-pft-msmarco-ft-mrtydi'] = 'Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi'
+# html_display['bm25-mdpr-tied-pft-msmarco-hybrid'] = 'Hybrid of `bm25` and `mdpr-tied-pft-msmarco`'
+# html_display['bm25-afriberta-pft-msmarco-ft-all-hybrid'] = 'Hybrid of `bm25` and `afriberta-pft-msmarco-ft-all`'
 
 trec_eval_metric_definitions = {
     'nDCG@20': '-c -m ndcg_cut.20',
@@ -172,28 +170,24 @@ def generate_report(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
-            model = name.split('.')[0]
-            if model in models:
-                eval_key = condition['eval_key']
-                cmd_template = condition['command']
-                cmd_lst = cmd_template.split()
-                lang = name.split('.')[-1]
-                
-                split = 'dev'
+            eval_key = condition['eval_key']
+            cmd_template = condition['command']
+            
+            split = 'dev'
 
-                runfile = os.path.join(args.directory, f'run.ciral.{name}.{split}.txt')
-                cmd = Template(cmd_template).substitute(split=split, output=runfile,
-                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
-                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
-                commands[name] = format_run_command(cmd)
+            runfile = os.path.join(args.directory, f'run.ciral.{name}.{split}.txt')
+            cmd = Template(cmd_template).substitute(split=split, output=runfile,
+                                                    sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                    dense_threads=dense_threads, dense_batch_size=dense_batch_size)
+            commands[name] = format_run_command(cmd)
 
-                for expected in condition['splits'][0]['scores']:
-                    for metric in expected:
-                        table[name][split][metric] = expected[metric]
+            for expected in condition['splits'][0]['scores']:
+                for metric in expected:
+                    table[name][split][metric] = expected[metric]
 
-                        eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
-                                f'{trec_eval_metric_definitions[metric]} {eval_key}-{split} {runfile}'
-                        eval_commands[name][metric] = format_eval_command(eval_cmd)
+                    eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
+                            f'{trec_eval_metric_definitions[metric]} {eval_key}-{split} {runfile}'
+                    eval_commands[name][metric] = format_eval_command(eval_cmd)
 
         tables_html = []
 
@@ -236,55 +230,44 @@ def run_conditions(args):
                 continue
             eval_key = condition['eval_key']
             cmd_template = condition['command']
-            cmd_lst = cmd_template.split()
 
-            print(f'condition {name}:')
-            is_hybrid_run = 'hybrid' in name
+            split = "dev"
 
-            for splits in condition['splits']:
-                split = splits['split']
-                if is_hybrid_run:
-                    hits = int(cmd_lst[cmd_lst.index('--k') + 1])
-                else:
-                    hits = int(cmd_lst[cmd_lst.index('--hits') + 1])
-
-                print(f'  - split: {split}')
-
-                runfile = os.path.join(args.directory, f'run.ciral.{name}.{split}.top{hits}.txt')
-
-                if args.display_commands:
+            print(f'  - split: {split}')
+            
+            runfile = os.path.join(args.directory, f'run.ciral.{name}.{split}.txt')
+            cmd = Template(cmd_template).substitute(split=split, output=runfile,
+                                                    sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                                    dense_threads=dense_threads, dense_batch_size=dense_batch_size)
+            
+            if args.display_commands:
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
 
-                if not os.path.exists(runfile):
-                    if not args.dry_run:
-                        rtn = subprocess.run(cmd.split(), capture_output=True)
-                        stderr = rtn.stderr.decode()
-                        if '--topics' in cmd:
-                            topic_fn = extract_topic_fn_from_cmd(cmd)
-                            if f'ValueError: Topic {topic_fn} Not Found' in stderr:
-                                print(f'Skipping {topic_fn}: file not found.')
-                                continue
+            if not os.path.exists(runfile):
+                if not args.dry_run:
+                    os.system(cmd)
 
-                for expected in splits['scores']:
-                    for metric in expected:
-                        if not args.skip_eval:
-                            if not os.path.exists(runfile):
-                                continue
-                            score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}',
-                                                                     trec_eval_metric_definitions[metric], runfile))
-                            if math.isclose(score, float(expected[metric])):
-                                result_str = ok_str
-                            else:
-                                result_str = fail_str + f' expected {expected[metric]:.4f}'
-                            print(f'      {metric:7}: {score:.4f} {result_str}')
-                            table[name][split][metric] = score
+
+            for expected in condition['splits'][0]['scores']:
+                for metric in expected:
+                    if not args.skip_eval:
+                        if not os.path.exists(runfile):
+                            continue
+                        score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}',
+                                                                    trec_eval_metric_definitions[metric], runfile))
+                        if math.isclose(score, float(expected[metric])):
+                            result_str = ok_str
                         else:
-                            table[name][split][metric] = expected[metric]
+                            result_str = fail_str + f' expected {expected[metric]:.4f}'
+                        print(f'      {metric:7}: {score:.4f} {result_str}')
+                        table[name][split][metric] = score
+                    else:
+                        table[name][split][metric] = expected[metric]
 
             print('')
 
     for metric in ['nDCG@20', 'MRR@10', 'R@100']:
-        for split in ['dev', 'test']:
+        for split in ['dev']: # To add test later 
             print_results(table, metric, split)
 
     end = time.time()
@@ -325,4 +308,4 @@ if __name__ == '__main__':
         print('Specifying --all will run all conditions and languages')
         sys.exit()
 
-        run_conditions(args)
+    run_conditions(args)
