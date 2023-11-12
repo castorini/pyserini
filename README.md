@@ -14,32 +14,8 @@ Retrieval using dense representations is provided via integration with Facebook'
 Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
 Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, [pre-built indexes](docs/prebuilt-indexes.md), and evaluation scripts for many commonly used IR test collections
 With Pyserini, it's easy to reproduce runs on a number of standard IR test collections!
-<!--
-A low-effort way to try things out is to look at our [online notebooks](https://github.com/castorini/anserini-notebooks), which will allow you to get started with just a few clicks.
--->
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
-
-## ⁉️ Important Note: Lucene 8 to Lucene 9 Transition
-
-In 2022, Pyserini underwent a transition from Lucene 8 to Lucene 9.
-Most of the pre-built indexes have been rebuilt using Lucene 9, but there are a few still based on Lucene 8.
-
-More details:
-
-+ [PyPI v0.17.1](https://pypi.org/project/pyserini/0.17.1/) (commit [`33c87c`](https://github.com/castorini/pyserini/commit/33c87c982d543d65e0ba1b4c94ee865fd9a6040e), released 2022/08/13) is the last Pyserini release built on Lucene 8, based on [Anserini v0.14.4](https://github.com/castorini/anserini/releases/tag/anserini-0.14.4).
-Thereafter, Anserini trunk was upgraded to Lucene 9.
-+ [PyPI v0.18.0](https://pypi.org/project/pyserini/0.18.0/) (commit [`5fab14`](https://github.com/castorini/pyserini/commit/5fab143f64ed067ecf619c7d83ecd846aa494fbe), released 2022/09/26) is built on [Anserini v0.15.0](https://github.com/castorini/anserini/releases/tag/anserini-0.15.0), using Lucene 9.
-Thereafter, Pyserini trunk advanced to Lucene 9.
-
-**What's the impact?**
-Indexes built with Lucene 8 are not fully compatible with Lucene 9 code (see [Anserini #1952](https://github.com/castorini/anserini/issues/1952)).
-The workaround is to disable consistent tie-breaking, which happens automatically if a Lucene 8 index is detected by Pyserini.
-However, Lucene 9 code running on Lucene 8 indexes will give slightly different results than Lucene 8 code running on Lucene 8 indexes.
-Note that Lucene 8 code is _not_ able to read indexes built with Lucene 9.
-
-**Why is this necessary?**
-Although disruptive, an upgrade to Lucene 9 is necessary to take advantage of Lucene's HNSW indexes, which will increase the capabilities of Pyserini and open up the design space of dense/sparse hybrids.
 
 ## 🎬 Installation
 
@@ -125,32 +101,10 @@ Documentation is organized into reproduction matrices for different corpora that
 
 For more details, see our paper on [Building a Culture of Reproducibility in Academic Research](https://arxiv.org/abs/2212.13534).
 
-<details>
-<summary>Programmatic execution of the reproductions</summary>
-
-To run the MS MARCO reproductions programmatically, see instructions on each individual page above.
-For all the others:
-
-```bash
-python scripts/repro_matrix/run_all_beir.py
-python scripts/repro_matrix/run_all_mrtydi.py
-python scripts/repro_matrix/run_all_miracl.py
-python scripts/repro_matrix/run_all_odqa.py --topics nq
-python scripts/repro_matrix/run_all_odqa.py --topics tqa
-```
-
-And to generate the nicely formatted documentation pages:
-
-```bash
-python scripts/repro_matrix/generate_html_beir.py > docs/2cr/beir.html
-python scripts/repro_matrix/generate_html_mrtydi.py > docs/2cr/mrtydi.html
-python scripts/repro_matrix/generate_html_miracl.py > docs/2cr/miracl.html
-python scripts/repro_matrix/generate_html_odqa.py > docs/2cr/odqa.html
-```
-
-</details>
-
 Additional reproduction guides below provide detailed step-by-step instructions.
+
+<details>
+<summary>Sparse Retrieval</summary>
 
 ### Sparse Retrieval
 
@@ -169,6 +123,13 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 + Reproducing [BM25 baselines for HC4](docs/experiments-hc4-v1.0.md)
 + Reproducing [BM25 baselines for HC4 on NeuCLIR22](docs/experiments-hc4-neuclir22.md)
 + Reproducing [SLIM experiments](docs/experiments-slim.md)
++ [Baselines](docs/experiments-kilt.md) for [KILT](https://github.com/facebookresearch/KILT): a benchmark for Knowledge Intensive Language Tasks
++ [Baselines](docs/experiments-tripclick-doc.md) for [TripClick](https://tripdatabase.github.io/tripclick/): a large-scale dataset of click logs in the health domain
++ [Baselines](https://github.com/castorini/anserini/blob/master/docs/experiments-fever.md) (in Anserini) for the [FEVER (Fact Extraction and VERification)](https://fever.ai/) dataset
+
+</details>
+<details>
+<summary>Dense Retrieval</summary>
 
 ### Dense Retrieval
 
@@ -186,28 +147,34 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 + Reproducing [Mr. TyDi experiments](https://github.com/castorini/mr.tydi/blob/main/README.md#2-mdpr)
 + Reproducing [DKRR experiments](docs/experiments-dkrr.md)
 
+</details>
+<details>
+<summary>Hybrid Sparse-Dense Retrieval</summary>
+
 ### Hybrid Sparse-Dense Retrieval
 
 + Reproducing [uniCOIL + TCT-ColBERTv2 experiments on the MS MARCO V2 Collections](docs/experiments-msmarco-v2-hybrid.md)
 
+</details>
+<details>
+<summary>Available Corpora</summary>
+
 ### Available Corpora
 
-| Corpora | Size | Checksum |
-|:--------|-----:|:---------|
-| [MS MARCO V1 passage: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-unicoil-noexp.tar) | 2.7 GB | `f17ddd8c7c00ff121c3c3b147d2e17d8` |
-| [MS MARCO V1 passage: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-unicoil.tar) | 3.4 GB | `78eef752c78c8691f7d61600ceed306f` |
-| [MS MARCO V1 doc: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-doc-segmented-unicoil-noexp.tar) | 11 GB | `11b226e1cacd9c8ae0a660fd14cdd710` |
-| [MS MARCO V1 doc: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-doc-segmented-unicoil.tar) | 19 GB | `6a00e2c0c375cb1e52c83ae5ac377ebb` |
-| [MS MARCO V2 passage: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_passage_unicoil_noexp_0shot.tar) | 24 GB | `d9cc1ed3049746e68a2c91bf90e5212d` |
-| [MS MARCO V2 passage: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_passage_unicoil_0shot.tar) | 41 GB | `1949a00bfd5e1f1a230a04bbc1f01539` |
-| [MS MARCO V2 doc: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_doc_segmented_unicoil_noexp_0shot_v2.tar) | 55 GB | `97ba262c497164de1054f357caea0c63` |
-| [MS MARCO V2 doc: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_doc_segmented_unicoil_0shot_v2.tar) | 72 GB | `c5639748c2cbad0152e10b0ebde3b804` |
+| Corpora                                                                                                                                   |   Size | Checksum                           |
+|:------------------------------------------------------------------------------------------------------------------------------------------|-------:|:-----------------------------------|
+| [MS MARCO V1 passage: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-unicoil-noexp.tar)               | 2.7 GB | `f17ddd8c7c00ff121c3c3b147d2e17d8` |
+| [MS MARCO V1 passage: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-passage-unicoil.tar)                    | 3.4 GB | `78eef752c78c8691f7d61600ceed306f` |
+| [MS MARCO V1 doc: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-doc-segmented-unicoil-noexp.tar)             |  11 GB | `11b226e1cacd9c8ae0a660fd14cdd710` |
+| [MS MARCO V1 doc: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco-doc-segmented-unicoil.tar)                  |  19 GB | `6a00e2c0c375cb1e52c83ae5ac377ebb` |
+| [MS MARCO V2 passage: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_passage_unicoil_noexp_0shot.tar)      |  24 GB | `d9cc1ed3049746e68a2c91bf90e5212d` |
+| [MS MARCO V2 passage: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_passage_unicoil_0shot.tar)           |  41 GB | `1949a00bfd5e1f1a230a04bbc1f01539` |
+| [MS MARCO V2 doc: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_doc_segmented_unicoil_noexp_0shot_v2.tar) |  55 GB | `97ba262c497164de1054f357caea0c63` |
+| [MS MARCO V2 doc: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_doc_segmented_unicoil_0shot_v2.tar)      |  72 GB | `c5639748c2cbad0152e10b0ebde3b804` |
+</details>
 
 ## 📃 Additional Documentation
 
-+ [Baselines](docs/experiments-kilt.md) for [KILT](https://github.com/facebookresearch/KILT): a benchmark for Knowledge Intensive Language Tasks
-+ [Baselines](docs/experiments-tripclick-doc.md) for [TripClick](https://tripdatabase.github.io/tripclick/): a large-scale dataset of click logs in the health domain
-+ [Baselines](https://github.com/castorini/anserini/blob/master/docs/experiments-fever.md) (in Anserini) for the [FEVER (Fact Extraction and VERification)](https://fever.ai/) dataset
 + [Guide to pre-built indexes](docs/prebuilt-indexes.md)
 + [Guide to interactive searching](docs/usage-interactive-search.md)
 + [Guide to text classification with the 20Newsgroups dataset](docs/experiments-20newgroups.md)
@@ -220,12 +187,16 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 + [Usage of the Collection API](docs/usage-collection.md)
 + [Direct Interaction via Pyjnius](docs/usage-pyjnius.md)
 
-## ℹ️ Release History
+## 📜️ Release History
 
 + v0.22.1 (w/ Anserini v0.22.1): October 19, 2023 [[Release Notes](docs/release-notes/release-notes-v0.22.1.md)]
 + v0.22.0 (w/ Anserini v0.22.0): August 31, 2023 [[Release Notes](docs/release-notes/release-notes-v0.22.0.md)]
 + v0.21.0 (w/ Anserini v0.21.0): April 6, 2023 [[Release Notes](docs/release-notes/release-notes-v0.21.0.md)]
 + v0.20.0 (w/ Anserini v0.20.0): February 1, 2023 [[Release Notes](docs/release-notes/release-notes-v0.20.0.md)]
+
+<details>
+<summary>older... (and historic notes)</summary>
+
 + v0.19.2 (w/ Anserini v0.16.2): December 16, 2022 [[Release Notes](docs/release-notes/release-notes-v0.19.2.md)]
 + v0.19.1 (w/ Anserini v0.16.1): November 12, 2022 [[Release Notes](docs/release-notes/release-notes-v0.19.1.md)]
 + v0.19.0 (w/ Anserini v0.16.1): November 2, 2022 [[Release Notes](docs/release-notes/release-notes-v0.19.0.md)] [[Known Issues](docs/release-notes/known-issues-v0.19.0.md)]
@@ -255,8 +226,29 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 + v0.7.0.0: December 13, 2019 [[Release Notes](docs/release-notes/release-notes-v0.7.0.0.md)]
 + v0.6.0.0: November 2, 2019
 
-<details>
-<summary>Additional technical notes</summary>
+## 📜️ Historical Notes
+
+⁉️ **Lucene 8 to Lucene 9 Transition.**
+In 2022, Pyserini underwent a transition from Lucene 8 to Lucene 9.
+Most of the pre-built indexes have been rebuilt using Lucene 9, but there are a few still based on Lucene 8.
+
+More details:
+
++ [PyPI v0.17.1](https://pypi.org/project/pyserini/0.17.1/) (commit [`33c87c`](https://github.com/castorini/pyserini/commit/33c87c982d543d65e0ba1b4c94ee865fd9a6040e), released 2022/08/13) is the last Pyserini release built on Lucene 8, based on [Anserini v0.14.4](https://github.com/castorini/anserini/releases/tag/anserini-0.14.4).
+Thereafter, Anserini trunk was upgraded to Lucene 9.
++ [PyPI v0.18.0](https://pypi.org/project/pyserini/0.18.0/) (commit [`5fab14`](https://github.com/castorini/pyserini/commit/5fab143f64ed067ecf619c7d83ecd846aa494fbe), released 2022/09/26) is built on [Anserini v0.15.0](https://github.com/castorini/anserini/releases/tag/anserini-0.15.0), using Lucene 9.
+Thereafter, Pyserini trunk advanced to Lucene 9.
+
+Explanations:
+
++ **What's the impact?**
+Indexes built with Lucene 8 are not fully compatible with Lucene 9 code (see [Anserini #1952](https://github.com/castorini/anserini/issues/1952)).
+The workaround is to disable consistent tie-breaking, which happens automatically if a Lucene 8 index is detected by Pyserini.
+However, Lucene 9 code running on Lucene 8 indexes will give slightly different results than Lucene 8 code running on Lucene 8 indexes.
+Note that Lucene 8 code is _not_ able to read indexes built with Lucene 9.
+
++ **Why is this necessary?**
+Although disruptive, an upgrade to Lucene 9 is necessary to take advantage of Lucene's HNSW indexes, which will increase the capabilities of Pyserini and open up the design space of dense/sparse hybrids.
 
 With v0.11.0.0 and before, Pyserini versions adopted the convention of _X.Y.Z.W_, where _X.Y.Z_ tracks the version of Anserini, and _W_ is used to distinguish different releases on the Python end.
 Starting with Anserini v0.12.0, Anserini and Pyserini versions have become decoupled.
