@@ -319,8 +319,12 @@ class OpenAIQueryEncoder(QueryEncoder):
                  tokenizer_name: str = None, max_length: int = 512, **kwargs):
         super().__init__(encoded_query_dir)
         if encoder_dir:
-            openai.api_key = os.getenv("OPENAI_API_KEY")
-            openai.organization = os.getenv("OPENAI_ORG_KEY")
+            try:
+                openai.api_key = os.getenv("OPENAI_API_KEY")
+                openai.organization = os.getenv("OPENAI_ORG_KEY")
+            except:
+                openai.api_key = None
+                openai.organization = None
             self.client = openai.OpenAI()
             self.model = encoder_dir
             self.tokenizer = tiktoken.get_encoding(tokenizer_name)
