@@ -214,7 +214,7 @@ We can now index these documents as a `JsonCollection` using Pyserini:
 python -m pyserini.index.lucene \
   --collection JsonCollection \
   --input collections/nfcorpus/pyserini-corpus/ \
-  --index indexes/lucene-index.nfcorpus \
+  --index indexes/lucene.nfcorpus \
   --generator DefaultLuceneDocumentGenerator \
   --storePositions --storeDocvectors --storeRaw
 ```
@@ -223,7 +223,7 @@ Perform retrieval:
 
 ```bash
 python -m pyserini.search.lucene \
-  --index indexes/lucene-index.nfcorpus \
+  --index indexes/lucene.nfcorpus \
   --topics collections/nfcorpus/queries.tsv \
   --output runs/run.beir-bm25.nfcorpus.txt \
   --hits 1000 --bm25 \
@@ -250,7 +250,7 @@ We can also perform retrieval interactively:
 ```python
 from pyserini.search.lucene import LuceneSearcher
 
-searcher = LuceneSearcher('indexes/lucene-index.nfcorpus')
+searcher = LuceneSearcher('indexes/lucene.nfcorpus')
 hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
 
 for i in range(0, 10):
@@ -281,7 +281,7 @@ Next, let's generate the BM25 document vector for doc `MED-4555`, the same docum
 from pyserini.index.lucene import IndexReader
 import json
 
-index_reader = IndexReader('indexes/lucene-index.nfcorpus')
+index_reader = IndexReader('indexes/lucene.nfcorpus')
 tf = index_reader.get_document_vector('MED-4555')
 bm25_weights = \
     {term: index_reader.compute_bm25_term_weight('MED-4555', term, analyzer=None) \
@@ -336,8 +336,8 @@ from pyserini.search.lucene import LuceneSearcher
 from pyserini.index.lucene import IndexReader
 from tqdm import tqdm
 
-searcher = LuceneSearcher('indexes/lucene-index.nfcorpus')
-index_reader = IndexReader('indexes/lucene-index.nfcorpus')
+searcher = LuceneSearcher('indexes/lucene.nfcorpus')
+index_reader = IndexReader('indexes/lucene.nfcorpus')
 
 scores = []
 # Iterate through all docids in the index.
