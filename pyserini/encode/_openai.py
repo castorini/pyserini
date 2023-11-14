@@ -6,8 +6,13 @@ from pyserini.encode import DocumentEncoder, QueryEncoder
 import tiktoken
 import numpy as np
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.organization = os.getenv("OPENAI_ORG_KEY")
+try:
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+    openai.organization = os.getenv("OPENAI_ORG_KEY")
+except:
+    openai.api_key = None
+    openai.organization = None
+
 client = openai.OpenAI()
 OPENAI_API_RETRY_DELAY = 5
 
