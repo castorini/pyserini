@@ -214,7 +214,7 @@ We can now index these documents as a `JsonCollection` using Pyserini:
 python -m pyserini.index.lucene \
   --collection JsonCollection \
   --input collections/nfcorpus/pyserini-corpus/ \
-  --index indexes/lucene-index.nfcorpus \
+  --index indexes/lucene.nfcorpus \
   --generator DefaultLuceneDocumentGenerator \
   --storePositions --storeDocvectors --storeRaw
 ```
@@ -223,7 +223,7 @@ Perform retrieval:
 
 ```bash
 python -m pyserini.search.lucene \
-  --index indexes/lucene-index.nfcorpus \
+  --index indexes/lucene.nfcorpus \
   --topics collections/nfcorpus/queries.tsv \
   --output runs/run.beir-bm25.nfcorpus.txt \
   --hits 1000 --bm25 \
@@ -250,7 +250,7 @@ We can also perform retrieval interactively:
 ```python
 from pyserini.search.lucene import LuceneSearcher
 
-searcher = LuceneSearcher('indexes/lucene-index.nfcorpus')
+searcher = LuceneSearcher('indexes/lucene.nfcorpus')
 hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
 
 for i in range(0, 10):
@@ -281,7 +281,7 @@ Next, let's generate the BM25 document vector for doc `MED-4555`, the same docum
 from pyserini.index.lucene import IndexReader
 import json
 
-index_reader = IndexReader('indexes/lucene-index.nfcorpus')
+index_reader = IndexReader('indexes/lucene.nfcorpus')
 tf = index_reader.get_document_vector('MED-4555')
 bm25_weights = \
     {term: index_reader.compute_bm25_term_weight('MED-4555', term, analyzer=None) \
@@ -336,8 +336,8 @@ from pyserini.search.lucene import LuceneSearcher
 from pyserini.index.lucene import IndexReader
 from tqdm import tqdm
 
-searcher = LuceneSearcher('indexes/lucene-index.nfcorpus')
-index_reader = IndexReader('indexes/lucene-index.nfcorpus')
+searcher = LuceneSearcher('indexes/lucene.nfcorpus')
+index_reader = IndexReader('indexes/lucene.nfcorpus')
 
 scores = []
 # Iterate through all docids in the index.
@@ -397,3 +397,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@shakibaam](https://github.com/shakibaam) on 2023-11-04 (commit [`01889cc`](https://github.com/castorini/pyserini/commit/01889ccb40c5dcc2c6baf629f58db4e6004eeddf))
 + Results reproduced by [@gitHubAndyLee2020](https://github.com/gitHubAndyLee2020) on 2023-11-05 (commit [`01889cc`](https://github.com/castorini/pyserini/commit/01889ccb40c5dcc2c6baf629f58db4e6004eeddf))
 + Results reproduced by [@Melissa1412](https://github.com/Melissa1412) on 2023-11-05 (commit [`acd969f`](https://github.com/castorini/pyserini/commit/acd969f8f234126c272d70d55d047a3804b52ff8))
++ Results reproduced by [@oscarbelda86](https://github.com/oscarbelda86) on 2023-11-13 (commit [`086e16b`](https://github.com/castorini/pyserini/commit/086e16be28b7dc6022f8582dbd803824dc2c1ad2))

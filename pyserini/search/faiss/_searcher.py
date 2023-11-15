@@ -319,8 +319,9 @@ class OpenAIQueryEncoder(QueryEncoder):
                  tokenizer_name: str = None, max_length: int = 512, **kwargs):
         super().__init__(encoded_query_dir)
         if encoder_dir:
-            openai.api_key = os.getenv("OPENAI_API_KEY")
-            openai.organization = os.getenv("OPENAI_ORG_KEY")
+            api_key = '' if os.getenv("OPENAI_API_KEY") is None else os.getenv("OPENAI_API_KEY")
+            org_key = '' if os.getenv("OPENAI_ORG_KEY") is None else os.getenv("OPENAI_ORG_KEY")
+            self.client = openai.OpenAI(api_key=api_key, organization=org_key)
             self.model = encoder_dir
             self.tokenizer = tiktoken.get_encoding(tokenizer_name)
             self.max_length = max_length
@@ -330,7 +331,7 @@ class OpenAIQueryEncoder(QueryEncoder):
 
     @retry_with_delay
     def get_embedding(self, text: str):
-        return np.array(openai.Embedding.create(input=text, model=self.model)['data'][0]['embedding'])
+        return np.array(self.client.embeddings.create(input=text, model=self.model)['data'][0]['embedding'])
 
     def encode(self, query: str, **kwargs):
         if self.has_model:
