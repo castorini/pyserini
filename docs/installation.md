@@ -49,7 +49,7 @@ conda install -c pytorch pytorch -y
 pip install pyserini
 ```
 
-If you're on a Mac with an M-series processor, the following receipt should work:
+If you're on a Mac with an M-series (i.e., ARM) processor, the following recipe should work:
 
 ```bash
 conda install wget -y
@@ -75,10 +75,7 @@ pip install pyserini
 ### Verifying the Installation
 
 By this point, Pyserini should have been installed.
-For the impatient, that's it!
-
-However, it might be worthwhile to do a bit of sanity checking, per below.
-Be warned, though, that these represent "real" retrieval experiments and may take some time to run.
+It might be worthwhile to do a bit of sanity checking, per below.
 
 To confirm that bag-of-words retrieval is working correctly, you can run the BM25 baseline on the MS MARCO passage ranking task:
 
