@@ -37,6 +37,7 @@ Use `java --version` to check one way or the other.
 If you're on an Intel-based Mac, the following recipe should work:
 
 ```bash
+conda install wget -y
 conda install -c conda-forge openjdk=11 maven -y
 conda install -c conda-forge lightgbm nmslib -y
 
@@ -44,6 +45,7 @@ conda install -c conda-forge lightgbm nmslib -y
 # NOTE: due to a bug in the latest 1.7.4 release, Intel MKL 2021 needs to be installed separately where applicable.
 conda install -c pytorch faiss-cpu=1.7.4 mkl=2021 blas=1.0=mkl -y
 conda install -c pytorch pytorch -y
+
 pip install pyserini
 ```
 
@@ -57,6 +59,8 @@ conda install -c conda-forge lightgbm nmslib -y
 # from https://github.com/facebookresearch/faiss/blob/main/INSTALL.md
 conda install -c pytorch faiss-cpu=1.7.4 blas=1.0 -y
 conda install -c pytorch faiss-cpu pytorch -y
+
+pip install pyserini
 ```
 
 ### Linux
@@ -98,16 +102,15 @@ To confirm that dense retrieval is working correctly, you can run our TCT-ColBER
 ```bash
 $ python -m pyserini.search.faiss \
     --topics msmarco-passage-dev-subset \
-    --index msmarco-passage-tct_colbert-v2-bf \
-    --encoded-queries tct_colbert-v2-msmarco-passage-dev-subset \
-    --batch-size 36 \
-    --threads 12 \
+    --index msmarco-v1-passage.tct_colbert-v2-hnp \
+    --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
+    --threads 12 --batch-size 384 \
     --output runs/run.msmarco-passage.tct_colbert-v2.bf.tsv \
     --output-format msmarco
 
 $ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2.bf.tsv
 #####################
-MRR @10: 0.3440
+MRR @10: 0.3584
 QueriesRanked: 6980
 #####################
 ```
@@ -129,9 +132,9 @@ The `tools/` directory, which contains evaluation tools and scripts, is actually
 Change into the `pyserini` subdirectory and build as follows (you might get warnings, but okay to ignore):
 
 ```bash
-$ cd pyserini
-$ cd tools/eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make && cd ../../..
-$ cd tools/eval/ndeval && make && cd ../../..
+cd pyserini
+cd tools/eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make && cd ../../..
+cd tools/eval/ndeval && make && cd ../../..
 ```
 
 You can then set up your Python environment in exactly the same way as a `pip` installation, except replace this:
@@ -160,7 +163,7 @@ As with the `pip` installation, a potential source of frustration is incompatibi
 You can confirm everything is working by running the unit tests:
 
 ```bash
-$ python -m unittest
+python -m unittest
 ```
 
 Assuming all tests pass, you should be ready to go!
