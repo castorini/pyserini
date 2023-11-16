@@ -105,10 +105,10 @@ $ python -m pyserini.search.faiss \
     --index msmarco-v1-passage.tct_colbert-v2-hnp \
     --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
     --threads 12 --batch-size 384 \
-    --output runs/run.msmarco-passage.tct_colbert-v2.bf.tsv \
+    --output run.msmarco-passage.tct_colbert-v2.bf.tsv \
     --output-format msmarco
 
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset runs/run.msmarco-passage.tct_colbert-v2.bf.tsv
+$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset run.msmarco-passage.tct_colbert-v2.bf.tsv
 #####################
 MRR @10: 0.3584
 QueriesRanked: 6980
@@ -125,14 +125,13 @@ However, if you're planning on contributing to the codebase or want to work with
 Clone the Pyserini repo with the `--recurse-submodules` option to make sure the `tools/` submodule also gets cloned:
 
 ```bash
-$ git clone git@github.com:castorini/pyserini.git --recurse-submodules
+git clone git@github.com:castorini/pyserini.git --recurse-submodules
 ```
 
 The `tools/` directory, which contains evaluation tools and scripts, is actually [this repo](https://github.com/castorini/anserini-tools), integrated as a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) (so that it can be shared across related projects).
 Change into the `pyserini` subdirectory and build as follows (you might get warnings, but okay to ignore):
 
 ```bash
-cd pyserini
 cd tools/eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make && cd ../../..
 cd tools/eval/ndeval && make && cd ../../..
 ```

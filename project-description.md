@@ -49,6 +49,7 @@ The results should be as follows:
  7 7157713 10.12300
  8 1584344 10.05290
  9 533614  9.96350
+10 6234461 9.92200
 ```
 
 You can examine the actual text of the first hit, as follows:
@@ -95,7 +96,7 @@ The results should be as follows:
 
 The Faiss index does not store the original passages, so let's use the `lucene_searcher` to fetch the actual text:
 
-```
+```python
 lucene_searcher.doc(hits[0].docid).raw()
 ```
 
