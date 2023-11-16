@@ -71,5 +71,6 @@ class TestSearch(unittest.TestCase):
         if os.path.exists(self.output_path):
             os.remove(self.output_path)
 
+
 if __name__ == '__main__':
     unittest.main()
