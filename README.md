@@ -19,7 +19,7 @@ For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.34632
 
 ## 🎬 Installation
 
-Install via PyPI (requires Python 3.8+):
+Install via PyPI (requires Python 3.10+):
 
 ```
 pip install pyserini
@@ -38,8 +38,6 @@ We provide additional detailed installation instructions [here](./docs/installat
 If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 Instructions are provided [here](./docs/installation.md#development-installation).
-
-If you encountered issues with Mac M1/M2 ARM processor, see [this](./docs/installation.md#troubleshooting-tips) for some debugging tips.
 
 ## 🙋 How do I search?
 
