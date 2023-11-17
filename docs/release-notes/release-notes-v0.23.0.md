@@ -6,7 +6,7 @@
 
 ## Summary of Changes
 
-+ Upgraded to Lucene v9.8.0, enabling Lucene indexing of OpenAI embeddings.
++ Upgraded to Lucene v9.8.0, enabling Lucene HNSW indexing of OpenAI embeddings.
 + Added bindings to OpenAI API.
 + Added 2CRs for AToMiC.
 + Added test cases for NFCorpus.
