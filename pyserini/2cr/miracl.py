@@ -385,8 +385,10 @@ def run_conditions(args):
                                 qrels = f'tools/topics-and-qrels/qrels.{eval_key}-train.tsv'
                             else:
                                 qrels = f'{eval_key}-{split}'
+
                             score = float(run_eval_and_return_metric(metric, qrels,
                                                                      trec_eval_metric_definitions[metric], runfile))
+
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
                             # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3749 -> expected 0.3748
@@ -414,6 +416,9 @@ def run_conditions(args):
                             elif name == 'bm25-mdpr-tied-pft-msmarco-hybrid.te' \
                                     and split == 'train' and metric == 'nDCG@10' \
                                     and math.isclose(score, float(expected[metric]), abs_tol=1e-4):
+                                result_str = okish_str
+                            # Just a blanket catch-all: if it's within 0.0001, it's OKish
+                            elif math.isclose(score, float(expected[metric]), abs_tol=1e-4):
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'

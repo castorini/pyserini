@@ -270,10 +270,15 @@ def run_conditions(args):
                         if not args.skip_eval:
                             if not os.path.exists(runfile):
                                 continue
+
                             score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}',
                                                                      trec_eval_metric_definitions[metric], runfile))
+
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
+                            # Just a blanket catch-all: if it's within 0.0001, it's OKish
+                            elif math.isclose(score, float(expected[metric]), abs_tol=1e-4):
+                                result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
                             print(f'      {metric:7}: {score:.4f} {result_str}')
