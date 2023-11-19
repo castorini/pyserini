@@ -324,6 +324,12 @@ topics_mapping = {
     'atomic-v0.2-openai.clip-vit-large-patch14-image-validation': JTopics.ATOMIC_V021_OPENAI_CLIP_VIT_LARGE_PATCH14_IMAGE_VAL,
     'atomic-v0.2.1-facebook.flava-full-text-validation': JTopics.ATOMIC_V021_FACEBOOK_FLAVA_FULL_TEXT_VAL,
     'atomic-v0.2-facebook.flava-full-image-validation': JTopics.ATOMIC_V021_FACEBOOK_FLAVA_FULL_IMAGE_VAL,
+
+    # CIRAL topics
+    'ciral-v1.0-ha-dev-native': JTopics.CIRAL_V10_HA_DEV_MONO,
+    'ciral-v1.0-so-dev-native': JTopics.CIRAL_V10_SO_DEV_MONO,
+    'ciral-v1.0-sw-dev-native': JTopics.CIRAL_V10_SW_DEV_MONO,
+    'ciral-v1.0-yo-dev-native': JTopics.CIRAL_V10_YO_DEV_MONO,
 }
 
 qrels_mapping = {
@@ -469,6 +475,10 @@ qrels_mapping = {
     'miracl-v1.0-yo-dev': JQrels.MIRACL_V10_YO_DEV,
     'atomic.validation.t2i': JQrels.ATOMIC_VAL_T2I,
     'atomic.validation.i2t': JQrels.ATOMIC_VAL_I2T,
+    'ciral-v1.0-ha-dev': JQrels.CIRAL_V10_HA_DEV,
+    'ciral-v1.0-so-dev': JQrels.CIRAL_V10_SO_DEV,
+    'ciral-v1.0-sw-dev': JQrels.CIRAL_V10_SW_DEV,
+    'ciral-v1.0-yo-dev': JQrels.CIRAL_V10_YO_DEV,
 }
 
 

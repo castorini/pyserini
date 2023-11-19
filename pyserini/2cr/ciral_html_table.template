@@ -1,0 +1,21 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">$desc</th>
+        <th scope="col">Hausa</th>
+        <th scope="col">Somali</th>
+        <th scope="col">Swahili</th>
+        <th scope="col">Yoruba</th>
+        <th scope="col"></th>
+        <th scope="col">Avg</th>
+      </tr>
+    </thead>
+    <tbody>
+
+$rows
+
+    </tbody>
+  </table>
+</div>

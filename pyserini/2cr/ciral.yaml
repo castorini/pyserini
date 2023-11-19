@@ -1,0 +1,58 @@
+conditions:
+  # BM25 Monolingual
+  - name: bm25-mono.ha
+    eval_key: ciral-v1.0-ha
+    command: python -m pyserini.search.lucene --language ha --topics ciral-v1.0-ha-${split}-native --index ciral-v1.0-ha --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@20: 0.2039
+            MRR@10: 0.3153
+            R@100: 0.2760
+      - split: test
+        scores:
+          - nDCG@20: 
+            MRR@10: 
+            R@100: 
+  - name: bm25-mono.so
+    eval_key: ciral-v1.0-so
+    command: python -m pyserini.search.lucene --language so --topics ciral-v1.0-so-${split}-native --index ciral-v1.0-so --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@20: 0.1500
+            MRR@10: 0.4000
+            R@100: 0.1850
+      - split: test
+        scores:
+          - nDCG@20: 
+            MRR@10: 
+            R@100:
+  - name: bm25-mono.sw
+    eval_key: ciral-v1.0-sw
+    command: python -m pyserini.search.lucene --language sw --topics ciral-v1.0-sw-${split}-native --index ciral-v1.0-sw --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@20: 0.1812
+            MRR@10: 0.1681
+            R@100: 0.4742
+      - split: test
+        scores:
+          - nDCG@20: 
+            MRR@10: 
+            R@100:
+  - name: bm25-mono.yo
+    eval_key: ciral-v1.0-yo
+    command: python -m pyserini.search.lucene --language yo --topics ciral-v1.0-yo-${split}-native --index ciral-v1.0-yo --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    splits:
+      - split: dev
+        scores:
+          - nDCG@20: 0.2797
+            MRR@10: 0.3833
+            R@100: 0.5114
+      - split: test
+        scores:
+          - nDCG@20: 
+            MRR@10: 
+            R@100:
