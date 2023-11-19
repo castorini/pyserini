@@ -2,7 +2,7 @@ conditions:
   # BM25 Monolingual
   - name: bm25-mono.ha
     eval_key: ciral-v1.0-ha
-    command: python -m pyserini.search.lucene --language ha --topics ciral-v1.0-ha-${split}-native --index ciral-v1.0-ha --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --language ha --topics ciral-v1.0-ha-${split}-native --index ciral-v1.0-ha --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
     splits:
       - split: dev
         scores:
@@ -16,7 +16,7 @@ conditions:
             R@100: 
   - name: bm25-mono.so
     eval_key: ciral-v1.0-so
-    command: python -m pyserini.search.lucene --language so --topics ciral-v1.0-so-${split}-native --index ciral-v1.0-so --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --language so --topics ciral-v1.0-so-${split}-native --index ciral-v1.0-so --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
     splits:
       - split: dev
         scores:
@@ -30,7 +30,7 @@ conditions:
             R@100:
   - name: bm25-mono.sw
     eval_key: ciral-v1.0-sw
-    command: python -m pyserini.search.lucene --language sw --topics ciral-v1.0-sw-${split}-native --index ciral-v1.0-sw --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --language sw --topics ciral-v1.0-sw-${split}-native --index ciral-v1.0-sw --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
     splits:
       - split: dev
         scores:
@@ -44,7 +44,7 @@ conditions:
             R@100:
   - name: bm25-mono.yo
     eval_key: ciral-v1.0-yo
-    command: python -m pyserini.search.lucene --language yo --topics ciral-v1.0-yo-${split}-native --index ciral-v1.0-yo --output $output --batch 128 --threads 16 --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --language yo --topics ciral-v1.0-yo-${split}-native --index ciral-v1.0-yo --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
     splits:
       - split: dev
         scores:

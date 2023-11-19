@@ -34,16 +34,14 @@ sparse_threads = 16
 sparse_batch_size = 128
 
 languages = [
-    ['ha', 'Hausa'],
-    ['so', 'Somali'],
-    ['sw', 'Swahili'],
-    ['yo', 'Yoruba']
+    ['ha', 'hausa'],
+    ['so', 'somali'],
+    ['sw', 'swahili'],
+    ['yo', 'yoruba']
 ]
 
 html_display = OrderedDict()
 html_display['bm25-mono'] = 'BM25 Monolingual (Human QT)'
-
-models = list(html_display)
 
 ## Other models to add
 
@@ -52,8 +50,8 @@ models = list(html_display)
 # html_display['mdpr-tied-pft-msmarco'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO'
 # html_display['mdpr-tied-pft-msmarco-ft-all'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO FT w/ all Mr. TyDi'
 # html_display['afriberta-pft-msmarco-ft-mrtydi'] = 'Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi'
-# html_display['bm25-mdpr-tied-pft-msmarco-hybrid'] = 'Hybrid of `bm25` and `mdpr-tied-pft-msmarco`'
-# html_display['bm25-afriberta-pft-msmarco-ft-all-hybrid'] = 'Hybrid of `bm25` and `afriberta-pft-msmarco-ft-all`'
+
+models = list(html_display)
 
 trec_eval_metric_definitions = {
     'nDCG@20': '-c -m ndcg_cut.20',
@@ -92,19 +90,19 @@ def list_conditions():
         print(condition)
     print('\nLanguages\n---------')
     for language in languages:
-        print(language[0])
+        print(language[1])
 
 def print_results(table, metric, split):
     print(f'Metric = {metric}, Split = {split}')
     print(' ' * 32, end='')
     for lang in languages:
-        print(f'{lang[0]:3}    ', end='')
+        print(f'{lang[1]:3}    ', end='')
     print('')
     for model in models:
         print(f'{model:30}', end='')
         for lang in languages:
             key = f'{model}.{lang[0]}'
-            print(f'{table[key][split][metric]:7.4f}', end='')
+            print(f'{table[key][split][metric]:7.4f}', end='   ')
         print('')
     print('')
 
@@ -222,11 +220,14 @@ def run_conditions(args):
             name = condition['name']
             encoder = name.split('.')[0]
             lang = name.split('.')[-1]
+
+            lang_name = [item[1] for item in languages 
+                         if item[0] == lang][0]
             if args.all:
                 pass
             elif args.condition != encoder:
                 continue
-            elif args.language and args.language != lang:
+            elif args.language and args.language != lang_name:
                 continue
             eval_key = condition['eval_key']
             cmd_template = condition['command']
