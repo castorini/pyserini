@@ -13,7 +13,7 @@ Install via PyPI:
 pip install pyserini
 ```
 
-Pyserini requires Python 3.8+ and Java 11 (due to its dependency on [Anserini](http://anserini.io/)).
+Pyserini requires Python 3.10+ and Java 11 (due to its dependency on [Anserini](http://anserini.io/)).
 
 Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
 A `pip` installation will automatically pull in the [🤗 Transformers library](https://github.com/huggingface/transformers) to satisfy the package requirements.
@@ -30,8 +30,8 @@ Here's how to use a pre-built index for the [MS MARCO passage ranking task](http
 ```python
 from pyserini.search.lucene import LuceneSearcher
 
-searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
-hits = searcher.search('what is a lobster roll?')
+lucene_searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
+hits = lucene_searcher.search('what is a lobster roll?')
 
 for i in range(0, 10):
     print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
@@ -52,18 +52,28 @@ The results should be as follows:
 10 6234461 9.92200
 ```
 
+You can examine the actual text of the first hit, as follows:
+
+```python
+hits[0].raw
+```
+
+Which is:
+
+> Cookbook: Lobster roll Media: Lobster roll A lobster-salad style roll from The Lobster Roll in Amagansett, New York on the Eastern End of Long Island A lobster roll is a fast-food sandwich native to New England made of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise. Others contain diced celery or scallion. Potato chips or french fries are the typical sides.
+
 The `FaissSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `LuceneSearcher`.
 The only additional thing we need to specify for dense retrieval is the query encoder.
 
 ```python
 from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
 
-encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-searcher = FaissSearcher.from_prebuilt_index(
-    'msmarco-passage-tct_colbert-hnsw',
+encoder = TctColBertQueryEncoder('castorini/tct_colbert-v2-hnp-msmarco')
+faiss_searcher = FaissSearcher.from_prebuilt_index(
+    'msmarco-v1-passage.tct_colbert-v2-hnp',
     encoder
 )
-hits = searcher.search('what is a lobster roll')
+hits = faiss_searcher.search('what is a lobster roll')
 
 for i in range(0, 10):
     print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
@@ -72,16 +82,26 @@ for i in range(0, 10):
 The results should be as follows:
 
 ```
- 1 7157710 70.53742
- 2 7157715 70.50040
- 3 7157707 70.13804
- 4 6034350 69.93666
- 5 6321969 69.62683
- 6 4112862 69.34587
- 7 5515474 69.21354
- 8 7157708 69.08416
- 9 6321974 69.06841
-10 2920399 69.01737
+ 1 7157715 80.14327
+ 2 7157710 80.09985
+ 3 7157707 79.70108
+ 4 6321969 79.37906
+ 5 6034350 79.14087
+ 6 7157708 79.08399
+ 7 4112862 79.03954
+ 8 7157713 78.71204
+ 9 4112861 78.67692
+10 5515474 78.54551
 ```
+
+The Faiss index does not store the original passages, so let's use the `lucene_searcher` to fetch the actual text:
+
+```python
+lucene_searcher.doc(hits[0].docid).raw()
+```
+
+Which is:
+
+> A Lobster Roll is a bread roll filled with bite-sized chunks of lobster meat. Lobster Rolls are made on the Atlantic coast of North America, from the New England area of the United States on up into the Maritimes areas of Canada.
 
 For complete documentation, please refer to [our repo](https://github.com/castorini/pyserini/).

@@ -4,7 +4,7 @@
 [![Downloads](https://static.pepy.tech/personalized-badge/pyserini?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=downloads)](https://pepy.tech/project/pyserini)
 [![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
 [![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
-[![Generic badge](https://img.shields.io/badge/Lucene-v9.5.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/9.5.0/)
+[![Generic badge](https://img.shields.io/badge/Lucene-v9.8.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/9.8.0/)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 Pyserini is a Python toolkit for reproducible information retrieval research with sparse and dense representations.
@@ -19,7 +19,7 @@ For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.34632
 
 ## 🎬 Installation
 
-Install via PyPI (requires Python 3.8+):
+Install via PyPI (requires Python 3.10+):
 
 ```
 pip install pyserini
@@ -38,8 +38,6 @@ We provide additional detailed installation instructions [here](./docs/installat
 If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 Instructions are provided [here](./docs/installation.md#development-installation).
-
-If you encountered issues with Mac M1/M2 ARM processor, see [this](./docs/installation.md#troubleshooting-tips) for some debugging tips.
 
 ## 🙋 How do I search?
 
@@ -189,6 +187,7 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 
 ## 📜️ Release History
 
++ v0.23.0 (w/ Anserini v0.23.0): November 17, 2023 [[Release Notes](docs/release-notes/release-notes-v0.23.0.md)]
 + v0.22.1 (w/ Anserini v0.22.1): October 19, 2023 [[Release Notes](docs/release-notes/release-notes-v0.22.1.md)]
 + v0.22.0 (w/ Anserini v0.22.0): August 31, 2023 [[Release Notes](docs/release-notes/release-notes-v0.22.0.md)]
 + v0.21.0 (w/ Anserini v0.21.0): April 6, 2023 [[Release Notes](docs/release-notes/release-notes-v0.21.0.md)]
