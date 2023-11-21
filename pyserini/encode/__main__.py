@@ -34,7 +34,7 @@ encoder_class_map = {
     "auto": AutoDocumentEncoder,
 }
 
-def init_encoder(encoder, encoder_class, device, pooling, l2_norm):
+def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix):
     _encoder_class = encoder_class
 
     # determine encoder_class
@@ -61,7 +61,7 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm):
     if (_encoder_class == "contriever") or ("contriever" in encoder):
         kwargs.update(dict(pooling='mean', l2_norm=False))
     if (_encoder_class == "auto"):
-        kwargs.update(dict(pooling=pooling, l2_norm=l2_norm))
+        kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
     return encoder_class(**kwargs)
 
 
@@ -121,13 +121,14 @@ if __name__ == '__main__':
     encoder_parser.add_argument('--add-sep', action='store_true', default=False)
     encoder_parser.add_argument('--pooling', type=str, default='cls', help='for auto classes, allow the ability to dictate pooling strategy', choices=['cls', 'mean'], required=False)
     encoder_parser.add_argument('--l2-norm', action='store_true', help='whether to normalize embedding', default=False, required=False)
+    encoder_parser.add_argument('--prefix', type=str, help='prefix of document input', default=None, required=False)
     encoder_parser.add_argument('--use-openai', help='use OpenAI text-embedding-ada-002 to retreive embeddings', action='store_true', default=False)
     encoder_parser.add_argument('--rate-limit', type=int, help='rate limit of the requests per minute for OpenAI embeddings', default=3500, required=False)
 
     args = parse_args(parser, commands)
     delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
 
-    encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device, pooling=args.encoder.pooling, l2_norm=args.encoder.l2_norm)
+    encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device, pooling=args.encoder.pooling, l2_norm=args.encoder.l2_norm, prefix=args.encoder.prefix)
     if args.output.to_faiss:
         embedding_writer = FaissRepresentationWriter(args.output.embeddings, dimension=args.encoder.dimension)
     else:

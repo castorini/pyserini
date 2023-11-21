@@ -22,7 +22,7 @@ from pyserini.encode import DocumentEncoder, QueryEncoder
 
 
 class AutoDocumentEncoder(DocumentEncoder):
-    def __init__(self, model_name, tokenizer_name=None, device='cuda:0', pooling='cls', l2_norm=False):
+    def __init__(self, model_name, tokenizer_name=None, device='cuda:0', pooling='cls', l2_norm=False, prefix=None):
         self.device = device
         self.model = AutoModel.from_pretrained(model_name)
         self.model.to(self.device)
@@ -33,8 +33,11 @@ class AutoDocumentEncoder(DocumentEncoder):
         self.has_model = True
         self.pooling = pooling
         self.l2_norm = l2_norm
+        self.prefix = prefix
 
     def encode(self, texts, titles=None, max_length=256, add_sep=False, **kwargs):
+        if self.prefix is not None:
+            texts = [f'{self.prefix} {text}' for text in texts]
         shared_tokenizer_kwargs = dict(
             max_length=max_length,
             truncation=True,

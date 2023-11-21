@@ -90,7 +90,7 @@ def define_dsearch_args(parser):
                         help="Set efSearch for HNSW index")
 
 
-def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, encoded_queries, device, prefix, max_length, pooling, l2_norm):
+def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, encoded_queries, device, max_length, pooling, l2_norm, prefix):
     encoded_queries_map = {
         'msmarco-passage-dev-subset': 'tct_colbert-msmarco-passage-dev-subset',
         'dpr-nq-dev': 'dpr_multi-nq-dev',
@@ -143,7 +143,7 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
         if (_encoder_class == "openai-api") or ("openai" in encoder):
             kwargs.update(dict(max_length=max_length))
         if (_encoder_class == "auto"):
-            kwargs.update(dict(pooling=pooling, l2_norm=l2_norm))
+            kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
         return encoder_class(**kwargs)
 
     if encoded_queries:
@@ -196,7 +196,7 @@ if __name__ == '__main__':
     topics = query_iterator.topics
 
     query_encoder = init_query_encoder(
-        args.encoder, args.encoder_class, args.tokenizer, args.topics, args.encoded_queries, args.device, args.query_prefix, args.max_length, args.pooling, args.l2_norm)
+        args.encoder, args.encoder_class, args.tokenizer, args.topics, args.encoded_queries, args.device, args.max_length, args.pooling, args.l2_norm, args.query_prefix)
     if args.pca_model:
         query_encoder = PcaEncoder(query_encoder, args.pca_model)
     kwargs = {}
