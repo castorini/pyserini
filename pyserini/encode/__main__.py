@@ -34,7 +34,7 @@ encoder_class_map = {
     "auto": AutoDocumentEncoder,
 }
 
-def init_encoder(encoder, encoder_class, device, pooling, l2_norm)
+def init_encoder(encoder, encoder_class, device, pooling, l2_norm):
     _encoder_class = encoder_class
 
     # determine encoder_class
