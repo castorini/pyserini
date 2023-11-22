@@ -297,4 +297,3 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@Seun-Ajayi](https://github.com/Seun-Ajayi) on 2023-11-13 (commit [`086e16b`](https://github.com/castorini/pyserini/commit/086e16be28b7dc6022f8582dbd803824dc2c1ad2))
 + Results reproduced by [@oscarbelda86](https://github.com/oscarbelda86) on 2023-11-13 (commit [`086e16b`](https://github.com/castorini/pyserini/commit/086e16be28b7dc6022f8582dbd803824dc2c1ad2))
 + Results reproduced by [@aliranjbari](https://github.com/aliranjbari) on 2023-11-14 (commit [`c344786`](https://github.com/castorini/pyserini/commit/c344786aec6dbd5365656c9d85a78eeaf5de3a11))
-
