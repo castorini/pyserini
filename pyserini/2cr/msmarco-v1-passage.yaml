@@ -1,4 +1,27 @@
 conditions:
+  - name: cosdpr-distil-pytorch
+    display: "cosDPR-distil: PyTorch"
+    display-html: "cosDPR-distil: PyTorch"
+    display-row: "[13]"
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.cosdpr-distil  --topics $topics --encoder castorini/cosdpr-distil --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3412
+            R@1K: 0.9604
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4301
+            nDCG@10: 0.6816
+            R@1K: 0.8023
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4329
+            nDCG@10: 0.6726
+            R@1K: 0.8351
   - name: splade-pp-ed-rocchio-pytorch
     display: "SPLADE++ EnsembleDistil w/ Rocchio: PyTorch"
     display-html: "SPLADE++ EnsembleDistil w/ Rocchio: PyTorch"
@@ -1117,6 +1140,7 @@ conditions:
   - name: openai-ada2
     display: "OpenAI ada2: pre-encoded queries"
     display-html: "OpenAI ada2: pre-encoded queries"
+    display-row: "[11]"
     command: python -m pyserini.search.faiss --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -1139,6 +1163,7 @@ conditions:
   - name: openai-ada2-hyde
     display: "HyDE-OpenAI ada2: pre-encoded queries"
     display-html: "HyDE-OpenAI ada2: pre-encoded queries"
+    display-row: "[12]"
     command: python -m pyserini.search.faiss --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics-hyde --output $output
     topics:
       - topic_key: dl19-passage

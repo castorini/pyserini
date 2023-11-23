@@ -102,7 +102,10 @@ models = {
      'aggretriever-cocondenser-pytorch',
      '',
      'openai-ada2',
-     'openai-ada2-hyde'],
+     'openai-ada2-hyde',
+     '',
+     'cosdpr-distil-pytorch'
+     ],
 
     # MS MARCO v1 doc
     'msmarco-v1-doc':

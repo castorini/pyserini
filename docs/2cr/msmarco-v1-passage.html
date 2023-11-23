@@ -5747,7 +5747,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset \
 <!-- Condition: OpenAI ada2: pre-encoded queries -->
 <tr class="accordion-toggle collapsed" id="row50" data-toggle="collapse" data-parent="#row50" href="#collapse50">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
+<td style="min-width: 85px">[11]</td>
 <td style="min-width: 400px">OpenAI ada2: pre-encoded queries</td>
 <td>0.4788</td>
 <td>0.7035</td>
@@ -5856,7 +5856,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset \
 <!-- Condition: HyDE-OpenAI ada2: pre-encoded queries -->
 <tr class="accordion-toggle collapsed" id="row51" data-toggle="collapse" data-parent="#row51" href="#collapse51">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
+<td style="min-width: 85px">[12]</td>
 <td style="min-width: 400px">HyDE-OpenAI ada2: pre-encoded queries</td>
 <td>0.5125</td>
 <td>0.7163</td>
@@ -5943,6 +5943,119 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 
 </div></td>
 </tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: cosDPR-distil: PyTorch -->
+<tr class="accordion-toggle collapsed" id="row52" data-toggle="collapse" data-parent="#row52" href="#collapse52">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[13]</td>
+<td style="min-width: 400px">cosDPR-distil: PyTorch</td>
+<td>0.4301</td>
+<td>0.6816</td>
+<td>0.8023</td>
+<td></td>
+<td>0.4329</td>
+<td>0.6726</td>
+<td>0.8351</td>
+<td></td>
+<td>0.3412</td>
+<td>0.9604</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse52" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row52-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row52-tab1-header" data-mdb-toggle="tab" href="#row52-tab1" role="tab" aria-controls="row52-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row52-tab2-header" data-mdb-toggle="tab" href="#row52-tab2" role="tab" aria-controls="row52-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row52-tab3-header" data-mdb-toggle="tab" href="#row52-tab3" role="tab" aria-controls="row52-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row52-content">
+  <div class="tab-pane fade show active" id="row52-tab1" role="tabpanel" aria-labelledby="row52-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v1-passage.cosdpr-distil  \
+  --topics dl19-passage \
+  --encoder castorini/cosdpr-distil \
+  --output run.msmarco-v1-passage.cosdpr-distil-pytorch.dl19.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage \
+  run.msmarco-v1-passage.cosdpr-distil-pytorch.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage \
+  run.msmarco-v1-passage.cosdpr-distil-pytorch.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
+  run.msmarco-v1-passage.cosdpr-distil-pytorch.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row52-tab2" role="tabpanel" aria-labelledby="row52-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v1-passage.cosdpr-distil  \
+  --topics dl20 \
+  --encoder castorini/cosdpr-distil \
+  --output run.msmarco-v1-passage.cosdpr-distil-pytorch.dl20.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage \
+  run.msmarco-v1-passage.cosdpr-distil-pytorch.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage \
+  run.msmarco-v1-passage.cosdpr-distil-pytorch.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
+  run.msmarco-v1-passage.cosdpr-distil-pytorch.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row52-tab3" role="tabpanel" aria-labelledby="row52-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v1-passage.cosdpr-distil  \
+  --topics msmarco-passage-dev-subset \
+  --encoder castorini/cosdpr-distil \
+  --output run.msmarco-v1-passage.cosdpr-distil-pytorch.dev.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset \
+  run.msmarco-v1-passage.cosdpr-distil-pytorch.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset \
+  run.msmarco-v1-passage.cosdpr-distil-pytorch.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
 
     </tbody>
   </table>
@@ -5991,6 +6104,18 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <li><p>[10] Nils Reimers and Iryna Gurevych.
 <a href="https://aclanthology.org/D19-1410/">Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks.</a>
 <i>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)</i>, 2019.</p></li>
+
+<li><p>[11] Jimmy Lin, Ronak Pradeep, Tommaso Teofili, and Jasper Xian.
+<a href="https://arxiv.org/abs/2308.14963">Vector Search with OpenAI Embeddings: Lucene Is All You Need.</a>
+<i>arXiv:2308.14963</i>, August 2023.</p></li>
+
+<li><p>[12] Luyu Gao, Xueguang Ma, Jimmy Lin, and Jamie Callan.
+<a href="https://aclanthology.org/2023.acl-long.99/">Precise Zero-Shot Dense Retrieval without Relevance Labels.</a>
+Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pages 1762-1777, July 2023, Toronto, Canada.</p></li>
+
+<li><p>[13] Xueguang Ma, Tommaso Teofili, and Jimmy Lin.
+<a href="https://dl.acm.org/doi/10.1145/3583780.3615112">Anserini Gets Dense Retrieval: Integration of Lucene's HNSW Indexes.</a>
+<i>Proceedings of the 32nd International Conference on Information and Knowledge Management (CIKM 2023)</i>, October 2023, pages 5366–5370, Birmingham, the United Kingdom.</p></li>
 
 </ul>
 
