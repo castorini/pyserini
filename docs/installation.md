@@ -119,6 +119,12 @@ If everything is working properly, you should be able to reproduce the results a
 If you're planning on just _using_ Pyserini, then the instructions above are fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 
+Install dependencies:
+
+```bash
+pip install torch faiss-cpu cohere
+```
+
 Clone the Pyserini repo with the `--recurse-submodules` option to make sure the `tools/` submodule also gets cloned:
 
 ```bash
