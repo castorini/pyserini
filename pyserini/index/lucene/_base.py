@@ -53,9 +53,9 @@ class JIndexHelpers:
     @staticmethod
     def JCounters():
         IndexCollection = autoclass('io.anserini.index.IndexCollection')
-        Counters = autoclass('io.anserini.index.IndexCollection$Counters')
+        Counters = autoclass('io.anserini.index.Counters')
 
-        return Counters(IndexCollection)
+        return Counters
 
 
 class Document:
@@ -544,7 +544,7 @@ class IndexReader:
             - unique_terms: number of unique terms
             - total_terms: number of total terms
         """
-        index_stats_map = self.object.getIndexStats(self.reader)
+        index_stats_map = JIndexReader.getIndexStats(self.reader)
 
         if index_stats_map is None:
             return None
