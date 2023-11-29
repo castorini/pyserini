@@ -21,7 +21,7 @@ import numpy as np
 import pandas as pd
 from pyserini.query_iterator import DefaultQueryIterator
 from pyserini.encode import DprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
-from pyserini.encode import UniCoilQueryEncoder, SpladeQueryEncoder, OpenAIQueryEncoder
+from pyserini.encode import UniCoilQueryEncoder, SpladeQueryEncoder, OpenAIQueryEncoder, CosDprQueryEncoder
 
 
 def init_encoder(encoder, device, pooling, l2_norm, prefix):
@@ -39,6 +39,8 @@ def init_encoder(encoder, device, pooling, l2_norm, prefix):
         return SpladeQueryEncoder(encoder, device=device)
     elif 'openai-api' in encoder.lower():
         return OpenAIQueryEncoder()
+    elif 'cosdpr' in encoder.lower():
+        return CosDprQueryEncoder(encoder, device=device)
     else:
         return AutoQueryEncoder(encoder, device=device, pooling=pooling, l2_norm=l2_norm, prefix=prefix)
 
