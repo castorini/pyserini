@@ -17,24 +17,23 @@
 from typing import Optional
 
 import torch
-from transformers import PreTrainedModel, RobertaConfig, RobertaModel, RobertaTokenizer
+from transformers import PreTrainedModel, BertConfig, BertModel, BertTokenizer
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
 
 
-class AnceEncoder(PreTrainedModel):
-    config_class = RobertaConfig
-    base_model_prefix = 'ance_encoder'
+class CosDprEncoder(PreTrainedModel):
+    config_class = BertConfig
+    base_model_prefix = 'bert'
     load_tf_weights = None
-    _keys_to_ignore_on_load_missing = [r'position_ids']
-    _keys_to_ignore_on_load_unexpected = [r'pooler', r'classifier']
+    #_keys_to_ignore_on_load_missing = [r'position_ids']
+    #_keys_to_ignore_on_load_unexpected = [r'pooler', r'classifier']
 
-    def __init__(self, config: RobertaConfig):
+    def __init__(self, config: BertConfig):
         super().__init__(config)
         self.config = config
-        self.roberta = RobertaModel(config)
-        self.embeddingHead = torch.nn.Linear(config.hidden_size, 768)
-        self.norm = torch.nn.LayerNorm(768)
+        self.bert = BertModel(config)
+        self.linear = torch.nn.Linear(config.hidden_size, config.hidden_size)
         self.init_weights()
 
     # Copied from transformers.models.bert.modeling_bert.BertPreTrainedModel._init_weights
@@ -44,16 +43,12 @@ class AnceEncoder(PreTrainedModel):
             # Slightly different from the TF version which uses truncated_normal for initialization
             # cf https://github.com/pytorch/pytorch/pull/5617
             module.weight.data.normal_(mean=0.0, std=self.config.initializer_range)
-        elif isinstance(module, torch.nn.LayerNorm):
-            module.bias.data.zero_()
-            module.weight.data.fill_(1.0)
         if isinstance(module, torch.nn.Linear) and module.bias is not None:
             module.bias.data.zero_()
 
     def init_weights(self):
-        self.roberta.init_weights()
-        self.embeddingHead.apply(self._init_weights)
-        self.norm.apply(self._init_weights)
+        self.bert.init_weights()
+        self.linear.apply(self._init_weights)
 
     def forward(
             self,
@@ -66,21 +61,23 @@ class AnceEncoder(PreTrainedModel):
             attention_mask = (
                 torch.ones(input_shape, device=device)
                 if input_ids is None
-                else (input_ids != self.roberta.config.pad_token_id)
+                else (input_ids != self.bert.config.pad_token_id)
             )
-        outputs = self.roberta(input_ids=input_ids, attention_mask=attention_mask)
+        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
         sequence_output = outputs.last_hidden_state
         pooled_output = sequence_output[:, 0, :]
-        pooled_output = self.norm(self.embeddingHead(pooled_output))
+        # l2 normalize
+        pooled_output = self.linear(pooled_output)
+        pooled_output = torch.nn.functional.normalize(pooled_output, p=2, dim=1)
         return pooled_output
 
 
-class AnceDocumentEncoder(DocumentEncoder):
+class CosDprDocumentEncoder(DocumentEncoder):
     def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
         self.device = device
-        self.model = AnceEncoder.from_pretrained(model_name)
+        self.model = CosDprEncoder.from_pretrained(model_name)
         self.model.to(self.device)
-        self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or model_name)
+        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name)
 
     def encode(self, texts, titles=None,  max_length=256, **kwargs):
         if titles is not None:
@@ -97,22 +94,22 @@ class AnceDocumentEncoder(DocumentEncoder):
         return self.model(inputs["input_ids"]).detach().cpu().numpy()
 
 
-class AnceQueryEncoder(QueryEncoder):
+class CosDprQueryEncoder(QueryEncoder):
 
-    def __init__(self, model_name: str, tokenizer_name: str = None, device: str = 'cpu'):
+    def __init__(self, encoder_dir: str, tokenizer_name: str = None, device: str = 'cpu', **kwargs):
         self.device = device
-        self.model = AnceEncoder.from_pretrained(model_name)
+        self.model = CosDprEncoder.from_pretrained(encoder_dir)
         self.model.to(self.device)
-        self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or model_name)
+        self.tokenizer = BertTokenizer.from_pretrained(encoder_dir or tokenizer_name)
 
     def encode(self, query: str, **kwargs):
         inputs = self.tokenizer(
-            [query],
-            max_length=64,
-            padding='longest',
-            truncation=True,
+            query,
             add_special_tokens=True,
-            return_tensors='pt'
+            return_tensors='pt',
+            truncation='only_first',
+            padding='longest',
+            return_token_type_ids=False,
         )
         inputs.to(self.device)
         embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()

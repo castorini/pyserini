@@ -24,7 +24,7 @@ from pyserini.search import FaissSearcher, BinaryDenseSearcher, TctColBertQueryE
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, AutoQueryEncoder, DenseVectorAveragePrf, \
     DenseVectorRocchioPrf, DenseVectorAncePrf, OpenAIQueryEncoder
 
-from pyserini.encode import PcaEncoder
+from pyserini.encode import PcaEncoder, CosDprQueryEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
 from pyserini.search.lucene import LuceneSearcher
@@ -41,7 +41,7 @@ def define_dsearch_args(parser):
                         help="Path to Faiss index or name of prebuilt index.")
     parser.add_argument('--encoder-class', type=str, metavar='which query encoder class to use. `default` would infer from the args.encoder',
                         required=False,
-                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "contriever", "auto", "aggretriever", "openai-api"],
+                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "contriever", "auto", "aggretriever", "openai-api", "cosdpr"],
                         default=None,
                         help='which query encoder class to use. `default` would infer from the args.encoder')
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
@@ -103,6 +103,7 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
     }
     encoder_class_map = {
         "dkrr": DkrrDprQueryEncoder,
+        "cosdpr": CosDprQueryEncoder,
         "dpr": DprQueryEncoder,
         "bpr": BprQueryEncoder,
         "tct_colbert": TctColBertQueryEncoder,

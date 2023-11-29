@@ -18,7 +18,7 @@ import argparse
 import sys
 
 from pyserini.encode import JsonlRepresentationWriter, FaissRepresentationWriter, JsonlCollectionIterator
-from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AggretrieverDocumentEncoder, AutoDocumentEncoder
+from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AggretrieverDocumentEncoder, AutoDocumentEncoder, CosDprDocumentEncoder
 from pyserini.encode import UniCoilDocumentEncoder
 from pyserini.encode import OpenAIDocumentEncoder, OPENAI_API_RETRY_DELAY
 
@@ -31,6 +31,7 @@ encoder_class_map = {
     "sentence-transformers": AutoDocumentEncoder,
     "unicoil": UniCoilDocumentEncoder,
     "openai-api": OpenAIDocumentEncoder,
+    "cosdpr": CosDprDocumentEncoder,
     "auto": AutoDocumentEncoder,
 }
 
