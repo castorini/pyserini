@@ -24,7 +24,7 @@ from pyserini.encode import DprQueryEncoder, TctColBertQueryEncoder, AnceQueryEn
 from pyserini.encode import UniCoilQueryEncoder, SpladeQueryEncoder, OpenAIQueryEncoder
 
 
-def init_encoder(encoder, device):
+def init_encoder(encoder, device, pooling, l2_norm, prefix):
     if 'dpr' in encoder.lower():
         return DprQueryEncoder(encoder, device=device)
     elif 'tct' in encoder.lower():
@@ -40,7 +40,7 @@ def init_encoder(encoder, device):
     elif 'openai-api' in encoder.lower():
         return OpenAIQueryEncoder()
     else:
-        return AutoQueryEncoder(encoder, device=device)
+        return AutoQueryEncoder(encoder, device=device, pooling=pooling, l2_norm=l2_norm, prefix=prefix)
 
 
 if __name__ == '__main__':
@@ -54,9 +54,14 @@ if __name__ == '__main__':
     parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]',
                         default='cpu', required=False)
     parser.add_argument('--max-length', type=int, help='max length', default=256, required=False)
+    parser.add_argument('--pooling', type=str, help='pooling strategy', default='cls', choices=['cls', 'mean'],
+                        required=False)
+    parser.add_argument('--l2-norm', action='store_true', help='whether to normalize embedding', default=False,
+                        required=False)
+    parser.add_argument('--prefx', type=str, help='prefix query input', default=None, required=False)
     args = parser.parse_args()
 
-    encoder = init_encoder(args.encoder, device=args.device)
+    encoder = init_encoder(args.encoder, device=args.device, pooling=args.pooling, l2_norm=args.l2_norm, prefix=args.prefx)
     query_iterator = DefaultQueryIterator.from_topics(args.topics)
 
     is_sparse = False
