@@ -3130,9 +3130,22 @@ IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
                      **IMPACT_INDEX_INFO_BEIR}
 
 FAISS_INDEX_INFO_MSMARCO = {
+    "msmarco-v1-passage.cosdpr-distil": {
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by cosDPR-distil.",
+        "filename": "faiss.msmarco-v1-passage.cosdpr-distil.20221023.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.cosdpr-distil.20221023.tar.gz"
+        ],
+        "md5": "02018b5797bf1e7ebe6e2f552319696a",
+        "size compressed (bytes)": 23843194944,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
+
     # Aggretriever indexes
     "msmarco-v1-passage.aggretriever-cocondenser": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by aggretriever-cocondenser encoder.",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by aggretriever-cocondenser.",
         "filename": "faiss.msmarco-v1-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz"
@@ -3144,7 +3157,7 @@ FAISS_INDEX_INFO_MSMARCO = {
         "texts": "msmarco-v1-passage"
     },
     "msmarco-v1-passage.aggretriever-distilbert": {
-        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by aggretriever-distilbert encoder.",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by aggretriever-distilbert.",
         "filename": "faiss.msmarco-v1-passage.aggretriever-distilbert.20230407.f627ef.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.aggretriever-distilbert.20230407.f627ef.tar.gz"

@@ -223,6 +223,18 @@ $rows
 <a href="https://aclanthology.org/D19-1410/">Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks.</a>
 <i>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)</i>, 2019.</p></li>
 
+<li><p>[11] Jimmy Lin, Ronak Pradeep, Tommaso Teofili, and Jasper Xian.
+<a href="https://arxiv.org/abs/2308.14963">Vector Search with OpenAI Embeddings: Lucene Is All You Need.</a>
+<i>arXiv:2308.14963</i>, August 2023.</p></li>
+
+<li><p>[12] Luyu Gao, Xueguang Ma, Jimmy Lin, and Jamie Callan.
+<a href="https://aclanthology.org/2023.acl-long.99/">Precise Zero-Shot Dense Retrieval without Relevance Labels.</a>
+Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pages 1762-1777, July 2023, Toronto, Canada.</p></li>
+
+<li><p>[13] Xueguang Ma, Tommaso Teofili, and Jimmy Lin.
+<a href="https://dl.acm.org/doi/10.1145/3583780.3615112">Anserini Gets Dense Retrieval: Integration of Lucene's HNSW Indexes.</a>
+<i>Proceedings of the 32nd International Conference on Information and Knowledge Management (CIKM 2023)</i>, October 2023, pages 5366–5370, Birmingham, the United Kingdom.</p></li>
+
 </ul>
 
 <div style="padding-top: 20px"/>
