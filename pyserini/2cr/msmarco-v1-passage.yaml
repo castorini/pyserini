@@ -8,20 +8,20 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.3412
-            R@1K: 0.9604
+          - MRR@10: 0.3896
+            R@1K: 0.9796
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.4301
-            nDCG@10: 0.6816
-            R@1K: 0.8023
+          - MAP: 0.4656
+            nDCG@10: 0.7250
+            R@1K: 0.8201
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.4329
-            nDCG@10: 0.6726
-            R@1K: 0.8351
+          - MAP: 0.4876
+            nDCG@10: 0.7025
+            R@1K: 0.8533
   - name: splade-pp-ed-rocchio-pytorch
     display: "SPLADE++ EnsembleDistil w/ Rocchio: PyTorch"
     display-html: "SPLADE++ EnsembleDistil w/ Rocchio: PyTorch"
