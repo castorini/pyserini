@@ -27,4 +27,4 @@ from ._tok_freq import TokFreqQueryEncoder
 from ._splade import SpladeQueryEncoder
 from ._slim import SlimQueryEncoder
 from ._openai import OpenAIDocumentEncoder, OpenAIQueryEncoder, OPENAI_API_RETRY_DELAY
-from ._cosdpr import CosDprEncoder, CosDprQueryEncoder
+from ._cosdpr import CosDprEncoder, CosDprDocumentEncoder, CosDprQueryEncoder
