@@ -1,12 +1,12 @@
 # Pyserini: Reproducing Robust04 Baselines
 
 The `SimpleSearcher` class provides the entry point for searching.
-Pyserini provides, out of the box, a pre-built index for TREC Disks 4 &amp; 5, used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions-disk45.md):
+Pyserini provides, out of the box, a pre-built index for TREC Disks 4 &amp; 5, used in the [TREC 2004 Robust Track](https://github.com/castorini/anserini/blob/master/docs/regressions/regressions-disk45.md):
 
 ```python
-from pyserini.search import SimpleSearcher
+from pyserini.search.lucene import LuceneSearcher
 
-searcher = SimpleSearcher.from_prebuilt_index('robust04')
+searcher = LuceneSearcher.from_prebuilt_index('robust04')
 hits = searcher.search('hubble space telescope')
 
 # Print the first 10 hits:
@@ -31,7 +31,7 @@ The results should be as follows:
 
 To further examine the results:
 
-```
+```python
 # Grab the raw text:
 hits[0].raw
 
@@ -55,7 +55,7 @@ for i in range(0, 10):
 If you want to perform a batch retrieval run, it's simple:
 
 ```bash
-$ python -m pyserini.search --topics robust04 --index robust04 --output run.robust04.txt --bm25
+$ python -m pyserini.search.lucene --topics robust04 --index robust04 --output run.robust04.txt --bm25
 ```
 
 And to evaluate using `trec_eval`:
