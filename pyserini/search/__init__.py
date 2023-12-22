@@ -16,8 +16,8 @@
 
 from ._base import JQuery, JQueryGenerator, JDisjunctionMaxQueryGenerator, get_topics,\
     get_topics_with_reader, get_qrels_file, get_qrels
-from .lucene import JLuceneSearcherResult, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
-from .lucene import JImpactSearcherResult, LuceneImpactSearcher
+from .lucene import JScoredDoc, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
+from .lucene import JScoredDoc, LuceneImpactSearcher
 from ._deprecated import SimpleSearcher, ImpactSearcher, SimpleFusionSearcher
 
 from .faiss import DenseSearchResult, PRFDenseSearchResult, FaissSearcher, BinaryDenseSearcher, QueryEncoder, \
@@ -31,9 +31,9 @@ __all__ = ['JQuery',
            'LuceneSimilarities',
            'LuceneFusionSearcher',
            'LuceneSearcher',
-           'JLuceneSearcherResult',
+           'JScoredDoc',
            'LuceneImpactSearcher',
-           'JImpactSearcherResult',
+           'JScoredDoc',
            'JDisjunctionMaxQueryGenerator',
            'JQueryGenerator',
            'get_topics',

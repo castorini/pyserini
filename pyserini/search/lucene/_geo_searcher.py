@@ -38,7 +38,7 @@ JLongPoint = autoclass('org.apache.lucene.document.LongPoint')
 
 # Wrappers around Anserini classes
 JGeoSearcher = autoclass('io.anserini.search.SimpleGeoSearcher')
-JGeoSearcherResult = autoclass('io.anserini.search.SimpleSearcher$Result')
+JGeoSearcherResult = autoclass('io.anserini.search.ScoredDoc')
 
 
 class LuceneGeoSearcher:

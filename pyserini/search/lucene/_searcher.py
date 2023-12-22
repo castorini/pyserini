@@ -33,8 +33,8 @@ logger = logging.getLogger(__name__)
 
 
 # Wrappers around Anserini classes
-JLuceneSearcher = autoclass('io.anserini.search.SimpleSearcher')
-JLuceneSearcherResult = autoclass('io.anserini.search.SimpleSearcher$Result')
+JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
+JScoredDoc = autoclass('io.anserini.search.ScoredDoc')
 
 
 class LuceneSearcher:
@@ -48,7 +48,7 @@ class LuceneSearcher:
 
     def __init__(self, index_dir: str, prebuilt_index_name=None):
         self.index_dir = index_dir
-        self.object = JLuceneSearcher(index_dir)
+        self.object = JSimpleSearcher(index_dir)
         self.num_docs = self.object.get_total_num_docs()
         # Keep track if self is a known pre-built index.
         self.prebuilt_index_name = prebuilt_index_name
@@ -102,7 +102,7 @@ class LuceneSearcher:
         get_sparse_indexes_info()
 
     def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None,
-               fields=dict(), strip_segment_id=False, remove_dups=False) -> List[JLuceneSearcherResult]:
+               fields=dict(), strip_segment_id=False, remove_dups=False) -> List[JScoredDoc]:
         """Search the collection.
 
         Parameters
@@ -171,7 +171,7 @@ class LuceneSearcher:
         return filtered_hits
 
     def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1,
-                     query_generator: JQueryGenerator = None, fields = dict()) -> Dict[str, List[JLuceneSearcherResult]]:
+                     query_generator: JQueryGenerator = None, fields = dict()) -> Dict[str, List[JScoredDoc]]:
         """Search the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
@@ -450,7 +450,7 @@ class LuceneFusionSearcher:
     def get_searchers(self) -> List[LuceneSearcher]:
         return self.searchers
 
-    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JLuceneSearcherResult]:
+    def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None, strip_segment_id=False, remove_dups=False) -> List[JScoredDoc]:
         trec_runs, docid_to_search_result = list(), dict()
 
         for searcher in self.searchers:
@@ -473,7 +473,7 @@ class LuceneFusionSearcher:
         return self.convert_to_search_result(fused_run, docid_to_search_result)
 
     @staticmethod
-    def convert_to_search_result(run: TrecRun, docid_to_search_result: Dict[str, JLuceneSearcherResult]) -> List[JLuceneSearcherResult]:
+    def convert_to_search_result(run: TrecRun, docid_to_search_result: Dict[str, JScoredDoc]) -> List[JScoredDoc]:
         search_results = []
 
         for _, _, docid, _, score, _ in run.to_numpy():

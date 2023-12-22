@@ -38,8 +38,8 @@ from pyserini.util import download_prebuilt_index, download_encoded_corpus
 logger = logging.getLogger(__name__)
 
 # Wrappers around Anserini classes
-JImpactSearcher = autoclass('io.anserini.search.SimpleImpactSearcher')
-JImpactSearcherResult = autoclass('io.anserini.search.SimpleImpactSearcher$Result')
+JSimpleImpactSearcher = autoclass('io.anserini.search.SimpleImpactSearcher')
+JScoredDoc = autoclass('io.anserini.search.ScoredDoc')
 
 
 class LuceneImpactSearcher:
@@ -57,7 +57,7 @@ class LuceneImpactSearcher:
         self.index_dir = index_dir
         self.idf = self._compute_idf(index_dir)
         self.min_idf = min_idf
-        self.object = JImpactSearcher(index_dir)
+        self.object = JSimpleImpactSearcher(index_dir)
         self.num_docs = self.object.get_total_num_docs()
         self.encoder_type = encoder_type
         self.query_encoder = query_encoder
@@ -122,7 +122,7 @@ class LuceneImpactSearcher:
         """Display information about available prebuilt indexes."""
         print("Not Implemented")
 
-    def search(self, q: str, k: int = 10, fields=dict()) -> List[JImpactSearcherResult]:
+    def search(self, q: str, k: int = 10, fields=dict()) -> List[JScoredDoc]:
         """Search the collection.
 
         Parameters
@@ -161,7 +161,7 @@ class LuceneImpactSearcher:
         return hits
 
     def batch_search(self, queries: List[str], qids: List[str],
-                     k: int = 10, threads: int = 1, fields=dict()) -> Dict[str, List[JImpactSearcherResult]]:
+                     k: int = 10, threads: int = 1, fields=dict()) -> Dict[str, List[JScoredDoc]]:
         """Search the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
@@ -429,7 +429,7 @@ class SlimSearcher(LuceneImpactSearcher):
         print(f'Initializing {prebuilt_index_name}...')
         return cls(encoded_corpus, index_dir, query_encoder, min_idf)
 
-    def search(self, q: str, k: int = 10, fields=dict()) -> List[JImpactSearcherResult]:
+    def search(self, q: str, k: int = 10, fields=dict()) -> List[JScoredDoc]:
         jfields = JHashMap()
         for (field, boost) in fields.items():
             jfields.put(field, JFloat(boost))
@@ -450,7 +450,7 @@ class SlimSearcher(LuceneImpactSearcher):
         return hits
     
     def batch_search(self, queries: List[str], qids: List[str],
-                     k: int = 10, threads: int = 1, fields=dict()) -> Dict[str, List[JImpactSearcherResult]]:
+                     k: int = 10, threads: int = 1, fields=dict()) -> Dict[str, List[JScoredDoc]]:
         query_lst = JArrayList()
         qid_lst = JArrayList()
         sparse_encoded_queries = {}

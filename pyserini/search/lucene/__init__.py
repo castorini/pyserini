@@ -15,12 +15,12 @@
 #
 
 from ._geo_searcher import LuceneGeoSearcher
-from ._impact_searcher import JImpactSearcherResult, LuceneImpactSearcher, SlimSearcher
-from ._searcher import JLuceneSearcherResult, LuceneSimilarities, \
+from ._impact_searcher import JScoredDoc, LuceneImpactSearcher, SlimSearcher
+from ._searcher import JScoredDoc, LuceneSimilarities, \
     LuceneFusionSearcher, LuceneSearcher
 
-__all__ = ['JImpactSearcherResult',
-           'JLuceneSearcherResult',
+__all__ = ['JScoredDoc',
+           'JScoredDoc',
            'LuceneFusionSearcher',
            'LuceneGeoSearcher',
            'LuceneImpactSearcher',
