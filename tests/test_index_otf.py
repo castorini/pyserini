@@ -21,7 +21,7 @@ import random
 from typing import List
 
 from pyserini.index.lucene import LuceneIndexer, IndexReader, JacksonObjectMapper
-from pyserini.search.lucene import JLuceneSearcherResult, LuceneSearcher
+from pyserini.search.lucene import JScoredDoc, LuceneSearcher
 
 
 class TestIndexOTF(unittest.TestCase):
@@ -51,7 +51,7 @@ class TestIndexOTF(unittest.TestCase):
         hits = searcher.search('semantic networks')
 
         self.assertTrue(isinstance(hits, List))
-        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
+        self.assertTrue(isinstance(hits[0], JScoredDoc))
         self.assertEqual(1, len(hits))
         self.assertEqual('CACM-2274', hits[0].docid)
         self.assertAlmostEqual(1.53650, hits[0].score, places=5)
@@ -73,7 +73,7 @@ class TestIndexOTF(unittest.TestCase):
         hits = searcher.search('semantic networks')
 
         self.assertTrue(isinstance(hits, List))
-        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
+        self.assertTrue(isinstance(hits[0], JScoredDoc))
         self.assertEqual(1, len(hits))
         self.assertEqual('CACM-2274', hits[0].docid)
         self.assertAlmostEqual(1.53650, hits[0].score, places=5)
@@ -89,7 +89,7 @@ class TestIndexOTF(unittest.TestCase):
         hits = searcher.search('semantic networks')
 
         self.assertTrue(isinstance(hits, List))
-        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
+        self.assertTrue(isinstance(hits[0], JScoredDoc))
         self.assertEqual(1, len(hits))
         self.assertEqual('CACM-2274', hits[0].docid)
         self.assertAlmostEqual(1.53650, hits[0].score, places=5)
@@ -105,7 +105,7 @@ class TestIndexOTF(unittest.TestCase):
         hits = searcher.search('semantic networks')
 
         self.assertTrue(isinstance(hits, List))
-        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
+        self.assertTrue(isinstance(hits[0], JScoredDoc))
         self.assertEqual(1, len(hits))
         self.assertEqual('CACM-2274', hits[0].docid)
         self.assertAlmostEqual(1.53650, hits[0].score, places=5)
@@ -121,7 +121,7 @@ class TestIndexOTF(unittest.TestCase):
         hits = searcher.search('semantic networks')
 
         self.assertTrue(isinstance(hits, List))
-        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
+        self.assertTrue(isinstance(hits[0], JScoredDoc))
         self.assertEqual(1, len(hits))
         self.assertEqual('CACM-2274', hits[0].docid)
         self.assertAlmostEqual(1.53650, hits[0].score, places=5)
@@ -141,7 +141,7 @@ class TestIndexOTF(unittest.TestCase):
         hits = searcher.search('semantic networks')
 
         self.assertTrue(isinstance(hits, List))
-        self.assertTrue(isinstance(hits[0], JLuceneSearcherResult))
+        self.assertTrue(isinstance(hits[0], JScoredDoc))
         self.assertEqual(1, len(hits))
         self.assertEqual('CACM-2274', hits[0].docid)
         self.assertAlmostEqual(0.62610, hits[0].score, places=5)

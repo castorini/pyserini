@@ -38,7 +38,7 @@ JLongPoint = autoclass('org.apache.lucene.document.LongPoint')
 
 # Wrappers around Anserini classes
 JGeoSearcher = autoclass('io.anserini.search.SimpleGeoSearcher')
-JGeoSearcherResult = autoclass('io.anserini.search.SimpleSearcher$Result')
+JScoredDoc = autoclass('io.anserini.search.ScoredDoc')
 
 
 class LuceneGeoSearcher:
@@ -54,7 +54,7 @@ class LuceneGeoSearcher:
         self.index_dir = index_dir
         self.object = JGeoSearcher(index_dir)
 
-    def search(self, q: JQuery, k: int = 10, sort: JSort = None) -> List[JGeoSearcherResult]:
+    def search(self, q: JQuery, k: int = 10, sort: JSort = None) -> List[JScoredDoc]:
         """Search the collection.
 
         Parameters
@@ -68,7 +68,7 @@ class LuceneGeoSearcher:
 
         Returns
         -------
-        List[JGeoSearcherResult]
+        List[JScoredDoc]
             List of search results.
         """
         if sort:

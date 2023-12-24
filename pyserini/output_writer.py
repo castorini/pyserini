@@ -21,7 +21,7 @@ from abc import ABC, abstractmethod
 from enum import Enum, unique
 from typing import List
 
-from pyserini.search import JLuceneSearcherResult
+from pyserini.search import JScoredDoc
 
 
 @unique
@@ -55,7 +55,7 @@ class OutputWriter(ABC):
     def __exit__(self, exc_type, exc_value, exc_traceback):
         self._file.close()
 
-    def hits_iterator(self, hits: List[JLuceneSearcherResult]):
+    def hits_iterator(self, hits: List[JScoredDoc]):
         unique_docs = set()
         rank = 1
         for hit in hits:
@@ -76,24 +76,24 @@ class OutputWriter(ABC):
                 break
 
     @abstractmethod
-    def write(self, topic: str, hits: List[JLuceneSearcherResult]):
+    def write(self, topic: str, hits: List[JScoredDoc]):
         raise NotImplementedError()
 
 
 class TrecWriter(OutputWriter):
-    def write(self, topic: str, hits: List[JLuceneSearcherResult]):
+    def write(self, topic: str, hits: List[JScoredDoc]):
         for docid, rank, score, _ in self.hits_iterator(hits):
             self._file.write(f'{topic} Q0 {docid} {rank} {score:.6f} {self.tag}\n')
 
 
 class MsMarcoWriter(OutputWriter):
-    def write(self, topic: str, hits: List[JLuceneSearcherResult]):
+    def write(self, topic: str, hits: List[JScoredDoc]):
         for docid, rank, score, _ in self.hits_iterator(hits):
             self._file.write(f'{topic}\t{docid}\t{rank}\n')
 
 
 class KiltWriter(OutputWriter):
-    def write(self, topic: str, hits: List[JLuceneSearcherResult]):
+    def write(self, topic: str, hits: List[JScoredDoc]):
         datapoint = self.topics[topic]
         provenance = []
         for docid, rank, score, _ in self.hits_iterator(hits):
