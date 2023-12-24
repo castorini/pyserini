@@ -14,41 +14,32 @@
 # limitations under the License.
 #
 
-"""
-This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``LuceneSearcher``
-class, which wraps the Java class with the same name in Anserini.
-"""
-
 import logging
-from typing import Dict, List, Optional, Union
+from typing import List
 
-from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
-from pyserini.index import Document, IndexReader
-from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
-from pyserini.search import JQuery, JQueryGenerator
-from pyserini.trectools import TrecRun
-from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
+from jnius import cast
+
+from pyserini.pyclass import autoclass
 
 logger = logging.getLogger(__name__)
 
 # Wrappers around Anserini classes
 JHnswDenseSearcher = autoclass('io.anserini.search.HnswDenseSearcher')
-JHnswDenseSearcher = autoclass('io.anserini.search.HnswDenseSearcher$Args')
-JScoredDoc = autoclass('io.anserini.search.JScoredDoc')
+JHnswDenseSearcherArgs = autoclass('io.anserini.search.HnswDenseSearcher$Args')
+JScoredDoc = autoclass('io.anserini.search.ScoredDoc')
 
 
 class LuceneHnswDenseSearcher:
-    """Wrapper class for ``SimpleSearcher`` in Anserini.
-
-    Parameters
-    ----------
-    index_dir : str
-        Path to Lucene index directory.
-    """
-
-    def __init__(self, index_dir: str, prebuilt_index_name=None):
+    def __init__(self, index_dir: str):
         self.index_dir = index_dir
-        self.object = JLuceneSearcher(index_dir)
-        self.num_docs = self.object.get_total_num_docs()
-        # Keep track if self is a known pre-built index.
-        self.prebuilt_index_name = prebuilt_index_name
+
+        args = JHnswDenseSearcherArgs()
+        args.index = index_dir
+        self.searcher = JHnswDenseSearcher(args)
+
+    @staticmethod
+    def _string_to_comparable(string: str):
+        return cast('java.lang.Comparable', autoclass('java.lang.String')(string))
+
+    def search(self, q: str, k: int = 10) -> List[JScoredDoc]:
+        return self.searcher.search(self._string_to_comparable('dummy'), q, k)

@@ -16,14 +16,14 @@
 
 from ._geo_searcher import LuceneGeoSearcher
 from ._impact_searcher import JScoredDoc, LuceneImpactSearcher, SlimSearcher
-from ._searcher import JScoredDoc, LuceneSimilarities, \
-    LuceneFusionSearcher, LuceneSearcher
+from ._searcher import JScoredDoc, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
+from ._hnsw_searcher import LuceneHnswDenseSearcher
 
 __all__ = ['JScoredDoc',
-           'JScoredDoc',
            'LuceneFusionSearcher',
            'LuceneGeoSearcher',
            'LuceneImpactSearcher',
            'LuceneSearcher',
+           'LuceneHnswDenseSearcher',
            'SlimSearcher',
            'LuceneSimilarities']

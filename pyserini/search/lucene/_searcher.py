@@ -191,7 +191,7 @@ class LuceneSearcher:
 
         Returns
         -------
-        Dict[str, List[JLuceneSearcherResult]]
+        Dict[str, List[JScoredDoc]]
             Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
             results as the values.
         """

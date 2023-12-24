@@ -53,7 +53,7 @@ class LuceneImpactSearcher:
         QueryEncoder to encode query text
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str='pytorch', prebuilt_index_name = None):
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str = 'pytorch', prebuilt_index_name=None):
         self.index_dir = index_dir
         self.idf = self._compute_idf(index_dir)
         self.min_idf = min_idf
@@ -76,7 +76,7 @@ class LuceneImpactSearcher:
             raise ValueError(f'Invalid encoder type: {encoder_type}')
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str='pytorch'):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str = 'pytorch'):
         """Build a searcher from a pre-built index; download the index if necessary.
 
         Parameters
@@ -92,7 +92,7 @@ class LuceneImpactSearcher:
 
         Returns
         -------
-        LuceneSearcher
+        LuceneImpactSearcher
             Searcher built from the prebuilt index.
         """
         print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
@@ -136,7 +136,7 @@ class LuceneImpactSearcher:
 
         Returns
         -------
-        List[JImpactSearcherResult]
+        List[JScoredDoc]
             List of search results.
         """
 
@@ -179,7 +179,7 @@ class LuceneImpactSearcher:
 
         Returns
         -------
-        Dict[str, List[JImpactSearcherResult]]
+        Dict[str, List[JScoredDoc]]
             Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
             results as the values.
         """
@@ -224,7 +224,7 @@ class LuceneImpactSearcher:
         self.object.set_analyzer(analyzer)
 
     def set_language(self, language):
-        """Set language of LuceneSearcher"""
+        """Set language of LuceneSearcher."""
         self.object.set_language(language)
 
     def doc(self, docid: Union[str, int]) -> Optional[Document]:
@@ -290,7 +290,6 @@ class LuceneImpactSearcher:
 
     def set_rocchio(self):
         self.object.set_rocchio()
-
 
     def set_rocchio(self, top_fb_terms=10, top_fb_docs=10, bottom_fb_terms=10, bottom_fb_docs=10,
                     alpha=1, beta=0.75, gamma=0, debug=False, use_negative=False):
@@ -393,6 +392,7 @@ class LuceneImpactSearcher:
 
 SlimResult = namedtuple("SlimResult", "docid score")
 
+
 def maxsim(entry):
     q_embed, d_embeds, d_lens, qid, scores, docids = entry
     if len(d_embeds) == 0:
@@ -406,6 +406,7 @@ def maxsim(entry):
         start += d_len
     scores, docids = list(zip(*sorted(list(zip(scores, docids)), key=lambda x: -x[0])))
     return qid, scores, docids
+
 
 class SlimSearcher(LuceneImpactSearcher):
     def __init__(self, encoded_corpus, *args, **kwargs):
