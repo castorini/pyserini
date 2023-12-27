@@ -28,7 +28,7 @@ class LuceneSearcherAnseriniMatchChecker:
         self.pyserini_topics = pyserini_topics
 
         self.anserini_base_cmd = os.path.join(self.anserini_root,
-                                              'target/appassembler/bin/SearchCollection -topicreader Trec')
+                                              'target/appassembler/bin/SearchCollection -topicReader Trec')
         self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
 
         self.eval_base_cmd = os.path.join(eval_root, 'tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')

@@ -109,8 +109,10 @@ if __name__ == '__main__':
                                        args.run.topics,
                                        args.dense.encoded_queries,
                                        args.dense.device,
-                                       args.dense.query_prefix,
-                                       args.dense.max_length)
+                                       args.dense.max_length,
+                                       args.dense.pooling,
+                                       args.dense.l2_norm,
+                                       args.dense.query_prefix)
 
     if os.path.exists(args.dense.index):
         # create searcher from index directory
