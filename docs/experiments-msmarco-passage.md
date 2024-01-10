@@ -249,7 +249,7 @@ $ grep 1048585 runs/run.msmarco-passage.bm25tuned.trec | head -10
 To pull up the actual contents of a hit:
 
 ```python
-hits[0].raw
+hits[0].lucene_document.get('raw')
 ```
 
 And you should get:
