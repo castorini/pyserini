@@ -25,7 +25,7 @@ git reset 2130aafaaee0671bdbd03d781b1fa57ee02650d2
 pip install -r requirements.txt
 pip install .
 mkdir data
-python scripts/donwload_all_kilt_data.py
+python scripts/download_all_kilt_data.py
 python scripts/get_triviaqa_input.py
 cd ..
 
