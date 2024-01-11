@@ -898,6 +898,122 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): SciFact encoded by SPLADE-distill CoCodenser-medium
 </dd>
+</dt><b><code>beir-v1.0.0-trec-covid.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): TREC-COVID encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-bioasq.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): BioASQ encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-nfcorpus.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): NFCorpus encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-nq.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): NQ encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-hotpotqa.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): HotpotQA encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-fiqa.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): FiQA-2018 encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-signal1m.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): Signal-1M encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-trec-news.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): TREC-NEWS encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-robust04.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): Robust04 encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-arguana.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): ArguAna encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-webis-touche2020.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): Webis-Touche2020 encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-android.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-android encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-english.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-english encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-gaming encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-gis encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-mathematica encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-physics encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-programmers encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-stats encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-tex encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-unix encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-webmasters encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-wordpress encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-quora.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): Quora encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-dbpedia-entity.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): DBPedia encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-scidocs.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): SCIDOCS encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-fever.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): FEVER encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-climate-fever.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): Climate-FEVER encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-scifact.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.beir-v1.0.0.splade-pp-ed.20231124.a66f86.README.md">readme</a>]
+<dd>Lucene impact index of BEIR (v1.0.0): SciFact encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+</dd>
 </dl>
 
 
