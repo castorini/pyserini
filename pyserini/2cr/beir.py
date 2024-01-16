@@ -122,6 +122,8 @@ def generate_report(args):
 
             for datasets in condition['datasets']:
                 dataset = datasets['dataset']
+                
+                print(f"Running {dataset}")
 
                 runfile = os.path.join(args.directory, f'run.beir.{name}.{dataset}.txt')
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile,
@@ -147,20 +149,20 @@ def generate_report(args):
                              s2=f'{table[dataset]["bm25-flat"]["R@100"]:8.4f}',
                              s3=f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.4f}',
                              s4=f'{table[dataset]["bm25-multifield"]["R@100"]:8.4f}',
-                             s5=f'{table[dataset]["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}',
-                             s6=f'{table[dataset]["splade-distil-cocodenser-medium"]["R@100"]:8.4f}',
+                             s5=f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.4f}',
+                             s6=f'{table[dataset]["splade-pp-ed"]["R@100"]:8.4f}',
                              s7=f'{table[dataset]["contriever"]["nDCG@10"]:8.4f}',
                              s8=f'{table[dataset]["contriever"]["R@100"]:8.4f}',
                              s9=f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}',
                              s10=f'{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}',
                              cmd1=commands[dataset]["bm25-flat"],
                              cmd2=commands[dataset]["bm25-multifield"],
-                             cmd3=commands[dataset]["splade-distil-cocodenser-medium"],
+                             cmd3=commands[dataset]["splade-pp-ed"],
                              cmd4=commands[dataset]["contriever"],
                              cmd5=commands[dataset]["contriever-msmarco"],
                              eval_cmd1=eval_commands[dataset]["bm25-flat"].rstrip(),
                              eval_cmd2=eval_commands[dataset]["bm25-multifield"].rstrip(),
-                             eval_cmd3=eval_commands[dataset]["splade-distil-cocodenser-medium"].rstrip(),
+                             eval_cmd3=eval_commands[dataset]["splade-pp-ed"].rstrip(),
                              eval_cmd4=eval_commands[dataset]["contriever"].rstrip(),
                              eval_cmd5=eval_commands[dataset]["contriever-msmarco"].rstrip())
 
@@ -231,7 +233,7 @@ def run_conditions(args):
 
             print('')
 
-    models = ['bm25-flat', 'bm25-multifield', 'splade-distil-cocodenser-medium', 'contriever', 'contriever-msmarco']
+    models = ['bm25-flat', 'bm25-multifield', 'splade-pp-ed', 'contriever', 'contriever-msmarco']
     metrics = ['nDCG@10', 'R@100', 'R@1000']
 
     top_level_sums = defaultdict(lambda: defaultdict(float))
@@ -264,13 +266,13 @@ def run_conditions(args):
         print(f'{dataset:25}' +
               f'{table[dataset]["bm25-flat"]["nDCG@10"]:8.4f}{table[dataset]["bm25-flat"]["R@100"]:8.4f}   ' +
               f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.4f}{table[dataset]["bm25-multifield"]["R@100"]:8.4f}   ' +
-              f'{table[dataset]["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{table[dataset]["splade-distil-cocodenser-medium"]["R@100"]:8.4f}   ' + 
+              f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.4f}{table[dataset]["splade-pp-ed"]["R@100"]:8.4f}   ' + 
               f'{table[dataset]["contriever"]["nDCG@10"]:8.4f}{table[dataset]["contriever"]["R@100"]:8.4f}   ' + 
               f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}')
     print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
     print('avg' + ' ' * 22 + f'{final_scores["bm25-flat"]["nDCG@10"]:8.4f}{final_scores["bm25-flat"]["R@100"]:8.4f}   ' +
           f'{final_scores["bm25-multifield"]["nDCG@10"]:8.4f}{final_scores["bm25-multifield"]["R@100"]:8.4f}   ' +
-          f'{final_scores["splade-distil-cocodenser-medium"]["nDCG@10"]:8.4f}{final_scores["splade-distil-cocodenser-medium"]["R@100"]:8.4f}   ' +
+          f'{final_scores["splade-pp-ed"]["nDCG@10"]:8.4f}{final_scores["splade-pp-ed"]["R@100"]:8.4f}   ' +
           f'{final_scores["contriever"]["nDCG@10"]:8.4f}{final_scores["contriever"]["R@100"]:8.4f}   ' +
           f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.4f}{final_scores["contriever-msmarco"]["R@100"]:8.4f}')
 

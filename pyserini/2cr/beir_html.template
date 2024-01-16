@@ -137,7 +137,7 @@ pre[class*="prettyprint"] {
 <ul>
   <li>BM25 Flat: BM25 "flat" baseline</li>
   <li>BM25 Multifield: BM25 "multifield" baseline</li>
-  <li>SPLADE: SPLADE-distill CoCodenser-medium</li>
+  <li>SPLADE: SPLADE++ (CoCondenser-EnsembleDistil)</li>
   <li>Contriever: mContriever</li>
   <li>Contriever-msmarco: Contriever FT MS MARCO</li>
 </ul>
