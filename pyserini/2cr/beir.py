@@ -123,8 +123,6 @@ def generate_report(args):
             for datasets in condition['datasets']:
                 dataset = datasets['dataset']
                 
-                print(f"Running {dataset}")
-
                 runfile = os.path.join(args.directory, f'run.beir.{name}.{dataset}.txt')
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile,
                                                         sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
