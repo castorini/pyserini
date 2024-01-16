@@ -137,7 +137,7 @@ pre[class*="prettyprint"] {
 <ul>
   <li>BM25 Flat: BM25 "flat" baseline</li>
   <li>BM25 Multifield: BM25 "multifield" baseline</li>
-  <li>SPLADE: SPLADE-distill CoCodenser-medium</li>
+  <li>SPLADE: SPLADE++ (CoCondenser-EnsembleDistil)</li>
   <li>Contriever: mContriever</li>
   <li>Contriever-msmarco: Contriever FT MS MARCO</li>
 </ul>
@@ -185,8 +185,8 @@ pre[class*="prettyprint"] {
 <td>  0.6559</td>
 <td>  0.1141</td>
 <td></td>
-<td>  0.7109</td>
-<td>  0.1308</td>
+<td>  0.7274</td>
+<td>  0.1282</td>
 <td></td>
 <td>  0.2732</td>
 <td>  0.0368</td>
@@ -285,9 +285,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-trec-covid-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.trec-covid.txt \
+  --index beir-v1.0.0-trec-covid.splade-pp-ed \
+  --topics beir-v1.0.0-trec-covid.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.trec-covid.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -296,15 +296,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
-  run.beir.splade-distil-cocodenser-medium.trec-covid.txt
+  run.beir.splade-pp-ed.trec-covid.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-trec-covid-test \
-  run.beir.splade-distil-cocodenser-medium.trec-covid.txt
+  run.beir.splade-pp-ed.trec-covid.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-trec-covid-test \
-  run.beir.splade-distil-cocodenser-medium.trec-covid.txt</code></pre>
+  run.beir.splade-pp-ed.trec-covid.txt</code></pre>
   </blockquote>
 
   </div>
@@ -381,8 +381,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.4646</td>
 <td>  0.7145</td>
 <td></td>
-<td>  0.5035</td>
-<td>  0.7422</td>
+<td>  0.4980</td>
+<td>  0.7385</td>
 <td></td>
 <td>  0.3016</td>
 <td>  0.5412</td>
@@ -481,9 +481,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-bioasq-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-bioasq-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.bioasq.txt \
+  --index beir-v1.0.0-bioasq.splade-pp-ed \
+  --topics beir-v1.0.0-bioasq.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.bioasq.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -492,15 +492,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
-  run.beir.splade-distil-cocodenser-medium.bioasq.txt
+  run.beir.splade-pp-ed.bioasq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-bioasq-test \
-  run.beir.splade-distil-cocodenser-medium.bioasq.txt
+  run.beir.splade-pp-ed.bioasq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-bioasq-test \
-  run.beir.splade-distil-cocodenser-medium.bioasq.txt</code></pre>
+  run.beir.splade-pp-ed.bioasq.txt</code></pre>
   </blockquote>
 
   </div>
@@ -577,8 +577,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3254</td>
 <td>  0.2500</td>
 <td></td>
-<td>  0.3454</td>
-<td>  0.2891</td>
+<td>  0.3470</td>
+<td>  0.2844</td>
 <td></td>
 <td>  0.3173</td>
 <td>  0.2943</td>
@@ -677,9 +677,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-nfcorpus-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.nfcorpus.txt \
+  --index beir-v1.0.0-nfcorpus.splade-pp-ed \
+  --topics beir-v1.0.0-nfcorpus.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.nfcorpus.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -688,15 +688,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
-  run.beir.splade-distil-cocodenser-medium.nfcorpus.txt
+  run.beir.splade-pp-ed.nfcorpus.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-nfcorpus-test \
-  run.beir.splade-distil-cocodenser-medium.nfcorpus.txt
+  run.beir.splade-pp-ed.nfcorpus.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
-  run.beir.splade-distil-cocodenser-medium.nfcorpus.txt</code></pre>
+  run.beir.splade-pp-ed.nfcorpus.txt</code></pre>
   </blockquote>
 
   </div>
@@ -773,8 +773,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3285</td>
 <td>  0.7597</td>
 <td></td>
-<td>  0.5442</td>
-<td>  0.9285</td>
+<td>  0.5378</td>
+<td>  0.9296</td>
 <td></td>
 <td>  0.2536</td>
 <td>  0.7712</td>
@@ -873,9 +873,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-nq-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-nq-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.nq.txt \
+  --index beir-v1.0.0-nq.splade-pp-ed \
+  --topics beir-v1.0.0-nq.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.nq.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -884,15 +884,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
-  run.beir.splade-distil-cocodenser-medium.nq.txt
+  run.beir.splade-pp-ed.nq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-nq-test \
-  run.beir.splade-distil-cocodenser-medium.nq.txt
+  run.beir.splade-pp-ed.nq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-nq-test \
-  run.beir.splade-distil-cocodenser-medium.nq.txt</code></pre>
+  run.beir.splade-pp-ed.nq.txt</code></pre>
   </blockquote>
 
   </div>
@@ -969,8 +969,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.6027</td>
 <td>  0.7400</td>
 <td></td>
-<td>  0.6860</td>
-<td>  0.8144</td>
+<td>  0.6868</td>
+<td>  0.8177</td>
 <td></td>
 <td>  0.4807</td>
 <td>  0.7046</td>
@@ -1069,9 +1069,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-hotpotqa-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.hotpotqa.txt \
+  --index beir-v1.0.0-hotpotqa.splade-pp-ed \
+  --topics beir-v1.0.0-hotpotqa.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.hotpotqa.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -1080,15 +1080,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
-  run.beir.splade-distil-cocodenser-medium.hotpotqa.txt
+  run.beir.splade-pp-ed.hotpotqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-hotpotqa-test \
-  run.beir.splade-distil-cocodenser-medium.hotpotqa.txt
+  run.beir.splade-pp-ed.hotpotqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
-  run.beir.splade-distil-cocodenser-medium.hotpotqa.txt</code></pre>
+  run.beir.splade-pp-ed.hotpotqa.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1165,8 +1165,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.2361</td>
 <td>  0.5395</td>
 <td></td>
-<td>  0.3514</td>
-<td>  0.6298</td>
+<td>  0.3475</td>
+<td>  0.6314</td>
 <td></td>
 <td>  0.2449</td>
 <td>  0.5619</td>
@@ -1265,9 +1265,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-fiqa-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-fiqa-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.fiqa.txt \
+  --index beir-v1.0.0-fiqa.splade-pp-ed \
+  --topics beir-v1.0.0-fiqa.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.fiqa.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -1276,15 +1276,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
-  run.beir.splade-distil-cocodenser-medium.fiqa.txt
+  run.beir.splade-pp-ed.fiqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-fiqa-test \
-  run.beir.splade-distil-cocodenser-medium.fiqa.txt
+  run.beir.splade-pp-ed.fiqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-fiqa-test \
-  run.beir.splade-distil-cocodenser-medium.fiqa.txt</code></pre>
+  run.beir.splade-pp-ed.fiqa.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1361,8 +1361,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3304</td>
 <td>  0.3703</td>
 <td></td>
-<td>  0.2957</td>
-<td>  0.3311</td>
+<td>  0.3008</td>
+<td>  0.3398</td>
 <td></td>
 <td>  0.2338</td>
 <td>  0.2568</td>
@@ -1461,9 +1461,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-signal1m-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-signal1m-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.signal1m.txt \
+  --index beir-v1.0.0-signal1m.splade-pp-ed \
+  --topics beir-v1.0.0-signal1m.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.signal1m.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -1472,15 +1472,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
-  run.beir.splade-distil-cocodenser-medium.signal1m.txt
+  run.beir.splade-pp-ed.signal1m.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-signal1m-test \
-  run.beir.splade-distil-cocodenser-medium.signal1m.txt
+  run.beir.splade-pp-ed.signal1m.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-signal1m-test \
-  run.beir.splade-distil-cocodenser-medium.signal1m.txt</code></pre>
+  run.beir.splade-pp-ed.signal1m.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1557,8 +1557,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3977</td>
 <td>  0.4216</td>
 <td></td>
-<td>  0.3936</td>
-<td>  0.4323</td>
+<td>  0.4152</td>
+<td>  0.4414</td>
 <td></td>
 <td>  0.3484</td>
 <td>  0.4234</td>
@@ -1657,9 +1657,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-trec-news-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-trec-news-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.trec-news.txt \
+  --index beir-v1.0.0-trec-news.splade-pp-ed \
+  --topics beir-v1.0.0-trec-news.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.trec-news.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -1668,15 +1668,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
-  run.beir.splade-distil-cocodenser-medium.trec-news.txt
+  run.beir.splade-pp-ed.trec-news.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-trec-news-test \
-  run.beir.splade-distil-cocodenser-medium.trec-news.txt
+  run.beir.splade-pp-ed.trec-news.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-trec-news-test \
-  run.beir.splade-distil-cocodenser-medium.trec-news.txt</code></pre>
+  run.beir.splade-pp-ed.trec-news.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1753,8 +1753,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.4070</td>
 <td>  0.3746</td>
 <td></td>
-<td>  0.4581</td>
-<td>  0.3773</td>
+<td>  0.4679</td>
+<td>  0.3850</td>
 <td></td>
 <td>  0.3155</td>
 <td>  0.2757</td>
@@ -1853,9 +1853,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-robust04-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-robust04-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.robust04.txt \
+  --index beir-v1.0.0-robust04.splade-pp-ed \
+  --topics beir-v1.0.0-robust04.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.robust04.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -1864,15 +1864,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
-  run.beir.splade-distil-cocodenser-medium.robust04.txt
+  run.beir.splade-pp-ed.robust04.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-robust04-test \
-  run.beir.splade-distil-cocodenser-medium.robust04.txt
+  run.beir.splade-pp-ed.robust04.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-robust04-test \
-  run.beir.splade-distil-cocodenser-medium.robust04.txt</code></pre>
+  run.beir.splade-pp-ed.robust04.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1949,8 +1949,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.4142</td>
 <td>  0.9431</td>
 <td></td>
-<td>  0.5210</td>
-<td>  0.9822</td>
+<td>  0.5203</td>
+<td>  0.9744</td>
 <td></td>
 <td>  0.3791</td>
 <td>  0.9011</td>
@@ -2049,9 +2049,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-arguana-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-arguana-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.arguana.txt \
+  --index beir-v1.0.0-arguana.splade-pp-ed \
+  --topics beir-v1.0.0-arguana.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.arguana.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -2060,15 +2060,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
-  run.beir.splade-distil-cocodenser-medium.arguana.txt
+  run.beir.splade-pp-ed.arguana.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-arguana-test \
-  run.beir.splade-distil-cocodenser-medium.arguana.txt
+  run.beir.splade-pp-ed.arguana.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-arguana-test \
-  run.beir.splade-distil-cocodenser-medium.arguana.txt</code></pre>
+  run.beir.splade-pp-ed.arguana.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2145,8 +2145,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3673</td>
 <td>  0.5376</td>
 <td></td>
-<td>  0.2435</td>
-<td>  0.4723</td>
+<td>  0.2468</td>
+<td>  0.4715</td>
 <td></td>
 <td>  0.1668</td>
 <td>  0.3736</td>
@@ -2245,9 +2245,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-webis-touche2020-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.webis-touche2020.txt \
+  --index beir-v1.0.0-webis-touche2020.splade-pp-ed \
+  --topics beir-v1.0.0-webis-touche2020.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.webis-touche2020.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -2256,15 +2256,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
-  run.beir.splade-distil-cocodenser-medium.webis-touche2020.txt
+  run.beir.splade-pp-ed.webis-touche2020.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
-  run.beir.splade-distil-cocodenser-medium.webis-touche2020.txt
+  run.beir.splade-pp-ed.webis-touche2020.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
-  run.beir.splade-distil-cocodenser-medium.webis-touche2020.txt</code></pre>
+  run.beir.splade-pp-ed.webis-touche2020.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2341,8 +2341,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3709</td>
 <td>  0.6889</td>
 <td></td>
-<td>  0.3954</td>
-<td>  0.7405</td>
+<td>  0.3904</td>
+<td>  0.7404</td>
 <td></td>
 <td>  0.3771</td>
 <td>  0.7436</td>
@@ -2441,9 +2441,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-cqadupstack-android-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.cqadupstack-android.txt \
+  --index beir-v1.0.0-cqadupstack-android.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-android.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-android.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -2452,15 +2452,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-android.txt
+  run.beir.splade-pp-ed.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-android.txt
+  run.beir.splade-pp-ed.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-android.txt</code></pre>
+  run.beir.splade-pp-ed.cqadupstack-android.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2537,8 +2537,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3321</td>
 <td>  0.5842</td>
 <td></td>
-<td>  0.4026</td>
-<td>  0.6768</td>
+<td>  0.4079</td>
+<td>  0.6946</td>
 <td></td>
 <td>  0.3571</td>
 <td>  0.6442</td>
@@ -2637,9 +2637,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-cqadupstack-english-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.cqadupstack-english.txt \
+  --index beir-v1.0.0-cqadupstack-english.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-english.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-english.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -2648,15 +2648,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-english.txt
+  run.beir.splade-pp-ed.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-english.txt
+  run.beir.splade-pp-ed.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-english.txt</code></pre>
+  run.beir.splade-pp-ed.cqadupstack-english.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2733,8 +2733,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.4418</td>
 <td>  0.7571</td>
 <td></td>
-<td>  0.5061</td>
-<td>  0.8138</td>
+<td>  0.4957</td>
+<td>  0.8131</td>
 <td></td>
 <td>  0.4597</td>
 <td>  0.8092</td>
@@ -2833,9 +2833,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-cqadupstack-gaming-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.cqadupstack-gaming.txt \
+  --index beir-v1.0.0-cqadupstack-gaming.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-gaming.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-gaming.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -2844,15 +2844,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-gaming.txt
+  run.beir.splade-pp-ed.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-gaming.txt
+  run.beir.splade-pp-ed.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-gaming.txt</code></pre>
+  run.beir.splade-pp-ed.cqadupstack-gaming.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2929,8 +2929,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.2904</td>
 <td>  0.6458</td>
 <td></td>
-<td>  0.3223</td>
-<td>  0.6419</td>
+<td>  0.3150</td>
+<td>  0.6320</td>
 <td></td>
 <td>  0.2411</td>
 <td>  0.5792</td>
@@ -3029,9 +3029,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-cqadupstack-gis-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.cqadupstack-gis.txt \
+  --index beir-v1.0.0-cqadupstack-gis.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-gis.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-gis.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -3040,15 +3040,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-gis.txt
+  run.beir.splade-pp-ed.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-gis.txt
+  run.beir.splade-pp-ed.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-gis.txt</code></pre>
+  run.beir.splade-pp-ed.cqadupstack-gis.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3125,8 +3125,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.2046</td>
 <td>  0.5215</td>
 <td></td>
-<td>  0.2423</td>
-<td>  0.5732</td>
+<td>  0.2377</td>
+<td>  0.5797</td>
 <td></td>
 <td>  0.1841</td>
 <td>  0.5127</td>
@@ -3225,9 +3225,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-cqadupstack-mathematica-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.cqadupstack-mathematica.txt \
+  --index beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-mathematica.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-mathematica.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -3236,15 +3236,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-mathematica.txt
+  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-mathematica.txt
+  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-mathematica.txt</code></pre>
+  run.beir.splade-pp-ed.cqadupstack-mathematica.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3321,8 +3321,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3248</td>
 <td>  0.6486</td>
 <td></td>
-<td>  0.3668</td>
-<td>  0.7286</td>
+<td>  0.3599</td>
+<td>  0.7196</td>
 <td></td>
 <td>  0.3430</td>
 <td>  0.7013</td>
@@ -3421,9 +3421,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-cqadupstack-physics-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.cqadupstack-physics.txt \
+  --index beir-v1.0.0-cqadupstack-physics.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-physics.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-physics.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -3432,15 +3432,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-physics.txt
+  run.beir.splade-pp-ed.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-physics.txt
+  run.beir.splade-pp-ed.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-physics.txt</code></pre>
+  run.beir.splade-pp-ed.cqadupstack-physics.txt</code></pre>
   </blockquote>
 
   </div>
@@ -3517,8 +3517,8 @@ python -m pyserini.eval.trec_eval \
 <td>  0.2963</td>
 <td>  0.6194</td>
 <td></td>
-<td>  0.3412</td>
-<td>  0.6653</td>
+<td>  0.3401</td>
+<td>  0.6585</td>
 <td></td>
 <td>  0.3029</td>
 <td>  0.6402</td>
@@ -3617,9 +3617,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-cqadupstack-programmers-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.cqadupstack-programmers.txt \
+  --index beir-v1.0.0-cqadupstack-programmers.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-programmers.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-programmers.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -3628,15 +3628,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-programmers.txt
+  run.beir.splade-pp-ed.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-programmers.txt
+  run.beir.splade-pp-ed.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.splade-distil-cocodenser-medium.cqadupstack-programmers.txt</code></pre>
+  run.beir.splade-pp-ed.cqadupstack-programmers.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5773,9 +5773,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-scifact-splade_distil_cocodenser_medium \
-  --topics beir-v1.0.0-scifact-test-splade_distil_cocodenser_medium \
-  --output run.beir.splade-distil-cocodenser-medium.scifact.txt \
+  --index beir-v1.0.0-scifact.splade-pp-ed \
+  --topics beir-v1.0.0-scifact.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.scifact.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -5784,15 +5784,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir.splade-distil-cocodenser-medium.scifact.txt
+  run.beir.splade-pp-ed.scifact.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir.splade-distil-cocodenser-medium.scifact.txt
+  run.beir.splade-pp-ed.scifact.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir.splade-distil-cocodenser-medium.scifact.txt</code></pre>
+  run.beir.splade-pp-ed.scifact.txt</code></pre>
   </blockquote>
 
   </div>
