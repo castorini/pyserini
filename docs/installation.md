@@ -54,7 +54,10 @@ If you're on a Mac with an M-series (i.e., ARM) processor, the following recipe 
 ```bash
 conda install wget -y
 conda install -c conda-forge openjdk=11 maven -y
-conda install -c conda-forge lightgbm nmslib -y
+conda install -c conda-forge lightgbm -y
+
+# from https://github.com/nmslib/nmslib/issues/476#issuecomment-1594889437
+CFLAGS="-mavx -DWARN(a)=(a)" pip install --use-pep517 nmslib
 
 # from https://github.com/facebookresearch/faiss/blob/main/INSTALL.md
 conda install -c pytorch faiss-cpu=1.7.4 blas=1.0 -y
