@@ -3623,6 +3623,18 @@ FAISS_INDEX_INFO_MSMARCO = {
         "downloaded": False,
         "texts": "msmarco-v1-passage"
     },
+    "msmarco-v1-passage.bge-base-en-v1.5": {
+        "description": "Faiss index of the MS MARCO passage corpus encoded by BGE-base-en-v1.5 encoder",
+        "filename": "faiss.msmarco-v1-passage.bge-base-en-v1.5.20240107.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "3ae60620f7680f306b4bd63a66efce4d",
+        "size compressed (bytes)": 25217209419,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
     "msmarco-v1-passage.tct_colbert": {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by TCT-ColBERT",
         "filename": "faiss.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz",
@@ -4491,7 +4503,385 @@ FAISS_INDEX_INFO_BEIR = {
         "documents": 5183,
         "downloaded": False,
         "texts": "beir-v1.0.0-scifact.flat",
-    }
+    },
+        # BEIR (v1.0.0) bge-base-en-v1.5 indexes
+    "beir-v1.0.0-trec-covid.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-trec-covid.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-trec-covid.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "75d21761889b44f8323edbd385729acd",
+        "size compressed (bytes)": 489619804,
+        "documents": 171332,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-trec-covid.flat"
+    },
+    "beir-v1.0.0-bioasq.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-bioasq.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-bioasq.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "fe1e4d0a57d8b752e72f3d53d9701f79",
+        "size compressed (bytes)": 42566761602,
+        "documents": 14914603,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-bioasq.flat"
+    },
+    "beir-v1.0.0-nfcorpus.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-nfcorpus.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nfcorpus.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "41616881f846db07abbe378f5883c30d",
+        "size compressed (bytes)": 10355456,
+        "documents": 3633,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-nfcorpus.flat"
+    },
+    "beir-v1.0.0-nq.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (NQ) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-nq.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nq.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "27f1ec62eff0b241fb39f4eb221bc554",
+        "size compressed (bytes)": 7630355838,
+        "documents": 2681468,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-nq.flat"
+    },
+    "beir-v1.0.0-hotpotqa.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-hotpotqa.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-hotpotqa.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "2862da309f1d4f51fac3efebcf123fba",
+        "size compressed (bytes)": 14932292786,
+        "documents": 5233329,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-hotpotqa.flat"
+    },
+    "beir-v1.0.0-fiqa.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-fiqa.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-fiqa.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "ea62ae2467de8b6144ada86eea1eb766",
+        "size compressed (bytes)": 164430966,
+        "documents": 57638,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-fiqa.flat"
+    },
+    "beir-v1.0.0-signal1m.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-signal1m.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-signal1m.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "21d14b9ded6dbae54a7f942f1ad43e5a",
+        "size compressed (bytes)": 8162605177,
+        "documents": 2866316,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-signal1m.flat"
+    },
+    "beir-v1.0.0-trec-news.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-trec-news.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-trec-news.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "9bd85fe132db296202e368b19369a4e9",
+        "size compressed (bytes)": 1580911819,
+        "documents": 594977,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-trec-news.flat"
+    },
+    "beir-v1.0.0-robust04.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-robust04.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-robust04.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "1fdfacba21d081f02510e595f0e2cd66",
+        "size compressed (bytes)": 1503712169,
+        "documents": 528155,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-robust04.flat"
+    },
+    "beir-v1.0.0-arguana.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-arguana.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-arguana.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "5595eb6c8e18341d56241482986fe131",
+        "size compressed (bytes)": 24759817,
+        "documents": 8674,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-arguana.flat"
+    },
+    "beir-v1.0.0-webis-touche2020.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "17948e044b962ba2e6e376fa7ab12946",
+        "size compressed (bytes)": 1090354490,
+        "documents": 382545,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-webis-touche2020.flat"
+    },
+    "beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "9ac58984ab806d4931c1f3fa7dd9bcfb",
+        "size compressed (bytes)": 65620398,
+        "documents": 22998,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-android.flat"
+    },
+    "beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "b05c4d1602a4cba6fc9e385ff2b5bcb0",
+        "size compressed (bytes)": 114768806,
+        "documents": 40221,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-english.flat"
+    },
+    "beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "b272bce4661ca271db11b36e288a9bff",
+        "size compressed (bytes)": 129250197,
+        "documents": 45301,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-gaming.flat"
+    },
+    "beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "37ac68e51518fb8419f711a78d58001d",
+        "size compressed (bytes)": 107394491,
+        "documents": 37637,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-gis.flat"
+    },
+    "beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "7133d7ccff554fdb1ee6012a3507afda",
+        "size compressed (bytes)": 47672589,
+        "documents": 16705,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-mathematica.flat"
+    },
+    "beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "b4ed7ce03f2cdbbb1cf631fe6bfd0997",
+        "size compressed (bytes)": 109354606,
+        "documents": 38316,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-physics.flat"
+    },
+    "beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "64135b2a5bf2a9c43bd26e7351443e28",
+        "size compressed (bytes)": 91818582,
+        "documents": 32176,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-programmers.flat"
+    },
+    "beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "708d4e16f488276029d8384b6a90212d",
+        "size compressed (bytes)": 120632794,
+        "documents": 42269,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-stats.flat"
+    },
+    "beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "bc99d8da6d1ff9d73b77091ff658ad1f",
+        "size compressed (bytes)": 194552136,
+        "documents": 68184,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-tex.flat"
+    },
+    "beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "c67633e4b92c007dbe3cfa45d1f424b8",
+        "size compressed (bytes)": 135195740,
+        "documents": 47382,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-unix.flat"
+    },
+    "beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "0f19a878aa5e9cd26988decfdec70cd5",
+        "size compressed (bytes)": 49670690,
+        "documents": 17405,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-webmasters.flat"
+    },
+    "beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "2344e25c1e742ba0e2f87492ad5c8d89",
+        "size compressed (bytes)": 138678724,
+        "documents": 48605,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-wordpress.flat"
+    },
+    "beir-v1.0.0-quora.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (Quora) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-quora.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-quora.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "ca6d9ede7d8551f5cf435428b1bc1111",
+        "size compressed (bytes)": 1491755507,
+        "documents": 522931,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-quora.flat"
+    },
+    "beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "866848d8b92f2509a2e23abb0f0c60d0",
+        "size compressed (bytes)": 13265128917,
+        "documents": 4635922,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-dbpedia-entity.flat"
+    },
+    "beir-v1.0.0-scidocs.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-scidocs.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-scidocs.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "8cf02d41ce8307e56c781a6af5ba0821",
+        "size compressed (bytes)": 73530332,
+        "documents": 25657,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-scidocs.flat"
+    },
+    "beir-v1.0.0-fever.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-fever.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-fever.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "13121968042484e1cf33f52426ec40ca",
+        "size compressed (bytes)": 15489138584,
+        "documents": 5416568,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-fever.flat"
+    },
+    "beir-v1.0.0-climate-fever.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-climate-fever.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-climate-fever.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "298b2450da9544dbce22c8c8862f9b18",
+        "size compressed (bytes)": 15489214263,
+        "documents": 5416593,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-climate-fever.flat"
+    },
+    "beir-v1.0.0-scifact.bge-base-en-v1.5": {
+        "description": "Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "filename": "faiss.beir-v1.0.0-scifact.bge-base-en-v1.5.20240107.tar.gz",
+        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-scifact.bge-base-en-v1.5.20240107.tar.gz"
+        ],
+        "md5": "642cd0a8817dfd03146cccb5f3792f01",
+        "size compressed (bytes)": 14807276,
+        "documents": 5183,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-scifact.flat"
+    },
 }
 
 FAISS_INDEX_INFO_MRTYDI = {
