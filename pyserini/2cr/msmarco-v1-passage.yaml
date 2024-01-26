@@ -1,4 +1,27 @@
 conditions:
+  - name: bge-base-en-v1.5-pytorch
+    display: "BGE-base-en-v1.5: PyTorch"
+    display-html: "BGE-base-en-v1.5: PyTorch"
+    display-row: "[14]"
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" --index msmarco-v1-passage.bge-base-en-v1.5 --topics $topics --output $output --hits 1000
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3896
+            R@1K: 0.9796
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4435
+            nDCG@10: 0.7065
+            R@1K: 0.8472
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4650
+            nDCG@10: 0.6780
+            R@1K: 0.8503
   - name: cosdpr-distil-pytorch
     display: "cosDPR-distil: PyTorch"
     display-html: "cosDPR-distil: PyTorch"
