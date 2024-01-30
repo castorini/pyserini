@@ -6056,6 +6056,125 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset \
 
 </div></td>
 </tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: BGE-base-en-v1.5: PyTorch -->
+<tr class="accordion-toggle collapsed" id="row53" data-toggle="collapse" data-parent="#row53" href="#collapse53">
+<td class="expand-button"></td>
+<td style="min-width: 85px">[14]</td>
+<td style="min-width: 400px">BGE-base-en-v1.5: PyTorch</td>
+<td>0.4435</td>
+<td>0.7065</td>
+<td>0.8472</td>
+<td></td>
+<td>0.4650</td>
+<td>0.6780</td>
+<td>0.8503</td>
+<td></td>
+<td>0.3896</td>
+<td>0.9796</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse53" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row53-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row53-tab1-header" data-mdb-toggle="tab" href="#row53-tab1" role="tab" aria-controls="row53-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row53-tab2-header" data-mdb-toggle="tab" href="#row53-tab2" role="tab" aria-controls="row53-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row53-tab3-header" data-mdb-toggle="tab" href="#row53-tab3" role="tab" aria-controls="row53-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row53-content">
+  <div class="tab-pane fade show active" id="row53-tab1" role="tabpanel" aria-labelledby="row53-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index msmarco-v1-passage.bge-base-en-v1.5 \
+  --topics dl19-passage \
+  --output run.msmarco-v1-passage.bge-base-en-v1.5-pytorch.dl19.txt \
+  --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage \
+  run.msmarco-v1-passage.bge-base-en-v1.5-pytorch.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage \
+  run.msmarco-v1-passage.bge-base-en-v1.5-pytorch.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
+  run.msmarco-v1-passage.bge-base-en-v1.5-pytorch.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row53-tab2" role="tabpanel" aria-labelledby="row53-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index msmarco-v1-passage.bge-base-en-v1.5 \
+  --topics dl20 \
+  --output run.msmarco-v1-passage.bge-base-en-v1.5-pytorch.dl20.txt \
+  --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage \
+  run.msmarco-v1-passage.bge-base-en-v1.5-pytorch.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage \
+  run.msmarco-v1-passage.bge-base-en-v1.5-pytorch.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
+  run.msmarco-v1-passage.bge-base-en-v1.5-pytorch.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row53-tab3" role="tabpanel" aria-labelledby="row53-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index msmarco-v1-passage.bge-base-en-v1.5 \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bge-base-en-v1.5-pytorch.dev.txt \
+  --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset \
+  run.msmarco-v1-passage.bge-base-en-v1.5-pytorch.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset \
+  run.msmarco-v1-passage.bge-base-en-v1.5-pytorch.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
 
     </tbody>
   </table>

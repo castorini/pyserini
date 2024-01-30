@@ -104,7 +104,9 @@ models = {
      'openai-ada2',
      'openai-ada2-hyde',
      '',
-     'cosdpr-distil-pytorch'
+     'cosdpr-distil-pytorch',
+     '',
+     'bge-base-en-v1.5-pytorch',
      ],
 
     # MS MARCO v1 doc

@@ -65,17 +65,17 @@ class AutoDocumentEncoder(DocumentEncoder):
         else:
             embeddings = outputs[0][:, 0, :].detach().cpu().numpy()
         if self.l2_norm:
-            embeddings = normalize(embeddings, axis=1)
+            embeddings = normalize(embeddings, axis=1, norm='l2')
         return embeddings
 
 
 class AutoQueryEncoder(QueryEncoder):
-    def __init__(self, model_name: str, tokenizer_name: str = None, device: str = 'cpu',
+    def __init__(self, encoder_dir: str, tokenizer_name: str = None, device: str = 'cpu',
                  pooling: str = 'cls', l2_norm: bool = False, prefix=None):
         self.device = device
-        self.model = AutoModel.from_pretrained(model_name)
+        self.model = AutoModel.from_pretrained(encoder_dir)
         self.model.to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name)
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
         self.pooling = pooling
         self.l2_norm = l2_norm
         self.prefix = prefix
@@ -98,5 +98,5 @@ class AutoQueryEncoder(QueryEncoder):
         else:
             embeddings = outputs[:, 0, :]
         if self.l2_norm:
-            embeddings = normalize(outputs, norm='l2')
+            embeddings = normalize(embeddings, norm='l2')
         return embeddings.flatten()
