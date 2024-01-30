@@ -31,7 +31,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
                     urls.append(url)
 
         # 29 each for flat and multifield
-        self.assertEqual(cnt, 87)
+        self.assertEqual(cnt, 58)
         self._test_urls(urls)
 
     def test_tf_mrtydi(self):
@@ -107,8 +107,8 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
-        # each 29: contriever, contriever-msmarco
-        self.assertEqual(cnt, 58)
+        # each 29: contriever, contriever-msmarco, bge
+        self.assertEqual(cnt, 87)
         self._test_urls(urls)
 
     def test_faiss_mrtydi(self):
