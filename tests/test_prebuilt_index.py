@@ -31,7 +31,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
                     urls.append(url)
 
         # 29 each for flat and multifield
-        self.assertEqual(cnt, 58)
+        self.assertEqual(cnt, 87)
         self._test_urls(urls)
 
     def test_tf_mrtydi(self):
@@ -146,7 +146,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
-        self.assertEqual(cnt, 16)
+        self.assertEqual(cnt, 17)
         self._test_urls(urls)
 
     def test_faiss_wikipedia(self):
