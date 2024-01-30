@@ -196,7 +196,9 @@ def run_conditions(args):
 
             for datasets in condition['datasets']:
                 dataset = datasets['dataset']
-                
+                query_prefix = '""'
+                if name == 'bge-base-en-v1.5' and dataset not in ['quora', 'arguana']:
+                    query_prefix = '"Represent this sentence for searching relevant passages:"'
                 if args.all:
                     pass
                 elif args.condition != name:
@@ -209,7 +211,7 @@ def run_conditions(args):
                 runfile = os.path.join(args.directory, f'run.beir.{name}.{dataset}.txt')
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile,
                                                         sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
-                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
+                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size, query_prefix=query_prefix)
                 
                 if args.display_commands:
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')

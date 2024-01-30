@@ -417,7 +417,7 @@ class FaissSearcher:
     def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str],
                  prebuilt_index_name: Optional[str] = None):
         requires_backends(self, "faiss")
-        if isinstance(query_encoder, QueryEncoder) or isinstance(query_encoder, PcaEncoder) or isinstance(query_encoder, CosDprQueryEncoder):
+        if not isinstance(query_encoder, str):
             self.query_encoder = query_encoder
         else:
             self.query_encoder = self._init_encoder_from_str(query_encoder)
