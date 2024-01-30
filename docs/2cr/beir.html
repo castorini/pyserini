@@ -138,7 +138,6 @@ pre[class*="prettyprint"] {
   <li>BM25 Flat: BM25 "flat" baseline</li>
   <li>BM25 Multifield: BM25 "multifield" baseline</li>
   <li>SPLADE: SPLADE++ (CoCondenser-EnsembleDistil)</li>
-  <li>Contriever: Unsupervised Contriever</li>
   <li>Contriever-msmarco: Contriever FT MS MARCO</li>
   <li>BEG-base: BGE-base-en-v1.5</li>
 </ul>
@@ -152,15 +151,11 @@ pre[class*="prettyprint"] {
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 Multifield</b></th>
         <th class="headertop" colspan="3"><b>SPLADE</b></th>
-        <th class="headertop" colspan="3"><b>Contriever</b></th>
         <th class="headertop" colspan="3"><b>Contriever MSMARCO</b></th>
         <th class="headertop" colspan="3"><b>BGE-base</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col">nDCG@10</th>
-        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>
@@ -193,13 +188,10 @@ pre[class*="prettyprint"] {
 <td>  0.7274</td>
 <td>  0.1282</td>
 <td></td>
-<td>  0.2732</td>
-<td>  0.0368</td>
-<td></td>
 <td>  0.5964</td>
 <td>  0.0907</td>
 <td></td>
-<td>  0.7814</td>
+<td>  0.7815</td>
 <td>  0.1406</td>
 </tr>
 <tr class="hide-table-padding">
@@ -219,13 +211,10 @@ pre[class*="prettyprint"] {
     <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab5-header" data-mdb-toggle="tab" href="#row1-tab5" role="tab" aria-controls="row1-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab6-header" data-mdb-toggle="tab" href="#row1-tab6" role="tab" aria-controls="row1-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row1-tab5-header" data-mdb-toggle="tab" href="#row1-tab5" role="tab" aria-controls="row1-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -325,35 +314,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-trec-covid.contriever \
-  --topics beir-v1.0.0-trec-covid-test \
-  --output run.beir.contriever.trec-covid.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
-  run.beir.contriever.trec-covid.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-trec-covid-test \
-  run.beir.contriever.trec-covid.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-trec-covid-test \
-  run.beir.contriever.trec-covid.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row1-tab5" role="tabpanel" aria-labelledby="row1-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-trec-covid.contriever-msmarco \
   --topics beir-v1.0.0-trec-covid-test \
@@ -377,13 +337,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row1-tab6" role="tabpanel" aria-labelledby="row1-tab6">
+  <div class="tab-pane fade" id="row1-tab5" role="tabpanel" aria-labelledby="row1-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-trec-covid.bge-base-en-v1.5 \
   --topics beir-v1.0.0-trec-covid-test \
   --output run.beir.bge-base-en-v1.5.trec-covid.txt \
@@ -406,6 +367,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row1-tab6" role="tabpanel" aria-labelledby="row1-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -424,14 +389,11 @@ python -m pyserini.eval.trec_eval \
 <td>  0.4980</td>
 <td>  0.7385</td>
 <td></td>
-<td>  0.3016</td>
-<td>  0.5412</td>
-<td></td>
 <td>  0.3829</td>
 <td>  0.6072</td>
 <td></td>
-<td>  0.4149</td>
-<td>  0.6317</td>
+<td>  0.4148</td>
+<td>  0.6316</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -450,13 +412,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab5-header" data-mdb-toggle="tab" href="#row2-tab5" role="tab" aria-controls="row2-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab6-header" data-mdb-toggle="tab" href="#row2-tab6" role="tab" aria-controls="row2-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row2-tab5-header" data-mdb-toggle="tab" href="#row2-tab5" role="tab" aria-controls="row2-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -556,35 +515,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-bioasq.contriever \
-  --topics beir-v1.0.0-bioasq-test \
-  --output run.beir.contriever.bioasq.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
-  run.beir.contriever.bioasq.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-bioasq-test \
-  run.beir.contriever.bioasq.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-bioasq-test \
-  run.beir.contriever.bioasq.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row2-tab5" role="tabpanel" aria-labelledby="row2-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-bioasq.contriever-msmarco \
   --topics beir-v1.0.0-bioasq-test \
@@ -608,13 +538,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row2-tab6" role="tabpanel" aria-labelledby="row2-tab6">
+  <div class="tab-pane fade" id="row2-tab5" role="tabpanel" aria-labelledby="row2-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-bioasq.bge-base-en-v1.5 \
   --topics beir-v1.0.0-bioasq-test \
   --output run.beir.bge-base-en-v1.5.bioasq.txt \
@@ -637,6 +568,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row2-tab6" role="tabpanel" aria-labelledby="row2-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -654,9 +589,6 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3470</td>
 <td>  0.2844</td>
-<td></td>
-<td>  0.3173</td>
-<td>  0.2943</td>
 <td></td>
 <td>  0.3281</td>
 <td>  0.3008</td>
@@ -681,13 +613,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab5-header" data-mdb-toggle="tab" href="#row3-tab5" role="tab" aria-controls="row3-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab6-header" data-mdb-toggle="tab" href="#row3-tab6" role="tab" aria-controls="row3-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row3-tab5-header" data-mdb-toggle="tab" href="#row3-tab5" role="tab" aria-controls="row3-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -787,35 +716,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-nfcorpus.contriever \
-  --topics beir-v1.0.0-nfcorpus-test \
-  --output run.beir.contriever.nfcorpus.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
-  run.beir.contriever.nfcorpus.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-nfcorpus-test \
-  run.beir.contriever.nfcorpus.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
-  run.beir.contriever.nfcorpus.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row3-tab5" role="tabpanel" aria-labelledby="row3-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-nfcorpus.contriever-msmarco \
   --topics beir-v1.0.0-nfcorpus-test \
@@ -839,13 +739,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row3-tab6" role="tabpanel" aria-labelledby="row3-tab6">
+  <div class="tab-pane fade" id="row3-tab5" role="tabpanel" aria-labelledby="row3-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-nfcorpus.bge-base-en-v1.5 \
   --topics beir-v1.0.0-nfcorpus-test \
   --output run.beir.bge-base-en-v1.5.nfcorpus.txt \
@@ -868,6 +769,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row3-tab6" role="tabpanel" aria-labelledby="row3-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -886,13 +791,10 @@ python -m pyserini.eval.trec_eval \
 <td>  0.5378</td>
 <td>  0.9296</td>
 <td></td>
-<td>  0.2536</td>
-<td>  0.7712</td>
-<td></td>
 <td>  0.4977</td>
 <td>  0.9252</td>
 <td></td>
-<td>  0.5413</td>
+<td>  0.5414</td>
 <td>  0.9415</td>
 </tr>
 <tr class="hide-table-padding">
@@ -912,13 +814,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab5-header" data-mdb-toggle="tab" href="#row4-tab5" role="tab" aria-controls="row4-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab6-header" data-mdb-toggle="tab" href="#row4-tab6" role="tab" aria-controls="row4-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row4-tab5-header" data-mdb-toggle="tab" href="#row4-tab5" role="tab" aria-controls="row4-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1018,35 +917,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-nq.contriever \
-  --topics beir-v1.0.0-nq-test \
-  --output run.beir.contriever.nq.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
-  run.beir.contriever.nq.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-nq-test \
-  run.beir.contriever.nq.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-nq-test \
-  run.beir.contriever.nq.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row4-tab5" role="tabpanel" aria-labelledby="row4-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-nq.contriever-msmarco \
   --topics beir-v1.0.0-nq-test \
@@ -1070,13 +940,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row4-tab6" role="tabpanel" aria-labelledby="row4-tab6">
+  <div class="tab-pane fade" id="row4-tab5" role="tabpanel" aria-labelledby="row4-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-nq.bge-base-en-v1.5 \
   --topics beir-v1.0.0-nq-test \
   --output run.beir.bge-base-en-v1.5.nq.txt \
@@ -1099,6 +970,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row4-tab6" role="tabpanel" aria-labelledby="row4-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1117,14 +992,11 @@ python -m pyserini.eval.trec_eval \
 <td>  0.6868</td>
 <td>  0.8177</td>
 <td></td>
-<td>  0.4807</td>
-<td>  0.7046</td>
-<td></td>
 <td>  0.6376</td>
 <td>  0.7772</td>
 <td></td>
 <td>  0.7259</td>
-<td>  0.8727</td>
+<td>  0.8726</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1143,13 +1015,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab5-header" data-mdb-toggle="tab" href="#row5-tab5" role="tab" aria-controls="row5-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab6-header" data-mdb-toggle="tab" href="#row5-tab6" role="tab" aria-controls="row5-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row5-tab5-header" data-mdb-toggle="tab" href="#row5-tab5" role="tab" aria-controls="row5-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1249,35 +1118,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-hotpotqa.contriever \
-  --topics beir-v1.0.0-hotpotqa-test \
-  --output run.beir.contriever.hotpotqa.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
-  run.beir.contriever.hotpotqa.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-hotpotqa-test \
-  run.beir.contriever.hotpotqa.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
-  run.beir.contriever.hotpotqa.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row5-tab5" role="tabpanel" aria-labelledby="row5-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-hotpotqa.contriever-msmarco \
   --topics beir-v1.0.0-hotpotqa-test \
@@ -1301,13 +1141,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row5-tab6" role="tabpanel" aria-labelledby="row5-tab6">
+  <div class="tab-pane fade" id="row5-tab5" role="tabpanel" aria-labelledby="row5-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-hotpotqa.bge-base-en-v1.5 \
   --topics beir-v1.0.0-hotpotqa-test \
   --output run.beir.bge-base-en-v1.5.hotpotqa.txt \
@@ -1330,6 +1171,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row5-tab6" role="tabpanel" aria-labelledby="row5-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1347,9 +1192,6 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3475</td>
 <td>  0.6314</td>
-<td></td>
-<td>  0.2449</td>
-<td>  0.5619</td>
 <td></td>
 <td>  0.3293</td>
 <td>  0.6558</td>
@@ -1374,13 +1216,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab5-header" data-mdb-toggle="tab" href="#row6-tab5" role="tab" aria-controls="row6-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab6-header" data-mdb-toggle="tab" href="#row6-tab6" role="tab" aria-controls="row6-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row6-tab5-header" data-mdb-toggle="tab" href="#row6-tab5" role="tab" aria-controls="row6-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1480,35 +1319,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-fiqa.contriever \
-  --topics beir-v1.0.0-fiqa-test \
-  --output run.beir.contriever.fiqa.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
-  run.beir.contriever.fiqa.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-fiqa-test \
-  run.beir.contriever.fiqa.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-fiqa-test \
-  run.beir.contriever.fiqa.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row6-tab5" role="tabpanel" aria-labelledby="row6-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-fiqa.contriever-msmarco \
   --topics beir-v1.0.0-fiqa-test \
@@ -1532,13 +1342,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row6-tab6" role="tabpanel" aria-labelledby="row6-tab6">
+  <div class="tab-pane fade" id="row6-tab5" role="tabpanel" aria-labelledby="row6-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-fiqa.bge-base-en-v1.5 \
   --topics beir-v1.0.0-fiqa-test \
   --output run.beir.bge-base-en-v1.5.fiqa.txt \
@@ -1561,6 +1372,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row6-tab6" role="tabpanel" aria-labelledby="row6-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1578,9 +1393,6 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3008</td>
 <td>  0.3398</td>
-<td></td>
-<td>  0.2338</td>
-<td>  0.2568</td>
 <td></td>
 <td>  0.2783</td>
 <td>  0.3220</td>
@@ -1605,13 +1417,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab5-header" data-mdb-toggle="tab" href="#row7-tab5" role="tab" aria-controls="row7-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab6-header" data-mdb-toggle="tab" href="#row7-tab6" role="tab" aria-controls="row7-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row7-tab5-header" data-mdb-toggle="tab" href="#row7-tab5" role="tab" aria-controls="row7-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1711,35 +1520,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-signal1m.contriever \
-  --topics beir-v1.0.0-signal1m-test \
-  --output run.beir.contriever.signal1m.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
-  run.beir.contriever.signal1m.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-signal1m-test \
-  run.beir.contriever.signal1m.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-signal1m-test \
-  run.beir.contriever.signal1m.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row7-tab5" role="tabpanel" aria-labelledby="row7-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-signal1m.contriever-msmarco \
   --topics beir-v1.0.0-signal1m-test \
@@ -1763,13 +1543,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row7-tab6" role="tabpanel" aria-labelledby="row7-tab6">
+  <div class="tab-pane fade" id="row7-tab5" role="tabpanel" aria-labelledby="row7-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-signal1m.bge-base-en-v1.5 \
   --topics beir-v1.0.0-signal1m-test \
   --output run.beir.bge-base-en-v1.5.signal1m.txt \
@@ -1792,6 +1573,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row7-tab6" role="tabpanel" aria-labelledby="row7-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1810,13 +1595,10 @@ python -m pyserini.eval.trec_eval \
 <td>  0.4152</td>
 <td>  0.4414</td>
 <td></td>
-<td>  0.3484</td>
-<td>  0.4234</td>
-<td></td>
 <td>  0.4283</td>
 <td>  0.4924</td>
 <td></td>
-<td>  0.4425</td>
+<td>  0.4424</td>
 <td>  0.4992</td>
 </tr>
 <tr class="hide-table-padding">
@@ -1836,13 +1618,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab5-header" data-mdb-toggle="tab" href="#row8-tab5" role="tab" aria-controls="row8-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab6-header" data-mdb-toggle="tab" href="#row8-tab6" role="tab" aria-controls="row8-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row8-tab5-header" data-mdb-toggle="tab" href="#row8-tab5" role="tab" aria-controls="row8-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1942,35 +1721,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-trec-news.contriever \
-  --topics beir-v1.0.0-trec-news-test \
-  --output run.beir.contriever.trec-news.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
-  run.beir.contriever.trec-news.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-trec-news-test \
-  run.beir.contriever.trec-news.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-trec-news-test \
-  run.beir.contriever.trec-news.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row8-tab5" role="tabpanel" aria-labelledby="row8-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-trec-news.contriever-msmarco \
   --topics beir-v1.0.0-trec-news-test \
@@ -1994,13 +1744,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row8-tab6" role="tabpanel" aria-labelledby="row8-tab6">
+  <div class="tab-pane fade" id="row8-tab5" role="tabpanel" aria-labelledby="row8-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-trec-news.bge-base-en-v1.5 \
   --topics beir-v1.0.0-trec-news-test \
   --output run.beir.bge-base-en-v1.5.trec-news.txt \
@@ -2023,6 +1774,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row8-tab6" role="tabpanel" aria-labelledby="row8-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2041,14 +1796,11 @@ python -m pyserini.eval.trec_eval \
 <td>  0.4679</td>
 <td>  0.3850</td>
 <td></td>
-<td>  0.3155</td>
-<td>  0.2757</td>
-<td></td>
 <td>  0.4729</td>
 <td>  0.3917</td>
 <td></td>
-<td>  0.4465</td>
-<td>  0.3507</td>
+<td>  0.4435</td>
+<td>  0.3510</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2067,13 +1819,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab5-header" data-mdb-toggle="tab" href="#row9-tab5" role="tab" aria-controls="row9-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab6-header" data-mdb-toggle="tab" href="#row9-tab6" role="tab" aria-controls="row9-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row9-tab5-header" data-mdb-toggle="tab" href="#row9-tab5" role="tab" aria-controls="row9-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2173,35 +1922,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-robust04.contriever \
-  --topics beir-v1.0.0-robust04-test \
-  --output run.beir.contriever.robust04.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
-  run.beir.contriever.robust04.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-robust04-test \
-  run.beir.contriever.robust04.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-robust04-test \
-  run.beir.contriever.robust04.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row9-tab5" role="tabpanel" aria-labelledby="row9-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-robust04.contriever-msmarco \
   --topics beir-v1.0.0-robust04-test \
@@ -2225,13 +1945,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row9-tab6" role="tabpanel" aria-labelledby="row9-tab6">
+  <div class="tab-pane fade" id="row9-tab5" role="tabpanel" aria-labelledby="row9-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-robust04.bge-base-en-v1.5 \
   --topics beir-v1.0.0-robust04-test \
   --output run.beir.bge-base-en-v1.5.robust04.txt \
@@ -2254,6 +1975,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row9-tab6" role="tabpanel" aria-labelledby="row9-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2272,13 +1997,10 @@ python -m pyserini.eval.trec_eval \
 <td>  0.5203</td>
 <td>  0.9744</td>
 <td></td>
-<td>  0.3791</td>
-<td>  0.9011</td>
-<td></td>
 <td>  0.4461</td>
 <td>  0.9765</td>
 <td></td>
-<td>  0.6361</td>
+<td>  0.6365</td>
 <td>  0.9915</td>
 </tr>
 <tr class="hide-table-padding">
@@ -2298,13 +2020,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab5-header" data-mdb-toggle="tab" href="#row10-tab5" role="tab" aria-controls="row10-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab6-header" data-mdb-toggle="tab" href="#row10-tab6" role="tab" aria-controls="row10-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row10-tab5-header" data-mdb-toggle="tab" href="#row10-tab5" role="tab" aria-controls="row10-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2404,35 +2123,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-arguana.contriever \
-  --topics beir-v1.0.0-arguana-test \
-  --output run.beir.contriever.arguana.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
-  run.beir.contriever.arguana.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-arguana-test \
-  run.beir.contriever.arguana.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-arguana-test \
-  run.beir.contriever.arguana.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row10-tab5" role="tabpanel" aria-labelledby="row10-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-arguana.contriever-msmarco \
   --topics beir-v1.0.0-arguana-test \
@@ -2456,13 +2146,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row10-tab6" role="tabpanel" aria-labelledby="row10-tab6">
+  <div class="tab-pane fade" id="row10-tab5" role="tabpanel" aria-labelledby="row10-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "" \
   --index beir-v1.0.0-arguana.bge-base-en-v1.5 \
   --topics beir-v1.0.0-arguana-test \
   --output run.beir.bge-base-en-v1.5.arguana.txt \
@@ -2485,6 +2176,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row10-tab6" role="tabpanel" aria-labelledby="row10-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2503,14 +2198,11 @@ python -m pyserini.eval.trec_eval \
 <td>  0.2468</td>
 <td>  0.4715</td>
 <td></td>
-<td>  0.1668</td>
-<td>  0.3736</td>
-<td></td>
 <td>  0.2040</td>
 <td>  0.4420</td>
 <td></td>
-<td>  0.2570</td>
-<td>  0.4857</td>
+<td>  0.2571</td>
+<td>  0.4867</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2529,13 +2221,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab5-header" data-mdb-toggle="tab" href="#row11-tab5" role="tab" aria-controls="row11-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab6-header" data-mdb-toggle="tab" href="#row11-tab6" role="tab" aria-controls="row11-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row11-tab5-header" data-mdb-toggle="tab" href="#row11-tab5" role="tab" aria-controls="row11-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2635,35 +2324,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-webis-touche2020.contriever \
-  --topics beir-v1.0.0-webis-touche2020-test \
-  --output run.beir.contriever.webis-touche2020.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
-  run.beir.contriever.webis-touche2020.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
-  run.beir.contriever.webis-touche2020.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
-  run.beir.contriever.webis-touche2020.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row11-tab5" role="tabpanel" aria-labelledby="row11-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-webis-touche2020.contriever-msmarco \
   --topics beir-v1.0.0-webis-touche2020-test \
@@ -2687,13 +2347,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row11-tab6" role="tabpanel" aria-labelledby="row11-tab6">
+  <div class="tab-pane fade" id="row11-tab5" role="tabpanel" aria-labelledby="row11-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-webis-touche2020.bge-base-en-v1.5 \
   --topics beir-v1.0.0-webis-touche2020-test \
   --output run.beir.bge-base-en-v1.5.webis-touche2020.txt \
@@ -2716,6 +2377,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row11-tab6" role="tabpanel" aria-labelledby="row11-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2734,13 +2399,10 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3904</td>
 <td>  0.7404</td>
 <td></td>
-<td>  0.3771</td>
-<td>  0.7436</td>
-<td></td>
 <td>  0.4255</td>
 <td>  0.7503</td>
 <td></td>
-<td>  0.5075</td>
+<td>  0.5076</td>
 <td>  0.8454</td>
 </tr>
 <tr class="hide-table-padding">
@@ -2760,13 +2422,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab5-header" data-mdb-toggle="tab" href="#row12-tab5" role="tab" aria-controls="row12-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab6-header" data-mdb-toggle="tab" href="#row12-tab6" role="tab" aria-controls="row12-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row12-tab5-header" data-mdb-toggle="tab" href="#row12-tab5" role="tab" aria-controls="row12-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2866,35 +2525,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-cqadupstack-android.contriever \
-  --topics beir-v1.0.0-cqadupstack-android-test \
-  --output run.beir.contriever.cqadupstack-android.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.contriever.cqadupstack-android.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.contriever.cqadupstack-android.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.contriever.cqadupstack-android.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row12-tab5" role="tabpanel" aria-labelledby="row12-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-android.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-android-test \
@@ -2918,13 +2548,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row12-tab6" role="tabpanel" aria-labelledby="row12-tab6">
+  <div class="tab-pane fade" id="row12-tab5" role="tabpanel" aria-labelledby="row12-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.bge-base-en-v1.5.cqadupstack-android.txt \
@@ -2947,6 +2578,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row12-tab6" role="tabpanel" aria-labelledby="row12-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2965,14 +2600,11 @@ python -m pyserini.eval.trec_eval \
 <td>  0.4079</td>
 <td>  0.6946</td>
 <td></td>
-<td>  0.3571</td>
-<td>  0.6442</td>
-<td></td>
 <td>  0.4326</td>
 <td>  0.6935</td>
 <td></td>
 <td>  0.4857</td>
-<td>  0.7587</td>
+<td>  0.7586</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2991,13 +2623,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row13-tab4-header" data-mdb-toggle="tab" href="#row13-tab4" role="tab" aria-controls="row13-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row13-tab4-header" data-mdb-toggle="tab" href="#row13-tab4" role="tab" aria-controls="row13-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row13-tab5-header" data-mdb-toggle="tab" href="#row13-tab5" role="tab" aria-controls="row13-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row13-tab6-header" data-mdb-toggle="tab" href="#row13-tab6" role="tab" aria-controls="row13-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row13-tab5-header" data-mdb-toggle="tab" href="#row13-tab5" role="tab" aria-controls="row13-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3097,35 +2726,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-cqadupstack-english.contriever \
-  --topics beir-v1.0.0-cqadupstack-english-test \
-  --output run.beir.contriever.cqadupstack-english.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.contriever.cqadupstack-english.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.contriever.cqadupstack-english.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.contriever.cqadupstack-english.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row13-tab5" role="tabpanel" aria-labelledby="row13-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-english.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-english-test \
@@ -3149,13 +2749,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row13-tab6" role="tabpanel" aria-labelledby="row13-tab6">
+  <div class="tab-pane fade" id="row13-tab5" role="tabpanel" aria-labelledby="row13-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.bge-base-en-v1.5.cqadupstack-english.txt \
@@ -3178,6 +2779,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row13-tab6" role="tabpanel" aria-labelledby="row13-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3196,13 +2801,10 @@ python -m pyserini.eval.trec_eval \
 <td>  0.4957</td>
 <td>  0.8131</td>
 <td></td>
-<td>  0.4597</td>
-<td>  0.8092</td>
-<td></td>
 <td>  0.5276</td>
 <td>  0.8481</td>
 <td></td>
-<td>  0.5965</td>
+<td>  0.5967</td>
 <td>  0.9036</td>
 </tr>
 <tr class="hide-table-padding">
@@ -3222,13 +2824,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row14-tab3-header" data-mdb-toggle="tab" href="#row14-tab3" role="tab" aria-controls="row14-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row14-tab4-header" data-mdb-toggle="tab" href="#row14-tab4" role="tab" aria-controls="row14-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row14-tab4-header" data-mdb-toggle="tab" href="#row14-tab4" role="tab" aria-controls="row14-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row14-tab5-header" data-mdb-toggle="tab" href="#row14-tab5" role="tab" aria-controls="row14-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row14-tab6-header" data-mdb-toggle="tab" href="#row14-tab6" role="tab" aria-controls="row14-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row14-tab5-header" data-mdb-toggle="tab" href="#row14-tab5" role="tab" aria-controls="row14-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3328,35 +2927,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-cqadupstack-gaming.contriever \
-  --topics beir-v1.0.0-cqadupstack-gaming-test \
-  --output run.beir.contriever.cqadupstack-gaming.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.contriever.cqadupstack-gaming.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.contriever.cqadupstack-gaming.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.contriever.cqadupstack-gaming.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row14-tab5" role="tabpanel" aria-labelledby="row14-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-gaming.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
@@ -3380,13 +2950,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row14-tab6" role="tabpanel" aria-labelledby="row14-tab6">
+  <div class="tab-pane fade" id="row14-tab5" role="tabpanel" aria-labelledby="row14-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt \
@@ -3409,6 +2980,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row14-tab6" role="tabpanel" aria-labelledby="row14-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3426,9 +3001,6 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.3150</td>
 <td>  0.6320</td>
-<td></td>
-<td>  0.2411</td>
-<td>  0.5792</td>
 <td></td>
 <td>  0.3022</td>
 <td>  0.6272</td>
@@ -3453,13 +3025,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row15-tab3-header" data-mdb-toggle="tab" href="#row15-tab3" role="tab" aria-controls="row15-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row15-tab4-header" data-mdb-toggle="tab" href="#row15-tab4" role="tab" aria-controls="row15-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row15-tab4-header" data-mdb-toggle="tab" href="#row15-tab4" role="tab" aria-controls="row15-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row15-tab5-header" data-mdb-toggle="tab" href="#row15-tab5" role="tab" aria-controls="row15-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row15-tab6-header" data-mdb-toggle="tab" href="#row15-tab6" role="tab" aria-controls="row15-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row15-tab5-header" data-mdb-toggle="tab" href="#row15-tab5" role="tab" aria-controls="row15-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3559,35 +3128,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-cqadupstack-gis.contriever \
-  --topics beir-v1.0.0-cqadupstack-gis-test \
-  --output run.beir.contriever.cqadupstack-gis.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.contriever.cqadupstack-gis.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.contriever.cqadupstack-gis.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.contriever.cqadupstack-gis.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row15-tab5" role="tabpanel" aria-labelledby="row15-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-gis.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-gis-test \
@@ -3611,13 +3151,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row15-tab6" role="tabpanel" aria-labelledby="row15-tab6">
+  <div class="tab-pane fade" id="row15-tab5" role="tabpanel" aria-labelledby="row15-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.bge-base-en-v1.5.cqadupstack-gis.txt \
@@ -3640,6 +3181,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row15-tab6" role="tabpanel" aria-labelledby="row15-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3657,9 +3202,6 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2377</td>
 <td>  0.5797</td>
-<td></td>
-<td>  0.1841</td>
-<td>  0.5127</td>
 <td></td>
 <td>  0.2355</td>
 <td>  0.5726</td>
@@ -3684,13 +3226,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row16-tab3-header" data-mdb-toggle="tab" href="#row16-tab3" role="tab" aria-controls="row16-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row16-tab4-header" data-mdb-toggle="tab" href="#row16-tab4" role="tab" aria-controls="row16-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row16-tab4-header" data-mdb-toggle="tab" href="#row16-tab4" role="tab" aria-controls="row16-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row16-tab5-header" data-mdb-toggle="tab" href="#row16-tab5" role="tab" aria-controls="row16-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row16-tab6-header" data-mdb-toggle="tab" href="#row16-tab6" role="tab" aria-controls="row16-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row16-tab5-header" data-mdb-toggle="tab" href="#row16-tab5" role="tab" aria-controls="row16-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3790,35 +3329,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-cqadupstack-mathematica.contriever \
-  --topics beir-v1.0.0-cqadupstack-mathematica-test \
-  --output run.beir.contriever.cqadupstack-mathematica.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.contriever.cqadupstack-mathematica.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.contriever.cqadupstack-mathematica.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.contriever.cqadupstack-mathematica.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row16-tab5" role="tabpanel" aria-labelledby="row16-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
@@ -3842,13 +3352,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row16-tab6" role="tabpanel" aria-labelledby="row16-tab6">
+  <div class="tab-pane fade" id="row16-tab5" role="tabpanel" aria-labelledby="row16-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt \
@@ -3871,6 +3382,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row16-tab6" role="tabpanel" aria-labelledby="row16-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -3889,14 +3404,11 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3599</td>
 <td>  0.7196</td>
 <td></td>
-<td>  0.3430</td>
-<td>  0.7013</td>
-<td></td>
 <td>  0.4159</td>
 <td>  0.7619</td>
 <td></td>
-<td>  0.4722</td>
-<td>  0.8081</td>
+<td>  0.4724</td>
+<td>  0.8078</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -3915,13 +3427,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row17-tab3-header" data-mdb-toggle="tab" href="#row17-tab3" role="tab" aria-controls="row17-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row17-tab4-header" data-mdb-toggle="tab" href="#row17-tab4" role="tab" aria-controls="row17-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row17-tab4-header" data-mdb-toggle="tab" href="#row17-tab4" role="tab" aria-controls="row17-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row17-tab5-header" data-mdb-toggle="tab" href="#row17-tab5" role="tab" aria-controls="row17-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row17-tab6-header" data-mdb-toggle="tab" href="#row17-tab6" role="tab" aria-controls="row17-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row17-tab5-header" data-mdb-toggle="tab" href="#row17-tab5" role="tab" aria-controls="row17-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -4021,35 +3530,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-cqadupstack-physics.contriever \
-  --topics beir-v1.0.0-cqadupstack-physics-test \
-  --output run.beir.contriever.cqadupstack-physics.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.contriever.cqadupstack-physics.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.contriever.cqadupstack-physics.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.contriever.cqadupstack-physics.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row17-tab5" role="tabpanel" aria-labelledby="row17-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-physics.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-physics-test \
@@ -4073,13 +3553,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row17-tab6" role="tabpanel" aria-labelledby="row17-tab6">
+  <div class="tab-pane fade" id="row17-tab5" role="tabpanel" aria-labelledby="row17-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.bge-base-en-v1.5.cqadupstack-physics.txt \
@@ -4102,6 +3583,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row17-tab6" role="tabpanel" aria-labelledby="row17-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -4120,13 +3605,10 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3401</td>
 <td>  0.6585</td>
 <td></td>
-<td>  0.3029</td>
-<td>  0.6402</td>
-<td></td>
 <td>  0.3574</td>
 <td>  0.7191</td>
 <td></td>
-<td>  0.4242</td>
+<td>  0.4238</td>
 <td>  0.7856</td>
 </tr>
 <tr class="hide-table-padding">
@@ -4146,13 +3628,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row18-tab3-header" data-mdb-toggle="tab" href="#row18-tab3" role="tab" aria-controls="row18-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row18-tab4-header" data-mdb-toggle="tab" href="#row18-tab4" role="tab" aria-controls="row18-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row18-tab4-header" data-mdb-toggle="tab" href="#row18-tab4" role="tab" aria-controls="row18-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row18-tab5-header" data-mdb-toggle="tab" href="#row18-tab5" role="tab" aria-controls="row18-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row18-tab6-header" data-mdb-toggle="tab" href="#row18-tab6" role="tab" aria-controls="row18-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row18-tab5-header" data-mdb-toggle="tab" href="#row18-tab5" role="tab" aria-controls="row18-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -4252,35 +3731,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-cqadupstack-programmers.contriever \
-  --topics beir-v1.0.0-cqadupstack-programmers-test \
-  --output run.beir.contriever.cqadupstack-programmers.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.contriever.cqadupstack-programmers.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.contriever.cqadupstack-programmers.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.contriever.cqadupstack-programmers.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row18-tab5" role="tabpanel" aria-labelledby="row18-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-programmers.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
@@ -4304,13 +3754,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row18-tab6" role="tabpanel" aria-labelledby="row18-tab6">
+  <div class="tab-pane fade" id="row18-tab5" role="tabpanel" aria-labelledby="row18-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt \
@@ -4333,6 +3784,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row18-tab6" role="tabpanel" aria-labelledby="row18-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -4350,9 +3805,6 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>  0.2990</td>
 <td>  0.5894</td>
-<td></td>
-<td>  0.2483</td>
-<td>  0.5269</td>
 <td></td>
 <td>  0.3095</td>
 <td>  0.5860</td>
@@ -4377,13 +3829,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row19-tab3-header" data-mdb-toggle="tab" href="#row19-tab3" role="tab" aria-controls="row19-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row19-tab4-header" data-mdb-toggle="tab" href="#row19-tab4" role="tab" aria-controls="row19-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row19-tab4-header" data-mdb-toggle="tab" href="#row19-tab4" role="tab" aria-controls="row19-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row19-tab5-header" data-mdb-toggle="tab" href="#row19-tab5" role="tab" aria-controls="row19-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row19-tab6-header" data-mdb-toggle="tab" href="#row19-tab6" role="tab" aria-controls="row19-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row19-tab5-header" data-mdb-toggle="tab" href="#row19-tab5" role="tab" aria-controls="row19-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -4483,35 +3932,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-cqadupstack-stats.contriever \
-  --topics beir-v1.0.0-cqadupstack-stats-test \
-  --output run.beir.contriever.cqadupstack-stats.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.contriever.cqadupstack-stats.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.contriever.cqadupstack-stats.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.contriever.cqadupstack-stats.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row19-tab5" role="tabpanel" aria-labelledby="row19-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-stats.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-stats-test \
@@ -4535,13 +3955,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row19-tab6" role="tabpanel" aria-labelledby="row19-tab6">
+  <div class="tab-pane fade" id="row19-tab5" role="tabpanel" aria-labelledby="row19-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.bge-base-en-v1.5.cqadupstack-stats.txt \
@@ -4564,6 +3985,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row19-tab6" role="tabpanel" aria-labelledby="row19-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -4582,14 +4007,11 @@ python -m pyserini.eval.trec_eval \
 <td>  0.2530</td>
 <td>  0.5161</td>
 <td></td>
-<td>  0.1540</td>
-<td>  0.4333</td>
-<td></td>
 <td>  0.2209</td>
 <td>  0.4985</td>
 <td></td>
 <td>  0.3115</td>
-<td>  0.6486</td>
+<td>  0.6489</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -4608,13 +4030,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row20-tab3-header" data-mdb-toggle="tab" href="#row20-tab3" role="tab" aria-controls="row20-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row20-tab4-header" data-mdb-toggle="tab" href="#row20-tab4" role="tab" aria-controls="row20-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row20-tab4-header" data-mdb-toggle="tab" href="#row20-tab4" role="tab" aria-controls="row20-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row20-tab5-header" data-mdb-toggle="tab" href="#row20-tab5" role="tab" aria-controls="row20-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row20-tab6-header" data-mdb-toggle="tab" href="#row20-tab6" role="tab" aria-controls="row20-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row20-tab5-header" data-mdb-toggle="tab" href="#row20-tab5" role="tab" aria-controls="row20-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -4714,35 +4133,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-cqadupstack-tex.contriever \
-  --topics beir-v1.0.0-cqadupstack-tex-test \
-  --output run.beir.contriever.cqadupstack-tex.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.contriever.cqadupstack-tex.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.contriever.cqadupstack-tex.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.contriever.cqadupstack-tex.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row20-tab5" role="tabpanel" aria-labelledby="row20-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-tex.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-tex-test \
@@ -4766,13 +4156,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row20-tab6" role="tabpanel" aria-labelledby="row20-tab6">
+  <div class="tab-pane fade" id="row20-tab5" role="tabpanel" aria-labelledby="row20-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.bge-base-en-v1.5.cqadupstack-tex.txt \
@@ -4795,6 +4186,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row20-tab6" role="tabpanel" aria-labelledby="row20-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -4813,13 +4208,10 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3167</td>
 <td>  0.6214</td>
 <td></td>
-<td>  0.2636</td>
-<td>  0.5879</td>
-<td></td>
 <td>  0.3257</td>
 <td>  0.6161</td>
 <td></td>
-<td>  0.4219</td>
+<td>  0.4220</td>
 <td>  0.7797</td>
 </tr>
 <tr class="hide-table-padding">
@@ -4839,13 +4231,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row21-tab3-header" data-mdb-toggle="tab" href="#row21-tab3" role="tab" aria-controls="row21-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row21-tab4-header" data-mdb-toggle="tab" href="#row21-tab4" role="tab" aria-controls="row21-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row21-tab4-header" data-mdb-toggle="tab" href="#row21-tab4" role="tab" aria-controls="row21-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row21-tab5-header" data-mdb-toggle="tab" href="#row21-tab5" role="tab" aria-controls="row21-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row21-tab6-header" data-mdb-toggle="tab" href="#row21-tab6" role="tab" aria-controls="row21-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row21-tab5-header" data-mdb-toggle="tab" href="#row21-tab5" role="tab" aria-controls="row21-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -4945,35 +4334,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-cqadupstack-unix.contriever \
-  --topics beir-v1.0.0-cqadupstack-unix-test \
-  --output run.beir.contriever.cqadupstack-unix.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.contriever.cqadupstack-unix.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.contriever.cqadupstack-unix.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.contriever.cqadupstack-unix.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row21-tab5" role="tabpanel" aria-labelledby="row21-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-unix.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-unix-test \
@@ -4997,13 +4357,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row21-tab6" role="tabpanel" aria-labelledby="row21-tab6">
+  <div class="tab-pane fade" id="row21-tab5" role="tabpanel" aria-labelledby="row21-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.bge-base-en-v1.5.cqadupstack-unix.txt \
@@ -5026,6 +4387,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row21-tab6" role="tabpanel" aria-labelledby="row21-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -5044,13 +4409,10 @@ python -m pyserini.eval.trec_eval \
 <td>  0.3167</td>
 <td>  0.6360</td>
 <td></td>
-<td>  0.2878</td>
-<td>  0.6485</td>
-<td></td>
 <td>  0.3392</td>
 <td>  0.7032</td>
 <td></td>
-<td>  0.4065</td>
+<td>  0.4072</td>
 <td>  0.7774</td>
 </tr>
 <tr class="hide-table-padding">
@@ -5070,13 +4432,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row22-tab3-header" data-mdb-toggle="tab" href="#row22-tab3" role="tab" aria-controls="row22-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row22-tab4-header" data-mdb-toggle="tab" href="#row22-tab4" role="tab" aria-controls="row22-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row22-tab4-header" data-mdb-toggle="tab" href="#row22-tab4" role="tab" aria-controls="row22-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row22-tab5-header" data-mdb-toggle="tab" href="#row22-tab5" role="tab" aria-controls="row22-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row22-tab6-header" data-mdb-toggle="tab" href="#row22-tab6" role="tab" aria-controls="row22-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row22-tab5-header" data-mdb-toggle="tab" href="#row22-tab5" role="tab" aria-controls="row22-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -5176,35 +4535,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-cqadupstack-webmasters.contriever \
-  --topics beir-v1.0.0-cqadupstack-webmasters-test \
-  --output run.beir.contriever.cqadupstack-webmasters.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.contriever.cqadupstack-webmasters.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.contriever.cqadupstack-webmasters.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.contriever.cqadupstack-webmasters.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row22-tab5" role="tabpanel" aria-labelledby="row22-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
@@ -5228,13 +4558,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row22-tab6" role="tabpanel" aria-labelledby="row22-tab6">
+  <div class="tab-pane fade" id="row22-tab5" role="tabpanel" aria-labelledby="row22-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt \
@@ -5257,6 +4588,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row22-tab6" role="tabpanel" aria-labelledby="row22-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -5275,14 +4610,11 @@ python -m pyserini.eval.trec_eval \
 <td>  0.2733</td>
 <td>  0.5945</td>
 <td></td>
-<td>  0.1914</td>
-<td>  0.5364</td>
-<td></td>
 <td>  0.2532</td>
 <td>  0.5769</td>
 <td></td>
 <td>  0.3547</td>
-<td>  0.7065</td>
+<td>  0.7047</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -5301,13 +4633,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row23-tab3-header" data-mdb-toggle="tab" href="#row23-tab3" role="tab" aria-controls="row23-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row23-tab4-header" data-mdb-toggle="tab" href="#row23-tab4" role="tab" aria-controls="row23-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row23-tab4-header" data-mdb-toggle="tab" href="#row23-tab4" role="tab" aria-controls="row23-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row23-tab5-header" data-mdb-toggle="tab" href="#row23-tab5" role="tab" aria-controls="row23-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row23-tab6-header" data-mdb-toggle="tab" href="#row23-tab6" role="tab" aria-controls="row23-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row23-tab5-header" data-mdb-toggle="tab" href="#row23-tab5" role="tab" aria-controls="row23-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -5407,35 +4736,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-cqadupstack-wordpress.contriever \
-  --topics beir-v1.0.0-cqadupstack-wordpress-test \
-  --output run.beir.contriever.cqadupstack-wordpress.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.contriever.cqadupstack-wordpress.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.contriever.cqadupstack-wordpress.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.contriever.cqadupstack-wordpress.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row23-tab5" role="tabpanel" aria-labelledby="row23-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
@@ -5459,13 +4759,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row23-tab6" role="tabpanel" aria-labelledby="row23-tab6">
+  <div class="tab-pane fade" id="row23-tab5" role="tabpanel" aria-labelledby="row23-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt \
@@ -5488,6 +4789,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row23-tab6" role="tabpanel" aria-labelledby="row23-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -5506,14 +4811,11 @@ python -m pyserini.eval.trec_eval \
 <td>  0.8343</td>
 <td>  0.9863</td>
 <td></td>
-<td>  0.8349</td>
-<td>  0.9871</td>
-<td></td>
 <td>  0.8648</td>
 <td>  0.9935</td>
 <td></td>
 <td>  0.8890</td>
-<td>  0.9967</td>
+<td>  0.9968</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -5532,13 +4834,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab5-header" data-mdb-toggle="tab" href="#row24-tab5" role="tab" aria-controls="row24-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab6-header" data-mdb-toggle="tab" href="#row24-tab6" role="tab" aria-controls="row24-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row24-tab5-header" data-mdb-toggle="tab" href="#row24-tab5" role="tab" aria-controls="row24-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -5638,35 +4937,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-quora.contriever \
-  --topics beir-v1.0.0-quora-test \
-  --output run.beir.contriever.quora.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
-  run.beir.contriever.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-quora-test \
-  run.beir.contriever.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-quora-test \
-  run.beir.contriever.quora.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row24-tab5" role="tabpanel" aria-labelledby="row24-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-quora.contriever-msmarco \
   --topics beir-v1.0.0-quora-test \
@@ -5690,13 +4960,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row24-tab6" role="tabpanel" aria-labelledby="row24-tab6">
+  <div class="tab-pane fade" id="row24-tab5" role="tabpanel" aria-labelledby="row24-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "" \
   --index beir-v1.0.0-quora.bge-base-en-v1.5 \
   --topics beir-v1.0.0-quora-test \
   --output run.beir.bge-base-en-v1.5.quora.txt \
@@ -5719,6 +4990,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row24-tab6" role="tabpanel" aria-labelledby="row24-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -5737,14 +5012,11 @@ python -m pyserini.eval.trec_eval \
 <td>  0.4366</td>
 <td>  0.5624</td>
 <td></td>
-<td>  0.2916</td>
-<td>  0.4529</td>
-<td></td>
 <td>  0.4128</td>
 <td>  0.5414</td>
 <td></td>
-<td>  0.4074</td>
-<td>  0.5303</td>
+<td>  0.4073</td>
+<td>  0.5298</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -5763,13 +5035,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab5-header" data-mdb-toggle="tab" href="#row25-tab5" role="tab" aria-controls="row25-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab6-header" data-mdb-toggle="tab" href="#row25-tab6" role="tab" aria-controls="row25-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row25-tab5-header" data-mdb-toggle="tab" href="#row25-tab5" role="tab" aria-controls="row25-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -5869,35 +5138,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-dbpedia-entity.contriever \
-  --topics beir-v1.0.0-dbpedia-entity-test \
-  --output run.beir.contriever.dbpedia-entity.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.contriever.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.contriever.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.contriever.dbpedia-entity.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row25-tab5" role="tabpanel" aria-labelledby="row25-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-dbpedia-entity.contriever-msmarco \
   --topics beir-v1.0.0-dbpedia-entity-test \
@@ -5921,13 +5161,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row25-tab6" role="tabpanel" aria-labelledby="row25-tab6">
+  <div class="tab-pane fade" id="row25-tab5" role="tabpanel" aria-labelledby="row25-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5 \
   --topics beir-v1.0.0-dbpedia-entity-test \
   --output run.beir.bge-base-en-v1.5.dbpedia-entity.txt \
@@ -5950,6 +5191,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row25-tab6" role="tabpanel" aria-labelledby="row25-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -5968,13 +5213,10 @@ python -m pyserini.eval.trec_eval \
 <td>  0.1591</td>
 <td>  0.3730</td>
 <td></td>
-<td>  0.1491</td>
-<td>  0.3601</td>
-<td></td>
 <td>  0.1652</td>
 <td>  0.3783</td>
 <td></td>
-<td>  0.2170</td>
+<td>  0.2172</td>
 <td>  0.4959</td>
 </tr>
 <tr class="hide-table-padding">
@@ -5994,13 +5236,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab5-header" data-mdb-toggle="tab" href="#row26-tab5" role="tab" aria-controls="row26-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab6-header" data-mdb-toggle="tab" href="#row26-tab6" role="tab" aria-controls="row26-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row26-tab5-header" data-mdb-toggle="tab" href="#row26-tab5" role="tab" aria-controls="row26-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -6100,35 +5339,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-scidocs.contriever \
-  --topics beir-v1.0.0-scidocs-test \
-  --output run.beir.contriever.scidocs.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
-  run.beir.contriever.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scidocs-test \
-  run.beir.contriever.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scidocs-test \
-  run.beir.contriever.scidocs.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row26-tab5" role="tabpanel" aria-labelledby="row26-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-scidocs.contriever-msmarco \
   --topics beir-v1.0.0-scidocs-test \
@@ -6152,13 +5362,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row26-tab6" role="tabpanel" aria-labelledby="row26-tab6">
+  <div class="tab-pane fade" id="row26-tab5" role="tabpanel" aria-labelledby="row26-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-scidocs.bge-base-en-v1.5 \
   --topics beir-v1.0.0-scidocs-test \
   --output run.beir.bge-base-en-v1.5.scidocs.txt \
@@ -6181,6 +5392,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row26-tab6" role="tabpanel" aria-labelledby="row26-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -6199,13 +5414,10 @@ python -m pyserini.eval.trec_eval \
 <td>  0.7882</td>
 <td>  0.9459</td>
 <td></td>
-<td>  0.6821</td>
-<td>  0.9356</td>
-<td></td>
 <td>  0.7583</td>
 <td>  0.9494</td>
 <td></td>
-<td>  0.8630</td>
+<td>  0.8629</td>
 <td>  0.9719</td>
 </tr>
 <tr class="hide-table-padding">
@@ -6225,13 +5437,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row27-tab3-header" data-mdb-toggle="tab" href="#row27-tab3" role="tab" aria-controls="row27-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab5-header" data-mdb-toggle="tab" href="#row27-tab5" role="tab" aria-controls="row27-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab6-header" data-mdb-toggle="tab" href="#row27-tab6" role="tab" aria-controls="row27-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row27-tab5-header" data-mdb-toggle="tab" href="#row27-tab5" role="tab" aria-controls="row27-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -6331,35 +5540,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-fever.contriever \
-  --topics beir-v1.0.0-fever-test \
-  --output run.beir.contriever.fever.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
-  run.beir.contriever.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-fever-test \
-  run.beir.contriever.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-fever-test \
-  run.beir.contriever.fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row27-tab5" role="tabpanel" aria-labelledby="row27-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-fever.contriever-msmarco \
   --topics beir-v1.0.0-fever-test \
@@ -6383,13 +5563,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row27-tab6" role="tabpanel" aria-labelledby="row27-tab6">
+  <div class="tab-pane fade" id="row27-tab5" role="tabpanel" aria-labelledby="row27-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-fever.bge-base-en-v1.5 \
   --topics beir-v1.0.0-fever-test \
   --output run.beir.bge-base-en-v1.5.fever.txt \
@@ -6412,6 +5593,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row27-tab6" role="tabpanel" aria-labelledby="row27-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -6430,13 +5615,10 @@ python -m pyserini.eval.trec_eval \
 <td>  0.2297</td>
 <td>  0.5211</td>
 <td></td>
-<td>  0.1550</td>
-<td>  0.4422</td>
-<td></td>
 <td>  0.2371</td>
 <td>  0.5746</td>
 <td></td>
-<td>  0.3119</td>
+<td>  0.3122</td>
 <td>  0.6362</td>
 </tr>
 <tr class="hide-table-padding">
@@ -6456,13 +5638,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row28-tab3-header" data-mdb-toggle="tab" href="#row28-tab3" role="tab" aria-controls="row28-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab5-header" data-mdb-toggle="tab" href="#row28-tab5" role="tab" aria-controls="row28-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab6-header" data-mdb-toggle="tab" href="#row28-tab6" role="tab" aria-controls="row28-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row28-tab5-header" data-mdb-toggle="tab" href="#row28-tab5" role="tab" aria-controls="row28-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -6562,35 +5741,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-climate-fever.contriever \
-  --topics beir-v1.0.0-climate-fever-test \
-  --output run.beir.contriever.climate-fever.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
-  run.beir.contriever.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-climate-fever-test \
-  run.beir.contriever.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
-  run.beir.contriever.climate-fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row28-tab5" role="tabpanel" aria-labelledby="row28-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-climate-fever.contriever-msmarco \
   --topics beir-v1.0.0-climate-fever-test \
@@ -6614,13 +5764,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row28-tab6" role="tabpanel" aria-labelledby="row28-tab6">
+  <div class="tab-pane fade" id="row28-tab5" role="tabpanel" aria-labelledby="row28-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-climate-fever.bge-base-en-v1.5 \
   --topics beir-v1.0.0-climate-fever-test \
   --output run.beir.bge-base-en-v1.5.climate-fever.txt \
@@ -6643,6 +5794,10 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row28-tab6" role="tabpanel" aria-labelledby="row28-tab6">
+Command to generate run:
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -6661,14 +5816,11 @@ python -m pyserini.eval.trec_eval \
 <td>  0.7041</td>
 <td>  0.9353</td>
 <td></td>
-<td>  0.6493</td>
-<td>  0.9260</td>
-<td></td>
 <td>  0.6768</td>
 <td>  0.9470</td>
 <td></td>
-<td>  0.7408</td>
-<td>  0.9667</td>
+<td>  0.7376</td>
+<td>  0.9700</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -6687,13 +5839,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row29-tab3-header" data-mdb-toggle="tab" href="#row29-tab3" role="tab" aria-controls="row29-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab5-header" data-mdb-toggle="tab" href="#row29-tab5" role="tab" aria-controls="row29-tab5" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab6-header" data-mdb-toggle="tab" href="#row29-tab6" role="tab" aria-controls="row29-tab6" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row29-tab5-header" data-mdb-toggle="tab" href="#row29-tab5" role="tab" aria-controls="row29-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -6793,35 +5942,6 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever \
-  --index beir-v1.0.0-scifact.contriever \
-  --topics beir-v1.0.0-scifact-test \
-  --output run.beir.contriever.scifact.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir.contriever.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir.contriever.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir.contriever.scifact.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row29-tab5" role="tabpanel" aria-labelledby="row29-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-scifact.contriever-msmarco \
   --topics beir-v1.0.0-scifact-test \
@@ -6845,13 +5965,14 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="row29-tab6" role="tabpanel" aria-labelledby="row29-tab6">
+  <div class="tab-pane fade" id="row29-tab5" role="tabpanel" aria-labelledby="row29-tab5">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-scifact.bge-base-en-v1.5 \
   --topics beir-v1.0.0-scifact-test \
   --output run.beir.bge-base-en-v1.5.scifact.txt \
@@ -6872,6 +5993,10 @@ python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scifact-test \
   run.beir.bge-base-en-v1.5.scifact.txt</code></pre>
   </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row29-tab6" role="tabpanel" aria-labelledby="row29-tab6">
+Command to generate run:
 
   </div>
 </div>
