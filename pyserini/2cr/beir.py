@@ -78,7 +78,8 @@ def format_run_command(raw):
         .replace('--encoder-class', '\\\n  --encoder-class') \
         .replace('--output ', '\\\n  --output ') \
         .replace('--output-format trec ', '\\\n  --output-format trec ') \
-        .replace('--hits ', '\\\n  --hits ')
+        .replace('--hits ', '\\\n  --hits ') \
+        .replace('--query-prefix', '\\\n  --query-prefix')
 
 
 def format_eval_command(raw):
@@ -151,24 +152,24 @@ def generate_report(args):
                              s4=f'{table[dataset]["bm25-multifield"]["R@100"]:8.4f}',
                              s5=f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.4f}',
                              s6=f'{table[dataset]["splade-pp-ed"]["R@100"]:8.4f}',
-                             s7=f'{table[dataset]["contriever"]["nDCG@10"]:8.4f}',
-                             s8=f'{table[dataset]["contriever"]["R@100"]:8.4f}',
-                             s9=f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}',
-                             s10=f'{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}',
-                             s11=f'{table[dataset]["bge-base-en-v1.5"]["nDCG@10"]:8.4f}',
-                             s12=f'{table[dataset]["bge-base-en-v1.5"]["R@100"]:8.4f}',
+                            #  s7=f'{table[dataset]["contriever"]["nDCG@10"]:8.4f}',
+                            #  s8=f'{table[dataset]["contriever"]["R@100"]:8.4f}',
+                             s7=f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}',
+                             s8=f'{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}',
+                             s9=f'{table[dataset]["bge-base-en-v1.5"]["nDCG@10"]:8.4f}',
+                             s10=f'{table[dataset]["bge-base-en-v1.5"]["R@100"]:8.4f}',
                              cmd1=commands[dataset]["bm25-flat"],
                              cmd2=commands[dataset]["bm25-multifield"],
                              cmd3=commands[dataset]["splade-pp-ed"],
-                             cmd4=commands[dataset]["contriever"],
-                             cmd5=commands[dataset]["contriever-msmarco"],
-                             cmd6=commands[dataset]["bge-base-en-v1.5"],
+                            #  cmd4=commands[dataset]["contriever"],
+                             cmd4=commands[dataset]["contriever-msmarco"],
+                             cmd5=commands[dataset]["bge-base-en-v1.5"],
                              eval_cmd1=eval_commands[dataset]["bm25-flat"].rstrip(),
                              eval_cmd2=eval_commands[dataset]["bm25-multifield"].rstrip(),
                              eval_cmd3=eval_commands[dataset]["splade-pp-ed"].rstrip(),
-                             eval_cmd4=eval_commands[dataset]["contriever"].rstrip(),
-                             eval_cmd5=eval_commands[dataset]["contriever-msmarco"].rstrip(),
-                             eval_cmd6=eval_commands[dataset]["bge-base-en-v1.5"].rstrip())
+                            #  eval_cmd4=eval_commands[dataset]["contriever"].rstrip(),
+                             eval_cmd4=eval_commands[dataset]["contriever-msmarco"].rstrip(),
+                             eval_cmd5=eval_commands[dataset]["bge-base-en-v1.5"].rstrip())
 
             html_rows.append(s)
             row_cnt += 1
