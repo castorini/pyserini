@@ -564,6 +564,22 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
 <dd>Lucene index for CIRAL v1.0 (Yoruba).
 </dd>
+<dt></dt><b><code>ciral-v1.0-ha-en</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0-en.20240212.2154e7.README.md">readme</a>]
+<dd>Lucene index for CIRAL v1.0 English Translations (Hausa).
+</dd>
+<dt></dt><b><code>ciral-v1.0-so-en</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0-en.20240212.2154e7.README.md">readme</a>]
+<dd>Lucene index for CIRAL v1.0 English Translations (Somali).
+</dd>
+<dt></dt><b><code>ciral-v1.0-sw-en</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0-en.20240212.2154e7.README.md">readme</a>]
+<dd>Lucene index for CIRAL v1.0 English Translations (Swahili).
+</dd>
+<dt></dt><b><code>ciral-v1.0-yo-en</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0-en.20240212.2154e7.README.md">readme</a>]
+<dd>Lucene index for CIRAL v1.0 English Translations (Yoruba).
+</dd>
 <dt></dt><b><code>cacm</code></b>
 <dd>Lucene index of the CACM corpus. (Lucene 9)
 </dd>
@@ -1777,5 +1793,37 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>cast2019-tct_colbert-v2.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-hnsw.cast2019.tct_colbert-v2-readme.txt">readme</a>]
 <dd>Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder
+</dd>
+<dt></dt><b><code>ciral-v1.0-ha-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.ciral-v1.0.mdpr-tied-pft-msmarco.20240212.2154e7.README.md">readme</a>]
+<dd>Faiss index for CIRAL v1.0 (Hausa) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>ciral-v1.0-so-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.ciral-v1.0.mdpr-tied-pft-msmarco.20240212.2154e7.README.md">readme</a>]
+<dd>Faiss index for CIRAL v1.0 (Somali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>ciral-v1.0-sw-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.ciral-v1.0.mdpr-tied-pft-msmarco.20240212.2154e7.README.md">readme</a>]
+<dd>Faiss index for CIRAL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>ciral-v1.0-yo-mdpr-tied-pft-msmarco</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.ciral-v1.0.mdpr-tied-pft-msmarco.20240212.2154e7.README.md">readme</a>]
+<dd>Faiss index for CIRAL v1.0 (Yoruba) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+<dt></dt><b><code>ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.ciral-v1.0.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20240212.2154e7.README.md">readme</a>]
+<dd>Faiss index for CIRAL v1.0 (Hausa) corpus encoded by the AfriBERTa passage encoder pre-fine-tuned on MS MARCO and fine-tuned on Latin languages in Mr. TyDi.
+</dd>
+<dt></dt><b><code>ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.ciral-v1.0.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20240212.2154e7.README.md">readme</a>]
+<dd>Faiss index for CIRAL v1.0 (Somali) corpus encoded by the AfriBERTa passage encoder pre-fine-tuned on MS MARCO and fine-tuned on Latin languages in Mr. TyDi.
+</dd>
+<dt></dt><b><code>ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.ciral-v1.0.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20240212.2154e7.README.md">readme</a>]
+<dd>Faiss index for CIRAL v1.0 (Swahili) corpus encoded by the AfriBERTa passage encoder pre-fine-tuned on MS MARCO and fine-tuned on Latin languages in Mr. TyDi.
+</dd>
+<dt></dt><b><code>ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss.ciral-v1.0.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20240212.2154e7.README.md">readme</a>]
+<dd>Faiss index for CIRAL v1.0 (Yoruba) corpus encoded by the AfriBERTa passage encoder pre-fine-tuned on MS MARCO and fine-tuned on Latin languages in Mr. TyDi.
 </dd>
 </dl>
