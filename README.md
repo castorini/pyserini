@@ -96,6 +96,7 @@ Documentation is organized into reproduction matrices for different corpora that
 + [Mr.TyDi](https://castorini.github.io/pyserini/2cr/mrtydi.html)
 + [MIRACL](https://castorini.github.io/pyserini/2cr/miracl.html)
 + [Open-Domain Question Answering](https://castorini.github.io/pyserini/2cr/odqa.html)
++ [CIRAL](https://castorini.github.io/pyserini/2cr/ciral.html)
 
 For more details, see our paper on [Building a Culture of Reproducibility in Academic Research](https://arxiv.org/abs/2212.13534).
 
