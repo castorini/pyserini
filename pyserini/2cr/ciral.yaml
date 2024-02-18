@@ -1,58 +1,334 @@
 conditions:
-  # BM25 Monolingual
-  - name: bm25-mono.ha
+  # BM25 QT
+  - name: bm25-qt.ha
     eval_key: ciral-v1.0-ha
-    command: python -m pyserini.search.lucene --language ha --topics ciral-v1.0-ha-${split}-native --index ciral-v1.0-ha --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --language ha --topics ciral-v1.0-ha-${split}-native --index ciral-v1.0-ha --output $output --threads ${sparse_threads} --bm25 --hits 1000
     splits:
-      - split: dev
+      - split: test-a
         scores:
-          - nDCG@20: 0.2039
-            MRR@10: 0.3153
-            R@100: 0.2760
-      - split: test
+          - nDCG@20: 0.1656
+            R@100: 0.2874
+      - split: test-a-pools
         scores:
-          - nDCG@20: 
-            MRR@10: 
-            R@100: 
-  - name: bm25-mono.so
+          - nDCG@20: 0.1161
+            R@100: 0.1916
+      - split: test-b
+        scores:
+          - nDCG@20: 0.2121
+            R@100: 0.3800
+  - name: bm25-qt.so
     eval_key: ciral-v1.0-so
     command: python -m pyserini.search.lucene --language so --topics ciral-v1.0-so-${split}-native --index ciral-v1.0-so --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
     splits:
-      - split: dev
+      - split: test-a
         scores:
-          - nDCG@20: 0.1500
-            MRR@10: 0.4000
-            R@100: 0.1850
-      - split: test
+          - nDCG@20: 0.1214
+            R@100: 0.2615
+      - split: test-a-pools
         scores:
-          - nDCG@20: 
-            MRR@10: 
-            R@100:
-  - name: bm25-mono.sw
+          - nDCG@20: 0.1232
+            R@100: 0.1923
+      - split: test-b
+        scores:
+          - nDCG@20: 0.1725
+            R@100: 0.3479
+  - name: bm25-qt.sw
     eval_key: ciral-v1.0-sw
     command: python -m pyserini.search.lucene --language sw --topics ciral-v1.0-sw-${split}-native --index ciral-v1.0-sw --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
     splits:
-      - split: dev
+      - split: test-a
         scores:
-          - nDCG@20: 0.1812
-            MRR@10: 0.1681
-            R@100: 0.4742
-      - split: test
+          - nDCG@20: 0.1720
+            R@100: 0.4161
+      - split: test-a-pools
         scores:
-          - nDCG@20: 
-            MRR@10: 
-            R@100:
-  - name: bm25-mono.yo
+          - nDCG@20: 0.1500
+            R@100: 0.2430
+      - split: test-b
+        scores:
+          - nDCG@20: 0.1727
+            R@100: 0.4166
+  - name: bm25-qt.yo
     eval_key: ciral-v1.0-yo
     command: python -m pyserini.search.lucene --language yo --topics ciral-v1.0-yo-${split}-native --index ciral-v1.0-yo --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
     splits:
-      - split: dev
+      - split: test-a
         scores:
-          - nDCG@20: 0.2797
-            MRR@10: 0.3833
-            R@100: 0.5114
-      - split: test
+          - nDCG@20: 0.4023
+            R@100: 0.6659
+      - split: test-a-pools
         scores:
-          - nDCG@20: 
-            MRR@10: 
-            R@100:
+          - nDCG@20: 0.3118
+            R@100: 0.4899
+      - split: test-b
+        scores:
+          - nDCG@20: 0.3459
+            R@100: 0.6434
+
+# BM25 DT
+  - name: bm25-dt.ha
+    eval_key: ciral-v1.0-ha
+    command: python -m pyserini.search.lucene --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-en --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.1619
+            R@100: 0.4099
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.2142
+            R@100: 0.4039
+      - split: test-b
+        scores:
+          - nDCG@20: 0.2124
+            R@100: 0.4394
+  - name: bm25-dt.so
+    eval_key: ciral-v1.0-so
+    command: python -m pyserini.search.lucene --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-en --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.1590
+            R@100: 0.3904
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.2461
+            R@100: 0.4379
+      - split: test-b
+        scores:
+          - nDCG@20: 0.2186
+            R@100: 0.4637
+  - name: bm25-dt.sw
+    eval_key: ciral-v1.0-sw
+    command: python -m pyserini.search.lucene --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-en --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.2033
+            R@100: 0.4786
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.2327
+            R@100: 0.3636
+      - split: test-b
+        scores:
+          - nDCG@20: 0.2582
+            R@100: 0.4918
+  - name: bm25-dt.yo
+    eval_key: ciral-v1.0-yo
+    command: python -m pyserini.search.lucene --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-en --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.4265
+            R@100: 0.7832
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.4451
+            R@100: 0.7199
+      - split: test-b
+        scores:
+          - nDCG@20: 0.3700
+            R@100: 0.7348
+
+# mdpr-tied-pft-msmarco
+  - name: mdpr-tied-pft-msmarco.ha
+    eval_key: ciral-v1.0-ha
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.0150
+            R@100: 0.0845
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.0472
+            R@100: 0.0947
+      - split: test-b
+        scores:
+          - nDCG@20: 0.0397
+            R@100: 0.1027
+  - name: mdpr-tied-pft-msmarco.so
+    eval_key: ciral-v1.0-so
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.0563
+            R@100: 0.1253
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.0621
+            R@100: 0.0988
+      - split: test-b
+        scores:
+          - nDCG@20: 0.0635
+            R@100: 0.1345
+  - name: mdpr-tied-pft-msmarco.sw
+    eval_key: ciral-v1.0-sw
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.0942
+            R@100: 0.2655
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.1556
+            R@100: 0.2117
+      - split: test-b
+        scores:
+          - nDCG@20: 0.1227
+            R@100: 0.3019
+  - name: mdpr-tied-pft-msmarco.yo
+    eval_key: ciral-v1.0-yo
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.1776
+            R@100: 0.3877
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.1819
+            R@100: 0.3132
+      - split: test-b
+        scores:
+          - nDCG@20: 0.1458
+            R@100: 0.3249
+
+
+# afriberta-pft-msmarco-ft-mrtydi-latin
+  - name: afriberta-pft-msmarco-ft-mrtydi.ha
+    eval_key: ciral-v1.0-ha
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-mrtydi --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.1864
+            R@100: 0.4379
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.1726
+            R@100: 0.2692
+      - split: test-b
+        scores:
+          - nDCG@20: 0.2028
+            R@100: 0.3900
+  - name: afriberta-pft-msmarco-ft-mrtydi.so
+    eval_key: ciral-v1.0-so
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-mrtydi --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.1878
+            R@100: 0.4029
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.1345
+            R@100: 0.2017
+      - split: test-b
+        scores:
+          - nDCG@20: 0.1682
+            R@100: 0.3558
+  - name: afriberta-pft-msmarco-ft-mrtydi.sw
+    eval_key: ciral-v1.0-sw
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-mrtydi --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.2311
+            R@100: 0.4977
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.1602
+            R@100: 0.2093
+      - split: test-b
+        scores:
+          - nDCG@20: 0.2166
+            R@100: 0.4608
+  - name: afriberta-pft-msmarco-ft-mrtydi.yo
+    eval_key: ciral-v1.0-yo
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-mrtydi --output $output --batch 128 --threads 16 --hits 1000
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.1288
+            R@100: 0.3421
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.0916
+            R@100: 0.2262
+      - split: test-b
+        scores:
+          - nDCG@20: 0.1157
+            R@100: 0.2907
+
+# fusion
+  - name: bm25-dt-afriberta-dpr-fusion.ha
+    eval_key: ciral-v1.0-ha
+    command: python -m pyserini.fusion --runs ${bm25_dt_output} ${afriberta_dpr_output} --runtag ${fusion_tag} --method rrf --rrf.k 60 --output $output
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.2842
+            R@100: 0.6107
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.3108
+            R@100: 0.4638
+      - split: test-b
+        scores:
+          - nDCG@20: 0.2935
+            R@100: 0.6007
+
+  - name: bm25-dt-afriberta-dpr-fusion.so
+    eval_key: ciral-v1.0-so
+    command: python -m pyserini.fusion --runs ${bm25_dt_output} ${afriberta_dpr_output} --runtag ${fusion_tag} --method rrf --rrf.k 60 --output $output
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.2608
+            R@100: 0.5512
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.2860
+            R@100: 0.4565
+      - split: test-b
+        scores:
+          - nDCG@20: 0.2878
+            R@100: 0.5618
+
+  - name: bm25-dt-afriberta-dpr-fusion.sw
+    eval_key: ciral-v1.0-sw
+    command: python -m pyserini.fusion --runs ${bm25_dt_output} ${afriberta_dpr_output} --runtag ${fusion_tag} --method rrf --rrf.k 60 --output $output
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.2716
+            R@100: 0.7456
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.2821
+            R@100: 0.4290
+      - split: test-b
+        scores:
+          - nDCG@20: 0.3187
+            R@100: 0.7007
+
+  - name: bm25-dt-afriberta-dpr-fusion.yo
+    eval_key: ciral-v1.0-yo
+    command: python -m pyserini.fusion --runs ${bm25_dt_output} ${afriberta_dpr_output} --runtag ${fusion_tag} --method rrf --rrf.k 60 --output $output
+    splits:
+      - split: test-a
+        scores:
+          - nDCG@20: 0.3843
+            R@100: 0.8195
+      - split: test-a-pools
+        scores:
+          - nDCG@20: 0.3832
+            R@100: 0.6960
+      - split: test-b
+        scores:
+          - nDCG@20: 0.3435
+            R@100: 0.7525

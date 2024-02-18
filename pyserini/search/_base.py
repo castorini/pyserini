@@ -357,6 +357,22 @@ topics_mapping = {
     'atomic-v0.2-facebook.flava-full-image-validation': JTopics.ATOMIC_V021_FACEBOOK_FLAVA_FULL_IMAGE_VAL,
 
     # CIRAL topics
+    'ciral-v1.0-ha-test-a': JTopics.CIRAL_V10_HA_TEST_A,
+    'ciral-v1.0-so-test-a': JTopics.CIRAL_V10_SO_TEST_A,
+    'ciral-v1.0-sw-test-a': JTopics.CIRAL_V10_SW_TEST_A,
+    'ciral-v1.0-yo-test-a': JTopics.CIRAL_V10_YO_TEST_A,
+    'ciral-v1.0-ha-test-a-native': JTopics.CIRAL_V10_HA_TEST_A_NATIVE,
+    'ciral-v1.0-so-test-a-native': JTopics.CIRAL_V10_SO_TEST_A_NATIVE,
+    'ciral-v1.0-sw-test-a-native': JTopics.CIRAL_V10_SW_TEST_A_NATIVE,
+    'ciral-v1.0-yo-test-a-native': JTopics.CIRAL_V10_YO_TEST_A_NATIVE,
+    'ciral-v1.0-ha-test-b': JTopics.CIRAL_V10_HA_TEST_B,
+    'ciral-v1.0-so-test-b': JTopics.CIRAL_V10_SO_TEST_B,
+    'ciral-v1.0-sw-test-b': JTopics.CIRAL_V10_SW_TEST_B,
+    'ciral-v1.0-yo-test-b': JTopics.CIRAL_V10_YO_TEST_B,
+    'ciral-v1.0-ha-test-b-native': JTopics.CIRAL_V10_HA_TEST_B_NATIVE,
+    'ciral-v1.0-so-test-b-native': JTopics.CIRAL_V10_SO_TEST_B_NATIVE,
+    'ciral-v1.0-sw-test-b-native': JTopics.CIRAL_V10_SW_TEST_B_NATIVE,
+    'ciral-v1.0-yo-test-b-native': JTopics.CIRAL_V10_YO_TEST_B_NATIVE,
     'ciral-v1.0-ha-dev-native': JTopics.CIRAL_V10_HA_DEV_MONO,
     'ciral-v1.0-so-dev-native': JTopics.CIRAL_V10_SO_DEV_MONO,
     'ciral-v1.0-sw-dev-native': JTopics.CIRAL_V10_SW_DEV_MONO,
@@ -510,6 +526,18 @@ qrels_mapping = {
     'ciral-v1.0-so-dev': JQrels.CIRAL_V10_SO_DEV,
     'ciral-v1.0-sw-dev': JQrels.CIRAL_V10_SW_DEV,
     'ciral-v1.0-yo-dev': JQrels.CIRAL_V10_YO_DEV,
+    'ciral-v1.0-ha-test-a': JQrels.CIRAL_V10_HA_TEST_A,
+    'ciral-v1.0-so-test-a': JQrels.CIRAL_V10_SO_TEST_A,
+    'ciral-v1.0-sw-test-a': JQrels.CIRAL_V10_SW_TEST_A,
+    'ciral-v1.0-yo-test-a': JQrels.CIRAL_V10_YO_TEST_A,
+    'ciral-v1.0-ha-test-a-pools': JQrels.CIRAL_V10_HA_TEST_A_POOLS,
+    'ciral-v1.0-so-test-a-pools': JQrels.CIRAL_V10_SO_TEST_A_POOLS,
+    'ciral-v1.0-sw-test-a-pools': JQrels.CIRAL_V10_SW_TEST_A_POOLS,
+    'ciral-v1.0-yo-test-a-pools': JQrels.CIRAL_V10_YO_TEST_A_POOLS,
+    'ciral-v1.0-ha-test-b': JQrels.CIRAL_V10_HA_TEST_B,
+    'ciral-v1.0-so-test-b': JQrels.CIRAL_V10_SO_TEST_B,
+    'ciral-v1.0-sw-test-b': JQrels.CIRAL_V10_SW_TEST_B,
+    'ciral-v1.0-yo-test-b': JQrels.CIRAL_V10_YO_TEST_B
 }
 
 

@@ -158,13 +158,13 @@ python -m pyserini.2cr.ciral --list-conditions
 <p>Run all languages for a specific condition and show commands:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.ciral --condition bm25-mono --display-commands
+python -m pyserini.2cr.ciral --condition bm25-qt --display-commands
 </tt></blockquote>
 
 <p>Run a particular language for a specific condition and show commands:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.ciral --condition bm25-mono --language somali --display-commands
+python -m pyserini.2cr.ciral --condition bm25-qt --language somali --display-commands
 </tt></blockquote>
 
 <p>Run all languages for all conditions and show commands:</p>
@@ -178,7 +178,7 @@ python -m pyserini.2cr.ciral --all --display-commands
 <p>For a specific condition, just show the commands and do not run:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.ciral --condition bm25-mono --display-commands --dry-run
+python -m pyserini.2cr.ciral --condition bm25-qt --display-commands --dry-run
 </tt></blockquote>
 
 <p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
@@ -186,7 +186,7 @@ python -m pyserini.2cr.ciral --condition bm25-mono --display-commands --dry-run
 <p>For a specific condition and language, just show the commands and do not run:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.ciral --condition bm25-mono --language somali --display-commands --dry-run
+python -m pyserini.2cr.ciral --condition bm25-qt --language somali --display-commands --dry-run
 </tt></blockquote>
 
 <p>For all conditions, just show the commands and do not run and skip evaluation:</p>
@@ -198,7 +198,7 @@ python -m pyserini.2cr.ciral --all --display-commands --dry-run --skip-eval
 <p>Finally, to generate this page:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.ciral --generate-report --output docs/2cr/ciral.html
+python -m pyserini.2cr.ciral --generate-report --output docs/2cr/ciral.html --display-split test-b
 </tt></blockquote>
 
 <p>The output file <tt>ciral.html</tt> should be identical to this page.</p>

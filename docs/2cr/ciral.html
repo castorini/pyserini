@@ -145,7 +145,7 @@ pre[class*="prettyprint"] {
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">nDCG@20, dev queries</th>
+        <th scope="col">nDCG@20, Test Set B</th>
         <th scope="col">Hausa</th>
         <th scope="col">Somali</th>
         <th scope="col">Swahili</th>
@@ -156,16 +156,16 @@ pre[class*="prettyprint"] {
     </thead>
     <tbody>
 
-<!-- Condition: BM25 Monolingual (Human QT) -->
+<!-- Condition: BM25 Human QT -->
 <tr class="accordion-toggle collapsed" id="table1-row1" data-toggle="collapse" data-parent="#table1-row1" href="#table1-collapse1">
 <td class="expand-button"></td>
-<td>BM25 Monolingual (Human QT)</td>
-<td>0.2039</td>
-<td>0.1500</td>
-<td>0.1812</td>
-<td>0.2797</td>
+<td>BM25 Human QT</td>
+<td>0.2121</td>
+<td>0.1725</td>
+<td>0.1727</td>
+<td>0.3459</td>
 <td></td>
-<td>0.2037</td>
+<td>0.2258</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -198,17 +198,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language ha \
-  --topics ciral-v1.0-ha-dev-native \
+  --topics ciral-v1.0-ha-test-b-native \
   --index ciral-v1.0-ha \
-  --output run.ciral.bm25-mono.ha.dev.txt \
+  --output run.ciral.bm25-qt.ha.test-b.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-ha-dev \
-  run.ciral.bm25-mono.ha.dev.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-ha-test-b \
+  run.ciral.bm25-qt.ha.test-b.txt</code></pre>
   </blockquote>
 
   </div>
@@ -218,17 +218,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language so \
-  --topics ciral-v1.0-so-dev-native \
+  --topics ciral-v1.0-so-test-b-native \
   --index ciral-v1.0-so \
-  --output run.ciral.bm25-mono.so.dev.txt \
+  --output run.ciral.bm25-qt.so.test-b.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-so-dev \
-  run.ciral.bm25-mono.so.dev.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-so-test-b \
+  run.ciral.bm25-qt.so.test-b.txt</code></pre>
   </blockquote>
 
   </div>
@@ -238,17 +238,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language sw \
-  --topics ciral-v1.0-sw-dev-native \
+  --topics ciral-v1.0-sw-test-b-native \
   --index ciral-v1.0-sw \
-  --output run.ciral.bm25-mono.sw.dev.txt \
+  --output run.ciral.bm25-qt.sw.test-b.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-sw-dev \
-  run.ciral.bm25-mono.sw.dev.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-sw-test-b \
+  run.ciral.bm25-qt.sw.test-b.txt</code></pre>
   </blockquote>
 
   </div>
@@ -258,17 +258,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language yo \
-  --topics ciral-v1.0-yo-dev-native \
+  --topics ciral-v1.0-yo-test-b-native \
   --index ciral-v1.0-yo \
-  --output run.ciral.bm25-mono.yo.dev.txt \
+  --output run.ciral.bm25-qt.yo.test-b.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-yo-dev \
-  run.ciral.bm25-mono.yo.dev.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-yo-test-b \
+  run.ciral.bm25-qt.yo.test-b.txt</code></pre>
   </blockquote>
 
   </div>
@@ -278,54 +278,34 @@ Evaluation commands:
 </div></td>
 </tr>
 
-
-    </tbody>
-  </table>
-</div>
- <div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col">MRR@10, dev queries</th>
-        <th scope="col">Hausa</th>
-        <th scope="col">Somali</th>
-        <th scope="col">Swahili</th>
-        <th scope="col">Yoruba</th>
-        <th scope="col"></th>
-        <th scope="col">Avg</th>
-      </tr>
-    </thead>
-    <tbody>
-
-<!-- Condition: BM25 Monolingual (Human QT) -->
-<tr class="accordion-toggle collapsed" id="table2-row1" data-toggle="collapse" data-parent="#table2-row1" href="#table2-collapse1">
+<!-- Condition: BM25 Machine DT -->
+<tr class="accordion-toggle collapsed" id="table1-row2" data-toggle="collapse" data-parent="#table1-row2" href="#table1-collapse2">
 <td class="expand-button"></td>
-<td>BM25 Monolingual (Human QT)</td>
-<td>0.3153</td>
-<td>0.4000</td>
-<td>0.1681</td>
-<td>0.3833</td>
+<td>BM25 Machine DT</td>
+<td>0.2124</td>
+<td>0.2186</td>
+<td>0.2582</td>
+<td>0.3700</td>
 <td></td>
-<td>0.3167</td>
+<td>0.2648</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
-<div id="table2-collapse1" class="collapse in p-3">
+<div id="table1-collapse2" class="collapse in p-3">
 
 <!-- Tabs navs -->
-<ul class="nav nav-tabs mb-3" id="table2-row1-tabs" role="tablist">
+<ul class="nav nav-tabs mb-3" id="table1-row2-tabs" role="tablist">
   <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="table2-row1-tab1-header" data-mdb-toggle="tab" href="#table2-row1-tab1" role="tab" aria-controls="table2-row1-tab1" aria-selected="true" style="text-transform:none">Hausa</a>
+    <a class="nav-link active" id="table1-row2-tab1-header" data-mdb-toggle="tab" href="#table1-row2-tab1" role="tab" aria-controls="table1-row2-tab1" aria-selected="true" style="text-transform:none">Hausa</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="table2-row1-tab2-header" data-mdb-toggle="tab" href="#table2-row1-tab2" role="tab" aria-controls="table2-row1-tab2" aria-selected="false" style="text-transform:none">Somali</a>
+    <a class="nav-link" id="table1-row2-tab2-header" data-mdb-toggle="tab" href="#table1-row2-tab2" role="tab" aria-controls="table1-row2-tab2" aria-selected="false" style="text-transform:none">Somali</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="table2-row1-tab3-header" data-mdb-toggle="tab" href="#table2-row1-tab3" role="tab" aria-controls="table2-row1-tab3" aria-selected="false" style="text-transform:none">Swahili</a>
+    <a class="nav-link" id="table1-row2-tab3-header" data-mdb-toggle="tab" href="#table1-row2-tab3" role="tab" aria-controls="table1-row2-tab3" aria-selected="false" style="text-transform:none">Swahili</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="table2-row1-tab4-header" data-mdb-toggle="tab" href="#table2-row1-tab4" role="tab" aria-controls="table2-row1-tab4" aria-selected="false" style="text-transform:none">Yoruba</a>
+    <a class="nav-link" id="table1-row2-tab4-header" data-mdb-toggle="tab" href="#table1-row2-tab4" role="tab" aria-controls="table1-row2-tab4" aria-selected="false" style="text-transform:none">Yoruba</a>
   </li> 
    
     
@@ -333,84 +313,446 @@ Evaluation commands:
 <!-- Tabs navs -->
 
 <!-- Tabs content -->
-<div class="tab-content" id="table2-row1-content">
-  <div class="tab-pane fade show active" id="table2-row1-tab1" role="tabpanel" aria-labelledby="table2-row1-tab1">
+<div class="tab-content" id="table1-row2-content">
+  <div class="tab-pane fade show active" id="table1-row2-tab1" role="tabpanel" aria-labelledby="table1-row2-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --language ha \
-  --topics ciral-v1.0-ha-dev-native \
-  --index ciral-v1.0-ha \
-  --output run.ciral.bm25-mono.ha.dev.txt \
+  --topics ciral-v1.0-ha-test-b \
+  --index ciral-v1.0-ha-en \
+  --output run.ciral.bm25-dt.ha.test-b.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 10 -m recip_rank ciral-v1.0-ha-dev \
-  run.ciral.bm25-mono.ha.dev.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-ha-test-b \
+  run.ciral.bm25-dt.ha.test-b.txt</code></pre>
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="table2-row1-tab2" role="tabpanel" aria-labelledby="table2-row1-tab2">
+  <div class="tab-pane fade" id="table1-row2-tab2" role="tabpanel" aria-labelledby="table1-row2-tab2">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --language so \
-  --topics ciral-v1.0-so-dev-native \
-  --index ciral-v1.0-so \
-  --output run.ciral.bm25-mono.so.dev.txt \
+  --topics ciral-v1.0-so-test-b \
+  --index ciral-v1.0-so-en \
+  --output run.ciral.bm25-dt.so.test-b.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 10 -m recip_rank ciral-v1.0-so-dev \
-  run.ciral.bm25-mono.so.dev.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-so-test-b \
+  run.ciral.bm25-dt.so.test-b.txt</code></pre>
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="table2-row1-tab3" role="tabpanel" aria-labelledby="table2-row1-tab3">
+  <div class="tab-pane fade" id="table1-row2-tab3" role="tabpanel" aria-labelledby="table1-row2-tab3">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --language sw \
-  --topics ciral-v1.0-sw-dev-native \
-  --index ciral-v1.0-sw \
-  --output run.ciral.bm25-mono.sw.dev.txt \
+  --topics ciral-v1.0-sw-test-b \
+  --index ciral-v1.0-sw-en \
+  --output run.ciral.bm25-dt.sw.test-b.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 10 -m recip_rank ciral-v1.0-sw-dev \
-  run.ciral.bm25-mono.sw.dev.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-sw-test-b \
+  run.ciral.bm25-dt.sw.test-b.txt</code></pre>
   </blockquote>
 
   </div>
-  <div class="tab-pane fade" id="table2-row1-tab4" role="tabpanel" aria-labelledby="table2-row1-tab4">
+  <div class="tab-pane fade" id="table1-row2-tab4" role="tabpanel" aria-labelledby="table1-row2-tab4">
 Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --language yo \
-  --topics ciral-v1.0-yo-dev-native \
-  --index ciral-v1.0-yo \
-  --output run.ciral.bm25-mono.yo.dev.txt \
+  --topics ciral-v1.0-yo-test-b \
+  --index ciral-v1.0-yo-en \
+  --output run.ciral.bm25-dt.yo.test-b.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -M 10 -m recip_rank ciral-v1.0-yo-dev \
-  run.ciral.bm25-mono.yo.dev.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-yo-test-b \
+  run.ciral.bm25-dt.yo.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO -->
+<tr class="accordion-toggle collapsed" id="table1-row3" data-toggle="collapse" data-parent="#table1-row3" href="#table1-collapse3">
+<td class="expand-button"></td>
+<td>mDPR (tied encoders), pre-FT w/ MS MARCO</td>
+<td>0.0397</td>
+<td>0.0635</td>
+<td>0.1227</td>
+<td>0.1458</td>
+<td></td>
+<td>0.0929</td>
+</tr>
+<tr class="hide-table-padding">
+<td colspan="22">
+<div id="table1-collapse3" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table1-row3-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table1-row3-tab1-header" data-mdb-toggle="tab" href="#table1-row3-tab1" role="tab" aria-controls="table1-row3-tab1" aria-selected="true" style="text-transform:none">Hausa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab2-header" data-mdb-toggle="tab" href="#table1-row3-tab2" role="tab" aria-controls="table1-row3-tab2" aria-selected="false" style="text-transform:none">Somali</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab3-header" data-mdb-toggle="tab" href="#table1-row3-tab3" role="tab" aria-controls="table1-row3-tab3" aria-selected="false" style="text-transform:none">Swahili</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row3-tab4-header" data-mdb-toggle="tab" href="#table1-row3-tab4" role="tab" aria-controls="table1-row3-tab4" aria-selected="false" style="text-transform:none">Yoruba</a>
+  </li> 
+   
+    
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table1-row3-content">
+  <div class="tab-pane fade show active" id="table1-row3-tab1" role="tabpanel" aria-labelledby="table1-row3-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics ciral-v1.0-ha-test-b \
+  --index ciral-v1.0-ha-mdpr-tied-pft-msmarco \
+  --output run.ciral.mdpr-tied-pft-msmarco.ha.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.20 ciral-v1.0-ha-test-b \
+  run.ciral.mdpr-tied-pft-msmarco.ha.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab2" role="tabpanel" aria-labelledby="table1-row3-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics ciral-v1.0-so-test-b \
+  --index ciral-v1.0-so-mdpr-tied-pft-msmarco \
+  --output run.ciral.mdpr-tied-pft-msmarco.so.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.20 ciral-v1.0-so-test-b \
+  run.ciral.mdpr-tied-pft-msmarco.so.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab3" role="tabpanel" aria-labelledby="table1-row3-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics ciral-v1.0-sw-test-b \
+  --index ciral-v1.0-sw-mdpr-tied-pft-msmarco \
+  --output run.ciral.mdpr-tied-pft-msmarco.sw.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.20 ciral-v1.0-sw-test-b \
+  run.ciral.mdpr-tied-pft-msmarco.sw.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row3-tab4" role="tabpanel" aria-labelledby="table1-row3-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics ciral-v1.0-yo-test-b \
+  --index ciral-v1.0-yo-mdpr-tied-pft-msmarco \
+  --output run.ciral.mdpr-tied-pft-msmarco.yo.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.20 ciral-v1.0-yo-test-b \
+  run.ciral.mdpr-tied-pft-msmarco.yo.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+<!-- Condition: Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi -->
+<tr class="accordion-toggle collapsed" id="table1-row4" data-toggle="collapse" data-parent="#table1-row4" href="#table1-collapse4">
+<td class="expand-button"></td>
+<td>Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi</td>
+<td>0.2028</td>
+<td>0.1682</td>
+<td>0.2166</td>
+<td>0.1157</td>
+<td></td>
+<td>0.1758</td>
+</tr>
+<tr class="hide-table-padding">
+<td colspan="22">
+<div id="table1-collapse4" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table1-row4-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table1-row4-tab1-header" data-mdb-toggle="tab" href="#table1-row4-tab1" role="tab" aria-controls="table1-row4-tab1" aria-selected="true" style="text-transform:none">Hausa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab2-header" data-mdb-toggle="tab" href="#table1-row4-tab2" role="tab" aria-controls="table1-row4-tab2" aria-selected="false" style="text-transform:none">Somali</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab3-header" data-mdb-toggle="tab" href="#table1-row4-tab3" role="tab" aria-controls="table1-row4-tab3" aria-selected="false" style="text-transform:none">Swahili</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row4-tab4-header" data-mdb-toggle="tab" href="#table1-row4-tab4" role="tab" aria-controls="table1-row4-tab4" aria-selected="false" style="text-transform:none">Yoruba</a>
+  </li> 
+   
+    
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table1-row4-content">
+  <div class="tab-pane fade show active" id="table1-row4-tab1" role="tabpanel" aria-labelledby="table1-row4-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-ha-test-b \
+  --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.20 ciral-v1.0-ha-test-b \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab2" role="tabpanel" aria-labelledby="table1-row4-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-so-test-b \
+  --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.20 ciral-v1.0-so-test-b \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab3" role="tabpanel" aria-labelledby="table1-row4-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-sw-test-b \
+  --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.20 ciral-v1.0-sw-test-b \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row4-tab4" role="tabpanel" aria-labelledby="table1-row4-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-yo-test-b \
+  --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.20 ciral-v1.0-yo-test-b \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+<!-- Condition: RRF Fusion of BM25 Machine DT and Afriberta-DPR -->
+<tr class="accordion-toggle collapsed" id="table1-row5" data-toggle="collapse" data-parent="#table1-row5" href="#table1-collapse5">
+<td class="expand-button"></td>
+<td>RRF Fusion of BM25 Machine DT and Afriberta-DPR</td>
+<td>0.2935</td>
+<td>0.2878</td>
+<td>0.3187</td>
+<td>0.3435</td>
+<td></td>
+<td>0.3109</td>
+</tr>
+<tr class="hide-table-padding">
+<td colspan="22">
+<div id="table1-collapse5" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table1-row5-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table1-row5-tab1-header" data-mdb-toggle="tab" href="#table1-row5-tab1" role="tab" aria-controls="table1-row5-tab1" aria-selected="true" style="text-transform:none">Hausa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab2-header" data-mdb-toggle="tab" href="#table1-row5-tab2" role="tab" aria-controls="table1-row5-tab2" aria-selected="false" style="text-transform:none">Somali</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab3-header" data-mdb-toggle="tab" href="#table1-row5-tab3" role="tab" aria-controls="table1-row5-tab3" aria-selected="false" style="text-transform:none">Swahili</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table1-row5-tab4-header" data-mdb-toggle="tab" href="#table1-row5-tab4" role="tab" aria-controls="table1-row5-tab4" aria-selected="false" style="text-transform:none">Yoruba</a>
+  </li> 
+   
+    
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table1-row5-content">
+  <div class="tab-pane fade show active" id="table1-row5-tab1" role="tabpanel" aria-labelledby="table1-row5-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.fusion \
+  --runs  run.ciral.bm25-dt.ha.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
+  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-b.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.20 ciral-v1.0-ha-test-b \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab2" role="tabpanel" aria-labelledby="table1-row5-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.fusion \
+  --runs  run.ciral.bm25-dt.so.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
+  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-b.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.20 ciral-v1.0-so-test-b \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab3" role="tabpanel" aria-labelledby="table1-row5-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.fusion \
+  --runs  run.ciral.bm25-dt.sw.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
+  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-b.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.20 ciral-v1.0-sw-test-b \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table1-row5-tab4" role="tabpanel" aria-labelledby="table1-row5-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.fusion \
+  --runs  run.ciral.bm25-dt.yo.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
+  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-b.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.20 ciral-v1.0-yo-test-b \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-b.txt</code></pre>
   </blockquote>
 
   </div>
@@ -429,7 +771,7 @@ Evaluation commands:
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">Recall@100, dev queries</th>
+        <th scope="col">Recall@100, Test Set B</th>
         <th scope="col">Hausa</th>
         <th scope="col">Somali</th>
         <th scope="col">Swahili</th>
@@ -440,16 +782,16 @@ Evaluation commands:
     </thead>
     <tbody>
 
-<!-- Condition: BM25 Monolingual (Human QT) -->
+<!-- Condition: BM25 Human QT -->
 <tr class="accordion-toggle collapsed" id="table3-row1" data-toggle="collapse" data-parent="#table3-row1" href="#table3-collapse1">
 <td class="expand-button"></td>
-<td>BM25 Monolingual (Human QT)</td>
-<td>0.2760</td>
-<td>0.1850</td>
-<td>0.4742</td>
-<td>0.5114</td>
+<td>BM25 Human QT</td>
+<td>0.3800</td>
+<td>0.3479</td>
+<td>0.4166</td>
+<td>0.6434</td>
 <td></td>
-<td>0.3617</td>
+<td>0.4470</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -482,17 +824,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language ha \
-  --topics ciral-v1.0-ha-dev-native \
+  --topics ciral-v1.0-ha-test-b-native \
   --index ciral-v1.0-ha \
-  --output run.ciral.bm25-mono.ha.dev.txt \
+  --output run.ciral.bm25-qt.ha.test-b.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-ha-dev \
-  run.ciral.bm25-mono.ha.dev.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-ha-test-b \
+  run.ciral.bm25-qt.ha.test-b.txt</code></pre>
   </blockquote>
 
   </div>
@@ -502,17 +844,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language so \
-  --topics ciral-v1.0-so-dev-native \
+  --topics ciral-v1.0-so-test-b-native \
   --index ciral-v1.0-so \
-  --output run.ciral.bm25-mono.so.dev.txt \
+  --output run.ciral.bm25-qt.so.test-b.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-so-dev \
-  run.ciral.bm25-mono.so.dev.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-so-test-b \
+  run.ciral.bm25-qt.so.test-b.txt</code></pre>
   </blockquote>
 
   </div>
@@ -522,17 +864,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language sw \
-  --topics ciral-v1.0-sw-dev-native \
+  --topics ciral-v1.0-sw-test-b-native \
   --index ciral-v1.0-sw \
-  --output run.ciral.bm25-mono.sw.dev.txt \
+  --output run.ciral.bm25-qt.sw.test-b.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-sw-dev \
-  run.ciral.bm25-mono.sw.dev.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-sw-test-b \
+  run.ciral.bm25-qt.sw.test-b.txt</code></pre>
   </blockquote>
 
   </div>
@@ -542,17 +884,501 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language yo \
-  --topics ciral-v1.0-yo-dev-native \
+  --topics ciral-v1.0-yo-test-b-native \
   --index ciral-v1.0-yo \
-  --output run.ciral.bm25-mono.yo.dev.txt \
+  --output run.ciral.bm25-qt.yo.test-b.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-yo-dev \
-  run.ciral.bm25-mono.yo.dev.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-yo-test-b \
+  run.ciral.bm25-qt.yo.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+<!-- Condition: BM25 Machine DT -->
+<tr class="accordion-toggle collapsed" id="table3-row2" data-toggle="collapse" data-parent="#table3-row2" href="#table3-collapse2">
+<td class="expand-button"></td>
+<td>BM25 Machine DT</td>
+<td>0.4394</td>
+<td>0.4637</td>
+<td>0.4918</td>
+<td>0.7348</td>
+<td></td>
+<td>0.5324</td>
+</tr>
+<tr class="hide-table-padding">
+<td colspan="22">
+<div id="table3-collapse2" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table3-row2-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table3-row2-tab1-header" data-mdb-toggle="tab" href="#table3-row2-tab1" role="tab" aria-controls="table3-row2-tab1" aria-selected="true" style="text-transform:none">Hausa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table3-row2-tab2-header" data-mdb-toggle="tab" href="#table3-row2-tab2" role="tab" aria-controls="table3-row2-tab2" aria-selected="false" style="text-transform:none">Somali</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table3-row2-tab3-header" data-mdb-toggle="tab" href="#table3-row2-tab3" role="tab" aria-controls="table3-row2-tab3" aria-selected="false" style="text-transform:none">Swahili</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table3-row2-tab4-header" data-mdb-toggle="tab" href="#table3-row2-tab4" role="tab" aria-controls="table3-row2-tab4" aria-selected="false" style="text-transform:none">Yoruba</a>
+  </li> 
+   
+    
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table3-row2-content">
+  <div class="tab-pane fade show active" id="table3-row2-tab1" role="tabpanel" aria-labelledby="table3-row2-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics ciral-v1.0-ha-test-b \
+  --index ciral-v1.0-ha-en \
+  --output run.ciral.bm25-dt.ha.test-b.txt \
+  --batch 128 --threads 16 --bm25 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-ha-test-b \
+  run.ciral.bm25-dt.ha.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table3-row2-tab2" role="tabpanel" aria-labelledby="table3-row2-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics ciral-v1.0-so-test-b \
+  --index ciral-v1.0-so-en \
+  --output run.ciral.bm25-dt.so.test-b.txt \
+  --batch 128 --threads 16 --bm25 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-so-test-b \
+  run.ciral.bm25-dt.so.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table3-row2-tab3" role="tabpanel" aria-labelledby="table3-row2-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics ciral-v1.0-sw-test-b \
+  --index ciral-v1.0-sw-en \
+  --output run.ciral.bm25-dt.sw.test-b.txt \
+  --batch 128 --threads 16 --bm25 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-sw-test-b \
+  run.ciral.bm25-dt.sw.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table3-row2-tab4" role="tabpanel" aria-labelledby="table3-row2-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --topics ciral-v1.0-yo-test-b \
+  --index ciral-v1.0-yo-en \
+  --output run.ciral.bm25-dt.yo.test-b.txt \
+  --batch 128 --threads 16 --bm25 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-yo-test-b \
+  run.ciral.bm25-dt.yo.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO -->
+<tr class="accordion-toggle collapsed" id="table3-row3" data-toggle="collapse" data-parent="#table3-row3" href="#table3-collapse3">
+<td class="expand-button"></td>
+<td>mDPR (tied encoders), pre-FT w/ MS MARCO</td>
+<td>0.1027</td>
+<td>0.1345</td>
+<td>0.3019</td>
+<td>0.3249</td>
+<td></td>
+<td>0.2160</td>
+</tr>
+<tr class="hide-table-padding">
+<td colspan="22">
+<div id="table3-collapse3" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table3-row3-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table3-row3-tab1-header" data-mdb-toggle="tab" href="#table3-row3-tab1" role="tab" aria-controls="table3-row3-tab1" aria-selected="true" style="text-transform:none">Hausa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table3-row3-tab2-header" data-mdb-toggle="tab" href="#table3-row3-tab2" role="tab" aria-controls="table3-row3-tab2" aria-selected="false" style="text-transform:none">Somali</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table3-row3-tab3-header" data-mdb-toggle="tab" href="#table3-row3-tab3" role="tab" aria-controls="table3-row3-tab3" aria-selected="false" style="text-transform:none">Swahili</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table3-row3-tab4-header" data-mdb-toggle="tab" href="#table3-row3-tab4" role="tab" aria-controls="table3-row3-tab4" aria-selected="false" style="text-transform:none">Yoruba</a>
+  </li> 
+   
+    
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table3-row3-content">
+  <div class="tab-pane fade show active" id="table3-row3-tab1" role="tabpanel" aria-labelledby="table3-row3-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics ciral-v1.0-ha-test-b \
+  --index ciral-v1.0-ha-mdpr-tied-pft-msmarco \
+  --output run.ciral.mdpr-tied-pft-msmarco.ha.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-ha-test-b \
+  run.ciral.mdpr-tied-pft-msmarco.ha.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table3-row3-tab2" role="tabpanel" aria-labelledby="table3-row3-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics ciral-v1.0-so-test-b \
+  --index ciral-v1.0-so-mdpr-tied-pft-msmarco \
+  --output run.ciral.mdpr-tied-pft-msmarco.so.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-so-test-b \
+  run.ciral.mdpr-tied-pft-msmarco.so.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table3-row3-tab3" role="tabpanel" aria-labelledby="table3-row3-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics ciral-v1.0-sw-test-b \
+  --index ciral-v1.0-sw-mdpr-tied-pft-msmarco \
+  --output run.ciral.mdpr-tied-pft-msmarco.sw.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-sw-test-b \
+  run.ciral.mdpr-tied-pft-msmarco.sw.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table3-row3-tab4" role="tabpanel" aria-labelledby="table3-row3-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco \
+  --topics ciral-v1.0-yo-test-b \
+  --index ciral-v1.0-yo-mdpr-tied-pft-msmarco \
+  --output run.ciral.mdpr-tied-pft-msmarco.yo.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-yo-test-b \
+  run.ciral.mdpr-tied-pft-msmarco.yo.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+<!-- Condition: Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi -->
+<tr class="accordion-toggle collapsed" id="table3-row4" data-toggle="collapse" data-parent="#table3-row4" href="#table3-collapse4">
+<td class="expand-button"></td>
+<td>Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi</td>
+<td>0.3900</td>
+<td>0.3558</td>
+<td>0.4608</td>
+<td>0.2907</td>
+<td></td>
+<td>0.3743</td>
+</tr>
+<tr class="hide-table-padding">
+<td colspan="22">
+<div id="table3-collapse4" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table3-row4-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table3-row4-tab1-header" data-mdb-toggle="tab" href="#table3-row4-tab1" role="tab" aria-controls="table3-row4-tab1" aria-selected="true" style="text-transform:none">Hausa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table3-row4-tab2-header" data-mdb-toggle="tab" href="#table3-row4-tab2" role="tab" aria-controls="table3-row4-tab2" aria-selected="false" style="text-transform:none">Somali</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table3-row4-tab3-header" data-mdb-toggle="tab" href="#table3-row4-tab3" role="tab" aria-controls="table3-row4-tab3" aria-selected="false" style="text-transform:none">Swahili</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table3-row4-tab4-header" data-mdb-toggle="tab" href="#table3-row4-tab4" role="tab" aria-controls="table3-row4-tab4" aria-selected="false" style="text-transform:none">Yoruba</a>
+  </li> 
+   
+    
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table3-row4-content">
+  <div class="tab-pane fade show active" id="table3-row4-tab1" role="tabpanel" aria-labelledby="table3-row4-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-ha-test-b \
+  --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-ha-test-b \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table3-row4-tab2" role="tabpanel" aria-labelledby="table3-row4-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-so-test-b \
+  --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-so-test-b \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table3-row4-tab3" role="tabpanel" aria-labelledby="table3-row4-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-sw-test-b \
+  --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-sw-test-b \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table3-row4-tab4" role="tabpanel" aria-labelledby="table3-row4-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class auto \
+  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-yo-test-b \
+  --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
+  --batch 128 --threads 16 --hits 1000
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-yo-test-b \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+<!-- Condition: RRF Fusion of BM25 Machine DT and Afriberta-DPR -->
+<tr class="accordion-toggle collapsed" id="table3-row5" data-toggle="collapse" data-parent="#table3-row5" href="#table3-collapse5">
+<td class="expand-button"></td>
+<td>RRF Fusion of BM25 Machine DT and Afriberta-DPR</td>
+<td>0.6007</td>
+<td>0.5618</td>
+<td>0.7007</td>
+<td>0.7525</td>
+<td></td>
+<td>0.6539</td>
+</tr>
+<tr class="hide-table-padding">
+<td colspan="22">
+<div id="table3-collapse5" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="table3-row5-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="table3-row5-tab1-header" data-mdb-toggle="tab" href="#table3-row5-tab1" role="tab" aria-controls="table3-row5-tab1" aria-selected="true" style="text-transform:none">Hausa</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table3-row5-tab2-header" data-mdb-toggle="tab" href="#table3-row5-tab2" role="tab" aria-controls="table3-row5-tab2" aria-selected="false" style="text-transform:none">Somali</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table3-row5-tab3-header" data-mdb-toggle="tab" href="#table3-row5-tab3" role="tab" aria-controls="table3-row5-tab3" aria-selected="false" style="text-transform:none">Swahili</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="table3-row5-tab4-header" data-mdb-toggle="tab" href="#table3-row5-tab4" role="tab" aria-controls="table3-row5-tab4" aria-selected="false" style="text-transform:none">Yoruba</a>
+  </li> 
+   
+    
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="table3-row5-content">
+  <div class="tab-pane fade show active" id="table3-row5-tab1" role="tabpanel" aria-labelledby="table3-row5-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.fusion \
+  --runs  run.ciral.bm25-dt.ha.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
+  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-b.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-ha-test-b \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table3-row5-tab2" role="tabpanel" aria-labelledby="table3-row5-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.fusion \
+  --runs  run.ciral.bm25-dt.so.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
+  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-b.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-so-test-b \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table3-row5-tab3" role="tabpanel" aria-labelledby="table3-row5-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.fusion \
+  --runs  run.ciral.bm25-dt.sw.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
+  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-b.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-sw-test-b \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-b.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="table3-row5-tab4" role="tabpanel" aria-labelledby="table3-row5-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.fusion \
+  --runs  run.ciral.bm25-dt.yo.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
+  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-b.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 ciral-v1.0-yo-test-b \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-b.txt</code></pre>
   </blockquote>
 
   </div>
@@ -584,13 +1410,13 @@ python -m pyserini.2cr.ciral --list-conditions
 <p>Run all languages for a specific condition and show commands:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.ciral --condition bm25-mono --display-commands
+python -m pyserini.2cr.ciral --condition bm25-qt --display-commands
 </tt></blockquote>
 
 <p>Run a particular language for a specific condition and show commands:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.ciral --condition bm25-mono --language somali --display-commands
+python -m pyserini.2cr.ciral --condition bm25-qt --language somali --display-commands
 </tt></blockquote>
 
 <p>Run all languages for all conditions and show commands:</p>
@@ -604,7 +1430,7 @@ python -m pyserini.2cr.ciral --all --display-commands
 <p>For a specific condition, just show the commands and do not run:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.ciral --condition bm25-mono --display-commands --dry-run
+python -m pyserini.2cr.ciral --condition bm25-qt --display-commands --dry-run
 </tt></blockquote>
 
 <p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
@@ -612,7 +1438,7 @@ python -m pyserini.2cr.ciral --condition bm25-mono --display-commands --dry-run
 <p>For a specific condition and language, just show the commands and do not run:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.ciral --condition bm25-mono --language somali --display-commands --dry-run
+python -m pyserini.2cr.ciral --condition bm25-qt --language somali --display-commands --dry-run
 </tt></blockquote>
 
 <p>For all conditions, just show the commands and do not run and skip evaluation:</p>
@@ -624,7 +1450,7 @@ python -m pyserini.2cr.ciral --all --display-commands --dry-run --skip-eval
 <p>Finally, to generate this page:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.ciral --generate-report --output docs/2cr/ciral.html
+python -m pyserini.2cr.ciral --generate-report --output docs/2cr/ciral.html --display-split test-b
 </tt></blockquote>
 
 <p>The output file <tt>ciral.html</tt> should be identical to this page.</p>
