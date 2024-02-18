@@ -6461,7 +6461,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "size compressed (bytes)": 2023010322,
         "documents": 715355,
         "downloaded": False,
-        "texts": "ciral-v1.0-ha",
+        "texts": "ciral-v1.0-ha"
     },
 
     "ciral-v1.0-so-mdpr-tied-pft-msmarco": {
@@ -6475,7 +6475,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "size compressed (bytes)": 2356035617,
         "documents": 827552,
         "downloaded": False,
-        "texts": "ciral-v1.0-so",
+        "texts": "ciral-v1.0-so"
     },
 
     "ciral-v1.0-sw-mdpr-tied-pft-msmarco": {
@@ -6489,7 +6489,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "size compressed (bytes)": 2689039681,
         "documents": 949013,
         "downloaded": False,
-        "texts": "ciral-v1.0-sw",
+        "texts": "ciral-v1.0-sw"
     },
 
     "ciral-v1.0-yo-mdpr-tied-pft-msmarco": {
@@ -6503,7 +6503,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "size compressed (bytes)": 233478865,
         "documents": 82095,
         "downloaded": False,
-        "texts": "ciral-v1.0-yo",
+        "texts": "ciral-v1.0-yo"
     },
 
     "ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi": {
@@ -6517,7 +6517,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "size compressed (bytes)": 2023992537,
         "documents": 715355,
         "downloaded": False,
-        "texts": "ciral-v1.0-ha",
+        "texts": "ciral-v1.0-ha"
     },
 
     "ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi": {
@@ -6531,7 +6531,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "size compressed (bytes)": 2356542056,
         "documents": 827552,
         "downloaded": False,
-        "texts": "ciral-v1.0-so",
+        "texts": "ciral-v1.0-so"
     },
 
     "ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi": {
@@ -6545,7 +6545,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "size compressed (bytes)": 2688836963,
         "documents": 949013,
         "downloaded": False,
-        "texts": "ciral-v1.0-sw",
+        "texts": "ciral-v1.0-sw"
     },
 
     "ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi": {
@@ -6559,9 +6559,9 @@ FAISS_INDEX_INFO_CIRAL = {
         "size compressed (bytes)": 233490972,
         "documents": 82095,
         "downloaded": False,
-        "texts": "ciral-v1.0-yo",
+        "texts": "ciral-v1.0-yo"
     },
-},
+}
 
 FAISS_INDEX_INFO_WIKIPEDIA = {
     "wikipedia-dpr-100w.dpr-multi": {
@@ -6985,4 +6985,5 @@ FAISS_INDEX_INFO = {**FAISS_INDEX_INFO_MSMARCO,
                     **FAISS_INDEX_INFO_MRTYDI,
                     **FAISS_INDEX_INFO_MIRACL,
                     **FAISS_INDEX_INFO_WIKIPEDIA,
+                    **FAISS_INDEX_INFO_CIRAL,
                     **FAISS_INDEX_INFO_OTHER}

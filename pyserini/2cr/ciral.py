@@ -32,6 +32,7 @@ dense_threads = 16
 dense_batch_size = 512
 sparse_threads = 16
 sparse_batch_size = 128
+fusion_tag="rrf-afridpr-bmdt"
 
 languages = [
     ['ha', 'hausa'],
@@ -40,22 +41,24 @@ languages = [
     ['yo', 'yoruba']
 ]
 
+all_splits = {
+    'test-a': 'Test Set A',
+    'test-a-pools': 'Test Set A (Pools)',
+    'test-b': 'Test Set B'
+}
+
 html_display = OrderedDict()
-html_display['bm25-mono'] = 'BM25 Monolingual (Human QT)'
-
-## Other models to add
-
-# html_display['bm25-qt'] = 'BM25 Machine QT'
-# html_display['bm25-dt'] = 'BM25 Machine DT'
-# html_display['mdpr-tied-pft-msmarco'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO'
-# html_display['mdpr-tied-pft-msmarco-ft-all'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO FT w/ all Mr. TyDi'
-# html_display['afriberta-pft-msmarco-ft-mrtydi'] = 'Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi'
+# html_display['bm25-mono'] = 'BM25 Monolingual (Human QT)'
+html_display['bm25-qt'] = 'BM25 Human QT'
+html_display['bm25-dt'] = 'BM25 Machine DT'
+html_display['mdpr-tied-pft-msmarco'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO'
+html_display['afriberta-pft-msmarco-ft-mrtydi'] = 'Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi'
+html_display['bm25-dt-afriberta-dpr-fusion'] = 'RRF Fusion of BM25 Machine DT and Afriberta-DPR'
 
 models = list(html_display)
 
 trec_eval_metric_definitions = {
     'nDCG@20': '-c -m ndcg_cut.20',
-    'MRR@10': '-c -M 10 -m recip_rank',
     'R@100': '-c -m recall.100',
 }
 
@@ -67,6 +70,7 @@ def format_run_command(raw):
         .replace('--index', '\\\n  --index') \
         .replace('--output ', '\\\n  --output ') \
         .replace('--runs', '\\\n  --runs ') \
+        .replace('--runtag', '\\\n  --runtag ') \
         .replace('--batch ', '\\\n  --batch ') \
         .replace('--threads 12', '--threads 12 \\\n ')
 
@@ -168,41 +172,56 @@ def generate_report(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
+            lang = name.split('.')[-1]
             eval_key = condition['eval_key']
             cmd_template = condition['command']
+            is_fusion = 'fusion' in name
             
-            split = 'dev'
+            display_split = args.display_split
 
-            runfile = os.path.join(args.directory, f'run.ciral.{name}.{split}.txt')
-            cmd = Template(cmd_template).substitute(split=split, output=runfile,
-                                                    sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
-                                                    dense_threads=dense_threads, dense_batch_size=dense_batch_size)
+            runfile = os.path.join(args.directory, f'run.ciral.{name}.{display_split}.txt')
+            if is_fusion:
+                bm25_dt_output = os.path.join(args.directory,
+                                            f'run.ciral.bm25-dt.{lang}.{display_split}.txt')
+                afriberta_dpr_output = os.path.join(args.directory,
+                                            f'run.ciral.afriberta-pft-msmarco-ft-mrtydi.{lang}.{display_split}.txt')
+                expected_args = dict(output=runfile, bm25_dt_output=bm25_dt_output, 
+                                     afriberta_dpr_output=afriberta_dpr_output, fusion_tag=fusion_tag)
+            else:
+                expected_args = dict(split=display_split, output=runfile,
+                                    sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                    dense_threads=dense_threads, dense_batch_size=dense_batch_size)
+
+            # cmd = Template(cmd_template).substitute(split=display_split, output=runfile,
+            #                                         sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+            #                                         dense_threads=dense_threads, dense_batch_size=dense_batch_size)
+            cmd = Template(cmd_template).substitute(**expected_args)
             commands[name] = format_run_command(cmd)
 
-            for expected in condition['splits'][0]['scores']:
-                for metric in expected:
-                    table[name][split][metric] = expected[metric]
+            # for expected in condition['splits'][0]['scores']:
+            for split in condition['splits']:
+                if split['split'] == display_split:
+                    for scores in split['scores']:
+                        for metric in scores:
+                            table[name][display_split][metric] = scores[metric]
 
-                    eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
-                            f'{trec_eval_metric_definitions[metric]} {eval_key}-{split} {runfile}'
-                    eval_commands[name][metric] = format_eval_command(eval_cmd)
+                            eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
+                                    f'{trec_eval_metric_definitions[metric]} {eval_key}-{display_split} {runfile}'
+                            eval_commands[name][metric] = format_eval_command(eval_cmd)
 
         tables_html = []
 
         # Build the table for nDCG@20, dev queries
-        html_rows = generate_table_rows(table, row_template, commands, eval_commands, 1, split, 'nDCG@20')
+        html_rows = generate_table_rows(table, row_template, commands, eval_commands, 1, display_split, 'nDCG@20')
         all_rows = '\n'.join(html_rows)
-        tables_html.append(Template(table_template).substitute(desc=f'nDCG@20, {split} queries', rows=all_rows))
-
-        # Build the table for MRR@10, dev queries
-        html_rows = generate_table_rows(table, row_template, commands, eval_commands, 2, split, 'MRR@10')
-        all_rows = '\n'.join(html_rows)
-        tables_html.append(Template(table_template).substitute(desc=f'MRR@10, {split} queries', rows=all_rows))
+        tables_html.append(Template(table_template).substitute(desc=f'nDCG@20, {all_splits[display_split]}', 
+                                                               rows=all_rows))
 
         # Build the table for R@100, dev queries
-        html_rows = generate_table_rows(table, row_template, commands, eval_commands, 3, split, 'R@100')
+        html_rows = generate_table_rows(table, row_template, commands, eval_commands, 3, display_split, 'R@100')
         all_rows = '\n'.join(html_rows)
-        tables_html.append(Template(table_template).substitute(desc=f'Recall@100, {split} queries', rows=all_rows))
+        tables_html.append(Template(table_template).substitute(desc=f'Recall@100, {all_splits[display_split]}', 
+                                                               rows=all_rows))
 
     with open(args.output, 'w') as out:
         out.write(Template(html_template).substitute(title='CIRAL', tables=' '.join(tables_html)))
@@ -232,48 +251,62 @@ def run_conditions(args):
             eval_key = condition['eval_key']
             cmd_template = condition['command']
 
-            split = "dev"
+            # split = "dev"
+            print(f'condition {name}:')
+            is_fusion = 'fusion' in name
 
-            print(f'  - split: {split}')
+            for splits in condition['splits']:
+                split = splits['split']
+                print(f'  - split: {split}')
+                
+                if split.endswith('pools'):
+                    test_split = "test-a"
+                else:
+                    test_split = split
+                runfile = os.path.join(args.directory, f'run.ciral.{name}.{split}.txt')
+                if is_fusion:
+                    bm25_dt_output = os.path.join(args.directory,
+                                                f'run.ciral.bm25-dt.{lang}.{split}.txt')
+                    afriberta_dpr_output = os.path.join(args.directory,
+                                                f'run.ciral.afriberta-pft-msmarco-ft-mrtydi.{lang}.{split}.txt')
+                    cmd = Template(cmd_template).substitute(split=test_split, output=runfile, 
+                                                            bm25_dt_output=bm25_dt_output, afriberta_dpr_output=afriberta_dpr_output, fusion_tag=fusion_tag)
+                else:
+                    cmd = Template(cmd_template).substitute(split=test_split, output=runfile,
+                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
             
-            runfile = os.path.join(args.directory, f'run.ciral.{name}.{split}.txt')
-            cmd = Template(cmd_template).substitute(split=split, output=runfile,
-                                                    sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
-                                                    dense_threads=dense_threads, dense_batch_size=dense_batch_size)
-            
-            if args.display_commands:
-                    print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
+                if args.display_commands:
+                        print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
 
-            if not os.path.exists(runfile):
-                if not args.dry_run:
-                    os.system(cmd)
+                if not os.path.exists(runfile):
+                    if not args.dry_run:
+                        os.system(cmd)
 
-
-            for expected in condition['splits'][0]['scores']:
-                for metric in expected:
-                    if not args.skip_eval:
-                        if not os.path.exists(runfile):
-                            continue
-                        score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}',
-                                                                    trec_eval_metric_definitions[metric], runfile))
-                        if math.isclose(score, float(expected[metric])):
-                            result_str = ok_str
+                for expected in splits['scores']:
+                    for metric in expected:
+                        if not args.skip_eval:
+                            if not os.path.exists(runfile):
+                                continue
+                            score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}',
+                                                                        trec_eval_metric_definitions[metric], runfile))
+                            if math.isclose(score, float(expected[metric])):
+                                result_str = ok_str
+                            else:
+                                result_str = fail_str + f' expected {expected[metric]:.4f}'
+                            print(f'      {metric:7}: {score:.4f} {result_str}')
+                            table[name][split][metric] = score
                         else:
-                            result_str = fail_str + f' expected {expected[metric]:.4f}'
-                        print(f'      {metric:7}: {score:.4f} {result_str}')
-                        table[name][split][metric] = score
-                    else:
-                        table[name][split][metric] = expected[metric]
+                            table[name][split][metric] = expected[metric]
 
-            print('')
+                print('')
 
-    for metric in ['nDCG@20', 'MRR@10', 'R@100']:
-        for split in ['dev']: # To add test later 
+    for metric in ['nDCG@20', 'R@100']:
+        for split in ['test-a', 'test-b']: # To add test later 
             print_results(table, metric, split)
 
     end = time.time()
     print(f'Total elapsed time: {end - start:.0f}s')
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for CIRAL.')
@@ -283,6 +316,8 @@ if __name__ == '__main__':
     parser.add_argument('--list-conditions', action='store_true', default=False, help='List available conditions.')
     # For generating reports
     parser.add_argument('--generate-report', action='store_true', default=False, help='Generate report.')
+    parser.add_argument('--display-split', type=str, help='Split to generate report on.', 
+                        default='test-b', required=False)
     parser.add_argument('--output', type=str, help='File to store report.', required=False)
     # For actually running the experimental conditions
     parser.add_argument('--all', action='store_true', default=False, help='Run using all languages.')
