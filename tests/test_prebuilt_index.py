@@ -60,6 +60,19 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(cnt, 18)
         self._test_urls(urls)
 
+    def test_tf_ciral(self):
+        urls = []
+        cnt = 0
+        for key in TF_INDEX_INFO:
+            if 'ciral' in key:
+                cnt += 1
+                for url in TF_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        # each 4: african languages, english translations
+        self.assertEqual(cnt, 8)
+        self._test_urls(urls)
+
     def test_impact_beir(self):
         urls = []
         cnt = 0
@@ -115,7 +128,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         urls = []
         cnt = 0
         for key in FAISS_INDEX_INFO:
-            if 'mrtydi' in key:
+            if 'mrtydi-' in key:
                 cnt += 1
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.append(url)
@@ -147,6 +160,19 @@ class TestPrebuiltIndexes(unittest.TestCase):
                     urls.append(url)
 
         self.assertEqual(cnt, 17)
+        self._test_urls(urls)
+
+    def test_faiss_ciral(self):
+        urls = []
+        cnt = 0
+        for key in FAISS_INDEX_INFO:
+            if 'ciral' in key:
+                cnt += 1
+                for url in FAISS_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        # each 4: mdpr-tied-pft-msmarco, afriberta-dpr-ptf-msmarco-ft-latin-mrtydi
+        self.assertEqual(cnt, 8)
         self._test_urls(urls)
 
     def test_faiss_wikipedia(self):
