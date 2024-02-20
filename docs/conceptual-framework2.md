@@ -62,10 +62,10 @@ num_vectors = index.ntotal
 We see, from `num_vectors`, that there are 3633 vectors in this index.
 That's a vector (or alternatively, embedding) for each document.
 
-We can print out each vector:
+We can print out first 10 vectors:
 
 ```python
-for i in range(num_vectors):
+for i in range(10):
     vector = index.reconstruct(i)
     print(f"Vector {i}: {vector}")
 ```
@@ -420,3 +420,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@AlexStan0](https://github.com/AlexStan0) on 2024-01-20 (commit [`833ee19`](https://github.com/castorini/pyserini/commit/833ee19ab76cc5c9cf463eaf3f40838716bbb28b))
 + Results reproduced by [@charlie-liuu](https://github.com/charlie-liuu) on 2024-01-23 (commit [`87a120e`](https://github.com/castorini/pyserini/commit/87a120ebc5dddfe170eaae14fed0e2b1e60f573a))
 + Results reproduced by [@dannychn11](https://github.com/dannychn11) on 2024-01-28 (commit [`2f7702f`](https://github.com/castorini/pyserini/commit/2f7702f2c55cb6f43d9150d3fddd1f3b7b11b0e3))
++ Results reproduced by [@ru5h16h](https://github.com/ru5h16h) on 2024-02-20 (commit [`758eaaa`](https://github.com/castorini/pyserini/commit/758eaaa1c572b6c23ee37d6d3fe897923fbbc690))
